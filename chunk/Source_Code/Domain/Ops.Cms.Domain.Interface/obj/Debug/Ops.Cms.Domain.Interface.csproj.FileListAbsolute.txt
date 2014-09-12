@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\bin\Ops.Cms.Domain.Interface.dll
+E:\git\ops.cms\chunk\bin\Ops.Cms.Domain.Interface.pdb
+E:\git\ops.cms\chunk\Source_Code\Domain\Ops.Cms.Domain.Interface\obj\Debug\Ops.Cms.Domain.Interface.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Domain\Ops.Cms.Domain.Interface\obj\Debug\Ops.Cms.Domain.Interface.dll
+E:\git\ops.cms\chunk\Source_Code\Domain\Ops.Cms.Domain.Interface\obj\Debug\Ops.Cms.Domain.Interface.pdb

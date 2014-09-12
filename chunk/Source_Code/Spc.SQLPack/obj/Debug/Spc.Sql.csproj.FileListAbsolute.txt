@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\bin\Spc.Sql.dll
+E:\git\ops.cms\chunk\bin\Spc.Sql.pdb
+E:\git\ops.cms\chunk\Source_Code\Spc.SQLPack\obj\Debug\Spc.Sql.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Spc.SQLPack\obj\Debug\Spc.Sql.dll
+E:\git\ops.cms\chunk\Source_Code\Spc.SQLPack\obj\Debug\Spc.Sql.pdb

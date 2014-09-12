@@ -1,0 +1,7 @@
+E:\git\ops.cms\chunk\bin\Ops.Cms.Infrastructure.dll
+E:\git\ops.cms\chunk\bin\Ops.Cms.Infrastructure.pdb
+E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Infrastructure\obj\Debug\Ops.Cms.Infrastructure.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Infrastructure\obj\Debug\Ops.Cms.Infrastructure.Resources.CmsResource.resources
+E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Infrastructure\obj\Debug\Ops.Cms.Infrastructure.csproj.GenerateResource.Cache
+E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Infrastructure\obj\Debug\Ops.Cms.Infrastructure.dll
+E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Infrastructure\obj\Debug\Ops.Cms.Infrastructure.pdb

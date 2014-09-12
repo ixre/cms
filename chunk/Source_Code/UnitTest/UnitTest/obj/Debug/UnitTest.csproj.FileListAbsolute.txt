@@ -1,0 +1,6 @@
+E:\git\ops.cms\chunk\Source_Code\UnitTest\UnitTest\bin\Debug\UnitTest.dll
+E:\git\ops.cms\chunk\Source_Code\UnitTest\UnitTest\bin\Debug\UnitTest.pdb
+E:\git\ops.cms\chunk\Source_Code\UnitTest\UnitTest\bin\Debug\ops.cms.dll
+E:\git\ops.cms\chunk\Source_Code\UnitTest\UnitTest\obj\Debug\UnitTest.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\UnitTest\UnitTest\obj\Debug\UnitTest.dll
+E:\git\ops.cms\chunk\Source_Code\UnitTest\UnitTest\obj\Debug\UnitTest.pdb

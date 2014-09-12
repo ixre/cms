@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>模块修改</title>$css()
+</head>
+<body>
+        <form action="" method="post"><br />
+    <div class="form">
+        <div class="tip">
+            <b>什么是模块?</b><br />
+            模块与栏目相关，栏目与文档相关。模块可以提供视图设置和自定义属性给栏目和文档。
+        </div><br />
+        <dl>
+            <dt>模块名称：</dt><dd><input type="text" class="tb_normal ui-validate" required="true" length="[0,10]" field="tplname" value="${tplName}" summary="{required:'不能为空',length:'不能超过10个字'}"/></dd></dl>
+        <dl>
+            <dt>栏目视图：</dt><dd><select field="categoryTplPath" id="categoryTplPath" class="tb_normal"><option value="">一默认一</option>
+                ${category_tpls}
+            </select><span class="msg">模块下栏目页均使用此视图,默认视图页为：category.html</span></dd></dl>
+        <dl>
+            <dt>文档视图：</dt><dd><select field="archiveTplPath" id="archiveTplPath" class="tb_normal"><option value="">一默认一</option>
+                ${archive_tpls}</select>
+                <span class="msg">模块下栏目文档页均使用此视图,默认视图页为：archive.html</span></dd></dl>
+        <dl>
+            <dt>&nbsp;</dt><dd><a id="btn" class="btn"  href="javascript:;">${btnText}</a></dd></dl>
+        
+    </div>
+  </form>
+  $js()
+    <script type="text/javascript">
+        cms.val('categoryTplPath', '${categoryTplPath}');
+        cms.val('archiveTplPath', '${archiveTplPath}');
+
+        //cms.$('btnlink').innerHTML = location.href.indexOf('edit') != -1 ? '编辑模块' : '创建模块';
+
+        cms.$('btn').onclick = function () {
+            var e = this;
+            if (cms.validator.validate()) {
+                var eValue = e.value;
+                var data = cms.json.toObject(document);
+
+                e.disabled = 'disabled';
+                e.value = '提交中...';
+
+                if (location.search) data += location.search.replace('?', '&');
+                cms.xhr.jsonAjax(location.href, data, function (json) {
+
+                    e.disabled = '';
+                    e.value = eValue;
+                    if (json.result) {
+                        parent.M.alert(
+                            location.href.indexOf('edit') != -1
+                            ? '保存成功!' : '添加成功!');
+                    } else {
+                        parent.M.alert(json.message);
+                    }
+                });
+            }
+        };
+    </script>
+</body>
+</html>

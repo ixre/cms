@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\bin\Ops.Cms.ServiceUtil.dll
+E:\git\ops.cms\chunk\bin\Ops.Cms.ServiceUtil.pdb
+E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.ServiceUtil\obj\Debug\Ops.Cms.ServiceUtil.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.ServiceUtil\obj\Debug\Ops.Cms.ServiceUtil.dll
+E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.ServiceUtil\obj\Debug\Ops.Cms.ServiceUtil.pdb

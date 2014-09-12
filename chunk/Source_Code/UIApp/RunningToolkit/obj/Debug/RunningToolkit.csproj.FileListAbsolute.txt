@@ -1,0 +1,16 @@
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\Scripts\com\pack.py
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\Scripts\com\__init__.py
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\Scripts\main.py
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\Lib\pythonlib.zip
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\CsharpIpy.exe
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\CsharpIpy.pdb
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\IronPython.dll
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\IronPython.Modules.dll
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\Microsoft.CSharp.dll
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\Microsoft.Dynamic.dll
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\Microsoft.Scripting.dll
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\Microsoft.Scripting.Metadata.dll
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\bin\Debug\ops.cms.dll
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\obj\Debug\RunningToolkit.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\obj\Debug\CsharpIpy.exe
+E:\git\ops.cms\chunk\Source_Code\UIApp\RunningToolkit\obj\Debug\CsharpIpy.pdb

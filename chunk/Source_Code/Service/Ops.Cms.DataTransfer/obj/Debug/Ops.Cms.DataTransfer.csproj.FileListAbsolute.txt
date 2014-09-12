@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\bin\Ops.Cms.DataTransfer.dll
+E:\git\ops.cms\chunk\bin\Ops.Cms.DataTransfer.pdb
+E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.DataTransfer\obj\Debug\Ops.Cms.DataTransfer.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.DataTransfer\obj\Debug\Ops.Cms.DataTransfer.dll
+E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.DataTransfer\obj\Debug\Ops.Cms.DataTransfer.pdb

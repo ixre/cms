@@ -1,0 +1,2 @@
+﻿cms_archives   add column  thumbnail
+cms_link pid int,imgurl varchar(100),bind varchar(20)

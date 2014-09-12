@@ -1,0 +1,29 @@
+<div class="inner clear">
+  <div class="H--Top Pr">
+
+    <a href="index.html" title="$site(name)" id="web_logo">
+      <img src="${page.tpath}/images/logo.gif" alt="$site(name)" title="$site(name)" style="margin:20px 0px 0px 0px;" />
+    </a>
+
+    <div class="H--Top-img">
+      <img src="${page.tpath}/images/headtel.gif" alt="电话" title="电话" />
+    </div>
+
+    <div class="H--Top-nav">
+      <a href="#" onclick="SetHome(this,window.location,'非IE浏览器不支持此功能，请手动设置！');" style="cursor:pointer;" title="设为首页"  >设为首页</a>
+      <span></span>
+      <a href="#" onclick="addFavorite('非IE浏览器不支持此功能，请手动设置！');" style="cursor:pointer;" title="收藏本站"  >收藏本站</a>
+    </div>
+    <div class="H--Top-search Pr">
+      <form method="POST" name="myform1" action="${page.domain}/search"  target="_self">
+        <span class="navsearch_input">
+          <input type="text" name="w" size="20"/>
+        </span>
+        <input class="searchimage" type="image" src="${page.tpath}/images/H--Top-search2.jpg" />
+      </form>
+    </div>
+  </div>
+  
+  $navigator()
+  
+</div>

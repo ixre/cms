@@ -1,0 +1,428 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Com.PluginKernel</name>
+    </assembly>
+    <members>
+        <member name="T:Com.PluginKernel.IPluginApp">
+            <summary>
+            插件应用接口
+            </summary>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginApp.Connect">
+            <summary>
+            连接所有插件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginApp.Iterate(Com.PluginKernel.PluginHandler)">
+            <summary>
+            迭代插件集合
+            </summary>
+            <param name="handler"></param>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginApp.Run">
+            <summary>
+            运行所有插件
+            </summary>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginApp.Pause">
+            <summary>
+            停用所有插件
+            </summary>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginApp.Run(System.String)">
+            <summary>
+            运行指定的插件
+            </summary>
+            <param name="pluginID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginApp.Pause(System.String)">
+            <summary>
+            停用指定的插件
+            </summary>
+            <param name="pluginID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginAppBase.LoadPlugin(System.String)">
+            <summary>
+            加载单个插件
+            </summary>
+            <param name="pluginFile"></param>
+        </member>
+        <member name="M:Com.PluginKernel.PluginAppBase.Connect">
+            <summary>
+            连接插件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginAppBase.Iterate(Com.PluginKernel.PluginHandler)">
+            <summary>
+            迭代插件
+            </summary>
+            <param name="handler"></param>
+        </member>
+        <member name="M:Com.PluginKernel.PluginAppBase.CanAdapter(Com.PluginKernel.IPlugin)">
+            <summary>
+            检查是否能适配插件
+            </summary>
+        </member>
+        <member name="M:Com.PluginKernel.PluginAppBase.AppendLog(System.String)">
+            <summary>
+            附加日志
+            </summary>
+            <param name="content"></param>
+        </member>
+        <member name="M:Com.PluginKernel.IPlugin.Install">
+            <summary>
+            安装
+            </summary>
+        </member>
+        <member name="M:Com.PluginKernel.IPlugin.Uninstall">
+            <summary>
+            卸载
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.IPlugin.Run">
+            <summary>
+            运行
+            </summary>
+        </member>
+        <member name="M:Com.PluginKernel.IPlugin.Pause">
+            <summary>
+            暂停运行
+            </summary>
+        </member>
+        <member name="M:Com.PluginKernel.IPlugin.GetMessage">
+            <summary>
+            返回插件操作的消息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginHandleProxy`1.HandleRequest(`0,System.String,System.Boolean@)">
+            <summary>
+            处理请求,如在Web中可用来处理Get请求
+            </summary>
+            <param name="context"></param>
+            <param name="pluginWorkIndent"></param>
+            <param name="handleResult"></param>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginHandleProxy`1.HanleRequestUse``1(``0,`0,System.String)">
+            <summary>
+            使用指定的类型处理请求,如果action不正确则抛出异常
+            </summary>
+            <typeparam name="HandleClass"></typeparam>
+            <param name="t"></param>
+            <param name="context"></param>
+            <param name="action"></param>
+            <returns>返回请求的结果,这通常返回String</returns>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginHandleProxy`1.HanleRequestUse``1(``0,`0,System.String,System.String)">
+            <summary>
+            使用指定的类型处理请求,如果action不正确则抛出异常
+            </summary>
+            <typeparam name="HandleClass"></typeparam>
+            <param name="t"></param>
+            <param name="context"></param>
+            <param name="action"></param>
+            <param name="source">请求来源</param>
+            <returns>返回请求的结果,这通常返回String</returns>
+        </member>
+        <member name="M:Com.PluginKernel.IPluginHandleProxy`1.Register(Com.PluginKernel.IPlugin,Com.PluginKernel.PluginHandler{`0})">
+            <summary>
+            注册处理事件
+            </summary>
+            <param name="plugin"></param>
+            <param name="reqHandler"></param>
+            <param name="postReqHandler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.Log.LogHandler.RecordException(System.String,System.Exception)">
+            <summary>
+            记录异常
+            </summary>
+            <param name="addr">引起异常的地址，比如网址</param>
+            <param name="except"></param>
+        </member>
+        <member name="F:Com.PluginKernel.PluginConfig.PLUGIN_DIRECTORY">
+            <summary>
+            插件目录名称,以"/"结尾
+            </summary>
+        </member>
+        <member name="F:Com.PluginKernel.PluginConfig.PLUGIN_TMP_DIRECTORY">
+            <summary>
+            插件临时文件存放目录,以"/"结尾。用于存放日志，临时文件等
+            </summary>
+        </member>
+        <member name="F:Com.PluginKernel.PluginConfig.PLUGIN_LOG_OPENED">
+            <summary>
+            插件日志是否打开,默认为关闭
+            </summary>
+        </member>
+        <!-- 对于成员“F:Com.PluginKernel.PluginConfig.PLUGIN_LOG_EXCEPT_FORMAT”忽略有格式错误的 XML 注释 -->
+        <member name="T:Com.PluginKernel.PluginConnectionResult">
+             <summary>
+             表示插件与主程序连接的结果
+            
+             </summary>
+        </member>
+        <member name="F:Com.PluginKernel.PluginConnectionResult.Failed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Com.PluginKernel.PluginConnectionResult.NotMatch">
+            <summary>
+            与版本号不匹配
+            </summary>
+        </member>
+        <member name="F:Com.PluginKernel.PluginConnectionResult.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Com.PluginKernel.PluginException">
+            <summary>
+            插件异常
+            </summary>
+        </member>
+        <member name="T:Com.PluginKernel.PluginHandleProxy`1">
+            <summary>
+            插件处理代理类
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Com.PluginKernel.PluginHandleProxy`1.HandleRequest(`0,System.String,System.Boolean@)">
+            <summary>
+            扩展模块GET请求,返回false则应立即截断请求
+            </summary>
+            <param name="tag"></param>
+            <param name="page"></param>
+        </member>
+        <!-- 对于成员“M:Com.PluginKernel.PluginHandleProxy`1.Register(Com.PluginKernel.IPlugin,Com.PluginKernel.PluginHandler{`0})”忽略有格式错误的 XML 注释 -->
+        <member name="T:Com.PluginKernel.PluginHandler`1">
+            <summary>
+            插件处理事件
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+        </member>
+        <member name="T:Com.PluginKernel.PluginHandler">
+            <summary>
+            插件处理事件
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+        </member>
+        <member name="T:Com.PluginKernel.PluginInfoAttribute">
+            <summary>
+            插件信息
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginInfoAttribute.ID">
+            <summary>
+            插件编号
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginInfoAttribute.IndexNum">
+            <summary>
+            插件序号,如果插件文件包含多个插件，则需设置
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginInfoAttribute.Tag">
+            <summary>
+            插件其他信息
+            </summary>
+        </member>
+        <member name="T:Com.PluginKernel.PluginPackAttribute">
+            <summary>
+            插件包信息
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.WorkIndent">
+            <summary>
+            工作目录标识,较好的命名:com.myplugin 或 mycompany.myplugin
+            将会在plugins目录下生成目录，存放需要的文件
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.Icon">
+            <summary>
+            插件图标
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.Name">
+            <summary>
+            插件名称
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.Author">
+            <summary>
+            插件作者
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.WebPage">
+            <summary>
+            官方主页
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.Version">
+            <summary>
+            版本号（主版本号.次版本号.修订版本号），与程序集版本号一致
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.ConfigUrl">
+            <summary>
+            设置地址
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.PortalUrl">
+            <summary>
+            插件入口地址
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.Description">
+            <summary>
+            插件描述信息
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.WorkSpace">
+            <summary>
+            工作目录(插件根目录),如:C:/plugins/com.plugin.demo/
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.State">
+            <summary>
+            插件状态
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginPackAttribute.Settings">
+            <summary>
+            插件配置
+            </summary>
+        </member>
+        <member name="T:Com.PluginKernel.PluginState">
+            <summary>
+            插件状态
+            </summary>
+        </member>
+        <member name="F:Com.PluginKernel.PluginState.Normal">
+            <summary>
+            正常
+            </summary>
+        </member>
+        <member name="F:Com.PluginKernel.PluginState.Stop">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="T:Com.PluginKernel.PluginAppAttribute">
+            <summary>
+            插件信息
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginAppAttribute.Name">
+            <summary>
+            插件名称
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginAppAttribute.Descript">
+            <summary>
+            插件应用描述
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginAppAttribute.TypePattern">
+            <summary>
+            插件类名格式（正则表达式）
+            默认为空，不限制
+            </summary>
+        </member>
+        <member name="P:Com.PluginKernel.PluginAppAttribute.WriteLog">
+            <summary>
+            记录日志
+            </summary>
+        </member>
+        <member name="T:Com.PluginKernel.PluginUtil">
+            <summary>
+            插件工具
+            </summary>
+        </member>
+        <member name="F:Com.PluginKernel.PluginUtil.attrDicts">
+            <summary>
+            插件属性字典
+            </summary>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.Iterate(Com.PluginKernel.PluginHandler)">
+            <summary>
+            迭代插件
+            </summary>
+            <param name="handler"></param>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.GetAttribute``1">
+            <summary>
+            获取特性
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.GetPlugin(System.String,Com.PluginKernel.PluginPackAttribute@)">
+            <summary>
+            获取插件
+            </summary>
+            <param name="workerIndent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.GetPluginPackAttribute(System.String)">
+            <summary>
+            获取插件包信息
+            </summary>
+            <param name="workerIndent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.GetPlugins(System.String)">
+            <summary>
+            获取插件
+            </summary>
+            <param name="workerIndent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.GetPluginIcon(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            获取插件的图标
+            </summary>
+            <param name="workerIndent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.RemovePlugin(System.String)">
+            <summary>
+            移除插件
+            </summary>
+            <param name="workerIndent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.InstallPlugin(System.String,Com.PluginKernel.PluginHandler{Com.PluginKernel.PluginPackAttribute})">
+            <summary>
+            安装/升级插件
+            </summary>
+            <param name="url"></param>
+            <param name="handler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.PluginUtil.GetPluginPackInfo(System.String)">
+            <summary>
+            获取插件包的信息
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.PluginKernel.Web.PluginWebHandleProxy`1.Register(Com.PluginKernel.IPlugin,Com.PluginKernel.PluginHandler{`0},Com.PluginKernel.PluginHandler{`0})">
+            <summary>
+            注册处理事件
+            </summary>
+            <param name="plugin"></param>
+            <param name="reqHandler"></param>
+            <param name="postReqHandler"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

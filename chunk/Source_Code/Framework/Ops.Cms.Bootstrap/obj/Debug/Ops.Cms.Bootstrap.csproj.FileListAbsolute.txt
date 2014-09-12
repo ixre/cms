@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\dist\bootstrap\bootstrap.dll
+E:\git\ops.cms\chunk\dist\bootstrap\bootstrap.pdb
+E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Bootstrap\obj\Debug\bootstrap.dll
+E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Bootstrap\obj\Debug\bootstrap.pdb
+E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Bootstrap\obj\Debug\Ops.Cms.Bootstrap.csprojResolveAssemblyReference.cache

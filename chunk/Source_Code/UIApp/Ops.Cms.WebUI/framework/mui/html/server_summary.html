@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>欢迎首页</title>
+     $css()
+    <style type="text/css">
+      body{margin:20px;}
+      h1{text-align:center;}
+      
+    .border{border:solid 1px #ddd;margin:5px 0;background:#fff;}
+    .border .title{background:#f5f5f5;padding:0 5px;line-height:23px;font-weight:bold;color:#333;
+                   Background:url(${path}?res=c3lzaW5kZXg=&${version}.png) 0 -303px repeat-x;border-bottom:solid 1px #ddd;}
+    .border .title span{padding-left:20px;background:url(/framework/assets/icons/admin/file.gif) left center no-repeat;}
+
+    dl{line-height:22px;border-bottom:dotted 1px #e0e0e0;margin:0;}
+    dl dt{width:100px;float:left;text-align:left;color:#666;
+          border-right:dotted 1px #e0e0e0;margin-right:10px;font-weight:bold;
+          padding-left:30px;padding-top:5px;padding-bottom:5px;
+    }
+    dl dd{color:#666;padding-top:5px;padding-bottom:5px;}
+    
+    #dialog_server{/*width:auto;margin-right:410px;float:left;*/}
+    #dialog_rss{width:400px;float:right;margin-left:-410px;}
+  </style>
+</head>
+<body>
+  
+
+    <div id="dialog_patch" class="border">
+        <div class="title"><span>系统概况</span></div>
+        <dl><dt>软件版本</dt><dd>${soft_ver}&nbsp;&nbsp;
+        
+        <!--
+        <a href="javascript:;" onclick="window.autoCheck=false;checkUpgrade(true)">检查更新</a>
+        &nbsp;&nbsp;-->&nbsp;&nbsp;&nbsp;&nbsp;
+        <span id="version">版本信息获取中...</span>
+        
+        <!-- | <a href="javascript:;" id="btn_async">同步</a>--></dd></dl>
+        <dl style="border:none"><dt>授权用户:</dt><dd>${sys_alias}</dd></dl>
+        <!--
+        <dl><dt>模块:</dt><dd>个</dd><dt>栏目:</dt><dd>个</dd></dl>
+        <dl><dt>系统用户:</dt><dd>个</dd></dl>
+        <dl><dt>文档:</dt><dd>个</dd></dl>
+        <dl></dl>-->
+    </div>
+    <div id="dialog_server" class="border">
+        <div class="title"><span>服务器状态</span></div>
+        <dl><dt>服务器名称：</dt><dd>${server_name}( IP:${server_ip} )</dd></dl>
+        <dl><dt>操作系统：</dt><dd>${server_os},语言：${server_local}</dd></dl>
+        <dl><dt>服务器软件:</dt><dd>${server_iis}(.NET版本：${server_netver})</dd></dl>
+        <dl><dt>服务器时间:</dt><dd>${server_time}</dd></dl>
+        <dl><dt>开机时长:</dt><dd>${server_hour}</dd></dl>
+        <dl><dt>CPU类型:</dt><dd>${server_cpu}</dd></dl>
+        <dl><dt>内存占用:</dt><dd>${server_net_meory}<!--${server_meory}--></dd></dl>
+        <dl><dt>本机IP:</dt><dd>${person_ip}</dd></dl>
+        <dl><dt>本机系统:</dt><dd>${person_os}</dd></dl>
+        <dl style="border:none"><dt>浏览器:</dt><dd>${person_soft} (版本:${person_softver})</dd></dl>
+    </div>
+
+    <!--
+    <div id="dialog_rss" class="border">
+        <div class="title">系统资讯</div>
+        <iframe src="${dashurl}cms_dash.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>-->
+    $js()
+    <script type="text/javascript">
+
+        var dia;
+        var versionInfo;
+        window.autoCheck = true;
+        var install_finish=false;
+
+
+		function autoCheckUpgrade(){
+			var e=cms.$('version');
+			cms.xhr.post('?', 'module=ajax&action=checkupgrade', function (x) {
+                var ver = cms.toJson(x);
+                if (ver.result == 1) {
+                	e.innerHTML='发现新版本：v'+ver.version+'&nbsp;<a href="javascript:;" onclick="checkUpgrade(false)">点击升级</a>';
+                	versionInfo=ver.log;
+                }else{
+                	e.innerHTML=ver.message;
+                }
+               });
+		}
+		
+        function checkUpgrade(noVersionShow) {
+            dia = cms.dialog.create2('系统在线升级', true, true);
+           var html = '发现新版本!<br />===========================' +versionInfo.replace('\n', '<br />');
+           dia.write('<div style="color:#666;font-size:14px;line-height:25px;padding:20px 40px;">' + html + '<div style="text-align:center;margin-bottom:15px;"><button id="btn_install">点击按钮开始升级</button></div></div>');
+           (window.parent||window).document.getElementById('btn_install').onclick = upgrade;
+        }
+
+
+        function upgrade() {
+            window.autoCheck = false;
+            if (dia != null)dia.close();
+            dia = cms.dialog.create2('系统升级中 - 升级过程中请不要进行任何操作！', true, true);
+			
+			
+            dia.write('<div style="width:400px;overflow:hidden;position:relative;background:#333;">' +
+                       '<div style="position:absolute;left:160px;top:0px;line-height:24px;color:#ffff00;font-family:Arial;font-weight:bold;">0%</div>'+
+                        '<div id="updatePercent" style="background:orange;line-height:24px;width:0%;overflow:hidden;">&nbsp;</div></div>'
+                        , 400, 20, null, '提示：升级中请勿进行任何操作...</span>', true);
+            var e = (window.parent||window).document.getElementById('updatePercent');
+            setUpgradeStatus(e, 0);
+
+            //开始更新
+            cms.xhr.post('?', 'module=ajax&action=getupgrade', function (x) {});
+        }
+
+        function setUpgradeStatus(e, percent) {
+            var width = e.offsetWidth;
+            var pwidth = e.parentNode.offsetWidth;
+            e.style.width = (pwidth * percent) + 'px';
+            if (width < pwidth && percent != 1) {
+                e.previousSibling.innerHTML = '下载更新包：' + parseInt(percent * 100) + '%';
+                cms.xhr.post('?', 'module=ajax&action=upgradestatus', function (x) {
+                    setUpgradeStatus(e, parseFloat(x));
+                });
+            } else {
+                var ele=e.previousSibling;
+                ele.innerHTML = "正在升级...";
+                cms.xhr.get('?', function (x) {
+                    ele.innerHTML = "升级成功!";
+                    setTimeout(function () { if (dia != null) { dia.close(); location.reload(); } }, 5000);
+                }, function (x) {
+                    ele.innerHTML = '<span style="color:red">升级过程中出现了问题，请联系管理员尝试修复！</span>';
+                });
+                
+            }
+        }
+        
+		autoCheckUpgrade();
+		
+        setTimeout(function () {
+            document.getElementById("dialog_server").style.width = (document.documentElement.clientWidth - 430) + 'px';
+        }, 1000);
+
+        //(window.parent||window).cms.$('btn_async').onclick = upgrade;
+
+    </script>
+
+</body>
+</html>

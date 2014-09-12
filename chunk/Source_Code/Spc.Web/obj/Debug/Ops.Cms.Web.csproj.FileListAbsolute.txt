@@ -1,0 +1,9 @@
+E:\git\ops.cms\chunk\bin\install\db\access.mdb
+E:\git\ops.cms\chunk\bin\Ops.Cms.Web.dll
+E:\git\ops.cms\chunk\bin\Ops.Cms.Web.pdb
+E:\git\ops.cms\chunk\Source_Code\Spc.Web\obj\Debug\Ops.Cms.Web.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Spc.Web\obj\Debug\Ops.Cms.Web.Resource.SiteResource.resources
+E:\git\ops.cms\chunk\Source_Code\Spc.Web\obj\Debug\Ops.Cms.Web.Resource.WebManager.WebManagerResource.resources
+E:\git\ops.cms\chunk\Source_Code\Spc.Web\obj\Debug\Ops.Cms.Web.csproj.GenerateResource.Cache
+E:\git\ops.cms\chunk\Source_Code\Spc.Web\obj\Debug\Ops.Cms.Web.dll
+E:\git\ops.cms\chunk\Source_Code\Spc.Web\obj\Debug\Ops.Cms.Web.pdb

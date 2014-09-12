@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objects>
+  <object key="sp.xmlrpc" name="WeblogRPC">
+    <descript><![CDATA[mapfre]]></descript>
+    <properties>
+      <property key="version" name="版本"><![CDATA[1.0.0]]></property>
+      <property key="state" name="状态"><![CDATA[1]]></property>
+      <property key="author" name="作者"><![CDATA[官方]]></property>
+      <property key="icon" name="图标"><![CDATA[icon.png]]></property>
+      <property key="webpage" name="官网" />
+      <property key="portalUrl" name="入口地址"><![CDATA[xmlrpc.sh?wsd]]></property>
+      <property key="configUrl" name="设置地址" />
+    </properties>
+  </object>
+</objects>

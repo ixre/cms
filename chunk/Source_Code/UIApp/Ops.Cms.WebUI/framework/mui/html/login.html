@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>登录管理中心-Ops.Cms.NET! v${version}</title>
+    <link rel="stylesheet" href="/framework/mui/css/login.css?ver=${version}" />
+</head>
+<body>
+    <div class="extra">
+        Ops.Cms .NET ! 网站管理系统
+    </div>
+
+    <div class="main" id="main">
+        <div class="bar">&nbsp;</div>
+        <div class="container">
+
+            <div class="selectTabs">
+                <ul>
+                    <li class="current"><a href="javascript:void(0)">管理登陆</a></li>
+                    <!--<li><a href="javascript:void(0)">找回密码</a></li>-->
+                    <li><a href="http://www.ops.cc/cms/" target="_blank">官方网站</a></li>
+                </ul>
+                <div class="clearfix">&nbsp;</div>
+                <div class="panel login" id="loginForm">
+                        <p id="tip">提示：需要验证您的身份后才能进入管理！</p>
+                        <form action="" method="post" enctype="application/x-www-form-urlencoded" style="margin:0">
+                            <p><span class="txt"><span style="margin-right:14px">用</span>户：</span><input field="uid" name="username" type="text" class="input" /></p>
+                            <p><span class="txt"><span style="margin-right:14px">密</span>码：</span><input field="pwd" name="password" type="password" class="input" /></p>
+                            <p><span class="txt">验证码：</span><input id="vcode" field="code" name="verifycode" class="input input2 left" />
+                                &nbsp;<span class="verify" id="vimg" onclick="refreshImage()">&nbsp;</span>
+                                &nbsp;<span style="font-size:12px;color:green">(不区分大小写,点击图片刷新验证码)</span>
+                            </p>
+                            <p style="margin-top:20px">
+                                <span class="txt">&nbsp;</span><a class="loginbtn" href="javascript:;" onclick="login();return false;">登录</a>
+                            </p>
+                        </form>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="bottom"><br />Powered by Ops.Cms.NET(跨平台+MVC架构+多数据库支持+插件商店) ${version}&nbsp; © 2008-${year} &nbsp;&nbsp;ops.cc</div>
+
+    </div>
+
+    $js()
+    <script type="text/javascript">
+
+        var mainPanel = cms.$('main');
+        var docHeight = document.documentElement.clientHeight;
+
+        mainPanel.style.height = (docHeight - mainPanel.offsetTop) + 'px';
+
+        function refreshImage() {
+            document.getElementById('vimg').style.background = 'url(${path}?action=verifycode&' + Math.random() + ') center -18px no-repeat';
+        }
+        refreshImage();
+
+
+        window.bind_initKey = false;
+        var tip = cms.$("tip");
+
+        document.body.onkeydown = function (event) {
+            if ((window.event||event).keyCode == 13) {
+                login();
+            }
+        };
+        function login() {
+            var formData = cms.json.toObject('loginForm');
+
+            if (formData.uid == '') {
+                tip.innerHTML = '<span style="color:brown">请输入用户!</span>'; return false;
+            } else if (formData.pwd == '') {
+                tip.innerHTML = '<span style="color:brown">请输入密码!</span>'; return false;
+            } else if (formData.code == '') {
+                tip.innerHTML = '<span style="color:brown">请输入验证码!</span>'; return false;
+            } else {
+                tip.innerHTML = '<span style="color:green">登录中...</span>';
+                cms.xhr.jsonAjax(location.href, formData, function (json) {
+                    if (json.result) {
+                        tip.innerHTML = '<span style="color:green">登录成功,正在进入...</span>';
+                        setTimeout(function () {
+                            var returnUrl = cms.request('return_url') || '${path}?ver=${version}';
+                            location.replace(returnUrl);
+                        }, 500);
+                    }
+                    else {
+                        if (json.message.indexOf('验证码') != -1) {
+                            refreshImage();
+                        }
+                        tip.innerHTML = '<span style="color:red">提示：' + json.message + '</span>';
+                    }
+                }, function (x) {
+                    tip.innerHTML = '<span style="color:red">服务器出错，请重试!</span>';
+                });
+            }
+        }
+
+    </script>
+    <!--加载资源-->
+    <div style="display:none">
+        <!-- 加载ajax图片 -->
+        <img src="?res=bG9hZF9wcm9jZXNz&amp.gif" width="0" height="0" />
+        <img src="?res=c3lzaW5kZXg=&${version}.png" width="0" height="0"/>
+        <img src="framework/assets/sys_themes/default/btn_spirites.png" width="0" height="0" />
+        $iconcss()
+    </div>
+
+
+</body>
+</html>

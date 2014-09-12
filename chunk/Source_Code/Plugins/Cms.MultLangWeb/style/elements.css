@@ -1,0 +1,89 @@
+/*************************
+ @ 元素样式表  (2012-03-04)
+ *************************/
+body{color:Black;font:14px Arial,Sans-Serif;}
+
+/************************
+ @ 头部
+ ***********************/
+#top{position:relative;}
+#top h1{width:0px;height:0px;overflow:hidden;margin:0;padding:0;}
+#top a.logo{display:block;background:white;}
+
+/**********************
+ @ 导航条
+ **********************/
+#navigator{overflow:hidden;clear:both;}
+#navigator .navs ul{margin:0;padding:0;list-style:none;}
+#navigator .navs li{float:left;line-height:30px;margin:0 5px;}
+#navigator .navs li.current{}
+
+/*********************
+  @ 栏目导航 
+**********************/
+ul.clist{list-style:none;}
+ul.clist li.current{}
+
+/*********************
+  @ 文档导航 
+**********************/
+ul.alist{list-style:none;}
+ul.alist li.current{}
+
+/*********************
+ @ 友情链接
+ *********************/
+#flink p a{margin:0 10px 0 0;}
+#navigator .navs ul{margin:0 30px;padding:0;}
+#navigator .navs li.last{background:none;}
+
+
+/*******************
+ @ 文档列表
+ *******************/
+ ul.archives{list-style:none;margin:0;padding:0;}
+ ul.archives li{margin:1px 0;}
+ ul.archives li .date{display:none;}
+ ul.archives li a.special,ul.archives span.special{color:Red;}
+ 
+ 
+ /******************
+  @ 分页列表
+  ******************/
+div.palist p{position:relative;font-size:12px;}
+div.palist p a.title{margin-bottom:3px;font-size:14px;}
+div.palist p img.thumb{float:left;margin-right:10px;}
+div.palist p span.outline{padding-left:5px;}
+div.palist p span.time{position:absolute;right:0;top:0;}
+div.palist p span.count{position:absolute;right:80px;top:0;}
+
+/*******************
+ @ 搜索列表
+ ******************/
+div.slist p{position:relative;font-size:12px;}
+div.slist p a.title{display:block;margin-bottom:3px;font-size:14px;}
+div.slist p img.thumb{float:left;margin-right:10px;}
+div.slist p span.outline{padding-left:5px;}
+div.slist p span.category{position:absolute;top:0;right:150px;}
+div.slist p span.time{position:absolute;right:0;top:0;}
+div.slist p span.count{position:absolute;right:80px;top:0;}
+div.slist span.search_hightlight{color:Red;}
+ 
+/* 分页控件样式 */
+div.pagerwrap{line-height:30px;position:relative;color:#666;}
+div.pagerwrap span.disabled{padding:2px 5px;color:#888;margin:0 2px;}
+div.pagerwrap span.current{padding:2px 1px;margin:0 2px;color:black;}
+div.pagerwrap input{width:30px;line-height:15px;}
+div.pagerwrap select{height:20px;overflow:hidden;line-height:18px;background:white;}
+div.pagerwrap a{line-height:25px;padding:2px 1px;margin:0 2px;color:#006699;
+                        text-decoration:none;outline:none;}
+div.pagerwrap span.pageinfo{position:absolute;right:10px;top:5px;color:#4196cf;display:none;}  
+
+
+/******************
+ @ 文档
+ ******************/
+div.archive{position:relative;}
+div.archive h1{text-align:center;}
+div.archive .meta{text-align:center;font-size:14px;padding-bottom:10px;margin-bottom:5px;}
+

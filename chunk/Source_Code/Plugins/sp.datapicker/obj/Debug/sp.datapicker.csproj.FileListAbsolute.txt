@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\dist\plugins\sp.datapicker.dll
+E:\git\ops.cms\chunk\dist\plugins\sp.datapicker.pdb
+E:\git\ops.cms\chunk\Source_Code\Plugins\sp.datapicker\obj\Debug\sp.datapicker.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Plugins\sp.datapicker\obj\Debug\sp.datapicker.dll
+E:\git\ops.cms\chunk\Source_Code\Plugins\sp.datapicker\obj\Debug\sp.datapicker.pdb

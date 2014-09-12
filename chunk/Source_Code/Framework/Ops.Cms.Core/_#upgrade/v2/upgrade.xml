@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<upgrade version="1.9.0" patch="ops.cms.libs.zip">
+<![CDATA[
+
+版本:v2.0 (beta) build20130904
+1.更新后台操作UI
+2.后台AJAX操作<br />
+<span style="color:red">本版本为测试版，请谨慎选择升级！</span>
+
+]]>
+</upgrade>

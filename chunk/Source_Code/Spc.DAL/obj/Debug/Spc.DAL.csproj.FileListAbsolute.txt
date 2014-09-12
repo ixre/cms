@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\bin\Spc.DAL.dll
+E:\git\ops.cms\chunk\bin\Spc.DAL.pdb
+E:\git\ops.cms\chunk\Source_Code\Spc.DAL\obj\Debug\Spc.DAL.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Spc.DAL\obj\Debug\Spc.DAL.dll
+E:\git\ops.cms\chunk\Source_Code\Spc.DAL\obj\Debug\Spc.DAL.pdb

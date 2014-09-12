@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\dist\plugins\sp.xmlrpc.dll
+E:\git\ops.cms\chunk\dist\plugins\sp.xmlrpc.pdb
+E:\git\ops.cms\chunk\Source_Code\Plugins\sp.xmlrpc\obj\Debug\sp.xmlrpc.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Plugins\sp.xmlrpc\obj\Debug\sp.xmlrpc.dll
+E:\git\ops.cms\chunk\Source_Code\Plugins\sp.xmlrpc\obj\Debug\sp.xmlrpc.pdb

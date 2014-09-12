@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\bin\Spc.BLL.dll
+E:\git\ops.cms\chunk\bin\Spc.BLL.pdb
+E:\git\ops.cms\chunk\Source_Code\Spc.BLL\obj\Debug\Spc.BLL.dll
+E:\git\ops.cms\chunk\Source_Code\Spc.BLL\obj\Debug\Spc.BLL.pdb
+E:\git\ops.cms\chunk\Source_Code\Spc.BLL\obj\Debug\Spc.BLL.csprojResolveAssemblyReference.cache

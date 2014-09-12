@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>文档列表</title>
+    $css()
+    <style type="text/css">
+    #plist td{padding:3px 10px;}
+    #plist b{}
+    </style>
+</head>
+<body>
+    <div class="autoStyle">
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="350px">
+                    <div class="control">
+                        <div class="top">
+                            <ul>
+                                <li><a href="javascript:;" class="fn" fn="create">$icon(create)添加</a></li>
+                                <!-- <li><a href="javascript:;" class="fn" fn="del">$icon(delete)删除</a></li>-->
+                            </ul>
+                        </div>
+                        <div class="main autoHeight">
+                            <!--<div><input type="checkbox" />全选</div>-->
+                            <div id="plist">
+                            </div>
+                            <!--
+                        <table class="ui-table" cellspacing="0" cellpadding="0" id="links">
+                            <thead>
+                                 <tr>
+                                  <th class="hidden">ID</th>
+                                  <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody"></tbody>
+                        </table>
+                        -->
+                        </div>
+                        <div class="ui-table-meta" id="pager">
+                            共-条</div>
+                    </div>
+                </td>
+                <td>
+                    <div id="pl" class="relative autoHeight autoScroll"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+     <script type="text/template" id="list_menu_tpl">
+        <div class="item" onclick="menu.add()">
+            <a href="javascript:;">$icon(create)新建文档</a>
+        </div>
+        <div class="item" onclick="menu.refresh()">
+            <a href="javascript:;">$icon(refresh)刷新列表</a>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl">
+        <div class="item" onclick="menu.add()">
+            <a href="javascript:;">$icon(create)新建文档</a>
+        </div>
+        <div class="item" onclick="menu.edit('%id%')">
+            <a href="javascript:;">$icon(edit)编辑</a>
+        </div>
+        <div class="item" onclick="menu.republish('%id%')">
+            <a href="javascript:;">$icon(refresh)重新发布</a>
+        </div>
+        <div class="item" onclick="menu.del('%id%')">
+            <a href="javascript:;">$icon(delete)删除</a>
+        </div>
+        <div class="item" onclick="menu.comment('%id%')">
+            <a href="javascript:;">$icon(comment)评论管理</a>
+        </div>
+        <div class="item" onclick="menu.refresh()">
+            <a href="javascript:;">$icon(refresh)刷新列表</a>
+        </div>
+    </script>
+    
+    
+    $js()
+    
+    <script type="text/javascript">
+
+
+        var pagerPram = {
+            category_id: '${categoryid}',
+            author: '',
+            page_size: 10,
+            page_index: 1,
+            lb_visible: -1,
+            lb_special: -1,
+            lb_system: -1,
+            lb_page: -1
+        };
+
+
+        Fn.table=null;
+        Fn.currentRowIndex = -1;
+
+        Fn.getQuery = function () {
+            var query = '';
+            pagerPram.page_size = parseInt((document.documentElement.clientHeight - 60) / 50);
+            for (var i in pagerPram) {
+                query += i.replace('_', '.') + '=' + pagerPram[i] + '&';
+            }
+            return query;
+        };
+
+        //创建
+        Fn.create = function () {
+            cms.load2('pl', 'archive', 'create', 'category.id=${categoryid}',initEditor);
+        };
+
+        //刷新页面
+        Fn.refresh = function () { Fn.loadData(pagerPram.page_index); };
+
+
+
+        //初始化表格及修改事件
+        Fn.initTable = function () {
+            Fn.table = document.getElementsByTagName('TABLE')[1];
+            //默认加载第一篇文档
+            if (cms.$('pl').innerHTML == '') {
+                Fn.currentRowIndex = 0;
+            }
+            if (Fn.currentRowIndex != -1) {
+                if (Fn.table.rows.length > 0) {
+                    var row = Fn.table.rows[Fn.currentRowIndex];
+                    var id = row.getAttribute('indent');
+                    if (id) {
+                        row.className = 'selected even';
+                        Fn.ids[Fn.ids.length == 0 ? 0 : Fn.ids.length - 1] = id;
+                        cms.load2('pl', 'archive', 'view', 'archive.id=' + id);
+                    }
+                }
+                Fn.currentRowIndex = -1;
+            }
+
+            cms.each(Fn.table.getElementsByTagName('TD'), function (i, e) {
+                cms.contextmenu.bind(e, '', function (menu) { menu.innerHTML = cms.template(cms.$('tpl').innerHTML,{id:e.parentNode.getAttribute('indent')});});
+            });
+
+            cms.initTable(document.getElementsByTagName('TABLE')[1], false, function () {
+                cms.load2('pl', 'archive', 'view', 'archive.id=' + Fn.ids[Fn.ids.length - 1]);
+            });
+        };
+
+        //加载数据
+        Fn.loadData = function (page) {
+            pagerPram.page_index = page;
+            var query = Fn.getQuery();
+            cms.pagerLoad('plist', 'pager', page, 'archive', 'pagerJsonData', query, Fn.initTable);
+        };
+
+
+        Fn.loadData(1);
+
+        //绑定列表菜单
+        cms.contextmenu.bind(cms.$('plist').parentNode, cms.$('list_menu_tpl').innerHTML);
+           
+
+        var menu = {
+            refresh:Fn.refresh,
+            add: Fn.create,
+
+            //编辑文档
+            edit: function (id) {
+                cms.load2('pl', 'archive', 'update', 'archive.id=' + id, initEditor);
+            },
+
+            //删除文档
+            del: function (id) {
+                if (confirm('确定删除吗?删除后将不可恢复!')) {
+                    cms.xhr.jsonAjax('?', 'module=archive&action=delete&archive.id=' + id,
+                    function (json) {
+                        if (json.result) {
+                           cms.$('pl').innerHTML = '';
+                            Fn.refresh();
+                        }
+                        else {
+                            parent.M.alert(json.message);
+                        }
+                    }
+                    );
+                }
+            },
+
+            //评论管理
+            comment: function (id) {
+                cms.load2('pl', 'archive', 'comment', 'desc=true&archive.id=' + id);
+            },
+
+            //重新发布
+            republish: function (id) {
+                cms.xhr.jsonAjax('?', 'module=archive&action=republish&archive.id=' + id,
+                  function (json) {
+                      if (json.result) {
+                          Fn.currentRowIndex = 0;
+                          parent.M.alert('已经刷新最后更新时间！');
+                          Fn.refresh();
+                      } else {
+                          parent.M.alert(json.message);
+                      }
+                  });
+            }
+        };
+
+
+
+    </script>
+    $iconcss()
+    
+    <!-- 编辑器 -->
+    <script type="text/javascript" src="/framework/common/editor/minpack.js"></script>
+    <script type="text/javascript" src="/framework/common/editor/plugins/code/prettify.js"></script>
+    <script type="text/javascript">
+        var editor = null;
+        function initEditor() {
+            editor = KindEditor.create('#editor', {
+                cssPath: '/framework/common/editor/plugins/code/prettify.css',
+                uploadJson: '/framework/common/editor/handler/upload_json.ashx',
+                fileManagerJson: '/framework/common/editor/handler/file_manager_json.ashx',
+                allowFileManager: true,
+                filterMode: false
+            });
+        }
+    </script>
+</body>
+</html>

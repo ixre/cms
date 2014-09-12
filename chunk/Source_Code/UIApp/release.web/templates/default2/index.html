@@ -1,0 +1,106 @@
+$tag_product="product"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="${page.fpath}/common.css?version=${page.version}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/theme/style.css" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc?wsd" />
+</head>
+<body>
+        ${partial:"inc/header.phtml"}
+
+        	${partial:"inc/banner.phtml"}
+    
+        <div class="container2">
+            <div class="category-map">
+                <ul>
+                    $categories(${tag_product},'<li><a href="{url}">{name}</a>|</li>')
+                    <li><a href="${page.domain}/${tag_product}/">更多</a></li>
+            	</ul>
+            </div>
+            
+            <div class="mapbar">
+                <div class="item">
+                    <a href="${page.domain}/product/"><img src="${page.tpath}/theme/images/icon_new_product.gif" alt="${site.name}最新产品"/></a>
+                    <div class="line"></div>
+                    <p>
+                        劲昕科技生产基地位于国家经济中心城市上海市，全心全意为客户提供最好的产品和服务。
+                    </p>
+                </div>
+                 <div class="item">
+                     <a href="${page.domain}/news/"> <img src="${page.tpath}/theme/images/icon_trade_news.gif" alt="行业动态"/></a>
+                    <div class="line"></div>
+                    <p>
+                    	劲昕科技生产基地位于国家经济中心城市上海市，全心全意为客户提供最好的产品和服务。
+                    </p>
+                </div>
+                 <div class="item">
+                     <a href="${page.domain}/software/"> <img src="${page.tpath}/theme/images/icon_dev.gif" alt="${site.name}研发中心"/></a>
+                    <div class="line"></div>
+                    <p>
+                    	劲昕科技生产基地位于国家经济中心城市上海市，全心全意为客户提供最好的产品和服务。
+                    </p>
+                </div>
+                 <div class="item item-last">
+                     <a href="${page.domain}/support/"><img src="${page.tpath}/theme/images/icon_tech.gif" alt="技术支持"/></a>
+                    <div class="line"></div>
+                    <p>
+                    	劲昕科技生产基地位于国家经济中心城市上海市，全心全意为客户提供最好的产品和服务。
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            
+            
+            
+            
+            <div class="">
+                
+                <div class="img_title"><img src="${page.tpath}/theme/images/category_title.gif" alt="产品分类"/></div>
+                
+                <div class="service-item">
+                    <a href="${page.domain}/product/">
+                    <img src="${page.tpath}/theme/images/service_item1.gif" alt="生产制造"/>
+                        <h2>生产制造</h2>
+                    </a>
+                    <p>劲昕科技生产基地位于国家经济中心城市上海市，从事半导体器件生产、销售。公司拥有一流的半导体生产调试设备、专业的技术研发团队，全心全意为客户提供最好的产品和服务。 </p>
+                </div>
+                <div class="service-item">
+                    <a href="${page.domain}/product/">
+                    <img src="${page.tpath}/theme/images/service_item2.gif" alt="生产制造"/>
+                        <h2>代理分销</h2>
+                    </a>
+                    <p>公司主要代理销售IPS独轮车等消费类电子，产品远销海内外，并得到客户的一致肯定！</p>
+                </div>
+                <div class="service-item service-item-last">
+                    <a href="${page.domain}/product/">
+                    <img src="${page.tpath}/theme/images/service_item3.gif" alt="生产制造"/>
+                        <h2>软件开发</h2>
+                    </a>
+                    <p>企业ERP系统、手机软件开发等业务。擅长各种企业软件系统开发，公司拥有一流的软件开发团队，能够根据企业的特定需求来定制软件。案例：IPS独轮车系统，万芯ERP系统，保时捷道路援助系统等。</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            
+            <br />
+            <br />
+            <br />
+            <img src="${page.tpath}/theme/images/partner_02.gif" alt="合作伙伴" width="960"/>
+            
+    	</div>
+    ${partial:"inc/footer.phtml"}
+    
+                
+<script type="text/javascript" src="${page.fpath}/global.js?hover=navi,clist,alist&version=${page.version}"></script>
+<script type="text/javascript" src="${page.fpath}/scripts/scroller.js?version=${page.version}"></script>
+<script type="text/javascript">
+        cms.scroller('fla', {direction: 'left',unit:250,pagerid:'fla_pager'},4000);
+    </script>
+
+
+    
+</body>
+</html>

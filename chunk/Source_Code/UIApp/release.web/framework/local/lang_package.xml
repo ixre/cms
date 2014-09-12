@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<lang>
+  <item key="PAGE_NO_TAGS" Zh_CN="无标签" Zh_TW="无标签" En_US="no tags"/>
+  <item key="PAGER_PrePageText" Zh_CN="上一页" Zh_TW="上一頁" En_US="Previous"/>
+  <item key="PAGER_NextPageText" Zh_CN="下一页" Zh_TW="下一頁" En_US="Next"/>
+  <item key="PAGER_SelectPageText" Zh_CN="选择页码：{0}页" Zh_TW="選擇頁碼：{0}頁" En_US="Select Page：{0}"/>
+  <item key="PAGE_PagerTitle" Zh_CN="(第{0}页)" Zh_TW="(第{0}頁)" En_US="(Page:{0})"/>
+</lang>

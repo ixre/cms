@@ -1,0 +1,83 @@
+$require('${id}')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="${page.tpath}/style.css" type="text/css" />
+    <script type="text/javascript" src="${page.fpath}/global.js?hover=navi,clist,alist"></script>
+    <meta name="keywords" content="${page.keywords}"/>
+    <meta name="description" content="${page.description}"/>
+</head>
+<body>
+    ${partial:"inc/header.phtml"}
+
+
+    <!-- @首页主要部分 -->
+        <div class="container">
+           
+
+             <div class="side">
+                 <h2 class="title">${category.Name}</h2>
+                 <ul class="clist">
+                         $archives(10,'
+                            <li{class}><a href="{url}">{title2}</a></li>
+                        ')
+                 </ul>
+                 <div class="border">
+                     <div class="title">楠枫交流平台</div>
+                     <ul>
+                         <li>QQ群:$site('qq')</li>
+                         <li>腾讯微博:</li>
+                         <li>新浪微博:</li>
+                         <li>联系电话:$site('tel')</li>
+                     </ul>
+                 </div>
+                 
+                 
+                 $archive('sideleft','{content}')
+
+              </div>
+            
+            
+                <div class="main">
+                    <div class="sitemap"><span class="title">${archive.title}</span>您的位置:<a href="${page.domain}/">网站首页</a>>$sitemap()</div>
+                    <div class="hr"></div>
+                    <div class="archive">
+                        <h1>${archive.title}</h1>
+                        
+                        ${archive.__dict__[姓名]}
+                        
+                        <div class="meta">
+                            <span>来源:</span>${archive.source}  <span>发布时间:</span>${archive.publish}  <span>标签:</span>$tags('${archive.tags}','<a href="{url}">{text}</a>')
+                        </div>
+                        <div class="outline">${archive.outline}</div>
+                        
+                        <div class="content">
+                            <img src="${archive.Thumbnail}"  style="border:solid 1px red;clear:both"/>
+                           ${archive.content}
+                        </div>
+                        
+                        <div class="relation">
+                            上一页:$prevarchive('${archive.id}','<a href="{url}">{title}</a>')
+                        
+                            下一篇:$nextarchive('${archive.id}','<a href="{url}">{title}</a>')
+                    
+                        </div><!--
+                        <div class="tags">
+                            标签:$tags('')
+                        </div>-->
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                 </div>
+            
+           <div class="clearfix"></div>
+        </div>
+
+    ${partial:"inc/footer.phtml"}
+    
+</body>
+</html>
+y>
+</html>

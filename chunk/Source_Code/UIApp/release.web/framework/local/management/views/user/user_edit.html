@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>系统用户</title>
+    $css()$js()
+</head>
+<body>
+<div id="pl_user">
+        <select class="hidden ui-validate" name="" required="true">
+            <option value="">一请选择分组一</option>
+            ${groups}
+        </select>
+
+    <div class="form autostyle">
+        ${entity}
+    </div>
+</div>
+    <script type="text/javascript">
+    	var _pl=cms.$('pl_user');
+        var isCreate =  location.hash.split('.')[1] == 'createuser';
+        var postUrl = isCreate ? '?module=user&action=createuser' : '?module=user&action=updateuser';
+
+        var tplTD = document.getElementsByName('field_groupid')[0].parentNode;
+        var selector = _pl.getElementsByTagName('SELECT')[0];
+        tplTD.innerHTML = '';
+        selector.name = 'field_groupid';
+        selector.className = selector.className.replace('hidden', '');
+        tplTD.appendChild(selector);
+
+
+        if (!isCreate) {
+            //_pl.getElementsByTagName('INPUT')[0].disabled = 'disabled';
+        }
+
+        window.saveData = function () {
+            if (cms.validator.validate()) {
+                cms.xhr.jsonAjax(postUrl, cms.json.toObject(document), function (json) {
+                    if (json.result) {
+                        if (isCreate) {
+                            cms.$('pl').innerHTML = '';
+                        }
+                        window.Fn.loadData();
+                        parent.M.alert(json.message);
+                    } else {
+                    	 parent.M.alert(json.message);
+                    }
+                });
+            }
+        };
+        
+        cms.$('btn').onclick = window.saveData;
+    </script>
+</body>
+</html>

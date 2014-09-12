@@ -1,0 +1,55 @@
+<!DOCTYPE html />
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="/style/default/style.css" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+</head>
+<body>
+${partial:"inc/header.phtml"}
+
+
+        <div id="special">
+            <img src="/images/jianzhang/bj_2010.jpg"/>
+            <div class="sa">
+                $specialarchives(10,'<a href="{url}">{title}</a>')
+            </div>
+        </div>
+        <!-- top News List -->
+        <div class="newslist" id="topnewslist">
+            <div class="title"><b>最新资讯</b><span class="right"><a href="#">更多...</a></span></div>
+            <ul>
+               $archives(2,10,' <li><a href="{url}">{title}</a></li>')
+            </ul>
+        </div>
+        <div id="topnews">
+            <p>
+               $specialarchives(1,'<h1><a href="{url}">{title2}</a></h1><span class="content">{outline[149]}</span>')
+            </p>
+            <ul style="margin:0 5px;line-height:23px;padding:0;">
+               $archives(6,' <li style="width:155px;overflow:hidden;float:left;height:23px;overflow:hidden;margin:0 8px 0 2px"><a href="{url}">{title}</a></li>')
+            </ul>
+        </div>
+
+<div id="catalogwrap">
+  
+    <div id="catalogarchivelist">
+      @eachcategory(10,t,n,u)
+        
+          <div class="newslist">
+             <div class="title"><b>{n}</b><span class="right"><a href="{u}">更多...</a></span></div>
+             <ul>
+                $archives('{t}',false,10,'
+                 <li><a href="{url}">{title2}</a></li>
+                   ')
+            </ul>
+          </div>
+      @each off
+        
+    </div>
+</div>
+    ${partial:"inc/footer.phtml"}
+        <script type="text/javascript" src="${page.fpath}/global.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
+</body>
+</html>

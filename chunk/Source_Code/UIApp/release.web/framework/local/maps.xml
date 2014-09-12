@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maps>
+  <map for="management_resource" to="map/management.xml">
+    <!--配置管理资源-->
+  </map>
+</maps>

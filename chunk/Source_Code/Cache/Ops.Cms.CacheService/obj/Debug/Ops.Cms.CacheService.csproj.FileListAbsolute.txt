@@ -1,0 +1,5 @@
+E:\git\ops.cms\chunk\bin\Ops.Cms.CacheService.dll
+E:\git\ops.cms\chunk\bin\Ops.Cms.CacheService.pdb
+E:\git\ops.cms\chunk\Source_Code\Cache\Ops.Cms.CacheService\obj\Debug\Ops.Cms.CacheService.csprojResolveAssemblyReference.cache
+E:\git\ops.cms\chunk\Source_Code\Cache\Ops.Cms.CacheService\obj\Debug\Ops.Cms.CacheService.dll
+E:\git\ops.cms\chunk\Source_Code\Cache\Ops.Cms.CacheService\obj\Debug\Ops.Cms.CacheService.pdb

@@ -1,0 +1,65 @@
+$require('${id}')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${title}-${categoryName}-$site('name')</title>
+    <link rel="Stylesheet" href="$domain()$templatepath()/style.css" type="text/css" />
+    <script type="text/javascript" src="/scripts/global.js?hover=navi,clist,alist"></script>
+    <meta name="keywords" content="${keywords}"/>
+    <meta name="description" content="${description}"/>
+</head>
+<body>
+    ${partial:"inc/header.phtml"}
+
+
+    <!-- @首页主要部分 -->
+        <div class="container">
+           
+
+             <div class="side">
+                 <h2 class="title">${categoryName}</h2>
+                 <ul class="clist">
+                         $archives(10,'
+                            <li{class}><a href="{url}">{title2}</a></li>
+                        ')
+                 </ul>
+                 <div class="border">
+                     <div class="title">楠枫交流平台</div>
+                     <ul>
+                         <li>QQ群:$site('qq')</li>
+                         <li>腾讯微博:</li>
+                         <li>新浪微博:</li>
+                         <li>联系电话:$site('tel')</li>
+                     </ul>
+                 </div>
+                 
+                 
+                 $archive('sideleft','{content}')
+
+              </div>
+            
+            
+                <div class="main">
+                    <div class="sitemap"><span class="title">${title}</span>您的位置:<a href="$domain()/">网站首页</a>>$sitemap()><a href="#">${title}</a></div>
+                    <div class="hr"></div>
+                    <div class="archive">
+                        <h1>${title}</h1>
+                        <div class="content">
+                           ${content}
+                        </div>
+                        
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                 </div>
+            
+           <div class="clearfix"></div>
+        </div>
+
+    ${partial:"inc/footer.phtml"}
+    
+</body>
+</html>
+y>
+</html>
