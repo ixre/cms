@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>栏目树</title>
+        $css()$js()
+	</head>
+	<body id="tree">
+   
+    
+        <div class="tree" id="menu_tree">
+            ${tree}
+        </div>
+        
+        
+        <style type="text/css">
+            body{margin:0px;}
+            #menu_tree{padding:5px;}
+            #menu_tree dt,#menu_tree dd{margin:0;padding:0;}
+            
+            
+/******** tree **********/
+.tree img
+{ 
+    height: 24px;
+    height:24px;
+    background-repeat:no-repeat;
+    background-image:url(/framework/assets/sys_themes/default/tree.gif);
+    vertical-align:middle;
+}
+.tree img.tree-title{background-position:0 -227px;}
+.tree img.tree-item{background-position:0 -150px;}
+.tree img.tree-item-last{background-position:0px -175px;}
+.tree img.tree-expand{background-position:0 -50px;}
+.tree img.tree-expand-last{background-position:0 -125px;}
+.tree img.tree-collage{background-position:0 -25px;}
+.tree img.tree-collage-last{background-position:0 -100px}
+.tree img.tree-line{background-position:0px -75px;}
+.tree img.tree-line-last{background-position:0px -150px;}
+.tree span.txt{ vertical-align:middle;
+    padding-left:24px;
+    background: url(/framework/assets/sys_themes/default/tree.gif) no-repeat; 
+    background-position: -2px -255px;}
+.tree dd span.txt{padding-bottom:2px;}
+.tree dd{margin:0px;}
+.tree dt{cursor:pointer;}
+.tree dt.tree-title{height:20px;overflow:hidden;font-weight:bold;cursor:default;}
+.tree dl{margin:0;}
+.tree span.parent{background-position:-2px -204px;}
+
+        </style>
+        <script type="text/javascript">
+        
+            var treeFor = '${treefor}';
+            function execCategory(cid, title) {
+                if (treeFor == 'archives') {
+                    window.parent.FwTab(title, '?module=archive&action=list&category.id=' + cid, '1_996_' + cid);
+                }
+            }
+
+            var menuTree = cms.$('menu_tree');
+
+            window.initCTree = function () {
+                var menuSpan = !menuTree.getElementsByClassName ? document.getElementsByClassName('txt', menuTree) : menuTree.getElementsByClassName('txt');
+                var spanTxt;
+                for (var i = 0; i < menuSpan.length; i++) {
+                    spanTxt = menuSpan[i].innerHTML.replace(/<[^>]+>/ig, '');
+                    menuSpan[i].innerHTML = '<span class="sub"></span><a href="javascript:;">' + spanTxt + '</a>';
+                    menuSpan[i].getElementsByTagName('A')[0].onclick = (function (cid, title) {
+                        return function () {
+                            execCategory(cid, title);
+                        };
+                    })(menuSpan[i].getAttribute('cid'), spanTxt);
+                }
+
+
+                var dts = menuTree.getElementsByTagName('DT');
+                cms.each(dts, function (i, e) {
+                    if (i == 0) return;     //标题除开
+                    e.onclick = function (event) {
+
+                        //如果为链接，则不展开
+                        var _event = window.event || event;
+                        var sourceEle = _event.target || _event.srcElement;
+                        if (sourceEle.nodeName == 'A') return;
+
+                        var lstImg = this.getElementsByTagName('IMG');
+                        lstImg = lstImg[lstImg.length - 1];
+                        var isExpand = lstImg.className.indexOf('tree-expand') != -1;
+
+                        //折叠
+                        if (isExpand) {
+                            lstImg.className = lstImg.className.replace(/tree-expand/ig, 'tree-collage');
+                            cms.each(this.parentNode.getElementsByTagName('DD'), function (i1, e1) {
+                                e1.style.display = 'none';
+                            });
+                        } else {
+                            lstImg.className = lstImg.className.replace(/tree-collage/ig, 'tree-expand');
+                            var dl = this.parentNode;
+                            var dds = dl.getElementsByTagName('DD');
+
+                            //直接显示dd
+                            if (dds.length != 0) {
+                                cms.each(dds, function (i1, e1) {
+                                    e1.style.display = '';
+                                });
+                            } else {
+                                //从服务端加载内容
+                                var _level = this.getAttribute('level');
+                                var _lft = this.getAttribute('lft');
+                                var _lines = (!this.getElementsByClassName ? document.getElementsByClassName('tree-line', this) : this.getElementsByClassName('tree-line')).length;
+
+                                cms.xhr.get('?module=category&action=gettree&level=' + _level + '&lft=' + _lft + '&lines=' + _lines, function (result) {
+                                    dl.innerHTML += result;
+                                    window.initCTree();
+                                });
+                            }
+                        }
+                    };
+                });
+            };
+
+
+            window.initCTree();
+        </script>
+
+      
+      <!--
+      <script>
+        /*
+          var dts = menuTree.getElementsByTagName('img');
+          cms.each(dts, function (i, e) {
+              //if (i == 0) return;     //标题除开
+              if (e.className.indexOf('tree-collage') == -1 && e.className.indexOf('tree-expand') == -1) return;
+
+              e.onclick = function (event) {
+
+
+                  var isExpand = this.className.indexOf('tree-expand') != -1;
+
+                  //折叠
+                  if (isExpand) {
+                      this.className = this.className.replace(/tree-expand/ig, 'tree-collage');
+                      cms.each(this.parentNode.parentNode.getElementsByTagName('DD'), function (i1, e1) {
+                          e1.style.display = 'none';
+                      });
+                  } else {
+                      this.className = this.className.replace(/tree-collage/ig, 'tree-expand');
+                      var dl = this.parentNode.parentNode;
+                      var dds = dl.getElementsByTagName('DD');
+
+                      //直接显示dd
+                      if (dds.length != 0) {
+                          cms.each(dds, function (i1, e1) {
+                              e1.style.display = '';
+                          });
+                      } else {
+                          //从服务端加载内容
+                          var _level = this.parentNode.getAttribute('level');
+                          var _lft = this.parentNode.getAttribute('lft');
+                          var _lines = (!this.parentNode.getElementsByClassName ? document.getElementsByClassName('tree-line', this.parentNode) : this.parentNode.getElementsByClassName('tree-line')).length;
+
+                          cms.xhr.get('?module=category&action=gettree&level=' + _level + '&lft=' + _lft + '&lines=' + _lines, function (result) {
+                              dl.innerHTML += result;
+                              window.initCTree();
+                          });
+                      }
+                  }
+              };
+          });
+
+          */
+      </script>-->
+      
+	</body> 
+</html>

@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>安装系统补丁</title>
+  $css()
+  <style type="text/css">
+  #patchlist div{line-height:25px;}
+  </style>
+</head>
+<body>
+<div class="tabarea" style="padding:30px">
+<!--
+    <div class="tab_mini">
+        <a href="javascript:;" class="current">安装补丁</a>
+    </div>
+    <div class="area" id="area">
+    -->
+    <form action="?module=system&action=patchupload" method="post"  enctype="multipart/form-data">
+        上传补丁：<input type="file" name="patchfile"  id="patchfile"/><button class="btn" id="btnupload">上传</button>
+    </form>
+
+    <div id="patchlist"><br />
+        <div>安装补丁：</div> 
+
+        ${patchlist}
+
+        <a class="btn" id="btnpatch" href="javascript:;">安装</a>
+        <div id="btnmsg"></div>
+    </div>
+
+
+
+
+<!--
+    </div>-->
+
+
+    <div id="autopatch" style="position:absolute;left:500px;top:30px;display:none;"
+        自动升级<br />
+        <textarea id="upgradelog" style="width:500px" rows="6">版本检测中...</textarea><br />
+        <button class="btn" id="btnauto" disabled="disabled">升级</button>
+    </div>
+
+</div>
+$js()
+  <script type="text/javascript">
+
+      cms.$("btnupload").onclick = function () {
+          var filename = cms.$('patchfile').value;
+          if (!/\.zip$/.test(filename)) {
+              alert('不是有效的补丁文件!');
+              return false;
+          } else {
+              cms.form.asyncSubmit(0);
+          }
+      };
+
+
+
+      cms.$("btnpatch").onclick = function () {
+          var e = this;
+          var patchfiles = document.getElementsByName('applypatchfile');
+          if (patchfiles.length != 0) {
+              var patchfile = '';
+              for (var i = 0; i < patchfiles.length; i++) {
+                  if (patchfiles[i].getAttribute('checked') == 'checked') patchfile = escape(patchfiles[i].value);
+              }
+
+              cms.$('btnmsg').innerHTML = '安装中,请稍后....';
+              cms.xhr.post(location.href, 'file=' + patchfile, function (result) {
+                  cms.$('btnmsg').innerHTML =result.length==0? '<span style="color:green">补丁安装成功！</span>':
+                  '<span style="color:red">错误：'+result+'</span>'
+              });
+          }
+      };
+
+      var log = cms.$('upgradelog');
+      var btnUpdate = cms.$('btnauto');
+
+      function checkUpgrade() {
+          btnUpdate.innerHTML = '检测中';
+          btnUpdate.setAttribute('disabled', 'disabled');
+          cms.xhr.post('?', 'module=ajax&action=checkupgrade', function (x) {
+              var ver = cms.toJson(x);
+              if (ver.result == 1) {
+                  log.innerHTML = '发现新版本!\r\n============================================\r\n' + ver.log;
+                  btnUpdate.innerHTML = '升级';
+                  cms.$('btnauto').removeAttribute('disabled');
+              } else {
+                  log.innerHTML += ver.message;
+              }
+          });
+      }
+
+      checkUpgrade();
+
+
+      cms.$('btnauto').onclick = function () {
+
+          btnUpdate.innerHTML = '升级中..';
+          btnUpdate.setAttribute('disabled', 'disabled');
+
+          cms.xhr.post('?', 'module=ajax&action=getupgrade', function (x) {
+              // window.M.msgtip({ html: '更新完成!', autoClose: true });
+              btnUpdate.innerHTML = '升级';
+              cms.$('btnauto').removeAttribute('disabled');
+              alert('complete!');
+          });
+
+      };
+  </script>
+
+</body>
+</html>

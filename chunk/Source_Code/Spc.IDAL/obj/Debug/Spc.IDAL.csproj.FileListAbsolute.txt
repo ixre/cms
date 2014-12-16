@@ -1,5 +1,0 @@
-E:\git\ops.cms\chunk\bin\Spc.IDAL.dll
-E:\git\ops.cms\chunk\bin\Spc.IDAL.pdb
-E:\git\ops.cms\chunk\Source_Code\Spc.IDAL\obj\Debug\Spc.IDAL.csprojResolveAssemblyReference.cache
-E:\git\ops.cms\chunk\Source_Code\Spc.IDAL\obj\Debug\Spc.IDAL.dll
-E:\git\ops.cms\chunk\Source_Code\Spc.IDAL\obj\Debug\Spc.IDAL.pdb

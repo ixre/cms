@@ -1,0 +1,772 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>:: Ops Cms .NET! 控制面板中心 -管理端 ::</title>
+    $js()
+
+    <script type="text/javascript">
+        window.md = null;
+        window.menuTree = null;
+        var main_height = 100;
+        cms.xhr.post('?', 'module=ajax&action=appinit&list_pagesize=0', function (x) {
+            var ip, address;
+            eval(x);
+            /*
+            document.getElementById('ipinfo').innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录地址:' + ip + '&nbsp;<span style="color:#006699">(' + address + ")</span>";
+            */
+        });
+    </script>
+    <style type="text/css">
+        
+    body{margin:0;font:12px arail,sans-serif;overflow:hidden;overflow-y:hidden;}
+    ul{margin:0;padding:0;list-style:none;}
+.left{float:left;}
+.right{float:right;}.center{text-align:center;}
+.clearfix{clear:both;}
+.overflow{overflow:hidden;}
+.hidden{display:none;}
+ul{list-style:none;margin:0;padding:0;}
+img{border:none;}
+select{border:solid 1px #e0e0e0;color:#666;padding:2px;}
+select{color:#666;}
+span.highlight{color:#3ea5dd;}
+span.highlight_silver{color:#666;}
+span.highlight_blue{color:#006699;}
+a{text-decoration:none;color:#0066cc;outline:none;}
+a:hover{color:#006699;}
+#pageframes iframe{height:100%;width:100%;background:white;overflow-x:hidden;display:none;}
+#pageframes iframe.currentframe{display:block;}
+
+/* 头部 */
+#header{background:#0f7eca url(//framework/common/sys_themes/default/header.gif) 0 -10px no-repeat;height:70px;position:relative;}
+#header div.logo{position:absolute;left:10px;top:12px;background:url(${path}?res=Y21zX3RvcF9sb2dv&${version}.gif) no-repeat;
+       padding-left:227px;padding-top:20px;line-height:26px;color:#2678c7;}
+#header{position:relative;top:0;left:0;}
+#header .userinfo{position:absolute;right:10px;top:15px;font-size:12px;line-height:20px;}
+#header .userinfo .red{color:gold;}
+#header .userinfo a{text-decoration:underline;color:#fff;}
+#header .control{position:absolute;right:10px;top:30px;}
+#header .control a{display:block;line-height:18px;padding:0 10px;text-align:center;background:white;color:#006699;float:left;margin:0 2px;}
+#header .control a:hover,#header .control a.active{background:#2678c7;color:white;}
+#header .control a.ok{color:White;background:#2678c7;}
+
+/* 
+#bar div.clearcache{position:absolute;top:2px;right:205px;}
+#bar a.select{display:block;line-height:18px;width:62px;color:#000000;overflow:hidden;padding-left:5px;padding-bottom:0;
+         background:white url(${path}?res=c3lzaW5kZXg=&${version}.png) 2px -100px;border:solid 1px #ff6600;}
+#bar a.current{background-position:2px -84px;padding-bottom:3px;border:solid 1px #0066cc;border-bottom-color:#fff;}
+*/
+
+/*
+#bar .clearcache a.select{background:#ffffff;}
+#bar div.smalltool{position:absolute;z-index:11;right:362px;top:2px;width:80px;}
+#bar div.smalltool #utilitylist{display:none;position:absolute;top:21px;width:150px;border:solid 1px #0066cc;background:white;}
+#bar div.smalltool #utilitylist a{display:block;text-align:center;line-height:22px;color:#666;}
+#bar div.smalltool #utilitylist a:hover{background:#4d9fdd;color:White;}
+*/
+
+/*
+#bar div.filter a:hover{border:solid 1px #e5e5e5;background:white;margin:-1px 0 0 0;border-bottom:none;}
+#bar div.archivetool{position:absolute;top:23px;right:200px;width:400px;height:200px;z-index:9;background:white;padding:0 10px;border:solid 1px #0066cc;display:none;}
+#bar div.archivetool iframe{width:100%;height:100%;overflow:hidden;}
+#bar div.archivetool a.closebtn{position:absolute;right:2px;top:3px;display:block;background:#f0f0f0;color:#666;padding:1px 4px;font-family:Arial;}
+#bar div.archivetool a.closebtn:hover{background:#666;color:White;}
+*/
+
+/*
+#bar .bar_search{position:absolute;top:0;right:5px;width:190px;padding-left:10px;background:url(${path}?res=c3lzaW5kZXg=&${version}.png) -155px -121px repeat-x;}
+#bar .bar_search .key{width:120px;height:11px;line-height:11px;overflow:hidden;float:left;color:#666;border:none;margin:5px 0 0 6px;
+       background:url(${path}?res=c3lzaW5kZXg=&${version}.png) -170px -126px no-repeat;}     
+#bar .bar_search a{display:block;float:right;padding:11px 23px;width:1px;height:1px;background:red;opacity:0;filter:alpha(opacity=0);} 
+*/
+
+/* 左右栏 */
+/*
+#wrap{overflow:hidden;}
+#side{overflow-y:auto;overflow-x:hidden;}
+#main{float:right;width:auto;margin-left:230px;position:relative;}
+*/
+/*#menu,#main{padding-bottom:1000px;margin-bottom:-1000px;}*/
+/*?res=bWVudV8wMQ==&amp;gif*/
+/*.sidebg{background:url(//framework/common/sys_themes/default/side_split_bg.gif) right -2px no-repeat;padding-right:25px;}*/
+#side{background:#fafafa;border-right:solid 1px #d0d0d0;}
+/*#side #leftmenu{border-right:solid 1px #c9d4dc;margin-right:1px;}*/
+#side p{line-height:29px;padding:0 10px;margin:0 -5px 0 0;background: url(${path}?res=c3lzaW5kZXg=&${version}.png) 10px 0;color:#ff0000;font-weight:bold;font-size:14px;border-bottom:solid 1px #ffba01;}
+#side p span{padding:5px 0 5px 15px;background:url(${path}?res=c3lzaW5kZXg=&${version}.png) 0 -30px no-repeat; }
+
+#side .title{line-height:30px;cursor:pointer;color:#555;margin-top:1px;
+            text-shadow: 1px 1px 0 #EFEFEF;font-size:14px;
+             background:#e0e0e0 url(${path}?res=c3lzX2Jn&${version}.png) 0 -2px repeat-x;
+             border-bottom:solid 1px #d0d0d0;}
+#side div .title span{margin-left:15px;padding-left:16px;height:20px;background:url(//framework/common/sys_themes/default/icon_smgr.png) no-repeat;}
+#side .tp{background:#fafafa;}              
+#side div.toggle .title{border-bottom-width:1px;}
+/*#side div.toggle .title span{background-position:-65px -87px;}*/
+#side ul{margin:0;list-style:none;line-height:24px;background:#fff;}
+#side div.toggle ul,#side div.toggle span.span{display:none;}
+
+#side ul li{margin:0;padding:0;line-height:30px;}
+#side ul li a span{padding:0 5px;background: url(//framework/common/icons/admin/set.gif) center -1px no-repeat;margin-left:5px;}
+#side ul li a{text-decoration:none;outline:none;padding-left:25px;display:block;color:#666;
+              /*background:url(${path}?res=c3lzX2Jn&${version}.png) 0 -73px repeat-x;*/
+              background:url(//framework/common/sys_themes/default/bg.gif) 0 -180px repeat-x;
+              border-bottom: 1px solid #ddd;}
+#side ul li a:hover,#side ul li a.current{background-position:0 -96px;}
+
+
+#pagetabs{height:30px;border-bottom:solid 0px #b4d7f2;width:auto;background:#ffba01;}
+#pagetabs ul{list-style:none;padding:0;margin:0;}
+#pagetabs li{float:left;position:relative;margin-right:1px;line-height:30px;border-left:solid 1px #fff;}
+#pagetabs li a{color:#ff8800;font-weight:bold;}
+#pagetabs li.current a{color:#ff6600;}
+#pagetabs li a.closebtn{position:absolute;right:0;top:0;font-family:Arial;color:Red;padding:0 12px 0 8px;font-size:16px;}
+#pagetabs li span{background:#ffdd4d;}/*background:url(${path}?res=c3lzX3RhYg==&${version}.png) no-repeat;/framework/common/images/sys_tab.png*/
+#pagetabs li span.txt{background-position:0 -31px;display:block;float:left;height:30px;padding:0 20px 0 15px;}
+#pagetabs li span.rgt{background-position:-163px -31px; display: block;height: 30px;width: 5px;float:left;}
+#pagetabs li.current span.txt{background-position:0 0;background:#fff;}
+#pagetabs li.current span.rgt{background-position:-163px 0;background:#fff;}
+
+
+/* 底栏 */
+#foot{height:20px;line-height:20px;color:#666;Background:#f7fbfe;overflow:hidden;
+      position:absolute;bottom:0;left:0;width:100%;text-align:center;border-top:solid 1px #ddd;}
+#foot a{color:#777;}#footer a:hover{text-decoration:underline;} 
+/* tipbox */
+.ui-tipbox{border:solid 3px #ff3300;background:#ffffcc;}
+.ui-tipbox .ui-tipbox-container{padding:8px 35px 5px 38px;font-size:14px;font-weight:bold;color:#000;}
+
+.myop div{display:none;position: absolute;padding:20px; right: 0;top: 17px; width: 150px;background:#ffcc00;color:#000;z-index:10012;}
+/*.myop.hover,.myop:hover{background:#000;color:#fff;}*/
+.myop:hover div,.myop.hover div{display:block;}
+#header .userinfo .myop div a{color:#000;text-decoration:none;}
+.scrollbar{width:10px;}
+.scrollbar .bar{background:red;}
+    </style>
+	</head>
+	<body>
+
+    <script type="text/javascript">
+        //遮盖页面
+        cms.gatebody = function (html, unload) {
+            var id = 'cms_gatebody';
+            var e = document.getElementById(id);
+            if (unload) {
+                document.body.removeChild(e);
+            } else {
+                if (e) {
+                    e.style.display = 'inherits';
+                } else {
+                    e = document.createElement('div');
+                    e.setAttribute('id', id);
+
+                    //画布大小（整个网页大小）
+                    this.canvas = {
+                        width: document.documentElement.clientWidth,
+                        clientHeight: document.documentElement.clientHeight,
+                        height: document.documentElement.clientHeight > document.body.clientHeight
+        ? document.documentElement.clientHeight : document.body.clientHeight
+                    };
+                    if (html) {
+                        e.innerHTML = html;
+                    }
+                    e.style.cssText = 'position:absolute;top:0;left:0;background:white;width:' + this.canvas.width + 'px;height:' + this.canvas.height + 'px;z-index:100';
+                    document.body.appendChild(e);
+                }
+            }
+        };
+
+
+        cms.gatebody('<!--<div style="position:absolute;top:0;right:0;background:#666;color:white;padding:2px 5px;color:white">系统加载中..</div>-->' +
+      '<div style="text-align:center;width:100px;margin:0 auto;padding:' + ((document.documentElement.clientHeight - 100) / 2) + 'px 0;">' +
+      '<img src="?res=bG9hZF9wcm9jZXNz&amp.gif"/><br /><span style="color:#006699;margin:5px 0;"></span><div>');
+    </script>
+
+
+  <!-- 头部 -->
+	 <div id="header">
+
+    <div class="logo">&nbsp;<!--v${version}--></div>
+    
+  <div class="userinfo">欢迎你：<span>${nickname}<!--/${groupName}--></span>
+    <span class="myop" id="myop">
+         &nbsp;&nbsp;<span style="background: url(//framework/common/sys_themes/default/icon_smgr.png) -264px 0px no-repeat;height: 20px;padding-left: 13px;">&nbsp;</span>
+         <a href="javascript:;" style="color:#222;text-decoration:none;font-weight:bold;">我的操作</a>
+            <div>
+            <a href="javascript:;" onclick="window.M.tab.show('修改资料','?module=system&action=modifyuserbasicprofile','0_998_998');">修改资料</a> | 
+            &nbsp;<a href="javascript:window.M.addFavorite()">收藏后台</a><br />
+            <a href="javascript:;" onclick="window.M.clearCache()">清除缓存</a> |
+            &nbsp;<a href="?module=system&action=logout">退出管理</a>
+           <!-- &nbsp;<a href="/" target="_blank">浏览网站</a><br />-->
+        
+            <span style="padding-top:5px;"><br /><br /><b>切换管理站点：</b>${site_selector}</span>
+            </div>
+        </span>
+    </div>
+</div>
+
+  <table cellpadding="0" cellspacing="0" width="100%">
+    <tr><td width="200" valign="top" class="sidebg">
+        <div id="side">
+            <p><span>&nbsp;</span>功能菜单</p><!--<div class="title">&nbsp;>&nbsp;' + e_f.text + '</p>-->
+            <div id="contextmenu" class="tp">
+                <div class="title"><span iconpos="-384|-120">&nbsp;</span>内容管理</div><span class="span">分类加载中...</span>
+            </div>
+            <div id="leftmenu"></div>
+        </div>
+    </td>
+    
+    <td valign="top" style="padding:0;">
+        
+        <div id="pagetabs"><ul><li class="current" indent="0_999_999" style="border-left:none"><span class="txt"><a href="javascript:;" onclick="window.M.tab.set(this)">欢迎页面</a></span><span class="rgt"></span></li></ul></div>
+        <div style="height:0px;overflow:hidden;clear:both;display:none;">针对IE7优化</div>
+        <div id="pageframes"><iframe indent="0_999_999" id="ifr_0_999_999" frameborder="0" class="currentframe" scrolling="auto" src="?module=system&action=indexmain"></iframe></div>
+    </td>
+    
+    </tr>
+  </table>
+
+  <div class="clearfix"></div>
+  <div id="foot">系统开发：<a href="http://www.ops.cc/?from=cms_dashboard" target="_blank">奥博软件</a>&nbsp;
+   24小时客户服务热线：400-666-7527&nbsp;技术支持:<a href="tencent://message/?uin=188867734"><!--<img src="http://wpa.qq.com/pa?p=2:188867734:45" style="width:13px;height:13px;" />-->188867734</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.ops.cc/cms/?feedback" target="ifr">反馈建议</a> |
+      <a href="http://www.ops.cc/cms/?submitbug" target="_blank">Bug提交</a></div>
+
+
+      <div class="tipbox" id="tipbox"><!--<img src="?res=YWpheF9sb2FkZXI=&.gif" alt="loading"/>--></div>
+ 
+   <!-- 加载提示 --> 
+    <script type="text/javascript">
+
+        var e_HD = 'header', e_SD = 'side', e_FT = 'foot', e_SM = 'leftmenu', e_CM = 'contextmenu',
+             e_TM = 'submenu', e_TBS = 'pagetabs', e_IFRS = 'pageframes';
+
+        //提供框架页对父窗的操作
+        var tipbox = cms.$('tipbox');
+
+
+        /*
+        cms.showLoadingTip= function () {
+        //文本加载提示
+        dia = new dialog({});
+        dia.write('<div style="position:relative;border:solid 1px #c4d5df;padding:1px;height:20px;width:240px;line-height:20px;overflow:hidden;">' +
+        '<div id="loading" style="background:#eff9fe;height:20px;width:0px;"></div><div style="position:absolute;color:#006699;font-size:12px;left:40px;top:0;">' +
+        '系统正在加载文件,请稍后...</div></div>');
+        var loading_setup = 1;
+        var timer = setInterval(function () {
+        loading_setup += Math.random() * 10 * 2;
+        document.getElementById("loading").style.width = (loading_setup > 240 ? 240 : loading_setup) + "px";
+        }, 80);
+        window.onload = function () { clearTimeout(timer); dia.close(); };
+  
+        };*/
+
+
+
+
+
+
+        /*<!-- 头部卷轴效果 -->
+
+        <!--
+        <div id="siteBanner" style="width:100%;height:0px;overflow:hidden;position:absolute;left:0;bottom:20px;z-index:50;border-top:solid 1px #e0e0e0;">
+        <iframe src="http://www.ops.cc/page/?id=opsitebanner" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
+        </div>*/
+
+        //var _sbelem = cms.$('siteBanner');
+        //setTimeout(function () { new roller({ elem: _sbelem, direction: "down", pix: 150 }).start(10); }, 10000);
+        //setTimeout(function () { new roller({ elem: _sbelem, direction: "up", pix: 150 }).start(10, function () { document.body.removeChild(_sbelem); }); }, 20000);
+
+        /*
+        var md1 = [
+        { text: '导航1', uri: '#', childs: [
+        { text: '栏目管理', uri: '#', childs: [
+        { text: '栏目管理', uri: 'info/nodelist', childs: [] },
+        { text: '新增栏目', uri: 'info/addnod', childs: [] }
+        ]
+        },
+        { text: '文章管理', uri: '#', childs: [] }
+        ]
+        },
+        { text: '导航2', uri: '#', childs: [] },
+        { text: '导航3', uri: '#', childs: [] }
+        ];
+        */
+
+
+        window.M = {
+            msgtip: function (arg, func) {
+                cms.tipbox.show(arg.html, false, 100, arg.autoClose ? 2000 : -1, 'up');
+                if (func) {
+                    setTimeout(func, 1000);
+                }
+            },
+            loadCatTree: function () {
+                cms.load2($(e_CM).getElementsByTagName('SPAN')[1], 'category', 'tree', 'for=archives&siteid=&rd='+(new Date())+'#noload', function (result) {
+                    //cms.$(e_SD).style.width = '220px';
+                    //cms.slider.init(e_SD);
+                });
+            },
+            //搜索
+            search: function (key) {
+                var searchKey = cms.val(key);
+                if (searchKey != '') {
+                    this.tab.show('搜索信息', '?module=archive&action=search&keyword=' + encodeURIComponent(searchKey), '1_998_998');
+                }
+            },
+            gourl: function (uri) {
+                document.getElementById("ifr").src = uri;
+            },
+            clearCache: function (t) {
+                this.msgtip({ html: '清除中....' });
+                cms.xhr.post('?', 'module=ajax&action=clearcache', function (x) {
+                    this.msgtip({ html: '缓存清除完成!', autoClose: true });
+                }, function (x) { });
+            },
+            updateArchives: function (t) {
+                if (confirm('即将更新所有文档，这将需要较长时间，确定继续吗？')) {
+                    t.innerHTML = '更新中....';
+                    t.className = 'active';
+                    cms.xhr.post('?', 'module=ajax&action=updatearchives', function (x) { t.innerHTML = '更新完成'; t.className = 'ok'; });
+                }
+            },
+            addFavorite: function () {
+                var url = location.href;
+                var title = document.title;
+                try {
+                    window.external.addFavorite(url, title);
+                }
+                catch (e) {
+                    try {
+                        window.sidebar.addPanel(title, url, "");
+                    }
+                    catch (e) {
+                        alert("浏览器不支持,请手动添加！");
+                    }
+                }
+            },
+
+            setFullScreen: function (event) {
+                //var leftWidth = $(e_SD).offsetWidth;
+                //if (leftWidth >= window.M.epix.leftWidth) {
+                if (!$(e_SD).parentNode.style || $(e_SD).parentNode.style.display != 'none') {
+                    //全屏
+                    $(e_HD).style.height = '0px';
+                    $(e_SD).style.width = '0px';
+                    $(e_FT).style.height = '0px';
+                    $(e_HD).style.overflow = 'hidden';
+                    $(e_SD).parentNode.style.cssText += 'display:none';
+                } else {
+                    //取消全屏
+                    $(e_HD).style.overflow = '';
+                    $(e_HD).style.height = (window.M.epix.topHeight - 5) + 'px';
+                    $(e_SD).style.width = (window.M.epix.leftWidth - 1) + 'px';
+                    $(e_FT).style.height = (window.M.epix.footHeight - 1) + 'px';
+                    $(e_SD).parentNode.style.display = '';
+                }
+                window.onresize();
+            },
+
+            /* Tab管理 */
+            tab: {
+                //框架集
+                frames: cms.$(e_IFRS),
+                tabs: cms.$(e_TBS).childNodes[0],
+                show: function (text, url, indent) {
+                    var _tabs = this.tabs.getElementsByTagName('LI');
+                    var _indent;
+                    var _exits = false;
+                    var _cur_indents = indent || (window.M.wm.id1 + '_' + window.M.wm.id2 + '_' + window.M.wm.id3);
+                    var _li = null;
+                    
+                    cms.each(_tabs, function (i, obj) {
+                        _indent = obj.getAttribute('indent');
+                        if (_indent == _cur_indents) {
+                            _exits = true;
+                            obj.className = 'current';
+                            _li = obj;
+                        }
+                    });
+                    if (!_exits) {
+                        //添加框架
+                        var frame = document.createElement('IFRAME');
+                        frame.src = url;
+                        frame.setAttribute('frameBorder', '0', 0);
+                        frame.setAttribute('indent', _cur_indents);
+                        frame.setAttribute('id', 'ifr_' + _cur_indents);
+                        this.frames.appendChild(frame);
+
+                        //如果为发布信息,则加上模块名称
+                        //todo: id2有时为0
+                        //if (text.indexOf('发布') != -1) {
+                        //    cms.each($(e_SM).childNodes, function (i, obj) {
+                        //        if (obj.getAttribute('indent') == window.M.wm.id2) {
+                        //            text += '[' + obj.childNodes[0].innerHTML + ']';
+                        //         }
+                        //    });
+                        // }
+
+                        //添加选项卡
+                        _li = document.createElement('LI');
+                        _li.onmouseout = (function (t) {
+                            return function () {
+                                if (t.className != 'current') t.className = '';
+                            };
+                        })(_li);
+                        _li.onmouseover = (function (t) {
+                            return function () {
+                                if (t.className != 'current') t.className = 'hover';
+                            };
+                        })(_li);
+                        _li.setAttribute('indent', _cur_indents);
+                        _li.innerHTML = '<span class="txt"><a href="javascript:;" onclick="window.M.tab.set(this)">'
+                        + text + '</a><a href="javascript:;" class="closebtn" title="关闭选项卡" onclick="window.M.tab.close(this)">x</a></span><span class="rgt"></span>';
+                        this.tabs.appendChild(_li);
+                    }
+
+                    //触发事件,切换IFRAME
+                    //_li.getElementsByTagName('A')[0].onclick();
+                    window.M.tab.set(_li.getElementsByTagName('A')[0]);
+                },
+                set: function (t) {
+                    var li = t.parentNode.parentNode;
+                    var _frames = window.M.tab.frames.getElementsByTagName('IFRAME');
+                    var _ids = li.getAttribute('indent').split('_');
+
+                    cms.each(window.M.tab.tabs.getElementsByTagName('LI'), function (i, obj) {
+
+                        if (obj == li) {
+                            obj.className = 'current';
+
+
+                            cms.each($(e_SM).getElementsByTagName('DIV'), function (i, _obj) {
+
+                                if (_obj.className != 'title') {
+                                    if (_obj.getAttribute('indent') == _ids[1]) {
+
+                                        if (_obj.className.indexOf('current') == -1) {
+                                            _obj.className += ' current';
+                                        }
+                                        cms.each(_obj.getElementsByTagName('A'), function (_i, __obj) {
+                                            __obj.className = _i == parseInt(_ids[2]) ? 'current' : '';
+                                        });
+                                    } else {
+                                        _obj.className = _obj.className.replace('current', '');
+                                        cms.each(_obj.getElementsByTagName('A'), function (_i, __obj) {
+                                            __obj.className = '';
+                                        });
+                                    }
+                                }
+                            });
+                            _frames[i].className ='currentframe';
+
+                        } else {
+                            obj.className = '';
+                            _frames[i].className ='';
+                        }
+                    });
+                },
+                close: function (t) {
+                    var closeIndex = -1;
+                    var isActived = false;
+                    cms.each(this.tabs.getElementsByTagName('A'), function (i, obj) {
+                        if (obj == t) {
+                            closeIndex = i / 2;
+                            isActived = obj.parentNode.parentNode.className == 'current';
+                        }
+                    });
+
+                    if (closeIndex > 0) {
+                        var _lis = this.tabs.getElementsByTagName('LI');
+                        var _ifrs = this.frames.getElementsByTagName('IFRAME');
+                        this.tabs.removeChild(_lis[closeIndex]);
+                        this.frames.removeChild(_ifrs[closeIndex]);
+
+                        //如果关闭当前激活的tab,则显示其他的tab和iframe
+                        if (isActived) {
+                            if (closeIndex >= _lis.length) {
+                                closeIndex = _lis.length - 1;
+                            }
+                            _lis[closeIndex].className = 'current';
+                            if (_ifrs[closeIndex]) {
+                                _ifrs[closeIndex].className = 'currentframe';
+                            }
+
+                        }
+                    }
+                }
+            },
+            /*窗口维护对象*/
+            wm: {
+                id1: 0,   //第一个选项卡选中编号
+                id2: 0,   //第二个选项卡选中编号
+                id3: 0,   //第三个选项卡选中编号
+                id: 0
+            },
+
+            /* 元素像素值 */
+            epix: {
+                topHeight: 0,
+                leftWidth: 0,
+                footHeight: 0
+            }
+        };
+
+        function $(id) { return document.getElementById(id); }
+
+        /*监听事件*/
+        function addListener(elem, e, func, b) {
+            document.attachEvent ? elem.attachEvent('on' + e, func) : elem.addEventListener(e, func, b);
+        }
+
+        function $CA(e, index, parentIndex, clickEvent, className, textFormat) {
+            var elem = document.createElement("A");
+            elem.href = 'javascript:;';
+            elem.innerHTML = '<span>&nbsp;</span>'+(textFormat ? textFormat.replace('$text$', e.text) : e.text);
+            elem.setAttribute('indent', index);
+            if (clickEvent) {
+                elem.onclick = (function (_e, _parentIndex, _index) {
+                    return function () {
+                        clickEvent(_e, _parentIndex, _index);
+                    };
+                })(e, parentIndex, index);
+            }
+            if (className && className != '') elem.className = className;  //附加样式表
+            return elem;
+        }
+
+        var sideWidth = cms.$(e_SD).offsetWidth;
+
+
+        function menu_init() {
+
+            //初始化一级菜单
+            var sm = $(e_SM),
+          tm = $(e_TM);
+
+            var F_CEvent = function (e_f, index_f) {
+                cms.$(e_SD).style.width = sideWidth + 'px';
+
+                if (e_f.childs.lenth != 0) {
+                    var _childs = md[index_f].childs;
+                    for (var i = 0; i < _childs.length; i++) {
+
+                        var ele = document.createElement('DIV');
+                        ele.setAttribute('indent', i);
+                        if (_childs[i].toggle) {
+                            ele.className = 'tp toggle';
+                        } else {
+                            ele.className = 'tp';
+                        }
+                        ele.innerHTML = '<div class="title"><span iconpos="' + _childs[i].iconPos + '">&nbsp;</span>' + _childs[i].text + '</div>';
+
+                        var _ul = document.createElement('UL');
+                        for (var j = 0; j < _childs[i].childs.length; j++) {
+                            var _li = document.createElement('li');
+                            var _node = _childs[i].childs[j];
+                            if (!_node) return;
+
+                            var _a = $CA(_node, j, i, function (_node, _i, _j) {
+                                window.M.wm.id2 = _i;
+                                window.M.wm.id3 = _j;
+                                window.M.tab.show(_node.text, _node.uri);
+                            }, null);
+
+                            _li.appendChild(_a); /*j == 0 ? 'current' : null));*/
+                            _ul.appendChild(_li);
+
+                        }
+                        ele.appendChild(_ul);
+                        sm.appendChild(ele);
+
+                    }
+
+                }
+
+                //设置状态
+                window.M.wm.id1 = index_f;
+
+            };
+
+            F_CEvent(md[0], 0);
+
+            //toggle
+            var tpArr = document.getElementsByClassName('tp');
+            cms.each(!$(e_SD).getElementsByClassName ? document.getElementsByClassName('title', e_SD) : $(e_SD).getElementsByClassName('title'), function (i, e) {
+                if (e.parentNode.className.indexOf('tp') != -1) {
+                    e.onclick = (function (_e) {
+                        return function () {
+                            cms.each(tpArr, function (_i, _i2) {
+                                if (_i2 == _e) {
+                                    _e.className = _e.className == 'tp toggle' ? 'tp' : 'tp toggle';
+                                    //_e.className = 'tp';
+                                } else {
+                                    _i2.className = 'tp toggle';
+                                }
+                            });
+                        };
+                    })(e.parentNode);
+
+                    var e_span = e.getElementsByTagName('SPAN')[0];
+                    if (e_span.getAttribute('iconpos')) {
+                        var posArr = e_span.getAttribute('iconpos').split('|');
+                        e_span.style.cssText += 'background-position:' + posArr[0] + 'px ' + posArr[1] + 'px;';
+                        e_span.removeAttribute('iconpos');
+                    }
+                }
+            });
+
+            window.M.loadCatTree();
+        }
+
+
+
+
+
+        /* 重设窗口的大小 */
+        window.onresize = function () {
+            var m_h = $(e_SD).parentNode.offsetWidth,
+          h_h = $(e_HD).offsetHeight,
+          h_f = $(e_FT).offsetHeight,
+          t_h =  $(e_TBS).offsetHeight;
+
+            //储存左栏,头部,和底部的高度
+            if (window.M.epix.leftWidth + window.M.epix.topHeight + window.M.epix.footHeight == 0) {
+                window.M.epix.leftWidth = m_h;
+                window.M.epix.topHeight = h_h;
+                window.M.epix.footHeight = h_f;
+            }
+
+            var x = document.documentElement.clientWidth,
+            y = document.documentElement.clientHeight;
+            $('side').style.height = (y - h_h - h_f) + 'px';
+            $(e_IFRS).style.height = (y - h_h - h_f - t_h) + 'px';
+        };
+
+        function reload() {
+            var vpath = '${vpath}';
+            location.replace((vpath == '' ? '' : '/' + vpath) + '/admin');
+        }
+
+        /*
+        var toolLink = cms.$('toollink'),
+    utilityLink = cms.$('utilitylink');
+        toolLink.onclick = selectClick;
+        function selectClick() {
+            var elem = cms.$('archivetool');
+            if (this.className == 'select') {
+                this.className = 'select current'; elem.style.display = 'block';
+            } else {
+                this.className = 'select'; elem.style.display = 'none';
+            }
+        };
+        utilityLink.onclick = function () {
+            var elem = cms.$('utilitylist');
+            if (this.className == 'select') {
+                this.className = 'select current'; elem.style.display = 'block';
+            } else {
+                this.className = 'select'; elem.style.display = 'none';
+            }
+            elem.onclick = function () {
+                this.style.display = 'none';
+                utilitylink.className = 'select';
+            };
+        };
+        */
+
+
+
+        //var scrollElem = cms.$('scrollnews');
+
+        //拖拽tab
+        //var drag_tab=$(e_TBS);
+        //new drag(drag_tab).start(drag_tab);
+
+        /*
+
+        //显示日期
+        var ele_dt = document.getElementsByClassName('datetime')[0];
+        var weeks = new Array('日', '一', '二', '三', '四', '五', '六');
+        var cmath = function (v) {
+        if (v < 10) return '0' + v;
+        return v;
+        };
+        function setDate() {
+        var dt = new Date();
+        ele_dt.innerHTML = cmath(dt.getFullYear()) + '年' + cmath(dt.getMonth() + 1) + '月' + cmath(dt.getDate()) + '日&nbsp;/&nbsp;周' +
+        weeks[dt.getDay()] + '&nbsp;' + cmath(dt.getHours()) + ':' + cmath(dt.getMinutes());
+
+        }
+        setDate();
+        setInterval(setDate, 60000);
+        */
+
+
+        /*
+        var left_menu_status=1;
+        function closeLeftMenu(t){
+        var l=cms.$('side'),
+        m=cms.$('main');
+        if(left_menu_status==1){
+        t.innerHTML='->';
+        l.style.display='none';
+        left_menu_status=0;
+        }else{
+        t.innerHTML='<-';
+        l.style.display='block';
+        left_menu_status=1;
+        }
+        }*/
+
+
+
+
+        /*提供兼容*/
+        function msgtip(arg, func) {
+            window.M.msgtip(arg, func);
+        }
+
+
+        window.onload = function () {
+
+            cms.hover('myop');
+
+            var timer = setInterval(function () {
+                if (window.md && window.md != null) {
+                    menu_init();
+                    cms.gatebody('', true);
+                    window.onresize();
+                    clearInterval(timer);
+                }
+            }, 100);
+
+            //设置按键
+            document.onkeydown = function (event) {
+                var e = window.event || event;
+                //按键ALT+F11,启用全屏
+                if (e.altKey && e.keyCode == 122) {
+                    window.M.setFullScreen();
+                    return false;
+                } else if (e.keyCode == 122) {
+                    window.M.setFullScreen();
+                    return false;
+                } else if (!e.ctrlKey && e.keyCode == 116) {
+                    var ifr = document.getElementsByClassName('currentframe')[0];
+                    var src = ifr.src;
+                    ifr.src = '';
+                    ifr.src = src;
+                    return false;
+                }
+            };
+
+        };
+
+        //升级操作
+        // cms.xhr.post('?', 'module=ajax&action=upgrade', function (x) { });
+
+
+
+        </script>
+
+        $css()
+        <style type="text/css">body{margin:0}</style>
+	</body>
+</html>

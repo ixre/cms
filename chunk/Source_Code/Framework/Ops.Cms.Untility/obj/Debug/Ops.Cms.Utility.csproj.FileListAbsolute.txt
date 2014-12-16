@@ -1,5 +1,0 @@
-E:\git\ops.cms\chunk\bin\Ops.Cms.Utility.dll
-E:\git\ops.cms\chunk\bin\Ops.Cms.Utility.pdb
-E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Untility\obj\Debug\Ops.Cms.Utility.csprojResolveAssemblyReference.cache
-E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Untility\obj\Debug\Ops.Cms.Utility.dll
-E:\git\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Untility\obj\Debug\Ops.Cms.Utility.pdb

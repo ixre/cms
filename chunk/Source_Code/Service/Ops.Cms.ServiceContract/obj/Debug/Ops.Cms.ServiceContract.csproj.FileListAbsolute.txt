@@ -1,5 +1,0 @@
-E:\git\ops.cms\chunk\bin\Ops.Cms.ServiceContract.dll
-E:\git\ops.cms\chunk\bin\Ops.Cms.ServiceContract.pdb
-E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.ServiceContract\obj\Debug\Ops.Cms.ServiceContract.csprojResolveAssemblyReference.cache
-E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.ServiceContract\obj\Debug\Ops.Cms.ServiceContract.dll
-E:\git\ops.cms\chunk\Source_Code\Service\Ops.Cms.ServiceContract\obj\Debug\Ops.Cms.ServiceContract.pdb

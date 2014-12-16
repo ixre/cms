@@ -1,6 +1,0 @@
-E:\git\ops.cms\chunk\bin\install\db\access.mdb
-E:\git\ops.cms\chunk\bin\Ops.Cms.PluginExample.dll
-E:\git\ops.cms\chunk\bin\Ops.Cms.PluginExample.pdb
-E:\git\ops.cms\chunk\Source_Code\Plugins\Ops.Cms.PluginExsample\obj\Debug\Ops.Cms.PluginExample.csprojResolveAssemblyReference.cache
-E:\git\ops.cms\chunk\Source_Code\Plugins\Ops.Cms.PluginExsample\obj\Debug\Ops.Cms.PluginExample.dll
-E:\git\ops.cms\chunk\Source_Code\Plugins\Ops.Cms.PluginExsample\obj\Debug\Ops.Cms.PluginExample.pdb

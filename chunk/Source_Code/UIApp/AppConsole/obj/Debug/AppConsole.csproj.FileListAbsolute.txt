@@ -1,5 +1,0 @@
-E:\git\ops.cms\chunk\Source_Code\UIApp\AppConsole\bin\Debug\AppConsole.exe
-E:\git\ops.cms\chunk\Source_Code\UIApp\AppConsole\bin\Debug\AppConsole.pdb
-E:\git\ops.cms\chunk\Source_Code\UIApp\AppConsole\obj\Debug\AppConsole.csprojResolveAssemblyReference.cache
-E:\git\ops.cms\chunk\Source_Code\UIApp\AppConsole\obj\Debug\AppConsole.exe
-E:\git\ops.cms\chunk\Source_Code\UIApp\AppConsole\obj\Debug\AppConsole.pdb

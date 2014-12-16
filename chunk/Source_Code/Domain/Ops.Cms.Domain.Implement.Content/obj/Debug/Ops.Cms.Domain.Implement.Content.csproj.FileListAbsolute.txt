@@ -1,5 +1,0 @@
-E:\git\ops.cms\chunk\Source_Code\bin\Ops.Cms.Domain.Implement.Content.dll
-E:\git\ops.cms\chunk\Source_Code\bin\Ops.Cms.Domain.Implement.Content.pdb
-E:\git\ops.cms\chunk\Source_Code\Domain\Ops.Cms.Domain.Implement.Content\obj\Debug\Ops.Cms.Domain.Implement.Content.dll
-E:\git\ops.cms\chunk\Source_Code\Domain\Ops.Cms.Domain.Implement.Content\obj\Debug\Ops.Cms.Domain.Implement.Content.pdb
-E:\git\ops.cms\chunk\Source_Code\Domain\Ops.Cms.Domain.Implement.Content\obj\Debug\Ops.Cms.Domain.Implement.Content.csprojResolveAssemblyReference.cache

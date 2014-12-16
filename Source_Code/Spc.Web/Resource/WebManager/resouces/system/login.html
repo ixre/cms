@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>登录管理中心-Ops.Cms.NET! v${version}</title>
+
+<style type="text/css">
+  body{margin:0;font-size:12px;}
+  img{border:none;}
+  a{text-decoration:none;outline:none;color:#006699;}
+  #login_top{background:#f0f0f0;height:30px;display:none;}
+  #login_container{width:800px;position:relative;margin:0 auto;}
+  #login_area{background:white;position:absolute;top:130px;
+              left:98px;z-index:100;width:600px;height:230px;margin:0 auto;}
+  #login_area div.bg{ background:url(${path}?res=c3lzbG9naW4=&.png) 30px -20px no-repeat;margin-top:30px;height:150px;}
+  #login_area div.logindesc{color:#666;position:absolute;top:85px;left:40px;line-height:20px; }
+                       
+  #login_area div.area{width:300px;position:absolute;left:268px;top:0px;padding:10px 10px;}
+  
+  p{margin:8px 0;padding:0;}
+  p#tip{color:#666;margin:10px 0 15px 0;padding-left:10px;border-left:solid 5px #666;}
+  span.txt{font-size:14px;color:#666;}
+  input.input{width:160px;border:none;background:url(${path}?res=c3lzbG9naW4=&.png) -140px -180px no-repeat;height:20px;line-height:20px;padding:0 5px;font-size:9pt;}
+  input.input2{width:80px; background-position:-140px -200px;}
+  div.verify{position:absolute;top:105px;left:410px;z-index:102;width:60px;height:17px;border:solid 1px #e5e5e5;cursor:pointer;}
+  a.loginbtn{padding:0 20px 0 16px;color:White;font-size:12px;line-height:26px;}
+  p.silver{color:#afafaf;font-size:12px;padding-left:20px;margin-top:20px;}
+  
+  div.tab{width:640px;margin:0 auto;}
+  div.tab a{display:block;padding:0 15px;line-height:30px;float:left;color:#666;font-size:14px;}
+  div.tab a:hover{text-decoration:underline;}
+  div.tab a.current{background:#888;color:#fff;}
+  
+  div#bottom{margin-top:50px;text-align:center;color:#888;font-size:12px;font-family:Arial;display:none;}
+  
+</style>
+
+</head>
+<body>
+<div id="login_top">
+  <div class="tab">
+    <a href="/">网站首页</a>
+    <a href="http://www.ops.cc/cms/">官方主页</a>
+    <a href="#" class="current">管理中心</a>
+    <a href="tencent://message/?uin=188867734" alt="使用QQ工具，获得在线操作和技术帮助。">在线支持</a>
+    <a href="http://www.ops.cc/cms/tryit.html?buy" target="_blank">购买试用</a>
+  </div>
+</div>
+<div id="login_container">
+  <div class="slogan"></div>
+
+
+<div id="login_area">
+  <div class="bg"></div>
+  <div class="logindesc">
+    登陆管理中心,对网站进行管理操作.<br />没有帐号,请联系管理员创建。
+  </div>
+  <div class="verify" id="vimg" onclick="refreshImage()"></div>
+  <div class="area">
+    <p id="tip">提示：需要验证您的身份后才能进入管理！</p>
+    <form action="" method="post" enctype="application/x-www-form-urlencoded" style="margin:0">
+      <p><span class="txt"><span style="margin-right:14px">用</span>户：</span><input id="uid" name="username" type="text" class="input"/></p>
+      <p><span class="txt"><span style="margin-right:14px">密</span>码：</span><input id="pwd" name="password" type="password" class="input"/></p>
+      <p><span class="txt">验证码：</span>
+      <input id="vcode" name="verifycode" class="input input2"/></p>
+
+      <p style="margin-top:10px"><span class="txt"><span style="color:white">请登录：</span></span>
+        <a class="loginbtn" href="javascript:;" onclick="login();return false;">登录</a>
+      </p>
+    </form>
+
+  </div>
+
+  
+  <div id="bottom">Powered by Ops.Cms.NET(跨平台+MVC架构+多数据库支持+插件商店) ${version}&nbsp; © 2008-${year} &nbsp;&nbsp;ops.cc</div>
+  
+</div>
+</div>
+
+  $js()
+<script type="text/javascript">
+    window.bind_initKey = false;
+  var tip = cms.$("tip");
+
+  document.body.onkeydown = function (e) {
+      var event = window.event || e;
+      if (event.keyCode == 13) {
+          login();
+      }
+  };
+  function login() {
+    var uid = cms.val("uid"),
+      pwd = cms.val("pwd");
+    code = cms.val('vcode');
+
+    if (uid == '') {
+        tip.innerHTML = '<span style="color:red">提示：请输入用户!</span>'; return false;
+    } else if (pwd == '') {
+      tip.innerHTML = '<span style="color:red">提示：请输入密码!</span>'; return false;
+    } else if (code == '') {
+      tip.innerHTML = '<span style="color:red">提示：请输入验证码!</span>'; return false;
+    } else {
+      tip.innerHTML = '<span style="color:green">登录中...</span>';
+      var data = cms.form.getData();
+      cms.xhr.jsonAjax(location.href, data, function (json) {
+          if(json.result){
+              tip.innerHTML = '<span style="color:green">登录成功,正在进入...</span>';
+              location.replace('${path}?ver=${version}');
+          }
+          else {
+              if (json.message.indexOf('验证码') != -1) {
+                  refreshImage();
+              }
+              tip.innerHTML = '<span style="color:red">提示：' + json.message + '</span>';
+          }
+      }, function (x) {
+          tip.innerHTML = '<span style="color:red">服务器出错，请联系管理员!</span>';
+      });
+    }
+  }
+
+  function refreshImage() {
+    document.getElementById('vimg').style.background = 'url(${path}?action=verifycode&' + Math.random()+') center -23px no-repeat';
+  }
+  refreshImage();
+
+</script>
+
+
+<!--加载资源-->
+<div style="display:none">
+    <!-- 加载ajax图片 -->
+    <img src="?res=YWpheF9sb2FkZXI=&amp;.gif"/>
+    <img src="?res=bG9hZF9wcm9jZXNz&amp.gif"/>
+    <img src="?res=c3lzaW5kZXg=&${version}.png" />
+    <img src="/framework/common/sys_themes/default/btn_spirites.png" />
+    $iconcss()
+</div>
+
+
+</body>
+</html>
