@@ -26,7 +26,7 @@ echo  /keyfile:%dir%\Source_Code\Spc.Core\ops.cms.snk>nul
 
 
 
-  echo 完成!输出到:%dirdist\%ops.cms.dll
+  echo 完成!输出到:%dir%dist\ops.cms.dll
 
 )
 

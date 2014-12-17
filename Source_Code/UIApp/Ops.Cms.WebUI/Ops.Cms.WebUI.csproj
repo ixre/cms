@@ -40,10 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Com.PluginKernel, Version=1.4.0.0, Culture=neutral, PublicKeyToken=44cbff657fec973b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\refrence.dll\Com.PluginKernel.dll</HintPath>
-    </Reference>
     <Reference Include="opscore, Version=2.1.0.0, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\opscore.dll</HintPath>
