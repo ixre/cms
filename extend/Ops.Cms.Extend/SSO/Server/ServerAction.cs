@@ -3,16 +3,22 @@
     /// <summary>
     /// 会话服务动作
     /// </summary>
-    internal enum SessionServerAction
+    internal enum ServerAction
     {
+        Test = 0,
         /// <summary>
         /// 获取用户Session
         /// </summary>
-        GetSession = 0,
+        GetSession = 1,
+
+        /// <summary>
+        /// 登陆
+        /// </summary>
+        Login = 2,
 
         /// <summary>
         /// 退出
         /// </summary>
-        Logout =1,
+        Logout =3,
     }
 }

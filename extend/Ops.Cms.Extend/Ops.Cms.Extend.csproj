@@ -49,7 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SSO\Client\ISessionClient.cs" />
     <Compile Include="SSO\Client\SessionClient.cs" />
+    <Compile Include="SSO\Client\SessionClientUtil.cs" />
     <Compile Include="SSO\Demo\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -63,16 +65,15 @@
     <Compile Include="SSO\GetUserHandler.cs" />
     <Compile Include="SSO\ISessionSet.cs" />
     <Compile Include="SSO\LevelDbSessionProvider.cs" />
+    <Compile Include="SSO\SsoResult.cs" />
     <Compile Include="SSO\Person.cs" />
     <Compile Include="SSO\Server\SessionServer.cs" />
-    <Compile Include="SSO\Server\SessionServerAction.cs" />
-    <Compile Include="SSO\Server\SessionServerResponse.cs" />
+    <Compile Include="SSO\Server\ServerAction.cs" />
     <Compile Include="SSO\SessionGenerator.cs" />
     <Compile Include="SSO\SessionManager.cs" />
     <Compile Include="SSO\SessionResult.cs" />
     <Compile Include="SSO\SSOLoginHandler.cs" />
-    <Compile Include="SSO\User.cs" />
-    <Compile Include="SSO\Variables.cs" />
+    <Compile Include="SSO\SsoUtil.cs" />
     <None Include="README.md" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="SSO\Demo\server.ashx" />

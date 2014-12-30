@@ -8,39 +8,55 @@ namespace Ops.Cms.Extend.SSO
     /// </summary>
     public class SessionManager
     {
-        private ISessionSet _sessionSet;
-        private PersonFetchHandler _personFetchHandler;
+
+        public static ISessionSet defaultSessionSet;
+
+        private readonly ISessionSet _sessionSet;
+        private readonly PersonFetchHandler _personFetchHandler;
+        private SessionGenerator _generator;
+
+
 
         internal SessionManager(ISessionSet sessionSet,
-            PersonFetchHandler personFetchHandler)
+            PersonFetchHandler personFetchHandler,string seed)
         {
             this._sessionSet = sessionSet;
             this._personFetchHandler = personFetchHandler;
+            this._generator = new SessionGenerator(seed,5);
+        }
+
+
+        /// <summary>
+        /// 获取默认的Session管理器
+        /// </summary>
+        /// <returns></returns>
+        public static ISessionSet GetDefaultSessionSet()
+        {
+            if (defaultSessionSet == null)
+            {
+                LevelDbSessionProvider levelDb = new LevelDbSessionProvider();
+                levelDb.Initilize();
+                defaultSessionSet = levelDb;
+            }
+            return defaultSessionSet;
         }
 
         /// <summary>
         /// 获取会话
         /// </summary>
         /// <param name="key"></param>
-        /// <returns></returns>
-        public string GetSession(string key)
+        /// <returns>返回Person的id,如果没有则返回-1</returns>
+        public int GetSession(string key)
         {
-            //personId,sessionToken
-            return this._sessionSet.Get(key);
+            string s =  this._sessionSet.Get(key);
+            if (s == null)
+            {
+                return -1;
+            }
+            return int.Parse(s);
         }
 
-        /// <summary>
-        /// 获取当前用户的SessionKey
-        /// </summary>
-        /// <returns></returns>
-        public string GetCurrentSessionKey()
-        {
-            HttpContext context = HttpContext.Current;
-            HttpCookie cookie = context.Request.Cookies.Get(Variables.SessionCookieName);
-            if (cookie == null) return null;
-            return cookie.Value;
-        }
-
+ 
         /// <summary>
         /// 获取人员和用户信息
         /// </summary>
@@ -48,55 +64,47 @@ namespace Ops.Cms.Extend.SSO
         /// <returns></returns>
         public Person GetPerson(string sessionKey)
         {
-            HttpContext context = HttpContext.Current;
-            Person person = null;
+            int personId = this.GetSession(sessionKey);
 
-            string sessionStr = this.GetSession(sessionKey);
-            if (!String.IsNullOrEmpty(sessionStr))
+            if (personId == -1)
             {
-                string[] sessionData = sessionStr.Split(';');
-                int personId = int.Parse(sessionData[0]);
-
-                //如果不传入secret或secret和session中对比一致
-                //if (sessionSecret == null || sessionSecret == sessionData[1])
-                person = this._personFetchHandler(personId);
-
+                return null;
             }
 
-            return person;
+            return this._personFetchHandler(personId);
         }
 
         /// <summary>
-        /// 保存会话,并返回Session Value
+        /// 保存会话,并返回Session Token
         /// </summary>
         /// <param name="personId"></param>
         /// <param name="value"></param>
         /// <returns></returns>
         public string SaveSession(int personId)
         {
-            string sessionKey = SessionGenerator.CreateKey();
-            string sessionToken = String.Format("{0:yyyyMMHHssfff}", DateTime.Now);
+            string sessionToken = this._generator.CreateKey();
 
-            string usrKey = "sk_" + personId.ToString();
+            string sessionRowKey = "sk_" + personId.ToString();
 
             //获取上次的Session记录并删除
-            string usrKeyValue = this._sessionSet.Get(usrKey);
-            if (!String.IsNullOrEmpty(usrKeyValue))
+            string oldToken = this._sessionSet.Get(sessionRowKey);
+            if (!String.IsNullOrEmpty(oldToken))
             {
-                this._sessionSet.Delete(usrKeyValue);
+                this._sessionSet.Delete(oldToken);
             }
 
             //保存新的Session记录
-            this._sessionSet.Put(usrKey, sessionKey);
-            this._sessionSet.Put(sessionKey, personId.ToString() + ";" + sessionToken);
-
-
-            HttpCookie cookie = new HttpCookie(Variables.SessionCookieName, sessionKey);
-            cookie.Expires = DateTime.Now.AddYears(2);
-
-            HttpContext.Current.Response.Cookies.Add(cookie);
+            this._sessionSet.Put(sessionRowKey, sessionToken);
+            this._sessionSet.Put(sessionToken, personId.ToString());
 
             return sessionToken;
+
+//            HttpCookie cookie = new HttpCookie(Variables.SessionCookieName, sessionKey);
+//            cookie.Expires = DateTime.Now.AddYears(2);
+//
+//            HttpContext.Current.Response.Cookies.Add(cookie);
+//
+//            return sessionToken;
         }
 
         /// <summary>
@@ -105,26 +113,26 @@ namespace Ops.Cms.Extend.SSO
         /// <param name="key"></param>
         public void RemoveSession(string key)
         {
-            HttpContext context = HttpContext.Current;
-            HttpCookie cookie = context.Request.Cookies.Get(Variables.SessionCookieName);
+            //HttpContext context = HttpContext.Current;
+            //HttpCookie cookie = context.Request.Cookies.Get(Variables.SessionCookieName);
 
-            if (cookie != null)
-            {
-                cookie.Expires = DateTime.Now.AddYears(-2);
-                context.Response.Cookies.Add(cookie);
-            }
+            //if (cookie != null)
+            //{
+            //    cookie.Expires = DateTime.Now.AddYears(-2);
+            //    context.Response.Cookies.Add(cookie);
+            //}
             this._sessionSet.Delete(key);
         }
 
-        public bool VerifySessionSecret(string sessionKey, string sessionSecret)
-        {
-            string sessionStr = this.GetSession(sessionKey);
-            if (!String.IsNullOrEmpty(sessionStr))
-            {
-                string[] sessionData = sessionStr.Split(';');
-                return String.Compare(sessionData[1], sessionSecret, true) == 0;
-            }
-            return false;
-        }
+        //public bool VerifySessionSecret(string sessionKey, string sessionSecret)
+        //{
+        //    string sessionStr = this.GetSession(sessionKey);
+        //    if (!String.IsNullOrEmpty(sessionStr))
+        //    {
+        //        string[] sessionData = sessionStr.Split(';');
+        //        return String.Compare(sessionData[1], sessionSecret, true) == 0;
+        //    }
+        //    return false;
+        //}
     }
 }

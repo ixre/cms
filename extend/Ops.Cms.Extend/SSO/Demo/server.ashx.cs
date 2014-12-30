@@ -25,7 +25,14 @@ namespace Ops.Cms.Extend.SSO.Demo
                     Username = "new.min@msn.com"
                 };
             };
-            SessionSington = new SessionServer(handler);
+
+            SSOLoginHandler ssoHandler = (user, pwd) =>
+            {
+                return 1;
+            };
+
+            SessionSington = new SessionServer(handler, ssoHandler,"123456",null);
+
         }
 
         public void ProcessRequest(HttpContext context)
@@ -36,24 +43,19 @@ namespace Ops.Cms.Extend.SSO.Demo
 
             if (!String.IsNullOrEmpty(isTest))
             {
-                string sessionKey = SessionSington.SessionManager.GetCurrentSessionKey();
-
-
+                String sessionKey = null;
                 //如果未包含登陆信息，则登陆
-                if (String.IsNullOrEmpty(sessionKey))
-                {
-                    bool result = SessionSington.Login("new.min@msn.com", "123456", (user, pwd) =>
-                    {
-                        return 1;
-                    });
-                    context.Response.Write("用户登陆" + (result ? "成功" : "失败") + "!");
-                    sessionKey = SessionSington.SessionManager.GetCurrentSessionKey();
-                }
-
-
-                //输出登陆信息
-                context.Response.Write("sessionKey = " + sessionKey + " & sessionSecret = "
-                    + SessionSington.SessionManager.GetSession(sessionKey));
+//                if (String.IsNullOrEmpty(sessionKey))
+//                {
+//                    SsoResult result = SessionSington.Login("new.min@msn.com", "123456");
+//                    context.Response.Write("用户登陆" + (result.Result ? "成功" : "失败") + "!");
+//                    sessionKey = result.SessionKey;
+//                }
+//
+//
+//                //输出登陆信息
+//                context.Response.Write("sessionKey = " + sessionKey + " & sessionSecret = "
+//                    + SessionSington.SessionManager.GetSession(sessionKey));
 
                 //退出登陆
                 //SessionSington.LoginOut();
@@ -63,7 +65,7 @@ namespace Ops.Cms.Extend.SSO.Demo
 
             #endregion
 
-            string resultStr = SessionSington.Response.Process(context);
+            string resultStr = SessionSington.Process(context);
             context.Response.Write(resultStr); 
         }
 

@@ -1,48 +1,120 @@
 ﻿using System;
-using System.IO;
-using System.Net;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using Ops.Cms.Resource;
 
 namespace Ops.Cms.Extend.SSO.Client
 {
-    /// <summary>
-    /// 会话客户端
-    /// </summary>
-    public class SessionClient
-    {
-        private string _serverUrl;
-        private string _token;
+    public class SessionClient:ISessionClient
+    {  
+        private readonly string _serverUrl;
+        private readonly string _token;
+        private static readonly string sessionCookieName = "_ssokey";
 
-        public SessionClient(string serverUrl,string token)
+        public SessionClient(string serverUrl, string token)
         {
             this._serverUrl = serverUrl;
             this._token = token;
         }
 
+        #region  处理请求
 
-        public SessionResult GetSession(string sessionKey, string sessionSecret)
+        /// <summary>
+        /// 获取执行动作
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public String getAction(HttpContext context)
         {
-            //http://localhost:4617/server.ashx?action=getSession&token=123&session.key=hxeke&session.secret=2014081532992
+            return (context.Request["action"] ?? "").ToLower();
+        }
 
-            string url = String.Format("{0}{1}action=getSession&token={2}&session.key={3}&session.secret={4}",
-                this._serverUrl,
-                this._serverUrl.IndexOf("?") == -1 ? "?" : "&",
-                this._token,
-                sessionKey,
-                sessionSecret
-                );
+        /// <summary>
+        /// 获取会话Key
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public String getSessionKey(HttpContext context)
+        {
+            return context.Request["session.key"];
+        }
+
+        public void HandleSsoRequest(HttpContext context)
+        {
+            String action = this.getAction(context);
+
+            //接受会话
+            if (action == "require")
+            {
+                String sessionKey = this.getSessionKey(context);
+                HttpCookie cookie = new HttpCookie(sessionCookieName, sessionKey);
+                cookie.Expires = DateTime.Now.AddYears(2);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+            else if (action == "logout")
+            {
+                HttpCookie cookie = context.Request.Cookies.Get(sessionCookieName);
+                if (cookie != null)
+                {
+                    cookie.Expires = DateTime.Now.AddYears(-2);
+                    context.Response.Cookies.Add(cookie);
+                }
+            }
+        }
+
+        #endregion
+
+        public SessionResult GetSession(string sessionKey)
+        {
+            return ClientUtil.RequestSession(this._serverUrl, this._token, sessionKey);
+        }
+
+        public SsoResult Login(string user, string pwd)
+        {
+            SsoResult result =  ClientUtil.LoginRequest(this._serverUrl, this._token, user,pwd);
+            if (result.Result && !string.IsNullOrEmpty(result.Message))
+            {
+                string oldMsg = result.Message;
+                try
+                {
+                    result.Message = SsoUtil.DecodeBase64(result.Message);
+                }
+                catch
+                {
+                    result.Message = oldMsg;
+                }
+            }
+            return result;
+        }
+
+        public SsoResult Logout(string sessionKey)
+        {
+            SsoResult result = ClientUtil.LogoutRequest(this._serverUrl, this._token,sessionKey);
+            if (result.Result && !string.IsNullOrEmpty(result.Message))
+            {
+                string oldMsg = result.Message;
+                try
+                {
+                    result.Message = SsoUtil.DecodeBase64(result.Message);
+                }
+                catch
+                {
+                    result.Message = oldMsg;
+                }
+            }
+            return result;
+        }
 
 
-            WebRequest request = WebRequest.Create(url);
-
-            Stream stream = request.GetResponse().GetResponseStream();
-            StreamReader sr = new StreamReader(stream);
-
-            string result = sr.ReadToEnd();
-            sr.Dispose();
-            stream.Dispose();
-
-            return JsonConvert.DeserializeObject<SessionResult>(result);
+        public string GetSessionKey()
+        {
+            HttpContext context = HttpContext.Current;
+            HttpCookie cookie = context.Request.Cookies.Get(sessionCookieName);
+            if (cookie == null) return null;
+            return cookie.Value;
         }
     }
 }

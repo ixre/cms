@@ -4,14 +4,17 @@ using Newtonsoft.Json;
 
 namespace Ops.Cms.Extend.SSO.Server
 {
-    public class SessionServerResponse
+    internal class SessionServerResponse
     {
-        private SessionServer _server;
+        private readonly SessionServer _server;
+        private readonly string _communicateToken;
 
-        internal SessionServerResponse(SessionServer server)
+        public SessionServerResponse(SessionServer server, string communicateToken)
         {
             this._server = server;
+            this._communicateToken = communicateToken;
         }
+
 
         /// <summary>
         /// 处理输出
@@ -20,69 +23,58 @@ namespace Ops.Cms.Extend.SSO.Server
         /// <returns></returns>
         public string Process(HttpContext context)
         {
-            string _action = context.Request["action"];
+            string actionStr = context.Request["action"];
             string token = context.Request["token"];
+            string sessionKey = context.Request["session.key"];
 
-            if (_action != null)
+            //除登出外均需要验证
+            if (token != this._communicateToken)
             {
-                SessionServerAction action = (SessionServerAction)Enum.Parse(typeof(SessionServerAction), _action, true);
+                return JsonConvert.SerializeObject(new SessionResult {Message = "通信错误！"});
+            }
+
+            if (actionStr != null)
+            {
+                SessionServerAction action = (SessionServerAction)Enum.Parse(
+                    typeof(SessionServerAction), actionStr, true);
 
                 //登出
                 if (action == SessionServerAction.Logout)
                 {
-                    this._server.LoginOut();
-                    return JsonConvert.SerializeObject(new SessionResult { Result = true, Message = "已经退出！" });
+                   SsoResult result = this._server.LoginOut(sessionKey);
+                   return JsonConvert.SerializeObject(result);
                 }
 
-                //除登出外均需要验证
-                if (token != Variables.CommunicateToken)
+                if (action == SessionServerAction.Login)
                 {
-                    return JsonConvert.SerializeObject(new SessionResult { Message = "通信错误！" });
+                    SsoResult result = this._server.Login(context.Request["usr"],
+                        context.Request["pwd"]);
+                    return JsonConvert.SerializeObject(result);
                 }
 
                 if (action == SessionServerAction.GetSession)
                 {
-                    return ProcessClientGetSession(context);
+                    Person person = this._server.SessionManager.GetPerson(sessionKey);
+                    if (person == null)
+                    {
+                        return JsonConvert.SerializeObject(new SessionResult { Message = "No session" });
+                    }
+
+                    return JsonConvert.SerializeObject(new SessionResult { Result = true, Person = person });
+
+                }
+
+                if (action == SessionServerAction.Test)
+                {
+                    return "Test ok!";
                 }
             }
 
 
-            return JsonConvert.SerializeObject(new SessionResult { Message = "非法请求！" });
+            return JsonConvert.SerializeObject(new SessionResult {Message = "Invalid request"});
         }
 
 
-        private string ProcessClientGetSession(HttpContext context)
-        {
 
-            string sessionKey = context.Request["session.Key"];
-            string sessionSecret = context.Request["session.Secret"];
-
-            if (String.IsNullOrEmpty(sessionSecret) || String.IsNullOrEmpty(sessionKey))
-            {
-                return JsonConvert.SerializeObject(new SessionResult { Message = "非法请求！" });
-            }
-
-            string serverSessionSecret = this._server.SessionManager.GetSession(sessionKey);
-            if (String.IsNullOrEmpty(serverSessionSecret))
-            {
-                return JsonConvert.SerializeObject(new SessionResult { Message = "无效登陆信息！" });
-            }
-
-            bool verifyResult = this._server.SessionManager.VerifySessionSecret(sessionKey, sessionSecret);
-
-
-            if (!verifyResult)
-            {
-                return JsonConvert.SerializeObject(new SessionResult { Message = "无效登陆信息！" });
-            }
-
-            Person person = this._server.SessionManager.GetPerson(sessionKey);
-            if (person == null)
-            {
-                return JsonConvert.SerializeObject(new SessionResult { Message = "验证未通过！" });
-            }
-
-            return JsonConvert.SerializeObject(new SessionResult { Result = true, Person = person });
-        }
     }
 }

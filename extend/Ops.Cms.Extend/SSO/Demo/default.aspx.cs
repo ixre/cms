@@ -14,7 +14,7 @@ namespace Ops.Cms.Extend.SSO.Demo
 
             if(Client == null)
             {
-                Client = new SessionClient(server_url,"123");
+                Client = new SessionClient(server_url, "123456");
             }
 
             btn_logout.Attributes.Add("href", server_url + "?action=logout");
@@ -25,7 +25,7 @@ namespace Ops.Cms.Extend.SSO.Demo
 
             string sessionKey = tb_sessionKey.Text;
             string sessionSecret = tb_sessionSecret.Text;
-            SessionResult result = Client.GetSession(sessionKey, sessionSecret);
+            SessionResult result = Client.GetSession(sessionKey);
 
             lb_result.Text = JsonConvert.SerializeObject(result);
         }

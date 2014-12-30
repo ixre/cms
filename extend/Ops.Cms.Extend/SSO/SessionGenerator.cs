@@ -1,32 +1,54 @@
 ﻿using System;
 using System.Text;
+using Ops.Framework.Extensions;
 
 namespace Ops.Cms.Extend.SSO
 {
     internal class SessionGenerator
     {
+        private readonly int[] _dict;
+        private int length;
 
-        private static int[] charArray = new int[]{ 98, 100, 101, 104, 108, 120, 111, 107, 113 };
+        public SessionGenerator(String seed,int length)
+        {
+            this.length = length;
 
+            if (seed == null || seed.Trim().Length == 0)
+            {
+                throw new ArgumentException("seed");
+            }
+
+            int len = seed.Length;
+            this._dict = new int[len];
+            int i = 0;
+            foreach (char c in seed)
+            {
+                this._dict[i++] = c;
+            }
+        }
+        public SessionGenerator():this(null,5)
+        {
+        }
         /// <summary>
         /// 创建一个新的Key
         /// </summary>
         /// <returns></returns>
-        public static string CreateKey()
+        public string CreateKey()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append(String.Format("{0:yyMMHHssfff}", DateTime.Now));
             Random rd = new Random();
-            int arrayLength = charArray.Length;
+            int arrayLength = this._dict.Length;
 
             int i = 0;
             do
             {
                 ++i;
-                sb.Append((char)charArray[rd.Next(0, arrayLength - 1)]);
+                sb.Append((char)_dict[rd.Next(0, arrayLength - 1)]);
             }
-            while (i < Variables.SeesionKeyLength);
+            while (i < this.length);
 
-            return sb.ToString();
+            return sb.ToString().Encode16MD5().ToLower();
         }
     }
 }
