@@ -67,6 +67,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{40
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "Source_Code\UnitTest\UnitTest\UnitTest.csproj", "{597265C4-149C-431E-BADF-7B1CC58386DC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{1F8A8925-6DB7-4677-B877-4832DC272F4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.plugin.datapicker", "plugin\com.plugin.datapicker\com.plugin.datapicker.csproj", "{63764DFD-7388-4485-8F39-7D20E7F05E0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -170,6 +174,10 @@ Global
 		{597265C4-149C-431E-BADF-7B1CC58386DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{597265C4-149C-431E-BADF-7B1CC58386DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{597265C4-149C-431E-BADF-7B1CC58386DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,6 +208,7 @@ Global
 		{D40B1FB7-00F9-4D07-B034-EB51AB99E447} = {D594E550-2775-47F9-B03F-A420A070F5EA}
 		{3BF019C1-D74E-470B-B4E8-52640A29AC27} = {EF2C06AC-E529-4956-8F84-382F4BF0666B}
 		{597265C4-149C-431E-BADF-7B1CC58386DC} = {408AB9CE-4C41-4BF3-9C2E-EDD96D4ECB92}
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B} = {1F8A8925-6DB7-4677-B877-4832DC272F4C}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Source_Code\OPSite.WebLogic\OPSite.WebLogic.csproj
