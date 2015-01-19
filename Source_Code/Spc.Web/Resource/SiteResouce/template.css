@@ -20,6 +20,7 @@ div.line{border-top:solid 1px #ddd;border-bottom:solid 1px #fff;height:0px;overf
 /* 高亮显示 */
 .hight_light,.search_hightlight,.special{color:Red;}
 img.full{width:100%;}
+*:required { /* insert your own styles for invalid form input */ -moz-box-shadow: none; }
 
 /* +++++++++++++ Layout ++++++++++++++ */
 
