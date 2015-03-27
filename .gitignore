@@ -1,4 +1,4 @@
-﻿*.pdb
+*.pdb
 *.txt
 *.cache
 *.suo
@@ -18,4 +18,3 @@ bootstrap
 /chunk/dist/Ops.Cms.Extend.pdb
 /chunk/dist/ops.cms.extend.dll
 /chunk/Source_Code/UIApp/Ops.Cms.WebUI/config/cache.pid
-/dist
