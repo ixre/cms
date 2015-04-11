@@ -1,10 +1,7 @@
-﻿using Spc;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Ops.Cms.Domain.Interface.Site.Category
+namespace AtNet.Cms.Domain.Interface.Site.Category
 {
     public static class CategoryFilter
     {

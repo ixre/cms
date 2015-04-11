@@ -1,6 +1,6 @@
-﻿using Ops.Cms.Domain.Interface.Common;
+﻿using AtNet.Cms.Domain.Interface.Common;
 
-namespace Ops.Cms.Domain.Interface.Content
+namespace AtNet.Cms.Domain.Interface.Content
 {
     /// <summary>
     /// 

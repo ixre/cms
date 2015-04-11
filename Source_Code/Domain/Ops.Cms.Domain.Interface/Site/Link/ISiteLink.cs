@@ -1,5 +1,5 @@
 ﻿
-namespace Ops.Cms.Domain.Interface.Site.Link
+namespace AtNet.Cms.Domain.Interface.Site.Link
 {
     /// <summary>
     /// 链接

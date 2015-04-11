@@ -1,6 +1,6 @@
-﻿using Ops.Cms.Domain.Interface.Site.Template;
+﻿using AtNet.Cms.Domain.Interface.Site.Template;
 
-namespace Ops.Cms.Domain.Implement.Site.Template
+namespace AtNet.Cms.Domain.Implement.Site.Template
 {
     public class TemplateBind:ITemplateBind
     {

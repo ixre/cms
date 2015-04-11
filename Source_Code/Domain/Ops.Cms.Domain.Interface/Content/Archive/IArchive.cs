@@ -6,12 +6,13 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Template;
+
 using System;
 using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Template;
 
-namespace Ops.Cms.Domain.Interface.Content.Archive
+namespace AtNet.Cms.Domain.Interface.Content.Archive
 {
 	/// <summary>
     /// 编号,一个16位Md5字符串

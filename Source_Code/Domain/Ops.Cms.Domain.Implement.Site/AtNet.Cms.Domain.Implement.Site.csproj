@@ -7,8 +7,8 @@
     <ProjectGuid>{2A596A39-7197-4932-B30B-3AE4EE10FDFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ops.Cms.Domain.Implement.Site</RootNamespace>
-    <AssemblyName>Ops.Cms.Domain.Implement.Site</AssemblyName>
+    <RootNamespace>AtNet.Cms.Domain.Implement.Site</RootNamespace>
+    <AssemblyName>AtNet.Cms.Domain.Implement.Site</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -51,13 +51,13 @@
     <Compile Include="Template\TemplateBind.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Ops.Cms.Infrastructure\Ops.Cms.Infrastructure.csproj">
+    <ProjectReference Include="..\..\Framework\Ops.Cms.Infrastructure\AtNet.Cms.Infrastructure.csproj">
       <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
-      <Name>Ops.Cms.Infrastructure</Name>
+      <Name>AtNet.Cms.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ops.Cms.Domain.Interface\Ops.Cms.Domain.Interface.csproj">
+    <ProjectReference Include="..\Ops.Cms.Domain.Interface\AtNet.Cms.Domain.Interface.csproj">
       <Project>{db45ca62-9b89-4abe-9ed2-54b45175d37b}</Project>
-      <Name>Ops.Cms.Domain.Interface</Name>
+      <Name>AtNet.Cms.Domain.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

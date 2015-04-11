@@ -1,5 +1,5 @@
 ﻿
-namespace Ops.Cms.Domain.Interface.Site.Template
+namespace AtNet.Cms.Domain.Interface.Site.Template
 {
     public interface ITemplateBind:IDomain<int>
     {

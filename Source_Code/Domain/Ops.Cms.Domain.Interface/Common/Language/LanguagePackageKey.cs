@@ -1,5 +1,5 @@
 ﻿
-namespace Ops.Cms.Domain.Interface.Common.Language
+namespace AtNet.Cms.Domain.Interface.Common.Language
 {
     /// <summary>
     /// 语言包键值

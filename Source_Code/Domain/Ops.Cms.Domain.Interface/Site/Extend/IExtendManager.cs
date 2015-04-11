@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Ops.Cms.Domain.Interface.Site.Extend
+namespace AtNet.Cms.Domain.Interface.Site.Extend
 {
     public interface IExtendManager
     {

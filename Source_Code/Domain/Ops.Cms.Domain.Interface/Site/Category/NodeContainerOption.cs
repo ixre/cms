@@ -5,10 +5,9 @@
  * author   : newmin
  * date     : 2013/05/16 11:12
  */
-namespace Ops.Cms.Domain.Interface.Site.Category
-{
-    using System;
 
+namespace AtNet.Cms.Domain.Interface.Site.Category
+{
     /// <summary>
     /// 节点包含选项
     /// </summary>

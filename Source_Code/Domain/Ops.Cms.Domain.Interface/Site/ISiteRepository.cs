@@ -1,8 +1,8 @@
-﻿using Ops.Cms.Domain.Interface.Site.Link;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Site.Link;
 
-namespace Ops.Cms.Domain.Interface.Site
+namespace AtNet.Cms.Domain.Interface.Site
 {
     public interface ISiteRepository
     {

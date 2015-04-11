@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Ops.Cms.Infrastructure;
-using Ops.Cms.Infrastructure.KV;
-using kv = Ops.Cms.Infrastructure;
+﻿using AtNet.Cms.Infrastructure.KV;
 
-namespace Ops.Cms.CacheService
+namespace AtNet.Cms.CacheService
 {
     public static class Kvdb
     {
@@ -15,7 +9,7 @@ namespace Ops.Cms.CacheService
         /// </summary>
         public static LevelDb GCA
         {
-            get { return kv.Kvdb._currentInstance;}
+            get { return Infrastructure.Kvdb._currentInstance;}
         }
     }
 }

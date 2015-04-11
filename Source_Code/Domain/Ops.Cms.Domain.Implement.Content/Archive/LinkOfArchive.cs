@@ -1,12 +1,9 @@
-﻿using Ops.Cms.Domain.Interface;
-using Ops.Cms.Domain.Interface.Common;
-using Ops.Cms.Domain.Interface.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using AtNet.Cms.Domain.Interface;
+using AtNet.Cms.Domain.Interface.Common;
+using AtNet.Cms.Domain.Interface.Content;
 
-namespace Ops.Cms.Domain.Implement.Content.Archive
+namespace AtNet.Cms.Domain.Implement.Content.Archive
 {
     internal class LinkOfArchive : IContentLink
     {

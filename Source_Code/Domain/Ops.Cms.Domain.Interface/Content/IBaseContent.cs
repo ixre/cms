@@ -1,8 +1,8 @@
-﻿using Ops.Cms.Domain.Interface.Common;
-using Ops.Cms.Domain.Interface.Site.Category;
-using System;
+﻿using System;
+using AtNet.Cms.Domain.Interface.Common;
+using AtNet.Cms.Domain.Interface.Site.Category;
 
-namespace Ops.Cms.Domain.Interface.Content
+namespace AtNet.Cms.Domain.Interface.Content
 {
     public interface IBaseContent:IAggregateroot
     {

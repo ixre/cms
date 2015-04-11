@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ops.Cms.Domain.Interface.Content.Archive
+namespace AtNet.Cms.Domain.Interface.Content.Archive
 {
     public interface IArchiveRepository
     {

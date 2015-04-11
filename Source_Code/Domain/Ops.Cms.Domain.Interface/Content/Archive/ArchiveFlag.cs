@@ -5,17 +5,17 @@
  * date     : 2012/12/22
  */
 
-using Ops.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using AtNet.DevFw.Utils;
 
-namespace Ops.Cms.Domain.Interface.Content.Archive
+namespace AtNet.Cms.Domain.Interface.Content.Archive
 {
     /// <summary>
     /// 内置的文档标签
     /// </summary>
-    [FlagsAttribute]
+    [Flags]
     public enum BuiltInArchiveFlags : int
     {
         /// <summary>

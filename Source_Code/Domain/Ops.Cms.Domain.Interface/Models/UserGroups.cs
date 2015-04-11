@@ -1,4 +1,4 @@
-﻿namespace Spc.Models
+﻿namespace AtNet.Cms.Domain.Interface.Models
 {
     public enum UserGroups:int
     {

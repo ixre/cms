@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 
-namespace Ops.Cms.Domain.Interface.Common.Language
+namespace AtNet.Cms.Domain.Interface.Common.Language
 {
     public class LanguagePackage
     {

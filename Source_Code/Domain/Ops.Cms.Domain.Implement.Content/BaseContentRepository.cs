@@ -1,8 +1,8 @@
-﻿using Ops.Cms.Domain.Interface.Content;
-using Ops.Cms.Domain.Interface.Content.Archive;
-using Ops.Cms.Domain.Interface.Site.Template;
+﻿using AtNet.Cms.Domain.Interface.Content;
+using AtNet.Cms.Domain.Interface.Content.Archive;
+using AtNet.Cms.Domain.Interface.Site.Template;
 
-namespace Ops.Cms.Domain.Implement.Content
+namespace AtNet.Cms.Domain.Implement.Content
 {
     public abstract class BaseContentRepository
     {

@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: UrlRuleType
 * Author	: Newmin (new.min@msn.com)
@@ -8,7 +8,7 @@
 *
 */
 
-namespace Ops.Cms.Domain.Interface.Enum
+namespace AtNet.Cms.Domain.Interface.Enum
 {
     /// <summary>
     /// 地址规则类型

@@ -6,8 +6,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>Ops.Cms.Domain.Implement.Content</RootNamespace>
-    <AssemblyName>Ops.Cms.Domain.Implement.Content</AssemblyName>
+    <RootNamespace>AtNet.Cms.Domain.Implement.Content</RootNamespace>
+    <AssemblyName>AtNet.Cms.Domain.Implement.Content</AssemblyName>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -49,9 +49,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ops.Cms.Domain.Interface\Ops.Cms.Domain.Interface.csproj">
+    <ProjectReference Include="..\Ops.Cms.Domain.Interface\AtNet.Cms.Domain.Interface.csproj">
       <Project>{db45ca62-9b89-4abe-9ed2-54b45175d37b}</Project>
-      <Name>Ops.Cms.Domain.Interface</Name>
+      <Name>AtNet.Cms.Domain.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

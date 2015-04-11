@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 OPSoft Inc
+* Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: PropertyUI
 * Author	: Newmin (new.min@msn.com)
@@ -9,7 +9,7 @@
 */
 
 
-namespace Ops.Cms.Domain.Interface.Enum
+namespace AtNet.Cms.Domain.Interface.Enum
 {
     /// <summary>
     /// 模块属性UI类型

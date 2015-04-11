@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ops.Cms.Domain.Interface.Common
+namespace AtNet.Cms.Domain.Interface.Common
 {
     /// <summary>
     /// 链接关联

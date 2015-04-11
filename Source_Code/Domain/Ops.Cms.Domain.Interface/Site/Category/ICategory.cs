@@ -8,13 +8,12 @@
 
 //根节点只能有一个
 
-namespace Ops.Cms.Domain.Interface.Site.Category
-{
-    using Ops.Cms.Domain.Interface.Site;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Template;
 using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Template;
 
+namespace AtNet.Cms.Domain.Interface.Site.Category
+{
     /// <summary>
     /// 栏目
     /// </summary>

@@ -6,7 +6,7 @@
  * date     : 2010/11/06 23:45
  * 
  */
-namespace Spc.Models
+namespace AtNet.Cms.Domain.Interface.Models
 {
 
     /// <summary>

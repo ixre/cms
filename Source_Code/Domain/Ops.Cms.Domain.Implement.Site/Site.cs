@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (C) 2007-2015 OPSoft INC,All rights reseved.
+ * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
  * Get more infromation of this software,please visit site http://cms.ops.cc
  * 
  * name : Site.cs
@@ -9,25 +9,24 @@
  * history : 
  */
 
-using Ops.Cms.Domain.Implement.Site.Extend;
-using Ops.Cms.Domain.Implement.Site.Link;
-using Ops.Cms.Domain.Interface;
-using Ops.Cms.Domain.Interface.Common.Language;
-using Ops.Cms.Domain.Interface.Site;
-using Ops.Cms.Domain.Interface.Site.Category;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Link;
-using Ops.Cms.Domain.Interface.Site.Template;
-using Ops.Cms.Infrastructure;
-using Ops.Cms.Infrastructure.Tree;
-using Ops.Framework.Algorithm;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using AtNet.Cms.Domain.Implement.Site.Extend;
+using AtNet.Cms.Domain.Implement.Site.Link;
+using AtNet.Cms.Domain.Interface;
+using AtNet.Cms.Domain.Interface.Common.Language;
+using AtNet.Cms.Domain.Interface.Site;
+using AtNet.Cms.Domain.Interface.Site.Category;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Link;
+using AtNet.Cms.Domain.Interface.Site.Template;
+using AtNet.Cms.Infrastructure;
+using AtNet.Cms.Infrastructure.Tree;
 
-namespace Ops.Cms.Domain.Implement.Site
+namespace AtNet.Cms.Domain.Implement.Site
 {
     internal class Site:ISite
     {
@@ -284,7 +283,7 @@ namespace Ops.Cms.Domain.Implement.Site
        public ICategory GetCategoryByTag(string categoryTag)
        {
            //如果包含映射，则二分查找
-           int lft = this._categoryRep.GetCategoryLftByTag(this.Id, categoryTag.ToLower());
+           int lft = this._categoryRep.GetCategoryLftByTag(this.Id, categoryTag);
            if (lft != -1)
            {
                return BinarySearch.IntSearch(this.Categories, 0, this.Categories.Count, lft, a => a.Lft);

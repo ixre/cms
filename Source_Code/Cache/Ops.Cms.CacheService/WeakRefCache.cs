@@ -1,12 +1,12 @@
 ﻿
-namespace Ops.Cms.CacheService
-{
-    using Ops.Cms.Cache;
-    using Ops.Cms.DataTransfer;
-    using Ops.Cms.Infrastructure;
-    using System;
-    using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+using AtNet.Cms.Cache;
+using AtNet.Cms.Infrastructure;
+using AtNet.Cms.DataTransfer;
 
+namespace AtNet.Cms.CacheService
+{
     /// <summary>
     /// 弱引用缓存
     /// </summary>

@@ -1,7 +1,7 @@
-﻿using Ops.Cms.DataTransfer;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AtNet.Cms.DataTransfer;
 
-namespace Ops.Cms.CacheService
+namespace AtNet.Cms.CacheService
 {
     /// <summary>
     /// 

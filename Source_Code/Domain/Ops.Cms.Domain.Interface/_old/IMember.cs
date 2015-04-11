@@ -1,4 +1,4 @@
-﻿namespace Ops.Cms.Domain.Interface._old
+﻿namespace AtNet.Cms.Domain.Interface._old
 {
     public interface Imember
     {
@@ -6,14 +6,14 @@
         bool DetectNickNameAvailable(string nickname);
         bool DetectUsernameAvailable(string username);
         string GenericMemberToken(string username);
-        Spc.Models.Member GetMember(int memberID);
-        Spc.Models.Member GetMember(string username);
-        void GetMemberDetails(int id, out Spc.Models.Member member, out Spc.Models.MemberDetails details);
-        void GetMemberDetails(string username, out Spc.Models.Member member, out Spc.Models.MemberDetails details);
+        Models.Member GetMember(int memberID);
+        Models.Member GetMember(string username);
+        void GetMemberDetails(int id, out Models.Member member, out Models.MemberDetails details);
+        void GetMemberDetails(string username, out Models.Member member, out Models.MemberDetails details);
         System.Data.DataTable GetPagedMembers(int pageSize, ref int currentPageIndex, out int recordCount, out int pageCount);
         int Regsiter(string username, string password, string nickname, string email, string ip, bool needActive);
-        void Update(Spc.Models.Member member);
-        Spc.Models.Member VerifyMember(string username, string password);
+        void Update(Models.Member member);
+        Models.Member VerifyMember(string username, string password);
         bool VerifyToken(string token, string username);
     }
 }
