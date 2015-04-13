@@ -1,12 +1,9 @@
-﻿using Ops.Cms.DB;
-using Ops.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Text.RegularExpressions;
+using AtNet.Cms.DB;
+using AtNet.DevFw.Data;
 
-namespace Ops.Cms.DAL
+namespace AtNet.Cms.DAL
 {
     public class SqlQueryHelper
     {

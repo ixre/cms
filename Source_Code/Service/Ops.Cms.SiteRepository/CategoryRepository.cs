@@ -1,18 +1,17 @@
-﻿using Ops.Cms.DAL;
-using Ops.Cms.Domain.Implement.Site.Category;
-using Ops.Cms.Domain.Interface.Site;
-using Ops.Cms.Domain.Interface.Site.Category;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Template;
-using Ops.Cms.Infrastructure;
-using Ops.Data;
-using Ops.Framework.Algorithm;
-using StructureMap;
+﻿using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Implement.Site.Category;
+using AtNet.Cms.Domain.Interface.Site;
+using AtNet.Cms.Domain.Interface.Site.Category;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Template;
+using AtNet.Cms.Infrastructure;
+using AtNet.DevFw.Data.Extensions;
 
-namespace Ops.Cms.ServiceRepository
+namespace AtNet.Cms.ServiceRepository
 {
     public class CategoryRepository : BaseCategoryRepository, ICategoryRepository
     {
@@ -21,7 +20,6 @@ namespace Ops.Cms.ServiceRepository
 
 
         private CategoryDAL categoryDal = new CategoryDAL();
-        private TemplateBindDAL tplDal = new TemplateBindDAL();
         private ISiteRepository __siteRep;
         private ITemplateRepository _tempRep;
 
@@ -116,13 +114,20 @@ namespace Ops.Cms.ServiceRepository
                 RepositoryDataCache._categories[_category.Site.Id].Add(_category);
 
                 //添加Tag映射
-                Kvdb.Put(String.Format("{0}+cache_t_lft_{1}",
+                Kvdb.Put(String.Format("{0}:cache:t:lft:{1}",
                     _category.Site.Id.ToString(),
                     _category.Tag),
                     _category.Lft.ToString());
+
+                if (_category.Site.Id ==1 &&_category.Tag.IndexOf("duct")!=-1)
+                {
+                    var x = "1:cache:t:lft:duct-machine" == String.Format("{0}:cache:t:lft:{1}",
+                    _category.Site.Id.ToString(),
+                    _category.Tag);
+                }
  
                 //添加ID映射
-                Kvdb.Put(String.Format("{0}+cache_id_lft_{1}",
+                Kvdb.Put(String.Format("{0}:cache:id:lft:{1}",
                    _category.Site.Id.ToString(),
                    _category.Id.ToString()),
                    _category.Lft.ToString());
@@ -137,14 +142,23 @@ namespace Ops.Cms.ServiceRepository
 
         public int GetCategoryLftByTag(int siteId, string tag)
         {
-            string key =  String.Format("{0}+cache_t_lft_{1}", siteId.ToString(), tag);
+            if (RepositoryDataCache._categories == null)
+            {
+                GetCategoryDictionary();
+            }
+            string key =  String.Format("{0}:cache:t:lft:{1}", siteId.ToString(), tag);
             return Kvdb.GetInt(key);
         }
 
         public int GetCategoryLftById(int siteId, int id)
         {
+            if (RepositoryDataCache._categories == null)
+            {
+                GetCategoryDictionary();
+            }
+          
             //添加ID映射
-            string key = String.Format("{0}+cache_id_lft_{1}", siteId.ToString(), id.ToString());
+            string key = String.Format("{0}:cache:id:lft:{1}", siteId.ToString(), id.ToString());
             return Kvdb.GetInt(key);
         }
 

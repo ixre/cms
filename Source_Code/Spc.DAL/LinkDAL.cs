@@ -1,17 +1,16 @@
 ﻿//
 // LinkDAL   友情链接数据访问层
-// Copryright 2011 @ OPS Inc,All rights reseved !
+// Copryright 2011 @ S1N1.COM,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
-namespace Ops.Cms.DAL
-{
-    using Ops.Cms.IDAL;
-    using Ops.Data;
-    using Spc.Models;
-    using Ops.Cms.Domain.Interface.Site.Link;
-    using Ops.Cms.Domain.Interface.Common;
-    using System.Collections.Generic;
 
+using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Common;
+using AtNet.Cms.Domain.Interface.Site.Link;
+using AtNet.DevFw.Data;
+
+namespace AtNet.Cms.DAL
+{
     /// <summary>
     /// 友情链接数据访问
     /// </summary>

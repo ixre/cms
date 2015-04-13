@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 OPSoft Inc
+* Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: TemplateBindDAL
 * Author	: Administrator
@@ -8,11 +8,11 @@
 *
 */
 
-using Ops.Cms.Domain.Interface.Site.Template;
-using Ops.Data;
 using System;
+using AtNet.Cms.Domain.Interface.Site.Template;
+using AtNet.DevFw.Data;
 
-namespace Ops.Cms.DAL
+namespace AtNet.Cms.DAL
 {
     public class TemplateBindDAL:DALBase
     {

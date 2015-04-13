@@ -1,8 +1,8 @@
-﻿using Ops.Cms.DataTransfer;
+﻿using AtNet.Cms.DataTransfer;
 using System.Collections.Generic;
 using System.Data;
 
-namespace Ops.Cms.ServiceContract
+namespace AtNet.Cms.ServiceContract
 {
     public interface IArchiveServiceContract
     { 

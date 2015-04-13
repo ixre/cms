@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: TableBLL
 * Author	: Newmin (new.min@msn.com)
@@ -9,24 +9,22 @@
 */
 
 
-using Ops.Cms.Domain.Interface._old;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface._old;
+using AtNet.Cms.IDAL;
+using AtNet.Cms.Infrastructure;
+using AtNet.DevFw.Data.Extensions;
 
-namespace Spc.BLL
+namespace AtNet.Cms.BLL
 {
-    using Ops.Cms.DAL;
-    using Ops.Cms.IDAL;
-    using Ops.Cms.Infrastructure;
-    using Ops.Data;
-    using Spc.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Data;
-    using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using Ops.Data;
-
     public class TableBLL : ITable
     {
         private static ITableDAL dal = new TableDAL();

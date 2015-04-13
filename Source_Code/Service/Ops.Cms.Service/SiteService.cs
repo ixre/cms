@@ -1,21 +1,21 @@
-﻿using Ops.Cms.DataTransfer;
-using Ops.Cms.Domain.Interface;
-using Ops.Cms.Domain.Interface.Site;
-using Ops.Cms.Domain.Interface.Site.Category;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Link;
-using Ops.Cms.Domain.Interface.Site.Template;
-using Ops.Cms.Infrastructure.Tree;
-using Ops.Cms.ServiceContract;
+﻿using AtNet.Cms.DataTransfer;
+using AtNet.Cms.ServiceContract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Ops.Framework.Extensions;
+using AtNet.Cms.Domain.Interface;
+using AtNet.Cms.Domain.Interface.Site;
+using AtNet.Cms.Domain.Interface.Site.Category;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Link;
+using AtNet.Cms.Domain.Interface.Site.Template;
+using AtNet.Cms.Infrastructure.Tree;
+using AtNet.DevFw.Framework.Extensions;
 
-namespace Ops.Cms.Service
+namespace AtNet.Cms.Service
 {
-    public class SiteService:ISiteServiceContract
+    public class SiteService : ISiteServiceContract
     {
         private ISiteRepository _resp;
         private IExtendFieldRepository _extendResp;
@@ -35,13 +35,12 @@ namespace Ops.Cms.Service
 
         public int SaveSite(SiteDto site)
         {
-            if (site.SiteId!=0 && _resp.GetSites().SingleOrDefault(a => a.Id == site.SiteId)==null)
+            if (site.SiteId != 0 && _resp.GetSites().SingleOrDefault(a => a.Id == site.SiteId) == null)
             {
                 site.SiteId = 0;
             }
             ISite _site = _resp.CreateSite(site.SiteId, site.Name);
-            //todo: clone
-            TExtensions.CloneData(_site, site);
+            _site.CloneData(site);
             return _site.Save();
         }
 
@@ -50,7 +49,7 @@ namespace Ops.Cms.Service
         {
             IList<SiteDto> siteDtos = new List<SiteDto>();
             IList<ISite> sites = _resp.GetSites();
-            foreach(ISite site in sites)
+            foreach (ISite site in sites)
             {
                 siteDtos.Add(SiteDto.ConvertFromSite(site));
             }
@@ -75,10 +74,10 @@ namespace Ops.Cms.Service
 
         public SiteDto GetSingleOrDefaultSite(Uri uri)
         {
-            return getSiteDtoFromISite( 
+            return getSiteDtoFromISite(
                 _resp.GetSingleOrDefaultSite(uri)
                 );
-           
+
         }
 
 
@@ -97,25 +96,21 @@ namespace Ops.Cms.Service
             IEnumerable<IExtendField> extends = site.Extend.GetAllExtends();
             foreach (IExtendField extend in extends)
             {
-
-                //todo: clone
-                dto = TExtensions.CloneData(new ExtendFieldDto(), extend);
+                dto = new ExtendFieldDto().CloneData(extend);
                 dto.Id = extend.Id;
                 yield return dto;
             }
         }
 
 
-        public int SaveExtendField(int siteId,ExtendFieldDto dto)
+        public int SaveExtendField(int siteId, ExtendFieldDto dto)
         {
             ISite site = this._resp.GetSiteById(siteId);
             if (site == null)
                 throw new Exception("站点不存在");
 
-            IExtendField field=this._extendResp.CreateExtendField(dto.Id,dto.Name);
-
-            //todo: clone
-            TExtensions.CloneData(field, dto);
+            IExtendField field = this._extendResp.CreateExtendField(dto.Id, dto.Name);
+            field.CloneData(dto);
             return site.Extend.SaveExtendField(field);
         }
 
@@ -139,11 +134,11 @@ namespace Ops.Cms.Service
             return CategoryDto.ConvertFrom(site.GetCategoryByTag(categoryTag));
         }
 
-       
+
 
         public IEnumerable<CategoryDto> GetCategories(int siteId)
         {
-            IList<SiteDto> siteDtos = new List<SiteDto>(); 
+            IList<SiteDto> siteDtos = new List<SiteDto>();
             ISite site = this._resp.GetSiteById(siteId);
             IList<ICategory> categories = site.Categories;
             foreach (ICategory category in categories)
@@ -153,11 +148,11 @@ namespace Ops.Cms.Service
         }
 
         public IEnumerable<CategoryDto> GetCategories(
-            int siteId,int lft, int rgt,
+            int siteId, int lft, int rgt,
             CategoryContainerOption categoryContainerOption)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            IEnumerable<ICategory> categories = 
+            IEnumerable<ICategory> categories =
                 site.GetCategories(lft, rgt, categoryContainerOption);
             CategoryDto dto;
             foreach (ICategory category in categories)
@@ -172,13 +167,13 @@ namespace Ops.Cms.Service
             return CategoryDto.ConvertFrom(site.GetCategoryByLft(lft));
         }
 
-        public bool DeleteCategoryByLft(int siteId,int lft)
+        public bool DeleteCategoryByLft(int siteId, int lft)
         {
             ISite site = this._resp.GetSiteById(siteId);
             return site.DeleteCategory(lft);
         }
 
-        public void ItrCategoryTree(StringBuilder sb,int siteId,int categoryLft)
+        public void ItrCategoryTree(StringBuilder sb, int siteId, int categoryLft)
         {
             ISite site = this._resp.GetSiteById(siteId);
             site.ItreCategoryTree(sb, categoryLft);
@@ -186,7 +181,7 @@ namespace Ops.Cms.Service
 
 
 
-        public void HandleCategoryTree(int siteId, int lft,CategoryTreeHandler treeHandler)
+        public void HandleCategoryTree(int siteId, int lft, CategoryTreeHandler treeHandler)
         {
             ISite site = this._resp.GetSiteById(siteId);
             site.HandleCategoryTree(lft, treeHandler);
@@ -292,41 +287,42 @@ namespace Ops.Cms.Service
             ISite site = this._resp.GetSiteById(siteId);
             ICategory category = site.GetCategoryByTag(categoryTag);
             if (category == null) throw new Exception("栏目不存在");
-            rootLft=site.RootCategory.Lft;
+            rootLft = site.RootCategory.Lft;
 
             string html = "";
-            StringBuilder sb=new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             int tmpInt = 0;
 
             while (category != null && category.Lft != rootLft)
             {
                 sb.Remove(0, sb.Length);
 
-                    sb.Append("<a href=\"")
-                        .Append(String.Format(linkFormat, category.UriPath))
-                        .Append("\"");
+                sb.Append("<a href=\"")
+                    .Append(String.Format(linkFormat, category.UriPath))
+                    .Append("\"");
 
-                    //栏目的上一级添加不追踪特性
-                    if (++tmpInt > 1)
-                    {
-                        sb.Append(" rel=\"nofollow\"");
-                    }
-                    sb.Append(">").Append(category.Name).Append("</a>");
-               
+                //栏目的上一级添加不追踪特性
+                if (++tmpInt > 1)
+                {
+                    sb.Append(" rel=\"nofollow\"");
+                }
+                sb.Append(">").Append(category.Name).Append("</a>");
+
 
                 //添加分隔符
-                if(tmpInt!=1){
-                     sb.Append(split);
+                if (tmpInt != 1)
+                {
+                    sb.Append(split);
                 }
 
                 html = sb.ToString() + html;
 
-                category=category.Parent;
+                category = category.Parent;
             }
 
             //去掉双斜杠
-           // Regex reg = new Regex("\\b//");
-           // return reg.Replace(sb.ToString(), "/");
+            // Regex reg = new Regex("\\b//");
+            // return reg.Replace(sb.ToString(), "/");
 
             return html;
         }
@@ -336,25 +332,24 @@ namespace Ops.Cms.Service
         {
             ISite site = this._resp.GetSiteById(siteId);
             ICategory category = site.GetCategoryByTag(categoryTag);
-            bool categoryIsNull = category == null;
 
-            if (categoryIsNull) 
+            if (category == null)
                 return true;
-
-            if (categoryId <= 0)
-            {
-                return categoryIsNull;
-            }
+            //
+            //            if (categoryId <= 0)
+            //            {
+            //                return false;
+            //            }
             return category.Id == categoryId;
 
         }
 
 
-        public IEnumerable<SiteLinkDto> GetLinksByType(int siteId,SiteLinkType type,bool ignoreDisabled)
+        public IEnumerable<SiteLinkDto> GetLinksByType(int siteId, SiteLinkType type, bool ignoreDisabled)
         {
             ISite site = this._resp.GetSiteById(siteId);
             IEnumerable<ISiteLink> links = site.LinkManager.GetLinks(type);
-            foreach(ISiteLink link in links)
+            foreach (ISiteLink link in links)
             {
                 if (!ignoreDisabled && !link.Visible) continue;
 
@@ -366,7 +361,7 @@ namespace Ops.Cms.Service
         public void DeleteLink(int siteId, int linkId)
         {
             ISite site = this._resp.GetSiteById(siteId);
-           
+
             site.LinkManager.DeleteLink(linkId);
         }
 
@@ -375,7 +370,7 @@ namespace Ops.Cms.Service
         {
             ISite site = this._resp.GetSiteById(siteId);
             ISiteLink link = null;
-            if(dto.Id <=0 )
+            if (dto.Id <= 0)
             {
                 link = this._resp.CreateLink(site, 0, dto.Text);
             }

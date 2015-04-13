@@ -1,12 +1,11 @@
-﻿using Ops.Cms.DataTransfer;
-using Ops.Cms.Domain.Interface.Common;
-using Ops.Cms.Domain.Interface.Content;
-using Ops.Cms.Domain.Interface.Content.Archive;
-using Ops.Cms.ServiceContract;
+﻿using AtNet.Cms.DataTransfer;
+using AtNet.Cms.ServiceContract;
 using System;
 using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Common;
+using AtNet.Cms.Domain.Interface.Content;
 
-namespace Ops.Cms.Service
+namespace AtNet.Cms.Service
 {
     public class ContentService : IContentServiceContract
     {

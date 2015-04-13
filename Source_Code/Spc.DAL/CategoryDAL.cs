@@ -7,10 +7,11 @@
 // --------------------------------------
 // 2011/02/20  newmin:修改GetJson(CategoryType type)生成的json多了','的Bug
 //
-namespace Ops.Cms.DAL
-{
-    using Ops.Data;
 
+using AtNet.DevFw.Data;
+
+namespace AtNet.Cms.DAL
+{
     public class CategoryDAL : DALBase
     {
         /// <summary>

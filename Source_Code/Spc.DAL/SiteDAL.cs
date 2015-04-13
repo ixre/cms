@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Ops.Cms.IDAL;
-using Ops.Data;
-using Ops.Data.Orm;
-using Ops.Cms.Domain.Interface.Site;
+﻿using AtNet.Cms.Domain.Interface.Site;
+using AtNet.DevFw.Data;
 
-namespace Ops.Cms.DAL
+namespace AtNet.Cms.DAL
 {
     public class SiteDAL : DALBase
     {

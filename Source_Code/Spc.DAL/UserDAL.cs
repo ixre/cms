@@ -1,10 +1,10 @@
-﻿namespace Ops.Cms.DAL
-{
-    using Ops.Data;
-    using Ops.Cms.IDAL;
-    using System;
-    using System.Data;
+﻿using System;
+using System.Data;
+using AtNet.Cms.IDAL;
+using AtNet.DevFw.Data;
 
+namespace AtNet.Cms.DAL
+{
     public class UserDAL : DALBase, IUserDAL
     {
         /// <summary>

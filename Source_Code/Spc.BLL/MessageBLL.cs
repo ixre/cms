@@ -1,18 +1,17 @@
 ﻿//
 // MessageBLL   消息逻辑
-// Copryright 2011 @ OPS Inc,All rights reseved !
+// Copryright 2011 @ S1N1.COM,All rights reseved !
 // Create by newmin @ 2011/04/06
 //
 
-using Ops.Cms.Domain.Interface._old;
+using System.Collections.Generic;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface._old;
+using AtNet.DevFw.Data.Extensions;
 
-namespace Spc.BLL
+namespace AtNet.Cms.BLL
 {
-    using Ops.Cms.DAL;
-    using Ops.Data;
-    using Spc.Models;
-    using System.Collections.Generic;
-
     /// <summary>
     /// 会员数据访问
     /// </summary>

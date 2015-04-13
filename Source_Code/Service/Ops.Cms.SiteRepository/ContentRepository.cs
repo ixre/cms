@@ -1,13 +1,11 @@
-﻿using Ops.Cms.Domain.Implement.Content;
-using Ops.Cms.Domain.Interface.Content;
-using Ops.Cms.Domain.Interface.Content.Archive;
-using Ops.Cms.Domain.Interface.Site.Category;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Template;
-using StructureMap;
+﻿using StructureMap;
 using System.Collections.Generic;
+using AtNet.Cms.Domain.Implement.Content;
+using AtNet.Cms.Domain.Interface.Content;
+using AtNet.Cms.Domain.Interface.Content.Archive;
+using AtNet.Cms.Domain.Interface.Site.Template;
 
-namespace Ops.Cms.ServiceRepository
+namespace AtNet.Cms.ServiceRepository
 {
     public class ContentRepository : BaseContentRepository, IContentRepository
     {

@@ -1,16 +1,13 @@
 ﻿
-namespace Spc.BLL
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Spc.Models;
-    using Ops.Cms.IDAL;
-    using Ops.Cms.DAL;
-    using Ops.Data;
-    using Ops.Cms.Infrastructure;
+using System;
+using System.Collections.Generic;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.IDAL;
+using AtNet.Cms.Infrastructure;
 
+namespace AtNet.Cms.BLL
+{
     /// <summary>
     /// 弱引用缓存
     /// </summary>

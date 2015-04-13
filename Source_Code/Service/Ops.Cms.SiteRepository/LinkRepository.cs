@@ -1,10 +1,10 @@
 ﻿using System.Globalization;
-using Ops.Cms.DAL;
-using Ops.Cms.Domain.Interface.Common;
 using System;
 using System.Collections.Generic;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Interface.Common;
 
-namespace Ops.Cms.ServiceRepository
+namespace AtNet.Cms.ServiceRepository
 {
     public class LinkRepository : ILinkRepository
     {
