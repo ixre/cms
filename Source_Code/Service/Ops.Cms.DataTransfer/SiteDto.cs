@@ -1,6 +1,6 @@
 ﻿
 /*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: Site.cs
 * Author	: Newmin (new.min@msn.com)
@@ -9,12 +9,12 @@
 *
 */
 
-namespace Ops.Cms.DataTransfer
-{
-    using Ops.Cms.Domain.Interface.Common.Language;
-    using Ops.Cms.Domain.Interface.Site;
-    using Ops.Framework.Automation;
+using AtNet.Cms.Domain.Interface.Common.Language;
+using AtNet.Cms.Domain.Interface.Site;
+using AtNet.DevFw.Framework.Automation;
 
+namespace AtNet.Cms.DataTransfer
+{
     /// <summary>
     /// 站点
     /// </summary>
