@@ -1,7 +1,7 @@
-﻿using Ops.Cms.Domain.Interface.Site;
-using Ops.Cms.Domain.Interface.Site.Link;
+﻿using AtNet.Cms.Domain.Interface.Site;
+using AtNet.Cms.Domain.Interface.Site.Link;
 
-namespace Ops.Cms.Domain.Implement.Site.Link
+namespace AtNet.Cms.Domain.Implement.Site.Link
 {
     public class SiteLink:ISiteLink
     {

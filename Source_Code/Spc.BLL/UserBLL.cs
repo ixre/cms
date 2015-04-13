@@ -1,23 +1,22 @@
 ﻿//
-// Copyright OPSoft Inc.
+// Copyright S1N1.COM.
 // UserBLL.cs newmin (new.min@msn.com)
 //
 
-using Ops.Cms.Domain.Interface._old;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
+using System.Text.RegularExpressions;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface._old;
+using AtNet.Cms.IDAL;
+using AtNet.DevFw.Data.Extensions;
+using AtNet.DevFw.Framework.Extensions;
 
-namespace Spc.BLL
+namespace AtNet.Cms.BLL
 {
-    using Ops.Cms.DAL;
-    using Ops.Cms.IDAL;
-    using Ops.Data;
-    using Ops.Framework.Extensions;
-    using Spc.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Text;
-    using System.Text.RegularExpressions;
-
     public class UserBLL : IUser
     {
         private IUserDAL dal = new UserDAL();
@@ -31,7 +30,7 @@ namespace Spc.BLL
         /// <returns></returns>
         public string EncodePassword(string password)
         {
-            return StringExtensions.EncodeMD5( StringExtensions.Encode16MD5(password));
+            return password.Encode16MD5().EncodeMD5();
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿
-namespace Ops.Cms.Domain.Interface
+namespace AtNet.Cms.Domain.Interface
 {
     /// <summary>
     /// Data Transfer Object接口，定义转为及互转的接口规范

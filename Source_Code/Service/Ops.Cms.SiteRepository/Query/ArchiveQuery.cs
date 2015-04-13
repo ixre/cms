@@ -1,7 +1,7 @@
-﻿using Ops.Cms.DAL;
-using System.Data;
+﻿using System.Data;
+using AtNet.Cms.DAL;
 
-namespace Ops.Cms.ServiceRepository.Query
+namespace AtNet.Cms.ServiceRepository.Query
 {
     public class ArchiveQuery
     {

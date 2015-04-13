@@ -8,7 +8,7 @@
  */
 using System;
 
-namespace Ops.Cms.ServiceUtil
+namespace AtNet.Cms.ServiceUtil
 {
 	/// <summary>
 	/// Description of MyClass.

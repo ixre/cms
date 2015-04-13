@@ -1,7 +1,7 @@
-﻿using Ops.Cms.Domain.Interface._old;
-using Ops.Cms.Infrastructure.Ioc;
+﻿using AtNet.Cms.Domain.Interface._old;
+using AtNet.Cms.Infrastructure.Ioc;
 
-namespace Ops.Cms
+namespace AtNet.Cms.BLL
 {
     public class CmsLogic
     {

@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 OPSoft Inc
+* Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: TplBindType
 * Author	: Newmin (new.min@msn.com)
@@ -9,7 +9,7 @@
 */
 
 
-namespace Ops.Cms.Domain.Interface.Site.Template
+namespace AtNet.Cms.Domain.Interface.Site.Template
 {
     /// <summary>
     /// 模板绑定类型(顺序不可修改)

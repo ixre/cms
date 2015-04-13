@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ops.Cms.Domain.Interface.Site.Link
+namespace AtNet.Cms.Domain.Interface.Site.Link
 {
     public interface ISiteLinkManager
     {

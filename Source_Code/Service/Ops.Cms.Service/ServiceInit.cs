@@ -1,12 +1,12 @@
-﻿using Ops.Cms.Domain.Interface.Common;
-using Ops.Cms.Domain.Interface.Content;
-using Ops.Cms.Domain.Interface.Content.Archive;
-using Ops.Cms.Domain.Interface.Site;
-using Ops.Cms.Domain.Interface.Site.Category;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Template;
-using Ops.Cms.ServiceContract;
-using Ops.Cms.ServiceRepository;
+﻿using AtNet.Cms.Domain.Interface.Common;
+using AtNet.Cms.Domain.Interface.Content;
+using AtNet.Cms.Domain.Interface.Content.Archive;
+using AtNet.Cms.Domain.Interface.Site;
+using AtNet.Cms.Domain.Interface.Site.Category;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Template;
+using AtNet.Cms.ServiceContract;
+using AtNet.Cms.ServiceRepository;
 /*
  * Created by SharpDevelop.
  * User: newmin
@@ -17,7 +17,7 @@ using Ops.Cms.ServiceRepository;
  */
 using StructureMap;
 
-namespace Ops.Cms.Service
+namespace AtNet.Cms.Service
 {
 	/// <summary>
 	/// 服务初始化

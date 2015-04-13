@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 OPSoft Inc
+* Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: ModuleBLL
 * Author	: Newmin (new.min@msn.com)
@@ -8,16 +8,16 @@
 *
 */
 
-using Ops.Cms.DAL;
-using Ops.Cms.Domain.Interface._old;
-using Ops.Cms.IDAL;
-using Spc.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface._old;
+using AtNet.Cms.IDAL;
 
-namespace Spc.BLL
+namespace AtNet.Cms.BLL
 {
    public class ModuleBLL : Imodule
     {

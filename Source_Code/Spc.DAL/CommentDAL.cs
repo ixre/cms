@@ -1,15 +1,16 @@
 ﻿//
 // CommentDAL   会员数据访问
-// Copryright 2011 @ OPS Inc,All rights reseved !
+// Copryright 2011 @ S1N1.COM,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
-namespace Ops.Cms.DAL
-{
-    using System;
-    using System.Data;
-    using Ops.Data;
-    using Ops.Cms.IDAL;
 
+using System;
+using System.Data;
+using AtNet.Cms.IDAL;
+using AtNet.DevFw.Data;
+
+namespace AtNet.Cms.DAL
+{
     /// <summary>
     /// 文档评论数据访问
     /// </summary>

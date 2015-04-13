@@ -1,13 +1,13 @@
 ﻿//
 // Form
-// Copryright 2011 @ OPS Inc,All rights reseved !
+// Copryright 2011 @ S1N1.COM,All rights reseved !
 // Create by newmin @ 2014-01-06
 //
 
-namespace Spc.Models
-{
-    using System;
+using System;
 
+namespace AtNet.Cms.Domain.Interface.Models
+{
     /// <summary>
     /// 表格
     /// </summary>

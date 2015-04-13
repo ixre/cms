@@ -1,4 +1,4 @@
-﻿namespace Ops.Cms.Domain.Interface.Enum
+﻿namespace AtNet.Cms.Domain.Interface.Enum
 {
     /// <summary>
     /// 指定枚举

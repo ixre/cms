@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 OPSoft Inc
+* Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: ExtendAttr
 * Author	: Newmin (new.min@msn.com)
@@ -8,10 +8,10 @@
 *
 */
 
-using Ops.Data.Orm.Mapping;
-using Ops.Framework.Automation;
+using AtNet.DevFw.Data.Orm.Mapping;
+using AtNet.DevFw.Framework.Automation;
 
-namespace Ops.Cms.DataTransfer
+namespace AtNet.Cms.DataTransfer
 {
     /// <summary>
     /// 模块属性

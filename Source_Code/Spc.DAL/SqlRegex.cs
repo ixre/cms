@@ -1,9 +1,7 @@
-﻿namespace Ops.Cms.DAL
-{
-    using System;
-    using System.Text;
-    using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
+namespace AtNet.Cms.DAL
+{
     internal static class SQLRegex
     {
         private static Regex varRegex=new Regex("\\$\\[([A-Za-z_]+)\\]");

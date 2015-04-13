@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright(C) 2010-2012 OPSoft Inc
+ * Copyright(C) 2010-2012 S1N1.COM
  * 
  * File Name	: Module
  * Author	: Newmin (new.min@msn.com)
@@ -9,7 +9,7 @@
  */
 
 
-namespace Spc.Models
+namespace AtNet.Cms.Domain.Interface.Models
 {
 	/// <summary>
 	/// 内容模块

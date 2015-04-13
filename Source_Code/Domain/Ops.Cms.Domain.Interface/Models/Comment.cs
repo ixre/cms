@@ -1,11 +1,13 @@
 ﻿//
 // Comment  评论模型
-// Copryright 2011 @ OPS Inc,All rights reseved !
+// Copryright 2011 @ S1N1.COM,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
-namespace Spc.Models
+
+using System;
+
+namespace AtNet.Cms.Domain.Interface.Models
 {
-    using System;
     /// <summary>
     /// 评论
     /// </summary>

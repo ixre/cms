@@ -5,8 +5,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>Ops.Cms.Domain.Interface</RootNamespace>
-    <AssemblyName>Ops.Cms.Domain.Interface</AssemblyName>
+    <RootNamespace>AtNet.Cms.Domain.Interface</RootNamespace>
+    <AssemblyName>AtNet.Cms.Domain.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
@@ -71,9 +71,9 @@
     <OutputPath>..\..\..\bin\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="opscore, Version=2.1.0.0, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
+    <Reference Include="atnet.devfw, Version=0.1.5558.24707, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\refrence.dll\opscore.dll</HintPath>
+      <HintPath>..\..\..\refrence.dll\atnet.devfw.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -164,9 +164,9 @@
     <Compile Include="_old\IUser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Ops.Cms.Infrastructure\Ops.Cms.Infrastructure.csproj">
+    <ProjectReference Include="..\..\Framework\Ops.Cms.Infrastructure\AtNet.Cms.Infrastructure.csproj">
       <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
-      <Name>Ops.Cms.Infrastructure</Name>
+      <Name>AtNet.Cms.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

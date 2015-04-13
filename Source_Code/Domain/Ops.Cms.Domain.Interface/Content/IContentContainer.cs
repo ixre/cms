@@ -1,7 +1,7 @@
-﻿using Ops.Cms.Domain.Interface.Content.Archive;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Content.Archive;
 
-namespace Ops.Cms.Domain.Interface.Content
+namespace AtNet.Cms.Domain.Interface.Content
 {
     /// <summary>
     /// 内容聚合根

@@ -1,4 +1,4 @@
-﻿namespace Ops.Cms.Domain.Interface.Enum.sys
+﻿namespace AtNet.Cms.Domain.Interface.Enum.sys
 {
     /// <summary>
     /// 页面标识

@@ -1,6 +1,6 @@
 ﻿
 /*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: Site.cs
 * Author	: Newmin (new.min@msn.com)
@@ -9,16 +9,16 @@
 *
 */
 
-namespace Ops.Cms.Domain.Interface.Site
-{
-    using Ops.Cms.Domain.Interface.Common.Language;
-    using Ops.Cms.Domain.Interface.Site.Category;
-    using Ops.Cms.Domain.Interface.Site.Extend;
-    using Ops.Cms.Domain.Interface.Site.Link;
-    using Ops.Cms.Infrastructure.Tree;
-    using System.Collections.Generic;
-    using System.Text;
+using System.Collections.Generic;
+using System.Text;
+using AtNet.Cms.Domain.Interface.Common.Language;
+using AtNet.Cms.Domain.Interface.Site.Category;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Link;
+using AtNet.Cms.Infrastructure.Tree;
 
+namespace AtNet.Cms.Domain.Interface.Site
+{
     /// <summary>
     /// 站点
     /// </summary>

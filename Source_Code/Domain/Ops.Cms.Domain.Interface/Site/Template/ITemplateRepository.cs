@@ -1,7 +1,7 @@
-﻿using Ops.Cms.Domain.Interface.Site.Category;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Site.Category;
 
-namespace Ops.Cms.Domain.Interface.Site.Template
+namespace AtNet.Cms.Domain.Interface.Site.Template
 {
     public interface ITemplateRepository
     {

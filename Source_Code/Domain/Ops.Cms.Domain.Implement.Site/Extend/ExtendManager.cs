@@ -1,7 +1,7 @@
-﻿using Ops.Cms.Domain.Interface.Site.Extend;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Site.Extend;
 
-namespace Ops.Cms.Domain.Implement.Site.Extend
+namespace AtNet.Cms.Domain.Implement.Site.Extend
 {
     internal class ExtendManager:IExtendManager
     {

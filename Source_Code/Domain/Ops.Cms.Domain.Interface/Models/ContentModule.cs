@@ -1,5 +1,5 @@
 ﻿
-namespace Spc.Models
+namespace AtNet.Cms.Domain.Interface.Models
 {
     /// <summary>
     /// 栏目类型

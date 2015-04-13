@@ -7,7 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-namespace Ops.Cms.Domain.Interface
+namespace AtNet.Cms.Domain.Interface
 {
 	/// <summary>
 	/// Description of IDomain.

@@ -1,21 +1,20 @@
 ﻿//
 // MemberBLL.cs   会员逻辑层
-// Copryright 2011 @ OPS Inc,All rights reseved !
+// Copryright 2011 @ S1N1.COM,All rights reseved !
 // Create by newmin @ 2011/03/16
 //
 
-using Ops.Cms.Domain.Interface._old;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Text;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface._old;
+using AtNet.DevFw.Data.Extensions;
 
-namespace Spc.BLL
+namespace AtNet.Cms.BLL
 {
-    using Ops.Cms.DAL;
-    using Ops.Data;
-    using Spc.Models;
-    using System;
-    using System.Data;
-    using System.Data.Common;
-    using System.Text;
-
     /// <summary>
     /// 会员逻辑
     /// </summary>

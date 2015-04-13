@@ -1,19 +1,18 @@
 ﻿//
 // CommentBLL.cs   会员数据访问
-// Copryright 2011 @ OPS Inc,All rights reseved !
+// Copryright 2011 @ S1N1.COM,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
 
-using Ops.Cms.Domain.Interface._old;
+using System;
+using System.Data;
+using AtNet.Cms.DAL;
+using AtNet.Cms.Domain.Interface._old;
+using AtNet.Cms.IDAL;
+using AtNet.DevFw.Framework.Extensions;
 
-namespace Spc.BLL
+namespace AtNet.Cms.BLL
 {
-    using Ops.Cms.DAL;
-    using Ops.Cms.IDAL;
-    using System;
-    using System.Data;
-    using Ops.Framework.Extensions;
-
     /// <summary>
     /// 文档评论
     /// </summary>
@@ -72,7 +71,7 @@ namespace Spc.BLL
         /// <returns></returns>
         private string CreateReviewsID(string archiveId, bool agree)
         {
-            return StringExtensions.Encode16MD5(archiveId + (agree ? "agree" : "disagree"));
+            return (archiveId + (agree ? "agree" : "disagree")).Encode16MD5();
         }
 
 

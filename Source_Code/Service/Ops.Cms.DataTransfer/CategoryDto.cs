@@ -1,9 +1,9 @@
-﻿using Ops.Cms.Domain.Interface.Site.Category;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Template;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Site.Category;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Template;
 
-namespace Ops.Cms.DataTransfer
+namespace AtNet.Cms.DataTransfer
 {
     public struct CategoryDto
     {

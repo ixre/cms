@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 OPSoft Inc
+* Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: ExtendAttrDAL
 * Author	: Newmin (new.min@msn.com)
@@ -11,15 +11,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Ops.Cms.IDAL;
-using Ops.Data;
-using System.Data;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.DevFw.Data;
 
-using Spc.Models;
-using Ops.Cms.DataTransfer;
-using Ops.Cms.Domain.Interface.Site.Extend;
-namespace Ops.Cms.DAL
+namespace AtNet.Cms.DAL
 {
     public class ExtendFieldDAL : DALBase
     {

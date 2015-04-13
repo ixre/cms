@@ -5,7 +5,7 @@
 //    newmin(new.min@msn.com)
 // 操作类
 //
-namespace Spc.Models
+namespace AtNet.Cms.Domain.Interface.Models
 {
     /// <summary>
     /// 后台管理操作

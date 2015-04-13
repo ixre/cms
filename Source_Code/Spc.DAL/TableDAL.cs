@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: TableDAL
 * Author	: Newmin (new.min@msn.com)
@@ -9,16 +9,15 @@
 */
 
 
-namespace Ops.Cms.DAL
-{
-    using Ops.Cms.IDAL;
-    using Spc.Models;
-    using Ops;
-    using Ops.Data;
-    using System.Data;
-    using System;
-    using Ops.Cms.Infrastructure;
+using System;
+using System.Data;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.IDAL;
+using AtNet.Cms.Infrastructure;
+using AtNet.DevFw.Data;
 
+namespace AtNet.Cms.DAL
+{
     public class TableDAL : DALBase, ITableDAL
     {
 

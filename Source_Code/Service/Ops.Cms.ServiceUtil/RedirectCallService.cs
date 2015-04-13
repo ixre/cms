@@ -1,8 +1,8 @@
-﻿using Ops.Cms.Service;
-using Ops.Cms.ServiceContract;
+﻿using AtNet.Cms.Service;
+using AtNet.Cms.ServiceContract;
 using StructureMap;
 
-namespace Ops.Cms.ServiceUtil
+namespace AtNet.Cms.ServiceUtil
 {
     internal class RedirectCallService:ICmsServiceProvider
     {

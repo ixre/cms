@@ -1,5 +1,5 @@
 ﻿
-namespace Ops.Cms.Domain.Interface._old
+namespace AtNet.Cms.Domain.Interface._old
 {
     public interface IComment
     {

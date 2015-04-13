@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: Site.cs
 * Author	: Newmin (new.min@msn.com)
@@ -8,12 +8,11 @@
 *
 */
 
-namespace Spc.Models
-{
-    using System;
-    using Ops.Framework.Automation;
-  
+using System;
+using AtNet.DevFw.Framework.Automation;
 
+namespace AtNet.Cms.Domain.Interface.Models
+{
     /// <summary>
     /// 账户表
     /// </summary>

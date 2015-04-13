@@ -1,8 +1,8 @@
-﻿using Ops.Cms.DataTransfer;
-using Ops.Cms.Domain.Interface.Content;
+﻿using AtNet.Cms.DataTransfer;
 using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Content;
 
-namespace Ops.Cms.ServiceContract
+namespace AtNet.Cms.ServiceContract
 {
     /// <summary>
     /// 

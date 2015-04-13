@@ -7,13 +7,14 @@
  * 2010/12/08 [!] newmin: GetArchivesOrderByCreateDate方法从数据库中选取了Archive的Content,需要删除
  * 2013-05-15 05:40 newmin [!]: 修改了GetPagedArchives基于左右值
  */
-namespace Ops.Cms.DAL
-{
-    using Ops.Cms.Domain.Interface.Content.Archive;
-    using Ops.Data;
-    using System;
-    using System.Data;
 
+using System;
+using System.Data;
+using AtNet.Cms.Domain.Interface.Content.Archive;
+using AtNet.DevFw.Data;
+
+namespace AtNet.Cms.DAL
+{
     public partial class ArchiveDAL : DALBase
     {
         /// <summary>

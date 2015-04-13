@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Data;
 using System.Text.RegularExpressions;
-using System.Data.Common;
-using Ops.Data;
-using Spc;
-using Spc.Sql;
-using System.Data;
-using Ops.Cms;
-using Ops.Cms.DB;
+using AtNet.Cms.DB;
+using AtNet.Cms.Sql;
+using AtNet.DevFw.Data;
 
-namespace Ops.Cms.DAL
+namespace AtNet.Cms.DAL
 {
     public abstract class DALBase
     {

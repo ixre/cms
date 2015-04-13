@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 OPSoft Inc
+* Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: ModuleDAL
 * Author	: Newmin (new.min@msn.com)
@@ -8,15 +8,13 @@
 *
 */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-    using Ops.Cms.IDAL;
-using Spc.Models;
-using Ops.Data;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.IDAL;
+using AtNet.DevFw.Data;
+using AtNet.DevFw.Data.Extensions;
 
-namespace Ops.Cms.DAL
+namespace AtNet.Cms.DAL
 {
     public class ModuleDAL : DALBase,ImoduleDAL
     {

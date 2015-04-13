@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ops.Cms.Domain.Interface.Common
+namespace AtNet.Cms.Domain.Interface.Common
 {
     public interface ILinkManager
     {

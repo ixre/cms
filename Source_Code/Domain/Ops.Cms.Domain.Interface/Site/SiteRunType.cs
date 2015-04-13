@@ -1,5 +1,5 @@
 ﻿
-namespace Ops.Cms.Domain.Interface.Site
+namespace AtNet.Cms.Domain.Interface.Site
 {
     public enum SiteRunType
     {

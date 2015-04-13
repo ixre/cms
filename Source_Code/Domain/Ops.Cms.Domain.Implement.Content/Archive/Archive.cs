@@ -1,12 +1,12 @@
-﻿using Ops.Cms.Domain.Interface.Common;
-using Ops.Cms.Domain.Interface.Content;
-using Ops.Cms.Domain.Interface.Content.Archive;
-using Ops.Cms.Domain.Interface.Site.Category;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Cms.Domain.Interface.Site.Template;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using AtNet.Cms.Domain.Interface.Common;
+using AtNet.Cms.Domain.Interface.Content;
+using AtNet.Cms.Domain.Interface.Content.Archive;
+using AtNet.Cms.Domain.Interface.Site.Category;
+using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.Domain.Interface.Site.Template;
 
 //
 // 2012-10-01 添加文档扩展属性
@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 //
 
 
-namespace Ops.Cms.Domain.Implement.Content.Archive
+namespace AtNet.Cms.Domain.Implement.Content.Archive
 {
     /// <summary>
     /// 文档

@@ -1,10 +1,4 @@
-﻿using Ops.Cms.Domain.Interface.Site.Extend;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Ops.Cms.Domain.Interface.Site.Extend
+﻿namespace AtNet.Cms.Domain.Interface.Site.Extend
 {
     public class ExtendField:IExtendField
     {

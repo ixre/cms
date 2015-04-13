@@ -1,7 +1,7 @@
-﻿using Ops.Cms.Domain.Interface.Site.Category;
-using System;
+﻿using System;
+using AtNet.Cms.Domain.Interface.Site.Category;
 
-namespace Ops.Cms.Domain.Interface
+namespace AtNet.Cms.Domain.Interface
 {
     [Serializable]
     public delegate void CategoryTreeHandler(ICategory category, int level);

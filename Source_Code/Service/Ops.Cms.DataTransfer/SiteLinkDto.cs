@@ -1,10 +1,9 @@
-﻿using Ops.Cms.Domain.Interface.Site.Link;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using AtNet.Cms.Domain.Interface.Site.Link;
 
-namespace Ops.Cms.DataTransfer
+namespace AtNet.Cms.DataTransfer
 {
     public struct SiteLinkDto
     {
