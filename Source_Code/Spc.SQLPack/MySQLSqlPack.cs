@@ -1,6 +1,5 @@
-﻿namespace Spc.Sql
+﻿namespace AtNet.Cms.Sql
 {
-    using System;
     public class MySQLSqlPack : SqlPack
     {
         internal MySQLSqlPack()

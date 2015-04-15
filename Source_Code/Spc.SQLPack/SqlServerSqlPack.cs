@@ -1,5 +1,5 @@
 ﻿
-namespace Spc.Sql
+namespace AtNet.Cms.Sql
 {
     public class SqlServerSqlPack:SqlPack
     {

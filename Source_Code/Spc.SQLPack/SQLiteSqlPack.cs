@@ -1,4 +1,4 @@
-﻿namespace Spc.Sql
+﻿namespace AtNet.Cms.Sql
 {
     public class SQLiteSqlPack : SqlPack
     {
