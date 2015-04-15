@@ -1,7 +1,7 @@
-﻿using Ops.Data;
-using System;
+﻿using System;
+using AtNet.DevFw.Data;
 
-namespace Spc.Sql
+namespace AtNet.Cms.Sql
 {
     public abstract class SqlPack
     {
