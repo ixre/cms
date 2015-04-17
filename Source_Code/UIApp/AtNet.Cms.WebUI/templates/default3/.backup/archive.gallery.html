@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>${page.title}</title>
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.0/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.1/style.css"/>
+</head>
+
+<body>
+    ${partial:"inc/header.phtml"}
+<div id="main">
+	<div id="right">
+		<div id="location"><a href="${page.domain}">$lang(home)</a>::$sitemap()</div>
+	  	<div>
+
+             <div id="company">
+                <div id="company">
+
+                    <p class="title"><a title="${archive.title}">${archive.title}</a></p>
+		<div class="content">
+		
+            <div class="v_pic" style="display:block">
+                <div style="text-align:center">
+                    <img id="Img" onclick="window.open(this.src)" src="${archive.thumbnail}" alt="${archive.title}" style="border-width:0px;cursor: pointer;" /></div>
+               
+    			<p>${archive.content}</p>
+</div><div class="btn" id="BtbDiv">
+            $prevarchive('<a href="{url}">previous pic</a>')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|$nextarchive('<a href="{url}">next pic</a>')
+</div>   
+
+		</div>
+		</div>
+        
+		</div>
+                 </div>
+		
+	</div>
+	
+	<div id="left">
+        ${partial:"inc/welcome.phtml"}
+		<div class="subnav">
+            <p class="title">$lang(galleries)</p>
+            $categories('gallery','
+            <h2><a id="a_cert_class_20" href="{url}" title="{name}">{name}</a></h2>
+      		')
+            
+		</div>
+      
+        ${partial:"inc/filesdownload.phtml"}
+      
+		<div id="left_btm"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+		
+        ${partial:"inc/footer.phtml"}
+
+        <script type="text/javascript">
+             showBgImage(4);
+        </script>
+            </body>
+</html>

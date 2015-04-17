@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>${page.title}</title>
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.0/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.1/style.css"/>
+</head>
+
+<body>
+    ${partial:"inc/header.phtml"}
+
+<div id="main">
+	<div id="right">
+		<div id="location"><a href="${page.domain}">$lang(home)</a>::$sitemap()</div>
+	  	<div id="news">
+			<p class="title">
+                <a href="${page.domain}/news/">$lang(news)$lang(space)$lang(center)</a>>>${category.name}
+			</p>
+			<ul id="news_list">
+			$pagerarchives(15,'
+    <li>
+        <h2> <a href="{url}" target="_blank">{title}</a></h2>
+        <span>{publish}</span>
+        <p>{outline}</p>
+    </li>')
+    
+    
+			</ul>
+			<div  id="pages">$pager()</div>
+			
+	</div>
+	</div>
+	
+	<div id="left">  
+        ${partial:"inc/welcome.phtml"}
+		<div class="subnav">
+            <p class="title">$lang(news)$lang(space)$lang(category)</p>
+            $categories(news,'
+            <h2><a id="a_cert_class_20" href="{url}" title="{name}">{name}</a></h2>
+      		')
+            
+		</div>
+      
+        ${partial:"inc/filesdownload.phtml"}
+		<div id="left_btm"></div>
+	</div>
+	</div><div class="clear"></div>
+		
+        ${partial:"inc/footer.phtml"}
+</div>
+
+        <script type="text/javascript">
+            showBgImage(3);
+        </script>
+</body>
+</html>
+

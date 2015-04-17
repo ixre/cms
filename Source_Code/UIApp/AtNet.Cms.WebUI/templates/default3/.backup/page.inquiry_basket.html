@@ -1,0 +1,667 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>${archive.title}</title>
+    <meta name="keywords" content="${page.keywords}" />
+    <link rel="stylesheet" type="text/css" href="/themes/1.0/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.1/style.css"/>
+    <script type="text/javascript" src="${page.fpath}/global.js"></script>
+    <script type="text/javascript" src="${page.fpath}/scripts/datagrid.js"></script>
+    <script type="text/javascript" src="${page.tpath}/script.js"></script>
+    <style type="text/css">
+        .ui-datagrid-header{display:none;}
+        .ui-datagrid-header td{color: #333;border-left: dotted 1px #fff;
+                   /*background: linear-gradient(to bottom, #F8F8F8 0px, #EEEEEE 100%) repeat-x scroll 0 0 rgba(0, 0, 0, 0);*/
+            text-align: center;line-height: 25px;padding:0;
+                   background:#edf7fe url(/framework/common/sys_themes/default/bg.gif) -0px 0 repeat-x;
+}
+.ui-datagrid-header td.first{ border: none;}
+.grid{border:solid 1px #ddd;}
+.ui-datagrid-view .loading{padding-left:0;border: solid 1px #d0d0d0;background: #f0f0f0;color: #006699;width: 100px;height: 22px;text-align: center;line-height: 22px;}
+        #inquire table span.ui-datagrid-header-title{text-align:left;width:auto;}
+    </style>
+</head>
+<body>
+    ${partial:"inc/header.phtml"}
+
+<div id="main">
+	<div id="right">
+		<div id="location">
+            <a href="${page.domain}">$lang(home)</a> :: $sitemap()</div>
+	  	<div id="company">
+            
+            <div id="setup1">
+         <p class="title">Step 1 - Inquiry Basket</p>
+		<div class="content">
+<div id="inquire">
+                        
+                        <div id="i_top2">
+                            <img src="/images/sure.gif" />
+                            <p>
+                            Below are all the products you have selected, pls click "INQUIRE ALL ITEMS" to proceed.
+                            </p>
+
+                        </div>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>
+                                    <span style="width: 120px;"><a id="a_inq_all" href="#" onclick="inquireAllProducts();">INQUIRE ALL</a></span>
+                                </td>
+                                <td>
+                                    <span style="width: 120px;"><a id="a_remove"  href="javascript:;" onclick="removeSelectedProducts();">REMOVE SELECTED</a></span>
+
+                                </td>
+                                <td width="445">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div id="productslist" class="grid">
+                                        <div id="i_info"></div>
+                                    </div>
+                                    <div style="clear:both"></div>
+</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="width: 120px;"><a id="a_inq_all2" href="#" onclick="inquireAllProducts();">INQUIRE ALL</a></span>
+                                </td>
+                                <td>
+
+                                    <span style="width: 120px;"><a id="a_remove2" href="javascript:void()" onclick="removeSelectedProducts();">REMOVE SELECTED</a></span>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+		</div>
+		</div>
+        
+    </div>
+    <!-- setup 1 over -->
+            <div id="setup2" style="display:none">
+
+			<p class="title">Step 2 - Fill in your inquiry details</p>
+                <form action="/com.lms.sh.aspx/SaveInquiryBasket?action=order" method="post" enctype="multipart/form-data" target="ifr">
+		<div class="content" id="content">
+<div id="inquire">
+    
+	<div id="ordersuccss" style="display:none"><h3>Congratulations!Order has been builded,we will contact you in 5-7 work day!</h3></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <span>Name</span>
+            </td>
+
+            <td>
+                <table width="auto" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="130px">
+                            <input name="fname" type="text" id="name1" maxlength="30" style="width: 120px" />
+                        </td>
+                        <td width="130px">
+                            <input name="sname" type="text" id="name2" maxlength="20" style="width: 120px" />
+                        </td>
+
+                        <td>
+                        (Format: First Name - Last Name)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <span>Business E-mail</span>
+            </td>
+            <td>
+                <input name="email" type="text" id="email" maxlength="50" style="width: 400px" />
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Phone</span>
+            </td>
+            <td>
+                <input name="phone" type="text" id="phone" maxlength="30" style="width: 400px" />
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Company Name</span>
+            </td>
+            <td>
+                <input name="companyName" type="text" id="companyName" maxlength="30" style="width: 400px" />
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Country/Territory</span>
+            </td>
+            <td>
+                <select name="country" id="country">
+
+	<option selected="selected" value="">一 SELECT COUNTRY 一</option>
+	<option value="Afghanistan">Afghanistan</option>
+	<option value="Albania">Albania</option>
+	<option value="Albania">Algeria</option>
+	<option value="American">American Samoa</option>
+	<option value="Andorra">Andorra</option>
+
+	<option value="Angola">Angola</option>
+	<option value="Anguilla">Anguilla</option>
+	<option value="Antarctica">Antarctica</option>
+	<option value="Antigua">Antigua and Barbuda</option>
+	<option value="Argentina">Argentina</option>
+	<option value="Armenia">Armenia</option>
+
+	<option value="Aruba">Aruba</option>
+	<option value="Australia">Australia</option>
+	<option value="Australia">Austria</option>
+	<option value="Azerbaijan">Azerbaijan</option>
+	<option value="Bahamas">Bahamas</option>
+	<option value="Bahrain">Bahrain</option>
+
+	<option value="Bangladesh">Bangladesh</option>
+	<option value="Barbados">Barbados</option>
+	<option value="Belarus">Belarus</option>
+	<option value="Belgium">Belgium</option>
+	<option value="BZ">Belize</option>
+	<option value="BJ">Benin</option>
+
+	<option value="BM">Bermuda</option>
+	<option value="BT">Bhutan</option>
+	<option value="BO">Bolivia</option>
+	<option value="BA">Bosnia and Herzegovina</option>
+	<option value="BW">Botswana</option>
+	<option value="BV">Bouvet Island</option>
+
+	<option value="BR">Brazil</option>
+	<option value="IO">British Indian Ocean Territory</option>
+	<option value="BN">Brunei Darussalam</option>
+	<option value="BG">Bulgaria</option>
+	<option value="BF">Burkina Faso</option>
+	<option value="BI">Burundi</option>
+
+	<option value="KH">Cambodia</option>
+	<option value="CM">Cameroon</option>
+	<option value="CA">Canada</option>
+	<option value="CV">Cape Verde</option>
+	<option value="KY">Cayman Islands</option>
+	<option value="CF">Central African Republic</option>
+
+	<option value="TD">Chad</option>
+	<option value="CD">Channel Island</option>
+	<option value="CL">Chile</option>
+	<option value="CN">China (Mainland)</option>
+	<option value="CX">Christmas Island</option>
+	<option value="CC">Cocos (Keeling) Islands</option>
+
+	<option value="CO">Colombia</option>
+	<option value="KM">Comoros</option>
+	<option value="CG">Congo</option>
+	<option value="ZR">Congo, The Democratic Republic Of The</option>
+	<option value="CK">Cook Islands</option>
+	<option value="CR">Costa Rica</option>
+
+	<option value="CI">Cote D'Ivoire</option>
+	<option value="HR">Croatia (local name: Hrvatska)</option>
+	<option value="CU">Cuba</option>
+	<option value="CY">Cyprus</option>
+	<option value="CZ">Czech Republic</option>
+	<option value="DK">Denmark</option>
+
+	<option value="DJ">Djibouti</option>
+	<option value="DM">Dominica</option>
+	<option value="DO">Dominican Republic</option>
+	<option value="TP">East Timor</option>
+	<option value="EC">Ecuador</option>
+	<option value="EG">Egypt</option>
+
+	<option value="SV">El Salvador</option>
+	<option value="GQ">Equatorial Guinea</option>
+	<option value="ER">Eritrea</option>
+	<option value="EE">Estonia</option>
+	<option value="ET">Ethiopia</option>
+	<option value="FK">Falkland Islands (Malvinas)</option>
+
+	<option value="FO">Faroe Islands</option>
+	<option value="FJ">Fiji</option>
+	<option value="FI">Finland</option>
+	<option value="FR">France</option>
+	<option value="FX">France Metropolitan</option>
+	<option value="GF">French Guiana</option>
+
+	<option value="PF">French Polynesia</option>
+	<option value="TF">French Southern Territories</option>
+	<option value="GA">Gabon</option>
+	<option value="GM">Gambia</option>
+	<option value="GE">Georgia</option>
+	<option value="DE">Germany</option>
+
+	<option value="GH">Ghana</option>
+	<option value="GI">Gibraltar</option>
+	<option value="GR">Greece</option>
+	<option value="GL">Greenland</option>
+	<option value="GD">Grenada</option>
+	<option value="GP">Guadeloupe</option>
+
+	<option value="GU">Guam</option>
+	<option value="GT">Guatemala</option>
+	<option value="GN">Guinea</option>
+	<option value="GW">Guinea-Bissau</option>
+	<option value="GY">Guyana</option>
+	<option value="HT">Haiti</option>
+
+	<option value="HM">Heard and Mc Donald Islands</option>
+	<option value="HN">Honduras</option>
+	<option value="HK">Hong Kong</option>
+	<option value="HU">Hungary</option>
+	<option value="IS">Iceland</option>
+	<option value="IN">India</option>
+
+	<option value="ID">Indonesia</option>
+	<option value="IR">Iran (Islamic Republic of)</option>
+	<option value="IQ">Iraq</option>
+	<option value="IE">Ireland</option>
+	<option value="IL">Israel</option>
+	<option value="IT">Italy</option>
+
+	<option value="JM">Jamaica</option>
+	<option value="JP">Japan</option>
+	<option value="JO">Jordan</option>
+	<option value="KZ">Kazakhstan</option>
+	<option value="KE">Kenya</option>
+	<option value="KI">Kiribati</option>
+
+	<option value="KW">Kuwait</option>
+	<option value="KG">Kyrgyzstan</option>
+	<option value="LA">Lao People's Democratic Republic</option>
+	<option value="LV">Latvia</option>
+	<option value="LB">Lebanon</option>
+	<option value="LS">Lesotho</option>
+
+	<option value="LR">Liberia</option>
+	<option value="LY">Libyan Arab Jamahiriya</option>
+	<option value="LI">Liechtenstein</option>
+	<option value="LT">Lithuania</option>
+	<option value="LU">Luxembourg</option>
+	<option value="MO">Macau</option>
+
+	<option value="MK">Macedonia</option>
+	<option value="MG">Madagascar</option>
+	<option value="MW">Malawi</option>
+	<option value="MY">Malaysia</option>
+	<option value="MV">Maldives</option>
+	<option value="ML">Mali</option>
+
+	<option value="MT">Malta</option>
+	<option value="MH">Marshall Islands</option>
+	<option value="MQ">Martinique</option>
+	<option value="MR">Mauritania</option>
+	<option value="MU">Mauritius</option>
+	<option value="YT">Mayotte</option>
+
+	<option value="MX">Mexico</option>
+	<option value="FM">Micronesia</option>
+	<option value="MD">Moldova</option>
+	<option value="MC">Monaco</option>
+	<option value="MN">Mongolia</option>
+	<option value="MS">Montserrat</option>
+
+	<option value="MA">Morocco</option>
+	<option value="MZ">Mozambique</option>
+	<option value="MM">Myanmar</option>
+	<option value="NA">Namibia</option>
+	<option value="NR">Nauru</option>
+	<option value="NP">Nepal</option>
+
+	<option value="NL">Netherlands</option>
+	<option value="AN">Netherlands Antilles</option>
+	<option value="NC">New Caledonia</option>
+	<option value="NZ">New Zealand</option>
+	<option value="NI">Nicaragua</option>
+	<option value="NE">Niger</option>
+
+	<option value="NG">Nigeria</option>
+	<option value="NU">Niue</option>
+	<option value="NF">Norfolk Island</option>
+	<option value="KP">North Korea</option>
+	<option value="MP">Northern Mariana Islands</option>
+	<option value="NO">Norway</option>
+
+	<option value="OM">Oman</option>
+	<option value="Other">Other Country</option>
+	<option value="PK">Pakistan</option>
+	<option value="PW">Palau</option>
+	<option value="PS">Palestine</option>
+	<option value="PA">Panama</option>
+
+	<option value="PG">Papua New Guinea</option>
+	<option value="PY">Paraguay</option>
+	<option value="PE">Peru</option>
+	<option value="PH">Philippines</option>
+	<option value="PN">Pitcairn</option>
+	<option value="PL">Poland</option>
+
+	<option value="PT">Portugal</option>
+	<option value="PR">Puerto Rico</option>
+	<option value="QA">Qatar</option>
+	<option value="RE">Reunion</option>
+	<option value="RO">Romania</option>
+	<option value="RU">Russian Federation</option>
+
+	<option value="RW">Rwanda</option>
+	<option value="KN">Saint Kitts and Nevis</option>
+	<option value="LC">Saint Lucia</option>
+	<option value="VC">Saint Vincent and the Grenadines</option>
+	<option value="WS">Samoa</option>
+	<option value="SM">San Marino</option>
+
+	<option value="ST">Sao Tome and Principe</option>
+	<option value="SA">Saudi Arabia</option>
+	<option value="SN">Senegal</option>
+	<option value="SC">Seychelles</option>
+	<option value="SL">Sierra Leone</option>
+	<option value="SG">Singapore</option>
+
+	<option value="SK">Slovakia (Slovak Republic)</option>
+	<option value="SI">Slovenia</option>
+	<option value="SB">Solomon Islands</option>
+	<option value="SO">Somalia</option>
+	<option value="ZA">South Africa</option>
+	<option value="KR">South Korea</option>
+
+	<option value="ES">Spain</option>
+	<option value="LK">Sri Lanka</option>
+	<option value="SH">St. Helena</option>
+	<option value="PM">St. Pierre and Miquelon</option>
+	<option value="SD">Sudan</option>
+	<option value="SR">Suriname</option>
+
+	<option value="SJ">Svalbard and Jan Mayen Islands</option>
+	<option value="SZ">Swaziland</option>
+	<option value="SE">Sweden</option>
+	<option value="CH">Switzerland</option>
+	<option value="SY">Syrian Arab Republic</option>
+	<option value="TW">Taiwan</option>
+
+	<option value="TJ">Tajikistan</option>
+	<option value="TZ">Tanzania</option>
+	<option value="TH">Thailand</option>
+	<option value="TG">Togo</option>
+	<option value="TK">Tokelau</option>
+	<option value="TO">Tonga</option>
+
+	<option value="TT">Trinidad and Tobago</option>
+	<option value="TN">Tunisia</option>
+	<option value="TR">Turkey</option>
+	<option value="TM">Turkmenistan</option>
+	<option value="TC">Turks and Caicos Islands</option>
+	<option value="TV">Tuvalu</option>
+
+	<option value="UG">Uganda</option>
+	<option value="UA">Ukraine</option>
+	<option value="AE">United Arab Emirates</option>
+	<option value="UK">United Kingdom</option>
+	<option value="US">United States</option>
+	<option value="UM">United States Minor Outlying Islands</option>
+
+	<option value="UY">Uruguay</option>
+	<option value="UZ">Uzbekistan</option>
+	<option value="VU">Vanuatu</option>
+	<option value="VA">Vatican City State (Holy See)</option>
+	<option value="VE">Venezuela</option>
+	<option value="Virgin Islands (British)">Vietnam</option>
+
+	<option value="VG">Virgin Islands (British)</option>
+	<option value="Virgin Islands (U.S.)">Virgin Islands (U.S.)</option>
+	<option value="Wallis And Futuna Islands">Wallis And Futuna Islands</option>
+	<option value=">Western Sahara">Western Sahara</option>
+	<option value="Yemen">Yemen</option>
+	<option value="Yugoslavia">Yugoslavia</option>
+
+	<option value="Zambia">Zambia</option>
+	<option value="Zimbabwe">Zimbabwe</option>
+</select>
+                <span id="r33" style="display:inline-block;color:Red;width:180px;display:none;">Country should not be blank</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-bottom: 0;">
+
+                <span>Subject</span>
+            </td>
+            <td style="padding-bottom: 0;">
+                <input name="title" type="text" id="title" style="width:400px;" />
+                <span id="rr" style="color:Red;display:none;">Title cannot be blank</span>
+            </td>
+        </tr>
+        <tr>
+
+            <td valign="top">
+                <span>Message</span>
+            </td>
+            <td>
+                <textarea name="message" rows="2" cols="20" id="ex" style="height:121px;width:445px;"></textarea><br />
+                <span id="rr2" style="display:inline-block;color:Red;width:180px;display:none;"></span>
+            </td>
+        </tr>
+
+         <tr><td> <span>Upload</span></td> <td align=left><input type="file" name="File" id="file" style="width:240px;" />
+<br /><br />Supporting all document format except for .exe<br />The document should be within 1MB  </td></tr>
+        <tr id="tr_more1" style="display: none;">
+            <td>
+                <span>Sex</span>
+            </td>
+
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0" style="width: auto">
+                    <tr>
+                        <td style="width: auto">
+                            <input value="radiobutton1" name="radiobutton" type="radio" id="r2" />
+                        </td>
+                        <td style="width: 30px">
+                            Male
+                        </td>
+
+                        <td style="width: aotu">
+                            <input value="radiobutton" name="radiobutton" type="radio" id="r1" />
+                        </td>
+                        <td style="width: 50px">
+                            Female
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+        <tr id="tr_more2" style="display: none;">
+            <td>
+                <span>Contact Phone Number</span>
+            </td>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+
+                        <td style="width: 70px; padding-bottom: 0px; padding-top: 0px;" width="21%">
+                            Country Code
+                        </td>
+                        <td style="padding-bottom: 0px; padding-top: 0px;">
+                            Area Code
+                        </td>
+                        <td style="padding-bottom: 0px; padding-top: 0px">
+                            Number
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="21%" style="width: 70px">
+                            <input name="tel1" type="text" id="tel1" maxlength="20" style="width: 60px" />
+                        </td>
+                        <td style="width: 110px">
+                            <input name="tel2" type="text" id="tel2" maxlength="15" style="width: 100px" />
+                        </td>
+                        <td>
+                            <input name="tel3" type="text" id="tel3" maxlength="15" style="width: 130px" />
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="tr_more3" style="display: none;">
+            <td>
+                <span>Fax Number</span>
+
+            </td>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="width: 70px">
+                            <input name="fax1" type="text" id="fax1" maxlength="20" style="width: 60px" />
+                        </td>
+                        <td style="width: 110px">
+                            <input name="fax2" type="text" id="fax2" maxlength="15" style="width: 100px" />
+
+                        </td>
+                        <td>
+                            <input name="fax3" type="text" id="fax3" maxlength="15" style="width: 130px" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="tr_more4" style="display: none;">
+
+            <td>
+                <span>Company Website URL</span>
+            </td>
+            <td>
+                <input name="txt_website" type="text" id="txt_website" style="width: 370px" />
+            </td>
+        </tr>
+        <tr id="tr_more5" style="display: none;">
+
+            <td style="height: 28px">
+                <span>Business Address</span>
+            </td>
+            <td style="padding-bottom: 0; height: 28px;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="width: 110px; padding-bottom: 0px; padding-top: 0px;">
+                            Street
+                        </td>
+
+                        <td style="width: 110px; padding-bottom: 0px; padding-top: 0px;">
+                            City
+                        </td>
+                        <td style="padding-bottom: 0px; width: 110px; padding-top: 0px">
+                            Province
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 110px">
+                            <input name="address1" type="text" id="address1" maxlength="50" style="width: 100px" />
+
+                        </td>
+                        <td style="width: 110px">
+                            <input name="address2" type="text" id="address2" maxlength="20" style="width: 100px" />
+                        </td>
+                        <td>
+                            <input name="address3" type="text" id="address3" maxlength="20" style="width: 150px" />
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+        <tr id="tr_more6" style="display: none;">
+            <td valign="top">
+                <span>Tell the supplier about your company</span>
+            </td>
+            <td>
+                <textarea name="txt_about_company" id="txt_about_company" style="height: 150px; width: 445px;"></textarea>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div id="i_btn1">
+                    <span><a id="a_submit" href="javascript:submitForm()">SUBMIT</a></span></div>
+                <input type="hidden" name="action" value="order" />
+            </td>
+        </tr>
+    </table>
+</div>
+		<iframe src="" name="ifr" style="display:none"></iframe>
+		</div></form>
+		<script type="text/javascript">
+            var _dg = cms.datagrid('i_info',{
+                url:'/lms/InquiryBasketData',
+                data: {},
+                idField: 'id',
+                columns: [
+                    {field: 'title', title: '名称', width: 200,formatter:function(val,row){
+                        return '<input type="checkbox" value="'+ row.id +'" checked="checked"/>&nbsp;&nbsp;<a style="Font-Size:10pt;" href="" target="_blank">'+ row.title +'</a>';
+                    }}
+                    ],
+                    loaded: function (data) {
+                        if(!data.rows || data.rows.length == 0){
+                            cms.$('i_info').innerHTML='<b style="padding:10px;color:red;line-height:30px;"> No product has been selected in inquiry basket!</b>';
+                        }
+                    }
+                });
+            
+		    function submitForm() {
+		        document.forms[0].submit();
+		    }
+		    function orderSuccess() {
+		         document.getElementById("content").innerHTML = document.getElementById("ordersuccss").innerHTML;
+		    }
+		    function showError(msg) {
+		        alert(msg);
+		    }
+		</script>
+		</div>
+   
+	</div>
+    <!-- setup2 over -->
+    
+    
+    </div>
+	
+	<div id="left">
+        ${partial:"inc/welcome.phtml"}
+        <div class="subnav">
+            <p class="title">$lang(product)$lang(space)$lang(category)</p>
+            $categories(product,'
+            <h2><a id="a_cert_class_20" href="{url}" title="{name}">{name}</a></h2>
+      		')
+            
+		</div>
+        ${partial:"inc/filesdownload.phtml"}
+		<div id="left_btm"></div>
+	</div>
+	
+	<div class="clear"></div>
+</div>
+
+        ${partial:"inc/footer.phtml"}
+  
+        <script type="text/javascript">
+            showBgImage(1);
+        </script>  
+</body>
+</html>
