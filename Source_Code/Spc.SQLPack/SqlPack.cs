@@ -155,14 +155,14 @@ namespace AtNet.Cms.Sql
         public abstract string Archive_GetFirstSpecialArchiveByCategoryID { get; }
 
         /// <summary>
-        /// 获取同个栏目的上一篇文档
+        /// 获取上一篇文档(@sameCategory=1表示同分类)
         /// </summary>
-        public abstract string Archive_GetPreviousSameCategoryArchive { get; }
+        public abstract string Archive_GetPreviousArchive { get; }
 
         /// <summary>
-        /// 获取同个栏目的下一篇文档
+        /// 获取下一篇文档(@sameCategory=1表示同分类)
         /// </summary>
-        public abstract string Archive_GetNextSameCategoryArchive { get; }
+        public abstract string Archive_GetNextArchive { get; }
 
         /// <summary>
         /// 删除指定会员的文档
@@ -254,6 +254,18 @@ namespace AtNet.Cms.Sql
         ///获取根据栏目搜索符合条件的文档列表
         /// </summary>
         public abstract string Archive_GetPagedSearchArchivesByCategoryID { get; }
+
+        /// <summary>
+        /// 获取最大的排序号码
+        /// </summary>
+        public string Archive_GetMaxSortNumber = @"SELECT MAX(sort_number) FROM  $PREFIX_archive 
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
+                        WHERE $PREFIX_category.siteid=@siteId";
+
+        /// <summary>
+        /// 更新排序号
+        /// </summary>
+        public string Archive_UpdateSortNumber = "UPDATE $PREFIX_archive SET sort_number=@sort_number WHERE id=@archiveId";
 
         #endregion
 

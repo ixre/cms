@@ -11,9 +11,12 @@ namespace AtNet.Cms.Sql
         {
             get
             {
-                return @"SELECT $PREFIX_archive.[ID],[strid],[alias],[cid],title,$PREFIX_archive.location,[flags],thumbnail,author,
-                        [author],[viewcount],[lastmodifydate],[Tags],[Outline],[Content],[CreateDate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
-                        $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE " +SqlConst.Archive_NotSystemAndHidden + "  ORDER BY [CreateDate] DESC";
+                return @"SELECT $PREFIX_archive.[ID],[strid],[alias],[cid],title,$PREFIX_archive.location,
+                        small_title,sort_number,[flags],thumbnail,author,
+                        [author],[viewcount],[lastmodifydate],[Tags],[Outline],[Content],[CreateDate] FROM $PREFIX_archive
+                        INNER JOIN $PREFIX_category ON
+                        $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE "
+                    + SqlConst.Archive_NotSystemAndHidden + "  ORDER BY sort_number DESC";
             }
         }
 
@@ -26,7 +29,7 @@ namespace AtNet.Cms.Sql
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.[ID]=$PREFIX_archive.[cid]
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND (lft>=@lft AND rgt<=@rgt) 
                          AND $PREFIX_category.siteId=@siteId 
-                        ORDER BY [CreateDate] DESC";
+                        ORDER BY sort_number DESC";
             }
         }
         public override string Archive_GetSelfAndChildArchiveExtendValues
@@ -75,7 +78,7 @@ namespace AtNet.Cms.Sql
                         outline,thumbnail,author,lastmodifydate,source,tags,
                         [content],[viewcount],[createdate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.[ID]=$PREFIX_archive.cid WHERE siteid=@siteId AND  tag=@tag AND " +
-                        SqlConst.Archive_NotSystemAndHidden + @" ORDER BY [createdate] DESC";
+                        SqlConst.Archive_NotSystemAndHidden + @" ORDER BY sort_number DESC";
             }
         }
 
@@ -88,7 +91,7 @@ namespace AtNet.Cms.Sql
                         $PREFIX_category.[Name],$PREFIX_category.[Tag],[viewcount],[createdate],[lastmodifydate]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.ID=$PREFIX_archive.cid
                         AND $PREFIX_category.siteid=@siteid
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND siteid=@siteId AND ModuleID=@ModuleID ORDER BY [CreateDate] DESC";
+                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND siteid=@siteId AND ModuleID=@ModuleID ORDER BY sort_number DESC";
             }
         }
        
@@ -138,7 +141,7 @@ namespace AtNet.Cms.Sql
                         $PREFIX_archive.location,[content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
                         ,[viewcount],[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE (lft>=@lft AND rgt<=@rgt) AND siteid=@siteId AND "
-                    + SqlConst.Archive_Special + @" ORDER BY [CreateDate] DESC";
+                    + SqlConst.Archive_Special + @" ORDER BY sort_number DESC";
             }
         } 
         public override string Archive_GetSpecialArchivesByCategoryTag
@@ -148,7 +151,7 @@ namespace AtNet.Cms.Sql
                 return @"SELECT TOP {0} $PREFIX_archive.[ID],[strid],[alias],[cid],[flags],title,$PREFIX_archive.location,[content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
                         ,[viewcount],[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE $PREFIX_category.[tag]=@CategoryTag AND siteid=@siteId AND "
-                    + SqlConst.Archive_Special + @" ORDER BY [CreateDate] DESC";
+                    + SqlConst.Archive_Special + @" ORDER BY sort_number DESC";
             }
         }
         
@@ -159,7 +162,7 @@ namespace AtNet.Cms.Sql
                 return @"SELECT TOP {0} $PREFIX_archive.[ID],[strid],[alias],[cid],[flags],title,$PREFIX_archive.location,[content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
                         ,[viewcount],[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE $PREFIX_category.[ModuleID]=@moduleID AND siteid=@siteId AND "
-                    + SqlConst.Archive_Special + @" ORDER BY [CreateDate] DESC";
+                    + SqlConst.Archive_Special + @" ORDER BY sort_number DESC";
             }
         }
 
@@ -168,28 +171,30 @@ namespace AtNet.Cms.Sql
             get
             {
                 return "SELECT TOP 1 * FROM $PREFIX_archive WHERE [cid]=@CategoryId AND siteid=@siteId AND " 
-                + SqlConst.Archive_Special + @" ORDER BY [CreateDate] DESC"; }
+                + SqlConst.Archive_Special + @" ORDER BY sort_number DESC"; }
         }
 
-        public override string Archive_GetPreviousSameCategoryArchive
+        public override string Archive_GetPreviousArchive
         {
             get
             {
-                return @"SELECT TOP 1 [ID],[strid],[alias],a.[cid],title,a.location,thumbnail,a.[createdate] FROM $PREFIX_archive a,
-                                 (SELECT TOP 1 [cid],[CreateDate] FROM $PREFIX_archive WHERE ID=@id) as t
-                                 WHERE a.[cid]=t.[cid] AND a.[CreateDate]<t.[CreateDate] AND " + SqlConst.Archive_NotSystemAndHidden +
-                                 " ORDER BY a.[CreateDate] DESC ";
+                return @"SELECT TOP 1 [ID],[strid],[alias],a.[cid],title,a.location,thumbnail,a.[createdate],a.sort_number FROM $PREFIX_archive a,
+                                 (SELECT TOP 1 [cid],sort_number FROM $PREFIX_archive WHERE ID=@id) as t
+                                 WHERE  (@sameCategory <>1 OR a.[cid]=t.[cid]) AND a.sort_number>t.sort_number AND 
+                                 (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
+                                 " ORDER BY a.sort_number";
             }
         }
 
-        public override string Archive_GetNextSameCategoryArchive
+        public override string Archive_GetNextArchive
         {
             get
             {
-                return @"SELECT TOP 1 [ID],[strid],[alias],a.[cid],title,a.location,thumbnail,a.[createdate] FROM $PREFIX_archive a,
-                                 (SELECT TOP 1 [cid],[CreateDate] FROM $PREFIX_archive WHERE [ID]=@id) as t
-                                 WHERE a.[cid]=t.[cid] AND a.[CreateDate]>t.[CreateDate] AND " + SqlConst.Archive_NotSystemAndHidden +
-                                 " ORDER BY a.[CreateDate]";
+                return @"SELECT TOP 1 [ID],[strid],[alias],a.[cid],title,a.location,thumbnail,a.[createdate],a.sort_number FROM $PREFIX_archive a,
+                                 (SELECT TOP 1 [cid],sort_number FROM $PREFIX_archive WHERE [ID]=@id) as t
+                                 WHERE (@sameCategory <>1 OR a.[cid]=t.[cid]) AND a.sort_number<t.sort_number AND
+                                 (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
+                                 " ORDER BY a.sort_number DESC";
             }
         }
 
@@ -202,10 +207,10 @@ namespace AtNet.Cms.Sql
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.[cid]=$PREFIX_category.[ID]
                         WHERE $[condition] AND $PREFIX_archive.[id] NOT IN 
                         (SELECT TOP $[skipsize] $PREFIX_archive.ID  FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[cid]=$PREFIX_category.[ID]
-                        WHERE $[condition] ORDER BY [CreateDate] DESC) ORDER BY [CreateDate] DESC";
+                        WHERE $[condition] ORDER BY sort_number DESC) ORDER BY sort_number DESC";
                 */
                 return @"SELECT * FROM (SELECT $PREFIX_archive.*,
-                        ROW_NUMBER()OVER(ORDER BY [CreateDate] DESC) as rowNum
+                        ROW_NUMBER()OVER(ORDER BY sort_number DESC) as rowNum
                         FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.[cid]=$PREFIX_category.[ID]
                         WHERE $PREFIX_category.siteId=@siteId AND (lft>=@lft AND rgt<=@rgt) 
@@ -344,13 +349,14 @@ namespace AtNet.Cms.Sql
             get
             {
                 return @"SELECT $PREFIX_archive.[ID],[strid],[alias],[cid],title,$PREFIX_archive.location,[Tags],[Outline],thumbnail,[Content],[IsSystem],[IsSpecial],[Visible],[CreateDate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
-                    $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE {0} ORDER BY [CreateDate] DESC";
+                    $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE {0} ORDER BY sort_number DESC";
             }
         }
 
         public override string Comment_GetCommentsForArchive
         {
-            get { return "SELECT * FROM $PREFIX_comment LEFT JOIN $PREFIX_member ON [MemberID]=$PREFIX_member.[ID] WHERE [archiveID]=@archiveId"; }
+            get { return "SELECT * FROM $PREFIX_comment LEFT JOIN $PREFIX_member ON [MemberID]=$PREFIX_member.[ID]" +
+                         " WHERE [archiveID]=@archiveId"; }
         }
 
 
@@ -375,10 +381,10 @@ namespace AtNet.Cms.Sql
         {
             get
             {
-                return @"INSERT INTO $PREFIX_archive(strId,alias,cid,author,title,[flags],location,
+                return @"INSERT INTO $PREFIX_archive(strId,alias,cid,author,title,small_title,[flags],location,sort_number,
                                     [Source],thumbnail,[Outline],[Content],[Tags],[Agree],[Disagree],[ViewCount],
                                     [CreateDate],[LastModifyDate])
-                                    VALUES(@strId,@alias,@CategoryId,@Author,@Title,@Flags,@location,
+                                    VALUES(@strId,@alias,@CategoryId,@Author,@Title,@smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail ,@Outline,@Content,@Tags,0,0,0,@CreateDate,
                                     @LastModifyDate)";
             }
@@ -398,7 +404,7 @@ namespace AtNet.Cms.Sql
         {
             get
             {
-                return @"UPDATE $PREFIX_archive SET [cid]=@CategoryId,[Title]=@Title,flags=@flags,
+                return @"UPDATE $PREFIX_archive SET [cid]=@CategoryId,[Title]=@Title,small_title=@smallTitle,sort_number=@sortNumber,flags=@flags,
                                     [Alias]=@Alias,location=@location,[Source]=@Source,lastmodifydate=@lastmodifyDate,
                                     thumbnail=@thumbnail,[Outline]=@Outline,[Content]=@Content,[Tags]=@Tags WHERE id=@id";
             }
