@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>${page.title}</title>
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.1/style.css"/>
+    <script type="text/javascript" src="${page.tpath}/script.js"></script>
+</head>
+
+<body>
+    ${partial:"inc/header.phtml"}
+<div id="main">
+	<div id="right">
+		<div id="location"><a href="${page.domain}">$lang(home)</a>::$sitemap()</div>
+		<div class="content"><center>
+            <p class="title"><a href="" title="online watch ${archive.title}">${archive.title}</a></p>
+            <br />
+                	<div>$lang(update)$lang(space)$lang(at):${archive.Modify}
+                           <!-- &nbsp;&nbsp;<a href="/<%=lang %>/video/<%=v.CatalogID %>"> Other same videos</a>-->
+                           </div>
+                        <!--
+                      <%IList<Product> pros=ViewData["related_products"] as IList<Product>;
+                        if (pros != null && pros.Count > 0)
+                        { %>
+                      <%=Helper.Language.FirstUp(LanguageResources.GetInstance().GetWord("related")) +
+    (Helper.Language.HasSpace ? " " : "") + Helper.Language.FirstUp(LanguageResources.GetInstance().GetWord("product"))%>:
+<%foreach (Product p in pros)
+  { %><a href="/<%=lang %>/product/<%=p.CatalogID %>/<%=p.ID %>" title="<%=p.Name %>">
+                	<%=p.Name%></a><br />
+                    <%}
+                        } %>
+                	
+                	-->
+                	  <br />                
+
+            <!--
+                    <object id="player" height="500" width="700" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" align="middle" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0">
+                        <param value="/images/VideoPlayer.swf?path=${archive.__dict__[视频地址]}" name="movie" />
+<embed height="500" width="700" pluginspage="http://www.macromedia.com/go/getflashplayer" allowscriptaccess="always" allowfullscreen="true" quality="high" bgcolor="#FFFFFF" name="movie_player" src="/images/VideoPlayer.swf?path=${archive.__dict__[视频地址]}" type="application/x-shockwave-flash"/>
+</object>-->
+            
+            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="500" height="400">
+                <param name="movie" value="/resources/s1/flash/201405/20140517212054_0980.swf"/>
+                <param name="quality" value="high"/>
+                <param name="allowFullScreen" value="true"/>
+                <param name="FlashVars" value="vcastr_file=${archive.__dict__[视频地址]}&LogoText=&BufferTime=3&IsAutoPlay=1"/>
+  <embed src="/resources/s1/flash/201405/20140517212054_0980.swf" allowfullscreen="true" flashvars="vcastr_file=${archive.__dict__[视频地址]}&LogoText=&IsAutoPlay=1" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="500" height="400"></embed>
+</object>
+            
+</center>
+		</div>
+
+	</div>
+
+	<div id="left">
+	   ${partial:"inc/welcome.phtml"}
+		<div class="subnav">
+            <p class="title">$lang(video)$lang(space)$lang(category)</p>
+            $categories('video','
+            <h2><a id="a_cert_class_20" href="{url}" title="{name}">{name}</a></h2>
+      		')
+            
+		</div>
+      
+        ${partial:"inc/filesdownload.phtml"}
+		<div id="left_btm"></div>
+	</div>
+</div>
+<div class="clear"></div>
+
+        ${partial:"inc/footer.phtml"}
+<script type="text/javascript">
+    showBgImage(5); chgH3_Style('webSubNav_a_h3_Video');
+</script>
+</body>
+
+
+</html>
