@@ -15,7 +15,7 @@ using AtNet.DevFw.Data;
 
 namespace AtNet.Cms.DAL
 {
-    public partial class ArchiveDAL : DALBase
+    public partial class ArchiveDal : DALBase
     {
         /// <summary>
         /// 插入文章并返回ID
@@ -23,52 +23,54 @@ namespace AtNet.Cms.DAL
         /// <param name="isSystem">是否为系统页面</param>
         /// <returns></returns>
         public bool Add(string strId, string alias, int categoryID,
-            string author, string title, string source, string thumbnail, 
-            string outline, string content, string tags, string flags,string location)
+            string author, string title, string smallTitle, string source, string thumbnail,
+            string outline, string content, string tags, string flags, string location, int sortNumber)
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
-           int rowcount= base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSQL(SP.Archive_Add),
-                     new object[,]{
+            int rowcount = base.ExecuteNonQuery(
+                 new SqlQuery(base.OptimizeSQL(SP.Archive_Add),
+                      new object[,]{
                 {"@strId", strId},
                 {"@alias", alias},
                 {"@CategoryId", categoryID},
                 {"@Author", author??""},
                 {"@Title", title},
+                {"@smallTitle", smallTitle??""},
                 {"@Flags",flags},
-                {"@location", location},   
+                {"@location", location},
+                {"@sortNumber",sortNumber},   
                 {"@Source", source??""},   
                 {"@thumbnail",thumbnail??""},
                 {"@Outline", outline??""},
                 {"@Content", content},
                 {"@Tags", tags??""},
-               // {"@IsSpecial", isSpecial},
-               // {"@IsSystem", isSystem},
                 {"@CreateDate",date},
                 {"@LastModifyDate",date}
                      })
-                );
+                 );
 
 
-           return rowcount == 1;
+            return rowcount == 1;
         }
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="a"></param>
-        public void Update(int id, int categoryID, string title,  string alias,
-            string source, string thumbnail,string outline, string content, 
-            string tags, string flags,string location)
+        public void Update(int id, int categoryID, string title, string smallTitle, string alias,
+            string source, string thumbnail, string outline, string content,
+            string tags, string flags, string location,int sortNumber)
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
             base.ExecuteNonQuery(new SqlQuery(base.OptimizeSQL(SP.Archive_Update),
                  new object[,]{
                                 {"@CategoryId", categoryID},
                                 {"@Title", title},
+                                {"@smallTitle", smallTitle??""},
                                 {"@Flags", flags},
                                 {"@Alias", alias??""}, 
                                 {"@location", location},   
+                                {"@sortNumber",sortNumber},
                                 {"@Source", source??""},
                                 {"@thumbnail",thumbnail??""},
                                 {"@Outline", outline??""},
@@ -83,7 +85,7 @@ namespace AtNet.Cms.DAL
         /// 刷新文档
         /// </summary>
         /// <param name="archiveId"></param>
-        public void RePublish(int siteId,int archiveId)
+        public void RePublish(int siteId, int archiveId)
         {
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSQL(SP.Archive_Republish),
@@ -99,7 +101,7 @@ namespace AtNet.Cms.DAL
         /// 删除
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(int siteId,int id)
+        public void Delete(int siteId, int id)
         {
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSQL(SP.Archive_Delete),
@@ -114,7 +116,7 @@ namespace AtNet.Cms.DAL
         /// </summary>
         /// <param name="alias"></param>
         /// <returns></returns>
-        public bool CheckAliasIsExist(int siteID,string alias)
+        public bool CheckAliasIsExist(int siteID, string alias)
         {
             return base.ExecuteScalar(
                 new SqlQuery(base.OptimizeSQL(SP.Archive_CheckAliasIsExist),
@@ -143,7 +145,7 @@ namespace AtNet.Cms.DAL
 
         #region 获取文档
 
-        
+
         /// <summary>
         /// 获取文章
         /// </summary>
@@ -180,9 +182,10 @@ namespace AtNet.Cms.DAL
             return base.GetDataSet(new SqlQuery(base.OptimizeSQL(SP.Archive_GetAllArchive))).Tables[0];
         }
 
+        [Obsolete]
         public DataTable GetArchives(string sqlcondition)
         {
-            return base.GetDataSet(new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetArchivesByCondition), sqlcondition),null)).Tables[0];
+            return base.GetDataSet(new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetArchivesByCondition), sqlcondition), null)).Tables[0];
         }
 
 
@@ -195,7 +198,7 @@ namespace AtNet.Cms.DAL
         /// <param name="lft"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public void GetSelftAndChildArchives(int siteId,int lft, int rgt, int number,DataReaderFunc func)
+        public void GetSelftAndChildArchives(int siteId, int lft, int rgt, int number, DataReaderFunc func)
         {
             base.ExecuteReader(
                     new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetSelfAndChildArchives), number),
@@ -237,11 +240,11 @@ namespace AtNet.Cms.DAL
         /// 获取指定栏目浏览次数最多的档案
         /// </summary>
         /// <returns></returns>
-        public void GetArchivesByViewCount(int siteId,int lft,int rgt, int number,DataReaderFunc func)
+        public void GetArchivesByViewCount(int siteId, int lft, int rgt, int number, DataReaderFunc func)
         {
-             base.ExecuteReader(
-                new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetArchivesByViewCountDesc), number),
-                 new object[,]{
+            base.ExecuteReader(
+               new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetArchivesByViewCountDesc), number),
+                new object[,]{
                     {"@siteId", siteId},
                     {"@lft", lft},
                     {"@rgt", rgt}
@@ -265,7 +268,7 @@ namespace AtNet.Cms.DAL
         /// 获取指定模块浏览次数最多的档案
         /// </summary>
         /// <returns></returns>
-        public void GetArchivesByViewCountAndModuleId(int siteId,int moduleId, int number,DataReaderFunc func)
+        public void GetArchivesByViewCountAndModuleId(int siteId, int moduleId, int number, DataReaderFunc func)
         {
             base.ExecuteReader(
                 new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetArchivesByModuleIDAndViewCountDesc), number),
@@ -285,7 +288,7 @@ namespace AtNet.Cms.DAL
         /// <param name="siteId"></param>
         /// <param name="lft"></param>
         /// <param name="func"></param>
-        public void GetSpecialArchives(int siteId,int lft,int rgt, int number,DataReaderFunc func)
+        public void GetSpecialArchives(int siteId, int lft, int rgt, int number, DataReaderFunc func)
         {
             base.ExecuteReader(
                    new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetSpecialArchivesByCategoryID), number),
@@ -315,7 +318,7 @@ namespace AtNet.Cms.DAL
         /// <param name="moduleId"></param>
         /// <param name="number"></param>
         /// <param name="func"></param>
-        public void GetSpecialArchivesByModuleId(int siteId,int moduleId, int number,DataReaderFunc func)
+        public void GetSpecialArchivesByModuleId(int siteId, int moduleId, int number, DataReaderFunc func)
         {
             base.ExecuteReader(
                         new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetSpecialArchivesByModuleID), number),
@@ -331,7 +334,7 @@ namespace AtNet.Cms.DAL
         /// <param name="siteId"></param>
         /// <param name="categoryId"></param>
         /// <param name="func"></param>
-        public void GetFirstSpecialArchive(int siteId,int categoryId, DataReaderFunc func)
+        public void GetFirstSpecialArchive(int siteId, int categoryId, DataReaderFunc func)
         {
             base.ExecuteReader(
                 new SqlQuery(base.OptimizeSQL(SP.Archive_GetFirstSpecialArchiveByCategoryID),
@@ -347,33 +350,46 @@ namespace AtNet.Cms.DAL
         /********* 上一篇和下一篇 **************/
 
         /// <summary>
-        /// 获取相同栏目的上一篇文档
+        /// 获取上一篇文档
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="id"></param>
+        /// <param name="sameCategory"></param>
+        /// <param name="ingoreSpecial"></param>
         /// <param name="func"></param>
-        public void GetPreviousSliblingArchive(int siteId,int id, DataReaderFunc func)
+        public void GetPreviousArchive(int siteId, int id,bool sameCategory,bool ingoreSpecial, DataReaderFunc func)
         {
             base.ExecuteReader(
-                    new SqlQuery(base.OptimizeSQL(SP.Archive_GetPreviousSameCategoryArchive),
-                         new object[,]{{"@siteId",siteId},{"@id", id}
+                    new SqlQuery(base.OptimizeSQL(SP.Archive_GetPreviousArchive),
+                         new object[,]{
+                         {"@siteId",siteId},
+                         {"@id", id},
+                        {"@sameCategory", sameCategory?1:0},
+                        {"@special",ingoreSpecial?1:0},
                          }),
                     func
                     );
         }
 
         /// <summary>
-        /// 获取相同栏目的下一篇文档
+        /// 获取下一篇文档
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="id"></param>
+        /// <param name="ingoreSpecial"></param>
         /// <param name="func"></param>
-        public void GetNextSiblingArchive(int siteId,int id, DataReaderFunc func)
+        /// <param name="sameCategory"></param>
+        public void GetNextArchive(int siteId, int id, bool sameCategory,bool ingoreSpecial, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSQL(SP.Archive_GetNextSameCategoryArchive),
-                     new object[,]{{"@siteId",siteId},{"@id", id}
-                     }),
+                new SqlQuery(base.OptimizeSQL(SP.Archive_GetNextArchive),
+                    new object[,]
+                    {
+                        {"@siteId", siteId},
+                        {"@id", id},
+                        {"@sameCategory", sameCategory?1:0},
+                        {"@special",ingoreSpecial?1:0},
+                    }),
                 func
                 );
         }
@@ -394,10 +410,10 @@ namespace AtNet.Cms.DAL
             //
 
             throw new NotImplementedException();
-			//            return base.GetDataSet(@"select top " + number.ToString() + @" ID,Alias,Title from $PREFIX_archive,
-			//                                 (select top 1 CID from $PREFIX_archive where ID=@id) as t
-			//                                 where $PREFIX_archive.CID=t.CID and ID<@id order by ID desc",
-			//                                 {"@id", id}).Tables[0];
+            //            return base.GetDataSet(@"select top " + number.ToString() + @" ID,Alias,Title from $PREFIX_archive,
+            //                                 (select top 1 CID from $PREFIX_archive where ID=@id) as t
+            //                                 where $PREFIX_archive.CID=t.CID and ID<@id order by ID desc",
+            //                                 {"@id", id}).Tables[0];
         }
 
         /// <summary>
@@ -415,10 +431,10 @@ namespace AtNet.Cms.DAL
             //
 
             //按ID计算上一篇
-			//            return base.GetDataSet(@"select top " + number.ToString() + @" ID,Alias,Title from $PREFIX_archive,
-			//                                 (select top 1 CID from $PREFIX_archive where ID=@id) as t
-			//                                 where $PREFIX_archive.CID=t.CID and ID>@id",
-			//                                 {"@id", id}).Tables[0];
+            //            return base.GetDataSet(@"select top " + number.ToString() + @" ID,Alias,Title from $PREFIX_archive,
+            //                                 (select top 1 CID from $PREFIX_archive where ID=@id) as t
+            //                                 where $PREFIX_archive.CID=t.CID and ID>@id",
+            //                                 {"@id", id}).Tables[0];
         }
 
 
@@ -437,7 +453,7 @@ namespace AtNet.Cms.DAL
         /// <returns></returns>
         public DataTable GetPagedArchives(
             int siteId, int lft, int rgt,
-            int pageSize, ref int currentPageIndex, 
+            int pageSize, ref int currentPageIndex,
             out int recordCount, out int pages)
         {
             object[,] data = new object[,]{
@@ -453,10 +469,10 @@ namespace AtNet.Cms.DAL
                                   INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.[ID]
                                   WHERE $PREFIX_category.siteId=@siteId AND (lft>=@lft AND rgt<=@rgt) 
                                   AND flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%'
-                                  ORDER BY [CreateDate] DESC,$PREFIX_archive.[ID]";
+                                  ORDER BY sort_number DESC,$PREFIX_archive.id";
 
             //获取记录条数
-            recordCount = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(SP.Archive_GetPagedArchivesCountSql_pagerqurey,data)).ToString());
+            recordCount = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(SP.Archive_GetPagedArchivesCountSql_pagerqurey, data)).ToString());
 
             pages = recordCount / pageSize;
             if (recordCount % pageSize != 0) pages++;
@@ -469,7 +485,7 @@ namespace AtNet.Cms.DAL
             int skipCount = pageSize * (currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql = skipCount == 0 && base.DbType== DataBaseType.OLEDB ?
+            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
                        sql1 :
                        SP.Archive_GetPagedArchivesByCategoryID_pagerquery;
 
@@ -483,7 +499,7 @@ namespace AtNet.Cms.DAL
                 return null;
             });
 
-            return base.GetDataSet(SqlQueryHelper.Format(sql,data)).Tables[0];
+            return base.GetDataSet(SqlQueryHelper.Format(sql, data)).Tables[0];
         }
 
         /// <summary>
@@ -502,10 +518,10 @@ namespace AtNet.Cms.DAL
         /// <param name="recordCount"></param>
         /// <param name="pages"></param>
         /// <returns></returns>
-        public DataTable GetPagedArchives(int siteId,int moduleId,
-            int lft,int rgt, string author,
-            string[,] flags,string orderByField, bool orderAsc,
-            int pageSize, int currentPageIndex, 
+        public DataTable GetPagedArchives(int siteId, int moduleId,
+            int lft, int rgt, string author,
+            string[,] flags, string orderByField, bool orderAsc,
+            int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
         {
             //SQL Condition Template
@@ -517,44 +533,44 @@ namespace AtNet.Cms.DAL
 
             const string sql1 = @"SELECT TOP $[pagesize] a.id AS id,alias,title,
                                     c.name as CategoryName,cid,flags,author,content,source,
-                                    createdate,viewcount FROM $PREFIX_archive a
+                                    createdate,viewcount,location,sort_number as sortNumber FROM $PREFIX_archive a
                                     INNER JOIN $PREFIX_category c ON a.cid=c.id
                                     WHERE $[condition] ORDER BY $[orderByField] $[orderASC],a.id";
 
 
             string condition,                                                             //SQL where condition
-                    order = String.IsNullOrEmpty(orderByField) ? "CreateDate" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
+                    order = String.IsNullOrEmpty(orderByField) ? "sort_number" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
                     orderType = orderAsc ? "ASC" : "DESC";                                      //ASC or DESC
 
-           
-            string flag =ArchiveFlag.GetSQLString(flags);
+
+            string flag = ArchiveFlag.GetSQLString(flags);
 
             condition = SQLRegex.Replace(conditionTpl, match =>
             {
                 switch (match.Groups[1].Value)
                 {
-                    case "siteid": return String.Format(" c.siteid={0}",siteId.ToString());
+                    case "siteid": return String.Format(" c.siteid={0}", siteId.ToString());
 
-                    case "category": return lft<=0 || rgt<=0 ? "" 
-                        : String.Format(" AND lft>={0} AND rgt<={1}", lft.ToString(),rgt.ToString());
+                    case "category": return lft <= 0 || rgt <= 0 ? ""
+                        : String.Format(" AND lft>={0} AND rgt<={1}", lft.ToString(), rgt.ToString());
 
-                    case "module": return moduleId<=0 ? "" 
-                        :String.Format(" AND m.id={0}", moduleId.ToString());
-                    
-                    case "author": return String.IsNullOrEmpty(author) ? null 
+                    case "module": return moduleId <= 0 ? ""
+                        : String.Format(" AND m.id={0}", moduleId.ToString());
+
+                    case "author": return String.IsNullOrEmpty(author) ? null
                         : String.Format(" AND author='{0}'", author);
-                    
-                    case "flags":return String.IsNullOrEmpty(flag)?"": " AND "+ flag;
+
+                    case "flags": return String.IsNullOrEmpty(flag) ? "" : " AND " + flag;
 
                 }
                 return null;
             });
 
-           // throw new Exception(new SqlQuery(base.OptimizeSQL(String.Format(SP.Archive_GetpagedArchivesCountSql, condition)));
+            // throw new Exception(new SqlQuery(base.OptimizeSQL(String.Format(SP.Archive_GetpagedArchivesCountSql, condition)));
 
             //获取记录条数
             recordCount = int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSQL(String.Format(SP.Archive_GetpagedArchivesCountSql, condition)),null)).ToString());
+                new SqlQuery(base.OptimizeSQL(String.Format(SP.Archive_GetpagedArchivesCountSql, condition)), null)).ToString());
 
 
             pages = recordCount / pageSize;
@@ -562,13 +578,13 @@ namespace AtNet.Cms.DAL
             //验证当前页数
 
             if (currentPageIndex > pages && currentPageIndex != 1) currentPageIndex = pages;
-           if (currentPageIndex < 1) currentPageIndex = 1;
+            if (currentPageIndex < 1) currentPageIndex = 1;
             //计算分页
             int skipCount = pageSize * (currentPageIndex - 1);
 
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql = skipCount == 0 && base.DbType== DataBaseType.OLEDB ?
+            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
                         sql1 :
                         SP.Archive_GetPagedArchivesByCategoryId;
 
@@ -607,7 +623,7 @@ namespace AtNet.Cms.DAL
         /// <param name="pageCount"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        public void SearchArchives(int siteID,string keyword, int pageSize,int currentPageIndex, out int recordCount, out int pageCount, string orderby,DataReaderFunc func)
+        public void SearchArchives(int siteId, string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount, string orderby, DataReaderFunc func)
         {
             /*
             string condition = ArchiveFlag.GetSQLString(new string[,]{
@@ -619,16 +635,16 @@ namespace AtNet.Cms.DAL
             const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
 
             //排序规则
-            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY Createdate DESC");
+            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY sort_number DESC");
 
             //数据库为OLEDB,且为第一页时
             const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.[ID] AS ID,* FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.[ID]
                     WHERE $[condition] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')  $[orderby],$PREFIX_archive.[ID]";
 
-            
+
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
-                SqlQueryHelper.Format(SP.Archive_GetSearchRecordCount, keyword, siteID.ToString(), condition)
+                SqlQueryHelper.Format(SP.Archive_GetSearchRecordCount, keyword, siteId.ToString(), condition)
                 ).ToString());
 
             //页数
@@ -636,15 +652,15 @@ namespace AtNet.Cms.DAL
             if (recordCount % pageSize != 0) pageCount++;
 
             //对当前页数进行验证
-            if (currentPageIndex > pageCount&&currentPageIndex!=1)currentPageIndex= pageCount;
+            if (currentPageIndex > pageCount && currentPageIndex != 1) currentPageIndex = pageCount;
             if (currentPageIndex < 1) currentPageIndex = 1;
 
             //跳过记录数
             int skipCount = pageSize * (currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql =skipCount==0&&base.DbType== DataBaseType.OLEDB?
-                        sql1:
+            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
+                        sql1 :
                         SP.Archive_GetPagedSearchArchives;
 
             sql = SQLRegex.Replace(sql, (match) =>
@@ -652,7 +668,7 @@ namespace AtNet.Cms.DAL
                 switch (match.Groups[1].Value)
                 {
                     case "condition": return condition;
-                    case "siteid": return siteID.ToString();
+                    case "siteid": return siteId.ToString();
                     case "pagesize": return pageSize.ToString();
                     case "skipsize": return skipCount.ToString();
                     case "keyword": return keyword;
@@ -661,7 +677,7 @@ namespace AtNet.Cms.DAL
                 return null;
             });
 
-             base.ExecuteReader(new SqlQuery(base.OptimizeSQL(sql)),func);
+            base.ExecuteReader(new SqlQuery(base.OptimizeSQL(sql)), func);
         }
 
         /// <summary>
@@ -679,16 +695,16 @@ namespace AtNet.Cms.DAL
         /// <param name="func"></param>
         /// <returns></returns>
         public void SearchArchivesByCategory(int siteId,
-            int categoryLft,int categoryRgt, string keyword,
+            int categoryLft, int categoryRgt, string keyword,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pageCount,
-            string orderby,DataReaderFunc func)
+            string orderby, DataReaderFunc func)
         {
 
             const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
 
 
-            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY CreateDate DESC");
+            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY sort_number DESC");
 
             object[,] data = new object[,]
             {
@@ -727,8 +743,8 @@ namespace AtNet.Cms.DAL
             int skipCount = pageSize * (currentPageIndex - 1);
 
 
-            string sql = skipCount == 0 && base.DbType== DataBaseType.OLEDB ?
-                sql1:
+            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
+                sql1 :
                 SP.Archive_GetPagedSearchArchivesByCategoryID;
 
             sql = SQLRegex.Replace(sql, (match) =>
@@ -746,7 +762,7 @@ namespace AtNet.Cms.DAL
              });
 
 
-            base.ExecuteReader(SqlQueryHelper.Format(sql,data), func);
+            base.ExecuteReader(SqlQueryHelper.Format(sql, data), func);
         }
 
         /// <summary>
@@ -765,7 +781,7 @@ namespace AtNet.Cms.DAL
 
             const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
 
-            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY CreateDate DESC");
+            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY sort_number DESC");
 
             //为第一页时
             const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.[ID] AS ID,* FROM  $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.[ID]
@@ -774,7 +790,7 @@ namespace AtNet.Cms.DAL
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
                 new SqlQuery(base.OptimizeSQL(String.Format(SP.Archive_GetSearchRecordCountByModuleID, moduleId,
-                keyword,condition)),null)
+                keyword, condition)), null)
                 ).ToString());
 
             //页数
@@ -788,7 +804,7 @@ namespace AtNet.Cms.DAL
             //跳过记录数
             int skipCount = pageSize * (currentPageIndex - 1);
 
-            string sql = skipCount == 0 && base.DbType== DataBaseType.OLEDB ?
+            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
                          sql1 :
                         SP.Archive_GetPagedSearchArchivesByModuleID;
 
@@ -829,13 +845,13 @@ namespace AtNet.Cms.DAL
 
         public int TransferAuthor(string username, string anotherUsername)
         {
-           return base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSQL(SP.Archive_TransferAuthor),
-                     new object[,]{
+            return base.ExecuteNonQuery(
+                 new SqlQuery(base.OptimizeSQL(SP.Archive_TransferAuthor),
+                      new object[,]{
                         {"@AnotherUsername", anotherUsername},
                         {"@Username", username}
                      })
-                );
+                 );
         }
 
         public int GetCategoryArchivesCount(string id)
@@ -847,7 +863,7 @@ namespace AtNet.Cms.DAL
 
 
 
-        public void GetSelftAndChildArchiveExtendValues(int siteId,int relationType, int lft, int rgt, int number, DataReaderFunc func)
+        public void GetSelftAndChildArchiveExtendValues(int siteId, int relationType, int lft, int rgt, int number, DataReaderFunc func)
         {
             /*
             base.ExecuteReader(
@@ -863,11 +879,11 @@ namespace AtNet.Cms.DAL
                     {"@lft", lft},
                     {"@rgt", rgt},
                      {"@relationType",relationType}
-                 },number.ToString()
+                 }, number.ToString()
                 ), func);
         }
 
-        public void GetArchivesExtendValues(int siteId, int relationType, string categoryTag, int number,DataReaderFunc func)
+        public void GetArchivesExtendValues(int siteId, int relationType, string categoryTag, int number, DataReaderFunc func)
         {
             base.ExecuteReader(
                    SqlQueryHelper.Format(SP.Archive_GetArchivesExtendValues,
@@ -879,5 +895,26 @@ namespace AtNet.Cms.DAL
                    ), func);
         }
 
+
+        public int GetMaxSortNumber(int siteId)
+        {
+            return int.Parse(base.ExecuteScalar(
+                SqlQueryHelper.Format(SP.Archive_GetMaxSortNumber,
+                    new object[,]
+                    {
+                        {"@siteId", siteId},
+                    })).ToString());
+        }
+
+        public void SaveSortNumber(int archiveId, int sortNumber)
+        {
+            base.ExecuteNonQuery(
+                SqlQueryHelper.Format(SP.Archive_UpdateSortNumber,
+                    new object[,]
+                    {
+                        {"@archiveId", archiveId},
+                        {"@sort_number",sortNumber},
+                    }));
+        }
     }
 }
