@@ -16,13 +16,13 @@ namespace AtNet.Cms.BLL
     /// <summary>
     /// 文档评论
     /// </summary>
-    public sealed class CommentBLL : IComment
+    public sealed class CommentBll : IComment
     {
 
 
         private static ICommentDAL _dal;
         private static IRenewsDAL _renewDal;
-        private static ArchiveDAL archiveDal = new ArchiveDAL();
+        private static ArchiveDal archiveDal = new ArchiveDal();
 
 
         

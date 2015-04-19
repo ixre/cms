@@ -231,7 +231,7 @@ namespace AtNet.Cms.BLL
                 //
                 // ArchiveBLL bll = new ArchiveBLL();
                 //bll.DeleteMemberArchive(id);
-                CommentBLL cbll = new CommentBLL();
+                CommentBll cbll = new CommentBll();
                 cbll.DeleteMemberComments(id);
             }
         }
