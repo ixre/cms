@@ -1,16 +1,16 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Com.PluginKernel;
+using AtNet.DevFw.PluginKernel;
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Ops.Cms XML-RPC")]
+[assembly: AssemblyTitle("AtNet.Cms XML-RPC")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Ops.Cms XML-RPC Plugin")]
+[assembly: AssemblyProduct("AtNet.Cms XML-RPC Plugin")]
 [assembly: AssemblyCopyright("Copyright © ops 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

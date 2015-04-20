@@ -33,9 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ops.cms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dist\ops.cms.dll</HintPath>
+    <Reference Include="atnet.cms">
+      <HintPath>..\..\..\dist\atnet.cms.dll</HintPath>
+    </Reference>
+    <Reference Include="atnet.devfw">
+      <HintPath>..\..\..\refrence.dll\atnet.devfw.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

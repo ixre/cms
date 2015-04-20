@@ -28,7 +28,6 @@ namespace CookComputing.XmlRpc
   using System;
   using System.Web;
     using System.Web.SessionState;
-    using Ops.Framework;
 
   public abstract class XmlRpcService : XmlRpcHttpServerProtocol, 
                                 IHttpHandler, IRequiresSessionState 

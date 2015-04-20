@@ -283,13 +283,13 @@
       <Project>{91E58451-6E7D-49DF-A817-5538CB4FEDD0}</Project>
       <Name>Spc.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ops.Cms.IDAL\Ops.Cms.IDAL.csproj">
+    <ProjectReference Include="..\AtNet.Cms.IDAL\AtNet.Cms.IDAL.csproj">
       <Project>{2D220632-1FC1-4E5F-8F6D-399F742724C9}</Project>
-      <Name>Ops.Cms.IDAL</Name>
+      <Name>AtNet.Cms.IDAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ops.Cms.Domain.Interface\Ops.Cms.Domain.Interface.csproj">
+    <ProjectReference Include="..\AtNet.Cms.Domain.Interface\AtNet.Cms.Domain.Interface.csproj">
       <Project>{A09A307E-1304-4CAD-958A-3F74F6B42C8F}</Project>
-      <Name>Ops.Cms.Domain.Interface</Name>
+      <Name>AtNet.Cms.Domain.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Spc.Models\Spc.Models.csproj">
       <Project>{BDF73F06-6E9F-4C73-8D72-84E2C64845E6}</Project>

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Web;
-using Com.PluginKernel;
-using Ops.Cms;
-using Ops.Cms.Core.Plugins;
+using AtNet.DevFw.PluginKernel;
+using AtNet.Cms;
+using AtNet.Cms.Core.Plugins;
 using sp.xmlrpc.XmlRpc.src;
-using Spc.XmlRpc;
 
 namespace sp.xmlrpc
 {
@@ -45,7 +44,7 @@ namespace sp.xmlrpc
 			else
 			{
 				WeblogRPCService.EnableBase64Images=false;
-				attr.Settings.Append("enable_base64_image","no");
+				attr.Settings.Set("enable_base64_image","no");
 				isChanged=true;
 			}
 			
