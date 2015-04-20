@@ -26,12 +26,9 @@ DEALINGS IN THE SOFTWARE.
 namespace CookComputing.XmlRpc
 {
   using System;
-  using System.Collections;
   using System.IO;
   using System.Reflection;
   using System.Text;
-  using System.Text.RegularExpressions;
-    using Ops.Framework;
 
   public class XmlRpcServerProtocol : SystemMethodsBase
   {

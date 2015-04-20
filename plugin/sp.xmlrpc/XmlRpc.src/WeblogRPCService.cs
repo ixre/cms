@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
 // Project: OPSite.XmlRpc
 // FileName : RPCService.cs
@@ -24,15 +24,16 @@ using System.Text.RegularExpressions;
 using System.Web;
 using CookComputing.MetaWeblog;
 using CookComputing.XmlRpc;
-using Ops.Cms;
-using Ops.Cms.CacheService;
-using Ops.Cms.DataTransfer;
-using Ops.Cms.Domain.Interface.Content.Archive;
-using Ops.Cms.Domain.Interface._old;
-using Spc.Models;
-using Spc.XmlRpc;
+using AtNet.Cms;
+using AtNet.Cms.CacheService;
+using AtNet.Cms.DataTransfer;
+using AtNet.Cms.Domain.Interface.Content.Archive;
+using AtNet.Cms.Domain.Interface._old;
+using AtNet.Cms.BLL;
 using Post = CookComputing.MetaWeblog.Post;
-using Ops.Cms.Conf;
+using AtNet.Cms.Conf;
+using AtNet.Cms.Domain.Interface.Models;
+using Ops.Cms.XmlRpc;
 
 namespace sp.xmlrpc.XmlRpc.src
 {
@@ -100,7 +101,7 @@ namespace sp.xmlrpc.XmlRpc.src
 @"<?xml version=""1.0"" encoding=""UTF-8""?>
 <rsd version=""1.0"" xmlns=""http://archipelago.phrasewise.com/rsd"">
   <service>
-    <engineName>Ops.Cms.NET! XML-RPC PLUGIN!</engineName>
+    <engineName>AtNet.Cms.NET! XML-RPC PLUGIN!</engineName>
     <engineLink>http://www.ops.cc/cms/xmlrpc</engineLink>
     <homePageLink>{0}</homePageLink>
     <apis>

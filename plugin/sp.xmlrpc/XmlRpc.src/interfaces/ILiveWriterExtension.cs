@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
 // Project: OPSite.XmlRpc.interface
 // FileName : ILiveWriterExtension.cs
@@ -11,7 +11,7 @@
 //
 //
 
-namespace Spc.XmlRpc
+namespace Ops.Cms.XmlRpc
 {
     using System;
     using System.Collections.Generic;
