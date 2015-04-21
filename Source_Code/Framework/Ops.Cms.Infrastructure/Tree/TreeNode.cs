@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ops.Cms.Infrastructure.Tree
+namespace AtNet.Cms.Infrastructure.Tree
 {
     /// <summary>
     /// 树节点

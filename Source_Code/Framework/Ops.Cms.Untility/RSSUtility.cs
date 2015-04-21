@@ -1,11 +1,11 @@
 ﻿//
-// Copyright 2011 @ OPS Inc,All right reseved.
+// Copyright 2011 @ S1N1.COM,All right reseved.
 // Name: RSSUtility.cs
 // Author: newmin
 // Comments:
 //
 
-namespace Ops.Cms.Utility
+namespace AtNet.Cms.Utility
 {
     /// <summary>
     /// 订阅工具

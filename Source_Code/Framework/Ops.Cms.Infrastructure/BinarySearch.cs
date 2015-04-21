@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Ops.Framework.Algorithm
+namespace AtNet.Cms.Infrastructure
 {
 
     public delegate int BinarySeachCompare<T, T2>(T t, T2 t2);

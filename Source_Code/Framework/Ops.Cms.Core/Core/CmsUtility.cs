@@ -1,7 +1,7 @@
 ﻿//
-// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
-// Project: OPS.Cms
+// Project: AtNet.Cms
 // FileName : CmsUtility.cs
 // Author : PC-CWLIU (new.min@msn.com)
 // Create : 2013/06/23 14:53:11
@@ -14,7 +14,7 @@
 using System;
 using System.IO;
 
-namespace Ops.Cms.Core
+namespace AtNet.Cms.Core
 {
     /// <summary>
 	/// CMS实用工具

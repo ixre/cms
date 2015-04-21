@@ -6,10 +6,11 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
-using Ops.Cms.Cache.CacheCompoment;
 
-namespace Ops.Cms.Cache
+using System;
+using AtNet.Cms.Cache.CacheCompoment;
+
+namespace AtNet.Cms.Cache
 {
 	/// <summary>
 	/// Description of CacheUpdateAttribute.

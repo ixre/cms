@@ -95,6 +95,10 @@ namespace AtNet.Cms.ServiceRepository
 
                        //rd.CopyToEntity<ISite>(site);
                        site.DirName = rd["dirname"].ToString();
+                       site.RunType = String.IsNullOrEmpty(site.DirName)
+                           ? SiteRunType.Stand
+                           : SiteRunType.VirtualDirectory;
+
                        site.Tpl = rd["tpl"].ToString();
                        site.State =(SiteState)int.Parse(rd["state"].ToString());
 

@@ -1,9 +1,9 @@
-﻿using Ops.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using AtNet.DevFw.Data;
 
-namespace Ops.Cms.DB
+namespace AtNet.Cms.DB
 {
     public static class DBAccessCreator
     {

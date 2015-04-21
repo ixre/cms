@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Ops.Cms.Infrastructure
+namespace AtNet.Cms.Infrastructure
 {
     /// <summary>
     /// 

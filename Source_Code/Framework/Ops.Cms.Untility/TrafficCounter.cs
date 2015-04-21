@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
 // Project: OPSite.Plugin
 // FileName : TrafficCounter.cs
@@ -11,13 +11,14 @@
 //
 //
 
-namespace Ops.Cms.Utility
-{
-    using Ops.Framework;
-    using Ops.Json;
-    using System;
-    using System.Threading;
 
+using System;
+using System.Threading;
+using AtNet.DevFw.Framework;
+using AtNet.DevFw.Utils;
+
+namespace AtNet.Cms.Utility
+{
     /// <summary>
     /// 流量统计
     /// </summary>

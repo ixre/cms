@@ -4,9 +4,9 @@
 // 创建时间：2012-10-01
 // 修改说明：
 
-using Ops.Cms.Web.Mvc;
+using AtNet.Cms.Web.Mvc;
 
-namespace Ops.Cms
+namespace AtNet.Cms
 {
     /// <summary>
     /// 

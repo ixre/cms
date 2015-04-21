@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: OperateResult
 * Author	: Newmin (new.min@msn.com)
@@ -8,7 +8,7 @@
 *
 */
 
-namespace Ops.Cms.Infrastructure
+namespace AtNet.Cms.Infrastructure
 {
 
     public enum OperateResult

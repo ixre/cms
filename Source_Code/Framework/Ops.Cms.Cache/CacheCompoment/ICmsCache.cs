@@ -6,10 +6,11 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
-using Ops.Cms.Infrastructure;
 
-namespace Ops.Cms.Cache.CacheCompoment
+using System;
+using AtNet.Cms.Infrastructure;
+
+namespace AtNet.Cms.Cache.CacheCompoment
 {
 	public interface ICmsCache
     {

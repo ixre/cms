@@ -10,7 +10,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ops.Cms.Core
+namespace AtNet.Cms.Core
 {
 	/// <summary>
 	/// Description of CmsException.

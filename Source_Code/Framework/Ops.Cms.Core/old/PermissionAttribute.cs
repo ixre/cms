@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ OPS Inc.
+// Copyright 2011 @ S1N1.COM.
 // Permission.cs
 // author:
 //      newmin(new.min@msn.com)
@@ -8,9 +8,9 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Web;
-using Spc.Models;
+using AtNet.Cms.Domain.Interface.Models;
 
-namespace Ops.Cms.old
+namespace AtNet.Cms.old
 {
     //using BLL;
 

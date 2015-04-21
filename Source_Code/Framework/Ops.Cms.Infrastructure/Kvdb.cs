@@ -1,58 +1,58 @@
-﻿using Ops.Cms.Infrastructure.KV;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using AtNet.Cms.Infrastructure.KV;
 
-namespace Ops.Cms.Infrastructure
+namespace AtNet.Cms.Infrastructure
 {
     public static class Kvdb
     {
-        private static LevelDb db;
+        private static LevelDb _db;
 
         public static LevelDb _currentInstance
         {
             get
             {
-                chkDb();
-                return db;
+                ChkDb();
+                return _db;
             }
         }
 
-        private static void chkDb()
+        private static void ChkDb()
         {
-            if (db == null)
+            if (_db == null)
             {
                 throw new ArgumentNullException("Kvdb未初始化，请使用Kvdb.SetPath()");
             }
         }
         public static void SetPath(string path)
         {
-            db = new LevelDb(path);
+            _db = new LevelDb(path);
         }
 
         public static string Put(string key, string value)
         {
-            return db.Put(key, value);
+            return _db.Put(key, value);
         }
 
         public static void Delete(string key)
         {
-            chkDb();
-            db.Delete(key);
+            ChkDb();
+            _db.Delete(key);
         }
 
         public static string Get(string key)
         {
-            chkDb();
-            return db.Get(key);
+            ChkDb();
+            return _db.Get(key);
         }
-
-
 
         public static int GetInt(string key)
         {
-            return db.GetInt(key);
+            return _db.GetInt(key);
+        }
+
+        public  static void Clean()
+        {
+            _db.Clean();
         }
     }
 }

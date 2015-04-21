@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web;
-using Ops.Cms.Core;
+using AtNet.Cms.Core;
 
-namespace Ops.Cms.old
+namespace AtNet.Cms.old
 {
     public class HttpModuleBase : IHttpModule,System.Web.SessionState.IRequiresSessionState
     {

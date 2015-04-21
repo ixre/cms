@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: Site.cs
 * Author	: Newmin (new.min@msn.com)
@@ -7,15 +7,16 @@
 * Description	:
 *
 */
-namespace Ops.Cms
-{
-    using SharpCompress.Archive;
-    using SharpCompress.Archive.Zip;
-    using SharpCompress.Common;
-    using SharpCompress.Writer;
-    using System;
-    using System.IO;
 
+using System;
+using System.IO;
+using SharpCompress.Archive;
+using SharpCompress.Archive.Zip;
+using SharpCompress.Common;
+using SharpCompress.Writer;
+
+namespace AtNet.Cms
+{
     /// <summary>
     /// 压缩辅助工具
     /// </summary>

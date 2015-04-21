@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.Routing;
-using Com.PluginKernel;
+using AtNet.DevFw.PluginKernel;
 
-namespace Ops.Cms.Core.Plugins
+namespace AtNet.Cms.Core.Plugins
 {
     /// <summary>
     /// CMS插件

@@ -1,6 +1,6 @@
 ﻿
 /*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: TemplateUrlRule
 * Author	: Newmin (new.min@msn.com)
@@ -14,11 +14,12 @@ using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Caching;
-using Ops.Cms.Infrastructure;
-using Ops.Framework.IO;
-using Ops.Web.Cache;
+using AtNet.Cms.Infrastructure;
+using AtNet.DevFw.Framework;
+using AtNet.DevFw.Framework.IO;
+using AtNet.DevFw.Framework.Web.Cache;
 
-namespace Ops.Cms.Cache.CacheCompoment
+namespace AtNet.Cms.Cache.CacheCompoment
 {
     /// <summary>
     /// Cms注入缓存

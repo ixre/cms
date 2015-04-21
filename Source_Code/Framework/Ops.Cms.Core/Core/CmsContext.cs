@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (C) 2007-2015 OPSoft INC,All rights reseved.
+ * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
  * Get more infromation of this software,please visit site http://cms.ops.cc
  * 
  * name : CmsContext.cs
@@ -14,15 +14,15 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Web;
-using Ops.Cms.CacheService;
-using Ops.Cms.Conf;
-using Ops.Cms.DataTransfer;
-using Ops.Cms.Domain.Interface.Site;
-using Ops.Cms.Infrastructure;
-using Ops.Template;
-using Ops.Web.Cache;
+using AtNet.Cms.CacheService;
+using AtNet.Cms.Conf;
+using AtNet.Cms.Domain.Interface.Site;
+using AtNet.Cms.Infrastructure;
+using AtNet.DevFw.Framework.Web.Cache;
+using AtNet.DevFw.Template;
+using AtNet.Cms.DataTransfer;
 
-namespace Ops.Cms.Core
+namespace AtNet.Cms.Core
 {
     /// <summary>
     /// 应用程序配置
@@ -159,7 +159,7 @@ namespace Ops.Cms.Core
         {
             get
             {
-                if (_siteDomain == null)
+                if (this._siteDomain == null)
                 {
                     string host = String.Format("{0}{1}", context.Request.Url.Host,
                                                 context.Request.Url.Port != 80 ? ":" + context.Request.Url.Port.ToString() : "");
@@ -167,7 +167,7 @@ namespace Ops.Cms.Core
                                           _siteDomain= String.Format("http://{0}{1}{2}",
                                                           host,
                                                           this.ApplicationPath=="/"?"":this.ApplicationPath,
-                                                          this.SiteAppPath=="/"?"/":this.SiteAppPath+"/"
+                                                          this.SiteAppPath=="/"?"":this.SiteAppPath
                                                          );
 
 //                    this._siteDomain = this.CurrentSite.FullDomain;
@@ -211,12 +211,13 @@ namespace Ops.Cms.Core
                 if (this._staticDomain == null)
                 {
                     if (Settings.SERVER_STATIC_ENABLED && Settings.SERVER_STATIC.Length != 0)
-
-                        this._staticDomain = String.Concat("http://", Settings.SERVER_STATIC, "/");
-
+                    {
+                        this._staticDomain = String.Concat("http://", Settings.SERVER_STATIC);
+                    }
                     else
-                        this._staticDomain = this.ResourceDomain == String.Empty ? "/" : this.ResourceDomain;
-
+                    {
+                        this._staticDomain = this.ResourceDomain;
+                    }
                 }
 
                 return this._staticDomain;
@@ -359,7 +360,7 @@ namespace Ops.Cms.Core
                 response.AddHeader("Content-Encoding", "deflate");
             }*/
 
-            response.AddHeader("X-AspNet-Version", String.Format("Ops.Cms.net v{0}", Cms.Version));
+            response.AddHeader("X-AspNet-Version", String.Format("AtNet.Cms.net v{0}", Cms.Version));
             response.AddHeader("Support-URL", "www.ops.cc/cms/");
         }
 
@@ -384,7 +385,7 @@ namespace Ops.Cms.Core
             string html = null;
             try
             {
-                TemplatePage tpl = new TemplatePage(String.Format("/{0}/notfound", this.CurrentSite.Tpl));
+                TemplatePage tpl = new TemplatePage(String.Format("/{0}/not_found", this.CurrentSite.Tpl));
                 if (handler != null)
                 {
                     handler(tpl);

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ OPS Inc,All right reseved.
+// Copyright 2011 @ S1N1.COM,All right reseved.
 // Name: ArchiveUtility.cs
 // Author: newmin
 // Comments:
@@ -11,11 +11,11 @@
 
 using System;
 using System.Text.RegularExpressions;
-using Ops.Cms.Domain.Interface._old;
-using Spc;
-using Spc.Models;
+using AtNet.Cms.BLL;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface._old;
 
-namespace Ops.Cms.Utility
+namespace AtNet.Cms.Utility
 {
     public static class ArchiveUtility
     {

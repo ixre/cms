@@ -1,14 +1,14 @@
 ﻿//
 // { newmin,OPS } Server.cs     2011/03/06 00:41
 //
-// Copyright 2011 @ OPS Inc,All rights reseved!
+// Copyright 2011 @ S1N1.COM,All rights reseved!
 // Note: 需做一个调用更新服务器的功能
 //
 //
 
 using System;
 
-namespace Ops.Cms.Conf
+namespace AtNet.Cms.Conf
 {
     public class Server
     {
@@ -16,16 +16,16 @@ namespace Ops.Cms.Conf
     	/// 默认静态服务器
     	/// 
     	/// </summary>
-        internal static string _defaultStaticServer="cdn.ops.cc/cms";
+        internal static string _defaultStaticServer="cms-cdn.s1n1.com/cms";
 
         /// <summary>
         /// 更新服务器
         /// </summary>
-        public static String UpgradeServer = "http://cdn.ops.cc/cms/release/last_patch/";
+        public static String UpgradeServer = "http://cms-cdn.s1n1.com/cms/release/last_patch/";
 
         /// <summary>
         /// 控制台订阅服务器
         /// </summary>
-        public static String DashbordRssServer = "http://www.ops.cc/cms/";
+        public static String DashbordRssServer = "http://cms.s1n1.com/rss_info";
     }
 }

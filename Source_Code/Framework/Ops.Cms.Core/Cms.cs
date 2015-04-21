@@ -1,6 +1,6 @@
 ﻿
 /*
- * Copyright(C) 2010-2013 OPSoft Inc
+ * Copyright(C) 2010-2013 S1N1.COM
  * 
  * File Name	: TemplateUrlRule
  * Author	: Newmin (new.min@msn.com)
@@ -9,96 +9,93 @@
  *
  */
 
-using Ops.Cms.Cache.CacheCompoment;
-using Ops.Cms.Conf;
-using Ops.Cms.Core;
-using Ops.Cms.Core.Plugins;
-using StructureMap.Graph;
-
-namespace Ops.Cms
-{
-    using Com.PluginKernel;
-using Ops.Cms.Cache;
-using Ops.Cms.DataTransfer;
-using Ops.Cms.DB;
-using Ops.Cms.Infrastructure;
-using Ops.Framework;
-using Ops.Template;
 using System;
 using System.IO;
 using System.Web;
+using AtNet.Cms.Cache;
+using AtNet.Cms.Cache.CacheCompoment;
+using AtNet.Cms.Conf;
+using AtNet.Cms.Core;
+using AtNet.Cms.Core.Plugins;
+using AtNet.Cms.DB;
+using AtNet.Cms.Infrastructure;
+using AtNet.DevFw.Framework;
+using AtNet.DevFw.PluginKernel;
+using AtNet.Cms.DataTransfer;
 
-	public static class Cms
-	{
-		/// <summary>
-		/// 版本
-		/// </summary>
-		public static readonly string Version;
-		
-		/// <summary>
-		/// 最后生成时间
-		/// </summary>
-		//public static readonly DateTime BuiltTime;
-		
-		/// <summary>
-		/// 是否为Mono平台
-		/// </summary>
-		public static readonly Boolean RunAtMono;
+namespace AtNet.Cms
+{
+    public static class Cms
+    {
+        /// <summary>
+        /// 版本
+        /// </summary>
+        public static readonly string Version;
 
-		/// <summary>
-		/// 物理路径
-		/// </summary>
-		public static readonly string PyhicPath;
+        /// <summary>
+        /// 最后生成时间
+        /// </summary>
+        //public static readonly DateTime BuiltTime;
 
-		/// <summary>
-		/// 是否为多站点版本
-		/// </summary>
-		public static bool MultSiteVersion=true;
+        /// <summary>
+        /// 是否为Mono平台
+        /// </summary>
+        public static readonly Boolean RunAtMono;
 
-		/// <summary>
-		/// 所有站点
-		/// </summary>
-		private static SiteDto[] sites;
+        /// <summary>
+        /// 物理路径
+        /// </summary>
+        public static readonly string PyhicPath;
+
+        /// <summary>
+        /// 是否为多站点版本
+        /// </summary>
+        public static bool MultSiteVersion = true;
+
+        /// <summary>
+        /// 所有站点
+        /// </summary>
+        private static SiteDto[] sites;
 
 
-		/// <summary>
-		/// CMS实用工具
-		/// </summary>
-		public static readonly CmsUtility Utility;
+        /// <summary>
+        /// CMS实用工具
+        /// </summary>
+        public static readonly CmsUtility Utility;
 
-		/// <summary>
-		/// CMS缓存
-		/// </summary>
-		public static readonly CmsCache Cache;
+        /// <summary>
+        /// CMS缓存
+        /// </summary>
+        public static readonly CmsCache Cache;
 
         private static LogFile logFile;
 
-		/// <summary>
-		/// Cms上下文对象
-		/// </summary>
-		public static CmsContext Context
-		{
-			get
-			{
-				CmsContext context = HttpContext.Current.Items["cms.context"] as CmsContext;
-				if (context == null)
-				{
-					context = new CmsContext();
-					HttpContext.Current.Items["cms.context"] = context;
-				}
-				return context;
-			}
-		}
+        /// <summary>
+        /// Cms上下文对象
+        /// </summary>
+        public static CmsContext Context
+        {
+            get
+            {
+                CmsContext context = HttpContext.Current.Items["cms.context"] as CmsContext;
+                if (context == null)
+                {
+                    context = new CmsContext();
+                    HttpContext.Current.Items["cms.context"] = context;
+                }
+                return context;
+            }
+        }
 
-		/// <summary>
-		/// Cms模板
-		/// </summary>
-		public static readonly CmsTemplate Template ;
+        /// <summary>
+        /// Cms模板
+        /// </summary>
+        public static readonly CmsTemplate Template;
 
-		/// <summary>
-		/// 插件
-		/// </summary>
-		public static readonly CmsPluginContext Plugins ;
+        /// <summary>
+        /// 插件
+        /// </summary>
+        public static readonly CmsPluginContext Plugins;
 
         /// <summary>
         /// 语言包
@@ -111,50 +108,50 @@ using System.Web;
             }
         }
 
-		/// <summary>
-		/// 开始初始化
-		/// </summary>
-		public static event CmsHandler OnInit;
+        /// <summary>
+        /// 开始初始化
+        /// </summary>
+        public static event CmsHandler OnInit;
 
-		/// <summary>
-		/// 重置缓存时发生
-		/// </summary>
-		public static event CmsHandler OnResetCache;
+        /// <summary>
+        /// 重置缓存时发生
+        /// </summary>
+        public static event CmsHandler OnResetCache;
         private static CmsLanguagePackage _cmsLang;
 
 
-		static Cms()
-		{
+        static Cms()
+        {
             Version = CmsVariables.VERSION;
-			PyhicPath = AppDomain.CurrentDomain.BaseDirectory;
-			//获取编译生成的时间
-			//Version ver=typeof(Cms).Assembly.GetName().Version;
-			//BuiltTime= new DateTime(2000, 1, 1).AddDays(ver.Build).AddSeconds(ver.Revision * 2);
-			//BuiltTime=System.IO.File.GetLastWriteTime(typeof(Cms).Assembly.Location);
-			
-			//获取平台
-			
+            PyhicPath = AppDomain.CurrentDomain.BaseDirectory;
+            //获取编译生成的时间
+            //Version ver=typeof(Cms).Assembly.GetName().Version;
+            //BuiltTime= new DateTime(2000, 1, 1).AddDays(ver.Build).AddSeconds(ver.Revision * 2);
+            //BuiltTime=System.IO.File.GetLastWriteTime(typeof(Cms).Assembly.Location);
+
+            //获取平台
+
             Int32 platFormId = (Int32)Environment.OSVersion.Platform;
             if (platFormId == 4 || platFormId == 6 || platFormId == 128)
             {
                 RunAtMono = true;
             }
 
-          
 
-			//初始化
-			Plugins= new CmsPluginContext();
-			Template= new CmsTemplate();
-			Cache=CacheFactory.Sington as CmsCache; 
-			Utility=new CmsUtility();
 
-			#region  缓存清除
+            //初始化
+            Plugins = new CmsPluginContext();
+            Template = new CmsTemplate();
+            Cache = CacheFactory.Sington as CmsCache;
+            Utility = new CmsUtility();
 
-			//
-			//UNDONE: 弱引用
-			//
+            #region  缓存清除
 
-			/*
+            //
+            //UNDONE: 弱引用
+            //
+
+            /*
             WeakRefCache.OnLinkBuilting += () =>
             {
                 Cms.Cache.Clear(CacheSign.Link.ToString());
@@ -175,40 +172,40 @@ using System.Web;
                 Cms.Cache.Clear(CacheSign.TemplateBind.ToString());
             };
 
-			 */
-			#endregion
-		}
+             */
+            #endregion
+        }
 
 
-		/// <summary>
-		/// 设置应用程序，如在过程中发生异常则重启并提醒！
-		/// </summary>
+        /// <summary>
+        /// 设置应用程序，如在过程中发生异常则重启并提醒！
+        /// </summary>
         public static void Init()
         {
-            HttpContext context =HttpContext.Current;
-		    if (context != null)
-		    {
-		        //判断是否已经安装
-		        FileInfo insLockFile = new FileInfo(String.Format("{0}config/install.lock", Cms.PyhicPath));
-		        if (!insLockFile.Exists)
-		        {
-		            //HttpRuntime.UnloadAppDomain();
+            HttpContext context = HttpContext.Current;
+            if (context != null)
+            {
+                //判断是否已经安装
+                FileInfo insLockFile = new FileInfo(String.Format("{0}config/install.lock", Cms.PyhicPath));
+                if (!insLockFile.Exists)
+                {
+                    //HttpRuntime.UnloadAppDomain();
 
-		            const string installUrl = "/install/install.html";
-		            context.Response.Redirect(installUrl, true);
-		            context.Response.End();
-		            return;
-		        }
-		        //设置应用路径
-		        HttpApp.SetApplicationPath(context.Request.ApplicationPath);
-		    }
+                    const string installUrl = "/install/install.html";
+                    context.Response.Redirect(installUrl, true);
+                    context.Response.End();
+                    return;
+                }
+                //设置应用路径
+                HttpApp.SetApplicationPath(context.Request.ApplicationPath);
+            }
 
-		    //初始化目录
-            chkCreate(CmsVariables.TEMP_PATH);
+            //初始化目录
+            ChkCreate(CmsVariables.TEMP_PATH);
 
 
             //初始化系统日志
-           // logFile = new LogFile()
+            // logFile = new LogFile()
 
             //todo:
 
@@ -236,6 +233,7 @@ using System.Web;
             string kvDir = Cms.PyhicPath + CmsVariables.TEMP_PATH + "data/.gca";
             if (Directory.Exists(kvDir)) Directory.Delete(kvDir, true);
             Kvdb.SetPath(kvDir);
+            Kvdb.Clean();
 
             //获取静态服务器
             //UpdateServerInfo();
@@ -258,17 +256,17 @@ using System.Web;
             //注册模板
             Template.Register("/templates/", true);
 
-		    //PluginConfig.PLUGIN_FILE_PARTTERN = "*.dll,*.so";
+            //PluginConfig.PLUGIN_FILE_PARTTERN = "*.dll,*.so";
             PluginConfig.PLUGIN_DIRECTORY = CmsVariables.PLUGIN_PATH;
-            PluginConfig.PLUGIN_TMP_DIRECTORY = CmsVariables.TEMP_PATH +"plugin/";
+            PluginConfig.PLUGIN_TMP_DIRECTORY = CmsVariables.TEMP_PATH + "plugin/";
             PluginConfig.PLUGIN_LOG_OPENED = true;
             PluginConfig.PLUGIN_LOG_EXCEPT_FORMAT = "** {time} **:{message}\r\nSource:{source}\r\nAddress:{addr}\r\nStack:{stack}\r\n\r\n";
 
-		    string pluginPhysicPath = Cms.PyhicPath + PluginConfig.PLUGIN_TMP_DIRECTORY;
+            string pluginPhysicPath = Cms.PyhicPath + PluginConfig.PLUGIN_TMP_DIRECTORY;
             if (!Directory.Exists(pluginPhysicPath))
-		    {
+            {
                 Directory.CreateDirectory(pluginPhysicPath).Create();
-		    }
+            }
 
             //连接插件
             CmsPluginContext.Connect();
@@ -280,17 +278,17 @@ using System.Web;
             }
         }
 
-		/// <summary>
-		/// 所有站点
-		/// </summary>
-		public static SiteDto[] Sites { get { return sites; } }
+        /// <summary>
+        /// 所有站点
+        /// </summary>
+        public static SiteDto[] Sites { get { return sites; } }
 
-		/// <summary>
-		/// 更新服务器信息
-		/// </summary>
+        /// <summary>
+        /// 更新服务器信息
+        /// </summary>
         //internal static void UpdateServerInfo()
         //{
-			
+
         //    Ops.Framework.Net.WebClient client = new Ops.Framework.Net.WebClient("http://ct.ops.cc/control.axd");
         //    try
         //    {
@@ -299,10 +297,10 @@ using System.Web;
         //    catch { }
         //}
 
-		/// <summary>
-		/// 重新注册设置站点
-		/// </summary>
-		/// <param name="sites"></param>
+        /// <summary>
+        /// 重新注册设置站点
+        /// </summary>
+        /// <param name="sites"></param>
         public static void RegSites(SiteDto[] sites)
         {
             Cms.sites = sites;
@@ -318,7 +316,7 @@ using System.Web;
         }
 
 
-        private static void chkCreate(string path)
+        private static void ChkCreate(string path)
         {
             string d = PyhicPath + path;
             if (!Directory.Exists(d))

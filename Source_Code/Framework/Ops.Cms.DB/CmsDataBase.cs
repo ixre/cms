@@ -1,7 +1,7 @@
 ﻿//
-// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
-// Project: OPS.Cms
+// Project: AtNet.Cms
 // FileName : CmsDataBase.cs
 // Author : PC-CWLIU (new.min@msn.com)
 // Create : 2013/06/23 14:53:11
@@ -11,11 +11,11 @@
 //
 //
 
-namespace Ops.Cms.DB
-{
-    using Ops.Data;
-    using System;
+using System;
+using AtNet.DevFw.Data;
 
+namespace AtNet.Cms.DB
+{
     /// <summary>
     /// Cms主要数据库访问
     /// </summary>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using StructureMap;
 
-namespace Ops.Cms.Infrastructure.Ioc
+namespace AtNet.Cms.Infrastructure.Ioc
 {
     public class Ioc
     {

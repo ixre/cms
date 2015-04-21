@@ -12,8 +12,6 @@
  */
 
 
-using Ops.Cms.Conf;
-using Ops.Cms.WebManager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,8 +19,11 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
+using AtNet.DevFw.Utils;
+using AtNet.Cms.Conf;
+using AtNet.Cms.WebManager;
 
-namespace Ops.Cms
+namespace AtNet.Cms.Handler
 {
     public class EditorUploadHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
     {
@@ -32,14 +33,14 @@ namespace Ops.Cms
         {
             String aspxUrl = context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
 
-            string siteID = Logic.CurrentSite.SiteId.ToString();
+            string siteId = Logic.CurrentSite.SiteId.ToString();
             //文件保存目录路径
-            String savePath = String.Format("/{0}s{1}/", CmsVariables.RESOURCE_PATH,siteID);
+            String savePath = String.Format("/{0}s{1}/", CmsVariables.RESOURCE_PATH,siteId);
 
             //文件保存目录URL
-            string appPath = Cms.Context.ApplicationPath;
+            string appPath = AtNet.Cms.Cms.Context.ApplicationPath;
             String saveUrl = String.Format("{0}/{1}s{2}/", appPath == "/" ? "" : appPath, 
-                CmsVariables.RESOURCE_PATH,siteID);
+                CmsVariables.RESOURCE_PATH,siteId);
 
             //定义允许上传的文件扩展名
             Hashtable extTable = new Hashtable();
@@ -127,7 +128,7 @@ namespace Ops.Cms
             context.Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
 
 
-            context.Response.Write(Ops.Json.JsonAnalyzer.ToJson(hash));
+            context.Response.Write(JsonAnalyzer.ToJson(hash));
             context.Response.End();
         }
 
@@ -137,7 +138,7 @@ namespace Ops.Cms
             hash["error"] = 1;
             hash["message"] = message;
             context.Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
-            context.Response.Write(Ops.Json.JsonAnalyzer.ToJson(hash));
+            context.Response.Write(JsonAnalyzer.ToJson(hash));
             context.Response.End();
         }
 
@@ -158,7 +159,7 @@ namespace Ops.Cms
             //根目录路径，相对路径
             String rootPath = String.Format("{0}s{1}/", CmsVariables.RESOURCE_PATH,siteID);
             //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
-            string appPath = Cms.Context.ApplicationPath;
+            string appPath = AtNet.Cms.Cms.Context.ApplicationPath;
             String rootUrl = String.Format("{0}/{1}s{2}/", appPath == "/" ? "" : appPath, 
                 CmsVariables.RESOURCE_PATH, siteID);
 
@@ -286,7 +287,7 @@ namespace Ops.Cms
             int j = 0;
             foreach (Hashtable h in dirFileList)
             {
-                files += Ops.Json.JsonAnalyzer.ToJson(h);
+                files += JsonAnalyzer.ToJson(h);
                 if (++j < dirFileList.Count)
                 {
                     files += ",";
@@ -294,7 +295,7 @@ namespace Ops.Cms
             }
             result["file_list"] = "[" + files + "]";
             context.Response.AddHeader("Content-Type", "application/json; charset=UTF-8");
-            context.Response.Write(Ops.Json.JsonAnalyzer.ToJson(result));
+            context.Response.Write(JsonAnalyzer.ToJson(result));
             context.Response.End();
         }
 

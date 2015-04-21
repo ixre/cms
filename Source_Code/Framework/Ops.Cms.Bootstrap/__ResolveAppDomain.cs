@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Ops.Cms.Conf;
+using AtNet.Cms.Conf;
 
-namespace Ops.Cms
+namespace AtNet.Cms
 {
     internal class __ResolveAppDomain
     {

@@ -10,13 +10,13 @@ using System.Security;
 // 与程序集关联的信息。
 
 //[assembly: AllowPartiallyTrustedCallers]
-[assembly: AssemblyTitle("Ops Cms .NET")]
+[assembly: AssemblyTitle("AtNet Cms .NET")]
 [assembly: AssemblyDescription("The cross platform ASP.NET content manage system.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("plese visit www.ops.cc/cms/ known about us!")]
-[assembly: AssemblyProduct("Ops.Cms .NET !")]
+[assembly: AssemblyProduct("AtNet.Cms .NET !")]
 [assembly: AssemblyCopyright("Copyright 2008-2014 © ops.cc")]
-[assembly: AssemblyTrademark("Ops.Cms")]
+[assembly: AssemblyTrademark("AtNet.Cms")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 使此程序集中的类型

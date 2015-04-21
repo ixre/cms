@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (C) 2007-2015 OPSoft INC,All rights reseved.
+ * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
  * Get more infromation of this software,please visit site http://cms.ops.cc
  * 
  * name : HttpApp.cs
@@ -8,7 +8,7 @@
  * description : 
  * history : 
  */
-namespace Ops.Cms.Infrastructure
+namespace AtNet.Cms.Infrastructure
 {
     public static class HttpApp
     {

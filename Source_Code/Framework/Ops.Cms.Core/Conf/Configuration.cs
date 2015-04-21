@@ -1,7 +1,7 @@
 ﻿//
-// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
-// Project: Ops.Cms
+// Project: AtNet.Cms
 // FileName : ApplicationManager.cs
 // Author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/12/23 14:53:11
@@ -13,11 +13,11 @@
 
 using System;
 using System.Web;
-using Ops.Cms.DataTransfer;
-using Ops.Cms.Infrastructure;
-using Ops.Framework;
+using AtNet.Cms.Infrastructure;
+using AtNet.DevFw.Framework;
+using AtNet.Cms.DataTransfer;
 
-namespace Ops.Cms.Conf
+namespace AtNet.Cms.Conf
 {
     public class Configuration
 	{
