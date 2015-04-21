@@ -4,8 +4,10 @@ using AtNet.Cms.ServiceRepository.Query;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using AtNet.Cms.Domain.Interface.Common;
 using AtNet.Cms.Domain.Interface.Content;
 using AtNet.Cms.Domain.Interface.Content.Archive;
+using AtNet.Cms.Domain.Interface.Enum;
 using AtNet.Cms.Domain.Interface.Site;
 using AtNet.Cms.Domain.Interface.Site.Category;
 using AtNet.Cms.Domain.Interface.Site.Extend;
@@ -257,7 +259,9 @@ namespace AtNet.Cms.Service
                 }
             }
 
-            return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, author, flags, orderByField, orderAsc, pageSize, currentPageIndex, out  recordCount, out  pages);
+            return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, author, 
+                flags, orderByField, orderAsc, pageSize, currentPageIndex, 
+                out  recordCount, out  pages);
         }
 
 
@@ -377,6 +381,25 @@ namespace AtNet.Cms.Service
             //
             return null;
             // return this._archiveQuery.GetRelatedArchives(siteId, contentId);
+        }
+
+
+        public void MoveToSort(int siteId, int id, int direction)
+        {
+            IBaseContent archive = this._contentRep.GetContent(siteId).GetArchiveById(id);
+            if (archive == null)
+            {
+                throw new ArgumentException("no such archive","id");
+            }
+
+            if (direction ==1)
+            {
+                archive.SortUpper();
+            }
+            else if (direction ==2)
+            {
+                archive.SortLower();
+            }
         }
     }
 }

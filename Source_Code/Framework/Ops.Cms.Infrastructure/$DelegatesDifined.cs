@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 OPSoft Inc
+* Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: DelegatesDifined
 * Author	: Newmin (new.min@msn.com)
@@ -9,7 +9,8 @@
 */
 
 using System.IO;
-namespace Ops.Cms.Infrastructure
+
+namespace AtNet.Cms.Infrastructure
 {
     public delegate void WatchBehavior();
     //public delegate void ArchiveHandler(Archive archive);

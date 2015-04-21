@@ -1,7 +1,7 @@
 ﻿
-using Ops.Cms.Cache.CacheCompoment;
+using AtNet.Cms.Cache.CacheCompoment;
 
-namespace Ops.Cms.Cache
+namespace AtNet.Cms.Cache
 {
     /// <summary>
     /// 

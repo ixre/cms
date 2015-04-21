@@ -7,7 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-namespace Ops.Cms.Cache.CacheCompoment
+namespace AtNet.Cms.Cache.CacheCompoment
 {
 
     /// <summary>

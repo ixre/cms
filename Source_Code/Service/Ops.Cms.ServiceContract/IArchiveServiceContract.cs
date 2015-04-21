@@ -242,5 +242,13 @@ namespace AtNet.Cms.ServiceContract
         /// <param name="contentId"></param>
         /// <returns></returns>
         IEnumerable<ArchiveDto> GetRelatedArchives(int siteId, int contentId);
+
+        /// <summary>
+        /// 移动排序
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="id"></param>
+        /// <param name="direction"></param>
+        void MoveToSort(int siteId, int id, int direction);
     }
 }

@@ -1,8 +1,8 @@
-﻿using Com.PluginKernel;
-using Com.PluginKernel.Web;
-using System.Web;
+﻿using System.Web;
+using AtNet.DevFw.PluginKernel;
+using AtNet.DevFw.PluginKernel.Web;
 
-namespace Ops.Cms.Core.Plugins
+namespace AtNet.Cms.Core.Plugins
 {
 
    

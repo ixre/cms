@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Ops.Cms.Infrastructure
+namespace AtNet.Cms.Infrastructure
 {
     /// <summary>
     /// 资源映射

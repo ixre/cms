@@ -1,18 +1,17 @@
-﻿using Ops.Cms.Conf;
+﻿using System;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Xml;
+using AtNet.Cms.Conf;
+using AtNet.Cms.Infrastructure;
+using SharpCompress.Archive;
+using SharpCompress.Common;
 
-namespace Ops.Cms
+namespace AtNet.Cms
 {
-    using Ops.Cms.Infrastructure;
-    using SharpCompress.Archive;
-    using SharpCompress.Common;
-    using System;
-    using System.IO;
-    using System.Net;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Threading;
-    using System.Xml;
-
     /// <summary>
     /// 更新文件类型
     /// </summary>
@@ -57,11 +56,11 @@ namespace Ops.Cms
 
                 ver1800:
                 /*********************  versio 1.8 ******************/
-                //UpgradeFile("Ops.Cms.jslib_0.1.zip", UpgradeFileType.Zip, "framework/common", false);
+                //UpgradeFile("AtNet.Cms.jslib_0.1.zip", UpgradeFileType.Zip, "framework/common", false);
 
                 ver1900:
                 /********************* version 1.9 ******************/
-                //UpgradeFile("Ops.Cms.libs.zip", UpgradeFileType.Zip, "", false);
+                //UpgradeFile("AtNet.Cms.libs.zip", UpgradeFileType.Zip, "", false);
 
                 if (UpgradePercent < 0.1F) UpgradePercent = 0.1F;
 
@@ -79,7 +78,7 @@ namespace Ops.Cms
                     if (UpgradePercent < 0.3F) UpgradePercent = 0.3F;
 
                     //最后更新dll
-                    //UpgradeFile("Ops.Cms.dll", UpgradeFileType.Lib, "bin/", false);
+                    //UpgradeFile("AtNet.Cms.dll", UpgradeFileType.Lib, "bin/", false);
                     UpgradeFile("bin.zip", UpgradeFileType.Zip,UpgadeDir, false);
 
                     //v2.1 版本切换至于sponet.dll
@@ -95,9 +94,9 @@ namespace Ops.Cms
         /// <returns></returns>
         public static int CheckUpgade_OLD()
         {
-            string remoteLib = Server.UpgradeServer + "Ops.Cms.dll";
+            string remoteLib = Server.UpgradeServer + "AtNet.Cms.dll";
             DirectoryInfo libDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "bin/");
-            FileInfo libFile = new FileInfo(libDir.FullName + "Ops.Cms.dll");
+            FileInfo libFile = new FileInfo(libDir.FullName + "AtNet.Cms.dll");
 
             WebRequest wr = WebRequest.Create(remoteLib);
             try
@@ -243,7 +242,7 @@ namespace Ops.Cms
             string remoteLib = verData[1];
 
             DirectoryInfo libDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "bin\\");
-            FileInfo libFile = new FileInfo(libDir.FullName + "Ops.Cms.dll");
+            FileInfo libFile = new FileInfo(libDir.FullName + "AtNet.Cms.dll");
             FileInfo tempLibFile = new FileInfo(libDir.FullName + "temp.lib");
 
 

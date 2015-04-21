@@ -1,10 +1,5 @@
-D:\work\github.com\cms\bin\Ops.Cms.Cache.dll
-D:\work\github.com\cms\bin\Ops.Cms.Cache.pdb
-D:\work\github.com\cms\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.dll
-D:\work\github.com\cms\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.pdb
-D:\work\github.com\cms\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.csprojResolveAssemblyReference.cache
-F:\git\github.com\cms\bin\Ops.Cms.Cache.dll
-F:\git\github.com\cms\bin\Ops.Cms.Cache.pdb
-F:\git\github.com\cms\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.csprojResolveAssemblyReference.cache
-F:\git\github.com\cms\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.dll
-F:\git\github.com\cms\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.pdb
+G:\bitbuckets.org\ops.cms\chunk\bin\Ops.Cms.Cache.dll
+G:\bitbuckets.org\ops.cms\chunk\bin\Ops.Cms.Cache.pdb
+G:\bitbuckets.org\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.csprojResolveAssemblyReference.cache
+G:\bitbuckets.org\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.dll
+G:\bitbuckets.org\ops.cms\chunk\Source_Code\Framework\Ops.Cms.Cache\obj\Debug\Ops.Cms.Cache.pdb

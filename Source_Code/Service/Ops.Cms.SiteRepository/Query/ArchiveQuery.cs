@@ -5,7 +5,7 @@ namespace AtNet.Cms.ServiceRepository.Query
 {
     public class ArchiveQuery
     {
-        private ArchiveDAL dal = new ArchiveDAL();
+        private ArchiveDal dal = new ArchiveDal();
 
         public DataTable GetPagedArchives(int siteId, int lft,int rgt , 
             string author, string[,] flags, string orderByField, bool orderAsc, 

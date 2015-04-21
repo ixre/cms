@@ -1,11 +1,9 @@
-﻿
-
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Ops.Cms.Conf
+namespace AtNet.Cms.Conf
 {
     internal class WebConfig
     {

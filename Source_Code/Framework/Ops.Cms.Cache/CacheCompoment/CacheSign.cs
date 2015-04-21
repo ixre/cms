@@ -7,11 +7,14 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-namespace Ops.Cms.Cache.CacheCompoment
+using System;
+
+namespace AtNet.Cms.Cache.CacheCompoment
 {
 	  /// <summary>
     /// 缓存符号
     /// </summary>
+    [Flags]
     public enum CacheSign:int
     {
         Unknown =1,

@@ -1,7 +1,7 @@
 ﻿//
-// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
-// Project: OPS.Cms
+// Project: AtNet.Cms
 // FileName : CmsContext.cs
 // Author : PC-CWLIU (new.min@msn.com)
 // Create : 2013/06/23 14:53:11
@@ -15,10 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web;
-using Ops.Cms.Conf;
-using Ops.Template;
+using AtNet.Cms.Conf;
+using AtNet.DevFw.Template;
 
-namespace Ops.Cms.Core
+namespace AtNet.Cms.Core
 {
     public enum TemplatePageType
     {
@@ -120,10 +120,10 @@ namespace Ops.Cms.Core
                 try
                 {
                     //初始化模板
-                    global::Ops.Template.Config.EnabledCache = true;
+                    global::AtNet.DevFw.Template.Config.EnabledCache = true;
 
                     //模板设置是否缓存
-                    global::Ops.Template.Config.EnabledCompress = Settings.TPL_UseCompress;
+                    global::AtNet.DevFw.Template.Config.EnabledCompress = Settings.TPL_UseCompress;
 
                     tpl = new TemplateRegister(tplPath,
                                                 tplNameAsTemplateId ? TemplateNames.FileName : TemplateNames.ID
@@ -171,7 +171,7 @@ namespace Ops.Cms.Core
             //  Configuration.Configure();
 
             //模板设置是否缓存
-            global::Ops.Template.Config.EnabledCompress = Settings.TPL_UseCompress;
+            global::AtNet.DevFw.Template.Config.EnabledCompress = Settings.TPL_UseCompress;
 
             //将配置写入模板缓存
             RegisterTemplate();

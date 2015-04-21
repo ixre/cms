@@ -6,13 +6,14 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+
 using System;
 using System.Collections;
 using System.Web;
 using System.Web.Caching;
-using Ops.Cms.Infrastructure;
+using AtNet.Cms.Infrastructure;
 
-namespace Ops.Cms.Cache.CacheCompoment
+namespace AtNet.Cms.Cache.CacheCompoment
 {
 	 /// <summary>
     /// 缓存基础类

@@ -14,10 +14,10 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Ops.Cms.Web.Mvc;
-using Ops.Cms.Web.Task;
+using AtNet.Cms.Web.Mvc;
+using AtNet.Cms.Web.Task;
 
-namespace Ops.Cms
+namespace AtNet.Cms
 {
     /// <summary>
     /// Description of HttpApplicaiton.
@@ -50,8 +50,8 @@ namespace Ops.Cms
         {
             try
             {
-                Cms.OnInit += CmsEventRegister.Init;
-                Cms.Init();
+                AtNet.Cms.Cms.OnInit += CmsEventRegister.Init;
+                AtNet.Cms.Cms.Init();
             }
             catch (Exception exc)
             {
@@ -63,8 +63,8 @@ namespace Ops.Cms
                 {
                     HttpContext.Current.Response.Write(@"<html><head></head>
                         <body style=""text-align:center""><h1 style="""">" + exc.Message
-                        + "</h1><hr /><span>ops.cms v" + Cms.Version
-                        + "</span><span style=\"display:none\">"
+                        + "</h1><hr /><span>AtNet.Cms v" + AtNet.Cms.Cms.Version
+                        + "</span>\r\n<span style=\"display:none\">"
                         + exc.StackTrace + "</span>"
                         + "</body></html>");
 
@@ -140,7 +140,7 @@ namespace Ops.Cms
 
                         mailContent = sb.ToString();
 
-                        mailSubject = String.Format("[{0}]异常:{2}", Cms.Context.SiteDomain, exc.Message);
+                        mailSubject = String.Format("[{0}]异常:{2}", AtNet.Cms.Cms.Context.SiteDomain, exc.Message);
 
 
                         //发送邮件
@@ -171,7 +171,7 @@ namespace Ops.Cms
         protected virtual void Application_BeginRequest(object o, EventArgs e)
         {
             //mono 下编码可能会有问题
-            if (Cms.RunAtMono)
+            if (AtNet.Cms.Cms.RunAtMono)
             {
                 Response.Charset = "utf-8";
             }

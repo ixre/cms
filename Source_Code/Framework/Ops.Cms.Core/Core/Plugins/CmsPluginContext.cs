@@ -1,32 +1,34 @@
 ﻿using System;
 using System.IO;
 using System.Web;
-using Com.PluginKernel;
-using Com.PluginKernel.Web;
-using Ops.Cms.Conf;
-using Ops.Template;
+using AtNet.Cms.Conf;
+using AtNet.DevFw.PluginKernel;
+using AtNet.DevFw.PluginKernel.Web;
+using AtNet.DevFw.Template;
 
-namespace Ops.Cms.Core.Plugins
+namespace AtNet.Cms.Core.Plugins
 {
     public class CmsPluginContext
     {
-        private static CmsPlugin cmsPlugin;
-        private static PortalPlugin portal;
-        private static CategoryPlugin category;
-        private static ArchivePlugin archive;
-        private static ExtendsPlugin extends;
-        private static PluginWebHandleProxy<HttpContext> webHandler;
+        private static CmsPlugin _cmsPlugin;
+        private static PortalPlugin _portal;
+        private static CategoryPlugin _category;
+        private static ArchivePlugin _archive;
+        private static ExtendsPlugin _extends;
+        private static PluginWebHandleProxy<HttpContext> _webHandler;
+        private string _domain;
         private string _fpath;
+        private string _pluginPath;
         private string _admJs;
         private string _admCss;
-        private bool loaded;
+        private bool _loaded;
 
 
         internal CmsPluginContext()
         {
-            if (webHandler == null)
+            if (_webHandler == null)
             {
-                webHandler = new PluginWebHandleProxy<HttpContext>();
+                _webHandler = new PluginWebHandleProxy<HttpContext>();
             }
         }
 
@@ -35,28 +37,28 @@ namespace Ops.Cms.Core.Plugins
         /// <summary>
         /// 插件管理
         /// </summary>
-        public CmsPlugin Manager { get { return cmsPlugin ?? (cmsPlugin = new CmsPlugin()); } }
+        public CmsPlugin Manager { get { return _cmsPlugin ?? (_cmsPlugin = new CmsPlugin()); } }
 
         /// <summary>
         /// 入口插件
         /// </summary>
-        public PortalPlugin Portal { get { return portal ?? (portal = new PortalPlugin()); } }
+        public PortalPlugin Portal { get { return _portal ?? (_portal = new PortalPlugin()); } }
 
         /// <summary>
         /// 栏目插件
         /// </summary>
-        public CategoryPlugin Category { get { return category ?? (category = new CategoryPlugin()); } }
+        public CategoryPlugin Category { get { return _category ?? (_category = new CategoryPlugin()); } }
 
 
         /// <summary>
         /// 文档插件
         /// </summary>
-        public ArchivePlugin Archive { get { return archive ?? (archive = new ArchivePlugin()); } }
+        public ArchivePlugin Archive { get { return _archive ?? (_archive = new ArchivePlugin()); } }
 
         /// <summary>
         /// 扩展(模块)插件
         /// </summary>
-        public IExtendApp Extends { get { return extends ?? (extends = new ExtendsPlugin(webHandler)); } }
+        public IExtendApp Extends { get { return _extends ?? (_extends = new ExtendsPlugin(_webHandler)); } }
 
         #endregion
 
@@ -82,56 +84,96 @@ namespace Ops.Cms.Core.Plugins
         /// <returns></returns>
         public TemplatePage GetPage<T>(string filePath) where T : IPlugin
         {
+            this.Load();
+            PluginPackAttribute attr = PluginUtil.GetPluginByType(typeof(T)).GetAttribute();
+            return this.GetTemplatePage(filePath, attr);
+        }
 
-            if (!this.loaded)
-            {
-                this.loaded = true;
-                this._fpath = String.Format("{0}{1}", Cms.Context.StaticDomain,
-                       CmsVariables.FRAMEWORK_ASSETS_PATH
-                           .Substring(0, CmsVariables.FRAMEWORK_ASSETS_PATH.Length - 1)
-                       );
-                this._admJs = String.Concat("/", Settings.SYS_ADMIN_TAG, "?res=c2NyaXB0&amp;0.5.1.js&amp;ver=",Cms.Version);
-                this._admCss = String.Concat("/", Settings.SYS_ADMIN_TAG, "?res=c3R5bGU=&amp;0.5.1.css&amp;ver=", Cms.Version);
-            }
+        /// <summary>
+        /// 获取模板页
+        /// </summary>
+        /// <param name="plugin"></param>
+        /// <param name="filePath">相对于插件目录的文件路径，如插件com.demo引用模板test.html,将test.html放在/plugins/com.demo/下就可以了</param>
+        /// <returns></returns>
+        public TemplatePage GetPage(IPlugin plugin, string filePath)
+        {
+            this.Load();
 
-            PluginPackAttribute attr = PluginUtil.GetAttribute<T>();
-            string pluginDirPath = String.Concat(PluginConfig.PLUGIN_DIRECTORY, attr.WorkIndent);
+            PluginPackAttribute attr = plugin.GetAttribute();
+            return this.GetTemplatePage(filePath, attr);
+        }
 
-            string cacheID = String.Concat("plugin", "_tpl_", attr.WorkIndent, filePath);
-            string html = Cms.Cache.Get(cacheID) as string;
+        private TemplatePage GetTemplatePage(string filePath, PluginPackAttribute attr)
+        {
+            string pluginDirPath = attr.WorkSpace;
+
+
+            string cacheId = String.Concat("plugin", "_tpl_", attr.WorkIndent, filePath);
+            string html = Cms.Cache.Get(cacheId) as string;
 
             if (html == null)
             {
                 //模板文件放在/plugins/com.spdepository/pages/下
-                string tplFilePath = String.Concat(
-                    Cms.PyhicPath,
-                    pluginDirPath, "/",
-                    filePath);
+                string tplFilePath = pluginDirPath + filePath;
 
-                using (TextReader tr = new StreamReader(tplFilePath))
+                try
                 {
-                    html = tr.ReadToEnd();
-                    tr.Dispose();
+                    using (TextReader tr = new StreamReader(tplFilePath))
+                    {
+                        html = tr.ReadToEnd();
+                        tr.Dispose();
+                    }
+
+                    Cms.Cache.Insert(cacheId, html, tplFilePath);
                 }
-
-                Cms.Cache.Insert(cacheID, html, tplFilePath);
+                catch (Exception exc)
+                {
+                    throw new Exception(exc.Message+", File:"+tplFilePath);
+                }
+               
             }
-
-
 
             TemplatePage tpl = new TemplatePage();
             tpl.TemplateContent = html;
 
+            string pluginPath =this._pluginPath + attr.WorkIndent;
+
             tpl.AddVariable("os", new
             {
                 version = Cms.Version,
-                ppath = "/"+ pluginDirPath,
+                domain = this._domain,
+                ppath = pluginPath,
                 fpath = this._fpath,
                 mjs = this._admJs,
                 mcss = this._admCss
             });
+
+            tpl.AddVariable("plugin",new{
+                path = pluginPath,
+                indent = attr.WorkIndent,
+                name = attr.Name
+            });
+
             return tpl;
         }
+
+        private void Load()
+        {
+            if (!this._loaded)
+            {
+                this._domain = Cms.Context.SiteDomain;
+                this._fpath = String.Format("{0}/{1}", Cms.Context.StaticDomain,
+                       CmsVariables.FRAMEWORK_ASSETS_PATH
+                           .Substring(0, CmsVariables.FRAMEWORK_ASSETS_PATH.Length - 1)
+                       );
+                this._admJs = String.Concat(this._domain, "/",Settings.SYS_ADMIN_TAG, "?res=c2NyaXB0&amp;0.5.1.js&amp;ver=", Cms.Version);
+                this._admCss = String.Concat(this._domain,"/", Settings.SYS_ADMIN_TAG, "?res=c3R5bGU=&amp;0.5.1.css&amp;ver=", Cms.Version);
+                this._pluginPath =String.Concat(this._domain ,"/", PluginConfig.PLUGIN_DIRECTORY);
+                this._loaded = true;
+            
+            }
+        }
+
 
         /// <summary>
         /// 在获取用户失败的情况下，则调用此方法

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Xml;
-using Ops.Cms.Conf;
+using AtNet.Cms.Conf;
 
-namespace Ops.Cms
+namespace AtNet.Cms
 {
     public static class CmsMapping
     {

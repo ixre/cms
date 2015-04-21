@@ -1,12 +1,12 @@
 ﻿
-namespace Ops.Cms.Conf
+namespace AtNet.Cms.Conf
 {
     public class CmsVariables
     {
     	/// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="1.0.0";
+        public const string VERSION="1.0.001";
 
         /// <summary>
         /// 框架目录

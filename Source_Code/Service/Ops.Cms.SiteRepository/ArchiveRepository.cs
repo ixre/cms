@@ -21,7 +21,7 @@ namespace AtNet.Cms.ServiceRepository
         private ITemplateRepository _templateRep;
         private ICategoryRepository _categoryRep;
 
-        private ArchiveDAL _dal = new ArchiveDAL();
+        private ArchiveDal _dal = new ArchiveDal();
         private IContentRepository _contentRep;
         private ILinkRepository _linkRep;
 
@@ -63,9 +63,10 @@ namespace AtNet.Cms.ServiceRepository
                 int.Parse(rd["cid"].ToString()),
                 rd["title"].ToString());
             archive.Alias = rd["alias"].ToString();
-
+            if (indexOf("small_title")!=-1) archive.SmallTitle =( rd["small_title"] ?? "").ToString();
             if (indexOf("flags") != -1) archive.Flags = rd["flags"].ToString();
             if (indexOf("location") != -1)archive.Location = rd["location"].ToString();
+            if (indexOf("sort_number") != -1) archive.SortNumber = int.Parse(rd["sort_number"].ToString());
             if (indexOf("outline") != -1) archive.Outline = (rd["outline"] ?? "").ToString();
             if (indexOf("author") != -1) archive.Author = rd["author"].ToString();
             if (indexOf("content") != -1) archive.Content = rd["content"].ToString();
@@ -134,8 +135,8 @@ namespace AtNet.Cms.ServiceRepository
 
 
                 _dal.Add(strId, archive.Alias, categoryId, archive.Author, archive.Title,
-                    archive.Source, archive.Thumbnail, archive.Outline, archive.Content, 
-                    archive.Tags, archive.Flags,archive.Location);
+                    archive.SmallTitle,archive.Source, archive.Thumbnail, archive.Outline, archive.Content, 
+                    archive.Tags, archive.Flags,archive.Location,archive.SortNumber);
 
                 return this.GetArchive(siteId, strId).Id;
             }
@@ -144,8 +145,9 @@ namespace AtNet.Cms.ServiceRepository
                 //Update
                 //archive.Thumbnail.IndexOf(CmsVariables.Archive_NoPhoto) != -1) 
 
-                _dal.Update(archive.Id, categoryId, archive.Title, archive.Alias,
-                    archive.Source, archive.Thumbnail, archive.Outline, archive.Content ?? "", archive.Tags, archive.Flags,archive.Location);
+                _dal.Update(archive.Id, categoryId, archive.Title,archive.SmallTitle, archive.Alias,
+                    archive.Source, archive.Thumbnail, archive.Outline, archive.Content ?? "",
+                    archive.Tags, archive.Flags,archive.Location,archive.SortNumber);
             }
 
             return archive.Id;
@@ -184,11 +186,11 @@ namespace AtNet.Cms.ServiceRepository
             return archive;
         }
 
-        public IArchive GetNextSiblingArchive(int siteId, int id)
+        public IArchive GetNextArchive(int siteId, int id, bool sameCategory, bool ingoreSpecial)
         {
             IArchive archive = null;
 
-            _dal.GetNextSiblingArchive(siteId, id, rd =>
+            _dal.GetNextArchive(siteId, id, sameCategory,ingoreSpecial,rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
 
@@ -202,11 +204,11 @@ namespace AtNet.Cms.ServiceRepository
 
         }
 
-        public IArchive GetPreviousSiblingArchive(int siteId, int id)
+        public IArchive GetPreviousArchive(int siteId, int id, bool sameCategory, bool ingoreSpecial)
         {
             IArchive archive = null;
 
-            _dal.GetPreviousSliblingArchive(siteId, id, rd =>
+            _dal.GetPreviousArchive(siteId, id, sameCategory,ingoreSpecial, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 if (rd.Read())
@@ -464,6 +466,19 @@ namespace AtNet.Cms.ServiceRepository
         public void AddArchiveViewCount(int siteId, int id, int count)
         {
             this._dal.AddViewCount(siteId, id, count);
+        }
+
+
+        public int GetMaxSortNumber(int siteId)
+        {
+            return this._dal.GetMaxSortNumber(siteId);
+        }
+
+
+
+        public void SaveSortNumber(int archiveId, int sortNumber)
+        {
+            this._dal.SaveSortNumber(archiveId, sortNumber);
         }
     }
 }

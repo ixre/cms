@@ -1,7 +1,7 @@
 ﻿//
-// Copyright (C) 2007-2013 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2013 S1N1.COM,All rights reseved.
 // 
-// Project: Ops.Cms.Config
+// Project: AtNet.Cms.Config
 // FileName : Settings.cs
 // Author : PC-CWLIU (new.min@msn.com)
 // Create : 2012/5/26 19:25:33
@@ -17,7 +17,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 
-namespace Ops.Cms.Conf
+namespace AtNet.Cms.Conf
 {
     public struct Settings
     {

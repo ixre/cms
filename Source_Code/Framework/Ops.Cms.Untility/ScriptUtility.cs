@@ -1,7 +1,7 @@
 ﻿//
-// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
-// Project: Ops.Cms.Utility
+// Project: AtNet.Cms.Utility
 // FileName : ScriptUtility.cs
 // Author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/10/31 18:03:20
@@ -13,7 +13,7 @@
 
 using System;
 
-namespace Ops.Cms.Utility
+namespace AtNet.Cms.Utility
 {
     public class ScriptUtility
     {

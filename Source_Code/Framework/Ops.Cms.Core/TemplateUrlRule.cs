@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: TemplateUrlRule
 * Author	: Newmin (new.min@msn.com)
@@ -8,13 +8,12 @@
 *
 */
 
-using Ops.Cms.Domain.Interface.Enum;
+using System;
+using System.Collections.Generic;
+using AtNet.Cms.Domain.Interface.Enum;
 
-namespace Ops.Cms
+namespace AtNet.Cms
 {
-    using System;
-    using System.Collections.Generic;
-
     public static class TemplateUrlRule
     {
         public static String[,] urls;

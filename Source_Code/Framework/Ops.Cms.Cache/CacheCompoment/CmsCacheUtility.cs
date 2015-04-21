@@ -10,7 +10,7 @@
 using System;
 using System.Reflection;
 
-namespace Ops.Cms.Cache.CacheCompoment
+namespace AtNet.Cms.Cache.CacheCompoment
 {
 	/// <summary>
 	/// Description of CmsCacheUtility.

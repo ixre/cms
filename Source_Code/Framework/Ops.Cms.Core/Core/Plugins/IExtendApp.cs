@@ -1,6 +1,6 @@
-﻿using Com.PluginKernel.Web;
+﻿using AtNet.DevFw.PluginKernel.Web;
 
-namespace Ops.Cms.Core.Plugins
+namespace AtNet.Cms.Core.Plugins
 { /// <summary>
     /// 插件应用
     /// </summary>

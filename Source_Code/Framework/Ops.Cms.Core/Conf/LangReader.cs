@@ -1,10 +1,9 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Xml;
 
-namespace Ops.Cms.Conf
+namespace AtNet.Cms.Conf
 {
     public class LangLabelReader
     {

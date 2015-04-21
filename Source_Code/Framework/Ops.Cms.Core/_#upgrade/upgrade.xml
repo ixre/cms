@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<upgrade version="1.0.0" patch="AtNet.Cms.libs.zip">
+<![CDATA[
+
+AtNet.Cms.NET 版本:v1.0 (beta) build20131013
+1.更新后台操作UI
+2.后台AJAX操作<br />
+<span style="color:red">本版本为正式版，请放心升级！</span>
+
+]]>
+</upgrade>

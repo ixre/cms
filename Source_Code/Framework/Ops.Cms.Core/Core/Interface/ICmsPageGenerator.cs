@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 OPSoft Inc
+* Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: ICmsPageGenerator
 * Author	: Newmin (new.min@msn.com)
@@ -8,9 +8,9 @@
 *
 */
 
-using Ops.Cms.DataTransfer;
+using AtNet.Cms.DataTransfer;
 
-namespace Ops.Cms.Core.Interface
+namespace AtNet.Cms.Core.Interface
 {
     public interface ICmsPageGenerator
     {

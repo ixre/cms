@@ -1,6 +1,6 @@
-﻿using Ops.Data;
+﻿using AtNet.DevFw.Data;
 
-namespace Ops.Cms.DB
+namespace AtNet.Cms.DB
 {
     public class DBAccess
     {

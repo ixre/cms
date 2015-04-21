@@ -9,16 +9,16 @@
  *   2012-12-22 15:28   newmin [!]: modify cookie save method
  */
 
-using Ops.Cms.Conf;
-using Ops.Cms.Domain.Interface.Site.Extend;
-using Ops.Framework.Extensions;
-using Spc.Models;
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using AtNet.Cms.BLL;
+using AtNet.Cms.Conf;
+using AtNet.Cms.Domain.Interface.Models;
+using AtNet.DevFw.Framework.Extensions;
 
-namespace Ops.Cms.Utility
+namespace AtNet.Cms.Utility
 {
     //
     //TODO:需更新到CSite中
@@ -85,11 +85,11 @@ namespace Ops.Cms.Utility
             /// <summary>
             /// 当前登录的会员
             /// </summary>
-            public static global::Spc.Models.Member Current
+            public static global::AtNet.Cms.Domain.Interface.Models.Member Current
             {
                 get
                 {
-                    global::Spc.Models.Member m = HttpContext.Current.Session["member"] as global::Spc.Models.Member;
+                    global::AtNet.Cms.Domain.Interface.Models.Member m = HttpContext.Current.Session["member"] as global::AtNet.Cms.Domain.Interface.Models.Member;
                     if (m == null)
                     {
                         HttpCookie c = HttpContext.Current.Request.Cookies["member"];
@@ -187,7 +187,7 @@ namespace Ops.Cms.Utility
                             //用户不存在则返回false
                             if (user == null) return null;
 
-                            string token = StringExtensions.EncodeMD5(username + "ADMIN@OPSoft.CMS" + user.Password);
+                            string token = (username + "ADMIN@OPSoft.CMS" + user.Password).EncodeMD5();
 
                             //密钥一致，则登录
                             if (String.Compare(token, cookieToken, true) == 0)
@@ -231,7 +231,7 @@ namespace Ops.Cms.Utility
                 // cookie.Domain=AppContext.Config.Domain.HostName;
 
                 //保存到Cookie中的密钥
-                string token =StringExtensions.EncodeMD5(username + "ADMIN@OPSoft.CMS" + user.Password);
+                string token = (username + "ADMIN@OPSoft.CMS" + user.Password).EncodeMD5();
 
                 byte[] encodeBytes = Encoding.UTF8.GetBytes(username + "&" + token);
                 string encodedtokenStr = Convert.ToBase64String(encodeBytes);

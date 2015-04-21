@@ -1,10 +1,10 @@
-﻿using Com.PluginKernel;
-using Ops.Cms.Conf;
-using Ops.Framework.Xml;
-using System;
+﻿using System;
 using System.IO;
+using AtNet.Cms.Conf;
+using AtNet.DevFw.Framework.Xml.AutoObject;
+using AtNet.DevFw.PluginKernel;
 
-namespace Ops.Cms.Core.Plugins
+namespace AtNet.Cms.Core.Plugins
 {
 	/// <summary>
 	/// CMS插件
