@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>修改密码</title>
+  $css()
+</head>
+<body>
+<div class="_tabarea">
+<!--
+    <div class="tab_mini">
+        <a href="?module=system&amp;action=appconfig">应用程序设置</a>
+        <a href="?module=system&amp;action=modifyuserbasicprofile"  onclick="return false" class="current">修改个人资料</a>
+        <a href="?module=system&amp;action=settingsconfig">词典设置</a>
+    </div>
+    -->
+    <div class="area" id="area">
+
+    <form action="" method="post" id="form_userProfile">
+    <ul class="form" style="width:400px;padding:20px">
+    <li><b>显示名称</b><input type="text" class="ui-validate" required="true" length="[,10]" field="name" name="name" value="${name}" /><span class="desc">10字以下</span></li>
+    <li><b>原&nbsp;密&nbsp;码:</b><input class="ui-validate" type="password" field="opwd" name="oldpassword" length="[,20]"/><span class="desc">输入原密码</span></li>
+    <li><b>新&nbsp;密&nbsp;码:</b><input class="ui-validate" type="password" field="pwd" name="password" length="[,20]"/><span class="desc">输入新密码</span></li>
+    <li><b>确认密码:</b><input class="ui-validate" type="password" field="repwd" name="repassword" length="[,20]"/><span class="desc">重复输入新密码</span></li>
+    <li><a class="btn" id="btn" style="margin-left:92px" href="javascript:;">确定</a></li>
+    </ul>
+    </form>
+
+    </div>
+</div>
+$js()
+  <script type="text/javascript">
+      cms.$("btn").onclick = function () {
+      	  var form=cms.$('form_userProfile');
+      	  var json=cms.json.toObject(form);
+      	  var inputs=form.getElementsByTagName('INPUT');
+          if (json.name == '') {
+			  cms.validator.setTip(inputs[0],false,null,'请输入名称!');
+			  return false;
+          }
+          if (json.pwd != '') {
+              if (json.opwd == '') {
+			  	cms.validator.setTip(inputs[1],false,null,'请输入密码!');return false;
+              }
+              else if (json.pwd != json.repwd) {
+			  	cms.validator.setTip(inputs[3],false,null,'新密码两次输入不一致!');return false;
+              }
+          }
+          
+          if(cms.validator.validate(form.id)){
+          	cms.xhr.jsonAjax('?module=user&action=modifyUserBasicProfile',json,function(json){
+          		if(json.result){ 
+          			var d=window['dialog_menu_mprofile'];
+          			if(d){
+          				d.close();
+      					window.M.alert('修改成功');
+          			}
+          		}else{
+			  		cms.validator.setTip(inputs[1],false,null,json.message);
+          		}
+          	});
+          }
+      };
+    
+    cms.validator.init();
+  </script>
+
+</body>
+</html>

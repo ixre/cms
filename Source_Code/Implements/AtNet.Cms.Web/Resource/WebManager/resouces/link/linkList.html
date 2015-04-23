@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>链接列表</title>
+    <!--<script src="script.js"></script>-->
+    $css()
+</head>
+<body>
+    <div class="autoStyle">
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="400px">
+                    <div class="control">
+                        <!--
+                    <div class="top">
+                        <ul>
+                            <li><a href="javascript:;" class="fn" fn="create">$icon(create)添加</a></li>
+                            <li><a href="javascript:;" class="fn" fn="del">$icon(delete)删除</a></li>
+                            <li><a href="javascript:;" class="fn" fn="loadData">$icon(refresh)刷新</a></li>
+                        </ul>
+                    </div>
+                    -->
+                        <div class="main autoHeight">
+                            <table class="ui-table ui-table-list ui-table-low" cellspacing="0" cellpadding="0" id="links">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden">
+                                            ID
+                                        </th>
+                                        <th style="width: 40px;">
+                                            编号
+                                        </th>
+                                        <th align="left">
+                                            链接名称
+                                        </th>
+                                        <th width="40">
+                                            顺序
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div id="plist"></div>
+                        </div>
+                        <div class="ui-table-meta" id="pager">
+                            共-条</div>
+                    </div>
+                </td>
+                <td>
+                    <div id="pl" class="relative autoHeight autoScroll">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/template" id="list_menu_tpl">
+        <div class="item" onclick="menu.add()">
+            <a href="javascript:;">$icon(create)新建</a>
+        </div>
+        <div class="item" onclick="menu.refresh('%id%')">
+            <a href="javascript:;">$icon(refresh)刷新</a>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl">
+        <div class="item" onclick="menu.add()">
+            <a href="javascript:;">$icon(create)新建</a>
+        </div>
+        <div class="item" onclick="menu.setvisible('%id%')">
+            <a href="javascript:;">$icon(edit)%state%</a>
+        </div>
+        <div class="item" onclick="menu.refresh('%id%')">
+            <a href="javascript:;">$icon(refresh)刷新</a>
+        </div>
+        <div class="item" onclick="menu.del('%id%')">
+            <a href="javascript:;">$icon(delete)删除</a>
+        </div>
+    </script>
+    $js()
+    <script type="text/javascript">
+
+		Fn.table=null;
+		
+        //刷新页面
+        Fn.refresh = function () { };
+
+        //初始化表格及修改事件
+        Fn.initTable = function () {
+        	var tables=document.getElementsByTagName('TABLE');
+        	if(tables.length>=3){
+	        	Fn.table=tables[2];
+	            //默认加载第一个分类
+	            if (cms.$('pl').innerHTML == '') {
+	                var rows = Fn.table.rows;
+	                if (rows.length > 0) {
+	                    var id = rows[0].childNodes[0].innerHTML;
+	                    cms.load2('pl', 'link', 'edit', 'disabled=true&linkid=' + id);
+	                }
+	            }
+				
+	            cms.each(Fn.table.getElementsByTagName('TD'), function (i, e) {
+	                cms.contextmenu.bind(e, '', function (menu) {
+	
+	                    var id = e.parentNode.getAttribute('indent');
+	                    var state = e.parentNode.getAttribute('visible') == '1' ? '<span style="color:#333">隐藏链接</span>' : '显示链接';
+	                    /*
+	                    cms.xhr.jsonAjax('?', 'module=link&action=getvisible&linkID=' + id, function (json) {
+	                    if (!json.result) {
+	                    state = '<span style="color:green">显示</span>';
+	                    }
+	                    });*/
+	
+	                    menu.innerHTML = cms.template(cms.$('tpl').innerHTML, { id: id, state: state });
+	                });
+	            });
+	
+	            cms.initTable(Fn.table, false, function () {
+	                cms.load2('pl', 'link', 'edit', 'linkid=' + Fn.ids[Fn.ids.length - 1]);
+	            });
+			}
+        };
+
+        //加载数据
+        Fn.loadData = function (page) {
+
+            var _page = page || 1;
+            cms.pagerLoad('plist', 'pager', _page, 'link', 'data', 'type=${linktype}&page=' + _page, Fn.initTable);
+        };
+
+        //创建
+        Fn.create = function () {
+            cms.load2('pl', 'link', 'create', 'type=${linktype}');
+        };
+
+        Fn.loadData();
+
+        //绑定列表菜单
+        cms.contextmenu.bind(cms.$('plist').parentNode,cms.$('list_menu_tpl').innerHTML);
+
+        var menu = {
+            add: Fn.create,
+            setvisible: function (id) {
+                (function (_this) {
+                    cms.xhr.post('?', 'module=link&action=setvisible&linkID=' + id,
+                 function () {
+                     parent.M.alert('操作成功！');
+                     _this.refresh();
+                 });
+                } (this));
+            },
+            //删除文档
+            del: function (id) {
+                if (confirm('确定删除吗?删除后将不可恢复!')) {
+                    cms.xhr.jsonAjax('?', 'module=link&action=delete&linkID=' + id,
+                    function (json) {
+                        if (json.result) {
+                            Fn.loadData();
+                        } else {
+                            alert(json.message);
+                        }
+                    });
+                }
+            },
+            refresh: Fn.loadData
+        };
+    </script>
+    
+    $iconcss()
+</body>
+</html>
