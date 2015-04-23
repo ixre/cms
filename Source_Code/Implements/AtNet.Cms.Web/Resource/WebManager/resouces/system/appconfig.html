@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>修改配置</title>
+  $css()
+
+
+</head>
+<body>
+
+  <style type="text/css">
+    body{line-height:30px;}
+    textarea{width:400px;height:60px;}
+    .btnarea{border-top:solid 1px #e5e5e5;padding-left:100px;padding-top:10px;}
+    .item{display:none;margin:20px 50px;}
+  </style>
+
+<div class="_tabarea">
+    <div class="tab_mini" style="display:none">
+        <a href="?module=system&amp;action=appconfig&amp;item=1">系统设置</a>
+        <a href="?module=system&amp;action=appconfig&amp;item=2">基本资料修改</a>
+        <a href="?module=system&amp;action=appconfig&amp;item=3">首页优化设置</a>
+        <a href="?module=system&amp;action=appconfig&amp;item=4">视图选项设置</a>
+        <a href="?module=system&amp;action=appconfig&amp;item=5">模板选项</a>
+    </div>
+    <div class="area">
+        <form action="" method="post">
+            <input type="hidden" id="configItem" name="configItem" value="1" />
+            <div class="form" id="item1">
+            <dl class="hidden"><dt>授权用户:</dt><dd><input type="text" class="tb_normal ui-validate" required="true" name="license_name" id="name" value="${license_name}" /></dd></dl>
+ 
+  <!--网站短名:<input type="text" class="tb_normal" name="sys_alias" value="${sys_alias}" /><br />-->
+  <dl><dt>域名设置:</dt><dd><input type="text" class="tb_normal ui-validate" required="true" name="sys_domain" value="${sys_domain}"/><span style="color:Red">必须以"http://"开头</span></dd></dl>
+ <!-- 虚拟应用:<input type="checkbox" id="sys_virthpath" class="tb_normal" style="width:auto" name="sys_virthpath" ${sys_virthpath_check} />启用&nbsp;&nbsp;应用名称:<input type="text" class="tb_normal" name="sys_virthpath_name" value="${sys_virthpath_name}" style="width:60px" /><span style="color:Red">(字母,数字或下划线的组合)</span><br />
+ -->
+  <dl class="hidden"><dt>软件激活码:</dt><dd><input type="text" class="tb_normal" name="license_key" value="${license_key}" style="width:400px"/></dd></dl>
+  <dl class="hidden"><dt>数据表前缀:</dt><dd><input type="text" class="tb_normal ui-validate" required="true" name="db_prefix" value="${db_prefix}" style="width:70px"/><span style="color:Red"> 请确保与数据库一致后修改，否则无法正常运行</span></dd></dl>
+ <!-- 视图目录:<input type="text" class="tb_normal ui-validate" required="true" name="tpl_name" value="${tpl_name}" style="width:80px"/><span style="color:Red"> /templates/目录下的文件夹,请勿删改，否则可能引发错误!</span></dd></dl>-->
+  <dl><dt>自动重定向:</dt><dd><input type="checkbox" class="tb_normal" style="width:auto" name="sys_autowww" ${sys_autowww_check} />(自动将主域名(如:xxx.com)重定向到www前缀的域名)</dd></dl>
+  <dl><dt>视图选项:</dt><dd><input type="checkbox" class="tb_normal" style="width:auto" name="tpl_usecompress" ${tpl_usecompress_check} />代码压缩&nbsp;
+<input type="checkbox" class="tb_normal" style="width:auto" name="tpl_usefullpath" ${tpl_usefullpath_check}/>完整路径(Full URL)</dd></dl>
+                  
+<dl><dt>调试模式:</dt><dd><input type="checkbox" class="tb_normal" style="width:auto" name="opti_debug" ${opti_debug}/>(建议不勾选,开启可查看详细的错误信息,设置网站会重启)</dd></dl>
+<dl><dt>静态服务器:</dt><dd><input type="checkbox" class="tb_normal" style="width:auto" name="server_static_enabled" ${server_static_enabled}/>(建议开启,可提升访问速度)</dd></dl>
+<dl><dt>首页缓存:</dt><dd><input type="text" class="tb_normal ui-validate" required="true" isnumber="true" name="opti_IndexCacheSeconds" value="${opti_IndexCacheSeconds}" style="width:80px"/>分钟(0表示不缓存)</dd></dl>
+<dl><dt>客户端缓存:</dt><dd><input type="text" class="tb_normal ui-validate" required="true" isnumber="true" name="opti_ClientCacheSeconds" value="${opti_ClientCacheSeconds}" style="width:80px"/>分钟(0表示不缓存)</dd></dl>
+
+  <div class="btnarea"><a class="btn leftbtn" onclick="return submitForm(1)" href="javascript:;">保存</a></div>
+</div>
+
+<!--
+            <div class="item" id="item2">
+
+  联系电话:<input type="text" class="tb_normal" name="pro_tel" value="${pro_tel}" /><br />
+  传真号码:<input type="text" class="tb_normal" name="pro_fax" value="${pro_fax}" /><br />
+  手机号码:<input type="text" class="tb_normal" name="pro_phone" value="${pro_phone}" /><br />
+  联系地址:<input type="text" class="tb_normal" name="pro_address" value="${pro_address}" /><br />
+  QQ账号:<input type="text" class="tb_normal" name="pro_qq" value="${pro_im}" /><br />
+  MSN账号:<input type="text" class="tb_normal" name="pro_msn" value="${pro_msn}" /><br />
+  电子邮箱:<input type="text" class="tb_normal" name="pro_email" value="${pro_email}" /><br />
+  
+  <span class="title">网站标语:</span><textarea class="tb_normal" name="pro_slogan" rows="3" type="text">${pro_slogan}</textarea><br />
+  <span class="title">网站公告:</span><textarea class="tb_normal" name="pro_notice" rows="2" type="text">${pro_notice}</textarea><br />
+
+  
+  <div><b>首页优化</b></div>
+  <span class="title">网站标题:</span><textarea class="tb_normal" name="idx_title">${idx_title}</textarea><br />
+  <span class="title">关&nbsp;键&nbsp;字:</span><textarea class="tb_normal" name="idx_keywords" id="keywords">${idx_keywords}</textarea><br />
+  <span class="title">页面描述:</span><textarea class="tb_normal" name="idx_description" id="description">${idx_description}</textarea><br />
+
+  
+  <div class="btnarea"><a class="btn leftbtn" onclick="return submitForm(2)" href="javascript:;">提交</a></div>
+
+</div>
+
+
+            <div class="item" id="item3">
+  
+  
+  <div class="btnarea"><a class="btn leftbtn" onclick="return submitForm(3)">提交</button></div>
+
+</div>
+            <div class="item" id="item4">
+                  
+                  <div class="btnarea"><button class="btn leftbtn" onclick="return submitForm(4)">提交</button></div>
+            </div>
+
+            <div class="item" id="item5">
+                <span class="title">摘要长度:</span><input type="text" class="tb_normal ui-validate" isnumber="true" name="tpl_cfg_outlinelength" value="${tpl_cfg_outlinelength}" style="width:30px"/>&nbsp;字<span style="color:Red">(用于显示在列表中的描述，默认80字)</span><br />
+                <span class="title">Sitemap分割符:</span><textarea class="tb_normal singlerow" name="tpl_cfg_sitemapsplit" value="${tpl_cfg_sitemapsplit}">${tpl_cfg_sitemapsplit}</textarea><br />
+                <span class="title">Tags链接格式:</span><textarea class="tb_normal singlerow" name="tpl_cfg_archivetagsformat">${tpl_cfg_archivetagsformat}</textarea><br />
+                <span>可选参数:</span>
+                <span class="title">匿名评论：</span><input type="checkbox" class="tb_normal" style="width:auto" name="tpl_cfg_allowamouscomment" ${tpl_CFG_allowAmousComment} /><br />
+                <span class="title">评论HTML:</span><textarea class="tb_normal" name="tpl_cfg_commenteditorhtml">${tpl_CFG_CommentEditorHtml}</textarea><br />
+                <span class="title">友情链接显示条数:</span><input type="text" class="tb_normal ui-validate" isnumber="true" name="tpl_cfg_friendshownum" value="${tpl_CFG_FriendShowNum}" style="width:30px"/>&nbsp;条<br />
+                <span class="title">友情链接<br />格式:</span><textarea class="tb_normal" name="tpl_cfg_friendlinkformat">${tpl_CFG_FriendLinkFormat}</textarea><br />
+                <span class="title">导航链接<br />格式:</span><textarea class="tb_normal" name="tpl_cfg_navigatorlinkformat">${tpl_CFG_NavigatorLinkFormat}</textarea><br />
+                <span class="title">子导航链接<br />格式:</span><textarea class="tb_normal" name="tpl_cfg_navigatorchildformat">${tpl_CFG_NavigatorChildFormat}</textarea><br />
+                <span class="title">流量统计<br />格式:</span><textarea class="tb_normal" name="tpl_cfg_trafficformat">${tpl_CFG_TrafficFormat}</textarea><br />
+                <div class="btnarea"><button class="btn leftbtn" onclick="return submitForm(5)">提交</button></div>
+            </div>
+            
+            -->
+        </form>
+    </div>
+
+</div>
+$js()
+<script type="text/javascript">
+    var itemIndex = parseInt(cms.request('item') || 1);
+    if (!itemIndex || itemIndex==0) {
+        itemIndex = 1;
+    }
+
+    cms.each(document.getElementsByClassName('item'), function (i, obj) {
+        if (i + 1 == itemIndex) obj.style.display = 'block';
+    });
+
+    document.getElementsByClassName('tab_mini')[0].getElementsByTagName('A')[itemIndex - 1].className = 'current';
+
+    function submitForm(i) {
+        if (cms.validator.validate('item' + i)) {
+            document.getElementById('configItem').value = i;
+
+            cms.xhr.jsonAjax(location.href, cms.form.getData(), function (json) {
+                if (json.result) {
+                    tip(json.message);
+                } else {
+                    tip(json.message);
+                }
+            });
+        }
+        return false;
+    }
+    function tip(msg) {
+        showMessageBox({ title: '系统提示', html: msg, autoClose: true });
+    }
+
+
+</script>
+
+</body>
+</html>

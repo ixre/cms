@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>站点管理</title>
+    $css()$js()
+    <style type="text/css">
+        #bind{width:300px;position:absolute;left:550px;top:20px;}
+        dl{display:none;}
+    </style>
+	</head>
+	<body>
+        <div id="pl_tpl">
+        <div class="tabarea">
+    <div class="tab_mini">
+        <a class="current tabitem" href="javascript:;" group="basic">网站设置</a>
+        <a class="tabitem" href="javascript:;" group="Profile">资料修改</a>
+    </div>
+    <div class="clearfix"></div>
+
+        <select class="hidden" name="">
+            ${tpls}
+        </select>
+        
+
+
+        <div class="form autostyle">
+            ${form}
+        </div>
+        </div>
+ </div>
+        <script type="text/javascript">
+        	var plTpl=cms.$('pl_tpl');
+            var tplTD = document.getElementsByName('field_tpl')[0].parentNode;
+            var selector = plTpl.getElementsByTagName('SELECT')[0];
+            tplTD.innerHTML = '';
+            selector.name = 'field_tpl';
+            selector.className = selector.className.replace('hidden', '');
+            tplTD.appendChild(selector);
+
+            var isCreate = location.hash.split('.')[1] == 'create';
+            var postUrl = isCreate ? '?module=site&action=create' : '?module=site&action=edit';
+            cms.$('btn').onclick = function () {
+                if (cms.validator.validate()) {
+                    cms.xhr.jsonAjax(postUrl, cms.form.getData(), function (json) {
+                        if (json.result) {
+                            parent.M.alert(json.message, function () {
+                                if (isCreate) {
+                                    window.location.reload();
+                                }
+                            });
+                        } else {
+                            parent.M.alert(json.message);
+                        }
+                    });
+                }
+            };
+
+            function initTab(cls) {
+                var eles = document.getElementsByClassName(cls);
+                cms.each(eles, function (i, e) {
+                    e.onclick = function () {
+                        var group = e.getAttribute('group');
+                        cms.each(document.getElementsByTagName('DL'), function (i2, e2) {
+                            if (e2.getAttribute('group')) {
+                                e2.style.display = e2.getAttribute('group') == group ? 'block' : 'none';
+                            }
+                        });
+                        cms.each(eles, function (i3, e3) {
+                            e3.className = e3 == e ? cls + ' current' : cls;
+                        });
+                    };
+                });
+                eles[0].onclick();
+            }
+
+            initTab('tabitem');
+        </script>
+	</body>
+</html>
