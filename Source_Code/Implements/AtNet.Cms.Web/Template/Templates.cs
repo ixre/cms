@@ -101,7 +101,7 @@ namespace AtNet.Cms.Template
         	==========================<br />
 			1:HTML格式
 		")]
-        public string PrevArchive(string format)
+        public string Prev_Archive(string format)
         {
             object id = HttpContext.Current.Items["archive.id"];
             if (id == null)
@@ -117,7 +117,7 @@ namespace AtNet.Cms.Template
         	==========================<br />
 			1:HTML格式
 		")]
-        public string NextArchive(string format)
+        public string Next_Archive(string format)
         {
             object id = HttpContext.Current.Items["archive.id"];
             if (id == null)
@@ -138,16 +138,16 @@ namespace AtNet.Cms.Template
 
         [TemplateTag]
         [XmlObjectProperty("获取上一篇文档(默认格式)", @"")]
-        public string PrevArchive()
+        public string Prev_Archive()
         {
-            return PrevArchive(base.TplSetting.CFG_PrevArchiveFormat);
+            return Prev_Archive(base.TplSetting.CFG_PrevArchiveFormat);
         }
 
         [TemplateTag]
         [XmlObjectProperty("获取下一篇文档(默认格式)", @"")]
-        public string NextArchive()
+        public string Next_Archive()
         {
-            return NextArchive(base.TplSetting.CFG_NextArchiveFormat);
+            return Next_Archive(base.TplSetting.CFG_NextArchiveFormat);
         }
 
 
@@ -283,7 +283,7 @@ namespace AtNet.Cms.Template
         	2：数目<br />
 			3：HTML格式
 		")]
-        public string Archives2(string categoryTag, string num, string format)
+        public string Self_Archives(string categoryTag, string num, string format)
         {
             return this.Archives(categoryTag, num, format, false);
         }
@@ -302,14 +302,14 @@ namespace AtNet.Cms.Template
         	1：数目<br />
 			2：HTML格式
 		")]
-        public string Archives2(string num, string format)
+        public string Self_Archives(string num, string format)
         {
             string tag = HttpContext.Current.Items["category.tag"] as string;
             if (String.IsNullOrEmpty(tag))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return Archives2(tag, num, format);
+            return Self_Archives(tag, num, format);
         }
 
         /// <summary>
@@ -325,9 +325,9 @@ namespace AtNet.Cms.Template
         	==========================<br />
         	1：数目
 		")]
-        public string Archives2(string num)
+        public string Self_Archives(string num)
         {
-            return Archives2(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Self_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
         }
 
 
@@ -339,6 +339,7 @@ namespace AtNet.Cms.Template
         /// </summary>
         /// <param name="tag">栏目标签</param>
         /// <param name="container">是否包括子类</param>
+        /// <param name="param"></param>
         /// <param name="num">数量</param>
         /// <param name="format">格式
         /// </param>
@@ -352,7 +353,7 @@ namespace AtNet.Cms.Template
 			3：HTML格式<br />
 			4：是否包含子栏目，可选值为[0,1],1代表包含。
 		")]
-        public string SpecialArchives(string param, string num, string format, bool container)
+        public string Special_Archives(string param, string num, string format, bool container)
         {
             int _num;
             IEnumerable<ArchiveDto> dt = null;
@@ -393,7 +394,7 @@ namespace AtNet.Cms.Template
         /// <summary>
         /// 特殊文档(包含子栏目)
         /// </summary>
-        /// <param name="categoryTag"></param>
+        /// <param name="param"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -405,9 +406,9 @@ namespace AtNet.Cms.Template
         	2：数目<br />
 			3：HTML格式
 		")]
-        public string SpecialArchives(string param, string num, string format)
+        public string Special_Archives(string param, string num, string format)
         {
-            return this.SpecialArchives(param, num, format, true);
+            return this.Special_Archives(param, num, format, true);
         }
 
         /// <summary>
@@ -426,14 +427,14 @@ namespace AtNet.Cms.Template
         	1：数目<br />
 			2：HTML格式
 		")]
-        public string SpecialArchives(string num, string format)
+        public string Special_Archives(string num, string format)
         {
             string id = HttpContext.Current.Items["category.tag"] as string;
             if (String.IsNullOrEmpty(id))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return SpecialArchives(id, num, format, true);
+            return Special_Archives(id, num, format, true);
         }
 
         /// <summary>
@@ -450,15 +451,15 @@ namespace AtNet.Cms.Template
         	==========================<br />
         	1：数目
 		")]
-        public string SpecialArchives(string num)
+        public string Special_Archives(string num)
         {
-            return SpecialArchives(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Special_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
         }
 
         /// <summary>
         /// 特殊文档(包含子栏目)
         /// </summary>
-        /// <param name="categoryTag"></param>
+        /// <param name="param"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -471,9 +472,9 @@ namespace AtNet.Cms.Template
         	2：显示数量<br />
         	3：HTML格式
 		")]
-        public string SpecialArchives2(string param, string num, string format)
+        public string Self_Special_Archives(string param, string num, string format)
         {
-            return this.SpecialArchives(param, num, format, false);
+            return this.Special_Archives(param, num, format, false);
         }
 
 
@@ -492,14 +493,14 @@ namespace AtNet.Cms.Template
         	1：显示数量<br />
         	2：HTML格式
 		")]
-        public string SpecialArchives2(string num, string format)
+        public string Self_Special_Archives(string num, string format)
         {
             string id = HttpContext.Current.Items["category.tag"] as string;
             if (String.IsNullOrEmpty(id))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return SpecialArchives(id, num, format, false);
+            return Special_Archives(id, num, format, false);
         }
 
         /// <summary>
@@ -515,9 +516,9 @@ namespace AtNet.Cms.Template
         	==========================<br />
         	1：显示数量
 		")]
-        public string SpecialArchives2(string num)
+        public string Self_Special_Archives(string num)
         {
-            return SpecialArchives2(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Self_Special_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
         }
 
 
@@ -526,8 +527,8 @@ namespace AtNet.Cms.Template
         /// <summary>
         /// 按点击排行文档列表
         /// </summary>
-        /// <param name="tag"></param>
         /// <param name="container"></param>
+        /// <param name="categoryTag"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -540,7 +541,7 @@ namespace AtNet.Cms.Template
         	3：HTML格式<br />
         	4：是否包含子栏目
 		")]
-        public string HotArchives(string categoryTag, string num, string format, bool container)
+        public string Hot_Archives(string categoryTag, string num, string format, bool container)
         {
             int _num;
             IEnumerable<ArchiveDto> dt = null;
@@ -564,7 +565,7 @@ namespace AtNet.Cms.Template
         /// <summary>
         /// 按点击排行文档列表
         /// </summary>
-        /// <param name="container"></param>
+        /// <param name="param"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -576,7 +577,7 @@ namespace AtNet.Cms.Template
         	2：显示数量<br />
         	3：HTML格式
 		")]
-        public string HotArchives(string param, string num, string format)
+        public string Hot_Archives(string param, string num, string format)
         {
             //如果传入为模块编号
             if (Regex.IsMatch(param, "^\\d+$"))
@@ -594,7 +595,7 @@ namespace AtNet.Cms.Template
                 }
             }
 
-            return HotArchives(param, num, format, true);
+            return Hot_Archives(param, num, format, true);
         }
 
         /// <summary>
@@ -611,14 +612,14 @@ namespace AtNet.Cms.Template
         	1：显示数量<br />
         	2：HTML格式
 		")]
-        public string HotArchives(string num, string format)
+        public string Hot_Archives(string num, string format)
         {
             string tag = HttpContext.Current.Items["category.tag"] as string;
             if (String.IsNullOrEmpty(tag))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return HotArchives(tag, num, format, true);
+            return Hot_Archives(tag, num, format, true);
         }
 
         /// <summary>
@@ -633,16 +634,16 @@ namespace AtNet.Cms.Template
         	==========================<br />
         	1：显示数量
 		")]
-        public string HotArchives(string num)
+        public string Hot_Archives(string num)
         {
-            return HotArchives(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Hot_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
         }
 
 
         /// <summary>
         /// 按点击排行文档列表
         /// </summary>
-        /// <param name="container"></param>
+        /// <param name="param"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -654,9 +655,9 @@ namespace AtNet.Cms.Template
         	2：显示数量<br />
         	3：HTML格式
 		")]
-        public string HotArchives2(string param, string num, string format)
+        public string Self_Hot_Archives(string param, string num, string format)
         {
-            return HotArchives(param, num, format, false);
+            return Hot_Archives(param, num, format, false);
         }
 
         /// <summary>
@@ -673,14 +674,14 @@ namespace AtNet.Cms.Template
         	1：显示数量<br />
         	2：HTML格式
 		")]
-        public string HotArchives2(string num, string format)
+        public string Self_Hot_Archives(string num, string format)
         {
             string tag = HttpContext.Current.Items["category.tag"] as string;
             if (String.IsNullOrEmpty(tag))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return HotArchives(tag, num, format, false);
+            return Hot_Archives(tag, num, format, false);
         }
 
         /// <summary>
@@ -695,9 +696,9 @@ namespace AtNet.Cms.Template
         	==========================<br />
         	2：显示数量
 		")]
-        public string HotArchives2(string num)
+        public string Self_Hot_Archives(string num)
         {
-            return HotArchives2(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Self_Hot_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
         }
 
         /// <summary>
@@ -706,7 +707,7 @@ namespace AtNet.Cms.Template
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        [TemplateTag]
+       // [TemplateTag]
         [Obsolete]
         protected string ArchivesByCount2(string num, string format)
         {
@@ -891,7 +892,7 @@ namespace AtNet.Cms.Template
         	1：显示数量<br />
         	2：显示格式
 		")]
-        public string PagerArchives(string pageSize, string format)
+        public string Pager_Archives(string pageSize, string format)
         {
             string tag = HttpContext.Current.Items["category.tag"] as string;
             object pageindex = HttpContext.Current.Items["page.index"];
@@ -901,7 +902,7 @@ namespace AtNet.Cms.Template
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return PagerArchives(tag, pageindex.ToString(), pageSize, format);
+            return Pager_Archives(tag, pageindex.ToString(), pageSize, format);
         }
 
 
@@ -915,7 +916,7 @@ namespace AtNet.Cms.Template
         	1：显示数量<br />
         	2：显示格式
 		")]
-        public string SearchArchives(string pageSize, string format)
+        public string Search_Archives(string pageSize, string format)
         {
             string key = HttpContext.Current.Items["search.key"] as string;
             string param = HttpContext.Current.Items["search.param"] as string;
@@ -926,7 +927,7 @@ namespace AtNet.Cms.Template
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return this.SearchArchives(param, key, pageindex.ToString(), pageSize, format);
+            return this.Search_Archives(param, key, pageindex.ToString(), pageSize, format);
         }
 
         [TemplateTag]
@@ -937,10 +938,10 @@ namespace AtNet.Cms.Template
         	2：显示数量<br />
         	3：显示格式
 		")]
-        public string SearchArchives(string keyword, string pageSize, string format)
+        public string Search_Archives(string keyword, string pageSize, string format)
         {
             string pageindex = HttpContext.Current.Items["page.index"] as string;
-            return this.SearchArchives(null, keyword, pageindex, pageSize, format);
+            return this.Search_Archives(null, keyword, pageindex, pageSize, format);
         }
 
         /// <summary>
@@ -960,7 +961,7 @@ namespace AtNet.Cms.Template
         	3：显示格式<br />
         	4：页面路径(可用于自定义搜索页的URL)
 		")]
-        public string SearchArchives(string keyword, string pageSize, string format, string pagerLinkPath)
+        public string Search_Archives(string keyword, string pageSize, string format, string pagerLinkPath)
         {
             int pageIndex,
                 recordCount,
@@ -1002,11 +1003,10 @@ namespace AtNet.Cms.Template
         /// <summary>
         /// 搜索文档列表
         /// </summary>
-        /// <param name="categoryTag"></param>
+        /// <param name="keyword"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
-        /// <param name="flags">t,o,p</param>
-        /// <param name="url">是否webform</param>
+        /// <param name="categoryTagOrModuleId"></param>
         /// <returns></returns>
         [TemplateTag]
         [XmlObjectProperty("显示指定栏目下的文档搜索结果", @"
@@ -1018,17 +1018,17 @@ namespace AtNet.Cms.Template
         	4：显示数量<br />
         	5：显示格式
 		")]
-        public string SearchArchives(string categoryTagOrModuleID, string keyword, string pageIndex, string pageSize, string format)
+        public string Search_Archives(string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize, string format)
         {
             int pageCount, recordCount;
-            return this.SearchArchives(this.site.SiteId, categoryTagOrModuleID, keyword, pageIndex, pageSize, format, out pageCount, out recordCount);
+            return this.SearchArchives(this.site.SiteId, categoryTagOrModuleId, keyword, pageIndex, pageSize, format, out pageCount, out recordCount);
         }
-
 
 
         /// <summary>
         /// 链接
         /// </summary>
+        /// <param name="type"></param>
         /// <param name="number"></param>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -1049,6 +1049,7 @@ namespace AtNet.Cms.Template
         /// 链接
         /// </summary>
         /// <param name="number"></param>
+        /// <param name="type"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
@@ -1095,7 +1096,7 @@ namespace AtNet.Cms.Template
         	1：显示数量<br />
         	2：显示格式
 		")]
-        public string TagArchives(string pageSize, string format)
+        public string Tag_Archives(string pageSize, string format)
         {
             string key = HttpContext.Current.Items["tag.key"] as string;
             object pageindex = HttpContext.Current.Items["page.index"];
@@ -1113,9 +1114,9 @@ namespace AtNet.Cms.Template
         [XmlObjectProperty("显示评论框", @"
         	<p class=""red"">只能在文档页中使用！</p>
 		")]
-        public string CommentEditor()
+        public string Comment_Editor()
         {
-            return this.CommentEditor(base.TplSetting.CFG_AllowAmousComment ? "true" : "false",
+            return this.Comment_Editor(base.TplSetting.CFG_AllowAmousComment ? "true" : "false",
                 base.TplSetting.CFG_CommentEditorHtml);
         }
 
@@ -1161,9 +1162,9 @@ namespace AtNet.Cms.Template
         [XmlObjectProperty("显示友情链接", @"
         	<p class=""red"">显示条数，以及格式均在【模板设置】中修改.</p>
 		")]
-        public string FriendLink()
+        public string Friend_Link()
         {
-            return this.FriendLink(base.TplSetting.CFG_FriendShowNum.ToString(), base.TplSetting.CFG_FriendLinkFormat);
+            return this.Friend_Link(base.TplSetting.CFG_FriendShowNum.ToString(), base.TplSetting.CFG_FriendLinkFormat);
         }
 
         [TemplateTag]
@@ -1174,7 +1175,7 @@ namespace AtNet.Cms.Template
         	1：显示数目<br />
 			2：HTML格式,如:<a href=""{url}"" {target}>{text}</a>
 		")]
-        public string FriendLink(string num, string format)
+        public string Friend_Link(string num, string format)
         {
             string cache = SiteLinkCache.GetFLinkBySiteId(siteId);
             if (cache == null)
@@ -1230,12 +1231,12 @@ namespace AtNet.Cms.Template
         #region 兼容标签
         protected string PagerArchiveList(string categoryTag, string pageIndex, string pageSize, string format)
         {
-            return base.PagerArchives(categoryTag, pageIndex, pageSize, format);
+            return base.Pager_Archives(categoryTag, pageIndex, pageSize, format);
         }
 
         protected string PagerArchiveList(string pageSize, string format)
         {
-            return this.PagerArchives(pageSize, format);
+            return this.Pager_Archives(pageSize, format);
         }
 
 
@@ -1250,13 +1251,13 @@ namespace AtNet.Cms.Template
         protected string SearchList(string keyword, string pageSize, string format)
         {
             string pageindex = HttpContext.Current.Items["page.index"] as string;
-            return SearchArchives(null, keyword, pageindex, pageSize, format);
+            return Search_Archives(null, keyword, pageindex, pageSize, format);
         }
 
         [TemplateTag]
         protected string SearchList(string pageSize, string format)
         {
-            return SearchArchives(pageSize, format);
+            return Search_Archives(pageSize, format);
         }
 
         /// <summary>
@@ -1270,7 +1271,7 @@ namespace AtNet.Cms.Template
         [TemplateTag]
         protected string SearchList(string keyword, string pageSize, string format, string pagerLinkPath)
         {
-            return this.SearchArchives(keyword, pageSize, format, pagerLinkPath);
+            return this.Search_Archives(keyword, pageSize, format, pagerLinkPath);
         }
 
 
@@ -1293,7 +1294,7 @@ namespace AtNet.Cms.Template
         [TemplateTag]
         protected string TagPagerArchiveList(string pageSize, string format)
         {
-            return this.TagArchives(pageSize, format);
+            return this.Tag_Archives(pageSize, format);
         }
 
 
@@ -1308,7 +1309,7 @@ namespace AtNet.Cms.Template
         [TemplateTag]
         protected string Archives(string param, string container, string num, string format)
         {
-            return this.IsTrue(container) ? this.Archives(param, num, format) : this.Archives2(param, num, format);
+            return this.IsTrue(container) ? this.Archives(param, num, format) : this.Self_Archives(param, num, format);
         }
 
         /// <summary>
@@ -1323,7 +1324,7 @@ namespace AtNet.Cms.Template
         [TemplateTag]
         protected string SpecialArchives(string param, string container, string num, string format)
         {
-            return this.IsTrue(container) ? this.SpecialArchives(param, num, format) : this.SpecialArchives2(param, num, format);
+            return this.IsTrue(container) ? this.Special_Archives(param, num, format) : this.Self_Special_Archives(param, num, format);
         }
 
         #endregion
@@ -1334,7 +1335,7 @@ namespace AtNet.Cms.Template
         [TemplateTag]
         protected string SAList(string categoryTagOrModuleID, string num, string format)
         {
-            return SpecialArchives(categoryTagOrModuleID, num, format);
+            return Special_Archives(categoryTagOrModuleID, num, format);
         }
 
         [TemplateTag]
@@ -1352,7 +1353,7 @@ namespace AtNet.Cms.Template
         [TemplateTag]
         protected string PAList(string categoryTag, string pageIndex, string pageSize, string format)
         {
-            return PagerArchives(categoryTag, pageIndex, pageSize, format);
+            return Pager_Archives(categoryTag, pageIndex, pageSize, format);
         }
 
         [TemplateTag]
@@ -1426,7 +1427,7 @@ namespace AtNet.Cms.Template
         [Obsolete]
         protected string SpecialArchiveList(string categoryTagOrModuleId, string num, string format)
         {
-            return SpecialArchives(categoryTagOrModuleId, num, format, false);
+            return Special_Archives(categoryTagOrModuleId, num, format, false);
         }
 
         /// <summary>
@@ -1439,7 +1440,7 @@ namespace AtNet.Cms.Template
         [Obsolete]
         protected string SpecialArchiveList(string num, string format)
         {
-            return SpecialArchives(num, format);
+            return Special_Archives(num, format);
         }
 
         /// <summary>
@@ -1452,7 +1453,7 @@ namespace AtNet.Cms.Template
         [Obsolete]
         protected string SpecialArchiveList2(string num, string format)
         {
-            return SpecialArchives2(num, format);
+            return Self_Special_Archives(num, format);
         }
 
 
@@ -1511,7 +1512,7 @@ namespace AtNet.Cms.Template
 
             foreach (ICategory c in categories.OrderBy(a => a.OrderIndex | a.Lft))
             {
-                sb.Append(tplengine.FieldTemplate(format, field =>
+                sb.Append(TplEngine.FieldTemplate(format, field =>
                 {
                     switch (field)
                     {

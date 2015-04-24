@@ -38,7 +38,7 @@ namespace AtNet.Cms.Template
     {
         private const string settingsFile = "config/label.conf";
         private static PropertyInfo[] archivePros = typeof(ArchiveDto).GetProperties(BindingFlags.Instance | BindingFlags.Public); //文档的属性
-        protected static MicroTemplateEngine tplengine =
+        protected static MicroTemplateEngine TplEngine =
                             new MicroTemplateEngine(null); //模板引擎
 
         protected ArchiveDto archive;           //当前读取的文档,使用require(archiveID)获取的文档
@@ -425,7 +425,7 @@ namespace AtNet.Cms.Template
                     }
                     if (c.SiteId == this.siteId)
                     {
-                        sb.Append(tplengine.FieldTemplate(format, field =>
+                        sb.Append(TplEngine.FieldTemplate(format, field =>
                         {
                             switch (field)
                             {
@@ -599,7 +599,7 @@ namespace AtNet.Cms.Template
         /// <param name="id"></param>
         /// <returns></returns>
         [TemplateTag]
-        protected string ArchiveRedirect(string id)
+        protected string Archive_Redirect(string id)
         {
             ArchiveDto a = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(this.site.SiteId, id);
 
@@ -665,7 +665,7 @@ namespace AtNet.Cms.Template
         /// <param name="usePager"></param>
         /// <returns></returns>
         [TemplateTag]
-        protected string CommentEditor(string allowAmous, string html)
+        protected string Comment_Editor(string allowAmous, string html)
         {
 
             ArchiveDto archive = (ArchiveDto)(AtNet.Cms.Cms.Context.Items["archive"] ?? default(ArchiveDto));
@@ -750,7 +750,7 @@ namespace AtNet.Cms.Template
 
             StringBuilder sb = new StringBuilder();
 
-            string content = tplengine.FieldTemplate(cm_editor_tpl, a =>
+            string content = TplEngine.FieldTemplate(cm_editor_tpl, a =>
             {
                 switch (a)
                 {
@@ -861,7 +861,7 @@ namespace AtNet.Cms.Template
 
                 }
 
-                sb.Append(tplengine.FieldTemplate(format, field =>
+                sb.Append(TplEngine.FieldTemplate(format, field =>
                 {
                     switch (field)
                     {
@@ -1052,7 +1052,7 @@ namespace AtNet.Cms.Template
 
             string format = this.TplSetting.CFG_TrafficFormat;
 
-            string result = tplengine.FieldTemplate(format, key =>
+            string result = TplEngine.FieldTemplate(format, key =>
             {
                 switch (key)
                 {
@@ -1127,7 +1127,7 @@ namespace AtNet.Cms.Template
                 }
 
                 //解析格式
-                tempLinkStr = tplengine.FieldTemplate(child ? childFormat : format, a =>
+                tempLinkStr = TplEngine.FieldTemplate(child ? childFormat : format, a =>
                 {
                     switch (a)
                     {
@@ -1325,7 +1325,7 @@ namespace AtNet.Cms.Template
             {
                 if (c.SiteId == this.site.SiteId)
                 {
-                    sb.Append(tplengine.FieldTemplate(format, field =>
+                    sb.Append(TplEngine.FieldTemplate(format, field =>
                     {
                         switch (field)
                         {
@@ -1383,15 +1383,15 @@ namespace AtNet.Cms.Template
             //读取自定义扩展数据字段
             IDictionary<string, string> extendFields = null;
 
-            sb.Append(tplengine.FieldTemplate(format,
+            sb.Append(TplEngine.FieldTemplate(format,
                 field =>
                 {
                     switch (field)
                     {
-
                         case "title": return archive.Title;
-                        case "title2": return !ArchiveFlag.GetFlag(archive.Flags, BuiltInArchiveFlags.IsSpecial) ?
-                            archive.Title : "<span class=\"special\">" + archive.Title + "</span>";
+                        case "small_title": return archive.SmallTitle;
+                        case "special_title": return !ArchiveFlag.GetFlag(archive.Flags, BuiltInArchiveFlags.IsSpecial) ?
+                             archive.Title : "<span class=\"special\">" + archive.Title + "</span>";
 
                         case "author": return archive.Author;
 
@@ -1400,6 +1400,10 @@ namespace AtNet.Cms.Template
                         //
                         //case "authorname": return ArchiveUtility.GetAuthorName(dr["author"].ToString());
                         case "source": return archive.Source == "" ? "原创" : archive.Source;
+                        case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
+                             archive.Outline,
+                             archive.Content,
+                             this.TplSetting.CFG_OutlineLength);
                         case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archive.Outline) ? archive.Content : archive.Outline, this.TplSetting.CFG_OutlineLength);
                         case "initid": return archive.Id.ToString();
                         case "id": return id;      //用于链接的ID标识
@@ -1408,21 +1412,17 @@ namespace AtNet.Cms.Template
                         case "count": return archive.ViewCount.ToString();
 
                         //时间
-                        case "modifytime": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
-                        case "moddate":
-                        case "modifytime2": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
-                        case "createtime": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
-                        case "pubdate":
-                        case "createtime2": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
+                        case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archive.LastModifyDate);
+                        case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
+                        case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archive.CreateDate);
+                        case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
 
                         //栏目
                         // case "categoryid":
                         // case "cid": return archive.Category.ID.ToString();
-                        case "categoryname":
-                        case "cname": return archive.Category.Name;
-                        case "categorytag":
-                        case "ctag": return archive.Category.Tag;
-                        case "curl": return this.GetCategoryUrl(archive.Category, 1);
+                        case "category_name": return archive.Category.Name;
+                        case "category_tag": return archive.Category.Tag;
+                        case "category_url": return this.GetCategoryUrl(archive.Category, 1);
 
 
                         //
@@ -1458,6 +1458,7 @@ namespace AtNet.Cms.Template
 
                         //特性列表
                         case "prolist":
+                        case "property_list":
                             StringBuilder sb2 = new StringBuilder();
                             sb.Append("<ul class=\"extend_field_list\">");
 
@@ -1510,9 +1511,9 @@ namespace AtNet.Cms.Template
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <param name="usePager">是否分页,false或no则不分</param>
+        /// <param name="format"></param>
         /// <returns></returns>
-        [TemplateTag]
-        protected string PagerArchives(string categoryTag, string pageIndex, string pageSize, string format)
+        protected string Pager_Archives(string categoryTag, string pageIndex, string pageSize, string format)
         {
             int _pageIndex,
                  _pageSize,
@@ -1571,16 +1572,21 @@ namespace AtNet.Cms.Template
                     if (!(archiveCategory.Id > 0)) continue;
                 }
 
-                sb.Append(tplengine.FieldTemplate(format,
+                sb.Append(TplEngine.FieldTemplate(format,
                     field =>
                     {
                         switch (field)
                         {
-                            case "title": return !ArchiveFlag.GetFlag(dr["flags"].ToString(), BuiltInArchiveFlags.IsSpecial) ? dr["title"].ToString() : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
-                            case "title2": return dr["title"].ToString();
+                            case "special_title": return !ArchiveFlag.GetFlag(dr["flags"].ToString(), BuiltInArchiveFlags.IsSpecial) ? dr["title"].ToString() : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
+                            case "title": return dr["title"].ToString();
+                            case "small_title": return (dr["small_title"] ?? "").ToString();
                             case "author": return dr["author"].ToString();
-                            case "authorname": return ArchiveUtility.GetAuthorName(dr["author"].ToString());
+                            case "author_name": return ArchiveUtility.GetAuthorName(dr["author"].ToString());
                             case "source": return dr["source"].ToString();
+                            case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
+                                 (dr["outline"] ?? "").ToString(),
+                                 dr["content"].ToString(),
+                                 this.TplSetting.CFG_OutlineLength);
                             case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty((dr["outline"] ?? "").ToString()) ? dr["content"].ToString() : dr["outline"].ToString(), this.TplSetting.CFG_OutlineLength);
                             case "intid": return dr["id"].ToString();
                             case "id": return id;
@@ -1590,24 +1596,19 @@ namespace AtNet.Cms.Template
                             case "count": return dr["viewcount"].ToString();
 
                             //时间
-                            case "modifytime": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", dr["lastmodifydate"]);
-                            case "moddate":
-                            case "modifytime2": return String.Format("{0:yyyy-MM-dd}", dr["lastmodifydate"]);
-                            case "createtime": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", dr["createdate"]);
-                            case "pubdate":
-                            case "createtime2": return String.Format("{0:yyyy-MM-dd}", dr["createdate"]);
+                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["lastmodifydate"]);
+                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", dr["lastmodifydate"]);
+                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["createdate"]);
+                            case "create_date": return String.Format("{0:yyyy-MM-dd}", dr["createdate"]);
 
                             //栏目
-                            case "categoryid":
-                            case "cid": return archiveCategory.Id.ToString();
+                            case "category_id": return archiveCategory.Id.ToString();
 
-                            case "categoryname":
-                            case "cname": return archiveCategory.Name;
+                            case "category_name": return archiveCategory.Name;
 
-                            case "categorytag":
-                            case "ctag": return archiveCategory.Tag;
+                            case "category_tag": return archiveCategory.Tag;
 
-                            case "curl": return this.GetCategoryUrl(archiveCategory, 1);
+                            case "category_url": return this.GetCategoryUrl(archiveCategory, 1);
 
                             //链接
                             case "url":
@@ -1804,15 +1805,16 @@ namespace AtNet.Cms.Template
 
 
                 int archivesCount = searchArchives.Count();
-                sb.Append(tplengine.FieldTemplate(format,
+                sb.Append(TplEngine.FieldTemplate(format,
                     field =>
                     {
                         switch (field)
                         {
-                            case "title": return title_hightlight;
-                            case "title2": return archive.Title;
+                            case "special_title": return title_hightlight;
+                            case "small_title": return archive.SmallTitle;
+                            case "title": return archive.Title;
                             case "author": return archive.Author;
-                            case "authorname": return ArchiveUtility.GetAuthorName(archive.Author);
+                            case "author_name": return ArchiveUtility.GetAuthorName(archive.Author);
                             case "source": return archive.Source;
                             case "outline": return content;
                             case "id": return alias;
@@ -1821,21 +1823,15 @@ namespace AtNet.Cms.Template
                             case "count": return archive.ViewCount.ToString();
 
                             //时间
-                            case "modifytime": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
-                            case "moddate":
-                            case "modifytime2": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
-                            case "createtime": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
-                            case "pubdate":
-                            case "createtime2": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
+                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
+                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
+                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
+                            case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
 
                             //栏目
-                            //case "categoryid":
-                            //case "cid": return category.ID.ToString();
-                            case "categoryname":
-                            case "cname": return category.Name;
-                            case "categorytag":
-                            case "ctag": return category.Tag;
-                            case "curl": return this.GetCategoryUrl(category, 1);
+                            case "category_name": return category.Name;
+                            case "category_tag": return category.Tag;
+                            case "category_url": return this.GetCategoryUrl(category, 1);
                             //链接
                             case "url":
                                 return GetArchiveUrl(archive.Location, archive.Flags, category, alias);
@@ -1964,7 +1960,7 @@ namespace AtNet.Cms.Template
                  * *********************/
                 isLast = i == links.Count - 1;
 
-                sb.Append(tplengine.FieldTemplate(format, field =>
+                sb.Append(TplEngine.FieldTemplate(format, field =>
                 {
                     switch (field)
                     {
@@ -2015,7 +2011,7 @@ namespace AtNet.Cms.Template
 
             foreach (string tag in tagArr)
             {
-                sb.Append(tplengine.FieldTemplate(format, a =>
+                sb.Append(TplEngine.FieldTemplate(format, a =>
                 {
                     switch (a)
                     {
@@ -2049,10 +2045,10 @@ namespace AtNet.Cms.Template
         /// <summary>
         /// 标签文档列表
         /// </summary>
-        /// <param name="categoryTag"></param>
+        /// <param name="tag"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
-        /// <param name="url">是否webform</param>
+        /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
         protected string TagArchives(string tag, string pageIndex, string pageSize, string format)
@@ -2156,15 +2152,16 @@ namespace AtNet.Cms.Template
 
 
                 int archivesCount = searchArchives.Count();
-                sb.Append(tplengine.FieldTemplate(format,
+                sb.Append(TplEngine.FieldTemplate(format,
                     field =>
                     {
                         switch (field)
                         {
-                            case "title": return title_hightlight;
-                            case "title2": return archive.Title;
+                            case "special_title": return title_hightlight;
+                            case "title": return archive.Title;
+                            case "small_title": return archive.SmallTitle;
                             case "author": return archive.Author;
-                            case "authorname": return ArchiveUtility.GetAuthorName(archive.Author);
+                            case "author_name": return ArchiveUtility.GetAuthorName(archive.Author);
                             case "source": return archive.Source;
                             case "outline": return content;
                             case "id": return alias;
@@ -2173,21 +2170,17 @@ namespace AtNet.Cms.Template
                             case "count": return archive.ViewCount.ToString();
 
                             //时间
-                            case "modifytime": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
-                            case "moddate":
-                            case "modifytime2": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
-                            case "createtime": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
-                            case "pubdate":
-                            case "createtime2": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
+                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
+                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
+                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
+                            case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
 
                             //栏目
                             //case "categoryid":
                             //case "cid": return category.ID.ToString();
-                            case "categoryname":
-                            case "cname": return category.Name;
-                            case "categorytag":
-                            case "ctag": return category.Tag;
-                            case "curl": return this.GetCategoryUrl(category, 1);
+                            case "category_name": return category.Name;
+                            case "category_tag": return category.Tag;
+                            case "category_url": return this.GetCategoryUrl(category, 1);
                             //链接
                             case "url":
                                 return GetArchiveUrl(archive.Location, archive.Flags, category, alias);
@@ -2318,7 +2311,7 @@ namespace AtNet.Cms.Template
         /// <param name="split"></param>
         /// <returns></returns>
         [TemplateTag]
-        public string CategoryTree(string categoryTag)
+        public string Category_Tree(string categoryTag)
         {
             if (categoryTag == "") categoryTag = "root";
 
@@ -2354,7 +2347,7 @@ namespace AtNet.Cms.Template
         /// <param name="split"></param>
         /// <returns></returns>
         [TemplateTag]
-        protected string CategorySelectTree(string categoryTag, string split)
+        protected string Category_Option(string categoryTag, string split)
         {
             //读取缓存
             string cacheKey = String.Format("{0}_site{1}_select_tree_{2}_{3}",
@@ -2452,9 +2445,9 @@ namespace AtNet.Cms.Template
         /// 栏目选择树
         /// </summary>
         [TemplateTag]
-        public string CategorySelectTree(string categoryTag)
+        public string Category_Option(string categoryTag)
         {
-            return CategorySelectTree(categoryTag, "一");
+            return Category_Option(categoryTag, "一");
         }
 
 
