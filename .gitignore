@@ -1,6 +1,5 @@
 *.pdb
 *.txt
-*.cache
 *.suo
 Debug
 obj
@@ -12,9 +11,9 @@ bin
 plugins
 tmp
 bootstrap
-/chunk/dist/ops.cms.dll
+/chunk/dist/atnet.devfw.dll
+/chunk/dist/atnet.cms.dll
 /chunk/dist/leveldb-sharp.dll
 /chunk/dist/Newtonsoft.Json.dll
-/chunk/dist/Ops.Cms.Extend.pdb
-/chunk/dist/ops.cms.extend.dll
+/chunk/dist/atnet.cms.extend.dll
 /chunk/Source_Code/UIApp/Ops.Cms.WebUI/config/cache.pid

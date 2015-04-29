@@ -95,6 +95,22 @@ namespace AtNet.Cms.Web
             }
         }
 
+        [TemplateVariableField("子标题")]
+        public string SmallTitle
+        {
+            get
+            {
+                return this.Archive.SmallTitle;
+            }
+        }
+
+        [TemplateVariableField("子标题")]
+        public string ContactSmallTitle
+        {
+            get { return String.IsNullOrEmpty(this.Archive.SmallTitle) ? "" : "-" + this.Archive.SmallTitle; }
+        }
+
+
         /// <summary>
         /// 作者
         /// </summary>
