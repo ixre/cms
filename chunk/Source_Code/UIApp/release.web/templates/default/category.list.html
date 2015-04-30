@@ -1,0 +1,60 @@
+<!DOCTYPE html />
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="/style/default/style.css" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+</head>
+<body>
+
+${partial:"inc/header.phtml"}
+
+<div id="wrap">
+      <div id="archivelist">
+        <div class="path">当前位置:<a href="/">主页</a> > $sitemap()</div>
+        <ul>
+            $pagerarchives('15','
+            <li><h1><a href="{url}" target="_blank">{title2}</a></h1>
+                <div>日期：{createtime2}  
+                    点击：{count}  作者：{author}
+                      来源：{source}</div>
+                <span class="content">{outline}</span>
+            </li>')
+        </ul>
+          <div>$pager()</div>
+    </div>
+    <script type="text/javascript">
+        function showTab(idx) {
+            var tabs = document.getElementById("tabs").getElementsByTagName("a");
+            var ps = document.getElementById("archivelistbar").getElementsByTagName("p");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].parentNode.className = i == idx ? "sel" : "";
+                ps[i].style.display = i == idx ? "block" : "none";
+            }
+        }
+    </script>
+    <div id="archivelistbar">
+        <ul class="title" id="tabs">
+            <li><b style="padding:0 5px">相关内容</b></li>
+            <li class="sel"><a href="javascript:;" onmouseover="showTab(0)">人气排行</a></li>
+            <li><a href="javascript:;" onmouseover="showTab(1)">推荐内容</a></li>
+            <li><a href="javascript:;" onmouseover="showTab(2)">最近更新</a></li>
+        </ul>
+       <p style="display:block">
+            $specialarchives('3','10','<a href="{url}">{title2}</a><br />')
+       </p>
+       <p>
+            $archives('10','<a href="{url}">{title2}</a><br />')
+       </p>
+       <p>
+            $archives2('10','<a href="{url}">{title2}</a><br />')
+       </p>
+       
+    </div>
+  ${partial:"inc/footer.phtml"}
+
+        <script type="text/javascript" src="${page.fpath}/global.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
+</div>
+</body>
+</html>

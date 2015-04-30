@@ -1,0 +1,346 @@
+<script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="/images/pic_scroll.js"></script>
+<style type="text/css">
+    /*滚动图片*/
+    .picnews{
+    width:960px;
+    margin:o auto;
+    float:left;
+    clear:both;
+    overflow:hidden;
+    }
+    .listbox{
+    width:952px;
+    overflow:hidden;
+    float:left;
+    clear:both;
+    overflow:hidden;
+    }
+    .listbox dl{
+    width:352px;
+    margin-right:8px;
+    margin-top:2px;
+    float:left;
+    }
+    .listbox ul a{
+    color:#666;
+    }
+
+    .tbox{
+    margin:0 0 8px 0;
+    border-bottom:1px solid #DADADA;
+    overflow:hidden;
+    }
+    .tbox dt{
+    height:30px;
+    overflow:hidden;
+    clear:both;
+    }
+    .tbox dd{
+    overflow:hidden;
+    }
+
+    .tbox dt span.more{
+    float:right;
+    position:relative;
+    line-height:25px;
+    padding-right:8px;
+    color:#596F37;
+    }
+    .tbox dt span.more a{
+    color:#596F37;
+    text-decoration:none;
+    }
+    .tbox dt span.more a:hover{
+    color:#ff3333;
+    text-decoration:underline;
+    }
+    .tbox dt span.label{
+    height:30px;
+    float:right;
+    overflow:hidden;
+    padding-right:1px;
+    padding-top:2px;
+    }
+    .tbox dt span.label a{
+    height:26px;
+    display:block;
+    padding:0px 7px 0px 8px;
+    line-height:26px;
+    border-left:1px solid #DADADA;
+    float:left;
+    color:#666;
+    text-decoration:none;
+    overflow:hidden;
+    letter-spacing:1px;
+    }
+    .tbox dt span.label a:hover{
+    color:#360;
+    }
+    .tbox dt span.label a.thisclass{
+    background:#FFF;
+    color:#333;
+    border-top:3px solid #DADADA;
+    }
+
+    .tbox dt span.linklabel{
+    float:left;
+    margin-left:10px;
+    overflow:hidden;
+    padding-right:1px;
+    padding-top:2px;
+    }
+    .tbox dt span.linklabel a{
+    height:30px;
+    display:block;
+    padding:0px 7px 0px 8px;
+    margin:0 5px;
+    line-height:20px;
+    border-left:1px solid #DADADA;
+    border-top:1px solid #DADADA;
+    border-right:1px solid #DADADA;
+    float:left;
+    color:#666;
+    text-decoration:none;
+    overflow:hidden;
+    letter-spacing:1px;
+    }
+    .tbox dt span.linklabel a:hover{
+    color:#360;
+    }
+    .tbox dt span.linklabel a.thisclass{
+    background:#FFF;
+    color:#333;
+    }
+    .light {
+    background:none;
+    }
+    .light dt{
+    height:30px;
+    border:1px solid #DADADA;
+    overflow:hidden;
+    background:url(/images/dm_title.png) repeat-x;
+    clear:both;
+    width:958px;
+    }
+    .more_img{
+    float:left;
+    margin-left:420px;
+    }
+    .more02{
+    float:right;
+    margin:12px 10px 0 0;
+    }
+    .light dd{
+    margin-left:0px;
+    border-left:1px solid #DADADA;
+    border-right:1px solid #DADADA;
+    /*padding:4px 4px 0px;*/
+    overflow:hidden;
+    }
+    dt.light strong{
+    color:#316301;
+    }
+    .infiniteCarousel {
+    width: 958px;
+    position: relative;
+    margin-left:auto;
+    margin-right:auto;
+    }
+
+    .infiniteCarousel .wrapper {
+    width: 900px;
+    overflow: auto;
+    height: 150px;
+    margin: 0 25px;
+    top: 0;
+    }
+    .infiniteCarousel ul a img {
+    border:1px solid #E3E3E3;
+    padding:2px;
+    width:143px;
+    height:106px;
+    display:block;
+    }
+    .infiniteCarousel .wrapper ul {
+    width: 925px;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    top: 0;
+    }
+    .infiniteCarousel ul li {
+    display:block;
+    color:#6C6D61;
+    float:left;
+    padding: 10px 6px;
+    height: 147px;
+    width: 140px;
+    text-align:center;
+    }
+    .infiniteCarousel ul li a,
+    .infiniteCarousel ul li a:visited{
+    color:#6C6D61;
+    }
+    .infiniteCarousel .wrapper ul li a:hover{
+    text-decoration:underline;
+    }
+    .infiniteCarousel ul li a:hover img {
+    border-color: #aaa;
+    }
+    .infiniteCarousel ul li a span{
+    display:block;
+    line-height:17px;
+    padding-top:6px;
+    }
+    .infiniteCarousel .arrow {
+    display: block;
+    height: 65px;
+    width: 20px;
+    text-indent: -999px;
+    position: absolute;
+    top: 50px;
+    cursor: pointer;
+    outline: 0;
+    }
+    .infiniteCarousel .forward {
+    background:url(/images/right_icon.jpg) no-repeat;
+    right: 0;
+    }
+    .infiniteCarousel .back {
+    background:url(/images/left_icon.jpg) no-repeat;
+    left: 0;
+    }
+
+    /*滚动图片*/
+    .pic_left{
+    float:left;
+    text-align:center;
+    border: 1px solid #CCCCCC;
+    margin: 7px;
+    }
+    .pic_left1{
+    float:left;
+    text-align:center;
+    }
+    .linklan:link{
+    text-decoration:none;
+    letter-spacing:10px;
+    line-height:25px;
+    font-size:14px;
+    color:#0054a5;
+    }
+    .linklan:hover{
+    text-decoration:none;
+    letter-spacing:10px;
+    line-height:25px;
+    font-size:14px;
+    color:#FF0000;
+    }
+    .linklan:active {
+    text-decoration:none;
+    letter-spacing:10px;
+    line-height:25px;
+    font-size:14px;
+    color:#0054a5;
+    }
+    .linklan:visited {
+    text-decoration:none;
+    letter-spacing:10px;
+    line-height:25px;
+    font-size:14px;
+    color:#0054a5;
+    }
+
+
+    .jiameng {
+    font-size: 14px;
+    line-height: 35px;
+    }
+</style>
+
+
+<div class="picnews">
+    <dl class="tbox light">
+        <dt>
+            <img src="/images/zs_title.gif" class="more_img"/>
+            <!--
+	<a href="#" class="more02">更多 >></a>-->
+        </dt>
+        <dd class='light1'>
+            <div class="infiniteCarousel">
+                <div class="wrapper">
+
+                    <ul id='imgscroll'>
+                        <li>
+                            <a href='#'>
+                                <img src='/uploads/image/201212/20121205192554_2037.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">连锁店实景风采</span>
+                        </li>
+
+                         <li>
+                            <a href="javascript:;">
+                                <img src='/uploads/image/201212/20121205192622_1155.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">连锁店实景风采</span>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src='/uploads/image/201212/20121212202347_1609.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">连锁店实景风采</span>
+                        </li>
+
+                       <li>
+                            <a href="javascript:;">
+                                <img src='/uploads/image/201212/20121212202412_1877.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">连锁店实景风采</span>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src='/uploads/image/201212/20121212202453_4622.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">连锁店实景风采</span>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src='/uploads/image/201212/20121212202516_5393.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">佛山大沥店</span>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <img src='/uploads/image/201212/20121212202544_5184.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">连锁店实景风采</span>
+                        </li>
+
+                       <li>
+                            <a href="javascript:;">
+                                <img src='/uploads/image/201212/20121212202615_3723.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">连锁店实景风采</span>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <img src='/uploads/image/201212/20121212202632_9351.jpg' border='0' width='143' height='106' alt='连锁店实景风采'>
+                            </a>
+                            <span class="title">连锁店实景风采</span>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </dd>
+    </dl>
+</div>
+
+<div class="clearfix"></div>

@@ -1,0 +1,72 @@
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage" %>
+<%string lang = Helper.UserLanguage.ToString().ToLower(); %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title> About Us__LMS Machinery<%//=MetaHelper.Title %>
+    </title>
+    <meta name="keywords" content="about lmsmachinery<%//=MetaHelper.Keywords %>" />
+    <meta name="description" content="As one of China’s top suppliers of CNC roll forming machines, LMS has rich experience in the development and production of CNC roll forming machines. For more information about our CNC roll forming machines, please just let us know!" />
+    <%Html.WriteFileQueto(); %>
+</head>
+<body>
+<%Html.RenderPartial("header"); %>
+
+<div id="main">
+	<div id="right">
+		<div id="location">
+<a href="/<%=lang %>">Home</a>
+ :: About Us</div>
+	  	<div id="company">
+			<p class="title"><%=Helper.Language.FirstUp(LanguageResources.GetInstance().GetWord("about"))+(Helper.Language.HasSpace?" ":"")+Helper.Language.FirstUp(LanguageResources.GetInstance().GetWord("us")) %></p>
+		    <div class="content">
+		    
+		    
+         <strong><a title="China roll forming machines manufacturer" href="/">SICHUAN THRIVED TRADING&nbsp;&amp; INDUSTRIAL DEVELOPMENT CO., LTD.</a><br />
+LMS INTERNATIONAL LIMITED</strong><br />
+<center>
+<div style="text-align: left">&nbsp;</div>
+<table cellspacing="1" cellpadding="1" width="600" border="1">
+    <tbody>
+        <tr>
+            <td><a target="_blank" href="/uploadfiles/Images/27175436546.jpg"><img alt="Factory of roll forming machine manufacturer - LMS" width="300" src="/uploadfiles/Images/27175436546.jpg" /></a></td>
+            <td><a target="_blank" href="/uploadfiles/images/27175514421.jpg"><img alt="Workshop of LMS - roll forming machine supplier" width="300" src="/uploadfiles/images/27175514421.jpg" /></a></td>
+        </tr>
+        <tr>
+            <td><a target="_blank" href="/uploadfiles/images/27175756875.jpg"><img alt="Workshop of cold roll forming machine" width="300" src="/uploadfiles/images/27175756875.jpg" /></a></td>
+            <td><a target="_blank" href="/uploadfiles/images/27175811156.jpg"><img alt="CNC roll forming machine workshop" width="300" src="/uploadfiles/images/27175811156.jpg" /></a></td>
+        </tr>
+        <tr>
+            <td><img height="164" alt="CNC roll forming machines" width="307" src="/uploadfiles/images/11173403145.jpg" /></td>
+            <td>&nbsp;</td>
+        </tr>
+    </tbody>
+</table>
+</center>
+<p style="text-align:center">
+LMS Index Design - Product -<a href="http://www.lmsmachinery.com" target="_blank"> Roll Forming Machines</a><br />
+<img src="/uploadfiles/attachment/project1.jpg" title="LMS Index Design - Product"/></p>
+			<%=ConfigManager.GetAboutUsContent(Helper.UserLanguage) %>
+		    </div>
+		</div>
+	</div>
+	</div>
+	
+	<div id="left">
+	<%Html.RenderPartial("welcome"); %>
+	<%Html.RenderPartial("about");
+   Html.RenderPartial("filesdownload");    %>
+		<div id="left_btm"></div>
+	</div>
+	
+	<div class="clear"></div>
+</div>
+<%Html.RenderPartial("footer"); %> 
+  
+        <script type="text/javascript">
+            showBgImage(1);
+        </script>  
+</body>
+</html>

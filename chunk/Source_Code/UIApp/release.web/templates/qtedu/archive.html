@@ -1,0 +1,63 @@
+$require('${archive.id}')
+<!DOCTYPE html />
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="/style/default/style.css" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+</head>
+<body>
+
+${partial:"inc/header.phtml"}
+
+        <div id="wrap">
+            <div id="cnewsbody">
+                <div class="archive left">
+                    <p class="path">
+                        当前位置:<a href="/">主页</a> > $sitemap()</p>
+                    <h1>${archive.title}</h1>
+                    <p class="info">
+                        时间:${archive.publish} 作者:${archive.author}  来源:
+                        ${archive.source}  点击:${archive.count}次</p>
+                    <div class="content"> 
+                        <div class="recommend right">
+                        <h3>${category.Name}->推荐课程</h3>
+                        <p>
+                            $specialarchives(5,'<a href="{url}" target="_blank">{title}</a><br />')
+                            </p>
+                        </div>
+
+${archive.content}
+                        <br />
+                        
+                    TAG:
+                   $tags()
+                   
+                    </div>
+                    <div class="relation">
+                                  上一篇: $prevarchive('<a href="{url}">{title}</a>')   
+                                &nbsp;下一篇:
+                                   $nextarchive('<a href="{url}">{title}</a>')   
+                      </div>
+                      <div class="relations">
+                           <ul class="left">
+                                <li class="h1"><h1>最新${category.Name}课程</h1></li>
+                                $archives('10','<li><a href="{url}">{title2}</a></li>')
+                           </ul>
+                           <ul class="center">
+                                <li class="h1"><h1>热门${category.Name}课程</h1></li>
+                                $specialarchives('${module.ID}','10','<li><a href="{url}">{title2}</a></li>')
+                           </ul>
+                           <ul class="right"> 
+                               <li class="h1"><h1>${category.Name}资讯</h1></li>
+                              $archives('2','10','<li><a href="{url}">{title2}</a></li>')
+
+                           </ul>
+                      </div>
+                </div>
+            </div>
+           ${partial:"inc/footer.phtml"}
+        <script type="text/javascript" src="${page.fpath}/global.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
+     </body>
+</html>

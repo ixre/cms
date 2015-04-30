@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>站点管理</title>
+    	$css()
+        $iconcss()
+	    <style type="text/css">
+	        #bind{width:300px;position:absolute;left:550px;top:20px;}
+			.tree dd span.txt{padding-bottom:2px;}
+	    </style>
+	</head>
+	<body>
+    
+    <div class="autoStyle">
+        <table cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td width="200px">
+                <div class="control">
+                    <div class="top">
+                        <ul>
+                            <li><a href="javascript:;" class="fn" fn="create">$icon(create)新建</a></li>
+                            <li><a href="javascript:;" class="fn" fn="delete">$icon(delete)删除站点</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="main autoHeight">
+                        ${siteTree}
+                    </div>
+                </div>
+            </td>
+            <td><div id="pl" class="relative autoHeight autoScroll"></div>
+            </td>
+        </tr>
+    </table>
+  </div>
+
+		$js()
+        <script type="text/javascript">
+            var nameLinks = document.getElementsByClassName('namelink');
+            for (var i = 0; i < nameLinks.length; i++) {
+                nameLinks[i].onclick = (function (t,ls) {
+                    return function () {
+                        for(var j=0;j<ls.length;j++){
+                            ls[j].style.fontWeight=ls[j]==this?'bold':'';
+                        }
+                        var id = t.parentNode.parentNode.getAttribute('treeid');
+                        cms.load2('pl', 'site','edit','siteid='+id);
+                    };
+                })(nameLinks[i], nameLinks);
+                if (i == 0) {
+                    nameLinks[i].onclick();
+                }
+            }
+
+            //创建
+            Fn.create = function () {
+                cms.load2('pl', 'site', 'create', '');
+            };
+
+            //删除站点
+            Fn.delete=function(){
+                cms.dialog.alert('站点不允许删除！');
+            };
+
+            //cms.loadurl('pl', '?module=site&action=create&siteid=1');
+        </script>
+        
+	</body>
+</html>

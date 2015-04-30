@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>${page.title}</title>
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.0/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.1/style.css"/>
+</head>
+    
+
+<body>
+    ${partial:"inc/header.phtml"}
+<div id="main">
+	<div id="right">
+		<div id="location"><a href="${page.domain}">$lang(home)</a>::$sitemap()</div>
+	  	<div id="company">
+            <p class="title">${category.name}</p>
+
+		<div class="content">
+		
+<br />
+            As an expert of new roll forming machinery, <a title="New roll forming machinery factory" href="${page.domain}"><strong>LMS</strong></a>
+            has provided various catalogues for buyers to acknowledge the detailed information about our new roll forming machinery.
+            Please click&nbsp;above files&nbsp;for reference. Any 
+            <a title="Feedback " href="${page.domain}/service/feedback.html">feedback</a> or comment about our new roll forming machinery is high appreciated.<br />
+<br />
+
+            $pager_archives(15,'
+            . <a target="_blank" href="{下载地址}" title="{title2}">{title}</a><br />
+        ')<br />
+<div id="pages" style="text-align:left">$pager()</div>
+		</div>
+		</div>
+
+	</div>
+	<div id="left">
+        ${partial:"inc/welcome.phtml"}
+        ${partial:"inc/about.phtml"}
+        ${partial:"inc/filesdownload.phtml"}
+
+		<div id="left_btm"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+		
+		
+        ${partial:"inc/footer.phtml"}
+<script type="text/javascript">
+showBgImage(1);chgH3_Style('a_h3_154');
+</script>
+</body>
+</html>
+

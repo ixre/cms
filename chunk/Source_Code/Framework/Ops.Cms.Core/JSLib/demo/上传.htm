@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" src="http://www.jin-ec.com//framework/assets/global.js"></script>
+    <script type="text/javascript" src="sui.fileupload.js"></script>
+    <style type="text/css">
+        .ui-uploadform{margin:0;padding:0;}
+   .ui-uploadform .upbtn{padding:5px 10px;}
+    </style>
+</head>
+<body>
+
+<div style="height:50px;border:solid 1px red">
+     <input name="shop_logo" type="text" id="shop_logo" class="textbox easyui-validatebox tb_normal" required="true"  value="" />
+             <span id="upload">==选择文件==</span><span id="uploadinfo"></span><span style="margin-left: 10px;line-height:24px;">图片最佳分辨率为165*80</span> 
+</div>
+       <script>
+            J.upload(
+            {
+                id: 'upload',
+                infopanel: 'uploadinfo',
+                debug: !true,
+                exts:'*.jpg',
+                url: '/admin/Upload/FileUpload',
+                processurl: '/admin/Upload/GetProcess'
+            },
+            function (path) {
+                document.getElementById('shop_logo').value = path;
+            });
+       </script>
+
+</body>
+</html>

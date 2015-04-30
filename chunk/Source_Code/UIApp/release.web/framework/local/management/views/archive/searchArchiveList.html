@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>文档列表</title>
+    $css()$js()
+	</head>
+	<body>
+	
+  <div class="tabarea">
+<div class="controlarea" style="position:absolute;left:130px;top:1px;">
+    <b class="left">输入关键词：</b>
+    <input type="text" class="tb_normal small left" id="keyword" name="keyword" value="${keyword}"/>
+    <a href="javascript:search();" class="btn">搜索</a>
+    <!--
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>显示条数：</b>
+    <a href="?module=archive&amp;action=search&amp;keyword=${keyword}&amp;size=5">5</a>&nbsp;
+    <a href="?module=archive&amp;action=search&amp;keyword=${keyword}&amp;size=10">10</a>&nbsp;
+    <a href="?module=archive&amp;action=search&amp;keyword=${keyword}&amp;size=15">15</a>&nbsp;
+    <a href="?module=archive&amp;action=search&amp;keyword=${keyword}&amp;size=20">20</a>-->
+    </div>
+
+<div class="tab_mini">
+    <a href="javascript:;" onclick="" class="current">搜索文档</a>
+  </div>
+  <div class="clearfix"></div>
+
+    <table class="ui-table" cellspacing="0" cellpadding="0" id="archives">
+      <tr>
+        <th width="40">编号</th>
+        <th>标题</th>
+        ${headerText}
+        <th width="100">发布时间</th>
+        <th width="60">浏览次数</th>
+        <th width="40">刷新</th>
+        <th width="40">评论</th>
+        <th width="40">修改</th>
+        <th width="40">删除</th>
+      </tr>
+      ${archiveListHtml}
+    </table>
+    <div class="pager">${pagerHtml}</div>
+ </div>
+
+<script type="text/javascript">
+
+    var md;
+    window.onload = function () {
+      cms.table.dynamic(document.getElementsByTagName("table")[0]);
+
+      var bts = cms.$("archives", "button");
+      for (var i in bts) {
+        switch (bts[i].className) {
+          case 'edit': bts[i].onclick = edit; break;
+          case 'refresh': bts[i].onclick = refresh; break;
+          case 'delete': bts[i].onclick = deleteC; break;
+          case 'user': bts[i].onclick = showSignup; break;
+          case 'file': bts[i].onclick = showComments; break;
+        }
+      }
+    };
+    function edit() {
+      location.href=location.search.replace('search','update')+'&archiveID=' + getId(this);
+     }
+    function refresh() {
+      var id = getId(this);
+      cms.xhr.post('?', 'module=ajax&action=refreshArchive&archiveID=' + id,
+      function (x) { tip('已经刷新最后更新时间！'); },
+      function (x) { alert(x); }
+      );
+    }
+    function deleteC() {
+      if(confirm('确定删除吗?删除后将不可恢复!')){
+        var td = this.parentNode.parentNode;
+        var id=getId(this);
+        cms.xhr.post('?', "module=ajax&action=deleteArchive&archiveID=" + id,
+        function (x) { eval(x); /* td.style.display = 'none';*/ },
+        function (x) {  parent.M.alert(x);
+      }
+     }
+    function getId(s) {
+      return s.parentNode.parentNode.childNodes[0].innerHTML;
+    }
+    function search() {
+      location.href = '?module=archive&action=search&keyword='+escape(cms.val("keyword"));
+    }
+    
+    function showComments(){
+        location.href = '?module=archive&action=comment&desc=true&archiveID=' + getId(this);
+    }
+
+    function tip(msg) {
+        parent.M.alert(msg);
+    }
+  </script>
+
+	</body>
+</html>

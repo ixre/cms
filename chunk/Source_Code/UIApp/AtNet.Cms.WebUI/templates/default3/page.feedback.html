@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>${archive.title}</title>
+    <meta name="keywords" content="${page.keywords}" />
+    <link rel="stylesheet" type="text/css" href="/themes/1.0/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.1/style.css"/>
+    <script type="text/javascript" src="${page.fpath}/global.js"></script>
+    <script type="text/javascript" src="${page.fpath}/scripts/datagrid.js"></script>
+    <script type="text/javascript" src="${page.tpath}/script.js"></script>
+    <style type="text/css">
+        .ui-datagrid-header{display:none;}
+        .ui-datagrid-header td{color: #333;border-left: dotted 1px #fff;
+                   /*background: linear-gradient(to bottom, #F8F8F8 0px, #EEEEEE 100%) repeat-x scroll 0 0 rgba(0, 0, 0, 0);*/
+            text-align: center;line-height: 25px;padding:0;
+                   background:#edf7fe url(/framework/common/sys_themes/default/bg.gif) -0px 0 repeat-x;
+}
+.ui-datagrid-header td.first{ border: none;}
+.grid{border:solid 1px #ddd;}
+.ui-datagrid-view .loading{padding-left:0;border: solid 1px #d0d0d0;background: #f0f0f0;color: #006699;width: 100px;height: 22px;text-align: center;line-height: 22px;}
+        #inquire table span.ui-datagrid-header-title{text-align:left;width:auto;}
+        .ui-datagrid-view td{background:#f0f0f0;border:solid 1px #fff;border-right:none;border-top:none;padding:0 10px;line-height:25px;}
+        .view{display:block;padding:0;}
+    </style>
+</head>
+<body>
+    ${partial:"inc/header.phtml"}
+
+<div id="main">
+	<div id="right">
+            <div id="setup1">
+                <div id="location">
+                    <a href="/">$lang(home)</a> :: <a href="${page.domain}/feedback.html" title="Feedback">$lang(feedback)</a> :: New Post</div>
+
+                <form name="form1" method="post" action="/com.lms.sh.aspx/SubmitFeedBack" target="ifr" enctype="multipart/form-data">
+	  	<div id="company">
+			<p class="title">$lang(feedback)</p>
+            <span class="post"><a href="javascript:showList();"><img src="/images/btn_f_list.png" /></a></span>
+		<div class="content">
+<ul id="leave">
+    <li>
+        <span>$lang(title) :</span>
+        <input name="title" type="text" maxlength="40" id="title" />
+        <font color="red">*</font>
+    </li>
+    <li>
+        <span>$lang(name) :</span>
+        <input name="name" type="text" maxlength="40" id="name" />
+        <font color="red">*</font>
+    </li>
+    <li>
+        <span>$lang(company)$lang(space)$lang(name) :</span>
+        <input name="company" type="text" maxlength="40" id="company" />
+    </li>
+    <li>
+        <span>$lang(address) :</span>
+        <input name="address" type="text" maxlength="100" id="address" />
+    </li>
+    <li>
+        <span>$lang(email) :</span>
+        <input name="email" type="text" maxlength="40" id="email" />
+    </li>
+    <li>
+        <span>$lang(fax) :</span>
+        <input name="fax" type="text" maxlength="40" id="fax" />
+    </li>
+    <li>
+        <span>$lang(phone) :</span>
+        <input name="phone" type="text" maxlength="40" id="phone" />
+    </li>
+    <li>
+        <span>$lang(contents):</span>
+        <textarea name="content" rows="10" cols="20" id="content"></textarea>
+    </li>
+    <li>
+        <span>$lang(upload) :</span><input type="file" name="file" id="file" style="width:240px;" />
+    </li>
+    <li>
+        <span></span>Supporting all document format except for .exe,The document should be within 1MB  
+    </li>  
+</ul>
+         <iframe name="ifr" style="display:none"></iframe>           
+<div id="submit">
+    <input type="image" name="ImageButton1" id="img_submit" src="/images/btn_submit.png" style="border-width:0px;" />
+    &nbsp;&nbsp; &nbsp;
+    <input type="image" name="ImageButton2" id="ImageButton2" src="/images/btn_rewrite.png" onclick="return clearTxt();" style="border-width:0px;" />
+    
+    <script type="text/javascript">
+        function clearTxt() {
+        	var txts = "txtTitle,txtName,txtemail,txtphone,txtCompany,txtFax,txtAddress,TxtContent";
+            for(var i=0;i<txts.split(",").length;i++)
+            {
+                try
+                {
+                    var ele = document.getElementById(txts.split(",")[i]);
+                    ele.value = "";
+                }
+                catch(e){}
+            }
+            return false;
+        }
+        function returnMsg(msg) {
+            alert("please input ") + msg;
+            return false;
+        }
+    </script>
+</div>			
+
+		</div>
+		</div>
+    </form>
+        
+    </div>
+    <!-- setup 1 over -->
+            <div id="setup2" style="display:none">
+        <div id="location">
+            <a href="${page.domain}">$lang(home)</a> ::
+            <a href="${page.domain}/feedback.html" title="Feedback">$lang(feedback)</a> :: <a href="#">$lang(feedback)$lang(space)$lang(list)</a></div>
+<div id="company">
+    <div id="feedlist"></div>
+            
+        <div id="pages"></div>
+</div>
+            </div>
+    <!-- setup2 over -->
+    
+    
+    </div>
+	
+	<div id="left">
+        ${partial:"inc/welcome.phtml"}
+        <div class="subnav">
+            <p class="title">$lang(product)$lang(space)$lang(category)</p>
+            $categories(product,'
+            <h2><a id="a_cert_class_20" href="{url}" title="{name}">{name}</a></h2>
+      		')
+            
+		</div>
+        ${partial:"inc/filesdownload.phtml"}
+		<div id="left_btm"></div>
+	</div>
+	
+	<div class="clear"></div>
+</div>
+
+        ${partial:"inc/footer.phtml"}
+  
+        <script type="text/javascript">
+            
+           showBgImage(6);chgH3_Style('a_h3_feedback');
+            
+            function tip(msg){
+                alert(msg);
+                showList();
+            }
+            
+            var _dg = null;
+            function showList(){
+                cms.$('setup1').style.display='none';
+                cms.$('setup2').style.display='';
+                l2p(1);
+            }
+            
+            function l2p(i){
+                if(_dg == null){
+                    _dg = cms.datagrid('feedlist',{
+                        url:'/com.lms.sh.aspx/GetPagedFeedBackJson',
+                        data:{page:1},
+                        idField:'id',
+                        columns:[
+                            {field:'title',title:'Title',width:200,formatter:function(val,row){
+                                return row.createdate.replace('T',' ') + '：<b>'+val+'</b><br />'+row.content;
+                            }}
+                            ],
+                        loaded:function(data){
+                            cms.$('pages').innerHTML ="【"+ data.pager + "】";
+                        }
+                    });
+                }else{
+                    _dg.reload({page:i});
+                }
+            }
+            
+        </script>  
+</body>
+</html>

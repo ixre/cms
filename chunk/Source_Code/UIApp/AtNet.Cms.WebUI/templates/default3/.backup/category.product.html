@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>${page.title}</title>
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}"/>
+    <link rel="stylesheet" type="text/css" href="/themes/1.1/style.css"/>
+    <script type="text/javascript" src="${page.fpath}/global.js?hover=clist,navi,alist&version=${page.version}"></script>
+    <script type="text/javascript" src="${page.tpath}/script.js"></script>
+</head>
+
+<body>
+    ${partial:"inc/header.phtml"}
+    <style type="text/css">
+    .p_video li{float:left;margin:3px;}
+    .p_video_title{border-bottom:solid 1px #e0e0e0;}
+    </style>
+<div id="main">
+	<div id="right">
+
+		<div id="location"><a href="${page.domain}">$lang(home)</a>::$sitemap()</div>
+
+        
+	  	<div id="products">
+			<p class="title"><b>$lang(all)$lang(space)$lang(product)</b></p>
+			<div id="pro_txt">
+
+				<div class="inner">
+                    <!--
+				<%object catalogDes = ViewData["catalogdescription"];
+      if (catalogDes != null) Response.Write(catalogDes.ToString());
+      else
+      {		    		     %>-->
+					LMS has become a recognized leader in the manufacture of 
+                    <a title="cold roll forming machine" href="${page.domain}/product/Roll-Forming-Machine">Cold Roll forming machines</a>, 
+					<a title="sheet metal machines" href="${page.domain}/product/Metal-sheet-Machine">sheet metal machines</a>,
+					 <a title="duct machine supplier" href="${page.domain}/product/Duct-Machine">duct machines</a>, 
+					 <a title="pipe making machines" href="${page.domain}/product/Pipe-Making-Machine">pipe making machines</a>,
+					  <a title="combined drawing machine" target="_blank" href="${page.domain}/product/Combined-Drawing-Machine">combined drawing machine </a>and 
+					  <a title="slitting machine supplier" href="${page.domain}/product/Slitting-Machine-cut-to-length">slitting machines</a>. 
+					  Our excellent reputation for sound and innovative engineering and our many years of experience have brought us recognition for offering our customers the ultimate in efficiency for 
+					  <a href="http://www.lmsmachinery.com" title="roll forming machine" target="_blank">roll forming tooling</a> and other equipment.
+				</div>
+
+			</div>
+			<div id="pro_search" style="text-align:left">
+			    Category:<select name="c" field="c" id="productcatalogues">
+                $categories(product,'<option value="{tag}">{name}</option>')
+                </select>
+                
+                Search By:
+<input name="keywords" type="text" id="_keywords" />
+<button alt="search button" onclick="pcSearch()" style="cursor:pointer;">search</button>
+<script type="text/javascript">
+    var inquireList=new Array();
+    function pcSearch() {
+        var keyword = document.getElementById("_keywords").value;
+        if (keyword == "") alert('please input keyword!');
+        else{
+            location.href = "${page.domain}/product_search.html?c=product&w=" + encodeURIComponent(keyword);
+        }
+    }
+    window.onload = function() {
+        var cata = document.getElementById("productcatalogues");
+        var opt = document.createElement("option");
+        opt.innerHTML="一 All 一";
+        opt.value = "";
+        cata.insertBefore(opt, cata.options[0]);
+        
+        cata.onchange = function() {
+            location.href = "${page.domain}/product/" + (this.value==''?'':this.value+'/');
+        }
+        
+        var cb=cms.$("pro_list","input");
+        for(var i=0;i<cb.length;i++){
+            if(cb[i].type=='checkbox')
+            {
+            cb[i].onchange=function(){
+                if(this.checked){
+                    inquireList.push(this.value);
+                    }
+                else
+                    inquireList.pop(this.value);
+            }
+            if(cb[i].checked)inquireList.push(cb[i].value);
+            }
+        }
+        
+    }
+    function inquiry(){
+        if(inquireList.length==0){
+            alert("No product selected!");
+        }
+        else{
+        var _istr="";
+        for(var i in inquireList){
+            _istr+=inquireList[i]+"|";
+       }
+        if(_istr!=""){
+           _istr= _istr.substring(0,_istr.length-1);
+        }
+            cms.xhr.post("/lms/SaveInquiryBasket","action=saveinquiry&inquireList="+_istr,function(){
+        	location.href="${page.domain}/inquirybasket.html";},function(x){alert(x)});
+       }
+       }
+
+</script>
+			</div>
+			<ul id="pro_list" class="pro_list">
+		
+                $pager_archives(12,'
+<li>
+    <a href="{url}" target="_blank"><img src="{thumbnail}" border="0" alt="{title2}" /></a>
+    <h2><input name="CheckBox_Prod" type="checkbox" value="{aid}" />
+        <a href="{url}" target="_blank">{title2}</a></h2>
+
+    <p>{outline}</p>
+</li>
+')
+			</ul>
+			<div class="clear"></div>
+<div id="pages"><div id="inquire_wrap"><button onclick="inquiry()">INQUIRE SELECTED</button></div>
+            $pager()
+            </div>
+
+		</div>
+    
+
+<div style="clear:both;"></div>
+	</div>
+	
+		<div id="left">
+            ${partial:"inc/welcome.phtml"}
+		<div class="subnav">
+            <p class="title">$lang(product)$lang(space)$lang(category)</p>
+            $categories(product,'
+            <h2><a id="a_cert_class_20" href="{url}" title="{name}">{name}</a></h2>
+      		')
+            
+		</div>
+      
+        ${partial:"inc/contact.phtml"}
+        ${partial:"inc/filesdownload.phtml"}
+            
+		<div id="left_btm"></div>
+	</div>
+	
+	<div class="clear"></div>
+</div>
+<div class="clear"></div>
+                
+        ${partial:"inc/footer.phtml"}
+                
+<script type="text/javascript">
+    showBgImage(2);
+</script>
+</body>
+</html>
+
