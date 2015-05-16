@@ -16,6 +16,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using AtNet.Cms.Web.Mvc;
 using AtNet.Cms.Web.Task;
+using AtNet.DevFw.Web;
 
 namespace AtNet.Cms
 {
@@ -50,8 +51,9 @@ namespace AtNet.Cms
         {
             try
             {
-                AtNet.Cms.Cms.OnInit += CmsEventRegister.Init;
-                AtNet.Cms.Cms.Init();
+                Cms.OnInit += CmsEventRegister.Init;
+                Cms.Init();
+                WebCtx.Plugin.Connect();
             }
             catch (Exception exc)
             {
@@ -61,13 +63,14 @@ namespace AtNet.Cms
                 }
                 try
                 {
-                    HttpContext.Current.Response.Write(@"<html><head></head>
+                    HttpResponse rsp = HttpContext.Current.Response;
+                    rsp.Write(@"<html><head></head>
                         <body style=""text-align:center""><h1 style="""">" + exc.Message
-                        + "</h1><hr /><span>AtNet.Cms v" + AtNet.Cms.Cms.Version
+                        + "</h1><hr /><span>AtNet.Cms v" + Cms.Version
                         + "</span>\r\n<span style=\"display:none\">"
                         + exc.StackTrace + "</span>"
                         + "</body></html>");
-
+                    rsp.End();
                     Server.ClearError();
                 }
                 catch (Exception ex)
@@ -171,7 +174,7 @@ namespace AtNet.Cms
         protected virtual void Application_BeginRequest(object o, EventArgs e)
         {
             //mono 下编码可能会有问题
-            if (AtNet.Cms.Cms.RunAtMono)
+            if (Cms.RunAtMono)
             {
                 Response.Charset = "utf-8";
             }

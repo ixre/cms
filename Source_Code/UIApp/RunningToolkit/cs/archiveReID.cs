@@ -8,8 +8,8 @@
  */
 using System;
 using System.Collections.Generic;
-using Ops.Cms.Infrastructure;
-using Ops.Data;
+using AtNet.Cms.Infrastructure;
+using AtNet.DevFw.Data;
 
 
 namespace CsharpIpy.cs
@@ -17,7 +17,7 @@ namespace CsharpIpy.cs
     /// <summary>
     /// Description of archiveReID.
     /// </summary>
-    public class ArchiveReID
+    public class ArchiveReId
     {
         public static void ReNotIdArchives()
         {

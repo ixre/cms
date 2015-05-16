@@ -56,6 +56,10 @@
     <Compile Include="TemplateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DbAccess\AtNet.Cms.DAL\AtNet.Cms.DAL.csproj">
+      <Project>{38f82f91-b4a2-44bb-874b-177ce175a82a}</Project>
+      <Name>AtNet.Cms.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Domain\Ops.Cms.Domain.Implement.Content\AtNet.Cms.Domain.Implement.Content.csproj">
       <Project>{531376ba-75a2-4808-a63f-3b41deb1edd9}</Project>
       <Name>AtNet.Cms.Domain.Implement.Content</Name>
@@ -71,10 +75,6 @@
     <ProjectReference Include="..\..\Framework\Ops.Cms.Infrastructure\AtNet.Cms.Infrastructure.csproj">
       <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
       <Name>AtNet.Cms.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Spc.DAL\AtNet.Cms.DAL.csproj">
-      <Project>{38f82f91-b4a2-44bb-874b-177ce175a82a}</Project>
-      <Name>AtNet.Cms.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

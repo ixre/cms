@@ -6,7 +6,7 @@ namespace AtNet.Cms.Conf
     	/// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="1.0.001";
+        public const string VERSION="1.0.002";
 
         /// <summary>
         /// 框架目录

@@ -87,6 +87,7 @@ namespace AtNet.Cms.Service
             archive.Tags = archiveDto.Tags;
             archive.Thumbnail = archiveDto.Thumbnail;
             archive.Title = archiveDto.Title;
+            archive.SmallTitle = archiveDto.SmallTitle;
             archive.Location = archiveDto.Location;
             archive.ExtendValues = archiveDto.ExtendValues;
 
@@ -144,6 +145,7 @@ namespace AtNet.Cms.Service
                     Source = ia.Source,
                     Thumbnail = ia.Thumbnail,
                     Title = ia.Title,
+                    SmallTitle = ia.SmallTitle,
                     Location = ia.Location,
                     ViewCount = ia.ViewCount,
                     Outline = ia.Outline,

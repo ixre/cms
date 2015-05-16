@@ -5,6 +5,7 @@ using AtNet.Cms.Conf;
 using AtNet.DevFw.PluginKernel;
 using AtNet.DevFw.PluginKernel.Web;
 using AtNet.DevFw.Template;
+using AtNet.DevFw.Web;
 
 namespace AtNet.Cms.Core.Plugins
 {
@@ -14,8 +15,8 @@ namespace AtNet.Cms.Core.Plugins
         private static PortalPlugin _portal;
         private static CategoryPlugin _category;
         private static ArchivePlugin _archive;
-        private static ExtendsPlugin _extends;
-        private static PluginWebHandleProxy<HttpContext> _webHandler;
+        //private static ExtendsPlugin _extends;
+        private static WebPluginHandleProxy<HttpContext> _webHandler;
         private string _domain;
         private string _fpath;
         private string _pluginPath;
@@ -28,7 +29,7 @@ namespace AtNet.Cms.Core.Plugins
         {
             if (_webHandler == null)
             {
-                _webHandler = new PluginWebHandleProxy<HttpContext>();
+                _webHandler = new WebPluginHandleProxy<HttpContext>();
             }
         }
 
@@ -58,7 +59,7 @@ namespace AtNet.Cms.Core.Plugins
         /// <summary>
         /// 扩展(模块)插件
         /// </summary>
-        public IExtendApp Extends { get { return _extends ?? (_extends = new ExtendsPlugin(_webHandler)); } }
+        //public IPluginApp Extends { get { return _extends ?? (_extends = new ExtendsPlugin(_webHandler)); } }
 
         #endregion
 
@@ -71,7 +72,7 @@ namespace AtNet.Cms.Core.Plugins
             Cms.Plugins.Portal.Connect();
             Cms.Plugins.Category.Connect();
             Cms.Plugins.Archive.Connect();
-            Cms.Plugins.Extends.Connect();
+            //Cms.Plugins.Extends.Connect();
             Cms.Plugins.Manager.Connect();
         }
 
@@ -161,8 +162,8 @@ namespace AtNet.Cms.Core.Plugins
         {
             if (!this._loaded)
             {
-                this._domain = Cms.Context.SiteDomain;
-                this._fpath = String.Format("{0}/{1}", Cms.Context.StaticDomain,
+                this._domain = WebCtx.Domain;
+                this._fpath = String.Format("{0}/{1}", _domain,
                        CmsVariables.FRAMEWORK_ASSETS_PATH
                            .Substring(0, CmsVariables.FRAMEWORK_ASSETS_PATH.Length - 1)
                        );

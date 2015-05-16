@@ -118,16 +118,20 @@ namespace AtNet.Cms.Domain.Interface.Content.Archive
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="archiveId"></param>
+        /// <param name="sameCategory"></param>
+        /// <param name="ingoreSpecial"></param>
         /// <returns></returns>
-        IArchive GetNextSiblingArchive(int siteId, int archiveId);
+        IArchive GetNextArchive(int siteId, int archiveId,bool sameCategory, bool ingoreSpecial);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="archiveId"></param>
+        /// <param name="sameCategory"></param>
+        /// <param name="ingoreSpecial"></param>
         /// <returns></returns>
-        IArchive GetPreviousSiblingArchive(int siteId, int archiveId);
+        IArchive GetPreviousArchive(int siteId, int archiveId, bool sameCategory, bool ingoreSpecial);
 
         /// <summary>
         /// 
@@ -185,5 +189,18 @@ namespace AtNet.Cms.Domain.Interface.Content.Archive
         /// <param name="count"></param>
         void AddArchiveViewCount(int siteId, int id, int count);
 
+        /// <summary>
+        /// 获取最大的排序号码
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        int GetMaxSortNumber(int siteId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="archiveId"></param>
+        /// <param name="sortNumber"></param>
+        void SaveSortNumber(int archiveId, int sortNumber);
     }
 }

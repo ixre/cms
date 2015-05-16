@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="/style/default/style.css" type="text/css" />
+    <link href="/images/index.css" rel="stylesheet" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <link rel="EditURI" type="application/rsd xml" title="RSD" href="${page.domain}/xmlrpc?wsd" />
+</head>
+<body>
+    
+    
+<div id="container">
+    ${partial:"inc/header.phtml"}
+
+    <div style="overflow:hidden">
+    
+    </div> 
+    ${partial:"inc/flash_banner.phtml"}
+    
+    <!-- TOP LAYER -->
+    <div id="toplayer">
+        <div class="left">
+            <div class="gongao border">
+                <div class="title">
+                    <b><a href="/news/gonggao/">公   告</a></b><span class="more"><a href="/news/gonggao/">更多...</a></span></div>
+                    <span class="archivelist">
+                          <ul class="gonggao">
+                              $archives('gonggao',5,'<li><a href="{url}">{title2}</a><img src="/images/hot.gif" alt="hot"/><!--{createtime2}--></li>')
+                            </ul>
+                        </span>
+            </div>
+            <div class="slider border hidden1">
+                <a href="http://www.0345.cc/zgkz/zgzs/331f7a91df9986e7.html">
+                    <img src="${page.resdomain}/resources/s1/image/201403/20140322033137_7777.jpg" alt="普通话强化班" style="height:182px;width:280px;border:none;"/>
+                </a>
+                </div>
+        </div>
+        <div class="center border">
+            <div class="special">
+               
+
+                $specialarchives('3','1',' <h1><a href="{url}" title="{title}" style="color:red">{title}</a></h1><span>{outline[100]}</span>')
+                <ul> $archives('3','6','<li><a href="{url}" title="{title}">{title}</a></li>') </ul>
+            </div>
+           <div style="clear:both;height:8px;"></div>
+            <div class="border tab" id="tab1">
+                <div class="title"><b class="left">招生简章</b>
+                    <em class="right">
+                        <a href="/xueli/"><span style="color:red">hot</span>学历教育</a>
+                        <a href="/lang/">语言培训</a>
+                        <a href="/zgkz/">资格认证</a>
+                    </em>
+                </div>
+                <ul style="display:block">$archives('xueli',true,'5','<li>[<a href="{curl}">{cname}</a>] <a href="{url}">{title2}</a></li>')</ul>
+                <ul>$archives('lang',true,'5','<li>[<a href="{curl}">{cname}</a>] <a href="{url}">{title2}</a></li>')</ul>
+                <ul>$archives('zgkz',true,'5','<li>[<a href="{curl}">{cname}</a>] <a href="{url}">{title2}</a></li>')</ul>
+            </div>
+        </div>
+
+        
+        
+   
+    
+
+        <div class="right border">
+            
+<div id="schoollist">
+    <div class="title"><b class="b2">分支学校</b></div>
+    <span>
+    
+        <a href="http://www.0345.cc/cc/">禅城</a>
+     
+        <a href="http://www.0345.cc/nh/">南海</a>
+     
+        <a href="http://www.0345.cc/sd/">顺德</a>
+     
+        <a href="http://www.0345.cc/gm/">高明</a>
+     
+        <a href="http://www.0345.cc/ss/">三水</a>
+     
+        <a href="http://www.0345.cc/gz/">广州</a>
+     
+        <a href="http://www.0345.cc/sz/">深圳</a>
+     
+        <a href="http://www.0345.cc/zh/">珠海</a>
+     
+        <a href="http://www.0345.cc/dg/">东莞</a>
+     
+        <a href="http://www.0345.cc/zs/">中山</a>
+     
+        <a href="http://www.0345.cc/mm/">茂名</a>
+     
+        <a href="http://www.0345.cc/jm/">江门</a>
+     
+        <a href="http://www.0345.cc/mz/">梅州</a>
+     
+        <a href="http://www.0345.cc/st/">汕头</a>
+     
+        <a href="http://www.0345.cc/zj/">湛江</a>
+     
+        <a href="http://www.0345.cc/hz/">惠州</a>
+     </span><br />
+</div>
+
+
+    <div id="teachers" class="border">
+        <div class="title"><b>合作|加盟|团体培训</b></div>
+        <span class="item"><span class="highlight">小小老师-院校合作，机构加盟</span><br />电话：0757-22171735 18566006735<br /><a href="tencent://message/?uin=2659484397">2659484397</a></span>
+        <span class="item">
+<span class="highlight">陈老师-企业集体报名培训</span><br />电话：0757-22171731  18566006795<br /><a href="tencent://message/?uin=374471432">374471432</a></span>
+        <span class="item">
+<span class="highlight">刘老师-幼儿园项目培训</span><br />电话：0757-63303397  18566006791<br /><a href="tencent://message/?uin=962406067">962406067</a></span>
+        </div>
+        </div>
+    </div>
+    
+    <div style="clear:both;"></div>
+    
+    <script type="text/javascript" src="${page.fpath}/scripts/form.js?ver=${page.version}"></script>
+    <script type="text/javascript">
+            //tab1选项卡初始状态
+        
+        var tab1=cms.$('tab1');
+        var taba= tab1.getElementsByTagName('DIV')[0].getElementsByTagName('A');
+        var tabul = tab1.getElementsByTagName('UL');
+        
+            tabul[0].style.display = 'block';
+            taba[0].className = "hover";
+       
+            for (var i = 0; i < taba.length; i ++ ) {
+                taba[i].onmouseover = function () {
+                    for (var j = 0; j < taba.length; j++  ) {
+                        taba[j].className = taba[j] == this ? "hover" : "none";
+                        tabul[j].style.display = taba[j] == this ? "block" : "none";
+                    }
+                }
+            }
+    </script>
+    
+    
+    <div id="scroll" class="border" style="margin-top:5px;" >
+            <div class="title"><b>教师风采</b><span class="more"><a href="/teacher/">更多...</a></span></div>
+
+        <div id="auto_scroll" class="scroll auto_scroll" style="overflow: hidden; position: relative;">
+
+<ul style="display: block;">
+
+$archives('teacher','false','30','<li><a href="{url}"><img src="{thumbnail}"/><br />{title}</a></li>')
+
+</ul>
+</div>
+        <a href="javascript:;" onclick="window.sc.prev()" class="prev"><img src="http://www.liangyanjing.net/images/left_icon.jpg"/></a> 
+        <a href="javascript:;" onclick="window.sc.next()" class="next"><img src="http://www.liangyanjing.net/images/right_icon.jpg"/></a> 
+</div>
+
+    
+    
+    <div id="banner">
+        <a href="/fengxian/"><img src="${page.resdomain}/resources/s1/image/201403/20140323091001_6705.jpg" width="950" alt="教育类、经管类"/></a><br />
+        <a href="/fengxian/"><img src="${page.resdomain}/resources/s1/image/201403/20140323091124_4831.jpg" width="950" alt="基础"/></a><br />
+        <a href="/fengxian/"><img src="${page.resdomain}/resources/s1/image/201403/20140323091229_2968.jpg" width="950" alt="为什么选择远程教育1"/></a><br />
+        <a href="/fengxian/"><img src="${page.resdomain}/resources/s1/image/201403/20140323091259_0220.jpg" width="950" alt="为什么选择远程教育2"/></a><br />
+        <a href="/fengxian/"><img src="${page.resdomain}/resources/s1/image/201403/20140323091326_4894.jpg" width="950" alt="为什么选择远程教育3"/></a><br />
+        <a href="/fengxian/"><img src="${page.resdomain}/resources/s1/image/201403/20140323091351_3341.jpg" width="950" alt="为什么选择远程教育4"/></a><br />
+    
+    </div>
+
+    
+    
+    <!-- 学校列表 -->
+    <div id="schools" class="clear">
+        <div class="sc"><div class="left"><img src="/images/4(1).jpg" title="华南师范大学"/></div>
+            <div class="right">广东<br />华南师范大学</div><p>学校简介：华南师范大学创建于1933年，其前身是广东省立勷勤大学师范学院，经过70多年的建设和发展，现在是一所具有哲学、经济学、法学、教育学、文学、历史学、理学、工学、管理学等学科门类较齐全的综合性教学研究型大学。</p>
+            <div class="link"><a href="/xueli/wangxiao/258.html">报名</a><a href="/xueli/wangxiao/258.html">详细信息</a></div></div>
+        <div class="sc"><div class="left"><img src="/images/5.jpg" title="北京理工大学网络教育学院"/></div>
+            <div class="right">北京理工大学<br />网络教育学院</div><p>学校简介：“理工为主，工理文协调发展”的全国重点大学，国家首批“211工程”建设高校 。
+特色专业：计算机科学与技术、会计学、工商管理、项目管理、机械电子工程、法学、人力资源管理、汽车检测与维修技术、市场营销。</p>
+            <div class="link"><a href="/xueli/wangxiao/267.html">报名</a><a href="/xueli/wangxiao/267.html">详细信息</a></div></div>
+        <div class="sc"><div class="left"><img src="/images/8.jpg" title="北京语言大学网络教育学院"/></div>
+            <div class="right">北京语言大学<br />网络教育学院</div><p>学校简介：中国唯一一所以汉语国际推广和以中华文化教育为主要的国际型大学，“小联合国”的美誉！
+特色专业：对外汉语、汉语言文学、英语、日语、韩语、经济管理、国际经济与贸易、工商管理、计算机科学与技术、金融、会计、法学</p>
+            <div class="link"><a href="/xueli/wangxiao/263.html">报名</a><a href="/xueli/wangxiao/263.html">详细信息</a></div></div>
+        <div class="sc" style="clear:left;"><div class="left"><img src="/images/16.jpg" title="中国地质大学网络教育学院"/></div>
+            <div class="right">中国地质大学<br />网络教育学院</div><p>学校简介：中国地质大学是一所在国际地球科学界享有盛誉的高水平，综合性，研究型大学。是首批“211工程”和“985工程优势学科创新平台”重点建设高校。
+特色专业：计算机科学与技术、会计学、工商管理、法学、土木工程、安全工程 、资源勘探工程</p>
+            <div class="link"><a href="/xueli/wangxiao/265.html">报名</a><a href="/xueli/wangxiao/265.html">详细信息</a></div></div>   
+        <div class="sc"><div class="left"><img src="/images/9.jpg" title="中央广播电视大学网络教育学院"/></div>
+            <div class="right">中央广播电视大学<br />网络教育学院</div><p>	学校简介：中国最著名的重点高校之一，也是学生最向往、最受欢迎的高等学府之一，是中国第一所国立综合性大学，堪称世界级国际名校。特色专业：市场营销、计算机科学与技术、人力资源管理、法学、风险管理与保险学、财务管理、行政管理</p>
+            <div class="link"><a href="/xueli/wangxiao/415.html">报名</a><a href="/xueli/wangxiao/415.html">详细信息</a></div></div>
+        <div class="sc"><div class="left"><img src="/images/1.jpg" title="中国人民大学网络教育学院"/></div>
+            <div class="right">北京交通大学<br />网络教育学院</div><p>	学校简介：北京交通大学是中国近现代历史上创办最早的大学之一,是全国首批博士、硕士学位授予高校，首批进入国家“211工程”建设的高校和 “985工程”项目重点建设高校之一,也是教育部批准开展现代远程教育的试点高校之一</p>
+            <div class="link"><a href="/xueli/wangxiao/261.html">报名</a><a href="/xueli/wangxiao/261.html">详细信息</a></div></div>
+    </div>
+
+<div style="clear:both"></div>
+            ${partial:"teacher_scroll.phtml"}
+
+
+
+<div style="clear:both"></div>
+
+    <!--学校结束-->
+    <div id="news">
+        <img src="${page.resdomain}/resources/s1/image/201403/20140323091701_1504.jpg" alt="西南科技大学2"/>
+        <div class="border">
+            <div class="title"><b>建筑工程</b><span class="more"><a href="/gongcheng/gcinfo/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('gcinfo','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+        <div class="border right">
+            <div class="title"><b>财会考试</b><span class="more"><a href="/caikuai/caikuaikaoshi/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('caikuaikaoshi','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+        <div><img src="${page.resdomain}/resources/s1/image/201403/20140323091754_1134.jpg" alt="广东技术师范学院"/></div>
+        <div class="border">
+            <div class="title"><b>精品远程</b><span class="more"><a href="/news/yuancheng/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('yuancheng','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+        <div class="border right">
+            <div class="title"><b>在线测试</b><span class="more"><a href="/news/shiti/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('shiti','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+        <div class="border">
+            <div class="title"><b>考试资料</b><span class="more"><a href="/biji/kaoshiziliao/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('kaoshiziliao','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+        <div class="border right">
+            <div class="title"><b>考生故事</b><span class="more"><a href="/news/story/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('story','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+    </div>
+    <div id="newsside">
+        <div class="border left">
+            <div class="title"><b>服务专区</b></div>
+                <div class="serviceblock">
+                    <a href="#baoming" target="_blank">在线报名</a> <a href="/yuancheng/"
+                        target="_blank">报名须知</a> <a href="#" target="_blank">考试时间</a> <a href="http://zkwsbm.bjeea.cn/ind.htm"
+                            target="_blank">网上报考</a> <a href="#" target="_blank">证书样本</a>
+                    <a href="http://zkwsbm2.bjeea.cn/cjfc/login/fcks_login.jsp?ksq=0510" target="_blank">
+                        成绩查询</a> <a href="/biji/" target="_blank">资料下载</a> <a href="http://service.bjeea.cn/zk/zkkc/"
+                            target="_blank">教材查询</a> <a href="#" target="_blank">免考规定</a>
+                    <a href="#" target="_blank">考办查询</a><a href="/xlshiti/" target="_blank">在线考试</a>
+                    <!--<a href="biji/index.html" target="_blank">串讲笔记</a>-->
+                </div>
+        </div>
+        <div class="clear"></div>
+        <div class="border">
+            <div class="title"><b>职称考试</b><span class="more"><a href="/zgkz/zhichengkaoshi/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('zhichengkaoshi','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+        <div class="border">
+            <div class="title"><b class="b2">教育爱问</b><span class="more"><a href="/news/ask/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('ask','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+        <div class="border">
+            <div class="title"><b class="b2">合作院校</b><span class="more"><a href="/college/">更多...</a></span></div>
+            <span class="archivelist"> $archivelist('college','10','<a href="{url}">{title2}</a>')</span>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="flink">
+        <div class="title">合作院校</div>
+        <div class="img">
+            <a href="http://edu.qq.com/" rel="nofollow" target="_blank"><img src="/images/small/1.gif" /></a>
+            <a href="http://edu.sina.com.cn/" rel="nofollow" target="_blank"><img src="/images/small/2.gif" /></a>
+            <a href="www.eeagd.edu.cn/" rel="nofollow" target="_blank"><img src="/images/small/3.gif" /></a>
+            <a href="www.chsi.com.cn/" rel="nofollow" target="_blank"><img src="/images/small/4.gif" /></a>
+            <a href="http://www.moe.edu.cn/" rel="nofollow" target="_blank"><img src="/images/small/5.gif" /></a>
+            <a href="http://www.gzedu.gov.cn" rel="nofollow" target="_blank"><img src="/images/small/6.gif" /></a>
+            <a href="http://www.gdosta.org.cn/" rel="nofollow" target="_blank"><img src="/images/small/7.gif" /></a>
+            <a href="http://www.gd.lss.gov.cn/lm/Index-index.action" rel="nofollow" target="_blank"><img src="/images/small/8.gif" /></a>
+        </div><br />
+        <div class="title">友情链接</div>  
+        $link('3','<a href="{url}" target="_blank">{text}</a>','-1')
+    </div>
+
+ <!-- 学校列表结束-->
+    <!-- /Top layer end -->
+    
+${partial:"inc/footer.phtml"}
+
+  <span style="color:white">$site(slogan)</span>
+    <script type="text/javascript">
+        
+        cms.scroller('fla', {direction: 'left',unit:250,pagerid:'fla_pager'},4000);
+        
+window.sc=null;
+window.sc2=null;
+cms.lazyRun(function(){
+  window.sc=new scroller('auto_scroll',{direction:'left',unit:30},3000);
+  window.sc2=new scroller('auto_scroll2',{direction:'left',unit:30},3000);
+});
+    </script>
+    </div>
+</body>
+</html>

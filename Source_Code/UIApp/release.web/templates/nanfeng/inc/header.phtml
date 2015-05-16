@@ -1,0 +1,44 @@
+<div id="top">
+    $site('slogan')
+</div>
+<div id="header">
+    <h1>$site('name')</h1>
+    <a href="/" class="logo"></a>
+    <div class="slogan">$site('slogan')</div>
+    <div class="hd_search">
+      <input id="s_key" size="20" value="请输入要搜索的文字" onfocus="this.value=''" onblur="if(this.value=='')this.value='请输入要搜索的文字'" type="text"/>
+      <a onclick="location.replace('/search?w='+encodeURIComponent(document.getElementById('s_key').value))" title="搜索" href="javascript:;">搜索</a>
+    </div>
+</div>
+
+<div id="navicont">
+
+$navigator()
+
+<span id="dt" class="datetime">
+</span>
+    
+
+    
+</div>
+
+<script type="text/javascript">
+    //显示日期
+    var ele_dt = document.getElementsByClassName('datetime')[0];
+    var weeks = new Array('日', '一', '二', '三', '四', '五', '六');
+    var cmath = function (v) {
+      if (v < 10) return '0' + v;
+      return v;
+    };
+    function setDate() {
+      var dt = new Date();
+      ele_dt.innerHTML = cmath(dt.getFullYear()) + '年' + cmath(dt.getMonth() + 1) + '月' + cmath(dt.getDate()) + '日 / 周' +
+          weeks[dt.getDay()] + ' ' + cmath(dt.getHours()) + ':' + cmath(dt.getMinutes())+':'+cmath(dt.getSeconds());
+
+    }
+    setDate();
+    setInterval(setDate, 1000);
+</script>
+
+
+

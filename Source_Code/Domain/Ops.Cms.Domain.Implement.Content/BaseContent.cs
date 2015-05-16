@@ -10,21 +10,21 @@ namespace AtNet.Cms.Domain.Implement.Content
 {
     public abstract class BaseContent : IBaseContent
     {
-        protected IExtendFieldRepository _extendRep;
-        protected ITemplateRepository _templateRep;
-        protected ICategoryRepository _categoryRep;
+        protected readonly IExtendFieldRepository _extendRep;
+        private readonly ITemplateRepository _templateRep;
+        private readonly ICategoryRepository _categoryRep;
 
         protected IList<IExtendValue> _extendValues;
-        protected ICategory _category;
-        protected ITemplateBind _templateBind;
-        protected IContentRepository _contentRep;
-        private ILinkRepository _linkRep;
-        private ILinkManager _linkManager;
+        private  ICategory _category;
+        private readonly ITemplateBind _templateBind;
+        private readonly IContentRepository _contentRep;
+        private readonly ILinkRepository _linkRep;
+        private  ILinkManager _linkManager;
 
         /// <summary>
         /// 内容模型标识
         /// </summary>
-        public abstract int ContentModelIndent{get;}
+        public abstract int ContentModelIndent { get; }
 
         public BaseContent(
             IContentRepository contentRep,
@@ -52,6 +52,11 @@ namespace AtNet.Cms.Domain.Implement.Content
         /// 标题
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// 小标题
+        /// </summary>
+        public String SmallTitle { get; set; }
 
         /// <summary>
         /// 栏目编号
@@ -86,6 +91,11 @@ namespace AtNet.Cms.Domain.Implement.Content
         /// 显示次数
         /// </summary>
         public int ViewCount { get; set; }
+
+        /// <summary>
+        /// 排序序号
+        /// </summary>
+        public int SortNumber { get; set; }
 
         public DateTime CreateDate { get; set; }
 
@@ -127,5 +137,16 @@ namespace AtNet.Cms.Domain.Implement.Content
                     new ContentLinkManager(this._linkRep, this.ContentModelIndent, this.Id));
             }
         }
+
+        /// <summary>
+        /// 下移排序
+        /// </summary>
+        public abstract void SortLower();
+
+
+        /// <summary>
+        /// 上移排序
+        /// </summary>
+        public abstract void SortUpper();
     }
 }

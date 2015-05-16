@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑文件</title>
+    $css()
+    <link rel="stylesheet" href="/framework/common/coder/cdr.css">
+    <style type="text/css">
+        body {
+            margin: 0;
+            font-family: Arial;
+            font-size: 14px;
+        }
+
+        .file .txt {
+            color: Black;
+        }
+
+        .CodeMirror {
+            line-height: 1.2;
+        }
+
+        ;
+    </style>
+</head>
+<body>
+    <div class="tabarea" id="form1">
+        <div class="top" style="font-size:12px">
+            <span class="tab" style="margin-left:25px">源代码</span>
+            <a href="javascript:process('save')" class="btn">保存</a>&nbsp;&nbsp;${bakinfo}
+            &nbsp;<!--<span class="txt">【当前修改文件】:&nbsp;&nbsp;</span>/${file}-->
+        </div>
+
+        <input type="hidden" id="action" field="action" value="save" />
+        <input type="hidden" id="path" field="path" value="${path}" />
+        <textarea field="content" class="contentarea code" id="ctarea">${content}</textarea>
+        <!--
+        <div class="bottom"></div>-->
+    </div>
+    $js()
+    <script type="text/javascript">
+        var editor = document.getElementById('ctarea');
+        var height = (document.documentElement.clientHeight - 31);
+        editor.style.height = height + "px";
+        editor.style.width = (document.documentElement.clientWidth - 14 - 2) + "px";
+    </script>
+    <script src="/framework/common/coder/cdr.js"></script>
+    <script src="${dependJs}"></script>
+    <script type="text/javascript">
+        /*
+        var mode='html';
+        var ext=cms.request('path').replace(/[^.]+.([a-z]+)$/,'$1');
+        switch (ext.toLowerCase()) {
+            case 'css': mode = 'css';
+                cms.ldScript('/framework/common/coder/mode/css.js');
+                break;
+            case 'conf':
+            case 'config':
+            case 'xml':
+                mode = 'xml'; break;
+        }*/
+
+        var coder = cms.coder(editor.id, { mode: '${mode}', height: height });
+
+        function process(action) {
+            document.getElementById('action').value = action;
+            var data = cms.json.toObject('form1');
+            if (coder) {
+                data.content = coder.getValue();
+            }
+
+            cms.xhr.post(location.href, data, function (result) {
+                if (result.indexOf('成功') == -1) {
+                    tip(false, result);
+                } else {
+                    tip(true, result);
+                }
+            });
+        }
+
+        function tip(result, msg) {
+            parent.parent.M.alert(msg);
+        }
+
+        window.saveData = function () {
+            process('save');
+        };
+
+    </script>
+</body>
+</html>

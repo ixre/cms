@@ -25,6 +25,7 @@ namespace AtNet.Cms.Template
     using AtNet.Cms;
     using AtNet.Cms.DataTransfer;
     using AtNet.DevFw.Template;
+    using AtNet.DevFw.Web;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -44,7 +45,7 @@ namespace AtNet.Cms.Template
         protected ArchiveDto archive;           //当前读取的文档,使用require(archiveID)获取的文档
         private SettingFile _settingsFile;      //设置文件，用于保存当前实例的状态
         private LangLabelReader langReader;     //语言字典读取器
-        protected string resourceUri;           //资源域名
+        protected string _resourceUri;           //资源域名
 
         /// <summary>
         /// 当前站点
@@ -108,7 +109,7 @@ namespace AtNet.Cms.Template
             return datas == null ? urlFormat : String.Format(urlFormat, datas);
         }
 
-        /// <summary>
+        /// <summary>S
         /// 获取文档的地址
         /// </summary>
         /// <param name="flags"></param>
@@ -335,11 +336,11 @@ namespace AtNet.Cms.Template
             else
             {
                 //获取包含完整URL的图片地址
-                if (this.resourceUri == null)
+                if (this._resourceUri == null)
                 {
-                    this.resourceUri = AtNet.Cms.Cms.Context.ResourceDomain;
+                    this._resourceUri = WebCtx.Domain;
                 }
-                return String.Concat(this.resourceUri, thumbnail);
+                return String.Concat(this._resourceUri, thumbnail);
             }
 
         }
@@ -546,7 +547,7 @@ namespace AtNet.Cms.Template
             //        langReader = new LangLabelReader(phyPath);
             //        Cms.Cache.Insert("config_lang", langReader, phyPath);
             //    }
-            //}
+            //}F
             //try
             //{
             //    return langReader.GetValue(key, lang);
@@ -1334,6 +1335,7 @@ namespace AtNet.Cms.Template
                             case "name": return c.Name;
                             case "url": return this.GetCategoryUrl(c, 1);
                             case "tag": return c.Tag;
+                            case "thumbnail":
                             case "icon": return this.GetThumbnailUrl(c.Icon);
                             case "id": return c.Id.ToString();
 

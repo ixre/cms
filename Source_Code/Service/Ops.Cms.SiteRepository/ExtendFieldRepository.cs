@@ -12,7 +12,7 @@ namespace AtNet.Cms.ServiceRepository
 {
     public class ExtendFieldRepository : BaseExtendFieldRepository, IExtendFieldRepository
     {
-        private ExtendFieldDAL extendDAL = new ExtendFieldDAL();
+        private ExtendFieldDal extendDAL = new ExtendFieldDal();
 
         //缓存数据
         private IDictionary<int, IList<IExtendField>> dicts;

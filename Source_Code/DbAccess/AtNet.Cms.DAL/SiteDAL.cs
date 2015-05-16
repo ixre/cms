@@ -45,7 +45,7 @@ namespace AtNet.Cms.DAL
 
         public void LoadSites(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.Site_GetSites)), func);
+            base.ExecuteReader(new SqlQuery(base.OptimizeSql(base.DbSql.Site_GetSites)), func);
         }
 
 

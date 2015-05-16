@@ -1,0 +1,32 @@
+<style type="text/css">
+#scroll{position:relative;}
+#scroll2{position:relative;}
+.scroll{padding:0 30px;position:relative;}
+
+#scroll .prev,#scroll2 .prev{position:absolute;left:0;top:80px;}
+#scroll .next,#scroll2 .next{position:absolute;right:0;top:80px;}
+.auto_scroll{}
+.auto_scroll li{padding:6px 2px 11px 1px;}
+.auto_scroll li img{width:120px;height:150px;padding:1px;border:solid 1px #c4def8;}
+.auto_scroll ul{margin:0;padding:0;list-style:none;text-align:center;}
+.auto_scroll a{border:none;text-decoration:none;}
+
+</style>
+
+
+
+<div class="border" id="scroll2">
+            <div class="title"><b>学生风采</b><span class="more"><a href="/student/">更多...</a></span></div>
+
+<div id="auto_scroll2" class="scroll auto_scroll" style="overflow: hidden; position: relative;">
+
+<ul style="display: block;">
+
+$archives('student','false','30','<li><a href="{url}"><img src="{thumbnail}"/><br />{title}</a></li>')
+
+</ul>
+</div>
+        <a href="javascript:;" onclick="window.sc2.prev()" class="prev"><img src="http://www.liangyanjing.net/images/left_icon.jpg"/></a> 
+        <a href="javascript:;" onclick="window.sc2.next()" class="next"><img src="http://www.liangyanjing.net/images/right_icon.jpg"/></a> 
+</div>
+<div style="clear:both"></div>

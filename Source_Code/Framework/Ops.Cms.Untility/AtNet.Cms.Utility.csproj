@@ -71,13 +71,13 @@
     <Compile Include="UserState.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DbAccess\AtNet.Cms.BLL\AtNet.Cms.BLL.csproj">
+      <Project>{39bcb411-39ca-4635-9c9b-f9fbae40058e}</Project>
+      <Name>AtNet.Cms.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Domain\Ops.Cms.Domain.Interface\AtNet.Cms.Domain.Interface.csproj">
       <Project>{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}</Project>
       <Name>AtNet.Cms.Domain.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Spc.BLL\AtNet.Cms.BLL.csproj">
-      <Project>{39bcb411-39ca-4635-9c9b-f9fbae40058e}</Project>
-      <Name>AtNet.Cms.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ops.Cms.Core\AtNet.Cms.Core.csproj">
       <Project>{c3841a42-df60-43bb-bc3c-03185cf0216d}</Project>
@@ -101,9 +101,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="old\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

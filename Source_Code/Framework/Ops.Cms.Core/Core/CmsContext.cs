@@ -21,6 +21,7 @@ using AtNet.Cms.Infrastructure;
 using AtNet.DevFw.Framework.Web.Cache;
 using AtNet.DevFw.Template;
 using AtNet.Cms.DataTransfer;
+using AtNet.DevFw.Web;
 
 namespace AtNet.Cms.Core
 {
@@ -189,15 +190,7 @@ namespace AtNet.Cms.Core
         {
             get
             {
-                if (this._resouceDomain == null)
-                {
-                    //RES DOMAIN
-                    if (this.IsVirtualDirectoryRunning)
-                    {
-                        this._resouceDomain = String.Empty;
-                    }
-                }
-                return this._resouceDomain ?? (this._resouceDomain = this.SiteDomain);
+                return this._resouceDomain ?? (this._resouceDomain = WebCtx.Domain);
             }
         }
 

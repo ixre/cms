@@ -1,0 +1,270 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+    <title>:: 控制面板中心管理端 一 Ops Cms .NET! v${version} ::</title>
+  
+    
+    <style type="text/css">
+    	body{margin:0;padding:0;font-size:12px;overflow:hidden;}
+        .clearfix{clear:both;}
+        .hidden{display:none;}
+        a:link,a:visited{color:#0066cc;}
+        a:hover{color:#006699;}
+		.relative{position:relative;}
+		
+        .ribbon-panel{padding-bottom:5px;background-image:url(framework/common/sys_themes/ribbon/ribbon-header-bg.png);background-position:0 -9px;background-repeat:repeat-x;}
+
+        /*** ribbon top ***/
+        .ribbon-top{height:30px;overflow:hidden;}
+        .ribbon-top h1{font-size:14px;margin:0;padding:0;text-align:center;float:left;width:80%;display:none;}
+        .ribbon-top .ribbon-top-bottons{float:right;}
+
+        /*** ribbon menu ****/
+        .ribbon-menu{position:absolute;left:0px;top:3px;border:solid 1px #000;line-height:29px;padding:0;z-index:788;
+	        text-align:center;cursor:pointer;background:#006699;width:80px;color:#fff;border-bottom:none;}
+        .ribbon-menu .menu{text-align:left;line-height:20px;background:#fff;color:#000;display:none;position:absolute;border-top:none;left:-1px;top:28px;border:solid 1px #006699;clear:both;z-index:789;}
+        .ribbon-menu:hover .menu{display:block;}
+
+        /*** ribbon pages ***/
+        .ribbon-pages{border-bottom:solid 1px #d0d0d0;height:30px;background:#E3E6E8;padding-top:2px;}
+        .ribbon-pages ul{margin:0;padding:0 10px;line-height:29px;list-style:none;font-weight:bold;color:#2e425b;}
+        .ribbon-pages li{float:left;margin:0 3px;padding:0 15px;cursor:pointer;border:solid 1px transparent;border-radius:3px 3px 0 0;font-size:14px;}
+        .ribbon-pages li.selected{border:solid 1px #d0d0d0;border-bottom-color:#fff;background:#fff;}
+
+        /*** ribbon header ***/
+        .ribbon-header{height:80px;background:url(framework/common/sys_themes/ribbon/ribbon-header-bg.png) center -40px repeat-x;border-bottom:solid 0px #d0d0d0;overflow:hidden;}
+        .ribbon-header div.group{border-right:dotted 1px #d0d0d0;position:relative;max-width:400px;height:80px;float:left;}
+        .ribbon-header div.group h2{position:absolute;bottom:1px;left:0px;width:100%;text-align:center;margin:0;
+	        font-size:12px;border-top:dotted 1px #d0d0d0;color:#b9c1c6;height:16px;overflow:hidden;line-height:16px;}
+        .ribbon-header div.fns{margin:0;padding:3px 5px;text-align:center;}
+        .ribbon-header a.fn{margin:0 5px;text-decoration:none;display:block;width:60px;float:left;line-height:25px;color:#555;}
+        /*** ribbon tabs ***/
+        .ribbon-tabs{list-style:none;padding:0;margin:0;height:23px;}
+        .ribbon-tabs li{float:left;position:relative;line-height:23px;margin-right:1px;
+                        background:url(framework/common/sys_themes/ribbon/ribbon-header-bg.png) -1px -130px repeat-x;}
+        .ribbon-tabs li.current{background-position:-1px -156px;}
+            /*
+        .ribbon-tabs li a{color:#666;text-decoration:none;}
+        .ribbon-tabs li.current a{color:#000;}*/
+        .ribbon-tabs li span.link{cursor:pointer;}
+        .ribbon-tabs li span.closebtn{cursor:pointer;position:absolute;right:0;top:0;font-family:Arial;color:#000;padding:0 12px 0 8px;font-size:16px;}
+        .ribbon-tabs li span.txt{display:block;float:left;height:23px;padding:0 20px 0 15px;}
+        .ribbon-tabs li span.rgt{background-image:url(framework/common/sys_themes/ribbon/ribbon-header-bg.png);background-position:-234px -130px; display: block;height: 23px;width: 5px;float:left;}
+        .ribbon-tabs li.current span.rgt{background-position:-234px -156px;}
+
+
+        /****============== 自定义 ====================****/
+
+        /*** ribbon main ***/
+        .ribbon-main{overflow:hidden;}
+        .ribbon-main-left{width:210px;margin-right:-210px;float:left;background:#f0f0f0;height:3000px;}
+        .ribbon-main-right{float:left;margin-left:210px;width:auto;}
+        .ribbon-main-left,.ribbon-main-right{padding-bottom:3000px;margin-bottom:-3000px;}
+
+        /*** tab ***/
+        .ribbon-frames{position:relative;}
+        .ribbon-frames iframe{width:100%;height:100%;border-left:solid 1px #d0d0d0;}
+        .ribbon-frames .mask{position:absolute;left:1px;top:0;background:#fff;opacity:1;filter:alpha(opacity=100);z-index:898;}
+        .ribbon-frames .loading{position:absolute;left:10px;top:10px;z-index:899;font-weight:bold;color:#006699;
+			background:url(framework/common/sys_themes/default/ajax-loader.gif) 10px 0 no-repeat;padding-left:32px;
+			line-height:18px;text-align:left;}
+		.ribbon-frames .frames,.ribbon-frames .frames div{height:100%;}
+        .ribbon-frames .frames div {visibility:hidden; clear: both;}
+        .ribbon-frames .frames div.current {visibility:visible; }
+
+        /*** footer ***/
+        .ribbon-footer{background:#E3E6E8;text-align:center;height:20px;overflow:hidden;font-size:10px;line-height:20px;}
+        .ribbon-footer a:link{color:#666;}
+
+        #pagetabs{height:23px;border-bottom:solid 1px #d0d0d0;width:auto;background:#f0f0f0;font-size:12px;}
+
+
+        #ribbon{background-color:#f0f0f0;}
+        .ribbon-top{position:absolute;top:0;right:10px;width:60%;line-height:35px;color:#006699;}
+        .ribbon-top h1{text-align:left;width:50%;}
+        .ribbon-pages ul{margin-left:80px;}
+
+
+
+        #ribbon-apps img{width:30px;height:30px;}
+        #ribbon-apps .item{height:50px;width:60px;margin:0 5px;padding:0;overflow:hidden;}
+
+
+        /*** 站点 ***/
+        #sites{position:absolute;right:2px;top:2px;line-height:20px;cursor:pointer;color:#000;}
+        #sites .list{background:#fff;display:none;position:absolute;top:20px;
+          left:-40px;border:solid 1px #006699;
+          width:100px;padding:0 10px;z-index:98;}
+        #sites .list a{line-height:30px;color:#000;}
+        #sites:hover{background:#fff;}
+        #sites:hover .list{display:block;}
+		
+		.scrollbar{width:10px;}
+		.scrollbar .bar{background:red;}
+		
+		/* tipbox */
+        .ui-tipbox { border: solid 3px #ff3300;background: #ffffcc; z-index: 3000; }
+		.ui-tipbox .ui-tipbox-container{padding:8px 35px 5px 38px;font-size:14px;font-weight:bold;color:#000;}
+
+        .group .icon {width:35px;height:35px;display:block;margin:0 auto;background: url(framework/common/sys_themes/default/icon_set.png) 0 -35px no-repeat;}
+        .group .icon_0_2_0 {background-position: -35px 0;}
+        .group .icon_0_0_0 {
+            background-position: -35px -32px;
+        }
+        .group .icon_0_0_0 {
+            background-position: -70px -33px;
+        }
+        .group .icon_0_3_0, .group .icon_1_0_0, .group .icon_1_1_0,.group .icon_2_2_0{
+            background-position: 0 0;
+        }
+        .group .icon_0_0_1 {
+            background-position: -105px 0;
+        }
+        
+         .group .icon_0_1_0 {
+            background-position: -70px 0;
+        }
+        .group .icon_0_3_0 {
+            background-position: -105px -33px;
+        }
+        .group .icon_0_3_1 {
+            background-position: -35px -70px;
+        }
+        .group .icon_0_3_2 {
+            background-position: -140px 0;
+        }
+        .group .icon_0_4_0{ background-position: 0 -70px;}
+    </style>
+    $css()
+    <style type="text/css">body{margin:0}</style>
+
+    </head>
+
+    <body>
+        <div id="ribbon" class="ribbon-panel">
+            <div class="ribbon-top">
+            <h1>Ops.Cms 网站内容管理系统<!-- v${version}--></h1>
+            <div class="ribbon-top-bottons" id="ribbon-top-bottons">
+            	欢迎你：<b><em id="username">-</em></b><em id="groupname" class="hidden"><!--/${groupName}--></em>&nbsp;&nbsp;
+		         <a href="javascript:window.M.addFavorite()">收藏地址</a> |
+		         <a href="javascript:;" onclick="window.M.clearCache()">清除缓存</a> |
+                 <a href="?module=system&action=logout">退出</a>
+            </div>
+        </div>
+		
+		 <div class="ribbon-menu">
+		  	<span>菜单</span>
+		  	<div class="menu">
+      			<div id="custom_menu"></div>
+		  	</div>
+		  </div>
+				  
+         <div class="ribbon-pages">
+            <ul>
+            	<!-- RIBBON PAGES
+                <li class="selected">Tab1<span></span></li>
+                <li>Tab2<span></span></li>
+                -->
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+
+            <div class="ribbon-header">
+
+				<!-- RIBBON HEADER
+				
+            	<div class="ribbon-page-header">
+                <div class="group">
+                <h2>分组信息</h2>
+                <p>
+                    这是一个Tab
+                </p>
+            </div>
+            
+                <div class="group">
+                <h2>分组信息2</h2>
+                <p>
+                    这是一个Tab
+                </p>
+            </div>
+            
+                <div class="group">
+                <h2>分组信息3</h2>
+                <p>
+                    这是一个Tab
+                </p>
+            </div>
+            
+                <div class="group">
+                <h2>分组信息4</h2>
+                <p>
+                    这是一个4Tab
+                </p>
+            </div>
+
+            </div>
+            
+            	<div class="ribbon-page-header">
+                <div class="group">
+                    <h2>分组信息2</h2>
+                    <p>
+                        这是分页2的Tab
+                    </p>
+                </div>
+            </div>
+            	
+        		-->
+            
+        </div></div>
+        <div class="ribbon-main">
+        	<div class="ribbon-main-left" id="ribbon-main-left">
+        		<div class="relative">
+				  <div id="sites">
+				  	<span id="currsite">【切换站点】</span>
+				  	<div class="list">
+				  		
+				  	</div>
+				  </div>
+				 </div>
+        		<div id="menutree"></div>
+        	</div>
+        	<div class="ribbon-main-right" id="ribbon-main-right" style="width:3500px">
+        	 	<div id="pagetabs"><ul class="ribbon-tabs"><li class="current" indent="" style="border-left:none"><span class="txt"><span class="link" url="" onclick="tab.set(this)">欢迎页面</span></span><span class="rgt"></span></li></ul></div>
+        		<div style="height:0px;overflow:hidden;clear:both;display:none;">针对IE7优化</div>
+        		<div class="ribbon-frames" id="pageframes">
+        			<div class="mask hidden"></div>
+        			<div class="loading hidden">加载中</div>
+        			<div class="frames">
+        				<div class="current"><iframe id="ifr_first" frameborder="0" class="current" scrolling="auto" ref="?module=system&action=indexmain" src="about:blank"></iframe></div>
+        			</div>
+        		</div>
+    		</div>
+        </div>
+
+ 		<div class="ribbon-footer" id="ribbon-footer">客户服务热线：400-666-7527&nbsp;技术支持:<a href="tencent://message/?uin=959398298">188867734</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.ops.cc/cms/?feedback" target="ifr">反馈建议</a> |
+      <a href="http://www.ops.cc/cms/?submitbug" target="_blank">Bug提交</a></div>
+      
+      
+      <script type="text/template" id="headerOper">
+      	<div style="width:125px;padding:15px 30px;">
+      				欢迎使用新版后台RIBBON STYLE<br />
+      			 <center>
+		            <a href="javascript:;" onclick="window.M.dialog('menu_mprofile','修改资料','?module=user&action=modifyuserbasicprofile',true);">修改资料</a><br />
+			         <a href="javascript:window.M.addFavorite()">收藏地址</a><br />
+	                 <a href="?module=system&action=logout">退出</a>
+                 </center>
+		</div>
+      </script>
+      
+      
+    $js()
+    
+    <script type="text/javascript">
+    	window._path='${admin_path}';
+    </script>
+       <!--<script type="text/javascript" charset="utf-8" src="$path()/js/index.js"></script>--> 
+       
+    <script type=" text />javascript" charset="utf-8" src="?res=ZnJhbWVfaW5kZXg=&amp;${version}.js"></script>
+   
+    </body>
+</html>

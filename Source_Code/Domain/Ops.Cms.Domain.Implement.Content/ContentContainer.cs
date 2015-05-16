@@ -97,12 +97,12 @@ namespace AtNet.Cms.Domain.Implement.Content
 
         public IArchive GetPreviousSiblingArchive(int id)
         {
-            return this._archiveRep.GetPreviousSiblingArchive(this.SiteId, id);
+            return this._archiveRep.GetPreviousArchive(this.SiteId, id,true,false);
         }
 
         public IArchive GetNextSiblingArchive(int id)
         {
-            return this._archiveRep.GetNextSiblingArchive(this.SiteId, id);
+            return this._archiveRep.GetNextArchive(this.SiteId, id,true,false);
         }
 
         public void RefreshArchive(int archiveId)

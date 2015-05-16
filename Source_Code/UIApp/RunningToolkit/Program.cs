@@ -30,8 +30,8 @@ namespace CsharpIpy
         }
         
         static bool BeginExecute(){
-        	ArchiveReID.ReNotIdArchives();
-        	ArchiveReID.ArchiveReCreateDate();
+        	ArchiveReId.ReNotIdArchives();
+        	ArchiveReId.ArchiveReCreateDate();
         	return true;
         }
     }

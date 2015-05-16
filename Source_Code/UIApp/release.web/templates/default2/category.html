@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="${page.fpath}/common.css?version=${page.version}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/theme/style.css" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+</head>
+<body>
+    ${partial:"inc/header.phtml"}
+
+    ${partial:"inc/main_top.phtml"}
+    
+   <div class="container3">
+       	
+    	<div class="hrline"></div>
+       
+       <div style="height:280px;overflow:hidden;">
+       	<a href="#"><img alt="图片1" src="http://localhost:8088/templates/default2/theme/banner/01.jpg" width="100%"/></a>
+       </div>
+       
+       <div class="clearfix sitemap">您的位置：<a rel="nofollow" href="${page.domain}">首页</a> > $sitemap() </div>
+       
+    <div class="partLayer">
+            
+        <div class="main">
+           
+               <div class="pd10 category-page">
+                   <h1 class="none_block">${category.name}</h1>
+    			<div class="hrline"></div>
+                   
+                   <div class="palist news pager-archive">
+                       <ul>$archives('news','10','{title}')
+                       $pagerarchives(10,'<li class="item">
+                           {img}
+                           <a class="title" title="{title}" target="_blank" href="{url}"><strong>{title2}</strong></a>
+                       	   <p class="outline">
+                               {outline}
+                           </p><div class="clearfix"></div>
+                       </li>')
+                       </ul>
+                   </div>
+                $pager()
+            </div>
+        </div>
+        
+        
+        <!-- side start -->
+            <div class="side">
+                <div class="side_title">栏目导航</div>
+                <div class="category">
+                    <h2 class="title">${category.name}</h2>
+                    <div class="content">
+                        <ul class="clist">
+                            $categories('${category.tag}','<li><a href="{url}">{name}</a></li>')
+                        </ul>
+                    </div>
+                </div><br/>
+				
+            </div>
+
+        <!-- side end -->
+       
+
+           <div class="clearfix"></div>
+
+        </div>
+    </div>
+    
+    ${partial:"inc/footer.phtml"}
+    <script type="text/javascript" src="${page.fpath}/global.js?hover=navi,clist,alist&version=${page.version}"></script>
+
+    
+</body>
+</html>

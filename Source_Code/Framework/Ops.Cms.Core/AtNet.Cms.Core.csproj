@@ -83,8 +83,6 @@
     <Compile Include="Core\CmsLanguagePackage.cs" />
     <Compile Include="Core\Plugins\CmsPlugin.cs" />
     <Compile Include="Core\Plugins\CmsPluginContext.cs" />
-    <Compile Include="Core\Plugins\ExtendsPlugin.cs" />
-    <Compile Include="Core\Plugins\IExtendApp.cs" />
     <Compile Include="Core\Plugins\PortalPlugin.cs" />
     <Compile Include="Core\Plugins\CategoryPlugin.cs" />
     <Compile Include="Core\Plugins\ArchivePlugin.cs" />
@@ -115,56 +113,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="JSLib\calender.js" />
-    <Content Include="JSLib\animation.js" />
-    <Content Include="JSLib\aui\Index.html" />
-    <Content Include="JSLib\aui\ui\ajax-loader.gif" />
-    <Content Include="JSLib\aui\ui\avatar.gif" />
-    <Content Include="JSLib\aui\ui\avatar_bg.png" />
-    <Content Include="JSLib\aui\ui\blank.png" />
-    <Content Include="JSLib\aui\ui\columns.png" />
-    <Content Include="JSLib\aui\ui\drop_arraw.gif" />
-    <Content Include="JSLib\aui\ui\icon_chart.png" />
-    <Content Include="JSLib\aui\ui\icon_config.png" />
-    <Content Include="JSLib\aui\ui\icon_pass.png" />
-    <Content Include="JSLib\aui\ui\icon_plugin.png" />
-    <Content Include="JSLib\aui\ui\icon_secret.png" />
-    <Content Include="JSLib\aui\ui\icon_server.png" />
-    <Content Include="JSLib\aui\ui\icon_user.png" />
-    <Content Include="JSLib\aui\ui\js\component.js" />
-    <Content Include="JSLib\aui\ui\js\core.js" />
-    <Content Include="JSLib\aui\ui\js\menu_json.js" />
-    <Content Include="JSLib\aui\ui\left_menu_current.gif" />
-    <Content Include="JSLib\aui\ui\loading_box.gif" />
-    <Content Include="JSLib\aui\ui\logo.gif" />
-    <Content Include="JSLib\aui\ui\menu_bar_bg.gif" />
-    <Content Include="JSLib\aui\ui\menu_icon.gif" />
-    <Content Include="JSLib\aui\ui\style.css" />
-    <Content Include="JSLib\aui\ui\tab_bg.gif" />
-    <Content Include="JSLib\aui\ui\tab_bg_hover.gif" />
-    <Content Include="JSLib\aui\ui\tab_close.gif" />
-    <Content Include="JSLib\aui\ui\tab_close.png" />
-    <Content Include="JSLib\aui\ui\top_bg.gif" />
-    <Content Include="JSLib\aui\ui\top_hover_split.gif" />
-    <Content Include="JSLib\demo\1.html" />
-    <Content Include="JSLib\autoCompletion.js" />
-    <Content Include="JSLib\core.js" />
-    <Content Include="JSLib\datagrid.js" />
-    <Content Include="JSLib\demo\className.html" />
-    <None Include="JSLib\demo\dialog.html" />
-    <Content Include="JSLib\demo\上传.htm" />
-    <Content Include="JSLib\demo\右键.html" />
-    <Content Include="JSLib\dialog.js" />
-    <Content Include="JSLib\exchange.js" />
-    <Content Include="JSLib\form.js" />
-    <Content Include="JSLib\roller.js" />
-    <Content Include="JSLib\scrollbar.js" />
-    <Content Include="JSLib\scroller.js" />
-    <Content Include="JSLib\table.js" />
-    <Content Include="JSLib\tree.js" />
-    <Content Include="JSLib\ui.js" />
-    <Content Include="JSLib\upload.js" />
-    <Content Include="JSLib\validate.js" />
     <Content Include="_#upgrade\upgrade.xml" />
   </ItemGroup>
   <ItemGroup>

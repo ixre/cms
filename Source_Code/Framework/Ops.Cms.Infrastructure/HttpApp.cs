@@ -8,6 +8,8 @@
  * description : 
  * history : 
  */
+using System.Web;
+
 namespace AtNet.Cms.Infrastructure
 {
     public static class HttpApp
@@ -19,12 +21,15 @@ namespace AtNet.Cms.Infrastructure
         /// <returns></returns>
         public static string GetApplicationPath()
         {
-            return _appPath ?? (_appPath = "/");
-        }
-
-        public static void SetApplicationPath(string appPath)
-        {
-            _appPath = appPath;
+            if (_appPath == null)
+            {
+                if (HttpContext.Current == null || HttpContext.Current.Handler == null)
+                {
+                    return "/";
+                }
+                _appPath = HttpContext.Current.Request.ApplicationPath;
+            }
+            return _appPath;
         }
     }
 }

@@ -84,5 +84,10 @@ namespace AtNet.Cms.Domain.Interface.Content.Archive
         IList<IExtendValue> ExtendValues { get; set; }
 
         int Save();
-	}
+
+        /// <summary>
+        /// 保存排序号码
+        /// </summary>
+        void SaveSortNumber();
+    }
 }

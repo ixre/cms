@@ -18,7 +18,7 @@ namespace AtNet.Cms.ServiceRepository
 {
     public class SiteRepository:BaseSiteRepository,ISiteRepository
     {
-        private static SiteDAL siteDal = new SiteDAL();
+        private static SiteDal siteDal = new SiteDal();
         private static LinkDAL linkDal = new LinkDAL();
 
         private IExtendFieldRepository _extendFieldRepository;

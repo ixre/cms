@@ -26,7 +26,7 @@ namespace AtNet.Cms.Core.Interface
         /// </summary>
         /// <param name="tplPath"></param>
         /// <returns></returns>
-        string GetTemplateID(string tplPath);
+        string GetTemplateId(string tplPath);
 
         #region page
 

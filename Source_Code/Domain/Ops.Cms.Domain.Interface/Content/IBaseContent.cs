@@ -12,6 +12,11 @@ namespace AtNet.Cms.Domain.Interface.Content
         string Title { get; set; }
 
         /// <summary>
+        /// 小标题
+        /// </summary>
+        String SmallTitle { get; set; }
+
+        /// <summary>
         /// 资源地址
         /// </summary>
         String Uri { get; set; }
@@ -47,6 +52,11 @@ namespace AtNet.Cms.Domain.Interface.Content
         int ViewCount { get; set; }
 
         /// <summary>
+        /// 排序序号
+        /// </summary>
+        int SortNumber { get; set; }
+
+        /// <summary>
         /// 创建时间
         /// </summary>
         DateTime CreateDate { get; set; }
@@ -67,5 +77,14 @@ namespace AtNet.Cms.Domain.Interface.Content
         /// <returns></returns>
         int Save();
 
+        /// <summary>
+        /// 下移排序
+        /// </summary>
+        void SortLower();
+
+        /// <summary>
+        /// 上移排序
+        /// </summary>
+        void SortUpper();
     }
 }

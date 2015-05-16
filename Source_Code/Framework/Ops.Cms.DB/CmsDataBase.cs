@@ -12,6 +12,7 @@
 //
 
 using System;
+using AtNet.DevFw;
 using AtNet.DevFw.Data;
 
 namespace AtNet.Cms.DB
@@ -71,7 +72,7 @@ namespace AtNet.Cms.DB
             {
                 throw new NullReferenceException("请检查系统是否被授权或使用CmsDataBase.Initialize初始化数据库连接");
             }
-            connectionString = connectionString.Replace("$ROOT", String.Intern(AppDomain.CurrentDomain.BaseDirectory));
+            connectionString = connectionString.Replace("$ROOT",FwCtx.PhysicalPath);
             DataBaseType dbType=DataBaseType.MySQL;
             DataBaseAccess db= DBAccessCreator.GetDbAccess(connectionString, ref dbType);
             _instance = new DBAccess(dbType, db.DataBaseAdapter.ConnectionString);

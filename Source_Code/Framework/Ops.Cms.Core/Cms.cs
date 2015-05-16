@@ -183,30 +183,26 @@ namespace AtNet.Cms
         public static void Init()
         {
             HttpContext context = HttpContext.Current;
-            if (context != null)
+            //判断是否已经安装
+            FileInfo insLockFile = new FileInfo(String.Format("{0}config/install.lock", Cms.PyhicPath));
+            if (!insLockFile.Exists)
             {
-                //判断是否已经安装
-                FileInfo insLockFile = new FileInfo(String.Format("{0}config/install.lock", Cms.PyhicPath));
-                if (!insLockFile.Exists)
+                if (context != null)
                 {
                     //HttpRuntime.UnloadAppDomain();
-
                     const string installUrl = "/install/install.html";
                     context.Response.Redirect(installUrl, true);
                     context.Response.End();
-                    return;
                 }
-                //设置应用路径
-                HttpApp.SetApplicationPath(context.Request.ApplicationPath);
+                else
+                {
+                    throw new Exception("请使用集成模式。");
+                }
+                return;
             }
 
             //初始化目录
             ChkCreate(CmsVariables.TEMP_PATH);
-
-
-            //初始化系统日志
-            // logFile = new LogFile()
-
             //todo:
 
             //初始化设置
@@ -222,7 +218,10 @@ namespace AtNet.Cms
             }
 
             //设置数据库
-            CmsDataBase.Initialize(String.Format("{0}://{1}", Settings.DB_TYPE.ToString(), Settings.DB_CONN.ToString()), Settings.DB_PREFIX);
+            CmsDataBase.Initialize(
+                String.Format("{0}://{1}", Settings.DB_TYPE.ToString(), 
+                Settings.DB_CONN.ToString()),
+                Settings.DB_PREFIX);
 
 
             //清空临时文件

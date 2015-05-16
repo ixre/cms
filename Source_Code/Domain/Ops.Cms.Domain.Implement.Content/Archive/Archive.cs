@@ -178,6 +178,16 @@ namespace AtNet.Cms.Domain.Implement.Content.Archive
 
         public override int Save()
         {
+            //初始化
+            if (this.Id<=0)
+            {
+                int sortNum = this._archiveRep.GetMaxSortNumber(this.Category.Site.Id);
+                if (this.SortNumber == 0)
+                {
+                    this.SortNumber = sortNum + 1;
+                }
+            }
+
             this.Id = this._archiveRep.SaveArchive(this);
             this._extendRep.UpdateArchiveRelationExtendValues(this);
 
@@ -199,6 +209,33 @@ namespace AtNet.Cms.Domain.Implement.Content.Archive
             base.Save();
 
             return this.Id;
+        }
+
+        public override void SortLower()
+        {
+            int siteId = this.Category.Site.Id;
+            IArchive prev = this._archiveRep.GetNextArchive(siteId, this.Id,true,true);
+            this.SwapSortNumber(prev);
+        }
+
+
+        public override void SortUpper()
+        {
+            int siteId = this.Category.Site.Id;
+            IArchive next = this._archiveRep.GetPreviousArchive(siteId, this.Id,true,true);
+
+            this.SwapSortNumber(next);
+        }
+
+        private void SwapSortNumber(IArchive archive)
+        {
+            if (archive == null) return;
+            int sortN = archive.SortNumber;
+            archive.SortNumber = this.SortNumber;
+            this.SortNumber = sortN;
+
+            archive.SaveSortNumber();
+            this.Save();
         }
 
         public string FirstImageUrl
@@ -273,6 +310,13 @@ namespace AtNet.Cms.Domain.Implement.Content.Archive
                 return this._uri;
             }
             set { this._uri = value; }
+        }
+
+
+        public void SaveSortNumber()
+        {
+            //UPDATE cms_archive SET sort_number = id
+            this._archiveRep.SaveSortNumber(this.Id, this.SortNumber);
         }
     }
 }

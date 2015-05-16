@@ -1,0 +1,1 @@
+﻿<%@ webhandler Language="C#" class="Ops.Cms.EditorFileManager" %>

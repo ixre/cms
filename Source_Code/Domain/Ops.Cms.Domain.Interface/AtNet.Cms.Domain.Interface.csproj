@@ -97,6 +97,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\Direction.cs" />
     <Compile Include="Common\ILinkManager.cs" />
     <Compile Include="Common\ILinkRepository.cs" />
     <Compile Include="Common\Language\LanguagePackage.cs" />

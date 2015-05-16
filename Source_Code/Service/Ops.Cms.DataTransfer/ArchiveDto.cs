@@ -43,6 +43,11 @@ namespace AtNet.Cms.DataTransfer
         public string Title { get; set; }
 
         /// <summary>
+        /// 子标题
+        /// </summary>
+        public string SmallTitle { get; set; }
+
+        /// <summary>
         /// 标签
         /// </summary>
         public string Flags { get; set; }
@@ -147,6 +152,7 @@ namespace AtNet.Cms.DataTransfer
                 Location = archive.Location,
                 Thumbnail = archive.Thumbnail,
                 Title = archive.Title,
+                SmallTitle = archive.SmallTitle,
                 ViewCount = archive.ViewCount
             };
 
@@ -180,5 +186,6 @@ namespace AtNet.Cms.DataTransfer
         /// 重定向URL
         /// </summary>
         public string Location { get; set; }
+
     }
 }

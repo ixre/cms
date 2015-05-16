@@ -1,7 +1,4 @@
-﻿
-using AtNet.Cms.Web.Mvc;
-using AtNet.Cms.Web.Task;
-/*
+﻿/*
  * 由SharpDevelop创建。
  * 用户： Administrator
  * 日期: 2013/12/10
@@ -9,6 +6,7 @@ using AtNet.Cms.Web.Task;
  * 
  * 要改变这种模板请点击 工具|选项|代码编写|编辑标准头文件
  */
+
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -16,6 +14,9 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AtNet.Cms.Web.Mvc;
+using AtNet.Cms.Web.Task;
+using AtNet.DevFw.Web;
 
 namespace AtNet.Cms
 {
@@ -49,9 +50,10 @@ namespace AtNet.Cms
         protected virtual void Application_Start()
         {
             try
-            {
+            { 
                 Cms.OnInit += CmsEventRegister.Init;
                 Cms.Init();
+                WebCtx.Plugin.Connect();
             }
             catch (Exception exc)
             {
@@ -61,13 +63,14 @@ namespace AtNet.Cms
                 }
                 try
                 {
-                    HttpContext.Current.Response.Write(@"<html><head></head>
+                    HttpResponse rsp = HttpContext.Current.Response;
+                    rsp.Write(@"<html><head></head>
                         <body style=""text-align:center""><h1 style="""">" + exc.Message
-                        + "</h1><hr /><span>AtNet.Cms v" + AtNet.Cms.Cms.Version
+                        + "</h1><hr /><span>AtNet.Cms v" + Cms.Version
                         + "</span>\r\n<span style=\"display:none\">"
                         + exc.StackTrace + "</span>"
                         + "</body></html>");
-
+                    rsp.End();
                     Server.ClearError();
                 }
                 catch (Exception ex)
@@ -94,6 +97,7 @@ namespace AtNet.Cms
 
             //注册定时任务
             CmsTask.Init();
+
 
             //加载自定义插件
             //Cms.Plugins.Extends.LoadFromAssembly(typeof(sp.datapicker.CollectionExtend).Assembly);
@@ -170,7 +174,7 @@ namespace AtNet.Cms
         protected virtual void Application_BeginRequest(object o, EventArgs e)
         {
             //mono 下编码可能会有问题
-            if (AtNet.Cms.Cms.RunAtMono)
+            if (Cms.RunAtMono)
             {
                 Response.Charset = "utf-8";
             }
