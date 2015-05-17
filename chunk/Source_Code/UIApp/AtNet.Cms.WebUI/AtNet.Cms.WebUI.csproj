@@ -448,7 +448,6 @@
     </Content>
     <Content Include="install\db\mysql.sql" />
     <Content Include="install\install.html" />
-    <Content Include="plugins\sp.xmlrpc.dll" />
     <Content Include="templates\nanfeng\archive.html" />
     <Content Include="templates\nanfeng\blue_bg.gif" />
     <Content Include="templates\nanfeng\category.html" />
@@ -493,6 +492,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="plugins\" />
     <Folder Include="templates\default3\theme\.backup\" />
     <Folder Include="templates\default3\theme\banner\" />
     <Folder Include="templates\default3\theme\images\" />

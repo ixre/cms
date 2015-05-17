@@ -36,16 +36,21 @@ namespace AtNet.Cms.Web.Mvc
         //private static readonly bool _showDebugInformation;
         private  bool _showDebugInformation;
 
-        public ControllerBase():base()
-        {
-            this.OutputCntext = AtNet.Cms.Cms.Context;
-            this.OutputCntext.Source=this;
-            startTime = new TimeSpan(DateTime.Now.Ticks);
-
-        }
-
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
+            if (!Cms.Installed)
+            {
+                requestContext.HttpContext.Response.Redirect("/install/install.html", true);
+                return;
+            }
+
+            this.OutputCntext = AtNet.Cms.Cms.Context;
+            this.OutputCntext.Source = this;
+            startTime = new TimeSpan(DateTime.Now.Ticks);
+
+
+           // ==========================================//
+
             _showDebugInformation = Settings.Opti_Debug;
             if(_showDebugInformation) CmsDataBase.Instance.StartNewTotal();
             //如果自动301
