@@ -50,7 +50,7 @@ namespace AtNet.Cms
         protected virtual void Application_Start()
         {
             try
-            { 
+            {
                 Cms.OnInit += CmsEventRegister.Init;
                 Cms.Init();
                 WebCtx.Plugin.Connect();
@@ -97,7 +97,6 @@ namespace AtNet.Cms
 
             //注册定时任务
             CmsTask.Init();
-
 
             //加载自定义插件
             //Cms.Plugins.Extends.LoadFromAssembly(typeof(sp.datapicker.CollectionExtend).Assembly);

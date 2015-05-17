@@ -75,6 +75,7 @@ namespace AtNet.Cms.Web.Mvc
             CmsController.OnTagRequest += AtNet.Cms.Cms.Plugins.Portal.TagRequest;
         }
 
+
         /// <summary>
         /// 首页
         /// </summary>

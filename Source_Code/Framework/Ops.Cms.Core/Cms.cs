@@ -43,6 +43,11 @@ namespace AtNet.Cms
         public static readonly Boolean RunAtMono;
 
         /// <summary>
+        /// 是否已经安装
+        /// </summary>
+        public static readonly Boolean Installed;
+
+        /// <summary>
         /// 物理路径
         /// </summary>
         public static readonly string PyhicPath;
@@ -138,6 +143,9 @@ namespace AtNet.Cms
             }
 
 
+            //判断是否已经安装
+            FileInfo insLockFile = new FileInfo(String.Format("{0}config/install.lock", Cms.PyhicPath));
+            Installed = insLockFile.Exists;
 
             //初始化
             Plugins = new CmsPluginContext();
@@ -182,25 +190,8 @@ namespace AtNet.Cms
         /// </summary>
         public static void Init()
         {
-            HttpContext context = HttpContext.Current;
-            //判断是否已经安装
-            FileInfo insLockFile = new FileInfo(String.Format("{0}config/install.lock", Cms.PyhicPath));
-            if (!insLockFile.Exists)
-            {
-                if (context != null)
-                {
-                    //HttpRuntime.UnloadAppDomain();
-                    const string installUrl = "/install/install.html";
-                    context.Response.Redirect(installUrl, true);
-                    context.Response.End();
-                }
-                else
-                {
-                    throw new Exception("请使用集成模式。");
-                }
-                return;
-            }
-
+            if (!Installed) return;
+          
             //初始化目录
             ChkCreate(CmsVariables.TEMP_PATH);
             //todo:

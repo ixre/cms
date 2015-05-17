@@ -47,7 +47,10 @@ namespace AtNet.Cms
             });
 
             //读取站点
-            Cms.RegSites(SiteCacheManager.GetAllSites().ToArray());
+            if (Cms.Installed)
+            {
+                Cms.RegSites(SiteCacheManager.GetAllSites().ToArray());
+            }
 
             //内嵌资源释放
             SiteResourceInit.Init();
