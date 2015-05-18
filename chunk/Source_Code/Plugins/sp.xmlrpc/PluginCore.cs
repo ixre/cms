@@ -30,8 +30,6 @@ namespace sp.xmlrpc
 			    app.MapPluginRoute(this, "xmlrpc");
 			}
 			
-			blogService=new WeblogRPCService();
-			
 			//初始化设置
             attr = this.GetAttribute();
 			bool isChanged=false;
@@ -56,7 +54,11 @@ namespace sp.xmlrpc
 		}
 
 		void app_OnExtendModuleRequest(HttpContext t,ref bool handled)
-		{
+        {
+            if (blogService == null)
+            {
+                blogService = new WeblogRPCService();
+            }
             t.Handler = blogService;
 			t.Handler.ProcessRequest(t);
 			handled=true;
@@ -64,6 +66,10 @@ namespace sp.xmlrpc
 		
 		void app_OnExtendModulePost(HttpContext t,  ref bool handled)
 		{
+            if (blogService == null)
+            {
+                blogService = new WeblogRPCService();
+            }
             t.Handler = blogService;
 			t.Handler.ProcessRequest(t);
 			handled=true;
