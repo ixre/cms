@@ -123,7 +123,7 @@ Ops保留对本协议的最终解释权。
         </div>
 
         <div id="db_file" class="hidden">
-            <dl><dt>文件名:</dt><dd><input type="text" field="db_file" />*默认随机名称,建议不填写不填写</dd></dl>
+            <dl><dt>文件名:</dt><dd><input type="text" field="db_file" />*默认随机名称,建议不填写</dd></dl>
             <dl class="hidden"><dt>表前缀:</dt><dd><input type="text" field="db_prefix1" value="cms_"/></dd></dl>
         </div>
     </div>
@@ -196,6 +196,8 @@ Ops保留对本协议的最终解释权。
                     setTimeout(function () { location.href = '/';}, 15000);
                 } else {
                     INSTALL.setup.current = INSTALL.setup.current - 1;
+
+
                     switch (status) {
                         case 'NO_USER': install_status_txt.innerHTML = '管理用户或密码不能为空!'; break;
                         case 'DB_ERROR': install_status_txt.innerHTML = '数据库配置不正确!'; break;

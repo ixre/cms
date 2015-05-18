@@ -79,7 +79,6 @@
     <Content Include="framework\assemblies\MySql.Data.dll" />
     <Content Include="framework\assemblies\NetPay.dll" />
     <Content Include="framework\assemblies\Newtonsoft.Json.dll" />
-    <Content Include="framework\assemblies\ops.cms.dll" />
     <Content Include="framework\assemblies\ops.region.dll" />
     <Content Include="framework\assemblies\RouteDebug.dll" />
     <Content Include="framework\assemblies\SharpCompress.3.5.dll" />
@@ -118,16 +117,6 @@
     <Content Include="framework\assets\images\background.gif" />
     <Content Include="framework\assets\images\mask.gif" />
     <Content Include="framework\assets\images\no_photo.gif" />
-    <Content Include="framework\assets\js\datagrid.js" />
-    <Content Include="framework\assets\js\dialog.js" />
-    <Content Include="framework\assets\js\form.js" />
-    <Content Include="framework\assets\js\readme.txt" />
-    <Content Include="framework\assets\js\roller.js" />
-    <Content Include="framework\assets\js\scrollbar.js" />
-    <Content Include="framework\assets\js\scroller.js" />
-    <Content Include="framework\assets\js\table.js" />
-    <Content Include="framework\assets\js\ui.js" />
-    <Content Include="framework\assets\js\upload.js" />
     <Content Include="framework\assets\tree\img\base.gif" />
     <Content Include="framework\assets\tree\img\cd.gif" />
     <Content Include="framework\assets\tree\img\empty.gif" />
@@ -239,121 +228,10 @@
     </Content>
     <Content Include="framework\mui\js\ui_custom.js" />
     <None Include="install\db\mssql.sql" />
-    <Content Include="framework\assemblies\leveldb-sharp.dll.config" />
     <Content Include="config\cms.config" />
     <Content Include="framework\assets\editor\handler\file_manager_json.ashx" />
     <Content Include="framework\assets\editor\handler\upload_json.ashx" />
     <None Include="install\db\sqlite.db" />
-    <Content Include="templates\apple\archive.html" />
-    <Content Include="templates\apple\archive.page.html" />
-    <Content Include="templates\apple\category.html" />
-    <Content Include="templates\apple\category.pic.html" />
-    <Content Include="templates\apple\images\Cen--cen-bot.gif" />
-    <Content Include="templates\apple\images\Cen--cen-box.gif" />
-    <Content Include="templates\apple\images\Cen--left-bot.jpg" />
-    <Content Include="templates\apple\images\Cen--left-box.gif" />
-    <Content Include="templates\apple\images\Cen--more.gif" />
-    <Content Include="templates\apple\images\Cen--right-bot.gif" />
-    <Content Include="templates\apple\images\Cen--right-list.gif" />
-    <Content Include="templates\apple\images\Cen--title.gif" />
-    <Content Include="templates\apple\images\Cen--title1.jpg" />
-    <Content Include="templates\apple\images\Cen-left.jpg" />
-    <Content Include="templates\apple\images\css\style.css" />
-    <Content Include="templates\apple\images\footer--bg.gif" />
-    <Content Include="templates\apple\images\H--Top-search.jpg" />
-    <Content Include="templates\apple\images\H--Top-search2.jpg" />
-    <Content Include="templates\apple\images\headtel.gif" />
-    <Content Include="templates\apple\images\js\fun.inc.js" />
-    <Content Include="templates\apple\images\link--dd.jpg" />
-    <Content Include="templates\apple\images\link--dt.jpg" />
-    <Content Include="templates\apple\images\logo.gif" />
-    <Content Include="templates\apple\images\nav.gif" />
-    <Content Include="templates\apple\images\nav_bg.gif" />
-    <Content Include="templates\apple\images\sb_box_cen.jpg" />
-    <Content Include="templates\apple\images\sb_box_title.jpg" />
-    <Content Include="templates\apple\images\sb_box_tom.jpg" />
-    <Content Include="templates\apple\images\sb_nav_img.jpg" />
-    <Content Include="templates\apple\index.html" />
-    <Content Include="templates\apple\notfound.html" />
-    <Content Include="templates\apple\page.html" />
-    <Content Include="templates\apple\search.html" />
-    <Content Include="templates\apple\style.css" />
-    <Content Include="templates\apple\tag.html" />
-    <Content Include="templates\default3\.backup\archive.about.html" />
-    <Content Include="templates\default3\.backup\archive.gallery.html" />
-    <Content Include="templates\default3\.backup\archive.html" />
-    <Content Include="templates\default3\.backup\archive.product.html" />
-    <Content Include="templates\default3\.backup\archive.video.html" />
-    <Content Include="templates\default3\.backup\category.file.html" />
-    <Content Include="templates\default3\.backup\category.gallery.html" />
-    <Content Include="templates\default3\.backup\category.gallery_sub.html" />
-    <Content Include="templates\default3\.backup\category.html" />
-    <Content Include="templates\default3\.backup\category.pic.html" />
-    <Content Include="templates\default3\.backup\category.product.html" />
-    <Content Include="templates\default3\.backup\category.video.html" />
-    <Content Include="templates\default3\.backup\index.html" />
-    <Content Include="templates\default3\.backup\notfound.html" />
-    <Content Include="templates\default3\.backup\page.aboutus.html" />
-    <Content Include="templates\default3\.backup\page.feedback.html" />
-    <Content Include="templates\default3\.backup\page.inquiry_basket.html" />
-    <Content Include="templates\default3\.backup\page.product.html" />
-    <Content Include="templates\default3\.backup\page.search_product.html" />
-    <Content Include="templates\default3\.backup\page.sitemap.html" />
-    <Content Include="templates\default3\.backup\script.js" />
-    <Content Include="templates\default3\archive.about.html" />
-    <Content Include="templates\default3\archive.gallery.html" />
-    <Content Include="templates\default3\archive.html" />
-    <Content Include="templates\default3\archive.product.html" />
-    <Content Include="templates\default3\archive.video.html" />
-    <Content Include="templates\default3\area.html" />
-    <Content Include="templates\default3\category.file.html" />
-    <Content Include="templates\default3\category.gallery.html" />
-    <Content Include="templates\default3\category.gallery_sub.html" />
-    <Content Include="templates\default3\category.html" />
-    <Content Include="templates\default3\category.product.html" />
-    <Content Include="templates\default3\category.video.html" />
-    <Content Include="templates\default3\country\cn.gif" />
-    <Content Include="templates\default3\country\en.gif" />
-    <Content Include="templates\default3\country\es.gif" />
-    <Content Include="templates\default3\country\thai.gif" />
-    <Content Include="templates\default3\images\Cen--cen-bot.gif" />
-    <Content Include="templates\default3\images\Cen--cen-box.gif" />
-    <Content Include="templates\default3\images\Cen--left-bot.jpg" />
-    <Content Include="templates\default3\images\Cen--left-box.gif" />
-    <Content Include="templates\default3\images\Cen--more.gif" />
-    <Content Include="templates\default3\images\Cen--right-bot.gif" />
-    <Content Include="templates\default3\images\Cen--right-list.gif" />
-    <Content Include="templates\default3\images\Cen--title.gif" />
-    <Content Include="templates\default3\images\Cen--title1.jpg" />
-    <Content Include="templates\default3\images\Cen-left.jpg" />
-    <Content Include="templates\default3\images\css\style.css" />
-    <Content Include="templates\default3\images\footer--bg.gif" />
-    <Content Include="templates\default3\images\H--Top-search.jpg" />
-    <Content Include="templates\default3\images\H--Top-search2.jpg" />
-    <Content Include="templates\default3\images\headtel.gif" />
-    <Content Include="templates\default3\images\js\fun.inc.js" />
-    <Content Include="templates\default3\images\link--dd.jpg" />
-    <Content Include="templates\default3\images\link--dt.jpg" />
-    <Content Include="templates\default3\images\logo.gif" />
-    <Content Include="templates\default3\images\nav.gif" />
-    <Content Include="templates\default3\images\nav_bg.gif" />
-    <Content Include="templates\default3\images\sb_box_cen.jpg" />
-    <Content Include="templates\default3\images\sb_box_title.jpg" />
-    <Content Include="templates\default3\images\sb_box_tom.jpg" />
-    <Content Include="templates\default3\images\sb_nav_img.jpg" />
-    <Content Include="templates\default3\index.html" />
-    <Content Include="templates\default3\notfound.html" />
-    <Content Include="templates\default3\page.aboutus.html" />
-    <Content Include="templates\default3\page.feedback.html" />
-    <Content Include="templates\default3\page.html" />
-    <Content Include="templates\default3\page.inquiry_basket.html" />
-    <Content Include="templates\default3\page.product.html" />
-    <Content Include="templates\default3\page.search_product.html" />
-    <Content Include="templates\default3\page.sitemap.html" />
-    <Content Include="templates\default3\script.js" />
-    <Content Include="templates\default3\search.html" />
-    <Content Include="templates\default3\style.css" />
-    <Content Include="templates\default3\tag.html" />
     <Content Include="templates\default\archive.about.html" />
     <Content Include="templates\default\archive.html" />
     <Content Include="templates\default\archive.ips.html" />
@@ -394,30 +272,9 @@
     <Content Include="templates\default\tpl.conf">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="templates\nanfeng\inc\footer.phtml" />
-    <Content Include="templates\nanfeng\inc\header.phtml" />
-    <Content Include="templates\nanfeng\tpl.conf" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="templates\apple\inc\banner.phtml" />
-    <Content Include="templates\apple\inc\footer.phtml" />
-    <Content Include="templates\apple\inc\header.phtml" />
-    <Content Include="templates\apple\tpl.conf" />
-    <Content Include="templates\default3\inc\.backup\about.phtml" />
-    <Content Include="templates\default3\inc\.backup\contact.phtml" />
-    <Content Include="templates\default3\inc\.backup\FilesDownload.phtml" />
-    <Content Include="templates\default3\inc\.backup\footer.phtml" />
-    <Content Include="templates\default3\inc\.backup\header.phtml" />
-    <Content Include="templates\default3\inc\.backup\welcome.phtml" />
-    <Content Include="templates\default3\inc\about.phtml" />
-    <Content Include="templates\default3\inc\banner.phtml" />
-    <Content Include="templates\default3\inc\contact.phtml" />
-    <Content Include="templates\default3\inc\FilesDownload.phtml" />
-    <Content Include="templates\default3\inc\footer.phtml" />
-    <Content Include="templates\default3\inc\header.phtml" />
-    <Content Include="templates\default3\inc\welcome.phtml" />
-    <Content Include="templates\default3\tpl.conf" />
     <None Include="winfx35.Web.config" />
     <None Include="winfx40.Web.config" />
     <Content Include="templates\default\inc\.backup\banner.phtml" />
@@ -448,19 +305,6 @@
     </Content>
     <Content Include="install\db\mysql.sql" />
     <Content Include="install\install.html" />
-    <Content Include="plugins\sp.xmlrpc.dll" />
-    <Content Include="templates\nanfeng\archive.html" />
-    <Content Include="templates\nanfeng\blue_bg.gif" />
-    <Content Include="templates\nanfeng\category.html" />
-    <Content Include="templates\nanfeng\category.pic.html" />
-    <Content Include="templates\nanfeng\date_bg.gif" />
-    <Content Include="templates\nanfeng\hr_split_silver.jpg" />
-    <Content Include="templates\nanfeng\index.html" />
-    <Content Include="templates\nanfeng\notfound.html" />
-    <Content Include="templates\nanfeng\page.html" />
-    <Content Include="templates\nanfeng\search.html" />
-    <Content Include="templates\nanfeng\style.css" />
-    <Content Include="templates\nanfeng\tag.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Cache\Ops.Cms.CacheService\AtNet.Cms.CacheService.csproj">
@@ -492,11 +336,7 @@
       <Name>AtNet.Cms.DataTransfer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="templates\default3\theme\.backup\" />
-    <Folder Include="templates\default3\theme\banner\" />
-    <Folder Include="templates\default3\theme\images\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
