@@ -237,7 +237,7 @@
     </None>
     <None Include="install\db\mssql.sql" />
     <None Include="install\db\sqlite.db" />
-    <None Include="install\install.html" />
+    <Content Include="install\install.html" />
     <None Include="Resource\ops.cms.resource.snk" />
   </ItemGroup>
   <ItemGroup>

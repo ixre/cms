@@ -1,0 +1,17 @@
+/********************
+ @ ELEMENTS111
+ *******************/
+img{border:none;}
+ul{list-style:none;}
+a{color:#0066cc;outline:none;}
+a:hover{color:#0006699;}
+/*******************
+ @ SELECTOR STYLE
+ *******************/
+.left{float:left;}
+.right{float:right;}
+.center{text-align:center;}
+.clear{clear:both;}
+.overflow{overflow:hidden;}
+.hidden{display:none;}
+.clearfix{clear:both} /*用于清除浮动*/

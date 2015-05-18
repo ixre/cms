@@ -236,7 +236,7 @@ namespace AtNet.Cms.Web
 
             //更新默认站点
             this.db.ExecuteNonQuery(new SqlQuery(
-                String.Format("UPDATE {0}sites SET domain=@domain,name=@name,tpl=@tpl,seotitle=@name where siteid=1", db_prefix),
+                String.Format("UPDATE {0}site SET domain=@domain,name=@name,tpl=@tpl,seotitle=@name where siteid=1", db_prefix),
                 new object[,]{
                     {"@domain",site_domain},
                     {"@name",site_name},
@@ -246,7 +246,7 @@ namespace AtNet.Cms.Web
             //创建管理用户
             this.db.ExecuteNonQuery(new SqlQuery(
                 String.Format(@"
-                        INSERT INTO {0}users (
+                        INSERT INTO {0}user (
                         siteid ,
                         username ,
                         password ,
@@ -259,11 +259,9 @@ namespace AtNet.Cms.Web
                      new object[,]{
                          {"@username",user_name},
                          {"@password",  user_pwd.Encode16MD5().EncodeMD5()},
-                         {"@name","管理员"},
+                         {"@name","系统管理员"},
                          {"@dt",DateTime.Now}
                      }));
-
-
             #endregion
 
 
