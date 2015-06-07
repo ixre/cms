@@ -71,6 +71,11 @@ namespace AtNet.Cms.Conf
         public static String SERVER_STATIC="";
 
         /// <summary>
+        /// 更新服务器
+        /// </summary>
+        public static string SERVER_UPGRADE = null;
+
+        /// <summary>
         /// 系统虚拟路径(默认为空)
         /// </summary>
         //public static string SYS_VIRTHPATH;
@@ -128,27 +133,6 @@ namespace AtNet.Cms.Conf
         /// 会员头像路径
         /// </summary>
         public static string MM_AVATAR_PATH;
-
-
-
-        /***** 首页设置 *****/
-
-        /// <summary>
-        /// 首页标题
-        /// </summary>
-        //public static string IDX_TITLE;
-
-        /// <summary>
-        /// 首页关键字
-        /// </summary>
-        //public static string IDX_KEYWORDS;
-
-        /// <summary>
-        /// 首页描述
-        /// </summary>
-        //public static string IDX_DESCRIPTION;
-
-
 
         /******* 优化 **********/
 
