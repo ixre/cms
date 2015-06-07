@@ -94,7 +94,7 @@ namespace AtNet.Cms
         /// <returns></returns>
         public static int CheckUpgade_OLD()
         {
-            string remoteLib = Server.UpgradeServer + "AtNet.Cms.dll";
+            string remoteLib = Settings.SERVER_UPGRADE + "AtNet.Cms.dll";
             DirectoryInfo libDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "bin/");
             FileInfo libFile = new FileInfo(libDir.FullName + "AtNet.Cms.dll");
 
@@ -137,7 +137,7 @@ namespace AtNet.Cms
         /// <returns></returns>
         public static int CheckUpgrade(out string[] data)
         {
-            string remoteLib = Server.UpgradeServer + "upgrade.xml";
+            string remoteLib = Settings.SERVER_UPGRADE + "upgrade.xml";
             WebRequest wr = WebRequest.Create(remoteLib);
 
             data = new string[3];
@@ -180,7 +180,7 @@ namespace AtNet.Cms
             data[1] = xn.Attributes["patch"].Value;
             if (!data[1].ToUpper().StartsWith("HTTP://"))
             {
-                data[1] = Server.UpgradeServer + data[1];
+                data[1] = Settings.SERVER_UPGRADE + data[1];
             }
             data[2] = xn.InnerText;
 
@@ -425,7 +425,7 @@ namespace AtNet.Cms
                 ? new MemoryStream()
                 : new MemoryStream(fileBytes);
 
-            string remoteAddr = fileName.IndexOf("http://") == 0 ? fileName : string.Format("{0}/{1}", Server.UpgradeServer, fileName);
+            string remoteAddr = fileName.IndexOf("http://") == 0 ? fileName : string.Format("{0}/{1}", Settings.SERVER_UPGRADE, fileName);
 
             int fileLength = (int)ms.Length;
 

@@ -117,15 +117,30 @@ namespace AtNet.Cms.Conf
 				Settings.SERVER_STATIC=sf["server_static"];
 				if(Settings.SERVER_STATIC.Length==0)
 				{
-					Settings.SERVER_STATIC=Server._defaultStaticServer;
+					Settings.SERVER_STATIC=Server.DefaultStaticServer;
 				}
 			}
 			else
 			{
-				sf.Add("server_static",Server._defaultStaticServer);
-				Settings.SERVER_STATIC=Server._defaultStaticServer;
+				sf.Add("server_static",Server.DefaultStaticServer);
+				Settings.SERVER_STATIC=Server.DefaultStaticServer;
 				settingChanged=true;
 			}
+
+            if (sf.Contains("server_upgrade"))
+            {
+                Settings.SERVER_UPGRADE = sf["server_upgrade"];
+                if (Settings.SERVER_UPGRADE.Length == 0)
+                {
+                    Settings.SERVER_UPGRADE = Server.DefaultUpgradeServer;
+                }
+            }
+            else
+            {
+                sf.Add("server_upgrade", Server.DefaultUpgradeServer);
+                Settings.SERVER_STATIC = Server.DefaultUpgradeServer;
+                settingChanged = true;
+            }
 			
 			if(sf.Contains("server_static_enabled"))
 			{

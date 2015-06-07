@@ -16,16 +16,17 @@ namespace AtNet.Cms.Conf
     	/// 默认静态服务器
     	/// 
     	/// </summary>
-        internal static string _defaultStaticServer="cms-cdn.s1n1.com/cms";
+        internal static string DefaultStaticServer="cms-cdn.s1n1.com/cms";
 
-        /// <summary>
-        /// 更新服务器
-        /// </summary>
-        public static String UpgradeServer = "http://cms-cdn.s1n1.com/cms/release/last_patch/";
 
         /// <summary>
         /// 控制台订阅服务器
         /// </summary>
         public static String DashbordRssServer = "http://cms.s1n1.com/rss_info";
+
+        /// <summary>
+        /// 更新服务器
+        /// </summary>
+        public static string DefaultUpgradeServer = "http://cms-cdn.s1n1.com/cms/release/last_patch/";
     }
 }
