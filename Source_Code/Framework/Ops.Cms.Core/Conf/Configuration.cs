@@ -122,7 +122,7 @@ namespace AtNet.Cms.Conf
 			}
 			else
 			{
-				sf.Add("server_static",Server.DefaultStaticServer);
+				sf.Set("server_static",Server.DefaultStaticServer);
 				Settings.SERVER_STATIC=Server.DefaultStaticServer;
 				settingChanged=true;
 			}
@@ -137,8 +137,8 @@ namespace AtNet.Cms.Conf
             }
             else
             {
-                sf.Add("server_upgrade", Server.DefaultUpgradeServer);
-                Settings.SERVER_STATIC = Server.DefaultUpgradeServer;
+                sf.Set("server_upgrade", Server.DefaultUpgradeServer);
+                Settings.SERVER_UPGRADE = Server.DefaultUpgradeServer;
                 settingChanged = true;
             }
 			
@@ -148,7 +148,7 @@ namespace AtNet.Cms.Conf
 			}
 			else
 			{
-                sf.Add("server_static_enabled", "false");
+                sf.Set("server_static_enabled", "false");
 				settingChanged=true;
 			}
 
@@ -159,7 +159,7 @@ namespace AtNet.Cms.Conf
 			}
 			else
 			{
-                sf.Add("sys_admin_tag", Settings.SYS_ADMIN_TAG);
+                sf.Set("sys_admin_tag", Settings.SYS_ADMIN_TAG);
 				settingChanged=true;
 			}
 			
@@ -202,7 +202,7 @@ namespace AtNet.Cms.Conf
 					//301跳转
 					if (!sf.Contains("sys_autowww"))
 					{
-                        sf.Add("sys_autowww", Settings.SYS_AUTOWWW ? "true" : "false");
+                        sf.Set("sys_autowww", Settings.SYS_AUTOWWW ? "true" : "false");
 					}
 					else
 					{
@@ -212,7 +212,7 @@ namespace AtNet.Cms.Conf
 					//虚拟路径
 					//if (!sf.Contains("sys_virthpath"))
 					//{
-					//    sf.Add("sys_virthpath", Settings.SYS_VIRTHPATH);
+					//    sf.Set("sys_virthpath", Settings.SYS_VIRTHPATH);
 					//}
 					//else
 					//{
@@ -229,7 +229,7 @@ namespace AtNet.Cms.Conf
 					//压缩代码
 					if (!sf.Contains("tpl_usecompress"))
 					{
-                        sf.Add("tpl_usecompress", Settings.TPL_UseCompress ? "true" : "false");
+                        sf.Set("tpl_usecompress", Settings.TPL_UseCompress ? "true" : "false");
 					}
 					else
 					{
@@ -239,7 +239,7 @@ namespace AtNet.Cms.Conf
 					//使用完整路径
 					if (!sf.Contains("tpl_usefullpath"))
 					{
-                        sf.Add("tpl_usefullpath", Settings.TPL_UseFullPath ? "true" : "false");
+                        sf.Set("tpl_usefullpath", Settings.TPL_UseFullPath ? "true" : "false");
 					}
 					else
 					{
@@ -259,7 +259,7 @@ namespace AtNet.Cms.Conf
 					//缓存项
 					if (!sf.Contains("opti_IndexCacheSeconds"))
 					{
-                        sf.Add("opti_IndexCacheSeconds", Settings.Opti_IndexCacheSeconds.ToString());
+                        sf.Set("opti_IndexCacheSeconds", Settings.Opti_IndexCacheSeconds.ToString());
 					}
 					else
 					{
@@ -268,7 +268,7 @@ namespace AtNet.Cms.Conf
 
                     if (!sf.Contains("Opti_GC_Collect_Interval"))
 					{
-                        sf.Add("Opti_GC_Collect_Interval", Settings.Opti_GC_Collect_Interval.ToString());
+                        sf.Set("Opti_GC_Collect_Interval", Settings.Opti_GC_Collect_Interval.ToString());
 					}
 					else
 					{
@@ -277,7 +277,7 @@ namespace AtNet.Cms.Conf
 
 					if (!sf.Contains("opti_ClientCacheSeconds"))
 					{
-                        sf.Add("opti_ClientCacheSeconds", Settings.Opti_ClientCacheSeconds.ToString());
+                        sf.Set("opti_ClientCacheSeconds", Settings.Opti_ClientCacheSeconds.ToString());
 					}
 					else
 					{
@@ -325,8 +325,8 @@ namespace AtNet.Cms.Conf
 				else
 				{
 
-                    sf.Add("license_name", sf["sys_name"]);
-                    sf.Add("license_key", sf["sys_key"]);
+                    sf.Set("license_name", sf["sys_name"]);
+                    sf.Set("license_key", sf["sys_key"]);
 				}
 				sf.Remove("sys_name");
 				sf.Remove("sys_key");
