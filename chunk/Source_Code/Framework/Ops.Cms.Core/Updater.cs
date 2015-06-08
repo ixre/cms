@@ -51,17 +51,6 @@ namespace AtNet.Cms
             {
                 UpgradePercent = 0.01F;
 
-
-                goto ver1900;
-
-                ver1800:
-                /*********************  versio 1.8 ******************/
-                //UpgradeFile("AtNet.Cms.jslib_0.1.zip", UpgradeFileType.Zip, "framework/common", false);
-
-                ver1900:
-                /********************* version 1.9 ******************/
-                //UpgradeFile("AtNet.Cms.libs.zip", UpgradeFileType.Zip, "", false);
-
                 if (UpgradePercent < 0.1F) UpgradePercent = 0.1F;
 
                 //升级默认的模版
@@ -88,48 +77,6 @@ namespace AtNet.Cms
             };
         }
 
-        /// <summary>
-        /// 检查更新
-        /// </summary>
-        /// <returns></returns>
-        public static int CheckUpgade_OLD()
-        {
-            string remoteLib = Settings.SERVER_UPGRADE + "AtNet.Cms.dll";
-            DirectoryInfo libDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "bin/");
-            FileInfo libFile = new FileInfo(libDir.FullName + "AtNet.Cms.dll");
-
-            WebRequest wr = WebRequest.Create(remoteLib);
-            try
-            {
-                wr.Method = "HEAD";
-                HttpWebResponse rsp = wr.GetResponse() as HttpWebResponse;
-
-                if (rsp.ContentLength == libFile.Length)
-                {
-                    //message = "已经是最新版本!";
-                    return -1;
-                }
-
-
-                switch (rsp.StatusCode)
-                {
-                    //更新服务器发生内部错误
-                    case HttpStatusCode.InternalServerError: return -4;
-
-                    //message = "未发现更新版本!";
-                    default:
-                    case HttpStatusCode.NotFound: return -2;
-
-                    //有新版本
-                    case HttpStatusCode.OK: return 1;
-                }
-            }
-            catch
-            {
-                //message="无法连接到更新服务器";
-                return -3;
-            }
-        }
 
         /// <summary>
         /// 获取新版本更新日志
@@ -137,9 +84,8 @@ namespace AtNet.Cms
         /// <returns></returns>
         public static int CheckUpgrade(out string[] data)
         {
-            string remoteLib = Settings.SERVER_UPGRADE + "upgrade.xml";
-            WebRequest wr = WebRequest.Create(remoteLib);
-
+            string remoteVersionDescript = Settings.SERVER_UPGRADE + "upgrade.xml";
+            WebRequest   wr = WebRequest.Create(remoteVersionDescript);
             data = new string[3];
             
             HttpWebResponse rsp;
