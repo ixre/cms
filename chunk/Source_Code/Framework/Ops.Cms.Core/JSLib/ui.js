@@ -11,19 +11,18 @@ $JS.extend({
     tipbox: {
         id: 'ui-tipbox',
         size: { x: 0, y: 0, bx: 0, by: 0 },
-        show: function (html, noStyle, topOffset, timeout, dir) {
+        show: function (html,topOffset, timeout, dir,opacity) {
             var div = document.getElementById(this.id);
             if (div) { document.body.removeChild(div); }
+            
+            opacity = opacity || 1;
+            
             div = document.createElement('DIV');
             div.setAttribute('id', this.id);
             div.className = this.id;
             div.style.cssText += 'position:fixed;width:auto;overflow:hidden;';
             div.innerHTML = '<div class="ui-tipbox-container">' + html + '</div>';
             document.body.appendChild(div);
-
-            if (noStyle) {
-                div.innerHTML += '<style>.ui-tipbox{border:solid 5px #006666;background:white;}.ui-tipbox .ui-tipbox-container{padding:30px 30px 20px 40px;}</style>';
-            }
 
             //计算长,宽
             this.size.x = div.offsetWidth;
@@ -70,11 +69,9 @@ $JS.extend({
                     div.style.opacity = _opa / 100;
                 }
 
-                if (div == null || (_x == _size.x && _y == _size.y && _opa >= 100)) {
-
+                if (div == null || (_x == _size.x && _y == _size.y && _opa >= opacity * 100)) {
                     //清除定时器
                     clearInterval(_timer);
-
                 }
 
             }, 10);
