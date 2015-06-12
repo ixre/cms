@@ -506,7 +506,6 @@ js.prototype = {
         _objReg: /(.+)\[([^\]]+)\]/,
         //_dtReg2: /^\/(Date\\([^\\)]+\\))\/$/,
         _dtReg: /^(\d{4}((\/|-)\d{2}){2})T(\d{2}(:\d{2}){2})((\.\d+)*)$/i,
-
         _each: function (list, callback) {
             for (var i = 0; i < list.length; i++) {
                 if (callback) callback(i, list[i]);
