@@ -157,6 +157,12 @@
     <Compile Include="Site\SiteRunType.cs" />
     <Compile Include="Site\SiteState.cs" />
     <Compile Include="Site\Template\ITemplateBind.cs" />
+    <Compile Include="User\IAppRoleManager.cs" />
+    <Compile Include="User\IUserRepository.cs" />
+    <Compile Include="User\RoleTag.cs" />
+    <Compile Include="User\IRole.cs" />
+    <Compile Include="User\IUser.cs" />
+    <Compile Include="User\IUserCredential.cs" />
     <Compile Include="_old\IComment.cs" />
     <Compile Include="_old\IMember.cs" />
     <Compile Include="_old\IMessage.cs" />

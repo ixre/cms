@@ -15,4 +15,6 @@
  *                    _sites => _site
  *                    _users => _user
  *  2014-04-16 archive表增加small_title,sort_number
+ *  2015-06-16  UserGroup表修改
+ *    CREATE TABLE "cms_usergroup" ("id" integer PRIMARY KEY  NOT NULL  DEFAULT (null) ,"name" varchar (50) DEFAULT (null) ,"permission" varchar (255) DEFAULT (null) ,"is_master" INTEGER DEFAULT (0) ,"is_super" INTEGER DEFAULT (0) ,"enabled" INTEGER DEFAULT (1) )
 */

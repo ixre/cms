@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AtNet.Cms.Domain.Interface;
+using AtNet.Cms.Domain.Interface.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +9,6 @@ namespace Ops.Cms.Domain.Interface.User
 {
     public interface IUser : IAggregateroot
     {
-        /// <summary>
-        /// 站点编号
-        /// </summary>
-        int SiteID { get; set; }
-
         /// <summary>
         /// 用户凭据
         /// </summary>
@@ -23,28 +20,31 @@ namespace Ops.Cms.Domain.Interface.User
         string Name { get; set; }
 
         /// <summary>
-        /// 组ID
+        /// 角色值
         /// </summary>
-        int GroupID { get; set; }
-
-        /// <summary>
-        /// 账号状态
-        /// </summary>
-        bool Available { get; set; }
+        int RoleFlag { get; set; }
 
         /// <summary>
         /// 创建时间
         /// </summary>
-        DateTime CreateDate { get; set; }
+        DateTime CreateTime { get; set; }
 
         /// <summary>
         /// 上次登录时间
         /// </summary>
-        DateTime LastLoginDate { get; set; }
+        DateTime LastLoginTime { get; set; }
 
         /// <summary>
-        /// 用户类型
+        /// 是否包含角色
         /// </summary>
-        UserGroups Group { get { return (UserGroups)GroupID; } }
+        /// <param name="roleFlag"></param>
+        /// <returns></returns>
+        bool SubOf(int roleFlag);
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <returns></returns>
+        int Save();
     }
 }

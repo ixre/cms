@@ -18,12 +18,12 @@ namespace AtNet.Cms.Domain.Interface._old
         System.Collections.Generic.IEnumerable<Operation> GetOperationList(System.Func<Operation, bool> func);
         System.Data.DataTable GetPagedAvailableOperationList(bool available, int pageSize, int currentPageIndex, out int recordCount, out int pageCount);
         System.Data.DataTable GetPagedOperationList(int pageSize, int currentPageIndex, out int recordCount, out int pageCount);
-        Models.User GetUser(System.Func<User, bool> func);
+        Models.User GetUser(System.Func<Models.User, bool> func);
         Models.User GetUser(string username);
         Models.User GetUser(string username, string password);
         Models.UserGroup GetUserGroup(UserGroups group);
         Models.UserGroup[] GetUserGroups();
-        Models.User[] GetUsers(System.Func<User, bool> func);
+        Models.User[] GetUsers(System.Func<Models.User, bool> func);
         bool ModifyUserPassword(string username, string oldPassword, string newPassword);
         void RenameUserGroup(UserGroups group, string groupName);
         void RenewOperations();

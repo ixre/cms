@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Ops.Cms.Domain.Interface.User
+﻿namespace AtNet.Cms.Domain.Interface.User
 {
     /// <summary>
     /// 角色
     /// </summary>
-    public interface IRole
+    public interface IRole:IDomain<int>
     {
         /// <summary>
         /// 角色名称
@@ -16,13 +11,24 @@ namespace Ops.Cms.Domain.Interface.User
         string Name { set; get; }
 
         /// <summary>
-        /// 关联编号(可由不同归属的多个相同的角色)
+        /// 系统应用的编号
         /// </summary>
-        long RelationID { get; set; }
+        long AppId { get; set; }
 
         /// <summary>
-        /// 角色所属者编号（如门店编号)
+        /// 标志
         /// </summary>
-        long OwnerID { get; set; }
+        int Flag { get; set; }
+
+        /// <summary>
+        /// 权限标志
+        /// </summary>
+        int RightFlag { get; set; }
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <returns></returns>
+        int Save();
     }
 }
