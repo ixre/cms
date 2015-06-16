@@ -5,6 +5,7 @@ using AtNet.Cms.Domain.Interface.Site;
 using AtNet.Cms.Domain.Interface.Site.Category;
 using AtNet.Cms.Domain.Interface.Site.Extend;
 using AtNet.Cms.Domain.Interface.Site.Template;
+using AtNet.Cms.Domain.Interface.User;
 using AtNet.Cms.ServiceContract;
 using AtNet.Cms.ServiceRepository;
 /*
@@ -38,6 +39,7 @@ namespace AtNet.Cms.Service
                 act.For<ISiteServiceContract>().Singleton().Use<SiteService>();
                 act.For<IArchiveServiceContract>().Singleton().Use<ArchiveService>();
                 act.For<IContentServiceContract>().Singleton().Use<ContentService>();
+                act.For<IUserServiceContract>().Singleton().Use<UserService>();
 
                 act.For<ISiteRepository>().Singleton().Use<SiteRepository>();
                 act.For<IContentRepository>().Singleton().Use<ContentRepository>();
@@ -46,6 +48,9 @@ namespace AtNet.Cms.Service
                 act.For<IArchiveRepository>().Singleton().Use<ArchiveRepository>();
                 act.For<ITemplateRepository>().Singleton().Use<TemplateRepository>();
                 act.For<ILinkRepository>().Singleton().Use<LinkRepository>();
+
+                act.For<IUserRepository>().Singleton().Use<UserRepository>();
+
             });
         }
 	}

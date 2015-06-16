@@ -8,12 +8,12 @@ using Ops.Cms.Domain.Interface.User;
 
 namespace AtNet.Cms.Domain.Implement.User
 {
-    public  class Creator
+    public  class UserCreator
     {
 
-        public IUser CreateUser(IUserRepository rep, int id, string name,int flag)
+        public IUser CreateUser(IUserRepository rep, int id,int flag)
         {
-            return new User(rep,id,name,flag);
+            return new User(rep,id,flag);
         }
         
         public CreateAppRoleManager CreateAppRoleManager(IUserRepository rep, int appId)

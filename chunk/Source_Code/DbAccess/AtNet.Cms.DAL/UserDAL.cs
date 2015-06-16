@@ -283,5 +283,12 @@ namespace AtNet.Cms.DAL
         }
 
 
+
+
+        public void GetUserById(int id, DataReaderFunc func)
+        {
+            //todo:
+            throw new NotImplementedException();
+        }
     }
 }

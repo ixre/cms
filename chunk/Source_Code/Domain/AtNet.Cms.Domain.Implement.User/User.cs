@@ -9,11 +9,10 @@ namespace AtNet.Cms.Domain.Implement.User
         private readonly IUserRepository _userRepository;
         private IUserCredential _credential;
 
-        internal User(IUserRepository userRep, int id,String name, int flag)
+        internal User(IUserRepository userRep, int id, int flag)
         {
             this._userRepository = userRep;
             this.Id = id;
-            this.Name = name;
             this.RoleFlag = flag;
         }
 

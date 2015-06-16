@@ -167,5 +167,6 @@ namespace AtNet.Cms.IDAL
         /// <param name="permissions"></param>
         void UpdateUserGroupPermissions(int groupId, string permissions);
 
+        void GetUserById(int id, DataReaderFunc func);
     }
 }

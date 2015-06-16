@@ -31,5 +31,14 @@ namespace AtNet.Cms.ServiceUtil
                 return ObjectFactory.GetInstance<IContentServiceContract>();
             }
         }
+
+
+        public IUserServiceContract UserService
+        {
+            get
+            {
+                return ObjectFactory.GetInstance<IUserServiceContract>();
+            }
+        }
     }
 }

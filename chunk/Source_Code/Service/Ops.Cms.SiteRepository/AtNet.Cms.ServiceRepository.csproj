@@ -54,11 +54,20 @@
     <Compile Include="RepositoryDataCache.cs" />
     <Compile Include="SiteRepository.cs" />
     <Compile Include="TemplateRepository.cs" />
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DbAccess\AtNet.Cms.DAL\AtNet.Cms.DAL.csproj">
       <Project>{38f82f91-b4a2-44bb-874b-177ce175a82a}</Project>
       <Name>AtNet.Cms.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DbAccess\AtNet.Cms.IDAL\AtNet.Cms.IDAL.csproj">
+      <Project>{2d220632-1fc1-4e5f-8f6d-399f742724c9}</Project>
+      <Name>AtNet.Cms.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\AtNet.Cms.Domain.Implement.User\AtNet.Cms.Domain.Implement.User.csproj">
+      <Project>{ec1100c3-aad0-44da-ba75-bc4bf4f65d71}</Project>
+      <Name>AtNet.Cms.Domain.Implement.User</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Domain\Ops.Cms.Domain.Implement.Content\AtNet.Cms.Domain.Implement.Content.csproj">
       <Project>{531376ba-75a2-4808-a63f-3b41deb1edd9}</Project>
