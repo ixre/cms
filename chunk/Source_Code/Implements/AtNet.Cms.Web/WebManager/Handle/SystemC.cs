@@ -12,6 +12,7 @@
 //  2013-01-06  11:07   newmin [+]: add setting
 //
 
+using System.Text.RegularExpressions;
 using AtNet.Cms.BLL;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
@@ -68,7 +69,7 @@ namespace AtNet.Cms.WebManager
             }
 
             string page_Template;
-            User usr = UserState.Administrator.Current;
+            UserDto usr = UserState.Administrator.Current;
 
 
             if (usr.SiteId > 0)
@@ -109,11 +110,12 @@ namespace AtNet.Cms.WebManager
         public void SelectSite_GET()
         {
             //设置站点
-            if (UserState.Administrator.Current.Group == UserGroups.Master)
+            UserDto user = UserState.Administrator.Current;
+            if ((user.RoleFlag & (int)UserGroups.Master) != 0)
             {
-                int siteID = 0;
-                int.TryParse(base.Request["siteid"], out siteID);
-                var site = SiteCacheManager.GetSite(siteID);
+                int siteId = 0;
+                int.TryParse(base.Request["siteid"], out siteId);
+                var site = SiteCacheManager.GetSite(siteId);
                 if (site.SiteId > 0)
                 {
                     base.CurrentSite = site;

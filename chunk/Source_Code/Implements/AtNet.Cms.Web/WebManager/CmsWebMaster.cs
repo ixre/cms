@@ -31,7 +31,7 @@ namespace AtNet.Cms.Web.WebManager
 
                 SiteDto site = default(SiteDto);
 
-                User usr = UserState.Administrator.Current;
+                UserDto usr = UserState.Administrator.Current;
 
                 if (usr != null && usr.SiteId > 0)
                 {

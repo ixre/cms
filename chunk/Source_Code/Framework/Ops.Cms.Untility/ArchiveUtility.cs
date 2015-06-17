@@ -13,8 +13,10 @@ using System;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using AtNet.Cms.BLL;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Models;
-using AtNet.Cms.Domain.Interface._old;
+using AtNet.Cms.Domain.Interface.User;
+using IUser = AtNet.Cms.Domain.Interface._old.IUser;
 
 namespace AtNet.Cms.Utility
 {
@@ -35,16 +37,24 @@ namespace AtNet.Cms.Utility
             return str.Length > length ? str.Substring(0, length) + "..." : str;
         }
 
-       
+
         /// <summary>
         /// 判断是否有权限修改文档
         /// </summary>
         /// <param name="p"></param>
+        /// <param name="siteId"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        public static bool CanModifyArchive(string author)
+        public static bool CanModifyArchive(int siteId,int userId)
         {
-            User user = UserState.Administrator.Current;
-            return user.Group == UserGroups.Master||String.Compare(user.UserName,author,true)==0;
+            UserDto user = UserState.Administrator.Current;
+
+            if (user.Id == userId || (user.RoleFlag & (int)RoleTag.Master) != 0)
+            {
+                return true;
+            }
+
+            return user.SiteId == siteId && (user.RoleFlag & (int) RoleTag.SiteOwner) != 0;
         }
 
         /// <summary>

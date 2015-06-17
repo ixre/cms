@@ -22,8 +22,8 @@ namespace AtNet.Cms.DAL
         /// </summary>
         /// <param name="isSystem">是否为系统页面</param>
         /// <returns></returns>
-        public bool Add(string strId, string alias, int categoryID,
-            string author, string title, string smallTitle, string source, string thumbnail,
+        public bool Add(string strId, string alias, int categoryId,
+            int publisherId, string title, string smallTitle, string source, string thumbnail,
             string outline, string content, string tags, string flags, string location, int sortNumber)
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
@@ -32,8 +32,8 @@ namespace AtNet.Cms.DAL
                       new object[,]{
                 {"@strId", strId},
                 {"@alias", alias},
-                {"@CategoryId", categoryID},
-                {"@Author", author??""},
+                {"@CategoryId", categoryId},
+                {"@publisher_id", publisherId},
                 {"@Title", title},
                 {"@smallTitle", smallTitle??""},
                 {"@Flags",flags},

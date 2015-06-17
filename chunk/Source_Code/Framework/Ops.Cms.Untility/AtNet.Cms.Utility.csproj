@@ -71,6 +71,10 @@
     <Compile Include="UserState.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Cache\Ops.Cms.CacheService\AtNet.Cms.CacheService.csproj">
+      <Project>{d40b1fb7-00f9-4d07-b034-eb51ab99e447}</Project>
+      <Name>AtNet.Cms.CacheService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DbAccess\AtNet.Cms.BLL\AtNet.Cms.BLL.csproj">
       <Project>{39bcb411-39ca-4635-9c9b-f9fbae40058e}</Project>
       <Name>AtNet.Cms.BLL</Name>
@@ -79,9 +83,25 @@
       <Project>{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}</Project>
       <Name>AtNet.Cms.Domain.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Service\Ops.Cms.DataTransfer\AtNet.Cms.DataTransfer.csproj">
+      <Project>{a925a0e7-22d6-4da7-8b75-87aa0d6d6e24}</Project>
+      <Name>AtNet.Cms.DataTransfer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Ops.Cms.ServiceContract\AtNet.Cms.ServiceContract.csproj">
+      <Project>{f512899c-b4c9-465f-a3db-8e511c92a8a8}</Project>
+      <Name>AtNet.Cms.ServiceContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Ops.Cms.ServiceUtil\AtNet.Cms.ServiceUtil.csproj">
+      <Project>{1b43fbd5-8e31-4688-9b25-a63378d375f2}</Project>
+      <Name>AtNet.Cms.ServiceUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ops.Cms.Core\AtNet.Cms.Core.csproj">
       <Project>{c3841a42-df60-43bb-bc3c-03185cf0216d}</Project>
       <Name>AtNet.Cms.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ops.Cms.Infrastructure\AtNet.Cms.Infrastructure.csproj">
+      <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
+      <Name>AtNet.Cms.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

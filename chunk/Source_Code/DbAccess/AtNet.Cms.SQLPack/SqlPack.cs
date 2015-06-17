@@ -349,12 +349,12 @@ namespace AtNet.Cms.Sql
         /// <summary>
         /// 根据用户名获取用户信息
         /// </summary>
-        public readonly string User_GetUserByUsername = "SELECT * FROM $PREFIX_user WHERE username=@username";
+        public readonly string User_GetUserById = "SELECT * FROM $PREFIX_user WHERE id=@id";
 
         /// <summary>
         /// 根据用户名和密码获取用户信息
         /// </summary>
-        public readonly string User_GetUserCredential = "SELECT id,user_id,password,enabled FROM $PREFIX_credential WHERE username=@username";
+        public readonly string User_GetUserCredential = "SELECT id,user_id,password,enabled FROM $PREFIX_credential WHERE user_name=@username";
 
         /// <summary>
         /// 获取所有用户

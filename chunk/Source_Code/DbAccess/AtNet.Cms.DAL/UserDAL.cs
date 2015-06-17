@@ -5,7 +5,7 @@ using AtNet.DevFw.Data;
 
 namespace AtNet.Cms.DAL
 {
-    public class UserDAL : DALBase, IUserDAL
+    public class UserDAL : DALBase, IUserDal
     {
         /// <summary>
         /// 获取用户信息
@@ -15,26 +15,20 @@ namespace AtNet.Cms.DAL
         public void GetUserCredential(string username, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserByUsername), new object[,] { { "@username", username } }),
+                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredential), new object[,] { { "@username", username } }),
                 func
                 );
         }
 
-        /// <summary>
-        /// 获取用户信息
-        /// </summary>
-        /// <param name="username">用户名</param>
-        /// <param name="password">密码</param>
-        /// <returns></returns>
-        public void GetUser(string username, string password, DataReaderFunc func)
+
+        public void GetUserById(int id, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredential),
-                    new object[,]{
-                        {"@UserName", username},
-                        {"@password", password}}),
-                        func
-                    );
+               new SqlQuery(base.OptimizeSql(DbSql.User_GetUserById),
+                   new object[,]{
+                        {"@id", id}}),
+                       func
+                   );
         }
 
         /// <summary>
@@ -285,10 +279,5 @@ namespace AtNet.Cms.DAL
 
 
 
-        public void GetUserById(int id, DataReaderFunc func)
-        {
-            //todo:
-            throw new NotImplementedException();
-        }
     }
 }

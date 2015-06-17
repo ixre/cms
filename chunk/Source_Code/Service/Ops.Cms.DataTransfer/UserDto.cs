@@ -10,6 +10,7 @@
 
 using System;
 using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface.User;
 using AtNet.DevFw.Framework.Automation;
 
 namespace AtNet.Cms.DataTransfer
@@ -20,24 +21,12 @@ namespace AtNet.Cms.DataTransfer
     [EntityForm]
     public class UserDto
     {
+        public int Id { get; set; }
         /// <summary>
         /// 站点编号
         /// </summary>
         //[FormField("siteid", Text = "站点编号", DisableEdit = true)]
         public int SiteId { get; set; }
-
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        [FormField("username",Text="用户名",Length="[4,20]")]
-        public string UserName { get; set; }
-
-
-        /// <summary>
-        /// 密码
-        /// </summary>
-        [FormField("password",Text="密码",Length="[6,20]",IsPassword=true)]
-        public string Password { get; set; }
 
         /// <summary>
         /// 用户名称
@@ -46,31 +35,42 @@ namespace AtNet.Cms.DataTransfer
         public string Name { get; set; }
 
         /// <summary>
-        /// 组ID
-        /// </summary>
-        [FormField("groupid", Text = "用户组", DisableEdit = true)] 
-        public int GroupId { get; set; }
-
-        /// <summary>
-        /// 账号状态
-        /// </summary>
-        [FormField("available", Text = "账号状态")]
-        [SelectField(Data="正常=True;停用=False",UseDrop=true)]
-        public bool Available { get; set; }
-
-        /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateTime { get; set; }
 
         /// <summary>
         /// 上次登录时间
         /// </summary>
-        public DateTime LastLoginDate { get; set; }
+        public DateTime LastLoginTime { get; set; }
 
-        /// <summary>
-        /// 用户类型
-        /// </summary>
-        public UserGroups Group { get { return (UserGroups)GroupId; } }
+
+        public static UserDto Convert(IUser user)
+        {
+            UserDto usr = new UserDto();
+            usr.Id = user.Id;
+            usr.SiteId = user.AppId;
+            usr.Name = user.Name;
+            usr.Avatar = user.Avatar;
+            usr.CheckCode = user.CheckCode;
+            usr.CreateTime = user.CreateTime;
+            usr.Email = user.Email;
+            usr.LastLoginTime = user.LastLoginTime;
+            usr.Phone = user.Phone;
+            usr.RoleFlag = user.RoleFlag;
+            return usr;
+        }
+
+        public int RoleFlag { get; set; }
+
+        public string Phone { get; set; }
+
+
+        public string Email { get; set; }
+
+
+        public string CheckCode { get; set; }
+
+        public string Avatar { get; set; }
     }
 }

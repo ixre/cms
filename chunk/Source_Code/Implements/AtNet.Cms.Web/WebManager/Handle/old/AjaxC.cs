@@ -20,6 +20,7 @@ using AtNet.Cms.Cache.CacheCompoment;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
 using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface.User;
 using AtNet.Cms.Infrastructure.Tree;
 using AtNet.Cms.Utility;
 using AtNet.DevFw.Framework.Text;
@@ -53,9 +54,8 @@ namespace AtNet.Cms.WebManager
                                 ";
 
             HttpRequest request = HttpContext.Current.Request;
-            User usr = UserState.Administrator.Current;
-            UserGroup usrGroup = UserState.Administrator.Group;
-            string groupName = usrGroup == null ? usr.Group.ToString() : usrGroup.Name,
+            UserDto usr = UserState.Administrator.Current;
+            string groupName = UserUtil.GetRoleName(usr.RoleFlag),
             ip = request.UserHostAddress,
             address = "未知",
             sites = "",

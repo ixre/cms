@@ -14,6 +14,7 @@
 using AtNet.Cms;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface.User;
 using AtNet.Cms.Utility;
 using AtNet.DevFw.Framework;
 
@@ -312,7 +313,7 @@ namespace AtNet.Cms.WebManager
         /// </summary>
         public void Templates_GET()
         {
-            if (UserState.Administrator.Current.Group != UserGroups.Master) return;
+            if ((UserState.Administrator.Current.RoleFlag & (int)RoleTag.Master) == 0) return;
             string curTemplate = base.CurrentSite.Tpl;
 
             string tplRootPath=String.Format("{0}templates/",AppDomain.CurrentDomain.BaseDirectory);
@@ -364,7 +365,7 @@ namespace AtNet.Cms.WebManager
                     }
                 }
 
-                if (String.Compare(tpl, curTemplate , false) != 0)
+                if (String.CompareOrdinal(tpl, curTemplate) != 0)
                 {
                     sb.Append("<li><p><a href=\"javascript:;\">");
                     if (tplThumbnail != null)

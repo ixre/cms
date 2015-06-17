@@ -55,7 +55,7 @@ namespace AtNet.Cms.DataTransfer
         /// <summary>
         /// 作者
         /// </summary>
-        public string Author { get; set; }
+        public int PublisherId { get; set; }
 
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace AtNet.Cms.DataTransfer
                 CreateDate = archive.CreateDate,
                 Content = archive.Content,
                 Alias = archive.Alias,
-                Author = archive.Author,
+                PublisherId = archive.PublisherId,
                 Flags = archive.Flags,
                 Outline = archive.Outline,
                 Source = archive.Source,

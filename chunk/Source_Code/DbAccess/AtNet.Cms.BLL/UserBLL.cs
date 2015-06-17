@@ -19,7 +19,7 @@ namespace AtNet.Cms.BLL
 {
     public class UserBLL : IUser
     {
-        private IUserDAL dal = new UserDAL();
+        private IUserDal dal = new UserDAL();
         private static IList<Operation> operations;
         private static UserGroup[] groups;
 
@@ -350,28 +350,6 @@ namespace AtNet.Cms.BLL
             return null;
         }
 
-        /// <summary>
-        /// 根据用户和密码获取用户
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public User GetUser(string username, string password)
-        {
-            User user = null;
-
-            //将密码编码
-            password = EncodePassword(password);
-            dal.GetUser(username, password, rd =>
-            {
-                if (rd.HasRows)
-                {
-                    user = rd.ToEntity<User>();
-                }
-            });
-
-            return user;
-        }
 
         /// <summary>
         /// 检测用户是否存在
@@ -401,12 +379,13 @@ namespace AtNet.Cms.BLL
         /// <returns></returns>
         public bool ModifyUserPassword(string username, string oldPassword, string newPassword)
         {
-            if (this.GetUser(username, oldPassword) != null)
-            {
-                dal.ModifyPassword(username, EncodePassword(newPassword));
-                return true;
-            }
-            return false;
+            throw new NotImplementedException();
+//            if (this.GetUser(username, oldPassword) != null)
+//            {
+//                dal.ModifyPassword(username, EncodePassword(newPassword));
+//                return true;
+//            }
+//            return false;
         }
 
         /// <summary>

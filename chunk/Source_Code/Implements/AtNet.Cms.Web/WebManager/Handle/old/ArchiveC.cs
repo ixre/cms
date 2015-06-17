@@ -226,7 +226,7 @@ namespace AtNet.Cms.WebManager
 
 
             archive.ViewCount = 1;
-            archive.Author = UserState.Administrator.Current.UserName;
+            archive.PublisherId = UserState.Administrator.Current.Id;
 
             archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
 
@@ -522,7 +522,7 @@ namespace AtNet.Cms.WebManager
                 .GetArchiveById(this.SiteId, int.Parse(form["Id"]));
 
             //判断是否有权修改
-            if (!ArchiveUtility.CanModifyArchive(archive.Author))
+            if (!ArchiveUtility.CanModifyArchive(this.SiteId,archive.PublisherId))
             {
                 base.RenderError("您无权修改此文档!");
                 return;
@@ -736,7 +736,7 @@ namespace AtNet.Cms.WebManager
 
 
             //获取表头
-            bool isMaster = (UserGroups)UserState.Administrator.Current.GroupId == UserGroups.Master;
+            bool isMaster = (UserState.Administrator.Current.RoleFlag & (int) UserGroups.Master)!=0;
             tableHeaderText = isMaster ? "<th style=\"width:60px\" class=\"center\">发布人</th>" : String.Empty;
 
             //加载栏目
@@ -986,7 +986,7 @@ namespace AtNet.Cms.WebManager
                        archiveListHtml;             //文档列表HTML
 
                 //获取表头
-                bool isMaster = (UserGroups)UserState.Administrator.Current.GroupId == UserGroups.Master;
+                bool isMaster = (UserState.Administrator.Current.RoleFlag  &(int)UserGroups.Master)!=0;
                 tableHeaderText = isMaster ? "<th>发布人</th>" : String.Empty;
 
 
@@ -1136,7 +1136,7 @@ namespace AtNet.Cms.WebManager
             {
                 archiveID = archive.StrId,
                 archiveTitle = archive.Title,
-                author = archive.Author,
+                author = archive.PublisherId,
                 publishDate = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate),
                 commentListHtml = commentListHtml
             };
@@ -1186,7 +1186,7 @@ namespace AtNet.Cms.WebManager
             int id = int.Parse(base.Request["archive.id"]);
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
 
-            if (!ArchiveUtility.CanModifyArchive(archive.Author))
+            if (!ArchiveUtility.CanModifyArchive(archive.PublisherId))
             {
                 return base.ReturnError("您无权删除此文档!");
             }

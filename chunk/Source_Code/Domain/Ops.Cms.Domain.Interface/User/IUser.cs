@@ -16,6 +16,11 @@ namespace AtNet.Cms.Domain.Interface.User
         string Name { get; set; }
 
         /// <summary>
+        /// 应用编号
+        /// </summary>
+        int AppId { get; set; }
+
+        /// <summary>
         /// 头像
         /// </summary>
         String Avatar { get; set; }
@@ -34,6 +39,21 @@ namespace AtNet.Cms.Domain.Interface.User
         /// 上次登录时间
         /// </summary>
         DateTime LastLoginTime { get; set; }
+
+        /// <summary>
+        /// 校验码
+        /// </summary>
+        string CheckCode { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        string Phone { get; set; }
+
+        /// <summary>
+        /// 电子邮箱
+        /// </summary>
+        string Email { get; set; }
 
         /// <summary>
         /// 是否包含角色

@@ -16,7 +16,7 @@ using AtNet.DevFw.Data;
 
 namespace AtNet.Cms.IDAL
 {
-    public interface IUserDAL
+    public interface IUserDal
     {
         /// <summary>
         /// 创建用户
@@ -54,14 +54,6 @@ namespace AtNet.Cms.IDAL
         /// <param name="username"></param>
         /// <param name="func"></param>
         void GetUserCredential(string username, DataReaderFunc func);
-
-        /// <summary>
-        /// 根据用户名和密码获取用户信息
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <param name="func"></param>
-        void GetUser(string username,string password,DataReaderFunc func);
 
         /// <summary>
         /// 设置用户最后登录时间

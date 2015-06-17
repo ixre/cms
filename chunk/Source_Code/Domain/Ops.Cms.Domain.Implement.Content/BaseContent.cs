@@ -106,7 +106,7 @@ namespace AtNet.Cms.Domain.Implement.Content
 
         public string Location { get; set; }
 
-        public string Author
+        public int PublisherId
         {
             get;
             set;

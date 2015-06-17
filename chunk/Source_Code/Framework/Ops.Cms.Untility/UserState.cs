@@ -10,12 +10,17 @@
  */
 
 using System;
+using System.ComponentModel.Design;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using AtNet.Cms.BLL;
+using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface.Value;
+using AtNet.Cms.Infrastructure.Domain;
 using AtNet.DevFw.Framework.Extensions;
 
 namespace AtNet.Cms.Utility
@@ -138,12 +143,11 @@ namespace AtNet.Cms.Utility
             /// <summary>
             /// 账户信息
             /// </summary>
-            public static User Current
+            public static UserDto Current
             {
                 get
                 {
-                    //return new UserBLL().GetUser("admin");
-                    User user = HttpContext.Current.Session[adminSK] as User;
+                    UserDto user = HttpContext.Current.Session[adminSK] as UserDto;
                     if (user == null)
                     {
                         HttpCookie cookie = null;
@@ -182,15 +186,16 @@ namespace AtNet.Cms.Utility
                             string username = paramStr[0],
                                    cookieToken = paramStr[1];
 
-                            user = CmsLogic.User.GetUser(username);
+                            Credential cre = ServiceCall.Instance.UserService.GetCredentialByUserName(username);
+                            user =ServiceCall.Instance.UserService.GetUser(cre.UserId);
 
                             //用户不存在则返回false
                             if (user == null) return null;
 
-                            string token = (username + "ADMIN@OPSoft.CMS" + user.Password).EncodeMD5();
+                            string token = (username + "ADMIN@OPSoft.CMS" + cre.Password).EncodeMD5();
 
                             //密钥一致，则登录
-                            if (String.Compare(token, cookieToken, true) == 0)
+                            if (String.Compare(token, cookieToken, StringComparison.OrdinalIgnoreCase) == 0)
                             {
                                 HttpContext.Current.Session[adminSK] = user;
                                 return user;
@@ -207,7 +212,7 @@ namespace AtNet.Cms.Utility
             /// <summary>
             /// 用户类型
             /// </summary>
-            public static UserGroups Type { get { return (UserGroups)Current.GroupId; } }
+            public static UserGroups Type { get { throw new Exception(); } }
             /// <summary>
             /// 用户所在的组信息
             /// </summary>
@@ -220,10 +225,13 @@ namespace AtNet.Cms.Utility
 
             public static bool Login(string username, string password, double minutes)
             {
-                User user = CmsLogic.User.GetUser(username, password);
-                if (user == null) return false;
+                String md5Pwd = Generator.Md5Pwd(password, null);
+                LoginResultDto result = ServiceCall.Instance.UserService.TryLogin(username, md5Pwd);
+                if (result.Tag != 1) return false;
 
                 Exit();
+
+                UserDto user = ServiceCall.Instance.UserService.GetUser(result.Uid);
 
                 HttpContext.Current.Session[adminSK] = user;
                 HttpCookie cookie = new HttpCookie(String.Format("cms_sid_{0}", GeneratorRandomStr()));
@@ -231,7 +239,7 @@ namespace AtNet.Cms.Utility
                 // cookie.Domain=AppContext.Config.Domain.HostName;
 
                 //保存到Cookie中的密钥
-                string token = (username + "ADMIN@OPSoft.CMS" + user.Password).EncodeMD5();
+                string token = (username + "ADMIN@OPSoft.CMS" + md5Pwd).EncodeMD5();
 
                 byte[] encodeBytes = Encoding.UTF8.GetBytes(username + "&" + token);
                 string encodedtokenStr = Convert.ToBase64String(encodeBytes);

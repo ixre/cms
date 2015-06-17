@@ -13,12 +13,14 @@
 
 using AtNet.Cms.BLL;
 using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface.User;
 using AtNet.Cms.Utility;
 using AtNet.DevFw.Framework.Automation;
 
 namespace AtNet.Cms.WebManager
 {
     using AtNet.Cms;
+    using AtNet.Cms.DataTransfer;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -44,7 +46,7 @@ namespace AtNet.Cms.WebManager
         /// </summary>
         public void ModifyUserBasicProfile_GET()
         {
-            User user = UserState.Administrator.Current;
+            UserDto user = UserState.Administrator.Current;
             base.RenderTemplate(
                 ResourceMap.GetPageContent(ManagementPage.User_ModifyBasicProfile),
                 new
@@ -61,28 +63,28 @@ namespace AtNet.Cms.WebManager
             newPassword = base.Request.Form["pwd"],
             name = base.Request.Form["name"];
 
-
-            User user = UserState.Administrator.Current;
+            throw new NotImplementedException();
+            UserDto user = UserState.Administrator.Current;
 
             //更新名称
-            if (String.Compare(user.Name, name, true) != 0)
-            {
-                CmsLogic.User.UpdateUser(user.UserName, user.SiteId, name, user.Group, user.Available);
-                UserState.Administrator.Clear();
-            }
-
-            //修改密码
-
-            if (!String.IsNullOrEmpty(newPassword))
-            {
-                bool result = CmsLogic.User.ModifyUserPassword(user.UserName, oldPassword, newPassword);
-                if (!result)
-                {
-                    opResult = false;
-                    base.RenderError("原密码不正确!");
-                    return;
-                }
-            }
+//            if (String.Compare(user.Name, name, true) != 0)
+//            {
+//                CmsLogic.User.UpdateUser(user.UserName, user.SiteId, name, user.Group, user.Available);
+//                UserState.Administrator.Clear();
+//            }
+//
+//            //修改密码
+//
+//            if (!String.IsNullOrEmpty(newPassword))
+//            {
+//                bool result = CmsLogic.User.ModifyUserPassword(user.UserName, oldPassword, newPassword);
+//                if (!result)
+//                {
+//                    opResult = false;
+//                    base.RenderError("原密码不正确!");
+//                    return;
+//                }
+//            }
 
             base.RenderSuccess("修改成功!");
         }
@@ -121,7 +123,7 @@ namespace AtNet.Cms.WebManager
             var form = HttpContext.Current.Request.Form;
             User usr = EntityForm.GetEntity<User>();
             usr.SiteId = base.CurrentSite.SiteId;
-            User cusUsr = UserState.Administrator.Current;
+            UserDto cusUsr = UserState.Administrator.Current;
 
             if (CmsLogic.User.UserIsExist(usr.UserName))
             {
@@ -133,7 +135,7 @@ namespace AtNet.Cms.WebManager
                 base.RenderError("系统只允许一个超级管理员!");
                 return;
             }
-            else if (cusUsr.GroupId > (int)UserGroups.Administrator)
+            else if ((cusUsr.RoleFlag & (int)RoleTag.Publisher) != 0)
             {
                 base.RenderError("无权限创建用户!");
             }
@@ -171,35 +173,36 @@ namespace AtNet.Cms.WebManager
         public void UpdateUser_POST()
         {
             User user = EntityForm.GetEntity<User>();
-            User curUsr = UserState.Administrator.Current;
+            UserDto curUsr = UserState.Administrator.Current;
 
-            //不允许修改当前用户
-            if ((curUsr.SiteId>0 && user.SiteId!=curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
-            {
-                base.RenderError("不允许修改当前用户!");
-                return;
-            }else if(user.Group == UserGroups.Master)
-            {
-                base.RenderError("不允许修改超级管理员!");
-                return;
-            }
-            else if (curUsr.GroupId >= user.GroupId)
-            {
-                base.RenderError("无权限修改用户!");
-                return;
-            }
-
-            CmsLogic.User.UpdateUser(user.UserName,this.CurrentSite.SiteId,user.Name, (UserGroups)user.GroupId,user.Available);
-
-            if (!Regex.IsMatch(user.Password, "^\\*+$"))
-            {
-                CmsLogic.User.ResetUserPassword(user.UserName, user.Password);
-                base.RenderSuccess("修改成功,请妥善保管密码!");
-            }
-            else
-            {
-                base.RenderSuccess("修改成功!");
-            }
+            throw new NotImplementedException();
+//            //不允许修改当前用户
+//            if ((curUsr.SiteId>0 && user.SiteId!=curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
+//            {
+//                base.RenderError("不允许修改当前用户!");
+//                return;
+//            }else if(user.Group == UserGroups.Master)
+//            {
+//                base.RenderError("不允许修改超级管理员!");
+//                return;
+//            }
+//            else if (curUsr.GroupId >= user.GroupId)
+//            {
+//                base.RenderError("无权限修改用户!");
+//                return;
+//            }
+//
+//            CmsLogic.User.UpdateUser(user.UserName,this.CurrentSite.SiteId,user.Name, (UserGroups)user.GroupId,user.Available);
+//
+//            if (!Regex.IsMatch(user.Password, "^\\*+$"))
+//            {
+//                CmsLogic.User.ResetUserPassword(user.UserName, user.Password);
+//                base.RenderSuccess("修改成功,请妥善保管密码!");
+//            }
+//            else
+//            {
+//                base.RenderSuccess("修改成功!");
+//            }
         }
 
         /// <summary>
@@ -208,27 +211,28 @@ namespace AtNet.Cms.WebManager
         public void SetUserState_POST()
         {
             User user = CmsLogic.User.GetUser(base.Request["username"]);
-            User curUsr = UserState.Administrator.Current;
+            UserDto curUsr = UserState.Administrator.Current;
 
-            //不允许修改当前用户
-            if ((curUsr.SiteId > 0 && user.SiteId != curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
-            {
-                base.RenderError("不允许修改当前用户!");
-                return;
-            }
-            else if (user.Group == UserGroups.Master)
-            {
-                base.RenderError("不允许修改超级管理员!");
-                return;
-            }
-            else if (curUsr.GroupId >= user.GroupId)
-            {
-                base.RenderError("无权限修改用户!");
-                return;
-            }
-
-            CmsLogic.User.UpdateUser(user.UserName, this.CurrentSite.SiteId, user.Name, (UserGroups)user.GroupId,!user.Available);
-            base.RenderSuccess();
+            throw new NotImplementedException();
+//            //不允许修改当前用户
+//            if ((curUsr.SiteId > 0 && user.SiteId != curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
+//            {
+//                base.RenderError("不允许修改当前用户!");
+//                return;
+//            }
+//            else if (user.Group == UserGroups.Master)
+//            {
+//                base.RenderError("不允许修改超级管理员!");
+//                return;
+//            }
+//            else if (curUsr.GroupId >= user.GroupId)
+//            {
+//                base.RenderError("无权限修改用户!");
+//                return;
+//            }
+//
+//            CmsLogic.User.UpdateUser(user.UserName, this.CurrentSite.SiteId, user.Name, (UserGroups)user.GroupId,!user.Available);
+//            base.RenderSuccess();
 
         }
 
@@ -241,29 +245,30 @@ namespace AtNet.Cms.WebManager
             string username = base.Request["username"];
 
             user = CmsLogic.User.GetUser(username);
-
-            if (String.Compare(UserState.Administrator.Current.UserName, username, true) == 0)
-            {
-                base.RenderError("不允许修改当前用户!");
-                return;
-            }
-
-            if (user.Group == UserGroups.Master)
-            {
-                base.RenderError("不能删除超级管理员!");
-                return;
-            }
-
-            int i = CmsLogic.User.DeleteUser(username);
-
-            if (i!=-1)
-            {
-                base.RenderSuccess("删除成功!<br /><span style=\"font-size:12px\">共修改<span style=\"color:red;font-weight:bold\">" + i.ToString() + "</span>篇文档信息</span>");
-            }
-            else
-            {
-                base.RenderError("删除失败，请重试!");
-            }
+//
+            throw new NotImplementedException();
+//            if (String.Compare(UserState.Administrator.Current.UserName, username, true) == 0)
+//            {
+//                base.RenderError("不允许修改当前用户!");
+//                return;
+//            }
+//
+//            if (user.Group == UserGroups.Master)
+//            {
+//                base.RenderError("不能删除超级管理员!");
+//                return;
+//            }
+//
+//            int i = CmsLogic.User.DeleteUser(username);
+//
+//            if (i!=-1)
+//            {
+//                base.RenderSuccess("删除成功!<br /><span style=\"font-size:12px\">共修改<span style=\"color:red;font-weight:bold\">" + i.ToString() + "</span>篇文档信息</span>");
+//            }
+//            else
+//            {
+//                base.RenderError("删除失败，请重试!");
+//            }
 
         }
 
@@ -294,12 +299,13 @@ namespace AtNet.Cms.WebManager
                     users = CmsLogic.User.GetAllUser();
                     break;
             }
+            /*
 
             int i = 0;
-            User usr = UserState.Administrator.Current;
+            UserDto usr = UserState.Administrator.Current;
             IEnumerable<User> _users = users.Where(a => a.GroupId > (int)usr.GroupId);
 
-            /*
+        
             foreach (User user in )
             {
                 sb.Append("<tr avaiable=\"").Append(user.Available?"1":"0").Append("\" indent=\"").Append(user.UserName).Append("\">")
@@ -308,7 +314,7 @@ namespace AtNet.Cms.WebManager
                     .Append(user.Name).Append("</td></tr>");
             }*/
 
-            base.PagerJson(_users,String.Format("共{0}个用户",users.Length.ToString()));
+          //  base.PagerJson(_users,String.Format("共{0}个用户",users.Length.ToString()));
         }
 
         /// <summary>

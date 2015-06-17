@@ -5,10 +5,11 @@ using System.Text;
 
 namespace AtNet.Cms.Domain.Interface.User
 {
+    [Flags]
     /// <summary>
     /// 角色标签
     /// </summary>
-    public enum RoleTag
+    public enum RoleTag:int
     {
         /// <summary>
         /// 内容发布者

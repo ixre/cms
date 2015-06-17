@@ -119,7 +119,7 @@ namespace AtNet.Cms.Web
         {
             get
             {
-                return this.Archive.Author;
+                return this.Archive.PublisherId;
             }
         }
 

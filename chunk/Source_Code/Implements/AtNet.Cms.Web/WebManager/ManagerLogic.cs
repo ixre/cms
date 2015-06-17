@@ -252,10 +252,10 @@ namespace AtNet.Cms.WebManager
 		private bool HasPermissions()
 		{
 			string uri = HttpContext.Current.Request.Url.Query;
-			User user = UserState.Administrator.Current;
+			UserDto user = UserState.Administrator.Current;
 
 			//如果是超级管理员，拥有所有操作权限
-			if (user.GroupId == (int)UserGroups.Master) return true;
+			if ((user.RoleFlag & (int)UserGroups.Master)!=0) return true;
 
 			return new PermissionAttribute(uri).Validate(user);
 		}

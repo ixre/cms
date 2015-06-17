@@ -48,7 +48,14 @@ namespace AtNet.Cms.Service
 
         public UserDto GetUser(int id)
         {
-            throw new NotImplementedException();
+            IUser user = this._userRepository.GetUser(id);
+            return UserDto.Convert(user);
+        }
+
+
+        public Credential GetCredentialByUserName(string username)
+        {
+            return this._userRepository.GetCredentialByUserName(username);
         }
     }
 }

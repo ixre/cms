@@ -34,7 +34,7 @@ namespace AtNet.Cms.Domain.Interface.Content
         /// <summary>
         /// 作者
         /// </summary>
-        string Author { get; set; }
+        int PublisherId { get; set; }
 
         /// <summary>
         /// 文档内容

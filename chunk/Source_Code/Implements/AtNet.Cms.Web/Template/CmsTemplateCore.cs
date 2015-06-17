@@ -1395,7 +1395,7 @@ namespace AtNet.Cms.Template
                         case "special_title": return !ArchiveFlag.GetFlag(archive.Flags, BuiltInArchiveFlags.IsSpecial) ?
                              archive.Title : "<span class=\"special\">" + archive.Title + "</span>";
 
-                        case "author": return archive.Author;
+                        case "author": return archive.PublisherId;
 
                         //
                         //TODO:Archive应持有一个author
@@ -1815,8 +1815,8 @@ namespace AtNet.Cms.Template
                             case "special_title": return title_hightlight;
                             case "small_title": return archive.SmallTitle;
                             case "title": return archive.Title;
-                            case "author": return archive.Author;
-                            case "author_name": return ArchiveUtility.GetAuthorName(archive.Author);
+                            case "author": return archive.PublisherId;
+                            case "author_name": return ArchiveUtility.GetAuthorName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
                             case "id": return alias;
@@ -2162,8 +2162,8 @@ namespace AtNet.Cms.Template
                             case "special_title": return title_hightlight;
                             case "title": return archive.Title;
                             case "small_title": return archive.SmallTitle;
-                            case "author": return archive.Author;
-                            case "author_name": return ArchiveUtility.GetAuthorName(archive.Author);
+                            case "author": return archive.PublisherId;
+                            case "author_name": return ArchiveUtility.GetAuthorName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
                             case "id": return alias;

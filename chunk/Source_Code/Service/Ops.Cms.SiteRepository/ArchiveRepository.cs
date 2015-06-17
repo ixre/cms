@@ -68,7 +68,7 @@ namespace AtNet.Cms.ServiceRepository
             if (indexOf("location") != -1)archive.Location = rd["location"].ToString();
             if (indexOf("sort_number") != -1) archive.SortNumber = int.Parse(rd["sort_number"].ToString());
             if (indexOf("outline") != -1) archive.Outline = (rd["outline"] ?? "").ToString();
-            if (indexOf("author") != -1) archive.Author = rd["author"].ToString();
+            if (indexOf("author") != -1) archive.PublisherId = rd["author"].ToString();
             if (indexOf("content") != -1) archive.Content = rd["content"].ToString();
             if (indexOf("source") != -1) archive.Source = (rd["source"] ?? "").ToString();
             if (indexOf("tags") != -1) archive.Tags = (rd["tags"] ?? "").ToString();
@@ -134,7 +134,7 @@ namespace AtNet.Cms.ServiceRepository
 
 
 
-                _dal.Add(strId, archive.Alias, categoryId, archive.Author, archive.Title,
+                _dal.Add(strId, archive.Alias, categoryId, archive.PublisherId, archive.Title,
                     archive.SmallTitle,archive.Source, archive.Thumbnail, archive.Outline, archive.Content, 
                     archive.Tags, archive.Flags,archive.Location,archive.SortNumber);
 

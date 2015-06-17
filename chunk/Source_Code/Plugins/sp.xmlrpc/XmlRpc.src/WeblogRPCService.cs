@@ -128,21 +128,24 @@ namespace sp.xmlrpc.XmlRpc.src
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private User ValidUser(string username, string password)
+        private UserDto ValidUser(string username, string password)
         {
-            User user = ubll.GetUser(username, password);
-            if (user == null) throw new XmlRpcFaultException(500, "用户密码不正确!");
-            if (!user.Available) throw new XmlRpcFaultException(500, "用户已被停用!");
+            LoginResultDto result = ServiceCall.Instance.UserService.TryLogin(username, password);
+            if (result == null || result.Tag == -1) throw new XmlRpcFaultException(500, "用户密码不正确!");
+            if (result.Tag == -2) throw new XmlRpcFaultException(500, "用户已被停用!");
 
-            if (user.SiteId > 0)
+            UserDto usr = ServiceCall.Instance.UserService.GetUser(result.Uid);
+
+
+            if (usr.SiteId > 0)
             {
-                this.siteId = user.SiteId;
+                this.siteId = usr.SiteId;
             }
             else
             {
                 this.siteId = Cms.Context.CurrentSite.SiteId;
             }
-            return user;
+            return usr;
         }
 
         /// <summary>
@@ -174,7 +177,7 @@ namespace sp.xmlrpc.XmlRpc.src
         /// <returns></returns>
         public CookComputing.Blogger.BlogInfo[] getUsersBlogs(string appKey, string username, string password)
         {
-            User user;
+            UserDto user;
             if ((user = ValidUser(username, password)) != null)
             {
                 //获得当前域名
@@ -271,7 +274,7 @@ namespace sp.xmlrpc.XmlRpc.src
         /// <returns></returns>
         public object editPost(string postid, string username, string password, Post post, bool publish)
         {
-            User user;
+            UserDto user;
             if ((user = ValidUser(username, password)) != null)
             {
                 ArchiveDto a = ServiceCall.Instance.ArchiveService.GetArchiveById(this.siteId, int.Parse(postid));
@@ -322,7 +325,7 @@ namespace sp.xmlrpc.XmlRpc.src
         public CategoryInfo[] getCategories(string blogid, string username, string password)
         {
             //第一个博客
-            User user;
+            UserDto user;
             if ((user = ValidUser(username, password)) != null)
             {
                 CategoryInfo[] categoryInfos;
@@ -375,7 +378,7 @@ namespace sp.xmlrpc.XmlRpc.src
         public Post getPost(string postid, string username, string password)
         {
             Post post = default(Post);
-            User user;
+            UserDto user;
             if ((user = ValidUser(username, password)) != null)
             {
                 ArchiveDto a = ServiceCall.Instance.ArchiveService.GetArchiveById(this.siteId, int.Parse(postid));
@@ -415,7 +418,7 @@ namespace sp.xmlrpc.XmlRpc.src
         public Post[] getRecentPosts(string blogid, string username, string password, int numberOfPosts)
         {
             Post[] posts;
-            User user;
+            UserDto user;
             if ((user = ValidUser(username, password)) != null)
             {
                 User usr = ubll.GetUser(username);
@@ -470,7 +473,7 @@ namespace sp.xmlrpc.XmlRpc.src
         /// <returns></returns>
         public string newPost(string blogid, string username, string password, Post post, bool publish)
         {
-            User user;
+            UserDto user;
             if ((user = ValidUser(username, password)) != null)
             {
                 int categoryId = 0;
@@ -532,7 +535,7 @@ namespace sp.xmlrpc.XmlRpc.src
         {
             //try
             //{
-            User user;
+            UserDto user;
             if ((user = ValidUser(username, password)) != null)
             {
                 const string imgExtPattern = "^gif|jpg|jpeg|png|bmp$";          //图片扩展名正则

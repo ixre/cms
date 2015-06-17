@@ -162,6 +162,7 @@
     <Compile Include="User\RoleTag.cs" />
     <Compile Include="User\IRole.cs" />
     <Compile Include="User\IUser.cs" />
+    <Compile Include="User\UserUtil.cs" />
     <Compile Include="Value\Credential.cs" />
     <Compile Include="_old\IComment.cs" />
     <Compile Include="_old\IMember.cs" />

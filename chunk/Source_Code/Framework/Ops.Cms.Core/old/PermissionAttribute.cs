@@ -8,6 +8,7 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Web;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Models;
 
 namespace AtNet.Cms.old
@@ -47,7 +48,7 @@ namespace AtNet.Cms.old
         /// 验证用户是否有执行此操作的权限
         /// </summary>
         /// <param name="user"></param>
-        public bool Validate(User user)
+        public bool Validate(UserDto user)
         {
             //
             // UNDONE: 未完成验证

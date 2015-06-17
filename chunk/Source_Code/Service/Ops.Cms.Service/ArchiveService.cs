@@ -80,7 +80,7 @@ namespace AtNet.Cms.Service
             archive.LastModifyDate = DateTime.Now;
             archive.Content = archiveDto.Content;
             archive.Alias = archiveDto.Alias;
-            archive.Author = archiveDto.Author;
+            archive.PublisherId = archiveDto.PublisherId;
             archive.Flags = archiveDto.Flags;
             archive.Outline = archiveDto.Outline;
             archive.Source = archiveDto.Source;
@@ -132,7 +132,7 @@ namespace AtNet.Cms.Service
                 {
                     StrId = ia.StrId,
                     Id = ia.Id,
-                    Author = ia.Author,
+                    PublisherId = ia.PublisherId,
                     Alias = ia.Alias,
                     Agree = ia.Agree,
                     Disagree = ia.Disagree,

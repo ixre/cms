@@ -387,10 +387,10 @@
         {
             get
             {
-                return @"INSERT INTO $PREFIX_archive(strid,`alias`,`cid`,`author`,`title`,small_title,`flags`,`location`,sort_number,
+                return @"INSERT INTO $PREFIX_archive(strid,`alias`,`cid`,`publisher_id`,`title`,small_title,`flags`,`location`,sort_number,
                                     `source`,`thumbnail`,`outline`,`content`,`tags`,`agree`,`disagree`,`viewcount`,
                                      `createdate`,`lastmodifydate`)
-                                    VALUES(@strid,@alias,@CategoryId,@Author,@Title,@smallTitle,@Flags,@location,@sortNumber,
+                                    VALUES(@strid,@alias,@CategoryId,@publisher_id,@Title,@smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail,@Outline, @Content,@Tags,0,0,1,@CreateDate,
                                     @LastModifyDate)";
             }

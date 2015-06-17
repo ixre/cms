@@ -20,7 +20,6 @@ namespace AtNet.Cms.Domain.Interface._old
         System.Data.DataTable GetPagedOperationList(int pageSize, int currentPageIndex, out int recordCount, out int pageCount);
         Models.User GetUser(System.Func<Models.User, bool> func);
         Models.User GetUser(string username);
-        Models.User GetUser(string username, string password);
         Models.UserGroup GetUserGroup(UserGroups group);
         Models.UserGroup[] GetUserGroups();
         Models.User[] GetUsers(System.Func<Models.User, bool> func);

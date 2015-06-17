@@ -29,7 +29,21 @@ namespace AtNet.Cms.Domain.Implement.User
             set { this._credential = value; }
         }
 
+
+        public int AppId { get; set; }
+
         public string Name { get; set; }
+
+
+
+        public string Avatar { get; set; }
+
+
+        public string CheckCode { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Email { get; set; }
 
         public int RoleFlag { get; set; }
 
@@ -54,6 +68,6 @@ namespace AtNet.Cms.Domain.Implement.User
         }
 
 
-        public string Avatar { get; set; }
+
     }
 }
