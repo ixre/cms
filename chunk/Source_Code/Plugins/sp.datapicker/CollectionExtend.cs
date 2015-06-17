@@ -180,13 +180,13 @@ namespace sp.datapicker
 
         private DataPackFunc GetDataPackHandler(int categoryId)
         {
-            string author;
+            int publisherId;
             string flag;
             bool isAutoTag;
             bool removeLink;
             bool dlPic;
 
-            author = UserState.Administrator.Current.UserName;
+            publisherId = UserState.Administrator.Current.Id;
 
             flag = ArchiveFlag.GetFlagString(
              false,
@@ -245,7 +245,7 @@ namespace sp.datapicker
                      content = _tags.Tags.ReplaceSingleTag(content);
                  }
 
-                 this.CreateNewArchive(categoryId, content, thumbnail, author, flag, data);
+                 this.CreateNewArchive(categoryId, content, thumbnail, publisherId, flag, data);
              };
         }
 
@@ -253,7 +253,12 @@ namespace sp.datapicker
         /// <summary>
         /// 创建新的文档
         /// </summary>
+        /// <param name="flag"></param>
         /// <param name="data"></param>
+        /// <param name="thumbnail"></param>
+        /// <param name="publisherId" />
+        /// <param name="categoryId"></param>
+        /// <param name="content"></param>
         /// <returns></returns>
         private int CreateNewArchive(int categoryId, string content, string thumbnail, int publisherId, string flag, DataPack data)
         {

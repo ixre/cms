@@ -293,7 +293,7 @@ namespace sp.xmlrpc.XmlRpc.src
 
                     a.Title = post.title;
                     a.Content = post.description;
-                    a.Author = username;
+                    a.PublisherId = user.Id;
                     a.Source = !String.IsNullOrEmpty(post.source.name) ? post.source.name : a.Source;
 
                     //更新
@@ -396,7 +396,7 @@ namespace sp.xmlrpc.XmlRpc.src
                         title = a.Title,                                                 //标题
                         categories = new string[] { categoryName },           //栏目
                         description = a.Content,                                         //内容
-                        userid = a.Author,                                               //作者
+                        userid = a.PublisherId.ToString(),                                               //作者
                         source = new Source { name = a.Source },                        //来源
                         link = String.Format(post_uri,                                  //文档链接地址
                                         String.IsNullOrEmpty(a.Alias) ? a.StrId : a.Alias),
@@ -499,7 +499,7 @@ namespace sp.xmlrpc.XmlRpc.src
                 ArchiveDto dto = new ArchiveDto
                 {
                     Title = post.title,
-                    Author = username,
+                    PublisherId = user.Id,
                     Outline = String.Empty,
                     Content = post.description,
                     CreateDate = post.dateCreated,
