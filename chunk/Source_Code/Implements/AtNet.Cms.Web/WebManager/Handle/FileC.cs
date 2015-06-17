@@ -11,15 +11,15 @@
 //
 //
 
-namespace AtNet.Cms.WebManager
-{
-    using AtNet.Cms;
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web;
+using System;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using AtNet.Cms.WebManager;
 
+namespace AtNet.Cms.Web.WebManager.Handle
+{
     public class FileC : BasePage
     {
         /// <summary>

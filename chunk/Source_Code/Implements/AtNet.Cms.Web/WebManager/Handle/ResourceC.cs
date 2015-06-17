@@ -11,24 +11,23 @@
 //
 //
 
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.IO.Compression;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using AtNet.Cms.Conf;
+using AtNet.Cms.Resource;
+using AtNet.Cms.Web.Resource.WebManager;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework.Web.Cache;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms;
-    using AtNet.Cms.Resource;
-    using AtNet.Cms.Web.Resource.WebManager;
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.IO;
-    using System.IO.Compression;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web;
-
     public class ResourceC
     {
 

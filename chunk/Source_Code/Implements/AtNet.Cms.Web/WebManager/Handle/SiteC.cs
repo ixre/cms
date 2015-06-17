@@ -18,10 +18,11 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using AtNet.Cms.Cache.CacheCompoment;
 using AtNet.Cms.CacheService;
-using AtNet.DevFw.Framework.Automation;
 using AtNet.Cms.DataTransfer;
+using AtNet.Cms.WebManager;
+using AtNet.DevFw.Framework.Automation;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
     public class SiteC: BasePage
     {

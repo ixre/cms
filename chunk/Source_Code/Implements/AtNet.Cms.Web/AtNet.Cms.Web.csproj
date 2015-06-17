@@ -143,22 +143,22 @@
     <Compile Include="WebManager\BasePage.cs" />
     <Compile Include="WebManager\CmsWebMaster.cs" />
     <Compile Include="WebManager\EachClass.cs" />
-    <Compile Include="WebManager\Handle\old\AjaxC.cs" />
-    <Compile Include="WebManager\Handle\old\ArchiveC.cs">
+    <Compile Include="WebManager\Handle\AjaxC.cs" />
+    <Compile Include="WebManager\Handle\ArchiveC.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WebManager\Handle\CategoryC.cs" />
     <Compile Include="WebManager\Handle\ExtendC.cs" />
-    <Compile Include="WebManager\Handle\old\FileC.cs" />
+    <Compile Include="WebManager\Handle\FileC.cs" />
     <Compile Include="WebManager\Handle\LinkC.cs" />
-    <Compile Include="WebManager\Handle\old\PluginC.cs" />
-    <Compile Include="WebManager\Handle\old\ResourceC.cs" />
+    <Compile Include="WebManager\Handle\PluginC.cs" />
+    <Compile Include="WebManager\Handle\ResourceC.cs" />
     <Compile Include="WebManager\Handle\SystemC.cs" />
-    <Compile Include="WebManager\Handle\old\TableC.cs" />
-    <Compile Include="WebManager\Handle\old\TemplateC.cs" />
-    <Compile Include="WebManager\Handle\old\UploadC.cs" />
-    <Compile Include="WebManager\Handle\old\UserC.cs" />
-    <Compile Include="WebManager\Handle\old\SiteC.cs" />
+    <Compile Include="WebManager\Handle\TableC.cs" />
+    <Compile Include="WebManager\Handle\TemplateC.cs" />
+    <Compile Include="WebManager\Handle\UploadC.cs" />
+    <Compile Include="WebManager\Handle\UserC.cs" />
+    <Compile Include="WebManager\Handle\SiteC.cs" />
     <Compile Include="WebManager\Helper.cs" />
     <Compile Include="WebManager\ManagerLogic.cs" />
     <Compile Include="WebManager\MCacheUpdateAttribute.cs" />

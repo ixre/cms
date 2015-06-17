@@ -15,6 +15,7 @@ using AtNet.Cms.Cache.CacheCompoment;
 using AtNet.Cms.Domain.Interface.Models;
 using AtNet.Cms.old;
 using AtNet.Cms.Utility;
+using AtNet.Cms.Web.WebManager.Handle;
 
 namespace AtNet.Cms.WebManager
 {
@@ -48,7 +49,7 @@ namespace AtNet.Cms.WebManager
 		/// 程序集
 		/// </summary>
 		private Assembly assembly = Assembly.GetAssembly(typeof(Logic));
-		private string nameSpace = typeof(Logic).Namespace;
+		private string nameSpace = typeof(SystemC).Namespace ;
 
 		/// <summary>
 		/// 进行管理请求时候发生
@@ -123,9 +124,10 @@ namespace AtNet.Cms.WebManager
 			//获取模块和动作参数
 			module = request["module"];
 			action = request["action"];
+		    if (String.IsNullOrEmpty(action)) action = "Index";
 
 			//检测是否已经登录并检验是否有权执行此操作
-			if (action!=null&&Regex.IsMatch(action,"^(?!login|verifycode)[a-z]*$",RegexOptions.IgnoreCase))
+			if (Regex.IsMatch(action,"^(?!login|verifycode)[a-z]*$",RegexOptions.IgnoreCase))
 			{
 				//UserState.Administrator.Login("admin", "123000", 1000);
 
@@ -155,9 +157,7 @@ namespace AtNet.Cms.WebManager
 				case "":
 				case null:
 				case "system":
-					CallMethod("SystemC",String.IsNullOrEmpty(action)?
-					           (UserState.Administrator.HasLogin?"Index":"Login"):
-					           action); break;
+					CallMethod("SystemC",action); break;
 
 					//站点管理
                 case "site": CallMethod("SiteC", action); break;
@@ -205,57 +205,59 @@ namespace AtNet.Cms.WebManager
 
 		}
 
-		internal void CallMethod(string className, string methodName)
-        {
-			string requestMethod;   //请求方式
-			object obj;             //创建的模块类
-			
+	    internal void CallMethod(string className, string methodName)
+	    {
+	        var requestMethod = request.HttpMethod;
 
-			requestMethod=request.HttpMethod;
+	        var obj = assembly.CreateInstance(String.Format("{0}.{1}", nameSpace, className));
 
-			obj= assembly.CreateInstance(String.Format("{0}.{1}", nameSpace, className));
-			MethodInfo method = obj.GetType().GetMethod(String.Format("{0}_{1}", methodName, requestMethod),
-			                                            BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+	        if (obj != null)
+	        {
+	            MethodInfo method = obj.GetType().GetMethod(String.Format("{0}_{1}", methodName, requestMethod),
+	                BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+	            if (method != null)
+	            {
+	                if (method.ReturnType == typeof (String))
+	                {
+	                    response.Write(method.Invoke(obj, null) as String);
+	                }
+	                else
+	                {
+	                    method.Invoke(obj, null);
+	                }
 
-			if (method != null)
-			{
-				if(method.ReturnType==typeof(String))
-				{
-					response.Write(method.Invoke(obj, null) as String);
-				}
-                else
-                {
-				    method.Invoke(obj, null);
-				}
-				
-				CmsCacheUtility.EvalCacheUpdate<MCacheUpdateAttribute>(method);
-			}
-			else
-			{
-				string tpl = @" <div style=""font-size:12px;text-align:center;padding:10px;"">
+	                CmsCacheUtility.EvalCacheUpdate<MCacheUpdateAttribute>(method);
+	                return;
+	            }
+	        }
+
+	        OutputInternalError(className, methodName, requestMethod);
+	    }
+
+	    private void OutputInternalError(string className, string methodName, string requestMethod)
+	    {
+	        string tpl = @" <div style=""font-size:12px;text-align:center;padding:10px;"">
                                 <h3>访问的页面出错，代码:502</h3>
 
                                 <strong>这可能因为当前系统版本不支持此功能！</strong><br />
 
                                 相关信息:{0}</div>
                                 ";
-				response.Write(
-					String.Format(tpl,className + "/" + methodName+"/"+requestMethod));
-				// OnError("操作未定义!"+className+"/"+methodName); response.End();
-				response.StatusCode = 500;
-			}
-            
-		}
+	        response.Write(
+	            String.Format(tpl, className + "/" + methodName + "/" + requestMethod));
+	        // OnError("操作未定义!"+className+"/"+methodName); response.End();
+	        response.StatusCode = 500;
+	    }
 
 
-		//判断是否有权限执行操作
+	    //判断是否有权限执行操作
 		private bool HasPermissions()
 		{
 			string uri = HttpContext.Current.Request.Url.Query;
 			UserDto user = UserState.Administrator.Current;
 
 			//如果是超级管理员，拥有所有操作权限
-			if ((user.RoleFlag & (int)UserGroups.Master)!=0) return true;
+			if ((user.RoleFlag & (int)UserGroups.Master) !=0) return true;
 
 			return new PermissionAttribute(uri).Validate(user);
 		}

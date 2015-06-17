@@ -1,14 +1,14 @@
-﻿using AtNet.Cms.DataTransfer;
-using AtNet.Cms.Web;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using AtNet.Cms.CacheService;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Site.Extend;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework.Automation;
 using AtNet.DevFw.Framework.Extensions;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
     public class ExtendC:BasePage
     {

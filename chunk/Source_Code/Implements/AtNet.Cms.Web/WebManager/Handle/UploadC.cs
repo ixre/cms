@@ -11,14 +11,14 @@
 //
 //
 
+using System;
 using AtNet.Cms.Conf;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework.Extensions;
+using AtNet.DevFw.Framework.Web.UI;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.DevFw.Framework.Web.UI;
-    using System;
-
     public class UploadC:BasePage
     {
 

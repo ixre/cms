@@ -11,25 +11,22 @@
 //
 //
 
-using AtNet.Cms;
+using System;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using AtNet.Cms.CacheService;
-using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.User;
+using AtNet.Cms.Template;
 using AtNet.Cms.Utility;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework;
+using SharpCompress.Archive;
+using SharpCompress.Common;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms;
-    using AtNet.Cms.DataTransfer;
-    using AtNet.Cms.Template;
-    using SharpCompress.Archive;
-    using SharpCompress.Common;
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Text.RegularExpressions;
-
     public class TemplateC: BasePage
     {
 

@@ -11,23 +11,22 @@
 //
 //
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using AtNet.Cms.Cache.CacheCompoment;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Site.Link;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework.Automation;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms.DataTransfer;
-    using AtNet.Cms.Web;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web;
-
     /// <summary>
     /// 链接管理
     /// </summary>

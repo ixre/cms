@@ -11,32 +11,29 @@
 //
 //
 
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using AtNet.Cms.BLL;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
 using AtNet.Cms.Core;
-using AtNet.Cms.Domain.Interface.Common;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Content.Archive;
 using AtNet.Cms.Domain.Interface.Enum;
 using AtNet.Cms.Domain.Interface.Models;
 using AtNet.Cms.Domain.Interface.Site.Extend;
 using AtNet.Cms.Utility;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Toolkit.Tags;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms;
-    using AtNet.Cms.DataTransfer;
-    using AtNet.Cms.Web;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Data;
-    using System.IO;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web;
-
     /// <summary>
     /// 文档
     /// </summary>

@@ -11,19 +11,18 @@
 //
 //
 
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
+using System.Web;
 using AtNet.Cms.BLL;
 using AtNet.Cms.Domain.Interface.Models;
 using AtNet.Cms.Domain.Interface._old;
+using AtNet.Cms.WebManager;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Text;
-    using System.Web;
-
     /// <summary>
     /// 文档
     /// </summary>

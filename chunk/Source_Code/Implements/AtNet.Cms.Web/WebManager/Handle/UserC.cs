@@ -11,24 +11,20 @@
 //
 //
 
+using System;
+using System.Data;
+using System.Text;
+using System.Web;
 using AtNet.Cms.BLL;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Models;
 using AtNet.Cms.Domain.Interface.User;
 using AtNet.Cms.Utility;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework.Automation;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms;
-    using AtNet.Cms.DataTransfer;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web;
-
     /// <summary>
     /// 用户管理
     /// </summary>

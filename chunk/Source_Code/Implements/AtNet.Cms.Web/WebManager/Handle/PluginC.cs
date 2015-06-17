@@ -11,15 +11,14 @@
 //
 //
 
+using System;
 using AtNet.Cms.Conf;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework.Xml.AutoObject;
+using AtNet.DevFw.PluginKernel;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.DevFw.PluginKernel;
-    using AtNet.Cms;
-    using System;
-
     /// <summary>
     /// 插件管理
     /// </summary>

@@ -11,25 +11,24 @@
 //
 //
 
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using AtNet.Cms.Cache.CacheCompoment;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
 using AtNet.Cms.Core;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Infrastructure.Tree;
+using AtNet.Cms.WebManager;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms.DataTransfer;
-    using AtNet.Cms.Web;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Globalization;
-    using System.IO;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web;
-
     public class CategoryC : BasePage
     {
 

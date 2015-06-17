@@ -12,27 +12,23 @@
 //  2013-01-06  11:07   newmin [+]: add setting
 //
 
-using System.Text.RegularExpressions;
-using AtNet.Cms.BLL;
+using System;
+using System.IO;
+using System.Text;
+using System.Web;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Models;
 using AtNet.Cms.Infrastructure.Domain;
 using AtNet.Cms.Utility;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework.Web.UI;
+using SharpCompress.Archive;
+using SharpCompress.Common;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms;
-    using AtNet.Cms.DataTransfer;
-    using AtNet.Cms.Web;
-    using SharpCompress.Archive;
-    using SharpCompress.Common;
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Web;
-
     public class SystemC : BasePage
     {
 
@@ -56,9 +52,6 @@ namespace AtNet.Cms.WebManager
         //[StaticCache]
         public void Index_GET()
         {
-            //if (!Cms.Cache.CheckClientCacheExpiresByEtag()) { return; }
-
-
             //重定向管理页
             string path = base.Request.Path;
             if (base.Request.Url.Query == "" || path.EndsWith("/"))
@@ -68,10 +61,10 @@ namespace AtNet.Cms.WebManager
                 return;
             }
 
-            string page_Template;
+            string pageTemplate;
             UserDto usr = UserState.Administrator.Current;
 
-
+            throw new Exception(usr.Id.ToString());
             if (usr.SiteId > 0)
             {
                 //子站用户跳转标识
@@ -84,17 +77,17 @@ namespace AtNet.Cms.WebManager
                 //{
                 //    page_Template = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
                 //}
-                page_Template = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
+                pageTemplate = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
             }
             else
             {
-                page_Template = ResourceMap.GetPageContent(ManagementPage.Index);
+                pageTemplate = ResourceMap.GetPageContent(ManagementPage.Index);
             }
 
-            base.RenderTemplateUseCache(page_Template,
+            base.RenderTemplateUseCache(pageTemplate,
                                         new
                                         {
-                                            version = AtNet.Cms.Cms.Version,
+                                            version = Cms.Version,
                                             path = GetPath(),
                                             admin_path = Settings.SYS_ADMIN_TAG,
                                             //ui_component_path = ResourceMap.GetPageUrl(ManagementPage.UI_Component),

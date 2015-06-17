@@ -13,32 +13,28 @@
 //
 //
 
-using AtNet.Cms;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Web;
+using System.Xml;
 using AtNet.Cms.BLL;
 using AtNet.Cms.Cache;
 using AtNet.Cms.Cache.CacheCompoment;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
+using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Models;
 using AtNet.Cms.Domain.Interface.User;
 using AtNet.Cms.Infrastructure.Tree;
 using AtNet.Cms.Utility;
+using AtNet.Cms.WebManager;
 using AtNet.DevFw.Framework.Text;
 
-namespace AtNet.Cms.WebManager
+namespace AtNet.Cms.Web.WebManager.Handle
 {
-    using AtNet.Cms;
-    using AtNet.Cms.Cache;
-    using AtNet.Cms.DataTransfer;
-    using AtNet.Cms.Web;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Threading;
-    using System.Web;
-    using System.Xml;
-
     public class AjaxC : BasePage
     {
 
