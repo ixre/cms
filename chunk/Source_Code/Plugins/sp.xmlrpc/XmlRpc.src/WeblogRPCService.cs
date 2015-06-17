@@ -244,17 +244,19 @@ namespace sp.xmlrpc.XmlRpc.src
         /// <returns></returns>
         public bool deletePost(string appKey, string postid, string username, string password, bool publish)
         {
-            if (ValidUser(username, password) != null)
-            {
-                User user = ubll.GetUser(username);
-                ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.siteId, int.Parse(postid));
-                if (user.Group == UserGroups.Master || String.Compare(user.UserName, archive.Author, true) == 0)
-                {
-                    ServiceCall.Instance.ArchiveService.DeleteArchive(this.siteId, archive.Id);
-                    return true;
-                }
-            }
-            return false;
+            throw new NotImplementedException();
+            //todo:
+//            if (ValidUser(username, password) != null)
+//            {
+//                User user = ubll.GetUser(username);
+//                ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.siteId, int.Parse(postid));
+//                if (user.Group == UserGroups.Master || String.Compare(user.UserName, archive.Author, true) == 0)
+//                {
+//                    ServiceCall.Instance.ArchiveService.DeleteArchive(this.siteId, archive.Id);
+//                    return true;
+//                }
+//            }
+//            return false;
         }
 
 

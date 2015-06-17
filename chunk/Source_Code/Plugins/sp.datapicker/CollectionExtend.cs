@@ -255,7 +255,7 @@ namespace sp.datapicker
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private int CreateNewArchive(int categoryId, string content, string thumbnail, string author, string flag, DataPack data)
+        private int CreateNewArchive(int categoryId, string content, string thumbnail, int publisherId, string flag, DataPack data)
         {
 
             ArchiveDto archive = new ArchiveDto
@@ -264,7 +264,7 @@ namespace sp.datapicker
                 Disagree = 0,
                 Category = new CategoryDto { Id = categoryId },
                 Flags = flag,
-                Author = author,
+                PublisherId = publisherId,
                 Tags = String.Empty,
                 Outline = String.Empty,
                 Source = String.Empty,

@@ -119,7 +119,9 @@ namespace AtNet.Cms.Web
         {
             get
             {
-                return this.Archive.PublisherId;
+                throw new NotImplementedException();
+                //todo:
+               // return this.Archive.PublisherId;
             }
         }
 

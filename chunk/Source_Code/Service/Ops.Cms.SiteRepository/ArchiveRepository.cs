@@ -68,7 +68,8 @@ namespace AtNet.Cms.ServiceRepository
             if (indexOf("location") != -1)archive.Location = rd["location"].ToString();
             if (indexOf("sort_number") != -1) archive.SortNumber = int.Parse(rd["sort_number"].ToString());
             if (indexOf("outline") != -1) archive.Outline = (rd["outline"] ?? "").ToString();
-            if (indexOf("author") != -1) archive.PublisherId = rd["author"].ToString();
+            if (indexOf("author") != -1)
+                archive.PublisherId = rd["publisher_id"] == DBNull.Value ? 0 : Convert.ToInt32(rd["publisher_id"]);
             if (indexOf("content") != -1) archive.Content = rd["content"].ToString();
             if (indexOf("source") != -1) archive.Source = (rd["source"] ?? "").ToString();
             if (indexOf("tags") != -1) archive.Tags = (rd["tags"] ?? "").ToString();

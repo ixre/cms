@@ -62,17 +62,22 @@ namespace AtNet.Cms.Utility
         /// </summary>
         /// <param name="author"></param>
         /// <returns></returns>
-        public static string GetAuthorName(string author)
+        public static string GetAuthorName(int publisherId)
         {
-            if (Regex.IsMatch(author, "^[a-z0-9_]+$"))
-            {
-                User u = ubll.GetUser(author);
-                if (u != null)
-                {
-                    return u.Name;
-                }
-            }
-            return author;
+
+            //todo:
+            throw new NotImplementedException();
+
+            return "";
+//            if (Regex.IsMatch(author, "^[a-z0-9_]+$"))
+//            {
+//                User u = ubll.GetUser(author);
+//                if (u != null)
+//                {
+//                    return u.Name;
+//                }
+//            }
+//            return author;
         }
 
         public static string GetFormatedOutline(string outline, string content, int contentLenLimit)

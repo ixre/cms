@@ -1186,7 +1186,7 @@ namespace AtNet.Cms.WebManager
             int id = int.Parse(base.Request["archive.id"]);
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
 
-            if (!ArchiveUtility.CanModifyArchive(archive.PublisherId))
+            if (!ArchiveUtility.CanModifyArchive(this.SiteId,archive.PublisherId))
             {
                 return base.ReturnError("您无权删除此文档!");
             }
