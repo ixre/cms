@@ -44,5 +44,11 @@ namespace AtNet.Cms.Service
                 Tag = 1,
             };
         }
+
+
+        public UserDto GetUser(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

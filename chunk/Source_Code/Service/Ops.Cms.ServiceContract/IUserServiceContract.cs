@@ -9,5 +9,6 @@ namespace AtNet.Cms.ServiceContract
     public interface IUserServiceContract
     {
         LoginResultDto TryLogin(string username, string password);
+        UserDto GetUser(int id);
     }
 }

@@ -16,7 +16,6 @@ namespace AtNet.Cms.DataTransfer
     /// <summary>
     /// 模块属性
     /// </summary>
-    [DataTable("$PREFIX_dataExtendAttr")]
     [EntityForm]
     public class ExtendFieldDto
     {

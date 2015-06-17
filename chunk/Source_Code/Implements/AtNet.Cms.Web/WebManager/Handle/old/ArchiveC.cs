@@ -927,12 +927,13 @@ namespace AtNet.Cms.WebManager
         {
             int id = int.Parse(base.Request["archive.id"]);
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
-            User author = CmsLogic.User.GetUser(archive.Author);
+            //User author = CmsLogic.User.GetUser(archive.Author);
+            UserDto user = ServiceCall.Instance.UserService.GetUser(archive.Id); //todo: get by author
 
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_View), new
             {
                 title = archive.Title,
-                author = author == null ? archive.Author : author.Name + "(" + author.UserName + ")",
+                author = user == null ? "":user.Name,
                 publishdate = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate),
                 content = archive.Content,
                 thumbnail = archive.Thumbnail,
