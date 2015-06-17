@@ -12,7 +12,7 @@ namespace AtNet.Cms.DAL
         /// </summary>
         /// <param name="username">用户名</param>
         /// <returns></returns>
-        public void GetUser(string username, DataReaderFunc func)
+        public void GetUserCredential(string username, DataReaderFunc func)
         {
             base.ExecuteReader(
                 new SqlQuery(base.OptimizeSql(DbSql.User_GetUserByUsername), new object[,] { { "@username", username } }),
@@ -29,7 +29,7 @@ namespace AtNet.Cms.DAL
         public void GetUser(string username, string password, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.User_GetUser),
+                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredential),
                     new object[,]{
                         {"@UserName", username},
                         {"@password", password}}),

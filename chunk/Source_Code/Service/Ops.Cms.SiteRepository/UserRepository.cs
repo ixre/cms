@@ -5,6 +5,7 @@ using System.Text;
 using AtNet.Cms.DAL;
 using AtNet.Cms.Domain.Interface.User;
 using AtNet.Cms.Domain.Implement.User;
+using AtNet.Cms.Domain.Interface.Value;
 using AtNet.Cms.IDAL;
 
 namespace AtNet.Cms.ServiceRepository
@@ -26,7 +27,7 @@ namespace AtNet.Cms.ServiceRepository
             return new List<IRole>();
         }
 
-        public UserCredential GetUserCredential(int userId)
+        public Credential GetUserCredential(int userId)
         {
             throw new NotImplementedException();
         }
@@ -62,17 +63,17 @@ namespace AtNet.Cms.ServiceRepository
         }
 
 
-        public IUser GetUserByUser(string username)
+        public Credential GetCredentialByUserName(string username)
         {
-            IUser user = null;
-            this._userDal.GetUser(username, rd =>
+            Credential cre = null;
+            this._userDal.GetUserCredential(username, rd =>
             {
                 if (rd.HasRows)
                 {
-                    user = this.CreateUser(Convert.ToInt32(rd["id"]), Convert.ToInt32(rd["flag"]));
+                    cre = new Credential(rd.GetInt32(0),rd.GetInt32(1),username,rd.GetString(2),rd.GetInt32(3));
                 }
             });
-            return user;
+            return cre;
         }
     }
 }

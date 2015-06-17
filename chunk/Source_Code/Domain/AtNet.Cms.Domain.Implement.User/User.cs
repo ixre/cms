@@ -1,12 +1,13 @@
 ﻿using System;
 using AtNet.Cms.Domain.Interface.User;
+using AtNet.Cms.Domain.Interface.Value;
 
 namespace AtNet.Cms.Domain.Implement.User
 {
     public class User:IUser
     {
         private readonly IUserRepository _userRepository;
-        private UserCredential _credential;
+        private Credential _credential;
 
         internal User(IUserRepository userRep, int id, int flag)
         {
@@ -15,7 +16,7 @@ namespace AtNet.Cms.Domain.Implement.User
             this.RoleFlag = flag;
         }
 
-        public UserCredential Credential
+        public Credential Credential
         {
             get
             {
@@ -51,5 +52,8 @@ namespace AtNet.Cms.Domain.Implement.User
         {
             return this._userRepository.SaveUser(this);
         }
+
+
+        public string Avatar { get; set; }
     }
 }

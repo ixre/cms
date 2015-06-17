@@ -53,7 +53,7 @@ namespace AtNet.Cms.IDAL
         /// </summary>
         /// <param name="username"></param>
         /// <param name="func"></param>
-        void GetUser(string username, DataReaderFunc func);
+        void GetUserCredential(string username, DataReaderFunc func);
 
         /// <summary>
         /// 根据用户名和密码获取用户信息

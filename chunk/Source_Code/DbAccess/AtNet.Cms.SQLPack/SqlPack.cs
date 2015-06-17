@@ -354,7 +354,7 @@ namespace AtNet.Cms.Sql
         /// <summary>
         /// 根据用户名和密码获取用户信息
         /// </summary>
-        public readonly string User_GetUser = "SELECT * FROM $PREFIX_user WHERE username=@Username AND password=@password";
+        public readonly string User_GetUserCredential = "SELECT id,user_id,password,enabled FROM $PREFIX_credential WHERE username=@username";
 
         /// <summary>
         /// 获取所有用户

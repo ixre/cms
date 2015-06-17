@@ -1,12 +1,22 @@
-﻿using System;
-
-namespace AtNet.Cms.Domain.Interface.User
+﻿namespace AtNet.Cms.Domain.Interface.Value
 {
     /// <summary>
     /// 用户凭据
     /// </summary>
-    public class UserCredential : IValueObject
+    public class Credential : IValueObject
     {
+        public Credential(int id, int userId, string userName, string password, int enabled)
+        {
+            this.Id = id;
+            this.UserId = userId;
+            this.UserName = userName;
+            this.Password = password;
+            this.Enabled = enabled;
+        }
+
+        public int UserId { get; set; }
+
+        public int Id { get; set; }
         /// <summary>
         ///用户名
         /// </summary>

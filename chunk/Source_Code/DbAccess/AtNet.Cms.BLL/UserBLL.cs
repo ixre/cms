@@ -329,7 +329,7 @@ namespace AtNet.Cms.BLL
         public User GetUser(string username)
         {
             User user = null;
-            dal.GetUser(username, rd =>
+            dal.GetUserCredential(username, rd =>
             {
                 if (rd.HasRows)
                 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AtNet.Cms.Domain.Interface.Value;
 
 namespace AtNet.Cms.Domain.Interface.User
 {
@@ -18,11 +19,11 @@ namespace AtNet.Cms.Domain.Interface.User
         /// <returns></returns>
         IList<IRole> GetAppRoles(int appId);
 
-        UserCredential GetUserCredential(int userId);
+        Credential GetUserCredential(int userId);
 
 
         int SaveUser(IUser user);
         int SaveRole(IRole role);
-        IUser GetUserByUser(string username);
+        Credential GetCredentialByUserName(string username);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using AtNet.Cms.Domain.Interface.Value;
 
 namespace AtNet.Cms.Domain.Interface.User
 {
@@ -7,12 +8,17 @@ namespace AtNet.Cms.Domain.Interface.User
         /// <summary>
         /// 用户凭据
         /// </summary>
-        UserCredential Credential { get; set; }
+        Credential Credential { get; set; }
 
         /// <summary>
         /// 用户名称
         /// </summary>
         string Name { get; set; }
+
+        /// <summary>
+        /// 头像
+        /// </summary>
+        String Avatar { get; set; }
 
         /// <summary>
         /// 角色值
