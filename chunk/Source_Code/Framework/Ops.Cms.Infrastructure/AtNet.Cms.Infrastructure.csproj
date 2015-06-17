@@ -37,6 +37,10 @@
     <AssemblyOriginatorKeyFile>ops.cms.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="atnet.devfw, Version=1.0.1.0, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\refrence.dll\atnet.devfw.dll</HintPath>
+    </Reference>
     <Reference Include="leveldb-sharp, Version=1.2.0.0, Culture=neutral, PublicKeyToken=2ef8a852105250ad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\leveldb-sharp.dll</HintPath>
@@ -65,6 +69,7 @@
       <DependentUpon>CmsResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Tree\TreeNode.cs" />
+    <Compile Include="Domain\Generator.cs" />
     <Compile Include="WeekConvert.cs" />
   </ItemGroup>
   <ItemGroup>

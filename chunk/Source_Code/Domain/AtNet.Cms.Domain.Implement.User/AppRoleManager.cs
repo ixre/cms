@@ -7,7 +7,7 @@ using AtNet.Cms.Domain.Interface.User;
 
 namespace AtNet.Cms.Domain.Implement.User
 {
-   internal class AppRoleManager:CreateAppRoleManager
+   internal class AppRoleManager:ICreateAppRoleManager
     {
         private IUserRepository rep;
         private int appId;

@@ -30,13 +30,13 @@ namespace AtNet.Cms.DataTransfer
         /// <summary>
         /// 属性名称
         /// </summary>
-        [FormField("Name", Text = "<span class=\"red\">*</span>属性名称", IsRequired = true, Length = "[0,30]", Descript = "属性的唯一标识")]
+        [FormField("Name", Text = "属性名称", IsRequired = true, Length = "[0,30]", Descript = "属性的唯一标识")]
         public string Name { get; set; }
 
         /// <summary>
         /// UI类型
         /// </summary>
-        [FormField("Type", Text = "<span class=\"red\">*</span>属性类型", IsRequired = true)]
+        [FormField("Type", Text = "属性类型", IsRequired = true)]
         [SelectField(UseDrop = true, Data = "一请选择一=;文本=1;多行文本=2;数值=3;上传域=5")]
         public string Type { get; set; }
 

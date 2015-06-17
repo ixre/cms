@@ -16,6 +16,7 @@ using AtNet.Cms.BLL;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.Conf;
 using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Infrastructure.Domain;
 using AtNet.Cms.Utility;
 using AtNet.DevFw.Framework.Web.UI;
 
@@ -214,7 +215,7 @@ namespace AtNet.Cms.WebManager
                 Response.Write("<script>location.href='/" +
                     Settings.SYS_ADMIN_TAG +
                     "?action=login&return_url=" +
-                    url+"'</script>");
+                    url + "'</script>");
             }
 
             Response.End();
@@ -346,40 +347,57 @@ namespace AtNet.Cms.WebManager
             }
             else
             {
-                //设置站点
-                User usr = CmsLogic.User.GetUser(username, password);
-
-                if (usr != null)
-                {
-                    CmsLogic.User.UpdateUserLastLoginDate(username);
-
-                    if (!usr.Available)
-                    {
-                        base.RenderError("账号已被停用,请联系管理员!");
-                    }
-                    else
-                    {
-                        //保存登陆信息
-                        bool result = UserState.Administrator.Login(username, password, 3600 * 120);
-
-                        //验证站点信息
-                        if (usr.SiteId > 0)
-                        {
-                            SiteDto site = SiteCacheManager.GetSite(usr.SiteId);
-                            if (!(site.SiteId > 0))
-                            {
-                                base.RenderError("账号已被停用,请联系管理员!");
-                                return;
-                            }
-                            base.CurrentSite = site;
-                        }
-                        base.RenderSuccess();
-                    }
-                }
-                else
+                password = Generator.Md5Pwd(password, null);
+                LoginResultDto result = ServiceCall.Instance.UserService.TryLogin(username, password);
+                if (result.Tag == -1)
                 {
                     base.RenderError("账户或密码不正确!");
                 }
+                else if (result.Tag == -2)
+                {
+                    base.RenderError("账号已被停用,请联系管理员!");
+                }
+                else
+                {
+                    base.RenderSuccess();
+                    //保存登陆信息
+                    UserState.Administrator.Login(username, password, 3600 * 120);
+                }
+
+                //设置站点
+                //                User usr = CmsLogic.User.GetUser(username, password);
+                //
+                //                if (usr != null)
+                //                {
+                //                    CmsLogic.User.UpdateUserLastLoginDate(username);
+                //
+                //                    if (!usr.Available)
+                //                    {
+                //                        base.RenderError("账号已被停用,请联系管理员!");
+                //                    }
+                //                    else
+                //                    {
+                //                        //保存登陆信息
+                //                        bool result = UserState.Administrator.Login(username, password, 3600 * 120);
+                //
+                //                        //验证站点信息
+                //                        if (usr.SiteId > 0)
+                //                        {
+                //                            SiteDto site = SiteCacheManager.GetSite(usr.SiteId);
+                //                            if (!(site.SiteId > 0))
+                //                            {
+                //                                base.RenderError("账号已被停用,请联系管理员!");
+                //                                return;
+                //                            }
+                //                            base.CurrentSite = site;
+                //                        }
+                //                        base.RenderSuccess();
+                //                    }
+                //}
+                //else
+                // {
+                //   base.RenderError("账户或密码不正确!");
+                //}
             }
         }
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AtNet.Cms.Domain.Interface.User;
-using Ops.Cms.Domain.Interface.User;
 
 namespace AtNet.Cms.Domain.Implement.User
 {
@@ -16,7 +15,7 @@ namespace AtNet.Cms.Domain.Implement.User
             return new User(rep,id,flag);
         }
         
-        public CreateAppRoleManager CreateAppRoleManager(IUserRepository rep, int appId)
+        public ICreateAppRoleManager CreateAppRoleManager(IUserRepository rep, int appId)
         {
             return new AppRoleManager(rep, appId);
         }

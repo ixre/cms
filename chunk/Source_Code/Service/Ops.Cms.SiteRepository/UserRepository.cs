@@ -6,26 +6,27 @@ using AtNet.Cms.DAL;
 using AtNet.Cms.Domain.Interface.User;
 using AtNet.Cms.Domain.Implement.User;
 using AtNet.Cms.IDAL;
-using Ops.Cms.Domain.Interface.User;
 
 namespace AtNet.Cms.ServiceRepository
 {
-    public class UserRepository:IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly UserCreator _creator;
         private IUserDAL _userDal;
+
         public UserRepository()
         {
             this._creator = new UserCreator();
             this._userDal = new UserDAL();
         }
+
         public IList<IRole> GetAppRoles(int appId)
         {
             //todo:  暂时不增加用户组
             return new List<IRole>();
         }
 
-        public IUserCredential GetUserCredential(int userId)
+        public UserCredential GetUserCredential(int userId)
         {
             throw new NotImplementedException();
         }
@@ -40,9 +41,9 @@ namespace AtNet.Cms.ServiceRepository
             throw new NotImplementedException();
         }
 
-        public  IUser CreateUser(int id,int flag)
+        public IUser CreateUser(int id, int flag)
         {
-            return this._creator.CreateUser(this,id,flag);
+            return this._creator.CreateUser(this, id, flag);
         }
 
 
@@ -55,6 +56,20 @@ namespace AtNet.Cms.ServiceRepository
                 {
                     user = this.CreateUser(rd.GetInt32(0), Convert.ToInt32(rd["flag"]));
                     //todo: 
+                }
+            });
+            return user;
+        }
+
+
+        public IUser GetUserByUser(string username)
+        {
+            IUser user = null;
+            this._userDal.GetUser(username, rd =>
+            {
+                if (rd.HasRows)
+                {
+                    user = this.CreateUser(Convert.ToInt32(rd["id"]), Convert.ToInt32(rd["flag"]));
                 }
             });
             return user;

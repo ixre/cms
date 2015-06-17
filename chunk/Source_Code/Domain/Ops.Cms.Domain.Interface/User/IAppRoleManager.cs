@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AtNet.Cms.Domain.Interface.User
 {
-    public interface CreateAppRoleManager
+    public interface ICreateAppRoleManager
     {
         /// <summary>
         ///   获取应用的角色列表

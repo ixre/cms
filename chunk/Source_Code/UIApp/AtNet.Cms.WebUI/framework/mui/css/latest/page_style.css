@@ -21,6 +21,7 @@ span.black{color:black;}
 a{text-decoration:none;color:#0066cc;outline:none;}
 a:hover{color:#006699;}
 option.disabled{color:#666;}
+span.required{ color: red;}
 
 .p10{padding:10px;}
 .gate{background:#f0f0f0;opacity:0.2;filter:alpha(opacity=20);position:absolute;left:0;top:0;z-index:30;}

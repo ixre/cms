@@ -1,18 +1,13 @@
-﻿using AtNet.Cms.Domain.Interface;
-using AtNet.Cms.Domain.Interface.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 
-namespace Ops.Cms.Domain.Interface.User
+namespace AtNet.Cms.Domain.Interface.User
 {
     public interface IUser : IAggregateroot
     {
         /// <summary>
         /// 用户凭据
         /// </summary>
-        IUserCredential Credential { get; set; }
+        UserCredential Credential { get; set; }
 
         /// <summary>
         /// 用户名称
