@@ -1,7 +1,7 @@
 ﻿/*
  * Copyright 2012 OPS,All rights reseved!
  * name     : ArchiveFlag
- * author   : newmin
+ * publisher_id   : newmin
  * date     : 2012/12/22
  */
 

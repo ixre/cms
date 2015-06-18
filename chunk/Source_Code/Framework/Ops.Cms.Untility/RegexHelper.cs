@@ -1,7 +1,7 @@
 ﻿//
 // Copyright 2011 @ S1N1.COM,All rights reseved.
 // Name: RegexHelper.cs
-// Author: newmin
+// publisher_id: newmin
 //
 
 using System;

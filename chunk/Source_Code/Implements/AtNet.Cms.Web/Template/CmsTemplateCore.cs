@@ -1395,7 +1395,7 @@ namespace AtNet.Cms.Template
                         case "special_title": return !ArchiveFlag.GetFlag(archive.Flags, BuiltInArchiveFlags.IsSpecial) ?
                              archive.Title : "<span class=\"special\">" + archive.Title + "</span>";
 
-                        case "author": return archive.PublisherId.ToString();
+                        case "publisher_id": return archive.PublisherId.ToString();
 
                         //
                         //TODO:Archive应持有一个author
@@ -1582,8 +1582,8 @@ namespace AtNet.Cms.Template
                             case "special_title": return !ArchiveFlag.GetFlag(dr["flags"].ToString(), BuiltInArchiveFlags.IsSpecial) ? dr["title"].ToString() : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
                             case "title": return dr["title"].ToString();
                             case "small_title": return (dr["small_title"] ?? "").ToString();
-                            case "author": return dr["author"].ToString();
-                            case "author_name": return ArchiveUtility.GetAuthorName(Convert.ToInt32(dr["author"]));
+                            case "publisher_id": return dr["publisher_id"].ToString();
+                            case "author_name": return ArchiveUtility.GetPublisherName(Convert.ToInt32(dr["publisher_id"]??0));
                             case "source": return dr["source"].ToString();
                             case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
                                  (dr["outline"] ?? "").ToString(),
@@ -1815,8 +1815,8 @@ namespace AtNet.Cms.Template
                             case "special_title": return title_hightlight;
                             case "small_title": return archive.SmallTitle;
                             case "title": return archive.Title;
-                            case "author": return archive.PublisherId.ToString();
-                            case "author_name": return ArchiveUtility.GetAuthorName(archive.PublisherId);
+                            case "publisher_id": return archive.PublisherId.ToString();
+                            case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
                             case "id": return alias;
@@ -2162,9 +2162,8 @@ namespace AtNet.Cms.Template
                             case "special_title": return title_hightlight;
                             case "title": return archive.Title;
                             case "small_title": return archive.SmallTitle;
-                            case "author":
-                                return archive.PublisherId.ToString();
-                            case "author_name": return ArchiveUtility.GetAuthorName(archive.PublisherId);
+                            case "publisher_id":  return archive.PublisherId.ToString();
+                            case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
                             case "id": return alias;

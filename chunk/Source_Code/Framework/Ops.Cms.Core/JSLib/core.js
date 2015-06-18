@@ -1,7 +1,7 @@
 //
 // global.js
 //
-// Author:
+// publisher_id:
 //  newmin (newmin.net@gmail.com)
 //
 // Copyright 2011 @ S1N1.COM,All rights reseved!

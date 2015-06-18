@@ -2,7 +2,7 @@
  * Copyright 2010 OPS,All rights reseved.
  * 
  * name     : account state
- * author   : newmin
+ * publisher_id   : newmin
  * date     : 2010/11/06 23:29
  * 
  * Modify:
@@ -223,33 +223,33 @@ namespace AtNet.Cms.Utility
             /// </summary>
             public static bool HasLogin { get { return Current != null; } }
 
-            public static bool Login(string username, string password, double minutes)
+            public static int Login(string username, string password, double minutes)
             {
                 String md5Pwd = Generator.Md5Pwd(password, null);
                 LoginResultDto result = ServiceCall.Instance.UserService.TryLogin(username, md5Pwd);
-                if (result.Tag != 1) return false;
+                if (result.Tag == 1)
+                {
+                    Exit();
 
-                Exit();
+                    UserDto user = ServiceCall.Instance.UserService.GetUser(result.Uid);
 
-                UserDto user = ServiceCall.Instance.UserService.GetUser(result.Uid);
+                    HttpContext.Current.Session[adminSK] = user;
+                    HttpCookie cookie = new HttpCookie(String.Format("cms_sid_{0}", GeneratorRandomStr()));
+                    cookie.Expires = DateTime.Now.AddMinutes(minutes);
+                    // cookie.Domain=AppContext.Config.Domain.HostName;
 
-                HttpContext.Current.Session[adminSK] = user;
-                HttpCookie cookie = new HttpCookie(String.Format("cms_sid_{0}", GeneratorRandomStr()));
-                cookie.Expires = DateTime.Now.AddMinutes(minutes);
-                // cookie.Domain=AppContext.Config.Domain.HostName;
+                    //保存到Cookie中的密钥
+                    string token = (username + "ADMIN@OPSoft.CMS" + md5Pwd).EncodeMD5();
 
-                //保存到Cookie中的密钥
-                string token = (username + "ADMIN@OPSoft.CMS" + md5Pwd).EncodeMD5();
+                    byte[] encodeBytes = Encoding.UTF8.GetBytes(username + "&" + token);
+                    string encodedtokenStr = Convert.ToBase64String(encodeBytes);
 
-                byte[] encodeBytes = Encoding.UTF8.GetBytes(username + "&" + token);
-                string encodedtokenStr = Convert.ToBase64String(encodeBytes);
+                    cookie.Value = encodedtokenStr;
+                    cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
 
-                cookie.Value = encodedtokenStr;
-                cookie.Path= "/"+Settings.SYS_ADMIN_TAG;
-
-                HttpContext.Current.Response.Cookies.Add(cookie);
-
-                return true;
+                    HttpContext.Current.Response.Cookies.Add(cookie);
+                }
+                return result.Tag;
             }
 
             public static void Exit()

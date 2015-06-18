@@ -3,7 +3,7 @@
 // 
 // Project: AtNet.Cms.Config
 // FileName : Settings.cs
-// Author : PC-CWLIU (new.min@msn.com)
+// author : PC-CWLIU (new.min@msn.com)
 // Create : 2012/5/26 19:25:33
 // Description :
 //

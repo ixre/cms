@@ -64,7 +64,6 @@ namespace AtNet.Cms.Web.WebManager.Handle
             string pageTemplate;
             UserDto usr = UserState.Administrator.Current;
 
-            throw new Exception(usr.Id.ToString());
             if (usr.SiteId > 0)
             {
                 //子站用户跳转标识
@@ -342,13 +341,13 @@ namespace AtNet.Cms.Web.WebManager.Handle
             }
             else
             {
-                password = Generator.Md5Pwd(password, null);
-                LoginResultDto result = ServiceCall.Instance.UserService.TryLogin(username, password);
-                if (result.Tag == -1)
+              int tag = UserState.Administrator.Login(username, password, 3600 * 120);
+
+                if (tag == -1)
                 {
                     base.RenderError("账户或密码不正确!");
                 }
-                else if (result.Tag == -2)
+                else if (tag == -2)
                 {
                     base.RenderError("账号已被停用,请联系管理员!");
                 }
@@ -356,7 +355,6 @@ namespace AtNet.Cms.Web.WebManager.Handle
                 {
                     base.RenderSuccess();
                     //保存登陆信息
-                    UserState.Administrator.Login(username, password, 3600 * 120);
                 }
 
                 //设置站点

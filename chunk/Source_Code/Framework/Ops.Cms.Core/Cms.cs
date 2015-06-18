@@ -3,7 +3,7 @@
  * Copyright(C) 2010-2013 S1N1.COM
  * 
  * File Name	: TemplateUrlRule
- * Author	: Newmin (new.min@msn.com)
+ * publisher_id	: Newmin (new.min@msn.com)
  * Create	: 2013/05/21 19:59:54
  * Description	:
  *

@@ -3,7 +3,7 @@
 // 
 // Project: OPSite.XmlRpc
 // FileName : RPCService.cs
-// Author : PC-CWLIU (new.min@msn.com)
+// author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/10/20 12:22:02
 // Description :
 //
@@ -250,7 +250,7 @@ namespace sp.xmlrpc.XmlRpc.src
 //            {
 //                User user = ubll.GetUser(username);
 //                ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.siteId, int.Parse(postid));
-//                if (user.Group == UserGroups.Master || String.Compare(user.UserName, archive.Author, true) == 0)
+//                if (user.Group == UserGroups.Master || String.Compare(user.UserName, archive.publisher_id, true) == 0)
 //                {
 //                    ServiceCall.Instance.ArchiveService.DeleteArchive(this.siteId, archive.Id);
 //                    return true;
@@ -450,7 +450,7 @@ namespace sp.xmlrpc.XmlRpc.src
                         title = dt.Rows[i]["title"].ToString(),                                     //标题
                         categories = new string[] { dt.Rows[i]["cid"].ToString() },           //栏目
                         description = dt.Rows[i]["content"].ToString(),                             //内容
-                        userid = dt.Rows[i]["author"].ToString(),                                     //作者
+                        userid = dt.Rows[i]["publisher_id"].ToString(),                                     //作者
                         source = new Source { name = dt.Rows[i]["source"].ToString() },             //来源
                         link = String.Format(post_uri,                                              //文档链接地址
                                        String.IsNullOrEmpty(dt.Rows[i]["aias"] as string) ?

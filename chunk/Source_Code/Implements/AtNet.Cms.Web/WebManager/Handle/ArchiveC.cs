@@ -368,7 +368,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
             {
                 field = extValue.Field;
                 uiType = (PropertyUI)int.Parse(field.Type);
-                attrValue = (extValue.Value ?? field.DefaultValue).Replace("<br />","\n");
+                attrValue = (extValue.Value ?? field.DefaultValue).Replace("<br />", "\n");
 
                 sb.Append("<dl><dt>").Append(field.Name).Append("：</dt><dd>");
 
@@ -387,7 +387,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
 
                     case PropertyUI.Integer:
                         sb.Append("<input type=\"text\" class=\"tb_normal ui-validate\" isnum=\"true\" field=\"extend_")
-                            .Append(field.Id.ToString()) .Append("\" value=\"").Append(attrValue).Append("\"/>");
+                            .Append(field.Id.ToString()).Append("\" value=\"").Append(attrValue).Append("\"/>");
                         break;
 
                     case PropertyUI.Upload:
@@ -519,7 +519,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
                 .GetArchiveById(this.SiteId, int.Parse(form["Id"]));
 
             //判断是否有权修改
-            if (!ArchiveUtility.CanModifyArchive(this.SiteId,archive.PublisherId))
+            if (!ArchiveUtility.CanModifyArchive(this.SiteId, archive.PublisherId))
             {
                 base.RenderError("您无权修改此文档!");
                 return;
@@ -655,11 +655,12 @@ namespace AtNet.Cms.Web.WebManager.Handle
                    _moduleId = request["moduleId"],
                    _pageIndex = request["page"] ?? "1",
                     _pageSize = request["size"],
-                   _author = request["author"],
                    _visible = request["visible"],
                    _special = request["special"],
                    _system = request["system"],
             _aspage = request["aspage"];
+
+            int _publishId = int.Parse(request["publisher_id"]??"0");
 
             StringBuilder sb = new StringBuilder();
             string categoryOpts,                 //栏目Options
@@ -760,11 +761,11 @@ namespace AtNet.Cms.Web.WebManager.Handle
             };
 
             //文档数据表,并生成Html
-            DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId, _author, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
+            DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId, _publishId, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
 
 
-            //moduleID == null ? CmsLogic.Archive.GetPagedArchives(categoryID, _author,flags, null, false, pageSize, pageIndex, out recordCount, out pages)
-            //: CmsLogic.Archive.GetPagedArchives((SysModuleType)(moduleID ?? 1), _author, flags,null, false, pageSize, pageIndex, out recordCount, out pages);
+            //moduleID == null ? CmsLogic.Archive.GetPagedArchives(categoryID, _publisher_id,flags, null, false, pageSize, pageIndex, out recordCount, out pages)
+            //: CmsLogic.Archive.GetPagedArchives((SysModuleType)(moduleID ?? 1), _publisher_id, flags,null, false, pageSize, pageIndex, out recordCount, out pages);
 
 
             IDictionary<string, bool> flagsDict;
@@ -804,7 +805,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
                 //管理员可以查看发布人
                 if (isMaster)
                 {
-                    sb.Append("<td class=\"center\"><a href=\"?module=archive&amp;action=list&amp;moduleID=").Append(_moduleId).Append("&amp;author=")
+                    sb.Append("<td class=\"center\"><a href=\"?module=archive&amp;action=list&amp;moduleID=").Append(_moduleId).Append("&amp;publisher_id=")
                         .Append(dr["author"].ToString()).Append("\" title=\"查看该用户发布的文档\">").Append(dr["Author"].ToString()).Append("</a></td>");
                 }
 
@@ -817,8 +818,8 @@ namespace AtNet.Cms.Web.WebManager.Handle
 
 
 
-            string format = String.Format("?module=archive&action=list&categoryID={0}&moduleID={1}&page={2}&size={3}&author={4}&visible={5}&special={6}&system={7}",
-                _categoryId, _moduleId, "{0}", pageSize, _author, _visible, _special, _system);
+            string format = String.Format("?module=archive&action=list&categoryID={0}&moduleID={1}&page={2}&size={3}&publisher_id={4}&visible={5}&special={6}&system={7}",
+                _categoryId, _moduleId, "{0}", pageSize, _publishId, _visible, _special, _system);
 
             pagerHtml = Helper.BuildPagerInfo(format, pageIndex, recordCount, pages);
 
@@ -829,7 +830,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
             {
                 moduleID = _moduleId ?? String.Empty,
                 categoryID = _categoryId ?? String.Empty,
-                username = _author
+                username = _publishId
             };
 
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_List), data);
@@ -854,12 +855,13 @@ namespace AtNet.Cms.Web.WebManager.Handle
             string _categoryId = request["category_id"],
                    _pageIndex = request["page_index"] ?? "1",
                     _pageSize = request["page_size"] ?? "10",
-                   _author = request["author"],
                    _visible = request["lb_visible"] ?? "-1",
                    _special = request["lb_special"] ?? "-1",
                    _system = request["lb_system"] ?? "-1",
                    _aspage = request["lb_page"] ?? "-1";
 
+            int _publishId ;
+            int.TryParse(request["publisher_id"],out _publishId);
 
             if (_categoryId != null)
             {
@@ -897,20 +899,20 @@ namespace AtNet.Cms.Web.WebManager.Handle
 
 
             //文档数据表,并生成Html
-            DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId, 
-                _author, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
+            DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId,
+                _publishId, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {
                 dr["content"] = "";
             }
 
-            //  CmsLogic.Archive.GetPagedArchives(this.SiteId, moduleID, categoryID, _author, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
-            //moduleID == null ? CmsLogic.Archive.GetPagedArchives(categoryID, _author,flags, null, false, pageSize, pageIndex, out recordCount, out pages)
-            //: CmsLogic.Archive.GetPagedArchives((SysModuleType)(moduleID ?? 1), _author, flags,null, false, pageSize, pageIndex, out recordCount, out pages);
+            //  CmsLogic.Archive.GetPagedArchives(this.SiteId, moduleID, categoryID, _publisher_id, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
+            //moduleID == null ? CmsLogic.Archive.GetPagedArchives(categoryID, _publisher_id,flags, null, false, pageSize, pageIndex, out recordCount, out pages)
+            //: CmsLogic.Archive.GetPagedArchives((SysModuleType)(moduleID ?? 1), _publisher_id, flags,null, false, pageSize, pageIndex, out recordCount, out pages);
 
 
-            string pagerHtml = Helper.BuildJsonPagerInfo("javascript:window.toPage(1);","javascript:window.toPage({0});", pageIndex, recordCount, pages);
+            string pagerHtml = Helper.BuildJsonPagerInfo("javascript:window.toPage(1);", "javascript:window.toPage({0});", pageIndex, recordCount, pages);
 
             base.PagerJson(dt, pagerHtml);
 
@@ -930,7 +932,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_View), new
             {
                 title = archive.Title,
-                author = user == null ? "":user.Name,
+                author = user == null ? "" : user.Name,
                 publishdate = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate),
                 content = archive.Content,
                 thumbnail = archive.Thumbnail,
@@ -983,7 +985,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
                        archiveListHtml;             //文档列表HTML
 
                 //获取表头
-                bool isMaster = (UserState.Administrator.Current.RoleFlag  &(int)UserGroups.Master)!=0;
+                bool isMaster = (UserState.Administrator.Current.RoleFlag & (int)UserGroups.Master) != 0;
                 tableHeaderText = isMaster ? "<th>发布人</th>" : String.Empty;
 
 
@@ -1039,7 +1041,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
                     //管理员可以查看发布人
                     if (isMaster)
                     {
-                        sb.Append("<td><a href=\"?module=archive&amp;action=list&amp;moduleID=&amp;author=")
+                        sb.Append("<td><a href=\"?module=archive&amp;action=list&amp;moduleID=&amp;publisher_id=")
                             .Append(dr["author"].ToString()).Append("\" title=\"查看该用户发布的文档\">").Append(dr["Author"].ToString()).Append("</a></td>");
                     }
 
@@ -1153,19 +1155,19 @@ namespace AtNet.Cms.Web.WebManager.Handle
             string url = fullDomain + archive.Url;
 
 
-            if(String.IsNullOrEmpty(archive.Outline))
+            if (String.IsNullOrEmpty(archive.Outline))
             {
-                archive.Outline = ArchiveUtility.GetOutline(archive.Content,100);
+                archive.Outline = ArchiveUtility.GetOutline(archive.Content, 100);
             }
-            
+
             //Cms.Context.SiteDomain
 
             object data = new
             {
                 title = archive.Title,
-                outline =  archive.Outline,
-                url= url,
-                forword_content =String.Format("<a href=\"{0}\" target=\"_blank\"><strong>{1}</strong><br />{2}</a>",
+                outline = archive.Outline,
+                url = url,
+                forword_content = String.Format("<a href=\"{0}\" target=\"_blank\"><strong>{1}</strong><br />{2}</a>",
                     url,
                     archive.Title,
                     archive.Outline),
@@ -1183,7 +1185,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
             int id = int.Parse(base.Request["archive.id"]);
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
 
-            if (!ArchiveUtility.CanModifyArchive(this.SiteId,archive.PublisherId))
+            if (!ArchiveUtility.CanModifyArchive(this.SiteId, archive.PublisherId))
             {
                 return base.ReturnError("您无权删除此文档!");
             }

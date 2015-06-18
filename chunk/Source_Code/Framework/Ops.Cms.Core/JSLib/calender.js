@@ -1,5 +1,5 @@
 ﻿/*
-*	author: misshjn
+*	publisher_id: misshjn
 *	email: misshjn@163.com
 *	homepage: www.happyshow.org
 *	createDate: 2007-02-23

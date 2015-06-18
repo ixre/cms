@@ -3,7 +3,7 @@
 // 
 // Project: OPSite.XmlRpc.interface
 // FileName : ILiveWriterExtension.cs
-// Author : PC-CWLIU (new.min@msn.com)
+// author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/10/25 10:46:23
 // Description :
 //

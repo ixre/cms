@@ -1,7 +1,7 @@
 ﻿//
 // Copyright 2011 @ S1N1.COM,All right reseved.
 // Name: RSSUtility.cs
-// Author: newmin
+// publisher_id: newmin
 // Comments:
 //
 
@@ -31,7 +31,7 @@ namespace AtNet.Cms.Utility
         //    <link>http://www.dotnetbips.com/displayarticle.aspx?id=239</link>  
         //    <description>Description here</description>  
         //    <category></category>  
-        //    <author>Bipin Joshi</author>  
+        //    <publisher_id>Bipin Joshi</publisher_id>  
         //    <copyright></copyright>  
         //    <pubDate>Sun, 25 Jan 2004 12:00:00 AM GMT</pubDate>  
         //    </item>  
@@ -64,7 +64,7 @@ namespace AtNet.Cms.Utility
                 Category category = categoryBLL.Get(c => c.ID == a.Cid);
                 sb.Append("<item><title>").Append(a.Title).Append("</title><link>http://").Append(Settings.SYS_DOMAIN).Append(AppContext.Uri.GetArchiveUri(a)).Append("</link><description>")
                     .Append(ArchiveUtility.GetOutline(a, 500)).Append("</description><category>")
-                    .Append(category == null ? "" : category.Name).Append("</category><author>").Append(a.Author).Append("</author><copyright>")
+                    .Append(category == null ? "" : category.Name).Append("</category><publisher_id>").Append(a.publisher_id).Append("</publisher_id><copyright>")
                     .Append(Settings.SYS_ALIAS).Append("</copyright><pubDate>")
                     .Append(a.CreateDate.ToString()).Append("</pubDate></item>");
 

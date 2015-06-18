@@ -3,7 +3,7 @@
 // 
 // Project: AtNet.Cms
 // FileName : CmsContext.cs
-// Author : PC-CWLIU (new.min@msn.com)
+// author : PC-CWLIU (new.min@msn.com)
 // Create : 2013/06/23 14:53:11
 // Description :
 //

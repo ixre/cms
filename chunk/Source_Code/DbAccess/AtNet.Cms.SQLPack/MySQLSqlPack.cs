@@ -12,7 +12,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`strid`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,
-                        small_title,sort_number,`flags`,`author`,`thumbnail`,`viewcount`,`tags`,`outline`,
+                        small_title,sort_number,`flags`,`publisher_id`,`thumbnail`,`viewcount`,`tags`,`outline`,
                         `content`,`createdate`,`lastmodifydate` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON  $PREFIX_category.`id`=$PREFIX_archive.`cid` WHERE " +
                        SqlConst.Archive_NotSystemAndHidden + " ORDER BY sort_number DESC";
@@ -25,7 +25,7 @@
             {
                 return @"SELECT $PREFIX_archive.`id`,`strid`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,
                         small_title,sort_number,`flags`,`thumbnail`,`outline`,`content`,`viewcount`,
-                        lastmodifydate,author,tags,source,`createdate`,
+                        lastmodifydate,publisher_id,tags,source,`createdate`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden +
@@ -74,7 +74,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`strid`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,`thumbnail`,`flags`,`outline`,`content`,`viewcount`,
-                        author,lastmodifydate,source,tags,`createdate`,$PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
+                        publisher_id,lastmodifydate,source,tags,`createdate`,$PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE siteid=@siteid AND  `tag`=@tag AND " + SqlConst.Archive_NotSystemAndHidden +
                         @" ORDER BY sort_number DESC LIMIT 0,{0}";
@@ -246,7 +246,7 @@
             get
             {
                 return @" SELECT a.`id` AS `id`,`strid`,`alias`,`title`,a.`location`,`thumbnail`,
-                        c.`name` as categoryName,`cid`,`flags`,`author`,`content`,`source`,
+                        c.`name` as categoryName,`cid`,`flags`,`publisher_id`,`content`,`source`,
                         `createDate`,`viewCount` FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON c.id=a.cid
                         WHERE a.id IN (SELECT id FROM (SELECT a.`id` AS `id` FROM $PREFIX_archive a

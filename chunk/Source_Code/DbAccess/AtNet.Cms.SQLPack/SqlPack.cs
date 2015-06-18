@@ -167,12 +167,12 @@ namespace AtNet.Cms.Sql
         /// <summary>
         /// 删除指定会员的文档
         /// </summary>
-        public readonly string Archive_DeleteMemberArchives = "DELETE FROM $PREFIX_archive WHERE author=@Id";
+        public readonly string Archive_DeleteMemberArchives = "DELETE FROM $PREFIX_archive WHERE publisher_id=@Id";
 
         /// <summary>
         /// 切换作者
         /// </summary>
-        public readonly string Archive_TransferAuthor = "UPDATE $PREFIX_archive SET author=@AnotherUsername WHERE author=@Username";
+        public readonly string Archive_TransferAuthor = "UPDATE $PREFIX_archive SET publisher_id=@AnotherUsername WHERE publisher_id=@Username";
 
         /// <summary>
         /// 获取分页文档条数(前台调用)

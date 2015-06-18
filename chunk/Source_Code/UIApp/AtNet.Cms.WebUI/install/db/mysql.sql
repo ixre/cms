@@ -10,7 +10,7 @@ CREATE TABLE `cms_archive` (
   `strid` varchar(16) NOT NULL,
   `alias` varchar(50) DEFAULT NULL,
   `cid` int(11) NOT NULL,
-  `author` varchar(50) DEFAULT NULL,
+  `publisher_id` varchar(50) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `small_title` varchar(100) DEFAULT NULL,
   `location` varchar(150) DEFAULT NULL,

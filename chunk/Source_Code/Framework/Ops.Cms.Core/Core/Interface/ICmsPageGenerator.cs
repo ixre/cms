@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2013 S1N1.COM
 * 
 * File Name	: ICmsPageGenerator
-* Author	: Newmin (new.min@msn.com)
+* publisher_id	: Newmin (new.min@msn.com)
 * Create	: 2013/04/10 05:51:54
 * Description	:
 *

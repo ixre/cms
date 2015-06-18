@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: DelegatesDifined
-* Author	: Newmin (new.min@msn.com)
+* publisher_id	: Newmin (new.min@msn.com)
 * Create	: 2013/0/05 9:26:29
 * Description	:
 *

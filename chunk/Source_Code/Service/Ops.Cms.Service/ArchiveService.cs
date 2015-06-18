@@ -241,7 +241,7 @@ namespace AtNet.Cms.Service
         }
 
 
-        public DataTable GetPagedArchives(int siteId, int? categoryId, string author, string[,] flags, string orderByField, bool orderAsc, int pageSize, int currentPageIndex, out int recordCount, out int pages)
+        public DataTable GetPagedArchives(int siteId, int? categoryId, int publishId, string[,] flags, string orderByField, bool orderAsc, int pageSize, int currentPageIndex, out int recordCount, out int pages)
         {
             //
             //TODO:moduleId暂时去掉
@@ -261,7 +261,7 @@ namespace AtNet.Cms.Service
                 }
             }
 
-            return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, author, 
+            return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, publishId, 
                 flags, orderByField, orderAsc, pageSize, currentPageIndex, 
                 out  recordCount, out  pages);
         }

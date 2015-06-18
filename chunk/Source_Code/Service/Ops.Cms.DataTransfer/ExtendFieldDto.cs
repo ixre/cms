@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2012 S1N1.COM
 * 
 * File Name	: ExtendAttr
-* Author	: Newmin (new.min@msn.com)
+* publisher_id	: Newmin (new.min@msn.com)
 * Create	: 2012/9/30 9:54:29
 * Description	:
 *

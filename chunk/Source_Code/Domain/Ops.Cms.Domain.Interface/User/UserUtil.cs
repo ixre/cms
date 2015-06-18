@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Text;
 
 namespace AtNet.Cms.Domain.Interface.User
@@ -23,6 +24,7 @@ namespace AtNet.Cms.Domain.Interface.User
                AppendRoleName(sb, "编辑");
            }
 
+           //throw new Exception(((int)(RoleTag.Master | RoleTag.Publisher)).ToString());
            return sb.ToString();
        }
 

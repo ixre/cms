@@ -1,7 +1,7 @@
 ﻿//
 // Copyright 2011 @ S1N1.COM.
 // Permission.cs
-// author:
+// publisher_id:
 //      newmin(new.min@msn.com)
 // 
 

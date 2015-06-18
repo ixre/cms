@@ -9,7 +9,7 @@ namespace sp.datapicker
     // Copyright 2011 (C) S1N1.COM,All rights reseved.
     // Project : OPSite.Plugin
     // Name : 采集插件
-    // Author : newmin
+    // author : newmin
     // Date : 2011-08-27
     //
 

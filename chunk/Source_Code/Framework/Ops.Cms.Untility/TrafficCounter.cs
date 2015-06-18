@@ -3,7 +3,7 @@
 // 
 // Project: OPSite.Plugin
 // FileName : TrafficCounter.cs
-// Author : PC-CWLIU (new.min@msn.com)
+// author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/11/28 14:32:09
 // Description :
 //

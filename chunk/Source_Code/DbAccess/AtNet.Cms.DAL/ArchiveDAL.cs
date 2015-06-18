@@ -507,9 +507,9 @@ namespace AtNet.Cms.DAL
         /// </summary>
         /// <param name="lft"></param>
         /// <param name="rgt"></param>
-        /// <param name="author">指定作者，NULL表示不限，可显示所有作者发布的文档</param>
         /// <param name="siteId"></param>
         /// <param name="moduleId">参数暂时不使用为-1</param>
+        /// <param name="publishId"></param>
         /// <param name="flags"></param>
         /// <param name="orderByField"></param>
         /// <param name="orderAsc"></param>
@@ -519,20 +519,20 @@ namespace AtNet.Cms.DAL
         /// <param name="pages"></param>
         /// <returns></returns>
         public DataTable GetPagedArchives(int siteId, int moduleId,
-            int lft, int rgt, string author,
+            int lft, int rgt, int publishId,
             string[,] flags, string orderByField, bool orderAsc,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
         {
             //SQL Condition Template
-            const string conditionTpl = "$[siteid]$[module]$[category]$[author]$[flags]";
+            const string conditionTpl = "$[siteid]$[module]$[category]$[publisher_id]$[flags]";
 
 
             //Get records count
             //{0}==$[condition]
 
             const string sql1 = @"SELECT TOP $[pagesize] a.id AS id,alias,title,
-                                    c.name as CategoryName,cid,flags,author,content,source,
+                                    c.name as CategoryName,cid,flags,publisher_id,content,source,
                                     createdate,viewcount,location,sort_number as sortNumber FROM $PREFIX_archive a
                                     INNER JOIN $PREFIX_category c ON a.cid=c.id
                                     WHERE $[condition] ORDER BY $[orderByField] $[orderASC],a.id";
@@ -557,8 +557,8 @@ namespace AtNet.Cms.DAL
                     case "module": return moduleId <= 0 ? ""
                         : String.Format(" AND m.id={0}", moduleId.ToString());
 
-                    case "author": return String.IsNullOrEmpty(author) ? null
-                        : String.Format(" AND author='{0}'", author);
+                    case "publisher_id": return publishId == 0? null
+                        : String.Format(" AND publisher_id='{0}'", publishId);
 
                     case "flags": return String.IsNullOrEmpty(flag) ? "" : " AND " + flag;
 
@@ -566,7 +566,7 @@ namespace AtNet.Cms.DAL
                 return null;
             });
 
-            // throw new Exception(new SqlQuery(base.OptimizeSQL(String.Format(SP.Archive_GetpagedArchivesCountSql, condition)));
+           // throw new Exception(base.OptimizeSql(String.Format(DbSql.Archive_GetpagedArchivesCountSql, condition)));
 
             //获取记录条数
             recordCount = int.Parse(base.ExecuteScalar(

@@ -16,6 +16,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -368,7 +369,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
         public void UpgradeStatus_POST()
         {
             float f = Updater.UpgradePercent;
-            base.Response.Write(f.ToString());
+            base.Response.Write(f.ToString(CultureInfo.InvariantCulture));
             if (f == 1F)
             {
                 Updater.ApplyCoreLib();

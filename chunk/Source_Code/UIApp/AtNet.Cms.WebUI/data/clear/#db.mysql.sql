@@ -332,7 +332,7 @@ CREATE TABLE `O_archives` (
   `id` varchar(16) NOT NULL,
   `alias` varchar(50) DEFAULT NULL,
   `cid` int(11) NOT NULL,
-  `author` varchar(50) DEFAULT NULL,
+  `publisher_id` varchar(50) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `source` varchar(50) DEFAULT NULL,
   `tags` varchar(100) DEFAULT NULL,

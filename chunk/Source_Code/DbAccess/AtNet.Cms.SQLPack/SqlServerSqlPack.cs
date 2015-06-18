@@ -12,8 +12,8 @@ namespace AtNet.Cms.Sql
             get
             {
                 return @"SELECT $PREFIX_archive.[ID],[strid],[alias],[cid],title,$PREFIX_archive.location,
-                        small_title,sort_number,[flags],thumbnail,author,
-                        [author],[viewcount],[lastmodifydate],[Tags],[Outline],[Content],[CreateDate] FROM $PREFIX_archive
+                        small_title,sort_number,[flags],thumbnail,publisher_id,
+                        publisher_id,[viewcount],[lastmodifydate],[Tags],[Outline],[Content],[CreateDate] FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON
                         $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE "
                     + SqlConst.Archive_NotSystemAndHidden + "  ORDER BY sort_number DESC";
@@ -24,7 +24,7 @@ namespace AtNet.Cms.Sql
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.[ID],[strid],[alias],cid,title,$PREFIX_archive.location,[flags],[Outline],author,tags,source,
+                return @"SELECT TOP {0} $PREFIX_archive.[ID],[strid],[alias],cid,title,$PREFIX_archive.location,[flags],[Outline],publisher_id,tags,source,
                         thumbnail,[Content],lastmodifydate,[CreateDate],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.[ID]=$PREFIX_archive.[cid]
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND (lft>=@lft AND rgt<=@rgt) 
@@ -75,7 +75,7 @@ namespace AtNet.Cms.Sql
             get
             {
                 return @"SELECT TOP {0} $PREFIX_archive.id,strid,[alias],cid,flags,title,$PREFIX_archive.location,
-                        outline,thumbnail,author,lastmodifydate,source,tags,
+                        outline,thumbnail,publisher_id,lastmodifydate,source,tags,
                         [content],[viewcount],[createdate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.[ID]=$PREFIX_archive.cid WHERE siteid=@siteId AND  tag=@tag AND " +
                         SqlConst.Archive_NotSystemAndHidden + @" ORDER BY sort_number DESC";
@@ -235,7 +235,7 @@ namespace AtNet.Cms.Sql
             get
             {
                 /*return @"SELECT TOP $[pagesize] a.[ID] AS [ID],[strid],[alias],title,$PREFIX_archive.location,thumbnail,
-                        c.[Name] as [CategoryName],[cid],[flags],[Author],[Content],[Source],
+                        c.[Name] as [CategoryName],[cid],[flags],publisher_id,[Content],[Source],
                         [CreateDate],[ViewCount] FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
                         ON a.cid=c.ID INNER JOIN $PREFIX_modules m ON c.[moduleid]=m.[id]
                         WHERE $[condition] AND a.[ID] NOT IN 
@@ -245,7 +245,7 @@ namespace AtNet.Cms.Sql
                         WHERE $[condition] ORDER BY [$[orderByField]] $[orderASC]) ORDER BY [$[orderByField]] $[orderASC]";*/
              
                 return @"SELECT * FROM (SELECT a.id AS id,strid,alias,title,
-                        a.location,thumbnail,c.name as categoryName,[cid],[flags],[author],[content],
+                        a.location,thumbnail,c.name as categoryName,[cid],[flags],publisher_id,[content],
                         [source],[createDate],[viewCount],
 						ROW_NUMBER()OVER(ORDER BY [$[orderByField]] $[orderASC]) as rowNum
 						FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
@@ -381,10 +381,10 @@ namespace AtNet.Cms.Sql
         {
             get
             {
-                return @"INSERT INTO $PREFIX_archive(strId,alias,cid,author,title,small_title,[flags],location,sort_number,
+                return @"INSERT INTO $PREFIX_archive(strId,alias,cid,publisher_id,title,small_title,[flags],location,sort_number,
                                     [Source],thumbnail,[Outline],[Content],[Tags],[Agree],[Disagree],[ViewCount],
                                     [CreateDate],[LastModifyDate])
-                                    VALUES(@strId,@alias,@CategoryId,@Author,@Title,@smallTitle,@Flags,@location,@sortNumber,
+                                    VALUES(@strId,@alias,@CategoryId,@publishId,@Title,@smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail ,@Outline,@Content,@Tags,0,0,0,@CreateDate,
                                     @LastModifyDate)";
             }

@@ -1,12 +1,12 @@
 ﻿//
 // Copyright 2011 @ S1N1.COM,All right reseved.
 // Name: ArchiveUtility.cs
-// Author: newmin
+// publisher_id: newmin
 // Comments:
 // -------------------------------------------
 // Modify:
 //  2011-06-04  newmin  [+]:添加查找栏目的方法
-//  2013-03-11  newmin  [+]:GetAuthorName方法
+//  2013-03-11  newmin  [+]:Getpublisher_idName方法
 //
 
 using System;
@@ -60,24 +60,25 @@ namespace AtNet.Cms.Utility
         /// <summary>
         /// 获取作者名称
         /// </summary>
-        /// <param name="author"></param>
+        /// <param name="publisherId"></param>
         /// <returns></returns>
-        public static string GetAuthorName(int publisherId)
+        public static string GetPublisherName(int publisherId)
         {
+            return "-";
 
             //todo:
             throw new NotImplementedException();
 
             return "";
-//            if (Regex.IsMatch(author, "^[a-z0-9_]+$"))
+//            if (Regex.IsMatch(publisher_id, "^[a-z0-9_]+$"))
 //            {
-//                User u = ubll.GetUser(author);
+//                User u = ubll.GetUser(publisher_id);
 //                if (u != null)
 //                {
 //                    return u.Name;
 //                }
 //            }
-//            return author;
+//            return publisher_id;
         }
 
         public static string GetFormatedOutline(string outline, string content, int contentLenLimit)

@@ -21,11 +21,11 @@ namespace AtNet.Cms.Domain.Interface.User
         /// <summary>
         /// 站点管理员
         /// </summary>
-        SiteOwner = 1 << 8,
+        SiteOwner = 1 << 1,
 
         /// <summary>
         /// 超级管理员
         /// </summary>
-        Master = 1 << 9
+        Master = 1 << 2
     }
 }

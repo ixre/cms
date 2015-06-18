@@ -11,7 +11,7 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.[id],[strid],[alias],[cid],[flags],[author],thumbnail,small_title,sort_number,
+                return @"SELECT $PREFIX_archive.[id],[strid],[alias],[cid],[flags],publisher_id,thumbnail,small_title,sort_number,
                         [viewcount],[lastModifyDate],title,$PREFIX_archive.location,[tags],[outline],[content],[createDate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE  " 
                         + SqlConst.Archive_NotSystemAndHidden +
@@ -24,9 +24,9 @@
             get
             {
                 return @"SELECT TOP {0} $PREFIX_archive.[ID],[strid],[alias],cid,
-                         title,location,[flags],thumbnail,author,][Outline],[Content],
+                         title,location,[flags],thumbnail,publisher_id,][Outline],[Content],
                         lastmodifydate,[CreateDate],[ViewCount],
-                        author,tags,source $PREFIX_category.[Name],$PREFIX_category.[Tag]
+                        publisher_id,tags,source $PREFIX_category.[Name],$PREFIX_category.[Tag]
                     FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.[ID]=$PREFIX_archive.[cid] WHERE
                     " + SqlConst.Archive_NotSystemAndHidden + @" AND (lft>=@lft AND rgt<=@rgt)
                     AND $PREFIX_category.siteId=@siteId  
@@ -75,7 +75,7 @@
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.[ID],[strid],[alias],cid,title,$PREFIX_archive.location,[flags],thumbnail,author,lastmodifydate,source,tags,
+                return @"SELECT TOP {0} $PREFIX_archive.[ID],[strid],[alias],cid,title,$PREFIX_archive.location,[flags],thumbnail,publisher_id,lastmodifydate,source,tags,
                         [Outline],[Content],[CreateDate],[ViewCount],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.cid WHERE siteid=@siteid AND  tag=@tag AND " +
@@ -225,7 +225,7 @@
             get
             {
                 return @"SELECT TOP $[pagesize] a.id AS id,[strid],[alias],title,a.location,thumbnail,
-                        c.[Name] as [categoryName],[cid],[flags],[author],[content],[source],
+                        c.[Name] as [categoryName],[cid],[flags],publisher_id,[content],[source],
                         [createDate],[viewCount] FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON a.cid=c.ID
                         WHERE $[condition] AND a.idNOT IN 
@@ -331,10 +331,10 @@
         {
             get
             {
-                return @"INSERT INTO $PREFIX_archive(strid,[alias],[cid],[Author],title,small_title,[flags],
+                return @"INSERT INTO $PREFIX_archive(strid,[alias],[cid],publisher_id,title,small_title,[flags],
                                     location,sort_number, [Source],[thumbnail],[Outline],[Content],[Tags],[Agree],[Disagree],[ViewCount],
                                     [CreateDate],[LastModifyDate])
-                                    VALUES(@strId,@alias,@CategoryId,@Author,@Title,@smallTitle,@Flags,@location,@sortNumber,
+                                    VALUES(@strId,@alias,@CategoryId,@publishId,@Title,@smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail,@Outline,@Content,@Tags,0,0,1,@CreateDate,@LastModifyDate)";
             }
         }

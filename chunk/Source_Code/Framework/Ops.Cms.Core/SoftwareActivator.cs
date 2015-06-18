@@ -3,7 +3,7 @@
 // 
 // Project: AtNet.Cms
 // FileName : SoftwareActivator.cs
-// Author : PC-CWLIU (new.min@msn.com)
+// author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/12/23 17:01:02
 // Description :
 //

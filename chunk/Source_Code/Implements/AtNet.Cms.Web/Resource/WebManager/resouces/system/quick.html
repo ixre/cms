@@ -24,7 +24,7 @@
 
   document.getElementById('btnfilter').onclick = function () {
       var uri = '?module=archive&action=list&moduleid=' + getSV('module') + '&categoryID=' + getSV('category') +
-       '&author=' + getSV('author') + '&visible=' + getSV('visible') + '&system=' + getSV('system') +
+       '&publisher_id=' + getSV('author') + '&visible=' + getSV('visible') + '&system=' + getSV('system') +
        '&special=' + getSV('special');
 
       if (location.search.indexOf('target=main') != -1) {

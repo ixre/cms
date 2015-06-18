@@ -2,7 +2,7 @@
  * Copyright 2010 OPS,All rights reseved !
  * 
  * name     : UserGroup
- * author   : newmin
+ * publisher_id   : newmin
  * date     : 2010/11/06 23:45
  * 
  */
