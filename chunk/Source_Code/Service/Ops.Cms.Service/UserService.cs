@@ -49,7 +49,11 @@ namespace AtNet.Cms.Service
         public UserDto GetUser(int id)
         {
             IUser user = this._userRepository.GetUser(id);
-            return UserDto.Convert(user);
+            if (user != null)
+            {
+                return UserDto.Convert(user);
+            }
+            return null;
         }
 
 

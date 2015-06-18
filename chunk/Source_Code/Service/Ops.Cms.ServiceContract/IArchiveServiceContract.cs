@@ -135,7 +135,7 @@ namespace AtNet.Cms.ServiceContract
         /// </summary>
         /// <param name="siteid"></param>
         /// <param name="categoryId"></param>
-        /// <param name="publishId"></param>
+        /// <param name="publisherId"></param>
         /// <param name="flags"></param>
         /// <param name="orderByField"></param>
         /// <param name="orderAsc"></param>
@@ -145,7 +145,7 @@ namespace AtNet.Cms.ServiceContract
         /// <param name="pages"></param>
         /// <returns></returns>
         DataTable GetPagedArchives(int siteid, int? categoryId,
-            int publishId, string[,] flags, 
+            int publisherId, string[,] flags, 
             string orderByField, bool orderAsc, int pageSize, 
             int currentPageIndex, out int recordCount, out int pages);
 

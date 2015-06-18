@@ -34,8 +34,11 @@
     <map for="Archive_Create" to="mui/html/archive/archive_create.html"/>
     <map for="Archive_Update" to="mui/html/archive/archive_update.html"/>
     <map for="Archive_List" to="mui/html/archive/archive_list.html"/>
-    <map for="Archive_View" to="mui/html/archive/archiveView.html"/>
+    <map for="Archive_View" to="mui/html/archive/archive_view.html"/>
     <map for="Archive_Forword" to="mui/html/archive/archive_forword.html"/>
+    <map for="Comment_List" to="mui/html/archive/comment_list.html"/>
+    <map for="Archive_Search" to="mui/html/archive/archive_search.html"/>
+    <map for="Archive_Tags" to="mui/html/archive/archive_tags.html"/>
     <map for="File_Manager" to="mui/html/file/file_manager.html"/>
     <map for="File_SelectEdit" to="mui/html/file/file_selectedit.html"/>
     <map for="File_Edit" to="mui/html/file/file_edit.html"/>

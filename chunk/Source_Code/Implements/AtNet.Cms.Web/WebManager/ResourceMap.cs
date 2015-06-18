@@ -14,8 +14,6 @@ using System.IO;
 using System.Web;
 using System.Web.Caching;
 using System.Xml;
-using AtNet.Cms;
-using AtNet.Cms.Cache;
 
 namespace AtNet.Cms.WebManager
 {
@@ -80,6 +78,10 @@ namespace AtNet.Cms.WebManager
         Archive_List,
         Archive_View,
         Archive_Forword,
+        Comment_List,
+        
+        Archive_Tags,
+        Archive_Search,
 
         /// <summary>
         /// 插件控制台
@@ -94,16 +96,16 @@ namespace AtNet.Cms.WebManager
         /// <summary>
         /// 子站首页
         /// </summary>
-        SUB_Index = 31,
+        SUB_Index = 41,
 
 
         /// <summary>
         /// 默认样式表
         /// </summary>
-        Css_Style = 60,
+        Css_Style = 70,
 
         //首页UI组件
-        UI_Index_Css = 61,
+        UI_Index_Css = 71,
         UI_Index_Custom_Js,
 
         //UI_Component,
@@ -115,9 +117,7 @@ namespace AtNet.Cms.WebManager
         Template_Setting,
         Template_Edit,
         Template_EditFile,
-        Template_Manager
-
-
+        Template_Manager,
     }
 
 
@@ -161,11 +161,18 @@ namespace AtNet.Cms.WebManager
                     _for = node.Attributes["for"].Value;
                     if (Enum.IsDefined(type, _for))
                     {
-                        pageSrcs.Add(
-                            (ManagementPage)Enum.Parse(type, _for),
-                            String.Concat(baseDir,
-                                node.Attributes["to"].Value)
+                        try
+                        {
+                            pageSrcs.Add(
+                                (ManagementPage) Enum.Parse(type, _for),
+                                String.Concat(baseDir,
+                                    node.Attributes["to"].Value)
                                 );
+                        }
+                        catch (ArgumentException exc)
+                        {
+                            throw new ArgumentException(exc.Message + ";" +( (ManagementPage)Enum.Parse(type, _for)).ToString());
+                        }
                     }
                 }
             }
@@ -189,7 +196,7 @@ namespace AtNet.Cms.WebManager
                         throw new Exception("页面不存在,PAGE:" + page.ToString());
                     }
 
-                    pagePath = AtNet.Cms.Cms.PyhicPath + pagePath;
+                    pagePath = Cms.PyhicPath + pagePath;
                     pageContent = File.ReadAllText( pagePath);
 
                     HttpRuntime.Cache.Insert(
@@ -222,7 +229,7 @@ namespace AtNet.Cms.WebManager
 
         private static string GetDebugContent(string filePath)
         {
-            string path = String.Concat(AtNet.Cms.Cms.PyhicPath, "//frameworkadmin/", filePath);
+            string path = String.Concat(AtNet.Cms.Cms.PyhicPath, "/framework/admin/", filePath);
             if (System.IO.File.Exists(path))
             {
                 return System.IO.File.ReadAllText(path);
@@ -230,32 +237,6 @@ namespace AtNet.Cms.WebManager
             else
             {
                 throw new FileNotFoundException("", path);
-            }
-        }
-
-
-
-
-        public static string SearchArchiveList
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/archivelist.html") : WebManagerResource.searchArchiveList;
-            }
-        }
-
-        public static string CommentList
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/commentList.html") : WebManagerResource.commentList;
-            }
-        }
-        public static string TagsIndex
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/tagsIndex.html") : WebManagerResource.tagsIndex;
             }
         }
 

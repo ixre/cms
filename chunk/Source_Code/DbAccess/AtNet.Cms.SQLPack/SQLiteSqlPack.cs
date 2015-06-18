@@ -348,7 +348,7 @@
                 return @"INSERT INTO $PREFIX_archive(strid,[alias],[cid],publisher_id,title,small_title,[flags],location,sort_number,
                                     [Source],[thumbnail],[Outline],[Content],[Tags],[Agree],[Disagree],[ViewCount],
                                     [CreateDate],[LastModifyDate])
-                                    VALUES(@strId,@alias,@CategoryId,@publishId,@Title,@smallTitle,@Flags,@location,@sortNumber,
+                                    VALUES(@strId,@alias,@CategoryId,@publisherId,@Title,@smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail,@Outline,@Content,@Tags,0,0,1,@CreateDate,
                                     @LastModifyDate)";
             }

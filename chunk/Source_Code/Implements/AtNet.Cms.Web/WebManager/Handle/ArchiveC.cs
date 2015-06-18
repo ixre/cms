@@ -49,9 +49,9 @@ namespace AtNet.Cms.Web.WebManager.Handle
         {
             object data;
             string tpls,
-                   nodesHtml,                                                                                 //栏目JSON
-                   extendFieldsHtml = "",                                                                           //属性Html
-                   extendItemsHtml = "";
+                nodesHtml,
+                //栏目JSON
+                extendFieldsHtml = "";                                                                 //属性Html
 
             Module module;
 
@@ -189,15 +189,13 @@ namespace AtNet.Cms.Web.WebManager.Handle
             data = new
             {
                 extendFieldsHtml = extendFieldsHtml,
-                extendItemsHtml = extendItemsHtml,
+                extend_cls = category.ExtendFields.Count == 0 ? "hidden" : "",
                 thumbPrefix = CmsVariables.Archive_ThumbPrefix,
                 nodes = nodesHtml,
                 url = Request.Url.PathAndQuery,
                 tpls = tpls,
                 json = JsonSerializer.Serialize(json)
             };
-
-
 
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_Create), data);
         }
@@ -245,10 +243,9 @@ namespace AtNet.Cms.Web.WebManager.Handle
 
             object data;
             int archiveId = int.Parse(base.Request["archive.id"]);
-            string tpls,
-               nodesHtml,                                                      //栏目JSON
-               extendFieldsHtml = "",                                         //属性Html
-               extendItemsHtml = "";
+            string tpls,nodesHtml,
+                //栏目JSON
+                extendFieldsHtml = "";                                        //属性Html
 
             Module module;
 
@@ -499,7 +496,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
             data = new
             {
                 extendFieldsHtml = extendFieldsHtml,
-                extendItemsHtml = extendItemsHtml,
+                extend_cls = archive.ExtendValues.Count == 0 ? "hidden" : "",
                 thumbPrefix = CmsVariables.Archive_ThumbPrefix,
                 nodes = nodesHtml,
                 url = Request.Url.PathAndQuery,
@@ -660,7 +657,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
                    _system = request["system"],
             _aspage = request["aspage"];
 
-            int _publishId = int.Parse(request["publisher_id"]??"0");
+            int _publisherId = int.Parse(request["publisher_id"]??"0");
 
             StringBuilder sb = new StringBuilder();
             string categoryOpts,                 //栏目Options
@@ -761,7 +758,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
             };
 
             //文档数据表,并生成Html
-            DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId, _publishId, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
+            DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId, _publisherId, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
 
 
             //moduleID == null ? CmsLogic.Archive.GetPagedArchives(categoryID, _publisher_id,flags, null, false, pageSize, pageIndex, out recordCount, out pages)
@@ -819,7 +816,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
 
 
             string format = String.Format("?module=archive&action=list&categoryID={0}&moduleID={1}&page={2}&size={3}&publisher_id={4}&visible={5}&special={6}&system={7}",
-                _categoryId, _moduleId, "{0}", pageSize, _publishId, _visible, _special, _system);
+                _categoryId, _moduleId, "{0}", pageSize, _publisherId, _visible, _special, _system);
 
             pagerHtml = Helper.BuildPagerInfo(format, pageIndex, recordCount, pages);
 
@@ -830,7 +827,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
             {
                 moduleID = _moduleId ?? String.Empty,
                 categoryID = _categoryId ?? String.Empty,
-                username = _publishId
+                username = _publisherId
             };
 
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_List), data);
@@ -860,8 +857,8 @@ namespace AtNet.Cms.Web.WebManager.Handle
                    _system = request["lb_system"] ?? "-1",
                    _aspage = request["lb_page"] ?? "-1";
 
-            int _publishId ;
-            int.TryParse(request["publisher_id"],out _publishId);
+            int _publisherId ;
+            int.TryParse(request["publisher_id"],out _publisherId);
 
             if (_categoryId != null)
             {
@@ -900,7 +897,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
 
             //文档数据表,并生成Html
             DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId,
-                _publishId, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
+                _publisherId, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -927,12 +924,12 @@ namespace AtNet.Cms.Web.WebManager.Handle
             int id = int.Parse(base.Request["archive.id"]);
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
             //User author = CmsLogic.User.GetUser(archive.Author);
-            UserDto user = ServiceCall.Instance.UserService.GetUser(archive.Id); //todo: get by author
+            UserDto user = ServiceCall.Instance.UserService.GetUser(archive.PublisherId);
 
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_View), new
             {
                 title = archive.Title,
-                author = user == null ? "" : user.Name,
+                publisherName = user == null ? "" : user.Name,
                 publishdate = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate),
                 content = archive.Content,
                 thumbnail = archive.Thumbnail,
@@ -1067,7 +1064,7 @@ namespace AtNet.Cms.Web.WebManager.Handle
                 };
 
             }
-            base.RenderTemplate(ResourceMap.SearchArchiveList, data);
+            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_Search), data);
 
         }
         /// <summary>
@@ -1133,14 +1130,15 @@ namespace AtNet.Cms.Web.WebManager.Handle
 
             object data = new
             {
-                archiveID = archive.StrId,
-                archiveTitle = archive.Title,
-                author = archive.PublisherId,
-                publishDate = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate),
+                archive_id = archive.StrId,
+                archive_title = archive.Title,
+                publisher_name = archive.PublisherId,
+                publish_date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate),
                 commentListHtml = commentListHtml
             };
 
-            base.RenderTemplate(ResourceMap.CommentList, data);
+            //base.RenderTemplate(ResourceMap.CommentList, data);
+            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Comment_List),data);
         }
 
         public void Forword_GET()
@@ -1289,13 +1287,16 @@ namespace AtNet.Cms.Web.WebManager.Handle
             string css = "<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + AtNet.Cms.Cms.Version + ".css\"/>";
 
             int siteId = this.CurrentSite.SiteId;
-            GetTags(siteId).ProcessRequest(HttpContext.Current, ResourceMap.TagsIndex.Replace("$js()", js).Replace("$css()", css));
+            String content = ResourceMap.GetPageContent(ManagementPage.Archive_Tags);
+            GetTags(siteId).ProcessRequest(HttpContext.Current, content.Replace("$js()", js).Replace("$css()", css));
         }
 
         public void TagsIndex_POST()
         {
             int siteId = this.CurrentSite.SiteId;
-            GetTags(siteId).ProcessRequest(HttpContext.Current, ResourceMap.TagsIndex);
+
+            String content = ResourceMap.GetPageContent(ManagementPage.Archive_Tags);
+            GetTags(siteId).ProcessRequest(HttpContext.Current, content);
         }
 
         #endregion

@@ -8,12 +8,12 @@ namespace AtNet.Cms.ServiceRepository.Query
         private ArchiveDal dal = new ArchiveDal();
 
         public DataTable GetPagedArchives(int siteId, int lft,int rgt , 
-            int publishId, string[,] flags, string orderByField, bool orderAsc, 
+            int publisherId, string[,] flags, string orderByField, bool orderAsc, 
             int pageSize, int currentPageIndex, 
             out int recordCount, out int pages)
         {
             return dal.GetPagedArchives(siteId,-1,
-            lft, rgt, publishId,
+            lft, rgt, publisherId,
             flags, orderByField,
             orderAsc,pageSize,
             currentPageIndex,

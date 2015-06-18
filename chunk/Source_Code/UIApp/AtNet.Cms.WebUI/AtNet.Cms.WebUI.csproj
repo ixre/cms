@@ -179,15 +179,15 @@
     <Content Include="framework\mui\html\welcome.html" />
     <Content Include="framework\mui\html\index_master.html" />
     <Content Include="framework\mui\html\login.html" />
-    <Content Include="framework\mui\html\archive\archiveView.html" />
+    <Content Include="framework\mui\html\archive\archive_view.html" />
     <Content Include="framework\mui\html\archive\archive_create.html" />
     <Content Include="framework\mui\html\archive\archive_list.html" />
     <Content Include="framework\mui\html\archive\archive_update.html">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="framework\mui\html\archive\commentList.html" />
-    <Content Include="framework\mui\html\archive\searchArchiveList.html" />
-    <Content Include="framework\mui\html\archive\tagsIndex.html" />
+    <Content Include="framework\mui\html\archive\comment_list.html" />
+    <Content Include="framework\mui\html\archive\archive_search.html" />
+    <Content Include="framework\mui\html\archive\archive_tags.html" />
     <Content Include="framework\mui\html\category\categoryTree2.html" />
     <Content Include="framework\mui\html\category\category_create.html" />
     <Content Include="framework\mui\html\category\category_edit.html" />

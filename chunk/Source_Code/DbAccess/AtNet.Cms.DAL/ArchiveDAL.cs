@@ -33,7 +33,7 @@ namespace AtNet.Cms.DAL
                 {"@strId", strId},
                 {"@alias", alias},
                 {"@CategoryId", categoryId},
-                {"@publisher_id", publisherId},
+                {"@publisherId", publisherId},
                 {"@Title", title},
                 {"@smallTitle", smallTitle??""},
                 {"@Flags",flags},
@@ -509,7 +509,7 @@ namespace AtNet.Cms.DAL
         /// <param name="rgt"></param>
         /// <param name="siteId"></param>
         /// <param name="moduleId">参数暂时不使用为-1</param>
-        /// <param name="publishId"></param>
+        /// <param name="publisherId"></param>
         /// <param name="flags"></param>
         /// <param name="orderByField"></param>
         /// <param name="orderAsc"></param>
@@ -519,7 +519,7 @@ namespace AtNet.Cms.DAL
         /// <param name="pages"></param>
         /// <returns></returns>
         public DataTable GetPagedArchives(int siteId, int moduleId,
-            int lft, int rgt, int publishId,
+            int lft, int rgt, int publisherId,
             string[,] flags, string orderByField, bool orderAsc,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
@@ -557,8 +557,8 @@ namespace AtNet.Cms.DAL
                     case "module": return moduleId <= 0 ? ""
                         : String.Format(" AND m.id={0}", moduleId.ToString());
 
-                    case "publisher_id": return publishId == 0? null
-                        : String.Format(" AND publisher_id='{0}'", publishId);
+                    case "publisher_id": return publisherId == 0? null
+                        : String.Format(" AND publisher_id='{0}'", publisherId);
 
                     case "flags": return String.IsNullOrEmpty(flag) ? "" : " AND " + flag;
 

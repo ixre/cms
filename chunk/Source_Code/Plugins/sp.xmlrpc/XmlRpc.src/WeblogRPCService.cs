@@ -28,12 +28,14 @@ using AtNet.Cms;
 using AtNet.Cms.CacheService;
 using AtNet.Cms.DataTransfer;
 using AtNet.Cms.Domain.Interface.Content.Archive;
-using AtNet.Cms.Domain.Interface._old;
 using AtNet.Cms.BLL;
 using Post = CookComputing.MetaWeblog.Post;
 using AtNet.Cms.Conf;
 using AtNet.Cms.Domain.Interface.Models;
+using AtNet.Cms.Domain.Interface.User;
+using AtNet.Cms.Domain.Interface.Value;
 using Ops.Cms.XmlRpc;
+using IUser = AtNet.Cms.Domain.Interface._old.IUser;
 
 namespace sp.xmlrpc.XmlRpc.src
 {
@@ -423,8 +425,6 @@ namespace sp.xmlrpc.XmlRpc.src
             UserDto user;
             if ((user = ValidUser(username, password)) != null)
             {
-                User usr = ubll.GetUser(username);
-
                 int totalRecords, pages;
 
                 string[,] flags = new string[,]{
@@ -436,7 +436,7 @@ namespace sp.xmlrpc.XmlRpc.src
 
                 DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(
                     this.siteId, null,
-                    usr.Group == UserGroups.Master ? null : username, flags, null,
+                    (user.RoleFlag & (int)RoleTag.Master)  != 0?0: user.Id, flags, null,
                     false, numberOfPosts, 1, out totalRecords, out pages);
 
                 //如果返回的数量没有制定数多

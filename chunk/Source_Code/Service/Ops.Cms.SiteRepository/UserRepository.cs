@@ -13,7 +13,7 @@ namespace AtNet.Cms.ServiceRepository
     public class UserRepository : IUserRepository
     {
         private readonly UserCreator _creator;
-        private IUserDal _userDal;
+        private readonly IUserDal _userDal;
 
         public UserRepository()
         {
@@ -55,11 +55,8 @@ namespace AtNet.Cms.ServiceRepository
             {
                 if (rd.Read())
                 {
-                   // CREATE TABLE "cms_user" ("id" INTEGER PRIMARY KEY  NOT NULL ,"name" varchar(50),"avatar" varchar(100) DEFAULT (null) 
-                    //,"phone" VARCHAR(20),"email" VARCHAR(50),
-                  //  "check_code" varchar(10) DEFAULT (null) ,"create_time" DATETIME DEFAULT (null) ,"last_login_time" DATETIME, "role_flag" INTEGER)
-
-                    user = this.CreateUser(rd.GetInt32(0), rd["role_flag"] == DBNull.Value ? 1 : Convert.ToInt32(rd["role_flag"]));
+                    user = this.CreateUser(Convert.ToInt32(rd["id"]), rd["role_flag"] == DBNull.Value ? 1 : 
+                        Convert.ToInt32(rd["role_flag"]));
                     user.Name = rd["name"].ToString();
                     user.AppId = rd["app_id"] == DBNull.Value ? 0 : Convert.ToInt32(rd["app_id"]);
                     user.CreateTime = Convert.ToDateTime(rd["create_time"]);
