@@ -8,7 +8,6 @@ chunk/Source_Code/*.dll
 /chunk/Source_Code/UIApp/Ops.Cms.WebUI/config/cms.config.mssql
 /chunk/Source_Code/Framework/Ops.Cms.Cache/CacheCompoment
 bin
-plugins
 tmp
 bootstrap
 /chunk/dist/atnet.devfw.dll
@@ -17,3 +16,4 @@ bootstrap
 /chunk/dist/Newtonsoft.Json.dll
 /chunk/dist/atnet.cms.extend.dll
 /chunk/Source_Code/UIApp/Ops.Cms.WebUI/config/cache.pid
+/chunk/dist/plugins
