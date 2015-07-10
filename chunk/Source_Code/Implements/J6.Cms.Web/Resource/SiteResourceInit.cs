@@ -28,7 +28,7 @@ namespace J6.Cms.Resource
                 cssComment + ResourceUtility.CompressHtml(SiteResource.template), !true);
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "core.js", 
-                comment + SiteResource.js_core, !true);
+                comment + SiteResource.cms_core_min, !true);
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "api.js",
                comment + SiteResource.js_cms_api, !true);

@@ -241,11 +241,11 @@
     <None Include="Resource\j6.cms.resource.snk" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resource\SiteResouce\js_core.js" />
+    <None Include="Resource\SiteResouce\cms.core_min.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="install\db\mysql.sql" />
-    <Content Include="Resource\SiteResouce\global-source.js" />
+    <Content Include="Resource\SiteResouce\cms.core.js" />
     <Content Include="Resource\SiteResouce\jslib\js_lib_animation.js" />
     <Content Include="Resource\SiteResouce\jslib\js_lib_dialog.js" />
     <Content Include="Resource\SiteResouce\jslib\js_lib_datagrid.js" />

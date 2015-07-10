@@ -121,8 +121,8 @@
   <data name="js_cms_api" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SiteResouce\jslib\js_cms_api.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="js_core" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>SiteResouce\js_core.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="cms_core_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SiteResouce\cms.core_min.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="js_lib_animation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SiteResouce\jslib\js_lib_animation.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
