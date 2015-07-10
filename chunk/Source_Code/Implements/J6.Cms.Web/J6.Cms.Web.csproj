@@ -268,7 +268,7 @@
     <Content Include="Resource\WebManager\resouces\images\sysset.conf.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Resource\WebManager\resouces\images\ui.component.js" />
+    <EmbeddedResource Include="Resource\WebManager\resouces\images\ui.component.js" />
     <Content Include="Resource\WebManager\resouces\images\ui.component.source.js" />
     <Content Include="Resource\WebManager\resouces\module\editModule.html" />
     <Content Include="Resource\WebManager\resouces\module\moduleList.html" />
@@ -290,8 +290,8 @@
     <None Include="Resource\WebManager\resouces\images\sysindex.gif" />
     <None Include="Resource\WebManager\resouces\images\sys_tab.gif" />
     <None Include="Resource\WebManager\resouces\images\sys_bg.gif" />
-    <None Include="Resource\WebManager\resouces\images\script_source.js" />
-    <None Include="Resource\WebManager\resouces\images\script.js" />
+    <None Include="Resource\WebManager\resouces\images\manage.js_source.js" />
+    <EmbeddedResource Include="Resource\WebManager\resouces\images\manage.js_min.js" />
     <None Include="Resource\WebManager\resouces\images\cms_top_logo.gif" />
     <None Include="Resource\WebManager\resouces\images\ajax-loader.gif" />
     <None Include="Resource\SiteResouce\jslib\js_lib_upload.js" />
@@ -303,7 +303,7 @@
       <LastGenOutput>SiteResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource\WebManager\WebManagerResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>WebManagerResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -311,7 +311,6 @@
   <ItemGroup>
     <Folder Include="Resource\SiteResouce\tpl_packs\" />
     <Folder Include="Resource\WebManager\resouces\images\sprite\" />
-    <Folder Include="Resource\WebManager\resouces\tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

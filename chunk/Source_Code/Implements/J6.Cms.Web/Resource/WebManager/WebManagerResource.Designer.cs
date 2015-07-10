@@ -22,7 +22,7 @@ namespace J6.Cms.Web.Resource.WebManager {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class WebManagerResource {
+    public class WebManagerResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("J6.Cms.Web.Resource.WebManager.WebManagerResource", typeof(WebManagerResource).Assembly);
@@ -51,7 +51,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -83,7 +83,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///           msg.innerHTML = &apos;更新中....&apos;;
         ///        [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string archiveTagReplace {
+        public static string archiveTagReplace {
             get {
                 return ResourceManager.GetString("archiveTagReplace", resourceCulture);
             }
@@ -106,7 +106,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///        &lt;a href=&quot;?module=table&amp;action=rows&amp;control=true&amp;tableid=${tableid}&quot;&gt;数据&lt;/a&gt;
         ///        &lt;span class=&quot;meta&quot;&gt;表名：&lt;span&gt;${tablename}&lt;/span&gt;&lt;/spa [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string columns {
+        public static string columns {
             get {
                 return ResourceManager.GetString("columns", resourceCulture);
             }
@@ -128,7 +128,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///	&lt;/body&gt;
         ///&lt;/html&gt; 的本地化字符串。
         /// </summary>
-        internal static string createdatapickerproject {
+        public static string createdatapickerproject {
             get {
                 return ResourceManager.GetString("createdatapickerproject", resourceCulture);
             }
@@ -151,7 +151,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///	&lt;/body&gt;
         ///&lt;/html&gt; 的本地化字符串。
         /// </summary>
-        internal static string datapicker {
+        public static string datapicker {
             get {
                 return ResourceManager.GetString("datapicker", resourceCulture);
             }
@@ -173,7 +173,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///        &lt;a href=&quot;?module=table&amp;amp;action=rows&amp;amp;control=true&amp;amp;tableid=${tableid}&quot;&gt;数据&lt;/a&gt;
         ///       [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string editcolumn {
+        public static string editcolumn {
             get {
                 return ResourceManager.GetString("editcolumn", resourceCulture);
             }
@@ -196,7 +196,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///            &lt;dt&gt;模块名称：&lt;/dt&gt;&lt;dd&gt;&lt;input type=&quot;text&quot; class=&quot;tb_normal ui-validate&quot; required=&quot;true&quot; length=&quot;[0,10]&quot; field=&quot;tplname&quot; value=&quot;${tplName}&quot; summary=&quot;{required:&apos;不能为空&apos;,length:&apos;不能超过10个字&apos;}&quot;/&gt;&lt;/dd&gt;&lt;/dl&gt;
         ///        [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string editModule {
+        public static string editModule {
             get {
                 return ResourceManager.GetString("editModule", resourceCulture);
             }
@@ -221,7 +221,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///
         ///        &lt;div class=&quot;are [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string edittable {
+        public static string edittable {
             get {
                 return ResourceManager.GetString("edittable", resourceCulture);
             }
@@ -230,7 +230,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找类似 &lt;span style=&quot;color:red&quot;&gt;√&lt;/span&gt; 的本地化字符串。
         /// </summary>
-        internal static string errorText {
+        public static string errorText {
             get {
                 return ResourceManager.GetString("errorText", resourceCulture);
             }
@@ -239,7 +239,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap guest_avatar {
+        public static System.Drawing.Bitmap guest_avatar {
             get {
                 object obj = ResourceManager.GetObject("guest_avatar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -263,9 +263,19 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///&lt;/html&gt;
         /// 的本地化字符串。
         /// </summary>
-        internal static string index_main {
+        public static string index_main {
             get {
                 return ResourceManager.GetString("index_main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //Core
+        ///function j6l() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } j6l.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = f[f.length - 1]; var g = s.src; this.__WORKPATH__ = g.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (!document.getElementsByClassName) { document.getElementsByClassName = function (a, b) { if (b &amp;&amp; !b.nodeName) { b = document.getElementById(b) } var  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string manage_js_min {
+            get {
+                return ResourceManager.GetString("manage_js_min", resourceCulture);
             }
         }
         
@@ -294,7 +304,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///    var b = confirm(&apos;是否删除改会员的评论及文章信息?&apos;);
         ///    cms.xhr.post(&apos;/app.axd&apos;, &apos;do=member:delete:&apos; + id +  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string memberList {
+        public static string memberList {
             get {
                 return ResourceManager.GetString("memberList", resourceCulture);
             }
@@ -323,7 +333,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///        &lt;th width=&quot;100&quot;&gt;&lt;span class=&quot;th&quot;&gt;模块名称&lt;/span&gt;&lt;/th&gt;
         ///        &lt;th width=&quot;60&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string moduleList {
+        public static string moduleList {
             get {
                 return ResourceManager.GetString("moduleList", resourceCulture);
             }
@@ -353,7 +363,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///        &lt;th width=&quot;40&quot;&gt;编号&lt;/th&gt;
         /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string operationList {
+        public static string operationList {
             get {
                 return ResourceManager.GetString("operationList", resourceCulture);
             }
@@ -376,7 +386,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///&lt;/html&gt;
         /// 的本地化字符串。
         /// </summary>
-        internal static string pageLoading {
+        public static string pageLoading {
             get {
                 return ResourceManager.GetString("pageLoading", resourceCulture);
             }
@@ -403,7 +413,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///    &lt;form action=&quot;?module=system&amp;action=patchupload&quot; method=&quot;post&quot;  enctype=&quot;multipart/form-data&quot;&gt;
         ///        上传补丁：&lt;input type=&quot;file&quot; name=&quot;patchfile&quot;  id=&quot;patchfi [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string patch {
+        public static string patch {
             get {
                 return ResourceManager.GetString("patch", resourceCulture);
             }
@@ -412,7 +422,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找类似 &lt;span style=&quot;color:green&quot;&gt;√&lt;/span&gt; 的本地化字符串。
         /// </summary>
-        internal static string rightText {
+        public static string rightText {
             get {
                 return ResourceManager.GetString("rightText", resourceCulture);
             }
@@ -450,18 +460,9 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///
         ///    var [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string rows {
+        public static string rows {
             get {
                 return ResourceManager.GetString("rows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 function js() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } js.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = f[f.length - 1]; var g = s.src; this.__WORKPATH__ = g.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (!document.getElementsByClassName) { document.getElementsByClassName = function (a, b) { if (b &amp;&amp; !b.nodeName) { b = document.getElementById(b) } var c = (b ||  [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        internal static string script {
-            get {
-                return ResourceManager.GetString("script", resourceCulture);
             }
         }
         
@@ -484,7 +485,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///            &lt;div&gt;选择用户组：&lt;select class=&quot;tb_normal&quot;id=&quot;groups&quot;&gt;${usergroups}&lt;/select&gt;&lt;br /&gt;&lt;/div&gt;
         /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string setPermissions {
+        public static string setPermissions {
             get {
                 return ResourceManager.GetString("setPermissions", resourceCulture);
             }
@@ -506,7 +507,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///      .topbar span{display:block;float:left;text-align:center;}
         ///      .tb_normal{wi [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string setProperties {
+        public static string setProperties {
             get {
                 return ResourceManager.GetString("setProperties", resourceCulture);
             }
@@ -515,7 +516,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap sys_bg {
+        public static System.Drawing.Bitmap sys_bg {
             get {
                 object obj = ResourceManager.GetObject("sys_bg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -525,7 +526,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap sys_tab {
+        public static System.Drawing.Bitmap sys_tab {
             get {
                 object obj = ResourceManager.GetObject("sys_tab", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -535,7 +536,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap sysindex {
+        public static System.Drawing.Bitmap sysindex {
             get {
                 object obj = ResourceManager.GetObject("sysindex", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -545,7 +546,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap syslogin {
+        public static System.Drawing.Bitmap syslogin {
             get {
                 object obj = ResourceManager.GetObject("syslogin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -555,7 +556,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap syslogin_bg {
+        public static System.Drawing.Bitmap syslogin_bg {
             get {
                 object obj = ResourceManager.GetObject("syslogin_bg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -571,9 +572,9 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///        &lt;link href=&quot;?module=system&amp;amp;action=welcome&quot; text=&quot;欢迎首页&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
         ///        &lt;link href=&quot;?module=system&amp;amp;action=serverSummary&quot; text=&quot;系统运行信息&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
         ///        &lt;link href=&quot;http://www.j6.cc/cms/help.html&quot; text=&quot;帮助指南&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
-        ///        &lt;link href=&quot;http://www.j6.cc/cms/about.html&quot; text=&quot;关于系统&quot; title=&quot;&quot; sitei [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///        &lt;link href=&quot;http://www.j6.cc/cms/about.html&quot; text=&quot;关于系统&quot; title=&quot;&quot; siteid= [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string sysset_conf {
+        public static string sysset_conf {
             get {
                 return ResourceManager.GetString("sysset_conf", resourceCulture);
             }
@@ -602,7 +603,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///        &lt;th width=&quot;90&quot;&gt;行(点击查看)&lt;/th&gt;
         ///        &lt;th wi [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string tables {
+        public static string tables {
             get {
                 return ResourceManager.GetString("tables", resourceCulture);
             }
@@ -611,7 +612,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找类似 eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p }(&apos;4(!9.17){9.17=\&apos;2T\&apos;}9.2U=[];9.2V=s;4(9.28==1K){12.1L.29(9.17+\&apos;?1q=1r&amp;1s=2W\&apos;,6(x){3 a,2X,2a,2b;2Y(x);9 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string ui_component {
+        public static string ui_component {
             get {
                 return ResourceManager.GetString("ui_component", resourceCulture);
             }

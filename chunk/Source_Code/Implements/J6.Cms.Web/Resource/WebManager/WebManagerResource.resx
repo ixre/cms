@@ -440,8 +440,8 @@
   <data name="rows" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resouces\table\rows.html;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resouces\images\script.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="manage_js_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resouces\images\manage.js_min.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="setPermissions" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resouces\user\setPermissions.html;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

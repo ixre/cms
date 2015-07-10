@@ -16,7 +16,7 @@ namespace J6.Cms
             string directory = domain.BaseDirectory;
             string resolveDirName = CmsVariables.FRAMEWORK_ASSEMBLY_PATH;
             //
-            //设为隐藏目录
+            //设为隐藏目录 
             //
 			domain.AssemblyResolve+= delegate(object sender, ResolveEventArgs args) 
 			{

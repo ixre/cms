@@ -8,7 +8,6 @@ namespace J6.Cms.Resource
     using System.Linq;
     using System.Text;
     using System.IO;
-    using J6.Cms.Web.Resource.WebManager;
     using SharpCompress.Archive;
     using SharpCompress.Common;
     using J6.Cms.Web.Resource;

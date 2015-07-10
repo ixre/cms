@@ -93,7 +93,8 @@ namespace J6.Cms.Web.Resource {
         ///                uri += &apos;&amp;&apos; + key + &apos;=&apos; + params[key];
         ///            }
         ///            j6.xhr.request({ uri: uri, params: {}, method: &apos;GET&apos;, data: &apos;json&apos; }, {
-        ///                success: call,        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///                success: call,
+        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_cms_api {
             get {

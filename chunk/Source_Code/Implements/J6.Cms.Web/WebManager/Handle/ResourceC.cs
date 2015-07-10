@@ -22,10 +22,13 @@ using System.Text.RegularExpressions;
 using System.Web;
 using J6.Cms.Conf;
 using J6.Cms.Resource;
-using J6.Cms.Web.Resource.WebManager;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Web.Cache;
+using J6.Cms.Web.Resource;
+using J6.Cms.Web.Resource.WebManager;
 
+
+// http://bbs.csdn.net/topics/300217787 #17
 namespace J6.Cms.Web.WebManager.Handle
 {
     public class ResourceC
@@ -41,7 +44,7 @@ namespace J6.Cms.Web.WebManager.Handle
             fileMImE.Add("syslogin_bg", "image/gif");
             fileMImE.Add("sysindex", "image/png");
             fileMImE.Add("style", "text/css");
-            fileMImE.Add("script", "text/javascript");
+            fileMImE.Add("manage_js_min", "text/javascript");   //bWFuYWdlX2pzX21pbg==
             fileMImE.Add("ajax_loader", "image/gif");
             fileMImE.Add("menu_01", "image/gif");
             fileMImE.Add("menu_01_bg", "image/gif");
@@ -69,7 +72,9 @@ namespace J6.Cms.Web.WebManager.Handle
             ms.Dispose();
             throw new Exception(x);
 			*/
-            //context.Response.Write(Convert.ToBase64String(Encoding.UTF8.GetBytes("ui_component"))); return;
+
+           //String resName =Encoding.UTF8.GetString(Convert.FromBase64String(context.Request["res"]));
+           //context.Response.Write(resName+"/"+Convert.ToBase64String(Encoding.UTF8.GetBytes("manage_js_min"))); return;
             
 
             /* To Base64 */
@@ -175,12 +180,10 @@ namespace J6.Cms.Web.WebManager.Handle
                             ResourceUtility.CompressHtml(
                             ResourceMap.GetPageContent(ManagementPage.Css_Style)
                             ));
-
-                     }
+                    }
                      else
                      {
                          context.Response.Write(ResourceUtility.CompressHtml(WebManagerResource.ResourceManager.GetString(filename)));
-
                      }
                 }
 

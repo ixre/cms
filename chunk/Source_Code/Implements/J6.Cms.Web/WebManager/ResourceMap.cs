@@ -1,5 +1,4 @@
 ﻿using J6.Cms.Cache;
-using J6.Cms.Web.Resource.WebManager;
 /*
  * Created by SharpDevelop.
  * User: newmin
@@ -14,6 +13,9 @@ using System.IO;
 using System.Web;
 using System.Web.Caching;
 using System.Xml;
+using J6.Cms.Web;
+using J6.Cms.Web.Resource;
+using J6.Cms.Web.Resource.WebManager;
 
 namespace J6.Cms.WebManager
 {
