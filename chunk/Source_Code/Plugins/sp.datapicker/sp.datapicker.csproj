@@ -38,11 +38,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\atnet.devfw.dll</HintPath>
     </Reference>
-    <Reference Include="AtNet.DevFw.Toolkit.NetCrawl">
-      <HintPath>..\..\..\refrence.dll\AtNet.DevFw.Toolkit.NetCrawl.dll</HintPath>
+    <Reference Include="J6.DevFw.Toolkit.NetCrawl">
+      <HintPath>..\..\..\refrence.dll\J6.DevFw.Toolkit.NetCrawl.dll</HintPath>
     </Reference>
-    <Reference Include="AtNet.DevFw.Toolkit.Tags">
-      <HintPath>..\..\..\refrence.dll\AtNet.DevFw.Toolkit.Tags.dll</HintPath>
+    <Reference Include="J6.DevFw.Toolkit.Tags">
+      <HintPath>..\..\..\refrence.dll\J6.DevFw.Toolkit.Tags.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

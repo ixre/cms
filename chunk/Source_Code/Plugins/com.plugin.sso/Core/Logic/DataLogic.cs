@@ -16,9 +16,9 @@ using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
 using com.plugin.sso.Core.ILogic;
-using AtNet.DevFw.Data;
-using AtNet.DevFw.Framework.Extensions;
-using AtNet.DevFw.Toolkit.Data.Export;
+using J6.DevFw.Data;
+using J6.DevFw.Framework.Extensions;
+using J6.DevFw.Toolkit.Data.Export;
 
 namespace com.plugin.sso.Core.Logic
 {

@@ -13,12 +13,12 @@ namespace CMS.Web.Controllers
     using System;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
-    using Ops.Cms;
-    using Ops.Cms.BLL;
-    using Ops.Cms.Models;
-    using Ops.Data;
-    using Ops.Graphic;
-    using Ops.Template;
+    using J6.Cms;
+    using J6.Cms.BLL;
+    using J6.Cms.Models;
+    using J6.Data;
+    using J6.Graphic;
+    using J6.Template;
 
     /// <summary>
     /// 
@@ -54,7 +54,7 @@ namespace CMS.Web.Controllers
         [ValidateInput(false)]
         public void Admin()
         {
-            global::Ops.Cms.WebManager.Logic.Request(System.Web.HttpContext.Current);
+            global::J6.Cms.WebManager.Logic.Request(System.Web.HttpContext.Current);
         }
 
         /// <summary>

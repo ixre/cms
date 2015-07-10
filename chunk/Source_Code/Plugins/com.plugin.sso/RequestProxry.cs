@@ -10,9 +10,9 @@
  */
 
 using System.Web;
-using AtNet.DevFw.PluginKernel;
-using AtNet.Cms.Utility;
-using AtNet.DevFw.Web.Plugin;
+using J6.DevFw.PluginKernel;
+using J6.Cms.Utility;
+using J6.DevFw.Web.Plugin;
 
 namespace com.plugin.sso
 {

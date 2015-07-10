@@ -1,6 +1,6 @@
 ﻿import clr
 clr.AddReference("ops.cms");
-from Ops.Data import DataBaseAccess
+from J6.Data import DataBaseAccess
 
 def read(sql):
 	dba = DataBaseAccess()

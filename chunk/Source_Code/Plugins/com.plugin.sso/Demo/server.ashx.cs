@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web;
-using AtNet.Cms.Extend.SSO.Server;
+using J6.Cms.Extend.SSO.Server;
 
-namespace AtNet.Cms.Extend.SSO.Demo
+namespace J6.Cms.Extend.SSO.Demo
 {
     /// <summary>
     /// server 的摘要说明

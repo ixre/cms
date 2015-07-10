@@ -11,7 +11,7 @@
 
 using com.plugin.sso.Core.ILogic;
 using com.plugin.sso.Core.Logic;
-using AtNet.DevFw.Data;
+using J6.DevFw.Data;
 using StructureMap;
 
 namespace com.plugin.sso.Core

@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
-using Ops.Cms;
-using Ops.Cms.BLL;
-using Ops.Data;
+using J6.Cms;
+using J6.Cms.BLL;
+using J6.Data;
 using System;
 using System.Data;
-using Ops.Cms.Models;
+using J6.Cms.Models;
 
 namespace Cms.Web.Controllers
 {

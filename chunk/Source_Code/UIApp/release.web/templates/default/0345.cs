@@ -6,9 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Ops;
-using Ops.Cms;
+using J6.Cms;
 
-public class QtEduController:Ops.Cms.Web.Mvc.CmsController
+public class QtEduController:J6.Cms.Web.Mvc.CmsController
 {
     private static SettingFile file = new SettingFile(AppDomain.CurrentDomain.BaseDirectory + "config/label.conf");
     public static void InitRoute(RouteCollection rt)

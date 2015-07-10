@@ -9,9 +9,9 @@
  * history : 
  */
 
-using AtNet.DevFw.PluginKernel;
+using J6.DevFw.PluginKernel;
 using System;
-using AtNet.DevFw.Web.Plugin;
+using J6.DevFw.Web.Plugin;
 
 namespace com.plugin.sso
 {

@@ -9,10 +9,10 @@
  * history : 
  */
 
-using AtNet.DevFw.PluginKernel;
+using J6.DevFw.PluginKernel;
 using System.Web;
-using AtNet.Cms.Extend.SSO;
-using AtNet.Cms.Extend.SSO.Server;
+using J6.Cms.Extend.SSO;
+using J6.Cms.Extend.SSO.Server;
 
 
 //  Test :

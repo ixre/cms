@@ -1,4 +1,4 @@
-﻿# 插件开发指南 Ops.Cms Plugin Development Guide #
+﻿# 插件开发指南 J6.Cms Plugin Development Guide #
 
 ## 插件DEMO ##
 见com.plugin.datapicker,插件插件主要实现了一个内容采集的功能。

@@ -9,20 +9,20 @@ echo =======================================
 set dir=%~dp0
 set megdir=%dir%\refrence.dll\
 
-if exist "%megdir%ILMerge.exe" (
+if exist "%megdir%ILMerge.exe" (HR
 
   echo 生成中,请稍等...
   cd %dir%bin\
 
-echo  /keyfile:%dir%\Source_Code\AtNet.Cms.Core\atnet.cms.snk>nul
+echo  /keyfile:%dir%\Source_Code\J6.Cms.Core\atnet.cms.snk>nul
 
-"%megdir%ILMerge.exe" /closed /ndebug /targetplatform:v4 /target:dll /out:%dir%dist\atnet.cms.dll^
- AtNet.Cms.Core.dll AtNet.Cms.BLL.dll AtNet.Cms.DAL.dll AtNet.Cms.Domain.Interface.dll^
- AtNet.Cms.CacheService.dll AtNet.Cms.DataTransfer.dll AtNet.Cms.Domain.Implement.Content.dll^
- AtNet.Cms.DB.dll AtNet.Cms.Cache.dll AtNet.Cms.Domain.Implement.Site.dll AtNet.Cms.Domain.Implement.User.dll AtNet.Cms.Infrastructure.dll ^
- AtNet.Cms.Service.dll AtNet.Cms.ServiceContract.dll^
- AtNet.Cms.ServiceUtil.dll AtNet.Cms.ServiceRepository.dll AtNet.Cms.IDAL.dll^
- AtNet.Cms.Sql.dll AtNet.Cms.Utility.dll StructureMap.dll AtNet.Cms.Web.dll
+"%megdir%ILMerge.exe" /closed /ndebug /targetplatform:v4 /target:dll /out:%dir%dist\j6.cms.dll^
+ J6.Cms.Core.dll J6.Cms.BLL.dll J6.Cms.DAL.dll J6.Cms.Domain.Interface.dll^
+ J6.Cms.CacheService.dll J6.Cms.DataTransfer.dll J6.Cms.Domain.Implement.Content.dll^
+ J6.Cms.DB.dll J6.Cms.Cache.dll J6.Cms.Domain.Implement.Site.dll J6.Cms.Domain.Implement.User.dll J6.Cms.Infrastructure.dll ^
+ J6.Cms.Service.dll J6.Cms.ServiceContract.dll^
+ J6.Cms.ServiceUtil.dll J6.Cms.ServiceRepository.dll J6.Cms.IDAL.dll^
+ J6.Cms.Sql.dll J6.Cms.Utility.dll StructureMap.dll J6.Cms.Web.dll
 
 
   echo 完成!输出到:%dir%dist\atnet.cms.dll

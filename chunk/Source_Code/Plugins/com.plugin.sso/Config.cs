@@ -9,7 +9,7 @@
  * history : 
  */
 
-using AtNet.DevFw.PluginKernel;
+using J6.DevFw.PluginKernel;
 
 namespace com.plugin.sso
 {

@@ -10,8 +10,8 @@
  */
 
 using System;
-using AtNet.Cms.Conf;
-using AtNet.DevFw.Data;
+using J6.Cms.Conf;
+using J6.DevFw.Data;
 
 namespace com.plugin.sso.Core
 {

@@ -11,13 +11,13 @@ namespace CMS.Web
     using System;
     using System.Data;
     //using System.Data.Extensions;
-	using Ops.Data;
+	using J6.Data;
     using System.Text;
     using System.Web;
-    using Ops.Cms;
-    using Ops.Cms.BLL;
-    using Ops.Cms.Models;
-    using Ops.Template;
+    using J6.Cms;
+    using J6.Cms.BLL;
+    using J6.Cms.Models;
+    using J6.Template;
     using System.Text.RegularExpressions;
 
     /// <summary>
@@ -186,7 +186,7 @@ namespace CMS.Web
             if (!String.IsNullOrEmpty(request.Url.Query))
             {
                 //将查询参数作为标签
-                html = global::Ops.Template.TemplateRegexUtility.Replace(html, a =>
+                html = global::J6.Template.TemplateRegexUtility.Replace(html, a =>
                 {
                     if (request[a.Groups[1].Value] != null)
                     {

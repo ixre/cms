@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Ops.Cms;
-using Ops.Cms.BLL;
-using Ops.Cms.Models;
-using Ops.Template;
+using J6.Cms;
+using J6.Cms.BLL;
+using J6.Cms.Models;
+using J6.Template;
 
 namespace Cms.Web.AppCodes.Controllers
 {

@@ -8,8 +8,8 @@
  */
 using System;
 using System.Collections.Generic;
-using AtNet.Cms.Infrastructure;
-using AtNet.DevFw.Data;
+using J6.Cms.Infrastructure;
+using J6.DevFw.Data;
 
 
 namespace CsharpIpy.cs

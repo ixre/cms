@@ -1,3 +1,3 @@
 @echo off
-cd Source_Code\UIApp\AtNet.Cms.WebUI\$tools\
+cd Source_Code\UIApp\J6.Cms.WebUI\$tools\
 server.bat

@@ -24,18 +24,18 @@ using System.Text.RegularExpressions;
 using System.Web;
 using CookComputing.MetaWeblog;
 using CookComputing.XmlRpc;
-using AtNet.Cms;
-using AtNet.Cms.CacheService;
-using AtNet.Cms.DataTransfer;
-using AtNet.Cms.Domain.Interface.Content.Archive;
-using AtNet.Cms.BLL;
+using J6.Cms;
+using J6.Cms.CacheService;
+using J6.Cms.DataTransfer;
+using J6.Cms.Domain.Interface.Content.Archive;
+using J6.Cms.BLL;
 using Post = CookComputing.MetaWeblog.Post;
-using AtNet.Cms.Conf;
-using AtNet.Cms.Domain.Interface.Models;
-using AtNet.Cms.Domain.Interface.User;
-using AtNet.Cms.Domain.Interface.Value;
-using Ops.Cms.XmlRpc;
-using IUser = AtNet.Cms.Domain.Interface._old.IUser;
+using J6.Cms.Conf;
+using J6.Cms.Domain.Interface.Models;
+using J6.Cms.Domain.Interface.User;
+using J6.Cms.Domain.Interface.Value;
+using J6.Cms.XmlRpc;
+using IUser = J6.Cms.Domain.Interface._old.IUser;
 
 namespace sp.xmlrpc.XmlRpc.src
 {
@@ -103,7 +103,7 @@ namespace sp.xmlrpc.XmlRpc.src
 @"<?xml version=""1.0"" encoding=""UTF-8""?>
 <rsd version=""1.0"" xmlns=""http://archipelago.phrasewise.com/rsd"">
   <service>
-    <engineName>AtNet.Cms.NET! XML-RPC PLUGIN!</engineName>
+    <engineName>J6.Cms.NET! XML-RPC PLUGIN!</engineName>
     <engineLink>http://www.ops.cc/cms/xmlrpc</engineLink>
     <homePageLink>{0}</homePageLink>
     <apis>

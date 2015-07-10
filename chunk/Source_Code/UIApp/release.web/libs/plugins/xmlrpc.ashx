@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" Class="Ops.Cms.WeblogRPCService" %>
+﻿<%@ WebHandler Language="C#" Class="J6.Cms.WeblogRPCService" %>

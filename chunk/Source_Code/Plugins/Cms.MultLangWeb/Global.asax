@@ -1,7 +1,7 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="System.Web.Routing" %>
 <%@ Import Namespace="System.Web.Mvc" %>
-<%@ Import Namespace="Ops.Cms" %>
+<%@ Import Namespace="J6.Cms" %>
 <%@ Import Namespace="Spc.Web.Mvc" %>
 
 <script RunAt="server">

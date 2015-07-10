@@ -11,9 +11,9 @@
 
 using System.Data;
 using System.Web;
-using AtNet.DevFw.Framework.Extensions;
+using J6.DevFw.Framework.Extensions;
 using Newtonsoft.Json;
-using AtNet.Cms;
+using J6.Cms;
 
 namespace com.plugin.sso.Core
 {

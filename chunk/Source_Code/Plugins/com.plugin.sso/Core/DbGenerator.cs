@@ -1,5 +1,5 @@
-﻿using AtNet.DevFw.PluginKernel;
-using AtNet.DevFw.Data;
+﻿using J6.DevFw.PluginKernel;
+using J6.DevFw.Data;
 
 namespace com.plugin.sso.Core
 {
