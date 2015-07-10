@@ -83,7 +83,7 @@ namespace J6.Cms.Web.Resource {
         /////版本: 0.0.1
         /////时间：2014-06-21
         /////
-        ///if (!window.$JS) alert(&apos;未加载core.js！&apos;);
+        ///if (!window.j6) alert(&apos;未加载core.js！&apos;);
         ///j6.extend({
         ///    api: {
         ///        path:&apos;&apos;,
