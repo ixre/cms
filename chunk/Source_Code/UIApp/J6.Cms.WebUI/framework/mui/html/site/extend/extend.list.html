@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>所有扩展属性</title>
+    $css()
+    $iconcss()
+</head>
+<body>
+    <div class="layout">
+        <div class="left">
+            <div style="margin:3px;height:100%">
+                <div id="dg" class="ui-grid-table ui-table"></div>
+                <div class=" ui-table-meta ui-gird-table-meta" id="pager"></div>
+            </div>
+        </div>
+        <div class="right">
+            <div id="pl" class="relative autoHeight autoScroll"></div>
+        </div>
+    </div>
+
+    <script type="text/template" id="extend_form">
+        <div class="form autostyle">
+            <div class="title"><span class="icon icon1"></span>扩展属性</div>
+            <div class="entityForm">
+                ${form}
+
+                <div class="fl">
+                    <div class="label"></div>
+                    <div class="in">
+                        <a onclick="saveLink()" class="btn" href="javascript:;">{btntext}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl">
+        <div class="item" onclick="menu.create()">
+            <a href="javascript:;">$icon(create)新建</a>
+        </div>
+        <!--
+        <div class="item" onclick="menu.edit('%id%')">
+            <a href="javascript:;">$icon(edit)修改</a>
+        </div>
+
+        <div class="item" onclick="menu.del('%id%')">
+            <a href="javascript:;">$icon(delete)删除</a>
+        </div>-->
+        <div class="item" onclick="menu.refresh()">
+            <a href="javascript:;">$icon(refresh)刷新</a>
+        </div>
+    </script>$js()
+    <script type="text/javascript">
+        var dataCollection = null;
+
+        var panel = document.body.getElementsByTagName('DIV')[0];
+        //cms.dom.fitHeight(panel);
+
+        var form_tpl = cms.$('extend_form').innerHTML;
+
+        window.saveData = window.saveLink = function () {
+            if (cms.validator.validate('pl')) {
+                var data = cms.json.toObject('pl');
+                data.contentId = cms.request('contentId');
+                data.typeIndent = cms.request('type');
+                cms.xhr.jsonPost('?module=extend&action=SaveExtendField', data, function (json) {
+                    if (json.result) {
+                        _dg.reload();
+                    }
+                    parent.parent.M.alert(json.message);
+                });
+            }
+        };
+
+        cms.contextmenu.bind(cms.$('dg'), '<div class="item" onclick="menu.create()">'
+                                    + '<a href="javascript:;">$icon(create)新建</a>'
+                                    + '</div><div class="item" onclick="menu.refresh()">'
+                                    + '<a href="javascript:;">$icon(refresh)刷新</a>'
+                                    + '</div>');
+
+        var _dg = cms.grid('dg', {
+            url: '?module=extend&action=GetExtendFields',
+            data: {},
+            idField: 'Id',
+            columns: [
+                { field: 'Name', title: '名称', width: 80, align: "center", formatter: null },
+                { field: 'Message', title: '提示', width: 120, align: "center", formatter: function (val) { return val || '-'; } },
+                { field: 'DefaultValue', title: '默认值', align: "center", formatter: function (val) { return val || '-'; } }
+            ],
+            loaded: function (data) {
+
+                dataCollection = data.rows;
+
+                var tables = document.getElementsByTagName('TABLE');
+
+                var tds = tables[1].getElementsByTagName('TD');
+
+                var allowMultSelect = false;
+
+                J.table.dynamic(tables[1], allowMultSelect, function (trs) {
+                    var id = trs[0].getAttribute('data-indent');
+                    cms.$('pl').innerHTML = cms.template(form_tpl, { btntext: '保存' });
+                    for (var i = 0; i < dataCollection.length; i++) {
+                        if (dataCollection[i].ID == id) {
+                            cms.json.bind('pl', dataCollection[i]);
+                        }
+                    }
+                });
+
+                cms.each(tds, function (i, e) {
+                    cms.contextmenu.bind(e, null, function (menu) {
+                        menu.innerHTML = cms.template(cms.$('tpl').innerHTML, {
+                            id: e.parentNode.getAttribute('data-indent')
+                        });
+                    });
+                });
+
+                //加载分页
+                this.panel.nextSibling.innerHTML = data.pager;
+
+            }
+        });
+
+        var menu = {
+            create: function () {
+                cms.$('pl').innerHTML = cms.template(form_tpl, { btntext: '新增' });
+                cms.json.bind('pl', { Enabled: 'True' });
+            },
+            del: function (id) {
+                if (confirm('确定删除吗?删除后将不可恢复!')) {
+                    var data = {
+                        id: id,
+                        contentId: cms.request('contentId'),
+                        typeIndent: cms.request('type')
+                    };
+                    cms.xhr.jsonPost('?module=extend&action=save', data,
+                        function (json) {
+                            if (json.result) {
+                                _dg.reload();
+                            } else { parent.M.alert(json.message); }
+                        });
+                }
+            },
+            refresh: function () {
+                _dg.reload();
+            }
+        };
+
+        menu.create();
+    </script>
+
+</body>
+</html>

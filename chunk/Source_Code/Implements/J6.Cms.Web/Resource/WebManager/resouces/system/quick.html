@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>快捷工具</title>
+    ${m_css}
+    <style type="text/css">select.tb_normal{width:auto;}</style>
+	</head>
+	<body>
+
+  <div id="archiveTool">
+<b>搜索</b>
+<br />
+模块：<select id="module" class="tb_normal"><option value="">--不限--</option>${module_opts}</select>&nbsp;&nbsp;
+可见性：<select id="visible" class="tb_normal"><option value="">全部</option><option value="true" style="color:red">可见</option><option value="false" style="color:green">不可见</option></select>
+<br />
+栏目：<select id="category" class="tb_normal"><option value="">--不限--</option>${category_opts}</select><br />
+作者：<select id="author" class="tb_normal"><option value="">--不限--</option>${author_opts}</select>
+<br />特殊：<select id="special" class="tb_normal"><option value="">全部</option><option value="true" style="color:red">仅特殊</option><option value="false" style="color:green">非特殊</option></select>
+&nbsp;&nbsp;系统文档：<select id="system" class="tb_normal"><option value="">全部</option><option value="true" style="color:red">仅系统</option><option value="false" style="color:green">非系统</option></select>
+<br />
+<button class="btn" id="btnfilter">筛选</button>
+<script type="text/javascript">
+  function getSV(id) { return document.getElementById(id).value; }
+
+  document.getElementById('btnfilter').onclick = function () {
+      var uri = '?module=archive&action=list&moduleid=' + getSV('module') + '&categoryID=' + getSV('category') +
+       '&publisher_id=' + getSV('author') + '&visible=' + getSV('visible') + '&system=' + getSV('system') +
+       '&special=' + getSV('special');
+
+      if (location.search.indexOf('target=main') != -1) {
+          var pw = window.parent.parent;
+          if (pw.toolLink) pw.toolLink.onclick();
+          pw.M.tab.show('信息筛选', uri,'1_997_997');
+      } else {
+          (window.parent || window).location.href = uri;
+      }
+  };
+</script>
+</div>
+
+
+	</body>
+</html>

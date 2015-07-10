@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>用户列表</title>$css()
+</head>
+<body>
+    <div>
+        <table cellpadding="0" cellspacing="0" width="100%" height="100%">
+            <tr>
+                <td width="300" valign="top">
+                    <div id="dg" class="control"></div>
+                    <div class="ui-table-meta" id="pager"></div>
+                </td>
+                <td>
+                    <div id="pl" class="relative autoHeight autoScroll">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/template" id="list_menu_tpl">
+        <div class="item" onclick="menu.add()">
+            <a href="javascript:;">$icon(create)创建新用户</a>
+        </div>
+        <div class="item" onclick="menu.refresh()">
+            <a href="javascript:;">$icon(refresh)刷新</a>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl">
+        <div class="item" onclick="menu.add()">
+            <a href="javascript:;">$icon(create)创建新用户</a>
+        </div>
+        <div class="item" onclick="menu.setavailable('%id%')">
+            <a href="javascript:;">$icon(edit)%state%</a>
+        </div>
+        <div class="item" onclick="menu.del('%id%')">
+            <a href="javascript:;">$icon(delete)删除用户</a>
+        </div>
+        <div class="item" onclick="menu.refresh()">
+            <a href="javascript:;">$icon(refresh)刷新</a>
+        </div>
+    </script>
+
+    $js()
+    <script type="text/javascript">
+        var pl = document.body.childNodes[0];
+        cms.dom.fitHeight(pl);
+
+        //创建
+        Fn.create = function () {
+            cms.load2('pl', 'user', 'createuser', '');
+        };
+
+
+        var _dg = cms.grid('dg', {
+            url: '?module=user&action=getusers',
+            data: { page: 1 },
+            idField: 'UserName',
+            columns: [
+                { field: 'UserName', title: '用户名', width: 100, formatter: null},
+                { field: 'Name', title: '昵称', width: 150, formatter: null}
+            ],
+            loaded: function (data) {
+                var tables = document.getElementsByTagName('TABLE');
+
+                var tds = tables[2].getElementsByTagName('TD');
+
+                var allowMultSelect = false;
+
+                J.table.dynamic(tables[2], allowMultSelect, function (trs) {
+                    var id = trs[0].getAttribute('data-indent');
+                    cms.load2('pl', 'user', 'updateuser', 'username=' + id);
+                });
+
+                cms.each(tds, function (i, e) {
+                    cms.contextmenu.bind(e, null, function (menu) {
+                        //var state = e.parentNode.getAttribute('avaiable') == '1' ? '<span style="color:red">停用该用户</span>' : '启用该用户';
+                        menu.innerHTML = cms.template(cms.$('tpl').innerHTML, { id: id, state: state });
+                    });
+                });
+
+                //加载分页
+                this.panel.nextSibling.innerHTML = data.pager;
+
+
+                cms.load2('pl', 'category', 'update', 'lft=' + data.rows[0].Lft);
+            }
+        });
+
+
+        //绑定列表菜单
+        cms.contextmenu.bind(_dg.panel, cms.$('list_menu_tpl').innerHTML);
+
+        var menu = {
+            add: Fn.create,
+            setavailable: function (id) {
+                (function (_this) {
+                    cms.xhr.jsonPost('?', 'module=user&action=setuserstate&username=' + id,
+                 function (json) {
+                     if (json.result) {
+                         parent.M.alert('操作成功！');
+                         _this.refresh();
+                     } else {
+                         cms.dialog.alert(json.message);
+                     }
+                 });
+                }(this));
+            },
+            //删除文档
+            del: function (id) {
+                if (confirm('确定删除吗?删除后将不可恢复!')) {
+                    cms.xhr.jsonPost('?', 'module=user&action=deleteuser&username=' + id,
+                    function (json) { if (json.result) { Fn.loadData(); } else { cms.dialog.alert(json.message); } });
+                }
+            },
+            refresh: function () {
+                _dg.reload();
+            }
+        };
+
+    </script>
+    $iconcss()
+</body>
+</html>

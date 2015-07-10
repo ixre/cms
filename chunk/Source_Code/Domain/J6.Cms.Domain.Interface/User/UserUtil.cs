@@ -1,0 +1,40 @@
+﻿
+using System;
+using System.Text;
+
+namespace J6.Cms.Domain.Interface.User
+{
+   public static class UserUtil
+    {
+       public static string GetRoleName(int roleFlag)
+       {
+           StringBuilder sb = new StringBuilder();
+           if ((roleFlag & (int) RoleTag.Master) != 0)
+           {
+               AppendRoleName(sb, "超级管理员");
+           }
+
+           if ((roleFlag & (int)RoleTag.SiteOwner) != 0)
+           {
+               AppendRoleName(sb, "站点所有者");
+           }
+
+           if ((roleFlag & (int)RoleTag.Publisher) != 0)
+           {
+               AppendRoleName(sb, "编辑");
+           }
+
+           //throw new Exception(((int)(RoleTag.Master | RoleTag.Publisher)).ToString());
+           return sb.ToString();
+       }
+
+       private static void AppendRoleName(StringBuilder sb, string name)
+       {
+           if (sb.Length != 0)
+           {
+               sb.Append(",");
+           }
+           sb.Append(name);
+       }
+    }
+}
