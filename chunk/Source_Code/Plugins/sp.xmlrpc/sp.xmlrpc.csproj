@@ -33,11 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="atnet.cms">
-      <HintPath>..\..\..\dist\atnet.cms.dll</HintPath>
+    <Reference Include="j6.cms">
+      <HintPath>..\..\..\dist\j6.cms.dll</HintPath>
     </Reference>
-    <Reference Include="atnet.devfw">
-      <HintPath>..\..\..\refrence.dll\atnet.devfw.dll</HintPath>
+    <Reference Include="j6.devfw">
+      <HintPath>..\..\..\refrence.dll\j6.devfw.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

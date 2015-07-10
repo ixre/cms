@@ -2,19 +2,19 @@
 color 66
 
 echo =======================================
-echo = AtNet Cms .NET ! 核心程序集生成工具 =
+echo = J6 Cms .NET ! 核心程序集生成工具 =
 echo =======================================
 
 
 set dir=%~dp0
 set megdir=%dir%\refrence.dll\
 
-if exist "%megdir%ILMerge.exe" (HR
+if exist "%megdir%ILMerge.exe" (
 
   echo 生成中,请稍等...
   cd %dir%bin\
 
-echo  /keyfile:%dir%\Source_Code\J6.Cms.Core\atnet.cms.snk>nul
+echo  /keyfile:%dir%\Source_Code\J6.Cms.Core\j6.cms.snk>nul
 
 "%megdir%ILMerge.exe" /closed /ndebug /targetplatform:v4 /target:dll /out:%dir%dist\j6.cms.dll^
  J6.Cms.Core.dll J6.Cms.BLL.dll J6.Cms.DAL.dll J6.Cms.Domain.Interface.dll^
@@ -25,7 +25,7 @@ echo  /keyfile:%dir%\Source_Code\J6.Cms.Core\atnet.cms.snk>nul
  J6.Cms.Sql.dll J6.Cms.Utility.dll StructureMap.dll J6.Cms.Web.dll
 
 
-  echo 完成!输出到:%dir%dist\atnet.cms.dll
+  echo 完成!输出到:%dir%dist\j6.cms.dll
 
 )
 

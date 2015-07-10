@@ -26,7 +26,7 @@ namespace OPSoft.WebControlCenter.Controllers
         //[AcceptVerbs("POST")]
         public string Verify(string domain,string key,string token)
         {
-            //activatorFile.Append("YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI=", "{domain:'temp.ops.cc',start:'*',end='*'}");
+            //activatorFile.Append("YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI=", "{domain:'temp.j6.cc',start:'*',end='*'}");
             try
             {
 

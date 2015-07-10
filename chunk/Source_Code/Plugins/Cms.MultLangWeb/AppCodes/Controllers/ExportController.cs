@@ -15,7 +15,7 @@ namespace Cms.Web.Controllers
 
         public string Index()
         {
-            DataBaseAccess db = new DataBaseAccess(DataBaseType.MySQL, "server=s3.ns-cache.ops.cc;uid=root;pwd=$Newmin;database=mydb;charset=utf8");
+            DataBaseAccess db = new DataBaseAccess(DataBaseType.MySQL, "server=s3.ns-cache.j6.cc;uid=root;pwd=$Newmin;database=mydb;charset=utf8");
             DataBaseAccess db2 = new DataBaseAccess(DataBaseType.SQLite, String.Format("Data Source={0}/data/#db.db3", AppDomain.CurrentDomain.BaseDirectory));
 
             int i = 0, j = 0;

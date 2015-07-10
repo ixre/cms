@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>安装</title>
-    <script type="text/javascript" src="http://www.ops.cc/libs/framework/global.js"></script>
-    <script type="text/javascript" src="http://www.ops.cc/libs/framework/scripts/form.js"></script>
+    <script type="text/javascript" src="http://www.j6.cc/libs/framework/global.js"></script>
+    <script type="text/javascript" src="http://www.j6.cc/libs/framework/scripts/form.js"></script>
     <style type="text/css">
         *{font-size:14px;}
         .hidden{display:none;}

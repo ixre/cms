@@ -8,7 +8,7 @@ if exist "%megdir%ILMerge.exe" (
   echo 生成中,请稍等...
   cd %dir%
 
-echo  /keyfile:%dir%\Source_Code\Spc.Core\ops.cms.snk>nul
+echo  /keyfile:%dir%\Source_Code\Spc.Core\j6.cms.snk>nul
 
 "%megdir%ILMerge.exe" /ndebug /target:dll /out:%dir%ipy.dll^
  IronPython.dll Microsoft.Dynamic.dll Microsoft.Scripting.dll Microsoft.Scripting.Metadata.dll IronPython.Modules.dll

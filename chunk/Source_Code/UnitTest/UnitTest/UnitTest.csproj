@@ -36,8 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="atnet.cms">
-      <HintPath>..\..\..\dist\atnet.cms.dll</HintPath>
+    <Reference Include="j6.cms">
+      <HintPath>..\..\..\dist\j6.cms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
