@@ -10,7 +10,7 @@
 
         <script type="text/javascript">
             function showArchives(e,d,t){
-                d=J.toJson(d);
+                d=j6.toJson(d);
                 parent.FwTab.show(t, '?module=archive&action=list&category.id=' + d.cid, '1_996_' + d.cid);
             };
 
@@ -20,7 +20,7 @@
                 '/framework/assets/tree/',
                 showArchives);
 
-            var nodeLinks = cms.getElementsByClassName(cms.$('menu_tree'),'node');
+            var nodeLinks = j6.dom.getsByClass(cms.$('menu_tree'),'node');
             cms.each(nodeLinks,function(i,e){
                 if(e.nodeName=='A'){
                     if(e.innerHTML.length>18){

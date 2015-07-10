@@ -4,7 +4,7 @@
 //时间：2014-06-21
 //
 if (!window.$JS) alert('未加载core.js！');
-$JS.extend({
+j6.extend({
     api: {
         path:'',
         request: function (apiName, params, call, errCall) {
@@ -12,7 +12,7 @@ $JS.extend({
             for (var key in params) {
                 uri += '&' + key + '=' + params[key];
             }
-            $JS.xhr.request({ uri: uri, params: {}, method: 'GET', data: 'json' }, {
+            j6.xhr.request({ uri: uri, params: {}, method: 'GET', data: 'json' }, {
                 success: call,
                 error:errCall});
         },

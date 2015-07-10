@@ -188,11 +188,11 @@ Ops保留对本协议的最终解释权。
             prev_btn.className = 'hidden';
             install_status_txt.innerHTML = '请稍等，安装中...';
 
-            $JS.xhr.post('/install/process', $JS.json.toQueryString(pl), function (status) {
+            j6.xhr.post('/install/process', j6.json.toQueryString(pl), function (status) {
 
                 if (status == 'SUCCESS' || status == '') {
                     install_status_txt.innerHTML = '<center>恭喜，安装完成!<br />为了您的安全，建议手工删除/install/目录!</center>';
-                    $JS.xhr.get('/');
+                    j6.xhr.get('/');
                     setTimeout(function () { location.href = '/';}, 15000);
                 } else {
                     INSTALL.setup.current = INSTALL.setup.current - 1;

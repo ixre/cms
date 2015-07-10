@@ -35,11 +35,11 @@
     $js()
     <script type="text/javascript">
 
-        var d = $JS.$('login-panel');
-        $JS.style(d, {
+        var d = j6.$('login-panel');
+        j6.style(d, {
             position: 'absolute',
-            left: ($JS.screen.width() - $JS.width(d)) / 2 + 'px',
-            top: ($JS.screen.height() - $JS.height(d) + 60) / 2 + 'px'
+            left: (j6.screen.width() - j6.width(d)) / 2 + 'px',
+            top: (j6.screen.height() - j6.height(d) + 60) / 2 + 'px'
         });
         function refreshImage() {
             document.getElementById('vimg').style.background = 'url(${path}?action=verifycode&' + Math.random() + ') center -18px no-repeat';
@@ -86,7 +86,7 @@
             }
         }
 
-        $JS.animation.show('login-panel',null,3);
+        j6.animation.show('login-panel',null,3);
 
     </script>
     <!--加载资源-->

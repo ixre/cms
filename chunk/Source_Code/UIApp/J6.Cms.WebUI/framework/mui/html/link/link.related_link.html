@@ -116,7 +116,7 @@
 
                 var allowMultSelect = false;
 
-                J.table.dynamic(tables[2], allowMultSelect, function (trs) {
+                j6.table.dynamic(tables[2], allowMultSelect, function (trs) {
                     var id = trs[0].getAttribute('data-indent');
                     pl.innerHTML = cms.template(form_tpl, { btntext: '保存' });
                     pl.getElementsByTagName('DL')[0].style.display = 'none';
@@ -156,8 +156,8 @@
                 cms.$('pl').innerHTML = cms.template(form_tpl, { btntext: '新增' });
                 cms.json.bind('pl', { Enabled: 'True' });
 
-                $JS.each($JS.getElementsByClassName($JS.$('pl'), 'archiveGuest'), function (i, e) {
-                    $JS.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=5', function (data) {
+                j6.each(j6.dom.getsByClass(j6.$('pl'), 'archiveGuest'), function (i, e) {
+                    j6.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=5', function (data) {
                         for (var j = 0; j < data.length; j++) {
                             data[j].text = data[j].title;
                             data[j].title = '栏目：'+ data[j].category;

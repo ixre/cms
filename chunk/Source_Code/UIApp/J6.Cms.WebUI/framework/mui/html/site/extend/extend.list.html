@@ -97,7 +97,7 @@
 
                 var allowMultSelect = false;
 
-                J.table.dynamic(tables[1], allowMultSelect, function (trs) {
+                j6.table.dynamic(tables[1], allowMultSelect, function (trs) {
                     var id = trs[0].getAttribute('data-indent');
                     cms.$('pl').innerHTML = cms.template(form_tpl, { btntext: '保存' });
                     for (var i = 0; i < dataCollection.length; i++) {

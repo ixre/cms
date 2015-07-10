@@ -30,7 +30,7 @@ var RIBBON = {
     //迭代TabPages
     eachPage: function (call) {
         var tabHeaders = this.tabPageHeaders;
-        $JS.each(this.tabPages, function (i, e) {
+        j6.each(this.tabPages, function (i, e) {
             if (call) call(i, e, tabHeaders[i]);
         });
     },
@@ -69,10 +69,10 @@ var RIBBON = {
         this.tabPageHeaders = (supprtClassSelector ? this.ele.header.getElementsByClassName('ribbon-page-header') : document.getElementsByClassName('ribbon-page-header', this.ele.header));
 
         var R = this;
-        $JS.each(this.tabPages, function (i, e) {
+        j6.each(this.tabPages, function (i, e) {
             e.onclick = (function (_i) {
                 return function () {
-                    $JS.each(R.tabPages, function (j, je) {
+                    j6.each(R.tabPages, function (j, je) {
                         je.className = j != _i ? '' : 'selected';
                         R.tabPageHeaders[j].className = j != _i ? 'ribbon-page-header hidden' : 'ribbon-page-header';
                     });
@@ -86,7 +86,7 @@ var RIBBON = {
     pageLoad: function () { alert('x'); }
 };
 
-function $(id) { return $JS.$(id); }
+function $(id) { return j6.$(id); }
 
 
 
@@ -115,7 +115,7 @@ function menu_init() {
 
     RIBBON.setIndex(0);
 
-    $JS.each($JS.getElementsByClassName(RIBBON.ele.source, 'fn'), function (i, e) {
+    j6.each(j6.dom.getsByClass(RIBBON.ele.source, 'fn'), function (i, e) {
         e.onclick = function () {
             tab.show(this.innerHTML, this.getAttribute('url'));
         };
@@ -136,7 +136,7 @@ RIBBON.resize = function () {
         sib.style.height = (height - ribbonHeadHeight - offset) + 'px';
         var pls = (sib.getElementsByClassName ? sib.getElementsByClassName('ribbon-main-right') : document.getElementsByClassName('ribbon-main-right', sib))[0].getElementsByTagName('DIV');
         pls[2].style.height = (sib.offsetHeight - pls[0].offsetHeight) + 'px';
-        $JS.$('ribbon-main-right').style.width = (width - $JS.$('ribbon-main-left').offsetWidth) + 'px';
+        j6.$('ribbon-main-right').style.width = (width - j6.$('ribbon-main-left').offsetWidth) + 'px';
     }
 };
 
@@ -155,7 +155,7 @@ var tab = {
     pageBeforeLoad: function () {
         var frames = this.frames;
         var _frames = [this.frames.previousSibling.previousSibling, this.frames.previousSibling];
-        $JS.each(_frames, function (i, e) {
+        j6.each(_frames, function (i, e) {
             if (e.nodeName == '#text') e = e.previousSibling;
             if (i == 0 && e.offsetWidth == 0) {
                 e.style.width = frames.offsetWidth + 'px';
@@ -166,7 +166,7 @@ var tab = {
     },
     pageLoad: function () {
         var _frames = [this.frames.previousSibling.previousSibling, this.frames.previousSibling];
-        $JS.each(_frames, function (i, e) {
+        j6.each(_frames, function (i, e) {
             if (e.nodeName == '#text') e = e.previousSibling;
             setTimeout(function () { e.className += ' hidden'; }, 200);
         });
@@ -205,7 +205,7 @@ var tab = {
             frame.setAttribute('border', '0');
             frame.setAttribute('indent', _cur_indents);
             frame.setAttribute('id', 'ifr_' + _cur_indents);
-            $JS.event.add(frame, 'load', _loadCall);
+            j6.event.add(frame, 'load', _loadCall);
 
             frameDiv.appendChild(frame);
 
@@ -258,7 +258,7 @@ var tab = {
         var isActived = false;
         var offsetHeight = this.frames.parentNode.offsetHeight;
 
-        cms.each($JS.getElementsByClassName(this.tabs, 'closebtn'), function (i, obj) {
+        cms.each(j6.dom.getsByClass(this.tabs, 'closebtn'), function (i, obj) {
             if (obj == t) {
                 closeIndex = i + 1;
                 isActived = obj.parentNode.parentNode.className == 'current';
@@ -312,10 +312,10 @@ var timer = setInterval(function () {
         menu_init();
 
 
-        $JS.$('username').innerHTML = username;
-        $JS.$('groupname').innerHTML = groupname;
+        j6.$('username').innerHTML = username;
+        j6.$('groupname').innerHTML = groupname;
 
-        var ifr = $JS.$('ifr_first');
+        var ifr = j6.$('ifr_first');
         ifr.src = ifr.getAttribute('ref');
 
         RIBBON.resize();
@@ -327,21 +327,21 @@ var timer = setInterval(function () {
 //加载app
 function loadApps() {
     var ele;
-    $JS.each(document.getElementsByTagName('H2'), function (i, e) {
+    j6.each(document.getElementsByTagName('H2'), function (i, e) {
         if (e.innerHTML == 'APPS') {
             ele = e.parentNode.getElementsByTagName('DIV')[0];
         }
     });
     if (ele) {
         ele.id = 'ribbon-apps';
-        $JS.load(ele, window._path + '?module=plugin&action=miniapps&ajax=1');
+        j6.load(ele, window._path + '?module=plugin&action=miniapps&ajax=1');
     }
 }
 
 //初始化站点
 function initSites() {
 
-    var siteEle = $JS.$('sites');
+    var siteEle = j6.$('sites');
     if (window.sites.length == 0) {
         siteEle.style.display = 'none';
     } else {
@@ -352,7 +352,7 @@ function initSites() {
         html += '</ul>';
 
         siteEle.getElementsByTagName('DIV')[0].innerHTML = html;
-        $JS.each(siteEle.getElementsByTagName('DIV')[0].getElementsByTagName('LI'), function (i, e) {
+        j6.each(siteEle.getElementsByTagName('DIV')[0].getElementsByTagName('LI'), function (i, e) {
             e.getElementsByTagName('A')[0].onclick = function () {
                 setSite(this.getAttribute('siteid'));
             };
@@ -362,12 +362,12 @@ function initSites() {
 }
 
 //加载用户状态
-$JS.$('custom_menu').innerHTML = $JS.$('headerOper').innerHTML;
-$JS.hover(document.getElementsByClassName('ribbon-menu')[0]);
+j6.$('custom_menu').innerHTML = j6.$('headerOper').innerHTML;
+j6.hover(document.getElementsByClassName('ribbon-menu')[0]);
 
 window.M = {
     dialog: function (id, title, url, isAjax, width, height, closeCall) {
-        var d = $JS.dialog.create2(title, true, true);
+        var d = j6.dialog.create2(title, true, true);
         d.onclose = closeCall;
         if (isAjax) {
             d.async(url);
@@ -392,10 +392,10 @@ window.M = {
         this.msgtip({ html: msg, autoClose: true }, func);
     },
     loadCatTree: function () {
-        var mt = $JS.$('menutree');
-        $JS.load($JS.$('menutree'), window._path + '?module=category&action=tree&for=archives&siteid=&ajax=1&rd=' + Math.random() + '#noload', function (result) {
+        var mt = j6.$('menutree');
+        j6.load(j6.$('menutree'), window._path + '?module=category&action=tree&for=archives&siteid=&ajax=1&rd=' + Math.random() + '#noload', function (result) {
             //var left = mt.getElementsByTagName('B')[0].innerHTML.replace(/<[^>]+>/, '').length * 14 + 30;
-            //$JS.$('sites').style.left = left + 'px';
+            //j6.$('sites').style.left = left + 'px';
         });
     },
     clearCache: function (t) {
@@ -444,7 +444,7 @@ window.M = {
 
 
 function setSite(id) {
-    $JS.xhr.request({ uri: window._path + '?module=system&action=selectsite&json=1&siteid=' + id, data: 'json' },
+    j6.xhr.request({ uri: window._path + '?module=system&action=selectsite&json=1&siteid=' + id, data: 'json' },
         {
             success: function (html) {
                 window.M.loadCatTree();

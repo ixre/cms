@@ -148,7 +148,7 @@
 
                 var allowMultSelect = false;
 
-                J.table.dynamic(tables[2], allowMultSelect, function (trs) {
+                j6.table.dynamic(tables[2], allowMultSelect, function (trs) {
                     var id = trs[0].getAttribute('data-indent');
                     cms.load2('pl', 'archive', 'view', 'archive.id=' + id);
                 });
@@ -161,7 +161,7 @@
                 });
 
 
-                cms.each(cms.getElementsByClassName(document.body, 'ui-datagrid-view'), function (i, e) {
+                cms.each(j6.dom.getsByClass(document.body, 'ui-datagrid-view'), function (i, e) {
                     var tbs = e.getElementsByTagName('TABLE');
                     if (tbs.length != 0) {
                         tbs[0].className = 'ui-table ui-table-list';
@@ -280,7 +280,7 @@
             var css = document.createElement('STYLE');
             css.innerHTML='.ke-content p{text-indent:0em;}';
 
-            $JS.each(ifrs,function(i,e){
+            j6.each(ifrs,function(i,e){
                 e.contentWindow.document.body.appendChild(css);
             });
         }

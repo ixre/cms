@@ -67,7 +67,7 @@ namespace J6.Cms.Web.Resource {
         /////时间：2014-06-21
         /////
         ///if (!window.$JS) alert(&apos;未加载core.js！&apos;);
-        ///$JS.extend({
+        ///j6.extend({
         ///    api: {
         ///        path:&apos;&apos;,
         ///        request: function (apiName, params, call, errCall) {
@@ -75,7 +75,7 @@ namespace J6.Cms.Web.Resource {
         ///            for (var key in params) {
         ///                uri += &apos;&amp;&apos; + key + &apos;=&apos; + params[key];
         ///            }
-        ///            $JS.xhr.request({ uri: uri, params: {}, method: &apos;GET&apos;, data: &apos;json&apos; }, {
+        ///            j6.xhr.request({ uri: uri, params: {}, method: &apos;GET&apos;, data: &apos;json&apos; }, {
         ///                success: call [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_cms_api {

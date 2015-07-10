@@ -52,13 +52,13 @@
         var singleGetNum = 10;
         var win={x:800,y:600};
 
-        var mp = J.$('plugins');
+        var mp = j6.$('plugins');
 
-        //,sp=J.$('sub_control'),ft=J.$('form_tpl');
+        //,sp=j6.$('sub_control'),ft=j6.$('form_tpl');
 
         /*
         function loads(){
-        J.xhr.post('gets','num='+ singleGetNum +'&from='+currentSum,function(result){
+        j6.xhr.post('gets','num='+ singleGetNum +'&from='+currentSum,function(result){
         mp.innerHTML=result;
         });
         }
@@ -69,7 +69,7 @@
         //初始化事件
         function initEvents() {
 
-            J.each(document.getElementsByClassName('handler'), function (i, e) {
+            j6.each(document.getElementsByClassName('handler'), function (i, e) {
                 if (e.href == 'plugin:list') {
                     e.onclick = function () {
                         mp.className = '';
@@ -81,19 +81,19 @@
                         mp.className = 'hidden';
                         sp.className = '';
 
-                        sp.innerHTML = J.template(ft.innerHTML, { indent: '', name: '', icon: '', zip: '' });
+                        sp.innerHTML = j6.template(ft.innerHTML, { indent: '', name: '', icon: '', zip: '' });
 
                         //初始化
-                        J.validator.init();
+                        j6.validator.init();
 
-                        J.$('tb_name').onchange = function () {
+                        j6.$('tb_name').onchange = function () {
                             var _name = this.value;
-                            window.iconUpload = J.upload({ debug: true, id: 'up_icon', url: 'upload/icon?id=iconUpload&name=' + _name }, function (path) {
-                                J.$('tb_icon').value = path;
+                            window.iconUpload = j6.upload({ debug: true, id: 'up_icon', url: 'upload/icon?id=iconUpload&name=' + _name }, function (path) {
+                                j6.$('tb_icon').value = path;
                             });
 
-                            window.zipUpload = J.upload({ id: 'up_zip', url: 'upload/zip?id=zipUpload&name=' + _name }, function (path) {
-                                J.$('tb_zip').value = path;
+                            window.zipUpload = j6.upload({ id: 'up_zip', url: 'upload/zip?id=zipUpload&name=' + _name }, function (path) {
+                                j6.$('tb_zip').value = path;
                             });
                         };
                         return false;
@@ -101,9 +101,9 @@
                 } else if (e.href.indexOf('plugin:run') != -1) {
                     e.onclick = function () {
                         var match = /plugin:run\('([^']+)','([^']+)'\)/.exec(e.href);
-                        J.lazyRun(function () {
+                        j6.lazyRun(function () {
 
-                            var d = J.dialog('', true, false);
+                            var d = j6.dialog('', true, false);
                             var title = decodeURIComponent(match[1]) +
                              '<a style="position:absolute;right:80px;top:0px" href="' + match[2] + '" target="_blank">新窗口运行</a>' +
                              '<a href="javascript:;" style="position:absolute;right:40px;top:0px" ' +
@@ -117,8 +117,8 @@
                 } else if (e.href.indexOf('plugin:config') != -1) {
                     e.onclick = function () {
                         var match = /plugin:config\('([^']+)','([^']*)'\)/.exec(e.href);
-                        J.lazyRun(function () {
-                            var d = J.dialog(decodeURIComponent(match[1]) + '-设置', true, false);
+                        j6.lazyRun(function () {
+                            var d = j6.dialog(decodeURIComponent(match[1]) + '-设置', true, false);
                             d.open(match[2], win.x, win.y);
                         });
                         return false;
@@ -128,7 +128,7 @@
                 	 	var t=this;
                 	 	var ts=t.getAttribute('stat');
                         var match = /plugin:chstat\('([^']+)'\)/.exec(e.href);
-                        J.xhr.post(appPath,'module=plugin&action=changestate&worker_indent='+match[1],function(json){
+                        j6.xhr.post(appPath,'module=plugin&action=changestate&worker_indent='+match[1],function(json){
                         	t.innerHTML=ts=='1'?'启用':'停用';
                         	t.setAttribute('stat',ts=='1'?'0':'1');
                         });
@@ -138,7 +138,7 @@
                 	 e.onclick = function () {
                 	 	var t=this;
                         var match = /plugin:uninstall\('([^']+)'\)/.exec(e.href);
-                        J.xhr.post(appPath,'module=plugin&action=uninstall&worker_indent='+match[1],function(json){
+                        j6.xhr.post(appPath,'module=plugin&action=uninstall&worker_indent='+match[1],function(json){
                         	location.reload();
                         });
                         return false;
@@ -150,11 +150,11 @@
 
 
 
-        J.__WORKPATH__ = '/framework/assets/scripts/';
+        j6.__WORKPATH__ = '/framework/assets/scripts/';
 
         var jsModule = new Array('dialog');
         for (var i in jsModule) {
-            J.ld(jsModule[i]);
+            j6.ld(jsModule[i]);
         }
 
         function fullRun(id,title, url) {
@@ -162,8 +162,8 @@
             if (d) {
                 d.close();
             }
-            J.lazyRun(function () {
-                var d2 = J.dialog(title, true, false);
+            j6.lazyRun(function () {
+                var d2 = j6.dialog(title, true, false);
                 d2.close(url, 800, 600);
             });
         }
@@ -203,7 +203,7 @@
         }
 
         function loadLocal() {
-            J.xhr.request({ uri: appPath, params: 'module=plugin&action=getpluginsJson', method: 'POST', data: 'json' },
+            j6.xhr.request({ uri: appPath, params: 'module=plugin&action=getpluginsJson', method: 'POST', data: 'json' },
                {
                    success: function (json) {
                        mp.innerHTML = '';
@@ -223,9 +223,9 @@
         loadLocal();
         
         function install(url){
-        	J.xhr.post(appPath,'module=plugin&action=install&url='+url,function(json){
-        		alert('安装成功')
-        	});
+        	j6.xhr.post(appPath,'module=plugin&action=install&url='+url,function(json) {
+        	    alert('安装成功');
+	        });
         }
     </script>
 	
