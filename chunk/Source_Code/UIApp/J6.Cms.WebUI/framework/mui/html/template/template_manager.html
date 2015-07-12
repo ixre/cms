@@ -229,7 +229,7 @@ p.thumbnail span.thumbnail:hover{margin:0 auto;border:1px solid #c2c2c2;}
 	
 	$js()
    <script type="text/javascript">
-       var file = cms.$('tplfile');
+       var file = j6.$('tplfile');
        var _file = '';
 
        function reset() {
@@ -239,21 +239,21 @@ p.thumbnail span.thumbnail:hover{margin:0 auto;border:1px solid #c2c2c2;}
 
        reset();
 
-       cms.each(document.getElementsByClassName('edit'), function (i, e) {
-           e.href = 'javascript:cms.tab.open(\'编辑模板\',\'?module=template&action=edit&tpl=' + e.toString().split(':')[1]+'\')';
+       j6.each(document.getElementsByClassName('edit'), function (i, e) {
+           e.href = 'javascript:j6.tab.open(\'编辑模板\',\'?module=template&action=edit&tpl=' + e.toString().split(':')[1]+'\')';
        });
 
        //下载模板
-       cms.each(document.getElementsByClassName('down'), function (i, e) {
+       j6.each(document.getElementsByClassName('down'), function (i, e) {
            e.href = '?module=template&action=DownloadZip&tpl=' + e.toString().split(':')[1];
        });
 
-       cms.each(document.getElementsByClassName('shot'), function (i, e) {
+       j6.each(document.getElementsByClassName('shot'), function (i, e) {
            return false;
            e.onclick = function () {
                if (confirm('确定切换模板吗?')) {
                    var tpl = e.className.split(' ')[1];
-                   cms.xhr.jsonPost('?', 'module=template&action=templateAsDefault&tpl=' + encodeURIComponent(tpl), function (json) {
+                   j6.xhr.jsonPost('?', 'module=template&action=templateAsDefault&tpl=' + encodeURIComponent(tpl), function (json) {
                        if (json.result) {
                            parent.M.alert('切换成功!');
                            location.reload();
@@ -263,19 +263,19 @@ p.thumbnail span.thumbnail:hover{margin:0 auto;border:1px solid #c2c2c2;}
            }
        });
 
-       cms.each(document.getElementsByClassName('upload'), function (i, e) {
+       j6.each(document.getElementsByClassName('upload'), function (i, e) {
            e.onclick = function () {
                file.onclick();
            };
        });
 
-       cms.each(document.getElementsByClassName('install'), function (i, e) {
+       j6.each(document.getElementsByClassName('install'), function (i, e) {
            e.onclick = function () {
                var url = this.previousSibling.value;
                if (!/\.zip$/.test(url)) {
                    alert('不是有效的模板压缩包(*.zip)文件');
                } else {
-                   cms.xhr.jsonPost('?', 'module=template&action=netinstall&url=' + encodeURIComponent(url), function (json) {
+                   j6.xhr.jsonPost('?', 'module=template&action=netinstall&url=' + encodeURIComponent(url), function (json) {
                        if (json.result) {
                            parent.M.alert('安装完成!');
                            location.replace(location.href);

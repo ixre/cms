@@ -16,17 +16,17 @@ j6.event.add(window, 'load', function () { j6.each(document.getElementsByClassNa
 window.cms = window.j6;
 
 //设置工作路径
-cms.__WORKPATH__ = '/framework/assets/js/';
+j6.__WORKPATH__ = '/framework/assets/js/';
 
 /****************  页面处理事件 **************/
 var _scripts = document.getElementsByTagName('SCRIPT');
 var _sloc = _scripts[_scripts.length - 1].src;                                  //Script Location
 var _hp = {                                                                //Script Handle Params
-    loadUI: cms.request('ui', _sloc) == '1',                                     //load ui lib
-    hoverNavi: cms.request('hover', _sloc).indexOf('navi') != -1,            //Hover Navigator
-    hoverCList: cms.request('hover', _sloc).indexOf('clist') != -1,           //Hover Category List
-    hoverAList: cms.request('hover', _sloc).indexOf('alist') != -1,           //Hover Archive List
-    plugins: cms.request('ld', _sloc)
+    loadUI: j6.request('ui', _sloc) == '1',                                     //load ui lib
+    hoverNavi: j6.request('hover', _sloc).indexOf('navi') != -1,            //Hover Navigator
+    hoverCList: j6.request('hover', _sloc).indexOf('clist') != -1,           //Hover Category List
+    hoverAList: j6.request('hover', _sloc).indexOf('alist') != -1,           //Hover Archive List
+    plugins: j6.request('ld', _sloc)
 };
 
 var plugins = null;
@@ -37,7 +37,7 @@ if (_hp.loadUI) {
 }
 if (plugins) {
     for (var i = 0; i < plugins.length; i++) {
-        cms.ld(plugins[i]);
+        j6.ld(plugins[i]);
     }
 }
 
@@ -132,7 +132,7 @@ function setIE6Drop(lis) {
 }
 
 
-cms.event.add(window, 'load', function () {
+j6.event.add(window, 'load', function () {
     if (_hp.hoverNavi && _auto_navigator_ele) {
         clearInterval(_auto_navigator_timer);
     }

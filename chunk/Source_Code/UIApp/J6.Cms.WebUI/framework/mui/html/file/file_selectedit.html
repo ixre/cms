@@ -43,12 +43,12 @@ $js()
             ifr.src = '?module=file&action=editfile&path=' + this.value;
         };
 
-        cms.$('createview').onclick = (function (t) {
+        j6.$('createview').onclick = (function (t) {
             return function () {
-                var tplname = cms.val('tplname');
-                var tpltype = cms.val('tpltype');
+                var tplname = j6.val('tplname');
+                var tpltype = j6.val('tpltype');
                 if (tplname != '') {
-                    cms.xhr.post('?', 'module=file&action=createstylesheet&name=' + tplname + '&type=' + tpltype, function (x) {
+                    j6.xhr.post('?', 'module=file&action=createstylesheet&name=' + tplname + '&type=' + tpltype, function (x) {
                         if (x.indexOf('.') == -1) {
                             parent.M.alert(x);
                         } else {

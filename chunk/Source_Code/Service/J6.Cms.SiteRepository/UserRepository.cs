@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using J6.Cms.DAL;
-using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Implement.User;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Interface.Value;
 using J6.Cms.IDAL;
 

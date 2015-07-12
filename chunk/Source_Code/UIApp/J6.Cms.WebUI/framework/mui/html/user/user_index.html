@@ -45,15 +45,15 @@
     $js()
     <script type="text/javascript">
         var pl = document.body.childNodes[0];
-        cms.dom.fitHeight(pl);
+        j6.dom.fitHeight(pl);
 
         //创建
         Fn.create = function () {
-            cms.load2('pl', 'user', 'createuser', '');
+            j6.load2('pl', 'user', 'createuser', '');
         };
 
 
-        var _dg = cms.grid('dg', {
+        var _dg = j6.grid('dg', {
             url: '?module=user&action=getusers',
             data: { page: 1 },
             idField: 'UserName',
@@ -70,13 +70,13 @@
 
                 j6.table.dynamic(tables[2], allowMultSelect, function (trs) {
                     var id = trs[0].getAttribute('data-indent');
-                    cms.load2('pl', 'user', 'updateuser', 'username=' + id);
+                    j6.load2('pl', 'user', 'updateuser', 'username=' + id);
                 });
 
-                cms.each(tds, function (i, e) {
-                    cms.contextmenu.bind(e, null, function (menu) {
+                j6.each(tds, function (i, e) {
+                    Cms.Contextmenu.bind(e, null, function (menu) {
                         //var state = e.parentNode.getAttribute('avaiable') == '1' ? '<span style="color:red">停用该用户</span>' : '启用该用户';
-                        menu.innerHTML = cms.template(cms.$('tpl').innerHTML, { id: id, state: state });
+                        menu.innerHTML = j6.template(j6.$('tpl').innerHTML, { id: id, state: state });
                     });
                 });
 
@@ -84,25 +84,25 @@
                 this.panel.nextSibling.innerHTML = data.pager;
 
 
-                cms.load2('pl', 'category', 'update', 'lft=' + data.rows[0].Lft);
+                j6.load2('pl', 'category', 'update', 'lft=' + data.rows[0].Lft);
             }
         });
 
 
         //绑定列表菜单
-        cms.contextmenu.bind(_dg.panel, cms.$('list_menu_tpl').innerHTML);
+        Cms.Contextmenu.bind(_dg.panel, j6.$('list_menu_tpl').innerHTML);
 
         var menu = {
             add: Fn.create,
             setavailable: function (id) {
                 (function (_this) {
-                    cms.xhr.jsonPost('?', 'module=user&action=setuserstate&username=' + id,
+                    j6.xhr.jsonPost('?', 'module=user&action=setuserstate&username=' + id,
                  function (json) {
                      if (json.result) {
                          parent.M.alert('操作成功！');
                          _this.refresh();
                      } else {
-                         cms.dialog.alert(json.message);
+                         j6.dialog.alert(json.message);
                      }
                  });
                 }(this));
@@ -110,8 +110,8 @@
             //删除文档
             del: function (id) {
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
-                    cms.xhr.jsonPost('?', 'module=user&action=deleteuser&username=' + id,
-                    function (json) { if (json.result) { Fn.loadData(); } else { cms.dialog.alert(json.message); } });
+                    j6.xhr.jsonPost('?', 'module=user&action=deleteuser&username=' + id,
+                    function (json) { if (json.result) { Fn.loadData(); } else { j6.dialog.alert(json.message); } });
                 }
             },
             refresh: function () {

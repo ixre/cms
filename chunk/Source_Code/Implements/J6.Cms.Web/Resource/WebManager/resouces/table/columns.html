@@ -34,9 +34,9 @@ $js()
 
     var md;
     window.onload = function () {
-        cms.table.dynamic(document.getElementsByTagName("table")[0]);
+        j6.table.dynamic(document.getElementsByTagName("table")[0]);
 
-        var bts = cms.$("gd", "button");
+        var bts = j6.$("gd", "button");
         for (var i in bts) {
             switch (bts[i].className) {
                 case 'edit': bts[i].onclick = editColumn; break;
@@ -51,7 +51,7 @@ $js()
         if (confirm('继续操作会导致表格数据丢失，确定吗？')) {
             var td = this.parentNode.parentNode;
             var id = getId(this);
-            cms.xhr.post('?', 'module=table&action=deletecolumn&tableid=${tableid}&columnid='+id,
+            j6.xhr.post('?', 'module=table&action=deletecolumn&tableid=${tableid}&columnid='+id,
                 function (x) {
                     var msg = '';
                     var resultTag; eval('resultTag=' + x);

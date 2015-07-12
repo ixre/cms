@@ -108,9 +108,9 @@
 
     <script type="text/javascript">
 
-        cms.dom.fitHeight(document.body.getElementsByTagName('DIV')[0]);
-        var itemTemplate = cms.$('archive_item_template').innerHTML;
-        var tplHtml = cms.$('tpl').innerHTML;
+        j6.dom.fitHeight(document.body.getElementsByTagName('DIV')[0]);
+        var itemTemplate = j6.$('archive_item_template').innerHTML;
+        var tplHtml = j6.$('tpl').innerHTML;
 
         var pagerPram = {
             category_id: '${categoryid}',
@@ -125,14 +125,14 @@
 
         pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 45);
 
-        var _dg = cms.grid('dg', {
+        var _dg = j6.grid('dg', {
             url: '?module=archive&action=pagerJsonData',
             data: pagerPram,
             idField: 'id',
             columns: [
                 {
                     field: 'title', title: '名称', width: 200, formatter: function (val, row, index) {
-                        return cms.template(itemTemplate, {
+                        return j6.template(itemTemplate, {
                             index: (index + 1),
                             title: val.length > 25 ? val.substring(0, 25) + '...' : val,
                             publish: row.createDate.replace('T', ' '),
@@ -150,18 +150,18 @@
 
                 j6.table.dynamic(tables[2], allowMultSelect, function (trs) {
                     var id = trs[0].getAttribute('data-indent');
-                    cms.load2('pl', 'archive', 'view', 'archive.id=' + id);
+                    j6.load2('pl', 'archive', 'view', 'archive.id=' + id);
                 });
 
-                cms.each(tds, function (i, e) {
-                    cms.contextmenu.bind(e, null, function (menu) {
+                j6.each(tds, function (i, e) {
+                    Cms.Contextmenu.bind(e, null, function (menu) {
 
-                        menu.innerHTML = cms.template(tplHtml, { id: e.parentNode.getAttribute('data-indent') });
+                        menu.innerHTML = j6.template(tplHtml, { id: e.parentNode.getAttribute('data-indent') });
                     });
                 });
 
 
-                cms.each(j6.dom.getsByClass(document.body, 'ui-datagrid-view'), function (i, e) {
+                j6.each(j6.dom.getsByClass(document.body, 'ui-datagrid-view'), function (i, e) {
                     var tbs = e.getElementsByTagName('TABLE');
                     if (tbs.length != 0) {
                         tbs[0].className = 'ui-table ui-table-list';
@@ -172,8 +172,8 @@
                 //加载分页
                 this.panel.nextSibling.innerHTML = data.pager;
 
-                if (cms.$('pl').innerHTML == '' && data.rows.length != 0) {
-                    cms.load2('pl', 'archive', 'view', 'archive.id=' + data.rows[0].id);
+                if (j6.$('pl').innerHTML == '' && data.rows.length != 0) {
+                    j6.load2('pl', 'archive', 'view', 'archive.id=' + data.rows[0].id);
                 }
             }
         });
@@ -188,12 +188,12 @@
 
         //创建
         Fn.create = function () {
-            cms.load2('pl', 'archive', 'create', 'category.id=${categoryid}', initEditor);
+            j6.load2('pl', 'archive', 'create', 'category.id=${categoryid}', initEditor);
         };
 
 
         //绑定列表菜单
-        cms.contextmenu.bind(cms.$('dg').parentNode, cms.$('list_menu_tpl').innerHTML);
+        Cms.Contextmenu.bind(j6.$('dg').parentNode, j6.$('list_menu_tpl').innerHTML);
 
 
         var menu = {
@@ -204,16 +204,16 @@
 
             //编辑文档
             edit: function (id) {
-                cms.load2('pl', 'archive', 'update', 'archive.id=' + id, initEditor);
+                j6.load2('pl', 'archive', 'update', 'archive.id=' + id, initEditor);
             },
 
             //删除文档
             del: function (id) {
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
-                    cms.xhr.jsonPost('?', 'module=archive&action=delete&archive.id=' + id,
+                    j6.xhr.jsonPost('?', 'module=archive&action=delete&archive.id=' + id,
                     function (json) {
                         if (json.result) {
-                            cms.$('pl').innerHTML = '';
+                            j6.$('pl').innerHTML = '';
                             _dg.reload();
                         }
                         else {
@@ -224,15 +224,15 @@
                 }
             },
             forword:function(id){
-                var d = cms.dialog.create2("文档转发", true, true);
+                var d = j6.dialog.create2("文档转发", true, true);
                 d.open("?module=archive&action=forword&archive.id=" + id,600,400,false);
             },
             //评论管理
             comment: function (id) {
-                cms.load2('pl', 'archive', 'comment', 'desc=true&archive.id=' + id);
+                j6.load2('pl', 'archive', 'comment', 'desc=true&archive.id=' + id);
             },
             moveToSort: function (id,val) {
-                cms.xhr.jsonPost('?', 'module=archive&action=moveToSort&archive.id=' + id+'&direction='+val,
+                j6.xhr.jsonPost('?', 'module=archive&action=moveToSort&archive.id=' + id+'&direction='+val,
                   function (json) {
                       if (json.result) {
                           parent.M.alert('操作成功！');
@@ -244,7 +244,7 @@
             },
             //重新发布
             republish: function (id) {
-                cms.xhr.jsonPost('?', 'module=archive&action=republish&archive.id=' + id,
+                j6.xhr.jsonPost('?', 'module=archive&action=republish&archive.id=' + id,
                   function (json) {
                       if (json.result) {
                           parent.M.alert('已经刷新最后更新时间！');
@@ -255,7 +255,7 @@
                   });
             },
             relatedlink: function (id) {
-                cms.$('pl').innerHTML = '<iframe frameborder="0" scrolling="no" width="100%" height="100%" ' +
+                j6.$('pl').innerHTML = '<iframe frameborder="0" scrolling="no" width="100%" height="100%" ' +
                     'src="?module=link&action=relatedlink&contentId=' + id + '&type=archive"></ifarme>';
             }
         };

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using J6.Cms.Domain.Interface.User;
 
 namespace J6.Cms.Domain.Implement.User
@@ -12,7 +8,7 @@ namespace J6.Cms.Domain.Implement.User
 
         public IUser CreateUser(IUserRepository rep, int id,int flag)
         {
-            return new User(rep,id,flag);
+            return new J6.Cms.Domain.Implement.User.User(rep,id,flag);
         }
         
         public IAppRoleManager CreateAppRoleManager(IUserRepository rep, int appId)
@@ -21,3 +17,4 @@ namespace J6.Cms.Domain.Implement.User
         }
     }
 }
+

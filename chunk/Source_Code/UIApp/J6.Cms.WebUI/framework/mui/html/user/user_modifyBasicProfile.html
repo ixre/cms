@@ -74,30 +74,30 @@
     </div>
     $js()
     <script type="text/javascript">
-        cms.$("btn").onclick = function () {
-            var form = cms.$('form_userProfile');
-            var json = cms.json.toObject(form);
+        j6.$("btn").onclick = function () {
+            var form = j6.$('form_userProfile');
+            var json = j6.json.toObject(form);
             var inputs = form.getElementsByTagName('INPUT');
             if (json.name == '') {
-                cms.validator.setTip(inputs[0], false, null, '请输入名称!');
+                j6.validator.setTip(inputs[0], false, null, '请输入名称!');
                 return false;
             }
             if (json.pwd != '') {
                 if (json.opwd == '') {
-                    cms.validator.setTip(inputs[1], false, null, '请输入密码!'); return false;
+                    j6.validator.setTip(inputs[1], false, null, '请输入密码!'); return false;
                 }
                 else if (json.pwd != json.repwd) {
-                    cms.validator.setTip(inputs[3], false, null, '新密码两次输入不一致!'); return false;
+                    j6.validator.setTip(inputs[3], false, null, '新密码两次输入不一致!'); return false;
                 }
             }
 
-            if (cms.validator.validate(form.id)) {
-                cms.xhr.jsonPost('?module=user&action=modifyUserBasicProfile', json, function (json) {
+            if (j6.validator.validate(form.id)) {
+                j6.xhr.jsonPost('?module=user&action=modifyUserBasicProfile', json, function (json) {
                     if (json.result) {
                         window.parent.M.alert('修改成功');
-                        //cms.tab.close();
+                        //j6.tab.close();
                     } else {
-                        cms.validator.setTip(inputs[1], false, null, json.message);
+                        j6.validator.setTip(inputs[1], false, null, json.message);
                     }
                 });
             }

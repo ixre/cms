@@ -1,4 +1,4 @@
-﻿cms.xhr.max_request = 4;
+﻿j6.xhr.max_request = 4;
 
 if (!window._path) {
     window._path = 'admin';
@@ -10,7 +10,7 @@ window.username = null;
 window.groupname = null;
 
 
-cms.xhr.get(window._path + '?module=ajax&action=appinit', function (x) {
+j6.xhr.get(window._path + '?module=ajax&action=appinit', function (x) {
     var ip, address;
     eval(x);
 });
@@ -148,9 +148,9 @@ var tab = {
     frames: null,
     tabs: null,
     initialize: function () {
-        var framebox = cms.$('pageframes');
+        var framebox = j6.$('pageframes');
         this.frames = framebox.getElementsByTagName('DIV')[2];
-        this.tabs = cms.$('pagetabs').childNodes[0];
+        this.tabs = j6.$('pagetabs').childNodes[0];
     },
     pageBeforeLoad: function () {
         var frames = this.frames;
@@ -178,7 +178,7 @@ var tab = {
         var _cur_indents = url;
         var _li = null;
 
-        cms.each(_tabs, function (i, obj) {
+        j6.each(_tabs, function (i, obj) {
             _indent = obj.getAttribute('indent');
             if (_indent == _cur_indents) {
                 _exits = true;
@@ -238,7 +238,7 @@ var tab = {
         var _frames = this.frames.getElementsByTagName('DIV');
         var _lis = this.tabs.getElementsByTagName('LI');
         var offsetHeight = this.frames.parentNode.offsetHeight;
-        cms.each(_lis, function (i, obj) {
+        j6.each(_lis, function (i, obj) {
 
             if (obj == li) {
                 obj.className = 'current';
@@ -258,7 +258,7 @@ var tab = {
         var isActived = false;
         var offsetHeight = this.frames.parentNode.offsetHeight;
 
-        cms.each(j6.dom.getsByClass(this.tabs, 'closebtn'), function (i, obj) {
+        j6.each(j6.dom.getsByClass(this.tabs, 'closebtn'), function (i, obj) {
             if (obj == t) {
                 closeIndex = i + 1;
                 isActived = obj.parentNode.parentNode.className == 'current';
@@ -377,13 +377,13 @@ window.M = {
         return d;
     },
     alert: function (html, func) {
-        cms.tipbox.show(html, false, 100, 2000, 'up');
+        j6.tipbox.show(html, false, 100, 2000, 'up');
         if (func) {
             setTimeout(func, 1000);
         }
     },
     msgtip: function (arg, func) {
-        cms.tipbox.show(arg.html, false, 100, arg.autoClose ? 2000 : -1, 'up');
+        j6.tipbox.show(arg.html, false, 100, arg.autoClose ? 2000 : -1, 'up');
         if (func) {
             setTimeout(func, 1000);
         }
@@ -400,9 +400,9 @@ window.M = {
     },
     clearCache: function (t) {
         window.M.msgtip({ html: '清除中....' });
-        cms.xhr.post(window._path, 'module=ajax&action=clearcache', function (x) {
+        j6.xhr.post(window._path, 'module=ajax&action=clearcache', function (x) {
             window.M.msgtip({ html: '缓存清除完成!', autoClose: true });
-            cms.xhr.get('/');
+            j6.xhr.get('/');
         }, function (x) { });
     },
     addFavorite: function () {
@@ -448,7 +448,7 @@ function setSite(id) {
         {
             success: function (html) {
                 window.M.loadCatTree();
-                cms.xhr.get(window._path + '?module=ajax&action=appinit&onlysite=true', function (x) {
+                j6.xhr.get(window._path + '?module=ajax&action=appinit&onlysite=true', function (x) {
                     var ip, address;
                     eval(x);
                     initSites();

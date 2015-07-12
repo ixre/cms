@@ -11,7 +11,7 @@
             模块与栏目相关，栏目与文档相关。模块可以提供视图设置和自定义属性给栏目和文档。
         </div><br />
         <dl>
-            <dt>模块名称：</dt><dd><input type="text" class="tb_normal ui-validate" required="true" length="[0,10]" field="tplname" value="${tplName}" summary="{required:'不能为空',length:'不能超过10个字'}"/></dd></dl>
+            <dt>模块名称：</dt><dd><input type="text" class="tb_normal box ui-validate" required="true" length="[0,10]" field="tplname" value="${tplName}" summary="{required:'不能为空',length:'不能超过10个字'}"/></dd></dl>
         <dl>
             <dt>栏目视图：</dt><dd><select field="categoryTplPath" id="categoryTplPath" class="tb_normal"><option value="">一默认一</option>
                 ${category_tpls}
@@ -27,22 +27,22 @@
   </form>
   $js()
     <script type="text/javascript">
-        cms.val('categoryTplPath', '${categoryTplPath}');
-        cms.val('archiveTplPath', '${archiveTplPath}');
+        j6.val('categoryTplPath', '${categoryTplPath}');
+        j6.val('archiveTplPath', '${archiveTplPath}');
 
-        //cms.$('btnlink').innerHTML = location.href.indexOf('edit') != -1 ? '编辑模块' : '创建模块';
+        //j6.$('btnlink').innerHTML = location.href.indexOf('edit') != -1 ? '编辑模块' : '创建模块';
 
-        cms.$('btn').onclick = function () {
+        j6.$('btn').onclick = function () {
             var e = this;
-            if (cms.validator.validate()) {
+            if (j6.validator.validate()) {
                 var eValue = e.value;
-                var data = cms.json.toObject(document);
+                var data = j6.json.toObject(document);
 
                 e.disabled = 'disabled';
                 e.value = '提交中...';
 
                 if (location.search) data += location.search.replace('?', '&');
-                cms.xhr.jsonPost(location.href, data, function (json) {
+                j6.xhr.jsonPost(location.href, data, function (json) {
 
                     e.disabled = '';
                     e.value = eValue;

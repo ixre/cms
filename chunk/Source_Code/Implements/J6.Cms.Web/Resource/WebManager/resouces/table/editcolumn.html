@@ -17,8 +17,8 @@
     <div class="area">
     <div class="form">
         <form method="post" action="" enctype="application/x-www-form-urlencoded">
-        <dl><dt>列名：</dt><dd><input class="tb_normal ui-validate" required="true" length="[1,20]" type="text" field="name" value="${name}" /></span></dd></dl>
-        <dl><dt>验证：</dt><dd><textarea rows="1" class="tb_normal ui-validate" length="[0,200]" type="text" field="validformat">${validformat}</textarea></dd></dl>
+        <dl><dt>列名：</dt><dd><input class="tb_normal box ui-validate" required="true" length="[1,20]" type="text" field="name" value="${name}" /></span></dd></dl>
+        <dl><dt>验证：</dt><dd><textarea rows="1" class="tb_normal box ui-validate" length="[0,200]" type="text" field="validformat">${validformat}</textarea></dd></dl>
             <p class="note" style="width:450px;margin-left:100px;">
             验证可选格式：<br />
             1. 不能为空: required="true"<br />
@@ -26,9 +26,9 @@
             3. 长度限制:length=[a,b]，a和b为长度数字
             </p>
 
-        <dl><dt>序号：</dt><dd><input class="tb_normal ui-validate" type="text" isnumber="true" length="[1,2]" field="orderindex" value="${orderindex}" style="width: 60px" /></dd></dl>
+        <dl><dt>序号：</dt><dd><input class="tb_normal box ui-validate" type="text" isnumber="true" length="[1,2]" field="orderindex" value="${orderindex}" style="width: 60px" /></dd></dl>
 
-        <dl><dt>备注：</dt><dd><input class="tb_normal ui-validate" length="[0,50]" type="text" field="note" value="${note}" /></dd></dl>
+        <dl><dt>备注：</dt><dd><input class="tb_normal box ui-validate" length="[0,50]" type="text" field="note" value="${note}" /></dd></dl>
    
         <dl><dt>&nbsp;</dt><dd><input type="hidden" id="tableid" field="tableid" value="${tableid}" />
         <input type="hidden" id="columnid" field="columnid" value="${columnid}" />
@@ -42,13 +42,13 @@
 $js()
     <script type="text/javascript">
         if (location.href.indexOf('edit') == -1) {
-            cms.$('btnlink').className = '';
-            cms.$('btnlink_create').className = 'current';
+            j6.$('btnlink').className = '';
+            j6.$('btnlink_create').className = 'current';
         }
         function submitForm() {
-            if (cms.validator.validate()) {
-                var data = cms.json.toObject(document);
-                cms.xhr.post(location.href, data, function (x) {
+            if (j6.validator.validate()) {
+                var data = j6.json.toObject(document);
+                j6.xhr.post(location.href, data, function (x) {
 
                     var msg = '';
                     var resultTag; eval('resultTag=' + x);
@@ -57,7 +57,7 @@ $js()
                     }
 
                     parent.M.alert(msg,function () {
-                        location.replace('?module=table&action=columns&tableid=' + cms.val('tableid'));
+                        location.replace('?module=table&action=columns&tableid=' + j6.val('tableid'));
                     });
                 });
             }

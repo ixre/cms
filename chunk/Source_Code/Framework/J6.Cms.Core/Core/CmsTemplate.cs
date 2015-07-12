@@ -1,13 +1,13 @@
 ﻿//
 // Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
-// Project: J6.Cms
+// Project: Cms.Cms
 // FileName : CmsContext.cs
 // author : PC-CWLIU (new.min@msn.com)
 // Create : 2013/06/23 14:53:11
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://Cms.Cms.cc
 //
 //
 

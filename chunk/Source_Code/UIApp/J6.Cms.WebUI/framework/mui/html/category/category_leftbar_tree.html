@@ -14,14 +14,14 @@
                 parent.FwTab.show(t, '?module=archive&action=list&category.id=' + d.cid, '1_996_' + d.cid);
             };
 
-            cms.tree.load(
+            j6.tree.load(
                 'menu_tree',
                 ${tree},
                 '/framework/assets/tree/',
                 showArchives);
 
-            var nodeLinks = j6.dom.getsByClass(cms.$('menu_tree'),'node');
-            cms.each(nodeLinks,function(i,e){
+            var nodeLinks = j6.dom.getsByClass(j6.$('menu_tree'),'node');
+            j6.each(nodeLinks,function(i,e){
                 if(e.nodeName=='A'){
                     if(e.innerHTML.length>18){
                         e.innerHTML = '<span title="'+e.innerHTML + '">'

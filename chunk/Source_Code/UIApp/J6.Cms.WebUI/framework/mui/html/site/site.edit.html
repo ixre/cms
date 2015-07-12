@@ -25,7 +25,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        var plTpl = cms.$('pl_tpl');
+        var plTpl = j6.$('pl_tpl');
         var tplTD = document.getElementsByName('field_tpl')[0].parentNode;
         var selector = plTpl.getElementsByTagName('SELECT')[0];
         tplTD.innerHTML = '';
@@ -37,8 +37,8 @@
         var postUrl = isCreate ? '?module=site&action=create' : '?module=site&action=edit';
 
         window.saveData = function () {
-            if (cms.validator.validate()) {
-                cms.xhr.jsonPost(postUrl, cms.json.toObject(document), function (json) {
+            if (j6.validator.validate()) {
+                j6.xhr.jsonPost(postUrl, j6.json.toObject(document), function (json) {
                     if (json.result) {
                         parent.M.alert(json.message, function () {
                                location.reload();
@@ -51,19 +51,19 @@
         };
 
 
-        cms.$('btn').onclick = window.saveData;
+        j6.$('btn').onclick = window.saveData;
 
         function initTab(cls) {
             var eles = document.getElementsByClassName(cls);
-            cms.each(eles, function (i, e) {
+            j6.each(eles, function (i, e) {
                 e.onclick = function () {
                     var group = e.getAttribute('group');
-                    cms.each(document.getElementsByTagName('DL'), function (i2, e2) {
+                    j6.each(document.getElementsByTagName('DL'), function (i2, e2) {
                         if (e2.getAttribute('group')) {
                             e2.style.display = e2.getAttribute('group') == group ? 'block' : 'none';
                         }
                     });
-                    cms.each(eles, function (i3, e3) {
+                    j6.each(eles, function (i3, e3) {
                         e3.className = e3 == e ? cls + ' current' : cls;
                     });
                 };

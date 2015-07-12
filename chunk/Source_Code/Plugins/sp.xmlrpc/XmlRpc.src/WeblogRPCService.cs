@@ -7,7 +7,7 @@
 // Create : 2011/10/20 12:22:02
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://J6.Cms.cc
 // Modify:
 //  2013-04-24 07:11 newmin [!]: deletePost修正了删除文档的bug,必须为本人添加才可以删除
 //
@@ -436,7 +436,7 @@ namespace sp.xmlrpc.XmlRpc.src
 
                 DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(
                     this.siteId, null,
-                    (user.RoleFlag & (int)RoleTag.Master)  != 0?0: user.Id, flags, null,
+                    Role.Master.Match(user.RoleFlag)?0: user.Id, flags, null,
                     false, numberOfPosts, 1, out totalRecords, out pages);
 
                 //如果返回的数量没有制定数多

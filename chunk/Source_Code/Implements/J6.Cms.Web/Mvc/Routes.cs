@@ -154,7 +154,7 @@ namespace J6.Cms.Web.Mvc
 
 
 			//多站点
-			//if (Cms.MultSiteVersion)
+			//if (j6.MultSiteVersion)
 			//{
 			//默认路由
 			//    routes.MapRoute(

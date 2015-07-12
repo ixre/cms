@@ -74,7 +74,7 @@
             <div class="fl">
                 <div class="label"><span class="red">*</span>显示条数：</div>
                 <div class="in">
-                    <input type="text" class="tb_normal ui-validate" isnumber="true" field="tpl_cfg_friendshownum" value="${tpl_CFG_FriendShowNum}" style="width:30px" />&nbsp;条
+                    <input type="text" class="tb_normal box ui-validate" isnumber="true" field="tpl_cfg_friendshownum" value="${tpl_CFG_FriendShowNum}" style="width:30px" />&nbsp;条
                 </div>
             </div>
 
@@ -124,8 +124,8 @@
     $js()
     <script type="text/javascript">
         function submitForm() {
-            if (cms.validator.validate()) {
-                cms.xhr.jsonPost(location.href, cms.json.toObject(document), function (json) {
+            if (j6.validator.validate()) {
+                j6.xhr.jsonPost(location.href, j6.json.toObject(document), function (json) {
                     if (json.result) {
                         tip(json.message);
                     } else {

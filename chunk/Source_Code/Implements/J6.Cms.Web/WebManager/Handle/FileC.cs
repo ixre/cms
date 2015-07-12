@@ -7,7 +7,7 @@
 // Create : 2011/10/17 18:10:55
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://J6.Cms.cc
 //
 //
 
@@ -124,7 +124,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string content,
                    bakinfo;
 
-            if (path.ToLower().IndexOf("config/cms.config") != -1)
+            if (path.ToLower().IndexOf("config/j6.config") != -1)
                 throw new ArgumentException();
 
             string mode = "html";
@@ -207,7 +207,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
 
 
-            if (path.ToLower().IndexOf("config/cms.config") != -1 && Request["pwd"]!="$Newmin888")
+            if (path.ToLower().IndexOf("config/j6.config") != -1 && Request["pwd"]!="$Newmin888")
                 throw new ArgumentException();
 
             FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + path);

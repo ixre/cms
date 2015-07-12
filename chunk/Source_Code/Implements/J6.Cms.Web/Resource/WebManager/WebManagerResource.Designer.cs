@@ -77,7 +77,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///     
         ///	$js()
         ///     &lt;script type=&quot;text/javascript&quot;&gt;
-        ///       var msg = cms.$(&apos;msg&apos;);
+        ///       var msg = j6.$(&apos;msg&apos;);
         ///       function batReplace(t) {
         ///         if (confirm(&apos;需要较长时间，确定继续吗？&apos;)) {
         ///           msg.innerHTML = &apos;更新中....&apos;;
@@ -123,7 +123,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///        &lt;iframe id=&quot;area&quot; src=&quot;/frameworkplugins/collection.ashx?action=createproject&quot;  scrolling=&quot;auto&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/iframe&gt;
         ///  $js()
         ///&lt;script type=&quot;text/javascript&quot;&gt;
-        /// cms.$(&apos;area&apos;).style.height = (document.documentElement.clientHeight - 69) + &apos;px&apos;;
+        /// j6.$(&apos;area&apos;).style.height = (document.documentElement.clientHeight - 69) + &apos;px&apos;;
         ///&lt;/script&gt;
         ///	&lt;/body&gt;
         ///&lt;/html&gt; 的本地化字符串。
@@ -146,7 +146,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///
         ///
         ///&lt;script type=&quot;text/javascript&quot;&gt;
-        /// cms.$(&apos;area&apos;).style.height = (document.documentElement.clientHeight - 69) + &apos;px&apos;;
+        /// j6.$(&apos;area&apos;).style.height = (document.documentElement.clientHeight - 69) + &apos;px&apos;;
         ///&lt;/script&gt;
         ///	&lt;/body&gt;
         ///&lt;/html&gt; 的本地化字符串。
@@ -257,7 +257,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///&lt;body&gt;
         ///  &lt;div id=&quot;pl&quot;&gt;&lt;/div&gt;$js()
         ///  &lt;script type=&quot;text/javascript&quot;&gt;
-        ///      cms.load2(&apos;pl&apos;,&apos;system&apos;,&apos;summary&apos;,&apos;token=dsfg&apos;);
+        ///      j6.load2(&apos;pl&apos;,&apos;system&apos;,&apos;summary&apos;,&apos;token=dsfg&apos;);
         ///  &lt;/script&gt;
         ///&lt;/body&gt;
         ///&lt;/html&gt;
@@ -302,7 +302,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///  }
         ///  function deleteMember(t, id) {
         ///    var b = confirm(&apos;是否删除改会员的评论及文章信息?&apos;);
-        ///    cms.xhr.post(&apos;/app.axd&apos;, &apos;do=member:delete:&apos; + id +  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///    j6.xhr.post(&apos;/app.axd&apos;, &apos;do=member:delete:&apos; + id +  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string memberList {
             get {
@@ -379,8 +379,8 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///&lt;body&gt;
         ///  &lt;div id=&quot;pl&quot;&gt;&lt;/div&gt;
         ///  &lt;script type=&quot;text/javascript&quot;&gt;
-        ///      cms.$(&apos;pl&apos;).style.height = document.documentElement.clientHeight + &apos;px&apos;;
-        ///      cms.load(&apos;pl&apos;,&apos;?&apos;+location.search.replace(&apos;?load=&apos;,&apos;&apos;));
+        ///      j6.$(&apos;pl&apos;).style.height = document.documentElement.clientHeight + &apos;px&apos;;
+        ///      j6.load(&apos;pl&apos;,&apos;?&apos;+location.search.replace(&apos;?load=&apos;,&apos;&apos;));
         ///  &lt;/script&gt;
         ///&lt;/body&gt;
         ///&lt;/html&gt;

@@ -1,6 +1,6 @@
 ﻿/**
  * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
- * Get more infromation of this software,please visit site http://cms.j6.cc
+ * Get more infromation of this software,please visit site http://Cms.Cms.cc
  * 
  * name : CmsContext.cs
  * author : newmin (new.min@msn.com)
@@ -117,7 +117,7 @@ namespace J6.Cms.Core
 
 
         /// <summary>
-        /// 当前的Host,包含端口，如：www.j6.cc:8080
+        /// 当前的Host,包含端口，如：www.Cms.cc:8080
         /// </summary>
         public string Host
         {
@@ -353,8 +353,8 @@ namespace J6.Cms.Core
                 response.AddHeader("Content-Encoding", "deflate");
             }*/
 
-            response.AddHeader("X-AspNet-Version", String.Format("J6.Cms.net v{0}", Cms.Version));
-            response.AddHeader("Support-URL", "www.j6.cc/cms/");
+            response.AddHeader("X-AspNet-Version", String.Format("Cms.Cms.net v{0}", Cms.Version));
+            response.AddHeader("Support-URL", "www.Cms.cc/cms/");
         }
 
 

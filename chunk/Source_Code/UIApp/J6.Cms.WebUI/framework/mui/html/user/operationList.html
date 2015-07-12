@@ -42,10 +42,10 @@
 $js()
 <script type="text/javascript">
 
-    var tb = cms.$('operations');
-    cms.table.dynamic(tb);
+    var tb = j6.$('operations');
+    j6.table.dynamic(tb);
 
-  cms.$('btncreate').onclick = function () {
+  j6.$('btncreate').onclick = function () {
     var tds = this.parentNode.parentNode.getElementsByTagName('input');
     var name = tds[0].value,
       path = tds[1].value;
@@ -53,14 +53,14 @@ $js()
     if (name == '')  parent.M.alert('请输入操作名称！');
     else if (path == '') parent.M.alert('请输入操作路径！');
     else {
-      cms.xhr.post('?', 'module=user&action=createoperation&name=' + escape(name) + '&path=' + escape(path),
+      j6.xhr.post('?', 'module=user&action=createoperation&name=' + escape(name) + '&path=' + escape(path),
         function (x) {
           location.reload();
         }, function (x) { alert(x); });
     }
   };
 
-  var btns = cms.$('operations').getElementsByTagName('button');
+  var btns = j6.$('operations').getElementsByTagName('button');
   for (var i = 0; i < btns.length; i++) {
     btns[i].onclick = (function (elem) {
       return function () {
@@ -70,7 +70,7 @@ $js()
             path = escape(tds[2].childNodes[0].value),
             available = tds[3].childNodes[0].checked;
 
-        cms.xhr.post('?', 'module=user&action=updateoperation&id=' + id + '&name=' + name + '&path=' + path + '&available=' + available,
+        j6.xhr.post('?', 'module=user&action=updateoperation&id=' + id + '&name=' + name + '&path=' + path + '&available=' + available,
         function (x) {  parent.M.alert('修改成功！'); }, function (x) { alert(x); });
 
       };

@@ -71,7 +71,7 @@
     <script type="text/javascript" src="${page.fpath}/core.js?hover=navi,clist,alist&version=${page.version}"></script>
     <script type="text/javascript" src="${page.fpath}/api.js?version=${page.version}"></script>
     <script>
-        cms.api.getRLink('${archive.id}',function(data){
+        j6.api.getRLink('${archive.id}',function(data){
             var html='<ul>';
             for(var i in data){
                 html+='<li><a href="'+data[i].url+'">'+data[i].name+':'+data[i].title+'</a></li>';

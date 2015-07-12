@@ -13,7 +13,7 @@
         <div class="fl hidden">
             <div class="label"><span class="red">*</span>授权用户：</div>
             <div class="in">
-                <input type="text" class="tb_normal ui-validate" required="true" field="license_name" id="name" />
+                <input type="text" class="tb_normal box ui-validate" required="true" field="license_name" id="name" />
                 <div class="tip">10字以下</div>
             </div>
         </div>
@@ -22,7 +22,7 @@
             <div class="label"><span class="red">*</span>后台地址：</div>
             <div class="in">
                 <b>http://<span field="site_domain"></span>/</b>
-                <input type="text" class="tb_normal ui-validate" required="true" field="sys_admin_tag" regex="^[a-zA-Z0-9_-]{1,5}$" style="width:60px" />
+                <input type="text" class="tb_normal box ui-validate" required="true" field="sys_admin_tag" regex="^[a-zA-Z0-9_-]{1,5}$" style="width:60px" />
                 <div class="red tip"> (*)修改后请通过新地址进入管理,需重启网站！</div>
             </div>
         </div>
@@ -45,7 +45,7 @@
         <dl class="hidden">
             <dt>数据表前缀:</dt>
             <dd>
-                <input type="text" class="tb_normal ui-validate" required="true" field="db_prefix" style="width:70px" />
+                <input type="text" class="tb_normal box ui-validate" required="true" field="db_prefix" style="width:70px" />
                 <span style="color:Red"> 请确保与数据库一致后修改，否则无法正常运行</span>
             </dd>
         </dl>
@@ -83,7 +83,7 @@
             <div class="fl">
                 <div class="label"><span class="red">*</span>内存回收：</div>
                 <div class="in">
-                    <input type="text" class="tb_normal ui-validate" required="true" isnumber="true" field="Opti_GC_Collect_Interval" style="width:40px" />分钟/次&nbsp;&nbsp;
+                    <input type="text" class="tb_normal box ui-validate" required="true" isnumber="true" field="Opti_GC_Collect_Interval" style="width:40px" />分钟/次&nbsp;&nbsp;
                     <div>(设置为0则不回收，修改重启网站后生效!)</div>
                 </div>
             </div>
@@ -91,14 +91,14 @@
             <div class="fl">
                 <div class="label"><span class="red">*</span>首页缓存：</div>
                 <div class="in">
-                    <input type="text" class="tb_normal ui-validate" required="true" isnumber="true" field="opti_IndexCacheSeconds" style="width:40px" />
+                    <input type="text" class="tb_normal box ui-validate" required="true" isnumber="true" field="opti_IndexCacheSeconds" style="width:40px" />
                     分钟(0表示不缓存)
                 </div>
             </div>
             <div class="fl">
                 <div class="label"><span class="red">*</span>客户端缓存：</div>
                 <div class="in">
-                    <input type="text" class="tb_normal ui-validate" required="true" isnumber="true" field="opti_ClientCacheSeconds" style="width:40px" />
+                    <input type="text" class="tb_normal box ui-validate" required="true" isnumber="true" field="opti_ClientCacheSeconds" style="width:40px" />
                     分钟(0表示不缓存)
                 </div>
             </div>

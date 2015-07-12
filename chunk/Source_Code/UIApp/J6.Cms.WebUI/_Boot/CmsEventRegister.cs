@@ -47,22 +47,22 @@ namespace J6.Cms
             });
 
             //读取站点
-            if (Cms.Installed)
+            if (j6.Installed)
             {
-                Cms.RegSites(SiteCacheManager.GetAllSites().ToArray());
+                j6.RegSites(SiteCacheManager.GetAllSites().ToArray());
             }
 
             //内嵌资源释放
             SiteResourceInit.Init();
 
             //设置可写权限
-            Cms.Utility.SetDirCanWrite(CmsVariables.RESOURCE_PATH);
-            Cms.Utility.SetDirCanWrite("templates/");
-            Cms.Utility.SetDirCanWrite(CmsVariables.FRAMEWORK_PATH);
-            Cms.Utility.SetDirCanWrite(CmsVariables.PLUGIN_PATH);
-            Cms.Utility.SetDirCanWrite(CmsVariables.TEMP_PATH + "update");
-            Cms.Utility.SetDirHidden("config");
-            Cms.Utility.SetDirHidden("bin");
+            j6.Utility.SetDirCanWrite(CmsVariables.RESOURCE_PATH);
+            j6.Utility.SetDirCanWrite("templates/");
+            j6.Utility.SetDirCanWrite(CmsVariables.FRAMEWORK_PATH);
+            j6.Utility.SetDirCanWrite(CmsVariables.PLUGIN_PATH);
+            j6.Utility.SetDirCanWrite(CmsVariables.TEMP_PATH + "update");
+            j6.Utility.SetDirHidden("config");
+            j6.Utility.SetDirHidden("bin");
 
          
 

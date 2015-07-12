@@ -7,7 +7,7 @@
 // Create : 2011/10/25 10:46:23
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://J6.Cms.cc
 //
 //
 

@@ -48,7 +48,7 @@
 
 
         window.bind_initKey = false;
-        var tip = cms.$("tip");
+        var tip = j6.$("tip");
 
         document.body.onkeydown = function (event) {
             if ((window.event||event).keyCode == 13) {
@@ -56,7 +56,7 @@
             }
         };
         function login() {
-            var formData = cms.json.toObject('loginForm');
+            var formData = j6.json.toObject('loginForm');
 
             if (formData.uid == '') {
                 tip.innerHTML = '<span style="color:red">请输入用户!</span>'; return false;
@@ -66,11 +66,11 @@
                 tip.innerHTML = '<span style="color:red">请输入验证码!</span>'; return false;
             } else {
                 tip.innerHTML = '<span style="color:green">登录中...</span>';
-                cms.xhr.jsonPost(location.href, formData, function (json) {
+                j6.xhr.jsonPost(location.href, formData, function (json) {
                     if (json.result) {
                         tip.innerHTML = '<span style="color:green">登录成功,正在进入...</span>';
                         setTimeout(function () {
-                            var returnUrl = cms.request('return_url') || '${path}?ver=${version}';
+                            var returnUrl = j6.request('return_url') || '${path}?ver=${version}';
                             location.replace(returnUrl);
                         }, 500);
                     }

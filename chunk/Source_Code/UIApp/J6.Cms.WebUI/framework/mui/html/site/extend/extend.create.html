@@ -14,10 +14,10 @@
         
         $js()
         <script type="text/javascript">
-            cms.$('btn').onclick = function () {
-                if (cms.validator.validate()) {
-                    cms.xhr.jsonPost('?module=extend&action=save',
-                        cms.json.toObject('extend_form'),
+            j6.$('btn').onclick = function () {
+                if (j6.validator.validate()) {
+                    j6.xhr.jsonPost('?module=extend&action=save',
+                        j6.json.toObject('extend_form'),
                         function (json) {
                             if (json.result) {
                                 parent.M.alert(json.message,function () {

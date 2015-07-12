@@ -37,7 +37,7 @@
 
 		$js()
         <script type="text/javascript">
-            cms.dom.fitHeight(document.body.childNodes[0]);
+            j6.dom.fitHeight(document.body.childNodes[0]);
 
             var nameLinks = document.getElementsByClassName('namelink');
             for (var i = 0; i < nameLinks.length; i++) {
@@ -47,7 +47,7 @@
                             ls[j].style.fontWeight=ls[j]==this?'bold':'';
                         }
                         var id = t.parentNode.parentNode.getAttribute('treeid');
-                        cms.load2('pl', 'site','edit','siteid='+id);
+                        j6.load2('pl', 'site','edit','siteid='+id);
                     };
                 })(nameLinks[i], nameLinks);
                 if (i == 0) {
@@ -57,12 +57,12 @@
 
             //创建
             Fn.create = function () {
-                cms.load2('pl', 'site', 'create', '');
+                j6.load2('pl', 'site', 'create', '');
             };
 
             //删除站点
             Fn.del = function () {
-                cms.dialog.alert('站点不允许删除！');
+                j6.dialog.alert('站点不允许删除！');
             };
 
         </script>

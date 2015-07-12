@@ -7,7 +7,7 @@
 // Create : 2011/10/17 10:56:06
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://J6.Cms.cc
 //
 //
 
@@ -159,7 +159,7 @@ namespace J6.Cms.Web.WebManager.Handle
                        .Append("\" field=\"extend_").Append(p.Id.ToString())
                        .Append("\" value=\"").Append(p.DefaultValue).Append("\"/>&nbsp;&nbsp;<span id=\"upload_")
                        .Append(p.Id.ToString()).Append("\">选择文件</span>")
-                       .Append("<script type=\"text/javascript\">cms.propertyUpload(")
+                       .Append("<script type=\"text/javascript\">j6.propertyUpload(")
                        .Append("'upload_").Append(p.Id.ToString()).Append("','extend_").Append(p.Id.ToString()).Append("');</script>");
                         break;
                 }
@@ -324,7 +324,7 @@ namespace J6.Cms.Web.WebManager.Handle
                                 sb.Append("<input type=\"text\" disabled=\"disabled\" class=\"tb_normal\" id=\"extend_").Append(p.ID.ToString()).Append("\" name=\"extend_").Append(p.ID.ToString())
                                     .Append("\" value=\"").Append(attrValue).Append("\"/><span id=\"upload_")
                                     .Append(p.ID.ToString()).Append("\">选择文件</span>")
-                                    .Append("<script type=\"text/javascript\">cms.propertyUpload(")
+                                    .Append("<script type=\"text/javascript\">j6.propertyUpload(")
                                     .Append("'upload_").Append(p.ID.ToString()).Append("','extend_").Append(p.ID.ToString()).Append("');</script>");
                             }
 
@@ -393,7 +393,7 @@ namespace J6.Cms.Web.WebManager.Handle
                       .Append("\" field=\"extend_").Append(field.Id.ToString())
                       .Append("\" value=\"").Append(attrValue).Append("\"/>&nbsp;&nbsp;<span id=\"upload_")
                       .Append(field.Id.ToString()).Append("\">选择文件</span>")
-                      .Append("<script type=\"text/javascript\">cms.propertyUpload(")
+                      .Append("<script type=\"text/javascript\">j6.propertyUpload(")
                       .Append("'upload_").Append(field.Id.ToString()).Append("','extend_").Append(field.Id.ToString())
                       .Append("');</script>");
                         break;

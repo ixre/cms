@@ -1,6 +1,6 @@
 ﻿/**
  * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
- * Get more infromation of this software,please visit site http://cms.j6.cc
+ * Get more infromation of this software,please visit site http://J6.Cms.cc
  * 
  * name : Site.cs
  * author : newmin (new.min@msn.com)

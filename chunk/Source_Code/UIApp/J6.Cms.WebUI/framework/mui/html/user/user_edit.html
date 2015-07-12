@@ -16,7 +16,7 @@
     </div>
 </div>
     <script type="text/javascript">
-    	var _pl=cms.$('pl_user');
+    	var _pl=j6.$('pl_user');
         var isCreate =  location.hash.split('.')[1] == 'createuser';
         var postUrl = isCreate ? '?module=user&action=createuser' : '?module=user&action=updateuser';
 
@@ -33,8 +33,8 @@
         }
 
         window.saveData = function () {
-            if (cms.validator.validate()) {
-                cms.xhr.jsonPost(postUrl, cms.json.toObject(document), function (json) {
+            if (j6.validator.validate()) {
+                j6.xhr.jsonPost(postUrl, j6.json.toObject(document), function (json) {
                     if (json.result) {
                         _dg.reload();
                         parent.M.alert(json.message);
@@ -45,7 +45,7 @@
             }
         };
         
-        cms.$('btn').onclick = window.saveData;
+        j6.$('btn').onclick = window.saveData;
     </script>
 </body>
 </html>

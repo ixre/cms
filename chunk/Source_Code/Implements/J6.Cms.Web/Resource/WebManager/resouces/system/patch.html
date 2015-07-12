@@ -45,19 +45,19 @@
 $js()
   <script type="text/javascript">
 
-      cms.$("btnupload").onclick = function () {
-          var filename = cms.$('patchfile').value;
+      j6.$("btnupload").onclick = function () {
+          var filename = j6.$('patchfile').value;
           if (!/\.zip$/.test(filename)) {
               alert('不是有效的补丁文件!');
               return false;
           } else {
-              cms.form.asyncSubmit(0);
+              j6.form.asyncSubmit(0);
           }
       };
 
 
 
-      cms.$("btnpatch").onclick = function () {
+      j6.$("btnpatch").onclick = function () {
           var e = this;
           var patchfiles = document.getElementsByName('applypatchfile');
           if (patchfiles.length != 0) {
@@ -66,26 +66,26 @@ $js()
                   if (patchfiles[i].getAttribute('checked') == 'checked') patchfile = escape(patchfiles[i].value);
               }
 
-              cms.$('btnmsg').innerHTML = '安装中,请稍后....';
-              cms.xhr.post(location.href, 'file=' + patchfile, function (result) {
-                  cms.$('btnmsg').innerHTML =result.length==0? '<span style="color:green">补丁安装成功！</span>':
+              j6.$('btnmsg').innerHTML = '安装中,请稍后....';
+              j6.xhr.post(location.href, 'file=' + patchfile, function (result) {
+                  j6.$('btnmsg').innerHTML =result.length==0? '<span style="color:green">补丁安装成功！</span>':
                   '<span style="color:red">错误：'+result+'</span>'
               });
           }
       };
 
-      var log = cms.$('upgradelog');
-      var btnUpdate = cms.$('btnauto');
+      var log = j6.$('upgradelog');
+      var btnUpdate = j6.$('btnauto');
 
       function checkUpgrade() {
           btnUpdate.innerHTML = '检测中';
           btnUpdate.setAttribute('disabled', 'disabled');
-          cms.xhr.post('?', 'module=ajax&action=checkupgrade', function (x) {
-              var ver = cms.toJson(x);
+          j6.xhr.post('?', 'module=ajax&action=checkupgrade', function (x) {
+              var ver = j6.toJson(x);
               if (ver.result == 1) {
                   log.innerHTML = '发现新版本!\r\n============================================\r\n' + ver.log;
                   btnUpdate.innerHTML = '升级';
-                  cms.$('btnauto').removeAttribute('disabled');
+                  j6.$('btnauto').removeAttribute('disabled');
               } else {
                   log.innerHTML += ver.message;
               }
@@ -95,15 +95,15 @@ $js()
       checkUpgrade();
 
 
-      cms.$('btnauto').onclick = function () {
+      j6.$('btnauto').onclick = function () {
 
           btnUpdate.innerHTML = '升级中..';
           btnUpdate.setAttribute('disabled', 'disabled');
 
-          cms.xhr.post('?', 'module=ajax&action=getupgrade', function (x) {
+          j6.xhr.post('?', 'module=ajax&action=getupgrade', function (x) {
               // window.M.msgtip({ html: '更新完成!', autoClose: true });
               btnUpdate.innerHTML = '升级';
-              cms.$('btnauto').removeAttribute('disabled');
+              j6.$('btnauto').removeAttribute('disabled');
               alert('complete!');
           });
 

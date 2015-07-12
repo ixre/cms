@@ -9,7 +9,7 @@
 //  2013-03-21  newmin [+] : 支持将URL参数作为模板内容
 //
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://J6.Cms.cc
 //
 //
 

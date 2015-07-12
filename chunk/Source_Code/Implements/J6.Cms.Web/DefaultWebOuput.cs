@@ -34,7 +34,7 @@ namespace J6.Cms.Web
         /// <returns></returns>
         public static bool CheckVerifyCode(string code)
         {
-            var sess =  System.Web.HttpContext.Current.Session[String.Format("$cms.site_{0}_verifycode", J6.Cms.Cms.Context.CurrentSite.SiteId.ToString())];
+            var sess =  System.Web.HttpContext.Current.Session[String.Format("$j6.site_{0}_verifycode", J6.Cms.Cms.Context.CurrentSite.SiteId.ToString())];
             if (sess != null)
             {
                 return String.Compare(code, sess.ToString(), true) == 0;
@@ -400,7 +400,7 @@ namespace J6.Cms.Web
                 //校验验证码
                 if (!CheckVerifyCode(form["ce_verifycode"]))
                 {
-                    rsp.Write(ScriptUtility.ParentClientScriptCall("cetip(false,'验证码不正确!');cms.$('ce_verifycode').nextSibling.onclick();"));
+                    rsp.Write(ScriptUtility.ParentClientScriptCall("cetip(false,'验证码不正确!');j6.$('ce_verifycode').nextSibling.onclick();"));
                     return;
                 }
                 else if (String.Compare(content, "请在这里输入评论内容", true) == 0 || content.Length == 0)

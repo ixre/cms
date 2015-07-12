@@ -7,7 +7,7 @@
 // Create : 2011/10/17 9:33:57
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://J6.Cms.cc
 // Modify:
 // 2013-07-15 14:00 newmin [!]: 修改模板呈现方式
 //

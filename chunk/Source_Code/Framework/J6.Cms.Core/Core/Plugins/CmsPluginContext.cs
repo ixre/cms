@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web;
 using J6.Cms.Conf;
+using J6.Cms;
 using J6.DevFw.PluginKernel;
 using J6.DevFw.PluginKernel.Web;
 using J6.DevFw.Template;

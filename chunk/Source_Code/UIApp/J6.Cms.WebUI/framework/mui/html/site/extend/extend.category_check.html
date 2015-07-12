@@ -36,9 +36,9 @@
         var _category=${category};
         var _extends=${json};
 
-        var _extendForm = cms.$('category_extends');
-        var _extendPanel = cms.$('extendPanel');
-        cms.json.bind(_extendForm,_category);
+        var _extendForm = j6.$('category_extends');
+        var _extendPanel = j6.$('extendPanel');
+        j6.json.bind(_extendForm,_category);
 
 
         for(var i in _extends){
@@ -48,13 +48,13 @@
         }
         if(_extendPanel.innerHTML==''){
             _extendPanel.innerHTML='<span style="color:red">系统还没有扩展属性，请通过栏目管理=》扩展属性进行添加！</span>';
-            cms.$('btn').setAttribute('disabled','disabled');
+            j6.$('btn').setAttribute('disabled','disabled');
         }
-        cms.json.bind(_extendForm,_category);
+        j6.json.bind(_extendForm,_category);
 
 
         window.save= function () {
-            var settedExtend=cms.json.toObject(_extendForm).ExtendIds;
+            var settedExtend=j6.json.toObject(_extendForm).ExtendIds;
             var extendIdStr='';
             var j=0;
             for(var i in settedExtend){
@@ -63,21 +63,21 @@
             }
 
 
-            cms.xhr.jsonPost('${url}',
+            j6.xhr.jsonPost('${url}',
                 'extendIds='+extendIdStr,
                 function (json) { 
                     if (json.result) {
                         parent.M.alert(json.message);
-                        cms.dialog.close();
+                        j6.dialog.close();
                     } else {
                         parent.M.alert(json.message);
                     }
                 });
         };
 
-        cms.$('btn').onclick =save;
+        j6.$('btn').onclick =save;
 
-        cms.$('btn_reset').onclick=function(){
+        j6.$('btn_reset').onclick=function(){
             document.forms["form3"].reset();
         }
     </script>

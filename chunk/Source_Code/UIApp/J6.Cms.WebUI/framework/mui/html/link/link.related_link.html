@@ -70,21 +70,21 @@
     <script type="text/javascript">
         
         var dataCollection = null;
-        var pl = cms.$('pl');
+        var pl = j6.$('pl');
 
-        cms.dom.fitHeight(cms.$('relatedPanel').parentNode);
-        cms.dom.fitHeight(cms.$('relatedPanel'));
+        j6.dom.fitHeight(j6.$('relatedPanel').parentNode);
+        j6.dom.fitHeight(j6.$('relatedPanel'));
 
-        var form_tpl = cms.$('link_form').innerHTML;
+        var form_tpl = j6.$('link_form').innerHTML;
 
         
 
         window.saveData = window.saveLink = function () {
-            if (cms.validator.validate('pl')) {
-                var data = cms.json.toObject('pl');
-                data.contentId = cms.request('contentId');
-                data.typeIndent = cms.request('type');
-                cms.xhr.jsonPost('?module=link&action=saveReleatedLink', data, function (json) {
+            if (j6.validator.validate('pl')) {
+                var data = j6.json.toObject('pl');
+                data.contentId = j6.request('contentId');
+                data.typeIndent = j6.request('type');
+                j6.xhr.jsonPost('?module=link&action=saveReleatedLink', data, function (json) {
                     if (json.result) {
                         _dg.reload();
                     }
@@ -93,11 +93,11 @@
             }
         };
 
-        var _dg = cms.grid('dg', {
+        var _dg = j6.grid('dg', {
             url: '?module=link&action=relatedlink',
             data: {
-                contentId: cms.request('contentId'),
-                typeIndent: cms.request('type')
+                contentId: j6.request('contentId'),
+                typeIndent: j6.request('type')
             },
             idField: 'LinkId',
             columns: [
@@ -118,11 +118,11 @@
 
                 j6.table.dynamic(tables[2], allowMultSelect, function (trs) {
                     var id = trs[0].getAttribute('data-indent');
-                    pl.innerHTML = cms.template(form_tpl, { btntext: '保存' });
+                    pl.innerHTML = j6.template(form_tpl, { btntext: '保存' });
                     pl.getElementsByTagName('DL')[0].style.display = 'none';
                     for (var i = 0; i < dataCollection.length; i++) {
                         if (dataCollection[i].LinkId == id) {
-                            cms.json.bind(pl, {
+                            j6.json.bind(pl, {
                                 LinkId: id,
                                 LinkName: dataCollection[i].LinkName,
                                 LinkUri: dataCollection[i].LinkUri,
@@ -135,9 +135,9 @@
                     //
                 });
 
-                cms.each(tds, function (i, e) {
-                    cms.contextmenu.bind(e, null, function (menu) {
-                        menu.innerHTML = cms.template(cms.$('tpl').innerHTML, {
+                j6.each(tds, function (i, e) {
+                    Cms.Contextmenu.bind(e, null, function (menu) {
+                        menu.innerHTML = j6.template(j6.$('tpl').innerHTML, {
                             id: e.parentNode.getAttribute('data-indent')
                         });
                     });
@@ -153,8 +153,8 @@
 
         var menu = {
             add: function() {
-                cms.$('pl').innerHTML = cms.template(form_tpl, { btntext: '新增' });
-                cms.json.bind('pl', { Enabled: 'True' });
+                j6.$('pl').innerHTML = j6.template(form_tpl, { btntext: '新增' });
+                j6.json.bind('pl', { Enabled: 'True' });
 
                 j6.each(j6.dom.getsByClass(j6.$('pl'), 'archiveGuest'), function (i, e) {
                     j6.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=5', function (data) {
@@ -163,7 +163,7 @@
                             data[j].title = '栏目：'+ data[j].category;
                         }
                     }, function (data) {
-                        cms.json.bind('pl', {
+                        j6.json.bind('pl', {
                             LinkUri: data.id,
                             LinkTitle: data.text,
                             Enabled: 'True'
@@ -175,10 +175,10 @@
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
                     var data = {
                         id: id,
-                        contentId: cms.request('contentId'),
-                        typeIndent: cms.request('type')
+                        contentId: j6.request('contentId'),
+                        typeIndent: j6.request('type')
                     };
-                    cms.xhr.jsonPost('?module=link&action=deleterelatedlink', data,
+                    j6.xhr.jsonPost('?module=link&action=deleterelatedlink', data,
                         function (json) {
                             if (json.result) {
                                 _dg.reload();

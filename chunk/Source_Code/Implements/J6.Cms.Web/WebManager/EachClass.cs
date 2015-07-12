@@ -35,7 +35,7 @@ namespace J6.Cms.WebManager
             string path;
             foreach (FileInfo file in dir.GetFiles())
             {
-                if (file.Name!="cms.config" && (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden 
+                if (file.Name!="j6.config" && (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden 
                     && (String.IsNullOrEmpty(ext) || ext.IndexOf(file.Extension) != -1))
                 {
 
@@ -133,7 +133,7 @@ namespace J6.Cms.WebManager
                     && Array.Exists(allowListedExt, a => file.Name.IndexOf(a) != -1))
                 {
                     filePath = file.FullName.Substring(path.Length).Replace("\\", "/");
-                    pageType = Cms.Template.GetPageType(filePath);
+                    pageType = j6.Template.GetPageType(filePath);
                    
 
                     sb.Append("<option value=\"templates/").Append(tplName).Append("/");
@@ -141,7 +141,7 @@ namespace J6.Cms.WebManager
                     sb.Append(filePath).Append("\">/").Append(filePath);
                     if (pageType != TemplatePageType.Custom)
                     {
-                        sb.Append("(").Append( Cms.Template.GetPageDescript(pageType) ).Append(")");
+                        sb.Append("(").Append( j6.Template.GetPageDescript(pageType) ).Append(")");
                     }
 
                     sb.Append("</option>");

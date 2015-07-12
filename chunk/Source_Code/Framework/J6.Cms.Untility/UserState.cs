@@ -37,7 +37,7 @@ namespace J6.Cms.Utility
 
         private const int tokenLength = 10;
 
-        private const string adminSK = "$cms.ASK";
+        private const string adminSK = "$j6.ASK";
 
         /// <summary>
         /// 管理员Cookie键匹配模式

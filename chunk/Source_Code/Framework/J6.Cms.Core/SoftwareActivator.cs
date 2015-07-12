@@ -1,13 +1,13 @@
 ﻿//
 // Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
-// Project: J6.Cms
+// Project: Cms.Cms
 // FileName : SoftwareActivator.cs
 // author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/12/23 17:01:02
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://Cms.Cms.cc
 //
 // =========================================
 // 激活规则
@@ -189,11 +189,11 @@ namespace J6.Cms
             {
                 try
                 {
-                    //如果Key为空则Key为temp.j6.cc产生的Key
+                    //如果Key为空则Key为temp.Cms.cc产生的Key
                     string key = Settings.License_KEY 
                           ?? "YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI=";
 
-                    string responseText = HttpClient.Post("http://ct.j6.cc/ct/license",
+                    string responseText = HttpClient.Post("http://ct.Cms.cc/ct/license",
                         "token=YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI&license_key="
                         + key + "&license_name=" + Settings.License_NAME,null);
 

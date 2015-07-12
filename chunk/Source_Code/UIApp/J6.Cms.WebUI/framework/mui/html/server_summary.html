@@ -72,9 +72,9 @@
 
 
 		function autoCheckUpgrade(){
-			var e=cms.$('version');
-			cms.xhr.post('?', 'module=ajax&action=checkupgrade', function (x) {
-                var ver = cms.toJson(x);
+			var e=j6.$('version');
+			j6.xhr.post('?', 'module=ajax&action=checkupgrade', function (x) {
+                var ver = j6.toJson(x);
                 if (ver.result == 1) {
                 	e.innerHTML='发现新版本：v'+ver.version+'&nbsp;<a href="javascript:;" onclick="checkUpgrade(false)">点击升级</a>';
                 	versionInfo=ver.log;
@@ -85,7 +85,7 @@
 		}
 		
         function checkUpgrade(noVersionShow) {
-            dia = cms.dialog.create2('系统在线升级', true, true);
+            dia = j6.dialog.create2('系统在线升级', true, true);
            var html = '发现新版本!<br />===========================' +versionInfo.replace('\n', '<br />');
            dia.write('<div style="color:#666;font-size:14px;line-height:25px;padding:20px 40px;">' + html + '<div style="text-align:center;margin-bottom:15px;"><button id="btn_install">点击按钮开始升级</button></div></div>');
            (window.parent||window).document.getElementById('btn_install').onclick = upgrade;
@@ -95,7 +95,7 @@
         function upgrade() {
             window.autoCheck = false;
             if (dia != null)dia.close();
-            dia = cms.dialog.create2('系统升级中 - 升级过程中请不要进行任何操作！', true, true);
+            dia = j6.dialog.create2('系统升级中 - 升级过程中请不要进行任何操作！', true, true);
 			
 			
             dia.write('<div style="width:400px;overflow:hidden;position:relative;background:#333;">' +
@@ -106,7 +106,7 @@
             setUpgradeStatus(e, 0);
 
             //开始更新
-            cms.xhr.post('?', 'module=ajax&action=getupgrade', function (x) {});
+            j6.xhr.post('?', 'module=ajax&action=getupgrade', function (x) {});
         }
 
         function setUpgradeStatus(e, percent) {
@@ -115,13 +115,13 @@
             e.style.width = (pwidth * percent) + 'px';
             if (width < pwidth && percent != 1) {
                 e.previousSibling.innerHTML = '下载更新包：' + parseInt(percent * 100) + '%';
-                cms.xhr.post('?', 'module=ajax&action=upgradestatus', function (x) {
+                j6.xhr.post('?', 'module=ajax&action=upgradestatus', function (x) {
                     setUpgradeStatus(e, parseFloat(x));
                 });
             } else {
                 var ele=e.previousSibling;
                 ele.innerHTML = "正在升级...";
-                cms.xhr.get('?', function (x) {
+                j6.xhr.get('?', function (x) {
                     ele.innerHTML = "升级成功!";
                     setTimeout(function () { if (dia != null) { dia.close(); location.reload(); } }, 5000);
                 }, function (x) {
@@ -137,7 +137,7 @@
             document.getElementById("dialog_server").style.width = (document.documentElement.clientWidth - 430) + 'px';
         }, 1000);
 
-        //(window.parent||window).cms.$('btn_async').onclick = upgrade;
+        //(window.parent||window).j6.$('btn_async').onclick = upgrade;
 
     </script>
 

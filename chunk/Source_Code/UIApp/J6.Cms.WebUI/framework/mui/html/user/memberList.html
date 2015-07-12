@@ -20,7 +20,7 @@ $js()
   }
   function deleteMember(t, id) {
     var b = confirm('是否删除改会员的评论及文章信息?');
-    cms.xhr.post('/app.axd', 'do=member:delete:' + id + ',' + b, function (x) {
+    j6.xhr.post('/app.axd', 'do=member:delete:' + id + ',' + b, function (x) {
       if (x == "True") t.parentNode.parentNode.style.display = 'none'; else alert(x);
     }, function (x) { alert(x); });
   }

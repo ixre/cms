@@ -59,34 +59,34 @@
         </div>
     </script>$js()
     <script type="text/javascript">
-        var treePanel = cms.$('dg');
+        var treePanel = j6.$('dg');
         var treeObj = null;
-        var tmpTpl = cms.$('tpl').innerHTML;
+        var tmpTpl = j6.$('tpl').innerHTML;
         function _showCategory(e, d, t) {
-            var id = cms.toJson(d).lft;
-            cms.load2('pl', 'category', 'update', 'lft=' + id);
+            var id = j6.toJson(d).lft;
+            j6.load2('pl', 'category', 'update', 'lft=' + id);
         }
 
         //加载栏目树
         function _thisLoadCategoryTree() {
-            cms.xhr.request({
+            j6.xhr.request({
                 uri: '?module=ajax&action=CategoryNodes',
                 method: 'GET',
                 data: 'json'
             }, {
                 success: function (json) {
-                    treeObj = cms.tree.load(treePanel, json, '/framework/assets/tree/', _showCategory);
+                    treeObj = j6.tree.load(treePanel, json, '/framework/assets/tree/', _showCategory);
                     var nodeLinks;
-                    cms.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
+                    j6.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
                         if (e.className == 'node') {
                             nodeLinks = e.getElementsByClassName
                                 ? e.getElementsByClassName('node')
                                 : document.getElementsByClassName('node', e);
 
                             if (nodeLinks.length != 0) {
-                                var id = cms.toJson(nodeLinks[0].getAttribute('node-value')).lft;
-                                cms.contextmenu.bind(e, null, function (menu) {
-                                    menu.innerHTML = cms.template(tmpTpl, { id: id });
+                                var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).lft;
+                                Cms.Contextmenu.bind(e, null, function (menu) {
+                                    menu.innerHTML = j6.template(tmpTpl, { id: id });
                                 });
                             }
                         }
@@ -106,15 +106,15 @@
 
         //创建
         Fn.create = function (id) {
-            cms.load2('pl', 'category', 'create', id?'lft='+id:'');
+            j6.load2('pl', 'category', 'create', id?'lft='+id:'');
         };
 
 
-        cms.$('btn_create').onclick = function () {
+        j6.$('btn_create').onclick = function () {
             Fn.create();
         };
 
-        cms.$('btn_collage').onclick = function () {
+        j6.$('btn_collage').onclick = function () {
             if (this.value.indexOf('收起') != -1) {
                 treeObj.closeAll();
                 this.value = '展开栏目';
@@ -133,7 +133,7 @@
             },
             del: function (id) {
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
-                    cms.xhr.jsonPost('?', 'module=category&action=delete&lft=' + id,
+                    j6.xhr.jsonPost('?', 'module=category&action=delete&lft=' + id,
                         function (json) {
                             if (json.result) {
                                 _reloadTree();

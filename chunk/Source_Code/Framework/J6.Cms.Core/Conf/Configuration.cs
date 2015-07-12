@@ -1,13 +1,13 @@
 ﻿//
 // Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
 // 
-// Project: J6.Cms
+// Project: Cms.Cms
 // FileName : ApplicationManager.cs
 // author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/12/23 14:53:11
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.j6.cc
+// Get infromation of this software,please visit our site http://Cms.Cms.cc
 //
 //
 
@@ -47,7 +47,7 @@ namespace J6.Cms.Conf
 				{
 					HttpContext.Current.Server.ClearError();
 					HttpContext.Current.Response.Write("<div style=\"margin:50px auto;width:600px;font-size:14px;color:red;line-height:50px;\"><b style=\"font-size:25px\">500&nbsp;Server Error!</b> <br />"+
-					                                   (ex ?? ex.InnerException).Message+"<br />问题出现的详细原因，请见：http://www.j6.cc/cms/</div>");
+					                                   (ex ?? ex.InnerException).Message+"<br />问题出现的详细原因，请见：http://www.Cms.cc/cms/</div>");
 					HttpRuntime.UnloadAppDomain();
 					
 				}

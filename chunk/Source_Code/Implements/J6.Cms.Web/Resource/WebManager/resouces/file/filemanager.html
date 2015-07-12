@@ -45,7 +45,7 @@ $js()
     /*var cms = new js();*/
     var fm_handler = '?module=file&action=filemanager';
     var curdir = (location.hash || '#/').substring(1);
-    var tb = cms.$('filesexp');
+    var tb = j6.$('filesexp');
 
     var ctobj = {
         tip: function (msg, error) {
@@ -164,7 +164,7 @@ $js()
 
             if (confirm('删除后无法恢复,确定要删除 "' + file + '" 吗,?')) {
                 var isDir = type == 'dir' ? 1 : 0;
-                cms.xhr.post(fm_handler, 'act=del&dir='
+                j6.xhr.post(fm_handler, 'act=del&dir='
                     + encodeURIComponent(curdir) + '&isdir=' + isDir + '&file='
                      + encodeURIComponent(file), function (result) {
 
@@ -202,7 +202,7 @@ $js()
                     tds[1].appendChild(a);
                 } else {
                     _this.tip('执行更改...');
-                    cms.xhr.post(fm_handler, 'act=rename&isdir=' + isDir + '&dir='
+                    j6.xhr.post(fm_handler, 'act=rename&isdir=' + isDir + '&dir='
                     + encodeURIComponent(curdir) + '&file=' + encodeURIComponent(file)
                     + '&newfile=' + encodeURIComponent(newfile),
                  function (result) {
@@ -248,10 +248,10 @@ $js()
         },
         newfile: function (id) {
             var _this = this;
-            var fileName = cms.val(id);
-            cms.xhr.post(fm_handler, 'act=create&dir=' + encodeURIComponent(curdir) + '&file=' + encodeURIComponent(fileName),
+            var fileName = j6.val(id);
+            j6.xhr.post(fm_handler, 'act=create&dir=' + encodeURIComponent(curdir) + '&file=' + encodeURIComponent(fileName),
             function (result) {
-                var json = cms.toJson(result);
+                var json = j6.toJson(result);
                 if (json.error) {
                     _this.tip(json.error, true);
                 } else {
@@ -270,8 +270,8 @@ $js()
     function load(dir) {
        // ctobj.tip('加载中...', 0);
         ctobj.resetTable();
-        cms.xhr.post(fm_handler, 'act=list&dir=' + dir, function (result) {
-            var json = cms.toJson(result);
+        j6.xhr.post(fm_handler, 'act=list&dir=' + dir, function (result) {
+            var json = j6.toJson(result);
             if (json.error) {
                 ctobj.tip(json.error, true);
             } else {
@@ -287,7 +287,7 @@ $js()
 
 
                 //重新设置风格
-                cms.table.dynamic(document.getElementsByTagName("TABLE")[0],false,function (row) {
+                j6.table.dynamic(document.getElementsByTagName("TABLE")[0],false,function (row) {
                 });
 
             }

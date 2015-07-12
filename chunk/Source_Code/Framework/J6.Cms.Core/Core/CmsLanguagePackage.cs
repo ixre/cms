@@ -4,7 +4,6 @@ using J6.Cms.Cache;
 using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Common.Language;
 using J6.Cms.Infrastructure;
-using J6.Cms.Cache;
 
 namespace J6.Cms.Core
 {
@@ -59,7 +58,7 @@ namespace J6.Cms.Core
         public String Get(LanguagePackageKey key)
         {
             return lang.Get(key,
-                Cms.Context.CurrentSite.Language);
+                global::J6.Cms.Cms.Context.CurrentSite.Language);
         }
 
         public string Get(string key, Languages language)

@@ -35,9 +35,9 @@ $js()
 
     var md;
     window.onload = function () {
-      cms.table.dynamic(document.getElementsByTagName("table")[0]);
+      j6.table.dynamic(document.getElementsByTagName("table")[0]);
 
-      var bts = cms.$("gd", "button");
+      var bts = j6.$("gd", "button");
       for (var i in bts) {
         switch (bts[i].className) {
           case 'edit': bts[i].onclick = edit; break;
@@ -56,7 +56,7 @@ $js()
       if(confirm('确定删除吗?删除后将不可恢复!')){
         var td = this.parentNode.parentNode;
         var id=getId(this);
-        cms.xhr.post('?', "module=module&action=delete&id=" + id,
+        j6.xhr.post('?', "module=module&action=delete&id=" + id,
         function (x) {
             if (x != '') {
                 parent.M.alert(x);

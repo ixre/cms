@@ -123,38 +123,38 @@
     </form>
     $js()
     <script type="text/javascript">
-        cms.json.bind('dataPanel',${entity});
+        j6.json.bind('dataPanel',${entity});
 
-        var bindid = cms.$('bindid'),
-              bindtype = cms.$('bindtype'),
-              bindtip = cms.$('bindtip'),
-              cancelbind = cms.$('cancelbind'),
-              linkurl = cms.$('urlpanel');
+        var bindid = j6.$('bindid'),
+              bindtype = j6.$('bindtype'),
+              bindtip = j6.$('bindtip'),
+              cancelbind = j6.$('cancelbind'),
+              linkurl = j6.$('urlpanel');
 
         cancelbind.style.display = bindtip.innerHTML == '未绑定' ? 'none' : '';
         //linkurl.style.display = cancelbind.style.display != 'none' ? 'none' : '';
 
-        var upload = cms.upload({
+        var upload = j6.upload({
             id: 'upload',
             url: '?module=upload&action=uploadimage&for=link&upload.id=upload',
             exts: '*.gif;*.jpg;*.png;*.bmp'
         },function (result, data) {
             if (result) {
-                cms.$('imgurl').value = data.url;
+                j6.$('imgurl').value = data.url;
             } else {
                 alert('上传失败：' + data);
             }
         });
 
         function searchArchive(id) {
-            var key = cms.val(id);
+            var key = j6.val(id);
             var panel = document.getElementsByClassName('archivelist')[0];
             if (key != '') {
 
                 panel.innerHTML = '获取搜索结果...';
-                cms.xhr.post('?', 'module=ajax&action=GetSearchArchivesJsonResult&key=' 
+                j6.xhr.post('?', 'module=ajax&action=GetSearchArchivesJsonResult&key=' 
                     + encodeURIComponent(key), function (result) {
-                    var data = cms.toJson(result);
+                    var data = j6.toJson(result);
                     panel.innerHTML = '';
                     for (var i = 0; i < data.length; i++) {
                         var ele = document.createElement("DIV");
@@ -185,7 +185,7 @@
                 bindid.value = id;
                 bindtype.value = type;
                 bindtip.innerHTML = typeStr + ':' + text;
-                cms.$('cancelbind').style.display = '';
+                j6.$('cancelbind').style.display = '';
                 linkurl.style.display = 'none';
             }
         }
@@ -195,16 +195,16 @@
             bindid.value = '';
             bindtype = '';
             bindtip.innerHTML = '未绑定';
-            cms.$('cancelbind').style.display = 'none';
+            j6.$('cancelbind').style.display = 'none';
             linkurl.style.display = '';
         }
 
         window.saveData = function onsubmit() {
 
-            if (cms.validator.validate()) {
-                cms.xhr.jsonPost(
+            if (j6.validator.validate()) {
+                j6.xhr.jsonPost(
                        '?module=link&action=save'
-                       , cms.json.toObject('dataPanel')
+                       , j6.json.toObject('dataPanel')
                        , function (json) {
                            if (json.result) {
                                parent.M.alert(json.message,function () {
@@ -222,7 +222,7 @@
         };
 
 
-        cms.$('btn').onclick = window.saveData;
+        j6.$('btn').onclick = window.saveData;
 
     </script>
 </body>

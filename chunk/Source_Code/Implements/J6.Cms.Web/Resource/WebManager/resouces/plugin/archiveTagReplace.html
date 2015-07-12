@@ -14,11 +14,11 @@
      
 	$js()
      <script type="text/javascript">
-       var msg = cms.$('msg');
+       var msg = j6.$('msg');
        function batReplace(t) {
          if (confirm('需要较长时间，确定继续吗？')) {
            msg.innerHTML = '更新中....';
-           cms.xhr.post('?', 'module=plugin&action=replacetags', function (x) { msg.innerHTML = '操作完成'; }, function (x) { alert(x); });
+           j6.xhr.post('?', 'module=plugin&action=replacetags', function (x) { msg.innerHTML = '操作完成'; }, function (x) { alert(x); });
          }
        }
       

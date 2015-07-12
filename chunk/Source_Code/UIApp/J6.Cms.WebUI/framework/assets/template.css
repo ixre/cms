@@ -12,7 +12,7 @@ mask,.mask{background:url(/framework/assets/images/mask.gif);
 .left{float:left;}
 .right{float:right;}
 .center{text-align:center;}
-.clear{clear:both;}
+.clear,.clear-fixcler{clear:both;}
 .overflow{overflow:hidden;}
 .hidden{display:none;}
 .clearfix{clear:both;}

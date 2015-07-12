@@ -73,7 +73,7 @@ namespace J6.Cms.Template
             if (settings == null)
             {
                 this.TplSetting = new TemplateSetting(this.site.Tpl);
-                Cms.Cache.Insert(settingCacheKey, this.TplSetting, String.Format("{0}templates/{1}/tpl.conf", J6.Cms.Cms.PyhicPath, this.site.Tpl));
+                Cms.Cache.Insert(settingCacheKey, this.TplSetting, String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this.site.Tpl));
             }
             else
             {
@@ -208,13 +208,13 @@ namespace J6.Cms.Template
            p.FirstPageLink = firstLink;
            p.LinkFormat = link;
 
-           p.PreviousPageText = Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText);
-           p.NextPageText = Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText);
+           p.PreviousPageText = j6.Language.Get(LanguagePackageKey.PAGER_PrePageText);
+           p.NextPageText = j6.Language.Get(LanguagePackageKey.PAGER_NextPageText);
            p.PageTextFormat = "{0}";
-           p.SelectPageText = Cms.Language.Get(LanguagePackageKey.PAGER_SelectPageText);
+           p.SelectPageText = j6.Language.Get(LanguagePackageKey.PAGER_SelectPageText);
            p.Style = PagerStyle.Custom;
            p.EnableSelect = true;
-           p.PagerTotal = Cms.Language.Get(LanguagePackageKey.PAGER_PagerTotal);
+           p.PagerTotal = j6.Language.Get(LanguagePackageKey.PAGER_PagerTotal);
            p.LinkCount = 10;*/
 
             string key = this.PushPagerKey();
@@ -686,55 +686,55 @@ namespace J6.Cms.Template
                 </form>
             </div>
                 <script type=""text/javascript"">
-                    var ce_n=cms.$('ce_nickname'),
-                          ce_v=cms.$('ce_verifycode'),
+                    var ce_n=j6.$('ce_nickname'),
+                          ce_v=j6.$('ce_verifycode'),
                           ce_vl=ce_v.nextSibling,
-                          ce_c=cms.$('ce_content'),
-                          ce_t=cms.$('ce_tip'),
-                          ce_s=cms.$('ce_submit');
+                          ce_c=j6.$('ce_content'),
+                          ce_t=j6.$('ce_tip'),
+                          ce_s=j6.$('ce_submit');
 
-                        cms.lazyRun(function(){
-                            if(!cms.form)cms.ld('form');
-                            if(!cms.validator)cms.ld('validate')
+                        j6.lazyRun(function(){
+                            if(!j6.form)j6.ld('form');
+                            if(!j6.validator)j6.ld('validate')
                         });
 
-                        cms.lazyRun(function(){
+                        j6.lazyRun(function(){
                             if(ce_n){
-                                ce_n.value = cms.cookie.read('viewname');
+                                ce_n.value = j6.cookie.read('viewname');
                                 ce_n.onblur=function(){
                                      if(ce_n.value=='' || ce_n.value.length>10){
-                                          cms.validator.setTip(ce_n,false,'','昵称长度为1-10个字符!');
+                                          j6.validator.setTip(ce_n,false,'','昵称长度为1-10个字符!');
                                      }else{
-                                          cms.validator.removeTip(ce_n);
-                                          cms.cookie.write('viewname', this.value, 60 * 60 * 24 * 3);
+                                          j6.validator.removeTip(ce_n);
+                                          j6.cookie.write('viewname', this.value, 60 * 60 * 24 * 3);
                                      }
                                   };
                             }
                             ce_c.onblur=function(){
                                      if(ce_c.value==''){
-                                          cms.validator.setTip(ce_c,false,'','请输入评论内容!');
+                                          j6.validator.setTip(ce_c,false,'','请输入评论内容!');
                                      }else if(ce_c.value.length>200){
-                                          cms.validator.setTip(ce_c,false,'','评论内容必须少于200字!');
+                                          j6.validator.setTip(ce_c,false,'','评论内容必须少于200字!');
                                      }
                                      else{
-                                          cms.validator.removeTip(ce_c);
+                                          j6.validator.removeTip(ce_c);
                                      }
                               };
                             ce_v.onblur=function(){
                                      if(ce_v.value==''){
-                                          cms.validator.setTip(ce_vl,false,'','请输入验证码!');
+                                          j6.validator.setTip(ce_vl,false,'','请输入验证码!');
                                      }
                                      else{
-                                          cms.validator.removeTip(ce_vl);
+                                          j6.validator.removeTip(ce_vl);
                                      }
                               };
 
                    });
                    function submitComment(){
-                        cms.lazyRun(function(){
-                            if(cms.validator.validate('cmeditor')){
+                        j6.lazyRun(function(){
+                            if(j6.validator.validate('cmeditor')){
                                  cetip(true,'提交中...');
-                                 cms.form.asyncSubmit('cmeditor');
+                                 j6.form.asyncSubmit('cmeditor');
                             }
                         });
                    }
@@ -994,14 +994,14 @@ namespace J6.Cms.Template
                 .Append(tableId).Append("_btn\" value=\"提交\"/><span id=\"cms_form_")
                 .Append(tableId).Append("_summary").Append("\"></span></div></form><script type=\"text/javascript\">")
                 .Append("if(!window.cms){alert('缺少cms核心脚本库!');}else{")
-                .Append("cms.lazyRun(function(){ if(!cms.form)cms.ld('form');if(!cms.validator)cms.ld('validate'); });")
+                .Append("j6.lazyRun(function(){ if(!j6.form)j6.ld('form');if(!j6.validator)j6.ld('validate'); });")
                 .Append("document.getElementById('cms_form_").Append(tb.Id.ToString()).Append("_btn').onclick=function(){")
-                .Append("cms.lazyRun(function(){")
-                .Append("var cfs=cms.$('cms_form_").Append(tableId).Append("_summary');")
-                .Append("if(cms.validator.validate('cms_form_").Append(tableId).Append("')){cfs.innerHTML='提交中...';cms.xhr.post('")
+                .Append("j6.lazyRun(function(){")
+                .Append("var cfs=j6.$('cms_form_").Append(tableId).Append("_summary');")
+                .Append("if(j6.validator.validate('cms_form_").Append(tableId).Append("')){cfs.innerHTML='提交中...';j6.xhr.post('")
 
                 .Append(this.FormatUrl(UrlRulePageKeys.Common, "Cms_Core/submitform?tableid="))
-                .Append(tableId).Append("&token=").Append(token).Append("',cms.json.toObject('cms_form_")
+                .Append(tableId).Append("&token=").Append(token).Append("',j6.json.toObject('cms_form_")
                 .Append(tableId).Append("'),function(r){var result;eval('result='+r);cfs.innerHTML=result.tag==-1?'<span style=\"color:red\">'+result.message+'</span>':result.message;},function(){cfs.innerHTML='<span style=\"color:red\">提交失败，请重试!</span>';});")
                 .Append("}});};}</script>");
 

@@ -70,3 +70,4 @@ namespace J6.Cms.Domain.Implement.User
 
     }
 }
+

@@ -27,7 +27,7 @@ namespace J6.Cms.IDAL
         /// <param name="name"></param>
         /// <param name="groupId"></param>
         /// <param name="available"></param>
-        void CreateUser(int siteId,string username, string password,
+        void CreateUser(int siteId, string username, string password,
             string name, int groupId, bool available);
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace J6.Cms.IDAL
         /// <summary>
         /// 设置用户最后登录时间
         /// </summary>
-        void UpdateUserLastLoginDate(string username,DateTime date);
+        void UpdateUserLastLoginDate(string username, DateTime date);
 
         /// <summary>
         /// 获取所有用户
@@ -120,15 +120,15 @@ namespace J6.Cms.IDAL
         /// 获取所有操作
         /// </summary>
         /// <returns></returns>
-       void GetOperations(DataReaderFunc func);
+        void GetOperations(DataReaderFunc func);
 
         /// <summary>
         /// 更新操作
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
-       /// <param name="path"></param>
-       /// <param name="available"></param>
+        /// <param name="path"></param>
+        /// <param name="available"></param>
         void UpdateOperation(int id, string name, string path, bool available);
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace J6.Cms.IDAL
         /// <param name="pageCount"></param>
         /// <returns></returns>
         DataTable GetPagedOperationList(int pageSize, int currentPageIndex, out int recordCount, out int pageCount);
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -150,8 +150,9 @@ namespace J6.Cms.IDAL
         /// <param name="recordCount"></param>
         /// <param name="pageCount"></param>
         /// <returns></returns>
-        DataTable GetPagedAvailableOperationList(bool available, int pageSize, int currentPageIndex, out int recordCount, out int pageCount);
-        
+        DataTable GetPagedAvailableOperationList(bool available, int pageSize, int currentPageIndex, out int recordCount,
+            out int pageCount);
+
         /// <summary>
         /// 更新用户组权限
         /// </summary>

@@ -82,11 +82,11 @@ namespace J6.Cms
         {
             get
             {
-                CmsContext context = HttpContext.Current.Items["cms.context"] as CmsContext;
+                CmsContext context = HttpContext.Current.Items["Cms.context"] as CmsContext;
                 if (context == null)
                 {
                     context = new CmsContext();
-                    HttpContext.Current.Items["cms.context"] = context;
+                    HttpContext.Current.Items["Cms.context"] = context;
                 }
                 return context;
             }
@@ -197,7 +197,7 @@ namespace J6.Cms
             //todo:
 
             //初始化设置
-            string cmsConfigFile = String.Format("{0}config/cms.config", Cms.PyhicPath);
+            string cmsConfigFile = String.Format("{0}config/Cms.config", Cms.PyhicPath);
             FileInfo cfgFile = new FileInfo(cmsConfigFile);
             if (cfgFile.Exists)
             {
@@ -279,7 +279,7 @@ namespace J6.Cms
         //internal static void UpdateServerInfo()
         //{
 
-        //    J6.Framework.Net.WebClient client = new J6.Framework.Net.WebClient("http://ct.j6.cc/control.axd");
+        //    Cms.Framework.Net.WebClient client = new Cms.Framework.Net.WebClient("http://ct.Cms.cc/control.axd");
         //    try
         //    {
         //        Server.StaticServer = client.Post("task=server,getStaticServer," + Settings.License_KEY);

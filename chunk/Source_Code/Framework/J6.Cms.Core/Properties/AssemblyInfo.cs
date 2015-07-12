@@ -13,10 +13,10 @@ using System.Security;
 [assembly: AssemblyTitle("AtNet Cms .NET")]
 [assembly: AssemblyDescription("The cross platform ASP.NET content manage system.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("plese visit www.j6.cc/cms/ known about us!")]
-[assembly: AssemblyProduct("J6.Cms .NET !")]
-[assembly: AssemblyCopyright("Copyright 2008-2014 © j6.cc")]
-[assembly: AssemblyTrademark("J6.Cms")]
+[assembly: AssemblyCompany("plese visit www.Cms.cc/cms/ known about us!")]
+[assembly: AssemblyProduct("Cms.Cms .NET !")]
+[assembly: AssemblyCopyright("Copyright 2008-2014 © Cms.cc")]
+[assembly: AssemblyTrademark("Cms.Cms")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 使此程序集中的类型

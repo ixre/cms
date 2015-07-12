@@ -180,7 +180,7 @@ namespace J6.Cms.Web.Mvc
             v.RenderGraphicImage(_length, _opt, true, out verifycode, "Image/Jpeg");
 
             //保存验证码
-            Session[String.Format("$cms.site_{0}_verifycode", this.OutputCntext.CurrentSite.SiteId.ToString())] = verifycode;
+            Session[String.Format("$j6.site_{0}_verifycode", this.OutputCntext.CurrentSite.SiteId.ToString())] = verifycode;
         }
 
         #endregion

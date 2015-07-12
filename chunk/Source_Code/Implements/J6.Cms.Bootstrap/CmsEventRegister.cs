@@ -52,13 +52,13 @@ namespace J6.Cms
             SiteResourceInit.Init();
 
             //设置可写权限
-            J6.Cms.Cms.Utility.SetDirCanWrite(CmsVariables.RESOURCE_PATH);
-            J6.Cms.Cms.Utility.SetDirCanWrite("templates/");
-            J6.Cms.Cms.Utility.SetDirCanWrite(CmsVariables.FRAMEWORK_PATH);
-            J6.Cms.Cms.Utility.SetDirCanWrite(CmsVariables.PLUGIN_PATH);
-            J6.Cms.Cms.Utility.SetDirCanWrite(CmsVariables.TEMP_PATH + "update");
-            J6.Cms.Cms.Utility.SetDirHidden("config");
-            J6.Cms.Cms.Utility.SetDirHidden("bin");
+            Cms.Utility.SetDirCanWrite(CmsVariables.RESOURCE_PATH);
+            Cms.Utility.SetDirCanWrite("templates/");
+            Cms.Utility.SetDirCanWrite(CmsVariables.FRAMEWORK_PATH);
+            Cms.Utility.SetDirCanWrite(CmsVariables.PLUGIN_PATH);
+            Cms.Utility.SetDirCanWrite(CmsVariables.TEMP_PATH + "update");
+            Cms.Utility.SetDirHidden("config");
+            Cms.Utility.SetDirHidden("bin");
         }
     }
 }

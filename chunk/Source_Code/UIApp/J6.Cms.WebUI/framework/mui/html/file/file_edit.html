@@ -48,10 +48,10 @@
     <script type="text/javascript">
         /*
         var mode='html';
-        var ext=cms.request('path').replace(/[^.]+.([a-z]+)$/,'$1');
+        var ext=j6.request('path').replace(/[^.]+.([a-z]+)$/,'$1');
         switch (ext.toLowerCase()) {
             case 'css': mode = 'css';
-                cms.ldScript('/framework/assets/coder/mode/css.js');
+                j6.ldScript('/framework/assets/coder/mode/css.js');
                 break;
             case 'conf':
             case 'config':
@@ -59,16 +59,16 @@
                 mode = 'xml'; break;
         }*/
 
-        var coder = cms.coder(editor.id, { mode: '${mode}', height: height });
+        var coder = j6.coder(editor.id, { mode: '${mode}', height: height });
 
         function process(action) {
             document.getElementById('action').value = action;
-            var data = cms.json.toObject('form1');
+            var data = j6.json.toObject('form1');
             if (coder) {
                 data.content = coder.getValue();
             }
 
-            cms.xhr.post(location.href, data, function (result) {
+            j6.xhr.post(location.href, data, function (result) {
                 if (result.indexOf('成功') == -1) {
                     tip(false, result);
                 } else {

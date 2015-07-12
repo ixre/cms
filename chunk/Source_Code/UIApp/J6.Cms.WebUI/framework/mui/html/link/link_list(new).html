@@ -83,7 +83,7 @@
     $js()
     <script type="text/javascript">
 
-        cms.dom.fitHeight(document.body.childNodes[0]);
+        j6.dom.fitHeight(document.body.childNodes[0]);
 
         Fn.table = null;
 
@@ -96,32 +96,32 @@
             if (tables.length >= 3) {
                 Fn.table = tables[2];
                 //默认加载第一个分类
-                if (cms.$('pl').innerHTML == '') {
+                if (j6.$('pl').innerHTML == '') {
                     var rows = Fn.table.rows;
                     if (rows.length > 0) {
                         var id = rows[0].childNodes[0].innerHTML;
-                        cms.load2('pl', 'link', 'edit', 'disabled=true&linkid=' + id);
+                        j6.load2('pl', 'link', 'edit', 'disabled=true&linkid=' + id);
                     }
                 }
 
-                cms.each(Fn.table.getElementsByTagName('TD'), function (i, e) {
-                    cms.contextmenu.bind(e, '', function (menu) {
+                j6.each(Fn.table.getElementsByTagName('TD'), function (i, e) {
+                    Cms.Contextmenu.bind(e, '', function (menu) {
 
                         var id = e.parentNode.getAttribute('indent');
                         var state = e.parentNode.getAttribute('visible') == '1' ? '<span style="color:#333">隐藏链接</span>' : '显示链接';
                         /*
-	                    cms.xhr.jsonPost('?', 'module=link&action=getvisible&linkID=' + id, function (json) {
+	                    j6.xhr.jsonPost('?', 'module=link&action=getvisible&linkID=' + id, function (json) {
 	                    if (!json.result) {
 	                    state = '<span style="color:green">显示</span>';
 	                    }
 	                    });*/
 
-                        menu.innerHTML = cms.template(cms.$('tpl').innerHTML, { id: id, state: state });
+                        menu.innerHTML = j6.template(j6.$('tpl').innerHTML, { id: id, state: state });
                     });
                 });
 
-                cms.initTable(Fn.table, false, function () {
-                    cms.load2('pl', 'link', 'edit', 'linkid=' + Fn.ids[Fn.ids.length - 1]);
+                j6.initTable(Fn.table, false, function () {
+                    j6.load2('pl', 'link', 'edit', 'linkid=' + Fn.ids[Fn.ids.length - 1]);
                 });
             }
         };
@@ -130,11 +130,11 @@
 
         //创建
         Fn.create = function () {
-            cms.load2('pl', 'link', 'create', 'type=${linktype}');
+            j6.load2('pl', 'link', 'create', 'type=${linktype}');
         };
 
 
-        var _dg = cms.grid('dg', {
+        var _dg = j6.grid('dg', {
             url: '?module=link&action=data&type=${linktype}',
             data: { page: 1 },
             idField: 'ID',
@@ -152,12 +152,12 @@
 
                 j6.table.dynamic(tables[2], allowMultSelect, function (trs) {
                     var id = trs[0].getAttribute('data-indent');
-                    cms.load2('pl', 'category', 'update', 'lft=' + id);
+                    j6.load2('pl', 'category', 'update', 'lft=' + id);
                 });
 
-                cms.each(tds, function (i, e) {
-                    cms.contextmenu.bind(e, null, function (menu) {
-                        menu.innerHTML = cms.template(cms.$('tpl').innerHTML, { id: e.parentNode.getAttribute('data-indent') });
+                j6.each(tds, function (i, e) {
+                    Cms.Contextmenu.bind(e, null, function (menu) {
+                        menu.innerHTML = j6.template(j6.$('tpl').innerHTML, { id: e.parentNode.getAttribute('data-indent') });
                     });
                 });
 
@@ -165,19 +165,19 @@
                 this.panel.nextSibling.innerHTML = data.pager;
 
 
-                cms.load2('pl', 'category', 'update', 'lft=' + data.rows[0].Lft);
+                j6.load2('pl', 'category', 'update', 'lft=' + data.rows[0].Lft);
             }
         });
 
 
         //绑定列表菜单
-        cms.contextmenu.bind(cms.$('plist').parentNode, cms.$('list_menu_tpl').innerHTML);
+        Cms.Contextmenu.bind(j6.$('plist').parentNode, j6.$('list_menu_tpl').innerHTML);
 
         var menu = {
             add: Fn.create,
             setvisible: function (id) {
                 (function (_this) {
-                    cms.xhr.post('?', 'module=link&action=setvisible&linkID=' + id,
+                    j6.xhr.post('?', 'module=link&action=setvisible&linkID=' + id,
                  function () {
                      parent.M.alert('操作成功！');
                      _this.refresh();
@@ -187,7 +187,7 @@
             //删除文档
             del: function (id) {
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
-                    cms.xhr.jsonPost('?', 'module=link&action=delete&linkID=' + id,
+                    j6.xhr.jsonPost('?', 'module=link&action=delete&linkID=' + id,
                     function (json) {
                         if (json.result) {
                             Fn.loadData();

@@ -67,7 +67,7 @@ namespace J6.Cms
                     if (UpgradePercent < 0.3F) UpgradePercent = 0.3F;
 
                     //最后更新dll
-                    //UpgradeFile("J6.Cms.dll", UpgradeFileType.Lib, "bin/", false);
+                    //UpgradeFile("Cms.Cms.dll", UpgradeFileType.Lib, "bin/", false);
                     UpgradeFile("bin.zip", UpgradeFileType.Zip,UpgadeDir, false);
 
                     //v2.1 版本切换至于sponet.dll
@@ -188,7 +188,7 @@ namespace J6.Cms
             string remoteLib = verData[1];
 
             DirectoryInfo libDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "bin\\");
-            FileInfo libFile = new FileInfo(libDir.FullName + "J6.Cms.dll");
+            FileInfo libFile = new FileInfo(libDir.FullName + "Cms.Cms.dll");
             FileInfo tempLibFile = new FileInfo(libDir.FullName + "temp.lib");
 
 

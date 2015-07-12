@@ -45,9 +45,9 @@
 
     var md;
     window.onload = function () {
-      cms.table.dynamic(document.getElementsByTagName("table")[0]);
+      j6.table.dynamic(document.getElementsByTagName("table")[0]);
 
-      var bts = cms.$("archives", "button");
+      var bts = j6.$("archives", "button");
       for (var i in bts) {
         switch (bts[i].className) {
           case 'edit': bts[i].onclick = edit; break;
@@ -63,7 +63,7 @@
      }
     function refresh() {
       var id = getId(this);
-      cms.xhr.post('?', 'module=ajax&action=refreshArchive&archiveID=' + id,
+      j6.xhr.post('?', 'module=ajax&action=refreshArchive&archiveID=' + id,
       function (x) { tip('已经刷新最后更新时间！'); },
       function (x) { alert(x); }
       );
@@ -72,7 +72,7 @@
       if(confirm('确定删除吗?删除后将不可恢复!')){
         var td = this.parentNode.parentNode;
         var id=getId(this);
-        cms.xhr.post('?', "module=ajax&action=deleteArchive&archiveID=" + id,
+        j6.xhr.post('?', "module=ajax&action=deleteArchive&archiveID=" + id,
         function (x) { eval(x); /* td.style.display = 'none';*/ },
         function (x) {  parent.M.alert(x);
       }
@@ -81,7 +81,7 @@
       return s.parentNode.parentNode.childNodes[0].innerHTML;
     }
     function search() {
-      location.href = '?module=archive&action=search&keyword='+escape(cms.val("keyword"));
+      location.href = '?module=archive&action=search&keyword='+escape(j6.val("keyword"));
     }
     
     function showComments(){

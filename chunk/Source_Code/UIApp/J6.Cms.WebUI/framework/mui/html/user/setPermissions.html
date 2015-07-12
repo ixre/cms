@@ -40,10 +40,10 @@ $js()
 <script type="text/javascript">
   var oLeng=${usergroupPermissionCount}; /*用户组权限数*/
 
-  var lbtn=cms.$('moveLeft'),rbtn=cms.$('moveRight'),sbtn=cms.$('save');
-  var ls=cms.$('sleft'),rs=cms.$('sright');
+  var lbtn=j6.$('moveLeft'),rbtn=j6.$('moveRight'),sbtn=j6.$('save');
+  var ls=j6.$('sleft'),rs=j6.$('sright');
 
-  cms.$('groups').onchange=function(){
+  j6.$('groups').onchange=function(){
     if(rs.options.length==oLeng||(rs.options.length!=oLeng&&confirm('确定放弃用户组权限的修改吗?')))
     location.href='?module=user&action=setpermissions&groupid='+this.value;
   };
@@ -74,7 +74,7 @@ $js()
     }
     if(permisstionStr.length>0)permisstionStr=permisstionStr.replace(/\|$/,'');
 
-    cms.xhr.post('?','module=user&action=updatepermission&groupid=${groupID}&permissions='+permisstionStr,
+    j6.xhr.post('?','module=user&action=updatepermission&groupid=${groupID}&permissions='+permisstionStr,
       function(x){  parent.M.alert('更新权限成功！');},function(x){alert(x);});
   };
 </script>

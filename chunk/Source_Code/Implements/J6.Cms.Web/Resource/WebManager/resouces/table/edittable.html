@@ -20,7 +20,7 @@
                     <dl>
                         <dt>表&nbsp;名&nbsp;称：</dt>
                         <dd>
-                            <input class="tb_normal ui-validate" required="true" length="[0,15]" summary="{length:'标题为5-15位！'}" type="text" field="name" value="${name}" />
+                            <input class="tb_normal box ui-validate" required="true" length="[0,15]" summary="{length:'标题为5-15位！'}" type="text" field="name" value="${name}" />
                         </dd>
                     </dl>
 
@@ -77,18 +77,18 @@
     </div>
 
     <script type="text/javascript">
-        cms.$('btnlink').innerHTML = location.href.indexOf('edit') != -1 ? '编辑表' : '添加表';
+        j6.$('btnlink').innerHTML = location.href.indexOf('edit') != -1 ? '编辑表' : '添加表';
 
         function submitForm() {
-            if (cms.validator.validate()) {
-                cms.val('editor', editor.html());
-                if (cms.val('editor').length > 500) {
+            if (j6.validator.validate()) {
+                j6.val('editor', editor.html());
+                if (j6.val('editor').length > 500) {
                     parent.M.alert('备注内容不能超过500字！');
                     return false;
                 }
 
-                var data = cms.json.toObject(document);
-                cms.xhr.post(location.href, data, function (x) {
+                var data = j6.json.toObject(document);
+                j6.xhr.post(location.href, data, function (x) {
 
                     var msg = '';
                     var resultTag; eval('resultTag=' + x);

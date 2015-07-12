@@ -57,7 +57,7 @@
                 }
             }
 
-            var menuTree = cms.$('menu_tree');
+            var menuTree = j6.$('menu_tree');
 
             window.initCTree = function () {
                 var menuSpan = !menuTree.getElementsByClassName ? document.getElementsByClassName('txt', menuTree) : menuTree.getElementsByClassName('txt');
@@ -74,7 +74,7 @@
 
 
                 var dts = menuTree.getElementsByTagName('DT');
-                cms.each(dts, function (i, e) {
+                j6.each(dts, function (i, e) {
                     if (i == 0) return;     //标题除开
                     e.onclick = function (event) {
 
@@ -90,7 +90,7 @@
                         //折叠
                         if (isExpand) {
                             lstImg.className = lstImg.className.replace(/tree-expand/ig, 'tree-collage');
-                            cms.each(this.parentNode.getElementsByTagName('DD'), function (i1, e1) {
+                            j6.each(this.parentNode.getElementsByTagName('DD'), function (i1, e1) {
                                 e1.style.display = 'none';
                             });
                         } else {
@@ -100,7 +100,7 @@
 
                             //直接显示dd
                             if (dds.length != 0) {
-                                cms.each(dds, function (i1, e1) {
+                                j6.each(dds, function (i1, e1) {
                                     e1.style.display = '';
                                 });
                             } else {
@@ -109,7 +109,7 @@
                                 var _lft = this.getAttribute('lft');
                                 var _lines = (!this.getElementsByClassName ? document.getElementsByClassName('tree-line', this) : this.getElementsByClassName('tree-line')).length;
 
-                                cms.xhr.get('?module=category&action=gettree&level=' + _level + '&lft=' + _lft + '&lines=' + _lines, function (result) {
+                                j6.xhr.get('?module=category&action=gettree&level=' + _level + '&lft=' + _lft + '&lines=' + _lines, function (result) {
                                     dl.innerHTML += result;
                                     window.initCTree();
                                 });
@@ -128,7 +128,7 @@
       <script>
         /*
           var dts = menuTree.getElementsByTagName('img');
-          cms.each(dts, function (i, e) {
+          j6.each(dts, function (i, e) {
               //if (i == 0) return;     //标题除开
               if (e.className.indexOf('tree-collage') == -1 && e.className.indexOf('tree-expand') == -1) return;
 
@@ -140,7 +140,7 @@
                   //折叠
                   if (isExpand) {
                       this.className = this.className.replace(/tree-expand/ig, 'tree-collage');
-                      cms.each(this.parentNode.parentNode.getElementsByTagName('DD'), function (i1, e1) {
+                      j6.each(this.parentNode.parentNode.getElementsByTagName('DD'), function (i1, e1) {
                           e1.style.display = 'none';
                       });
                   } else {
@@ -150,7 +150,7 @@
 
                       //直接显示dd
                       if (dds.length != 0) {
-                          cms.each(dds, function (i1, e1) {
+                          j6.each(dds, function (i1, e1) {
                               e1.style.display = '';
                           });
                       } else {
@@ -159,7 +159,7 @@
                           var _lft = this.parentNode.getAttribute('lft');
                           var _lines = (!this.parentNode.getElementsByClassName ? document.getElementsByClassName('tree-line', this.parentNode) : this.parentNode.getElementsByClassName('tree-line')).length;
 
-                          cms.xhr.get('?module=category&action=gettree&level=' + _level + '&lft=' + _lft + '&lines=' + _lines, function (result) {
+                          j6.xhr.get('?module=category&action=gettree&level=' + _level + '&lft=' + _lft + '&lines=' + _lines, function (result) {
                               dl.innerHTML += result;
                               window.initCTree();
                           });

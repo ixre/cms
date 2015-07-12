@@ -88,7 +88,7 @@ namespace J6.Cms.DAL
                         case "PREFIX_": return CmsDataBase.TablePrefix;
                         /*
                         case "SITE":
-                            if(Cms.MultSiteVersion)
+                            if(j6.MultSiteVersion)
                             {
                                 Site site = Cms.Context.CurrentSite;
                                 return " siteid=" + site.SiteId.ToString();
@@ -96,7 +96,7 @@ namespace J6.Cms.DAL
                             return null;
 
                         case "ANDSITE":
-                            if(Cms.MultSiteVersion)
+                            if(j6.MultSiteVersion)
                             {
                                 Site site = Cms.Context.CurrentSite;
                                 return " AND siteid=" + site.SiteId.ToString();

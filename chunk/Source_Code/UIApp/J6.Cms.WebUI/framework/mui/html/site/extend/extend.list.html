@@ -54,16 +54,16 @@
         var dataCollection = null;
 
         var panel = document.body.getElementsByTagName('DIV')[0];
-        //cms.dom.fitHeight(panel);
+        //j6.dom.fitHeight(panel);
 
-        var form_tpl = cms.$('extend_form').innerHTML;
+        var form_tpl = j6.$('extend_form').innerHTML;
 
         window.saveData = window.saveLink = function () {
-            if (cms.validator.validate('pl')) {
-                var data = cms.json.toObject('pl');
-                data.contentId = cms.request('contentId');
-                data.typeIndent = cms.request('type');
-                cms.xhr.jsonPost('?module=extend&action=SaveExtendField', data, function (json) {
+            if (j6.validator.validate('pl')) {
+                var data = j6.json.toObject('pl');
+                data.contentId = j6.request('contentId');
+                data.typeIndent = j6.request('type');
+                j6.xhr.jsonPost('?module=extend&action=SaveExtendField', data, function (json) {
                     if (json.result) {
                         _dg.reload();
                     }
@@ -72,13 +72,13 @@
             }
         };
 
-        cms.contextmenu.bind(cms.$('dg'), '<div class="item" onclick="menu.create()">'
+        Cms.Contextmenu.bind(j6.$('dg'), '<div class="item" onclick="menu.create()">'
                                     + '<a href="javascript:;">$icon(create)新建</a>'
                                     + '</div><div class="item" onclick="menu.refresh()">'
                                     + '<a href="javascript:;">$icon(refresh)刷新</a>'
                                     + '</div>');
 
-        var _dg = cms.grid('dg', {
+        var _dg = j6.grid('dg', {
             url: '?module=extend&action=GetExtendFields',
             data: {},
             idField: 'Id',
@@ -99,17 +99,17 @@
 
                 j6.table.dynamic(tables[1], allowMultSelect, function (trs) {
                     var id = trs[0].getAttribute('data-indent');
-                    cms.$('pl').innerHTML = cms.template(form_tpl, { btntext: '保存' });
+                    j6.$('pl').innerHTML = j6.template(form_tpl, { btntext: '保存' });
                     for (var i = 0; i < dataCollection.length; i++) {
                         if (dataCollection[i].ID == id) {
-                            cms.json.bind('pl', dataCollection[i]);
+                            j6.json.bind('pl', dataCollection[i]);
                         }
                     }
                 });
 
-                cms.each(tds, function (i, e) {
-                    cms.contextmenu.bind(e, null, function (menu) {
-                        menu.innerHTML = cms.template(cms.$('tpl').innerHTML, {
+                j6.each(tds, function (i, e) {
+                    Cms.Contextmenu.bind(e, null, function (menu) {
+                        menu.innerHTML = j6.template(j6.$('tpl').innerHTML, {
                             id: e.parentNode.getAttribute('data-indent')
                         });
                     });
@@ -123,17 +123,17 @@
 
         var menu = {
             create: function () {
-                cms.$('pl').innerHTML = cms.template(form_tpl, { btntext: '新增' });
-                cms.json.bind('pl', { Enabled: 'True' });
+                j6.$('pl').innerHTML = j6.template(form_tpl, { btntext: '新增' });
+                j6.json.bind('pl', { Enabled: 'True' });
             },
             del: function (id) {
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
                     var data = {
                         id: id,
-                        contentId: cms.request('contentId'),
-                        typeIndent: cms.request('type')
+                        contentId: j6.request('contentId'),
+                        typeIndent: j6.request('type')
                     };
-                    cms.xhr.jsonPost('?module=extend&action=save', data,
+                    j6.xhr.jsonPost('?module=extend&action=save', data,
                         function (json) {
                             if (json.result) {
                                 _dg.reload();
