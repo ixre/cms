@@ -4,7 +4,7 @@
 //版本: 0.0.1
 //时间：2014-06-21
 //
-if (!window.$JS) alert('未加载core.js！');
+if (!window.j6) alert('未加载core.js！');
 j6.extend({
     api: {
         path:'',

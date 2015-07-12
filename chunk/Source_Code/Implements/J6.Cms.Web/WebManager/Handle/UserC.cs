@@ -12,10 +12,13 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Web;
 using J6.Cms.BLL;
+using J6.Cms.CacheService;
 using J6.Cms.DataTransfer;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.User;
@@ -131,14 +134,15 @@ namespace J6.Cms.Web.WebManager.Handle
                 base.RenderError("系统只允许一个超级管理员!");
                 return;
             }
-            else if ((cusUsr.RoleFlag & (int)RoleTag.Publisher) != 0)
+          /* else if ((cusUsr.RoleFlag & (int)InternalRole.Publisher) != 0)
             {
                 base.RenderError("无权限创建用户!");
             }
             else if (cusUsr.SiteId > 0 && usr.GroupId <= (int)UserGroups.Administrator)
             {
                 base.RenderError("站点只允许一个管理员!");
-            }
+            }*/
+                //TODO: 
             else
             {
                 CmsLogic.User.CreateUser(usr);
@@ -276,30 +280,32 @@ namespace J6.Cms.Web.WebManager.Handle
             StringBuilder sb = new StringBuilder();
 
             //用户列表
-            User[] users;
-            string filter = "site";
+            IList<UserDto> users;
+           // string filter = "site";
 
             //filter 筛选用户的状态
-            switch (filter)
-            {
-                case "disabled":
-                    users = CmsLogic.User.GetUsers(a => !a.Available);
-                    break;
-                case "available":
-                    users = CmsLogic.User.GetUsers(a => a.Available);
-                    break;
-                case "site":
-                    users = CmsLogic.User.GetUsers(a => a.SiteId == this.CurrentSite.SiteId);
-                    break;
-                default:
-                    users = CmsLogic.User.GetAllUser();
-                    break;
-            }
+//            switch (filter)
+//            {
+//                case "disabled":
+//                    users = CmsLogic.User.GetUsers(a => !a.Available);
+//                    break;
+//                case "available":
+//                    users = CmsLogic.User.GetUsers(a => a.Available);
+//                    break;
+//                case "site":
+//                    users = CmsLogic.User.GetUsers(a => a.SiteId == this.CurrentSite.SiteId);
+//                    break;
+//                default:
+//                    users = CmsLogic.User.GetAllUser();
+//                    break;
+//            }
+
             /*
+            users = ServiceCall.Instance.UserService.GetMyUsers(base.SiteId, UserState.Administrator.Current.Id);
 
             int i = 0;
             UserDto usr = UserState.Administrator.Current;
-            IEnumerable<User> _users = users.Where(a => a.GroupId > (int)usr.GroupId);
+            IEnumerable<UserDto> _users = users.Where(a => a.GroupId > (int)usr.GroupId);
 
         
             foreach (User user in )
@@ -308,8 +314,8 @@ namespace J6.Cms.Web.WebManager.Handle
                     .Append("<td>").Append((++i).ToString()).Append("</td>")
                     .Append("<td>").Append(user.Available?user.UserName:"<span style=\"color:#d0d0d0\">"+user.UserName+"</span>").Append("</td><td>")
                     .Append(user.Name).Append("</td></tr>");
-            }*/
-
+            }
+            */
           //  base.PagerJson(_users,String.Format("共{0}个用户",users.Length.ToString()));
         }
 
@@ -331,6 +337,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
 
             //会员列表
+          // UserDto
             DataTable dt = CmsLogic.Member.GetPagedMembers(pageSize, ref currentPage, out recordCount, out pageCount);
             if (dt.Rows.Count == 0)
             {

@@ -21,10 +21,10 @@ namespace J6.Cms.ServiceRepository
             this._userDal = new UserDAL();
         }
 
-        public IList<IRole> GetAppRoles(int appId)
+        public IList<RoleValue> GetAppRoles(int appId)
         {
             //todo:  暂时不增加用户组
-            return new List<IRole>();
+            return new List<RoleValue>();
         }
 
         public Credential GetUserCredential(int userId)
@@ -37,7 +37,7 @@ namespace J6.Cms.ServiceRepository
             return -1;
         }
 
-        public int SaveRole(IRole role)
+        public int SaveRole(RoleValue role)
         {
             throw new NotImplementedException();
         }
@@ -58,7 +58,6 @@ namespace J6.Cms.ServiceRepository
                     user = this.CreateUser(Convert.ToInt32(rd["id"]), rd["role_flag"] == DBNull.Value ? 1 : 
                         Convert.ToInt32(rd["role_flag"]));
                     user.Name = rd["name"].ToString();
-                    user.AppId = rd["app_id"] == DBNull.Value ? 0 : Convert.ToInt32(rd["app_id"]);
                     user.CreateTime = Convert.ToDateTime(rd["create_time"]);
                     user.LastLoginTime = Convert.ToDateTime(rd["last_login_time"]);
                     user.CheckCode =( rd["check_code"]??"").ToString();

@@ -7,7 +7,7 @@ using J6.Cms.Domain.Interface.User;
 
 namespace J6.Cms.Domain.Implement.User
 {
-   internal class AppRoleManager:ICreateAppRoleManager
+   internal class AppRoleManager:IAppRoleManager
     {
         private IUserRepository rep;
         private int appId;
@@ -18,9 +18,14 @@ namespace J6.Cms.Domain.Implement.User
            this.rep = rep;
            this.appId = appId;
        }
-        public IList<IRole> GetAppRoles(int appId)
+
+        public IList<RoleValue> GetAppRoles()
         {
-            throw new NotImplementedException();
+            IList<RoleValue> list = this.rep.GetAppRoles(this.appId);
+            list.Add(Role.Master);
+            list.Add(Role.SiteOwner);
+            list.Add(Role.Publisher);
+            return list;
         }
     }
 }

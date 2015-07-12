@@ -10,10 +10,12 @@
 //
 
 using System;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using J6.Cms.BLL;
 using J6.Cms.DataTransfer;
+using J6.Cms.Domain.Interface.Content;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.User;
 using IUser = J6.Cms.Domain.Interface._old.IUser;
@@ -43,18 +45,18 @@ namespace J6.Cms.Utility
         /// </summary>
         /// <param name="p"></param>
         /// <param name="siteId"></param>
-        /// <param name="userId"></param>
+        /// <param name="publisherId"></param>
         /// <returns></returns>
-        public static bool CanModifyArchive(int siteId,int userId)
+        public static bool CanModifyArchive(int siteId,int publisherId)
         {
             UserDto user = UserState.Administrator.Current;
-
-            if (user.Id == userId || (user.RoleFlag & (int)RoleTag.Master) != 0)
+            if (user.Id == publisherId || (user.RoleFlag & Role.Master.Flag) != 0)
             {
                 return true;
             }
 
-            return user.SiteId == siteId && (user.RoleFlag & (int) RoleTag.SiteOwner) != 0;
+            RoleValue[] u = user.Roles;
+            return Role.ContainsApp(siteId,u) && (user.RoleFlag & Role.SiteOwner.Flag) != 0;
         }
 
         /// <summary>

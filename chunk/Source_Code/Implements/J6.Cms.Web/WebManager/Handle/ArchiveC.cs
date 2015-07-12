@@ -1288,7 +1288,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             int siteId = this.CurrentSite.SiteId;
             String content = ResourceMap.GetPageContent(ManagementPage.Archive_Tags);
-            GetTags(siteId).ProcessRequest(HttpContext.Current, content.Replace("j6()", js).Replace("$css()", css));
+            GetTags(siteId).ProcessRequest(HttpContext.Current, content.Replace("$js()", js).Replace("$css()", css));
         }
 
         public void TagsIndex_POST()

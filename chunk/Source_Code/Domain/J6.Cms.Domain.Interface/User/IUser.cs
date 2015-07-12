@@ -16,11 +16,6 @@ namespace J6.Cms.Domain.Interface.User
         string Name { get; set; }
 
         /// <summary>
-        /// 应用编号
-        /// </summary>
-        int AppId { get; set; }
-
-        /// <summary>
         /// 头像
         /// </summary>
         String Avatar { get; set; }
@@ -54,6 +49,7 @@ namespace J6.Cms.Domain.Interface.User
         /// 电子邮箱
         /// </summary>
         string Email { get; set; }
+
 
         /// <summary>
         /// 是否包含角色

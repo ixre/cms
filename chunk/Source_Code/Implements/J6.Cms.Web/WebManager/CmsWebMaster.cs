@@ -32,25 +32,25 @@ namespace J6.Cms.Web.WebManager
                 SiteDto site = default(SiteDto);
 
                 UserDto usr = UserState.Administrator.Current;
-
+                /*
                 if (usr != null && usr.SiteId > 0)
                 {
                     site = SiteCacheManager.GetSite(usr.SiteId);
                 }
                 else
-                {
+                {*/
                     //超级管理员获取站点
                     HttpCookie cookie = context.Request.Cookies[cookieNameKey];
                     if (cookie != null)
                     {
-                        int siteID = 0;
-                        int.TryParse(cookie.Value, out siteID);
-                        if (siteID > 0)
+                        int siteId = 0;
+                        int.TryParse(cookie.Value, out siteId);
+                        if (siteId > 0)
                         {
-                            site = SiteCacheManager.GetSite(siteID);
+                            site = SiteCacheManager.GetSite(siteId);
                         }
                     }
-                }
+               // }
 
                 if (site.SiteId <=0)
                 {

@@ -52,7 +52,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             HttpRequest request = HttpContext.Current.Request;
             UserDto usr = UserState.Administrator.Current;
-            string groupName = UserUtil.GetRoleName(usr.RoleFlag),
+            string groupName = Role.GetRoleName(usr.RoleFlag),
             ip = request.UserHostAddress,
             address = "未知",
             sites = "",
@@ -146,19 +146,17 @@ namespace J6.Cms.Web.WebManager.Handle
             if (String.IsNullOrEmpty(request["onlysite"]))
             {
                 //菜单siteid
-                int siteID = usr.SiteId > 0 ? usr.SiteId : 0;
-
-
-                string cacheKey = String.Format("{0}_{1}_manager_menujson", CacheSign.Site.ToString(), (siteID).ToString());
-                object json = J6.Cms.Cms.Cache.Get(cacheKey);
+                int siteId = base.CurrentSite.SiteId;
+                string cacheKey = String.Format("{0}_{1}_manager_menujson", CacheSign.Site.ToString(), (siteId).ToString());
+                object json =Cms.Cache.Get(cacheKey);
                 if (json != null)
                 {
                     menuData = json as string;
                 }
                 else
                 {
-                    menuData = GetMenuJsonFromFile(siteID);
-                    J6.Cms.Cms.Cache.Insert(cacheKey, menuData);
+                    menuData = GetMenuJsonFromFile(siteId);
+                    Cms.Cache.Insert(cacheKey, menuData);
                 }
 
             }

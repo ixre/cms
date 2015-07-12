@@ -5,13 +5,12 @@ using System.Text;
 
 namespace J6.Cms.Domain.Interface.User
 {
-    public interface ICreateAppRoleManager
+    public interface IAppRoleManager
     {
         /// <summary>
         ///   获取应用的角色列表
         /// </summary>
-        /// <param name="appId"></param>
         /// <returns></returns>
-        IList<IRole> GetAppRoles(int appId);
+        IList<RoleValue> GetAppRoles();
     }
 }

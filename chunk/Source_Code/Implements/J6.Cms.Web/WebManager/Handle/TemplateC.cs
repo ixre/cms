@@ -277,7 +277,8 @@ namespace J6.Cms.Web.WebManager.Handle
             }
             else
             {
-                if (UserState.Administrator.Current.SiteId>0)
+                int roleFlag = UserState.Administrator.Current.RoleFlag;
+                if (!Role.SiteOwner.Match(roleFlag) && !Role.Master.Match(roleFlag))
                 {
                     base.RenderError("无权执行此操作!");
                     return;
@@ -310,7 +311,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void Templates_GET()
         {
-            if ((UserState.Administrator.Current.RoleFlag & (int)RoleTag.Master) == 0) return;
+            if (!Role.Master.Match(UserState.Administrator.Current.RoleFlag)) return;
             string curTemplate = base.CurrentSite.Tpl;
 
             string tplRootPath=String.Format("{0}templates/",AppDomain.CurrentDomain.BaseDirectory);

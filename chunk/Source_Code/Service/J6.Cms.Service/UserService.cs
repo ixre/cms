@@ -61,5 +61,12 @@ namespace J6.Cms.Service
         {
             return this._userRepository.GetCredentialByUserName(username);
         }
+
+
+
+        public IList<UserDto> GetMyUsers(int appId, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

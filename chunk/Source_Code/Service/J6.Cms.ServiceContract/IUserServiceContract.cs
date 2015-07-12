@@ -12,5 +12,7 @@ namespace J6.Cms.ServiceContract
         LoginResultDto TryLogin(string username, string password);
         UserDto GetUser(int id);
         Credential GetCredentialByUserName(string username);
+
+        IList<UserDto> GetMyUsers(int appId, int id);
     }
 }

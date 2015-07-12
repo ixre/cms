@@ -15,7 +15,7 @@ namespace J6.Cms.Domain.Implement.User
             return new User(rep,id,flag);
         }
         
-        public ICreateAppRoleManager CreateAppRoleManager(IUserRepository rep, int appId)
+        public IAppRoleManager CreateAppRoleManager(IUserRepository rep, int appId)
         {
             return new AppRoleManager(rep, appId);
         }

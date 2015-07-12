@@ -20,7 +20,7 @@ using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.DataTransfer;
 using J6.Cms.Domain.Interface.Models;
-using J6.Cms.Infrastructure.Domain;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Web.UI;
@@ -64,7 +64,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string pageTemplate;
             UserDto usr = UserState.Administrator.Current;
 
-            if (usr.SiteId > 0)
+            if (!Role.Master.Match(usr.RoleFlag))
             {
                 //子站用户跳转标识
                 //if (base.Request["f"] != "s")

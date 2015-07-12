@@ -75,7 +75,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///     &lt;input class=&quot;btn&quot; type=&quot;button&quot; onclick=&quot;batReplace()&quot; value=&quot;批量替换&quot; /&gt;
         ///     &lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;
         ///     
-        ///	j6()
+        ///	$js()
         ///     &lt;script type=&quot;text/javascript&quot;&gt;
         ///       var msg = cms.$(&apos;msg&apos;);
         ///       function batReplace(t) {
@@ -121,7 +121,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///	&lt;/head&gt;
         ///	&lt;body&gt;
         ///        &lt;iframe id=&quot;area&quot; src=&quot;/frameworkplugins/collection.ashx?action=createproject&quot;  scrolling=&quot;auto&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/iframe&gt;
-        ///  j6()
+        ///  $js()
         ///&lt;script type=&quot;text/javascript&quot;&gt;
         /// cms.$(&apos;area&apos;).style.height = (document.documentElement.clientHeight - 69) + &apos;px&apos;;
         ///&lt;/script&gt;
@@ -139,7 +139,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///&lt;html&gt;
         ///	&lt;head&gt;
         ///		&lt;title&gt;&lt;/title&gt;
-        ///        $css()j6()
+        ///        $css()$js()
         ///	&lt;/head&gt;
         ///	&lt;body&gt;
         ///        &lt;iframe id=&quot;area&quot; src=&quot;/frameworkplugins/collection.ashx?action=list&quot;  scrolling=&quot;auto&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/iframe&gt;
@@ -255,7 +255,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///  $css()
         ///&lt;/head&gt;
         ///&lt;body&gt;
-        ///  &lt;div id=&quot;pl&quot;&gt;&lt;/div&gt;j6()
+        ///  &lt;div id=&quot;pl&quot;&gt;&lt;/div&gt;$js()
         ///  &lt;script type=&quot;text/javascript&quot;&gt;
         ///      cms.load2(&apos;pl&apos;,&apos;system&apos;,&apos;summary&apos;,&apos;token=dsfg&apos;);
         ///  &lt;/script&gt;
@@ -295,7 +295,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///            &lt;div class=&quot;pager&quot;&gt;${pagerHtml}&lt;/div&gt;
         ///
         ///
-        ///j6()
+        ///$js()
         ///&lt;script type=&quot;text/javascript&quot;&gt;
         ///  function showProfile(id) {
         ///    window.open(&apos;/member/profile/&apos; + id);
@@ -374,7 +374,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///&lt;html&gt;
         ///&lt;head&gt;
         ///  &lt;title&gt;加载页面&lt;/title&gt;
-        ///  j6()$css()
+        ///  $js()$css()
         ///&lt;/head&gt;
         ///&lt;body&gt;
         ///  &lt;div id=&quot;pl&quot;&gt;&lt;/div&gt;
@@ -455,7 +455,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///    &lt;div class=&quot;pager&quot;&gt;${pagerHtml}&lt;/div&gt;
         ///&lt;/div&gt;
         ///
-        ///j6()
+        ///$js()
         ///&lt;script type=&quot;text/javascript&quot;&gt;
         ///
         ///    var [字符串的其余部分被截断]&quot;; 的本地化字符串。

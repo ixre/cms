@@ -9,7 +9,6 @@
 */
 
 using System;
-using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.User;
 using J6.DevFw.Framework.Automation;
 
@@ -22,11 +21,6 @@ namespace J6.Cms.DataTransfer
     public class UserDto
     {
         public int Id { get; set; }
-        /// <summary>
-        /// 站点编号
-        /// </summary>
-        //[FormField("siteid", Text = "站点编号", DisableEdit = true)]
-        public int SiteId { get; set; }
 
         /// <summary>
         /// 用户名称
@@ -47,17 +41,18 @@ namespace J6.Cms.DataTransfer
 
         public static UserDto Convert(IUser user)
         {
-            UserDto usr = new UserDto();
-            usr.Id = user.Id;
-            usr.SiteId = user.AppId;
-            usr.Name = user.Name;
-            usr.Avatar = user.Avatar;
-            usr.CheckCode = user.CheckCode;
-            usr.CreateTime = user.CreateTime;
-            usr.Email = user.Email;
-            usr.LastLoginTime = user.LastLoginTime;
-            usr.Phone = user.Phone;
-            usr.RoleFlag = user.RoleFlag;
+            UserDto usr = new UserDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Avatar = user.Avatar,
+                CheckCode = user.CheckCode,
+                CreateTime = user.CreateTime,
+                Email = user.Email,
+                LastLoginTime = user.LastLoginTime,
+                Phone = user.Phone,
+                RoleFlag = user.RoleFlag
+            };
             return usr;
         }
 
@@ -72,5 +67,6 @@ namespace J6.Cms.DataTransfer
         public string CheckCode { get; set; }
 
         public string Avatar { get; set; }
+        public RoleValue[] Roles { get; set; }
     }
 }

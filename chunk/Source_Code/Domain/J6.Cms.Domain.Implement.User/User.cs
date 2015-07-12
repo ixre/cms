@@ -30,8 +30,6 @@ namespace J6.Cms.Domain.Implement.User
         }
 
 
-        public int AppId { get; set; }
-
         public string Name { get; set; }
 
 
@@ -44,6 +42,7 @@ namespace J6.Cms.Domain.Implement.User
         public string Phone { get; set; }
 
         public string Email { get; set; }
+
 
         public int RoleFlag { get; set; }
 
