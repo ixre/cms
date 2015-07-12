@@ -56,7 +56,7 @@ $js()
                         default: msg = location.href.indexOf('edit') != -1 ? '保存成功!' : '添加成功!'; break;
                     }
 
-                    parent.M.alert(msg,function () {
+                   showMsg2msg,function () {
                         location.replace('?module=table&action=columns&tableid=' + j6.val('tableid'));
                     });
                 });

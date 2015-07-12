@@ -157,7 +157,7 @@ CREATE TABLE `cms_link` (
 -- ----------------------------
 -- Records of cms_link
 -- ----------------------------
-INSERT INTO `cms_link` VALUES ('1', '0', '1', '2', 'SPC.NET', 'http://www.j6.cc/cms/', '_blank', null, null, '2', '1');
+INSERT INTO `cms_link` VALUES ('1', '0', '1', '2', 'SPC.NET', 'http://cms.s1n1.com/cms/', '_blank', null, null, '2', '1');
 INSERT INTO `cms_link` VALUES ('2', '0', '1', '1', '首页', '/', null, null, null, '1', '1');
 INSERT INTO `cms_link` VALUES ('3', '0', '1', '1', '欢迎使用', '/cms/welcome.html', null, null, null, '2', '1');
 

@@ -24,7 +24,7 @@
                         </dd>
                     </dl>
 
-                    <dl><dt>请求接口：</dt><dd><input class="tb_normal" type="text" field="apiserver" value="${apiserver}" /></dd></dl>
+                    <dl><dt>请求接口：</dt><dd><input class="tb_normal box" type="text" field="apiserver" value="${apiserver}" /></dd></dl>
 
 
                     <dl>
@@ -83,7 +83,7 @@
             if (j6.validator.validate()) {
                 j6.val('editor', editor.html());
                 if (j6.val('editor').length > 500) {
-                    parent.M.alert('备注内容不能超过500字！');
+                   showMsg2('备注内容不能超过500字！');
                     return false;
                 }
 
@@ -97,7 +97,7 @@
                         default: msg = location.href.indexOf('edit') != -1 ? '保存成功!' : '添加成功!'; break;
                     }
 
-                    parent.M.alert(msg, function () {
+                   showMsg2msg, function () {
                         location.replace('?module=table&action=all');
                     });
                 });

@@ -30,7 +30,7 @@
         <div class="fl hidden">
             <div class="label"><span class="red">*</span>软件激活码：</div>
             <div class="in">
-                <input type="text" class="tb_normal" field="license_key" style="width:400px" />
+                <input type="text" class="tb_normal box" field="license_key" style="width:400px" />
                 <div class="tip">10字以下</div>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="fl hidden">
             <div class="label"><span class="red">*</span>软件激活码：</div>
             <div class="in">
-                <input type="text" class="tb_normal" field="license_key" style="width:400px" />
+                <input type="text" class="tb_normal box" field="license_key" style="width:400px" />
             </div>
         </div>
 
@@ -64,7 +64,7 @@
         <div class="fl">
             <div class="label">调试模式：</div>
             <div class="in">
-                <input type="checkbox" class="tb_normal" style="width:auto" field="opti_debug" />
+                <input type="checkbox" class="tb_normal box" style="width:auto" field="opti_debug" />
                 (建议不勾选)开启可查看详细的错误信息,设置网站会重启
             </div>
         </div>
@@ -75,7 +75,7 @@
         <div class="fl">
             <div class="label">静态服务器：</div>
             <div class="in">
-                <input type="checkbox" class="tb_normal" style="width:auto" field="server_static_enabled" />
+                <input type="checkbox" class="tb_normal box" style="width:auto" field="server_static_enabled" />
                 &nbsp;&nbsp;CDN地址：http://<span field="server_static"></span>/
                 <div>(建议开启,可提升访问速度)</div>
         </div>
@@ -108,9 +108,9 @@
             <div class="fl">
                 <div class="label">选项：</div>
                 <div class="in">
-                    <input type="checkbox" id="ckitem1_1" class="tb_normal" style="width:auto" field="tpl_usecompress" />
+                    <input type="checkbox" id="ckitem1_1" class="tb_normal box" style="width:auto" field="tpl_usecompress" />
                     <label for="ckitem1_1">代码压缩</label>&nbsp;
-                    <input type="checkbox" id="ckitem1_2" class="tb_normal" style="width:auto" field="tpl_usefullpath" />
+                    <input type="checkbox" id="ckitem1_2" class="tb_normal box" style="width:auto" field="tpl_usefullpath" />
                     <label for="ckitem1_2">完整路径(Full URL)</label>
                 </div>
             </div>
@@ -131,24 +131,20 @@
     $js()
     <script type="text/javascript">
         cms.json.bind('form1',${json});
-
-
         window.saveData = function () {
             if (cms.validator.validate('form1')) {
                 var data = cms.json.toObject('form1');
                 cms.xhr.jsonPost(location.href, data, function (json) {
                     if (json.result) {
-                        parent.M.alert(json.message);
+                        showMsg(json.message,1000);
                     } else {
-                        parent.M.alert(json.message);
+                        showErr(json.message,2000);
                     }
                 });
             }
         };
 
         cms.$('btn_save').onclick = window.saveData;
-
-
     </script>
 
 </body>

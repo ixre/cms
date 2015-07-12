@@ -74,7 +74,7 @@
                 });
 
                 j6.each(tds, function (i, e) {
-                    Cms.Contextmenu.bind(e, null, function (menu) {
+                    j6.contextmenu.bind(e, null, function (menu) {
                         //var state = e.parentNode.getAttribute('avaiable') == '1' ? '<span style="color:red">停用该用户</span>' : '启用该用户';
                         menu.innerHTML = j6.template(j6.$('tpl').innerHTML, { id: id, state: state });
                     });
@@ -90,7 +90,7 @@
 
 
         //绑定列表菜单
-        Cms.Contextmenu.bind(_dg.panel, j6.$('list_menu_tpl').innerHTML);
+        j6.contextmenu.bind(_dg.panel, j6.$('list_menu_tpl').innerHTML);
 
         var menu = {
             add: Fn.create,
@@ -99,7 +99,7 @@
                     j6.xhr.jsonPost('?', 'module=user&action=setuserstate&username=' + id,
                  function (json) {
                      if (json.result) {
-                         parent.M.alert('操作成功！');
+                        showMsg2('操作成功！');
                          _this.refresh();
                      } else {
                          j6.dialog.alert(json.message);

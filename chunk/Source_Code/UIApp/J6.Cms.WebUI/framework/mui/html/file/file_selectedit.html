@@ -12,9 +12,9 @@
   <div class="tplinfo">
   <!--
     【当前视图目录】:<span class="txt">/templates/${systpl}/</span>&nbsp;&nbsp;<a href="?module=system&action=appconfig">设置</a>-->
-     &nbsp;&nbsp;选择文件：<select class="tb_normal" id="files">${files}</select>
-     &nbsp;&nbsp;创建样式文件：<input type="text" id="tplname" class="tb_normal" style="width:120px"/>
-     <select id="tpltype" class="tb_normal" style="width:100px;display:none"><option value="0">页面视图</option><option value="1">部分视图</option></select>
+     &nbsp;&nbsp;选择文件：<select class="tb_normal box" id="files">${files}</select>
+     &nbsp;&nbsp;创建样式文件：<input type="text" id="tplname" class="tb_normal box" style="width:120px"/>
+     <select id="tpltype" class="tb_normal box" style="width:100px;display:none"><option value="0">页面视图</option><option value="1">部分视图</option></select>
      <input type="button" value="创建" class="btn" id="createview" />
   </div>
   <iframe id="ifr" src="about:blank" frameborder="0" scrolling="no"></iframe>
@@ -50,7 +50,7 @@ $js()
                 if (tplname != '') {
                     j6.xhr.post('?', 'module=file&action=createstylesheet&name=' + tplname + '&type=' + tpltype, function (x) {
                         if (x.indexOf('.') == -1) {
-                            parent.M.alert(x);
+                           showMsg2x);
                         } else {
                             location.replace('?module=file&action=edit&file=' + x);
                         }

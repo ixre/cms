@@ -15,7 +15,7 @@
                         <dt>上级栏目：</dt>
                         <dd>
                             <span class="input">
-                                <select field="ParentLft" class="tb_normal">
+                                <select field="ParentLft" class="tb_normal box">
                                     <option value="1" style="color:Red">一根目录一</option>
                                     ${categories}
                                 </select>
@@ -33,7 +33,7 @@
                     <dl>
                         <dt>栏目标识：</dt>
                         <dd>
-                            <input type="text" class="tb_normal box ui-validate" field="Tag" id="tag" size="20" /><a style="margin-left:5px" href="javascript:;" summary="{required:'不能为空',strerr:'长度为50位以下的字母，数字，下划线和连接线的组合'}">自动标识</a> <br /><span class="desc" style="padding-left:60px">建议手动填写,用于调用数据的唯一标识,且显示在地址栏中,如http://www.j6.cc/news/,news就是一个标识</span>
+                            <input type="text" class="tb_normal box ui-validate" field="Tag" id="tag" size="20" /><a style="margin-left:5px" href="javascript:;" summary="{required:'不能为空',strerr:'长度为50位以下的字母，数字，下划线和连接线的组合'}">自动标识</a> <br /><span class="desc" style="padding-left:60px">建议手动填写,用于调用数据的唯一标识,且显示在地址栏中,如http://cms.s1n1.com/news/,news就是一个标识</span>
                         </dd>
                     </dl>
                     <dl>
@@ -60,7 +60,7 @@
                     <dl style="display:none">
                         <dt>模块：</dt>
                         <dd>
-                            <select class="tb_normal" field="ModuleId">${categoryTypes}</select>
+                            <select class="tb_normal box" field="ModuleId">${categoryTypes}</select>
                         </dd>
                     </dl>
                     <dl>
@@ -75,7 +75,7 @@
                     <dl>
                         <dt>视图：</dt>
                         <dd>
-                            <select field="CategoryTemplate" id="CategoryTemplate" class="tb_normal"><option value="">一默认一</option>${category_tpls} </select><span class="desc">注：默认则使用模块的视图设置</span>
+                            <select field="CategoryTemplate" id="CategoryTemplate" class="tb_normal box"><option value="">一默认一</option>${category_tpls} </select><span class="desc">注：默认则使用模块的视图设置</span>
                         </dd>
                     </dl>
 
@@ -83,7 +83,7 @@
                     <dl>
                         <dt>文档视图：</dt>
                         <dd>
-                            <select field="CategoryArchiveTemplate" id="CategoryArchiveTemplate" class="tb_normal"> <option value="">一默认一</option>${archive_tpls}</select><span class="desc">注：默认则使用模块（或文档）的视图设置</span>
+                            <select field="CategoryArchiveTemplate" id="CategoryArchiveTemplate" class="tb_normal box"> <option value="">一默认一</option>${archive_tpls}</select><span class="desc">注：默认则使用模块（或文档）的视图设置</span>
                         </dd>
                     </dl>
 
@@ -193,9 +193,9 @@
                          if (json.result) {
                              if (window._reloadTree) window._reloadTree();
                              j6.load2('pl', 'category', 'update', 'lft=' + json.data);
-                             parent.M.alert(json.message);
+                            showError(json.message);
                          } else {
-                             parent.M.alert(json.message);
+                            showError(json.message);
                          }
                      });
             }

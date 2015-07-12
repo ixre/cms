@@ -85,7 +85,7 @@
 
                             if (nodeLinks.length != 0) {
                                 var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).lft;
-                                Cms.Contextmenu.bind(e, null, function (menu) {
+                                j6.contextmenu.bind(e, null, function (menu) {
                                     menu.innerHTML = j6.template(tmpTpl, { id: id });
                                 });
                             }
@@ -137,7 +137,7 @@
                         function (json) {
                             if (json.result) {
                                 _reloadTree();
-                            } else { parent.M.alert(json.message); }
+                            } else {showMsg2json.message); }
                         });
                 }
             }

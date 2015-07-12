@@ -154,7 +154,7 @@
                 });
 
                 j6.each(tds, function (i, e) {
-                    Cms.Contextmenu.bind(e, null, function (menu) {
+                    j6.contextmenu.bind(e, null, function (menu) {
 
                         menu.innerHTML = j6.template(tplHtml, { id: e.parentNode.getAttribute('data-indent') });
                     });
@@ -193,7 +193,7 @@
 
 
         //绑定列表菜单
-        Cms.Contextmenu.bind(j6.$('dg').parentNode, j6.$('list_menu_tpl').innerHTML);
+        j6.contextmenu.bind(j6.$('dg').parentNode, j6.$('list_menu_tpl').innerHTML);
 
 
         var menu = {
@@ -217,7 +217,7 @@
                             _dg.reload();
                         }
                         else {
-                            parent.M.alert(json.message);
+                            showErr(json.message);
                         }
                     }
                     );
@@ -235,10 +235,10 @@
                 j6.xhr.jsonPost('?', 'module=archive&action=moveToSort&archive.id=' + id+'&direction='+val,
                   function (json) {
                       if (json.result) {
-                          parent.M.alert('操作成功！');
+                          showMsg2('操作成功！');
                           _dg.reload();
                       } else {
-                          parent.M.alert(json.message);
+                          showErr(json.message);
                       }
                   });
             },
@@ -247,10 +247,10 @@
                 j6.xhr.jsonPost('?', 'module=archive&action=republish&archive.id=' + id,
                   function (json) {
                       if (json.result) {
-                          parent.M.alert('已经刷新最后更新时间！');
+                          showMsg2('已经刷新最后更新时间！');
                           _dg.reload();
                       } else {
-                          parent.M.alert(json.message);
+                          showErr(json.message);
                       }
                   });
             },

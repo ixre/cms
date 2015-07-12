@@ -7,7 +7,7 @@
 // Create : 2011/10/15 21:16:56
 // Description :
 //
-// Get infromation of this software,please visit our site http://J6.Cms.cc
+// Get infromation of this software,please visit our site http://cms.s1n1.com
 // Modify:
 //  2013-06-08 22:30 newmin [!] : 添加模块更新菜单数据
 //

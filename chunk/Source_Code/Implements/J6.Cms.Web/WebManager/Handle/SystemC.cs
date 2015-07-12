@@ -7,7 +7,7 @@
 // Create : 2011/10/15 20:13:52
 // Description :
 //
-// Get infromation of this software,please visit our site http://J6.Cms.cc
+// Get infromation of this software,please visit our site http://cms.s1n1.com
 // Modify:
 //  2013-01-06  11:07   newmin [+]: add setting
 //

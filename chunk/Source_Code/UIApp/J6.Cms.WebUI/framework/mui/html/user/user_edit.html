@@ -37,9 +37,9 @@
                 j6.xhr.jsonPost(postUrl, j6.json.toObject(document), function (json) {
                     if (json.result) {
                         _dg.reload();
-                        parent.M.alert(json.message);
+                       showError(json.message);
                     } else {
-                    	 parent.M.alert(json.message);
+                    	showMsg2json.message);
                     }
                 });
             }

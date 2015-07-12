@@ -12,9 +12,9 @@
   <div class="tplinfo">
   <!--
     【当前视图目录】:<span class="txt">/templates/${tpl}/</span>&nbsp;&nbsp;<a href="?module=system&action=appconfig">设置</a>-->
-     &nbsp;&nbsp;选择文件：<select class="tb_normal" id="files">${tplfiles}</select>
-     &nbsp;&nbsp;创建文件：<input type="text" id="tplname" class="tb_normal" style="width:120px"/>
-     <select id="tpltype" class="tb_normal" style="width:100px"><option value="0">页面视图</option><option value="1">部分视图</option></select>
+     &nbsp;&nbsp;选择文件：<select class="tb_normal box" id="files">${tplfiles}</select>
+     &nbsp;&nbsp;创建文件：<input type="text" id="tplname" class="tb_normal box" style="width:120px"/>
+     <select id="tpltype" class="tb_normal box" style="width:100px"><option value="0">页面视图</option><option value="1">部分视图</option></select>
      <input type="button" value="创建" class="btn" id="createview" />
      <a href="javascript:;" class="btn fn" fn="download">下载模板</a>
   </div>
@@ -57,7 +57,7 @@ $js()
                 if (tplname != '') {
                     j6.xhr.post('?', 'module=template&action=createview&name=' + tplname + '&type=' + tpltype, function (x) {
                         if (x.indexOf('.') == -1) {
-                            parent.M.alert(x);
+                           showMsg2x);
                         } else {
                             location.replace('?module=template&action=edit&file=' + x);
                         }

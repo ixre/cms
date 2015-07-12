@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("J6.Cms.DAL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("www.j6.cc")]
+[assembly: AssemblyCompany("cms.s1n1.com")]
 [assembly: AssemblyProduct("J6.Cms.DAL")]
 [assembly: AssemblyCopyright("Copyright © j6.cc 2013")]
 [assembly: AssemblyTrademark("")]

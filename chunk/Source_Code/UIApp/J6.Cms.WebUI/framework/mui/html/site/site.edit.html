@@ -40,11 +40,11 @@
             if (j6.validator.validate()) {
                 j6.xhr.jsonPost(postUrl, j6.json.toObject(document), function (json) {
                     if (json.result) {
-                        parent.M.alert(json.message, function () {
+                       showError(json.message, function () {
                                location.reload();
                         });
                     } else {
-                        parent.M.alert(json.message);
+                       showError(json.message);
                     }
                 });
             }

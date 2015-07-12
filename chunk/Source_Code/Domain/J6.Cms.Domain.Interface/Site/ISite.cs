@@ -46,7 +46,7 @@ namespace J6.Cms.Domain.Interface.Site
         string Location { get; set; }
 
         /// <summary>
-        /// 获取基础URL,如:http://www.j6.cc/.
+        /// 获取基础URL,如:http://cms.s1n1.com/.
         /// 如果未绑定域名，则用#代替Host部分,如：
         /// http://#/sub
         /// </summary>

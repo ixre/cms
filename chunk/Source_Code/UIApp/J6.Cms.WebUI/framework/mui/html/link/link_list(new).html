@@ -105,7 +105,7 @@
                 }
 
                 j6.each(Fn.table.getElementsByTagName('TD'), function (i, e) {
-                    Cms.Contextmenu.bind(e, '', function (menu) {
+                    j6.contextmenu.bind(e, '', function (menu) {
 
                         var id = e.parentNode.getAttribute('indent');
                         var state = e.parentNode.getAttribute('visible') == '1' ? '<span style="color:#333">隐藏链接</span>' : '显示链接';
@@ -156,7 +156,7 @@
                 });
 
                 j6.each(tds, function (i, e) {
-                    Cms.Contextmenu.bind(e, null, function (menu) {
+                    j6.contextmenu.bind(e, null, function (menu) {
                         menu.innerHTML = j6.template(j6.$('tpl').innerHTML, { id: e.parentNode.getAttribute('data-indent') });
                     });
                 });
@@ -171,7 +171,7 @@
 
 
         //绑定列表菜单
-        Cms.Contextmenu.bind(j6.$('plist').parentNode, j6.$('list_menu_tpl').innerHTML);
+        j6.contextmenu.bind(j6.$('plist').parentNode, j6.$('list_menu_tpl').innerHTML);
 
         var menu = {
             add: Fn.create,
@@ -179,7 +179,7 @@
                 (function (_this) {
                     j6.xhr.post('?', 'module=link&action=setvisible&linkID=' + id,
                  function () {
-                     parent.M.alert('操作成功！');
+                    showMsg2('操作成功！');
                      _this.refresh();
                  });
                 }(this));

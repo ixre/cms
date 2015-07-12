@@ -23,7 +23,7 @@
                     <dl>
                         <dt><span class="star">*</span>栏目：</dt>
                         <dd>
-                            <select field="CategoryId" class="tb_normal" required="true" summary="{required:'请选择栏目!'}">
+                            <select field="CategoryId" class="tb_normal box" required="true" summary="{required:'请选择栏目!'}">
                                 <option>一请选择栏目一</option>
                                 ${nodes}
                             </select>
@@ -126,7 +126,7 @@
                     <dl>
                         <dt>视图：</dt>
                         <dd>
-                            <select field="TemplatePath" id="TemplatePath" class="tb_normal">
+                            <select field="TemplatePath" id="TemplatePath" class="tb_normal box">
                                 <option value="">一默认一</option>
                                 ${tpls}
                             </select>&nbsp;&nbsp;设置文档的显示模板，通常使用“默认”即可。
@@ -266,16 +266,16 @@
                 if(data.IsRedirect=='0')data.Location='';
                /*
                 if (data.Content == '') {
-                    parent.M.alert('请填写内容！');
+                   showMsg2('请填写内容！');
                     return false;
                 }*/
 
                 j6.xhr.jsonPost('${url}', data, function (json) {
                     if (json.result) {
-                        parent.M.alert('操作成功！');
+                       showMsg2('操作成功！');
                         if(_dg)_dg.reload();
                     } else {
-                        parent.M.alert(json.message);
+                       showError(json.message);
                     }
                 });
             }

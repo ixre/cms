@@ -7,7 +7,7 @@
 // Create : 2011/10/15 21:16:56
 // Description :
 //
-// Get infromation of this software,please visit our site http://J6.Cms.cc
+// Get infromation of this software,please visit our site http://cms.s1n1.com
 //
 // Modify:
 //      2012-11-28  20:20   :  修改验证码不能正常显示的问题

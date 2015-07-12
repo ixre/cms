@@ -74,7 +74,7 @@
         var id=getId(this);
         j6.xhr.post('?', "module=ajax&action=deleteArchive&archiveID=" + id,
         function (x) { eval(x); /* td.style.display = 'none';*/ },
-        function (x) {  parent.M.alert(x);
+        function (x) { showMsg2x);
       }
      }
     function getId(s) {
@@ -89,7 +89,7 @@
     }
 
     function tip(msg) {
-        parent.M.alert(msg);
+       showMsg2msg);
     }
   </script>
 

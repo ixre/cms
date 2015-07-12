@@ -35,7 +35,7 @@ namespace J6.Cms.WebManager
             string path;
             foreach (FileInfo file in dir.GetFiles())
             {
-                if (file.Name!="j6.config" && (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden 
+                if (file.Name!="cms.config" && (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden 
                     && (String.IsNullOrEmpty(ext) || ext.IndexOf(file.Extension) != -1))
                 {
 

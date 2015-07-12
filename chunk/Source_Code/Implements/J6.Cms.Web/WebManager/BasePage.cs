@@ -7,7 +7,7 @@
 // Create : 2011/10/17 9:33:57
 // Description :
 //
-// Get infromation of this software,please visit our site http://J6.Cms.cc
+// Get infromation of this software,please visit our site http://cms.s1n1.com
 // Modify:
 // 2013-07-15 14:00 newmin [!]: 修改模板呈现方式
 //
@@ -125,7 +125,7 @@ namespace J6.Cms.WebManager
             }
 
             response.AddHeader("X-AspNet-Version", String.Format("J6.Cms v{0}", J6.Cms.Cms.Version));
-            response.AddHeader("Support-URL", "www.j6.cc/cms/");
+            response.AddHeader("Support-URL", "cms.s1n1.com/cms/");
 
         }
 

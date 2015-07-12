@@ -24,13 +24,13 @@
                 <dl><dt>Sitemap分割符:</dt><dd><textarea class="tb_normal singlerow" field="tpl_cfg_sitemapsplit" value="${tpl_cfg_sitemapsplit}">${tpl_cfg_sitemapsplit}</textarea></dd></dl>
                 <dl><dt>Tags链接格式:</dt><dd><textarea class="tb_normal singlerow" field="tpl_cfg_archivetagsformat">${tpl_cfg_archivetagsformat}</textarea></dd></dl>
                 
-                <dl><dt>允许匿名评论：</dt><dd><input type="checkbox" class="tb_normal" style="width:auto;border:none;" field="tpl_cfg_allowamouscomment" ${tpl_CFG_allowAmousComment} /></dd></dl>
-                <dl><dt>评论HTML:</dt><dd><textarea class="tb_normal" field="tpl_cfg_commenteditorhtml">${tpl_CFG_CommentEditorHtml}</textarea></dd></dl>
+                <dl><dt>允许匿名评论：</dt><dd><input type="checkbox" class="tb_normal box" style="width:auto;border:none;" field="tpl_cfg_allowamouscomment" ${tpl_CFG_allowAmousComment} /></dd></dl>
+                <dl><dt>评论HTML:</dt><dd><textarea class="tb_normal box" field="tpl_cfg_commenteditorhtml">${tpl_CFG_CommentEditorHtml}</textarea></dd></dl>
                 <dl><dt>友情链接显示条数:</dt><dd><input type="text" class="tb_normal box ui-validate" isnumber="true" field="tpl_cfg_friendshownum" value="${tpl_CFG_FriendShowNum}" style="width:30px"/>&nbsp;条</dd></dl>
-                <dl><dt>友情链接格式:</dt><dd><textarea class="tb_normal" field="tpl_cfg_friendlinkformat">${tpl_CFG_FriendLinkFormat}</textarea></dd></dl>
-                <dl><dt>导航链接格式:</dt><dd><textarea class="tb_normal" field="tpl_cfg_navigatorlinkformat">${tpl_CFG_NavigatorLinkFormat}</textarea></dd></dl>
-                <dl><dt>子导航链接格式:</dt><dd><textarea class="tb_normal" field="tpl_cfg_navigatorchildformat">${tpl_CFG_NavigatorChildFormat}</textarea></dd></dl>
-                <dl><dt>流量统计格式:<</dt><dd><textarea class="tb_normal" field="tpl_cfg_trafficformat">${tpl_CFG_TrafficFormat}</textarea></dd></dl>
+                <dl><dt>友情链接格式:</dt><dd><textarea class="tb_normal box" field="tpl_cfg_friendlinkformat">${tpl_CFG_FriendLinkFormat}</textarea></dd></dl>
+                <dl><dt>导航链接格式:</dt><dd><textarea class="tb_normal box" field="tpl_cfg_navigatorlinkformat">${tpl_CFG_NavigatorLinkFormat}</textarea></dd></dl>
+                <dl><dt>子导航链接格式:</dt><dd><textarea class="tb_normal box" field="tpl_cfg_navigatorchildformat">${tpl_CFG_NavigatorChildFormat}</textarea></dd></dl>
+                <dl><dt>流量统计格式:<</dt><dd><textarea class="tb_normal box" field="tpl_cfg_trafficformat">${tpl_CFG_TrafficFormat}</textarea></dd></dl>
                 <div class="btnarea"><a class="btn leftbtn" onclick="return submitForm()" href="javascript:;">提交</a></div>
 
         </form>
@@ -53,7 +53,7 @@ $js()
         return false;
     }
     function tip(msg) {
-        parent.M.alert(msg);
+       showMsg2msg);
     }
 
 

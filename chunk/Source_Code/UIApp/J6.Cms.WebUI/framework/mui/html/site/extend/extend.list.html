@@ -72,7 +72,7 @@
             }
         };
 
-        Cms.Contextmenu.bind(j6.$('dg'), '<div class="item" onclick="menu.create()">'
+        j6.contextmenu.bind(j6.$('dg'), '<div class="item" onclick="menu.create()">'
                                     + '<a href="javascript:;">$icon(create)新建</a>'
                                     + '</div><div class="item" onclick="menu.refresh()">'
                                     + '<a href="javascript:;">$icon(refresh)刷新</a>'
@@ -108,7 +108,7 @@
                 });
 
                 j6.each(tds, function (i, e) {
-                    Cms.Contextmenu.bind(e, null, function (menu) {
+                    j6.contextmenu.bind(e, null, function (menu) {
                         menu.innerHTML = j6.template(j6.$('tpl').innerHTML, {
                             id: e.parentNode.getAttribute('data-indent')
                         });
@@ -137,7 +137,7 @@
                         function (json) {
                             if (json.result) {
                                 _dg.reload();
-                            } else { parent.M.alert(json.message); }
+                            } else {showMsg2json.message); }
                         });
                 }
             },

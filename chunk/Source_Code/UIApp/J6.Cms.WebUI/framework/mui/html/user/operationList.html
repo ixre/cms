@@ -26,8 +26,8 @@
       </tr>
       <tr>
         <td><strong>新增</strong></td>
-        <td><input type="text" class="tb_normal"/></td>
-        <td><input type="text" class="tb_normal"/></td>
+        <td><input type="text" class="tb_normal box"/></td>
+        <td><input type="text" class="tb_normal box"/></td>
         <td colspan="2" align="right"><a href="javascript:;" id="btncreate" class="btn">提交</a></td>
       </tr>
 
@@ -50,8 +50,8 @@ $js()
     var name = tds[0].value,
       path = tds[1].value;
 
-    if (name == '')  parent.M.alert('请输入操作名称！');
-    else if (path == '') parent.M.alert('请输入操作路径！');
+    if (name == '') showMsg2('请输入操作名称！');
+    else if (path == '')showMsg2('请输入操作路径！');
     else {
       j6.xhr.post('?', 'module=user&action=createoperation&name=' + escape(name) + '&path=' + escape(path),
         function (x) {
@@ -71,7 +71,7 @@ $js()
             available = tds[3].childNodes[0].checked;
 
         j6.xhr.post('?', 'module=user&action=updateoperation&id=' + id + '&name=' + name + '&path=' + path + '&available=' + available,
-        function (x) {  parent.M.alert('修改成功！'); }, function (x) { alert(x); });
+        function (x) { showMsg2('修改成功！'); }, function (x) { alert(x); });
 
       };
     })(btns[i]);

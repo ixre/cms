@@ -7,7 +7,7 @@
 // Create : 2011/10/17 10:56:06
 // Description :
 //
-// Get infromation of this software,please visit our site http://J6.Cms.cc
+// Get infromation of this software,please visit our site http://cms.s1n1.com
 //
 //
 
@@ -140,22 +140,22 @@ namespace J6.Cms.Web.WebManager.Handle
                 switch (uiType)
                 {
                     case PropertyUI.Text:
-                        sb.Append("<input type=\"text\" class=\"tb_normal\" field=\"extend_").Append(p.Id.ToString())
+                        sb.Append("<input type=\"text\" class=\"tb_normal box\" field=\"extend_").Append(p.Id.ToString())
                         .Append("\" value=\"").Append(p.DefaultValue).Append("\"/>");
                         break;
 
                     case PropertyUI.MultLine:
-                        sb.Append("<textarea class=\"tb_normal\" field=\"extend_").Append(p.Id.ToString())
+                        sb.Append("<textarea class=\"tb_normal box\" field=\"extend_").Append(p.Id.ToString())
                         .Append("\">").Append(p.DefaultValue).Append("</textarea>");
                         break;
 
                     case PropertyUI.Integer:
-                        sb.Append("<input type=\"text\" class=\"tb_normal ui-validate\" isnum=\"true\" field=\"extend_").Append(p.Id.ToString())
+                        sb.Append("<input type=\"text\" class=\"tb_normal box ui-validate\" isnum=\"true\" field=\"extend_").Append(p.Id.ToString())
                        .Append("\" value=\"").Append(p.DefaultValue).Append("\"/>");
                         break;
 
                     case PropertyUI.Upload:
-                        sb.Append("<input type=\"text  upload_value\" class=\"tb_normal\" id=\"extend_").Append(p.Id.ToString())
+                        sb.Append("<input type=\"text  upload_value\" class=\"tb_normal box\" id=\"extend_").Append(p.Id.ToString())
                        .Append("\" field=\"extend_").Append(p.Id.ToString())
                        .Append("\" value=\"").Append(p.DefaultValue).Append("\"/>&nbsp;&nbsp;<span id=\"upload_")
                        .Append(p.Id.ToString()).Append("\">选择文件</span>")
@@ -373,23 +373,23 @@ namespace J6.Cms.Web.WebManager.Handle
                 switch (uiType)
                 {
                     case PropertyUI.Text:
-                        sb.Append("<input type=\"text\" class=\"tb_normal\" field=\"extend_").Append(field.Id.ToString())
+                        sb.Append("<input type=\"text\" class=\"tb_normal box\" field=\"extend_").Append(field.Id.ToString())
                             .Append("\" value=\"").Append(attrValue).Append("\"/>");
                         break;
 
                     case PropertyUI.MultLine:
-                        sb.Append("<textarea class=\"tb_normal\" field=\"extend_").Append(field.Id.ToString())
+                        sb.Append("<textarea class=\"tb_normal box\" field=\"extend_").Append(field.Id.ToString())
                         .Append("\">").Append(attrValue).Append("</textarea>");
                         break;
 
                     case PropertyUI.Integer:
-                        sb.Append("<input type=\"text\" class=\"tb_normal ui-validate\" isnum=\"true\" field=\"extend_")
+                        sb.Append("<input type=\"text\" class=\"tb_normal box ui-validate\" isnum=\"true\" field=\"extend_")
                             .Append(field.Id.ToString()).Append("\" value=\"").Append(attrValue).Append("\"/>");
                         break;
 
                     case PropertyUI.Upload:
                         // sb.Append("<input type=\"text\" disabled=\"disabled\" class=\"tb_normal\" id=\"extend_").Append(field.ID.ToString())
-                        sb.Append("<input type=\"text\" class=\"tb_normal upload_value\" id=\"extend_").Append(field.Id.ToString())
+                        sb.Append("<input type=\"text\" class=\"tb_normal box upload_value\" id=\"extend_").Append(field.Id.ToString())
                       .Append("\" field=\"extend_").Append(field.Id.ToString())
                       .Append("\" value=\"").Append(attrValue).Append("\"/>&nbsp;&nbsp;<span id=\"upload_")
                       .Append(field.Id.ToString()).Append("\">选择文件</span>")

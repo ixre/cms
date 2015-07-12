@@ -59,9 +59,9 @@ $js()
         j6.xhr.post('?', "module=module&action=delete&id=" + id,
         function (x) {
             if (x != '') {
-                parent.M.alert(x);
+               showMsg2x);
             } else { td.style.display = 'none'; }
-        }, function (x) { parent.M.alert(x);});
+        }, function (x) {showMsg2x);});
       }
      }
     function getId(s) {

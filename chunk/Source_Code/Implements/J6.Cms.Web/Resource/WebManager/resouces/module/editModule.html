@@ -13,11 +13,11 @@
         <dl>
             <dt>模块名称：</dt><dd><input type="text" class="tb_normal box ui-validate" required="true" length="[0,10]" field="tplname" value="${tplName}" summary="{required:'不能为空',length:'不能超过10个字'}"/></dd></dl>
         <dl>
-            <dt>栏目视图：</dt><dd><select field="categoryTplPath" id="categoryTplPath" class="tb_normal"><option value="">一默认一</option>
+            <dt>栏目视图：</dt><dd><select field="categoryTplPath" id="categoryTplPath" class="tb_normal box"><option value="">一默认一</option>
                 ${category_tpls}
             </select><span class="msg">模块下栏目页均使用此视图,默认视图页为：category.html</span></dd></dl>
         <dl>
-            <dt>文档视图：</dt><dd><select field="archiveTplPath" id="archiveTplPath" class="tb_normal"><option value="">一默认一</option>
+            <dt>文档视图：</dt><dd><select field="archiveTplPath" id="archiveTplPath" class="tb_normal box"><option value="">一默认一</option>
                 ${archive_tpls}</select>
                 <span class="msg">模块下栏目文档页均使用此视图,默认视图页为：archive.html</span></dd></dl>
         <dl>
@@ -47,11 +47,11 @@
                     e.disabled = '';
                     e.value = eValue;
                     if (json.result) {
-                        parent.M.alert(
+                       showMsg2
                             location.href.indexOf('edit') != -1
                             ? '保存成功!' : '添加成功!');
                     } else {
-                        parent.M.alert(json.message);
+                       showError(json.message);
                     }
                 });
             }

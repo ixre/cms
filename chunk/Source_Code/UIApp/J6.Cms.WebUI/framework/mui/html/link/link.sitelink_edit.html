@@ -70,7 +70,7 @@
                     <dt>打开方式：</dt>
                     <dd>
                         <span class="input">
-                            <select class="tb_normal" field="Target">
+                            <select class="tb_normal box" field="Target">
                                 <option value="">本窗口</option>
                                 <option value="_blank">新窗口</option>
                             </select>
@@ -207,13 +207,13 @@
                        , j6.json.toObject('dataPanel')
                        , function (json) {
                            if (json.result) {
-                               parent.M.alert(json.message,function () {
+                              showError(json.message,function () {
                                        location.replace('?module=link&action=list&type=${linktype}');
                                  
                                });
 
                            } else {
-                              parent.M.alert(json.message);
+                             showError(json.message);
                            }
 
                        });
