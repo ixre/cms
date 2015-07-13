@@ -59,6 +59,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\DbAccess\J6.Cms.DB\J6.Cms.DB.csproj">
+      <Project>{79258ec8-3cf2-496c-b81b-08b8392fd46a}</Project>
+      <Name>J6.Cms.DB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Domain\J6.Cms.Domain.Implement.Content\J6.Cms.Domain.Implement.Content.csproj">
       <Project>{531376ba-75a2-4808-a63f-3b41deb1edd9}</Project>
       <Name>J6.Cms.Domain.Implement.Content</Name>

@@ -2,13 +2,13 @@
 
 namespace J6.Cms.DB
 {
-    public class DBAccess
+    public class DbAccess
     {
-        private DataBaseType _dbType;
-        private string _connectionString;  
+        private readonly DataBaseType _dbType;
+        private readonly string _connectionString;  
         private DataBaseAccess dbAccess;
 
-        public DBAccess(DataBaseType dbType,string connectionString)
+        public DbAccess(DataBaseType dbType,string connectionString)
         {
             this._dbType = dbType;
             this._connectionString = connectionString;

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 using J6.Cms.Domain.Implement.Site.Category;
 using J6.Cms.Domain.Interface.Site;
 using J6.Cms.Domain.Interface.Site.Category;

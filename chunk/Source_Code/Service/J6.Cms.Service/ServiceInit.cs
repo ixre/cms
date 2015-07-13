@@ -1,4 +1,6 @@
-﻿using J6.Cms.Domain.Interface.Common;
+﻿using System;
+using J6.Cms.DB;
+using J6.Cms.Domain.Interface.Common;
 using J6.Cms.Domain.Interface.Content;
 using J6.Cms.Domain.Interface.Content.Archive;
 using J6.Cms.Domain.Interface.Site;
@@ -8,6 +10,7 @@ using J6.Cms.Domain.Interface.Site.Template;
 using J6.Cms.Domain.Interface.User;
 using J6.Cms.ServiceContract;
 using J6.Cms.ServiceRepository;
+using J6.Cms.ServiceRepository.Export;
 /*
  * Created by SharpDevelop.
  * User: newmin
@@ -52,6 +55,8 @@ namespace J6.Cms.Service
                 act.For<IUserRepository>().Singleton().Use<UserRepository>();
 
             });
+
+            ExportManager.Initialize(AppDomain.CurrentDomain.BaseDirectory + "framework/query/",CmsDataBase.Instance);
         }
 	}
 }

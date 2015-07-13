@@ -6,7 +6,7 @@
 
 using System;
 using System.Data;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 using J6.Cms.Domain.Interface._old;
 using J6.Cms.IDAL;
 using J6.DevFw.Framework.Extensions;

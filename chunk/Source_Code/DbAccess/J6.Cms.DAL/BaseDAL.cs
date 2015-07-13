@@ -1,15 +1,15 @@
-﻿using System.Data;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Data;
 using System.Text.RegularExpressions;
 using J6.Cms.DB;
 using J6.Cms.Sql;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public abstract class DALBase
+    public abstract class DalBase
     {
-        private static bool inited = false;
+        private static bool _inited = false;
 
         /// <summary>
         /// 用于生成参数的数据库访问对象
@@ -18,12 +18,13 @@ namespace J6.Cms.DAL
 
         private static void CheckAndInit()
         {
-            if (!inited)
+            if (!_inited)
             {
                 DataBaseAccess _db = CmsDataBase.Instance;
+                if (_db == null) throw new ArgumentNullException("_db");
                 DbFact = _db.DataBaseAdapter;
                 //SQLPack对象
-                inited = true;
+                _inited = true;
             }
         }
 
@@ -37,6 +38,7 @@ namespace J6.Cms.DAL
                 if (_sqlPack == null)
                 {
                     DataBaseAccess _db = CmsDataBase.Instance;
+                    if (_db == null) throw new ArgumentNullException("_db");
                     _dbType = _db.DbType;
                    _sqlPack=  SqlPack.Factory(_db.DbType);
 
@@ -49,7 +51,7 @@ namespace J6.Cms.DAL
         /// <summary>
         /// 用于执行操作的数据库访问对象
         /// </summary>
-        public DataBaseAccess db
+        public DataBaseAccess Db
         {
             get
             {
@@ -68,7 +70,7 @@ namespace J6.Cms.DAL
         /// <param name="sql"></param>
         /// <returns></returns>
         //private static Regex signReg=new Regex("\\$([^\\$]+)\\$");
-        private static Regex signReg=new Regex("\\$([^(_|\\s)]+_)");
+        private static readonly Regex signReg=new Regex("\\$([^(_|\\s)]+_)");
         private static SqlPack _sqlPack;
         private static DataBaseType _dbType;
 
@@ -117,14 +119,14 @@ namespace J6.Cms.DAL
         /// <returns></returns>
         protected int ExecuteNonQuery(params SqlQuery[] sql)
         {
-            int result=this.db.ExecuteNonQuery(sql);
+            int result=this.Db.ExecuteNonQuery(sql);
             //db.CloseConn();
             return result;
         }
 
         protected object ExecuteScalar(SqlQuery sqlEnt)
         {
-            object result = db.ExecuteScalar(sqlEnt);
+            object result = Db.ExecuteScalar(sqlEnt);
             //db.CloseConn();
             return result;
         }
@@ -132,13 +134,13 @@ namespace J6.Cms.DAL
 
         protected void ExecuteReader(SqlQuery sql, DataReaderFunc func)
         {
-            this.db.ExecuteReader(sql, func);
+            this.Db.ExecuteReader(sql, func);
            // db.CloseConn();
         }
 
         public DataSet GetDataSet(SqlQuery sqlEnt)
         {
-            DataSet ds = this.db.GetDataSet(sqlEnt);
+            DataSet ds = this.Db.GetDataSet(sqlEnt);
             //db.CloseConn();
             return ds;
 

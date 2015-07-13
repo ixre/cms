@@ -25,7 +25,7 @@ namespace J6.Cms.DB
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
-        private static DBAccess _instance;
+        private static DbAccess _instance;
 
         /// <summary>
         /// 数据库访问对象
@@ -74,15 +74,15 @@ namespace J6.Cms.DB
             }
             connectionString = connectionString.Replace("$ROOT",FwCtx.PhysicalPath);
             DataBaseType dbType=DataBaseType.MySQL;
-            DataBaseAccess db= DBAccessCreator.GetDbAccess(connectionString, ref dbType);
-            _instance = new DBAccess(dbType, db.DataBaseAdapter.ConnectionString);
+            DataBaseAccess db= DbAccessCreator.GetDbAccess(connectionString, ref dbType);
+            _instance = new DbAccess(dbType, db.DataBaseAdapter.ConnectionString);
             _instance.TablePrefix = dataTablePrefix;
 
             //测试数据库连接
             testDbConnection(_instance);
         }
 
-        private static void testDbConnection(DBAccess _instance)
+        private static void testDbConnection(DbAccess _instance)
         {
             DataBaseAccess dba = _instance.CreateInstance();
             try

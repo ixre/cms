@@ -5,7 +5,7 @@ using J6.DevFw.Data;
 
 namespace J6.Cms.DB
 {
-    public static class DBAccessCreator
+    internal static class DbAccessCreator
     {
         /// <summary>
         /// 初始化数据源

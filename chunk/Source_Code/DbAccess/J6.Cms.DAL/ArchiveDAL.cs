@@ -13,9 +13,9 @@ using System.Data;
 using J6.Cms.Domain.Interface.Content.Archive;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public partial class ArchiveDal : DALBase
+    public partial class ArchiveDal : DalBase
     {
         /// <summary>
         /// 插入文章并返回ID

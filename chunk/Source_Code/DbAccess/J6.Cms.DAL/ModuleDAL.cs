@@ -14,9 +14,9 @@ using J6.Cms.IDAL;
 using J6.DevFw.Data;
 using J6.DevFw.Data.Extensions;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public class ModuleDAL : DALBase,ImoduleDAL
+    public class ModuleDAL : DalBase,ImoduleDAL
     {
         public bool AddModule(Module module)
         {

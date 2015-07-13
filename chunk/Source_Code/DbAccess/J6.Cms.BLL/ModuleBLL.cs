@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface._old;
 using J6.Cms.IDAL;

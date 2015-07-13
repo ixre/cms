@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
     internal static class SQLRegex
     {

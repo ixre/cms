@@ -8,12 +8,12 @@ using System;
 using J6.Cms.IDAL;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
     /// <summary>
     /// 友情链接数据访问
     /// </summary>
-    public sealed class ReviewsDAL:DALBase,IRenewsDAL
+    public sealed class ReviewsDAL:DalBase,IRenewsDAL
     {
         /// <summary>
         /// 创建点评数据

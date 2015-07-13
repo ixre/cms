@@ -17,11 +17,11 @@ using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.Conf;
 using J6.Cms.Core;
 using J6.Cms.Core.Plugins;
-using J6.Cms.DB;
 using J6.Cms.Infrastructure;
 using J6.DevFw.Framework;
 using J6.DevFw.PluginKernel;
 using J6.Cms.DataTransfer;
+using J6.Cms.DB;
 
 namespace J6.Cms
 {
@@ -73,7 +73,7 @@ namespace J6.Cms
         /// </summary>
         public static readonly CmsCache Cache;
 
-        private static LogFile logFile;
+        private static LogFile _logFile;
 
         /// <summary>
         /// Cms上下文对象

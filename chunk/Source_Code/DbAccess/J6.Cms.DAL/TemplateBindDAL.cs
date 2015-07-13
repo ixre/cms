@@ -12,9 +12,9 @@ using System;
 using J6.Cms.Domain.Interface.Site.Template;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public class TemplateBindDAL:DALBase
+    public class TemplateBindDAL:DalBase
     {
         private bool HasExists(TemplateBindType type, int bindID)
         {

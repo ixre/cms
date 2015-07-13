@@ -9,12 +9,12 @@ using J6.Cms.Domain.Interface.Common;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
     /// <summary>
     /// 友情链接数据访问
     /// </summary>
-    public sealed class LinkDAL : DALBase
+    public sealed class LinkDAL : DalBase
     {
         /// <summary>
         /// 获取所有的友情链接

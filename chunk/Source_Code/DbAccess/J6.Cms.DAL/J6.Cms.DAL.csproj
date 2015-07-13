@@ -108,13 +108,13 @@
       <Project>{db45ca62-9b89-4abe-9ed2-54b45175d37b}</Project>
       <Name>J6.Cms.Domain.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\J6.Cms.DB\J6.Cms.DB.csproj">
-      <Project>{79258ec8-3cf2-496c-b81b-08b8392fd46a}</Project>
-      <Name>J6.Cms.DB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\J6.Cms.Infrastructure\J6.Cms.Infrastructure.csproj">
       <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
       <Name>J6.Cms.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\J6.Cms.DB\J6.Cms.DB.csproj">
+      <Project>{79258ec8-3cf2-496c-b81b-08b8392fd46a}</Project>
+      <Name>J6.Cms.DB</Name>
     </ProjectReference>
     <ProjectReference Include="..\J6.Cms.IDAL\J6.Cms.IDAL.csproj">
       <Project>{2d220632-1fc1-4e5f-8f6d-399f742724c9}</Project>

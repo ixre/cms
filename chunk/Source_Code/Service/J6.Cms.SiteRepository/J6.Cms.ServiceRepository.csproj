@@ -47,6 +47,8 @@
     <Compile Include="ArchiveRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="ContentRepository.cs" />
+    <Compile Include="Export\DataExport.cs" />
+    <Compile Include="Export\ExportManager.cs" />
     <Compile Include="ExtendFieldRepository.cs" />
     <Compile Include="LinkRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

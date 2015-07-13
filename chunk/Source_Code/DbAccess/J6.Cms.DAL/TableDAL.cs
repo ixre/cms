@@ -16,9 +16,9 @@ using J6.Cms.IDAL;
 using J6.Cms.Infrastructure;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public class TableDAL : DALBase, ITableDAL
+    public class TableDAL : DalBase, ITableDAL
     {
 
         public OperateResult AddTable(Table table, TableColumn[] columns)
@@ -114,7 +114,7 @@ namespace J6.Cms.DAL
         public OperateResult DeleteTable(int tableId)
         {
 
-            DataBaseAccess db = base.db;
+            DataBaseAccess db = base.Db;
             if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_HasExistsSystemTale),new object[,]{ {"@tableid", tableId}})).ToString()) != 0)
             {
                 return OperateResult.IsSystem;
@@ -297,7 +297,7 @@ namespace J6.Cms.DAL
 
         public int CreateRow(int tableId, TableRowData[] rows)
         {
-            DataBaseAccess db = base.db;
+            DataBaseAccess db = base.Db;
             int rowID = 0;
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
 

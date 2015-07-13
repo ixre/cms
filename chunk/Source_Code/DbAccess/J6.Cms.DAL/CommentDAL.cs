@@ -9,12 +9,12 @@ using System.Data;
 using J6.Cms.IDAL;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
     /// <summary>
     /// 文档评论数据访问
     /// </summary>
-    public sealed class CommentDAL:DALBase,ICommentDAL
+    public sealed class CommentDAL:DalBase,ICommentDAL
     {
         public void Add(string archiveID,int memberID,string ip,string content,bool recycle)
         {

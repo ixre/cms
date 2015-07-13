@@ -281,7 +281,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             //用户列表
             IList<UserDto> users;
-           // string filter = "site";
+            // string filter = "site";
 
             //filter 筛选用户的状态
 //            switch (filter)
@@ -300,23 +300,21 @@ namespace J6.Cms.Web.WebManager.Handle
 //                    break;
 //            }
 
-            /*
+
             users = ServiceCall.Instance.UserService.GetMyUsers(base.SiteId, UserState.Administrator.Current.Id);
 
             int i = 0;
-            UserDto usr = UserState.Administrator.Current;
-            IEnumerable<UserDto> _users = users.Where(a => a.GroupId > (int)usr.GroupId);
+            //UserDto usr = UserState.Administrator.Current;
+            //IEnumerable<UserDto> _users = users.Where(a => a.GroupId > (int)usr.GroupId);
 
-        
-            foreach (User user in )
+            foreach (UserDto user in users)
             {
-                sb.Append("<tr avaiable=\"").Append(user.Available?"1":"0").Append("\" indent=\"").Append(user.UserName).Append("\">")
+                sb.Append("<tr indent=\"").Append(user.Id).Append("\">")
                     .Append("<td>").Append((++i).ToString()).Append("</td>")
-                    .Append("<td>").Append(user.Available?user.UserName:"<span style=\"color:#d0d0d0\">"+user.UserName+"</span>").Append("</td><td>")
-                    .Append(user.Name).Append("</td></tr>");
+                    .Append("<td>").Append(user.Name).Append("</td><td>")
+                    .Append(user.Credential.UserName).Append("</td></tr>");
             }
-            */
-          //  base.PagerJson(_users,String.Format("共{0}个用户",users.Length.ToString()));
+            base.PagerJson(users, String.Format("共{0}个用户", users.Count.ToString()));
         }
 
         /// <summary>

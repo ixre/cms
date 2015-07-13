@@ -10,9 +10,9 @@
 
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public class CategoryDAL : DALBase
+    public class CategoryDAL : DalBase
     {
         /// <summary>
         /// 从数据库读取栏目

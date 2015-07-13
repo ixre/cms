@@ -14,9 +14,9 @@ using System.Linq;
 using J6.Cms.Domain.Interface.Site.Extend;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public class ExtendFieldDal : DALBase
+    public class ExtendFieldDal : DalBase
     {
         public bool AddExtendField(int siteId, IExtendField field)
         {

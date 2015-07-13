@@ -8,7 +8,7 @@ using System;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface._old;
 using J6.DevFw.Data.Extensions;
@@ -18,7 +18,7 @@ namespace J6.Cms.BLL
     /// <summary>
     /// 会员逻辑
     /// </summary>
-    public sealed class MemberBLL : Imember
+    public sealed class MemberBll : Imember
     {
         private MemberDAL dal = new MemberDAL();
 

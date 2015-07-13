@@ -3,23 +3,22 @@ using System.Text.RegularExpressions;
 using J6.Cms.DB;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
     public class SqlQueryHelper
     {
         /// <summary>
         /// 优化SQL语句
         /// </summary>
-        /// <param name="sql"></param>
         /// <returns></returns>
         //private static Regex signReg=new Regex("\\$([^\\$]+)\\$");
-        private static readonly Regex signReg = new Regex("\\$([^(_|\\s)]+_)");
+        private static readonly Regex SignReg = new Regex("\\$([^(_|\\s)]+_)");
 
-        public static string OptimizeSQL(string sql)
+        public static string OptimizeSql(string sql)
         {
-            if (signReg.IsMatch(sql))
+            if (SignReg.IsMatch(sql))
             {
-                return signReg.Replace(sql, m =>
+                return SignReg.Replace(sql, m =>
                 {
                     switch (m.Groups[1].Value.ToUpper())
                     {
@@ -58,22 +57,22 @@ namespace J6.Cms.DAL
                 objects[tmpInt, 1] = d[1];
                 tmpInt++;
             }
-            return new SqlQuery(OptimizeSQL(sql), objects);
+            return new SqlQuery(OptimizeSql(sql), objects);
         }
         
         public static SqlQuery Create(string sql,object[,] data)
         {
-            return new SqlQuery(OptimizeSQL(sql), data);
+            return new SqlQuery(OptimizeSql(sql), data);
         }
 
         public static SqlQuery Format(string sql,params string[] formatValues)
         {
-            return new SqlQuery(String.Format(OptimizeSQL(sql), formatValues));
+            return new SqlQuery(String.Format(OptimizeSql(sql), formatValues));
         }
 
         public static SqlQuery Format(string sql, object[,] data, params string[] formatValues)
         {
-            string _sql = OptimizeSQL(sql);
+            string _sql = OptimizeSql(sql);
             _sql = formatValues.Length == 0 ? _sql : String.Format(_sql, formatValues);
             return new SqlQuery(_sql, data);
         }

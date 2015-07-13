@@ -10,6 +10,7 @@
 
 using System;
 using J6.Cms.Domain.Interface.User;
+using J6.Cms.Domain.Interface.Value;
 using J6.DevFw.Framework.Automation;
 
 namespace J6.Cms.DataTransfer
@@ -68,5 +69,10 @@ namespace J6.Cms.DataTransfer
 
         public string Avatar { get; set; }
         public RoleValue[] Roles { get; set; }
+        
+        /// <summary>
+        /// 令牌验证
+        /// </summary>
+        public Credential Credential { get; set; }
     }
 }

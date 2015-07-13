@@ -1,9 +1,9 @@
 ﻿using J6.Cms.Domain.Interface.Site;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public class SiteDal : DALBase
+    public class SiteDal : DalBase
     {
         public int CreateSite(ISite site)
         {

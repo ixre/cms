@@ -9,12 +9,12 @@ using System.Data;
 using J6.Cms.IDAL;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
     /// <summary>
     /// 会员数据访问
     /// </summary>
-    public sealed class MessageDAL:DALBase,ImessageDAL
+    public sealed class MessageDAL:DalBase,ImessageDAL
     {
         /// <summary>
         /// 验证用户并返回

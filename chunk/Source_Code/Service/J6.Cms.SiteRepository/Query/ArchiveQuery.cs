@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 
 namespace J6.Cms.ServiceRepository.Query
 {

@@ -120,6 +120,10 @@
       <Project>{d40b1fb7-00f9-4d07-b034-eb51ab99e447}</Project>
       <Name>J6.Cms.CacheService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DbAccess\J6.Cms.DB\J6.Cms.DB.csproj">
+      <Project>{79258ec8-3cf2-496c-b81b-08b8392fd46a}</Project>
+      <Name>J6.Cms.DB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Domain\J6.Cms.Domain.Interface\J6.Cms.Domain.Interface.csproj">
       <Project>{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}</Project>
       <Name>J6.Cms.Domain.Interface</Name>
@@ -127,10 +131,6 @@
     <ProjectReference Include="..\J6.Cms.Cache\J6.Cms.Cache.csproj">
       <Project>{f8362c26-b7f2-4a9c-aa1c-d2c943ea8621}</Project>
       <Name>J6.Cms.Cache</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\J6.Cms.DB\J6.Cms.DB.csproj">
-      <Project>{79258ec8-3cf2-496c-b81b-08b8392fd46a}</Project>
-      <Name>J6.Cms.DB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\J6.Cms.DataTransfer\J6.Cms.DataTransfer.csproj">
       <Project>{a925a0e7-22d6-4da7-8b75-87aa0d6d6e24}</Project>

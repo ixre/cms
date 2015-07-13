@@ -88,6 +88,10 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\refrence.dll\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\refrence.dll\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="SharpCompress.3.5">
       <HintPath>..\..\..\refrence.dll\SharpCompress.3.5.dll</HintPath>
     </Reference>
@@ -105,6 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultWebOuput.cs" />
+    <Compile Include="Export\ExcelExportProvider.cs" />
+    <Compile Include="Export\ExportHandle.cs" />
     <Compile Include="FileExplor.cs" />
     <Compile Include="Json\JsonSerializer.cs" />
     <Compile Include="Mvc\CmsMvc.cs" />
@@ -173,6 +179,10 @@
       <Project>{d40b1fb7-00f9-4d07-b034-eb51ab99e447}</Project>
       <Name>J6.Cms.CacheService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DbAccess\J6.Cms.DB\J6.Cms.DB.csproj">
+      <Project>{79258ec8-3cf2-496c-b81b-08b8392fd46a}</Project>
+      <Name>J6.Cms.DB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Domain\J6.Cms.Domain.Interface\J6.Cms.Domain.Interface.csproj">
       <Project>{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}</Project>
       <Name>J6.Cms.Domain.Interface</Name>
@@ -184,10 +194,6 @@
     <ProjectReference Include="..\..\Framework\J6.Cms.Core\J6.Cms.Core.csproj">
       <Project>{c3841a42-df60-43bb-bc3c-03185cf0216d}</Project>
       <Name>J6.Cms.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\J6.Cms.DB\J6.Cms.DB.csproj">
-      <Project>{79258ec8-3cf2-496c-b81b-08b8392fd46a}</Project>
-      <Name>J6.Cms.DB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\J6.Cms.Infrastructure\J6.Cms.Infrastructure.csproj">
       <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
@@ -212,6 +218,10 @@
     <ProjectReference Include="..\..\DbAccess\J6.Cms.BLL\J6.Cms.BLL.csproj">
       <Project>{39BCB411-39CA-4635-9C9B-F9FBAE40058E}</Project>
       <Name>J6.Cms.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\J6.Cms.SiteRepository\J6.Cms.ServiceRepository.csproj">
+      <Project>{1c4825ec-9e24-4f71-8cf4-fb521c982130}</Project>
+      <Name>J6.Cms.ServiceRepository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

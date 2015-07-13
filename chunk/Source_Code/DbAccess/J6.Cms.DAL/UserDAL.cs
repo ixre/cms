@@ -3,9 +3,9 @@ using System.Data;
 using J6.Cms.IDAL;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
-    public class UserDAL : DALBase, IUserDal
+    public class UserDAL : DalBase, IUserDal
     {
         /// <summary>
         /// 获取用户信息

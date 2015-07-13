@@ -9,12 +9,12 @@ using System.Data;
 using J6.Cms.IDAL;
 using J6.DevFw.Data;
 
-namespace J6.Cms.DAL
+namespace J6.Cms.Dal
 {
     /// <summary>
     /// 会员数据访问
     /// </summary>
-    public sealed class MemberDAL:DALBase,ImemberDAL
+    public sealed class MemberDAL:DalBase,ImemberDAL
     {
         public bool DetectUserName(string username)
         {

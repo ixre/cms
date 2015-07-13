@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System;
 using System.Collections.Generic;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 using J6.Cms.Domain.Interface.Common;
 
 namespace J6.Cms.ServiceRepository

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 using J6.Cms.Domain.Implement.Content.Archive;
 using J6.Cms.Domain.Interface.Common;
 using J6.Cms.Domain.Interface.Content;

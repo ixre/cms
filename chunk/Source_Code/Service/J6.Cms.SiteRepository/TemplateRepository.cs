@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 using J6.Cms.Domain.Implement.Site.Template;
 using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Template;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using J6.Cms.DAL;
+using J6.Cms.Dal;
 using J6.Cms.Domain.Implement.User;
 using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Interface.Value;
