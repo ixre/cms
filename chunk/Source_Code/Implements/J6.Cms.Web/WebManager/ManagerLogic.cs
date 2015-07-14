@@ -13,6 +13,7 @@
 
 using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.Domain.Interface.Models;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.old;
 using J6.Cms.Utility;
 using J6.Cms.Web.WebManager.Handle;
@@ -130,6 +131,13 @@ namespace J6.Cms.WebManager
 			if (Regex.IsMatch(action,"^(?!login|verifycode)[a-z]*$",RegexOptions.IgnoreCase))
 			{
 				//UserState.Administrator.Login("admin", "123000", 1000);
+
+			    context.Session["$j6.ASK"] = new UserDto
+			    {
+                    Id = 1,
+			        RoleFlag = Role.Master.Flag,
+			        Name = "管理员"
+			    };
 
 				if (!UserState.Administrator.HasLogin)
 				{

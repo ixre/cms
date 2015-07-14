@@ -13,6 +13,7 @@
 //
 //
 
+using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.DevFw;
 using J6.DevFw.Framework.Extensions;
@@ -300,6 +301,7 @@ namespace J6.Cms.WebManager
         {
             get
             {
+                return ServiceCall.Instance.SiteService.GetSiteById(1);
                 if (_site.SiteId <= 0)
                 {
                     _site = CmsWebMaster.CurrentManageSite;

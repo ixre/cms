@@ -316,11 +316,6 @@ namespace J6.Cms.Domain.Implement.Site
 
        public bool DeleteCategory(int lft)
        {
-
-           //
-           //TODO:还需要删除模板
-           //
-
            ICategory category=this.GetCategoryByLft(lft);
 
            if(category.Childs.Count()!=0)

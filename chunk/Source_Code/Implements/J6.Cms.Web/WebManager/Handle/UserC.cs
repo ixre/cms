@@ -101,10 +101,8 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 创建会员
         /// </summary>
-        public void CreateUser_GET()
+        public void NewUser_GET()
         {
-            J6.Cms.Cms.Context.Items["ajax"] = "1";
-
             string html = EntityForm.Build<User>(new User {Available=true}, true, "添加用户");
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Edit), new
            {
@@ -156,14 +154,13 @@ namespace J6.Cms.Web.WebManager.Handle
         public void UpdateUser_GET()
         {
            J6.Cms.Cms.Context.Items["ajax"] = "1";
-
-            User usr = CmsLogic.User.GetUser(base.Request["username"]);
-            usr.Password = "*********";
-            string html = EntityForm.Build<User>(usr, true, "保存");
+            UserDto user = ServiceCall.Instance.UserService.GetUser(int.Parse(Request["id"]));
+            user.Credential.Password = "*********";
+            String json = JsonSerializer.Serialize(user.ToFormObject());
+            //String roleGroup = Helper.GetUserRoleOptions();
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Edit), new
             {
-                entity=html,
-                groups=Helper.GetUserGroupOptions(usr.GroupId)
+                entity=json,
             });
         }
 
@@ -277,10 +274,9 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void GetUsers_POST()
         {
-            StringBuilder sb = new StringBuilder();
+            //StringBuilder sb = new StringBuilder();
 
-            //用户列表
-            IList<UserDto> users;
+            //用户列
             // string filter = "site";
 
             //filter 筛选用户的状态
@@ -301,20 +297,20 @@ namespace J6.Cms.Web.WebManager.Handle
 //            }
 
 
-            users = ServiceCall.Instance.UserService.GetMyUsers(base.SiteId, UserState.Administrator.Current.Id);
+            DataTable dt = ServiceCall.Instance.UserService.GetMyUserTable(base.SiteId, UserState.Administrator.Current.Id);
 
             int i = 0;
             //UserDto usr = UserState.Administrator.Current;
             //IEnumerable<UserDto> _users = users.Where(a => a.GroupId > (int)usr.GroupId);
-
+            /*
             foreach (UserDto user in users)
             {
                 sb.Append("<tr indent=\"").Append(user.Id).Append("\">")
                     .Append("<td>").Append((++i).ToString()).Append("</td>")
                     .Append("<td>").Append(user.Name).Append("</td><td>")
                     .Append(user.Credential.UserName).Append("</td></tr>");
-            }
-            base.PagerJson(users, String.Format("共{0}个用户", users.Count.ToString()));
+            }*/
+            base.PagerJson(dt, String.Format("共{0}个用户", dt.Rows.Count.ToString()));
         }
 
         /// <summary>

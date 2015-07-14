@@ -182,7 +182,7 @@
                         function (json) {
                             if (json.result) {
                                 _dg.reload();
-                            } else {showMsg2json.message); }
+                            } else {showErr(json.message); }
                         });
                 }
             },

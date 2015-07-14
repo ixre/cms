@@ -5,7 +5,7 @@ using J6.DevFw.Data;
 
 namespace J6.Cms.Dal
 {
-    public class UserDAL : DalBase, IUserDal
+    public class UserDal : DalBase, IUserDal
     {
         /// <summary>
         /// 获取用户信息
@@ -15,7 +15,7 @@ namespace J6.Cms.Dal
         public void GetUserCredential(string username, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredential), new object[,] { { "@username", username } }),
+                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredential), new object[,] {{"@username", username}}),
                 func
                 );
         }
@@ -24,11 +24,13 @@ namespace J6.Cms.Dal
         public void GetUserById(int id, DataReaderFunc func)
         {
             base.ExecuteReader(
-               new SqlQuery(base.OptimizeSql(DbSql.User_GetUserById),
-                   new object[,]{
-                        {"@id", id}}),
-                       func
-                   );
+                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserById),
+                    new object[,]
+                    {
+                        {"@id", id}
+                    }),
+                func
+                );
         }
 
         /// <summary>
@@ -38,10 +40,12 @@ namespace J6.Cms.Dal
         {
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.Member_UpdateUserLastLoginDate),
-                    new object[,]{
-                {"@username",username},
-                {"@LastLoginDate", String.Format("{0:yyyy-MM-dd HH:mm:ss}",date)}}
-                ));
+                    new object[,]
+                    {
+                        {"@username", username},
+                        {"@LastLoginDate", String.Format("{0:yyyy-MM-dd HH:mm:ss}", date)}
+                    }
+                    ));
         }
 
         public DataTable GetAllUser()
@@ -53,26 +57,28 @@ namespace J6.Cms.Dal
         {
             return base.ExecuteScalar(
                 new SqlQuery(base.OptimizeSql(DbSql.User_DectUserNameIsExist),
-                    new object[,]{
+                    new object[,]
+                    {
                         {"@username", username}
                     })
                 ) != null;
         }
 
-        public void CreateUser(int siteId,string username, string password, string name, int groupId, bool available)
+        public void CreateUser(int siteId, string username, string password, string name, int groupId, bool available)
         {
             DateTime dt = DateTime.Now;
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.User_CreateUser),
-                    new object[,]{
-                {"@siteid",siteId},
-                {"@Username", username},
-                {"@Password", password},
-                {"@Name", name},
-                {"@GroupId", groupId},
-                {"@available", available},
-                {"@CreateDate",String.Format("{0:yyyy-MM-dd HH:mm:ss}",dt)},
-                {"@LastLoginDate", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dt)}
+                    new object[,]
+                    {
+                        {"@siteid", siteId},
+                        {"@Username", username},
+                        {"@Password", password},
+                        {"@Name", name},
+                        {"@GroupId", groupId},
+                        {"@available", available},
+                        {"@CreateDate", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dt)},
+                        {"@LastLoginDate", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dt)}
                     })
                 );
         }
@@ -82,9 +88,10 @@ namespace J6.Cms.Dal
         {
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.User_ModifyPassword),
-                    new object[,]{
-                {"@Password", newPassword},
-                {"@UserName", username}
+                    new object[,]
+                    {
+                        {"@Password", newPassword},
+                        {"@UserName", username}
                     }));
         }
 
@@ -92,21 +99,24 @@ namespace J6.Cms.Dal
         {
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.User_UpdateUser),
-                    new object[,]{
-                {"@siteid",siteid},
-                {"@Name", name},
-                {"@GroupId",groupId},
-                {"@available", available},
-                {"@username", username}
+                    new object[,]
+                    {
+                        {"@siteid", siteid},
+                        {"@Name", name},
+                        {"@GroupId", groupId},
+                        {"@available", available},
+                        {"@username", username}
                     }));
         }
 
         public bool DeleteUser(string username)
         {
             return base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.User_DeleteUser),
-                     new object[,]{
-                 {"@username", username}})) == 1;
+                new SqlQuery(base.OptimizeSql(DbSql.User_DeleteUser),
+                    new object[,]
+                    {
+                        {"@username", username}
+                    })) == 1;
         }
 
 
@@ -117,21 +127,23 @@ namespace J6.Cms.Dal
 
             //如果存在则返回false
             object obj = base.ExecuteScalar(
-                    new SqlQuery(base.OptimizeSql(DbSql.Operation_CheckPathExist),
-                        new object[,]{
-                   {"@Path", path}
-                        })
-                   );
+                new SqlQuery(base.OptimizeSql(DbSql.Operation_CheckPathExist),
+                    new object[,]
+                    {
+                        {"@Path", path}
+                    })
+                );
             if (obj != null) return false;
 
             base.ExecuteScalar(
-                  new SqlQuery(base.OptimizeSql(DbSql.Operation_CreateOperation),
-                      new object[,]{
-                  {"@Name", name},
-                  {"@Path", path},
-                  {"@available", available}
-                      })
-                  );
+                new SqlQuery(base.OptimizeSql(DbSql.Operation_CreateOperation),
+                    new object[,]
+                    {
+                        {"@Name", name},
+                        {"@Path", path},
+                        {"@available", available}
+                    })
+                );
             return true;
         }
 
@@ -139,19 +151,21 @@ namespace J6.Cms.Dal
         {
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.Operation_DeleteOperation),
-                    new object[,]{
-                   {"@id", id}
+                    new object[,]
+                    {
+                        {"@id", id}
                     }
-                   ));
+                    ));
         }
 
         public void GetOperation(int id, DataReaderFunc func)
         {
             base.ExecuteReader(
                 new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperation),
-                    new object[,]{
-                     {"@id", id}
-                     }),
+                    new object[,]
+                    {
+                        {"@id", id}
+                    }),
                 func
                 );
         }
@@ -165,34 +179,39 @@ namespace J6.Cms.Dal
         {
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.Operation_UpdateOperation),
-                    new object[,]{
-                {"@Name", name},
-                 {"@Path", path},
-                  {"@available", available},
-                   {"@id", id}
+                    new object[,]
+                    {
+                        {"@Name", name},
+                        {"@Path", path},
+                        {"@available", available},
+                        {"@id", id}
                     })
                 );
         }
 
 
-        public DataTable GetPagedOperationList(int pageSize, int currentPageIndex, out int recordCount, out int pageCount)
+        public DataTable GetPagedOperationList(int pageSize, int currentPageIndex, out int recordCount,
+            out int pageCount)
         {
             const string sql1 = "SELECT TOP $[pagesize] * FROM $PREFIX_operation";
 
             //计算页码
-            recordCount = int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperationCount), null)).ToString());
-            pageCount = recordCount / pageSize;
-            if (recordCount % pageSize != 0) pageCount++;
+            recordCount =
+                int.Parse(
+                    base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperationCount), null))
+                        .ToString());
+            pageCount = recordCount/pageSize;
+            if (recordCount%pageSize != 0) pageCount++;
 
             if (currentPageIndex > pageCount && currentPageIndex != 1) currentPageIndex = pageCount;
             if (currentPageIndex < 1) currentPageIndex = 1;
 
-            int skipCount = pageSize * (currentPageIndex - 1);
+            int skipCount = pageSize*(currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql = skipCount == 0 && base.DbType== DataBaseType.OLEDB ?
-                       base.OptimizeSql(sql1) :
-                        base.OptimizeSql(DbSql.Archive_GetPagedOperations);
+            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB
+                ? base.OptimizeSql(sql1)
+                : base.OptimizeSql(DbSql.Archive_GetPagedOperations);
 
 
             sql = SQLRegex.Replace(sql,
@@ -200,8 +219,10 @@ namespace J6.Cms.Dal
                 {
                     switch (match.Groups[1].Value)
                     {
-                        case "pagesize": return pageSize.ToString();
-                        case "skipsize": return skipCount.ToString();
+                        case "pagesize":
+                            return pageSize.ToString();
+                        case "skipsize":
+                            return skipCount.ToString();
                     }
                     return null;
                 });
@@ -211,7 +232,8 @@ namespace J6.Cms.Dal
                 ).Tables[0];
         }
 
-        public DataTable GetPagedAvailableOperationList(bool available, int pageSize, int currentPageIndex, out int recordCount, out int pageCount)
+        public DataTable GetPagedAvailableOperationList(bool available, int pageSize, int currentPageIndex,
+            out int recordCount, out int pageCount)
         {
             const string sql1 = "SELECT TOP $[pagesize] * FROM $PREFIX_operation WHERE $[condition]";
 
@@ -219,34 +241,38 @@ namespace J6.Cms.Dal
 
             recordCount = int.Parse(
                 base.ExecuteScalar(
-                    new SqlQuery(String.Format(base.OptimizeSql(DbSql.Operation_GetOperationsCountByAvailable), condition), null)
-                ).ToString());
+                    new SqlQuery(
+                        String.Format(base.OptimizeSql(DbSql.Operation_GetOperationsCountByAvailable), condition), null)
+                    ).ToString());
 
             //计算页码
-            pageCount = recordCount / pageSize;
-            if (recordCount % pageSize != 0) pageCount++;
+            pageCount = recordCount/pageSize;
+            if (recordCount%pageSize != 0) pageCount++;
 
             if (currentPageIndex > pageCount && currentPageIndex != 1) currentPageIndex = pageCount;
             if (currentPageIndex < 1) currentPageIndex = 1;
 
 
-            int skipCount = pageSize * (currentPageIndex - 1);
+            int skipCount = pageSize*(currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql = skipCount == 0 && base.DbType== DataBaseType.OLEDB ?
-                        base.OptimizeSql(sql1) :
-                       base.OptimizeSql(DbSql.Archive_GetPagedOperationsByAvialble);
+            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB
+                ? base.OptimizeSql(sql1)
+                : base.OptimizeSql(DbSql.Archive_GetPagedOperationsByAvialble);
 
             sql = SQLRegex.Replace(sql, (match) =>
-                 {
-                     switch (match.Groups[1].Value)
-                     {
-                         case "pagesize": return pageSize.ToString();
-                         case "skipsize": return (pageSize * (currentPageIndex - 1)).ToString();
-                         case "condition": return condition;
-                     }
-                     return null;
-                 });
+            {
+                switch (match.Groups[1].Value)
+                {
+                    case "pagesize":
+                        return pageSize.ToString();
+                    case "skipsize":
+                        return (pageSize*(currentPageIndex - 1)).ToString();
+                    case "condition":
+                        return condition;
+                }
+                return null;
+            });
 
             return base.GetDataSet(new SqlQuery(sql, null)).Tables[0];
         }
@@ -260,9 +286,10 @@ namespace J6.Cms.Dal
         {
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.UserGroup_UpdatePermissions),
-                    new object[,]{
-                {"@Permissions", permissions},
-                {"@GroupId", groupId}
+                    new object[,]
+                    {
+                        {"@Permissions", permissions},
+                        {"@GroupId", groupId}
                     })
                 );
         }
@@ -270,14 +297,27 @@ namespace J6.Cms.Dal
         public void RenameUserGroup(int groupId, string groupName)
         {
             base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.UserGroup_RenameGroup),
-                new object[,]{
-                {"@Name",groupName},
-                {"@GroupId", groupId}
+                new object[,]
+                {
+                    {"@Name", groupName},
+                    {"@GroupId", groupId}
                 }));
         }
 
 
-
-
+        public DataTable GetMyUserTable(int appId, int userId)
+        {
+            return this.GetDataSet(new SqlQuery(
+                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,last_login_time,create_time,r.role_flag, 
+                c.enabled FROM $PREFIX_user u INNER JOIN  $PREFIX_user_role r ON r.user_id = u.id
+                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id WHERE app_id=@appId AND  r.role_flag <=
+                (SELECT role_flag FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId)"),
+                new object[,]
+                {
+                    {"@appId", appId},
+                    {"@userId", userId}
+                }
+                )).Tables[0];
+        }
     }
 }

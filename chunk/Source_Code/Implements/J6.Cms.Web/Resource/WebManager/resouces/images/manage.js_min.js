@@ -61,7 +61,7 @@ j6.xhr.filter = function (s, c) {
     if (s == 0) {
         showMsg('<span class="load"></span>请求中');
     } else if (s == 2) {
-        showMsg('<span class="error"></span>请求出错');
+        showErr('请求出错');
     } else {
         closeMsg();
     }

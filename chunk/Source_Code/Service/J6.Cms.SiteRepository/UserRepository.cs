@@ -16,7 +16,7 @@ namespace J6.Cms.ServiceRepository
         public UserRepository()
         {
             this._creator = new UserCreator();
-            this._userDal = new UserDAL();
+            this._userDal = new UserDal();
         }
 
         public IList<RoleValue> GetAppRoles(int appId)

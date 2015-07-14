@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using J6.Cms.DataTransfer;
@@ -13,6 +14,12 @@ namespace J6.Cms.ServiceContract
         UserDto GetUser(int id);
         Credential GetCredentialByUserName(string username);
 
-        IList<UserDto> GetMyUsers(int appId, int id);
+        /// <summary>
+        /// 获取我下属的用户表
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        DataTable GetMyUserTable(int appId, int userId);
     }
 }

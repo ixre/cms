@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteDto.cs" />
     <Compile Include="UserDto.cs" />
+    <Compile Include="UserFormObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\J6.Cms.Domain.Interface\J6.Cms.Domain.Interface.csproj">

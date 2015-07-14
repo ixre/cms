@@ -17,11 +17,11 @@ using J6.DevFw.Framework.Extensions;
 
 namespace J6.Cms.BLL
 {
-    public class UserBLL : IUser
+    public class UserBll : IUser
     {
-        private IUserDal dal = new UserDAL();
-        private static IList<Operation> operations;
-        private static UserGroup[] groups;
+        private readonly IUserDal _dal = new UserDal();
+        private static IList<Operation> _operations;
+        private static UserGroup[] _groups;
 
         /// <summary>
         /// 加密密码
@@ -41,8 +41,8 @@ namespace J6.Cms.BLL
         /// <returns></returns>
         public bool CreateNewOperation(string name, string path)
         {
-            bool result=dal.CreateOperation(name, path, true);
-            if (result) operations = null;
+            bool result=_dal.CreateOperation(name, path, true);
+            if (result) _operations = null;
             return result;
         }
 
@@ -52,8 +52,8 @@ namespace J6.Cms.BLL
         /// <param name="id"></param>
         public void DeleteOperation(int id)
         {
-            dal.DeleteOperation(id);
-            operations.Remove(GetOperation(id));
+            _dal.DeleteOperation(id);
+            _operations.Remove(GetOperation(id));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace J6.Cms.BLL
         public Operation GetOperation(int id)
         {
             Operation op = null;
-            dal.GetOperation(id, rd =>
+            _dal.GetOperation(id, rd =>
             {
                 if (rd.Read())
                 {
@@ -100,15 +100,15 @@ namespace J6.Cms.BLL
         /// <returns></returns>
         public IList<Operation> GetOperationList()
         {
-            if (operations == null)
-                dal.GetOperations(reader =>
+            if (_operations == null)
+                _dal.GetOperations(reader =>
                 {
                     if (reader.HasRows)
                     {
-                        operations = reader.ToEntityList<Operation>();
+                        _operations = reader.ToEntityList<Operation>();
                     }
                 });
-            return operations;
+            return _operations;
         }
 
         /// <summary>
@@ -134,12 +134,12 @@ namespace J6.Cms.BLL
         public void UpdateOperation(int id, string name, string path, bool available)
         {
             //更新到数据库
-            dal.UpdateOperation(id, name, path, available);
+            _dal.UpdateOperation(id, name, path, available);
 
             //更新缓存
-            if (operations != null)
+            if (_operations != null)
             {
-                foreach (Operation op in operations)
+                foreach (Operation op in _operations)
                 {
                     if (op.ID == id)
                     {
@@ -156,17 +156,17 @@ namespace J6.Cms.BLL
         /// </summary>
         public void RenewOperations()
         {
-            operations = null;
+            _operations = null;
         }
 
         public DataTable GetPagedOperationList(int pageSize, int currentPageIndex, out int recordCount, out int pageCount)
         {
-            return dal.GetPagedOperationList(pageSize, currentPageIndex, out recordCount, out pageCount);
+            return _dal.GetPagedOperationList(pageSize, currentPageIndex, out recordCount, out pageCount);
         }
         
         public DataTable GetPagedAvailableOperationList(bool available,int pageSize, int currentPageIndex, out int recordCount, out int pageCount)
         {
-            return dal.GetPagedAvailableOperationList(available,pageSize, currentPageIndex, out recordCount, out pageCount);
+            return _dal.GetPagedAvailableOperationList(available,pageSize, currentPageIndex, out recordCount, out pageCount);
         }
 
         /// <summary>
@@ -246,16 +246,16 @@ namespace J6.Cms.BLL
         /// <returns></returns>
         public UserGroup[] GetUserGroups()
         {
-            if (groups == null)
+            if (_groups == null)
             {
                 //将DataTable转换为UserGroup数组
 
-                DataTable tb = dal.GetUserGroups();
-                groups = new UserGroup[tb.Rows.Count];
+                DataTable tb = _dal.GetUserGroups();
+                _groups = new UserGroup[tb.Rows.Count];
 
                 for (int i = 0; i < tb.Rows.Count; i++)
                 {
-                    groups[i] = new UserGroup
+                    _groups[i] = new UserGroup
                     {
                         Id = Convert.ToInt32(tb.Rows[i][0]),
                         Name = tb.Rows[i][1].ToString(),
@@ -265,7 +265,7 @@ namespace J6.Cms.BLL
                     };
                 }
             }
-            return groups;
+            return _groups;
         }
 
         /// <summary>
@@ -275,11 +275,11 @@ namespace J6.Cms.BLL
         /// <param name="permissions"></param>
         public void UpdateUserGroupPermissions(UserGroups group, Operation[] permissions)
         {
-            dal.UpdateUserGroupPermissions((int)group, ConvertPermissionArrayToString(permissions));
+            _dal.UpdateUserGroupPermissions((int)group, ConvertPermissionArrayToString(permissions));
 
             //更新组的权限
-            if (groups == null) GetUserGroups();
-            Array.ForEach(groups, a => { if (a.Id == (int)group)a.Permissions = permissions; });
+            if (_groups == null) GetUserGroups();
+            Array.ForEach(_groups, a => { if (a.Id == (int)group)a.Permissions = permissions; });
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace J6.Cms.BLL
         /// <param name="groupName"></param>
         public void RenameUserGroup(UserGroups group, string groupName)
         {
-           dal.RenameUserGroup((int)group, groupName);
+           _dal.RenameUserGroup((int)group, groupName);
 
             //更新用户组的名称
             Array.ForEach(GetUserGroups(), a => { if (a.Id == (int)group)a.Name = groupName; });
@@ -302,7 +302,7 @@ namespace J6.Cms.BLL
         /// <returns></returns>
         public User[] GetAllUser()
         {
-            return new List<User>(dal.GetAllUser().ToEntityList<User>()).ToArray();
+            return new List<User>(_dal.GetAllUser().ToEntityList<User>()).ToArray();
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace J6.Cms.BLL
         /// <returns></returns>
         public User[] GetUsers(Func<User, bool> func)
         {
-            IList<User> users = dal.GetAllUser().ToEntityList<User>();
+            IList<User> users = _dal.GetAllUser().ToEntityList<User>();
             List<User> _users = new List<User>();
             foreach (User u in users)
             {
@@ -329,7 +329,7 @@ namespace J6.Cms.BLL
         public User GetUser(string username)
         {
             User user = null;
-            dal.GetUserCredential(username, rd =>
+            _dal.GetUserCredential(username, rd =>
             {
                 if (rd.HasRows)
                 {
@@ -358,7 +358,7 @@ namespace J6.Cms.BLL
         /// <returns></returns>
         public bool UserIsExist(string username)
         {
-            return dal.UserIsExist(username);
+            return _dal.UserIsExist(username);
         }
 
         /// <summary>
@@ -367,7 +367,7 @@ namespace J6.Cms.BLL
         /// <param name="user"></param>
         public void CreateUser(User user)
         {
-            dal.CreateUser(user.SiteId,user.UserName, EncodePassword(user.Password), user.Name, user.GroupId,user.Available);
+            _dal.CreateUser(user.SiteId,user.UserName, EncodePassword(user.Password), user.Name, user.GroupId,user.Available);
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace J6.Cms.BLL
         /// <param name="password"></param>
         public void ResetUserPassword(string username,string password)
         {
-            dal.ModifyPassword(username, EncodePassword(password));
+            _dal.ModifyPassword(username, EncodePassword(password));
         }
 
         /// <summary>
@@ -407,7 +407,7 @@ namespace J6.Cms.BLL
         /// <param name="available"></param>
         public void UpdateUser(string username, int siteid, string name, UserGroups group, bool available)
         {
-            dal.UpdateUser(username, siteid, name, (int)group, available);
+            _dal.UpdateUser(username, siteid, name, (int)group, available);
         }
 
         /// <summary>
@@ -417,7 +417,7 @@ namespace J6.Cms.BLL
         public int DeleteUser(string username)
         {
             User usr = this.GetUser(username);
-            bool result = dal.DeleteUser(username);
+            bool result = _dal.DeleteUser(username);
            if (result)
            {
                //获取超级管理员用户
@@ -445,7 +445,7 @@ namespace J6.Cms.BLL
         /// <param name="username"></param>
         public void UpdateUserLastLoginDate(string username)
         {
-            dal.UpdateUserLastLoginDate(username, DateTime.Now);
+            _dal.UpdateUserLastLoginDate(username, DateTime.Now);
         }
 
         /// <summary>
@@ -453,8 +453,8 @@ namespace J6.Cms.BLL
         /// </summary>
         internal static void Clear()
         {
-            operations = null;
-            groups = null;
+            _operations = null;
+            _groups = null;
         }
 
     }

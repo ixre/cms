@@ -1,22 +1,26 @@
 ﻿ using System;
 using System.Collections.Generic;
-using System.Linq;
+ using System.Data;
+ using System.Linq;
  using System.Runtime.Remoting.Messaging;
  using System.Text;
  using J6.Cms.DataTransfer;
  using J6.Cms.Domain.Interface.User;
  using J6.Cms.Domain.Interface.Value;
  using J6.Cms.ServiceContract;
+ using J6.Cms.ServiceRepository.Query;
 
 namespace J6.Cms.Service
 {
     public class UserService:IUserServiceContract
     {
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly UserQuery _userQuery;
 
         public UserService(IUserRepository rep)
         {
             this._userRepository = rep;
+            this._userQuery = new UserQuery();
         }
 
         public LoginResultDto TryLogin(string username, string password)
@@ -64,9 +68,15 @@ namespace J6.Cms.Service
 
 
 
-        public IList<UserDto> GetMyUsers(int appId, int id)
+        public IList<UserDto> GetMyUserTableable(int appId, int id)
         {
             throw new NotImplementedException();
+        }
+
+
+        public DataTable GetMyUserTable(int appId, int userId)
+        {
+            return this._userQuery.GetMyUserTable(appId, userId);
         }
     }
 }

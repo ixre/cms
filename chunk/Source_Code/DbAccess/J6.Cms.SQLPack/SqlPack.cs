@@ -213,7 +213,7 @@ namespace J6.Cms.Sql
         public readonly string Archive_GetCategoryArchivesCount =@"
             SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive 
             INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
-            WHERE $PREFIX_category.lft BETWEEN @lft AND @rgt";
+            WHERE siteid=@siteId AND $PREFIX_category.lft BETWEEN @lft AND @rgt";
         
         /// <summary>
         /// 获取分页文档

@@ -11,41 +11,106 @@
             ${groups}
         </select>
 
-    <div class="form autostyle">
-        ${entity}
+    <div class="form autostyle" id="form1">
+        <div class="title" style="margin-top: 0">
+            <span class="icon icon1"></span>基本&nbsp;&nbsp;
+            <span style="font-weight:normal">(<span class="star">*</span>为必填项,其他选填)</span>
+        </div>
+        <input type="hidden" field="Id" value="0"/>
+
+        <div class="fl">
+            <div class="label"><span class="red">*&nbsp;</span>姓名：
+            </div>
+            <div class="in">
+                <input type="text" class="box ui-validate" required="true" length="[2,10]" field="Name"/>
+            </div>
+        </div>
+
+        <div class="fl">
+            <div class="label"><span class="red">*&nbsp;</span>电话：
+            </div>
+            <div class="in">
+                <input type="text" class="box ui-validate" required="true" field="Phone"/>
+            </div>
+        </div>
+
+        <div class="fl">
+            <div class="label"><span class="red">*&nbsp;</span>邮箱：
+            </div>
+            <div class="in">
+                <input type="text" class="box ui-validate" required="true" field="Email"/>
+            </div>
+        </div>
+
+        <div class="title" style="margin-top: 0"><span class="icon icon1"></span>登陆账号
+        </div>
+        <div class="fl">
+            <div class="label">
+                <span class="red">*&nbsp;</span>用户名：
+            </div>
+            <div class="in">
+                <input type="text" class="box ui-validate" required="true" field="UserName"/>
+            </div>
+        </div>
+
+        <div class="fl">
+            <div class="label">
+                <span class="red">*&nbsp;</span>密码：
+            </div>
+            <div class="in">
+                <input type="text" class="box ui-validate" required="true" field="Password"/>
+            </div>
+        </div>
+
+        <div class="fl">
+            <div class="label">启用：
+            </div>
+            <div class="in">
+                <input type="radio" class="radio" field="Enabled" name="Enabled" id="Enabled1" value="1" checked="checked"/><label for="Enabled1">启用</label>
+                <input type="radio" class="radio" field="Enabled" name="Enabled" id="Enabled2" value="0"/><label for="Enabled2">停用</label>
+            </div>
+        </div>
+
+
+        <div class="fl">
+            <div class="label">&nbsp;</div>
+            <div class="in">
+                <input class="btn" id="btn_save" type="button" value="提交"/>
+            </div>
+        </div>
     </div>
-</div>
-    <script type="text/javascript">
-    	var _pl=j6.$('pl_user');
-        var isCreate =  location.hash.split('.')[1] == 'createuser';
-        var postUrl = isCreate ? '?module=user&action=createuser' : '?module=user&action=updateuser';
-
-        var tplTD = document.getElementsByName('field_groupid')[0].parentNode;
-        var selector = _pl.getElementsByTagName('SELECT')[0];
-        tplTD.innerHTML = '';
-        selector.name = 'field_groupid';
-        selector.className = selector.className.replace('hidden', '');
-        tplTD.appendChild(selector);
+    </div>
+<script type="text/javascript">
+    
+    var entity = ${form.entity};
+    j6.json.bind('form1', entity);
 
 
-        if (!isCreate) {
-            //_pl.getElementsByTagName('INPUT')[0].disabled = 'disabled';
+    var _pl=j6.$('pl_user');
+    var isCreate =  location.hash.split('.')[1] == 'createuser';
+    var postUrl = isCreate ? '?module=user&action=createuser' : '?module=user&action=updateuser';
+
+//        var tplTD = document.getElementsByName('field_groupid')[0].parentNode;
+//        var selector = _pl.getElementsByTagName('SELECT')[0];
+//        tplTD.innerHTML = '';
+//        selector.name = 'field_groupid';
+//        selector.className = selector.className.replace('hidden', '');
+//        tplTD.appendChild(selector);
+
+    window.saveData = function () {
+        if (j6.validator.validate()) {
+            j6.xhr.jsonPost(postUrl, j6.json.toObject(document), function (json) {
+                if (json.result) {
+                    _dg.reload();
+                    showError(json.message);
+                } else {
+                    showErr(json.message);
+                }
+            });
         }
-
-        window.saveData = function () {
-            if (j6.validator.validate()) {
-                j6.xhr.jsonPost(postUrl, j6.json.toObject(document), function (json) {
-                    if (json.result) {
-                        _dg.reload();
-                       showError(json.message);
-                    } else {
-                    	showMsg2json.message);
-                    }
-                });
-            }
-        };
+    };
         
-        j6.$('btn').onclick = window.saveData;
-    </script>
+    j6.$('btn').onclick = window.saveData;
+</script>
 </body>
 </html>

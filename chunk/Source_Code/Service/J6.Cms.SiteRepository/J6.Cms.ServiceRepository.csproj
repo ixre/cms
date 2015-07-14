@@ -53,6 +53,7 @@
     <Compile Include="LinkRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\ArchiveQuery.cs" />
+    <Compile Include="Query\UserQuery.cs" />
     <Compile Include="RepositoryDataCache.cs" />
     <Compile Include="SiteRepository.cs" />
     <Compile Include="TemplateRepository.cs" />

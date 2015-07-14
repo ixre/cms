@@ -41,7 +41,7 @@ namespace J6.Cms
                 x.For<Imodule>().Singleton().Use<ModuleBLL>();
                 //x.For<ISite>().Singleton().Use<SiteBLL>();
                 // x.For<ITemplateBind>().Singleton().Use<TemplateBindBLL>();
-                x.For<IUser>().Singleton().Use<UserBLL>();
+                x.For<IUser>().Singleton().Use<UserBll>();
                 x.For<ITable>().Singleton().Use<TableBLL>();
 
             });

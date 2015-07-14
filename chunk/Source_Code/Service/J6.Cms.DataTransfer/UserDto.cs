@@ -68,11 +68,26 @@ namespace J6.Cms.DataTransfer
         public string CheckCode { get; set; }
 
         public string Avatar { get; set; }
+
         public RoleValue[] Roles { get; set; }
         
         /// <summary>
         /// 令牌验证
         /// </summary>
         public Credential Credential { get; set; }
+
+        public UserFormObject ToFormObject()
+        {
+            return new UserFormObject
+            {
+                Id = this.Id,
+                Name = this.Name,
+                Email = this.Email,
+                Phone = this.Phone,
+                Enabled = this.Credential.Enabled,
+                UserName = this.Credential.UserName,
+                Password = this.Credential.Password,
+            };
+        }
     }
 }

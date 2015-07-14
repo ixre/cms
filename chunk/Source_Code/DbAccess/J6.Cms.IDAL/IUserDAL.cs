@@ -161,5 +161,6 @@ namespace J6.Cms.IDAL
         void UpdateUserGroupPermissions(int groupId, string permissions);
 
         void GetUserById(int id, DataReaderFunc func);
+        DataTable GetMyUserTable(int appId, int userId);
     }
 }
