@@ -55,7 +55,9 @@ namespace J6.Cms.Service
             IUser user = this._userRepository.GetUser(id);
             if (user != null)
             {
-                return UserDto.Convert(user);
+                UserDto u = UserDto.Convert(user);
+                u.Credential = user.GetCredential();
+                return u;
             }
             return null;
         }
@@ -77,6 +79,37 @@ namespace J6.Cms.Service
         public DataTable GetMyUserTable(int appId, int userId)
         {
             return this._userQuery.GetMyUserTable(appId, userId);
+        }
+
+
+        public int SaveUser(UserDto user)
+        {
+            if (user.Id > 0)
+            {
+                return this.UpdateUser(user);
+            }
+            return this.createUser(user);
+        }
+
+        private int createUser(UserDto user)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int UpdateUser(UserDto user)
+        {
+            IUser usr = this._userRepository.GetUser(user.Id);
+            user.Email = user.Email;
+            user.Phone = user.Phone;
+            user.Avatar = user.Avatar;
+            user.Name = user.Name;
+            int row = usr.Save();
+            if (row > 0)
+            {
+                user.Credential.UserId = usr.Id;
+                usr.SaveCredential(user.Credential);
+            }
+            return row;
         }
     }
 }

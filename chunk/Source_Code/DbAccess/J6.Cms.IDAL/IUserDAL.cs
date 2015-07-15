@@ -12,6 +12,7 @@
 
 using System;
 using System.Data;
+using J6.Cms.Domain.Interface.Value;
 using J6.DevFw.Data;
 
 namespace J6.Cms.IDAL
@@ -162,5 +163,7 @@ namespace J6.Cms.IDAL
 
         void GetUserById(int id, DataReaderFunc func);
         DataTable GetMyUserTable(int appId, int userId);
+        int SaveCredential(Credential credential);
+        void GetUserCredentialById(int userId, DataReaderFunc action);
     }
 }

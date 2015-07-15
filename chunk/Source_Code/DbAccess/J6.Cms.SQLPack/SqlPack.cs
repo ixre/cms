@@ -354,7 +354,9 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 根据用户名和密码获取用户信息
         /// </summary>
-        public readonly string User_GetUserCredential = "SELECT id,user_id,password,enabled FROM $PREFIX_credential WHERE user_name=@username";
+        public readonly string User_GetUserCredentialByUserName = "SELECT id,user_id,user_name,password,enabled FROM $PREFIX_credential WHERE user_name=@userName";
+
+        public readonly string User_GetUserCredential = "SELECT id,user_id,user_name,password,enabled FROM $PREFIX_credential WHERE user_id=@userId";
 
         /// <summary>
         /// 获取所有用户

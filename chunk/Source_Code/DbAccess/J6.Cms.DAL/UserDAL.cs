@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using J6.Cms.Domain.Interface.Value;
 using J6.Cms.IDAL;
 using J6.DevFw.Data;
 
@@ -11,11 +12,12 @@ namespace J6.Cms.Dal
         /// 获取用户信息
         /// </summary>
         /// <param name="username">用户名</param>
+        /// <param name="func"></param>
         /// <returns></returns>
         public void GetUserCredential(string username, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredential), new object[,] {{"@username", username}}),
+                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredentialByUserName), new object[,] {{"@userName", username}}),
                 func
                 );
         }
@@ -318,6 +320,56 @@ namespace J6.Cms.Dal
                     {"@userId", userId}
                 }
                 )).Tables[0];
+        }
+
+
+        public int SaveCredential(Credential credential)
+        {
+            var data = new object[,]
+            {
+                {"@id", credential.Id},
+                {"@userId", credential.UserId},
+                {"@userName", credential.UserName},
+                {"@password", credential.Password},
+                {"@enabled", credential.Password},
+            };
+
+            if (credential.Id <= 0)
+            {
+                int affer = this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
+                    "INSERT INTO $PREFIX_credential(user_id,user_name,password,enabled)VALUES(@userId,@userName,@password,@enabled)"),
+                    data));
+                if (affer > 0)
+                {
+                    credential.Id =
+                        int.Parse(
+                            this.ExecuteScalar(
+                                new SqlQuery(
+                                    base.OptimizeSql("SELECT id FROM $PREFIX_credential WHERE user_id=@userId"),
+                                    new object[,]
+                                    {
+                                        {"@userId", credential.UserId},
+                                    })).ToString());
+                }
+            }
+            else
+            {
+                this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
+                    "INSERT INTO $PREFIX_credential(user_name=@userName,password=@password,enabled=@enabled WHERE user_id=@userId"),
+                    new object[,]
+                    {
+                        {"@userId", credential.UserId},
+                    }));
+            }
+            return credential.Id;
+        }
+
+        public void GetUserCredentialById(int userId, DataReaderFunc func)
+        {
+            base.ExecuteReader(
+                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredential), new object[,] { { "@userId", userId } }),
+                func
+                );
         }
     }
 }

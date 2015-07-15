@@ -25,10 +25,6 @@ namespace J6.Cms.ServiceRepository
             return new List<RoleValue>();
         }
 
-        public Credential GetUserCredential(int userId)
-        {
-            throw new NotImplementedException();
-        }
 
         public int SaveUser(IUser user)
         {
@@ -68,6 +64,19 @@ namespace J6.Cms.ServiceRepository
         }
 
 
+        public Credential GetUserCredential(int userId)
+        {
+            Credential cre = null;
+            this._userDal.GetUserCredentialById(userId, rd =>
+            {
+                if (rd.Read())
+                {
+                    cre = new Credential(rd.GetInt32(0), rd.GetInt32(1), rd.GetString(2), rd.GetString(3), rd.GetInt32(4));
+                }
+            });
+            return cre;
+        }
+
         public Credential GetCredentialByUserName(string username)
         {
             Credential cre = null;
@@ -75,10 +84,16 @@ namespace J6.Cms.ServiceRepository
             {
                 if(rd.Read())
                 {
-                    cre = new Credential(rd.GetInt32(0),rd.GetInt32(1),username,rd.GetString(2),rd.GetInt32(3));
+                    cre = new Credential(rd.GetInt32(0),rd.GetInt32(1),rd.GetString(2),rd.GetString(3),rd.GetInt32(4));
                 }
             });
             return cre;
+        }
+
+
+        public int SaveCredential(Credential credential)
+        {
+            return this._userDal.SaveCredential(credential);
         }
     }
 }

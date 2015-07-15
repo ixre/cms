@@ -8,7 +8,13 @@ namespace J6.Cms.Domain.Interface.User
         /// <summary>
         /// 用户凭据
         /// </summary>
-        Credential Credential { get; set; }
+        Credential GetCredential();
+
+        /// <summary>
+        /// 保存用户凭据
+        /// </summary>
+        /// <param name="c"></param>
+        int SaveCredential(Credential c);
 
         /// <summary>
         /// 用户名称

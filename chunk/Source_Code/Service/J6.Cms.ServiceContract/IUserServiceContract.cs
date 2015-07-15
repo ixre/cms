@@ -21,5 +21,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="userId"></param>
         /// <returns></returns>
         DataTable GetMyUserTable(int appId, int userId);
+
+        int SaveUser(UserDto user);
     }
 }

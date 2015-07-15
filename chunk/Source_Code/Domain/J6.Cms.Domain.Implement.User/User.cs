@@ -16,19 +16,25 @@ namespace J6.Cms.Domain.Implement.User
             this.RoleFlag = flag;
         }
 
-        public Credential Credential
+        public Credential GetCredential()
         {
-            get
+            if (this._credential == null)
             {
-                if (this._credential == null)
-                {
-                    this._credential = this._userRepository.GetUserCredential(this.Id);
-                }
-                return this._credential;
+                this._credential = this._userRepository.GetUserCredential(this.Id);
             }
-            set { this._credential = value; }
+            return this._credential;
         }
 
+
+        /// <summary>
+        /// 保存用户凭据
+        /// </summary>
+        /// <param name="c"></param>
+       public int SaveCredential(Credential c)
+        {
+            this._credential = c;
+          return  this._userRepository.SaveCredential(c);
+        }
 
         public string Name { get; set; }
 
@@ -65,7 +71,6 @@ namespace J6.Cms.Domain.Implement.User
         {
             return this._userRepository.SaveUser(this);
         }
-
 
 
     }

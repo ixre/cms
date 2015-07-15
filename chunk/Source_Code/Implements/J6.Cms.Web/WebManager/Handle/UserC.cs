@@ -16,12 +16,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using J6.Cms.BLL;
 using J6.Cms.CacheService;
 using J6.Cms.DataTransfer;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.User;
+using J6.Cms.Domain.Interface.Value;
+using J6.Cms.Infrastructure.Domain;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Automation;
@@ -33,11 +36,6 @@ namespace J6.Cms.Web.WebManager.Handle
     /// </summary>
     public class UserC:BasePage
     {
-
-        public void Groups_GET()
-        {
-        }
-
 
 
         /// <summary>
@@ -93,9 +91,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void UserIndex_GET()
         {
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Index), new
-            {
-            });
+            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Index),null);
         }
 
         /// <summary>
@@ -103,13 +99,12 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void NewUser_GET()
         {
-            string html = EntityForm.Build<User>(new User {Available=true}, true, "添加用户");
+            UserDto user =new UserDto();
+            String json = JsonSerializer.Serialize(user.ToFormObject());
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Edit), new
-           {
-               entity=html,
-               sites=Helper.GetSiteOptions(-1),
-               groups=Helper.GetUserGroupOptions(-1)
-           });
+            {
+                entity = json,
+            });
         }
 
         /// <summary>
@@ -153,9 +148,11 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void UpdateUser_GET()
         {
-           J6.Cms.Cms.Context.Items["ajax"] = "1";
             UserDto user = ServiceCall.Instance.UserService.GetUser(int.Parse(Request["id"]));
-            user.Credential.Password = "*********";
+            if (user.Credential != null)
+            {
+                user.Credential.Password = "*********";
+            }
             String json = JsonSerializer.Serialize(user.ToFormObject());
             //String roleGroup = Helper.GetUserRoleOptions();
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Edit), new
@@ -167,39 +164,42 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 更新用户
         /// </summary>
-        public void UpdateUser_POST()
+        public void SaveUser_POST()
         {
-            User user = EntityForm.GetEntity<User>();
-            UserDto curUsr = UserState.Administrator.Current;
+            UserDto user = ServiceCall.Instance.UserService.GetUser(int.Parse(Request["Id"]));
+            UserFormObject obj = EntityForm.GetEntity<UserFormObject>();
+            UserDto curCus = UserState.Administrator.Current;
+            user.Name = obj.Name;
+            user.Email = obj.Email;
+            user.Phone = obj.Phone;
+            if (user.Credential == null)
+            {
+                user.Credential = new Credential(0, user.Id, obj.UserName, "", 1);
+            }
+            if (!Regex.IsMatch(obj.Password, "^\\*+$"))
+            {
+                user.Credential.Password = Generator.Md5Pwd(obj.Password, "");
+            }
+            user.Credential.Enabled = obj.Enabled;
 
-            throw new NotImplementedException();
+
 //            //不允许修改当前用户
 //            if ((curUsr.SiteId>0 && user.SiteId!=curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
 //            {
 //                base.RenderError("不允许修改当前用户!");
 //                return;
-//            }else if(user.Group == UserGroups.Master)
-//            {
-//                base.RenderError("不允许修改超级管理员!");
-//                return;
-//            }
-//            else if (curUsr.GroupId >= user.GroupId)
-//            {
-//                base.RenderError("无权限修改用户!");
-//                return;
-//            }
-//
-//            CmsLogic.User.UpdateUser(user.UserName,this.CurrentSite.SiteId,user.Name, (UserGroups)user.GroupId,user.Available);
-//
-//            if (!Regex.IsMatch(user.Password, "^\\*+$"))
-//            {
-//                CmsLogic.User.ResetUserPassword(user.UserName, user.Password);
-//                base.RenderSuccess("修改成功,请妥善保管密码!");
 //            }
 //            else
-//            {
-//                base.RenderSuccess("修改成功!");
-//            }
+
+            if (user.RoleFlag > curCus.RoleFlag)
+            {
+                base.RenderError("无权限修改用户!");
+                return;
+            }
+
+          int id =   ServiceCall.Instance.UserService.SaveUser(user);
+
+            base.RenderSuccess("修改成功!");
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 sb.Append("<tr indent=\"").Append(user.Id).Append("\">")
                     .Append("<td>").Append((++i).ToString()).Append("</td>")
                     .Append("<td>").Append(user.Name).Append("</td><td>")
-                    .Append(user.Credential.UserName).Append("</td></tr>");
+                    .Append(user.GetCredential.UserName).Append("</td></tr>");
             }*/
             base.PagerJson(dt, String.Format("共{0}个用户", dt.Rows.Count.ToString()));
         }
