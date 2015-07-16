@@ -92,7 +92,8 @@
             j6.xhr.jsonPost('?module=user&action=SaveUser', j6.json.toObject(document), function (json) {
                 if (json.result) {
                     var dialog = j6.dialog.getDialog();
-                    dialog._dg.reload();
+                    dialog.window._dg.reload();
+                    dialog.close();
                 } else {
                     showErr(json.message);
                 }

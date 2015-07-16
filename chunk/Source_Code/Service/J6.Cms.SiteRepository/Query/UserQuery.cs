@@ -11,5 +11,10 @@ namespace J6.Cms.ServiceRepository.Query
        {
            return this._dal.GetMyUserTable(appId, userId);
        }
+
+       public DataTable GetAllUser()
+       {
+           return this._dal.GetAllUser();
+       }
     }
 }

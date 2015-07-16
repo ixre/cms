@@ -12,6 +12,7 @@
 
 using System;
 using System.Data;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Interface.Value;
 using J6.DevFw.Data;
 
@@ -34,13 +35,7 @@ namespace J6.Cms.IDAL
         /// <summary>
         /// 更新用户信息
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="siteId"></param>
-        /// <param name="name"></param>
-        /// <param name="groupId"></param>
-        /// <param name="available"></param>
-        void UpdateUser(string username, int siteId,
-            string name, int groupId, bool available);
+        int SaveUser(IUser user,bool isNew);
 
         /// <summary>
         /// 删除用户
@@ -163,7 +158,7 @@ namespace J6.Cms.IDAL
 
         void GetUserById(int id, DataReaderFunc func);
         DataTable GetMyUserTable(int appId, int userId);
-        int SaveCredential(Credential credential);
+        int SaveCredential(Credential credential,bool isNew);
         void GetUserCredentialById(int userId, DataReaderFunc action);
     }
 }

@@ -399,18 +399,6 @@ namespace J6.Cms.BLL
         }
 
         /// <summary>
-        /// 更新用户资料
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="name"></param>
-        /// <param name="group"></param>
-        /// <param name="available"></param>
-        public void UpdateUser(string username, int siteid, string name, UserGroups group, bool available)
-        {
-            _dal.UpdateUser(username, siteid, name, (int)group, available);
-        }
-
-        /// <summary>
         /// 删除系统用户并将已删除用户的文档作者改为管理员
         /// </summary>
         /// <returns>返回-1表示未删除成功,0表示未将已删除用户的文档设置超级管理员,否则返回修改数量</returns>

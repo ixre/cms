@@ -23,5 +23,6 @@ namespace J6.Cms.ServiceContract
         DataTable GetMyUserTable(int appId, int userId);
 
         int SaveUser(UserDto user);
+        DataTable GetAllUsers();
     }
 }

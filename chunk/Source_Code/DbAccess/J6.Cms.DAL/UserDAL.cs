@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Interface.Value;
 using J6.Cms.IDAL;
 using J6.DevFw.Data;
@@ -52,7 +53,9 @@ namespace J6.Cms.Dal
 
         public DataTable GetAllUser()
         {
-            return base.GetDataSet(new SqlQuery(base.OptimizeSql(DbSql.User_GetAllUsers), null)).Tables[0];
+           return this.GetDataSet(new SqlQuery(
+                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,last_login_time,create_time FROM $PREFIX_user u
+                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id"),null)).Tables[0];
         }
 
         public bool UserIsExist(string username)
@@ -70,7 +73,7 @@ namespace J6.Cms.Dal
         {
             DateTime dt = DateTime.Now;
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.User_CreateUser),
+                new SqlQuery(base.OptimizeSql(DbSql.UserCreateUser),
                     new object[,]
                     {
                         {"@siteid", siteId},
@@ -85,11 +88,11 @@ namespace J6.Cms.Dal
                 );
         }
 
-
+        [Obsolete]
         public void ModifyPassword(string username, string newPassword)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.User_ModifyPassword),
+                new SqlQuery(base.OptimizeSql(""),
                     new object[,]
                     {
                         {"@Password", newPassword},
@@ -97,18 +100,39 @@ namespace J6.Cms.Dal
                     }));
         }
 
-        public void UpdateUser(string username, int siteid, string name, int groupId, bool available)
+        public int SaveUser(IUser user,bool isNew)
         {
-            base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.User_UpdateUser),
-                    new object[,]
-                    {
-                        {"@siteid", siteid},
-                        {"@Name", name},
-                        {"@GroupId", groupId},
-                        {"@available", available},
-                        {"@username", username}
-                    }));
+            //ame=@name,avatar=@avatar,phone=@phone,email=@email,
+             //   check_code=@checkCode,role_flag=@roleFlag,create_time=@createTime,last_login_time=@loginTime WHERE id=@id
+
+            var data = new object[,]
+            {
+                {"@name", user.Name},
+                {"@avatar", user.Avatar},
+                {"@phone", user.Phone},
+                {"@email", user.Email},
+                {"@checkCode", user.CheckCode},
+                {"@roleFlag", user.RoleFlag},
+                {"@createTime", user.CreateTime},
+                {"@loginTime", user.LastLoginTime},
+                {"@id", user.Id},
+            };
+
+            if (isNew)
+            {
+               int row= base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.UserCreateUser), data));
+                if (row > 0)
+                {
+                    SqlQuery q = new SqlQuery(base.OptimizeSql("SELECT MAX(id) FROM $PREFIX_user"),null);
+                    return int.Parse(this.ExecuteScalar(q).ToString());
+                }
+            }
+            else
+            {
+                base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.UserUpdateUser), data));
+            }
+
+            return user.Id;
         }
 
         public bool DeleteUser(string username)
@@ -312,8 +336,8 @@ namespace J6.Cms.Dal
             return this.GetDataSet(new SqlQuery(
                 this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,last_login_time,create_time,r.role_flag, 
                 c.enabled FROM $PREFIX_user u INNER JOIN  $PREFIX_user_role r ON r.user_id = u.id
-                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id WHERE app_id=@appId AND  r.role_flag <=
-                (SELECT role_flag FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId)"),
+                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id WHERE @appId=0 OR (app_id=@appId AND  r.role_flag <=
+                (SELECT role_flag FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId))"),
                 new object[,]
                 {
                     {"@appId", appId},
@@ -323,7 +347,7 @@ namespace J6.Cms.Dal
         }
 
 
-        public int SaveCredential(Credential credential)
+        public int SaveCredential(Credential credential,bool isNew)
         {
             var data = new object[,]
             {
@@ -331,10 +355,10 @@ namespace J6.Cms.Dal
                 {"@userId", credential.UserId},
                 {"@userName", credential.UserName},
                 {"@password", credential.Password},
-                {"@enabled", credential.Password},
+                {"@enabled", credential.Enabled},
             };
 
-            if (credential.Id <= 0)
+            if (isNew)
             {
                 int affer = this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
                     "INSERT INTO $PREFIX_credential(user_id,user_name,password,enabled)VALUES(@userId,@userName,@password,@enabled)"),
@@ -355,11 +379,7 @@ namespace J6.Cms.Dal
             else
             {
                 this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
-                    "INSERT INTO $PREFIX_credential(user_name=@userName,password=@password,enabled=@enabled WHERE user_id=@userId"),
-                    new object[,]
-                    {
-                        {"@userId", credential.UserId},
-                    }));
+                    "UPDATE $PREFIX_credential SET user_name=@userName,password=@password,enabled=@enabled WHERE user_id=@userId"),data));
             }
             return credential.Id;
         }

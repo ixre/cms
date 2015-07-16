@@ -372,18 +372,20 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 创建用户
         /// </summary>
-        public readonly string User_CreateUser = "INSERT INTO $PREFIX_user(siteid,username,password,name,groupID,available,createdate,lastlogindate) VALUES(@siteid,@UserName,@Password,@Name,@GroupID,@available,@CreateDate,@LastLoginDate)";
+        public readonly string UserCreateUser = @"INSERT INTO $PREFIX_user(name,avatar,phone,email, check_code,
+                role_flag,create_time,last_login_time)  VALUES(@name,@avatar,@phone,@email,@checkCode,@roleFlag,@createTime,@loginTime)";
 
 
         /// <summary>
         /// 修改用户密码
         /// </summary>
-        public readonly string User_ModifyPassword = "UPDATE $PREFIX_user SET password=@Password WHERE username=@UserName";
+        //public readonly string UserModifyPassword = "UPDATE $PREFIX_user SET password=@Password WHERE username=@UserName";
 
         /// <summary>
         /// 更新用户
         /// </summary>
-        public readonly string User_UpdateUser = "UPDATE $PREFIX_user SET siteid=@siteid,name=@Name,GroupID=@GroupID,available=@available WHERE username=@username";
+        public readonly string UserUpdateUser = @"UPDATE $PREFIX_user SET name=@name,avatar=@avatar,phone=@phone,email=@email,
+                check_code=@checkCode,role_flag=@roleFlag,create_time=@createTime,last_login_time=@loginTime WHERE id=@id";
 
         /// <summary>
         /// 删除用户

@@ -28,7 +28,11 @@ namespace J6.Cms.ServiceRepository
 
         public int SaveUser(IUser user)
         {
-            return -1;
+            if (user.Id > 0)
+            {
+                return this._userDal.SaveUser(user, false);
+            }
+            return this._userDal.SaveUser(user, true);
         }
 
         public int SaveRole(RoleValue role)
@@ -93,7 +97,11 @@ namespace J6.Cms.ServiceRepository
 
         public int SaveCredential(Credential credential)
         {
-            return this._userDal.SaveCredential(credential);
+            if (credential.Id > 0)
+            {
+                return this._userDal.SaveCredential(credential,false);
+            }
+            return this._userDal.SaveCredential(credential, true);
         }
     }
 }

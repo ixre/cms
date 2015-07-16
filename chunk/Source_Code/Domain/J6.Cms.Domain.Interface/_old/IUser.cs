@@ -26,9 +26,9 @@ namespace J6.Cms.Domain.Interface._old
         bool ModifyUserPassword(string username, string oldPassword, string newPassword);
         void RenameUserGroup(UserGroups group, string groupName);
         void RenewOperations();
-        void ResetUserPassword(string username, string password);
+       // void ResetUserPassword(string username, string password);
         void UpdateOperation(int id, string name, string path, bool available);
-        void UpdateUser(string username, int siteid, string name, UserGroups group, bool available);
+        //void UpdateUser(string username, int siteid, string name, UserGroups group, bool available);
         void UpdateUserGroupPermissions(UserGroups group, Models.Operation[] permissions);
         void UpdateUserLastLoginDate(string username);
         bool UserIsExist(string username);

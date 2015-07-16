@@ -88,21 +88,41 @@ namespace J6.Cms.Service
             {
                 return this.UpdateUser(user);
             }
-            return this.createUser(user);
+            return this.CreateUser(user);
         }
 
-        private int createUser(UserDto user)
+        public DataTable GetAllUsers()
         {
-            throw new NotImplementedException();
+
+            return this._userQuery.GetAllUser();
+        }
+
+        private int CreateUser(UserDto user)
+        {
+            IUser usr = this._userRepository.CreateUser(0, 1);
+            usr.Email = user.Email;
+            usr.Phone = user.Phone;
+            usr.Avatar = user.Avatar;
+            usr.Name = user.Name;
+            usr.CreateTime = DateTime.Now;
+            usr.LastLoginTime = usr.CreateTime.AddHours(-1);
+            user.CheckCode = "";
+            user.Avatar = "/framework/mui/css/latest/avatar.gif";
+
+            int userId = usr.Save();
+            usr = this._userRepository.GetUser(userId);
+            usr.SaveCredential(new Credential(0, userId, user.Credential.UserName, 
+                user.Credential.Password,user.Credential.Enabled));
+            return userId;
         }
 
         private int UpdateUser(UserDto user)
         {
             IUser usr = this._userRepository.GetUser(user.Id);
-            user.Email = user.Email;
-            user.Phone = user.Phone;
-            user.Avatar = user.Avatar;
-            user.Name = user.Name;
+            usr.Email = user.Email;
+            usr.Phone = user.Phone;
+            usr.Avatar = user.Avatar;
+            usr.Name = user.Name;
             int row = usr.Save();
             if (row > 0)
             {

@@ -28,6 +28,7 @@ using J6.Cms.Infrastructure.Domain;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Automation;
+using J6.DevFw.Framework.Extensions;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -100,6 +101,7 @@ namespace J6.Cms.Web.WebManager.Handle
         public void NewUser_GET()
         {
             UserDto user =new UserDto();
+            user.Credential = new Credential(0,0,"","",1);
             String json = JsonSerializer.Serialize(user.ToFormObject());
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Edit), new
             {
@@ -161,14 +163,25 @@ namespace J6.Cms.Web.WebManager.Handle
             });
         }
 
+
         /// <summary>
         /// 更新用户
         /// </summary>
         public void SaveUser_POST()
         {
-            UserDto user = ServiceCall.Instance.UserService.GetUser(int.Parse(Request["Id"]));
-            UserFormObject obj = EntityForm.GetEntity<UserFormObject>();
-            UserDto curCus = UserState.Administrator.Current;
+            UserFormObject obj = Request.Form.ConvertToEntity<UserFormObject>();
+
+            UserDto user ;
+
+            if (obj.Id > 0)
+            {
+                user = ServiceCall.Instance.UserService.GetUser(obj.Id);
+            }
+            else
+            {
+                user = new UserDto();
+            }
+
             user.Name = obj.Name;
             user.Email = obj.Email;
             user.Phone = obj.Phone;
@@ -176,6 +189,7 @@ namespace J6.Cms.Web.WebManager.Handle
             {
                 user.Credential = new Credential(0, user.Id, obj.UserName, "", 1);
             }
+
             if (!Regex.IsMatch(obj.Password, "^\\*+$"))
             {
                 user.Credential.Password = Generator.Md5Pwd(obj.Password, "");
@@ -191,15 +205,21 @@ namespace J6.Cms.Web.WebManager.Handle
 //            }
 //            else
 
-            if (user.RoleFlag > curCus.RoleFlag)
+//            if (user.RoleFlag > curCus.RoleFlag)
+//            {
+//                base.RenderError("无权限修改用户!");
+//                return;
+//            }
+
+            try
             {
-                base.RenderError("无权限修改用户!");
-                return;
+                int id = ServiceCall.Instance.UserService.SaveUser(user);
+                base.RenderSuccess("修改成功!");
             }
-
-          int id =   ServiceCall.Instance.UserService.SaveUser(user);
-
-            base.RenderSuccess("修改成功!");
+            catch (Exception exc)
+            {
+                base.RenderError(exc.Message);
+            }
         }
 
         /// <summary>
@@ -296,8 +316,15 @@ namespace J6.Cms.Web.WebManager.Handle
 //                    break;
 //            }
 
-
-            DataTable dt = ServiceCall.Instance.UserService.GetMyUserTable(base.SiteId, UserState.Administrator.Current.Id);
+            int siteId = 0;
+            DataTable dt;
+            UserDto user = UserState.Administrator.Current;
+            if (Role.Master.Match(user.RoleFlag))
+            {
+                dt = ServiceCall.Instance.UserService.GetAllUsers();
+            }else{
+            dt = ServiceCall.Instance.UserService.GetMyUserTable(base.SiteId, user.Id);
+            }
 
             int i = 0;
             //UserDto usr = UserState.Administrator.Current;
