@@ -101,11 +101,7 @@ namespace J6.Cms.Web.WebManager.Handle
             String roleOpts = this.GetRoleOptions(null);
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Role), new
             {
-                data = JsonSerializer.Serialize(new
-                {
-                    rows = user.Roles,
-                    role_opts = roleOpts,
-                }),
+                role_opts = roleOpts,
             });
         }
 

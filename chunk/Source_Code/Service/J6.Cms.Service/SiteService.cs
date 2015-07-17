@@ -94,7 +94,7 @@ namespace J6.Cms.Service
         {
             ISite site = this._resp.GetSiteById(siteId);
             ExtendFieldDto dto;
-            IEnumerable<IExtendField> extends = site.Extend.GetAllExtends();
+            IEnumerable<IExtendField> extends = site.GetExtendManager().GetAllExtends();
             foreach (IExtendField extend in extends)
             {
                 dto = new ExtendFieldDto().CloneData(extend);
@@ -112,7 +112,7 @@ namespace J6.Cms.Service
 
             IExtendField field = this._extendResp.CreateExtendField(dto.Id, dto.Name);
             field.CloneData(dto);
-            return site.Extend.SaveExtendField(field);
+            return site.GetExtendManager().SaveExtendField(field);
         }
 
 
@@ -349,7 +349,7 @@ namespace J6.Cms.Service
         public IEnumerable<SiteLinkDto> GetLinksByType(int siteId, SiteLinkType type, bool ignoreDisabled)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            IEnumerable<ISiteLink> links = site.LinkManager.GetLinks(type);
+            IEnumerable<ISiteLink> links = site.GetLinkManager().GetLinks(type);
             foreach (ISiteLink link in links)
             {
                 if (!ignoreDisabled && !link.Visible) continue;
@@ -363,7 +363,7 @@ namespace J6.Cms.Service
         {
             ISite site = this._resp.GetSiteById(siteId);
 
-            site.LinkManager.DeleteLink(linkId);
+            site.GetLinkManager().DeleteLink(linkId);
         }
 
 
@@ -377,7 +377,7 @@ namespace J6.Cms.Service
             }
             else
             {
-                link = site.LinkManager.GetLinkById(dto.Id);
+                link = site.GetLinkManager().GetLinkById(dto.Id);
             }
 
             link.Bind = dto.Bind;
@@ -396,7 +396,7 @@ namespace J6.Cms.Service
         public SiteLinkDto GetLinkById(int siteId, int linkId)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            ISiteLink link = site.LinkManager.GetLinkById(linkId);
+            ISiteLink link = site.GetLinkManager().GetLinkById(linkId);
             if (link == null) return default(SiteLinkDto);
 
             return SiteLinkDto.ConvertFrom(link);

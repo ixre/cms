@@ -223,19 +223,14 @@ namespace J6.Cms.Domain.Implement.Site
        }
 
 
-       public IExtendManager Extend
-       {
-           get {
-               return _extendManager ?? (_extendManager = new ExtendManager(this._extendRepository,this.Id));
-           }
-       }
+        public IExtendManager GetExtendManager()
+        {
+            return _extendManager ?? (_extendManager = new ExtendManager(this._extendRepository, this.Id));
+        }
 
-        public ISiteLinkManager LinkManager
+        public ISiteLinkManager GetLinkManager()
        {
-           get
-           {
-               return _linkManager ?? (_linkManager = new SiteLinkManager(this._siteRepository,this));
-           }
+               return this._linkManager ?? (this._linkManager = new SiteLinkManager(this._siteRepository,this));
        }
 
 
@@ -245,15 +240,11 @@ namespace J6.Cms.Domain.Implement.Site
         /// <returns></returns>
         public IAppUserManager GetUserManager()
         {
-            if (this._appUserManager == null)
-            {
-                this._appUserManager = this._userRep.GetAppUserManager(this.Id);
-            }
-            return this._appUserManager;
+            return this._appUserManager ?? (this._appUserManager = this._userRep.GetAppUserManager(this.Id));
         }
 
 
-       public IList<ICategory> Categories
+        public IList<ICategory> Categories
        {
            get {
                return _categories ?? (_categories = this._categoryRep.GetCategories(this.Id));

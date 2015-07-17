@@ -147,12 +147,12 @@ namespace J6.Cms.Domain.Interface.Site
         /// <summary>
         /// 扩展管理器
         /// </summary>
-        IExtendManager Extend { get; }
+        IExtendManager GetExtendManager();
 
         /// <summary>
         /// 链接管理器
         /// </summary>
-        ISiteLinkManager LinkManager { get; }
+        ISiteLinkManager GetLinkManager();
 
         /// <summary>
         /// 
