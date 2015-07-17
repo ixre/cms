@@ -131,13 +131,13 @@ namespace J6.Cms.WebManager
 			if (Regex.IsMatch(action,"^(?!login|verifycode)[a-z]*$",RegexOptions.IgnoreCase))
 			{
 				//UserState.Administrator.Login("admin", "123000", 1000);
-
-			    context.Session["$j6.ASK"] = new UserDto
-			    {
-                    Id = 1,
-			        RoleFlag = Role.Master.Flag,
-			        Name = "管理员"
-			    };
+//
+//			    context.Session["$j6.ASK"] = new UserDto
+//			    {
+//                    Id = 1,
+//			        IsMaster =true,
+//			        Name = "管理员"
+//			    };
 
 				if (!UserState.Administrator.HasLogin)
 				{
@@ -265,7 +265,7 @@ namespace J6.Cms.WebManager
 			UserDto user = UserState.Administrator.Current;
 
 			//如果是超级管理员，拥有所有操作权限
-			if ((user.RoleFlag & (int)UserGroups.Master) !=0) return true;
+			if (user.IsMaster) return true;
 
 			return new PermissionAttribute(uri).Validate(user);
 		}

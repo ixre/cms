@@ -731,7 +731,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
 
             //获取表头
-            bool isMaster = (UserState.Administrator.Current.RoleFlag & (int) UserGroups.Master)!=0;
+            bool isMaster = UserState.Administrator.Current.IsMaster;
             tableHeaderText = isMaster ? "<th style=\"width:60px\" class=\"center\">发布人</th>" : String.Empty;
 
             //加载栏目
@@ -982,7 +982,7 @@ namespace J6.Cms.Web.WebManager.Handle
                        archiveListHtml;             //文档列表HTML
 
                 //获取表头
-                bool isMaster = (UserState.Administrator.Current.RoleFlag & (int)UserGroups.Master) != 0;
+                bool isMaster = UserState.Administrator.Current.IsMaster;
                 tableHeaderText = isMaster ? "<th>发布人</th>" : String.Empty;
 
 

@@ -64,7 +64,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string pageTemplate;
             UserDto usr = UserState.Administrator.Current;
 
-            if (!Role.Master.Match(usr.RoleFlag))
+            if (!usr.IsMaster)
             {
                 //子站用户跳转标识
                 //if (base.Request["f"] != "s")
@@ -103,7 +103,7 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             //设置站点
             UserDto user = UserState.Administrator.Current;
-            if ((user.RoleFlag & (int)UserGroups.Master) != 0)
+            if (user.IsMaster)
             {
                 int siteId = 0;
                 int.TryParse(base.Request["siteid"], out siteId);

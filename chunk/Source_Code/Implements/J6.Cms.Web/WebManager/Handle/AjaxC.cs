@@ -43,17 +43,17 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             const string tpl = @"
 								   username='{0}';
-								   groupname='{1}';
-                                   md={2};
-                                   sites=[{3}];
-                                   ip='{4}';
-                                   address='{5}';
+                                   md={1};
+                                   sites=[{2}];
+                                   ip='{3}';
+                                   address='{4}';
                                 ";
 
             HttpRequest request = HttpContext.Current.Request;
             UserDto usr = UserState.Administrator.Current;
-            string groupName = Role.GetRoleName(usr.RoleFlag),
-            ip = request.UserHostAddress,
+            //int siteId = base.SiteId;
+            //string groupName =Role.GetRoleName(usr.Roles.GetRole(siteId).GetFlag()),
+            String ip = request.UserHostAddress,
             address = "未知",
             sites = "",
             menuData = "[]";
@@ -164,7 +164,7 @@ namespace J6.Cms.Web.WebManager.Handle
             #endregion
 
             //输出
-            return String.Format(tpl, usr.Name, groupName, menuData, sites, ip, address);
+            return String.Format(tpl, usr.Name, menuData, sites, ip, address);
 
         }
         /// <summary>

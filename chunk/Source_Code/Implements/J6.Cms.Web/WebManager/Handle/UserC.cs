@@ -381,7 +381,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             DataTable dt;
             UserDto user = UserState.Administrator.Current;
-            if (Role.Master.Match(user.RoleFlag))
+            if (user.IsMaster)
             {
                 dt = ServiceCall.Instance.UserService.GetAllUsers();
             }else{

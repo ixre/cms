@@ -50,7 +50,7 @@ namespace J6.Cms.Utility
         public static bool CanModifyArchive(int siteId,int publisherId)
         {
             UserDto user = UserState.Administrator.Current;
-            if (user.Id == publisherId || (user.RoleFlag & Role.Master.Flag) != 0)
+            if (user.Id == publisherId || user.IsMaster)
             {
                 return true;
             }

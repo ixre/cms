@@ -52,13 +52,13 @@ namespace J6.Cms.DataTransfer
                 Email = user.Email,
                 LastLoginTime = user.LastLoginTime,
                 Phone = user.Phone,
-                RoleFlag = user.Flag,
+                IsMaster = Role.Master.Match(user.Flag),
                 Roles = user.GetAppRole(),
             };
             return usr;
         }
 
-        public int RoleFlag { get; set; }
+        public bool IsMaster { get; set; }
 
         public string Phone { get; set; }
 
