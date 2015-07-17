@@ -54,7 +54,7 @@ namespace J6.Cms.Dal
         public DataTable GetAllUser()
         {
            return this.GetDataSet(new SqlQuery(
-                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,last_login_time,create_time FROM $PREFIX_user u
+                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,email,last_login_time,create_time FROM $PREFIX_user u
                 LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id"),null)).Tables[0];
         }
 
@@ -303,10 +303,6 @@ namespace J6.Cms.Dal
             return base.GetDataSet(new SqlQuery(sql, null)).Tables[0];
         }
 
-        public DataTable GetUserGroups()
-        {
-            return base.GetDataSet(new SqlQuery(base.OptimizeSql(DbSql.UserGroup_GetAll), null)).Tables[0];
-        }
 
         public void UpdateUserGroupPermissions(int groupId, string permissions)
         {
@@ -334,7 +330,7 @@ namespace J6.Cms.Dal
         public DataTable GetMyUserTable(int appId, int userId)
         {
             return this.GetDataSet(new SqlQuery(
-                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,last_login_time,create_time,r.role_flag, 
+                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,email,last_login_time,create_time,r.role_flag, 
                 c.enabled FROM $PREFIX_user u INNER JOIN  $PREFIX_user_role r ON r.user_id = u.id
                 LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id WHERE @appId=0 OR (app_id=@appId AND  r.role_flag <=
                 (SELECT role_flag FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId))"),
@@ -387,9 +383,18 @@ namespace J6.Cms.Dal
         public void GetUserCredentialById(int userId, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredential), new object[,] { { "@userId", userId } }),
+                new SqlQuery(base.OptimizeSql(DbSql.UserGetUserCredential), new object[,] { { "@userId", userId } }),
                 func
                 );
+        }
+
+
+        public void ReadUserRoles(int userId, DataReaderFunc func)
+        {
+            base.ExecuteReader(
+              new SqlQuery(base.OptimizeSql(DbSql.UserGetUserRole), new object[,] { { "@userId", userId } }),
+              func
+              );
         }
     }
 }

@@ -15,6 +15,7 @@ using J6.Cms.Domain.Interface.Common.Language;
 using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Extend;
 using J6.Cms.Domain.Interface.Site.Link;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Infrastructure.Tree;
 
 namespace J6.Cms.Domain.Interface.Site
@@ -152,6 +153,12 @@ namespace J6.Cms.Domain.Interface.Site
         /// 链接管理器
         /// </summary>
         ISiteLinkManager LinkManager { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IAppUserManager GetUserManager();
 
         /// <summary>
         /// 分类

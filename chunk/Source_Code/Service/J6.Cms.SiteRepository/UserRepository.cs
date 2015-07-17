@@ -103,5 +103,31 @@ namespace J6.Cms.ServiceRepository
             }
             return this._userDal.SaveCredential(credential, true);
         }
+
+
+        public IList<AppRoleBind> GetUserRoles(int id)
+        {
+            IList<AppRoleBind> list = new List<AppRoleBind>();
+            this._userDal.ReadUserRoles(id, rd =>
+            {
+                while (rd.Read())
+                {
+                    list.Add(new AppRoleBind
+                    {
+                        Id = Convert.ToInt32(rd["id"]),
+                        AppId = Convert.ToInt32(rd["app_id"]),
+                        Flag = Convert.ToInt32(rd["role_flag"]),
+                        Name =null,
+                    });
+                }
+            });
+            return list;
+        }
+
+
+        public IAppUserManager GetAppUserManager(int appId)
+        {
+            return this._creator.CreateAppUserManager(this, appId);
+        }
     }
 }

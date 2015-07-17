@@ -10,6 +10,7 @@ using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Extend;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.Domain.Interface.Site.Template;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Infrastructure.Tree;
 using J6.DevFw.Framework.Extensions;
 
@@ -399,6 +400,12 @@ namespace J6.Cms.Service
             if (link == null) return default(SiteLinkDto);
 
             return SiteLinkDto.ConvertFrom(link);
+        }
+
+        public IList<RoleValue> GetAppRoles(int siteId)
+        {
+            ISite site = this._resp.GetSiteById(siteId);
+            return site.GetUserManager().GetAppRoles();
         }
     }
 }

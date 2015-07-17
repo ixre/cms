@@ -37,9 +37,6 @@
 
 $js()
 <script type="text/javascript">
-    var pl = document.body.childNodes[1];
-    j6.dom.fitHeight(pl);
-
     j6.dom.fitHeight(j6.$('dg'));
     var _dg = j6.grid('dg', {
         url: '?module=user&action=getusers',
@@ -49,9 +46,9 @@ $js()
             { field: 'name', title: '姓名', align: 'center', width: 100, formatter: null },
             { field: 'user_name', title: '用户名', align: 'center', width: 150, formatter: null },
             { field: 'phone', title: '电话', align: 'center', width: 150, formatter: null },
-            { field: 'role_flag', title: '角色值', align: 'center', width: 150, formatter: null },
-            { field: 'create_time', title: '创建时间', align: 'center', width: 150, formatter: null },
-            { field: 'last_login_time', title: '最近登陆', align: 'center', width: 150, formatter: null },
+            { field: 'email', title: '邮箱', align: 'center', width: 150, formatter: null },
+            { field: 'create_time', title: '创建时间', align: 'center', width: 150, formatter: function(v) { return v.replace(/T|\.\d+$/ig, ' '); } },
+            { field: 'last_login_time', title: '最近登陆', align: 'center', width: 150, formatter: function (v) { return v.replace(/T|\.\d+$/ig, ' '); } },
             {
                 field: 'id',
                 title: '最近登陆',
@@ -59,6 +56,7 @@ $js()
                 width: 150,
                 formatter: function(v, r) {
                     return j6.template('<a class="btn btn-min" href="javascript:;" onclick="editRec({id})">修改</a>' +
+                        '<a class="btn btn-min" href="javascript:;" onclick="extRec({id})">角色</a>'+
                         '<a class="btn btn-min" href="javascript:;" onclick="delRec({id})">删除</a>', {
                             id: v,
                         });
@@ -67,24 +65,11 @@ $js()
         ],
         loaded: function(data) {
             var tables = document.getElementsByTagName('TABLE');
-            j6.table.dynamic(tables[1], false, function(trs) {
-            });
-
-//                j6.each(tds, function (i, e) {
-//                    j6.contextmenu.bind(e, null, function (menu) {
-//                        //var state = e.parentNode.getAttribute('avaiable') == '1' ? '<span style="color:red">停用该用户</span>' : '启用该用户';
-//                        menu.innerHTML = j6.template(j6.$('tpl').innerHTML, { id: id, state: state });
-//                    });
-//                });
-
+            j6.table.dynamic(tables[1], false);
             //加载分页
             this.panel.nextSibling.innerHTML = data.pager;
         }
     });
-
-
-    //绑定列表菜单
-    //j6.contextmenu.bind(_dg.panel, j6.$('list_menu_tpl').innerHTML);
 
     var menu = {
         add: Fn.create,
@@ -124,6 +109,10 @@ $js()
     }
     function editRec(id) {
         j6.dialog.create2('编辑用户', true, true).open('?module=user&action=updateUser&id='+id, 700, 400);
+    }
+
+    function extRec(id) {
+        j6.tab.open('用户角色管理','?module=user&action=UserRole&id=' + id,true);
     }
 
 </script>

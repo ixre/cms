@@ -73,7 +73,7 @@ namespace J6.Cms.WebManager
         User_Edit,
         User_ModifyBasicProfile,
         User_Index,
-
+        User_Role,
 
         Archive_Create,
         Archive_Update,

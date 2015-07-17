@@ -23,6 +23,7 @@ using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Extend;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.Domain.Interface.Site.Template;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Infrastructure;
 using J6.Cms.Infrastructure.Tree;
 
@@ -38,11 +39,14 @@ namespace J6.Cms.Domain.Implement.Site
         private readonly ITemplateRepository _tempRep;
         private ISiteLinkManager _linkManager;
         private string _fullDomain;
+        private IAppUserManager _appUserManager;
+        private IUserRepository _userRep;
 
         internal Site(ISiteRepository siteRepository,
             IExtendFieldRepository extendRepository,
             ICategoryRepository categoryRep,
             ITemplateRepository tempRep,
+            IUserRepository userRep,
             int siteId,
             string name)
         {
@@ -52,6 +56,7 @@ namespace J6.Cms.Domain.Implement.Site
             this._categoryRep = categoryRep;
             this._extendRepository = extendRepository;
             this._tempRep = tempRep;
+            this._userRep = userRep;
         }
 
 
@@ -232,6 +237,20 @@ namespace J6.Cms.Domain.Implement.Site
                return _linkManager ?? (_linkManager = new SiteLinkManager(this._siteRepository,this));
            }
        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IAppUserManager GetUserManager()
+        {
+            if (this._appUserManager == null)
+            {
+                this._appUserManager = this._userRep.GetAppUserManager(this.Id);
+            }
+            return this._appUserManager;
+        }
 
 
        public IList<ICategory> Categories

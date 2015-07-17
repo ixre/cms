@@ -249,8 +249,8 @@ namespace J6.Cms.BLL
             if (_groups == null)
             {
                 //将DataTable转换为UserGroup数组
-
-                DataTable tb = _dal.GetUserGroups();
+                //todo:
+                DataTable tb  = new DataTable();//= _dal.GetUserRoles();
                 _groups = new UserGroup[tb.Rows.Count];
 
                 for (int i = 0; i < tb.Rows.Count; i++)

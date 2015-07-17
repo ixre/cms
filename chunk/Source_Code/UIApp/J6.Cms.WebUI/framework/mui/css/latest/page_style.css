@@ -169,8 +169,7 @@ ul.centform{margin:100px auto;}
 /* 表格列表 */
 
 .ui-table{width:100%;color:#666;}
-.ui-table th{background:#edf7fe url(/framework/assets/sys_themes/default/bg.gif) 0 0 repeat-x;
-             line-height:28px;height:28px;overflow:hidden;border-bottom:solid 1px #e5e5e5;
+.ui-table th{background:#edf7fe;border-bottom:solid 1px #e5e5e5;
              text-align:center;color:#336699;font-weight:normal;position:relative;}
 .ui-table .th-split{background:url(/framework/assets/sys_themes/default/th.gif);padding:5px 1px 0px 0px;position:relative;right:3px;top:0;}
 .ui-table tr td{line-height:18px;background:#fff;border-bottom:solid 1px #f2f2f2;}
@@ -244,20 +243,18 @@ ul.centform{margin:100px auto;}
 .ui-tree div.node a:hover{text-decoration:underline;color:#000;}
 
 /* data grid */
+.ui-grid-table{background:none;border:solid 1px #ddd;}
 .ui-datagrid-header{border-top:solid 1px #ddd;}
-.ui-datagrid-view td,.ui-datagrid-header td{padding:5px 5px;border-left:solid 1px #ddd;border-bottom: solid 1px #ddd;}
+.ui-datagrid-view td,.ui-datagrid-header td{padding:5px 5px;border-left:solid 1px #ddd;border-bottom: solid 1px #ddd;overflow:hidden;}
 .ui-datagrid-header td{color: #333;
-                   background: -moz-linear-gradient(#F8F8F8,#EEEEEE);
-                   background: -webkit-linear-gradient(#F8F8F8,#EEEEEE);
-                   background: linear-gradient(#F8F8F8,#EEEEEE);
-                   text-align: center;line-height: 25px;
+    background: -moz-linear-gradient(#F8F8F8,#EEEEEE);
+    background: -webkit-linear-gradient(#F8F8F8,#EEEEEE);
+    background: linear-gradient(#F8F8F8,#EEEEEE);
+    text-align: center;line-height: 25px;
 }
 .ui-datagrid-view td.first .ui-datagrid-header td.first{ border-left: none;}
 .ui-datagrid-view .loading{padding-left:0;border: solid 1px #d0d0d0;background: #f0f0f0;color: #006699;width: 100px;height: 22px;text-align: center;line-height: 22px;}
-.ui-grid-table{background:none;border:solid 1px #ddd;}
-.ui-grid-table .ui-datagrid-header td,.ui-grid-table .ui-datagrid-header th{ 
-    background: linear-gradient(to bottom, #f9f9f9 0px, #efefef 100%) repeat-x scroll 0 0 rgba(0, 0, 0, 0);}
-.ui-grid-table tr td.first{border-left:none;}
+
 .ui-gird-table-meta {border:solid 1px #ddd;border-top:0;width:98%;padding-right:2%;overflow:hidden;}
 
 /* form */

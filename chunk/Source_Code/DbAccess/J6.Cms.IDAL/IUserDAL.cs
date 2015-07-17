@@ -77,11 +77,7 @@ namespace J6.Cms.IDAL
         /// <param name="newPassword"></param>
         void ModifyPassword(string username, string newPassword);
 
-        /// <summary>
-        /// 获取所有用户组
-        /// </summary>
-        /// <returns></returns>
-        DataTable GetUserGroups();
+      
 
         /// <summary>
         /// 用户组更名
@@ -159,6 +155,7 @@ namespace J6.Cms.IDAL
         void GetUserById(int id, DataReaderFunc func);
         DataTable GetMyUserTable(int appId, int userId);
         int SaveCredential(Credential credential,bool isNew);
-        void GetUserCredentialById(int userId, DataReaderFunc action);
+        void GetUserCredentialById(int userId, DataReaderFunc func);
+        void ReadUserRoles(int userId, DataReaderFunc func);
     }
 }

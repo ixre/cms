@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using J6.Cms.DataTransfer;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Interface.Value;
 
 namespace J6.Cms.ServiceContract

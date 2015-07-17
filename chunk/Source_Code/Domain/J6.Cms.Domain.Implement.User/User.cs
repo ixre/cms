@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Interface.Value;
 
@@ -8,6 +9,7 @@ namespace J6.Cms.Domain.Implement.User
     {
         private readonly IUserRepository _userRepository;
         private Credential _credential;
+        private IList<AppRoleBind> _roles;
 
         internal User(IUserRepository userRep, int id, int flag)
         {
@@ -73,6 +75,31 @@ namespace J6.Cms.Domain.Implement.User
         }
 
 
+
+        public IList<AppRoleBind> GetRoles()
+        {
+            if (this._roles == null)
+            {
+                //todo:
+                this._roles = this._userRepository.GetUserRoles(this.Id);
+                foreach (var v in this._roles)
+                {
+                    if (v.Flag == Role.Master.Flag)
+                    {
+                        v.Name = Role.Master.Name;
+                    }
+                    else if (v.Flag == Role.Publisher.Flag)
+                    {
+                        v.Name = Role.Publisher.Name;
+                    }
+                    else if (v.Flag == Role.SiteOwner.Flag)
+                    {
+                        v.Name = Role.SiteOwner.Name;
+                    }
+                }
+            }
+            return this._roles;
+        }
     }
 }
 

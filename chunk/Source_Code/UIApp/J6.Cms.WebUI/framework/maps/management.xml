@@ -28,6 +28,7 @@
     <map for="Category_List" to="mui/html/category/category_list.html"/>
     <map for="User_Index" to="mui/html/user/user_index.html"/>
     <map for="User_Edit" to="mui/html/user/user_edit.html"/>
+    <map for="User_Role" to="mui/html/user/user_role_set.html"/>
     <map for="User_ModifyBasicProfile" to="mui/html/user/user_modifyBasicProfile.html"/>
     <map for="Plugin_Dashboard" to="mui/html/plugin/plugin_dashboard.html"/>
     <map for="Plugin_MiniApps" to="mui/html/plugin/plugin_miniapps.html"/>

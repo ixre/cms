@@ -5,6 +5,7 @@ using System.Text;
 using J6.Cms.Domain.Interface;
 using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Link;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Infrastructure.Tree;
 
 namespace J6.Cms.ServiceContract
@@ -217,5 +218,8 @@ namespace J6.Cms.ServiceContract
         /// <param name="linkId"></param>
         /// <returns></returns>
         SiteLinkDto GetLinkById(int siteId, int linkId);
+
+
+        IList<RoleValue> GetAppRoles(int siteId);
     }
 }

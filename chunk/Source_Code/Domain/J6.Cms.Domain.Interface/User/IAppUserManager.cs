@@ -4,7 +4,7 @@ using J6.Cms.Domain.Interface.User;
 
 namespace J6.Cms.Domain.Interface.User
 {
-    public interface IAppRoleManager
+    public interface IAppUserManager
     {
         /// <summary>
         ///   获取应用的角色列表

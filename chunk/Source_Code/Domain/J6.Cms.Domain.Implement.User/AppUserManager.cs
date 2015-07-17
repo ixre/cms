@@ -3,12 +3,12 @@ using J6.Cms.Domain.Interface.User;
 
 namespace J6.Cms.Domain.Implement.User
 {
-   internal class AppRoleManager:IAppRoleManager
+   internal class AppUserManager:IAppUserManager
     {
-        private IUserRepository rep;
-        private int appId;
+        private readonly IUserRepository rep;
+        private readonly int appId;
 
-       public AppRoleManager(IUserRepository rep, int appId)
+       public AppUserManager(IUserRepository rep, int appId)
        {
            // TODO: Complete member initialization
            this.rep = rep;

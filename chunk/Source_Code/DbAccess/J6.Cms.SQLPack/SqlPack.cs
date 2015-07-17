@@ -351,12 +351,14 @@ namespace J6.Cms.Sql
         /// </summary>
         public readonly string User_GetUserById = "SELECT * FROM $PREFIX_user WHERE id=@id";
 
+        public readonly string UserGetUserRole = "SELECT * FROM $PREFIX_user_role WHERE user_id=@userId";
+
         /// <summary>
         /// 根据用户名和密码获取用户信息
         /// </summary>
         public readonly string User_GetUserCredentialByUserName = "SELECT id,user_id,user_name,password,enabled FROM $PREFIX_credential WHERE user_name=@userName";
 
-        public readonly string User_GetUserCredential = "SELECT id,user_id,user_name,password,enabled FROM $PREFIX_credential WHERE user_id=@userId";
+        public readonly string UserGetUserCredential = "SELECT id,user_id,user_name,password,enabled FROM $PREFIX_credential WHERE user_id=@userId";
 
         /// <summary>
         /// 获取所有用户
@@ -463,10 +465,6 @@ namespace J6.Cms.Sql
 
         #region 用户组相关
 
-        /// <summary>
-        /// 获取所有用户组
-        /// </summary>
-        public readonly string UserGroup_GetAll = "SELECT * FROM $PREFIX_usergroup";
 
         /// <summary>
         /// 更新用户权限

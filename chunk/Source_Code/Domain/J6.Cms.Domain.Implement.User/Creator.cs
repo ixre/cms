@@ -8,12 +8,12 @@ namespace J6.Cms.Domain.Implement.User
 
         public IUser CreateUser(IUserRepository rep, int id,int flag)
         {
-            return new J6.Cms.Domain.Implement.User.User(rep,id,flag);
+            return new User(rep,id,flag);
         }
         
-        public IAppRoleManager CreateAppRoleManager(IUserRepository rep, int appId)
+        public IAppUserManager CreateAppUserManager(IUserRepository rep, int appId)
         {
-            return new AppRoleManager(rep, appId);
+            return new AppUserManager(rep, appId);
         }
     }
 }

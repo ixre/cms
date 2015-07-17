@@ -20,8 +20,14 @@ namespace J6.Cms.Domain.Interface.User
 
 
         int SaveUser(IUser user);
+
         int SaveRole(RoleValue role);
+
         Credential GetCredentialByUserName(string username);
+
         int SaveCredential(Credential credential);
+
+        IList<AppRoleBind> GetUserRoles(int id);
+        IAppUserManager GetAppUserManager(int appId);
     }
 }

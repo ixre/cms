@@ -3,6 +3,7 @@ using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Extend;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.Domain.Interface.Site.Template;
+using J6.Cms.Domain.Interface.User;
 
 namespace J6.Cms.Domain.Implement.Site
 {
@@ -23,6 +24,7 @@ namespace J6.Cms.Domain.Implement.Site
             IExtendFieldRepository extendRepository,
             ICategoryRepository categoryRep,
             ITemplateRepository tempRep,
+            IUserRepository userRep,
             int siteid,
             string name
             )
@@ -31,6 +33,7 @@ namespace J6.Cms.Domain.Implement.Site
                 extendRepository,
                 categoryRep,
                 tempRep,
+                userRep,
                 siteid,
                 name);
         }

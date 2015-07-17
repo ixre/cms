@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using J6.Cms.Domain.Interface.Value;
 
 namespace J6.Cms.Domain.Interface.User
@@ -69,5 +70,7 @@ namespace J6.Cms.Domain.Interface.User
         /// </summary>
         /// <returns></returns>
         int Save();
+
+        IList<AppRoleBind> GetRoles();
     }
 }

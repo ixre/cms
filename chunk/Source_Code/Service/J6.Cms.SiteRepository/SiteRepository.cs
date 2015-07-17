@@ -12,28 +12,32 @@ using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Extend;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.Domain.Interface.Site.Template;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Infrastructure;
 
 namespace J6.Cms.ServiceRepository
 {
     public class SiteRepository:BaseSiteRepository,ISiteRepository
     {
-        private static SiteDal siteDal = new SiteDal();
-        private static LinkDAL linkDal = new LinkDAL();
+        private static readonly SiteDal siteDal = new SiteDal();
+        private static readonly LinkDAL linkDal = new LinkDAL();
 
-        private IExtendFieldRepository _extendFieldRepository;
-        private ICategoryRepository _categoryRep;
-        private ITemplateRepository _tempRep;
+        private readonly IExtendFieldRepository _extendFieldRepository;
+        private readonly ICategoryRepository _categoryRep;
+        private readonly ITemplateRepository _tempRep;
+        private readonly IUserRepository _userRep;
 
         public SiteRepository(
             IExtendFieldRepository extendFieldRepository,
             ICategoryRepository categoryRepository,
-            ITemplateRepository tempRep
+            ITemplateRepository tempRep,
+            IUserRepository userRep
             )
         {
             this._extendFieldRepository = extendFieldRepository;
             this._categoryRep = categoryRepository;
             this._tempRep = tempRep;
+            this._userRep = userRep;
         }
 
         public ISite CreateSite(int siteid, string name)
@@ -42,6 +46,7 @@ namespace J6.Cms.ServiceRepository
                 this._extendFieldRepository,
                 this._categoryRep,
                 this._tempRep,
+                this._userRep,
                 siteid,
                 name);
         }

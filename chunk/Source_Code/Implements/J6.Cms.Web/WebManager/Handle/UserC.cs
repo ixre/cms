@@ -95,6 +95,21 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Index),null);
         }
 
+        public void UserRole_GET()
+        {
+            UserDto user = ServiceCall.Instance.UserService.GetUser(int.Parse(Request["id"]));
+            String roleOpts = this.GetRoleOptions(null);
+            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Role), new
+            {
+                data = JsonSerializer.Serialize(new
+                {
+                    rows = user.Roles,
+                    role_opts = roleOpts,
+                }),
+            });
+        }
+
+
         /// <summary>
         /// 创建会员
         /// </summary>
@@ -156,11 +171,39 @@ namespace J6.Cms.Web.WebManager.Handle
                 user.Credential.Password = "*********";
             }
             String json = JsonSerializer.Serialize(user.ToFormObject());
-            //String roleGroup = Helper.GetUserRoleOptions();
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Edit), new
             {
                 entity=json,
             });
+        }
+
+        public delegate void SiteRoleAppend(SiteDto site);
+        private string GetRoleOptions(RoleValue[] roles1)
+        {
+            StringBuilder sb = new StringBuilder();
+            SiteRoleAppend ap = (s) =>
+            {
+                IList<RoleValue> roles = ServiceCall.Instance.SiteService.GetAppRoles(s.SiteId);
+                sb.Append("<div class=\"role_p\"><ul>");
+                int i = 0;
+                foreach (var r in roles)
+                {
+                    sb.Append("<li><input type=\"checkbox\" class=\"ck\" field=\"Role_s").Append(r.AppId).Append("[")
+                        .Append(i.ToString()).Append("]\" name=\"Role_s").Append(r.AppId)
+                        .Append("\"/><label for=\"role_s").Append(r.AppId).Append("_").Append(r.Flag.ToString())
+                        .Append("\">").Append(r.Name).Append("</label></li>");
+                    i++;
+                }
+                sb.Append("</li></div>");
+            };
+
+            IList<SiteDto> sites = ServiceCall.Instance.SiteService.GetSites();
+            foreach (var site in sites)
+            {
+                ap(site);
+            }
+
+            return sb.ToString();
         }
 
 
@@ -316,7 +359,6 @@ namespace J6.Cms.Web.WebManager.Handle
 //                    break;
 //            }
 
-            int siteId = 0;
             DataTable dt;
             UserDto user = UserState.Administrator.Current;
             if (Role.Master.Match(user.RoleFlag))
@@ -325,18 +367,6 @@ namespace J6.Cms.Web.WebManager.Handle
             }else{
             dt = ServiceCall.Instance.UserService.GetMyUserTable(base.SiteId, user.Id);
             }
-
-            int i = 0;
-            //UserDto usr = UserState.Administrator.Current;
-            //IEnumerable<UserDto> _users = users.Where(a => a.GroupId > (int)usr.GroupId);
-            /*
-            foreach (UserDto user in users)
-            {
-                sb.Append("<tr indent=\"").Append(user.Id).Append("\">")
-                    .Append("<td>").Append((++i).ToString()).Append("</td>")
-                    .Append("<td>").Append(user.Name).Append("</td><td>")
-                    .Append(user.GetCredential.UserName).Append("</td></tr>");
-            }*/
             base.PagerJson(dt, String.Format("共{0}个用户", dt.Rows.Count.ToString()));
         }
 

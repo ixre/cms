@@ -69,7 +69,7 @@ namespace J6.Cms.DataTransfer
 
         public string Avatar { get; set; }
 
-        public RoleValue[] Roles { get; set; }
+        public AppRoleBind[] Roles { get; set; }
         
         /// <summary>
         /// 令牌验证

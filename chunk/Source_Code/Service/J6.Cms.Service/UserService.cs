@@ -2,9 +2,8 @@
 using System.Collections.Generic;
  using System.Data;
  using System.Linq;
- using System.Runtime.Remoting.Messaging;
- using System.Text;
  using J6.Cms.DataTransfer;
+ using J6.Cms.Domain.Interface.Site;
  using J6.Cms.Domain.Interface.User;
  using J6.Cms.Domain.Interface.Value;
  using J6.Cms.ServiceContract;
@@ -57,6 +56,7 @@ namespace J6.Cms.Service
             {
                 UserDto u = UserDto.Convert(user);
                 u.Credential = user.GetCredential();
+                u.Roles = user.GetRoles().ToArray();
                 return u;
             }
             return null;
@@ -96,6 +96,8 @@ namespace J6.Cms.Service
 
             return this._userQuery.GetAllUser();
         }
+
+   
 
         private int CreateUser(UserDto user)
         {

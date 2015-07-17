@@ -55,7 +55,7 @@ namespace J6.Cms.Utility
                 return true;
             }
 
-            RoleValue[] u = user.Roles;
+            AppRoleBind[] u = user.Roles;
             return Role.ContainsApp(siteId,u) && (user.RoleFlag & Role.SiteOwner.Flag) != 0;
         }
 
