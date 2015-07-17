@@ -133,5 +133,13 @@ namespace J6.Cms.Service
             }
             return row;
         }
+
+
+        public void SaveUserRole(int userId, int appId, int[] flags)
+        {
+            IUser usr = this._userRepository.GetUser(userId);
+            if(usr== null)throw  new Exception("no such user");
+            usr.SetRoleFlags(appId, flags);
+        }
     }
 }

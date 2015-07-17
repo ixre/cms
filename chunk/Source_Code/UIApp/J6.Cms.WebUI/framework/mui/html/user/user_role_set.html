@@ -2,16 +2,38 @@
 <html>
 <head>
     <title>用户列表</title>$css()
+    <style type="text/css">
+        .list-panel .item{ margin: 5px 5px 10px 5px;}
+        .list-panel li{ float: left;width: 20%;}
+        .list-panel .item .con{ padding-bottom:40px;}
+    </style>
 </head>
 <body>
-<div>
-
+<div id="form1" class="list-panel">
+    <input type="hidden" field="UserId" value="${user_id}"/>
     ${role_opts}
+    <input class="btn" id="btn_save" type="button" value="提交"/>
 </div>
 
 $js()
 <script type="text/javascript">
-    
+
+    window.saveData = function () {
+        if (j6.validator.validate('form1')) {
+            var d = j6.json.toObject('form1');
+            j6.xhr.jsonPost('?module=user&action=SaveUserRole',d, function (json) {
+                if (json.result) {
+                    var dialog = j6.dialog.getDialog();
+                    dialog.window._dg.reload();
+                    dialog.close();
+                } else {
+                    showErr(json.message);
+                }
+            });
+        }
+    };
+
+    j6.$('btn_save').onclick = window.saveData;
 </script>
 
 

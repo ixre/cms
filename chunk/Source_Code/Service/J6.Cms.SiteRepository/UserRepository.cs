@@ -116,7 +116,7 @@ namespace J6.Cms.ServiceRepository
                     {
                         Id = Convert.ToInt32(rd["id"]),
                         AppId = Convert.ToInt32(rd["app_id"]),
-                        Flag = Convert.ToInt32(rd["role_flag"]),
+                        Flag = Convert.ToInt32(rd["flag"]),
                         Name =null,
                     });
                 }
@@ -128,6 +128,16 @@ namespace J6.Cms.ServiceRepository
         public IAppUserManager GetAppUserManager(int appId)
         {
             return this._creator.CreateAppUserManager(this, appId);
+        }
+
+
+        public void SaveRoleFlags(int userId, int appId, int[] flags)
+        {
+            this._userDal.CleanUserRoleFlag(userId, appId);
+            foreach (int flag in flags)
+            {
+                this._userDal.SaveUserRole(userId, appId, flag);
+            }
         }
     }
 }

@@ -29,5 +29,6 @@ namespace J6.Cms.Domain.Interface.User
 
         IList<AppRoleBind> GetUserRoles(int id);
         IAppUserManager GetAppUserManager(int appId);
+        void SaveRoleFlags(int id, int appId, int[] flags);
     }
 }

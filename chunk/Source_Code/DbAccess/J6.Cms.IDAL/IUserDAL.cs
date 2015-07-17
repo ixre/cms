@@ -157,5 +157,7 @@ namespace J6.Cms.IDAL
         int SaveCredential(Credential credential,bool isNew);
         void GetUserCredentialById(int userId, DataReaderFunc func);
         void ReadUserRoles(int userId, DataReaderFunc func);
+        void SaveUserRole(int userId, int appId, int flag);
+        void CleanUserRoleFlag(int userId, int appId);
     }
 }

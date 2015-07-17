@@ -72,5 +72,6 @@ namespace J6.Cms.Domain.Interface.User
         int Save();
 
         IList<AppRoleBind> GetRoles();
+        void SetRoleFlags(int appId, int[] flags);
     }
 }

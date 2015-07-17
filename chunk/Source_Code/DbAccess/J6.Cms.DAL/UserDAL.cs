@@ -396,5 +396,27 @@ namespace J6.Cms.Dal
               func
               );
         }
+
+
+        public void SaveUserRole(int userId, int appId, int flag)
+        {
+            this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
+                    "INSERT INTO $PREFIX_user_role(user_id,app_id,flag)VALUES(@userId,@appId,@flag)"), new object[,]
+                   {
+                       {"@userId",userId},
+                       {"@appId",appId},
+                       {"@flag",flag},
+                   }));
+        }
+
+        public void CleanUserRoleFlag(int userId, int appId)
+        {
+            this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
+                   "DELETE FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId"), new object[,]
+                   {
+                       {"@userId",userId},
+                       {"@appId",appId},
+                   }));
+        }
     }
 }

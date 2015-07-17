@@ -100,6 +100,12 @@ namespace J6.Cms.Domain.Implement.User
             }
             return this._roles;
         }
+
+
+        public void SetRoleFlags(int appId, int[] flags)
+        {
+            this._userRepository.SaveRoleFlags(this.Id, appId, flags);
+        }
     }
 }
 

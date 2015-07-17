@@ -43,10 +43,14 @@ $js()
         data: { page: 1 },
         idField: 'UserName',
         columns: [
-            { field: 'name', title: '姓名', align: 'center', width: 100, formatter: null },
-            { field: 'user_name', title: '用户名', align: 'center', width: 150, formatter: null },
-            { field: 'phone', title: '电话', align: 'center', width: 150, formatter: null },
-            { field: 'email', title: '邮箱', align: 'center', width: 150, formatter: null },
+            { field: 'name', title: '姓名', align: 'center', width: 80, formatter: null },
+            { field: 'user_name', title: '用户名', align: 'center', width: 100, formatter: null },
+            { field: 'id', title: '角色', align: 'center', width: 50, formatter: function(v) {
+                    return '<a href="javascript:;" onclick="extRec('+v+')">设置</a>';
+                }
+            },
+            { field: 'phone', title: '电话', align: 'center', width: 100, formatter: null },
+            { field: 'email', title: '邮箱', align: 'center', width: 100, formatter: null },
             { field: 'create_time', title: '创建时间', align: 'center', width: 150, formatter: function(v) { return v.replace(/T|\.\d+$/ig, ' '); } },
             { field: 'last_login_time', title: '最近登陆', align: 'center', width: 150, formatter: function (v) { return v.replace(/T|\.\d+$/ig, ' '); } },
             {
@@ -56,7 +60,6 @@ $js()
                 width: 150,
                 formatter: function(v, r) {
                     return j6.template('<a class="btn btn-min" href="javascript:;" onclick="editRec({id})">修改</a>' +
-                        '<a class="btn btn-min" href="javascript:;" onclick="extRec({id})">角色</a>'+
                         '<a class="btn btn-min" href="javascript:;" onclick="delRec({id})">删除</a>', {
                             id: v,
                         });
@@ -112,7 +115,7 @@ $js()
     }
 
     function extRec(id) {
-        j6.tab.open('用户角色管理','?module=user&action=UserRole&id=' + id,true);
+        j6.dialog.create2('用户角色管理', true, true).open('?module=user&action=UserRole&id=' + id, 700, 400);
     }
 
 </script>

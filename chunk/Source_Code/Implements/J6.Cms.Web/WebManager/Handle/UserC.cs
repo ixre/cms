@@ -29,6 +29,7 @@ using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Automation;
 using J6.DevFw.Framework.Extensions;
+using NPOI.SS.Formula.Functions;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -102,6 +103,7 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Role), new
             {
                 role_opts = roleOpts,
+                user_id = user.Id,
             });
         }
 
@@ -174,23 +176,27 @@ namespace J6.Cms.Web.WebManager.Handle
         }
 
         public delegate void SiteRoleAppend(SiteDto site);
+
         private string GetRoleOptions(RoleValue[] roles1)
         {
             StringBuilder sb = new StringBuilder();
             SiteRoleAppend ap = (s) =>
             {
                 IList<RoleValue> roles = ServiceCall.Instance.SiteService.GetAppRoles(s.SiteId);
-                sb.Append("<div class=\"role_p\"><ul>");
+                sb.Append("<div class=\"item\"><div class=\"tit\"><strong>").Append(s.Name).Append("</strong></div>");
+                sb.Append("<div class=\"role_p con\"><ul>");
                 int i = 0;
+
+                String siteId = s.SiteId.ToString();
                 foreach (var r in roles)
                 {
-                    sb.Append("<li><input type=\"checkbox\" class=\"ck\" field=\"Role_s").Append(r.AppId).Append("[")
-                        .Append(i.ToString()).Append("]\" name=\"Role_s").Append(r.AppId)
-                        .Append("\"/><label for=\"role_s").Append(r.AppId).Append("_").Append(r.Flag.ToString())
+                    sb.Append("<li><input type=\"checkbox\" class=\"ck\" field=\"Role_s").Append(siteId).Append("[")
+                        .Append(i.ToString()).Append("]\" name=\"Role_s").Append(siteId)
+                        .Append("\" value=\"").Append(r.Flag).Append("\"/><label for=\"role_s").Append(siteId).Append("_").Append(r.Flag.ToString())
                         .Append("\">").Append(r.Name).Append("</label></li>");
                     i++;
                 }
-                sb.Append("</li></div>");
+                sb.Append("</ul></div><div class=\"clear-fix\"></div></div>");
             };
 
             IList<SiteDto> sites = ServiceCall.Instance.SiteService.GetSites();
@@ -259,6 +265,50 @@ namespace J6.Cms.Web.WebManager.Handle
             {
                 base.RenderError(exc.Message);
             }
+        }
+
+        public void SaveUserRole_POST()
+        {
+            int userId = int.Parse(Request["UserId"]);
+            const string prefix = "Role_s";
+            //todo: master
+            try
+            {
+                foreach (String k in Request.Form.Keys)
+                {
+                    if (k.StartsWith(prefix))
+                    {
+                        int siteId = int.Parse(k.Substring(prefix.Length));
+                        this.saveUserSiteRole(userId, siteId, Request.Form.Get(k));
+                    }
+                }
+                base.RenderSuccess();
+            }
+            catch (Exception exc)
+            {
+                base.RenderError(exc.Message);
+            }
+        }
+
+        private void saveUserSiteRole(int userId, int siteId, string value)
+        {
+            int[] flags;
+            if (String.IsNullOrEmpty(value))
+            {
+                flags = new int[0];
+            }
+            else
+            {
+                string[] strArr = value.Split(',');
+                flags = new int[strArr.Length];
+                for (int i = 0; i < strArr.Length; i++)
+                {
+                    flags[i] = int.Parse(strArr[i]);
+                }
+            }
+
+            ServiceCall.Instance.UserService.SaveUserRole(userId, siteId, flags);
+
         }
 
         /// <summary>
