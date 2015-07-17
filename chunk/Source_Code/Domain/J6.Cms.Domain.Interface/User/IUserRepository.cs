@@ -27,8 +27,10 @@ namespace J6.Cms.Domain.Interface.User
 
         int SaveCredential(Credential credential);
 
-        IList<AppRoleBind> GetUserRoles(int id);
+        IDictionary<int, AppRolePair> GetUserRoles(int id);
+
         IAppUserManager GetAppUserManager(int appId);
         void SaveRoleFlags(int id, int appId, int[] flags);
+        int GetUserIdByUserName(string userName);
     }
 }

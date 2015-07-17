@@ -28,9 +28,9 @@ namespace J6.Cms.Domain.Interface.User
         String Avatar { get; set; }
 
         /// <summary>
-        /// 角色值
+        /// 角色值,用于判断是否为超级管理员
         /// </summary>
-        int RoleFlag { get; set; }
+        int Flag { get; set; }
 
         /// <summary>
         /// 创建时间
@@ -71,7 +71,12 @@ namespace J6.Cms.Domain.Interface.User
         /// <returns></returns>
         int Save();
 
-        IList<AppRoleBind> GetRoles();
+        /// <summary>
+        /// Gets rolos of app
+        /// </summary>
+        /// <returns></returns>
+        AppRoleCollection GetAppRole();
+
         void SetRoleFlags(int appId, int[] flags);
     }
 }

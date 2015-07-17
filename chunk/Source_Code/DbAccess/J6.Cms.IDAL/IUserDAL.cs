@@ -65,9 +65,9 @@ namespace J6.Cms.IDAL
         /// <summary>
         /// 检测用户名是否存在
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="userName"></param>
         /// <returns></returns>
-        bool UserIsExist(string username);
+        int GetUserIdByUserName(string userName);
 
 
         /// <summary>

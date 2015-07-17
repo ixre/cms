@@ -1,9 +1,7 @@
 ﻿ using System;
-using System.Collections.Generic;
+ using System.Collections.Generic;
  using System.Data;
- using System.Linq;
  using J6.Cms.DataTransfer;
- using J6.Cms.Domain.Interface.Site;
  using J6.Cms.Domain.Interface.User;
  using J6.Cms.Domain.Interface.Value;
  using J6.Cms.ServiceContract;
@@ -56,7 +54,7 @@ namespace J6.Cms.Service
             {
                 UserDto u = UserDto.Convert(user);
                 u.Credential = user.GetCredential();
-                u.Roles = user.GetRoles().ToArray();
+                u.Roles = user.GetAppRole();
                 return u;
             }
             return null;
@@ -101,6 +99,10 @@ namespace J6.Cms.Service
 
         private int CreateUser(UserDto user)
         {
+            if (this._userRepository.GetUserIdByUserName(user.Credential.UserName) > 0)
+            {
+                throw new ArgumentException("用户名已经使用!");
+            }
             IUser usr = this._userRepository.CreateUser(0, 1);
             usr.Email = user.Email;
             usr.Phone = user.Phone;
@@ -128,6 +130,13 @@ namespace J6.Cms.Service
             int row = usr.Save();
             if (row > 0)
             {
+                if (usr.GetCredential().UserName != user.Credential.UserName)
+                {
+                    if (this._userRepository.GetUserIdByUserName(user.Credential.UserName) > 0)
+                    {
+                        throw new ArgumentException("用户名已经使用!");
+                    }
+                }
                 user.Credential.UserId = usr.Id;
                 usr.SaveCredential(user.Credential);
             }
@@ -140,6 +149,20 @@ namespace J6.Cms.Service
             IUser usr = this._userRepository.GetUser(userId);
             if(usr== null)throw  new Exception("no such user");
             usr.SetRoleFlags(appId, flags);
+        }
+
+
+        public Dictionary<int, int[]> GetUserAppRoles(int userId)
+        {
+            IUser usr = this._userRepository.GetUser(userId);
+            if (usr == null) throw new Exception("no such user");
+            Dictionary<int,int[]> dict = new Dictionary<int, int[]>();
+           IDictionary<int,AppRolePair> data= this._userRepository.GetUserRoles(userId);
+            foreach (int siteId in data.Keys)
+            {
+                dict.Add(siteId,data[siteId].Flags.ToArray());
+            }
+            return dict;
         }
     }
 }

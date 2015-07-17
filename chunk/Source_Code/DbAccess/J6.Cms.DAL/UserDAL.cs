@@ -18,7 +18,7 @@ namespace J6.Cms.Dal
         public void GetUserCredential(string username, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserCredentialByUserName), new object[,] {{"@userName", username}}),
+                new SqlQuery(base.OptimizeSql(DbSql.UserGetUserCredentialByUserName), new object[,] {{"@userName", username}}),
                 func
                 );
         }
@@ -27,7 +27,7 @@ namespace J6.Cms.Dal
         public void GetUserById(int id, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.User_GetUserById),
+                new SqlQuery(base.OptimizeSql(DbSql.UserGetUserById),
                     new object[,]
                     {
                         {"@id", id}
@@ -58,15 +58,20 @@ namespace J6.Cms.Dal
                 LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id"),null)).Tables[0];
         }
 
-        public bool UserIsExist(string username)
+        public int GetUserIdByUserName(string userName)
         {
-            return base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.User_DectUserNameIsExist),
+            object obj = base.ExecuteScalar(
+                new SqlQuery(base.OptimizeSql(DbSql.UserGetUserIdByUserName),
                     new object[,]
                     {
-                        {"@username", username}
+                        {"@userName", userName}
                     })
-                ) != null;
+                );
+            if (obj != DBNull.Value)
+            {
+                return int.Parse(obj.ToString());
+            }
+            return -1;
         }
 
         public void CreateUser(int siteId, string username, string password, string name, int groupId, bool available)
@@ -112,7 +117,7 @@ namespace J6.Cms.Dal
                 {"@phone", user.Phone},
                 {"@email", user.Email},
                 {"@checkCode", user.CheckCode},
-                {"@roleFlag", user.RoleFlag},
+                {"@roleFlag", user.Flag},
                 {"@createTime", user.CreateTime},
                 {"@loginTime", user.LastLoginTime},
                 {"@id", user.Id},
@@ -138,7 +143,7 @@ namespace J6.Cms.Dal
         public bool DeleteUser(string username)
         {
             return base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.User_DeleteUser),
+                new SqlQuery(base.OptimizeSql(DbSql.UserDeleteUser),
                     new object[,]
                     {
                         {"@username", username}

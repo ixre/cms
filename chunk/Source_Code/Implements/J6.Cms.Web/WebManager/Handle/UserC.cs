@@ -25,6 +25,7 @@ using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Interface.Value;
 using J6.Cms.Infrastructure.Domain;
+using J6.Cms.ServiceContract;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Automation;
@@ -98,12 +99,20 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public void UserRole_GET()
         {
-            UserDto user = ServiceCall.Instance.UserService.GetUser(int.Parse(Request["id"]));
+            IUserServiceContract usrService = ServiceCall.Instance.UserService;
+            UserDto user =usrService.GetUser(int.Parse(Request["id"]));
             String roleOpts = this.GetRoleOptions(null);
+            Dictionary<int, int[]> appRoles = usrService.GetUserAppRoles(user.Id);
+            Dictionary<string,int[]> jsonDict = new Dictionary<string, int[]>(appRoles.Count);
+            foreach (int key in appRoles.Keys)
+            {
+                jsonDict.Add("Role_s"+key.ToString(),appRoles[key]);
+            }
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Role), new
             {
                 role_opts = roleOpts,
                 user_id = user.Id,
+                data = JsonSerializer.Serialize(jsonDict),
             });
         }
 
@@ -120,42 +129,6 @@ namespace J6.Cms.Web.WebManager.Handle
             {
                 entity = json,
             });
-        }
-
-        /// <summary>
-        /// 添加用户
-        /// </summary>
-        public void CreateUser_POST()
-        {
-            var form = HttpContext.Current.Request.Form;
-            User usr = EntityForm.GetEntity<User>();
-            usr.SiteId = base.CurrentSite.SiteId;
-            UserDto cusUsr = UserState.Administrator.Current;
-
-            if (CmsLogic.User.UserIsExist(usr.UserName))
-            {
-                base.RenderError("用户名不可用!");
-                return;
-            }
-            else if ((int)UserGroups.Master == usr.GroupId)
-            {
-                base.RenderError("系统只允许一个超级管理员!");
-                return;
-            }
-          /* else if ((cusUsr.RoleFlag & (int)InternalRole.Publisher) != 0)
-            {
-                base.RenderError("无权限创建用户!");
-            }
-            else if (cusUsr.SiteId > 0 && usr.GroupId <= (int)UserGroups.Administrator)
-            {
-                base.RenderError("站点只允许一个管理员!");
-            }*/
-                //TODO: 
-            else
-            {
-                CmsLogic.User.CreateUser(usr);
-                base.RenderSuccess("用户创建成功!");
-            }
         }
 
         /// <summary>
@@ -183,7 +156,8 @@ namespace J6.Cms.Web.WebManager.Handle
             SiteRoleAppend ap = (s) =>
             {
                 IList<RoleValue> roles = ServiceCall.Instance.SiteService.GetAppRoles(s.SiteId);
-                sb.Append("<div class=\"item\"><div class=\"tit\"><strong>").Append(s.Name).Append("</strong></div>");
+                sb.Append("<div class=\"item\"><div class=\"tit\"><strong>[编号:").Append(s.SiteId.ToString()).Append("] - ")
+                    .Append(s.Name).Append("</strong></div>");
                 sb.Append("<div class=\"role_p con\"><ul>");
                 int i = 0;
 

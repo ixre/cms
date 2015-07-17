@@ -12,11 +12,13 @@
 <div id="form1" class="list-panel">
     <input type="hidden" field="UserId" value="${user_id}"/>
     ${role_opts}
-    <input class="btn" id="btn_save" type="button" value="提交"/>
+    <input class="btn" id="btn_save" type="button" value="提交" style="margin: 0 5px;"/>
 </div>
 
 $js()
 <script type="text/javascript">
+    var entity = ${data};
+    j6.json.bind('form1', entity);
 
     window.saveData = function () {
         if (j6.validator.validate('form1')) {

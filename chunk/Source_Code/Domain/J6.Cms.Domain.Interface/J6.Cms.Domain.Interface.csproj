@@ -158,7 +158,8 @@
     <Compile Include="Site\SiteRunType.cs" />
     <Compile Include="Site\SiteState.cs" />
     <Compile Include="Site\Template\ITemplateBind.cs" />
-    <Compile Include="User\AppRoleBind.cs" />
+    <Compile Include="User\AppRoleCollection.cs" />
+    <Compile Include="User\AppRolePair.cs" />
     <Compile Include="User\IAppUserManager.cs" />
     <Compile Include="User\IUserRepository.cs" />
     <Compile Include="User\Role.cs" />

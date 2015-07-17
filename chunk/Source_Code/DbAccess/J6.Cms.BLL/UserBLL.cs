@@ -358,7 +358,7 @@ namespace J6.Cms.BLL
         /// <returns></returns>
         public bool UserIsExist(string username)
         {
-            return _dal.UserIsExist(username);
+            return _dal.GetUserIdByUserName(username) >0;
         }
 
         /// <summary>

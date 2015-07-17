@@ -53,8 +53,8 @@ namespace J6.Cms.ServiceRepository
             {
                 if (rd.Read())
                 {
-                    user = this.CreateUser(Convert.ToInt32(rd["id"]), rd["role_flag"] == DBNull.Value ? 1 : 
-                        Convert.ToInt32(rd["role_flag"]));
+                    user = this.CreateUser(Convert.ToInt32(rd["id"]), rd["flag"] == DBNull.Value ? 0 : 
+                        Convert.ToInt32(rd["flag"]));
                     user.Name = rd["name"].ToString();
                     user.CreateTime = Convert.ToDateTime(rd["create_time"]);
                     user.LastLoginTime = Convert.ToDateTime(rd["last_login_time"]);
@@ -105,23 +105,31 @@ namespace J6.Cms.ServiceRepository
         }
 
 
-        public IList<AppRoleBind> GetUserRoles(int id)
+        public IDictionary<int,AppRolePair> GetUserRoles(int id)
         {
-            IList<AppRoleBind> list = new List<AppRoleBind>();
+            IDictionary<int,AppRolePair> dict = new Dictionary<int, AppRolePair>();
+            int appId;
+            int flag;
             this._userDal.ReadUserRoles(id, rd =>
             {
                 while (rd.Read())
                 {
-                    list.Add(new AppRoleBind
+                    appId = Convert.ToInt32(rd["app_id"]);
+                    flag = Convert.ToInt32(rd["flag"]);
+                    if (dict.ContainsKey(appId))
                     {
-                        Id = Convert.ToInt32(rd["id"]),
-                        AppId = Convert.ToInt32(rd["app_id"]),
-                        Flag = Convert.ToInt32(rd["flag"]),
-                        Name =null,
-                    });
+                        dict[appId].Flags.Add(flag);
+                    }
+                    else
+                    {
+                        AppRolePair p = new AppRolePair();
+                        p.AppId = appId;
+                        p.Flags.Add(flag);
+                        dict.Add(appId,p);
+                    }
                 }
             });
-            return list;
+            return dict;
         }
 
 
@@ -138,6 +146,12 @@ namespace J6.Cms.ServiceRepository
             {
                 this._userDal.SaveUserRole(userId, appId, flag);
             }
+        }
+
+
+        public int GetUserIdByUserName(string userName)
+        {
+            return this._userDal.GetUserIdByUserName(userName);
         }
     }
 }

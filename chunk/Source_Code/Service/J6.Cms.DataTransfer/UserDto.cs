@@ -52,7 +52,8 @@ namespace J6.Cms.DataTransfer
                 Email = user.Email,
                 LastLoginTime = user.LastLoginTime,
                 Phone = user.Phone,
-                RoleFlag = user.RoleFlag
+                RoleFlag = user.Flag,
+                Roles = user.GetAppRole(),
             };
             return usr;
         }
@@ -69,7 +70,7 @@ namespace J6.Cms.DataTransfer
 
         public string Avatar { get; set; }
 
-        public AppRoleBind[] Roles { get; set; }
+        public AppRoleCollection Roles { get; set; }
         
         /// <summary>
         /// 令牌验证

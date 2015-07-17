@@ -349,33 +349,31 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 根据用户名获取用户信息
         /// </summary>
-        public readonly string User_GetUserById = "SELECT * FROM $PREFIX_user WHERE id=@id";
+        public readonly string UserGetUserById = "SELECT * FROM $PREFIX_user WHERE id=@id";
 
         public readonly string UserGetUserRole = "SELECT * FROM $PREFIX_user_role WHERE user_id=@userId";
 
         /// <summary>
         /// 根据用户名和密码获取用户信息
         /// </summary>
-        public readonly string User_GetUserCredentialByUserName = "SELECT id,user_id,user_name,password,enabled FROM $PREFIX_credential WHERE user_name=@userName";
+        public readonly string UserGetUserCredentialByUserName = "SELECT id,user_id,user_name,password,enabled FROM $PREFIX_credential WHERE user_name=@userName";
 
         public readonly string UserGetUserCredential = "SELECT id,user_id,user_name,password,enabled FROM $PREFIX_credential WHERE user_id=@userId";
 
         /// <summary>
         /// 获取所有用户
         /// </summary>
-        public readonly string User_GetAllUsers = "SELECT * FROM $PREFIX_user ORDER BY createdate DESC";
+        public readonly string UserGetAllUsers = "SELECT * FROM $PREFIX_user ORDER BY createdate DESC";
 
-        /// <summary>
-        /// 检测用户名是否存在
-        /// </summary>
-        public readonly string User_DectUserNameIsExist = "SELECT name FROM $PREFIX_user WHERE username=@username";
+      
+        public readonly string UserGetUserIdByUserName = "SELECT user_id FROM $PREFIX_credential WHERE user_name=@userName";
 
 
         /// <summary>
         /// 创建用户
         /// </summary>
         public readonly string UserCreateUser = @"INSERT INTO $PREFIX_user(name,avatar,phone,email, check_code,
-                role_flag,create_time,last_login_time)  VALUES(@name,@avatar,@phone,@email,@checkCode,@roleFlag,@createTime,@loginTime)";
+                flag,create_time,last_login_time)  VALUES(@name,@avatar,@phone,@email,@checkCode,@roleFlag,@createTime,@loginTime)";
 
 
         /// <summary>
@@ -387,12 +385,12 @@ namespace J6.Cms.Sql
         /// 更新用户
         /// </summary>
         public readonly string UserUpdateUser = @"UPDATE $PREFIX_user SET name=@name,avatar=@avatar,phone=@phone,email=@email,
-                check_code=@checkCode,role_flag=@roleFlag,create_time=@createTime,last_login_time=@loginTime WHERE id=@id";
+                check_code=@checkCode,flag=@roleFlag,create_time=@createTime,last_login_time=@loginTime WHERE id=@id";
 
         /// <summary>
         /// 删除用户
         /// </summary>
-        public readonly string User_DeleteUser = "DELETE FROM $PREFIX_user WHERE  username=@username";
+        public readonly string UserDeleteUser = "DELETE FROM $PREFIX_user WHERE  username=@username";
 
 
         /****************** 操作相关 ******************/

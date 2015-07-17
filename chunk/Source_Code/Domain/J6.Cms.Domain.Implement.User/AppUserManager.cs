@@ -18,7 +18,7 @@ namespace J6.Cms.Domain.Implement.User
         public IList<RoleValue> GetAppRoles()
         {
             IList<RoleValue> list = this.rep.GetAppRoles(this.appId);
-            list.Add(Role.Master);
+            //list.Add(Role.Master);
             list.Add(Role.SiteOwner);
             list.Add(Role.Publisher);
             return list;

@@ -98,9 +98,9 @@ namespace J6.Cms.Domain.Interface.User
         /// <param name="appId"></param>
         /// <param name="roleValues"></param>
         /// <returns></returns>
-        public static bool ContainsApp(int appId, AppRoleBind[] roleValues)
-        {
-            return roleValues.Any(roleValue => roleValue.AppId == 0 || roleValue.AppId == appId);
-        }
+//        public static bool ContainsApp(int appId, AppRole[] roleValues)
+//        {
+//            return roleValues.Any(roleValue => roleValue.AppId == 0 || roleValue.AppId == appId);
+//        }
     }
 }

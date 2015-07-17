@@ -9,13 +9,13 @@ namespace J6.Cms.Domain.Implement.User
     {
         private readonly IUserRepository _userRepository;
         private Credential _credential;
-        private IList<AppRoleBind> _roles;
+        private AppRoleCollection _roleCol;
 
         internal User(IUserRepository userRep, int id, int flag)
         {
             this._userRepository = userRep;
             this.Id = id;
-            this.RoleFlag = flag;
+            this.Flag = flag;
         }
 
         public Credential GetCredential()
@@ -52,7 +52,7 @@ namespace J6.Cms.Domain.Implement.User
         public string Email { get; set; }
 
 
-        public int RoleFlag { get; set; }
+        public int Flag { get; set; }
 
         public DateTime CreateTime { get; set; }
 
@@ -60,7 +60,7 @@ namespace J6.Cms.Domain.Implement.User
 
         public bool SubOf(int roleFlag)
         {
-            return ( this.RoleFlag & roleFlag) ==roleFlag;
+            return ( this.Flag & roleFlag) ==roleFlag;
         }
 
         public int Id { 
@@ -76,29 +76,16 @@ namespace J6.Cms.Domain.Implement.User
 
 
 
-        public IList<AppRoleBind> GetRoles()
+
+        public AppRoleCollection GetAppRole()
         {
-            if (this._roles == null)
+            if (this._roleCol == null)
             {
-                //todo:
-                this._roles = this._userRepository.GetUserRoles(this.Id);
-                foreach (var v in this._roles)
-                {
-                    if (v.Flag == Role.Master.Flag)
-                    {
-                        v.Name = Role.Master.Name;
-                    }
-                    else if (v.Flag == Role.Publisher.Flag)
-                    {
-                        v.Name = Role.Publisher.Name;
-                    }
-                    else if (v.Flag == Role.SiteOwner.Flag)
-                    {
-                        v.Name = Role.SiteOwner.Name;
-                    }
-                }
+                
+                IDictionary<int,AppRolePair> roles = this._userRepository.GetUserRoles(this.Id);
+                this._roleCol = new AppRoleCollection(this.Id,roles);
             }
-            return this._roles;
+            return this._roleCol;
         }
 
 
