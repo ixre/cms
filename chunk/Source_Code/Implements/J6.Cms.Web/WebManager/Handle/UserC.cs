@@ -66,6 +66,8 @@ namespace J6.Cms.Web.WebManager.Handle
             UserDto curr = UserState.Administrator.Current;
             UserDto user = ServiceCall.Instance.UserService.GetUser(curr.Id);
             user.Name = name;
+            user.Phone = Request["Phone"];
+            user.Email = Request["Email"];
             if (!String.IsNullOrEmpty(newPassword))
             {
                 if (Generator.Md5Pwd(oldPassword, null) != user.Credential.Password)
