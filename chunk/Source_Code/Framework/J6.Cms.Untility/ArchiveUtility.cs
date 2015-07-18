@@ -47,15 +47,15 @@ namespace J6.Cms.Utility
         /// <param name="siteId"></param>
         /// <param name="publisherId"></param>
         /// <returns></returns>
-        public static bool CanModifyArchive(int siteId,int publisherId)
+        public static bool CanModifyArchive(int siteId, int publisherId)
         {
             UserDto user = UserState.Administrator.Current;
             if (user.Id == publisherId || user.IsMaster)
             {
                 return true;
             }
-
-           return (user.Roles.GetRole(siteId).GetFlag()  & Role.SiteOwner.Flag) != 0;
+            AppRolePair pair = user.Roles.GetRole(siteId);
+            return pair != null && (pair.GetFlag() & Role.SiteOwner.Flag) != 0;
         }
 
         /// <summary>

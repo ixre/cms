@@ -19,7 +19,11 @@ namespace J6.Cms.Domain.Interface.User
 
        public AppRolePair GetRole(int appId)
        {
-           return this._dict[appId];
+           if (this._dict.ContainsKey(appId))
+           {
+               return this._dict[appId];
+           }
+           return null;
        }
 
        public ICollection<int> GetSiteIds()

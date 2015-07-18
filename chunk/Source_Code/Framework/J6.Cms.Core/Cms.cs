@@ -197,7 +197,7 @@ namespace J6.Cms
             //todo:
 
             //初始化设置
-            string cmsConfigFile = String.Format("{0}config/Cms.config", Cms.PyhicPath);
+            string cmsConfigFile = String.Format("{0}config/cms.config", Cms.PyhicPath);
             FileInfo cfgFile = new FileInfo(cmsConfigFile);
             if (cfgFile.Exists)
             {
