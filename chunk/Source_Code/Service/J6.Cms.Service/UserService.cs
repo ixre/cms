@@ -114,7 +114,10 @@ namespace J6.Cms.Service
             usr.CreateTime = DateTime.Now;
             usr.LastLoginTime = usr.CreateTime.AddHours(-1);
             user.CheckCode = "";
-            user.Avatar = "/framework/mui/css/latest/avatar.gif";
+            if (user.Avatar == "" || String.IsNullOrEmpty(usr.Avatar))
+            {
+                usr.Avatar = "/framework/mui/css/latest/avatar.gif";
+            }
             if (user.IsMaster)
             {
                 usr.Flag = Role.Master.Flag;

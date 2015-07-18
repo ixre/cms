@@ -67,7 +67,7 @@ namespace J6.Cms.Dal
                         {"@userName", userName}
                     })
                 );
-            if (obj != DBNull.Value)
+            if (obj != null && obj != DBNull.Value)
             {
                 return int.Parse(obj.ToString());
             }
