@@ -20,6 +20,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using CookComputing.MetaWeblog;
@@ -31,9 +32,7 @@ using J6.Cms.Domain.Interface.Content.Archive;
 using J6.Cms.BLL;
 using Post = CookComputing.MetaWeblog.Post;
 using J6.Cms.Conf;
-using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.User;
-using J6.Cms.Domain.Interface.Value;
 using J6.Cms.XmlRpc;
 using IUser = J6.Cms.Domain.Interface._old.IUser;
 
@@ -138,15 +137,7 @@ namespace sp.xmlrpc.XmlRpc.src
 
             UserDto usr = ServiceCall.Instance.UserService.GetUser(result.Uid);
 
-
-            if (usr.SiteId > 0)
-            {
-                this.siteId = usr.SiteId;
-            }
-            else
-            {
-                this.siteId = Cms.Context.CurrentSite.SiteId;
-            }
+            this.siteId = Cms.Context.CurrentSite.SiteId;
             return usr;
         }
 
@@ -190,22 +181,22 @@ namespace sp.xmlrpc.XmlRpc.src
                 HttpRequest request = HttpContext.Current.Request;
                 domain = String.Format(request.Url.IsDefaultPort ? domainStr : portDomainStr, request.Url.Host, request.Url.Port);
 
+               
 
-
-                SiteDto site2 = SiteCacheManager.GetSite(user.SiteId > 0 ? user.SiteId : this.siteId);
+               // SiteDto site2 = SiteCacheManager.GetSite(user.Roles.GetSiteIds().FirstOrDefault() > 0 ? user.SiteId : this.siteId);
 
                 //返回博客列表
-                return new CookComputing.Blogger.BlogInfo[] 
-                    {
-                        new CookComputing.Blogger.BlogInfo{blogid=site2.SiteId.ToString(),blogName=site2.Name,url=domain }
-                    };
+//                return new CookComputing.Blogger.BlogInfo[] 
+//                    {
+//                        new CookComputing.Blogger.BlogInfo{blogid=site2.SiteId.ToString(),blogName=site2.Name,url=domain }
+//                    };
 
                 //========================================================//
 
                 //返回单个站点
-                if (user.SiteId > 0)
+                if (!user.IsMaster)
                 {
-                    SiteDto site = SiteCacheManager.GetSite(user.SiteId);
+                    SiteDto site = SiteCacheManager.GetSite(user.Roles.GetSiteIds().FirstOrDefault());
                     //返回博客列表
                     return new CookComputing.Blogger.BlogInfo[] 
                     {
@@ -436,7 +427,7 @@ namespace sp.xmlrpc.XmlRpc.src
 
                 DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(
                     this.siteId, null,
-                    Role.Master.Match(user.RoleFlag)?0: user.Id, flags, null,
+                    user.IsMaster?0: user.Id, flags, null,
                     false, numberOfPosts, 1, out totalRecords, out pages);
 
                 //如果返回的数量没有制定数多

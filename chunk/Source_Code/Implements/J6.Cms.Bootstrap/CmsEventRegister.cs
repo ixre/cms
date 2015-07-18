@@ -32,12 +32,12 @@ namespace J6.Cms
                 // x.For<ICategoryModel>().Singleton().Use<CategoryBLL>();
                 x.For<IComment>().Singleton().Use<CommentBll>();
                 // x.For<ILink>().Singleton().Use<LinkBLL>();
-                x.For<Imember>().Singleton().Use<MemberBLL>();
+                x.For<Imember>().Singleton().Use<MemberBll>();
                 x.For<Imessage>().Singleton().Use<MessageBLL>();
                 x.For<Imodule>().Singleton().Use<ModuleBLL>();
                 //x.For<ISite>().Singleton().Use<SiteBLL>();
                 // x.For<ITemplateBind>().Singleton().Use<TemplateBindBLL>();
-                x.For<IUser>().Singleton().Use<UserBLL>();
+                x.For<IUser>().Singleton().Use<UserBll>();
                 x.For<ITable>().Singleton().Use<TableBLL>();
             });
 

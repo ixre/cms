@@ -21,5 +21,10 @@ namespace J6.Cms.Domain.Interface.User
        {
            return this._dict[appId];
        }
+
+       public ICollection<int> GetSiteIds()
+       {
+           return this._dict.Keys;
+       }
    }
 }
