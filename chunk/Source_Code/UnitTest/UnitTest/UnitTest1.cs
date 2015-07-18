@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Configuration;
+using J6.Cms.Infrastructure.Domain;
 
 namespace UnitTest
 {
@@ -44,6 +46,8 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod1()
         {
+            String pwd = Generator.Md5Pwd("lms87319225", null);
+            Assert.Inconclusive(pwd);
         }
 
         [TestMethod]    
