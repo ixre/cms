@@ -1,66 +1,101 @@
-﻿using J6.Cms.DataTransfer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using J6.Cms.DataTransfer;
 using System.Web;
 using J6.Cms.CacheService;
-using J6.Cms.Domain.Interface.Models;
+using J6.Cms.Conf;
 using J6.Cms.Utility;
 
 namespace J6.Cms.Web.WebManager
 {
     public static class CmsWebMaster
     {
-        internal const string currentSiteSessionStr = "mgr_currentSite";
+        internal const string CurrentSiteSessionStr = "mgr_currentSite";
 
-        internal const string cookieNameKey = "cms_sid";
+        internal const string CookieNameKey = "cms_sid";
 
         public static SiteDto CurrentManageSite
         {
             get
             {
-
                 HttpContext context = HttpContext.Current;
-                object sessSite = context.Session[currentSiteSessionStr];
-
+                object sessSite = context.Session[CurrentSiteSessionStr];
                 if (sessSite != null)
                 {
                     return (SiteDto)sessSite;
                 }
 
                 SiteDto site = default(SiteDto);
+               site = GetSiteFromCookie(context, site);
 
                 UserDto usr = UserState.Administrator.Current;
-                /*
-                if (usr != null && usr.SiteId > 0)
+                if (site.SiteId == 0)
                 {
-                    site = SiteCacheManager.GetSite(usr.SiteId);
-                }
-                else
-                {*/
-                    //超级管理员获取站点
-                    HttpCookie cookie = context.Request.Cookies[cookieNameKey];
-                    if (cookie != null)
+                    // get site by host name
+                    site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(context.Request.Url);
+
+                    // get the first site for user
+                    if (!usr.IsMaster && usr.Roles.GetRole(site.SiteId) == null)
                     {
-                        int siteId = 0;
-                        int.TryParse(cookie.Value, out siteId);
-                        if (siteId > 0)
+                       SiteDto[] sites = ServiceCall.Instance.UserService.GetUserRelationSites(usr.Id);
+                        if (sites.Length == 0)
                         {
-                            site = SiteCacheManager.GetSite(siteId);
+                            throw  new Exception("no permission");
                         }
+                        site = sites[0];
                     }
-               // }
 
-                if (site.SiteId <=0)
-                {
-                    site = SiteCacheManager.DefaultSite;
+                    SetCurrentManageSite(context, site);
                 }
-
-                context.Session[currentSiteSessionStr] = site;
-
+               
+                SetCurrentSiteToSession(context, site);
                 return site;
             }
+        }
+
+        private static void SetCurrentSiteToSession(HttpContext context, SiteDto site)
+        {
+            context.Session[CurrentSiteSessionStr] = site;
+        }
+
+        private static SiteDto GetSiteFromCookie(HttpContext context, SiteDto site)
+        {
+            HttpCookie cookie = context.Request.Cookies[CookieNameKey];
+            if (cookie != null)
+            {
+                int siteId = 0;
+                int.TryParse(cookie.Value, out siteId);
+                if (siteId > 0)
+                {
+                    site = SiteCacheManager.GetSite(siteId);
+                }
+            }
+            return site;
+        }
+
+        public static void SetCurrentManageSite(HttpContext context, SiteDto value)
+        {
+            HttpCookie cookie = context.Request.Cookies.Get(CmsWebMaster.CookieNameKey);
+            if (cookie != null)
+            {
+                if (value.SiteId <= 0)
+                {
+                    cookie.Expires = cookie.Expires.AddYears(-2);
+                }
+                else
+                {
+                    cookie.Value = value.SiteId.ToString();
+                    cookie.Expires = DateTime.Now.AddDays(2);
+                }
+            }
+            else
+            {
+                cookie = new HttpCookie(CmsWebMaster.CookieNameKey, value.SiteId.ToString());
+                cookie.Expires = DateTime.Now.AddDays(2);
+                cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
+            }
+
+            context.Response.Cookies.Add(cookie);
+            context.Session[CmsWebMaster.CurrentSiteSessionStr] = value;
         }
     }
 }

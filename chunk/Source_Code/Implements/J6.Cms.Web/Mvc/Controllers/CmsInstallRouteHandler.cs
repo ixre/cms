@@ -4,7 +4,11 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Web;
 using System.Web.Routing;
+using J6.Cms.CacheService;
 using J6.Cms.Conf;
+using J6.Cms.DataTransfer;
+using J6.Cms.Domain.Interface.Value;
+using J6.Cms.Infrastructure.Domain;
 using J6.DevFw.Framework;
 using J6.DevFw.Framework.Extensions;
 
@@ -102,27 +106,27 @@ namespace J6.Cms.Web
                 return InstallCode.Installed;
             }
 
-            string t_key = form["t_key"],
-                   t_name = form["t_name"],
-                   site_name = form["site_name"],
-                   site_domain = form["site_domain"],
-                   site_language = form["site_language"],
-                   user_name = form["user_name"],
-                   user_pwd = form["user_pwd"],
-                   db_type = form["db_type"],
-                   db_server = form["db_server"],
-                   db_prefix = form["db_prefix"],
-                   db_prefix1 = form["db_prefix1"],
-                   db_name = form["db_name"],
-                   db_usr = form["db_usr"],
-                   db_pwd = form["db_pwd"],
-                   db_file = form["db_file"];
+            string tKey = form["t_key"],
+                   tName = form["t_name"],
+                   siteName = form["site_name"],
+                   siteDomain = form["site_domain"],
+                   siteLanguage = form["site_language"],
+                   userName = form["user_name"],
+                   userPwd = form["user_pwd"],
+                   dbType = form["db_type"],
+                   dbServer = form["db_server"],
+                   dbPrefix = form["db_prefix"],
+                   dbPrefix1 = form["db_prefix1"],
+                   dbName = form["db_name"],
+                   dbUsr = form["db_usr"],
+                   dbPwd = form["db_pwd"],
+                   dbFile = form["db_file"];
 
-            string db_str = "";
+            string dbStr = "";
 
             #region 检测数据
 
-            if (String.IsNullOrEmpty(user_name) || String.IsNullOrEmpty(user_pwd))
+            if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(userPwd))
             {
                 return InstallCode.NO_USER;
             }
@@ -132,61 +136,62 @@ namespace J6.Cms.Web
             #region 初始化数据库设置
 
             //数据表前缀
-            if (String.IsNullOrEmpty(db_prefix)) db_prefix = db_prefix1;
+            if (String.IsNullOrEmpty(dbPrefix)) dbPrefix = dbPrefix1;
 
+            const String dbDirName = "data";
 
             //移动Access或SQLite数据库
-            if (db_type == "sqlite")
+            if (dbType == "sqlite")
             {
-                if (db_file == "")
+                if (dbFile == "")
                 {
-                    db_file ="rd_"+string.Empty.RandomLetters(5)+".db";
+                    dbFile ="rd_"+string.Empty.RandomLetters(5)+".db";
                 }
-                else if (db_file.IndexOf(".") == -1)
+                else if (dbFile.IndexOf(".", StringComparison.Ordinal) == -1)
                 {
-                    db_file += ".db";
+                    dbFile += ".db";
                 }
-                if (!Directory.Exists(physical + "sqlite.db"))
+                if (!Directory.Exists(physical + dbDirName))
                 {
-                    Directory.CreateDirectory(physical + "sqlite.db").Create();
+                    Directory.CreateDirectory(physical + dbDirName).Create();
                 }
 
-                System.IO.File.Copy(physical + FILE_DB_SQLITE, physical + "sqlite.db/" + db_file, true);
-                db_str = "Data Source=$ROOT/sqlite.db/" + db_file;
+                System.IO.File.Copy(physical + FILE_DB_SQLITE, physical + dbDirName+"/" + dbFile, true);
+                dbStr = "Data Source=$ROOT/"+dbDirName+"/" + dbFile;
             }
-            else if (db_type == "oledb")
+            else if (dbType == "oledb")
             {
-                if (db_file == "")
+                if (dbFile == "")
                 {
-                    db_file = "rd_" + string.Empty.RandomLetters(5) + ".mdb";
+                    dbFile = "rd_" + string.Empty.RandomLetters(5) + ".mdb";
                 }
-                else if (db_file.IndexOf(".") == -1)
+                else if (dbFile.IndexOf(".", StringComparison.Ordinal) == -1)
                 {
-                    db_file += ".mdb";
+                    dbFile += ".mdb";
                 }
 
-                if (!Directory.Exists(physical + "ole.db"))
+                if (!Directory.Exists(physical +dbDirName))
                 {
-                    Directory.CreateDirectory(physical + "ole.db").Create();
+                    Directory.CreateDirectory(physical + dbDirName).Create();
                 }
-                File.Copy(physical + FILE_DB_OLEDB, physical + "ole.db/" + db_file, true);
-                db_str = "Data Source=$ROOT/ole.db/" + db_file;
+                File.Copy(physical + FILE_DB_OLEDB, physical + dbDirName+"/" + dbFile, true);
+                dbStr = "Data Source=$ROOT/" + dbDirName + "/" + dbFile;
             }
             else
             {
                 //数据库资料不全
-                if (String.IsNullOrEmpty(db_server) || String.IsNullOrEmpty(db_usr) || String.IsNullOrEmpty(db_name) || String.IsNullOrEmpty(db_prefix))
+                if (String.IsNullOrEmpty(dbServer) || String.IsNullOrEmpty(dbUsr) || String.IsNullOrEmpty(dbName) || String.IsNullOrEmpty(dbPrefix))
                 {
                     return InstallCode.DB_ERROR;
                 }
 
-                if (db_type == "mysql")
+                if (dbType == "mysql")
                 {
-                    db_str = String.Format("server={0};database={1};uid={2};pwd={3};charset=utf8", db_server, db_name, db_usr, db_pwd);
+                    dbStr = String.Format("server={0};database={1};uid={2};pwd={3};charset=utf8", dbServer, dbName, dbUsr, dbPwd);
                 }
-                else if (db_type == "mssql")
+                else if (dbType == "mssql")
                 {
-                    db_str = String.Format("server={0};database={1};uid={2};pwd={3}", db_server, db_name, db_usr, db_pwd);
+                    dbStr = String.Format("server={0};database={1};uid={2};pwd={3}", dbServer, dbName, dbUsr, dbPwd);
                 }
                 else
                 {
@@ -203,23 +208,23 @@ namespace J6.Cms.Web
                 System.IO.File.Delete(physical + FILE_SETTING);
             }
             SettingFile file = new SettingFile(physical + FILE_SETTING);
-            file.Add("license_key", t_key);
-            file.Add("license_name", t_name);
-            file.Add("server_static", "");
-            file.Add("server_static_enabled", "false");
+            file.Set("license_key", tKey);
+            file.Set("license_name", tName);
+            file.Set("server_static", "");
+            file.Set("server_static_enabled", "false");
 
-            file.Add("db_type", db_type);
-            file.Add("db_conn", db_str);
-            file.Add("db_prefix", db_prefix);
+            file.Set("db_type", dbType);
+            file.Set("db_conn", dbStr);
+            file.Set("db_prefix", dbPrefix);
 
-            file.Add("mm_avatar_path", "/file/avatar/");
+            file.Set("mm_avatar_path", "/file/avatar/");
             file.Flush();
 
             #endregion
 
             #region 初始化数据库
 
-            if (!ExtraDB(db_type, db_str, db_prefix))
+            if (!ExtraDB(dbType, dbStr, dbPrefix))
             {
                 return InstallCode.DB_INIT_ERROR;
             }
@@ -236,32 +241,24 @@ namespace J6.Cms.Web
 
             //更新默认站点
             this.db.ExecuteNonQuery(new SqlQuery(
-                String.Format("UPDATE {0}site SET domain=@domain,name=@name,tpl=@tpl,seotitle=@name where siteid=1", db_prefix),
+                String.Format("UPDATE {0}site SET domain=@domain,name=@name,tpl=@tpl,seotitle=@name where siteid=1", dbPrefix),
                 new object[,]{
-                    {"@domain",site_domain},
-                    {"@name",site_name},
+                    {"@domain",siteDomain},
+                    {"@name",siteName},
                     {"@tpl","default"}
                 }));
 
             //创建管理用户
-            this.db.ExecuteNonQuery(new SqlQuery(
-                String.Format(@"
-                        INSERT INTO {0}user (
-                        siteid ,
-                        username ,
-                        password ,
-                        name ,
-                        groupid ,
-                        available ,
-                        createdate ,
-                        lastlogindate ) VALUES (0,@username,@password,@name,1,1,@dt,@dt)
-                    ", db_prefix),
-                     new object[,]{
-                         {"@username",user_name},
-                         {"@password",  user_pwd.Encode16MD5().EncodeMD5()},
-                         {"@name","系统管理员"},
-                         {"@dt",DateTime.Now}
-                     }));
+            DateTime dt = DateTime.Now;
+            UserDto usr = new UserDto
+            {
+                Name = "管理员",
+                CreateTime = dt,
+                LastLoginTime = dt,
+                IsMaster =  true,
+                Credential = new Credential(0, 0, userName, Generator.Md5Pwd(userPwd, null), 1),
+            };
+            ServiceCall.Instance.UserService.SaveUser(usr);
             #endregion
 
 

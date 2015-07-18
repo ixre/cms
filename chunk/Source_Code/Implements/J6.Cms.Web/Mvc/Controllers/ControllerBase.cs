@@ -23,16 +23,16 @@ namespace J6.Cms.Web.Mvc
 
     
     public delegate void CmsPageHandler(CmsContext controller, ref bool result);
-    public delegate void CmsPageHandler<T>(CmsContext controller, T t, ref bool result);
-    public delegate void CmsPageHandler<T, T1>(CmsContext controller, T t, T1 t1, ref bool result);
-    public delegate void CmsPageHandler<T,T1,T2>(CmsContext controller,T t,T1 t1,T2 t2,ref bool result);
+    public delegate void CmsPageHandler<in T>(CmsContext controller, T t, ref bool result);
+    public delegate void CmsPageHandler<in T, in T1>(CmsContext controller, T t, T1 t1, ref bool result);
+    public delegate void CmsPageHandler<in T, in T1, in T2>(CmsContext controller,T t,T1 t1,T2 t2,ref bool result);
 
 
     
     public abstract class ControllerBase :Controller
     {
         protected CmsContext OutputCntext;
-        private TimeSpan startTime;
+        private TimeSpan _startTime;
         //private static readonly bool _showDebugInformation;
         private  bool _showDebugInformation;
 
@@ -46,7 +46,7 @@ namespace J6.Cms.Web.Mvc
 
             this.OutputCntext = J6.Cms.Cms.Context;
             this.OutputCntext.Source = this;
-            startTime = new TimeSpan(DateTime.Now.Ticks);
+            _startTime = new TimeSpan(DateTime.Now.Ticks);
 
 
            // ==========================================//
@@ -141,7 +141,7 @@ namespace J6.Cms.Web.Mvc
                      sqls.Count.ToString(),
                      ((Double)Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024).ToString("N2")));
 
-                 rsp.Write(String.Format("<br />程序执行时间：{0:mm}分{0:ss}秒{0:fff}毫秒.", DateTime.Now - startTime));
+                 rsp.Write(String.Format("<br />程序执行时间：{0:mm}分{0:ss}秒{0:fff}毫秒.", DateTime.Now - _startTime));
 
                  rsp.Write("<br /><br /><span style=\"font-size:80%;color:#ff0000\">注：网站运行时，请在后台系统设置-》关闭调试模式！</font></div>");
 

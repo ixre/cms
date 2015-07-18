@@ -27,5 +27,6 @@ namespace J6.Cms.ServiceContract
         DataTable GetAllUsers();
         void SaveUserRole(int userId, int appId, int[] flags);
         Dictionary<int, int[]> GetUserAppRoles(int userId);
+        SiteDto[] GetUserRelationSites(int id);
     }
 }

@@ -126,7 +126,7 @@ namespace J6.Cms.WebManager
             }
 
             response.AddHeader("X-AspNet-Version", String.Format("J6.Cms v{0}", J6.Cms.Cms.Version));
-            response.AddHeader("Support-URL", "cms.s1n1.com/cms/");
+            response.AddHeader("Support-URL", "cms.z3q.net/cms/");
 
         }
 
@@ -301,37 +301,14 @@ namespace J6.Cms.WebManager
         {
             get
             {
-                return ServiceCall.Instance.SiteService.GetSiteById(1);
-                if (_site.SiteId <= 0)
+                if (this._site.SiteId <= 0)
                 {
-                    _site = CmsWebMaster.CurrentManageSite;
+                    this._site = CmsWebMaster.CurrentManageSite;
                 }
-                return _site;
+                return this._site;
             }
-            set
-            {
-                HttpCookie cookie = this.Request.Cookies.Get(CmsWebMaster.cookieNameKey);
-                if (cookie != null)
-                {
-                    if (value.SiteId <= 0)
-                    {
-                        cookie.Expires = cookie.Expires.AddYears(-2);
-                    }
-                    else
-                    {
-                        cookie.Value = value.SiteId.ToString();
-                        cookie.Expires = DateTime.Now.AddDays(2);
-                    }
-                }
-                else
-                {
-                    cookie = new HttpCookie(CmsWebMaster.cookieNameKey, value.SiteId.ToString());
-                    cookie.Expires = DateTime.Now.AddDays(2);
-                    cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
-                }
-
-                this.Response.Cookies.Add(cookie);
-                HttpContext.Current.Session[CmsWebMaster.currentSiteSessionStr] = value;
+            set {
+                CmsWebMaster.SetCurrentManageSite(HttpContext.Current,value);
             }
         }
 

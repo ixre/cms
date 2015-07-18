@@ -48,9 +48,9 @@ namespace J6.Cms.Core
         /// <summary>
         /// 请求上下文
         /// </summary>
-        private HttpContext context;
+        private readonly HttpContext _context;
 
-        public HttpContext HttpContext { get { return context; } }
+        public HttpContext HttpContext { get { return _context; } }
 
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace J6.Cms.Core
         /// </summary>
         public object Source { get; set; }
 
-        public HttpResponse Response { get { return context.Response; } }
-        public HttpRequest Request { get { return context.Request; } }
+        public HttpResponse Response { get { return _context.Response; } }
+        public HttpRequest Request { get { return _context.Request; } }
 
 
         static CmsContext()
@@ -74,10 +74,10 @@ namespace J6.Cms.Core
                 OnBeginRequest();
             }
 
-            this.context = HttpContext.Current;
+            this._context = HttpContext.Current;
 
             //设置当前站点
-            this.CurrentSite = SiteCacheManager.GetSingleOrDefaultSite(this.context.Request.Url); ;
+            this.CurrentSite = SiteCacheManager.GetSingleOrDefaultSite(this._context.Request.Url); ;
 
             //是否为虚拟目录运行
             if ((SiteRunType)this.CurrentSite.RunType == SiteRunType.VirtualDirectory)
@@ -125,8 +125,8 @@ namespace J6.Cms.Core
             {
                 if (this._host == null)
                 {
-                    this._host = String.Format("{0}{1}", context.Request.Url.Host,
-                                                context.Request.Url.Port != 80 ? ":" + context.Request.Url.Port.ToString() : "");
+                    this._host = String.Format("{0}{1}", _context.Request.Url.Host,
+                                                _context.Request.Url.Port != 80 ? ":" + _context.Request.Url.Port.ToString() : "");
                 }
                 return this._host;
             }
@@ -162,8 +162,8 @@ namespace J6.Cms.Core
             {
                 if (this._siteDomain == null)
                 {
-                    string host = String.Format("{0}{1}", context.Request.Url.Host,
-                                                context.Request.Url.Port != 80 ? ":" + context.Request.Url.Port.ToString() : "");
+                    string host = String.Format("{0}{1}", _context.Request.Url.Host,
+                                                _context.Request.Url.Port != 80 ? ":" + _context.Request.Url.Port.ToString() : "");
 
                                           _siteDomain= String.Format("http://{0}{1}{2}",
                                                           host,

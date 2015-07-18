@@ -2,6 +2,7 @@
  using System.Collections.Generic;
  using System.Data;
  using J6.Cms.DataTransfer;
+ using J6.Cms.Domain.Interface.Site;
  using J6.Cms.Domain.Interface.User;
  using J6.Cms.Domain.Interface.Value;
  using J6.Cms.ServiceContract;
@@ -13,11 +14,13 @@ namespace J6.Cms.Service
     {
         private readonly IUserRepository _userRepository;
         private readonly UserQuery _userQuery;
+        private readonly ISiteRepository _siteRepository;
 
-        public UserService(IUserRepository rep)
+        public UserService(IUserRepository rep,ISiteRepository siteRepository)
         {
             this._userRepository = rep;
             this._userQuery = new UserQuery();
+            this._siteRepository = siteRepository;
         }
 
         public LoginResultDto TryLogin(string username, string password)
@@ -112,6 +115,10 @@ namespace J6.Cms.Service
             usr.LastLoginTime = usr.CreateTime.AddHours(-1);
             user.CheckCode = "";
             user.Avatar = "/framework/mui/css/latest/avatar.gif";
+            if (user.IsMaster)
+            {
+                usr.Flag = Role.Master.Flag;
+            }
 
             int userId = usr.Save();
             usr = this._userRepository.GetUser(userId);
@@ -163,6 +170,24 @@ namespace J6.Cms.Service
                 dict.Add(siteId,data[siteId].Flags.ToArray());
             }
             return dict;
+        }
+
+
+        public SiteDto[] GetUserRelationSites(int userId)
+        {
+            IDictionary<int, AppRolePair> data = this._userRepository.GetUserRoles(userId);
+            int len = data.Keys.Count;
+            SiteDto[] sites = new SiteDto[len];
+            if (len > 0)
+            {
+                int i = 0;
+                foreach (var key in data.Keys)
+                {
+                    sites[i++] = SiteDto.ConvertFromSite( this._siteRepository.GetSiteById(data[key].AppId));
+                }
+              
+            }
+            return sites;
         }
     }
 }

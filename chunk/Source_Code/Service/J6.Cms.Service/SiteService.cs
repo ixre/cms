@@ -61,21 +61,23 @@ namespace J6.Cms.Service
 
         public SiteDto GetSiteByUri(Uri uri)
         {
-            return getSiteDtoFromISite(_resp.GetSiteByUri(uri));
+            return GetSiteDtoFromISite(_resp.GetSiteByUri(uri));
         }
 
-        private static SiteDto getSiteDtoFromISite(ISite site)
+        private static SiteDto GetSiteDtoFromISite(ISite site)
         {
-            if (site == null)
-                throw new Exception("站点不存在！");
-            return SiteDto.ConvertFromSite(site);
+            if (site != null)
+            {
+                return SiteDto.ConvertFromSite(site);
+            }
+            return default(SiteDto);
         }
 
 
 
         public SiteDto GetSingleOrDefaultSite(Uri uri)
         {
-            return getSiteDtoFromISite(
+            return GetSiteDtoFromISite(
                 _resp.GetSingleOrDefaultSite(uri)
                 );
 
@@ -84,7 +86,7 @@ namespace J6.Cms.Service
 
         public SiteDto GetSiteById(int siteId)
         {
-            return getSiteDtoFromISite(
+            return GetSiteDtoFromISite(
                     this._resp.GetSiteById(siteId)
                 );
         }
