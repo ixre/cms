@@ -24,30 +24,31 @@ var cms = j6;
 j6.libpath = '/framework/assets/';
 
 /***  AJAX ***/
-var xhrCt;
-var xhrGate;
 function showMsg(msg, second) {
-    if (!xhrCt) {
-        xhrCt = document.createElement("DIV");
-        xhrCt.className = 'xhr-container';
+    var win = window.parent || window;
+    if (!win.xhrCt) {
+        win.xhrCt = document.createElement("DIV");
+        win.xhrCt.className = 'xhr-container';
         var w = j6.screen.width();
         var mw = msg.replace(/<[^.]+>/ig,'').length * 14 + 52;
-        xhrCt.innerHTML = j6.template('<div class="gate" style="width:{w}px;height:{h}px"></div><div class="msg" id="xhr_gate_layout" style="left:{l}px;"></div>', {
+        win.xhrCt.innerHTML = j6.template('<div class="gate" style="width:{w}px;height:{h}px"></div><div class="msg" id="xhr_gate_layout" style="left:{l}px;"></div>', {
             w: w,
             h: j6.screen.height(),
             l: (w -mw) / 2
         });
-        document.body.appendChild(xhrCt);
-        xhrGate = j6.$('xhr_gate_layout');
+        win.document.body.appendChild(win.xhrCt);
+        win.xhrCt = xhrCt;
+        win.xhrGate = win.document.getElementById('xhr_gate_layout');
     }
-    xhrGate.innerHTML = msg;
-    xhrCt.className = 'xhr-container';
+    win.xhrGate.innerHTML = msg;
+    win.xhrCt.className = 'xhr-container';
     if (second) {
         setTimeout(closeMsg, second);
     }
 }
 function closeMsg() {
-    xhrCt.className = 'xhr-container hidden';
+    var win = window.parent || window;
+    win.xhrCt.className = 'xhr-container hidden';
 }
 
 function showErr(msg, second) {

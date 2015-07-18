@@ -1,217 +1,189 @@
-//
-//文件：数据表格
-//版本: 1.0
-//时间：2014-04-01
-//
+if (!window._path) {
+    window._path = 'admin';
+}
+window.sites = [];
+window.groupname = null;
+
+if (window.menuData == undefined) {
+    j6.xhr.get(window._path + '?module=ajax&action=appinit', function (x) {
+        var ip, address, md, username;
+        eval(x);
+        window.menuData = md;
+        j6.json.bind(document, { userName: username });
+    });
+    //window.menuData = [];
+}
+
+if (window.menuHandler == undefined) {
+    window.menuHandler = null;
+}
 
 
-function datagrid(ele, config) {
-    this.panel = ele.nodeName ? ele : j6.$(ele);
-    this.columns = config.columns;
-    //Id域
-    this.idField = config.idField || "id";
-    this.data_url = config.url;
-    this.data = config.data;
+var FwMenu = {
+    ele: null,
+    menuTitles: [],
+    getByCls: function (className) {
+        return this.ele.getElementsByClassName ? this.ele.getElementsByClassName(className) : document.getElementsByClassName(className, this.ele);
+    },
+    init: function (data, menuHandler) {
+        //获取菜单元素
+        this.ele = document.getElementsByClassName('page-left-menu')[0];
+        //第一次加载
+        var md = data;
 
-    //加载完成后触发
-    this.onLoaded = config.loaded;
-
-    //列的长度
-    //this.columns_width = [];
-
-    this.loadbox = null;
-    this.gridView = null;
-
-
-
-    this.loading = function () {
-        //初始化高度
-        if (this.gridView.offsetHeight == 0) {
-            var header_height = this.gridView.previousSibling.offsetHeight;
-            var gridview_height = this.panel.offsetHeight - this.gridView.previousSibling.offsetHeight;
-
-            this.gridView.style.cssText = this.gridView.style.cssText
-                .replace(/(\s*)height:[^;]+;/ig, ' height:' + (gridview_height > header_height ? gridview_height + 'px;' : 'auto'));
-
-
-            var ldLft = Math.ceil((this.gridView.clientWidth - this.loadbox.offsetWidth) / 2);
-            var ldTop = Math.ceil((this.gridView.clientHeight - this.loadbox.offsetHeight) / 2);
-
-            this.loadbox.style.cssText = this.loadbox.style.cssText
-                .replace(/(;\s*)*left:[^;]+;([\s\S]*)(\s)top:([^;]+)/ig,
-                '$1left:' + ldLft + 'px;$2 top:'
-                + (ldTop < 0 ? -ldTop : ldTop) + 'px');
-
-        }
-
-        this.loadbox.style.display = '';
-    };
-
-    this._initLayout = function () {
-        var html = '';
-        if (this.columns && this.columns.length != 0) {
-
-            //添加头部
-            html += '<div class="ui-datagrid-header"><table width="100%" cellspacing="0" cellpadding="0"><tr>';
-            for (var i in this.columns) {
-
-                // this.columns_width.push(this.columns[i].width);
-
-                html += '<td'
-                    + (i == 0 ? ' class="first"' : '')
-                    + (this.columns[i].align ? ' align="' + this.columns[i].align + '"' : '')
-                    + (this.columns[i].width ? ' width="' + this.columns[i].width + '"' : '')
-                    + '><div class="ui-datagrid-header-title">'
-                    + this.columns[i].title
-                    + '</div></td>';
+        //处理菜单数据
+        if (menuHandler && menuHandler instanceof Function) {
+            var hdata = menuHandler(data);
+            if (hdata != undefined && hdata != null) {
+                md = hdata;
             }
-
-            html += '</tr></table></div>';
-
-            //添加内容页
-            html += '<div class="ui-datagrid-view" style="position:relative;overflow:auto;height:0;">'
-                + '<div class="loading" style="position: absolute; display: inline-block; left:0; top:0;">加载中...</div>'
-                + '<div class="view"></div>'
-                + '</div>';
-
         }
-        this.panel.innerHTML = html;
 
-        this.gridView = (this.panel.getElementsByClassName
-            ? this.panel.getElementsByClassName('ui-datagrid-view')
-            : j6.dom.getsByClass(this.panel, 'ui-datagrid-view'))[0];
+        var menuEle = this.ele;
 
-        this.loadbox = this.gridView.getElementsByTagName('DIV')[0];
-    };
-
-
-    this._fill_data = function (data) {
-        if (!data) return;
-
-        var item;
-        var col;
-        var val;
-        var html = '';
-        var rows = data['rows'] || data;
-
-        html += '<table width="100%" cellspacing="0" cellpadding="0">';
-
-        for (var i = 0; i < rows.length; i++) {
-            item = rows[i];
-            html += '<tr'
-                + (item[this.idField] ? ' data-indent="' + item[this.idField] + '"' : '')
-                + '>';
-
-            for (var j in this.columns) {
-                col = this.columns[j];
-                val = item[col.field];
-
-                html += '<td'
-                    + (j == 0 ? ' class="first"' : '')
-                    + (col.align ? ' align="' + col.align + '"' : '')
-                    +'><div style="'
-                    + (i == 0 && col.width ? ' width:' + col.width + 'px' : '')
-                    + '">'
-                    + (col.formatter && col.formatter instanceof Function ? col.formatter(val, item, i) : val)
-                    + '</div></td>';
-
+        menuEle.innerHTML = '';
+        var title, html, linktext, url;
+        for (var i1 = 0; i1 < md.length; i1++) {
+            title = md[i1].text;
+            html = '';
+            for (var i2 = 0; i2 < md[i1].childs.length; i2++) {
+                if (md[i1].childs[i2].childs.length > 0) {
+                    html += '<div class="group-title" group="' + md[i1].id + '" style="cursor:pointer" title="点击展开操作菜单"><span>' + md[i1].childs[i2].text + '</span></div>';
+                    html += '<div class="panel hidden"><ul id="fns_' + i2 + '">';
+                    for (var i3 = 0; i3 < md[i1].childs[i2].childs.length; i3++) {
+                        linktext = md[i1].childs[i2].childs[i3].text;
+                        url = md[i1].childs[i2].childs[i3].uri;
+                        // html += (i3 != 0 && i3 % 4 == 0 ? '<div class="clearfix"></div>' : '') +
+                        html += '<li' + (i2 == 0 && i3 == 0 ? ' class="current"' : '') + '><a class="fn" style="cursor:pointer;" url="' + url + '"' +
+                       //(md[i1].childs[i2].childs.length == 1 ? ' style="margin:0 ' + ((100 - linktext.length * 14) / 2) + 'px"' : '') +
+                       '><span class="icon icon_' + i1 + '_' + i2 + '_' + i3 + '"></span>' + linktext + '</a></li>';
+                    }
+                    html += '</ul></div>';
+                }
             }
-            html += '</tr>';
+            menuEle.innerHTML += html;
         }
 
-        html += '</table><div style="clear:both"></div>';
-
-        //gridview的第1个div
-        var gv = this.gridView.getElementsByTagName('DIV')[1];
-        gv.innerHTML = html;
-
-        //this._fixPosition();
-
-        gv.srcollTop = 0;
-
-        this.loadbox.style.display = 'none';
-
-        if (this.onLoaded && this.onLoaded instanceof Function)
-            this.onLoaded(data);
-    };
-
-
-    this._fixPosition= function(){
-    };
-
-    this._load_data = function (func) {
-        if (!this.data_url) return;
+        //获取所有的标题菜单
+        this.menuTitles = this.getByCls('group-title');
         var t = this;
+        j6.each(this.menuTitles, function (i, e) {
+            var groupName = e.getAttribute('group');
+            j6.event.add(e, 'click', (function (_t, _e) {
+                return function () {
+                    _t.show(_e);
+                };
+            })(t, e));
 
-        if (func) {
-            if (!(func instanceof Function)) {
-                func = null;
+            j6.each(e.nextSibling.getElementsByTagName('LI'), function (i2, e2) {
+                j6.event.add(e2, 'click', (function (_this, _t, g) {
+                    return function () {
+                        _t.set(groupName, _this);
+                        var a = _this.childNodes[0];
+                        if (a.url != '') {
+                            FwTab.show(a.innerHTML, a.getAttribute('url'));
+                        }
+                    };
+                })(e2, t, groupName));
+            });
+        });
+
+    },
+    //设置第几组显示
+    change: function (id) {
+        var menuTitles = this.menuTitles;
+        var groupName = id;
+        if (!groupName) {
+            if (menuTitles.length == 0) {
+                return;
+            } else {
+                groupName = menuTitles[0].getAttribute('group');
             }
         }
+        var isFirst = true;
+        var selectedLi = null;  //已经选择的功能菜单
+        var firstPanel = null;
+        var titleGroups = [];
+        var _lis;
 
-        j6.xhr.request({
-            uri: this.data_url,
-            data: 'json',
-            params: this.data,
-            method: 'POST'
-        }, {
-            success: function (json) {
-                t._fill_data(json);
-            }, error: function () {
-                //alert('加载失败!');
+        j6.each(menuTitles, function (i, e) {
+            if (e.getAttribute('group') != groupName) {
+                e.className = 'group-title hidden';
+                e.nextSibling.className = 'panel hidden';
+            } else {
+                titleGroups.push(e);
+                e.className = 'group-title';
+
+                //第一个panel
+                if (firstPanel == null) {
+                    firstPanel = e.nextSibling;
+                }
             }
         });
 
-    };
+        for (var i = 0; i < titleGroups.length; i++) {
+            _lis = titleGroups[i].nextSibling.getElementsByTagName('LI');
+            for (var j = 0; j < _lis.length; j++) {
+                if (_lis[j].className == 'current') {
+                    selectedLi = _lis[j];
+                    i = titleGroups.length + 1; //使其跳出循环
+                    break;
+                }
+            }
+        }
 
-    /* 为兼容IE6 */
-    //var resizeFunc = (function (t) {
-    //    return function () {
-    //        t.resize.apply(t);
-    //    };
-    //})(this);
-    //j6.event.add(window, 'load', resizeFunc);
-    //window.attachEvent('resize', resizeFunc);
-    //j6.event.add(window, 'resize', this.resize.apply(this));
+        if (selectedLi != null) {
+            selectedLi.parentNode.parentNode.className = 'panel';
+        } else if (firstPanel != null) {
+            firstPanel.className = 'panel';
+        }
 
-    this._initLayout();
-
-    //重置尺寸
-    //this._resize();
-
-    //加载数据
-    this.load();
-}
-
-datagrid.prototype.resize = function () {
-    this._fixPosition();
-};
-
-datagrid.prototype.load = function (data) {
-    //显示加载框
-    this.loading();
-    if (data && data instanceof Object) {
-        this._fill_data(data);
-        return;
-    }
-    this._load_data();
-};
-
-/* 重新加载 */
-datagrid.prototype.reload = function (params, data) {
-    if (params) {
-        this.data = params;
-    }
-    this.load(data);
-};
-
-j6.extend({
-    grid1: function (ele, config) {
-        return new datagrid(ele, config);
     },
-    datagrid: function (ele, config) {
-        return new datagrid(ele, config);
+    //查看菜单
+    show: function (titleDiv) {
+        var groupName = titleDiv.getAttribute('group');
+        j6.each(this.menuTitles, function (i, e) {
+            if (e.getAttribute('group') == groupName) {
+                if (e != titleDiv) {
+                    e.nextSibling.className = 'panel hidden';
+                } else {
+                    e.nextSibling.className = 'panel';
+                }
+            }
+        });
+    },
+    set: function (groupName, ele) {
+        j6.each(this.menuTitles, function (i, e) {
+            if (e.getAttribute('group') == groupName) {
+                j6.each(e.nextSibling.getElementsByTagName('LI'), function (i, e2) {
+                    e2.className = ele == e2 ? 'current' : '';
+                });
+            }
+        });
     }
-});
+};
 
 
+
+
+
+
+
+//=========================== 辅助方法 ===============================//
+function _loadCategoryTree() {
+
+    var treeTitle = '站点栏目';
+    var treeGroupName = 'content';
+    var menuTitles = FwMenu.menuTitles;
+    var e = null;
+    for (var i = 0; i < menuTitles.length; i++) {
+        e = menuTitles[i];
+        var groupName = e.getAttribute('group');
+        if (groupName == treeGroupName) {
+            if (e.innerHTML.replace(/<[^>]+>/g, '') == treeTitle) {
+                j6.load(e.nextSibling, window._path + '?module=category&action=tree&for=archives&siteid=&ajax=1&rd=' + Math.random() + '#noload', function (result) { });
+                break;
+            }
+        }
+    }
+}

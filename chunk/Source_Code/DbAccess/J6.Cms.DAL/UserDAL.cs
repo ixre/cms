@@ -335,10 +335,10 @@ namespace J6.Cms.Dal
         public DataTable GetMyUserTable(int appId, int userId)
         {
             return this.GetDataSet(new SqlQuery(
-                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,email,last_login_time,create_time,r.role_flag, 
+                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,email,last_login_time,create_time,r.flag, 
                 c.enabled FROM $PREFIX_user u INNER JOIN  $PREFIX_user_role r ON r.user_id = u.id
-                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id WHERE @appId=0 OR (app_id=@appId AND  r.role_flag <=
-                (SELECT role_flag FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId))"),
+                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id WHERE @appId=0 OR (app_id=@appId AND  r.flag <
+                (SELECT flag FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId))"),
                 new object[,]
                 {
                     {"@appId", appId},

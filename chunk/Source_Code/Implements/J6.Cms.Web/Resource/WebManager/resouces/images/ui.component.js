@@ -526,7 +526,7 @@ var userDiv = getDivByCls('page-user', document.body);
 //重置窗口尺寸
 function _resizeWin() {
     var height = document.documentElement.clientHeight;
-    var width = document.documentElement.clientWidth;
+    var width =j6.screen.width();
 
     mainDiv.style.height = (height - mainDiv.offsetTop) + 'px';
     frameDiv.style.height = (mainDiv.offsetHeight - frameDiv.offsetTop) + 'px';
@@ -585,7 +585,6 @@ window.onload = function () {
         return function (event) {
             //显示遮罩层以支持drag
             frameShadowDiv.className = frameShadowDiv.className.replace(' hidden', '');
-
             var e = event || window.event;
             window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
             if (e.preventDefault) e.preventDefault();                       //这两句便是解决firefox拖动问题的.

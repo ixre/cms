@@ -155,7 +155,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 }
                 else
                 {
-                    menuData = GetMenuJsonFromFile(siteId);
+                    menuData = GetMenuJsonFromFile(usr.IsMaster,siteId);
                     Cms.Cache.Insert(cacheKey, menuData);
                 }
 
@@ -179,7 +179,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// 从文件中获取菜单JSON数据
         /// </summary>
         /// <returns></returns>
-        private static string GetMenuJsonFromFile(int siteID)
+        private static string GetMenuJsonFromFile(bool isMaster,int siteId)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -236,7 +236,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     {
                         if (tn.Name == "link")
                         {
-                            if (tn.Attributes["siteid"].Value == "0" && siteID > 0)
+                            if (tn.Attributes["siteid"].Value == "0" && !isMaster)
                             {
                                 continue;
                             }

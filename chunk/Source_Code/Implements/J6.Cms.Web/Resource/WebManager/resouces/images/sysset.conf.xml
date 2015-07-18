@@ -85,9 +85,9 @@
 
 
       <links title="用户权限" toggle="true" iconPos="-432|0">
-        <link href="?module=user&amp;action=userindex" text="用户管理" title="" siteid="-1"/>
+        <link href="?module=user&amp;action=userindex" text="用户管理" title="" siteid="0"/>
         <!--
-          <link href="?module=user&amp;action=setpermissions" text="权限设置" title="" siteid="0"/>
+          <link href="?module=user&amp;action=setpermissions" text="权限设置" title="" Rsiteid="0"/>
           <link href="?module=user&amp;action=operationlist&amp;filter=all" text="权限管理" title="" siteid="0"/>
         -->
      </links>

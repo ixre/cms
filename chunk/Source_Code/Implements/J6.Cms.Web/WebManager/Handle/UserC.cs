@@ -384,8 +384,10 @@ namespace J6.Cms.Web.WebManager.Handle
             if (user.IsMaster)
             {
                 dt = ServiceCall.Instance.UserService.GetAllUsers();
-            }else{
-            dt = ServiceCall.Instance.UserService.GetMyUserTable(base.SiteId, user.Id);
+            }
+            else
+            {
+                dt = ServiceCall.Instance.UserService.GetMyUserTable(base.SiteId, user.Id);
             }
             base.PagerJson(dt, String.Format("共{0}个用户", dt.Rows.Count.ToString()));
         }
@@ -538,17 +540,17 @@ namespace J6.Cms.Web.WebManager.Handle
                 usergroupPermissionOptions,     //用户组权限下拉列表
                 otherPermissionOptions;         //其他权限下拉列表
 
-            int groupID;
-            int.TryParse(HttpContext.Current.Request["groupid"], out groupID);
-            if (groupID == 0) groupID = 1;
-            UserGroup usergroup=CmsLogic.User.GetUserGroup((UserGroups)groupID);
+            int groupId;
+            int.TryParse(HttpContext.Current.Request["groupid"], out groupId);
+            if (groupId == 0) groupId = 1;
+            UserGroup usergroup=CmsLogic.User.GetUserGroup((UserGroups)groupId);
 
 
             StringBuilder sb=new StringBuilder();
             //用户组下拉列表
             foreach(UserGroup group in CmsLogic.User.GetUserGroups())
             {
-                sb.Append("<option value=\"").Append(group.Id).Append(group.Id==groupID?"\" selected=\"selected\"":"\"").Append(">").Append(group.Name).Append("</option>");
+                sb.Append("<option value=\"").Append(group.Id).Append(group.Id==groupId?"\" selected=\"selected\"":"\"").Append(">").Append(group.Name).Append("</option>");
             }
             usergroupOptions=sb.ToString();
             sb.Remove(0,sb.Length);
@@ -576,7 +578,7 @@ namespace J6.Cms.Web.WebManager.Handle
             //显示页面
             base.RenderTemplate(ResourceMap.SetPermissions, new
             {
-                groupID=groupID,
+                groupID=groupId,
                 usergroups=usergroupOptions,
                 usergroupPermissions = usergroupPermissionOptions,
                 otherPermissions=otherPermissionOptions,
@@ -589,10 +591,10 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void UpdatePermission_POST()
         {
-            string groupID = HttpContext.Current.Request.Form["groupid"],
+            string groupId = HttpContext.Current.Request.Form["groupid"],
                    permissionStr = HttpContext.Current.Request.Form["permissions"];
 
-            CmsLogic.User.UpdateUserGroupPermissions((UserGroups)(int.Parse(groupID)),
+            CmsLogic.User.UpdateUserGroupPermissions((UserGroups)(int.Parse(groupId)),
                 CmsLogic.User.ConvertToPermissionArray(permissionStr.Replace("|", ",")));
         }
 
