@@ -32,7 +32,7 @@ namespace J6.Cms.Resource
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "api.js",
                comment + SiteResource.js_cms_api, !true);
 
-            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "ui-mini.js",
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "ui-min.js",
                 comment + SiteResource.js_ui_min, !true);
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/ui.js",
