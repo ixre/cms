@@ -7,6 +7,7 @@ using System.Web.Routing;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.DataTransfer;
+using J6.Cms.Domain.Interface.User;
 using J6.Cms.Domain.Interface.Value;
 using J6.Cms.Infrastructure.Domain;
 using J6.DevFw.Framework;
@@ -250,15 +251,27 @@ namespace J6.Cms.Web
 
             //创建管理用户
             DateTime dt = DateTime.Now;
-            UserDto usr = new UserDto
-            {
-                Name = "管理员",
-                CreateTime = dt,
-                LastLoginTime = dt,
-                IsMaster =  true,
-                Credential = new Credential(0, 0, userName, Generator.Md5Pwd(userPwd, null), 1),
-            };
-            ServiceCall.Instance.UserService.SaveUser(usr);
+            this.db.ExecuteNonQuery(new SqlQuery(
+                String.Format(@"INSERT INTO {0}user(name,avatar,phone,email, check_code,flag,create_time,last_login_time) 
+                    VALUES(@name,@avatar,@phone,@email,@checkCode,@flag,@time,@time)", dbPrefix),
+                new object[,]{
+                    {"@name",""},
+                    {"@avatar",""},
+                    {"@phone",""},
+                    {"@email",""},
+                    {"@checkCode",""},
+                    {"@flag",Role.Master.Flag},
+                    {"@time",dt},
+                }));
+            int userId = int.Parse(this.db.ExecuteScalar(String.Format("SELECT max(id) FROM {0}user", dbPrefix)).ToString());
+            this.db.ExecuteNonQuery(new SqlQuery(
+                String.Format(@"INSERT INTO {0}credential(user_id,user_name,password,enabled)VALUES(@userId,@userName,@password,1)", dbPrefix),
+                new object[,]{
+                    {"@userId",userId},
+                    {"@userName",userName},
+                    {"@password",Generator.Md5Pwd(userPwd, null)},
+                }));
+
             #endregion
 
 
@@ -278,14 +291,6 @@ namespace J6.Cms.Web
 
 
         private DataBaseAccess db;
-        public DataBaseAccess GetDB()
-        {
-            if (db != null)
-            {
-                return db;
-            }
-            return null;
-        }
 
         private bool ExtraDB(string dbType, string connStr, string dbPrefix)
         {

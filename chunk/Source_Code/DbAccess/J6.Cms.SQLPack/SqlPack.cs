@@ -373,7 +373,7 @@ namespace J6.Cms.Sql
         /// 创建用户
         /// </summary>
         public readonly string UserCreateUser = @"INSERT INTO $PREFIX_user(name,avatar,phone,email, check_code,
-                flag,create_time,last_login_time)  VALUES(@name,@avatar,@phone,@email,@checkCode,@roleFlag,@createTime,@loginTime)";
+                flag,create_time,last_login_time)VALUES(@name,@avatar,@phone,@email,@checkCode,@roleFlag,@createTime,@loginTime)";
 
 
         /// <summary>

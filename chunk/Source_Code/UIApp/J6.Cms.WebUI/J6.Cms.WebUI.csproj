@@ -235,6 +235,7 @@
     <Content Include="framework\assets\editor\handler\file_manager_json.ashx" />
     <Content Include="framework\assets\editor\handler\upload_json.ashx" />
     <None Include="install\db\sqlite.db" />
+    <Content Include="install\db\mysql.sql" />
     <Content Include="templates\default\archive.about.html" />
     <Content Include="templates\default\archive.html" />
     <Content Include="templates\default\archive.ips.html" />
@@ -306,7 +307,6 @@
     <Content Include="install\db\access.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="install\db\mysql.sql" />
     <Content Include="install\install.html" />
   </ItemGroup>
   <ItemGroup>
