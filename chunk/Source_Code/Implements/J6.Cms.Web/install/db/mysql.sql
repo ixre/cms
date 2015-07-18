@@ -35,7 +35,7 @@ CREATE TABLE `cms_archive` (
 -- ----------------------------
 -- Records of cms_archive
 -- ----------------------------
-INSERT INTO `cms_archive` VALUES ('1', 'welcome', 'welcome', '2', 'admin', '欢迎使用AtNet Cms .NET', null, null,null, null, '<div style=\"text-align:center;font-size:30px\"><h2>欢迎使用AtNet Cms .NET!</h2></div>', '1', '0', '0', '2013-01-01 01:01:01', '2013-01-01 01:01:01', '{st:\'0\',sc:\'0\',v:\'1\',p:\'0\'}', null);
+INSERT INTO `cms_archive` VALUES ('1', 'welcome', 'welcome', '2', 'admin', '欢迎使用J6 Cms .NET', null, null,null, null, '<div style=\"text-align:center;font-size:30px\"><h2>欢迎使用J6 Cms .NET!</h2></div>', '1', '0', '0', '2013-01-01 01:01:01', '2013-01-01 01:01:01', '{st:\'0\',sc:\'0\',v:\'1\',p:\'0\'}', null);
 
 -- ----------------------------
 -- Table structure for cms_category
@@ -157,7 +157,7 @@ CREATE TABLE `cms_link` (
 -- ----------------------------
 -- Records of cms_link
 -- ----------------------------
-INSERT INTO `cms_link` VALUES ('1', '0', '1', '2', 'SPC.NET', 'http://cms.s1n1.com/cms/', '_blank', null, null, '2', '1');
+INSERT INTO `cms_link` VALUES ('1', '0', '1', '2', 'SPC.NET', 'http://z3q.net/cms/cms/', '_blank', null, null, '2', '1');
 INSERT INTO `cms_link` VALUES ('2', '0', '1', '1', '首页', '/', null, null, null, '1', '1');
 INSERT INTO `cms_link` VALUES ('3', '0', '1', '1', '欢迎使用', '/cms/welcome.html', null, null, null, '2', '1');
 

@@ -22,7 +22,7 @@ namespace J6.Cms.Conf
         /// <summary>
         /// 控制台订阅服务器
         /// </summary>
-        public static String DashbordRssServer = "http://Cms.s1n1.com/rss_info";
+        public static String DashbordRssServer = "http://cms.ch.z3q.net/rss.html";
 
         /// <summary>
         /// 更新服务器

@@ -7,7 +7,7 @@
 // Create : 2011/10/15 20:13:52
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.s1n1.com
+// Get infromation of this software,please visit our site http://z3q.net/cms
 // Modify:
 //  2013-01-06  11:07   newmin [+]: add setting
 //
@@ -296,7 +296,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     VerifyWordOptions.Letter,
                     !true,
                     font,
-                    60,
+                    50,
                     out word));
                 VerifyCodeManager.AddWord(word);
                 Response.ContentType = "Image/Jpeg";

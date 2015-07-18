@@ -7,7 +7,7 @@
 // Create : 2011/10/17 9:33:57
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.s1n1.com
+// Get infromation of this software,please visit our site http://z3q.net/cms
 // Modify:
 // 2013-07-15 14:00 newmin [!]: 修改模板呈现方式
 //

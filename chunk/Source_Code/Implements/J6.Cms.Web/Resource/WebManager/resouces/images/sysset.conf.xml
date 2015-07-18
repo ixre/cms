@@ -5,8 +5,8 @@
       <links title="欢迎使用" toggle="true" iconPos="-240|0">
         <link href="?module=system&amp;action=welcome" text="欢迎首页" title="" siteid="-1"/>
         <link href="?module=system&amp;action=serverSummary" text="系统运行信息" title="" siteid="-1"/>
-        <link href="http://cms.s1n1.com/cms/help.html" text="帮助指南" title="" siteid="-1"/>
-        <link href="http://cms.s1n1.com/cms/about.html" text="关于系统" title="" siteid="-1"/>
+        <link href="http://z3q.net/cms/cms/help.html" text="帮助指南" title="" siteid="-1"/>
+        <link href="http://z3q.net/cms/cms/about.html" text="关于系统" title="" siteid="-1"/>
       </links>
       <links title="我的资料" toggle="true" iconPos="-240|0">
         <link href="?module=user&amp;action=modifyuserbasicprofile" text="修改资料" title="" siteid="-1"/>

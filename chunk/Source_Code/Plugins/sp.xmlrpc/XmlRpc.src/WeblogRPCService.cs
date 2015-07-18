@@ -7,7 +7,7 @@
 // Create : 2011/10/20 12:22:02
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.s1n1.com
+// Get infromation of this software,please visit our site http://z3q.net/cms
 // Modify:
 //  2013-04-24 07:11 newmin [!]: deletePost修正了删除文档的bug,必须为本人添加才可以删除
 //
@@ -104,7 +104,7 @@ namespace sp.xmlrpc.XmlRpc.src
 <rsd version=""1.0"" xmlns=""http://archipelago.phrasewise.com/rsd"">
   <service>
     <engineName>J6.Cms.NET! XML-RPC PLUGIN!</engineName>
-    <engineLink>http://cms.s1n1.com/cms/xmlrpc</engineLink>
+    <engineLink>http://z3q.net/cms/cms/xmlrpc</engineLink>
     <homePageLink>{0}</homePageLink>
     <apis>
       <api name=""MetaWeblog"" blogID=""1"" preferred=""true"" apiLink=""{0}{1}"" />

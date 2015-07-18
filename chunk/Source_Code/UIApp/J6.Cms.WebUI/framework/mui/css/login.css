@@ -1,4 +1,4 @@
-﻿body {
+body {
     background:#e6e6e6 url(res/highlight-bg.jpg) 100px top no-repeat;
     margin:0;font-size:16px;font-family:'Microsoft YaHei','微软雅黒';
 }
@@ -8,22 +8,44 @@ h1.title{width:600px;margin:0 auto;padding-top:150px;text-align:right;font-size:
    font-weight:bold;color:#888;}
 a{text-decoration:none;outline:none;color:#006699;}
 
-  .clearfix{clear:both;zoom:1;}
-  .extra{width:600px;margin:0 auto;text-indent:-999em;height:180px;
-         background:url(res/logo_login.png) center bottom no-repeat;}
+.clear-fix{clear:both;zoom:1;}
+.extra{width:600px;margin:0 auto;text-indent:-999em;height:180px;
+  /*background:url(res/logo_login.png) center bottom no-repeat;*/}
   .main{min-height:200px;padding-top:30px;}
-  .main .login-panel{width:400px;margin:0 auto;opacity:0;filter:alpha(opacity=0);padding:20px 80px;background:#f0f0f0;border:solid 1px #333}
 
-p#tip{padding-left:15px;border:solid 1px #ddd;background:#f5f5f5;line-height:30px;}
+.login-panel{margin:0 auto;opacity:0;filter:alpha(opacity=0);width:360px;}
+.login-panel p{margin:0;padding:6px 0;}
+.login-panel .panel{border:solid 1px #BBB;background:#E5E5E5;padding:3px;box-shadow: 0 0 30px #DDD;}
+.login-panel .panel .panel_con{background:#FFF;padding:20px 40px;box-shadow:0px 0px 10px #EEE inset}
+.login-panel #tip{padding-left:15px;border-bottom:dashed 1px #ddd;padding-bottom:10px;line-height:30px;font-size:12px;margin-bottom:20px;}
 
-input.input,input.input2{ border:solid 2px #666;line-height:30px;height:30px;font-size:14px;font-weight:bold;}
-input.input{width:200px;padding:0 5px;}
-input.input2{width:40px; background-position:-140px -200px;}
 
+input.box,select.box,textarea.box{border:solid 1px #888;border-radius:2px;line-height:1.5rem;height:1.5rem;padding:0 10px;margin:1px;}
+input.box:focus,select.box:focus,textarea.box:focus{border:solid 1px #0A0;box-shadow:0px 10px 15px #F5F5F5 inset}
+input.btn,a.btn{padding:2px 20px;
+    border-radius: 5px;cursor: pointer;
+    box-shadow: 0px 1px 1px #EEE;
+    border: 1px solid #CCC;
+    font-size: 12px;color:#333;
+		line-height:1.5;
+		background: -webkit-linear-gradient(#F5F5F5, #E5E5E5); /* Safari 5.1 - 6.0 */
+		background: -o-linear-gradient(#F5F5F5, #E5E5E5); /* Opera 11.1 - 12.0 */
+		background: -moz-linear-gradient(#F5F5F5, #E5E5E5); /* Firefox 3.6 - 15 */
+		background: linear-gradient(#F5F5F5, #E5E5E5); /* 标准的语法 */
+}
+input.btn:hover,a.btn:hover{
+    background: #FFF none repeat scroll 0% 0%;
+    box-shadow: 0px 0px 0px #EEE, 0px 10px 15px #EEE inset;
+    border-color:#ddd;
+    color:#333;
+}
 
-span.txt{width:100px;display:inline-block;text-align:center;}
-.loginbtn{background:#333;color:#fff;padding:0 30px;line-height:30px;display:inline-block;}
-.loginbtn:hover{background:#000;}
-span.verify{width:60px;padding:4px 33px;border:solid 2px #666;cursor:pointer;}
- div#bottom{text-align:center;color:#888;font-size:12px;line-height:30px;}
+.verify-panel{position: relative;}
+.verify-panel .verify{width:90px;padding:2px 0 1.5px 0;top:7px;left:162px;
+    border:solid 1px #888;border-radius:0 2px 2px 0;cursor:pointer;position:absolute;
+    background-color: #FFF;}
+.verify-panel input.box{border-radius:2px 0 0 2px;width:60px;}
+
+span.txt{width:80px;display:inline-block;text-align:center;font-size:12px;color:#333;}
+div#bottom{text-align:center;color:#666;font-size:12px;line-height:40px;}
   

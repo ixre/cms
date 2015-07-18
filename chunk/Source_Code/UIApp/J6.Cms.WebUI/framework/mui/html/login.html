@@ -11,25 +11,31 @@
 
     <div class="main">
         <div class="container login-panel" id="login-panel">
-            <div class="panel login" id="loginForm">
-                <p id="tip">提示：需要验证您的身份后才能进入管理！</p>
-                <form action="" method="post" enctype="application/x-www-form-urlencoded" style="margin:0">
-                    <p><span class="txt"><span style="margin-right:14px">用</span>户：</span><input field="uid" name="username" type="text" class="input" /></p>
-                    <p><span class="txt"><span style="margin-right:14px">密</span>码：</span><input field="pwd" name="password" type="password" class="input" /></p>
-                    <p>
-                        <span class="txt">验证码：</span><input id="vcode" field="code" name="verifycode" class="input input2 left" />
-                        &nbsp;<span class="verify" id="vimg" onclick="refreshImage()">&nbsp;</span>
-                        &nbsp;<span style="font-size:12px;color:green">(不区分大小写)</span>
-                    </p>
-                    <p style="margin-top:20px">
-                        <span class="txt">&nbsp;</span><a class="loginbtn" href="javascript:;" onclick="login();return false;">登录</a>
-                    </p>
-                </form>
+            <div class="panel">
+                <div class="panel_con login" id="loginForm">
+                    <p id="tip">提示：需要验证您的身份后才能进入管理！</p>
+                    <form action="" method="post" enctype="application/x-www-form-urlencoded" style="margin: 0">
+                        <p>
+                            <span class="txt"><span style="margin-right: 14px">用</span>户：</span><input field="uid" name="username" type="text" class="box"/>
+                        </p>
+                        <p>
+                            <span class="txt"><span style="margin-right: 14px">密</span>码：</span><input field="pwd" name="password" type="password" class="box"/>
+                        </p>
+                        <p class="verify-panel">
+                            <span class="txt">验证码：</span><input id="vcode" field="code" name="verifycode" class="box box2 left"/>
+                            <span class="verify" id="vimg" onclick=" refreshImage() " title="验证码不区分大小写，点击刷新验证码">&nbsp;</span>
+                        </p>
+                        <p style="margin-top: 10px">
+                            <span class="txt">&nbsp;</span><a class="btn" href="javascript:;" onclick=" login();return false; ">登录</a>
+                        </p>
+                    </form>
 
+                </div>
             </div>
-            <div id="bottom">Powered by J6.Cms ${version}&nbsp; © 2008-${year} &nbsp;&nbsp;j6.cc</div>
 
+            <div id="bottom">Powered by J6.Cms ${version}&nbsp; © 2008-${year} &nbsp;&nbsp;z3q.net</div>
         </div>
+
       </div>
 
     $js()
@@ -39,7 +45,7 @@
         j6.style(d, {
             position: 'absolute',
             left: (j6.screen.width() - j6.width(d)) / 2 + 'px',
-            top: (j6.screen.height() - j6.height(d) + 60) / 2 + 'px'
+            top: (j6.screen.height() - j6.height(d) - 60) / 2 + 'px'
         });
         function refreshImage() {
             document.getElementById('vimg').style.background = 'url(${path}?action=verifycode&' + Math.random() + ') center -18px no-repeat';
@@ -86,13 +92,12 @@
             }
         }
 
-        j6.animation.show('login-panel',null,3);
+        j6.animation.show('login-panel',null,4);
 
     </script>
     <!--加载资源-->
     <div style="display:none">
         <img src="?res=c3lzaW5kZXg=&${version}.png" width="0" height="0"/>
-        <img src="framework/assets/sys_themes/default/btn_spirites.png" width="0" height="0" />
         $iconcss()
     </div>
 

@@ -10,7 +10,7 @@ using System.Security;
 // 与程序集关联的信息。
 
 //[assembly: AllowPartiallyTrustedCallers]
-[assembly: AssemblyTitle("AtNet Cms .NET")]
+[assembly: AssemblyTitle("J6 Cms .NET")]
 [assembly: AssemblyDescription("The cross platform ASP.NET content manage system.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("plese visit www.Cms.cc/cms/ known about us!")]

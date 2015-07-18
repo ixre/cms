@@ -23,7 +23,7 @@ namespace CsharpIpy.cs
         {
             DataBaseAccess dba=new DataBaseAccess(
                 DataBaseType.MySQL,
-                "server=s5.ns-cache.j6.cc;database=mydb;uid=newmin;pwd=$Newmin;charset=utf8");
+                "server=s5.ns-cache.cms.z3q.net;database=mydb;uid=newmin;pwd=$Newmin;charset=utf8");
 		
 		
             IList<int> list= new List<int>();
@@ -60,7 +60,7 @@ namespace CsharpIpy.cs
         {
             DataBaseAccess dba=new DataBaseAccess(
                 DataBaseType.MySQL,
-                "server=s5.ns-cache.j6.cc;database=mydb;uid=newmin;pwd=$Newmin;charset=utf8");
+                "server=s5.ns-cache.cms.z3q.net;database=mydb;uid=newmin;pwd=$Newmin;charset=utf8");
 		
 		
             IList<int> list= new List<int>();
