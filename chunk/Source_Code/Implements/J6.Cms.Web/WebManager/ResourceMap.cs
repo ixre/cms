@@ -71,7 +71,7 @@ namespace J6.Cms.WebManager
 
 
         User_Edit,
-        User_ModifyBasicProfile,
+        User_SaveProfile,
         User_Index,
         User_Role,
 

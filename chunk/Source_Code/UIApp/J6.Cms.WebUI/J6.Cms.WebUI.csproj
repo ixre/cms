@@ -224,7 +224,7 @@
     <Content Include="framework\mui\html\user\setPermissions.html" />
     <Content Include="framework\mui\html\user\user_edit.html" />
     <Content Include="framework\mui\html\user\user_index.html" />
-    <Content Include="framework\mui\html\user\user_modifyBasicProfile.html" />
+    <Content Include="framework\mui\html\user\user_save_profile.html" />
     <Content Include="framework\maps\management.xml">
       <SubType>Designer</SubType>
     </Content>

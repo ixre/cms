@@ -15,16 +15,14 @@
         $js()
         <script type="text/javascript">
             j6.$('btn').onclick = function () {
-                if (j6.validator.validate()) {
+                if (j6.validator.validate('extend_form')) {
                     j6.xhr.jsonPost('?module=extend&action=save',
                         j6.json.toObject('extend_form'),
                         function (json) {
                             if (json.result) {
-                               showError(json.message,function () {
-                                       // window.location.reload();
-                                });
+                                showMsg2(json.message);
                             } else {
-                               showError(json.message);
+                               showErr(json.message);
                             }
                         });
                 }

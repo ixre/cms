@@ -89,6 +89,7 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Edit), new
             {
                 form=html,
+                post_url = "?module=site&action=create",
                 tpls=Helper.GetTemplateOptions("")
             });
         }
@@ -117,17 +118,17 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public void Edit_GET()
         {
-            int siteID=int.Parse(base.Request["siteId"]??"1");
+            int siteId=int.Parse(base.Request["siteId"]??"1");
 
-            SiteDto site =SiteCacheManager.GetSite(siteID);
+            SiteDto site =SiteCacheManager.GetSite(siteId);
 
             string html = EntityForm.Build<SiteDto>(site, true, "提交");
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Edit), new
             {
                 form = html,
+                post_url = "?module=site&action=edit",
                 tpls =Helper.GetTemplateOptions(site.Tpl)
             });
-
         }
 
         [MCacheUpdate(CacheSign.Site | CacheSign.Link)]

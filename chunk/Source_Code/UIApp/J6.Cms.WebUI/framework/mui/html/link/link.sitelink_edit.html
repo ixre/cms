@@ -41,36 +41,36 @@
                 <dl>
                     <dt>文&nbsp;&nbsp;&nbsp;&nbsp;字：</dt>
                     <dd>
-                        <input type="text" class="ui-validate" required="true" length="[0,50]" field="Text" id="text" />
+                        <input type="text" class="ui-validate box" required="true" length="[0,50]" field="Text" id="text" />
                     </dd>
                 </dl>
                 <dl id="urlpanel">
                     <dt>地&nbsp;&nbsp;&nbsp;&nbsp;址：</dt>
                     <dd>
-                        <input type="text" class="ui-validate" length="[0,255]" field="Uri" id="uri" size="45" />
+                        <input type="text" class="ui-validate box" length="[0,255]" field="Uri" id="uri" size="45" />
                         <br /><span class="msg" style="color:#777;font-size:smaller;padding-left:65px;">路径请以"/"开头,外站链接请加"http://"</span>
                     </dd>
                 </dl>
                 <dl>
                     <dt>图片：</dt>
                     <dd>
-                        <input type="text" class="ui-validate" length="[0,100]" field="ImgUrl" id="imgurl" tipin="imgurl_tip" />
+                        <input type="text" class="ui-validate box" length="[0,100]" field="ImgUrl" id="imgurl" tipin="imgurl_tip" />
                         <span id="imgurl_tip">选填</span><br />
-                        <span style="display:block;padding-left:55px;" id="upload">上传文件</span>
+                        <span style="display:block;padding-left:46px;" id="upload"><a href="javascript:;" class="btn">选择图片</a></span>
 
                     </dd>
                 </dl>
                 <dl>
                     <dt>顺&nbsp;&nbsp;&nbsp;&nbsp;序：</dt>
                     <dd>
-                        <input type="text" class="ui-validate" isnumber="true" field="OrderIndex" id="OrderIndex" style="width:30px"/><span class="msg">显示的顺序,如:1</span>
+                        <input type="text" class="ui-validate box" isnumber="true" field="OrderIndex" id="OrderIndex" style="width:30px" /><span class="msg">显示的顺序,如:1</span>
                     </dd>
                 </dl>
                 <dl>
                     <dt>打开方式：</dt>
                     <dd>
                         <span class="input">
-                            <select class="tb_normal box" field="Target">
+                            <select class="box" field="Target">
                                 <option value="">本窗口</option>
                                 <option value="_blank">新窗口</option>
                             </select>
@@ -96,12 +96,12 @@
             </div>
 
             <div id="bind" class="hidden">
-                继承于:<br /><select field="Pid" id="pid"><option value="0">一不继承一</option>${plinks}</select>
+                继承于:<br /><select class="box" field="Pid" id="pid"><option value="0">一不继承一</option>${plinks}</select>
                 <br />
 
                 绑定栏目:<br />
                 <div>
-                    <select field="CategoryId" name="categoryid" class="left">
+                    <select field="CategoryId" class="box" name="categoryid" class="left">
                         <option value="">一请选择栏目一</option>
                         ${categoryNodes}
                     </select><a class="btn" href="javascript:;" onclick="bind({id:this.previousSibling.value,text:this.previousSibling.options[this.previousSibling.selectedIndex].innerHTML,type:'category'});return false;">绑定</a>
@@ -111,7 +111,7 @@
                 <div class="clearfix">
                     绑定文档:
                 </div>
-                <input type="text" id="title" class="left" /><a class="btn" onclick="searchArchive('title');" href="javascript:;">搜索</a>
+                <input class="box" type="text" id="title" class="left" /><a class="btn" onclick="searchArchive('title');" href="javascript:;">搜索</a>
                 <div class="archivelist clearfix">
 
                 </div>
@@ -207,13 +207,10 @@
                        , j6.json.toObject('dataPanel')
                        , function (json) {
                            if (json.result) {
-                              showError(json.message,function () {
-                                       location.replace('?module=link&action=list&type=${linktype}');
-                                 
-                               });
-
+                               showMsg2(json.message);
+                               location.replace('?module=link&action=list&type=${linktype}');
                            } else {
-                             showError(json.message);
+                             showErr(json.message);
                            }
 
                        });

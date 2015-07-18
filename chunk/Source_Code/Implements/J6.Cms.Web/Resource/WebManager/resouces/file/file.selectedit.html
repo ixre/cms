@@ -50,7 +50,7 @@ $js()
                 if (tplname != '') {
                     j6.xhr.post('?', 'module=file&action=createstylesheet&name=' + tplname + '&type=' + tpltype, function (x) {
                         if (x.indexOf('.') == -1) {
-                           showMsg2x);
+                           showMsg2(x);
                         } else {
                             location.replace('?module=file&action=edit&file=' + x);
                         }

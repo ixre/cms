@@ -197,7 +197,7 @@ j6.coder = function (id, arg) {
 
     if (arg.height) {
         var _cms = document.getElementsByClassName('CodeMirror');
-        for (var i = 0; i < _j6.length; i++) {
+        for (var i = 0; i < j6.length; i++) {
             _cms[i].style.height = arg.height + 'px';
         }
     }

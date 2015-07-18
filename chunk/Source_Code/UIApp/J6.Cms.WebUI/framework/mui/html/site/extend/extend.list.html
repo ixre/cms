@@ -7,13 +7,12 @@
 </head>
 <body>
     <div class="layout">
-        <div class="left">
+        <div class="left" style="width:40%">
             <div style="margin:3px;height:100%">
-                <div id="dg" class="ui-grid-table ui-table"></div>
-                <div class=" ui-table-meta ui-gird-table-meta" id="pager"></div>
+                <div id="dg"></div>
             </div>
         </div>
-        <div class="right">
+        <div class="right" style="width:58%">
             <div id="pl" class="relative autoHeight autoScroll"></div>
         </div>
     </div>
@@ -53,9 +52,6 @@
     <script type="text/javascript">
         var dataCollection = null;
 
-        var panel = document.body.getElementsByTagName('DIV')[0];
-        //j6.dom.fitHeight(panel);
-
         var form_tpl = j6.$('extend_form').innerHTML;
 
         window.saveData = window.saveLink = function () {
@@ -67,7 +63,7 @@
                     if (json.result) {
                         _dg.reload();
                     }
-                    parent.parent.M.alert(json.message);
+                    showMsg2(json.message);
                 });
             }
         };
@@ -84,7 +80,7 @@
             idField: 'Id',
             columns: [
                 { field: 'Name', title: '名称', width: 80, align: "center", formatter: null },
-                { field: 'Message', title: '提示', width: 120, align: "center", formatter: function (val) { return val || '-'; } },
+                { field: 'Message', title: '提示', width: 200, align: "center", formatter: function (val) { return val || '-'; } },
                 { field: 'DefaultValue', title: '默认值', align: "center", formatter: function (val) { return val || '-'; } }
             ],
             loaded: function (data) {
@@ -101,7 +97,7 @@
                     var id = trs[0].getAttribute('data-indent');
                     j6.$('pl').innerHTML = j6.template(form_tpl, { btntext: '保存' });
                     for (var i = 0; i < dataCollection.length; i++) {
-                        if (dataCollection[i].ID == id) {
+                        if (dataCollection[i].Id == id) {
                             j6.json.bind('pl', dataCollection[i]);
                         }
                     }

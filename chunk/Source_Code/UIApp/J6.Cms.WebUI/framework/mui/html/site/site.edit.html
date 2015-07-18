@@ -33,18 +33,14 @@
         selector.className = selector.className.replace('hidden', '');
         tplTD.appendChild(selector);
 
-        var isCreate = location.hash.split('.')[1] == 'create';
-        var postUrl = isCreate ? '?module=site&action=create' : '?module=site&action=edit';
-
         window.saveData = function () {
             if (j6.validator.validate()) {
-                j6.xhr.jsonPost(postUrl, j6.json.toObject(document), function (json) {
+                j6.xhr.jsonPost('${post_url}', j6.json.toObject(document), function (json) {
                     if (json.result) {
-                       showError(json.message, function () {
+                        showMsg2('保存成功');
                                location.reload();
-                        });
                     } else {
-                       showError(json.message);
+                       showErr(json.message);
                     }
                 });
             }

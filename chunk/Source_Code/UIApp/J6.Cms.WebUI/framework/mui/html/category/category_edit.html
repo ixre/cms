@@ -201,9 +201,9 @@
                      function (json) {
                          if (json.result) {
                              if (window._reloadTree) window._reloadTree();
-                            showError(json.message);
+                            showMsg2(json.message);
                          } else {
-                            showError(json.message);
+                            showErr(json.message);
                          }
                      });
             }

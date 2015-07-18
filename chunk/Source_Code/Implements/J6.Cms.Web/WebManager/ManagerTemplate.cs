@@ -11,6 +11,7 @@
 //
 //
 
+using System.Runtime.CompilerServices;
 using J6.DevFw;
 
 namespace J6.Cms.WebManager
@@ -31,6 +32,7 @@ namespace J6.Cms.WebManager
             iconTreeCss="<link rel=\"Stylesheet\" type=\"text/css\" href=\"framework/assets/sys_themes/default/btn_spirites.css?version=" + J6.Cms.Cms.Version + "\"/>";
         }
 
+       
         public static J6.DevFw.Template.TemplateHandler<object> TemplateExc = (object obj, ref string content) =>
         {
             MicroTemplateEngine tpl = new MicroTemplateEngine(obj);
@@ -109,6 +111,16 @@ namespace J6.Cms.WebManager
             }
 
             return string.Format(tpl, cssKey);
+        }
+
+        public static string GetScriptTag()
+        {
+            return js;
+        }
+
+        public static string GetCssTag()
+        {
+            return css;
         }
     }
 }

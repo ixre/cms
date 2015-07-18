@@ -47,11 +47,10 @@
                     e.disabled = '';
                     e.value = eValue;
                     if (json.result) {
-                       showMsg2
-                            location.href.indexOf('edit') != -1
+                       showMsg2(location.href.indexOf('edit') != -1
                             ? '保存成功!' : '添加成功!');
                     } else {
-                       showError(json.message);
+                       showErr(json.message);
                     }
                 });
             }

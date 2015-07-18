@@ -60,12 +60,12 @@ namespace J6.Cms.Web.WebManager.Handle
         }
         public void EditTable_GET()
         {
-            int tableID = int.Parse(base.Request["tableid"]);
-           Table table =CmsLogic.Table.GetTable(tableID);
+            int tableId = int.Parse(base.Request["tableid"]);
+           Table table =CmsLogic.Table.GetTable(tableId);
 
             base.RenderTemplate(ResourceMap.Edittable, new
             {
-                tableid=tableID,
+                tableid=tableId,
                 name = table.Name,
                 note = table.Note,
                 apiserver = table.ApiServer,

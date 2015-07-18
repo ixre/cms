@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -28,9 +27,7 @@ using J6.Cms.Infrastructure.Domain;
 using J6.Cms.ServiceContract;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
-using J6.DevFw.Framework.Automation;
 using J6.DevFw.Framework.Extensions;
-using NPOI.SS.Formula.Functions;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -39,23 +36,26 @@ namespace J6.Cms.Web.WebManager.Handle
     /// </summary>
     public class UserC:BasePage
     {
-
-
         /// <summary>
         /// 修改资料
         /// </summary>
-        public void ModifyUserBasicProfile_GET()
+        public void SaveProfile_GET()
         {
             UserDto user = UserState.Administrator.Current;
             base.RenderTemplate(
-                ResourceMap.GetPageContent(ManagementPage.User_ModifyBasicProfile),
+                ResourceMap.GetPageContent(ManagementPage.User_SaveProfile),
                 new
-            {
-                name = user.Name
-            });
+                {
+                    entity = JsonSerializer.Serialize(new
+                    {
+                        Name = user.Name,
+                        Phone = user.Phone,
+                        Email = user.Email,
+                    }),
+                });
         }
 
-        public void ModifyUserBasicProfile_POST()
+        public void SaveProfile_POST()
         {
             bool opResult = true;
 
@@ -63,29 +63,23 @@ namespace J6.Cms.Web.WebManager.Handle
             newPassword = base.Request.Form["pwd"],
             name = base.Request.Form["name"];
 
-            throw new NotImplementedException();
-            UserDto user = UserState.Administrator.Current;
+            UserDto curr = UserState.Administrator.Current;
+            UserDto user = ServiceCall.Instance.UserService.GetUser(curr.Id);
+            user.Name = name;
+            if (!String.IsNullOrEmpty(newPassword))
+            {
+                if (Generator.Md5Pwd(oldPassword, null) != user.Credential.Password)
+                {
+                    base.RenderError("原密码不正确!");
+                    return;
 
-            //更新名称
-//            if (String.Compare(user.Name, name, true) != 0)
-//            {
-//                CmsLogic.User.UpdateUser(user.UserName, user.SiteId, name, user.Group, user.Available);
-//                UserState.Administrator.Clear();
-//            }
-//
-//            //修改密码
-//
-//            if (!String.IsNullOrEmpty(newPassword))
-//            {
-//                bool result = CmsLogic.User.ModifyUserPassword(user.UserName, oldPassword, newPassword);
-//                if (!result)
-//                {
-//                    opResult = false;
-//                    base.RenderError("原密码不正确!");
-//                    return;
-//                }
-//            }
+                }
+                user.Credential.Password = Generator.Md5Pwd(newPassword, null);
+            }
 
+            ServiceCall.Instance.UserService.SaveUser(user);
+
+            UserState.Administrator.Clear();
             base.RenderSuccess("修改成功!");
         }
 

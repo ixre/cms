@@ -37,7 +37,6 @@ function showMsg(msg, second) {
             l: (w -mw) / 2
         });
         win.document.body.appendChild(win.xhrCt);
-        win.xhrCt = xhrCt;
         win.xhrGate = win.document.getElementById('xhr_gate_layout');
     }
     win.xhrGate.innerHTML = msg;
@@ -249,9 +248,9 @@ j6.coder = function (id, arg) {
     }
 
     if (arg.height) {
-        var _cms = document.getElementsByClassName('CodeMirror');
-        for (var i = 0; i < _j6.length; i++) {
-            _cms[i].style.height = arg.height + 'px';
+        var cm = document.getElementsByClassName('CodeMirror');
+        for (var i = 0; i < cm.length; i++) {
+            cm[i].style.height = arg.height + 'px';
         }
     }
     return editor;

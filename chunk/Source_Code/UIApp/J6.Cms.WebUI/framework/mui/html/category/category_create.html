@@ -193,9 +193,9 @@
                          if (json.result) {
                              if (window._reloadTree) window._reloadTree();
                              j6.load2('pl', 'category', 'update', 'lft=' + json.data);
-                            showError(json.message);
+                            showMsg2(json.message);
                          } else {
-                            showError(json.message);
+                            showErr(json.message);
                          }
                      });
             }

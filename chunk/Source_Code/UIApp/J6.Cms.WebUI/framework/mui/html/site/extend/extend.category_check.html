@@ -67,10 +67,10 @@
                 'extendIds='+extendIdStr,
                 function (json) { 
                     if (json.result) {
-                       showError(json.message);
+                       showMsg2(json.message);
                         j6.dialog.close();
                     } else {
-                       showError(json.message);
+                       showErr(json.message);
                     }
                 });
         };

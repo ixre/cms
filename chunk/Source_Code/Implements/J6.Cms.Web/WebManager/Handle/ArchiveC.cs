@@ -1283,8 +1283,8 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public void TagsIndex_GET()
         {
-            string js = "<script type=\"text/javascript\" src=\"?res=c2NyaXB0&amp;" + J6.Cms.Cms.Version + ".js\"></script>";
-            string css = "<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + J6.Cms.Cms.Version + ".css\"/>";
+            string js = ManagerTemplate.GetScriptTag();
+            string css = ManagerTemplate.GetCssTag();
 
             int siteId = this.CurrentSite.SiteId;
             String content = ResourceMap.GetPageContent(ManagementPage.Archive_Tags);

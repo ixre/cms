@@ -66,7 +66,7 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// 站点名称
         /// </summary>
-        [FormField("name", Group = "basic", Text = "<span class=\"red\">*</span>站点名称", IsRequired = true, Length = "[0,30]")]
+        [FormField("name", Group = "basic", Text = "站点名称", IsRequired = true, Length = "[0,30]")]
         public string Name { get; set; }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// 站点使用语言
         /// </summary>
-        [FormField("language", Group = "basic", Text = "<span class=\"red\">*</span>国际化/语言")]
+        [FormField("language", Group = "basic", Text = "国际化/语言",IsRequired = true)]
         [SelectField(UseDrop = true, Data = "中文简体(Chinese Simplified)=1;中文繁体(Chinese Traditional)=4;英语(Unit States)=2;西班牙语(Español)=3;泰语(ภาษาไทย)=5")]
         public Languages Language { get; set; }
 
@@ -107,13 +107,13 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// 模板
         /// </summary>
-        [FormField("tpl", Group = "basic", Text = "<span class=\"red\">*</span>页面模板", DisableEdit = true)]
+        [FormField("tpl", Group = "basic", Text = "页面模板", DisableEdit = true,IsRequired = true)]
         public string Tpl { get; set; }
 
         /// <summary>
         /// 站点状态
         /// </summary>
-        [FormField("State", Group = "basic", Text = "<span class=\"red\">*</span>站点状态")]
+        [FormField("State", Group = "basic", Text = "站点状态",IsRequired = true)]
         [SelectField(UseDrop = true, Data = "正常(Normal)=1;暂停访问(Paused)=2;关闭(Stopped)=3")]
         public SiteState State { get; set; }
 
