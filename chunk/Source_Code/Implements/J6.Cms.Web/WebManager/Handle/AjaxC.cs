@@ -338,6 +338,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 case -2: message = "未发现更新版本"; break;
                 case -3: message = "无法连接到更新服务器"; break;
                 case -4: message = "更新服务器发生内部错误"; break;
+                case -5:message = "非正式环境禁止更新"; break;
                 case 1: message = "有新版本可以更新!"; break;
             }
 

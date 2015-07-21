@@ -48,6 +48,11 @@ namespace J6.Cms
         public static readonly Boolean Installed;
 
         /// <summary>
+        /// 是否为正式环境
+        /// </summary>
+        public static bool OfficialEnvironment = true;
+
+        /// <summary>
         /// 物理路径
         /// </summary>
         public static readonly string PyhicPath;
@@ -60,7 +65,7 @@ namespace J6.Cms
         /// <summary>
         /// 所有站点
         /// </summary>
-        private static SiteDto[] sites;
+        private static SiteDto[] _sites;
 
 
         /// <summary>
@@ -271,7 +276,7 @@ namespace J6.Cms
         /// <summary>
         /// 所有站点
         /// </summary>
-        public static SiteDto[] Sites { get { return sites; } }
+        public static SiteDto[] Sites { get { return _sites; } }
 
         /// <summary>
         /// 更新服务器信息
@@ -293,7 +298,7 @@ namespace J6.Cms
         /// <param name="sites"></param>
         public static void RegSites(SiteDto[] sites)
         {
-            Cms.sites = sites;
+            Cms._sites = sites;
         }
 
 
@@ -330,6 +335,5 @@ namespace J6.Cms
                 Directory.CreateDirectory(dir.FullName).Create();
             }
         }
-
     }
 }

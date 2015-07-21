@@ -51,6 +51,7 @@ namespace J6.Cms
         {
             try
             {
+                Cms.OfficialEnvironment = false;
                 Cms.OnInit += CmsEventRegister.Init;
                 Cms.Init();
                 WebCtx.Plugin.Connect();

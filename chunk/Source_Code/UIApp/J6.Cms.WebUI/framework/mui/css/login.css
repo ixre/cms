@@ -12,6 +12,7 @@ a{text-decoration:none;outline:none;color:#006699;}
 .extra{width:600px;margin:0 auto;text-indent:-999em;height:180px;
   /*background:url(res/logo_login.png) center bottom no-repeat;*/}
   .main{min-height:200px;padding-top:30px;}
+  .xhr-container{ display: none;}
 
 .login-panel{margin:0 auto;opacity:0;filter:alpha(opacity=0);width:360px;}
 .login-panel p{margin:0;padding:6px 0;}

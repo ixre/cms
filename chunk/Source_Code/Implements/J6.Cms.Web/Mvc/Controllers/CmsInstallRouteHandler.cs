@@ -255,8 +255,8 @@ namespace J6.Cms.Web
                 String.Format(@"INSERT INTO {0}user(name,avatar,phone,email, check_code,flag,create_time,last_login_time) 
                     VALUES(@name,@avatar,@phone,@email,@checkCode,@flag,@time,@time)", dbPrefix),
                 new object[,]{
-                    {"@name",""},
-                    {"@avatar",""},
+                    {"@name","管理员"},
+                    {"@avatar","/framework/mui/css/latest/avatar.gif"},
                     {"@phone",""},
                     {"@email",""},
                     {"@checkCode",""},

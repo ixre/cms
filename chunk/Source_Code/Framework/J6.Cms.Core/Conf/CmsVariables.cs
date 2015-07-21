@@ -3,7 +3,7 @@ namespace J6.Cms.Conf
 {
     public class CmsVariables
     {
-    	/// <summary>
+        /// <summary>
     	/// 版本号
     	/// </summary>
         public const string VERSION="1.0.04";

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Configuration;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -84,6 +85,11 @@ namespace J6.Cms
         /// <returns></returns>
         public static int CheckUpgrade(out string[] data)
         {
+            if (!Cms.OfficialEnvironment)
+            {
+                data = null;
+                return -5;
+            }
             string remoteVersionDescript = Settings.SERVER_UPGRADE + "upgrade.xml";
             WebRequest   wr = WebRequest.Create(remoteVersionDescript);
             data = new string[3];
