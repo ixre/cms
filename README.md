@@ -31,6 +31,17 @@
 ### 9. 美观的UI ###
 
 
+## 部署 ##
+### LINUX平台 ###
+        wget -nd http://s.z3q.net/j6cms_bin
+        unzip cms_release_final.zip
+        fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
+浏览器访问: http://127.0.0.1:8080
+
+### WINDOWS平台 ###
+测试环境下，可直接运行$tools/server.bat
+正式环境请配置IIS
+
 ## 插件开发 ##
 详见：github.com/newmin/cms/tree/master/plugin
 
