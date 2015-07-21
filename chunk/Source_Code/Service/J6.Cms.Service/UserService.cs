@@ -192,5 +192,10 @@ namespace J6.Cms.Service
             }
             return sites;
         }
+
+        public string GetUserRealName(int publisherId)
+        {
+            return this._userQuery.GetUserRealName(publisherId);
+        }
     }
 }

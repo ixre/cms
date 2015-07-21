@@ -84,6 +84,7 @@
     <Content Include="framework\assemblies\SharpCompress.3.5.dll" />
     <Content Include="framework\assemblies\System.Web.Mvc.dll" />
     <Content Include="framework\assemblies\System.Web.Routing.dll" />
+    <Content Include="framework\assets\html5\html5.js" />
     <Content Include="framework\assets\icons\admin\add.gif" />
     <Content Include="framework\assets\icons\admin\back_1.gif" />
     <Content Include="framework\assets\icons\admin\book.gif" />
@@ -117,6 +118,7 @@
     <Content Include="framework\assets\images\background.gif" />
     <Content Include="framework\assets\images\mask.gif" />
     <Content Include="framework\assets\images\no_photo.gif" />
+    <Content Include="framework\assets\html5\PIE.htc" />
     <Content Include="framework\assets\tree\img\base.gif" />
     <Content Include="framework\assets\tree\img\cd.gif" />
     <Content Include="framework\assets\tree\img\empty.gif" />

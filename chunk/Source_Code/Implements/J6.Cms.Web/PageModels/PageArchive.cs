@@ -1,6 +1,7 @@
 ﻿
 
 using J6.Cms;
+using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Common.Language;
 using J6.Cms.Domain.Interface.Enum;
@@ -119,9 +120,7 @@ namespace J6.Cms.Web
         {
             get
             {
-                throw new NotImplementedException();
-                //todo:
-               // return this.Archive.PublisherId;
+                return ServiceCall.Instance.UserService.GetUserRealName(this.Archive.PublisherId) ?? "未知";
             }
         }
 

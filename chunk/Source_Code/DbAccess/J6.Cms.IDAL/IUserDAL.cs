@@ -159,5 +159,6 @@ namespace J6.Cms.IDAL
         void ReadUserRoles(int userId, DataReaderFunc func);
         void SaveUserRole(int userId, int appId, int flag);
         void CleanUserRoleFlag(int userId, int appId);
+        string GetUserRealName(int userId);
     }
 }

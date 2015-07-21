@@ -301,7 +301,8 @@ div.hrline{border-bottom:solid 2px #d8d8d8;margin:10px 0;}
 
 .mapbar{clear:both;text-align:center;margin-top:50px;}
 .mapbar div.line{border-bottom:dashed 2px #d8d8d8;margin:10px 0 40px 0;}
-.mapbar div.item{float:left;width:206px;border:solid 1px #bebebe;padding:30px 10px 15px 10px;margin-right:15px;}
+.mapbar div.item{float:left;width:206px;border:solid 1px #bebebe;padding:30px 10px 15px 10px;margin-right:15px;
+border-radius: 5px;box-shadow: 0 0 10px #ddd;behavior: url(/framework/assets/PIE.htc);}
 .mapbar div.item-last{margin:0;}
 .mapbar p{margin:0;line-height:20px;color:#666;}
 

@@ -25,7 +25,7 @@ namespace J6.Cms.Conf
 		/// <summary>
 		/// 配置文件路径
 		/// </summary>
-		public static string cmsConfigFile;
+		public static string CmsConfigFile;
 
 
 		public static event CmsConfigureHandler OnCmsConfigure;
@@ -61,10 +61,10 @@ namespace J6.Cms.Conf
 		/// <returns>返回加载消息，如成功返回空</returns>
 		internal static string Load(string filePath)
 		{
-			cmsConfigFile = filePath;
+			CmsConfigFile = filePath;
 
 			//从配置文件中加载
-			SettingFile sf = new SettingFile(cmsConfigFile);
+			SettingFile sf = new SettingFile(CmsConfigFile);
 			Settings.loaded = true;
 			bool settingChanged=false;
 
@@ -72,7 +72,7 @@ namespace J6.Cms.Conf
 			// {
 			Settings.License_NAME = sf.Contains("license_name") ? sf["license_name"] : "评估用户";
 			Settings.License_KEY = sf.Contains("license_key") ? sf["license_key"] : String.Empty;
-			Settings.SYS_AUTOWWW = sf.Contains("sys_autowww") ? sf["sys_autowww"] == "true" : false;         //自动WWW
+			Settings.SYS_AUTOWWW = sf.Contains("sys_autowww") && sf["sys_autowww"] == "true";         //自动WWW
 
 			#region 读取模板选项
 
@@ -188,7 +188,7 @@ namespace J6.Cms.Conf
 		/// <param name="prefix"></param>
 		public static void Update(string prefix)
 		{
-			SettingFile sf = new SettingFile(cmsConfigFile);
+			SettingFile sf = new SettingFile(CmsConfigFile);
 
 			switch (prefix)
 			{
