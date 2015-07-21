@@ -10,7 +10,6 @@
  */
 
 using System;
-using System.ComponentModel.Design;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -187,6 +186,7 @@ namespace J6.Cms.Utility
                                    cookieToken = paramStr[1];
 
                             Credential cre = ServiceCall.Instance.UserService.GetCredentialByUserName(username);
+                            if (cre == null) return null;
                             user =ServiceCall.Instance.UserService.GetUser(cre.UserId);
 
                             //用户不存在则返回false

@@ -427,7 +427,7 @@ namespace J6.Cms.Dal
         public string GetUserRealName(int userId)
         {
             Object obj = this.ExecuteScalar(new SqlQuery(base.OptimizeSql(
-                "SELECT name FROM $PREFIX_user WHERE user_id=@userId"), new object[,]
+                "SELECT name FROM $PREFIX_user WHERE id=@userId"), new object[,]
                 {
                     {"@userId", userId},
                 }));
