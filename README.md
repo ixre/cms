@@ -1,4 +1,4 @@
-# OPS.CMS #
+# AtNet.CMS #
 
 基于asp.net mvc + DDD 构架的开源.net cms系统.
 
@@ -24,8 +24,8 @@
 
 ## 部署 ##
 ### LINUX平台 ###
-        wget -nd http://s.z3q.net/j6cms_bin
-        unzip cms_release_final.zip
+        wget -nd http://s.z3q.net/j6cms_latest
+        unzip cms_release_latest.zip
         fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
 浏览器访问: http://127.0.0.1:8080
 
