@@ -359,7 +359,10 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void GetUpgrade_POST()
         {
-            Updater.StartUpgrade();
+            if (Cms.OfficialEnvironment)
+            {
+                Updater.StartUpgrade();
+            }
         }
 
         /// <summary>

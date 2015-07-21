@@ -25,7 +25,7 @@ span.required{ color: red;}
 
 .p10{padding:10px;}
 
-input.tb_normal{width:200px;}
+input.tb_normal,select.tb_normal,textarea.tb_normal{width:200px;}
 select.tb_normal{width:200px;padding:1px 3px;overflow:hidden;
                  /*border-bottom:solid 1px #e0e0e0;border-right:solid 1px #e0e0e0;*/}
 textarea.code{font-size:14px;line-height:20px;color:black;overflow-y:auto;border:none;}
@@ -42,12 +42,21 @@ input.button {box-shadow: none;border-radius:0;background:#006699;color:#fff;bor
 
 .clear-fix{clear:both;zoom:1;after:"."}
 
-input.box,select.box,textarea.box{border:solid 1px #888;border-radius: 2px;line-height:1.5rem;height:1.5rem;padding:0 10px;margin:1px;
-box-shadow:0px 10px 15px #EEE inset
+input.box,select.box,textarea.box {
+    border:solid 1px #888;border-radius: 2px;line-height:1.5rem;height:1.5rem;padding:0 10px;margin:1px;
+    -webkit-box-shadow: 0px 10px 15px inset;
+    -ms-box-shadow:0px 10px 15px #EEE inset;
+    box-shadow:0px 10px 15px #EEE inset
 }
+textarea.box{ height: auto;}
+
 input.box:focus,select.box:focus,textarea.box:focus{border:solid 2px #0A0;margin:0;box-shadow:0px 10px 15px #FFC inset}
-input.btn,a.btn{padding: 0px 20px;
+input.btn,a.btn {
+    padding: 0px 20px;
+    -ms-border-radius: 5px;
     border-radius: 5px;cursor: pointer;
+    -webkit-box-shadow: 0px 1px 1px #EEE;
+    -ms-box-shadow: 0px 1px 1px #EEE;
     box-shadow: 0px 1px 1px #EEE;
     border: 1px solid #CCC;
     font-size: 12px;color:#333;
@@ -57,6 +66,7 @@ input.btn,a.btn{padding: 0px 20px;
 		background: -moz-linear-gradient(#F5F5F5, #E5E5E5); /* Firefox 3.6 - 15 */
 		background: linear-gradient(#F5F5F5, #E5E5E5); /* 标准的语法 */
 }
+
 input.btn:hover,a.btn:hover{
     background: #FFF none repeat scroll 0% 0%;
     box-shadow: 0px 0px 0px #EEE, 0px 10px 15px #EEE inset;

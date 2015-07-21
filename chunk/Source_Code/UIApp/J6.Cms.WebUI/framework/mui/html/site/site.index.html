@@ -7,11 +7,10 @@
 	    <style type="text/css">
 	        #bind{width:300px;position:absolute;left:550px;top:20px;}
 			.tree dd span.txt{padding-bottom:2px;}
-            textarea.tb_normal{height:50px}
 	    </style>
 	</head>
 	<body>
-        <div class="autoStyle" style="overflow:hidden">
+        <div id="main" class="autoStyle" style="overflow:hidden">
         <table cellpadding="0" cellspacing="0" width="100%" height="100%">
         <tr>
             <td width="200px" valign="top">
@@ -36,34 +35,35 @@
   </div>
 
 		$js()
-        <script type="text/javascript">
-            var nameLinks = document.getElementsByClassName('namelink');
-            for (var i = 0; i < nameLinks.length; i++) {
-                nameLinks[i].onclick = (function (t,ls) {
-                    return function () {
-                        for(var j=0;j<ls.length;j++){
-                            ls[j].style.fontWeight=ls[j]==this?'bold':'';
-                        }
-                        var id = t.parentNode.parentNode.getAttribute('treeid');
-                        j6.load2('pl', 'site','edit','siteid='+id);
-                    };
-                })(nameLinks[i], nameLinks);
-                if (i == 0) {
-                    nameLinks[i].onclick();
-                }
-            }
+	<script type="text/javascript">
+	    j6.dom.fitHeight(j6.$('main'));
+	    var nameLinks = document.getElementsByClassName('namelink');
+	    for (var i = 0; i < nameLinks.length; i++) {
+	        nameLinks[i].onclick = (function (t,ls) {
+	            return function () {
+	                for(var j=0;j<ls.length;j++){
+	                    ls[j].style.fontWeight=ls[j]==this?'bold':'';
+	                }
+	                var id = t.parentNode.parentNode.getAttribute('treeid');
+	                j6.load2('pl', 'site','edit','siteid='+id);
+	            };
+	        })(nameLinks[i], nameLinks);
+	        if (i == 0) {
+	            nameLinks[i].onclick();
+	        }
+	    }
 
-            //创建
-            Fn.create = function () {
-                j6.load2('pl', 'site', 'create', '');
-            };
+	    //创建
+	    Fn.create = function () {
+	        j6.load2('pl', 'site', 'create', '');
+	    };
 
-            //删除站点
-            Fn.del = function () {
-                j6.dialog.alert('站点不允许删除！');
-            };
+	    //删除站点
+	    Fn.del = function () {
+	        j6.dialog.alert('站点不允许删除！');
+	    };
 
-        </script>
+	</script>
         
 	</body>
 </html>

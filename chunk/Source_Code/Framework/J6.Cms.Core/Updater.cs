@@ -85,14 +85,13 @@ namespace J6.Cms
         /// <returns></returns>
         public static int CheckUpgrade(out string[] data)
         {
+            data = new string[3];
             if (!Cms.OfficialEnvironment)
             {
-                data = null;
                 return -5;
             }
             string remoteVersionDescript = Settings.SERVER_UPGRADE + "upgrade.xml";
             WebRequest   wr = WebRequest.Create(remoteVersionDescript);
-            data = new string[3];
             
             HttpWebResponse rsp;
             try

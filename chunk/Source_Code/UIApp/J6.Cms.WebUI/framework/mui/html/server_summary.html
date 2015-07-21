@@ -21,6 +21,8 @@
     
     #dialog_server{/*width:auto;margin-right:410px;float:left;*/}
     #dialog_rss{width:400px;float:right;margin-left:-410px;}
+    .new-version,.curr-version{ color: #0a0;}
+    .no-version{color:#F00;}
   </style>
 </head>
 <body>
@@ -33,7 +35,7 @@
         <!--
         <a href="javascript:;" onclick="window.autoCheck=false;checkUpgrade(true)">检查更新</a>
         &nbsp;&nbsp;-->&nbsp;&nbsp;&nbsp;&nbsp;
-        <span id="version">版本信息获取中...</span>
+        <span id="version">正在从服务器获取版本...</span>
         
         <!-- | <a href="javascript:;" id="btn_async">同步</a>--></dd></dl>
         <dl style="border:none"><dt>授权用户:</dt><dd>${sys_alias}</dd></dl>
@@ -76,10 +78,16 @@
 			j6.xhr.post('?', 'module=ajax&action=checkupgrade', function (x) {
                 var ver = j6.toJson(x);
                 if (ver.result == 1) {
+                    e.className = 'new-version';
                 	e.innerHTML='发现新版本：v'+ver.version+'&nbsp;<a href="javascript:;" onclick="checkUpgrade(false)">点击升级</a>';
                 	versionInfo=ver.log;
-                }else{
-                	e.innerHTML=ver.message;
+                } else {
+                    if (ver.result == -1) {
+                        e.className = 'curr-version';
+                    } else {
+                        e.className = 'no-version';
+                    }
+                    e.innerHTML=ver.message;
                 }
                });
 		}
