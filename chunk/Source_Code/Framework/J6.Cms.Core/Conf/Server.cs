@@ -27,6 +27,6 @@ namespace J6.Cms.Conf
         /// <summary>
         /// 更新服务器
         /// </summary>
-        public static string DefaultUpgradeServer = "http://cms-cdn.s1n1.com/cms/release/last_patch/";
+        public static string DefaultUpgradeServer = "http://cms-cdn.s1n1.com/cms/patch/latest/";
     }
 }
