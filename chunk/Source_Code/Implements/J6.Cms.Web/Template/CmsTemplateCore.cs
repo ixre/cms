@@ -1594,7 +1594,7 @@ namespace J6.Cms.Template
                             case "alias": return dr["alias"].ToString();
                             case "tags": return dr["tags"].ToString();
                             case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(dr["id"].ToString()).ToString();
-                            case "count": return dr["viewcount"].ToString();
+                            case "count": return dr["view_count"].ToString();
 
                             //时间
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["lastmodifydate"]);

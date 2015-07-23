@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `cms_archive`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_archive` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `strid` varchar(16) NOT NULL,
+  `str_id` varchar(16) NOT NULL,
   `alias` varchar(50) DEFAULT NULL,
   `cid` int(11) NOT NULL,
   `publisher_id` varchar(50) DEFAULT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `cms_archive` (
   `tags` varchar(100) DEFAULT NULL,
   `outline` varchar(255) DEFAULT NULL,
   `content` text,
-  view_count int(50) DEFAULT '0',
+  `view_count` int(11) DEFAULT '0',
   `agree` int(11) DEFAULT NULL,
   `disagree` int(11) DEFAULT NULL,
   `createdate` datetime DEFAULT NULL,
@@ -69,18 +69,18 @@ DROP TABLE IF EXISTS `cms_category`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `siteid` int(10) DEFAULT '1',
+  `site_id` int(11) DEFAULT '1',
   `moduleid` int(11) NOT NULL,
   `tag` varchar(100) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `icon` varchar(150) DEFAULT NULL,
   `lft` int(11) DEFAULT NULL,
   `rgt` int(11) DEFAULT NULL,
-  `pagetitle` varchar(200) DEFAULT NULL,
-  `keywords` varchar(200) DEFAULT NULL,
-  `description` varchar(250) DEFAULT NULL,
+  `page_title` varchar(200) DEFAULT NULL,
+  `page_keywords` varchar(200) DEFAULT NULL,
+  `page_description` varchar(250) DEFAULT NULL,
   `location` varchar(150) DEFAULT NULL COMMENT '跳转到的地址',
-  `orderindex` int(11) NOT NULL DEFAULT '0',
+  `sort_number` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -183,10 +183,10 @@ DROP TABLE IF EXISTS `cms_extendField`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_extendField` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `siteId` int(11) DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
   `name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `type` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `defaultValue` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `default_value` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `regex` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `message` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -238,14 +238,14 @@ DROP TABLE IF EXISTS `cms_link`;
 CREATE TABLE `cms_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pid` int(11) DEFAULT NULL,
-  `siteid` int(10) DEFAULT '1',
+  `site_id` int(11) DEFAULT '1',
   `type` int(11) NOT NULL,
   `text` varchar(100) NOT NULL,
   `uri` varchar(255) NOT NULL,
   `target` varchar(50) DEFAULT NULL,
-  `imgurl` varchar(100) DEFAULT NULL,
+  `img_url` varchar(100) DEFAULT NULL,
   `bind` varchar(20) DEFAULT NULL,
-  `orderIndex` int(11) DEFAULT NULL,
+  `sort_number` int(11) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -491,28 +491,28 @@ DROP TABLE IF EXISTS `cms_site`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_site` (
-  `siteid` int(1) NOT NULL AUTO_INCREMENT,
+  `site_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `dirname` varchar(50) DEFAULT NULL,
+  `dir_name` varchar(50) DEFAULT NULL,
   `domain` varchar(50) DEFAULT NULL,
   `location` varchar(100) DEFAULT NULL,
   `language` int(1) NOT NULL,
   `tpl` varchar(100) DEFAULT NULL,
   `note` varchar(200) DEFAULT NULL,
-  `seotitle` varchar(200) DEFAULT NULL,
-  `seokeywords` varchar(250) DEFAULT NULL,
-  `seodescription` varchar(250) DEFAULT NULL,
+  `seo_title` varchar(200) DEFAULT NULL,
+  `seo_keywords` varchar(250) DEFAULT NULL,
+  `seo_description` varchar(250) DEFAULT NULL,
   `state` int(1) NOT NULL,
-  `protel` varchar(50) DEFAULT NULL,
-  `prophone` varchar(11) DEFAULT NULL,
-  `profax` varchar(50) DEFAULT NULL,
-  `proaddress` varchar(100) DEFAULT NULL,
-  `proemail` varchar(100) DEFAULT NULL,
-  `im` varchar(100) DEFAULT NULL,
-  `postcode` varchar(100) DEFAULT NULL,
-  `pronotice` varchar(250) DEFAULT NULL,
-  `proslogan` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`siteid`)
+  `pro_tel` varchar(50) DEFAULT NULL,
+  `pro_phone` varchar(11) DEFAULT NULL,
+  `pro_fax` varchar(50) DEFAULT NULL,
+  `pro_address` varchar(100) DEFAULT NULL,
+  `pro_email` varchar(100) DEFAULT NULL,
+  `pro_im` varchar(100) DEFAULT NULL,
+  `pro_post` varchar(100) DEFAULT NULL,
+  `pro_notice` varchar(250) DEFAULT NULL,
+  `pro_slogan` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`site_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -537,9 +537,9 @@ CREATE TABLE `cms_table` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `note` varchar(500) DEFAULT NULL,
-  `apiserver` varchar(200) DEFAULT NULL,
-  `issystem` bit(1) NOT NULL,
-  `available` bit(1) NOT NULL,
+  `api_server` varchar(200) DEFAULT NULL,
+  `is_system` bit(1) NOT NULL,
+  `enabled` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -562,11 +562,11 @@ DROP TABLE IF EXISTS `cms_table_column`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_table_column` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tableid` int(11) NOT NULL,
+  `table_id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `note` varchar(50) DEFAULT NULL,
-  `validformat` varchar(200) DEFAULT NULL,
-  `orderindex` int(11) NOT NULL,
+  `valid_format` varchar(200) DEFAULT NULL,
+  `sort_number` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -581,6 +581,31 @@ LOCK TABLES `cms_table_column` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cms_table_record`
+--
+
+DROP TABLE IF EXISTS `cms_table_record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cms_table_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `row_id` int(11) NOT NULL,
+  `col_id` int(11) NOT NULL,
+  `value` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cms_table_record`
+--
+
+LOCK TABLES `cms_table_record` WRITE;
+/*!40000 ALTER TABLE `cms_table_record` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cms_table_record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cms_table_row`
 --
 
@@ -589,8 +614,8 @@ DROP TABLE IF EXISTS `cms_table_row`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_table_row` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tableid` int(11) NOT NULL,
-  `submittime` datetime NOT NULL,
+  `table_id` int(11) NOT NULL,
+  `submit_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -602,31 +627,6 @@ CREATE TABLE `cms_table_row` (
 LOCK TABLES `cms_table_row` WRITE;
 /*!40000 ALTER TABLE `cms_table_row` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cms_table_row` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cms_table_rowdata`
---
-
-DROP TABLE IF EXISTS `cms_table_rowdata`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cms_table_rowdata` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rid` int(11) NOT NULL,
-  `cid` int(11) NOT NULL,
-  `value` varchar(1000) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cms_table_rowdata`
---
-
-LOCK TABLES `cms_table_rowdata` WRITE;
-/*!40000 ALTER TABLE `cms_table_rowdata` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cms_table_rowdata` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -743,4 +743,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-18 12:07:12
+-- Dump completed on 2015-07-23 15:45:16

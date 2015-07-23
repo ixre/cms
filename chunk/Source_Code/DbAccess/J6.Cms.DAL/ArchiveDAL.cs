@@ -532,7 +532,7 @@ namespace J6.Cms.Dal
 
             const string sql1 = @"SELECT TOP $[pagesize] a.id AS id,alias,title,
                                     c.name as CategoryName,cid,flags,publisher_id,content,source,
-                                    createdate,viewcount,location,sort_number as sortNumber FROM $PREFIX_archive a
+                                    createdate,view_count,location,sort_number as sortNumber FROM $PREFIX_archive a
                                     INNER JOIN $PREFIX_category c ON a.cid=c.id
                                     WHERE $[condition] ORDER BY $[orderByField] $[orderASC],a.id";
 
