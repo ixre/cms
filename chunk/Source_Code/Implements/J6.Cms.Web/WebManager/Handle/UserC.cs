@@ -313,7 +313,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 删除用户
         /// </summary>
-        public void DeleteUser_POST()
+        public string DeleteUser_POST()
         {
             int userId = int.Parse(Request["id"]);
             try
@@ -325,17 +325,15 @@ namespace J6.Cms.Web.WebManager.Handle
                 int result = ServiceCall.Instance.UserService.DeleteUser(userId);
                 if (result < 1)
                 {
-                    base.ReturnError("删除失败");
-                    return;
+                    return base.ReturnError("删除失败");
                 }
             }
             catch(Exception exc)
             {
-                base.ReturnError(exc.Message);
-                return;
+               return base.ReturnError(exc.Message);
             }
 
-             base.ReturnSuccess("操作成功");
+            return base.ReturnSuccess("操作成功");
         }
 
         /// <summary>

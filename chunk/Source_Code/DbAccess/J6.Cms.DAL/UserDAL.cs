@@ -143,7 +143,7 @@ namespace J6.Cms.Dal
         public int DeleteUser(int userId)
         {
             return base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.UserDeleteUser),
+                new SqlQuery(base.OptimizeSql("DELETE FROM $PREFIX_user WHERE  id=@userId"),
                     new object[,]
                     {
                         {"@userId", userId}
@@ -443,13 +443,13 @@ namespace J6.Cms.Dal
         public int DeleteRoleBind(int userId)
         {
             return  base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSql("DELETE FROＭ $PREFIX_user_role WHERE user_id=" + userId.ToString())));
+                    new SqlQuery(base.OptimizeSql("DELETE FROM $PREFIX_user_role WHERE user_id=" + userId.ToString())));
         }
 
         public int DeleteCredential(int userId)
         {
             return base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSql("DELETE FROＭ $PREFIX_credential WHERE user_id=" + userId.ToString())));
+                    new SqlQuery(base.OptimizeSql("DELETE FROM $PREFIX_credential WHERE user_id=" + userId.ToString())));
         }
     }
 }

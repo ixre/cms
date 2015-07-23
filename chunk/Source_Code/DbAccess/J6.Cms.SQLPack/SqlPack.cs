@@ -387,11 +387,6 @@ namespace J6.Cms.Sql
         public readonly string UserUpdateUser = @"UPDATE $PREFIX_user SET name=@name,avatar=@avatar,phone=@phone,email=@email,
                 check_code=@checkCode,flag=@roleFlag,create_time=@createTime,last_login_time=@loginTime WHERE id=@id";
 
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        public readonly string UserDeleteUser = "DELETE FROM $PREFIX_user WHERE  username=@username";
-
 
         /****************** 操作相关 ******************/
         /// <summary>
