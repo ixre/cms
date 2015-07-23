@@ -36,7 +36,7 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             base.RenderTemplate(ResourceMap.Edittable, new
             {
-                tableid="",
+                table_id=0,
                 name = String.Empty,
                 note = String.Empty,
                 apiserver = String.Empty,
@@ -50,7 +50,7 @@ namespace J6.Cms.Web.WebManager.Handle
             int result=(int)CmsLogic.Table.AddTable(new Table
             {
                 IsSystem = form["issystem"] == "on",
-                Available = form["isavailable"] == "on",
+                Enabled = form["isavailable"] == "on",
                 Name = form["name"],
                 Note = form["note"],
                 ApiServer = form["apiserver"]
@@ -65,12 +65,12 @@ namespace J6.Cms.Web.WebManager.Handle
 
             base.RenderTemplate(ResourceMap.Edittable, new
             {
-                tableid=tableId,
+                table_id=tableId,
                 name = table.Name,
                 note = table.Note,
-                apiserver = table.ApiServer,
+                apiserver = table.ApiServer??"",
                 issystem = table.IsSystem ? " checked=\"checked\"" : String.Empty,
-                isavailable = table.Available ? " checked=\"checked\"" : String.Empty
+                isavailable = table.Enabled? " checked=\"checked\"" : String.Empty
             });
         }
         public void EditTable_POST()
@@ -78,9 +78,9 @@ namespace J6.Cms.Web.WebManager.Handle
             var form = base.Request.Form;
             int result = (int)CmsLogic.Table.UpdateTable(new Table
             {
-                 Id=int.Parse(form["tableid"]),
+                 Id=int.Parse(form["TableId"]),
                 IsSystem = form["issystem"] == "on",
-                Available = form["isavailable"] == "on",
+                Enabled = form["isavailable"] == "on",
                 Name = form["name"],
                 Note = form["note"],
                 ApiServer = form["apiserver"]
@@ -110,7 +110,7 @@ namespace J6.Cms.Web.WebManager.Handle
                         .Append(t.Id.ToString()).Append("\">").Append(clist == null ? "0" : clist.Count.ToString())
                         .Append("</a></td><td class=\"center\"><a href=\"?module=table&action=rows&control=true&tableid=")
                         .Append(t.Id.ToString()).Append("\">").Append(tbll.GetRowsCount(t.Id).ToString()).Append("</a></td><td class=\"center\">")
-                        .Append(t.Available ? ResourceMap.RightText : ResourceMap.ErrorText)
+                        .Append(t.Enabled ?ResourceMap.RightText : ResourceMap.ErrorText)
                         .Append("</td><td class=\"center\">").Append(t.IsSystem ? ResourceMap.RightText : ResourceMap.ErrorText)
                         .Append("</td><td>").Append(String.IsNullOrEmpty(t.ApiServer) ? "<span class=\"center\">-</span>" : t.ApiServer).Append("</td>")
                         .Append("<td class=\"center\"><a style=\"margin:0;\" href=\"?module=table&action=columns&control=true&tableid=").Append(t.Id.ToString()).Append("\">列</a> / ")

@@ -6,7 +6,7 @@
     $iconcss()
 </head>
 <body>
-    <div>
+    <div id="main" class="autoStyle" style="overflow: hidden;">
         <table cellpadding="0" cellspacing="0" width="100%" height="100%">
             <tr>
                 <td width="250" valign="top">
@@ -14,11 +14,10 @@
                         <input type="button" class="btn" value="新建栏目" id="btn_create" />
                         <input type="button" class="btn" value="收起栏目" id="btn_collage" />
                     </div>
-                        <div id="dg" style="padding:20px"></div>
+                    <div id="dg" style="padding:20px"></div>
                 </td>
                 <td valign="top">
-                    <div class="formPanel">
-                        <div id="pl" class="panel helpPanel relative autoHeight autoScroll">
+                        <div id="pl" class="panel formPanel helpPanel relative" style="overflow:auto">
                             <h2>操作帮助</h2>
                             <div class="line"></div>
                             <ol>
@@ -28,7 +27,6 @@
                                 <li>点击展开栏目，可以展开所有栏目，点击收起栏目，可以折叠所有栏目。</li>
                             </ol>
                         </div>
-                    </div>
                 </td>
             </tr>
         </table>
@@ -58,91 +56,93 @@
             <a href="javascript:;">$icon(refresh)刷新</a>
         </div>
     </script>$js()
-    <script type="text/javascript">
-        var treePanel = j6.$('dg');
-        var treeObj = null;
-        var tmpTpl = j6.$('tpl').innerHTML;
-        function _showCategory(e, d, t) {
-            var id = j6.toJson(d).lft;
-            j6.load2('pl', 'category', 'update', 'lft=' + id);
-        }
+<script type="text/javascript">
+    j6.dom.fitHeight(j6.$('main'));
+    j6.dom.fitHeight(j6.$('pl'));
+    var treePanel = j6.$('dg');
+    var treeObj = null;
+    var tmpTpl = j6.$('tpl').innerHTML;
+    function _showCategory(e, d, t) {
+        var id = j6.toJson(d).lft;
+        j6.load2('pl', 'category', 'update', 'lft=' + id);
+    }
 
-        //加载栏目树
-        function _thisLoadCategoryTree() {
-            j6.xhr.request({
-                uri: '?module=ajax&action=CategoryNodes',
-                method: 'GET',
-                data: 'json'
-            }, {
-                success: function (json) {
-                    treeObj = j6.tree.load(treePanel, json, '/framework/assets/tree/', _showCategory);
-                    var nodeLinks;
-                    j6.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
-                        if (e.className == 'node') {
-                            nodeLinks = e.getElementsByClassName
-                                ? e.getElementsByClassName('node')
-                                : document.getElementsByClassName('node', e);
+    //加载栏目树
+    function _thisLoadCategoryTree() {
+        j6.xhr.request({
+            uri: '?module=ajax&action=CategoryNodes',
+            method: 'GET',
+            data: 'json'
+        }, {
+            success: function (json) {
+                treeObj = j6.tree.load(treePanel, json, '/framework/assets/tree/', _showCategory);
+                var nodeLinks;
+                j6.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
+                    if (e.className == 'node') {
+                        nodeLinks = e.getElementsByClassName
+                            ? e.getElementsByClassName('node')
+                            : document.getElementsByClassName('node', e);
 
-                            if (nodeLinks.length != 0) {
-                                var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).lft;
-                                j6.contextmenu.bind(e, null, function (menu) {
-                                    menu.innerHTML = j6.template(tmpTpl, { id: id });
-                                });
-                            }
+                        if (nodeLinks.length != 0) {
+                            var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).lft;
+                            j6.contextmenu.bind(e, null, function (menu) {
+                                menu.innerHTML = j6.template(tmpTpl, { id: id });
+                            });
                         }
+                    }
+                });
+            }, error: function () {
+                treePanel.innerHTML = '<span class="error">栏目加载失败! </span>';
+            }
+        });
+    }
+    _thisLoadCategoryTree();
+
+    //重新加载栏目树
+    function _reloadTree() {
+        if (parent._loadCategoryTree) parent._loadCategoryTree();
+        if (window._thisLoadCategoryTree) window._thisLoadCategoryTree();
+    }
+
+    //创建
+    Fn.create = function (id) {
+        j6.load2('pl', 'category', 'create', id?'lft='+id:'');
+    };
+
+
+    j6.$('btn_create').onclick = function () {
+        Fn.create();
+    };
+
+    j6.$('btn_collage').onclick = function () {
+        if (this.value.indexOf('收起') != -1) {
+            treeObj.closeAll();
+            this.value = '展开栏目';
+        } else {
+            treeObj.openAll();
+            this.value = '收起栏目';
+        }
+    };
+
+    var menu = {
+        add: Fn.create,
+        extend: function (id) {
+            var d = j6.dialog.create2('扩展属性',true,true);
+            d.open('?module=extend&action=category_check&lft=' + id,500,400);
+
+        },
+        del: function (id) {
+            if (confirm('确定删除吗?删除后将不可恢复!')) {
+                j6.xhr.jsonPost('?', 'module=category&action=delete&lft=' + id,
+                    function (json) {
+                        if (json.result) {
+                            _reloadTree();
+                        } else {showErr(json.message); }
                     });
-                }, error: function () {
-                    treePanel.innerHTML = '<span class="error">栏目加载失败! </span>';
-                }
-            });
-        }
-        _thisLoadCategoryTree();
-
-        //重新加载栏目树
-        function _reloadTree() {
-            if (parent._loadCategoryTree) parent._loadCategoryTree();
-            if (window._thisLoadCategoryTree) window._thisLoadCategoryTree();
-        }
-
-        //创建
-        Fn.create = function (id) {
-            j6.load2('pl', 'category', 'create', id?'lft='+id:'');
-        };
-
-
-        j6.$('btn_create').onclick = function () {
-            Fn.create();
-        };
-
-        j6.$('btn_collage').onclick = function () {
-            if (this.value.indexOf('收起') != -1) {
-                treeObj.closeAll();
-                this.value = '展开栏目';
-            } else {
-                treeObj.openAll();
-                this.value = '收起栏目';
             }
-        };
-
-        var menu = {
-            add: Fn.create,
-            extend: function (id) {
-                var d = j6.dialog.create2('扩展属性',true,true);
-                d.open('?module=extend&action=category_check&lft=' + id,500,400);
-
-            },
-            del: function (id) {
-                if (confirm('确定删除吗?删除后将不可恢复!')) {
-                    j6.xhr.jsonPost('?', 'module=category&action=delete&lft=' + id,
-                        function (json) {
-                            if (json.result) {
-                                _reloadTree();
-                            } else {showErr(json.message); }
-                        });
-                }
-            }
-        };
-    </script>
+        }
+    };
+</script>
 
 </body>
 </html>

@@ -18,7 +18,7 @@ using J6.DevFw.Data;
 
 namespace J6.Cms.Dal
 {
-    public class TableDAL : DalBase, ITableDAL
+    public class TableDal : DalBase, ITableDAL
     {
 
         public OperateResult AddTable(Table table, TableColumn[] columns)
@@ -26,7 +26,7 @@ namespace J6.Cms.Dal
             // try
             // {
 
-            int tableID = 0;
+            int tableId = 0;
 
             base.ExecuteReader(
                  new SqlQuery(base.OptimizeSql(DbSql.Table_GetTableIDByName),
@@ -37,12 +37,12 @@ namespace J6.Cms.Dal
                  {
                      if (rd.Read())
                      {
-                         tableID = rd.GetInt32(0);
+                         tableId = rd.GetInt32(0);
                      }
                  }
                );
 
-            if (tableID != 0)
+            if (tableId != 0)
             {
                 return OperateResult.Exists;
             }
@@ -52,9 +52,9 @@ namespace J6.Cms.Dal
                      new object[,]{
                 {"@name",table.Name},
                {"@note", table.Note},
-               {"@apiserver", table.ApiServer},
-               {"@issystem", table.IsSystem},
-                 {"@available", table.Available}
+               {"@apiServer", table.ApiServer},
+               {"@isSystem", table.IsSystem},
+                 {"@enabled", table.Enabled}
                      })
                );
 
@@ -73,7 +73,7 @@ namespace J6.Cms.Dal
                  {
                      if (rd.Read())
                      {
-                         tableID = rd.GetInt32(0);
+                         tableId = rd.GetInt32(0);
                      }
                  }
                );
@@ -86,7 +86,7 @@ namespace J6.Cms.Dal
                         base.ExecuteNonQuery(
                                new SqlQuery(base.OptimizeSql(DbSql.Table_CreateColumn),
                                    new object[,]{
-                              {"@tableid", tableID},
+                              {"@tableId", tableId},
                               {"@name", col.Name},
                               {"@note", col.Note},
                               {"@validformat", col.ValidFormat},
@@ -115,15 +115,15 @@ namespace J6.Cms.Dal
         {
 
             DataBaseAccess db = base.Db;
-            if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_HasExistsSystemTale),new object[,]{ {"@tableid", tableId}})).ToString()) != 0)
+            if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_HasExistsSystemTale),new object[,]{ {"@tableId", tableId}})).ToString()) != 0)
             {
                 return OperateResult.IsSystem;
             }
-            else if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_GetMinTableID))).ToString()) == tableId)
+            else if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_GetMinTableId))).ToString()) == tableId)
             {
                 return OperateResult.Disallow;
             }
-            else if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_GetRowsCount), new object[,]{{"@tableid", tableId}})).ToString()) != 0)
+            else if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_GetRowsCount), new object[,]{{"@tableId", tableId}})).ToString()) != 0)
             {
                 return OperateResult.Related;   //存在表单记录无法删除
             }
@@ -132,14 +132,14 @@ namespace J6.Cms.Dal
                 //删除列
                 base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Table_DeleteColumns),
                     new object[,]{
-                 {"@tableid", tableId}
+                 {"@tableId", tableId}
                     }));
 
                 //删除表单
                 return base.ExecuteNonQuery(
                         new SqlQuery(base.OptimizeSql(DbSql.Table_DeleteTable),
                             new object[,]{
-                        {"@tableid", tableId}
+                        {"@tableId", tableId}
                             })) == 1
                         ? OperateResult.Success
                         : OperateResult.Fail;
@@ -148,7 +148,7 @@ namespace J6.Cms.Dal
 
         public OperateResult UpdateTable(Table table, TableColumn[] columns)
         {
-            int tableID = 0;
+            int tableId = 0;
             base.ExecuteReader(
                      new SqlQuery(base.OptimizeSql(DbSql.Table_GetTableIDByName),
                          new object[,]{
@@ -158,12 +158,12 @@ namespace J6.Cms.Dal
                      {
                          if (rd.Read())
                          {
-                             tableID = rd.GetInt32(0);
+                             tableId = rd.GetInt32(0);
                          }
                      }
                    );
 
-            if (tableID != 0 && tableID != table.Id)
+            if (tableId != 0 && tableId != table.Id)
             {
                 return OperateResult.Exists;
             }
@@ -174,10 +174,10 @@ namespace J6.Cms.Dal
                           new object[,]{
                      {"@name", table.Name},
                      {"@note", table.Note},
-                     {"@apiserver", table.ApiServer},
-                     {"@issystem", table.IsSystem},
-                     {"@available", table.Available},
-                     {"@tableid", table.Id}
+                     {"@apiServer", table.ApiServer},
+                     {"@isSystem", table.IsSystem},
+                     {"@enabled", table.Enabled},
+                     {"@tableId", table.Id}
                           })
                      );
 
@@ -187,9 +187,9 @@ namespace J6.Cms.Dal
         public void GetTable(int tableId, DataReaderFunc func)
         {
             base.ExecuteReader(
-                    new SqlQuery(base.OptimizeSql(DbSql.Table_GetTableByID),
+                    new SqlQuery(base.OptimizeSql(DbSql.Table_GetTableById),
                         new object[,]{
-                        {"@tableid", tableId}
+                        {"@tableId", tableId}
                         }),
                     func
                      
@@ -207,8 +207,8 @@ namespace J6.Cms.Dal
         public void GetColumns(int tableId, DataReaderFunc func)
         {
             base.ExecuteReader(
-                     new SqlQuery(base.OptimizeSql(DbSql.Table_GetColumnsByTableID),
-                         new object[,]{{"@tableid", tableId}
+                     new SqlQuery(base.OptimizeSql(DbSql.TableGetColumnsByTableId),
+                         new object[,]{{"@tableId", tableId}
                          }),
                      func
 
@@ -224,7 +224,7 @@ namespace J6.Cms.Dal
                       {"@note", column.Note},
                       {"@validformat", column.ValidFormat},
                       {"@sortNumber", column.SortNumber},
-                      {"@tableid", column.TableId}
+                      {"@tableId", column.TableId}
                           })
                     );
             return rowCount == 1 ? OperateResult.Success : OperateResult.Fail;
@@ -235,7 +235,7 @@ namespace J6.Cms.Dal
             base.ExecuteReader(
                     new SqlQuery(base.OptimizeSql(DbSql.Table_GetColumn),
                         new object[,]{
-                        {"@columnid", columnId}
+                        {"@columnId", columnId}
                         }),
                     func
                      
@@ -251,7 +251,7 @@ namespace J6.Cms.Dal
                       {"@note", column.Note},
                       {"@validformat", column.ValidFormat},
                       {"@sortNumber", column.SortNumber},
-                      {"@columnid", column.Id}
+                      {"@columnId", column.Id}
                           })
                     );
             return rowCount == 1 ? OperateResult.Success : OperateResult.Fail;
@@ -263,8 +263,8 @@ namespace J6.Cms.Dal
             OperateResult result = base.ExecuteNonQuery(
                         new SqlQuery(base.OptimizeSql(DbSql.Table_DeleteColumn),
                             new object[,]{
-                        {"@tableid", tableId},
-                        {"@columnid", columnId}
+                        {"@tableId", tableId},
+                        {"@columnId", columnId}
                             })
                         ) == 1
                         ? OperateResult.Success
@@ -275,8 +275,8 @@ namespace J6.Cms.Dal
                 base.ExecuteNonQuery(
                         new SqlQuery(base.OptimizeSql(DbSql.Table_ClearDeletedColumnData),
                             new object[,]{
-                        {"@tableid", tableId},
-                        {"@columnid", columnId}
+                        {"@tableId", tableId},
+                        {"@columnId", columnId}
                             })
                         );
             }
@@ -290,7 +290,7 @@ namespace J6.Cms.Dal
         {
            return int.Parse(base.ExecuteScalar(
                 new SqlQuery(base.OptimizeSql(DbSql.Table_GetRowsCount)
-                ,new object[,]{{"@tableid",tableId}})
+                ,new object[,]{{"@tableId",tableId}})
                 ).ToString());
         }
 
@@ -304,21 +304,21 @@ namespace J6.Cms.Dal
             base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.Table_CreateRow),
                     new object[,]{
-                {"@tableid", tableId},
+                {"@tableId", tableId},
                 {"@submittime",date}
                     }));
 
             //获取生成的行编号
-            rowID = int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_GetLastedRowID))).ToString());
+            rowID = int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.TableGetLastedRowId))).ToString());
 
             foreach (TableRowData row in rows)
             {
                 var i = rowID;
                 base.ExecuteNonQuery(
-                     new SqlQuery(base.OptimizeSql(DbSql.Table_InsertRowData),
+                     new SqlQuery(base.OptimizeSql(DbSql.TableInsertRowData),
                          new object[,]{
-                     {"@rowid", rowID},
-                     {"@columnid", row.Cid},
+                     {"@rowId", rowID},
+                     {"@columnId", row.Cid},
                      {"@value", row.Value}
                          })
                      );
@@ -351,7 +351,7 @@ namespace J6.Cms.Dal
             recordCount = int.Parse(base.ExecuteScalar(
                 new SqlQuery(base.OptimizeSql(DbSql.Table_GetRowsCount),
                     new object[,]{
-                {"@tableid",tableID}
+                {"@tableId",tableID}
                     })
                 ).ToString());
 
@@ -369,7 +369,7 @@ namespace J6.Cms.Dal
             //如果调过记录为0条，且为OLEDB时候，则用sql1
             string sql = skipCount == 0 && base.DbType== DataBaseType.OLEDB ?
                       base.OptimizeSql(sql1) :
-                        base.OptimizeSql(DbSql.Table_GetPagedRows);
+                        base.OptimizeSql(DbSql.TableGetPagedRows);
 
 
             sql = SQLRegex.Replace(sql, (match) =>
@@ -393,8 +393,8 @@ namespace J6.Cms.Dal
             base.ExecuteNonQuery(
                     new SqlQuery(base.OptimizeSql(DbSql.Table_ClearDeletedRowData),
                         new object[,]{
-                    {"@tableid", tableId},
-                    {"@rowid", rowId}
+                    {"@tableId", tableId},
+                    {"@rowId", rowId}
                         })
                     );
 
@@ -402,8 +402,8 @@ namespace J6.Cms.Dal
             return base.ExecuteNonQuery(
                       new SqlQuery(base.OptimizeSql(DbSql.Table_DeleteRow),
                           new object[,]{
-                      {"@tableid", tableId},
-                      {"@rowid", rowId}
+                      {"@tableId", tableId},
+                      {"@rowId", rowId}
                           })
                     ) == 1 ? OperateResult.Success : OperateResult.Fail;
         }
@@ -414,7 +414,7 @@ namespace J6.Cms.Dal
             base.ExecuteReader(
                      new SqlQuery(base.OptimizeSql(DbSql.Table_GetRow),
                          new object[,]{
-                            {"@rowid", rowId}
+                            {"@rowId", rowId}
                          }),
                      func
                        

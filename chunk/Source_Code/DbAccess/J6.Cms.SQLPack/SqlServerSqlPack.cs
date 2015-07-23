@@ -449,23 +449,23 @@ namespace J6.Cms.Sql
             get { return "UPDATE $PREFIX_member SET [Password]=@Password,[Avatar]=@Avatar,[Sex]=@Sex,[Nickname]=@Nickname,[Email]=@Email,[Telephone]=@Telephone,[Note]=@Note WHERE [ID]=@id"; }
         }
 
-        public override string Table_GetLastedRowID
+        public override string TableGetLastedRowId
         {
             get { return "SELECT TOP 1 id FROM $PREFIX_table_row ORDER BY id DESC"; }
         }
-        public override string Table_InsertRowData
+        public override string TableInsertRowData
         {
-            get { return "INSERT INTO $PREFIX_table_rowdata (rid,cid,[value]) VALUES(@rowid,@columnid,@value)"; }
+            get { return "INSERT INTO $PREFIX_table_record (row_id,col_id,[value]) VALUES(@rowId,@columnId,@value)"; }
         }
 
-        public override string Table_GetPagedRows
+        public override string TableGetPagedRows
         {
             get
             {
                 return @"SELECT * FROM (SELECT *,
-                        ROW_NUMBER()OVER(ORDER BY submittime DESC) as rowNum
-						FROM $PREFIX_table_row WHERE tableid=$[tableid]
-                        ORDER BY submittime DESC) _t
+                        ROW_NUMBER()OVER(ORDER BY submit_time DESC) as rowNum
+						FROM $PREFIX_table_row WHERE table_id=$[tableid]
+                        ORDER BY submit_time DESC) _t
 						WHERE rowNum BETWEEN $skipsize+1 AND ($[skipsize]+$[pagesize])";
             }
         }

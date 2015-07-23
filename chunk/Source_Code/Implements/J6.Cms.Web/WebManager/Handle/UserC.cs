@@ -305,7 +305,7 @@ namespace J6.Cms.Web.WebManager.Handle
 //                return;
 //            }
 //
-//            CmsLogic.User.UpdateUser(user.UserName, this.CurrentSite.SiteId, user.Name, (UserGroups)user.GroupId,!user.Available);
+//            CmsLogic.User.UpdateUser(user.UserName, this.CurrentSite.SiteId, user.Name, (UserGroups)user.GroupId,!user.Enabled);
 //            base.RenderSuccess();
 
         }
@@ -350,10 +350,10 @@ namespace J6.Cms.Web.WebManager.Handle
 //            switch (filter)
 //            {
 //                case "disabled":
-//                    users = CmsLogic.User.GetUsers(a => !a.Available);
+//                    users = CmsLogic.User.GetUsers(a => !a.Enabled);
 //                    break;
 //                case "available":
-//                    users = CmsLogic.User.GetUsers(a => a.Available);
+//                    users = CmsLogic.User.GetUsers(a => a.Enabled);
 //                    break;
 //                case "site":
 //                    users = CmsLogic.User.GetUsers(a => a.SiteId == this.CurrentSite.SiteId);

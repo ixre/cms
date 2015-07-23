@@ -87,8 +87,7 @@ input.btn:hover,a.btn:hover{
 .layout .left{float:left;background:#f5f5f5 url(/framework/mui/css/latest/layout_left_bg.gif) right top repeat-y;padding-right:10px;}
 .layout .right{float:left;width:auto;}
 .layout .left,.layout .right{padding-bottom:1500px;margin-bottom:-1500px;}
-.formPanel{padding:0 0 0 0;}
-.formPanel .panel{background:#fff;border:solid 1px #ddd;}
+.formPanel{background:#fff;border:solid 1px #ddd;}
 
 .helpPanel{padding:20px;font-size:12px;}
 .helpPanel h2{margin:5px 0;background:url(/framework/assets/icons/admin/file2.gif) left center no-repeat;

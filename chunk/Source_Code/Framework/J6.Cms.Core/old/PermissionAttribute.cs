@@ -61,7 +61,7 @@ namespace J6.Cms.old
 
             if (op != null)
             {
-                if (!op.Available)
+                if (!op.Enabled)
                 {
                     OutputPermissionTipHtml("该操作不可用!");
                     return false;

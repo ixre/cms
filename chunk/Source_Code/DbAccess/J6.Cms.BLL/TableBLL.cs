@@ -27,7 +27,7 @@ namespace J6.Cms.BLL
 {
     public class TableBLL : ITable
     {
-        private static ITableDAL dal = new TableDAL();
+        private static ITableDAL dal = new TableDal();
 
         public OperateResult AddTable(Table table, TableColumn[] columns)
         {

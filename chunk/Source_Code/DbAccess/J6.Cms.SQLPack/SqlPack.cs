@@ -805,64 +805,64 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 添加表格
         /// </summary>
-        public  readonly string Table_Add = "INSERT INTO $PREFIX_table (name,note,apiserver,issystem,available) VALUES(@name,@note,@apiserver,@issystem,@available)";
+        public  readonly string Table_Add = "INSERT INTO $PREFIX_table (name,note,api_server,is_system,enabled) VALUES(@name,@note,@apiServer,@isSystem,@enabled)";
 
         /// <summary>
         /// 删除表格
         /// </summary>
-        public readonly string Table_DeleteTable = "DELETE FROM $PREFIX_table WHERE id=@tableid";
+        public readonly string Table_DeleteTable = "DELETE FROM $PREFIX_table WHERE id=@tableId";
 
         /// <summary>
         /// 添加表格列
         /// </summary>
-        public readonly string Table_CreateColumn = "INSERT INTO $PREFIX_table_column (tableid,name,note,validformat,sort_number) VALUES(@tableid,@name,@note,@validformat,@sortNumber)";
+        public readonly string Table_CreateColumn = "INSERT INTO $PREFIX_table_column (table_id,name,note,valid_format,sort_number) VALUES(@tableId,@name,@note,@validFormat,@sortNumber)";
 
         /// <summary>
         /// 更新表格列
         /// </summary>
-        public readonly string Table_UpdateColumn = "UPDATE $PREFIX_table_column SET name=@name,note=@note,validformat=@validformat,sort_number=@sortNumber WHERE id=@columnid";
+        public readonly string Table_UpdateColumn = "UPDATE $PREFIX_table_column SET name=@name,note=@note,valid_format=@validFormat,sort_number=@sortNumber WHERE id=@columnId";
 
         /// <summary>
         /// 获取列
         /// </summary>
-        public readonly string Table_GetColumn = "SELECT * FROM $PREFIX_table_column WHERE id=@columnid";
+        public readonly string Table_GetColumn = "SELECT * FROM $PREFIX_table_column WHERE id=@columnId";
 
 
         /// <summary>
         /// 删除列
         /// </summary>
-        public readonly string Table_DeleteColumn = "DELETE FROM $PREFIX_table_column WHERE tableid=@tableid AND id=@columnid";
+        public readonly string Table_DeleteColumn = "DELETE FROM $PREFIX_table_column WHERE table_id=@tableId AND id=@columnId";
 
         /// <summary>
         /// 删除所有列
         /// </summary>
-        public readonly string Table_DeleteColumns = "DELETE FROM $PREFIX_table_column WHERE tableid=@tableid";
+        public readonly string Table_DeleteColumns = "DELETE FROM $PREFIX_table_column WHERE table_id=@tableId";
 
         /// <summary>
         /// 获取表格记录
         /// </summary>
-        public readonly string Table_GetRowsCount = "SELECT count(0) FROM $PREFIX_table_row WHERE tableid=@tableid";
+        public readonly string Table_GetRowsCount = "SELECT count(0) FROM $PREFIX_table_row WHERE table_id=@tableId";
 
 
         /// <summary>
         /// 修改表格
         /// </summary>
-        public readonly string Table_Update = "UPDATE $PREFIX_table set name=@name,note=@note,apiserver=@apiserver,issystem=@issystem,available=@available WHERE id=@tableid";
+        public readonly string Table_Update = "UPDATE $PREFIX_table set name=@name,note=@note,api_server=@apiServer,is_system=@isSystem,enabled=@enabled WHERE id=@tableId";
 
         /// <summary>
         /// 获取表格
         /// </summary>
-        public readonly string Table_GetTableByID = "SELECT * FROM $PREFIX_table WHERE id=@tableid";
+        public readonly string Table_GetTableById = "SELECT * FROM $PREFIX_table WHERE id=@tableId";
 
         /// <summary>
         /// 获取最小的表格编号
         /// </summary>
-        public readonly string Table_GetMinTableID = "SELECT min(id) FROM $PREFIX_table";
+        public readonly string Table_GetMinTableId = "SELECT min(id) FROM $PREFIX_table";
 
         /// <summary>
         /// 是否存在系统表格
         /// </summary>
-        public readonly string Table_HasExistsSystemTale = "SELECT count(0) FROM $PREFIX_table WHERE id=@tableid AND issystem";
+        public readonly string Table_HasExistsSystemTale = "SELECT count(0) FROM $PREFIX_table WHERE id=@tableId AND isSystem";
 
         /// <summary>
         /// 获取所有表格
@@ -872,39 +872,39 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取所有列根据表格编号
         /// </summary>
-        public readonly string Table_GetColumnsByTableID = "SELECT * FROM $PREFIX_table_column WHERE tableid=@tableid ORDER BY sort_number ASC";
+        public readonly string TableGetColumnsByTableId = "SELECT * FROM $PREFIX_table_column WHERE table_id=@tableId ORDER BY sort_number ASC";
 
         /// <summary>
         /// 创建行
         /// </summary>
-        public readonly string Table_CreateRow = "INSERT INTO $PREFIX_table_row (tableid,submittime) VALUES(@tableid,@submittime)";
+        public readonly string Table_CreateRow = "INSERT INTO $PREFIX_table_row (table_id,submit_time) VALUES(@tableId,@submitTime)";
 
         /// <summary>
         /// 删除行
         /// </summary>
-        public readonly string Table_DeleteRow = "DELETE FROM $PREFIX_table_row WHERE id=@rowid AND tableid=@tableid";
+        public readonly string Table_DeleteRow = "DELETE FROM $PREFIX_table_row WHERE id=@rowId AND table_id=@tableId";
 
         /// <summary>
         /// 获取行
         /// </summary>
-        public readonly string Table_GetRow = "SELECT * FROM $PREFIX_table_row WHERE id=@rowid";
+        public readonly string Table_GetRow = "SELECT * FROM $PREFIX_table_row WHERE id=@rowId";
 
         /// <summary>
         /// 获取行数据
         /// </summary>
-        public readonly string table_GetRowData = "SELECT * FROM $PREFIX_table_rowdata WHERE rid IN ($[range])";
+        public readonly string table_GetRowData = "SELECT * FROM $PREFIX_table_record WHERE row_id IN ($[range])";
 
 
         /// <summary>
         /// 清理删除的列在数据行中的数据
         /// </summary>
-        public readonly string Table_ClearDeletedColumnData = "DELETE FROM $PREFIX_table_rowdata WHERE rid IN (SELECT id FROM $PREFIX_table_row WHERE tableid=@tableid) AND cid=@columnid";
+        public readonly string Table_ClearDeletedColumnData = "DELETE FROM $PREFIX_table_record WHERE row_id IN (SELECT id FROM $PREFIX_table_row WHERE table_id=@tableId) AND col_id=@columnId";
 
 
         /// <summary>
         /// 清理删除的行在数据行中的数据
         /// </summary>
-        public readonly string Table_ClearDeletedRowData = "DELETE FROM $PREFIX_table_rowdata WHERE rid = (SELECT id FROM $PREFIX_table_row WHERE tableid=@tableid AND id=@rowid)";
+        public readonly string Table_ClearDeletedRowData = "DELETE FROM $PREFIX_table_record WHERE row_id = (SELECT id FROM $PREFIX_table_row WHERE table_id=@tableId AND id=@rowId)";
 
 
       
@@ -916,17 +916,17 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取最后创建的行号
         /// </summary>
-        public abstract string Table_GetLastedRowID { get; }
+        public abstract string TableGetLastedRowId { get; }
 
         /// <summary>
         /// 插入数据
         /// </summary>
-        public abstract string Table_InsertRowData { get; }
+        public abstract string TableInsertRowData { get; }
 
         /// <summary>
         /// 获取分页行
         /// </summary>
-        public abstract string Table_GetPagedRows { get; }
+        public abstract string TableGetPagedRows { get; }
        
         #endregion
 

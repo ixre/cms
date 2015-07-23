@@ -414,22 +414,22 @@
             get { return "UPDATE $PREFIX_member SET [Password]=@Password,[Avatar]=@Avatar,[Sex]=@Sex,[Nickname]=@Nickname,[Email]=@Email,[Telephone]=@Telephone,[Note]=@Note WHERE [ID]=@Id"; }
         }
 
-        public override string Table_GetLastedRowID
+        public override string TableGetLastedRowId
         {
-            get { return "SELECT id FROM $PREFIX_table_row ORDER BY id DESC LImIT 0,1"; }
+            get { return "SELECT id FROM $PREFIX_table_row ORDER BY id DESC LIMIT 0,1"; }
         }
 
-        public override string Table_InsertRowData
+        public override string TableInsertRowData
         {
-            get { return "INSERT INTO $PREFIX_table_rowdata (rid,cid,value) VALUES(@rowid,@columnid,@value)"; }
+            get { return "INSERT INTO $PREFIX_table_record (row_id,col_id,value) VALUES(@rowId,@columnId,@value)"; }
         }
 
-        public override string Table_GetPagedRows
+        public override string TableGetPagedRows
         {
             get
             {
                 return @"SELECT * FROM $PREFIX_table_row,
-						(SELECT id FROM $PREFIX_table_row WHERE tableid=$[tableid] ORDER BY submittime DESC LImIT $[skipsize],$[pagesize]) _t
+						(SELECT id FROM $PREFIX_table_row WHERE table_id=$[tableid] ORDER BY submit_time DESC LIMIT $[skipsize],$[pagesize]) _t
 						WHERE $PREFIX_table_row.id=_t.id";
             }
         }

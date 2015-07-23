@@ -51,7 +51,7 @@ namespace J6.Cms.Domain.Interface.Models
         /// <summary>
         /// 是否可用
         /// </summary>
-        public bool Available { get; set; }
+        public bool Enabled { get; set; }
 
     }
 

@@ -399,22 +399,22 @@
         }
 
 
-        public override string Table_GetLastedRowID
+        public override string TableGetLastedRowId
         {
             get { return "SELECT TOP 1 id FROM $PREFIX_table_row ORDER BY id DESC"; }
         }
-        public override string Table_InsertRowData
+        public override string TableInsertRowData
         {
-            get { return "INSERT INTO $PREFIX_table_rowdata (rid,cid,[value]) VALUES(@rowid,@columnid,@value)"; }
+            get { return "INSERT INTO $PREFIX_table_record (row_id,col_id,[value]) VALUES(@rowId,@columnId,@value)"; }
         }
 
-        public override string Table_GetPagedRows
+        public override string TableGetPagedRows
         {
             get
             {
-                return @"SELECT TOP $[pagesize] * FROM $PREFIX_table_row WHERE tableid=$[tableid] AND id  NOT IN 
-                                (SELECT TOP $[skipsize] id FROM $PREFIX_table_row WHERE tableid=$[tableid]  ORDER BY submittime DESC)
-                                  ORDER BY submittime DESC";
+                return @"SELECT TOP $[pagesize] * FROM $PREFIX_table_row WHERE table_id=$[tableid] AND id  NOT IN 
+                                (SELECT TOP $[skipsize] id FROM $PREFIX_table_row WHERE table_id=$[tableid]  ORDER BY submi_ttime DESC)
+                                  ORDER BY submit_time DESC";
             }
         }
     }

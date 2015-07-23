@@ -368,13 +368,13 @@ namespace J6.Cms.Web.WebManager.Handle
 
             //link = base.Request.Form.BindToEntity(link);
 
-            link.ImgUrl = base.Request.Form["imgurl"];
-            link.SortNumber = int.Parse(base.Request.Form["orderindex"]);
-            link.Pid = int.Parse(base.Request.Form["pid"]);
-            link.Target = base.Request.Form["target"];
-            link.Text = base.Request.Form["text"].Trim();
+            link.ImgUrl = base.Request.Form["ImgUrl"];
+            link.SortNumber = int.Parse(base.Request.Form["SortNumber"]);
+            link.Pid = int.Parse(base.Request.Form["Pid"]);
+            link.Target = base.Request.Form["Target"];
+            link.Text = base.Request.Form["Text"].Trim();
             link.Type = (SiteLinkType)int.Parse(base.Request.Form["type"]);
-            link.Uri = base.Request.Form["uri"];
+            link.Uri = base.Request.Form["Uri"];
             link.Visible = base.Request.Form["visible"] == "True";
 
 

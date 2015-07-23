@@ -364,7 +364,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 //                {
                 //                    CmsLogic.User.UpdateUserLastLoginDate(username);
                 //
-                //                    if (!usr.Available)
+                //                    if (!usr.Enabled)
                 //                    {
                 //                        base.RenderError("账号已被停用,请联系管理员!");
                 //                    }
