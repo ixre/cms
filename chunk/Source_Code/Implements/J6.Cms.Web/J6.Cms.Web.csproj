@@ -124,6 +124,7 @@
     <Compile Include="obsolute\HttpModule.cs" />
     <Compile Include="PageGenerateObject.cs" />
     <Compile Include="PageModels\PageArchive.cs" />
+    <Compile Include="PageModels\PageSite.cs" />
     <Compile Include="PageUtility.cs" />
     <Compile Include="PageModels\PageVariable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

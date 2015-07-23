@@ -12,7 +12,7 @@ namespace J6.Cms.Sql
             get
             {
                 return @"SELECT $PREFIX_archive.id,str_id,[alias],[cid],title,$PREFIX_archive.location,
-                        small_title,sort_number,[flags],thumbnail,publisher_id,
+                        small_title,[flags],thumbnail,publisher_id,
                         publisher_id,view_count,[lastmodifydate],[Tags],[Outline],[Content],[CreateDate] FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.[cid] WHERE "

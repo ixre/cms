@@ -62,7 +62,7 @@ namespace J6.Cms.Web
         /// 编号
         /// </summary>
         [TemplateVariableField("编号")]
-        public string ID
+        public string Id
         {
             get { return this.Archive.Id.ToString(); }
         }

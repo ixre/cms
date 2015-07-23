@@ -12,7 +12,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,
-                        small_title,sort_number,`flags`,`publisher_id`,`thumbnail`,`viewcount`,`tags`,`outline`,
+                        small_title,`flags`,`publisher_id`,`thumbnail`,view_count,`tags`,`outline`,
                         `content`,`createdate`,`lastmodifydate` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON  $PREFIX_category.`id`=$PREFIX_archive.`cid` WHERE " +
                        SqlConst.Archive_NotSystemAndHidden + " ORDER BY $PREFIX_archive.sort_number DESC";
@@ -24,7 +24,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,
-                        small_title,sort_number,`flags`,`thumbnail`,`outline`,`content`,`viewcount`,
+                        small_title,`flags`,`thumbnail`,`outline`,`content`,view_count,
                         lastmodifydate,publisher_id,tags,source,`createdate`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
@@ -47,7 +47,7 @@
                         $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE " + SqlConst.Archive_NotSystemAndHidden
                                 + @" AND (lft>=@lft AND rgt<=@rgt) 
-                        ORDER BY sort_number DESC LImIT 0,{0}
+                        ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}
                          ) as t)";
             }
         }
@@ -63,7 +63,7 @@
                         SELECT $PREFIX_archive.id FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE tag=@Tag AND " + SqlConst.Archive_NotSystemAndHidden
-                        + @" ORDER BY sort_number DESC LImIT 0,{0}
+                        + @" ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}
                       
                           ) as t)";
             }
@@ -73,7 +73,7 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,`thumbnail`,`flags`,`outline`,`content`,`viewcount`,
+                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,`thumbnail`,`flags`,`outline`,`content`,view_count,
                         publisher_id,lastmodifydate,source,tags,`createdate`,$PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE site_id=@siteId AND  `tag`=@tag AND " + SqlConst.Archive_NotSystemAndHidden +
@@ -86,11 +86,11 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`cid`,`flags`,`str_id`,`alias`,`title`,$PREFIX_archive.`location`,`thumbnail`,`outline`,`content`,`source`,`tags`,
-                        $PREFIX_category.`name`,$PREFIX_category.`tag`,`viewcount`,`createdate`,`lastmodifydate`
+                        $PREFIX_category.`name`,$PREFIX_category.`tag`,view_count,`createdate`,`lastmodifydate`
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         AND $PREFIX_category.site_id=@siteId
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `moduleid`=@ModuleID
-                        ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}";
+                        ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
             }
         }
 
@@ -103,7 +103,7 @@
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND (`lft`>=@lft AND `rgt`<=@rgt)
-                        ORDER BY `viewcount` DESC LImIT 0,{0}";
+                        ORDER BY view_count DESC LImIT 0,{0}";
             }
         }
 
@@ -118,7 +118,7 @@
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @"  AND site_id=@siteId AND `tag`=@tag
-                        ORDER BY `viewcount` DESC LImIT 0,{0}";
+                        ORDER BY view_count DESC LImIT 0,{0}";
             }
         }
 
@@ -131,7 +131,7 @@
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid` 
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `moduleid`=@ModuleID
-                        ORDER BY `viewcount` DESC LImIT 0,{0}";
+                        ORDER BY view_count DESC LImIT 0,{0}";
             }
         }
 
@@ -142,7 +142,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
-                        `content`,`outline`,`tags`,`createdate`,`lastmodifydate`,`viewcount`,`source` FROM $PREFIX_archive
+                        `content`,`outline`,`tags`,`createdate`,`lastmodifydate`,view_count,`source` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_Special +
                         @" AND site_id=@siteId AND (`lft`>=@lft AND `rgt`<=@rgt)
@@ -155,7 +155,7 @@
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
                         `content`,`outline`,`tags`,`createdate`,`lastmodifydate`
-                        ,`viewcount`,`source` FROM $PREFIX_archive
+                        ,view_count,`source` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`tag`=@CategoryTag
                         ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}";
@@ -167,7 +167,7 @@
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`flags`,`title`,$PREFIX_archive.`location`,`content`,
                         `thumbnail`,`outline`,`tags`,`createdate`,`lastmodifydate`
-                        ,`viewcount`,`source` FROM $PREFIX_archive
+                        ,view_count,`source` FROM $PREFIX_archive
                             INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                             WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`moduleid`=@moduleID
                             ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}";
@@ -388,7 +388,7 @@
             get
             {
                 return @"INSERT INTO $PREFIX_archive(str_id,`alias`,`cid`,`publisher_id`,`title`,small_title,`flags`,`location`,sort_number,
-                                    `source`,`thumbnail`,`outline`,`content`,`tags`,`agree`,`disagree`,`viewcount`,
+                                    `source`,`thumbnail`,`outline`,`content`,`tags`,`agree`,`disagree`,view_count,
                                      `createdate`,`lastmodifydate`)VALUES(@strid,@alias,@CategoryId,@publisherId,@Title,
                                     @smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail,@Outline, @Content,@Tags,0,0,1,@CreateDate,

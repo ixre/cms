@@ -127,7 +127,7 @@ namespace J6.Cms.Conf
 				settingChanged=true;
 			}
 
-            if (sf.Contains("server_upgrade"))
+            if (false)//sf.Contains("server_upgrade"))
             {
                 Settings.SERVER_UPGRADE = sf["server_upgrade"];
                 if (Settings.SERVER_UPGRADE.Length == 0)

@@ -338,7 +338,7 @@ CREATE TABLE `O_archives` (
   `tags` varchar(100) DEFAULT NULL,
   `outline` varchar(255) DEFAULT NULL,
   `content` text,
-  `viewcount` varchar(50) DEFAULT NULL,
+  view_count varchar(50) DEFAULT NULL,
   `agree` int(11) DEFAULT NULL,
   `disagree` int(11) DEFAULT NULL,
   `isspecial` tinyint(1) DEFAULT NULL,

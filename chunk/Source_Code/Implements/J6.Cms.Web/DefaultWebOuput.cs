@@ -10,6 +10,7 @@ using J6.Cms.Core.Interface;
 using J6.Cms.Domain.Interface.Content.Archive;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Utility;
+using J6.Cms.Web.PageModels;
 
 namespace J6.Cms.Web
 {
@@ -22,7 +23,7 @@ namespace J6.Cms.Web
     	internal static void RenderNotFound(CmsContext context)
     	{
     		context.RenderNotfound("File not found!",tpl=>{
-                                    tpl.AddVariable("site", context.CurrentSite);
+                                    tpl.AddVariable("site", new PageSite(context.CurrentSite));
     		                       	tpl.AddVariable("page",new PageVariable());
     		     					PageUtility.RegistEventHandlers(tpl);
     		 });

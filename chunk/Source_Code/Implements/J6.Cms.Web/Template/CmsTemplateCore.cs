@@ -269,15 +269,14 @@ namespace J6.Cms.Template
             {
                 if (binds[0] == "category")
                 {
-                    CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.site.SiteId,
-                        int.Parse(binds[1]));
+                    CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.site.SiteId,int.Parse(binds[1]));
                     if (category.Id > 0)
                     {
                         return this.GetCategoryUrl(category, 1);
                     }
                     else
                     {
-                        throw new Exception("[" + binds[1] + "]" + this.site.SiteId.ToString() + "/" + category.Name);
+                        throw new Exception("[" + binds[1] + "]site:" + this.site.SiteId.ToString() + "/" + category.Name);
                     }
                 }
                 else if (binds[0] == "archive")

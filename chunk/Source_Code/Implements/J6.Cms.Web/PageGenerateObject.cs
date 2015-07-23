@@ -10,6 +10,7 @@ using J6.Cms.Core;
 using J6.Cms.Core.Interface;
 using J6.Cms.Domain.Interface.Common.Language;
 using J6.Cms.Domain.Interface.Models;
+using J6.Cms.Web.PageModels;
 
 namespace J6.Cms.Web
 {
@@ -24,17 +25,17 @@ namespace J6.Cms.Web
     /// </summary>
     public class PageGeneratorObject : ICmsPageGenerator
     {
-        private SiteDto site;
+        private PageSite _site;
 
         public PageGeneratorObject(CmsContext context)
         {
             //this.context=context;
-            this.site = context.CurrentSite;
+            this._site = new PageSite(context.CurrentSite);
         }
 
         public virtual string FormatTemplatePath(string tplPath)
         {
-            return String.Format("/{0}/{1}", site.Tpl, tplPath);
+            return String.Format("/{0}/{1}", _site.Tpl, tplPath);
         }
 
         public virtual string GetTemplateId(string tplPath)
@@ -67,10 +68,9 @@ namespace J6.Cms.Web
         /// <summary>
         /// 获取文档的模板ID
         /// </summary>
-        /// <param name="category"></param>
         /// <param name="archive"></param>
         /// <returns></returns>
-        public virtual string GetArchiveTemplateID(ArchiveDto archive)
+        public virtual string GetArchiveTemplateId(ArchiveDto archive)
         {
             ////获取模板ID
             //string tplID = null;
@@ -107,14 +107,14 @@ namespace J6.Cms.Web
         {
             return PageUtility.Require(this.FormatTemplatePath("index"), page =>
                 {
-                    page.AddVariable("site", this.site);
-                    page.AddVariable("page", new PageVariable { Title = site.SeoTitle, SubTitle = site.SeoTitle, Keywords = site.SeoKeywords, Description = site.SeoDescription });
+                    page.AddVariable("site", this._site);
+                    page.AddVariable("page", new PageVariable { Title = _site.Title, SubTitle = _site.Title, Keywords = _site.Keywords, Description = _site.Description });
                 });
         }
 
         public virtual string GetCategory(CategoryDto category, int pageIndex, params object[] args)
         {
-            string tplID = this.GetCategoryTemplateId(category);
+            string tplId = this.GetCategoryTemplateId(category);
 
 
             //
@@ -126,7 +126,7 @@ namespace J6.Cms.Web
             J6.Cms.Cms.Context.Items["module.id"] = category.ModuleId;
             J6.Cms.Cms.Context.Items["page.index"] = pageIndex;
 
-            bool _isFirstPage = pageIndex == 1;
+            bool isFirstPage = pageIndex == 1;
 
             string title;
             if (pageIndex == 1)
@@ -137,12 +137,12 @@ namespace J6.Cms.Web
                 }
                 else
                 {
-                    title = String.Format("{0}_{1}", category.Name, site.SeoTitle);
+                    title = String.Format("{0}_{1}", category.Name, _site.Title);
                 }
             }
             else
             {
-                switch (site.Language)
+                switch (_site.Language)
                 {
                     case Languages.Zh_CN:
                         title = String.Format("- 第" + pageIndex.ToString() + "页");
@@ -153,17 +153,17 @@ namespace J6.Cms.Web
                         break;
                 }
 
-                title = String.Format("{0}{1}_{2}", category.Name, title, site.SeoTitle);
+                title = String.Format("{0}{1}_{2}", category.Name, title, _site.Title);
             }
 
             //解析模板
-            return PageUtility.Require(tplID, page =>
+            return PageUtility.Require(tplId, page =>
             {
-                page.AddVariable("site", site);
+                page.AddVariable("site", _site);
                 page.AddVariable("page", new PageVariable
                             {
                                 Title = title,
-                                SubTitle = site.SeoTitle,
+                                SubTitle = _site.Title,
                                 Keywords = category.Keywords,
                                 Description = category.Description,
                                 PageIndex = pageIndex
@@ -198,7 +198,7 @@ namespace J6.Cms.Web
             #endregion
 
             //获取模板ID
-            string tplID = this.GetArchiveTemplateID(archive);
+            string tplId = this.GetArchiveTemplateId(archive);
             CategoryDto category = archive.Category;
 
             //用于当前的模板共享数据
@@ -207,12 +207,12 @@ namespace J6.Cms.Web
             J6.Cms.Cms.Context.Items["module.id"] = category.ModuleId;
 
             //解析模板
-            string html = PageUtility.Require(tplID,
+            string html = PageUtility.Require(tplId,
 
                                               page =>
                                               {
 
-                                                  page.AddVariable("site",this.site);
+                                                  page.AddVariable("site",this._site);
 
                                                   PageArchive pageArchive = new PageArchive(archive);
 
@@ -224,8 +224,8 @@ namespace J6.Cms.Web
 
                                                   page.AddVariable("page", new PageVariable
                                                   {
-                                                      Title = String.Format("{0}_{1}_{2}", archive.Title, category.Name, site.SeoTitle),
-                                                      SubTitle = site.SeoTitle,
+                                                      Title = String.Format("{0}_{1}_{2}", archive.Title, category.Name, _site.Title),
+                                                      SubTitle = _site.Title,
                                                       Keywords = archive.Tags,
                                                       Description = pageArchive.Outline.Replace("\"", String.Empty)
                                                   });
@@ -276,7 +276,7 @@ namespace J6.Cms.Web
             string html = PageUtility.Require(this.FormatTemplatePath("search"),
                                               page =>
                                               {
-                                                  page.AddVariable("site", this.site);
+                                                  page.AddVariable("site", this._site);
 
                                                   page.AddVariable("page", new PageVariable
                                                                    {
@@ -284,8 +284,8 @@ namespace J6.Cms.Web
                                                                                              key,
                                                                                              pageIndex == 1 ? String.Empty :
                                                                                              String.Format(J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle),pageIndex.ToString()),
-                                                                                             site.SeoTitle),
-                                                                       SubTitle = site.SeoTitle,
+                                                                                             _site.Title),
+                                                                       SubTitle = _site.Title,
                                                                        Keywords = key,
                                                                        Description = String.Empty,
                                                                        PageIndex = pageIndex
@@ -324,7 +324,7 @@ namespace J6.Cms.Web
                                               page =>
                                               {
 
-                                                  page.AddVariable("site", this.site);
+                                                  page.AddVariable("site", this._site);
 
                                                   page.AddVariable("page", new PageVariable
                                                                    {
@@ -332,8 +332,8 @@ namespace J6.Cms.Web
                                                                                              key,
                                                                                              pageIndex == 1 ? String.Empty :
                                                                                              String.Format(J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle), pageIndex.ToString()),
-                                                                                             site.SeoTitle),
-                                                                       SubTitle = site.SeoTitle,
+                                                                                             _site.Title),
+                                                                       SubTitle = _site.Title,
                                                                        Keywords = key,
                                                                        Description = String.Empty,
                                                                        PageIndex = pageIndex

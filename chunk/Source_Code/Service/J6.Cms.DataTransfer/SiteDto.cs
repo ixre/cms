@@ -194,6 +194,5 @@ namespace J6.Cms.DataTransfer
         /// 运行类型
         /// </summary>
         public int RunType { get; set; }
-
     }
 }

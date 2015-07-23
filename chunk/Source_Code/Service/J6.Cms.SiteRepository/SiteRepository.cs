@@ -189,8 +189,9 @@ namespace J6.Cms.ServiceRepository
             IList<ISite> sites = this.GetSites();
 
             //todo:
-            site = sites[0];
-            return sites;
+           // site = sites[0];
+            //return sites;
+
             //获取使用域名标识的网站
             string _hostName = String.Concat(
                 "^",

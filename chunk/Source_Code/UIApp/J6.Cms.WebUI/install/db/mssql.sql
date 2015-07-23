@@ -14,7 +14,7 @@ CREATE TABLE [cms_archive] (
 [outline] [nvarchar]  (765) NULL,
 [content] [ntext]  NULL,
 [properties] [nvarchar]  (1500) NULL,
-[viewcount] [int]  NULL DEFAULT (0),
+view_count [int]  NULL DEFAULT (0),
 [agree] [int]  NULL,
 [disagree] [int]  NULL,
 [createdate] [datetime]  NULL,

@@ -11,7 +11,7 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.id,str_id,[alias],[cid],[flags],publisher_id,thumbnail,small_title,sort_number,
+                return @"SELECT $PREFIX_archive.id,str_id,[alias],[cid],[flags],publisher_id,thumbnail,small_title,
                         view_count,[lastModifyDate],title,$PREFIX_archive.location,[tags],[outline],[content],[createDate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.[cid] WHERE  " 
                         + SqlConst.Archive_NotSystemAndHidden +
@@ -48,7 +48,7 @@
                         $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE " + SqlConst.Archive_NotSystemAndHidden
                                 + @" AND (lft>=@lft AND rgt<=@rgt) 
-                        ORDER BY createdate DESC,$PREFIX_archive.id
+                        ORDER BY $PREFIX_archive.sort_number ASC,$PREFIX_archive.id
                         
                         )";
             }
@@ -66,8 +66,7 @@
                         SELECT TOP {0} $PREFIX_archive.id FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE tag=@Tag AND " + SqlConst.Archive_NotSystemAndHidden
-                        + @" ORDER BY createdate DESC,$PREFIX_archive.id
-                        
+                        + @" ORDER BY $PREFIX_archive.sort_number DESC,$PREFIX_archive.id
                         )";
             }
         }

@@ -36,7 +36,7 @@ CREATE TABLE `cms_archive` (
   `tags` varchar(100) DEFAULT NULL,
   `outline` varchar(255) DEFAULT NULL,
   `content` text,
-  `viewcount` int(50) DEFAULT '0',
+  view_count int(50) DEFAULT '0',
   `agree` int(11) DEFAULT NULL,
   `disagree` int(11) DEFAULT NULL,
   `createdate` datetime DEFAULT NULL,
