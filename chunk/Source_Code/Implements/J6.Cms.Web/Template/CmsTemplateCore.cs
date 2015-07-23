@@ -414,7 +414,7 @@ namespace J6.Cms.Template
             if (categories1 == null) return String.Empty;
             else
             {
-                IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.OrderIndex | a.Lft));
+                IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.SortNumber | a.Lft));
                 StringBuilder sb = new StringBuilder(400);
                 int i = 0;
 
@@ -1322,7 +1322,7 @@ namespace J6.Cms.Template
             StringBuilder sb = new StringBuilder(400);
             int i = 0;
 
-            foreach (CategoryDto c in categories.OrderBy(a => a.OrderIndex))// | a.Lft))
+            foreach (CategoryDto c in categories.OrderBy(a => a.SortNumber))// | a.Lft))
             {
                 if (c.SiteId == this.site.SiteId)
                 {
@@ -1567,7 +1567,7 @@ namespace J6.Cms.Template
                 //获取栏目，如果栏目关联不起来则调到下一次
                 categoryId = int.Parse(dr["cid"].ToString());
                 archiveId = int.Parse(dr["id"].ToString());
-                id = (string.IsNullOrEmpty((dr["alias"] ?? "").ToString()) ? dr["strid"] : dr["alias"]).ToString();      //用于链接的ID标识
+                id = (string.IsNullOrEmpty((dr["alias"] ?? "").ToString()) ? dr["str_id"] : dr["alias"]).ToString();      //用于链接的ID标识
                 if (categoryId != archiveCategory.Id)
                 {
                     archiveCategory = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryId);

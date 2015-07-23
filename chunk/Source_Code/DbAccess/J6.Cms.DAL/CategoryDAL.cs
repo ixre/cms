@@ -42,7 +42,7 @@ namespace J6.Cms.Dal
                 {"@keywords", keywords},
                 {"@description", description},
                 {"@location", location},
-                {"@orderindex", orderIndex},
+                {"@sortNumber", orderIndex},
                 {"@id", id}
                     })) == 1;
         }
@@ -57,7 +57,7 @@ namespace J6.Cms.Dal
             base.ExecuteNonQuery(
                 SqlQueryHelper.Create(DbSql.Category_Insert,
                     new object[,]{
-                {"@siteid",siteId},
+                {"@siteId",siteId},
                 {"@lft", left},
                 {"@rgt", right},
                 {"@moduleId", moduleID},
@@ -67,15 +67,15 @@ namespace J6.Cms.Dal
                 {"@pagetitle", pagetitle},
                 {"@keywords", keywords},
                 {"@description", description},
-                {"@orderindex", orderIndex},
+                {"@sortNumber", orderIndex},
                 {"@location", location}
                     })
                 );
 
             return int.Parse(base.ExecuteScalar(SqlQueryHelper.Create(
-                "SELECT MAX(id) FROM $PREFIX_category WHERE siteid=@siteId",
+                "SELECT MAX(id) FROM $PREFIX_category WHERE site_id=@siteId",
                 new object[,]{
-                    {"@siteid",siteId}
+                    {"@siteId",siteId}
                 })).ToString());
         }
 

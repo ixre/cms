@@ -7,7 +7,7 @@ namespace J6.Cms.Dal
     {
         public int CreateSite(ISite site)
         {
-            base.ExecuteNonQuery(SqlQueryHelper.Format(DbSql.Site_CreateSite,
+            base.ExecuteNonQuery(SqlQueryHelper.Format(DbSql.SiteCreateSite,
                 new object[,]{
                     {"@name",site.Name},
                     {"@dirname",site.DirName},
@@ -32,27 +32,27 @@ namespace J6.Cms.Dal
                 }));
 
             int siteId = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(
-            "SELECT MAX(siteid) FROM $PREFIX_site")).ToString());
+            "SELECT MAX(site_id) FROM $PREFIX_site")).ToString());
 
             //初始化Root数据
             base.ExecuteNonQuery(
                 SqlQueryHelper.Format(@"INSERT INTO $PREFIX_category 
-                                        (siteid,pagetitle,moduleid,tag,name,keywords,description,lft,rgt,orderindex)
+                                        (site_id,page_title,moduleid,tag,name,keywords,description,lft,rgt,sort_number)
                                         VALUES(" + siteId + ",'ROOT',1,'root','根栏目','','',1,2,1)")
                 );
             return siteId;
         }
 
-        public void LoadSites(DataReaderFunc func)
+        public void ReadSites(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(base.DbSql.Site_GetSites)), func);
+            base.ExecuteReader(new SqlQuery(base.OptimizeSql(base.DbSql.SiteGetSites)), func);
         }
 
 
         public int UpdateSite(ISite site)
         {
             return base.ExecuteNonQuery(
-                SqlQueryHelper.Format(DbSql.Site_EditSite,
+                SqlQueryHelper.Format(DbSql.SiteEditSite,
                 new object[,]{
                     {"@siteId",site.Id},
                     {"@name",site.Name},

@@ -31,7 +31,7 @@ namespace J6.Cms.ServiceRepository
                 {
                     while (rd.Read())
                     {
-                        _siteId = int.Parse(rd["siteId"].ToString());
+                        _siteId = int.Parse(rd["site_id"].ToString());
 
                         if (!dicts.ContainsKey(_siteId))
                         {
@@ -88,8 +88,7 @@ namespace J6.Cms.ServiceRepository
         {
             int extendId;
             int siteId = archive.Category.Site.Id;
-            IDictionary<int, IExtendValue> extendValues =
-                new Dictionary<int, IExtendValue>();
+            IDictionary<int, IExtendValue> extendValues =new Dictionary<int, IExtendValue>();
             foreach (IExtendField field in archive.Category.ExtendFields)
             {
                 extendValues.Add(field.Id, this.CreateExtendValue(field, -1, null));

@@ -33,7 +33,7 @@ namespace J6.Cms.Dal
         {
             return base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Link_AddSiteLink),
                  new object[,]{
-                {"@siteid",siteId},
+                {"@siteId",siteId},
                 {"@pid",link.Pid},
                 {"@TypeId", link.Type},
                 {"@Text", link.Text},
@@ -41,7 +41,7 @@ namespace J6.Cms.Dal
                 {"@imgurl",link.ImgUrl},
                 {"@visible",link.Visible},
                 {"@Target", link.Target},
-                {"@orderIndex", link.OrderIndex},
+                {"@sortNumber", link.SortNumber},
                 {"@bind",link.Bind}
                 }));
         }
@@ -59,7 +59,7 @@ namespace J6.Cms.Dal
                 {"@Uri", link.Uri},
                 {"@imgurl",link.ImgUrl},
                 {"@Target", link.Target},
-                {"@orderIndex", link.OrderIndex},
+                {"@sortNumber", link.SortNumber},
                 {"@visible",link.Visible},
                 {"@LinkId",link.Id},
                 {"@bind",link.Bind}

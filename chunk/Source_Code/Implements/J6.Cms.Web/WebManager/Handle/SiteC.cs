@@ -118,7 +118,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public void Edit_GET()
         {
-            int siteId=int.Parse(base.Request["siteId"]??"1");
+            int siteId=int.Parse(base.Request["site_id"]??"1");
 
             SiteDto site =SiteCacheManager.GetSite(siteId);
 

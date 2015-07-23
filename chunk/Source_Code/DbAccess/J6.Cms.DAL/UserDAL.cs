@@ -81,7 +81,7 @@ namespace J6.Cms.Dal
                 new SqlQuery(base.OptimizeSql(DbSql.UserCreateUser),
                     new object[,]
                     {
-                        {"@siteid", siteId},
+                        {"@siteId", siteId},
                         {"@Username", username},
                         {"@Password", password},
                         {"@Name", name},

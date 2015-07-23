@@ -204,7 +204,7 @@ namespace J6.Cms.Service
             ic.Icon = category.Icon;
             ic.Name = category.Name;
             ic.PageTitle = category.PageTitle;
-            ic.OrderIndex = category.OrderIndex;
+            ic.SortNumber = category.SortNumber;
             ic.ModuleId = category.ModuleId;
             ic.Location = category.Location;
 
@@ -384,7 +384,7 @@ namespace J6.Cms.Service
 
             link.Bind = dto.Bind;
             link.ImgUrl = dto.ImgUrl;
-            link.OrderIndex = dto.OrderIndex;
+            link.SortNumber = dto.SortNumber;
             link.Pid = dto.Pid;
             link.Target = dto.Target;
             link.Text = dto.Text;

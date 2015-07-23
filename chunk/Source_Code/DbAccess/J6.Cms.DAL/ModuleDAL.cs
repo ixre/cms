@@ -23,7 +23,7 @@ namespace J6.Cms.Dal
             int rowcount = base.ExecuteNonQuery(
                  new SqlQuery(base.OptimizeSql(DbSql.Module_Add),
                      new object[,]{
-                {"@siteid",module.SiteId},
+                {"@siteId",module.SiteId},
                 {"@name",module.Name},
                 {"@isSystem", module.IsSystem},
                 {"@isDelete", module.IsDelete}

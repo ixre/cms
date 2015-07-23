@@ -89,7 +89,7 @@ namespace J6.Cms.Domain.Interface.Models
         /// <summary>
         /// 排列序号
         /// </summary>
-        public int OrderIndex { get; set; }
+        public int SortNumber { get; set; }
 
     }
 

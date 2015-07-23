@@ -20,7 +20,7 @@ namespace J6.Cms.DataTransfer
                 Icon = category.Icon,
                 Name = category.Name,
                 PageTitle = category.PageTitle,
-                OrderIndex = category.OrderIndex,
+                SortNumber = category.SortNumber,
                 ModuleId = category.ModuleId,
                 Location = category.Location,
                 ExtendFields = category.ExtendFields,
@@ -74,7 +74,7 @@ namespace J6.Cms.DataTransfer
             set;
         }
 
-        public int OrderIndex
+        public int SortNumber
         {
             get;
             set;

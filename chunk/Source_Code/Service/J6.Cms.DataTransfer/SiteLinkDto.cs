@@ -43,7 +43,7 @@ namespace J6.Cms.DataTransfer
             set;
         }
 
-        public int OrderIndex
+        public int SortNumber
         {
             get;
             set;
@@ -74,7 +74,7 @@ namespace J6.Cms.DataTransfer
                 Bind = link.Bind,
                 Id = link.Id,
                 ImgUrl = link.ImgUrl,
-                OrderIndex = link.OrderIndex,
+                SortNumber = link.SortNumber,
                 Pid = link.Pid,
                 Target = link.Target,
                 Text = link.Text,

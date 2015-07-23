@@ -93,10 +93,18 @@ namespace J6.Cms.ServiceRepository
                 {
                     category = this.CreateCategory(
                         int.Parse(rd["id"].ToString()),
-                        _siteRep.GetSiteById(int.Parse(rd["siteId"].ToString()))
+                        _siteRep.GetSiteById(int.Parse(rd["site_id"].ToString()))
                         );
-
-                    rd.CopyToEntity(category);
+                    category.PageTitle = (rd["page_title"] ?? "").ToString();
+                    category.Description = (rd["page_description"] ?? "").ToString();
+                    category.Icon = Convert.ToString(rd["icon"]);
+                    category.Keywords = Convert.ToString(rd["page_keywords"]);
+                    category.Lft = Convert.ToInt32(rd["lft"]);
+                    category.Rgt = Convert.ToInt32(rd["rgt"]);
+                    category.Location = Convert.ToString(rd["location"]);
+                    category.Name = Convert.ToString(rd["name"]);
+                    category.Tag = Convert.ToString(rd["tag"]);
+                    category.SortNumber = Convert.ToInt32(rd["sort_number"]);
 
                     categories.Add(category);
                 }
@@ -238,7 +246,7 @@ namespace J6.Cms.ServiceRepository
                      category.Keywords,
                      category.Description,
                      category.Location,
-                     category.OrderIndex
+                     category.SortNumber
                      );
             }
             else
@@ -286,7 +294,7 @@ namespace J6.Cms.ServiceRepository
                     category.Keywords,
                     category.Description,
                     category.Location,
-                    category.OrderIndex);
+                    category.SortNumber);
 
 
                 #region 修改父类(暂时没有涉及到,需要从DB中获取旧数据来判断是否更改了父类
@@ -468,7 +476,7 @@ namespace J6.Cms.ServiceRepository
                     // }
 
                     //更新
-                    //this.dal.Update(entity.ID, entity.Lft, entity.Rgt, entity.ModuleID, entity.Name, entity.Tag, entity.Keywords, entity.Description, entity.OrderIndex);
+                    //this.dal.Update(entity.ID, entity.Lft, entity.Rgt, entity.ModuleID, entity.Name, entity.Tag, entity.Keywords, entity.Description, entity.SortNumber);
 
 
                     //清除缓存

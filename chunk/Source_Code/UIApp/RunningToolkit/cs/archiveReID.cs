@@ -28,7 +28,7 @@ namespace CsharpIpy.cs
 		
             IList<int> list= new List<int>();
 		
-            dba.ExecuteReader("select id from lms_archives where strid=''",
+            dba.ExecuteReader("select id from lms_archives where str_id=''",
                 rd=>{
                         while(rd.Read()){
                             list.Add(rd.GetInt32(0));
@@ -48,7 +48,7 @@ namespace CsharpIpy.cs
 			
                     );
 			
-                dba.ExecuteNonQuery("UPDATE lms_archives set strid='"+strId+"' where id="+intId);
+                dba.ExecuteNonQuery("UPDATE lms_archives set str_id='"+strId+"' where id="+intId);
 			
 			
             }

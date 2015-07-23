@@ -107,7 +107,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     sb.Append(bindTitle);
                 }
 
-                sb.Append(")</span></td><td class=\"center\">").Append(link.OrderIndex.ToString()).Append("</td>")
+                sb.Append(")</span></td><td class=\"center\">").Append(link.SortNumber.ToString()).Append("</td>")
                 .Append("</tr>");
 
                 return "";
@@ -216,7 +216,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 Id = 0,
                 Text = String.Empty,
                 Uri = String.Empty,
-                OrderIndex = "0",
+                SortNumber = "0",
                 Btn = "添加",
                 BindId = String.Empty,
                 BindType = String.Empty,
@@ -328,7 +328,7 @@ namespace J6.Cms.Web.WebManager.Handle
                Id = link.Id,
                Text = link.Text,
                Uri = link.Uri,
-               OrderIndex = link.OrderIndex,
+               SortNumber = link.SortNumber,
                Btn = "保存",
                BindId = bindId,
                BindType = binds == null ? "" : binds[0],
@@ -369,7 +369,7 @@ namespace J6.Cms.Web.WebManager.Handle
             //link = base.Request.Form.BindToEntity(link);
 
             link.ImgUrl = base.Request.Form["imgurl"];
-            link.OrderIndex = int.Parse(base.Request.Form["orderindex"]);
+            link.SortNumber = int.Parse(base.Request.Form["orderindex"]);
             link.Pid = int.Parse(base.Request.Form["pid"]);
             link.Target = base.Request.Form["target"];
             link.Text = base.Request.Form["text"].Trim();

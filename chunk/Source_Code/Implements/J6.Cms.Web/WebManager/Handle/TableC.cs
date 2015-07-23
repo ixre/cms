@@ -160,7 +160,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     sb.Append("<tr><td class=\"hidden\">").Append(t.Id.ToString())
                         .Append("</td><td class=\"center\">").Append((++i).ToString()).Append("</td><td>").Append(t.Name).Append("</td><td class=\"center\">")
                         .Append(t.Note).Append("</td><td class=\"center\">").Append(t.ValidFormat)
-                        .Append("</td><td class=\"center\">").Append(t.OrderIndex.ToString()).Append("</td>")
+                        .Append("</td><td class=\"center\">").Append(t.SortNumber.ToString()).Append("</td>")
                         .Append("<td class=\"center\"><button class=\"edit\" /></td><td class=\"center\"><button class=\"delete\" /></td>")
                         .Append("</tr>");
                 }
@@ -201,7 +201,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 Name = form["name"],
                 Note = form["note"],
                 ValidFormat = form["validformat"],
-                OrderIndex = int.Parse(form["orderindex"])
+                SortNumber = int.Parse(form["orderindex"])
             });
             base.Response.Write(result.ToString());
         }
@@ -223,7 +223,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 name =column.Name,
                 note = column.Note,
                 validformat = column.ValidFormat,
-                orderindex = column.OrderIndex.ToString(),
+                orderindex = column.SortNumber.ToString(),
                 tableid=column.TableId.ToString(),
                 columnid = columnID.ToString()
             });
@@ -238,7 +238,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 Name = form["name"],
                 Note = form["note"],
                 ValidFormat = form["validformat"],
-                OrderIndex = int.Parse(form["orderindex"])
+                SortNumber = int.Parse(form["orderindex"])
             });
             base.Response.Write(result.ToString());
         }

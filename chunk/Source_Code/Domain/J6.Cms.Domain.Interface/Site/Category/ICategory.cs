@@ -37,7 +37,7 @@ namespace J6.Cms.Domain.Interface.Site.Category
         /// <summary>
         /// 排序编号
         /// </summary>
-        int OrderIndex { get; set; }
+        int SortNumber { get; set; }
 
         /// <summary>
         ///模块ID,如新闻,单页等

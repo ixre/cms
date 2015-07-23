@@ -59,7 +59,7 @@ namespace J6.Cms.ServiceRepository
         {
             IArchive archive;
             archive = this.CreateArchive(int.Parse(rd["id"].ToString()),
-                rd["strid"].ToString(),
+                rd["str_id"].ToString(),
                 int.Parse(rd["cid"].ToString()),
                 rd["title"].ToString());
             archive.Alias = rd["alias"].ToString();
@@ -76,7 +76,7 @@ namespace J6.Cms.ServiceRepository
             if (indexOf("thumbnail") != -1) archive.Thumbnail = (rd["thumbnail"] ?? "").ToString();
             if (indexOf("createdate") != -1) archive.CreateDate = Convert.ToDateTime(rd["createdate"]);
             if (indexOf("lastmodifydate") != -1) archive.LastModifyDate = Convert.ToDateTime(rd["lastmodifydate"]);
-            if (indexOf("viewcount") != -1) archive.ViewCount = int.Parse((rd["viewcount"] ?? "0").ToString());
+            if (indexOf("view_count") != -1) archive.ViewCount = int.Parse((rd["view_count"] ?? "0").ToString());
             //archive.Agree = int.Parse((rd["agree"] ?? "0").ToString());
             //archive.Disagree = int.Parse((rd["disagree"] ?? "0").ToString());
 

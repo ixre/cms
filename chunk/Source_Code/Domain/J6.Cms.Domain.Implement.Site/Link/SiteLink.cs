@@ -52,7 +52,7 @@ namespace J6.Cms.Domain.Implement.Site.Link
             set;
         }
 
-        public int OrderIndex
+        public int SortNumber
         {
             get;
             set;

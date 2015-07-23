@@ -20,7 +20,6 @@ namespace J6.Cms.Dal
         /// <summary>
         /// 插入文章并返回ID
         /// </summary>
-        /// <param name="isSystem">是否为系统页面</param>
         /// <returns></returns>
         public bool Add(string strId, string alias, int categoryId,
             int publisherId, string title, string smallTitle, string source, string thumbnail,
@@ -121,7 +120,7 @@ namespace J6.Cms.Dal
             return base.ExecuteScalar(
                 new SqlQuery(base.OptimizeSql(DbSql.Archive_CheckAliasIsExist),
                      new object[,]{
-                        {"@siteid",siteID},
+                        {"@siteId",siteID},
                         {"@alias", alias}
                      })
                 ) != null;
@@ -156,7 +155,7 @@ namespace J6.Cms.Dal
             base.ExecuteReader(
                    new SqlQuery(base.OptimizeSql(DbSql.Archive_GetArchiveByStrIDOrAlias),
                         new object[,]{
-                        {"@siteid",siteId},
+                        {"@siteId",siteId},
                         {"@strid", archiveIdOrAlias}
                      }),
                    func
@@ -170,7 +169,7 @@ namespace J6.Cms.Dal
             base.ExecuteReader(
                    new SqlQuery(base.OptimizeSql(DbSql.Archive_GetArchiveById),
                         new object[,]{
-                        {"@siteid",siteId},
+                        {"@siteId",siteId},
                         {"@id", archiveId}
                      }),
                    func
@@ -218,7 +217,7 @@ namespace J6.Cms.Dal
             base.ExecuteReader(
               new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetArchivesByCategoryAlias), number),
                    new object[,]{
-                {"@siteid", siteId},
+                {"@siteId", siteId},
                 {"@tag", categoryTag}
                     }), func);
         }
@@ -466,13 +465,13 @@ namespace J6.Cms.Dal
 
             //数据库为ACCESS,页码为1时调用SQL
             const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.ID AS ID,* FROM $PREFIX_archive
-                                  INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.[ID]
-                                  WHERE $PREFIX_category.siteId=@siteId AND (lft>=@lft AND rgt<=@rgt) 
+                                  INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.id
+                                  WHERE $PREFIX_category.site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) 
                                   AND flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%'
-                                  ORDER BY sort_number DESC,$PREFIX_archive.id";
+                                  ORDER BY $PREFIX_archive.sort_number DESC,$PREFIX_archive.id";
 
             //获取记录条数
-            recordCount = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(DbSql.Archive_GetPagedArchivesCountSql_pagerqurey, data)).ToString());
+            recordCount = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(DbSql.ArchiveGetPagedArchivesCountSqlPagerqurey, data)).ToString());
 
             pages = recordCount / pageSize;
             if (recordCount % pageSize != 0) pages++;
@@ -487,7 +486,7 @@ namespace J6.Cms.Dal
             //如果调过记录为0条，且为OLEDB时候，则用sql1
             string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
                        sql1 :
-                       DbSql.Archive_GetPagedArchivesByCategoryID_pagerquery;
+                       DbSql.ArchiveGetPagedArchivesByCategoryIdPagerquery;
 
             sql = SQLRegex.Replace(sql, m =>
             {
@@ -539,7 +538,7 @@ namespace J6.Cms.Dal
 
 
             string condition,                                                             //SQL where condition
-                    order = String.IsNullOrEmpty(orderByField) ? "sort_number" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
+                    order = String.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
                     orderType = orderAsc ? "ASC" : "DESC";                                      //ASC or DESC
 
 
@@ -549,7 +548,7 @@ namespace J6.Cms.Dal
             {
                 switch (match.Groups[1].Value)
                 {
-                    case "siteid": return String.Format(" c.siteid={0}", siteId.ToString());
+                    case "siteid": return String.Format(" c.site_id={0}", siteId.ToString());
 
                     case "category": return lft <= 0 || rgt <= 0 ? ""
                         : String.Format(" AND lft>={0} AND rgt<={1}", lft.ToString(), rgt.ToString());
@@ -570,7 +569,7 @@ namespace J6.Cms.Dal
 
             //获取记录条数
             recordCount = int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(String.Format(DbSql.Archive_GetpagedArchivesCountSql, condition)), null)).ToString());
+                new SqlQuery(base.OptimizeSql(String.Format(DbSql.ArchiveGetpagedArchivesCountSql, condition)), null)).ToString());
 
 
             pages = recordCount / pageSize;
@@ -635,11 +634,11 @@ namespace J6.Cms.Dal
             const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
 
             //排序规则
-            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY sort_number DESC");
+            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY $PREFIX_archive.sort_number DESC");
 
             //数据库为OLEDB,且为第一页时
-            const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.[ID] AS ID,* FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.[ID]
-                    WHERE $[condition] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')  $[orderby],$PREFIX_archive.[ID]";
+            const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.id
+                    WHERE $[condition] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')  $[orderby],$PREFIX_archive.id";
 
 
             //记录数
@@ -704,7 +703,7 @@ namespace J6.Cms.Dal
             const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
 
 
-            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY sort_number DESC");
+            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY $PREFIX_archive.sort_number DESC");
 
             object[,] data = new object[,]
             {
@@ -714,14 +713,14 @@ namespace J6.Cms.Dal
             };
 
             //为第一页时
-            const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.[ID] AS ID,* 
+            const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* 
                                   FROM $PREFIX_archive INNER JOIN $PREFIX_category 
-                                  ON $PREFIX_archive.[CgID]=$PREFIX_category.[ID]
-                                  WHERE $[condition] AND $PREFIX_category.siteid=@siteId AND ($PREFIX_category.lft>=@lft
+                                  ON $PREFIX_archive.[CgID]=$PREFIX_category.id
+                                  WHERE $[condition] AND $PREFIX_category.site_id=@siteId AND ($PREFIX_category.lft>=@lft
                                    AND $PREFIX_category.rgt<=@rgt) AND ([Title] LIKE 
                                   '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' 
                                    OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')
-                                   $[orderby],$PREFIX_archive.[ID]";
+                                   $[orderby],$PREFIX_archive.id";
 
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
@@ -781,11 +780,11 @@ namespace J6.Cms.Dal
 
             const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
 
-            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY sort_number DESC");
+            if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY $PREFIX_archive.sort_number DESC");
 
             //为第一页时
-            const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.[ID] AS ID,* FROM  $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.[ID]
-                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby],$PREFIX_archive.[ID]";
+            const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* FROM  $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.id
+                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby],$PREFIX_archive.id";
 
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(

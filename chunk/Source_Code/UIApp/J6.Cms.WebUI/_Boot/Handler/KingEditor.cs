@@ -34,16 +34,16 @@ namespace J6.Cms.Handler
 		{
 			String aspxUrl = context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
 			
-			string siteID=Logic.CurrentSite.SiteId.ToString();
+			string siteId=Logic.CurrentSite.SiteId.ToString();
 			//文件保存目录路径
-			String savePath =String.Format("/{0}s{1}/",CmsVariables.RESOURCE_PATH, siteID);
+			String savePath =String.Format("/{0}s{1}/",CmsVariables.RESOURCE_PATH, siteId);
 
 			//文件保存目录URL
 			string appPath=J6.Cms.Cms.Context.ApplicationPath;
 			String saveUrl = String.Format("{0}/{1}s{2}/",
                 appPath=="/"?"":appPath,
                 CmsVariables.RESOURCE_PATH,
-                siteID);
+                siteId);
 
 			//定义允许上传的文件扩展名
 			Hashtable extTable = new Hashtable();

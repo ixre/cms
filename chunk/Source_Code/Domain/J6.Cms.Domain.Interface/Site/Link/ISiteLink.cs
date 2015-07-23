@@ -39,7 +39,7 @@ namespace J6.Cms.Domain.Interface.Site.Link
         /// <summary>
         /// 链接顺序
         /// </summary>
-        int OrderIndex { get; set; }
+        int SortNumber { get; set; }
 
         /// <summary>
         /// 是否可见

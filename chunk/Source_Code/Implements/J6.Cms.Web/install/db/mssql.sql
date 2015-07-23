@@ -25,7 +25,7 @@ CREATE TABLE [cms_archive] (
 ALTER TABLE [cms_archive] WITH NOCHECK ADD  CONSTRAINT [PK_cms_archive] PRIMARY KEY  NONCLUSTERED ( [aid],[id],[alias],[cid] )
 SET IDENTITY_INSERT [cms_archive] ON
 
-INSERT [cms_archive] ([aid],[id],[alias],[cid],[publisher_id],[title],[content],[properties],[viewcount],[agree],[disagree],[createdate],[lastmodifydate],[flags]) VALUES ( 1,N'spcnet',N'welcome',2,N'admin',N'欢迎使用Special Cms .NET',N'<div style="text-align:center;font-size:30px"><h2>??￠è??????”¨Special Cms .NET!</h2></div>',N'{}',1,0,0,N'2013/1/1 1:01:01',N'2013/1/1 1:01:01',N'{st:''0'',sc:''0'',v:''1'',p:''0''}')
+INSERT [cms_archive] ([aid],[id],[alias],[cid],[publisher_id],[title],[content],[properties],view_count,[agree],[disagree],[createdate],[lastmodifydate],[flags]) VALUES ( 1,N'spcnet',N'welcome',2,N'admin',N'欢迎使用Special Cms .NET',N'<div style="text-align:center;font-size:30px"><h2>??￠è??????”¨Special Cms .NET!</h2></div>',N'{}',1,0,0,N'2013/1/1 1:01:01',N'2013/1/1 1:01:01',N'{st:''0'',sc:''0'',v:''1'',p:''0''}')
 
 SET IDENTITY_INSERT [cms_archive] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_category]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 

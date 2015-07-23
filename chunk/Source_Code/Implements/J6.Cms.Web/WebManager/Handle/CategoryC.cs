@@ -267,7 +267,7 @@ namespace J6.Cms.Web.WebManager.Handle
             category.PageTitle = form["PageTitle"];
             category.Tag = form["Tag"];
             category.Name = form["Name"];
-            category.OrderIndex = int.Parse(form["OrderIndex"]);
+            category.SortNumber = int.Parse(form["SortNumber"]);
             category.Description = form["Description"];
             category.Location = form["Location"];
             category.Icon = form["Icon"];

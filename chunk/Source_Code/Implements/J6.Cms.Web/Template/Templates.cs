@@ -1510,7 +1510,7 @@ namespace J6.Cms.Template
             StringBuilder sb = new StringBuilder(400);
             int i = 0;
 
-            foreach (ICategory c in categories.OrderBy(a => a.OrderIndex | a.Lft))
+            foreach (ICategory c in categories.OrderBy(a => a.SortNumber | a.Lft))
             {
                 sb.Append(TplEngine.FieldTemplate(format, field =>
                 {

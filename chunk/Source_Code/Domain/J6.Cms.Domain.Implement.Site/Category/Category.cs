@@ -57,7 +57,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
             set;
         }
 
-        public int OrderIndex
+        public int SortNumber
         {
             get;
             set;
@@ -298,7 +298,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
             {
                 if (this._nextLevelChilds == null)
                 {
-                    this._nextLevelChilds = this._rep.GetNextLevelChilds(this).OrderBy(a => a.OrderIndex);
+                    this._nextLevelChilds = this._rep.GetNextLevelChilds(this).OrderBy(a => a.SortNumber);
                 }
                 return this._nextLevelChilds;
             }

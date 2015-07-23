@@ -41,7 +41,7 @@ namespace J6.Cms.Sql
                                 SET createdate=@CreateDate WHERE id IN (SELECT id FROM
                                 (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
                                 $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
-                                WHERE siteid=@siteid AND $PREFIX_archive.id=@id) t)";
+                                WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
 
         /// <summary>
         /// 删除文档
@@ -49,37 +49,37 @@ namespace J6.Cms.Sql
         public readonly string Archive_Delete = @"DELETE FROM $PREFIX_archive
                                 WHERE id in (SELECT id FROM (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
                                 $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
-                                WHERE siteid=@siteid AND $PREFIX_archive.id=@id) t)";
+                                WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
 
         /// <summary>
         /// 检查别名是否存在
         /// </summary>
         public readonly string Archive_CheckAliasIsExist =@"SELECT alias FROM $PREFIX_archive INNER JOIN 
                                 $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
-                                WHERE siteid=@siteid AND (alias=@alias or $PREFIX_archive.strid=@alias)";
+                                WHERE site_id=@siteId AND (alias=@alias or $PREFIX_archive.str_id=@alias)";
 
 
         /// <summary>
         /// 增加浏览数量
         /// </summary>
-        public readonly string Archive_AddViewCount = @"UPDATE $PREFIX_archive SET viewcount=viewcount+@count
+        public readonly string Archive_AddViewCount = @"UPDATE $PREFIX_archive SET view_count=view_count+@count
                                 WHERE id in (select id from (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
                                 $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
-                                WHERE siteid=@siteid AND $PREFIX_archive.id=@id) t)";
+                                WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
 
         /// <summary>
         /// 根据站点编号获取文档
         /// </summary>
         public readonly string Archive_GetArchiveByStrIDOrAlias = @"
                     SELECT * FROM $PREFIX_archive INNER JOIN $PREFIX_category
-                    ON $PREFIX_category.id=$PREFIX_archive.cid  WHERE siteid=@siteid 
-                    AND (alias=@strid OR $PREFIX_archive.strid=@strid)";
+                    ON $PREFIX_category.id=$PREFIX_archive.cid  WHERE site_id=@siteId 
+                    AND (alias=@strid OR $PREFIX_archive.str_id=@strid)";
 
         /// <summary>
         /// 根据文档编号获取文档
         /// </summary>
         public readonly string Archive_GetArchiveById = @"SELECT * FROM $PREFIX_archive INNER JOIN $PREFIX_category
-                    ON $PREFIX_category.id=$PREFIX_archive.cid  WHERE siteid=@siteid AND $PREFIX_archive.id=@id";
+                    ON $PREFIX_category.id=$PREFIX_archive.cid  WHERE site_id=@siteId AND $PREFIX_archive.id=@id";
 
 
         /// <summary>
@@ -177,22 +177,22 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取分页文档条数(前台调用)
         /// </summary>
-        public readonly string Archive_GetPagedArchivesCountSql_pagerqurey = @"
+        public readonly string ArchiveGetPagedArchivesCountSqlPagerqurey = @"
             SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive 
             INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id 
-            WHERE $PREFIX_category.siteId=@siteId AND " 
+            WHERE $PREFIX_category.site_id=@siteId AND " 
             + SqlConst.Archive_NotSystemAndHidden + " AND (lft>=@lft AND rgt<=@rgt)";
 
         /// <summary>
         /// 根据栏目获取分页文档
         /// </summary>
-        public abstract string Archive_GetPagedArchivesByCategoryID_pagerquery { get; }
+        public abstract string ArchiveGetPagedArchivesByCategoryIdPagerquery { get; }
 
 
         /// <summary>
         /// 获取分页文档条数
         /// </summary>
-        public abstract string Archive_GetpagedArchivesCountSql { get; }
+        public abstract string ArchiveGetpagedArchivesCountSql { get; }
 
         /*
             INNER JOIN $PREFIX_category c INNER JOIN $PREFIX_modules m ON
@@ -213,7 +213,7 @@ namespace J6.Cms.Sql
         public readonly string Archive_GetCategoryArchivesCount =@"
             SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive 
             INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
-            WHERE siteid=@siteId AND $PREFIX_category.lft BETWEEN @lft AND @rgt";
+            WHERE site_id=@siteId AND $PREFIX_category.lft BETWEEN @lft AND @rgt";
         
         /// <summary>
         /// 获取分页文档
@@ -227,7 +227,7 @@ namespace J6.Cms.Sql
         public readonly string Archive_GetSearchRecordCount = @"
                         SELECT COUNT(0) FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
-                        WHERE $PREFIX_category.siteid={1} AND {2} AND 
+                        WHERE $PREFIX_category.site_id={1} AND {2} AND 
                         (title LIKE '%{0}%' OR outline LIKE '%{0}%' OR content LIKE '%{0}%' OR tags LIKE '%{0}%')";
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace J6.Cms.Sql
         /// </summary>
         public string Archive_GetMaxSortNumber = @"SELECT MAX(sort_number) FROM  $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
-                        WHERE $PREFIX_category.siteid=@siteId";
+                        WHERE $PREFIX_category.site_id=@siteId";
 
         /// <summary>
         /// 更新排序号
@@ -281,18 +281,18 @@ namespace J6.Cms.Sql
         /// </summary>
         public readonly string Category_Update = @"
                     UPDATE $PREFIX_category SET /*lft=@lft,rgt=@rgt,*/
-                    moduleid=@moduleID,name=@name,tag=@tag,icon=@icon,pagetitle=@pagetitle,
-                    keywords=@keywords,description=@description,location=@location,
-                    orderindex=@orderindex WHERE id=@id";
+                    moduleid=@moduleID,name=@name,tag=@tag,icon=@icon,page_title=@pagetitle,
+                    page_keywords=@keywords,page_description=@description,location=@location,
+                    sort_number=@sortNumber WHERE id=@id";
 
         /// <summary>
         /// 添加栏目
         /// </summary>
         public readonly string Category_Insert = @"
-                    INSERT INTO $PREFIX_category(siteid,lft,rgt,moduleid,
-                    name,tag,icon,pagetitle,keywords,description,location,orderindex)
-                    VALUES (@siteid,@lft,@rgt,@moduleID,@name,@tag,@icon,@pagetitle,
-                    @keywords,@description,@location,@orderindex)";
+                    INSERT INTO $PREFIX_category(site_id,lft,rgt,moduleid,
+                    name,tag,icon,page_title,page_keywords,page_description,location,sort_number)
+                    VALUES (@siteId,@lft,@rgt,@moduleID,@name,@tag,@icon,@pagetitle,
+                    @keywords,@description,@location,@sortNumber)";
 
         /// <summary>
         /// 获取子栏目的数量
@@ -302,44 +302,44 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 删除栏目
         /// </summary>
-        public readonly string Category_DeleteByLft = "DELETE FROM $PREFIX_category WHERE siteId=@siteId AND lft>=@lft AND rgt<=@rgt";
+        public readonly string Category_DeleteByLft = "DELETE FROM $PREFIX_category WHERE site_id=@siteId AND lft>=@lft AND rgt<=@rgt";
 
-        public readonly string Category_UpdateInsertLeft = "UPDATE $PREFIX_category SET lft=lft+2 WHERE lft>@lft AND siteId=@siteId";
-        public readonly string Category_UpdateInsertRight = "UPDATE $PREFIX_category SET rgt=rgt+2 WHERE rgt>@lft AND siteId=@siteId";
+        public readonly string Category_UpdateInsertLeft = "UPDATE $PREFIX_category SET lft=lft+2 WHERE lft>@lft AND site_id=@siteId";
+        public readonly string Category_UpdateInsertRight = "UPDATE $PREFIX_category SET rgt=rgt+2 WHERE rgt>@lft AND site_id=@siteId";
 
-        public readonly string Category_UpdateDeleteLft = "UPDATE $PREFIX_category SET lft=lft-@val WHERE lft>@lft AND siteId=@siteId";
-        public readonly string Category_UpdateDeleteRgt = "UPDATE $PREFIX_category SET rgt=rgt-@val WHERE rgt>@rgt AND siteId=@siteId";
+        public readonly string Category_UpdateDeleteLft = "UPDATE $PREFIX_category SET lft=lft-@val WHERE lft>@lft AND site_id=@siteId";
+        public readonly string Category_UpdateDeleteRgt = "UPDATE $PREFIX_category SET rgt=rgt-@val WHERE rgt>@rgt AND site_id=@siteId";
 
-        public string Category_GetMaxRight = "SELECT max(rgt) FROM $PREFIX_category WHERE siteId=@siteId";
+        public string Category_GetMaxRight = "SELECT max(rgt) FROM $PREFIX_category WHERE site_id=@siteId";
 
 
         /*
         /// <summary>
         /// 更新左值比当前节点右值大,且小于新的父节点的左值的节点左值
         /// </summary>
-        public string Category_ChangeUpdateTreeLeft = "UPDATE $PREFIX_category SET lft=lft-@rgt-@lft-1 WHERE lft>@rgt AND lft<=@tolft AND siteId=@siteId";
+        public string Category_ChangeUpdateTreeLeft = "UPDATE $PREFIX_category SET lft=lft-@rgt-@lft-1 WHERE lft>@rgt AND lft<=@tolft AND site_id=@siteId";
 
         /// <summary>
         /// 更新右值比当前节点右值大,且小于新的父节点的右值的节点右值
         /// </summary>
-        public string Category_ChangeUpdateTreeRight="UPDATE $PREFIX_category SET rgt=rgt-@rgt-@lft-1 WHERE rgt>@rgt AND rgt<@tolft AND siteId=@siteId";
+        public string Category_ChangeUpdateTreeRight="UPDATE $PREFIX_category SET rgt=rgt-@rgt-@lft-1 WHERE rgt>@rgt AND rgt<@tolft AND site_id=@siteId";
         
         /// <summary>
         /// 移动子类
         /// </summary>
-        public string Category_ChangeUpdateTreeChildNodes = "UPDATE $PREFIX_category SET lft=lft+@tolft-@rgt,rgt=rgt+@tolft-@rgt WHERE lft>=@lft AND rgt<=@rgt AND siteId=@siteId";
+        public string Category_ChangeUpdateTreeChildNodes = "UPDATE $PREFIX_category SET lft=lft+@tolft-@rgt,rgt=rgt+@tolft-@rgt WHERE lft>=@lft AND rgt<=@rgt AND site_id=@siteId";
         */
 
 
-        public string Category_ChangeUpdateTreeLeft = "UPDATE $PREFIX_category SET lft=lft-(@rgt-@lft)-1 WHERE lft>@rgt AND rgt<=@torgt AND siteId=@siteId";
-        public string Category_ChangeUpdateTreeRight = "UPDATE $PREFIX_category SET rgt=rgt-(@rgt-@lft)-1 WHERE rgt>@rgt AND rgt<@torgt AND siteId=@siteId";
+        public string Category_ChangeUpdateTreeLeft = "UPDATE $PREFIX_category SET lft=lft-(@rgt-@lft)-1 WHERE lft>@rgt AND rgt<=@torgt AND site_id=@siteId";
+        public string Category_ChangeUpdateTreeRight = "UPDATE $PREFIX_category SET rgt=rgt-(@rgt-@lft)-1 WHERE rgt>@rgt AND rgt<@torgt AND site_id=@siteId";
         public string Category_ChangeUpdateTreeChildNodes = @"UPDATE $PREFIX_category SET lft=lft+(@torgt-@rgt-1),rgt=rgt+(@torgt-@rgt-1)
-                                                           WHERE lft>=@lft AND rgt<=@rgt AND siteId=@siteId";
+                                                           WHERE lft>=@lft AND rgt<=@rgt AND site_id=@siteId";
 
-        public string Category_ChangeUpdateTreeLeft2 = "UPDATE $PREFIX_category SET lft=lft-(@rgt-@lft)+1 WHERE lft>@torgt AND lft<@lft AND siteId=@siteId";
-        public string Category_ChangeUpdateTreeRight2 = "UPDATE $PREFIX_category SET rgt=rgt-(@rgt-@lft)+1 WHERE rgt>=@torgt AND rgt<@lft AND siteId=@siteId";
+        public string Category_ChangeUpdateTreeLeft2 = "UPDATE $PREFIX_category SET lft=lft-(@rgt-@lft)+1 WHERE lft>@torgt AND lft<@lft AND site_id=@siteId";
+        public string Category_ChangeUpdateTreeRight2 = "UPDATE $PREFIX_category SET rgt=rgt-(@rgt-@lft)+1 WHERE rgt>=@torgt AND rgt<@lft AND site_id=@siteId";
         public string Category_ChangeUpdateTreeBettown2 = @"UPDATE $PREFIX_category SET lft=lft-(@lft-@torgt),rgt=rgt-(@lft-@torgt)
-                                                          WHERE lft>=@lft AND rgt<=@rgt AND siteId=@siteId";
+                                                          WHERE lft>=@lft AND rgt<=@rgt AND site_id=@siteId";
         
 
         #endregion
@@ -523,9 +523,9 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取链接
         /// </summary>
-        public readonly string Link_GetSiteLinksByLinkType =@"SELECT * FROM $PREFIX_link WHERE $PREFIX_link.type=@linkType AND siteid=@siteId ORDER BY $PREFIX_link.orderIndex";
+        public readonly string Link_GetSiteLinksByLinkType =@"SELECT * FROM $PREFIX_link WHERE $PREFIX_link.type=@linkType AND site_id=@siteId ORDER BY $PREFIX_link.sort_number";
 
-        public readonly string Link_GetSiteLinkById = "SELECT * FROM $PREFIX_link WHERE id=@linkId AND siteid=@siteId";
+        public readonly string Link_GetSiteLinkById = "SELECT * FROM $PREFIX_link WHERE id=@linkId AND site_id=@siteId";
 
         /// <summary>
         /// 添加链接
@@ -540,7 +540,7 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 删除链接
         /// </summary>
-        public readonly string Link_DeleteSiteLink = "DELETE FROM $PREFIX_link WHERE id=@LinkId AND siteid=@siteId";
+        public readonly string Link_DeleteSiteLink = "DELETE FROM $PREFIX_link WHERE id=@LinkId AND site_id=@siteId";
 
         #endregion
 
@@ -699,7 +699,7 @@ namespace J6.Cms.Sql
         #endregion
 
         #region 模块相关
-        public readonly string Module_Add = "INSERT INTO $PREFIX_modules(siteid,name,isSystem,isDelete) VALUES(@siteid,@name,@isSystem,@isDelete)";
+        public readonly string Module_Add = "INSERT INTO $PREFIX_modules(siteid,name,isSystem,isDelete) VALUES(@siteId,@name,@isSystem,@isDelete)";
 
         // public readonly string Module_Delete = "UPDATE $PREFIX_Modules SET isDelete=1 WHERE id=@id";
         public readonly string Module_Delete = "DELETE FROM $PREFIX_modules WHERE id=@id";
@@ -714,12 +714,12 @@ namespace J6.Cms.Sql
         #region 扩展相关
 
         public readonly string DataExtend_CreateField = @"
-                INSERT INTO $PREFIX_extendField(siteId,name,type,defaultValue,regex,message)
+                INSERT INTO $PREFIX_extendField(site_id,name,type,default_value,regex,message)
                 VALUES(@siteId,@name,@type,@defaultValue,@regex,@message)";
 
 
         public readonly string DataExtend_DeleteExtendField =
-                @"DELETE FROM $PREFIX_extendField WHERE siteId=@siteId AND id=@id";
+                @"DELETE FROM $PREFIX_extendField WHERE site_id=@siteId AND id=@id";
 
         /// <summary>
         /// 获取分类扩展属性绑定次数
@@ -728,12 +728,12 @@ namespace J6.Cms.Sql
                 SELECT Count(0) FROM $PREFIX_extendValue v
                 INNER JOIN $PREFIX_archive a ON v.relationId=a.id
                 INNER JOIN $PREFIX_category c ON c.id=a.cid
-                AND v.relationType=1 AND c.siteId=@siteId AND a.cid=@categoryId AND v.fieldId=@fieldId";
+                AND v.relationType=1 AND c.site_id=@siteId AND a.cid=@categoryId AND v.fieldId=@fieldId";
 
 
         public readonly string DataExtend_UpdateField = @"
                 UPDATE $PREFIX_extendField SET name=@name,type=@type,regex=@regex,
-                defaultValue=@defaultValue,message=@message WHERE id=@id AND siteId=@siteId";
+                default_value=@defaultValue,message=@message WHERE id=@id AND site_id=@siteId";
 
 
 
@@ -749,7 +749,7 @@ namespace J6.Cms.Sql
         public readonly string DataExtend_GetExtendValues = @"
             SELECT v.id as id,relationId,fieldId,f.name as fieldName,fieldValue
 	        FROM $PREFIX_extendValue v INNER JOIN $PREFIX_extendField f ON v.fieldId=f.id
-	        WHERE relationId=@relationId AND f.siteId=@siteId AND relationType=@relationType";
+	        WHERE relationId=@relationId AND f.site_id=@siteId AND relationType=@relationType";
 
         /// <summary>
         /// 获取相关联的数据
@@ -757,7 +757,7 @@ namespace J6.Cms.Sql
         public readonly string DataExtend_GetExtendValuesList = @"
             SELECT v.id as id,relationId,fieldId,f.name as fieldName,fieldValue
 	        FROM $PREFIX_extendValue v INNER JOIN $PREFIX_extendField f ON v.fieldId=f.id
-	        WHERE  relationType=@relationType AND f.siteId=@siteId AND relationId IN ({0})";
+	        WHERE  relationType=@relationType AND f.site_id=@siteId AND relationId IN ({0})";
 
 
         public readonly string DataExtend_ClearupExtendFielValue = @"
@@ -780,7 +780,7 @@ namespace J6.Cms.Sql
         public readonly string DataExtend_GetCategoryExtendIdList = @"
                 SELECT extend.extendId FROM $PREFIX_categoryExtend extend
                 INNER JOIN $PREFIX_category c ON c.id=extend.categoryId
-                WHERE c.siteid=@siteId AND c.id=@categoryId
+                WHERE c.site_id=@siteId AND c.id=@categoryId
                 ";
         #endregion
 
@@ -820,12 +820,12 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 添加表格列
         /// </summary>
-        public readonly string Table_CreateColumn = "INSERT INTO $PREFIX_table_column (tableid,name,note,validformat,orderindex) VALUES(@tableid,@name,@note,@validformat,@orderindex)";
+        public readonly string Table_CreateColumn = "INSERT INTO $PREFIX_table_column (tableid,name,note,validformat,sort_number) VALUES(@tableid,@name,@note,@validformat,@sortNumber)";
 
         /// <summary>
         /// 更新表格列
         /// </summary>
-        public readonly string Table_UpdateColumn = "UPDATE $PREFIX_table_column SET name=@name,note=@note,validformat=@validformat,orderindex=@orderindex WHERE id=@columnid";
+        public readonly string Table_UpdateColumn = "UPDATE $PREFIX_table_column SET name=@name,note=@note,validformat=@validformat,sort_number=@sortNumber WHERE id=@columnid";
 
         /// <summary>
         /// 获取列
@@ -877,7 +877,7 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取所有列根据表格编号
         /// </summary>
-        public readonly string Table_GetColumnsByTableID = "SELECT * FROM $PREFIX_table_column WHERE tableid=@tableid ORDER BY orderindex ASC";
+        public readonly string Table_GetColumnsByTableID = "SELECT * FROM $PREFIX_table_column WHERE tableid=@tableid ORDER BY sort_number ASC";
 
         /// <summary>
         /// 创建行
@@ -940,34 +940,26 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 创建站点
         /// </summary>
-        public readonly string Site_CreateSite = @"INSERT INTO $PREFIX_site(name,dirname,domain,location,tpl,language,
-                                    note,seotitle,seokeywords,seodescription,state,protel,prophone,profax,proaddress,
-                                    proemail,im,postcode,pronotice,proslogan)VALUES
+        public readonly string SiteCreateSite = @"INSERT INTO $PREFIX_site(name,dir_name,domain,location,tpl,language,
+                                    note,seo_title,seo_keywords,seo_description,state,pro_tel,pro_phone,pro_fax,pro_address,
+                                    pro_email,pro_im,pro_post,pro_notice,pro_slogan)VALUES
                                     (@name,@dirname,@domain,@location,@tpl,@language,@note,@seotitle,@seokeywords,@seodescription,@state,
                                     @protel,@prophone,@profax,@proaddress,@proemail,@im,@postcode,@pronotice,@proslogan)";
        
         /// <summary>
         /// 获取所有站点
         /// </summary>
-        public readonly string Site_GetSites = "SELECT * FROM $PREFIX_site";
+        public readonly string SiteGetSites = "SELECT * FROM $PREFIX_site ORDER BY site_id ASC";
 
         /// <summary>
         /// 更新站点
         /// </summary>
-        public readonly string Site_EditSite = @"UPDATE $PREFIX_site SET name=@name,dirname=@dirname,
+        public readonly string SiteEditSite = @"UPDATE $PREFIX_site SET name=@name,dir_name=@dirname,
                                         domain=@domain,location=@location,tpl=@tpl,
-                                        language=@language,note=@note,seotitle=@seotitle,seokeywords=@seokeywords,
-                                        seodescription=@seodescription,state=@state,protel=@protel,prophone=@prophone,
-                                        profax=@profax,proaddress=@proaddress,proemail=@proemail,im=@im,
-                                        postcode=@postcode,pronotice=@pronotice,proslogan=@proslogan WHERE siteid=@siteid";
-
-       
-       
-       
-       
-      
-     
-      
+                                        language=@language,note=@note,seo_title=@seotitle,seo_keywords=@seokeywords,
+                                        seo_description=@seo_description,state=@state,pro_tel=@protel,pro_phone=@prophone,
+                                        pro_fax=@profax,pro_address=@proaddress,pro_email=@proemail,pro_im=@im,
+                                        pro_post=@postcode,pro_notice=@pronotice,pro_slogan=@proslogan WHERE site_id=@siteId";
 
 
         #endregion

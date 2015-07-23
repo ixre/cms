@@ -90,16 +90,16 @@ namespace J6.Cms.ServiceRepository
             if (RepositoryDataCache._siteDict == null)
             {
                 RepositoryDataCache._siteDict = new Dictionary<int, ISite>();
-                siteDal.LoadSites(rd =>
+                siteDal.ReadSites(rd =>
                {
                    while (rd.Read())
                    {
-                       ISite site = this.CreateSite(Convert.ToInt32(rd["siteid"]), rd["name"].ToString());
+                       ISite site = this.CreateSite(Convert.ToInt32(rd["site_id"]), rd["name"].ToString());
 
 
 
                        //rd.CopyToEntity<ISite>(site);
-                       site.DirName = rd["dirname"].ToString();
+                       site.DirName = rd["dir_name"].ToString();
                        site.RunType = String.IsNullOrEmpty(site.DirName)
                            ? SiteRunType.Stand
                            : SiteRunType.VirtualDirectory;
@@ -111,19 +111,19 @@ namespace J6.Cms.ServiceRepository
                        if (site.Location!= null  && site.Location.Trim() == "") site.Location = null;
 
                        site.Domain = rd["domain"].ToString();
-                       site.Address = rd["proaddress"].ToString();
-                       site.Email = rd["proemail"].ToString();
-                       site.Fax = rd["profax"].ToString();
-                       site.PostCode = rd["postcode"].ToString();
+                       site.Address = rd["pro_address"].ToString();
+                       site.Email = rd["pro_email"].ToString();
+                       site.Fax = rd["pro_fax"].ToString();
+                       site.PostCode = rd["pro_post"].ToString();
                        site.Note = rd["note"].ToString();
-                       site.Notice = rd["pronotice"].ToString();
-                       site.Phone = rd["prophone"].ToString();
-                       site.Im = rd["im"].ToString();
-                       site.SeoTitle = rd["seotitle"].ToString();
-                       site.SeoKeywords = rd["seokeywords"].ToString();
-                       site.SeoDescription = rd["seodescription"].ToString();
-                       site.Slogan = rd["proslogan"].ToString();
-                       site.Tel = rd["protel"].ToString();
+                       site.Notice = rd["pro_notice"].ToString();
+                       site.Phone = rd["pro_phone"].ToString();
+                       site.Im = rd["pro_im"].ToString();
+                       site.SeoTitle = rd["seo_title"].ToString();
+                       site.SeoKeywords = rd["seo_keywords"].ToString();
+                       site.SeoDescription = rd["seo_description"].ToString();
+                       site.Slogan = rd["pro_slogan"].ToString();
+                       site.Tel = rd["pro_tel"].ToString();
                        site.Language = (Languages)int.Parse(rd["language"].ToString());
 
                        RepositoryDataCache._siteDict.Add(site.Id, site);
@@ -188,6 +188,9 @@ namespace J6.Cms.ServiceRepository
             string hostName = uri.Host;
             IList<ISite> sites = this.GetSites();
 
+            //todo:
+            site = sites[0];
+            return sites;
             //获取使用域名标识的网站
             string _hostName = String.Concat(
                 "^",
@@ -259,8 +262,8 @@ namespace J6.Cms.ServiceRepository
                        );
 
             link.Bind = reader["bind"].ToString();
-            link.ImgUrl = reader["imgUrl"].ToString();
-            link.OrderIndex = int.Parse(reader["orderIndex"].ToString());
+            link.ImgUrl = reader["img_url"].ToString();
+            link.SortNumber = int.Parse(reader["sort_number"].ToString());
             link.Pid = int.Parse(reader["pid"].ToString());
             link.Target = reader["target"].ToString();
             link.Type = (SiteLinkType)int.Parse(reader["type"].ToString());

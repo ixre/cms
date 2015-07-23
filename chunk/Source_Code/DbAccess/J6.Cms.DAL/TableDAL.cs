@@ -90,7 +90,7 @@ namespace J6.Cms.Dal
                               {"@name", col.Name},
                               {"@note", col.Note},
                               {"@validformat", col.ValidFormat},
-                              {"@orderindex", col.OrderIndex}
+                              {"@sortNumber", col.SortNumber}
                                    })
                               );
                     }
@@ -223,7 +223,7 @@ namespace J6.Cms.Dal
                       {"@name", column.Name},
                       {"@note", column.Note},
                       {"@validformat", column.ValidFormat},
-                      {"@orderindex", column.OrderIndex},
+                      {"@sortNumber", column.SortNumber},
                       {"@tableid", column.TableId}
                           })
                     );
@@ -250,7 +250,7 @@ namespace J6.Cms.Dal
                       {"@name", column.Name},
                       {"@note", column.Note},
                       {"@validformat", column.ValidFormat},
-                      {"@orderindex", column.OrderIndex},
+                      {"@sortNumber", column.SortNumber},
                       {"@columnid", column.Id}
                           })
                     );

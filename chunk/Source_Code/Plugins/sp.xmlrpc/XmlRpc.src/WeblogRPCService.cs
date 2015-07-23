@@ -445,7 +445,7 @@ namespace sp.xmlrpc.XmlRpc.src
                         source = new Source { name = dt.Rows[i]["source"].ToString() },             //来源
                         link = String.Format(post_uri,                                              //文档链接地址
                                        String.IsNullOrEmpty(dt.Rows[i]["aias"] as string) ?
-                                       dt.Rows[i]["strid"].ToString() : dt.Rows[i]["alias"].ToString()),
+                                       dt.Rows[i]["str_id"].ToString() : dt.Rows[i]["alias"].ToString()),
 
                     };
                 }
