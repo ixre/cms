@@ -166,48 +166,48 @@ namespace J6.Cms.Domain.Implement.Site
         /// <summary>
         /// 电话
         /// </summary>
-       public string Tel { get; set; }
+       public string ProTel { get; set; }
 
         /// <summary>
         /// 手机号码
         /// </summary>
-       public string Phone { get; set; }
+       public string ProPhone { get; set; }
 
         /// <summary>
         /// 传真号码
         /// </summary>
-       public string Fax { get; set; }
+       public string ProFax { get; set; }
 
         /// <summary>
         /// 联系地址
         /// </summary>
-       public string Address { get; set; }
+       public string ProAddress { get; set; }
 
 
         /// <summary>
         /// 电子邮箱
         /// </summary>
-       public string Email { get; set; }
+       public string ProEmail { get; set; }
 
         /// <summary>
         /// QQ号码
         /// </summary>
-       public string Im { get; set; }
+       public string ProIm { get; set; }
 
         /// <summary>
         /// MSN账号
         /// </summary>
-       public string PostCode { get; set; }
+       public string ProPost { get; set; }
 
         /// <summary>
         /// 网站公告
         /// </summary>
-       public string Notice { get; set; }
+       public string ProNotice { get; set; }
 
         /// <summary>
         /// 网站标语
         /// </summary>
-       public string Slogan { get; set; }
+       public string ProSlogan { get; set; }
 
 
        public int Save()

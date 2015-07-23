@@ -30,28 +30,28 @@ namespace J6.Cms.DataTransfer
         {
             return new SiteDto
             {
-                Address = site.Address,
+                ProAddress = site.ProAddress,
                 DirName = site.DirName,
                 Domain = site.Domain,
                 FullDomain =  site.FullDomain,
                 Location = site.Location,
-                Email = site.Email,
-                Fax = site.Fax,
+                ProEmail = site.ProEmail,
+                ProFax = site.ProFax,
                 Language = site.Language,
-                PostCode = site.PostCode,
+                ProPost = site.ProPost,
                 Name = site.Name,
                 Note = site.Note,
-                Notice = site.Notice,
-                Phone = site.Phone,
-                Im = site.Im,
+                ProNotice = site.ProNotice,
+                ProPhone = site.ProPhone,
+                ProIm = site.ProIm,
                 RunType = (int)site.RunType,
                 SeoDescription = site.SeoDescription,
                 SeoKeywords = site.SeoKeywords,
                 SeoTitle = site.SeoTitle,
                 SiteId = site.Id,
-                Slogan = site.Slogan,
+                ProSlogan = site.ProSlogan,
                 State = site.State,
-                Tel = site.Tel,
+                ProTel = site.ProTel,
                 Tpl = site.Tpl
             };
         }
@@ -60,25 +60,25 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// 站点ID
         /// </summary>
-        [FormField("site_id",Group="basic",Text="站点Id",DisableEdit=true)]
+        [FormField("SiteId",Group="basic",Text="站点Id",DisableEdit=true)]
         public int SiteId { get; set; }
 
         /// <summary>
         /// 站点名称
         /// </summary>
-        [FormField("name", Group = "basic", Text = "站点名称", IsRequired = true, Length = "[0,30]")]
+        [FormField("Name", Group = "basic", Text = "站点名称", IsRequired = true, Length = "[0,30]")]
         public string Name { get; set; }
 
         /// <summary>
         /// 站点备注
         /// </summary>
-        [FormField("note", Group = "basic", Text = "站点备注", Length = "[0,5]",Descript="如：中文")]
+        [FormField("Note", Group = "basic", Text = "站点备注", Length = "[0,5]",Descript="如：中文")]
         public string Note { get; set; }
 
         /// <summary>
         /// 目录名称
         /// </summary>
-        [FormField("dir_name", Group = "basic", Text = "目录名称", Descript = "如果如顶级域名绑定，则填写目录名称,以\"http://abc.com/目录名称/\"访问网站", Regex = "[A-Za-z0-9_]{0,10}")]
+        [FormField("DirName", Group = "basic", Text = "目录名称", Descript = "如果如顶级域名绑定，则填写目录名称,以\"http://abc.com/目录名称/\"访问网站", Regex = "[A-Za-z0-9_]{0,10}")]
         public string DirName { get; set; }
 
         /// <summary>
@@ -120,75 +120,75 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// SEO标题
         /// </summary>
-        [FormField("Seo_Title", Group = "basic", Text = "SEO标题", MultLine = true, Descript = "选填,不超过100字", Length = "[0,100]")]
+        [FormField("SeoTitle", Group = "basic", Text = "SEO标题", MultLine = true, Descript = "选填,不超过100字", Length = "[0,100]")]
         public string SeoTitle { get; set; }
 
         /// <summary>
         /// SEO关键字
         /// </summary>
-        [FormField("Seo_Keywords", Group = "basic", Text = "SEO关键字", MultLine = true, Descript = "选填,不超过150字", Length = "[0,150]")]
+        [FormField("SeoKeywords", Group = "basic", Text = "SEO关键字", MultLine = true, Descript = "选填,不超过150字", Length = "[0,150]")]
         public string SeoKeywords { get; set; }
 
         /// <summary>
         /// SEO描述
         /// </summary>
-        [FormField("Seo_Description", Group = "basic", Text = "SEO描述", MultLine = true, Length = "[0,150]")]
+        [FormField("SeoDescription", Group = "basic", Text = "SEO描述", MultLine = true, Length = "[0,150]")]
         public string SeoDescription { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
-        [FormField("pro_tel", Group = "Profile", Text = "联系电话", Length = "[0,50]")]
-        public string Tel { get; set; }
+        [FormField("ProTel", Group = "Profile", Text = "联系电话", Length = "[0,50]")]
+        public string ProTel { get; set; }
 
         /// <summary>
         /// 手机号码
         /// </summary>
-        [FormField("pro_phone", Group = "Profile", Text = "手机号码", Length = "[0,11]")]
-        public string Phone { get; set; }
+        [FormField("ProPhone", Group = "Profile", Text = "手机号码", Length = "[0,11]")]
+        public string ProPhone { get; set; }
 
         /// <summary>
         /// 传真号码
         /// </summary>
-        [FormField("pro_fax", Group = "Profile", Text = "传真号码", Length = "[0,50]")]
-        public string Fax { get; set; }
+        [FormField("ProFax", Group = "Profile", Text = "传真号码", Length = "[0,50]")]
+        public string ProFax { get; set; }
 
         /// <summary>
         /// 联系地址
         /// </summary>
-        [FormField("pro_address", Group = "Profile", Text = "联系地址", Length = "[0,100]")]
-        public string Address { get; set; }
+        [FormField("ProAddress", Group = "Profile", Text = "联系地址", Length = "[0,100]")]
+        public string ProAddress { get; set; }
 
         /// <summary>
         /// 邮编号码
         /// </summary>
-        [FormField("pro_post", Group = "Profile",Text = "邮编号码")]
-        public string PostCode { get; set; }
+        [FormField("ProPost", Group = "Profile",Text = "邮编号码")]
+        public string ProPost { get; set; }
 
 
         /// <summary>
         /// 电子邮箱
         /// </summary>
-        [FormField("pro_email", Group = "Profile", Text = "电子邮箱", Length = "[0,100]")]
-        public string Email { get; set; }
+        [FormField("ProEmail", Group = "Profile", Text = "电子邮箱", Length = "[0,100]")]
+        public string ProEmail { get; set; }
 
         /// <summary>
         /// Im (qq/msn)
         /// </summary>
-        [FormField("pro_im", Group = "Profile", Text = "即时通讯", Descript="可以填写QQ、微信、MSN、淘宝等聊天工具账号", Length = "[0,50]")]
-        public string Im{get;set;}
+        [FormField("ProIm", Group = "Profile", Text = "即时通讯", Descript="可以填写QQ、微信、MSN、淘宝等聊天工具账号", Length = "[0,50]")]
+        public string ProIm{get;set;}
 
         /// <summary>
         /// 网站公告
         /// </summary>
-        [FormField("pro_notice", Group = "Profile", Text = "网站公告", MultLine = true, Length = "[0,200]")]
-        public string Notice { get; set; }
+        [FormField("ProNotice", Group = "Profile", Text = "网站公告", MultLine = true, Length = "[0,200]")]
+        public string ProNotice { get; set; }
 
         /// <summary>
         /// 网站标语
         /// </summary>
-        [FormField("pro_slogan", Group = "Profile", Text = "网站标语", MultLine = true, Length = "[0,200]")]
-        public string Slogan { get; set; }
+        [FormField("ProSlogan", Group = "Profile", Text = "网站标语", MultLine = true, Length = "[0,200]")]
+        public string ProSlogan { get; set; }
 
         /// <summary>
         /// 运行类型

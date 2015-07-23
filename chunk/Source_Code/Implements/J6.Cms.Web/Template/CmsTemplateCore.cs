@@ -570,24 +570,24 @@ namespace J6.Cms.Template
                 case "name":
                     return this.site.Name;
                 case "tel":
-                    return this.site.Tel ?? "";
+                    return this.site.ProTel ?? "";
                 case "phone":
-                    return this.site.Phone ?? "";
+                    return this.site.ProPhone ?? "";
                 case "fax":
-                    return this.site.Fax ?? "";
+                    return this.site.ProFax ?? "";
                 case "address":
-                    return this.site.Address ?? "";
+                    return this.site.ProAddress ?? "";
                 case "email":
-                    return this.site.Email ?? "";
+                    return this.site.ProEmail ?? "";
                 case "im":
                 case "qq": //todo:需删除
-                    return this.site.Im ?? "";
+                    return this.site.ProIm ?? "";
                 case "post":
-                    return this.site.PostCode ?? "";
+                    return this.site.ProPost ?? "";
                 case "notice":
-                    return this.site.Notice ?? "";
+                    return this.site.ProNotice ?? "";
                 case "slogan":
-                    return this.site.Slogan ?? "";
+                    return this.site.ProSlogan ?? "";
                 case "tpl":
                     return this.site.Tpl ?? "default";
             }

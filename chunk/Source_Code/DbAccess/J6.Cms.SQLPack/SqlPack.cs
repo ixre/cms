@@ -943,8 +943,8 @@ namespace J6.Cms.Sql
         public readonly string SiteCreateSite = @"INSERT INTO $PREFIX_site(name,dir_name,domain,location,tpl,language,
                                     note,seo_title,seo_keywords,seo_description,state,pro_tel,pro_phone,pro_fax,pro_address,
                                     pro_email,pro_im,pro_post,pro_notice,pro_slogan)VALUES
-                                    (@name,@dirname,@domain,@location,@tpl,@language,@note,@seotitle,@seokeywords,@seodescription,@state,
-                                    @protel,@prophone,@profax,@proaddress,@proemail,@im,@postcode,@pronotice,@proslogan)";
+                                    (@name,@dirName,@domain,@location,@tpl,@language,@note,@seoTitle,@seoKeywords,@seoDescription,@state,
+                                    @proTel,@proPhone,@proFax,@proAddress,@proEmail,@proIm,@proPost,@proNotice,@proSlogan)";
        
         /// <summary>
         /// 获取所有站点
@@ -954,12 +954,12 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 更新站点
         /// </summary>
-        public readonly string SiteEditSite = @"UPDATE $PREFIX_site SET name=@name,dir_name=@dirname,
+        public readonly string SiteEditSite = @"UPDATE $PREFIX_site SET name=@name,dir_name=@dirName,
                                         domain=@domain,location=@location,tpl=@tpl,
-                                        language=@language,note=@note,seo_title=@seotitle,seo_keywords=@seokeywords,
-                                        seo_description=@seo_description,state=@state,pro_tel=@protel,pro_phone=@prophone,
-                                        pro_fax=@profax,pro_address=@proaddress,pro_email=@proemail,pro_im=@im,
-                                        pro_post=@postcode,pro_notice=@pronotice,pro_slogan=@proslogan WHERE site_id=@siteId";
+                                        language=@language,note=@note,seo_title=@seoTitle,seo_keywords=@seoKeywords,
+                                        seo_description=@seoDescription,state=@state,pro_tel=@proTel,pro_phone=@proPhone,
+                                        pro_fax=@proFax,pro_address=@proAddress,pro_email=@proEmail,pro_im=@proIm,
+                                        pro_post=@proPost,pro_notice=@proNotice,pro_slogan=@proSlogan WHERE site_id=@siteId";
 
 
         #endregion

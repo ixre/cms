@@ -111,19 +111,19 @@ namespace J6.Cms.ServiceRepository
                        if (site.Location!= null  && site.Location.Trim() == "") site.Location = null;
 
                        site.Domain = rd["domain"].ToString();
-                       site.Address = rd["pro_address"].ToString();
-                       site.Email = rd["pro_email"].ToString();
-                       site.Fax = rd["pro_fax"].ToString();
-                       site.PostCode = rd["pro_post"].ToString();
+                       site.ProAddress = rd["pro_address"].ToString();
+                       site.ProEmail = rd["pro_email"].ToString();
+                       site.ProFax = rd["pro_fax"].ToString();
+                       site.ProPost = rd["pro_post"].ToString();
                        site.Note = rd["note"].ToString();
-                       site.Notice = rd["pro_notice"].ToString();
-                       site.Phone = rd["pro_phone"].ToString();
-                       site.Im = rd["pro_im"].ToString();
+                       site.ProNotice = rd["pro_notice"].ToString();
+                       site.ProPhone = rd["pro_phone"].ToString();
+                       site.ProIm = rd["pro_im"].ToString();
                        site.SeoTitle = rd["seo_title"].ToString();
                        site.SeoKeywords = rd["seo_keywords"].ToString();
                        site.SeoDescription = rd["seo_description"].ToString();
-                       site.Slogan = rd["pro_slogan"].ToString();
-                       site.Tel = rd["pro_tel"].ToString();
+                       site.ProSlogan = rd["pro_slogan"].ToString();
+                       site.ProTel = rd["pro_tel"].ToString();
                        site.Language = (Languages)int.Parse(rd["language"].ToString());
 
                        RepositoryDataCache._siteDict.Add(site.Id, site);

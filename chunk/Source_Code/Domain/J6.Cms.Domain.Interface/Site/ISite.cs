@@ -97,47 +97,47 @@ namespace J6.Cms.Domain.Interface.Site
         /// <summary>
         /// 电话
         /// </summary>
-        string Tel { get; set; }
+        string ProTel { get; set; }
 
         /// <summary>
         /// 手机号码
         /// </summary>
-        string Phone { get; set; }
+        string ProPhone { get; set; }
 
         /// <summary>
         /// 传真号码
         /// </summary>
-        string Fax { get; set; }
+        string ProFax { get; set; }
 
         /// <summary>
         /// 联系地址
         /// </summary>
-        string Address { get; set; }
+        string ProAddress { get; set; }
 
         /// <summary>
         /// 邮编号码
         /// </summary>
-        string PostCode { get; set; }
+        string ProPost { get; set; }
 
         /// <summary>
         /// 电子邮箱
         /// </summary>
-        string Email { get; set; }
+        string ProEmail { get; set; }
 
         /// <summary>
         /// QQ号码
         /// </summary>
-        string Im{get;set;}
+        string ProIm{get;set;}
 
         /// <summary>
         /// 网站公告
         /// </summary>
-        string Notice { get; set; }
+        string ProNotice { get; set; }
 
         /// <summary>
         /// 网站标语
         /// </summary>
-        string Slogan { get; set; }
+        string ProSlogan { get; set; }
 
         /// <summary>
         /// 保存站点并返回编号

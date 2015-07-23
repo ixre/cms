@@ -83,14 +83,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveDAL.cs" />
+    <Compile Include="ArchiveDal.cs" />
     <Compile Include="BaseDAL.cs" />
     <Compile Include="CategoryDAL.cs" />
     <Compile Include="CommentDAL.cs" />
     <Compile Include="OperateResult.cs" />
-    <Compile Include="SiteDAL.cs" />
+    <Compile Include="SiteDal.cs" />
     <Compile Include="SqlQueryHelper.cs" />
-    <Compile Include="TableDAL.cs" />
+    <Compile Include="TableDal.cs" />
     <Compile Include="LinkDAL.cs" />
     <Compile Include="MemberDAL.cs" />
     <Compile Include="MessageDAL.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="SqlRegex.cs" />
     <Compile Include="TemplateBindDAL.cs" />
     <Compile Include="update.cs" />
-    <Compile Include="UserDAL.cs" />
+    <Compile Include="UserDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\J6.Cms.Domain.Interface\J6.Cms.Domain.Interface.csproj">
