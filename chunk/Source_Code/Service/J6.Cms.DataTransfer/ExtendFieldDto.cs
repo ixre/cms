@@ -55,7 +55,7 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// 默认值
         /// </summary>
-        [FormField("Default_Value", Text = "默认值", MultLine=true)]
+        [FormField("DefaultValue", Text = "默认值", MultLine=true)]
         public string DefaultValue { get; set; }
 
         /*

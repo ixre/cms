@@ -6,14 +6,12 @@
     $iconcss()
 </head>
 <body>
-    <div class="layout">
+    <div id="main" class="autoStyle" style="overflow:hidden">
         <div class="left" style="width:40%">
-            <div style="margin:3px;height:100%">
                 <div id="dg"></div>
-            </div>
         </div>
-        <div class="right" style="width:58%">
-            <div id="pl" class="relative autoHeight autoScroll"></div>
+        <div class="right" style="width:60%">
+            <div id="pl" class="relative formPanel autoHeight autoScroll"></div>
         </div>
     </div>
 
@@ -81,7 +79,7 @@
             columns: [
                 { field: 'Name', title: '名称', width: 80, align: "center", formatter: null },
                 { field: 'Message', title: '提示', width: 200, align: "center", formatter: function (val) { return val || '-'; } },
-                { field: 'DefaultValue', title: '默认值', align: "center", formatter: function (val) { return val || '-'; } }
+                { field: 'DefaultValue', title: '默认值', width:100,align: "center", formatter: function (val) { return val || '-'; } }
             ],
             loaded: function (data) {
 
