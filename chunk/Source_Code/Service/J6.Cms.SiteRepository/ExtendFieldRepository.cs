@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Security.Permissions;
 using J6.Cms.Dal;
 using J6.Cms.Domain.Implement.Site.Extend;
 using J6.Cms.Domain.Interface.Content.Archive;
@@ -25,23 +26,26 @@ namespace J6.Cms.ServiceRepository
 
                 dicts = new Dictionary<int, IList<IExtendField>>();
                 IExtendField field;
-                int _siteId;
+                int inSiteId;
 
                 extendDAL.GetAllExtendFields(rd =>
                 {
                     while (rd.Read())
                     {
-                        _siteId = int.Parse(rd["site_id"].ToString());
+                        inSiteId = int.Parse(rd["site_id"].ToString());
 
-                        if (!dicts.ContainsKey(_siteId))
+                        if (!dicts.ContainsKey(inSiteId))
                         {
-                            dicts.Add(_siteId, new List<IExtendField>());
+                            dicts.Add(inSiteId, new List<IExtendField>());
                         }
 
                         field = this.CreateExtendField(int.Parse(rd["id"].ToString()), rd["name"].ToString());
-                        rd.CopyToEntity(field);
+                        field.Message = Convert.ToString(rd["message"]);
+                        field.DefaultValue = Convert.ToString(rd["default_value"]);
+                        field.Regex = Convert.ToString(rd["regex"]);
+                        field.Type = Convert.ToString(rd["type"]);
 
-                        dicts[_siteId].Add(field);
+                        dicts[inSiteId].Add(field);
                     }
                 });
             }
