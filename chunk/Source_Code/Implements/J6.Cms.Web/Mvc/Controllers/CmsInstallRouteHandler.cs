@@ -242,7 +242,7 @@ namespace J6.Cms.Web
 
             //更新默认站点
             this.db.ExecuteNonQuery(new SqlQuery(
-                String.Format("UPDATE {0}site SET domain=@domain,name=@name,tpl=@tpl,seotitle=@name where siteid=1", dbPrefix),
+                String.Format("UPDATE {0}site SET domain=@domain,name=@name,tpl=@tpl,seo_title=@name where site_id=1", dbPrefix),
                 new object[,]{
                     {"@domain",siteDomain},
                     {"@name",siteName},

@@ -32,5 +32,6 @@ namespace J6.Cms.Domain.Interface.User
         IAppUserManager GetAppUserManager(int appId);
         void SaveRoleFlags(int id, int appId, int[] flags);
         int GetUserIdByUserName(string userName);
+        int DeleteUser(int userId);
     }
 }

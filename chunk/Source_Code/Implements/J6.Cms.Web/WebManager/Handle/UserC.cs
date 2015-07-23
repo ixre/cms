@@ -57,8 +57,6 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public void SaveProfile_POST()
         {
-            bool opResult = true;
-
             string oldPassword = base.Request.Form["opwd"],
             newPassword = base.Request.Form["pwd"],
             name = base.Request.Form["name"];
@@ -317,35 +315,27 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void DeleteUser_POST()
         {
-            User user;
-            string username = base.Request["username"];
+            int userId = int.Parse(Request["id"]);
+            try
+            {
+                if (UserState.Administrator.Current.Id == userId)
+                {
+                    throw new Exception("Not allow this operation");
+                }
+                int result = ServiceCall.Instance.UserService.DeleteUser(userId);
+                if (result < 1)
+                {
+                    base.ReturnError("删除失败");
+                    return;
+                }
+            }
+            catch(Exception exc)
+            {
+                base.ReturnError(exc.Message);
+                return;
+            }
 
-            user = CmsLogic.User.GetUser(username);
-//
-            throw new NotImplementedException();
-//            if (String.Compare(UserState.Administrator.Current.UserName, username, true) == 0)
-//            {
-//                base.RenderError("不允许修改当前用户!");
-//                return;
-//            }
-//
-//            if (user.Group == UserGroups.Master)
-//            {
-//                base.RenderError("不能删除超级管理员!");
-//                return;
-//            }
-//
-//            int i = CmsLogic.User.DeleteUser(username);
-//
-//            if (i!=-1)
-//            {
-//                base.RenderSuccess("删除成功!<br /><span style=\"font-size:12px\">共修改<span style=\"color:red;font-weight:bold\">" + i.ToString() + "</span>篇文档信息</span>");
-//            }
-//            else
-//            {
-//                base.RenderError("删除失败，请重试!");
-//            }
-
+             base.ReturnSuccess("操作成功");
         }
 
         /// <summary>

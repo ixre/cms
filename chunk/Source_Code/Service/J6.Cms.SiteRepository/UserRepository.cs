@@ -153,5 +153,21 @@ namespace J6.Cms.ServiceRepository
         {
             return this._userDal.GetUserIdByUserName(userName);
         }
+
+
+        /// <summary>
+        /// 删除系统用户并将已删除用户的文档作者改为管理员
+        /// </summary>
+        /// <returns>返回-1表示未删除成功,0表示未将已删除用户的文档设置超级管理员,否则返回修改数量</returns>
+        public int DeleteUser(int userId)
+        {
+            int result = this._userDal.DeleteUser(userId);
+            if (result > 0)
+            {
+                this._userDal.DeleteRoleBind(userId);
+                this._userDal.DeleteCredential(userId);
+            }
+            return result;
+        }
     }
 }

@@ -9,7 +9,6 @@ namespace J6.Cms.Domain.Interface._old
         bool CreateNewOperation(string name, string path);
         void CreateUser(Models.User user);
         void DeleteOperation(int id);
-        int DeleteUser(string username);
         string EncodePassword(string password);
         Models.User[] GetAllUser();
         Models.Operation GetOperation(System.Func<Operation, bool> func);

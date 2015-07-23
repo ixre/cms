@@ -40,9 +40,9 @@ namespace J6.Cms.IDAL
         /// <summary>
         /// 删除用户
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        bool DeleteUser(string username);
+        int DeleteUser(int userId);
 
         /// <summary>
         /// 根据用户名读取用户信息
@@ -160,5 +160,8 @@ namespace J6.Cms.IDAL
         void SaveUserRole(int userId, int appId, int flag);
         void CleanUserRoleFlag(int userId, int appId);
         string GetUserRealName(int userId);
+        int GetMinUserId();
+        int DeleteRoleBind(int userId);
+        int DeleteCredential(int userId);
     }
 }

@@ -140,14 +140,14 @@ namespace J6.Cms.Dal
             return user.Id;
         }
 
-        public bool DeleteUser(string username)
+        public int DeleteUser(int userId)
         {
             return base.ExecuteNonQuery(
                 new SqlQuery(base.OptimizeSql(DbSql.UserDeleteUser),
                     new object[,]
                     {
-                        {"@username", username}
-                    })) == 1;
+                        {"@userId", userId}
+                    }));
         }
 
 
@@ -432,6 +432,24 @@ namespace J6.Cms.Dal
                     {"@userId", userId},
                 }));
             return obj != null ? obj.ToString() : null;
+        }
+
+        public int GetMinUserId()
+        {
+            return int.Parse(this.ExecuteScalar(new SqlQuery(base.OptimizeSql(
+                "SELECT MIN(id) FROM $PREFIX_user"))).ToString());
+        }
+
+        public int DeleteRoleBind(int userId)
+        {
+            return  base.ExecuteNonQuery(
+                    new SqlQuery(base.OptimizeSql("DELETE FROＭ $PREFIX_user_role WHERE user_id=" + userId.ToString())));
+        }
+
+        public int DeleteCredential(int userId)
+        {
+            return base.ExecuteNonQuery(
+                    new SqlQuery(base.OptimizeSql("DELETE FROＭ $PREFIX_credential WHERE user_id=" + userId.ToString())));
         }
     }
 }

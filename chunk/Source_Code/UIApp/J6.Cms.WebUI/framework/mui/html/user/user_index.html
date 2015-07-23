@@ -86,19 +86,6 @@ $js()
                     });
             }(this));
         },
-        //删除文档
-        del: function(id) {
-            if (confirm('确定删除吗?删除后将不可恢复!')) {
-                j6.xhr.jsonPost('?', 'module=user&action=deleteuser&username=' + id,
-                    function(json) {
-                        if (json.result) {
-                            Fn.loadData();
-                        } else {
-                            j6.dialog.alert(json.message);
-                        }
-                    });
-            }
-        },
         refresh: function() {
             _dg.reload();
         }
@@ -110,7 +97,18 @@ $js()
     function editRec(id) {
         j6.dialog.create2('编辑用户', true, true).open('?module=user&action=updateUser&id='+id, 700, 400);
     }
-
+    function delRec(id) {
+        if (confirm('确定删除吗?删除后将不可恢复!')) {
+            j6.xhr.jsonPost('?module=user&action=DeleteUser','id=' + id,
+                function (json) {
+                    if (json.result) {
+                        _dg.reload();
+                    } else {
+                        showErr(json.message);
+                    }
+                });
+        }
+    }
     function extRec(id) {
         j6.dialog.create2('用户角色管理', true, true).open('?module=user&action=UserRole&id=' + id, 700, 400);
     }

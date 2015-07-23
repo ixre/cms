@@ -29,5 +29,7 @@ namespace J6.Cms.ServiceContract
         Dictionary<int, int[]> GetUserAppRoles(int userId);
         SiteDto[] GetUserRelationSites(int id);
         string GetUserRealName(int publisherId);
+
+        int DeleteUser(int userId);
     }
 }

@@ -21,5 +21,10 @@ namespace J6.Cms.ServiceRepository.Query
        {
            return this._dal.GetUserRealName(userId);
        }
+
+       public int GetFirstUserId()
+       {
+           return this._dal.GetMinUserId();
+       }
     }
 }

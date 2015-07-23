@@ -202,5 +202,7 @@ namespace J6.Cms.Domain.Interface.Content.Archive
         /// <param name="archiveId"></param>
         /// <param name="sortNumber"></param>
         void SaveSortNumber(int archiveId, int sortNumber);
+
+        int TransferArchives(int userId, int toUserId);
     }
 }

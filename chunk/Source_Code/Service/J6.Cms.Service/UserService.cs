@@ -2,6 +2,7 @@
  using System.Collections.Generic;
  using System.Data;
  using J6.Cms.DataTransfer;
+ using J6.Cms.Domain.Interface.Content.Archive;
  using J6.Cms.Domain.Interface.Site;
  using J6.Cms.Domain.Interface.User;
  using J6.Cms.Domain.Interface.Value;
@@ -15,12 +16,14 @@ namespace J6.Cms.Service
         private readonly IUserRepository _userRepository;
         private readonly UserQuery _userQuery;
         private readonly ISiteRepository _siteRepository;
+        private IArchiveRepository _archiveRep;
 
-        public UserService(IUserRepository rep,ISiteRepository siteRepository)
+        public UserService(IUserRepository rep,ISiteRepository siteRepository,IArchiveRepository archiveRep)
         {
             this._userRepository = rep;
             this._userQuery = new UserQuery();
             this._siteRepository = siteRepository;
+            this._archiveRep = archiveRep;
         }
 
         public LoginResultDto TryLogin(string username, string password)
@@ -196,6 +199,30 @@ namespace J6.Cms.Service
         public string GetUserRealName(int publisherId)
         {
             return this._userQuery.GetUserRealName(publisherId);
+        }
+
+        public int DeleteUser(int userId)
+        {
+            IUser user = this._userRepository.GetUser(userId);
+            if (user == null)
+            {
+                throw new ArgumentException("no such user");
+            }
+
+            foreach (var siteId in user.GetAppRole().GetSiteIds())
+            {
+                var pair = user.GetAppRole().GetRole(siteId);
+                if (pair != null && Role.Master.Match(pair.GetFlag()))
+                {
+                    throw new Exception("Can't delete web master.");
+                }
+            }
+
+            int firstUserId = this._userQuery.GetFirstUserId();
+
+            int total = this._archiveRep.TransferArchives(userId, firstUserId);
+
+          return  this._userRepository.DeleteUser(user.Id);
         }
     }
 }

@@ -481,5 +481,11 @@ namespace J6.Cms.ServiceRepository
         {
             this._dal.SaveSortNumber(archiveId, sortNumber);
         }
+
+
+        public int TransferArchives(int userId, int toUserId)
+        {
+            return this._dal.TransferPublisher(userId, toUserId);
+        }
     }
 }

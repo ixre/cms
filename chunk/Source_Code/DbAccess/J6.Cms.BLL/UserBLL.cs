@@ -398,34 +398,6 @@ namespace J6.Cms.BLL
             _dal.ModifyPassword(username, EncodePassword(password));
         }
 
-        /// <summary>
-        /// 删除系统用户并将已删除用户的文档作者改为管理员
-        /// </summary>
-        /// <returns>返回-1表示未删除成功,0表示未将已删除用户的文档设置超级管理员,否则返回修改数量</returns>
-        public int DeleteUser(string username)
-        {
-            User usr = this.GetUser(username);
-            bool result = _dal.DeleteUser(username);
-           if (result)
-           {
-               //获取超级管理员用户
-               User user = GetUser(a => a.Group == UserGroups.Master);
-
-               //如果超级管理员用户不为空，则转换作者
-               if (user != null)
-               {
-                   //
-                   //TODO:
-                   //
-                   //return new ArchiveBLL().TransferAuthor(usr.UserName, user.UserName);
-               }
-               else
-               {
-                   return 0;
-               }
-           }
-           return -1;
-        }
 
         /// <summary>
         /// 设置用户最后登录时间

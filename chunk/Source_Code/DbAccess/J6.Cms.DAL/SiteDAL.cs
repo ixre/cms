@@ -37,7 +37,7 @@ namespace J6.Cms.Dal
             //初始化Root数据
             base.ExecuteNonQuery(
                 SqlQueryHelper.Format(@"INSERT INTO $PREFIX_category 
-                                        (site_id,page_title,moduleid,tag,name,keywords,description,lft,rgt,sort_number)
+                                        (site_id,page_title,moduleid,tag,name,page_keywords,page_description,lft,rgt,sort_number)
                                         VALUES(" + siteId + ",'ROOT',1,'root','根栏目','','',1,2,1)")
                 );
             return siteId;

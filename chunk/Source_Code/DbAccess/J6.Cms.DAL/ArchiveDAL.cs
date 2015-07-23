@@ -835,20 +835,20 @@ namespace J6.Cms.Dal
         public void DeleteMemberArchives(int id)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Archive_DeleteMemberArchives),
+                new SqlQuery(base.OptimizeSql(DbSql.ArchiveDeleteMemberArchives),
                      new object[,]{
                 {"@id", id}
                      })
                 );
         }
 
-        public int TransferAuthor(string username, string anotherUsername)
+        public int TransferPublisher(int userId, int toPublisherId)
         {
             return base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.Archive_TransferAuthor),
+                 new SqlQuery(base.OptimizeSql(DbSql.ArchiveTransferPublisherId),
                       new object[,]{
-                        {"@AnotherUsername", anotherUsername},
-                        {"@Username", username}
+                        {"@toPublisherId", toPublisherId},
+                        {"@publisherId", userId}
                      })
                  );
         }

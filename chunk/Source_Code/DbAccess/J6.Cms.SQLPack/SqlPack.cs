@@ -167,12 +167,12 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 删除指定会员的文档
         /// </summary>
-        public readonly string Archive_DeleteMemberArchives = "DELETE FROM $PREFIX_archive WHERE publisher_id=@Id";
+        public readonly string ArchiveDeleteMemberArchives = "DELETE FROM $PREFIX_archive WHERE publisher_id=@Id";
 
         /// <summary>
         /// 切换作者
         /// </summary>
-        public readonly string Archive_TransferAuthor = "UPDATE $PREFIX_archive SET publisher_id=@AnotherUsername WHERE publisher_id=@Username";
+        public readonly string ArchiveTransferPublisherId = "UPDATE $PREFIX_archive SET publisher_id=@toPublisherId WHERE publisher_id=@publisherId";
 
         /// <summary>
         /// 获取分页文档条数(前台调用)
