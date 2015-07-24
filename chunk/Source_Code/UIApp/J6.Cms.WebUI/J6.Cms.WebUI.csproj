@@ -233,7 +233,7 @@
     </Content>
     <Content Include="framework\mui\js\ui_custom.js" />
     <None Include="install\db\mssql.sql" />
-    <None Include="config\cms.config" />
+    <None Include="config\cms.config8" />
     <Content Include="framework\assets\editor\handler\file_manager_json.ashx" />
     <Content Include="framework\assets\editor\handler\upload_json.ashx" />
     <None Include="install\db\sqlite.db" />
