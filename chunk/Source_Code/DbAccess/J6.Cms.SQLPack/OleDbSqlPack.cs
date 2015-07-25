@@ -101,7 +101,7 @@
                 return @"SELECT TOP {0} $PREFIX_archive.id,cid,flags,str_id,[alias],title,$PREFIX_archive.location,[Outline],thumbnail,[Content],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                     FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cid]
                     WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND (lft>=@lft AND rgt<=@rgt)
-                    ORDER BY [ViewCount] DESC,$PREFIX_archive.id";
+                    ORDER BY view_count DESC,$PREFIX_archive.id";
 
             }
         }
@@ -113,7 +113,7 @@
                 return @"SELECT TOP {0} $PREFIX_archive.id,cid,flags,str_id,[alias],title,$PREFIX_archive.location,[Outline],thumbnail,[Content],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                     FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cid]
                     WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND tag=@tag
-                    ORDER BY [ViewCount] DESC,$PREFIX_archive.id";
+                    ORDER BY view_count DESC,$PREFIX_archive.id";
 
             }
         }
@@ -124,7 +124,7 @@
             {
                 return @"SELECT TOP {0} $PREFIX_archive.id,cid,flags,str_id,[alias],title,$PREFIX_archive.location,[Outline],thumbnail,[Content],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                     FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.ID=$PREFIX_archive.cid WHERE " + SqlConst.Archive_NotSystemAndHidden +
-                     @" AND site_id=@siteId AND ModuleID=@ModuleID ORDER BY [ViewCount] DESC,$PREFIX_archive.id";
+                     @" AND site_id=@siteId AND ModuleID=@ModuleID ORDER BY view_count DESC,$PREFIX_archive.id";
             }
         }
 

@@ -7,7 +7,7 @@
 // Create : 2011/10/17 10:56:06
 // Description :
 //
-// Get infromation of this software,please visit our site http://z3q.net/cms
+// Get infromation of this software,please visit our site http://h3f.net/cms
 //
 //
 
@@ -807,7 +807,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 }
 
                 sb.Append("<td>").Append(String.Format("{0:yyyy/MM/dd HH:mm}", Convert.ToDateTime(dr["CreateDate"]))).Append("</td><td align=\"center\">")
-                    .Append(dr["ViewCount"].ToString()).Append("</td><td><button class=\"refresh\" /></td><td><button class=\"file\" /></td><td><button class=\"edit\" /></td><td><button class=\"delete\" /></td></tr>");
+                    .Append(dr["view_count"].ToString()).Append("</td><td><button class=\"refresh\" /></td><td><button class=\"file\" /></td><td><button class=\"edit\" /></td><td><button class=\"delete\" /></td></tr>");
 
             }
 
@@ -1043,7 +1043,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     }
 
                     sb.Append("<td>").Append(String.Format("{0:yyyy/MM/dd HH:mm}", Convert.ToDateTime(dr["CreateDate"]))).Append("</td><td align=\"center\">")
-                        .Append(dr["ViewCount"].ToString()).Append("</td><td><button class=\"refresh\" /></td><td><button class=\"file\" /></td><td><button class=\"edit\" /></td><td><button class=\"delete\" /></td></tr>");
+                        .Append(dr["view_count"].ToString()).Append("</td><td><button class=\"refresh\" /></td><td><button class=\"file\" /></td><td><button class=\"edit\" /></td><td><button class=\"delete\" /></td></tr>");
 
                 }
 

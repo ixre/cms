@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("J6.Cms.DAL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("z3q.net/cms")]
+[assembly: AssemblyCompany("h3f.net/cms")]
 [assembly: AssemblyProduct("J6.Cms.DAL")]
-[assembly: AssemblyCopyright("Copyright © cms.z3q.net 2013")]
+[assembly: AssemblyCopyright("Copyright © cms.h3f.net 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

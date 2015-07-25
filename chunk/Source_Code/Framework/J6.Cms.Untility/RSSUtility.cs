@@ -56,7 +56,7 @@ namespace J6.Cms.Utility
                 .Append("<description>").Append(Settings.SYS_NAME).Append("-最近发布的文档</description>")
                 .Append("<language>zh-cn</language>")
                 .Append("<copyright>Copyright (C) OPS.CC. All rights reserved.</copyright>")
-                .Append("<generator>z3q.net/cms RSS Generator</generator>");
+                .Append("<generator>h3f.net/cms RSS Generator</generator>");
 
             IList<Archive> archives = archiveBLL.GetAllArchives().ToEntityList<Archive>();
             foreach (Archive a in archives)

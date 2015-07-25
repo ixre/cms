@@ -1,6 +1,6 @@
 ﻿/**
  * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
- * Get more infromation of this software,please visit site http://z3q.net/cms
+ * Get more infromation of this software,please visit site http://h3f.net/cms
  * 
  * name : ExportItem.cs
  * author : newmin (new.min@msn.com)

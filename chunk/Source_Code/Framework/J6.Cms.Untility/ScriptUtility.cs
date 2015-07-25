@@ -7,7 +7,7 @@
 // Create : 2011/10/31 18:03:20
 // Description :
 //
-// Get infromation of this software,please visit our site http://z3q.net/cms
+// Get infromation of this software,please visit our site http://h3f.net/cms
 //
 //
 

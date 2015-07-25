@@ -247,7 +247,7 @@
             {
                 return @" SELECT a.`id` AS `id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,
                         c.`name` as categoryName,`cid`,`flags`,`publisher_id`,`content`,`source`,
-                        `createDate`,`viewCount` FROM $PREFIX_archive a
+                        `createDate`,view_count FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON c.id=a.cid
                         WHERE a.id IN (SELECT id FROM (SELECT a.`id` AS `id` FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON a.cid=c.ID

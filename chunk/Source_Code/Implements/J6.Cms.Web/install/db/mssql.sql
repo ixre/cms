@@ -129,7 +129,7 @@ CREATE TABLE [cms_link] (
 ALTER TABLE [cms_link] WITH NOCHECK ADD  CONSTRAINT [PK_cms_link] PRIMARY KEY  NONCLUSTERED ( [id] )
 SET IDENTITY_INSERT [cms_link] ON
 
-INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[target],[index],[visible]) VALUES ( 1,0,1,2,N'SPC.NET',N'http://z3q.net/cms/cms/',N'_blank',2,1)
+INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[target],[index],[visible]) VALUES ( 1,0,1,2,N'SPC.NET',N'http://h3f.net/cms/cms/',N'_blank',2,1)
 INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[index],[visible]) VALUES ( 2,1,1,1,N'Ê×Ò³',N'/',1,1)
 INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[index],[visible]) VALUES ( 3,0,1,1,N'»¶Ó­Ê¹ÓÃ',N'/cms/welcome.html',2,1)
 

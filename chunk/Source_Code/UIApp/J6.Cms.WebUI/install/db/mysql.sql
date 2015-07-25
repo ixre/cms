@@ -257,7 +257,7 @@ CREATE TABLE `cms_link` (
 
 LOCK TABLES `cms_link` WRITE;
 /*!40000 ALTER TABLE `cms_link` DISABLE KEYS */;
-INSERT INTO `cms_link` VALUES (1,0,1,2,'SPC.NET','http://z3q.net/cms/cms/','_blank',NULL,NULL,2,1),(2,0,1,1,'首页','/',NULL,NULL,NULL,1,1),(3,0,1,1,'欢迎使用','/cms/welcome.html',NULL,NULL,NULL,2,1);
+INSERT INTO `cms_link` VALUES (1,0,1,2,'SPC.NET','http://h3f.net/cms/cms/','_blank',NULL,NULL,2,1),(2,0,1,1,'首页','/',NULL,NULL,NULL,1,1),(3,0,1,1,'欢迎使用','/cms/welcome.html',NULL,NULL,NULL,2,1);
 /*!40000 ALTER TABLE `cms_link` ENABLE KEYS */;
 UNLOCK TABLES;
 
