@@ -276,7 +276,7 @@
             }
         }
 
-        public override string Archive_GetPagedSearchArchivesByModuleID
+        public override string ArchiveGetPagedSearchArchivesByModuleId
         {
             get
             {
@@ -288,7 +288,7 @@
             }
         }
 
-        public override string Archive_GetPagedSearchArchivesByCategoryID
+        public override string ArchiveGetPagedSearchArchivesByCategoryId
         {
             get
             {
@@ -342,7 +342,7 @@
             }
         }
 
-        public override string Archive_Add
+        public override string ArchiveAdd
         {
             get
             {
@@ -365,7 +365,7 @@
             }
         }
 
-        public override string Archive_Update
+        public override string ArchiveUpdate
         {
             get
             {
@@ -375,7 +375,7 @@
             }
         }
 
-        public override string Archive_GetSearchRecordCountByModuleID
+        public override string ArchiveGetSearchRecordCountByModuleId
         {
             get
             {
@@ -385,7 +385,7 @@
             }
         }
 
-        public override string Archive_GetSearchRecordCountByCategoryID
+        public override string ArchiveGetSearchRecordCountByCategoryId
         {
             get
             {

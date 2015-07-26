@@ -27,7 +27,7 @@ namespace J6.Cms.Dal
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
             int rowcount = base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.Archive_Add),
+                 new SqlQuery(base.OptimizeSql(DbSql.ArchiveAdd),
                       new object[,]{
                 {"@strId", strId},
                 {"@alias", alias},
@@ -61,7 +61,7 @@ namespace J6.Cms.Dal
             string tags, string flags, string location,int sortNumber)
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
-            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Archive_Update),
+            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.ArchiveUpdate),
                  new object[,]{
                                 {"@CategoryId", categoryID},
                                 {"@Title", title},
@@ -87,7 +87,7 @@ namespace J6.Cms.Dal
         public void RePublish(int siteId, int archiveId)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Archive_Republish),
+                new SqlQuery(base.OptimizeSql(DbSql.ArchiveRepublish),
                      new object[,]{
                 {"@CreateDate",String.Format("{0:yyyy-MM-dd HH:mm:ss}",DateTime.Now)},
                 {"@id", archiveId},
@@ -724,7 +724,7 @@ namespace J6.Cms.Dal
 
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
-                SqlQueryHelper.Format(DbSql.Archive_GetSearchRecordCountByCategoryID,
+                SqlQueryHelper.Format(DbSql.ArchiveGetSearchRecordCountByCategoryId,
                 data,
                 keyword,
                 condition
@@ -744,7 +744,7 @@ namespace J6.Cms.Dal
 
             string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
                 sql1 :
-                DbSql.Archive_GetPagedSearchArchivesByCategoryID;
+                DbSql.ArchiveGetPagedSearchArchivesByCategoryId;
 
             sql = SQLRegex.Replace(sql, (match) =>
              {
@@ -788,7 +788,7 @@ namespace J6.Cms.Dal
 
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(String.Format(DbSql.Archive_GetSearchRecordCountByModuleID, moduleId,
+                new SqlQuery(base.OptimizeSql(String.Format(DbSql.ArchiveGetSearchRecordCountByModuleId, moduleId,
                 keyword, condition)), null)
                 ).ToString());
 
@@ -805,7 +805,7 @@ namespace J6.Cms.Dal
 
             string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
                          sql1 :
-                        DbSql.Archive_GetPagedSearchArchivesByModuleID;
+                        DbSql.ArchiveGetPagedSearchArchivesByModuleId;
 
             sql = SQLRegex.Replace(sql, (match) =>
             {
@@ -898,7 +898,7 @@ namespace J6.Cms.Dal
         public int GetMaxSortNumber(int siteId)
         {
             return int.Parse(base.ExecuteScalar(
-                SqlQueryHelper.Format(DbSql.Archive_GetMaxSortNumber,
+                SqlQueryHelper.Format(DbSql.ArchiveGetMaxSortNumber,
                     new object[,]
                     {
                         {"@siteId", siteId},
@@ -908,7 +908,7 @@ namespace J6.Cms.Dal
         public void SaveSortNumber(int archiveId, int sortNumber)
         {
             base.ExecuteNonQuery(
-                SqlQueryHelper.Format(DbSql.Archive_UpdateSortNumber,
+                SqlQueryHelper.Format(DbSql.ArchiveUpdateSortNumber,
                     new object[,]
                     {
                         {"@archiveId", archiveId},

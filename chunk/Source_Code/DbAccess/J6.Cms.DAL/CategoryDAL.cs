@@ -20,7 +20,7 @@ namespace J6.Cms.Dal
         /// <returns></returns>
         public void GetAllCategories(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.Category_GetAllCategories)), func);
+            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.CategoryGetAllCategories)), func);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace J6.Cms.Dal
             string description,string location, int orderIndex)
         {
             return base.ExecuteNonQuery(
-                SqlQueryHelper.Create(DbSql.Category_Update,
+                SqlQueryHelper.Create(DbSql.CategoryUpdate,
                     new object[,]{
                 {"@siteId", siteId},
                 {"@moduleId", moduleId},
@@ -55,7 +55,7 @@ namespace J6.Cms.Dal
         {
 
             base.ExecuteNonQuery(
-                SqlQueryHelper.Create(DbSql.Category_Insert,
+                SqlQueryHelper.Create(DbSql.CategoryInsert,
                     new object[,]{
                 {"@siteId",siteId},
                 {"@lft", left},

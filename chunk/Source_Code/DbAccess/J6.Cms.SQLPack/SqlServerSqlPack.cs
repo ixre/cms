@@ -306,7 +306,7 @@ namespace J6.Cms.Sql
 			}
         }
 
-        public override string Archive_GetPagedSearchArchivesByModuleID
+        public override string ArchiveGetPagedSearchArchivesByModuleId
         {
             get
             {
@@ -324,7 +324,7 @@ namespace J6.Cms.Sql
 			}
         }
 
-        public override string Archive_GetPagedSearchArchivesByCategoryID
+        public override string ArchiveGetPagedSearchArchivesByCategoryId
         {
             get
             {
@@ -378,7 +378,7 @@ namespace J6.Cms.Sql
             }
         }
 
-        public override string Archive_Add
+        public override string ArchiveAdd
         {
             get
             {
@@ -401,7 +401,7 @@ namespace J6.Cms.Sql
             }
         }
 
-        public override string Archive_Update
+        public override string ArchiveUpdate
         {
             get
             {
@@ -411,7 +411,7 @@ namespace J6.Cms.Sql
             }
         }
 
-        public override string Archive_GetSearchRecordCountByModuleID
+        public override string ArchiveGetSearchRecordCountByModuleId
         {
             get
             {
@@ -422,7 +422,7 @@ namespace J6.Cms.Sql
             }
         }
 
-        public override string Archive_GetSearchRecordCountByCategoryID
+        public override string ArchiveGetSearchRecordCountByCategoryId
         {
             get
             {

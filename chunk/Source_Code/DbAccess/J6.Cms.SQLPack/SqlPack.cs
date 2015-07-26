@@ -26,18 +26,18 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 增加文档
         /// </summary>
-        public abstract string Archive_Add { get; }
+        public abstract string ArchiveAdd { get; }
 
 
         /// <summary>
         /// 更新文档
         /// </summary>
-        public abstract string Archive_Update { get; }
+        public abstract string ArchiveUpdate { get; }
 
         /// <summary>
         /// 重新发布文档
         /// </summary>
-        public readonly string Archive_Republish = @"UPDATE $PREFIX_archive 
+        public readonly string ArchiveRepublish = @"UPDATE $PREFIX_archive 
                                 SET createdate=@CreateDate WHERE id IN (SELECT id FROM
                                 (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
                                 $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
@@ -238,34 +238,34 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取根据模块搜索符合条件的文档数量文档数量
         /// </summary>
-        public abstract string Archive_GetSearchRecordCountByModuleID { get; }
+        public abstract string ArchiveGetSearchRecordCountByModuleId { get; }
 
         /// <summary>
         /// 获取根据模块搜索符合条件的文档列表
         /// </summary>
-        public abstract string Archive_GetPagedSearchArchivesByModuleID { get; }
+        public abstract string ArchiveGetPagedSearchArchivesByModuleId { get; }
 
         /// <summary>
         /// 根据栏目搜索符合条件的文档数量
         /// </summary>
-        public abstract string Archive_GetSearchRecordCountByCategoryID{get;}
+        public abstract string ArchiveGetSearchRecordCountByCategoryId{get;}
 
         /// <summary>
         ///获取根据栏目搜索符合条件的文档列表
         /// </summary>
-        public abstract string Archive_GetPagedSearchArchivesByCategoryID { get; }
+        public abstract string ArchiveGetPagedSearchArchivesByCategoryId { get; }
 
         /// <summary>
         /// 获取最大的排序号码
         /// </summary>
-        public string Archive_GetMaxSortNumber = @"SELECT MAX(sort_number) FROM  $PREFIX_archive 
+        public string ArchiveGetMaxSortNumber = @"SELECT MAX($PREFIX_archive.sort_number) FROM  $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
                         WHERE $PREFIX_category.site_id=@siteId";
 
         /// <summary>
         /// 更新排序号
         /// </summary>
-        public string Archive_UpdateSortNumber = "UPDATE $PREFIX_archive SET sort_number=@sort_number WHERE id=@archiveId";
+        public string ArchiveUpdateSortNumber = "UPDATE $PREFIX_archive SET sort_number=@sort_number WHERE id=@archiveId";
 
         #endregion
 
@@ -274,12 +274,12 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取所有栏目
         /// </summary>
-        public readonly string Category_GetAllCategories = "select * from $PREFIX_category ORDER BY lft";
+        public readonly string CategoryGetAllCategories = "select * from $PREFIX_category ORDER BY lft";
 
         /// <summary>
         /// 更新栏目
         /// </summary>
-        public readonly string Category_Update = @"
+        public readonly string CategoryUpdate = @"
                     UPDATE $PREFIX_category SET /*lft=@lft,rgt=@rgt,*/
                     moduleid=@moduleID,name=@name,tag=@tag,icon=@icon,page_title=@pagetitle,
                     page_keywords=@keywords,page_description=@description,location=@location,
@@ -288,7 +288,7 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 添加栏目
         /// </summary>
-        public readonly string Category_Insert = @"
+        public readonly string CategoryInsert = @"
                     INSERT INTO $PREFIX_category(site_id,lft,rgt,moduleid,
                     name,tag,icon,page_title,page_keywords,page_description,location,sort_number)
                     VALUES (@siteId,@lft,@rgt,@moduleID,@name,@tag,@icon,@pagetitle,
