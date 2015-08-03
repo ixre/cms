@@ -168,7 +168,7 @@ namespace J6.Cms.Core.Plugins
                        CmsVariables.FRAMEWORK_ASSETS_PATH
                            .Substring(0, CmsVariables.FRAMEWORK_ASSETS_PATH.Length - 1)
                        );
-                this._admJs = String.Concat(this._domain, "/",Settings.SYS_ADMIN_TAG, "?res=c2NyaXB0&amp;0.5.1.js&amp;ver=", Cms.Version);
+                this._admJs = String.Concat(this._domain, "/", Settings.SYS_ADMIN_TAG, "?res=bWFuYWdlX2pzX21pbg==&amp;0.5.1.js&amp;ver=", Cms.Version);
                 this._admCss = String.Concat(this._domain,"/", Settings.SYS_ADMIN_TAG, "?res=c3R5bGU=&amp;0.5.1.css&amp;ver=", Cms.Version);
                 this._pluginPath =String.Concat(this._domain ,"/", PluginConfig.PLUGIN_DIRECTORY);
                 this._loaded = true;
