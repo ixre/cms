@@ -20,18 +20,7 @@ namespace J6.Cms.IDAL
 {
     public interface IUserDal
     {
-        /// <summary>
-        /// 创建用户
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <param name="name"></param>
-        /// <param name="groupId"></param>
-        /// <param name="available"></param>
-        void CreateUser(int siteId, string username, string password,
-            string name, int groupId, bool available);
-
+       
         /// <summary>
         /// 更新用户信息
         /// </summary>
@@ -69,13 +58,6 @@ namespace J6.Cms.IDAL
         /// <returns></returns>
         int GetUserIdByUserName(string userName);
 
-
-        /// <summary>
-        /// 修改密码(无需确认原密码)
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="newPassword"></param>
-        void ModifyPassword(string username, string newPassword);
 
       
 

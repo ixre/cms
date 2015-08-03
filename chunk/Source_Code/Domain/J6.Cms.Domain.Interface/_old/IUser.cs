@@ -7,7 +7,6 @@ namespace J6.Cms.Domain.Interface._old
         string ConvertPermissionArrayToString(Models.Operation[] operations);
         Models.Operation[] ConvertToPermissionArray(string permissions);
         bool CreateNewOperation(string name, string path);
-        void CreateUser(Models.User user);
         void DeleteOperation(int id);
         string EncodePassword(string password);
         Models.User[] GetAllUser();
@@ -22,7 +21,6 @@ namespace J6.Cms.Domain.Interface._old
         Models.UserGroup GetUserGroup(UserGroups group);
         Models.UserGroup[] GetUserGroups();
         Models.User[] GetUsers(System.Func<Models.User, bool> func);
-        bool ModifyUserPassword(string username, string oldPassword, string newPassword);
         void RenameUserGroup(UserGroups group, string groupName);
         void RenewOperations();
        // void ResetUserPassword(string username, string password);

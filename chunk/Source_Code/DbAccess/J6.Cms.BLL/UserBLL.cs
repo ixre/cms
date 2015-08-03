@@ -361,43 +361,6 @@ namespace J6.Cms.BLL
             return _dal.GetUserIdByUserName(username) >0;
         }
 
-        /// <summary>
-        /// 创建用户
-        /// </summary>
-        /// <param name="user"></param>
-        public void CreateUser(User user)
-        {
-            _dal.CreateUser(user.SiteId,user.UserName, EncodePassword(user.Password), user.Name, user.GroupId,user.Available);
-        }
-
-        /// <summary>
-        /// 修改用户密码
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="oldPassword"></param>
-        /// <param name="newPassword"></param>
-        /// <returns></returns>
-        public bool ModifyUserPassword(string username, string oldPassword, string newPassword)
-        {
-            throw new NotImplementedException();
-//            if (this.GetUser(username, oldPassword) != null)
-//            {
-//                dal.ModifyPassword(username, EncodePassword(newPassword));
-//                return true;
-//            }
-//            return false;
-        }
-
-        /// <summary>
-        /// 重置用户密码
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        public void ResetUserPassword(string username,string password)
-        {
-            _dal.ModifyPassword(username, EncodePassword(password));
-        }
-
 
         /// <summary>
         /// 设置用户最后登录时间

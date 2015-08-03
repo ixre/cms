@@ -74,49 +74,19 @@ namespace J6.Cms.Dal
             return -1;
         }
 
-        public void CreateUser(int siteId, string username, string password, string name, int groupId, bool available)
-        {
-            DateTime dt = DateTime.Now;
-            base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.UserCreateUser),
-                    new object[,]
-                    {
-                        {"@siteId", siteId},
-                        {"@Username", username},
-                        {"@Password", password},
-                        {"@Name", name},
-                        {"@GroupId", groupId},
-                        {"@available", available},
-                        {"@CreateDate", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dt)},
-                        {"@LastLoginDate", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dt)}
-                    })
-                );
-        }
-
-        [Obsolete]
-        public void ModifyPassword(string username, string newPassword)
-        {
-            base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(""),
-                    new object[,]
-                    {
-                        {"@Password", newPassword},
-                        {"@UserName", username}
-                    }));
-        }
-
         public int SaveUser(IUser user,bool isNew)
         {
             //ame=@name,avatar=@avatar,phone=@phone,email=@email,
              //   check_code=@checkCode,role_flag=@roleFlag,create_time=@createTime,last_login_time=@loginTime WHERE id=@id
 
+
             var data = new object[,]
             {
                 {"@name", user.Name},
-                {"@avatar", user.Avatar},
-                {"@phone", user.Phone},
-                {"@email", user.Email},
-                {"@checkCode", user.CheckCode},
+                {"@avatar", user.Avatar??""},
+                {"@phone", user.Phone??""},
+                {"@email", user.Email??""},
+                {"@checkCode", user.CheckCode??""},
                 {"@roleFlag", user.Flag},
                 {"@createTime", user.CreateTime},
                 {"@loginTime", user.LastLoginTime},
@@ -125,6 +95,8 @@ namespace J6.Cms.Dal
 
             if (isNew)
             {
+                //@"INSERT INTO $PREFIX_user(name,avatar,phone,email, check_code,
+                //flag,create_time,last_login_time)VALUES(@name,@avatar,@phone,@email,@checkCode,@roleFlag,@createTime,@loginTime)";
                int row= base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.UserCreateUser), data));
                 if (row > 0)
                 {
