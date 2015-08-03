@@ -159,7 +159,7 @@ CREATE TABLE `cms_credential` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `user_name` varchar(20) DEFAULT NULL,
-  `password` varchar(32) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
   `enabled` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

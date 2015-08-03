@@ -26,6 +26,7 @@ namespace J6.Cms.Utility
 {
     //
     //TODO:需更新到CSite中
+    // todo: upgrade sha1 pwd
     //
     /// <summary>
     /// 
@@ -192,7 +193,7 @@ namespace J6.Cms.Utility
                             //用户不存在则返回false
                             if (user == null) return null;
 
-                            string token = (username + "ADMIN@OPSoft.CMS" + cre.Password).EncodeMD5();
+                            string token = (username +Generator.Offset + cre.Password).EncodeMD5();
 
                             //密钥一致，则登录
                             if (String.Compare(token, cookieToken, StringComparison.OrdinalIgnoreCase) == 0)
@@ -225,8 +226,13 @@ namespace J6.Cms.Utility
 
             public static int Login(string username, string password, double minutes)
             {
-                String md5Pwd = Generator.Md5Pwd(password, null);
-                LoginResultDto result = ServiceCall.Instance.UserService.TryLogin(username, md5Pwd);
+                String sha1Pwd =  Generator.Sha1Pwd(password,Generator.Offset);
+                LoginResultDto result = ServiceCall.Instance.UserService.TryLogin(username,sha1Pwd);
+                if (result.Tag !=  1)
+                {
+                    result = ServiceCall.Instance.UserService.TryLogin(username, Generator.Md5Pwd(password, null));
+                }
+
                 if (result.Tag == 1)
                 {
                     Exit();
@@ -239,7 +245,7 @@ namespace J6.Cms.Utility
                     // cookie.Domain=AppContext.Config.Domain.HostName;
 
                     //保存到Cookie中的密钥
-                    string token = (username + "ADMIN@OPSoft.CMS" + md5Pwd).EncodeMD5();
+                    string token = (username + Generator.Offset + sha1Pwd).EncodeMD5();
 
                     byte[] encodeBytes = Encoding.UTF8.GetBytes(username + "&" + token);
                     string encodedtokenStr = Convert.ToBase64String(encodeBytes);

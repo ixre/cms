@@ -58,10 +58,15 @@ function showMsg2(msg, second) {
 }
 
 j6.xhr.filter = function (s, c) {
-    if (s == 0) {
+    if (s === 0) {
         showMsg('<span class="load"></span>请求中');
-    } else if (s == 2) {
-        showErr('请求出错');
+    } else if (s === 2) {
+        var title = /<title>(.+)<\/title>/.exec(c)[1];
+        if (title) {
+            alert(title);
+        } else {
+            showErr('请求出错');
+        }
     } else {
         closeMsg();
     }

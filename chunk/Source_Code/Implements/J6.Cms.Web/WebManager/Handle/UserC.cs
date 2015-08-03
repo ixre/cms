@@ -68,13 +68,13 @@ namespace J6.Cms.Web.WebManager.Handle
             user.Email = Request["Email"];
             if (!String.IsNullOrEmpty(newPassword))
             {
-                if (Generator.Md5Pwd(oldPassword, null) != user.Credential.Password)
+                if (!Generator.CompareUserPwd(oldPassword, user.Credential.Password))
                 {
                     base.RenderError("原密码不正确!");
                     return;
 
                 }
-                user.Credential.Password = Generator.Md5Pwd(newPassword, null);
+                user.Credential.Password = Generator.Sha1Pwd(newPassword, Generator.Offset);
             }
 
             ServiceCall.Instance.UserService.SaveUser(user);
@@ -205,7 +205,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             if (!Regex.IsMatch(obj.Password, "^\\*+$"))
             {
-                user.Credential.Password = Generator.Md5Pwd(obj.Password, "");
+                user.Credential.Password = Generator.Sha1Pwd(obj.Password, Generator.Offset);
             }
             user.Credential.Enabled = obj.Enabled;
 

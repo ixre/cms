@@ -269,7 +269,7 @@ namespace J6.Cms.Web
                 new object[,]{
                     {"@userId",userId},
                     {"@userName",userName},
-                    {"@password",Generator.Md5Pwd(userPwd, null)},
+                    {"@password",Generator.Sha1Pwd(userPwd, Generator.Offset)},
                 }));
 
             #endregion
