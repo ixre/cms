@@ -64,6 +64,7 @@ j6.xhr.filter = function (s, c) {
         var title = /<title>(.+)<\/title>/.exec(c)[1];
         if (title) {
             alert(title);
+            closeMsg();
         } else {
             showErr('请求出错');
         }
