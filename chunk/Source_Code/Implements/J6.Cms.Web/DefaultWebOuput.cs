@@ -22,23 +22,23 @@ namespace J6.Cms.Web
 
     	internal static void RenderNotFound(CmsContext context)
     	{
-    		context.RenderNotfound("File not found!",tpl=>{
+    		context.RenderNotfound("No such file",tpl=>{
                                     tpl.AddVariable("site", new PageSite(context.CurrentSite));
     		                       	tpl.AddVariable("page",new PageVariable());
     		     					PageUtility.RegistEventHandlers(tpl);
     		 });
     	}
-    	
+    	///<summary>
         /// 校验验证码
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
         public static bool CheckVerifyCode(string code)
         {
-            var sess =  System.Web.HttpContext.Current.Session[String.Format("$j6.site_{0}_verifycode", J6.Cms.Cms.Context.CurrentSite.SiteId.ToString())];
+            var sess =  System.Web.HttpContext.Current.Session[String.Format("$j6.site_{0}_verifycode", Cms.Context.CurrentSite.SiteId.ToString())];
             if (sess != null)
             {
-                return String.Compare(code, sess.ToString(), true) == 0;
+                return String.Compare(code, sess.ToString(), StringComparison.OrdinalIgnoreCase) == 0;
             }
             return true;
         }
@@ -78,8 +78,8 @@ namespace J6.Cms.Web
             }
 
 
-        	int siteID=site.SiteId;
-        	string cacheID=String.Concat("cms_s",siteID.ToString(),"_index_page");
+        	int siteId=site.SiteId;
+        	string cacheId=String.Concat("cms_s",siteId.ToString(),"_index_page");
         	
         	ICmsPageGenerator cmsPage=new PageGeneratorObject(context);
         	
@@ -89,15 +89,15 @@ namespace J6.Cms.Web
             }
 
 
-            string html = String.Empty;
+            string html;
             if (Settings.Opti_IndexCacheSeconds > 0)
             {
                 ICmsCache cache = Cms.Cache;
-                object obj = cache.Get(cacheID);
+                object obj = cache.Get(cacheId);
                 if (obj == null)
                 {
                     html = cmsPage.GetIndex(null);
-                    cache.Insert(cacheID, html, DateTime.Now.AddSeconds(Settings.Opti_IndexCacheSeconds));
+                    cache.Insert(cacheId, html, DateTime.Now.AddSeconds(Settings.Opti_IndexCacheSeconds));
                 }
                 else
                 {
@@ -132,10 +132,10 @@ namespace J6.Cms.Web
             //检查缓存
             if (!context.CheckAndSetClientCache()) return;
 
-            
+
             var siteId = context.CurrentSite.SiteId;
 
-        	ICmsPageGenerator cmsPage=new PageGeneratorObject(context);
+            ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
 
 
             Regex paramRegex = new Regex("/*([^/]+).html$", RegexOptions.IgnoreCase);
@@ -147,7 +147,7 @@ namespace J6.Cms.Web
 
             if (archive.Id <= 0)
             {
-            	RenderNotFound(context);
+                RenderNotFound(context);
                 return;
             }
             else
@@ -164,10 +164,10 @@ namespace J6.Cms.Web
                     else
                     {
                         if (archive.Location.StartsWith("/")) throw new Exception("URL不能以\"/\"开头!");
-                        url = String.Concat(context.SiteDomain,"/", archive.Location);
+                        url = String.Concat(context.SiteDomain, "/", archive.Location);
                     }
 
-                    context.Response.Redirect(url, true);  //302
+                    context.Response.Redirect(url, true); //302
 
                     //context.Response.StatusCode = 301;
                     //context.Render(@"<html><head><meta name=""robots"" content=""noindex""><script>location.href='" +
@@ -179,22 +179,22 @@ namespace J6.Cms.Web
                 BuiltInArchiveFlags flag = ArchiveFlag.GetBuiltInFlags(archive.Flags);
 
                 if ((flag & BuiltInArchiveFlags.Visible) != BuiltInArchiveFlags.Visible)
-                //|| (flag & BuiltInArchiveFlags.IsSystem)== BuiltInArchiveFlags.IsSystem)   //系统文档可以单独显示
+                    //|| (flag & BuiltInArchiveFlags.IsSystem)== BuiltInArchiveFlags.IsSystem)   //系统文档可以单独显示
                 {
-            		RenderNotFound(context);
+                    RenderNotFound(context);
                     return;
                 }
 
                 CategoryDto category = archive.Category;
 
-                if (!(category.Id>0))
+                if (!(category.Id > 0))
                 {
-            		RenderNotFound(context);
+                    RenderNotFound(context);
                     return;
                 }
                 else
                 {
-                	string appPath = J6.Cms.Cms.Context.SiteAppPath;
+                    string appPath = Cms.Context.SiteAppPath;
                     if (appPath != "/") appPath += "/";
 
                     if ((flag & BuiltInArchiveFlags.AsPage) == BuiltInArchiveFlags.AsPage)
@@ -217,43 +217,32 @@ namespace J6.Cms.Web
                     {
                         //校验栏目是否正确
                         string categoryPath = category.UriPath;
-                        string _path = appPath != "/" ? allhtml.Substring(appPath.Length - 1) : allhtml;
+                        string path = appPath != "/" ? allhtml.Substring(appPath.Length - 1) : allhtml;
 
-                        if (!_path.StartsWith(categoryPath + "/"))
+                        if (!path.StartsWith(categoryPath + "/"))
                         {
-            				RenderNotFound(context);
+                            RenderNotFound(context);
                             return;
                         }
 
                         //设置了别名,则跳转
-                        if (!String.IsNullOrEmpty(archive.Alias) && String.Compare(id, archive.Alias, true) != 0)
+                        if (!String.IsNullOrEmpty(archive.Alias) && String.Compare(id, archive.Alias,
+                            StringComparison.OrdinalIgnoreCase) != 0)
                         {
                             context.Response.StatusCode = 301;
                             context.Response.RedirectLocation = String.Format("{0}{1}/{2}.html",
-                                 appPath,
-                                 categoryPath,
-                                 String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
-                                 );
+                                appPath,
+                                categoryPath,
+                                String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
+                                );
                             context.Response.End();
                             return;
-
                         }
                     }
 
-
                     //增加浏览次数
                     ++archive.ViewCount;
-                    new System.Threading.Thread(() =>
-                    {
-                        try
-                        {
-                            ServiceCall.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);
-                        }
-                        catch
-                        {
-                        }
-                    }).Start();
-
+                    ServiceCall.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);
                     //显示页面
                     html = cmsPage.GetArchive(archive);
 
@@ -270,6 +259,8 @@ namespace J6.Cms.Web
         /// 呈现分类页
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="tag"></param>
+        /// <param name="page"></param>
         public static void RenderCategory(CmsContext context, string tag, int page)
         {
 
@@ -292,10 +283,10 @@ namespace J6.Cms.Web
 
             //获取路径
             string categoryPath = category.UriPath;
-            string appPath = J6.Cms.Cms.Context.SiteAppPath;
-            string _path = appPath != "/" ? allcate.Substring(appPath.Length) : allcate;
+            string appPath = Cms.Context.SiteAppPath;
+            string path = appPath != "/" ? allcate.Substring(appPath.Length) : allcate;
 
-            if (!_path.StartsWith(categoryPath))
+            if (!path.StartsWith(categoryPath))
             {
                 RenderNotFound(context);
                 return;

@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
+ * Copyright (C) 2007-2015 K3F.NET,All rights reseved.
  * Get more infromation of this software,please visit site http://h3f.net/cms
  * 
  * name : Site.cs
@@ -383,7 +383,8 @@ namespace J6.Cms.Domain.Implement.Site
            }
 
 
-           if (cates.Count() != 0)
+           var categories = cates as ICategory[] ?? cates.ToArray();
+           if (categories.Count() != 0)
            {
                if (lft != 1)
                {
@@ -444,7 +445,7 @@ namespace J6.Cms.Domain.Implement.Site
                    .Append(category.Name).Append("</span></dt>");
                }
 
-               foreach (var c in cates)
+               foreach (var c in categories)
                {
                    this.ItreCategoryTree(sb, c.Lft);
                }
@@ -503,19 +504,15 @@ namespace J6.Cms.Domain.Implement.Site
              * 
              */
 
-           int rootLft,
-               rootRgt;
-
            IList<int> arr = new List<int>();
 
            // 获得root节点的左边和右边的值
            ICategory root = this.GetCategoryByLft(lft);
 
-           if (root == null)
-               throw new Exception("栏目不存在!");
+           if (root == null)throw new Exception("栏目不存在!");
 
-           rootLft = root.Lft;
-           rootRgt = root.Rgt;
+           var rootLft = root.Lft;
+           var rootRgt = root.Rgt;
 
            //获取root节点的所有子节点
            IEnumerable<ICategory> childNodes =this.GetCategories(root.Lft, root.Rgt, CategoryContainerOption.Childs);
@@ -575,26 +572,21 @@ namespace J6.Cms.Domain.Implement.Site
 
        private void ItrNodeTree(TreeNode node, ICategory root)
        {
-           TreeNode tnode;
            foreach (ICategory c in root.NextLevelChilds)
            {
-               tnode = new TreeNode(c.Name, 
+               var tNode = new TreeNode(c.Name, 
                    String.Format("{0}cid:{1},lft:{2}{3}","{",c.Id.ToString(),c.Lft.ToString(),"}"),
                    "javascript:;",true,
                    "");
-               node.childs.Add(tnode);
-               ItrNodeTree(tnode, c);
+               node.childs.Add(tNode);
+               ItrNodeTree(tNode, c);
            }
        }
-
 
        public void ClearSelf()
        {
            this._categories = null;
        }
-
-
-
 
     }
 }

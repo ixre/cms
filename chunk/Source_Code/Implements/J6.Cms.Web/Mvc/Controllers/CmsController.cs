@@ -9,6 +9,7 @@
 //  2013-03-06  11:17   newmin  [+]: 评论模块
 //
 
+using System.Web;
 using J6.Cms.BLL;
 using J6.Cms.Conf;
 using J6.Cms.DataTransfer;
@@ -148,8 +149,9 @@ namespace J6.Cms.Web.Mvc
         /// </summary>
         /// <param name="length"></param>
         /// <param name="opt"></param>
+        /// <param name="useFor"></param>
         [HttpGet]
-        public void VerifyImg(string length, string opt, string usefor)
+        public void VerifyImg(string length, string opt, string useFor)
         {
             int _length;                        //验证码长度
             VerifyWordOptions _opt;  //验证码选项
@@ -190,16 +192,14 @@ namespace J6.Cms.Web.Mvc
         /// <summary>
         /// 栏目页面
         /// </summary>
-        /// <param name="tag"></param>
-        /// <param name="page"></param>
+        /// <param name="allCate"></param>
         /// <returns></returns>
-        public void Category(string allcate)
+        public void Category(string allCate)
         {
             int page = 1;
-            string tag;
 
             //验证是否为当前站点的首页
-            if (this.OutputCntext.SiteAppPath != "/" && Regex.IsMatch(allcate, "^[^/]+/{0,1}$"))
+            if (this.OutputCntext.SiteAppPath != "/" && Regex.IsMatch(allCate, "^[^/]+/{0,1}$"))
             {
                 this.Index();
                 return;
@@ -208,9 +208,9 @@ namespace J6.Cms.Web.Mvc
             //获取页码和tag
             Regex paramRegex = new Regex("/*(([^/]+)/(p(\\d+)\\.html)?|([^/]+))$", RegexOptions.IgnoreCase);
 
-            Match mc = paramRegex.Match(allcate);
+            Match mc = paramRegex.Match(allCate);
 
-            tag = mc.Groups[mc.Groups[2].Value != "" ? 2 : 5].Value;
+            var tag = mc.Groups[mc.Groups[2].Value != "" ? 2 : 5].Value;
 
             //计算页吗:页码如:p3
             if (mc.Groups[4].Value != "")
@@ -236,21 +236,19 @@ namespace J6.Cms.Web.Mvc
         /// <summary>
         /// 文档页
         /// </summary>
-        /// <param name="tag"></param>
-        /// <param name="id"></param>
         /// <returns></returns>
-        public void Archive(string allhtml)
+        public void Archive(string allHtml)
         {
             bool eventResult = false;
             if (OnArchiveRequest != null)
             {
-                OnArchiveRequest(base.OutputCntext, allhtml, ref eventResult);
+                OnArchiveRequest(base.OutputCntext, allHtml, ref eventResult);
             }
 
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.RenderArchive(base.OutputCntext, allhtml);
+                DefaultWebOuput.RenderArchive(base.OutputCntext, allHtml);
             }
         }
 
@@ -258,6 +256,7 @@ namespace J6.Cms.Web.Mvc
         /// <summary>
         /// 搜索列表
         /// </summary>
+        /// <param name="c"></param>
         /// <param name="w"></param>
         /// <returns></returns>
         public void Search(string c, string w)
@@ -358,9 +357,9 @@ namespace J6.Cms.Web.Mvc
 
         public void Combine()
         {
-            var context = J6.Cms.Cms.Context.HttpContext;
+            HttpContext context = Cms.Context.HttpContext;
 
-            J6.Cms.Cms.Cache.ETagOutput(context.Response, () =>
+            Cms.Cache.ETagOutput(context.Response, () =>
                 {
                     string path = context.Request["loc"] ?? "";
                     string type = context.Request["type"] ?? "js";

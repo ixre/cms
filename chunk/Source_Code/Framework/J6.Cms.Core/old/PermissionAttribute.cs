@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ S1N1.COM.
+// Copyright 2011 @ K3F.NET.
 // Permission.cs
 // publisher_id:
 //      newmin(new.min@msn.com)

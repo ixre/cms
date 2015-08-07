@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright(C) 2010-2013 S1N1.COM
+ * Copyright(C) 2010-2013 K3F.NET
  * 
  * File Name	: Routes
  * Author	: Newmin (new.min@msn.com)
@@ -98,7 +98,7 @@ namespace J6.Cms.Web.Mvc
 			#region 系统路由
 			
 			//忽略静态目录
-			routes.IgnoreRoute("{staticdir}/{*pathInfo}", new { staticdir = "^(uploads|content|static|plugins|libs|scripts|images|style|themes)$" });
+			routes.IgnoreRoute("{staticdir}/{*pathInfo}", new { staticdir = "^(uploads|resources|content|static|plugins|libs|scripts|images|style|themes)$" });
 
 			//tempaltes路由处理(忽略静态文件)
 			routes.IgnoreRoute("templates/{*pathInfo}", new { pathInfo = "^(.+?)\\.(jpg|jpeg|css|js|json|xml|gif|png|bmp)$" });

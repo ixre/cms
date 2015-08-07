@@ -274,33 +274,29 @@ namespace J6.Cms.Template
                     {
                         return this.GetCategoryUrl(category, 1);
                     }
-                    else
-                    {
-                        throw new Exception("[" + binds[1] + "]site:" + this.site.SiteId.ToString() + "/" + category.Name);
-                    }
                 }
                 else if (binds[0] == "archive")
                 {
                     int archiveId;
                     int.TryParse(binds[1], out archiveId);
 
-                    ArchiveDto archive = ServiceCall.Instance.ArchiveService
+                    ArchiveDto archiveDto = ServiceCall.Instance.ArchiveService
                         .GetArchiveById(this.siteId, archiveId);
 
-                    if (archive.Id > 0)
+                    if (archiveDto.Id > 0)
                     {
                         return this.GetArchiveUrl(
-                            archive.Location,
-                            archive.Flags,
-                            archive.Category,
-                            String.IsNullOrEmpty(archive.Alias)
-                                ? archive.StrId
-                                : archive.Alias);
+                            archiveDto.Location,
+                            archiveDto.Flags,
+                            archiveDto.Category,
+                            String.IsNullOrEmpty(archiveDto.Alias)
+                                ? archiveDto.StrId
+                                : archiveDto.Alias);
                     }
                 }
             }
 
-            return String.Empty;
+            return "#no-such";
 
         }
 

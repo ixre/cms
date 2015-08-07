@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
+// Copyright (C) 2007-2008 K3F.NET,All rights reseved.
 // 
 // Project: Cms.Cms
 // FileName : CmsUtility.cs
@@ -7,7 +7,7 @@
 // Create : 2013/06/23 14:53:11
 // Description :
 //
-// Get infromation of this software,please visit our site http://Cms.Cms.cc
+// Get infromation of this software,please visit our site http://cms.k3f.net
 //
 //
 

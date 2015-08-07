@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Spc.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("S1N1.COM")]
+[assembly: AssemblyCompany("K3F.NET")]
 [assembly: AssemblyProduct("Spc.Web")]
 [assembly: AssemblyCopyright("Copyright © h3f.net/cms")]
 [assembly: AssemblyTrademark("")]

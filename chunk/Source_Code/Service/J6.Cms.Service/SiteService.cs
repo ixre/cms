@@ -285,12 +285,9 @@ namespace J6.Cms.Service
         public string GetCategorySitemapHtml(int siteId, string categoryTag, string split, string linkFormat)
         {
             string categoryPath = null;
-            int rootLft;
-            ICategory parentCategory;
             ISite site = this._resp.GetSiteById(siteId);
+            int rootLft =  site.RootCategory.Lft;
             ICategory category = site.GetCategoryByTag(categoryTag);
-            if (category == null) throw new Exception("栏目不存在");
-            rootLft = site.RootCategory.Lft;
 
             string html = "";
             StringBuilder sb = new StringBuilder();
@@ -322,10 +319,6 @@ namespace J6.Cms.Service
 
                 category = category.Parent;
             }
-
-            //去掉双斜杠
-            // Regex reg = new Regex("\\b//");
-            // return reg.Replace(sb.ToString(), "/");
 
             return html;
         }

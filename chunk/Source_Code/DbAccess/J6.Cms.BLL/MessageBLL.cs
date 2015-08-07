@@ -1,6 +1,6 @@
 ﻿//
 // MessageBLL   消息逻辑
-// Copryright 2011 @ S1N1.COM,All rights reseved !
+// Copryright 2011 @ K3F.NET,All rights reseved !
 // Create by newmin @ 2011/04/06
 //
 

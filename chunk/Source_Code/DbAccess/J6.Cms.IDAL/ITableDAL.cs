@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 S1N1.COM
+* Copyright(C) 2010-2013 K3F.NET
 * 
 * File Name	: ITableDAL
 * Author	: Newmin (new.min@msn.com)

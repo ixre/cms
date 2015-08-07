@@ -14,7 +14,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
         private ICategoryRepository _rep;
         private IExtendFieldRepository _extendRep;
 
-        public IList<IExtendField> _extendFields;
+        private IList<IExtendField> _extendFields;
         private ICategory _parent;
         private IEnumerable<ICategory> _childs;
         private ICategory _next;
@@ -22,9 +22,10 @@ namespace J6.Cms.Domain.Implement.Site.Category
         private IEnumerable<ICategory> _nextLevelChilds;
         private string _uriPath;
         private IList<ITemplateBind> _templates;
-        private ITemplateRepository _tempRep;
+        private readonly ITemplateRepository _tempRep;
 
-        internal Category(ICategoryRepository rep,IExtendFieldRepository extendRep,ITemplateRepository tmpRep, int id,ISite site)
+        internal Category(ICategoryRepository rep,IExtendFieldRepository extendRep,
+            ITemplateRepository tmpRep, int id,ISite site)
         {
             this.Site = site;
             this._rep = rep;

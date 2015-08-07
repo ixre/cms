@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ S1N1.COM,All right reseved.
+// Copyright 2011 @ K3F.NET,All right reseved.
 // Name: ArchiveUtility.cs
 // publisher_id: newmin
 // Comments:

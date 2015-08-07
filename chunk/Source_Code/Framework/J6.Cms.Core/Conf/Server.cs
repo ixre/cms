@@ -1,7 +1,7 @@
 ﻿//
 // { newmin,OPS } Server.cs     2011/03/06 00:41
 //
-// Copyright 2011 @ S1N1.COM,All rights reseved!
+// Copyright 2011 @ K3F.NET,All rights reseved!
 // Note: 需做一个调用更新服务器的功能
 //
 //
@@ -16,7 +16,7 @@ namespace J6.Cms.Conf
     	/// 默认静态服务器
     	/// 
     	/// </summary>
-        internal static string DefaultStaticServer="cms-cdn.s1n1.com/cms";
+        internal static string DefaultStaticServer="cms-cdn.K3F.NET/cms";
 
 
         /// <summary>
@@ -27,6 +27,6 @@ namespace J6.Cms.Conf
         /// <summary>
         /// 更新服务器
         /// </summary>
-        public static string DefaultUpgradeServer = "http://cms-cdn.s1n1.com/cms/patch/latest/";
+        public static string DefaultUpgradeServer = "http://cms-cdn.K3F.NET/cms/patch/latest/";
     }
 }

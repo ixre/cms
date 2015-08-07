@@ -1,6 +1,6 @@
 ﻿
 /*
-* Copyright(C) 2010-2013 S1N1.COM
+* Copyright(C) 2010-2013 K3F.NET
 * 
 * File Name	: CmsEventRegister.cs
 * publisher_id	: Newmin (new.min@msn.com)
@@ -42,7 +42,7 @@ namespace J6.Cms
                 //x.For<ISite>().Singleton().Use<SiteBLL>();
                 // x.For<ITemplateBind>().Singleton().Use<TemplateBindBLL>();
                 x.For<IUser>().Singleton().Use<UserBll>();
-                x.For<ITable>().Singleton().Use<TableBLL>();
+                x.For<ITable>().Singleton().Use<TableBll>();
 
             });
 

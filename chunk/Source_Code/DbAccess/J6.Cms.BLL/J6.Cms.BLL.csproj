@@ -86,8 +86,8 @@
     <Compile Include="ModuleBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReviewsBLL.cs" />
-    <Compile Include="UserBLL.cs" />
-    <Compile Include="TableBLL.cs" />
+    <Compile Include="UserBll.cs" />
+    <Compile Include="TableBll.cs" />
     <Compile Include="WeakRefCache.cs" />
   </ItemGroup>
   <ItemGroup>

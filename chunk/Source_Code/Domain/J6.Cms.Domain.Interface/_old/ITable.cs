@@ -9,13 +9,13 @@ namespace J6.Cms.Domain.Interface._old
         OperateResult AddTable(Models.Table table, Models.TableColumn[] columns);
         OperateResult DeleteColumn(int tableID, int columnID);
         OperateResult DeleteRow(int tableId, int rowId);
-        OperateResult DeleteTable(int tableID);
+        OperateResult DeleteTable(int tableId);
         Models.TableColumn GetColumn(int columnID);
         System.Collections.Generic.IList<TableColumn> GetColumns(int tableID);
-        System.Data.DataTable GetPagedRecords(int tableID, string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount);
+        System.Data.DataTable GetPagedRecords(int tableId, string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount);
         Models.TableRow GetRecord(int rowId);
-        int GetRowsCount(int tableID);
-        Models.Table GetTable(int tableID);
+        int GetRowsCount(int tableId);
+        Models.Table GetTable(int tableId);
         System.Collections.Generic.IList<Table> GetTables();
         int SubmitRow(int tableId, System.Collections.Specialized.NameValueCollection form);
         OperateResult UpdateColumn(Models.TableColumn tableColumn);

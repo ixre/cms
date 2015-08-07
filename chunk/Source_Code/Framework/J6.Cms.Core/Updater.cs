@@ -376,7 +376,7 @@ namespace J6.Cms
                 ? new MemoryStream()
                 : new MemoryStream(fileBytes);
 
-            string remoteAddr = fileName.IndexOf("http://") == 0 ? fileName : string.Format("{0}/{1}", Settings.SERVER_UPGRADE, fileName);
+            string remoteAddr = fileName.IndexOf("http://", StringComparison.Ordinal) == 0 ? fileName : string.Format("{0}/{1}", Settings.SERVER_UPGRADE, fileName);
 
             int fileLength = (int)ms.Length;
 
@@ -392,9 +392,9 @@ namespace J6.Cms
 
                 Stream st = rsp.GetResponseStream();
 
-                cTotal = (int)rsp.ContentLength;
+                //cTotal = (int)rsp.ContentLength;
 
-                while ((cread = st.Read(data, 0, buffer)) != 0)
+                while (st != null && (cread = st.Read(data, 0, buffer)) != 0)
                 {
                     ms.Write(data, 0, cread);
                 }
@@ -407,6 +407,7 @@ namespace J6.Cms
             }
             catch
             {
+                // ignored
             }
             return null;
         }

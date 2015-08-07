@@ -1,6 +1,6 @@
 ﻿/**
- * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
- * Get more infromation of this software,please visit site http://Cms.Cms.cc
+ * Copyright (C) 2007-2015 K3F.NET,All rights reseved.
+ * Get more infromation of this software,please visit site http://cms.k3f.net
  * 
  * name : CmsContext.cs
  * author : newmin (new.min@msn.com)

@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 S1N1.COM
+* Copyright(C) 2010-2013 K3F.NET
 * 
 * File Name	: TableBLL
 * Author	: Newmin (new.min@msn.com)
@@ -25,7 +25,7 @@ using J6.DevFw.Data.Extensions;
 
 namespace J6.Cms.BLL
 {
-    public class TableBLL : ITable
+    public class TableBll : ITable
     {
         private static ITableDAL dal = new TableDal();
 
@@ -34,9 +34,9 @@ namespace J6.Cms.BLL
             return dal.AddTable(table, columns);
         }
 
-        public OperateResult DeleteTable(int tableID)
+        public OperateResult DeleteTable(int tableId)
         {
-            return dal.DeleteTable(tableID);
+            return dal.DeleteTable(tableId);
         }
 
         public OperateResult UpdateTable(Table table, TableColumn[] columns)
@@ -44,10 +44,10 @@ namespace J6.Cms.BLL
             return dal.UpdateTable(table, columns);
         }
 
-        public Table GetTable(int tableID)
+        public Table GetTable(int tableId)
         {
             Table e = null;
-            dal.GetTable(tableID, rd =>
+            dal.GetTable(tableId, rd =>
             {
                e=rd.ToEntity<Table>();
             });
@@ -118,15 +118,15 @@ namespace J6.Cms.BLL
 
         #region 行
 
-       public  int GetRowsCount(int tableID)
+       public  int GetRowsCount(int tableId)
         {
-            return dal.GetRowsCount(tableID);
+            return dal.GetRowsCount(tableId);
         }
 
-        public DataTable GetPagedRecords(int tableID,string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount)
+        public DataTable GetPagedRecords(int tableId,string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount)
        {
-           IList<TableColumn> columns = GetColumns(tableID);
-           DataTable dt=dal.GetPagedRows(tableID,keyword, pageSize, currentPageIndex, out recordCount, out pageCount);
+           IList<TableColumn> columns = GetColumns(tableId);
+           DataTable dt=dal.GetPagedRows(tableId,keyword, pageSize, currentPageIndex, out recordCount, out pageCount);
 
             //将列添加进入datatable(列名为:$+ID)
             if (columns != null && columns.Count!=0)

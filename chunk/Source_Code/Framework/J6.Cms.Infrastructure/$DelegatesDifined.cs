@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 S1N1.COM
+* Copyright(C) 2010-2012 K3F.NET
 * 
 * File Name	: DelegatesDifined
 * publisher_id	: Newmin (new.min@msn.com)

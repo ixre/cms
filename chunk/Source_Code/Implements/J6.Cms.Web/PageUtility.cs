@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
+// Copyright (C) 2007-2008 K3F.NET,All rights reseved.
 // 
 // Project: J6.Cms
 // FileName : TemplateUtility.cs

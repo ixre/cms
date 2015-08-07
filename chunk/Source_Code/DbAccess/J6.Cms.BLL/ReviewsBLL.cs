@@ -1,6 +1,6 @@
 ﻿//
 // ReviewsBLL   点评(赞同和反对)
-// Copryright 2011 @ S1N1.COM,All rights reseved !
+// Copryright 2011 @ K3F.NET,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
 
