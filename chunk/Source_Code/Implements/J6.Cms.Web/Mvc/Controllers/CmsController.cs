@@ -68,12 +68,12 @@ namespace J6.Cms.Web.Mvc
 
         static CmsController()
         {
-            CmsController.OnIndexRequest += J6.Cms.Cms.Plugins.Portal.PortalRequest;
-            CmsController.OnCategoryRequest += J6.Cms.Cms.Plugins.Category.Request;
-            CmsController.OnArchiveRequest += J6.Cms.Cms.Plugins.Archive.Request;
-            CmsController.OnArchivePost += J6.Cms.Cms.Plugins.Archive.PostRequest;
-            CmsController.OnSearchRequest += J6.Cms.Cms.Plugins.Portal.SearchRequest;
-            CmsController.OnTagRequest += J6.Cms.Cms.Plugins.Portal.TagRequest;
+            CmsController.OnIndexRequest += Cms.Plugins.Portal.PortalRequest;
+            CmsController.OnCategoryRequest += Cms.Plugins.Category.Request;
+            CmsController.OnArchiveRequest += Cms.Plugins.Archive.Request;
+            CmsController.OnArchivePost += Cms.Plugins.Archive.PostRequest;
+            CmsController.OnSearchRequest += Cms.Plugins.Portal.SearchRequest;
+            CmsController.OnTagRequest += Cms.Plugins.Portal.TagRequest;
         }
 
 
@@ -121,7 +121,7 @@ namespace J6.Cms.Web.Mvc
             string action = System.Web.HttpContext.Current.Request["action"];
             if (action == "help")
             {
-                string fileName = String.Concat(J6.Cms.Cms.PyhicPath,
+                string fileName = String.Concat(Cms.PyhicPath,
                     CmsVariables.TEMP_PATH,
                     "tpl_lang_guid.xml");
                 AutoObjectXml obj = new AutoObjectXml(fileName);
@@ -365,7 +365,7 @@ namespace J6.Cms.Web.Mvc
                     string type = context.Request["type"] ?? "js";
 
                     string[] files = path.Split(',');
-                    string appDir = J6.Cms.Cms.PyhicPath;
+                    string appDir = Cms.PyhicPath;
 
                     bool compress = context.Request["comparess"] != "false";
 

@@ -14,71 +14,71 @@ namespace J6.Cms.Web
     using J6.DevFw.Template;
     using System;
 
-	public class PageVariable
-	{
-		private string _domain;
-		private string _frameworkPath;
-		private string _templatePath;
-		private string _pluginRootPath;
-		private string _sitemap;
-		private readonly CmsContext _context;
+    public class PageVariable
+    {
+        private string _domain;
+        private string _frameworkPath;
+        private string _templatePath;
+        private string _pluginRootPath;
+        private string _sitemap;
+        private readonly CmsContext _context;
         private string _resDomain;
 
-		
-		public PageVariable()
-		{
-			_context=J6.Cms.Cms.Context;
-		}
-		
-		
-		[TemplateVariableField("版本")]
-		public string Version
-		{
-			get
-			{
-				return J6.Cms.Cms.Version;
-			}
-		}
+
+        public PageVariable()
+        {
+            _context = Cms.Context;
+        }
+
+
+        [TemplateVariableField("版本")]
+        public string Version
+        {
+            get
+            {
+                return Cms.Version;
+            }
+        }
 
         [TemplateVariableField("当前地址")]
-	    public string Url
-	    {
-	        get { return _context.Request.RawUrl; }
-	    }
+        public string Url
+        {
+            get { return _context.Request.RawUrl; }
+        }
 
-	    /// <summary>
-		/// 域名
-		/// </summary>
-		[TemplateVariableField("站点域名")]
-		public string Domain
-		{
-			get { return this._domain ?? (this._domain = _context.SiteDomain); }
-		}
+        /// <summary>
+        /// 域名
+        /// </summary>
+        [TemplateVariableField("站点域名")]
+        public string Domain
+        {
+            get { return this._domain ?? (this._domain = _context.SiteDomain); }
+        }
 
-		[TemplateVariableField("资源域名")]
-		public string ResDomain
-		{
-			get { return this._resDomain ?? (this._resDomain = _context.ResourceDomain); }
-		}
-		
-		
-		[TemplateVariableField("静态服务器域名")]
-		public string StaticDomain
-		{
-			get
-			{
+        [TemplateVariableField("资源域名")]
+        public string ResDomain
+        {
+            get { return this._resDomain ?? (this._resDomain = _context.ResourceDomain); }
+        }
+
+
+        [TemplateVariableField("静态服务器域名")]
+        public string StaticDomain
+        {
+            get
+            {
                 return _context.StaticDomain;
-			}
-		}
-		
-		/// <summary>
-		/// 框架路径
-		/// </summary>
-		[TemplateVariableField("框架资源根路径")]
-		private string FrameworkPath
-		{
-			get
-			{
+            }
+        }
+
+        /// <summary>
+        /// 框架路径
+        /// </summary>
+        [TemplateVariableField("框架资源根路径")]
+        private string FrameworkPath
+        {
+            get
+            {
                 if (_frameworkPath == null)
                 {
                     _frameworkPath = String.Format("{0}/{1}", this.StaticDomain,
@@ -87,44 +87,44 @@ namespace J6.Cms.Web
                         );
                 }
 
-				return _frameworkPath;
-			}
-		}
+                return _frameworkPath;
+            }
+        }
 
-		[TemplateVariableField("模板根路径")]
-		private string TemplatePath
-		{
-			get
-			{
-				if (_templatePath == null)
-				{
-					SiteDto site = _context.CurrentSite;
+        [TemplateVariableField("模板根路径")]
+        private string TemplatePath
+        {
+            get
+            {
+                if (_templatePath == null)
+                {
+                    SiteDto site = _context.CurrentSite;
 
-					string cacheKey = String.Format("{0}_s{1}_template_path", 
+                    string cacheKey = String.Format("{0}_s{1}_template_path",
                         CacheSign.Site.ToString(),
                         site.SiteId.ToString()
                         );
 
-					_templatePath= J6.Cms.Cms.Cache.GetCachedResult(cacheKey, () =>
-					{
-					    return String.Format(
+                    _templatePath = Cms.Cache.GetCachedResult(cacheKey, () =>
+                    {
+                        return String.Format(
                             "{0}/templates/{1}",
                             this.ResDomain,
                             site.Tpl
                             );
-					});
-					
-				}
+                    }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
 
-				return _templatePath;
-			}
-		}
-		
-		[TemplateVariableField("插件根路径")]
-		public string PluginPath 
-		{
-			get 
-			{
+                }
+
+                return _templatePath;
+            }
+        }
+
+        [TemplateVariableField("插件根路径")]
+        public string PluginPath
+        {
+            get
+            {
                 if (_pluginRootPath == null)
                 {
                     _pluginRootPath = String.Format("{0}/{1}",
@@ -133,98 +133,98 @@ namespace J6.Cms.Web
 
                     _pluginRootPath = _pluginRootPath.Remove(_pluginRootPath.Length - 1);
                 }
-                return _pluginRootPath; 
-			} 
-		}
+                return _pluginRootPath;
+            }
+        }
 
-		[TemplateVariableField("框架资源根路径")]
-		public string Fpath { get { return this.FrameworkPath; } }
+        [TemplateVariableField("框架资源根路径")]
+        public string Fpath { get { return this.FrameworkPath; } }
 
-		[TemplateVariableField("模板根路径")]
-		public string Tpath { get { return this.TemplatePath; } }
+        [TemplateVariableField("模板根路径")]
+        public string Tpath { get { return this.TemplatePath; } }
 
         [TemplateVariableField("资源域名路径")]
         public string Rdomain { get { return this.ResDomain; } }
-		
-		[TemplateVariableField("插件根路径")]
-		public string Ppath { get { return this.PluginPath; } }
-		
-		
-		/// <summary>
-		///标题
-		/// </summary>
-		[TemplateVariableField("网页(当前页)标题")]
-		public string Title { get; set; }
 
-		/// <summary>
-		/// 子标题
-		/// </summary>
-		[TemplateVariableField("子标题")]
-		public string SubTitle { get; set; }
-
-		/// <summary>
-		/// 关键词
-		/// </summary>
-		[TemplateVariableField("关键词")]
-		public string Keywords { get; set; }
-
-		/// <summary>
-		/// 描述
-		/// </summary>
-		[TemplateVariableField("描述")]
-		public string Description { get; set; }
-
-		/// <summary>
-		/// 站点地图
-		/// </summary>
-		[TemplateVariableField("站点地图")]
-		public string Sitemap
-		{
-			get
-			{
-				if (_sitemap == null)
-				{
-
-					string tag = J6.Cms.Cms.Context.Items["category.tag"] as string;
-					string tpl = J6.Cms.Cms.Context.CurrentSite.Tpl;
-					int siteID = J6.Cms.Cms.Context.CurrentSite.SiteId;
-					if (string.IsNullOrEmpty(tag))
-					{
-						string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category,siteID.ToString(),tag);
-						_sitemap = J6.Cms.Cms.Cache.GetCachedResult(cacheKey, () =>
-						                              {
-						                              	TemplateSetting tsetting = null;
-
-						                              	//缓存=》模板设置
-						                              	string settingCacheKey = String.Format("{0}_{1}_settings", CacheSign.Template.ToString(), tpl);
-						                              	object settings = J6.Cms.Cms.Cache.Get(settingCacheKey);
-						                              	if (settings == null)
-						                              	{
-						                              		tsetting = new TemplateSetting(J6.Cms.Cms.Context.CurrentSite.Tpl);
-						                              		J6.Cms.Cms.Cache.Insert(settingCacheKey, tsetting, String.Format("{0}templates/{1}/tpl.conf", J6.Cms.Cms.PyhicPath, tpl));
-						                              	}
-						                              	else
-						                              	{
-						                              		tsetting = settings as  TemplateSetting;
-						                              	}
-
-						                              	string urlFormat = (Settings.TPL_UseFullPath ? J6.Cms.Cms.Context.SiteDomain : J6.Cms.Cms.Context.SiteAppPath)
-						                              		+ TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)UrlRulePageKeys.Category];
+        [TemplateVariableField("插件根路径")]
+        public string Ppath { get { return this.PluginPath; } }
 
 
-                                                        return CategoryCacheManager.GetSitemapHtml(siteID, tag, tsetting.CFG_SitemapSplit, urlFormat);
+        /// <summary>
+        ///标题
+        /// </summary>
+        [TemplateVariableField("网页(当前页)标题")]
+        public string Title { get; set; }
 
-						                              });
-					}
-				}
-				return _sitemap;
-			}
-		}
+        /// <summary>
+        /// 子标题
+        /// </summary>
+        [TemplateVariableField("子标题")]
+        public string SubTitle { get; set; }
 
-		/// <summary>
-		/// 页码
-		/// </summary>
-		[TemplateVariableField("当前页面（带分页页面)的页码")]
-		public int PageIndex { get; set; }
-	}
+        /// <summary>
+        /// 关键词
+        /// </summary>
+        [TemplateVariableField("关键词")]
+        public string Keywords { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        [TemplateVariableField("描述")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 站点地图
+        /// </summary>
+        [TemplateVariableField("站点地图")]
+        public string Sitemap
+        {
+            get
+            {
+                if (_sitemap == null)
+                {
+
+                    string tag = Cms.Context.Items["category.tag"] as string;
+                    string tpl = Cms.Context.CurrentSite.Tpl;
+                    int siteId = Cms.Context.CurrentSite.SiteId;
+                    if (string.IsNullOrEmpty(tag))
+                    {
+                        string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category, siteId.ToString(), tag);
+                        _sitemap = Cms.Cache.GetCachedResult(cacheKey, () =>
+                                                      {
+                                                          TemplateSetting tSetting = null;
+
+                                                          //缓存=》模板设置
+                                                          string settingCacheKey = String.Format("{0}_{1}_settings", CacheSign.Template.ToString(), tpl);
+                                                          object settings = Cms.Cache.Get(settingCacheKey);
+                                                          if (settings == null)
+                                                          {
+                                                              tSetting = new TemplateSetting(Cms.Context.CurrentSite.Tpl);
+                                                              Cms.Cache.Insert(settingCacheKey, tSetting, String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, tpl));
+                                                          }
+                                                          else
+                                                          {
+                                                              tSetting = settings as TemplateSetting;
+                                                          }
+
+                                                          string urlFormat = (Settings.TPL_UseFullPath ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath)
+                                                              + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)UrlRulePageKeys.Category];
+
+
+                                                          return CategoryCacheManager.GetSitemapHtml(siteId, tag, tSetting.CFG_SitemapSplit, urlFormat);
+
+                                                      }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
+                    }
+                }
+                return _sitemap;
+            }
+        }
+
+        /// <summary>
+        /// 页码
+        /// </summary>
+        [TemplateVariableField("当前页面（带分页页面)的页码")]
+        public int PageIndex { get; set; }
+    }
 }

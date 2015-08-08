@@ -1,29 +1,9 @@
 ﻿
-using J6.Cms;
-using J6.Cms.BLL;
-using J6.Cms.Cache.CacheCompoment;
-using J6.Cms.CacheService;
-using J6.Cms.Conf;
-using J6.Cms.Domain.Interface;
-using J6.Cms.Domain.Interface.Common.Language;
-using J6.Cms.Domain.Interface.Content.Archive;
-using J6.Cms.Domain.Interface.Enum;
-using J6.Cms.Domain.Interface.Models;
-using J6.Cms.Domain.Interface.Site.Category;
-using J6.Cms.Domain.Interface.Site.Extend;
-using J6.Cms.Domain.Interface.Site.Link;
-using J6.Cms.Utility;
-using J6.DevFw;
-using J6.DevFw.Framework;
-using J6.DevFw.Framework.Extensions;
-using J6.DevFw.Framework.Web.UI;
-using J6.DevFw.Framework.Xml.AutoObject;
-
 
 namespace J6.Cms.Template
 {
     using J6.Cms;
-    using J6.Cms.DataTransfer;
+    using DataTransfer;
     using J6.DevFw.Template;
     using J6.DevFw.Web;
     using System;
@@ -34,6 +14,24 @@ namespace J6.Cms.Template
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
+    using J6.Cms.BLL;
+    using J6.Cms.Cache.CacheCompoment;
+    using J6.Cms.CacheService;
+    using J6.Cms.Conf;
+    using J6.Cms.Domain.Interface;
+    using J6.Cms.Domain.Interface.Common.Language;
+    using J6.Cms.Domain.Interface.Content.Archive;
+    using J6.Cms.Domain.Interface.Enum;
+    using J6.Cms.Domain.Interface.Models;
+    using J6.Cms.Domain.Interface.Site.Category;
+    using J6.Cms.Domain.Interface.Site.Extend;
+    using J6.Cms.Domain.Interface.Site.Link;
+    using J6.Cms.Utility;
+    using J6.DevFw;
+    using J6.DevFw.Framework;
+    using J6.DevFw.Framework.Extensions;
+    using J6.DevFw.Framework.Web.UI;
+    using J6.DevFw.Framework.Xml.AutoObject;
 
     public abstract class CmsTemplateCore : IDisposable
     {
@@ -69,7 +67,7 @@ namespace J6.Cms.Template
 
             //缓存=》模板设置
             string settingCacheKey = String.Format("{0}_{1}_settings", CacheSign.Template.ToString(), this.site.Tpl);
-            object settings = J6.Cms.Cms.Cache.Get(settingCacheKey);
+            object settings = Cms.Cache.Get(settingCacheKey);
             if (settings == null)
             {
                 this.TplSetting = new TemplateSetting(this.site.Tpl);
@@ -135,7 +133,7 @@ namespace J6.Cms.Template
             //todo:在添加的页面正则判断
             //if (archive.Location.StartsWith("/")) 
             //    throw new Exception("URL不能以\"/\"开头!");
-            return String.Concat(J6.Cms.Cms.Context.SiteDomain, "/", location);
+            return String.Concat(Cms.Context.SiteDomain, "/", location);
         }
 
         /// <summary>
@@ -189,15 +187,15 @@ namespace J6.Cms.Template
             IPagingGetter getter = new CustomPagingGetter(
                 firstLink,
                 link,
-                 J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
-                 J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText),
-                 J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
-                 J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText)
+                 Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
+                 Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText),
+                 Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
+                 Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText)
                 );
 
             UrlPager p = UrlPaging.NewPager(pageIndex, pageCount, getter);
             p.LinkCount = 10;
-            p.PagerTotal = "<span class=\"pagerinfo\">" + J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGER_PagerTotal) + "</span>";
+            p.PagerTotal = "<span class=\"pagerinfo\">" + Cms.Language.Get(LanguagePackageKey.PAGER_PagerTotal) + "</span>";
             p.RecordCount = recordCount;
             /* StringBuilder sb = new StringBuilder();
            
@@ -218,13 +216,13 @@ namespace J6.Cms.Template
            p.LinkCount = 10;*/
 
             string key = this.PushPagerKey();
-            J6.Cms.Cms.Context.Items[key] = p.Pager(); // String.Format(pagerTpl, p.ToString());
+            Cms.Context.Items[key] = p.Pager(); // String.Format(pagerTpl, p.ToString());
         }
 
         protected string PopPagerKey()
         {
             int _pagerNumber = 0;
-            object pagerNum = J6.Cms.Cms.Context.Items["pagerNumber"];
+            object pagerNum = Cms.Context.Items["pagerNumber"];
             if (pagerNum == null)
             {
                 _pagerNumber = 0;
@@ -234,14 +232,14 @@ namespace J6.Cms.Template
                 int.TryParse(pagerNum.ToString(), out _pagerNumber);
                 --_pagerNumber;
             }
-            J6.Cms.Cms.Context.Items["pagerNumber"] = _pagerNumber;
+            Cms.Context.Items["pagerNumber"] = _pagerNumber;
             return String.Format("pager_{0}", (_pagerNumber + 1).ToString());
         }
 
         protected string PushPagerKey()
         {
             int _pagerNumber = 0;
-            object pagerNum = J6.Cms.Cms.Context.Items["pagerNumber"];
+            object pagerNum = Cms.Context.Items["pagerNumber"];
             if (pagerNum == null)
             {
                 _pagerNumber = 1;
@@ -251,7 +249,7 @@ namespace J6.Cms.Template
                 int.TryParse(pagerNum.ToString(), out _pagerNumber);
                 ++_pagerNumber;
             }
-            J6.Cms.Cms.Context.Items["pagerNumber"] = _pagerNumber;
+            Cms.Context.Items["pagerNumber"] = _pagerNumber;
             return String.Format("pager_{0}", _pagerNumber.ToString());
         }
 
@@ -461,7 +459,7 @@ namespace J6.Cms.Template
         [Obsolete]
         protected string EachCategory2(string dataNum, string refTag, string refName, string refUri, string format)
         {
-            object id = J6.Cms.Cms.Context.Items["module.id"];
+            object id = Cms.Context.Items["module.id"];
             if (id == null)
             {
                 return this.TplMessage("此标签不允许在当前页面中调用!");
@@ -494,7 +492,7 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string Item(string id)
         {
-            return (J6.Cms.Cms.Context.Items[id] ?? String.Empty).ToString();
+            return (Cms.Context.Items[id] ?? String.Empty).ToString();
         }
 
         /// <summary>
@@ -509,14 +507,14 @@ namespace J6.Cms.Template
             if (this._settingsFile == null)
             {
                 //读取数据
-                this._settingsFile = J6.Cms.Cms.Cache.Get(cacheKey) as SettingFile;
+                this._settingsFile = Cms.Cache.Get(cacheKey) as SettingFile;
                 if (this._settingsFile == null)
                 {
                     string phyPath = AppDomain.CurrentDomain.BaseDirectory + settingsFile;
                     this._settingsFile = new SettingFile(phyPath);
 
                     //缓存数据
-                    J6.Cms.Cms.Cache.Insert(cacheKey, this._settingsFile, phyPath);
+                    Cms.Cache.Insert(cacheKey, this._settingsFile, phyPath);
                 }
             }
             return this._settingsFile[key];
@@ -531,26 +529,7 @@ namespace J6.Cms.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang(string key)
         {
-            return J6.Cms.Cms.Language.Get(key, this.site.Language);
-            //string lang = this.site.Language.ToString().ToLower();
-            //if (langReader == null)
-            //{
-            //    langReader = Cms.Cache.Get("config_lang") as LangLabelReader;
-            //    if (langReader == null)
-            //    {
-            //        string phyPath = Cms.PyhicPath + "config/lang.conf";
-            //        langReader = new LangLabelReader(phyPath);
-            //        Cms.Cache.Insert("config_lang", langReader, phyPath);
-            //    }
-            //}F
-            //try
-            //{
-            //    return langReader.GetValue(key, lang);
-            //}
-            //catch
-            //{
-            //    return String.Format("语言字典找不到值：[{0}]{1}", key, lang);
-            //}
+            return Cms.Language.Get(key, this.site.Language);
         }
 
         /// <summary>
@@ -602,7 +581,7 @@ namespace J6.Cms.Template
             if (a.Id > 0)
             {
                 HttpResponse response = HttpContext.Current.Response;
-                string appPath = J6.Cms.Cms.Context.SiteAppPath;
+                string appPath = Cms.Context.SiteAppPath;
                 if (appPath != "/") appPath += "/";
 
 
@@ -641,7 +620,7 @@ namespace J6.Cms.Template
         {
             if (archive.Id <= 0) return this.TplMessage("请先使用标签$require('id')获取文档后再调用属性");
 
-            PropertyInfo p = Array.Find(archivePros, a => String.Compare(a.Name, field, true) == 0);
+            PropertyInfo p = Array.Find(archivePros, a => String.Compare(a.Name, field, StringComparison.OrdinalIgnoreCase) == 0);
             if (p != null)
             {
                 return (p.GetValue(archive, null) ?? "").ToString();
@@ -657,16 +636,16 @@ namespace J6.Cms.Template
         /// <summary>
         /// 文档评论
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="usePager"></param>
+        /// <param name="allowAmous"></param>
+        /// <param name="html"></param>
         /// <returns></returns>
         [TemplateTag]
         protected string Comment_Editor(string allowAmous, string html)
         {
 
-            ArchiveDto archive = (ArchiveDto)(J6.Cms.Cms.Context.Items["archive"] ?? default(ArchiveDto));
+            ArchiveDto archive = (ArchiveDto)(Cms.Context.Items["archive"] ?? default(ArchiveDto));
 
-            const string cm_editor_tpl = @"<!-- 提交评论 -->
+            const string cmEditorTpl = @"<!-- 提交评论 -->
             <div class=""comment_editor"">
                 <form method=""POST"" action="""" style=""margin:0"" id=""cmeditor"">
                      <input name=""action"" value=""comment"" type=""hidden"" />
@@ -746,7 +725,7 @@ namespace J6.Cms.Template
 
             StringBuilder sb = new StringBuilder();
 
-            string content = TplEngine.FieldTemplate(cm_editor_tpl, a =>
+            string content = TplEngine.FieldTemplate(cmEditorTpl, a =>
             {
                 switch (a)
                 {
@@ -799,8 +778,8 @@ namespace J6.Cms.Template
         {
             int replayCount;
 
-            ArchiveDto archive = J6.Cms.Cms.Context.Items["archive"] == null ? default(ArchiveDto)
-                : (ArchiveDto)J6.Cms.Cms.Context.Items["archive"];
+            ArchiveDto archive = Cms.Context.Items["archive"] == null ? default(ArchiveDto)
+                : (ArchiveDto)Cms.Context.Items["archive"];
             if (archive.Id <= 0)
                 throw new ArgumentNullException("archive", "不允许在当前页中使用!");
 
@@ -929,8 +908,6 @@ namespace J6.Cms.Template
         /// 表单
         /// </summary>
         /// <param name="formId"></param>
-        /// <param name="html"></param>
-        /// <param name="js"></param>
         /// <returns></returns>
         [TemplateTag]
         protected string Form(string formId)
@@ -1014,14 +991,13 @@ namespace J6.Cms.Template
         {
 
             string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category, siteId.ToString(), categoryTag);
-            return J6.Cms.Cms.Cache.GetCachedResult(cacheKey, () =>
+            return Cms.Cache.GetCachedResult(cacheKey, () =>
             {
                 return CategoryCacheManager.GetSitemapHtml(this.siteId,
                     categoryTag,
                     this.TplSetting.CFG_SitemapSplit,
                 this.FormatUrl(UrlRulePageKeys.Category, null));
-
-            });
+            },DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }
 
         /// <summary>
@@ -1031,13 +1007,12 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string Pager()
         {
-            return (J6.Cms.Cms.Context.Items[this.PopPagerKey()] ?? "") as string;
+            return (Cms.Context.Items[this.PopPagerKey()] ?? "") as string;
         }
 
         /// <summary>
         /// 流量统计
         /// </summary>
-        /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
         [ContainSetting]
@@ -1067,7 +1042,9 @@ namespace J6.Cms.Template
         /// <summary>
         /// 导航
         /// </summary>
+        /// <param name="childFormat"></param>
         /// <param name="index">选中索引</param>
+        /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
         protected string Navigator(string format, string childFormat, string index)
@@ -1191,18 +1168,17 @@ namespace J6.Cms.Template
         /// 文档内容
         /// </summary>
         /// <param name="idOrAlias"></param>
-        /// <param name="num"></param>
         /// <returns></returns>
-        protected string Archive(int siteId, object idOrAlias, string format)
+        protected string Archive(int _siteId, object idOrAlias, string format)
         {
             ArchiveDto archive;
             if (idOrAlias is int)
             {
-                archive = ServiceCall.Instance.ArchiveService.GetArchiveById(siteId, Convert.ToInt32(idOrAlias));
+                archive = ServiceCall.Instance.ArchiveService.GetArchiveById(_siteId, Convert.ToInt32(idOrAlias));
             }
             else
             {
-                archive = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(siteId, idOrAlias.ToString());
+                archive = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(_siteId, idOrAlias.ToString());
             }
 
             if (archive.Id <= 0) return TplMessage(String.Format("不存在编号（或别名）为:{0}的文档!", idOrAlias));
@@ -1217,14 +1193,14 @@ namespace J6.Cms.Template
         /// <summary>
         /// 上一篇文章
         /// </summary>
-        /// <param name="idOrAlias"></param>
+        /// <param name="id"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
         protected string PrevArchive(string id, string format)
         {
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetSameCategoryPreviousArchive(siteId, int.Parse(id));
-            if (!(archive.Id > 0)) return J6.Cms.Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoPrevious);
+            if (!(archive.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoPrevious);
 
             StringBuilder sb = new StringBuilder(500);
             this.FormatArchive(sb, archive, ref format, null, -1);
@@ -2334,7 +2310,7 @@ namespace J6.Cms.Template
                 return sb.ToString();
             };
 
-            return J6.Cms.Cms.Cache.GetCachedResult(cacheKey, bh);
+            return Cms.Cache.GetCachedResult(cacheKey, bh, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }
 
         /// <summary>
@@ -2353,7 +2329,7 @@ namespace J6.Cms.Template
                 categoryTag,
                 split);
 
-            object cache = J6.Cms.Cms.Cache.Get(cacheKey);
+            object cache = Cms.Cache.Get(cacheKey);
 
             if (cache != null)
             {
@@ -2432,7 +2408,7 @@ namespace J6.Cms.Template
             string result = sb.ToString();
 
             //缓存
-            J6.Cms.Cms.Cache.Insert(cacheKey, result);
+            Cms.Cache.Insert(cacheKey, result,DateTime.Now.AddDays(Settings.OptiDefaultCacheHours));
 
             return result;
 

@@ -17,8 +17,8 @@ namespace J6.Cms.CacheService
         #region Site
 
         //栏目的弱引用,保证释放资源时回收
-        private static WeakReference site_ref;
-        private static IList<SiteDto> sites = new List<SiteDto>();
+        private static WeakReference _siteRef;
+        private static IList<SiteDto> _sites = new List<SiteDto>();
 
 
 
@@ -30,12 +30,12 @@ namespace J6.Cms.CacheService
             get
             {
                 const string cacheKey = "Site_global_sites";
-                if (site_ref == null || CacheFactory.Sington.Get(cacheKey) == null)
+                if (_siteRef == null || CacheFactory.Sington.Get(cacheKey) == null)
                 {
                     RebuiltSitesCache();
                     CacheFactory.Sington.Insert(cacheKey, String.Empty);
                 }
-                return site_ref.Target as IList<SiteDto>;
+                return _siteRef.Target as IList<SiteDto>;
             }
         }
 
@@ -46,22 +46,22 @@ namespace J6.Cms.CacheService
         {
 
             //释放资源
-            site_ref = null;
+            _siteRef = null;
 
 
             //重新赋值
-            if (sites != null)
+            if (_sites != null)
             {
-                for (int i = 0; i < sites.Count; i++)
+                for (int i = 0; i < _sites.Count; i++)
                 {
-                    sites.Remove(sites[i]);
+                    _sites.Remove(_sites[i]);
                 }
             }
 
-            sites = ServiceCall.Instance.SiteService.GetSites();
+            _sites = ServiceCall.Instance.SiteService.GetSites();
 
             //指定弱引用
-            site_ref = new WeakReference(sites);
+            _siteRef = new WeakReference(_sites);
 
             if (OnSiteCacheBuilding != null)
             {

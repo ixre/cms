@@ -132,7 +132,6 @@ namespace J6.Cms.Core.Plugins
                 {
                     throw new Exception(exc.Message+", File:"+tplFilePath);
                 }
-               
             }
 
             TemplatePage tpl = new TemplatePage();

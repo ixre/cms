@@ -95,11 +95,11 @@ namespace J6.Cms.Web
         {
 
             NameValueCollection form = context.Request.Form;
-            string physical = J6.Cms.Cms.PyhicPath;
+            string physical = Cms.PyhicPath;
 
-            if (!Directory.Exists(J6.Cms.Cms.PyhicPath + "config"))
+            if (!Directory.Exists(Cms.PyhicPath + "config"))
             {
-                Directory.CreateDirectory(J6.Cms.Cms.PyhicPath + "config").Create();
+                Directory.CreateDirectory(Cms.PyhicPath + "config").Create();
             }
 
             if (System.IO.File.Exists(String.Concat(physical, INSTALL_LOCK)))
@@ -280,7 +280,7 @@ namespace J6.Cms.Web
 
             Settings.TurnOffDebug();
 
-            J6.Cms.Cms.Init();
+            Cms.Init();
 
             // 重启
             HttpRuntime.UnloadAppDomain();
@@ -304,14 +304,14 @@ namespace J6.Cms.Web
                 case "oledb": type = DataBaseType.OLEDB; break;
             }
 
-            this.db = new DataBaseAccess(type, connStr.Replace("$ROOT", J6.Cms.Cms.PyhicPath));
+            this.db = new DataBaseAccess(type, connStr.Replace("$ROOT", Cms.PyhicPath));
 
             string sql = null;
             string sqlScript = null;
 
             if (type == DataBaseType.MySQL)
             {
-                sqlScript = String.Concat(J6.Cms.Cms.PyhicPath, MYSQL_INSTALL_SCRIPT);
+                sqlScript = String.Concat(Cms.PyhicPath, MYSQL_INSTALL_SCRIPT);
                 return execDbScript(dbPrefix, ref sql, sqlScript);
             }
             return true;

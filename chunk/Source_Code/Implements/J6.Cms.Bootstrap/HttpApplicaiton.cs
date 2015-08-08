@@ -143,7 +143,7 @@ namespace J6.Cms
 
                         mailContent = sb.ToString();
 
-                        mailSubject = String.Format("[{0}]异常:{2}", J6.Cms.Cms.Context.SiteDomain, exc.Message);
+                        mailSubject = String.Format("[{0}]异常:{2}", Cms.Context.SiteDomain, exc.Message);
 
 
                         //发送邮件

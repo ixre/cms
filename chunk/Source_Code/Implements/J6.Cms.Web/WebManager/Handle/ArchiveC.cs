@@ -1148,7 +1148,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string fullDomain = this.CurrentSite.FullDomain;
             if (fullDomain.IndexOf("#") != -1)
             {
-                fullDomain = fullDomain.Replace("#", J6.Cms.Cms.Context.Host);
+                fullDomain = fullDomain.Replace("#", Cms.Context.Host);
             }
             string url = fullDomain + archive.Url;
 
@@ -1266,7 +1266,7 @@ namespace J6.Cms.Web.WebManager.Handle
             HttpTags _tags = null;
             if (!tags.Keys.Contains(siteId))
             {
-                string dirPath = String.Concat(J6.Cms.Cms.PyhicPath, "config/s", siteId.ToString(), "/");
+                string dirPath = String.Concat(Cms.PyhicPath, "config/s", siteId.ToString(), "/");
                 if (!Directory.Exists(dirPath))
                 {
                     Directory.CreateDirectory(dirPath).Create();

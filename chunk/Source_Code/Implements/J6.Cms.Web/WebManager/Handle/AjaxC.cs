@@ -156,7 +156,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 else
                 {
                     menuData = GetMenuJsonFromFile(usr.IsMaster,siteId);
-                    Cms.Cache.Insert(cacheKey, menuData);
+                    Cms.Cache.Insert(cacheKey, menuData,DateTime.Now.AddMinutes(15));
                 }
 
             }
@@ -408,7 +408,7 @@ namespace J6.Cms.Web.WebManager.Handle
                                 }
 
                                 //重新注册模板
-                                J6.Cms.Cms.Template.Register();
+                                Cms.Template.Register();
                             });
 
             // Cms.Cache.Clear("");

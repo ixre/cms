@@ -29,23 +29,16 @@ namespace J6.Cms.Cache.CacheCompoment
 
         void Reset(CmsHandler handler);
 
-        /// <summary>
-        /// 获取缓存过的结果，如果没有缓存则自动缓存永不失效
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="cacheKey"></param>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        T GetCachedResult<T>(string cacheKey, BuiltCacheResultHandler<T> func);
+	    /// <summary>
+	    /// 获取缓存过的结果，如果没有缓存则自动缓存
+	    /// </summary>
+	    /// <typeparam name="T"></typeparam>
+	    /// <param name="cacheKey"></param>
+	    /// <param name="func"></param>
+	    /// <param name="expiresTime"></param>
+	    /// <returns></returns>
+	    T GetCachedResult<T>(string cacheKey, BuiltCacheResultHandler<T> func,DateTime expiresTime);
 
-        /// <summary>
-        /// 获取缓存结果，如果未缓存则调用委托产生的缓存结果
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="cacheKey"></param>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        T GetResult<T>(string cacheKey, BuiltCacheResultHandler<T> func);
 
         string Rebuilt();
     }

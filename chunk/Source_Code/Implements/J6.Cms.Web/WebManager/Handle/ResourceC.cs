@@ -206,7 +206,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     string type = context.Request["res_combine"] ?? "js";
 
                     string[] files = path.Split(',');
-                    string appDir = J6.Cms.Cms.PyhicPath;
+                    string appDir = Cms.PyhicPath;
 
                     const bool compress = true;
 

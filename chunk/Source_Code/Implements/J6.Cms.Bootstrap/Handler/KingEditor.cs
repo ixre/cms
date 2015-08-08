@@ -38,7 +38,7 @@ namespace J6.Cms.Handler
             String savePath = String.Format("/{0}s{1}/", CmsVariables.RESOURCE_PATH,siteId);
 
             //文件保存目录URL
-            string appPath = J6.Cms.Cms.Context.ApplicationPath;
+            string appPath = Cms.Context.ApplicationPath;
             String saveUrl = String.Format("{0}/{1}s{2}/", appPath == "/" ? "" : appPath, 
                 CmsVariables.RESOURCE_PATH,siteId);
 
@@ -159,7 +159,7 @@ namespace J6.Cms.Handler
             //根目录路径，相对路径
             String rootPath = String.Format("{0}s{1}/", CmsVariables.RESOURCE_PATH,siteID);
             //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
-            string appPath = J6.Cms.Cms.Context.ApplicationPath;
+            string appPath = Cms.Context.ApplicationPath;
             String rootUrl = String.Format("{0}/{1}s{2}/", appPath == "/" ? "" : appPath, 
                 CmsVariables.RESOURCE_PATH, siteID);
 

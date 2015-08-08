@@ -135,7 +135,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string path = Request.Form["path"];
             string content = Request.Form["content"];
 
-            FileInfo file = new FileInfo(J6.Cms.Cms.PyhicPath + path);
+            FileInfo file = new FileInfo(Cms.PyhicPath + path);
 
 
 
@@ -148,7 +148,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 }
                 else
                 {
-                	string backFile=String.Concat(J6.Cms.Cms.PyhicPath,Helper.GetBackupFilePath(path));
+                	string backFile=String.Concat(Cms.PyhicPath,Helper.GetBackupFilePath(path));
                     
                     if (action == "save")
                     {
@@ -227,7 +227,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     //global::System.IO.Directory.CreateDirectory(tplPath).Create();   //创建目录
                     global::System.IO.File.Create(tplPath).Dispose();                           //创建文件
 
-                    J6.Cms.Cms.Template.Register();           //重新注册模板
+                    Cms.Template.Register();           //重新注册模板
 
                     Response.Write(tplname);
                 }
@@ -495,7 +495,7 @@ namespace J6.Cms.Web.WebManager.Handle
             global::System.IO.File.Delete(tempTplPath);
 
             //重新注册模板
-            J6.Cms.Cms.Template.Register();
+            Cms.Template.Register();
 
             base.Response.Write(String.Format(jsTip, resultMessage));
         }
@@ -511,7 +511,7 @@ namespace J6.Cms.Web.WebManager.Handle
             if (result == 1)
             {      
                 //重新注册模板
-                J6.Cms.Cms.Template.Register();    
+                Cms.Template.Register();    
 
                 base.RenderSuccess("安装成功!");
             }
@@ -531,7 +531,7 @@ namespace J6.Cms.Web.WebManager.Handle
         public void DownloadZip_GET()
         {
             string tpl = Request["tpl"];
-            byte[] bytes =  ZipHelper.Compress(String.Format("{0}templates/{1}/", J6.Cms.Cms.PyhicPath, tpl),tpl);
+            byte[] bytes =  ZipHelper.Compress(String.Format("{0}templates/{1}/", Cms.PyhicPath, tpl),tpl);
             Response.BinaryWrite(bytes);
             Response.ContentType = "application/octet-stream";
             Response.AddHeader("Content-Disposition", "attachment;filename=template_" + tpl + ".zip");
@@ -546,18 +546,18 @@ namespace J6.Cms.Web.WebManager.Handle
             string tpl = base.Request["tpl"];
 
             //设置目录
-            DirectoryInfo dir = new DirectoryInfo(String.Format("{0}backups/templates/", J6.Cms.Cms.PyhicPath));
+            DirectoryInfo dir = new DirectoryInfo(String.Format("{0}backups/templates/", Cms.PyhicPath));
             if (!dir.Exists)
             {
                 Directory.CreateDirectory(dir.FullName).Create();
             }
             else
             {
-                J6.Cms.Cms.Utility.SetDirCanWrite("backups/templates/");
+                Cms.Utility.SetDirCanWrite("backups/templates/");
             }
 
-            ZipHelper.ZipAndSave(String.Format("{0}/templates/{1}/", J6.Cms.Cms.PyhicPath, tpl)
-                , String.Format("{0}/backups/templet/{1}_{2:yyyyMMddHHss}.zip", J6.Cms.Cms.PyhicPath, tpl, DateTime.Now),
+            ZipHelper.ZipAndSave(String.Format("{0}/templates/{1}/", Cms.PyhicPath, tpl)
+                , String.Format("{0}/backups/templet/{1}_{2:yyyyMMddHHss}.zip", Cms.PyhicPath, tpl, DateTime.Now),
                 tpl
                 );
 

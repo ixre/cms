@@ -152,6 +152,11 @@ namespace J6.Cms.Conf
         public static bool Opti_ClientCache { get { return Opti_ClientCacheSeconds > 0; } }
 
         /// <summary>
+        /// 默认缓存小时数
+        /// </summary>
+        public static int OptiDefaultCacheHours = 12;
+
+        /// <summary>
         /// 客户端缓存秒数
         /// </summary>
         public static int Opti_ClientCacheSeconds =0;

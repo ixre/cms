@@ -12,23 +12,23 @@ namespace J6.Cms.CacheService
 
         public static string GetNavigatorBySiteId(int siteId)
         {
-            return  Kvdb.GCA.Get(siteId.ToString() + "@navigator");
+            return  Kvdb.Gca.Get(siteId.ToString() + "@navigator");
         }
 
         public static void SetNavigatorForSite(int siteId, string cache)
         {
-            Kvdb.GCA.Put(siteId.ToString() + "@navigator",cache);
+            Kvdb.Gca.Put(siteId.ToString() + "@navigator",cache);
         }
 
 
         public static void SetFLinkForSite(int siteId, string cache)
         {
-            Kvdb.GCA.Put(siteId.ToString() + "@flink", cache);
+            Kvdb.Gca.Put(siteId.ToString() + "@flink", cache);
         }
 
         public static string GetFLinkBySiteId(int siteId)
         {
-           return Kvdb.GCA.Get(siteId.ToString() + "@flink");
+           return Kvdb.Gca.Get(siteId.ToString() + "@flink");
         }
     }
 }

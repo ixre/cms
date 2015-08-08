@@ -80,12 +80,12 @@ namespace J6.Cms.Cache.CacheCompoment
     /// </summary>
     public class CmsCache : ICmsCache
     {
-        private ICmsCache dependCache;
-        private static string cacheSha1ETag;    //客户端ETag
+        private readonly ICmsCache _dependCache;
+        private static string _cacheSha1ETag;    //客户端ETag
 
         internal CmsCache(ICmsCache cache)
         {
-            dependCache = cache;
+            _dependCache = cache;
             this.Reset(null);
         }
 
@@ -94,15 +94,11 @@ namespace J6.Cms.Cache.CacheCompoment
         /// </summary>
         /// <param name="cacheKey"></param>
         /// <param name="func"></param>
+        /// <param name="expiresTime"></param>
         /// <returns></returns>
-        public T GetCachedResult<T>(string cacheKey, BuiltCacheResultHandler<T> func)
+        public T GetCachedResult<T>(string cacheKey, BuiltCacheResultHandler<T> func, DateTime expiresTime)
         {
-            return dependCache.GetCachedResult<T>(cacheKey, func);
-        }
-
-        public T GetResult<T>(string cacheKey, BuiltCacheResultHandler<T> func)
-        {
-            return dependCache.GetResult<T>(cacheKey, func);
+            return _dependCache.GetCachedResult<T>(cacheKey, func,expiresTime);
         }
 
         /// <summary>
@@ -112,7 +108,7 @@ namespace J6.Cms.Cache.CacheCompoment
         public void Reset(CmsHandler handler)
         {
             //清除系统缓存
-            cacheSha1ETag = dependCache.Rebuilt();
+            _cacheSha1ETag = _dependCache.Rebuilt();
 
             if (handler != null)
             {
@@ -127,7 +123,7 @@ namespace J6.Cms.Cache.CacheCompoment
 
         public bool CheckClientCacheExpiresByEtag()
         {
-            return CacheUtil.CheckClientCacheExpires(cacheSha1ETag);
+            return CacheUtil.CheckClientCacheExpires(_cacheSha1ETag);
         }
 
 
@@ -138,44 +134,44 @@ namespace J6.Cms.Cache.CacheCompoment
 
         public void SetClientCacheByEtag(HttpResponse response)
         {
-            CacheUtil.SetClientCache(response, cacheSha1ETag);
+            CacheUtil.SetClientCache(response, _cacheSha1ETag);
         }
         
         public void ETagOutput(HttpResponse response,StringCreatorHandler handler)
         {
-        	CacheUtil.Output(response,cacheSha1ETag,handler);
+        	CacheUtil.Output(response,_cacheSha1ETag,handler);
         }
 
         #region 接口方法
 
         public void Insert(string key, object value, DateTime absoluteExpireTime)
         {
-            dependCache.Insert(key, value, absoluteExpireTime);
+            _dependCache.Insert(key, value, absoluteExpireTime);
         }
 
         public void Insert(string key, object value, string filename)
         {
-            dependCache.Insert(key, value, filename);
+            _dependCache.Insert(key, value, filename);
         }
 
         public void Insert(string key, object value)
         {
-            dependCache.Insert(key, value);
+            _dependCache.Insert(key, value);
         }
 
         public void Clear(string keySign)
         {
-            dependCache.Clear(keySign);
+            _dependCache.Clear(keySign);
         }
 
         public object Get(string cacheKey)
         {
-            return dependCache.Get(cacheKey);
+            return _dependCache.Get(cacheKey);
         }
 
         public string Rebuilt()
         {
-            return dependCache.Rebuilt();
+            return _dependCache.Rebuilt();
         }
 
         #endregion

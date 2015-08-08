@@ -185,7 +185,7 @@ namespace J6.Cms.WebManager
             initialize();
 
             string cacheKey = String.Concat("$MP_", ((int)page).ToString());
-            return CacheFactory.Sington.GetResult<String>(
+            return CacheFactory.Sington.GetCachedResult<String>(
                 cacheKey,
                 () =>
                 {
@@ -200,17 +200,8 @@ namespace J6.Cms.WebManager
 
                     pagePath = Cms.PyhicPath + pagePath;
                     pageContent = File.ReadAllText( pagePath);
-
-                    HttpRuntime.Cache.Insert(
-                        cacheKey,
-                        pageContent,
-                        new CacheDependency(pagePath),
-                         DateTime.Now.AddHours(1),
-                         TimeSpan.Zero
-                        );
-
                     return pageContent;
-                }
+                },DateTime.Now.AddHours(1)
                 );
         }
 
@@ -231,10 +222,10 @@ namespace J6.Cms.WebManager
 
         private static string GetDebugContent(string filePath)
         {
-            string path = String.Concat(J6.Cms.Cms.PyhicPath, "/framework/admin/", filePath);
-            if (System.IO.File.Exists(path))
+            string path = String.Concat(Cms.PyhicPath, "/framework/admin/", filePath);
+            if (File.Exists(path))
             {
-                return System.IO.File.ReadAllText(path);
+                return File.ReadAllText(path);
             }
             else
             {

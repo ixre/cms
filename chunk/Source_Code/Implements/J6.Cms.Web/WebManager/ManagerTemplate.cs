@@ -27,9 +27,9 @@ namespace J6.Cms.WebManager
 
         static ManagerTemplate()
         {
-            js = "<script type=\"text/javascript\" charset=\"utf-8\" src=\"?res=bWFuYWdlX2pzX21pbg==&amp;" + J6.Cms.Cms.Version + ".js\"></script>";
-            css = "<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + J6.Cms.Cms.Version + ".css\"/>";
-            iconTreeCss="<link rel=\"Stylesheet\" type=\"text/css\" href=\"framework/assets/sys_themes/default/btn_spirites.css?version=" + J6.Cms.Cms.Version + "\"/>";
+            js = "<script type=\"text/javascript\" charset=\"utf-8\" src=\"?res=bWFuYWdlX2pzX21pbg==&amp;" + Cms.Version + ".js\"></script>";
+            css = "<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + Cms.Version + ".css\"/>";
+            iconTreeCss="<link rel=\"Stylesheet\" type=\"text/css\" href=\"framework/assets/sys_themes/default/btn_spirites.css?version=" + Cms.Version + "\"/>";
         }
 
        

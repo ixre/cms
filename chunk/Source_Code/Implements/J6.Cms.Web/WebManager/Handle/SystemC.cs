@@ -57,7 +57,7 @@ namespace J6.Cms.Web.WebManager.Handle
             if (base.Request.Url.Query == "" || path.EndsWith("/"))
             {
                 if (path.EndsWith("/")) path = path.Substring(0, path.Length - 1);
-                base.Response.Write(String.Format("<script>window.parent.location.replace('{0}?ver={1}')</script>", path, J6.Cms.Cms.Version));
+                base.Response.Write(String.Format("<script>window.parent.location.replace('{0}?ver={1}')</script>", path, Cms.Version));
                 return;
             }
 
@@ -128,7 +128,7 @@ namespace J6.Cms.Web.WebManager.Handle
             {
                 path = GetPath(),
                 dashurl = Server.DashbordRssServer,
-                soft_ver = J6.Cms.Cms.Version,
+                soft_ver = Cms.Version,
                 sys_alias = Settings.License_NAME,
             });
         }
@@ -142,7 +142,7 @@ namespace J6.Cms.Web.WebManager.Handle
                                 {
                                     path = GetPath(),
                                     dashurl = Server.DashbordRssServer,
-                                    soft_ver = J6.Cms.Cms.Version,
+                                    soft_ver = Cms.Version,
                                     sys_alias = Settings.License_NAME,// + "(KEY:" + Settings.SYS_KEY + ")",
                                     server_name = HttpContext.Current.Server.MachineName,
                                     server_os = Environment.OSVersion.VersionString,
@@ -321,7 +321,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 new
                 {
                     path = GetPath(),
-                    version = J6.Cms.Cms.Version,
+                    version = Cms.Version,
                     year = DateTime.Now.Year.ToString()
                 });
         }

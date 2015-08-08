@@ -223,7 +223,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 }
                 else
                 {
-                    string backFile = String.Concat(J6.Cms.Cms.PyhicPath, Helper.GetBackupFilePath(path));
+                    string backFile = String.Concat(Cms.PyhicPath, Helper.GetBackupFilePath(path));
 
                     if (action == "save")
                     {

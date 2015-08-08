@@ -66,18 +66,18 @@ namespace J6.Cms.Core
             const string cacheKey = "lang_local";
 
 
-            LanguagePackage localLang = CacheFactory.Sington.GetResult<LanguagePackage>(
+            LanguagePackage localLang = CacheFactory.Sington.GetCachedResult<LanguagePackage>(
                 cacheKey,
                 () =>
                 {
-                    LanguagePackage lang = new LanguagePackage();
+                    LanguagePackage languagePackage = new LanguagePackage();
 
                     try
                     {
                         string myLang = ResourceMap.XmlMyLangPackage;
                         if (myLang != null)
                         {
-                            lang.LoadFromXml(myLang);
+                            languagePackage.LoadFromXml(myLang);
                         }
                     }
                     catch
@@ -87,11 +87,10 @@ namespace J6.Cms.Core
                           Settings.SERVER_STATIC));
                     }
 
-                    CacheFactory.Sington.Insert(cacheKey, lang, String.Concat(Cms.PyhicPath + "framework/local/lang_package.xml"));
+                    CacheFactory.Sington.Insert(cacheKey, languagePackage,string.Format("{0}framework/local/lang_package.xml", Cms.PyhicPath));
 
-                    return lang;
-                }
-
+                    return languagePackage;
+                },DateTime.MaxValue
                 );
 
             return localLang.GetOtherLangItemValue(key, language);

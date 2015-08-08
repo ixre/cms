@@ -17,6 +17,7 @@ using J6.Cms;
 using J6.Cms.BLL;
 using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.CacheService;
+using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Enum;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.Site.Category;
@@ -712,7 +713,7 @@ namespace J6.Cms.Template
         protected string ArchivesByCount2(string num, string format)
         {
             return "";
-            object moduleID = J6.Cms.Cms.Context.Items["module.id"];
+            object moduleID = Cms.Context.Items["module.id"];
             if (moduleID == null)
             {
                 return this.TplMessage("此标签不允许在当前页面中调用!");
@@ -1128,7 +1129,7 @@ namespace J6.Cms.Template
 		")]
         public string Sitemap()
         {
-            string tag = J6.Cms.Cms.Context.Items["category.tag"] as string;
+            string tag = Cms.Context.Items["category.tag"] as string;
             if (string.IsNullOrEmpty(tag))
             {
                 return this.TplMessage("无法在当前页面调用此标签!\r\n解决方法:使用标签$sitemap('栏目标签')或设置Cms.Context.Items[\"category.tag\"]");
@@ -1554,7 +1555,7 @@ namespace J6.Cms.Template
         [Obsolete]
         protected string MCategoryList(string format)
         {
-            object id = J6.Cms.Cms.Context.Items["module.id"];
+            object id = Cms.Context.Items["module.id"];
             if (id == null)
             {
                 return this.TplMessage("此标签不允许在当前页面中调用!请使用$MCategoryList(moduleid,isRoot,format)标签代替");
@@ -1594,7 +1595,7 @@ namespace J6.Cms.Template
             };
 
 
-            return J6.Cms.Cms.Cache.GetCachedResult(cacheKey, bh);
+            return Cms.Cache.GetCachedResult(cacheKey, bh, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }
 
 
@@ -1609,7 +1610,7 @@ namespace J6.Cms.Template
         {
             return "tag install";
 
-            object id = J6.Cms.Cms.Context.Items["module.id"];
+            object id = Cms.Context.Items["module.id"];
             if (id == null)
             {
                 return this.TplMessage("此标签不允许在当前页面中调用!请使用$categorylist('categorytag','format')标签代替");

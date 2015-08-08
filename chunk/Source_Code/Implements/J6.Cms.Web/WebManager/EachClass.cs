@@ -69,7 +69,7 @@ namespace J6.Cms.WebManager
         {
             if (dir.Name == ".backup") return;
 
-            string path = J6.Cms.Cms.PyhicPath + "templates/" + tplName + "/";
+            string path = Cms.PyhicPath + "templates/" + tplName + "/";
             string filePath;
             TemplatePageType pageType;
             IList<FileInfo> filelist = new List<FileInfo>();
@@ -92,15 +92,15 @@ namespace J6.Cms.WebManager
                 }
                 else
                 {
-                    pageType = J6.Cms.Cms.Template.GetPageType(filelist[0].FullName.Substring(path.Length).Replace("\\","/"));
+                    pageType = Cms.Template.GetPageType(filelist[0].FullName.Substring(path.Length).Replace("\\","/"));
                 }
                 while (true)
                 {
-                    sb.Append("<optgroup label=\"").Append(J6.Cms.Cms.Template.GetPageDescript(pageType)).Append("\">");
+                    sb.Append("<optgroup label=\"").Append(Cms.Template.GetPageDescript(pageType)).Append("\">");
 
                     for (int i = 0; i < filelist.Count; i++)
                     {
-                        if (J6.Cms.Cms.Template.GetPageType(filelist[i].Name) == pageType)
+                        if (Cms.Template.GetPageType(filelist[i].Name) == pageType)
                         {
                             filePath = filelist[i].FullName.Substring(path.Length).Replace("\\", "/");
 
@@ -120,7 +120,7 @@ namespace J6.Cms.WebManager
                     }
                     else
                     {
-                        pageType = J6.Cms.Cms.Template.GetPageType(filelist[0].Name);
+                        pageType = Cms.Template.GetPageType(filelist[0].Name);
                     }
                 }
             }
@@ -163,7 +163,7 @@ namespace J6.Cms.WebManager
         /// <param name="isroot"></param>
        public static void EachTemplatePage(DirectoryInfo dir, StringBuilder sb)
        {
-           int rootDirLength = (J6.Cms.Cms.PyhicPath + "templates/").Length;
+           int rootDirLength = (Cms.PyhicPath + "templates/").Length;
            string path;
            foreach (FileInfo file in dir.GetFiles())
            {
@@ -204,15 +204,15 @@ namespace J6.Cms.WebManager
        public static void EachTemplatePage(DirectoryInfo dir, StringBuilder sb, params TemplatePageType[] pageType)
        {
            if(!dir.Exists|| dir.Name == ".backup")return;
-           int rootDirLength = (J6.Cms.Cms.PyhicPath + "templates/").Length;
+           int rootDirLength = (Cms.PyhicPath + "templates/").Length;
            
            string path;
            foreach (FileInfo file in dir.GetFiles())
            {
                if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
                    && file.Name.EndsWith(".html")
-                   && Array.Exists(pageType, a => J6.Cms.Cms.Template.GetPageType(file.Name) == a)
-                   && (Settings.TPL_MultMode || !J6.Cms.Cms.Template.IsSystemTemplate(file.Name))          //独享模式不显示系统模板
+                   && Array.Exists(pageType, a => Cms.Template.GetPageType(file.Name) == a)
+                   && (Settings.TPL_MultMode || !Cms.Template.IsSystemTemplate(file.Name))          //独享模式不显示系统模板
                    )
                {
                    sb.Append("<option value=\"templates/");

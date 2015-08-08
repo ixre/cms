@@ -44,7 +44,7 @@ namespace J6.Cms.Web.Mvc
                 return;
             }
 
-            this.OutputCntext = J6.Cms.Cms.Context;
+            this.OutputCntext = Cms.Context;
             this.OutputCntext.Source = this;
             _startTime = new TimeSpan(DateTime.Now.Ticks);
 
@@ -122,7 +122,7 @@ namespace J6.Cms.Web.Mvc
             //显示站点信息
             if (filterContext.RequestContext.HttpContext.Request.Path != "/admin")
             {
-                SiteDto site = J6.Cms.Cms.Context.CurrentSite;
+                SiteDto site = Cms.Context.CurrentSite;
                 filterContext.HttpContext.Response.Write(site.SiteId + "<br />" + site.Domain + "<br />" + site.Name + "<br />");
             }
         }

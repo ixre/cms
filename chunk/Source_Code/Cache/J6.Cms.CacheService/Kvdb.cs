@@ -7,7 +7,7 @@ namespace J6.Cms.CacheService
         /// <summary>
         /// 全局缓存
         /// </summary>
-        public static LevelDb GCA
+        public static LevelDb Gca
         {
             get { return Infrastructure.Kvdb._currentInstance;}
         }

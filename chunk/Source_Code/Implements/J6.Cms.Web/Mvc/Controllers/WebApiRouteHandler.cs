@@ -43,7 +43,7 @@ namespace J6.Cms.Web
             public void ProcessRequest(HttpContext context)
             {
                 string apiName = context.Request["name"];
-                int siteId = J6.Cms.Cms.Context.CurrentSite.SiteId;
+                int siteId = Cms.Context.CurrentSite.SiteId;
                 switch (apiName)
                 {
                     case "rlink":
@@ -99,7 +99,7 @@ namespace J6.Cms.Web
             string url;
             if (links != null)
             {
-                string appPath = J6.Cms.Cms.Context.SiteAppPath;
+                string appPath = Cms.Context.SiteAppPath;
                 if (appPath == "/") appPath = "";
                 foreach (LinkDto link in links)
                 {

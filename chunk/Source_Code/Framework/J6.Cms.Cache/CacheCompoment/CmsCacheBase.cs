@@ -21,7 +21,7 @@ namespace J6.Cms.Cache.CacheCompoment
     public class CmsCacheBase : ICmsCache
     {
 
-        private T GetCacheResult<T>(string cacheKey, BuiltCacheResultHandler<T> func, bool autoCache)
+        private T GetCacheResult<T>(string cacheKey, BuiltCacheResultHandler<T> func, bool autoCache, DateTime expiresTime)
         {
             T data = default(T);
 
@@ -30,7 +30,7 @@ namespace J6.Cms.Cache.CacheCompoment
             {
                 data = func();
 
-                if (autoCache) this.Insert(cacheKey, data);
+                if (autoCache) this.Insert(cacheKey, data,expiresTime);
             }
             else
             {
@@ -63,7 +63,7 @@ namespace J6.Cms.Cache.CacheCompoment
             {
                 foreach (DictionaryEntry dict in HttpRuntime.Cache)
                 {
-                    if (dict.Key.ToString().IndexOf(keySign) != -1)
+                    if (dict.Key.ToString().IndexOf(keySign, StringComparison.Ordinal) != -1)
                         HttpRuntime.Cache.Remove(dict.Key.ToString());
                 }
             }
@@ -80,23 +80,16 @@ namespace J6.Cms.Cache.CacheCompoment
         }
 
 
-
-        /// <summary>
-        /// 获取缓存结果
-        /// </summary>
-        /// <param name="cacheKey"></param>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        public T GetCachedResult<T>(string cacheKey, BuiltCacheResultHandler<T> func)
+	     /// <summary>
+	     /// 获取缓存结果
+	     /// </summary>
+	     /// <param name="cacheKey"></param>
+	     /// <param name="func"></param>
+	     /// <param name="expiresTime"></param>
+	     /// <returns></returns>
+	     public T GetCachedResult<T>(string cacheKey, BuiltCacheResultHandler<T> func, DateTime expiresTime)
         {
-            return GetCacheResult<T>(cacheKey, func,true);
-        }
-
-
-
-        public T GetResult<T>(string cacheKey, BuiltCacheResultHandler<T> func)
-        {
-            return GetCacheResult<T>(cacheKey, func, false);
+            return GetCacheResult<T>(cacheKey, func,true,expiresTime);
         }
 
       
@@ -105,7 +98,6 @@ namespace J6.Cms.Cache.CacheCompoment
         public virtual void Reset(CmsHandler handler)
         {
         }
-
     }
 
 }

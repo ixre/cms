@@ -85,7 +85,7 @@ namespace J6.Cms.WebManager
 
         protected void RenderTemplateUseCache(string content, object dataObj)
         {
-            if (!J6.Cms.Cms.Cache.CheckClientCacheExpiresByEtag()) { return; }
+            if (!Cms.Cache.CheckClientCacheExpiresByEtag()) { return; }
 
             string html = null;
             HttpResponse response = this.Response;
@@ -114,7 +114,7 @@ namespace J6.Cms.WebManager
         setHeader:
 
             //设置缓存
-            J6.Cms.Cms.Cache.SetClientCacheByEtag(this.Response);
+            Cms.Cache.SetClientCacheByEtag(this.Response);
 
             //输出内容
             this.Response.Write(html);
@@ -125,7 +125,7 @@ namespace J6.Cms.WebManager
                 response.AddHeader("Content-Encoding", "gzip");
             }
 
-            response.AddHeader("X-AspNet-Version", String.Format("J6.Cms v{0}", J6.Cms.Cms.Version));
+            response.AddHeader("X-AspNet-Version", String.Format("J6.Cms v{0}", Cms.Version));
             response.AddHeader("Support-URL", "cms.h3f.net/cms/");
 
         }

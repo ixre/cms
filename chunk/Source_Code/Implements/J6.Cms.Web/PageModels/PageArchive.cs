@@ -31,7 +31,7 @@ namespace J6.Cms.Web
         private static string FormatUrl(UrlRulePageKeys key, params string[] datas)
         {
             string urlFormat = (Settings.TPL_UseFullPath ?
-                J6.Cms.Cms.Context.SiteDomain+"/" : J6.Cms.Cms.Context.SiteAppPath)
+                Cms.Context.SiteDomain+"/" : Cms.Context.SiteAppPath)
                 + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)key];
             return datas == null ? urlFormat : String.Format(urlFormat, datas);
         }
@@ -200,7 +200,7 @@ namespace J6.Cms.Web
                 {
                     if (this.Archive.Tags == String.Empty)
                     {
-                        return J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGE_NO_TAGS);
+                        return Cms.Language.Get(LanguagePackageKey.PAGE_NO_TAGS);
                     }
 
                     StringBuilder sb = new StringBuilder();

@@ -81,7 +81,7 @@ namespace J6.Cms.Web.WebManager.Handle
         {
         	string jsonStr="";	
     		AutoObjectXml xml=new AutoObjectXml(
-                String.Concat(J6.Cms.Cms.PyhicPath,
+                String.Concat(Cms.PyhicPath,
                 CmsVariables.PLUGIN_META_FILE));
     		XmlObject json=xml.GetObject("plugin_json_data");
     		
@@ -106,7 +106,7 @@ namespace J6.Cms.Web.WebManager.Handle
         {
         	string workIndent=base.Request["worker_indent"];
         	
-        	byte[] data=J6.Cms.Cms.Plugins.Manager.GetPluginIcon(workIndent,80,80);
+        	byte[] data=Cms.Plugins.Manager.GetPluginIcon(workIndent,80,80);
         
         	if(data!=null)
         	{
@@ -129,7 +129,7 @@ namespace J6.Cms.Web.WebManager.Handle
         	//Cms.Plugins.Manager.Pause(workIndent);
         	
         	//更新元数据
-        	J6.Cms.Cms.Plugins.Manager.SavePluginMetadataToXml();
+        	Cms.Plugins.Manager.SavePluginMetadataToXml();
         	
         	base.RenderSuccess();
         }

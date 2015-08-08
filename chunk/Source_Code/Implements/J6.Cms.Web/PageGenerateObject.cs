@@ -122,9 +122,9 @@ namespace J6.Cms.Web
             //
 
             //用于当前的模板共享数据
-            J6.Cms.Cms.Context.Items["category.tag"] = category.Tag;
-            J6.Cms.Cms.Context.Items["module.id"] = category.ModuleId;
-            J6.Cms.Cms.Context.Items["page.index"] = pageIndex;
+            Cms.Context.Items["category.tag"] = category.Tag;
+            Cms.Context.Items["module.id"] = category.ModuleId;
+            Cms.Context.Items["page.index"] = pageIndex;
 
             bool isFirstPage = pageIndex == 1;
 
@@ -202,9 +202,9 @@ namespace J6.Cms.Web
             CategoryDto category = archive.Category;
 
             //用于当前的模板共享数据
-            J6.Cms.Cms.Context.Items["archive.id"] = archive.Id;
-            J6.Cms.Cms.Context.Items["category.tag"] = category.Tag;
-            J6.Cms.Cms.Context.Items["module.id"] = category.ModuleId;
+            Cms.Context.Items["archive.id"] = archive.Id;
+            Cms.Context.Items["category.tag"] = category.Tag;
+            Cms.Context.Items["module.id"] = category.ModuleId;
 
             //解析模板
             string html = PageUtility.Require(tplId,
@@ -268,9 +268,9 @@ namespace J6.Cms.Web
             if (pageIndex < 1) pageIndex = 1;
 
             //模板标签共享数据
-            J6.Cms.Cms.Context.Items["search.key"] = key;
-            J6.Cms.Cms.Context.Items["search.param"] = cate;       //搜索按模块或按栏目
-            J6.Cms.Cms.Context.Items["page.index"] = pageIndex;
+            Cms.Context.Items["search.key"] = key;
+            Cms.Context.Items["search.param"] = cate;       //搜索按模块或按栏目
+            Cms.Context.Items["page.index"] = pageIndex;
 
             //解析模板
             string html = PageUtility.Require(this.FormatTemplatePath("search"),
@@ -283,7 +283,7 @@ namespace J6.Cms.Web
                                                                        Title = String.Format("\"{0}\"相关的信息{1}_{2}",
                                                                                              key,
                                                                                              pageIndex == 1 ? String.Empty :
-                                                                                             String.Format(J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle),pageIndex.ToString()),
+                                                                                             String.Format(Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle),pageIndex.ToString()),
                                                                                              _site.Title),
                                                                        SubTitle = _site.Title,
                                                                        Keywords = key,
@@ -316,8 +316,8 @@ namespace J6.Cms.Web
             if (pageIndex < 1) pageIndex = 1;
 
             //模板标签共享数据
-            J6.Cms.Cms.Context.Items["tag.key"] = key;
-            J6.Cms.Cms.Context.Items["page.index"] = pageIndex;
+            Cms.Context.Items["tag.key"] = key;
+            Cms.Context.Items["page.index"] = pageIndex;
 
             //解析模板
             string html = PageUtility.Require(this.FormatTemplatePath("tag"),
@@ -331,7 +331,7 @@ namespace J6.Cms.Web
                                                                        Title = String.Format("{0}{1}_{2}",
                                                                                              key,
                                                                                              pageIndex == 1 ? String.Empty :
-                                                                                             String.Format(J6.Cms.Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle), pageIndex.ToString()),
+                                                                                             String.Format(Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle), pageIndex.ToString()),
                                                                                              _site.Title),
                                                                        SubTitle = _site.Title,
                                                                        Keywords = key,

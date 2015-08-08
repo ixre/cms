@@ -349,7 +349,7 @@ namespace J6.Cms.Template
 
         public void Save()
         {
-            SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf",J6.Cms.Cms.PyhicPath,this.tplName));
+            SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf",Cms.PyhicPath,this.tplName));
 
             /**************** 模板设置 ****************/
              if (sf.Contains("CFG_ShowErrror"))

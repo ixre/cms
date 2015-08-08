@@ -87,11 +87,11 @@ namespace J6.Cms
         {
             get
             {
-                CmsContext context = HttpContext.Current.Items["Cms.context"] as CmsContext;
+                CmsContext context = HttpContext.Current.Items["cms.context"] as CmsContext;
                 if (context == null)
                 {
                     context = new CmsContext();
-                    HttpContext.Current.Items["Cms.context"] = context;
+                    HttpContext.Current.Items["cms.context"] = context;
                 }
                 return context;
             }
@@ -126,7 +126,7 @@ namespace J6.Cms
         /// <summary>
         /// 重置缓存时发生
         /// </summary>
-        public static event CmsHandler OnResetCache;
+       // public static event CmsHandler OnResetCache;
         private static CmsLanguagePackage _cmsLang;
 
 
