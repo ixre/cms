@@ -4,7 +4,7 @@ using J6.Cms.Domain.Interface.Common.Language;
 
 namespace J6.Cms.Web.PageModels
 {
-    internal class PageSite
+    public class PageSite
     {
         public PageSite(SiteDto dto)
         {

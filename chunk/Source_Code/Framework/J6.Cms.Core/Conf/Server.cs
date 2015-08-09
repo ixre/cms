@@ -16,7 +16,7 @@ namespace J6.Cms.Conf
     	/// 默认静态服务器
     	/// 
     	/// </summary>
-        internal static string DefaultStaticServer="cms-cdn.K3F.NET/cms";
+        internal static string DefaultStaticServer="iss.k3f.net/cms";
 
 
         /// <summary>
@@ -27,6 +27,6 @@ namespace J6.Cms.Conf
         /// <summary>
         /// 更新服务器
         /// </summary>
-        public static string DefaultUpgradeServer = "http://cms-cdn.K3F.NET/cms/patch/latest/";
+        public static string DefaultUpgradeServer = "http://iss.k3f.net/cms/patch/latest/";
     }
 }

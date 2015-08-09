@@ -112,7 +112,7 @@ namespace J6.Cms.Conf
 			
 			/**************** 静态服务器 ******************/
 			
-			if(sf.Contains("server_static"))
+			if(false)// sf.Contains("server_static"))
 			{
 				Settings.SERVER_STATIC=sf["server_static"];
 				if(Settings.SERVER_STATIC.Length==0)
