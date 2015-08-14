@@ -1,6 +1,6 @@
 ﻿//
 // ReviewsDAL   点评(赞同和反对)访问层
-// Copryright 2011 @ K3F.NET,All rights reseved !
+// Copryright 2011 @ Z3Q.NET,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
 

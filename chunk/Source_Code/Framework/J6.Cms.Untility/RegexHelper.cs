@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ K3F.NET,All rights reseved.
+// Copyright 2011 @ Z3Q.NET,All rights reseved.
 // Name: RegexHelper.cs
 // publisher_id: newmin
 //

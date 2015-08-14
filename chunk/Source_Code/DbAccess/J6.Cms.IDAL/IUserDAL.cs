@@ -1,6 +1,6 @@
 //
 //
-//  Copyright 2011 (C) K3F.NET.All rights reseved.
+//  Copyright 2011 (C) Z3Q.NET.All rights reseved.
 //
 //  @ Project : OSite
 //  @ File Name : IUserDAL.cs

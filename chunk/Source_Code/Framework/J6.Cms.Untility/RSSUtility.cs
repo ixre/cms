@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ K3F.NET,All right reseved.
+// Copyright 2011 @ Z3Q.NET,All right reseved.
 // Name: RSSUtility.cs
 // publisher_id: newmin
 // Comments:

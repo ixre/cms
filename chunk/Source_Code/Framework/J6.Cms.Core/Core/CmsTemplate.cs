@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 K3F.NET,All rights reseved.
+// Copyright (C) 2007-2008 Z3Q.NET,All rights reseved.
 // 
 // Project: Cms.Cms
 // FileName : CmsContext.cs
@@ -7,7 +7,7 @@
 // Create : 2013/06/23 14:53:11
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.k3f.net
+// Get infromation of this software,please visit our site http://cms.z3q.net
 //
 //
 

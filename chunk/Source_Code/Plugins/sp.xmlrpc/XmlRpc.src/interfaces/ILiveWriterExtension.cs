@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 K3F.NET,All rights reseved.
+// Copyright (C) 2007-2008 Z3Q.NET,All rights reseved.
 // 
 // Project: OPSite.XmlRpc.interface
 // FileName : ILiveWriterExtension.cs

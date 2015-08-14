@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (C) 2007-2015 K3F.NET,All rights reseved.
+ * Copyright (C) 2007-2015 Z3Q.NET,All rights reseved.
  * Get more infromation of this software,please visit site http://h3f.net/cms
  * 
  * name : ExportItem.cs

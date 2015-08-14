@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2013 K3F.NET,All rights reseved.
+// Copyright (C) 2007-2013 Z3Q.NET,All rights reseved.
 // 
 // Project: Cms.Cms.Config
 // FileName : Settings.cs
@@ -7,7 +7,7 @@
 // Create : 2012/5/26 19:25:33
 // Description :
 //
-// Get infromation of this software,please visit our site http://cms.k3f.net
+// Get infromation of this software,please visit our site http://cms.z3q.net
 // Modify:
 //  2013-02-21  17:28   newmin [+]: SYS_UseFullPath ，SYS_UseCompress
 //  2013-05-30  21:30   newmin [+]: 检测是否gzip,支持则默认开启动

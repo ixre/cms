@@ -1,6 +1,6 @@
 ﻿
 /*
-* Copyright(C) 2010-2013 K3F.NET
+* Copyright(C) 2010-2013 Z3Q.NET
 * 
 * File Name	: TemplateUrlRule
 * publisher_id	: Newmin (new.min@msn.com)

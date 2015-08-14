@@ -1,5 +1,5 @@
 ﻿//
-// Copyright K3F.NET.
+// Copyright Z3Q.NET.
 // UserBLL.cs newmin (new.min@msn.com)
 //
 

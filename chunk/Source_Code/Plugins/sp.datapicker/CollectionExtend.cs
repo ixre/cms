@@ -6,7 +6,7 @@ using J6.DevFw.Toolkit.Tags;
 namespace sp.datapicker
 {
     //
-    // Copyright 2011 (C) K3F.NET,All rights reseved.
+    // Copyright 2011 (C) Z3Q.NET,All rights reseved.
     // Project : OPSite.Plugin
     // Name : 采集插件
     // author : newmin

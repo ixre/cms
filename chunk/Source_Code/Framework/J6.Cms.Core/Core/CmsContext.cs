@@ -1,6 +1,6 @@
 ﻿/**
- * Copyright (C) 2007-2015 K3F.NET,All rights reseved.
- * Get more infromation of this software,please visit site http://cms.k3f.net
+ * Copyright (C) 2007-2015 Z3Q.NET,All rights reseved.
+ * Get more infromation of this software,please visit site http://cms.z3q.net
  * 
  * name : CmsContext.cs
  * author : newmin (new.min@msn.com)
