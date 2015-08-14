@@ -66,7 +66,14 @@ namespace J6.Cms.Web.WebManager
                 int.TryParse(cookie.Value, out siteId);
                 if (siteId > 0)
                 {
-                    site = SiteCacheManager.GetSite(siteId);
+                    try
+                    {
+                        site = SiteCacheManager.GetSite(siteId);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
             }
             return site;

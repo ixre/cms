@@ -35,6 +35,7 @@ namespace J6.DevFw.Data.Test
 
         }
 
+
         static void TestEnumMethod()
         {
             Console.WriteLine(Enum.Parse(typeof(TestEnum),"B"));

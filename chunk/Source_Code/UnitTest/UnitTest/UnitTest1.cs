@@ -46,7 +46,8 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod1()
         {
-            String pwd = Generator.Md5Pwd("lms87319225", null);
+            String pwd = Generator.Sha1Pwd("289941858", Generator.Offset);
+            //pwd = Generator.Sha1Pwd("123456", Generator.Offset);// 316ed7406e674011bf326cbe3c7167b6fc86e026
             Assert.Inconclusive(pwd);
         }
 
