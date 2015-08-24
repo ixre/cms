@@ -79,7 +79,6 @@
     <Content Include="framework\assemblies\MySql.Data.dll" />
     <Content Include="framework\assemblies\NetPay.dll" />
     <Content Include="framework\assemblies\Newtonsoft.Json.dll" />
-    <Content Include="framework\assemblies\j6.region.dll" />
     <Content Include="framework\assemblies\RouteDebug.dll" />
     <Content Include="framework\assemblies\SharpCompress.3.5.dll" />
     <Content Include="framework\assemblies\System.Web.Mvc.dll" />

@@ -23,7 +23,19 @@ namespace J6.Cms.Web
         private string _sitemap;
         private readonly CmsContext _context;
         private string _resDomain;
+        static readonly String IeHtml5ShivTag;
 
+        static PageVariable()
+        {
+            //http://www.cnblogs.com/dayezi/p/4702038.html
+            //<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+            //<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            IeHtml5ShivTag = @"
+    <!--[if lt IE 9]>
+        <script src=""//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js""></script>
+        <script src=""//cdn.bootcss.com/respond.js/1.4.2/respond.min.js""></script>
+    <![endif]-->";
+        }
 
         public PageVariable()
         {
@@ -226,5 +238,17 @@ namespace J6.Cms.Web
         /// </summary>
         [TemplateVariableField("当前页面（带分页页面)的页码")]
         public int PageIndex { get; set; }
+
+        /// <summary>
+        /// 页码
+        /// </summary>
+        [TemplateVariableField("支持HTML5")]
+        public String Html5
+        {
+            get
+            {
+                return IeHtml5ShivTag;
+            }
+        }
     }
 }
