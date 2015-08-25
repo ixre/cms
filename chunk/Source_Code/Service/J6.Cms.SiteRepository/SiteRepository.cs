@@ -40,14 +40,14 @@ namespace J6.Cms.ServiceRepository
             this._userRep = userRep;
         }
 
-        public ISite CreateSite(int siteid, string name)
+        public ISite CreateSite(int siteId, string name)
         {
             return base.CreateSite(this,
                 this._extendFieldRepository,
                 this._categoryRep,
                 this._tempRep,
                 this._userRep,
-                siteid,
+                siteId,
                 name);
         }
         public int SaveSite(ISite site)

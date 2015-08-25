@@ -133,7 +133,7 @@ namespace J6.Cms.ServiceContract
         /// <summary>
         /// 获取分页文档信息数据表(后台)
         /// </summary>
-        /// <param name="siteid"></param>
+        /// <param name="siteId"></param>
         /// <param name="categoryId"></param>
         /// <param name="publisherId"></param>
         /// <param name="flags"></param>
@@ -144,7 +144,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="recordCount"></param>
         /// <param name="pages"></param>
         /// <returns></returns>
-        DataTable GetPagedArchives(int siteid, int? categoryId,
+        DataTable GetPagedArchives(int siteId, int? categoryId,
             int publisherId, string[,] flags, 
             string orderByField, bool orderAsc, int pageSize, 
             int currentPageIndex, out int recordCount, out int pages);

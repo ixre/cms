@@ -314,7 +314,7 @@
 
         public override string Link_AddSiteLink
         {
-            get { return @"INSERT INTO $PREFIX_link (siteid,pid,[type],
+            get { return @"INSERT INTO $PREFIX_link (site_id,pid,[type],
                         [text],[uri],img_url,[target],bind,visible,sort_number)VALUES
                         (@siteId,@pid,@TypeID,@Text,@Uri,@imgurl,@Target,@bind,@visible,@sortNumber)"; }
         }

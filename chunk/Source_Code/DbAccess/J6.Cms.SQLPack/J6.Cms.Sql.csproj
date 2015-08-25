@@ -52,7 +52,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>opsite.sqlpack.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>j6.cms.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="j6.devfw">
@@ -68,9 +68,6 @@
     <Compile Include="SqlServerSqlPack.cs" />
     <Compile Include="OleDbSqlPack.cs" />
     <Compile Include="MySQLSqlPack.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="opsite.sqlpack.snk" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="sql&amp;db\2013-06-09.changelog.txt" />
@@ -91,6 +88,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="j6.cms.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

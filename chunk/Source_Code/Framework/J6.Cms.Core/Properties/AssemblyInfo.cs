@@ -11,12 +11,12 @@ using System.Security;
 
 //[assembly: AllowPartiallyTrustedCallers]
 [assembly: AssemblyTitle("J6 Cms .NET")]
-[assembly: AssemblyDescription("The cross platform ASP.NET content manage system.")]
+[assembly: AssemblyDescription("The cross platform .NET content manage system.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("plese visit www.Cms.cc/cms/ known about us!")]
-[assembly: AssemblyProduct("Cms.Cms .NET !")]
-[assembly: AssemblyCopyright("Copyright 2008-2014 © Cms.cc")]
-[assembly: AssemblyTrademark("Cms.Cms")]
+[assembly: AssemblyCompany("plese visit http://s.z3q.net/cms known more.")]
+[assembly: AssemblyProduct("J6 Cms .NET !")]
+[assembly: AssemblyCopyright("Copyright 2008-2016 © z3q.net")]
+[assembly: AssemblyTrademark("J6.Cms")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 使此程序集中的类型

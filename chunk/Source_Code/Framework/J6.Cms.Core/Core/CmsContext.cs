@@ -117,7 +117,7 @@ namespace J6.Cms.Core
 
 
         /// <summary>
-        /// 当前的Host,包含端口，如：www.Cms.cc:8080
+        /// 当前的Host,包含端口，如：z3q.net:8080
         /// </summary>
         public string Host
         {
@@ -165,7 +165,8 @@ namespace J6.Cms.Core
                     string host = String.Format("{0}{1}", _context.Request.Url.Host,
                                                 _context.Request.Url.Port != 80 ? ":" + _context.Request.Url.Port.ToString() : "");
 
-                                          _siteDomain= String.Format("http://{0}{1}{2}",
+                                         // _siteDomain= String.Format("http://{0}{1}{2}",
+                                          _siteDomain= String.Format("//{0}{1}{2}",
                                                           host,
                                                           this.ApplicationPath=="/"?"":this.ApplicationPath,
                                                           this.SiteAppPath=="/"?"":this.SiteAppPath
@@ -190,7 +191,7 @@ namespace J6.Cms.Core
         {
             get
             {
-                return this._resouceDomain ?? (this._resouceDomain = WebCtx.Domain);
+                return this._resouceDomain ?? (this._resouceDomain = WebCtx.Domain.Replace("http:",""));
             }
         }
 
@@ -205,7 +206,8 @@ namespace J6.Cms.Core
                 {
                     if (Settings.SERVER_STATIC_ENABLED && Settings.SERVER_STATIC.Length != 0)
                     {
-                        this._staticDomain = String.Concat("http://", Settings.SERVER_STATIC);
+                       // this._staticDomain = String.Concat("http://", Settings.SERVER_STATIC);
+                        this._staticDomain = String.Concat("//", Settings.SERVER_STATIC);
                     }
                     else
                     {
@@ -354,7 +356,7 @@ namespace J6.Cms.Core
             }*/
 
             response.AddHeader("X-AspNet-Version", String.Format("Cms.Cms.net v{0}", Cms.Version));
-            response.AddHeader("Support-URL", "www.Cms.cc/cms/");
+            response.AddHeader("Support-URL", "s.z3q.net/cms");
         }
 
 

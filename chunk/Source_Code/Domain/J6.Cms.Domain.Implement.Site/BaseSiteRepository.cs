@@ -16,7 +16,7 @@ namespace J6.Cms.Domain.Implement.Site
         /// <param name="extendRepository"></param>
         /// <param name="categoryRep"></param>
         /// <param name="tempRep"></param>
-        /// <param name="siteid"></param>
+        /// <param name="siteId"></param>
         /// <param name="name"></param>
         /// <returns></returns>
         public ISite CreateSite(
@@ -25,7 +25,7 @@ namespace J6.Cms.Domain.Implement.Site
             ICategoryRepository categoryRep,
             ITemplateRepository tempRep,
             IUserRepository userRep,
-            int siteid,
+            int siteId,
             string name
             )
         {
@@ -34,7 +34,7 @@ namespace J6.Cms.Domain.Implement.Site
                 categoryRep,
                 tempRep,
                 userRep,
-                siteid,
+                siteId,
                 name);
         }
 

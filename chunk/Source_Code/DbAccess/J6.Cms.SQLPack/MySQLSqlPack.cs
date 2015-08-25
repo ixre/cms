@@ -30,7 +30,7 @@
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden +
                         @" AND (`lft`>=@lft AND `rgt`<=@rgt) AND $PREFIX_category.site_id=@siteId 
-                        ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}";
+                        ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
             }
         }
 
@@ -63,7 +63,7 @@
                         SELECT $PREFIX_archive.id FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE tag=@Tag AND " + SqlConst.Archive_NotSystemAndHidden
-                        + @" ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}
+                        + @" ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}
                       
                           ) as t)";
             }
@@ -103,7 +103,7 @@
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND (`lft`>=@lft AND `rgt`<=@rgt)
-                        ORDER BY view_count DESC LImIT 0,{0}";
+                        ORDER BY view_count DESC LIMIT 0,{0}";
             }
         }
 
@@ -118,7 +118,7 @@
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @"  AND site_id=@siteId AND `tag`=@tag
-                        ORDER BY view_count DESC LImIT 0,{0}";
+                        ORDER BY view_count DESC LIMIT 0,{0}";
             }
         }
 
@@ -131,7 +131,7 @@
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid` 
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `moduleid`=@ModuleID
-                        ORDER BY view_count DESC LImIT 0,{0}";
+                        ORDER BY view_count DESC LIMIT 0,{0}";
             }
         }
 
@@ -146,7 +146,7 @@
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_Special +
                         @" AND site_id=@siteId AND (`lft`>=@lft AND `rgt`<=@rgt)
-                        ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}";
+                        ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
             }
         }
         public override string Archive_GetSpecialArchivesByCategoryTag
@@ -158,7 +158,7 @@
                         ,view_count,`source` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                         WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`tag`=@CategoryTag
-                        ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}";
+                        ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
             }
         }
         public override string Archive_GetSpecialArchivesByModuleID
@@ -170,7 +170,7 @@
                         ,view_count,`source` FROM $PREFIX_archive
                             INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
                             WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`moduleid`=@moduleID
-                            ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,{0}";
+                            ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
             }
         }
 
@@ -179,7 +179,7 @@
             get
             {
                 return @"SELECT * FROM $PREFIX_archive WHERE `cid`=@CategoryId AND site_id=@siteId AND "
-                    + SqlConst.Archive_Special + @" ORDER BY $PREFIX_archive.sort_number DESC LImIT 0,1";
+                    + SqlConst.Archive_Special + @" ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,1";
             }
         }
 
@@ -189,7 +189,7 @@
             get
             {
                 return @"SELECT `id`,a.`cid`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`createdate`,a.sort_number FROM $PREFIX_archive a,
-                                 (SELECT `cid`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LImIT 0,1) as t
+                                 (SELECT `cid`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
                                  WHERE (@sameCategory <>1 OR a.`cid`=t.`cid`) AND a.`sort_number`>t.`sort_number` AND 
                                  (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
                                  @" ORDER BY a.`sort_number` limit 0,1";
@@ -201,7 +201,7 @@
             get
             {
                 return @"SELECT `id`,a.`cid`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`createdate`,a.sort_number FROM $PREFIX_archive a,
-                                 (SELECT `cid`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LImIT 0,1) as t
+                                 (SELECT `cid`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
                                  WHERE  (@sameCategory <>1 OR a.`cid`=t.`cid`) AND a.`sort_number`<t.`sort_number` AND
                                  (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
                                  " ORDER BY a.`sort_number` DESC limit 0,1";
@@ -219,7 +219,7 @@
                          INNER JOIN $PREFIX_category ON cid=$PREFIX_category.id
                          WHERE $PREFIX_category.site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) 
                          AND " + SqlConst.Archive_NotSystemAndHidden + @" 
-                         ORDER BY $PREFIX_archive.sort_number DESC LImIT $[skipsize],$[pagesize]) as _t) ORDER BY $PREFIX_archive.sort_number DESC";
+                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT $[skipsize],$[pagesize]) as _t) ORDER BY $PREFIX_archive.sort_number DESC";
 
                 //INNER JOIN $PREFIX_modules ON $PREFIX_category.`moduleid`=$PREFIX_modules.`id`
             }
@@ -251,7 +251,7 @@
                         INNER JOIN $PREFIX_category c ON c.id=a.cid
                         WHERE a.id IN (SELECT id FROM (SELECT a.`id` AS `id` FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON a.cid=c.ID
-                        WHERE $[condition] ORDER BY $[orderByField] $[orderASC] LImIT $[skipsize],$[pagesize]) _t)
+                        WHERE $[condition] ORDER BY $[orderByField] $[orderASC] LIMIT $[skipsize],$[pagesize]) _t)
                          ORDER BY $[orderByField] $[orderASC]";
             }
         }
@@ -261,7 +261,7 @@
         {
             get
             {
-                return @"SELECT * FROM $PREFIX_operation,(SELECT id FROM $PREFIX_operation LImIT $[skipsize],$[pagesize]) _t
+                return @"SELECT * FROM $PREFIX_operation,(SELECT id FROM $PREFIX_operation LIMIT $[skipsize],$[pagesize]) _t
 						 WHERE $PREFIX_operation.id=_t.id";
             }
         }
@@ -271,7 +271,7 @@
             get
             {
                 return @"SELECT * FROM $PREFIX_Message,
-						(SELECT id FROM $PREFIX_Message WHERE Recycle=0 AND $[condition] ORDER BY [SendDate] DESC LImIT $[skipsize],$[pagesize]) _t
+						(SELECT id FROM $PREFIX_Message WHERE Recycle=0 AND $[condition] ORDER BY [SendDate] DESC LIMIT $[skipsize],$[pagesize]) _t
 						 WHERE $PREFIX_Message.id=_t.id";
             }
 
@@ -284,7 +284,7 @@
                 return @"SELECT $PREFIX_member.`id`,`username`,`avatar`,`nickname`,`RegIp`,`regtime`,`lastlogintime`
                         FROM $PREFIX_member INNER JOIN $PREFIX_memberdetails ON `id`=$PREFIX_memberdetails.uid,
 						(SELECT $PREFIX_member.`id` FROM $PREFIX_member INNER JOIN $PREFIX_memberdetails ON $PREFIX_member.`id`=$PREFIX_memberdetails.uid
-                         ORDER BY $PREFIX_member.`id` DESC LImIT $[skipsize],$[pagesize]) _t
+                         ORDER BY $PREFIX_member.`id` DESC LIMIT $[skipsize],$[pagesize]) _t
 						 WHERE $PREFIX_member.id=_t.id";
             }
         }
@@ -301,7 +301,7 @@
                         $PREFIX_category.`ID` WHERE $[condition] AND $PREFIX_category.site_id=$[siteid]
                         AND (`title` LIKE '%$[keyword]%'
                         OR `outline` LIKE '%$[keyword]%' OR `content` LIKE '%$[keyword]%'
-                        OR `tags` LIKE '$[keyword]%') $[orderby] LImIT $[skipsize],$[pagesize]) _t)
+                        OR `tags` LIKE '$[keyword]%') $[orderby] LIMIT $[skipsize],$[pagesize]) _t)
                          $[orderby]";
             }
         }
@@ -317,7 +317,7 @@
                         WHERE $[condition] AND $PREFIX_category.moduleid=$[moduleid] AND
                         (`title` LIKE '%$[keyword]%' OR `outline` LIKE '%$[keyword]%'
                         OR `content` LIKE '%$[keyword]%' OR `tags` LIKE '%$[keyword]%')
-                        $[orderby] LImIT $[skipsize],$[pagesize]) _t
+                        $[orderby] LIMIT $[skipsize],$[pagesize]) _t
 						 WHERE $PREFIX_archive.id=_t.id";
             }
         }
@@ -335,7 +335,7 @@
                         AND $PREFIX_category.rgt<=@rgt)
                         AND (`title` LIKE '%$[keyword]%' OR `outline` LIKE '%$[keyword]%'
                         OR `content` LIKE '%$[keyword]%' OR `tags` LIKE '%$[keyword]%')
-                        $[orderby] LImIT $[skipsize],$[pagesize]) _t)";
+                        $[orderby] LIMIT $[skipsize],$[pagesize]) _t)";
             }
         }
 
@@ -344,7 +344,7 @@
             get
             {
                 return @"SELECT * FROM $PREFIX_operation,
-						 (SELECT id FROM $PREFIX_operation WHERE $[condition] LImIT  $[skipsize],$[pagesize]) _t
+						 (SELECT id FROM $PREFIX_operation WHERE $[condition] LIMIT  $[skipsize],$[pagesize]) _t
 						 WHERE $PREFIX_operation.id=_t.id";
             }
         }
@@ -370,7 +370,7 @@
 
         public override string Link_AddSiteLink
         {
-            get { return @"INSERT INTO $PREFIX_link (`siteid`,`pid`,`type`,`text`,`uri`,
+            get { return @"INSERT INTO $PREFIX_link (`site_id`,`pid`,`type`,`text`,`uri`,
                         `img_url`,`target`,`bind`,`visible`,`sort_number`)VALUES(@siteId,@pid,
                         @TypeID,@Text,@Uri,@imgurl,@Target,@bind,@visible,@sortNumber)"; }
         }

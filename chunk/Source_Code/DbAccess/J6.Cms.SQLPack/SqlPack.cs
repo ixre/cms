@@ -694,7 +694,7 @@ namespace J6.Cms.Sql
         #endregion
 
         #region 模块相关
-        public readonly string Module_Add = "INSERT INTO $PREFIX_modules(siteid,name,isSystem,isDelete) VALUES(@siteId,@name,@isSystem,@isDelete)";
+        public readonly string Module_Add = "INSERT INTO $PREFIX_modules(site_id,name,isSystem,isDelete) VALUES(@siteId,@name,@isSystem,@isDelete)";
 
         // public readonly string Module_Delete = "UPDATE $PREFIX_Modules SET isDelete=1 WHERE id=@id";
         public readonly string Module_Delete = "DELETE FROM $PREFIX_modules WHERE id=@id";
