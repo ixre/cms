@@ -29,14 +29,12 @@ namespace J6.Cms.Web
 
         public PageGeneratorObject(CmsContext context)
         {
-            HttpContext.Current.Response.Write("Site:"+context.CurrentSite.Tpl + "<br />");
             //this.context=context;
             this._site = new PageSite(context.CurrentSite);
         }
 
         public virtual string FormatTemplatePath(string tplPath)
         {
-            HttpContext.Current.Response.Write("Page:"+_site.Tpl+"<br />");
             return String.Format("/{0}/{1}", _site.Tpl, tplPath);
         }
 
