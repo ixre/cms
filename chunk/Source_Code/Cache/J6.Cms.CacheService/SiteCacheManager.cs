@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.Security.Permissions;
 using J6.Cms.Cache;
 using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.DataTransfer;
@@ -27,46 +28,30 @@ namespace J6.Cms.CacheService
         /// <returns></returns>
         public static SiteDto GetSite(int siteId)
         {
-            //foreach (SiteDto s in WeakRefCache.Sites)
-            //{
-            //    if (s.SiteId == siteID) return s;
-            //}
-            //return null;
-
             return ServiceCall.Instance.SiteService.GetSiteById(siteId);
         }
 
         public static SiteDto GetSingleOrDefaultSite(Uri uri)
-        {  
-            string siteCacheKey=null;
+        {
+            string siteCacheKey = null;
             string hostName = uri.Host;
-            string appDirName = uri.Segments.Length==1?
-                null:
-                uri.Segments[1].Replace("/","");
+            string appDirName = uri.Segments.Length == 1
+                ? null
+                : uri.Segments[1].Replace("/", "");
 
-            if(appDirName!=null){
-                foreach(SiteDto site in WeakRefCache.Sites){
-                    if(String.Compare(site.DirName,appDirName,true,CultureInfo.InvariantCulture)==0){
-                        siteCacheKey=String.Concat(CacheSign.Site.ToString(), "_host_", hostName,"_",appDirName);
-                        break;
-                    }
-                }
+            SiteDto dto = default(SiteDto);
+            siteCacheKey = String.Concat(CacheSign.Site.ToString(), "_host_", hostName, "_" + appDirName);
+            int siteId = CacheFactory.Sington.GetCachedResult<int>(siteCacheKey, () =>
+            {
+                dto = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(uri);
+                return dto.SiteId;
+            },DateTime.Now.AddHours(24));
+
+            if (dto.SiteId == 0)
+            {
+                dto = ServiceCall.Instance.SiteService.GetSiteById(siteId);
             }
-
-            if(siteCacheKey==null){
-                siteCacheKey=String.Concat(CacheSign.Site.ToString(), "_host_", hostName);
-            }
-
-
-
-            return CacheFactory.Sington.GetCachedResult<SiteDto>(siteCacheKey,
-                 () =>
-                 {
-                     SiteDto site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(uri);
-                     SiteDto dto = GetSite(site.SiteId);
-                     dto.RunType = site.RunType;
-                     return site;
-                 },DateTime.Now.AddHours(24));
+            return dto;
         }
 
         /// <summary>

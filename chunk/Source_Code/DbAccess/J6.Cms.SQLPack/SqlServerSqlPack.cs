@@ -38,7 +38,7 @@ namespace J6.Cms.Sql
             {
                 return @"
                         SELECT v.id as id,fieldId as extendFieldId,f.name as fieldName,fieldValue as extendFieldValue,relationId
-	                    FROM $PREFIX_extendValue v INNER JOIN $PREFIX_extendField f ON v.fieldId=f.id
+	                    FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
 	                    WHERE relationType=@relationType AND relationId IN (
 
                         SELECT TOP {0} $PREFIX_archive.id
@@ -58,7 +58,7 @@ namespace J6.Cms.Sql
             {
                 return @"
                         SELECT v.id as id,fieldId as extendFieldId,f.name as fieldName,fieldValue as extendFieldValue,relationId
-	                    FROM $PREFIX_extendValue v INNER JOIN $PREFIX_extendField f ON v.fieldId=f.id
+	                    FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
 	                    WHERE relationType=@relationType AND relationId IN (
 
                         SELECT TOP {0} $PREFIX_archive.id FROM $PREFIX_archive

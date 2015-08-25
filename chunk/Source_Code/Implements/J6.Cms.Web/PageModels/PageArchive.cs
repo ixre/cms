@@ -20,7 +20,7 @@ namespace J6.Cms.Web
     public class PageArchive:ITemplateVariableObject
     {
         private string _properies;
-        private IDictionary<String, String> dict;
+        private IDictionary<String, String> _dict;
         private string _tagsHtml;
         public PageArchive(ArchiveDto archive)
         {
@@ -40,16 +40,16 @@ namespace J6.Cms.Web
         {
             get
             {
-                if (dict == null)
+                if (_dict == null)
                 {
-                    dict=new Dictionary<string,string>();
+                    _dict=new Dictionary<string,string>();
                    
                     foreach (IExtendValue value in this.Archive.ExtendValues)
                     {
-                        dict.Add(value.Field.Name, value.Value);
+                        _dict.Add(value.Field.Name, value.Value);
                     }
                 }
-                return dict;
+                return _dict;
             }
         }
 

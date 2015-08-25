@@ -145,14 +145,9 @@ namespace J6.Cms.ServiceRepository
         public ISite GetSiteById(int siteId)
         {
             IList<ISite> sites = this.GetSites();
+            if (sites.Count == 0) throw new Exception("Missing site");
             return BinarySearch.IntSearch(sites, 0, sites.Count, siteId, a => a.Id);
             return sites[0];
-
-            //            foreach(ISite site in sites)
-            //            {
-            //                if (site.Id == siteId) return site;
-            //            }
-            //            throw new Exception("站点不存在");
         }
 
         public ISite GetSingleOrDefaultSite(Uri uri)
@@ -161,16 +156,15 @@ namespace J6.Cms.ServiceRepository
             IList<ISite> sites = GetSiteByUri(uri, ref site);
             if (site == null)
             {
-                if (sites.Count == 0)
-                    throw new Exception("系统缺少站点!");
+                if (sites.Count == 0) throw new Exception("Missing site");
 
                 //获取host和dir均为空的站点
                 foreach (ISite _site in sites)
                 {
-                    if (_site.Id == 7)
-                    {
-                        return _site;
-                    }
+                    //if (_site.Id == 7)
+                    //{
+                     //   return _site;
+                    //}
                     if (_site.Domain == "" && _site.DirName == "")
                     {
                         return _site;

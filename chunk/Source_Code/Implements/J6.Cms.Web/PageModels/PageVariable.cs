@@ -1,5 +1,4 @@
 ﻿
-using J6.Cms;
 using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
@@ -112,22 +111,12 @@ namespace J6.Cms.Web
                 {
                     SiteDto site = _context.CurrentSite;
 
-                    string cacheKey = String.Format("{0}_s{1}_template_path",
-                        CacheSign.Site.ToString(),
-                        site.SiteId.ToString()
+                    _templatePath = String.Format(
+                        "{0}/templates/{1}",
+                        this.ResDomain,
+                        site.Tpl
                         );
-
-                    _templatePath = Cms.Cache.GetCachedResult(cacheKey, () =>
-                    {
-                        return String.Format(
-                            "{0}/templates/{1}",
-                            this.ResDomain,
-                            site.Tpl
-                            );
-                    }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
-
                 }
-
                 return _templatePath;
             }
         }

@@ -47,7 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceCall.cs" />
     <Compile Include="SiteCacheManager.cs" />
-    <Compile Include="WeakRefCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\J6.Cms.Cache\J6.Cms.Cache.csproj">

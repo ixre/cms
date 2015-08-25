@@ -709,25 +709,25 @@ namespace J6.Cms.Sql
         #region 扩展相关
 
         public readonly string DataExtend_CreateField = @"
-                INSERT INTO $PREFIX_extendField(site_id,name,type,default_value,regex,message)
+                INSERT INTO $PREFIX_extendfield(site_id,name,type,default_value,regex,message)
                 VALUES(@siteId,@name,@type,@defaultValue,@regex,@message)";
 
 
         public readonly string DataExtend_DeleteExtendField =
-                @"DELETE FROM $PREFIX_extendField WHERE site_id=@siteId AND id=@id";
+                @"DELETE FROM $PREFIX_extendfield WHERE site_id=@siteId AND id=@id";
 
         /// <summary>
         /// 获取分类扩展属性绑定次数
         /// </summary>
         public readonly string DataExtend_GetCategoryExtendRefrenceNum = @"
-                SELECT Count(0) FROM $PREFIX_extendValue v
+                SELECT Count(0) FROM $PREFIX_extendvalue v
                 INNER JOIN $PREFIX_archive a ON v.relationId=a.id
                 INNER JOIN $PREFIX_category c ON c.id=a.cid
                 AND v.relationType=1 AND c.site_id=@siteId AND a.cid=@categoryId AND v.fieldId=@fieldId";
 
 
         public readonly string DataExtend_UpdateField = @"
-                UPDATE $PREFIX_extendField SET name=@name,type=@type,regex=@regex,
+                UPDATE $PREFIX_extendfield SET name=@name,type=@type,regex=@regex,
                 default_value=@defaultValue,message=@message WHERE id=@id AND site_id=@siteId";
 
 
@@ -736,14 +736,14 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取所有的扩展字段
         /// </summary>
-        public readonly string DataExtend_GetAllExtends = @"SELECT * FROM $PREFIX_extendField";
+        public readonly string DataExtend_GetAllExtends = @"SELECT * FROM $PREFIX_extendfield";
 
         /// <summary>
         /// 获取相关联的数据
         /// </summary>
         public readonly string DataExtend_GetExtendValues = @"
             SELECT v.id as id,relationId,fieldId,f.name as fieldName,fieldValue
-	        FROM $PREFIX_extendValue v INNER JOIN $PREFIX_extendField f ON v.fieldId=f.id
+	        FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
 	        WHERE relationId=@relationId AND f.site_id=@siteId AND relationType=@relationType";
 
         /// <summary>
@@ -751,12 +751,12 @@ namespace J6.Cms.Sql
         /// </summary>
         public readonly string DataExtend_GetExtendValuesList = @"
             SELECT v.id as id,relationId,fieldId,f.name as fieldName,fieldValue
-	        FROM $PREFIX_extendValue v INNER JOIN $PREFIX_extendField f ON v.fieldId=f.id
+	        FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
 	        WHERE  relationType=@relationType AND f.site_id=@siteId AND relationId IN ({0})";
 
 
         public readonly string DataExtend_ClearupExtendFielValue = @"
-                DELETE FROM $PREFIX_extendValue WHERE /*fieldId=@fieldId AND*/
+                DELETE FROM $PREFIX_extendvalue WHERE /*fieldId=@fieldId AND*/
                 relationId=@relationId AND relationType=@relationType;";
 
         /// <summary>
@@ -764,7 +764,7 @@ namespace J6.Cms.Sql
         /// </summary>
         //public readonly string DataExtend_UpdateFieldValue = "UPDATE $PREFIX_dataExtendField SET attrVal=@attrVal WHERE attrId=@attrId AND rid=@rid";
         public readonly string DataExtend_InsertOrUpdateFieldValue = @"
-                    INSERT INTO $PREFIX_extendValue
+                    INSERT INTO $PREFIX_extendvalue
                     (relationId,fieldId,fieldValue,relationType)
                     VALUES (@relationId,@fieldId,@fieldValue,@relationType)
                 ";
@@ -773,7 +773,7 @@ namespace J6.Cms.Sql
         /// 获取栏目的扩展属性
         /// </summary>
         public readonly string DataExtend_GetCategoryExtendIdList = @"
-                SELECT extend.extendId FROM $PREFIX_categoryExtend extend
+                SELECT extend.extendId FROM $PREFIX_categoryextend extend
                 INNER JOIN $PREFIX_category c ON c.id=extend.categoryId
                 WHERE c.site_id=@siteId AND c.id=@categoryId
                 ";

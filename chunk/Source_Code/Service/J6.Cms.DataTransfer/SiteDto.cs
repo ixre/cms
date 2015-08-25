@@ -57,6 +57,31 @@ namespace J6.Cms.DataTransfer
         }
 
 
+
+        public static ISite CopyTo(SiteDto dto, ISite site)
+        {
+            site.ProAddress = dto.ProAddress;
+            site.DirName = dto.DirName;
+            site.Domain = dto.Domain;
+            site.Location = dto.Location;
+            site.ProEmail = dto.ProEmail;
+            site.ProFax = dto.ProFax;
+            site.Language = dto.Language;
+            site.ProPost = dto.ProPost;
+            site.Note = dto.Note;
+            site.ProNotice = dto.ProNotice;
+            site.ProPhone = dto.ProPhone;
+            site.ProIm = dto.ProIm;
+            site.SeoDescription = dto.SeoDescription;
+            site.SeoKeywords = dto.SeoKeywords;
+            site.SeoTitle = dto.SeoTitle;
+            site.ProSlogan = dto.ProSlogan;
+            site.State = dto.State;
+           site. ProTel = dto.ProTel;
+            site.Tpl = dto.Tpl;
+            return site;
+        }
+
         /// <summary>
         /// 站点ID
         /// </summary>
@@ -194,5 +219,6 @@ namespace J6.Cms.DataTransfer
         /// 运行类型
         /// </summary>
         public int RunType { get; set; }
+
     }
 }

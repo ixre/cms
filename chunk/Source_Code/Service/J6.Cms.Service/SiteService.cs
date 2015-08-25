@@ -34,15 +34,24 @@ namespace J6.Cms.Service
             this._tempRep = tempRep;
         }
 
-        public int SaveSite(SiteDto site)
+        public int SaveSite(SiteDto siteDto)
         {
-            if (site.SiteId != 0 && _resp.GetSites().SingleOrDefault(a => a.Id == site.SiteId) == null)
+            ISite site;
+            if (siteDto.SiteId != 0)
             {
-                site.SiteId = 0;
+                site = _resp.GetSiteById(siteDto.SiteId);
+                if (site == null)
+                {
+                    throw new ArgumentException("No such site");
+                }
             }
-            ISite _site = _resp.CreateSite(site.SiteId, site.Name);
-            _site.CloneData(site);
-            return _site.Save();
+            else
+            {
+                site = _resp.CreateSite(siteDto.SiteId, siteDto.Name);
+            }
+
+            SiteDto.CopyTo(siteDto,site);
+            return site.Save();
         }
 
 
