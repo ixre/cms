@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using J6.Cms.Domain.Interface.Site.Link;
 
 namespace J6.Cms.DataTransfer
 {
+
+    [Serializable]
+    public delegate string LinkBehavior(SiteLinkDto link);
+    public delegate string LinkGenerateGBehavior(int total, ref int current, int selected, bool child, SiteLinkDto link, int childCount);
     public struct SiteLinkDto
     {
         public int Pid

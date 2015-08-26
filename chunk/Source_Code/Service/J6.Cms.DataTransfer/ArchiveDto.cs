@@ -6,9 +6,6 @@ using J6.Cms.Domain.Interface.Site.Extend;
 namespace J6.Cms.DataTransfer
 {
 
-    [Serializable]
-    public delegate string LinkBehavior(SiteLinkDto link);
-    public delegate string LinkGenerateGBehavior(int total,ref int current,int selected,bool child,SiteLinkDto link);
 
     /// <summary>
     /// 

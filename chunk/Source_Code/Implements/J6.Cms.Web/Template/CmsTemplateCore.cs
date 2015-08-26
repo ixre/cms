@@ -1081,7 +1081,7 @@ namespace J6.Cms.Template
             string tempLinkStr;
 
 
-            LinkGenerateGBehavior bh = (int _total, ref int current, int selected, bool child, SiteLinkDto link) =>
+            LinkGenerateGBehavior bh = (int _total, ref int current, int selected, bool child, SiteLinkDto link,int childCount) =>
             {
                 StringBuilder sb2 = new StringBuilder();
 
@@ -1089,15 +1089,33 @@ namespace J6.Cms.Template
                  *  辨别选中的导航
                  * *********************/
                 isLast = current == _total - 1;
+                String clsName = "";
+
+//                if (selected == current)
+//                {
+//                    sb2.Append(isLast ? "<li class=\"current last\">" : "<li class=\"current\">");
+//                }
+//                else
+//                {
+//                    sb2.Append(isLast ? "<li class=\"last\">" : "<li>");
+//                }
+
+                if (childCount != 0)
+                {
+                    clsName = "parent ";
+                }
 
                 if (selected == current)
                 {
-                    sb2.Append(isLast ? "<li class=\"current last\">" : "<li class=\"current\">");
+                    clsName = String.Concat(clsName, "current ");
                 }
-                else
+
+                if (isLast)
                 {
-                    sb2.Append(isLast ? "<li class=\"last\">" : "<li>");
+                    clsName = String.Concat(clsName, "last ");
                 }
+
+                sb2.Append(clsName.Length == 0 ? "<li>" : "<li class=\"" + clsName + "\">");
 
                 //解析格式
                 tempLinkStr = TplEngine.FieldTemplate(child ? childFormat : format, a =>
@@ -1135,13 +1153,15 @@ namespace J6.Cms.Template
                 if (links[i].Pid == 0)
                 {
                     j = i;
-                    phtml = bh(total, ref j, navIndex, false, links[i]);
 
                     childs = new List<SiteLinkDto>(links.Where(a => a.Pid == links[i].Id));
+                    phtml = bh(total, ref j, navIndex, false, links[i],childs.Count);
+
                     if ((cTotal = childs.Count) != 0)
                     {
                         phtml = phtml.Replace("</li>",
-                            String.Format("<div id=\"{0}_child{1}\" class=\"child child{1}\"><ul class=\"menu\">",
+                            String.Format("<div id=\"{0}_child{1}\" class=\"child child{1}\"><div class=\"box clear\">"+
+                                          "<ul class=\"menu\">",
                             links[i].Type.ToString().ToLower(),
                             links[i].Id.ToString())
                             );
@@ -1149,11 +1169,11 @@ namespace J6.Cms.Template
                         cCurrent = 0;
                         for (int k = 0; k < childs.Count; k++)
                         {
-                            phtml += bh(cTotal, ref cCurrent, -1, true, childs[k]);
+                            phtml += bh(cTotal, ref cCurrent, -1, true, childs[k],0);
                             cCurrent++;
                             //links.Remove(childs[k]);
                         }
-                        phtml += "</ul><div class=\"clearfix\"></div></div></li>\r\n";
+                        phtml += "</ul></div></div></li>\r\n";
                     }
                     sb.Append(phtml);
                 }
