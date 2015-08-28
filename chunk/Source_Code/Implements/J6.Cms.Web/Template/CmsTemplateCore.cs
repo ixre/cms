@@ -1348,23 +1348,22 @@ namespace J6.Cms.Template
         }
 
 
-
         /// <summary>
         /// 根据数据表生成HTML
         /// </summary>
         /// <param name="archives"></param>
-        /// <param name="module"></param>
-        /// <param name="category"></param>
+        /// <param name="splitSize"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        protected virtual string ArchiveList(IEnumerable<ArchiveDto> archives, string format)
+        protected virtual string ArchiveList(ArchiveDto[] archives, int splitSize,string format)
         {
             StringBuilder sb = new StringBuilder();
-
+            bool listContainer = format.StartsWith("<li>");
             int tmpInt = 0;
-            foreach (ArchiveDto archive in archives)
+            foreach (ArchiveDto archiveDto in archives)
             {
-                this.FormatArchive(sb, archive, ref format, archives, tmpInt++);
+                this.FormatArchive(sb, archiveDto, ref format, archives, tmpInt++);
+                this.AppendSplitHtm(sb, tmpInt, splitSize, listContainer);
             }
             return sb.ToString();
         }
@@ -1500,13 +1499,14 @@ namespace J6.Cms.Template
         /// <summary>
         /// 分页文档列表
         /// </summary>
-        /// <param name="categoryTag"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="usePager">是否分页,false或no则不分</param>
-        /// <param name="format"></param>
+        /// <param name="categoryTag">栏目Tag</param>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <param name="splitSize">分隔条数</param>
+        /// <param name="format">格式</param>
+        /// <param name="skipSize">跳过的页码</param>
         /// <returns></returns>
-        protected string Pager_Archives(string categoryTag, string pageIndex, string pageSize, string format)
+        protected string Paging_Archives(string categoryTag, string pageIndex, string pageSize,int skipSize,int splitSize,string format)
         {
             int _pageIndex,
                  _pageSize,
@@ -1515,6 +1515,8 @@ namespace J6.Cms.Template
 
             int archiveId;
             int categoryId;
+         
+
 
             CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryTag);
             if (!(category.Id > 0))
@@ -1522,6 +1524,8 @@ namespace J6.Cms.Template
                 return TplMessage("Error:栏目不存在!");
             }
 
+            bool listContainer = format.StartsWith("<li>");
+           
             int.TryParse(pageIndex, out _pageIndex);
             int.TryParse(pageSize, out _pageSize);
 
@@ -1543,12 +1547,14 @@ namespace J6.Cms.Template
                 category.Lft,
                 category.Rgt,
                 _pageSize,
+                skipSize,
                 ref _pageIndex,
                 out _records,
                 out _pages,
                 out extendValues).Rows;
 
             totalNum = drs.Count;
+
 
             string id;
             foreach (DataRow dr in drs)
@@ -1564,6 +1570,7 @@ namespace J6.Cms.Template
                     archiveCategory = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryId);
                     if (!(archiveCategory.Id > 0)) continue;
                 }
+
 
                 sb.Append(TplEngine.FieldTemplate(format,
                     field =>
@@ -1637,6 +1644,11 @@ namespace J6.Cms.Template
                                 return "";
                         }
                     }));
+
+
+
+                // 添加分割栏
+                this.AppendSplitHtm(sb, archiveIndex, splitSize, listContainer);
             }
 
             //设置分页
@@ -1649,6 +1661,29 @@ namespace J6.Cms.Template
                 );
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 添加分割栏
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="index"></param>
+        /// <param name="splitSize"></param>
+        /// <param name="listContainer"></param>
+        private void AppendSplitHtm(StringBuilder sb, int index, int splitSize, bool listContainer)
+        {
+            const string splitHtm = "<div class=\"split-bar\"><div></div></div>";
+            if (splitSize > 0 && index % splitSize == 0)
+            {
+                if (listContainer)
+                {
+                    sb.Append("<li>").Append(splitHtm).Append("</li>");
+                }
+                else
+                {
+                    sb.Append(splitHtm);
+                }
+            }
         }
 
 

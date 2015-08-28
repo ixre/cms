@@ -54,7 +54,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="rgt"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number);
+        ArchiveDto[] GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number);
 
         /// <summary>
         /// 
@@ -63,7 +63,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetArchivesByCategoryTag(int siteId, string categoryTag, int number);
+       ArchiveDto[] GetArchivesByCategoryTag(int siteId, string categoryTag, int number);
 
         /// <summary>
         /// 
@@ -72,7 +72,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="moduleId"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetArchivesByModuleId(int siteId, int moduleId, int number);
+        ArchiveDto[] GetArchivesByModuleId(int siteId, int moduleId, int number);
 
         /// <summary>
         /// 
@@ -82,7 +82,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="rgt"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetArchivesByViewCount(int siteId, int lft, int rgt, int number);
+        ArchiveDto[] GetArchivesByViewCount(int siteId, int lft, int rgt, int number);
 
         /// <summary>
         /// 
@@ -91,7 +91,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetArchivesByViewCount(int siteId, string categoryTag, int number);
+        ArchiveDto[] GetArchivesByViewCount(int siteId, string categoryTag, int number);
 
         /// <summary>
         /// 
@@ -100,7 +100,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="moduleId"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetSpecialArchivesByModuleId(int siteId, int moduleId, int number);
+        ArchiveDto[] GetSpecialArchivesByModuleId(int siteId, int moduleId, int number);
 
         /// <summary>
         /// 
@@ -110,7 +110,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="rgt"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetSpecialArchives(int siteId, int lft, int rgt, int number);
+        ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number);
 
         /// <summary>
         /// 
@@ -119,7 +119,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetSpecialArchives(int siteId, string categoryTag, int number);
+        ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number);
 
         /// <summary>
         /// 
@@ -128,7 +128,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="moduleId"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetArchivesByViewCountByModuleId(int siteId, int moduleId, int number);
+        ArchiveDto[] GetArchivesByViewCountByModuleId(int siteId, int moduleId, int number);
 
         /// <summary>
         /// 获取分页文档信息数据表(后台)
@@ -164,7 +164,7 @@ namespace J6.Cms.ServiceContract
         /// <returns></returns>
         DataTable GetPagedArchives(int siteId,
             int categoryLft, int categoryRgt,
-            int pageSize, ref int pageIndex,
+            int pageSize, int skipSize,ref int pageIndex,
             out int records, out int pages,
             out IDictionary<int, IDictionary<string, string>> extendValues);
 

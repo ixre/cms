@@ -88,7 +88,7 @@ namespace J6.Cms.Template
         public string Archive(string format)
         {
             object id = HttpContext.Current.Items["archive.id"];
-            if (id== null || id == String.Empty)
+            if (id == null || id == String.Empty)
             {
                 return this.TplMessage("Error: 此标签只能在文档页面中调用!");
             }
@@ -172,7 +172,7 @@ namespace J6.Cms.Template
         private string Archives(string param, string num, string format, bool container)
         {
             int _num;
-            IEnumerable<ArchiveDto> archives = null;
+            ArchiveDto[] archives = null;
             CategoryDto category = default(CategoryDto);
             int.TryParse(num, out _num);
 
@@ -186,7 +186,7 @@ namespace J6.Cms.Template
             archives = container ? ServiceCall.Instance.ArchiveService.GetArchivesContainChildCategories(this.siteId, category.Lft, category.Rgt, _num) :
                 ServiceCall.Instance.ArchiveService.GetArchivesByCategoryTag(this.siteId, category.Tag, _num);
 
-            return this.ArchiveList(archives, format);
+            return this.ArchiveList(archives,0,format);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace J6.Cms.Template
             if (Regex.IsMatch(param, "^\\d+$"))
             {
                 int _num;
-                IEnumerable<ArchiveDto> dt = null;
+                ArchiveDto[] dt = null;
                 Module module = null;
                 int.TryParse(num, out _num);
 
@@ -217,7 +217,7 @@ namespace J6.Cms.Template
                 if (module != null)
                 {
                     dt = ServiceCall.Instance.ArchiveService.GetArchivesByModuleId(this.siteId, module.ID, _num);
-                    return ArchiveList(dt, format);
+                    return ArchiveList(dt,0, format);
                 }
             }
 
@@ -357,7 +357,7 @@ namespace J6.Cms.Template
         public string Special_Archives(string param, string num, string format, bool container)
         {
             int _num;
-            IEnumerable<ArchiveDto> dt = null;
+            ArchiveDto[] dt = null;
             CategoryDto category = default(CategoryDto);
             Module module = null;
             int.TryParse(num, out _num);
@@ -388,7 +388,7 @@ namespace J6.Cms.Template
             }
 
 
-            return this.ArchiveList(dt, format);
+            return this.ArchiveList(dt,0, format);
         }
 
 
@@ -545,7 +545,7 @@ namespace J6.Cms.Template
         public string Hot_Archives(string categoryTag, string num, string format, bool container)
         {
             int _num;
-            IEnumerable<ArchiveDto> dt = null;
+            ArchiveDto[] dt = null;
             CategoryDto category = default(CategoryDto);
             int.TryParse(num, out _num);
 
@@ -560,7 +560,7 @@ namespace J6.Cms.Template
                 ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(this.siteId, category.Tag, _num);
 
 
-            return this.ArchiveList(dt, format);
+            return this.ArchiveList(dt,0, format);
         }
 
         /// <summary>
@@ -584,7 +584,7 @@ namespace J6.Cms.Template
             if (Regex.IsMatch(param, "^\\d+$"))
             {
                 int _num = 0;
-                IEnumerable<ArchiveDto> dt = null;
+                ArchiveDto[] dt = null;
                 Module module = null;
                 int.TryParse(num, out _num);
 
@@ -592,7 +592,7 @@ namespace J6.Cms.Template
                 if (module != null)
                 {
                     dt = ServiceCall.Instance.ArchiveService.GetArchivesByViewCountByModuleId(this.siteId, module.ID, _num);
-                    return this.ArchiveList(dt, format);
+                    return this.ArchiveList(dt,0, format);
                 }
             }
 
@@ -708,7 +708,7 @@ namespace J6.Cms.Template
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-       // [TemplateTag]
+        // [TemplateTag]
         [Obsolete]
         protected string ArchivesByCount2(string num, string format)
         {
@@ -893,7 +893,7 @@ namespace J6.Cms.Template
         	1：显示数量<br />
         	2：显示格式
 		")]
-        public string Pager_Archives(string pageSize, string format)
+        public string Paging_Archives(string pageSize, string format)
         {
             string tag = HttpContext.Current.Items["category.tag"] as string;
             object pageindex = HttpContext.Current.Items["page.index"];
@@ -903,8 +903,35 @@ namespace J6.Cms.Template
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return Pager_Archives(tag, pageindex.ToString(), pageSize, format);
+            return Paging_Archives(tag, pageindex.ToString(), pageSize,0,0,format);
         }
+
+        [TemplateTag]
+        [XmlObjectProperty("显示栏目分页文档结果", @"
+        	<p class=""red"">只能在栏目页或文档页中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：显示数量<br />
+        	2：显示格式
+		")]
+        public string Paging_Archives(string pageSize,string splitSize,string format)
+        {
+            string tag = HttpContext.Current.Items["category.tag"] as string;
+            object pageindex = HttpContext.Current.Items["page.index"];
+            
+            if (String.IsNullOrEmpty(tag) || pageindex == null)
+            {
+                return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
+            }
+
+            int intSplitSize;
+            int.TryParse(splitSize, out intSplitSize);
+
+            return Paging_Archives(tag, pageindex.ToString(), pageSize, 0, intSplitSize, format);
+        }
+
+
+
 
 
 
@@ -1041,7 +1068,7 @@ namespace J6.Cms.Template
         	2：显示数量<br />
         	3：显示格式
 		")]
-        public string Links(string type, string number,string format)
+        public string Links(string type, string number, string format)
         {
             return base.Link(type, format, int.Parse(number), "-1");
         }
@@ -1060,7 +1087,7 @@ namespace J6.Cms.Template
         	1：链接类型，可选[1|2|3],1:导航,2:友情链接,3:自定义链接]<br />
         	2：显示格式
 		")]
-        public string Link(string type,string format)
+        public string Link(string type, string format)
         {
             return base.Link(type, format, 1000, "-1");
         }
@@ -1149,13 +1176,13 @@ namespace J6.Cms.Template
 		")]
         public string Navigator()
         {
-           string cache =  SiteLinkCache.GetNavigatorBySiteId(siteId);
-           if (cache == null)
-           {
-               cache = base.Navigator(base.TplSetting.CFG_NavigatorLinkFormat, base.TplSetting.CFG_NavigatorChildFormat, "-1");
-               SiteLinkCache.SetNavigatorForSite(siteId,cache);
-           }
-           return cache;
+            string cache = SiteLinkCache.GetNavigatorBySiteId(siteId);
+            if (cache == null)
+            {
+                cache = base.Navigator(base.TplSetting.CFG_NavigatorLinkFormat, base.TplSetting.CFG_NavigatorChildFormat, "-1");
+                SiteLinkCache.SetNavigatorForSite(siteId, cache);
+            }
+            return cache;
         }
 
         [TemplateTag]
@@ -1230,9 +1257,25 @@ namespace J6.Cms.Template
         #endregion
 
         #region 兼容标签
+
+        [TemplateTag]
+        [XmlObjectProperty("显示栏目分页文档结果", @"
+        	<p class=""red"">只能在栏目页或文档页中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：显示数量<br />
+        	2：显示格式
+		")]
+        public string Pager_Archives(string pageSize, string format)
+        {
+            return this.Paging_Archives(pageSize, format);
+        }
+
+
+
         protected string PagerArchiveList(string categoryTag, string pageIndex, string pageSize, string format)
         {
-            return base.Pager_Archives(categoryTag, pageIndex, pageSize, format);
+            return base.Paging_Archives(categoryTag, pageIndex, pageSize, 0,0,format);
         }
 
         protected string PagerArchiveList(string pageSize, string format)
@@ -1328,66 +1371,8 @@ namespace J6.Cms.Template
             return this.IsTrue(container) ? this.Special_Archives(param, num, format) : this.Self_Special_Archives(param, num, format);
         }
 
-        #endregion
+#endregion
 
-        #region 缩写
-
-        /********************************  缩写  **************************/
-        [TemplateTag]
-        protected string SAList(string categoryTagOrModuleID, string num, string format)
-        {
-            return Special_Archives(categoryTagOrModuleID, num, format);
-        }
-
-        [TemplateTag]
-        protected string SList(string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize, string format)
-        {
-            return SearchList(categoryTagOrModuleId, keyword, pageIndex, pageSize, format);
-        }
-
-        [TemplateTag]
-        protected string TAList(string keyword, string pageIndex, string pageSize, string format)
-        {
-            return TagPagerArchiveList(keyword, pageIndex, pageSize, format);
-        }
-
-        [TemplateTag]
-        protected string PAList(string categoryTag, string pageIndex, string pageSize, string format)
-        {
-            return Pager_Archives(categoryTag, pageIndex, pageSize, format);
-        }
-
-        [TemplateTag]
-        protected string CList(string param, string format)
-        {
-            return Categories(param, format);
-        }
-
-        [TemplateTag]
-        protected string AList(string categoryTagOrModuleID, string num, string format)
-        {
-            return Archives(categoryTagOrModuleID, num, format, false);
-        }
-
-
-
-        [TemplateTag]
-        protected string NA(string id, string format)
-        {
-            return NextArchive(id, format);
-        }
-
-        [TemplateTag]
-        protected string PA(string id, string format)
-        {
-            return PrevArchive(id, format);
-        }
-
-
-
-        /******************************* 缩写结束 **************************/
-
-        #endregion
 
         #region 过期
 
@@ -1597,28 +1582,6 @@ namespace J6.Cms.Template
 
             return Cms.Cache.GetCachedResult(cacheKey, bh, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }
-
-
-        /// <summary>
-        /// 栏目链接列表
-        /// </summary>
-        /// <param name="format"></param>
-        /// <returns></returns>
-        [TemplateTag]
-        [Obsolete]
-        protected string CategoryList2(string format)
-        {
-            return "tag install";
-
-            object id = Cms.Context.Items["module.id"];
-            if (id == null)
-            {
-                return this.TplMessage("此标签不允许在当前页面中调用!请使用$categorylist('categorytag','format')标签代替");
-            }
-            return Categories(id.ToString(), format);
-        }
-
-
 
         #endregion
 

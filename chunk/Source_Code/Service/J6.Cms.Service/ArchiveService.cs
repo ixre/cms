@@ -4,6 +4,7 @@ using J6.Cms.ServiceRepository.Query;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using J6.Cms.Domain.Interface.Common;
 using J6.Cms.Domain.Interface.Content;
 using J6.Cms.Domain.Interface.Content.Archive;
@@ -166,77 +167,77 @@ namespace J6.Cms.Service
         }
 
 
-        public IEnumerable<ArchiveDto> GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number)
+        public ArchiveDto[] GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetArchivesContainChildCategories(lft, rgt, number);
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public IEnumerable<ArchiveDto> GetArchivesByCategoryTag(int siteId, string categoryTag, int number)
+        public ArchiveDto[] GetArchivesByCategoryTag(int siteId, string categoryTag, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetArchivesByCategoryTag(categoryTag, number);
 
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
 
-        public IEnumerable<ArchiveDto> GetArchivesByModuleId(int siteId, int moduleId, int number)
+        public ArchiveDto[] GetArchivesByModuleId(int siteId, int moduleId, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetArchivesByModuleId(moduleId, number);
 
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
 
-        public IEnumerable<ArchiveDto> GetArchivesByViewCount(int siteId, int lft, int rgt, int number)
+        public ArchiveDto[] GetArchivesByViewCount(int siteId, int lft, int rgt, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetArchivesByViewCount(lft, rgt, number);
 
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public IEnumerable<ArchiveDto> GetArchivesByViewCount(int siteId, string categoryTag, int number)
+        public ArchiveDto[] GetArchivesByViewCount(int siteId, string categoryTag, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetArchivesByViewCount(categoryTag, number);
 
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public IEnumerable<ArchiveDto> GetSpecialArchivesByModuleId(int siteId, int moduleId, int number)
+        public ArchiveDto[] GetSpecialArchivesByModuleId(int siteId, int moduleId, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetSpecialArchivesByModuleId(moduleId, number);
 
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public IEnumerable<ArchiveDto> GetSpecialArchives(int siteId, int lft, int rgt, int number)
+        public ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetSpecialArchives(lft, rgt, number);
 
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public IEnumerable<ArchiveDto> GetSpecialArchives(int siteId, string categoryTag, int number)
+        public ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetSpecialArchives(categoryTag, number);
 
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public IEnumerable<ArchiveDto> GetArchivesByViewCountByModuleId(int siteId, int moduleId, int number)
+        public ArchiveDto[] GetArchivesByViewCountByModuleId(int siteId, int moduleId, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.GetArchivesByViewCountByModuleId(moduleId, number);
 
-            return this.GetArchiveEnumertor(archives);
+            return this.GetArchiveEnumertor(archives).ToArray();
         }
 
 
@@ -271,6 +272,7 @@ namespace J6.Cms.Service
             int categoryLft,
             int categoryRgt,
             int pageSize,
+            int skipSize,
             ref int pageIndex,
             out int records,
             out int pages,
@@ -278,7 +280,7 @@ namespace J6.Cms.Service
         {
             //获取数据
             DataTable dt = this._archiveQuery.GetPagedArchives(siteId, categoryLft, categoryRgt,
-                 pageSize, ref pageIndex, out records, out pages);
+                 pageSize,skipSize, ref pageIndex, out records, out pages);
 
             IList<int> archiveIds = new List<int>();
             foreach (DataRow dr in dt.Rows)

@@ -445,6 +445,7 @@ namespace J6.Cms.Dal
         /// <param name="siteId"></param>
         /// <param name="lft"></param>
         /// <param name="pageSize"></param>
+        /// <param name="skipSize"></param>
         /// <param name="currentPageIndex"></param>
         /// <param name="rgt"></param>
         /// <param name="recordCount"></param>
@@ -452,7 +453,7 @@ namespace J6.Cms.Dal
         /// <returns></returns>
         public DataTable GetPagedArchives(
             int siteId, int lft, int rgt,
-            int pageSize, ref int currentPageIndex,
+            int pageSize, int skipSize,ref int currentPageIndex,
             out int recordCount, out int pages)
         {
             object[,] data = new object[,]{
@@ -460,15 +461,6 @@ namespace J6.Cms.Dal
                 {"@lft",lft},
                 {"@rgt",rgt}
             };
-
-            const string condition = " ";
-
-            //数据库为ACCESS,页码为1时调用SQL
-            const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.ID AS ID,* FROM $PREFIX_archive
-                                  INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.id
-                                  WHERE $PREFIX_category.site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) 
-                                  AND flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%'
-                                  ORDER BY $PREFIX_archive.sort_number DESC,$PREFIX_archive.id";
 
             //获取记录条数
             recordCount = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(DbSql.ArchiveGetPagedArchivesCountSqlPagerqurey, data)).ToString());
@@ -484,15 +476,13 @@ namespace J6.Cms.Dal
             int skipCount = pageSize * (currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
-                       sql1 :
-                       DbSql.ArchiveGetPagedArchivesByCategoryIdPagerquery;
+            string sql =DbSql.ArchiveGetPagedArchivesByCategoryIdPagerquery;
 
             sql = SQLRegex.Replace(sql, m =>
             {
                 switch (m.Groups[1].Value)
                 {
-                    case "skipsize": return skipCount.ToString();
+                    case "skipsize": return (skipCount + skipSize).ToString();
                     case "pagesize": return pageSize.ToString();
                 }
                 return null;
