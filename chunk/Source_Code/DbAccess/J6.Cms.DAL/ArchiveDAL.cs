@@ -58,7 +58,7 @@ namespace J6.Cms.Dal
         /// <param name="a"></param>
         public void Update(int id, int categoryID, string title, string smallTitle, string alias,
             string source, string thumbnail, string outline, string content,
-            string tags, string flags, string location,int sortNumber)
+            string tags, string flags, string location, int sortNumber)
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
             base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.ArchiveUpdate),
@@ -191,16 +191,17 @@ namespace J6.Cms.Dal
         /// <summary>
         /// 获取制定栏目的最新文档
         /// </summary>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
         /// <param name="siteId"></param>
         /// <param name="lft"></param>
+        /// <param name="rgt"></param>
+        /// <param name="number"></param>
+        /// <param name="skipSize"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public void GetSelftAndChildArchives(int siteId, int lft, int rgt, int number, DataReaderFunc func)
+        public void GetSelftAndChildArchives(int siteId, int lft, int rgt, int number, int skipSize, DataReaderFunc func)
         {
             base.ExecuteReader(
-                    new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSelfAndChildArchives), number),
+                    new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSelfAndChildArchives), skipSize, number),
                      new object[,]{
                     {"@siteId", siteId},
                     {"@lft", lft},
@@ -212,10 +213,10 @@ namespace J6.Cms.Dal
         /// <summary>
         /// 获取指定栏目和数量的文档
         /// </summary>
-        public void GetArchives(int siteId, string categoryTag, int number, DataReaderFunc func)
+        public void GetArchives(int siteId, string categoryTag, int number, int skipSize, DataReaderFunc func)
         {
             base.ExecuteReader(
-              new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetArchivesByCategoryAlias), number),
+              new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetArchivesByCategoryAlias), skipSize, number),
                    new object[,]{
                 {"@siteId", siteId},
                 {"@tag", categoryTag}
@@ -281,16 +282,16 @@ namespace J6.Cms.Dal
         /// <summary>
         /// 获取指定数量和栏目的特殊文档
         /// </summary>
-        /// <param name="c"></param>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
         /// <param name="siteId"></param>
         /// <param name="lft"></param>
+        /// <param name="rgt"></param>
+        /// <param name="number"></param>
+        /// <param name="skipSize"></param>
         /// <param name="func"></param>
-        public void GetSpecialArchives(int siteId, int lft, int rgt, int number, DataReaderFunc func)
+        public void GetSpecialArchives(int siteId, int lft, int rgt, int number, int skipSize, DataReaderFunc func)
         {
             base.ExecuteReader(
-                   new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSpecialArchivesByCategoryID), number),
+                   new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSpecialArchivesByCategoryId), skipSize, number),
                         new object[,]{
                     {"@siteId", siteId},
                     {"@lft", lft},
@@ -299,10 +300,10 @@ namespace J6.Cms.Dal
         }
 
 
-        public void GetSpecialArchives(int siteId, string categoryTag, int number, DataReaderFunc func)
+        public void GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize, DataReaderFunc func)
         {
             base.ExecuteReader(
-                   new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSpecialArchivesByCategoryTag), number),
+                   new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSpecialArchivesByCategoryTag), skipSize, number),
                         new object[,]{
                     {"@siteId",siteId},
                     {"@categoryTag", categoryTag}
@@ -356,7 +357,7 @@ namespace J6.Cms.Dal
         /// <param name="sameCategory"></param>
         /// <param name="ingoreSpecial"></param>
         /// <param name="func"></param>
-        public void GetPreviousArchive(int siteId, int id,bool sameCategory,bool ingoreSpecial, DataReaderFunc func)
+        public void GetPreviousArchive(int siteId, int id, bool sameCategory, bool ingoreSpecial, DataReaderFunc func)
         {
             base.ExecuteReader(
                     new SqlQuery(base.OptimizeSql(DbSql.Archive_GetPreviousArchive),
@@ -378,7 +379,7 @@ namespace J6.Cms.Dal
         /// <param name="ingoreSpecial"></param>
         /// <param name="func"></param>
         /// <param name="sameCategory"></param>
-        public void GetNextArchive(int siteId, int id, bool sameCategory,bool ingoreSpecial, DataReaderFunc func)
+        public void GetNextArchive(int siteId, int id, bool sameCategory, bool ingoreSpecial, DataReaderFunc func)
         {
             base.ExecuteReader(
                 new SqlQuery(base.OptimizeSql(DbSql.Archive_GetNextArchive),
@@ -453,7 +454,7 @@ namespace J6.Cms.Dal
         /// <returns></returns>
         public DataTable GetPagedArchives(
             int siteId, int lft, int rgt,
-            int pageSize, int skipSize,ref int currentPageIndex,
+            int pageSize, int skipSize, ref int currentPageIndex,
             out int recordCount, out int pages)
         {
             object[,] data = new object[,]{
@@ -476,7 +477,7 @@ namespace J6.Cms.Dal
             int skipCount = pageSize * (currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql =DbSql.ArchiveGetPagedArchivesByCategoryIdPagerquery;
+            string sql = DbSql.ArchiveGetPagedArchivesByCategoryIdPagerquery;
 
             sql = SQLRegex.Replace(sql, m =>
             {
@@ -546,7 +547,7 @@ namespace J6.Cms.Dal
                     case "module": return moduleId <= 0 ? ""
                         : String.Format(" AND m.id={0}", moduleId.ToString());
 
-                    case "publisher_id": return publisherId == 0? null
+                    case "publisher_id": return publisherId == 0 ? null
                         : String.Format(" AND publisher_id='{0}'", publisherId);
 
                     case "flags": return String.IsNullOrEmpty(flag) ? "" : " AND " + flag;
@@ -555,7 +556,7 @@ namespace J6.Cms.Dal
                 return null;
             });
 
-           // throw new Exception(base.OptimizeSql(String.Format(DbSql.Archive_GetpagedArchivesCountSql, condition)));
+            // throw new Exception(base.OptimizeSql(String.Format(DbSql.Archive_GetpagedArchivesCountSql, condition)));
 
             //获取记录条数
             recordCount = int.Parse(base.ExecuteScalar(
@@ -852,7 +853,7 @@ namespace J6.Cms.Dal
 
 
 
-        public void GetSelftAndChildArchiveExtendValues(int siteId, int relationType, int lft, int rgt, int number, DataReaderFunc func)
+        public void GetSelftAndChildArchiveExtendValues(int siteId, int relationType, int lft, int rgt, int number, int skipSize, DataReaderFunc func)
         {
             /*
             base.ExecuteReader(
@@ -868,20 +869,24 @@ namespace J6.Cms.Dal
                     {"@lft", lft},
                     {"@rgt", rgt},
                      {"@relationType",relationType}
-                 }, number.ToString()
+                 }, skipSize.ToString(),
+                 number.ToString()
                 ), func);
         }
 
-        public void GetArchivesExtendValues(int siteId, int relationType, string categoryTag, int number, DataReaderFunc func)
+        public void GetArchivesExtendValues(int siteId, int relationType, string categoryTag, int number, int skipSize,
+            DataReaderFunc func)
         {
             base.ExecuteReader(
-                   SqlQueryHelper.Format(DbSql.Archive_GetArchivesExtendValues,
-                    new object[,]{
-                    {"@siteId", siteId},
-                    {"@tag",categoryTag},
-                     {"@relationType",relationType}
-                 }, number.ToString()
-                   ), func);
+                SqlQueryHelper.Format(DbSql.Archive_GetArchivesExtendValues,
+                    new object[,]
+                    {
+                        {"@siteId", siteId},
+                        {"@tag", categoryTag},
+                        {"@relationType", relationType}
+                    }, skipSize.ToString(),
+                    number.ToString()
+                    ), func);
         }
 
 

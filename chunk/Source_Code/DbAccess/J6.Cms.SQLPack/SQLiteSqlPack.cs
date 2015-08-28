@@ -26,7 +26,7 @@
                         [content],lastmodifydate,[createDate],view_count,$PREFIX_category.[name],$PREFIX_category.[tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cid]
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND (lft>=@lft AND rgt<=@rgt) AND $PREFIX_category.site_id=@siteId 
-                        ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
+                        ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
         }
 
@@ -44,7 +44,7 @@
                         $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE " + SqlConst.Archive_NotSystemAndHidden 
                                 + @" AND (lft>=@lft AND rgt<=@rgt) 
-                        ORDER BY $PREFIX_archive.sort_number DESC,createdate DESC LIMIT 0,{0}
+                        ORDER BY $PREFIX_archive.sort_number DESC,createdate DESC LIMIT {0},{1}
                         
                         )";
             }
@@ -61,7 +61,7 @@
                         SELECT $PREFIX_archive.id FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE tag=@Tag AND " + SqlConst.Archive_NotSystemAndHidden
-                        + @" ORDER BY $PREFIX_archive.sort_number DESC,createdate DESC LIMIT 0,{0}
+                        + @" ORDER BY $PREFIX_archive.sort_number DESC,createdate DESC LIMIT {0},{1}
                         
                         )";
             }
@@ -76,7 +76,7 @@
                         [content],createdate,view_count,$PREFIX_category.name,$PREFIX_category.tag
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.cid WHERE site_id=@siteId AND tag=@tag AND " +
-                        SqlConst.Archive_NotSystemAndHidden + @" ORDER BY createDate DESC LIMIT 0,{0}";
+                        SqlConst.Archive_NotSystemAndHidden + @" ORDER BY createDate DESC LIMIT {0},{1}";
             }
         }
 
@@ -129,7 +129,7 @@
 
 
 
-        public override string Archive_GetSpecialArchivesByCategoryID
+        public override string Archive_GetSpecialArchivesByCategoryId
         {
             get
             {
@@ -137,7 +137,7 @@
                         title,$PREFIX_archive.location,[content],[outline],[tags],[createdate],[lastmodifydate]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.[cid] WHERE " + SqlConst.Archive_Special
-                        + @" AND site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
+                        + @" AND site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
         }
           public override string Archive_GetSpecialArchivesByCategoryTag
@@ -148,7 +148,7 @@
                         [content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.[cid] WHERE " + SqlConst.Archive_Special
-                        + @" AND site_id=@siteId AND $PREFIX_category.[tag]=@CategoryTag ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
+                        + @" AND site_id=@siteId AND $PREFIX_category.[tag]=@CategoryTag ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
         }
         

@@ -142,7 +142,7 @@
     </Compile>
     <Compile Include="Task\CmsTask.cs" />
     <Compile Include="Template\CmsTemplateCore.cs" />
-    <Compile Include="Template\Templates.cs" />
+    <Compile Include="Template\CmsTemplateImpl.cs" />
     <Compile Include="Template\TemplateSettings.cs" />
     <Compile Include="Template\CmsTemplateDataMethod.cs" />
     <Compile Include="utility\ArchiveHandler.cs" />

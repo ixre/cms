@@ -129,7 +129,7 @@
         }
 
 
-        public override string Archive_GetSpecialArchivesByCategoryID
+        public override string Archive_GetSpecialArchivesByCategoryId
         {
             get
             {

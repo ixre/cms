@@ -224,7 +224,7 @@ namespace J6.Cms.ServiceRepository
 
 
 
-        public IEnumerable<IArchive> GetArchivesByCategoryTag(int siteId, string categoryTag, int number)
+        public IEnumerable<IArchive> GetArchivesByCategoryTag(int siteId, string categoryTag, int number, int skipSize)
         {
 
             IArchive archive;
@@ -233,12 +233,12 @@ namespace J6.Cms.ServiceRepository
 
             IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
 
-            _dal.GetArchivesExtendValues(siteId, (int)ExtendRelationType.Archive, categoryTag, number, rd =>
+            _dal.GetArchivesExtendValues(siteId, (int)ExtendRelationType.Archive, categoryTag, number,skipSize, rd =>
             {
                 extendValues = this._extendRep._GetExtendValuesFromDataReader(siteId, rd);
             });
 
-            _dal.GetArchives(siteId, categoryTag, number, rd =>
+            _dal.GetArchives(siteId, categoryTag, number,skipSize, rd =>
             {
 
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
@@ -256,20 +256,20 @@ namespace J6.Cms.ServiceRepository
         }
 
 
-        public IEnumerable<IArchive> GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number)
+        public IEnumerable<IArchive> GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number, int skipSize)
         {
             IList<IArchive> archives = new List<IArchive>();
             IList<IExtendValue> defaultValues = new List<IExtendValue>();
 
             IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
 
-            _dal.GetSelftAndChildArchiveExtendValues(siteId, (int)ExtendRelationType.Archive, lft, rgt, number, rd =>
+            _dal.GetSelftAndChildArchiveExtendValues(siteId, (int)ExtendRelationType.Archive, lft, rgt, number,skipSize, rd =>
             {
                 extendValues = this._extendRep._GetExtendValuesFromDataReader(siteId, rd);
             });
 
             IArchive archive;
-            _dal.GetSelftAndChildArchives(siteId, lft, rgt, number, rd =>
+            _dal.GetSelftAndChildArchives(siteId, lft, rgt, number,skipSize, rd =>
             {
                 //DateTime dt = DateTime.Now;
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
@@ -323,12 +323,12 @@ namespace J6.Cms.ServiceRepository
             return this.GetContainExtendValueArchiveList(siteId, archives);
         }
 
-        public IEnumerable<IArchive> GetSpecialArchives(int siteId, string categoryTag, int number)
+        public IEnumerable<IArchive> GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize)
         {
             IList<IArchive> archives = new List<IArchive>();
 
             IArchive archive;
-            _dal.GetSpecialArchives(siteId, categoryTag, number, rd =>
+            _dal.GetSpecialArchives(siteId, categoryTag, number, skipSize,rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 while (rd.Read())
@@ -340,12 +340,12 @@ namespace J6.Cms.ServiceRepository
             return this.GetContainExtendValueArchiveList(siteId, archives);
         }
 
-        public IEnumerable<IArchive> GetSpecialArchives(int siteId, int lft, int rgt, int number)
+        public IEnumerable<IArchive> GetSpecialArchives(int siteId, int lft, int rgt, int number, int skipSize)
         {
             IList<IArchive> archives = new List<IArchive>();
 
             IArchive archive;
-            _dal.GetSpecialArchives(siteId, lft, rgt, number, rd =>
+            _dal.GetSpecialArchives(siteId, lft, rgt, number,skipSize, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 while (rd.Read())

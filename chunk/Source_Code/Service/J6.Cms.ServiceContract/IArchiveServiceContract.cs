@@ -53,8 +53,9 @@ namespace J6.Cms.ServiceContract
         /// <param name="lft"></param>
         /// <param name="rgt"></param>
         /// <param name="number"></param>
+        /// <param name="skipSize"></param>
         /// <returns></returns>
-        ArchiveDto[] GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number);
+        ArchiveDto[] GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number, int skipSize);
 
         /// <summary>
         /// 
@@ -62,8 +63,9 @@ namespace J6.Cms.ServiceContract
         /// <param name="siteId"></param>
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
+        /// <param name="skipSize"></param>
         /// <returns></returns>
-       ArchiveDto[] GetArchivesByCategoryTag(int siteId, string categoryTag, int number);
+        ArchiveDto[] GetArchivesByCategoryTag(int siteId, string categoryTag, int number, int skipSize);
 
         /// <summary>
         /// 
@@ -109,8 +111,9 @@ namespace J6.Cms.ServiceContract
         /// <param name="lft"></param>
         /// <param name="rgt"></param>
         /// <param name="number"></param>
+        /// <param name="skipSize">跳过的条数</param>
         /// <returns></returns>
-        ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number);
+        ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number,int skipSize);
 
         /// <summary>
         /// 
@@ -118,8 +121,9 @@ namespace J6.Cms.ServiceContract
         /// <param name="siteId"></param>
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
+        /// <param name="skipSize">跳过的条数</param>
         /// <returns></returns>
-        ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number);
+        ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize);
 
         /// <summary>
         /// 

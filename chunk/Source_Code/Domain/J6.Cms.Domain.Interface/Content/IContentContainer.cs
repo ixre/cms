@@ -40,8 +40,9 @@ namespace J6.Cms.Domain.Interface.Content
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
+        /// <param name="skipSize"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesByCategoryTag(string categoryTag, int number);
+        IEnumerable<IArchive> GetArchivesByCategoryTag(string categoryTag, int number, int skipSize);
 
         /// <summary>
         /// 
@@ -49,8 +50,9 @@ namespace J6.Cms.Domain.Interface.Content
         /// <param name="lft"></param>
         /// <param name="rgt"></param>
         /// <param name="number"></param>
+        /// <param name="skipSize"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesContainChildCategories(int lft,int rgt, int number);
+        IEnumerable<IArchive> GetArchivesContainChildCategories(int lft, int rgt, int number, int skipSize);
 
         /// <summary>
         /// 
@@ -91,16 +93,18 @@ namespace J6.Cms.Domain.Interface.Content
         /// <param name="lft"></param>
         /// <param name="rgt"></param>
         /// <param name="number"></param>
+        /// <param name="skipSize"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetSpecialArchives(int lft,int rgt, int number);
+        IEnumerable<IArchive> GetSpecialArchives(int lft, int rgt, int number, int skipSize);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
+        /// <param name="skipSize"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetSpecialArchives(string categoryTag, int number);
+        IEnumerable<IArchive> GetSpecialArchives(string categoryTag, int number, int skipSize);
 
         /// <summary>
         /// 

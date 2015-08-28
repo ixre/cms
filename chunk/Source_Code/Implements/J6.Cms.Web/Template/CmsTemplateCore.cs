@@ -1687,6 +1687,45 @@ namespace J6.Cms.Template
         }
 
 
+        protected string Special_Archives(string tag, string num, int skipSize, int splitSize, bool container, string format)
+        {
+            int intNum;
+            int.TryParse(num, out intNum);
+
+            //获取栏目
+            var category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, tag);
+
+            if (!(category.Id > 0))
+            {
+                return String.Format("ERROR:模块或栏目不存在!参数:{0}", tag);
+            }
+
+            ArchiveDto[] dt = container
+                ? ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.siteId, category.Lft, category.Rgt, intNum,skipSize)
+                : ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.siteId, category.Tag, intNum,skipSize);
+
+            return this.ArchiveList(dt, splitSize, format);
+        }
+
+        protected string Archives(string tag, string num,int skipSize,int splitSize, bool container, string format)
+        {
+            int intNum;
+            int.TryParse(num, out intNum);
+
+            //栏目
+            var category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, tag);
+
+            if (!(category.Id > 0))
+            {
+                return String.Format("ERROR:模块或栏目不存在!参数:{0}", tag);
+            }
+            ArchiveDto[] archives = container ? ServiceCall.Instance.ArchiveService.GetArchivesContainChildCategories(this.siteId, category.Lft, category.Rgt, intNum, skipSize) :
+                ServiceCall.Instance.ArchiveService.GetArchivesByCategoryTag(this.siteId, category.Tag, intNum, skipSize);
+
+            return this.ArchiveList(archives,splitSize,format);
+        }
+
+
         /// <summary>
         /// 搜索列表
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿
 namespace J6.Cms.Sql
 {
-    public class SqlServerSqlPack:SqlPack
+    public class SqlServerSqlPack : SqlPack
     {
         internal SqlServerSqlPack()
         {
@@ -24,11 +24,12 @@ namespace J6.Cms.Sql
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.id,str_id,[alias],cid,title,$PREFIX_archive.location,[flags],[Outline],publisher_id,tags,source,
+                return @"SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
+                    $PREFIX_archive.id,str_id,[alias],cid,title,$PREFIX_archive.location,[flags],[Outline],publisher_id,tags,source,
                         thumbnail,[Content],lastmodifydate,[CreateDate],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cid]
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND (lft>=@lft AND rgt<=@rgt) 
-                         AND $PREFIX_category.site_id=@siteId 
+                         AND $PREFIX_category.site_id=@siteId  AND rowNum BETWEEN {0} AND {0}+{1}
                         ORDER BY $PREFIX_archive.sort_number DESC";
             }
         }
@@ -40,15 +41,10 @@ namespace J6.Cms.Sql
                         SELECT v.id as id,fieldId as extendFieldId,f.name as fieldName,fieldValue as extendFieldValue,relationId
 	                    FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
 	                    WHERE relationType=@relationType AND relationId IN (
-
-                        SELECT TOP {0} $PREFIX_archive.id
-                        FROM $PREFIX_archive INNER JOIN $PREFIX_category ON 
-                        $PREFIX_category.id=$PREFIX_archive.cid
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden
-                                + @" AND (lft>=@lft AND rgt<=@rgt) 
-                        ORDER BY createdate DESC
-                        
-                        )";
+                        SELECT id FROM (SELECT $PREFIX_archive.id, ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum
+                        FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
+                        WHERE  (lft>=@lft AND rgt<=@rgt)  AND " + SqlConst.Archive_NotSystemAndHidden
+                        + @" AND rowNum BETWEEN {0} AND {1}+{0})t )";
             }
         }
 
@@ -60,13 +56,10 @@ namespace J6.Cms.Sql
                         SELECT v.id as id,fieldId as extendFieldId,f.name as fieldName,fieldValue as extendFieldValue,relationId
 	                    FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
 	                    WHERE relationType=@relationType AND relationId IN (
-
-                        SELECT TOP {0} $PREFIX_archive.id FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
+                        SELECT id FROM (SELECT $PREFIX_archive.id, ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum
+                        FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE tag=@Tag AND " + SqlConst.Archive_NotSystemAndHidden
-                        + @" ORDER BY createdate DESC,$PREFIX_archive.id
-                        
-                        )";
+                        + @" AND rowNum BETWEEN {0} AND {1}+{0})t)";
             }
         }
 
@@ -74,11 +67,13 @@ namespace J6.Cms.Sql
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.id,str_id,[alias],cid,flags,title,$PREFIX_archive.location,
+                return @"SELECT  ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
+                        $PREFIX_archive.id,str_id,[alias],cid,flags,title,$PREFIX_archive.location,
                         outline,thumbnail,publisher_id,lastmodifydate,source,tags,
                         [content],view_count,[createdate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.cid WHERE site_id=@siteId AND  tag=@tag AND " +
-                        SqlConst.Archive_NotSystemAndHidden + @" ORDER BY $PREFIX_archive.sort_number DESC";
+                        SqlConst.Archive_NotSystemAndHidden + @"
+                         AND rowNum BETWEEN {0} AND {1}+{0} ORDER BY $PREFIX_archive.sort_number DESC";
             }
         }
 
@@ -94,7 +89,7 @@ namespace J6.Cms.Sql
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND ModuleID=@ModuleID ORDER BY $PREFIX_archive.sort_number DESC";
             }
         }
-       
+
         public override string Archive_GetArchivesByViewCountDesc
         {
             get
@@ -108,7 +103,7 @@ namespace J6.Cms.Sql
             }
         }
 
-         public override string Archive_GetArchivesByViewCountDesc_Tag
+        public override string Archive_GetArchivesByViewCountDesc_Tag
         {
             get
             {
@@ -133,28 +128,32 @@ namespace J6.Cms.Sql
         }
 
 
-        public override string Archive_GetSpecialArchivesByCategoryID
+        public override string Archive_GetSpecialArchivesByCategoryId
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.id,flags,str_id,[alias],[cid],[flags],title,
+                return @"SELECT  ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
+                            $PREFIX_archive.id,flags,str_id,[alias],[cid],[flags],title,
                         $PREFIX_archive.location,[content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.[cid] WHERE (lft>=@lft AND rgt<=@rgt) AND site_id=@siteId AND "
-                    + SqlConst.Archive_Special + @" ORDER BY $PREFIX_archive.sort_number DESC";
+                    + SqlConst.Archive_Special + @" AND rowNum BETWEEN {0} AND {0}+{1} 
+                    ORDER BY $PREFIX_archive.sort_number DESC";
             }
-        } 
+        }
         public override string Archive_GetSpecialArchivesByCategoryTag
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.id,str_id,[alias],[cid],[flags],title,$PREFIX_archive.location,[content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
+                return @"SELECT  ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
+                        $PREFIX_archive.id,str_id,[alias],[cid],[flags],title,$PREFIX_archive.location,[content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.[cid] WHERE $PREFIX_category.[tag]=@CategoryTag AND site_id=@siteId AND "
-                    + SqlConst.Archive_Special + @" ORDER BY $PREFIX_archive.sort_number DESC";
+                    + SqlConst.Archive_Special + @"  AND rowNum BETWEEN {0} AND {0}+{1} 
+                    ORDER BY $PREFIX_archive.sort_number DESC";
             }
         }
-        
+
         public override string Archive_GetSpecialArchivesByModuleID
         {
             get
@@ -203,7 +202,7 @@ namespace J6.Cms.Sql
         {
             get
             {
-            	/*
+                /*
                 return @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.[cid]=$PREFIX_category.id
                         WHERE $[condition] AND $PREFIX_archive.id NOT IN 
@@ -244,7 +243,7 @@ namespace J6.Cms.Sql
                          LEFT JOIN $PREFIX_category c1 ON a1.cid=c1.ID
                         INNER JOIN $PREFIX_modules ON c1.[moduleid]=m1.[id]
                         WHERE $[condition] ORDER BY [$[orderByField]] $[orderASC]) ORDER BY [$[orderByField]] $[orderASC]";*/
-             
+
                 return @"SELECT * FROM (SELECT a.id AS id,str_id,alias,title,
                         a.location,thumbnail,c.name as categoryName,[cid],[flags],publisher_id,[content],
                         [source],[createDate],view_count,
@@ -258,20 +257,24 @@ namespace J6.Cms.Sql
 
         public override string Archive_GetPagedOperations
         {
-            get { 
-        		//return "SELECT TOP $[pagesize] * FROM $PREFIX_operation WHERE ID NOT IN (SELECT TOP $[skipsize] ID FROM $PREFIX_operation)"; 
-        		return @"SELECT * FROM (SELECT *,
+            get
+            {
+                //return "SELECT TOP $[pagesize] * FROM $PREFIX_operation WHERE ID NOT IN (SELECT TOP $[skipsize] ID FROM $PREFIX_operation)"; 
+                return @"SELECT * FROM (SELECT *,
         			ROW_NUMBER()OVER(ORDER BY id) as rowNum
 			 		FROM $PREFIX_operation) _t WHERE rowNum BETWEEN $[skipsize]+1 AND ($[skipsize]+$[pagesize])";
-        	}
+            }
         }
 
         public override string Message_GetPagedMessages
         {
-            get { return @"SELECT * FROM (SELECT *,
+            get
+            {
+                return @"SELECT * FROM (SELECT *,
         			ROW_NUMBER()OVER(ORDER BY [SendDate] DESC) as rowNum FROM $PREFIX_Message
 				    WHERE Recycle=0 AND $[condition] ORDER BY [SendDate] DESC) _t
-					WHERE rowNum BETWEEN $skipsize+1 AND ($[skipsize]+$[pagesize])"; }
+					WHERE rowNum BETWEEN $skipsize+1 AND ($[skipsize]+$[pagesize])";
+            }
         }
         public override string Member_GetPagedMembers
         {
@@ -303,25 +306,25 @@ namespace J6.Cms.Sql
 				   OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '$[keyword]%')) _t
                     WHERE rowNum BETWEEN $[skipsize]+1 AND
                     $[skipsize]+$[pagesize] ORDER BY rowNum";
-			}
+            }
         }
 
         public override string ArchiveGetPagedSearchArchivesByModuleId
         {
             get
             {
-            	/*
+                /*
                 return @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* FROM  $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[cid]=$PREFIX_category.id
                     WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') AND
                     $PREFIX_archive.id NOT IN (SELECT TOP $[skipsize] $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[cid]=$PREFIX_category.id
                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby]) $[orderby]";
-            	*/
+                */
                 return @"SELECT * FROM (SELECT $PREFIX_archive.*,
                      ROW_NUMBER()OVER($[orderby]) as rowNum
 					 FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[cid]=$PREFIX_category.id
                     WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby]) _t
 					WHERE rowNum BETWEEN $[skipsize]+1 AND ($[skipsize]+$[pagesize])";
-			}
+            }
         }
 
         public override string ArchiveGetPagedSearchArchivesByCategoryId
@@ -356,15 +359,20 @@ namespace J6.Cms.Sql
 
         public override string Comment_GetCommentsForArchive
         {
-            get { return "SELECT * FROM $PREFIX_comment LEFT JOIN $PREFIX_member ON [MemberID]=$PREFIX_member.[ID]" +
-                         " WHERE [archiveID]=@archiveId"; }
+            get
+            {
+                return "SELECT * FROM $PREFIX_comment LEFT JOIN $PREFIX_member ON [MemberID]=$PREFIX_member.[ID]" +
+                       " WHERE [archiveID]=@archiveId";
+            }
         }
 
 
         public override string Link_AddSiteLink
         {
 
-            get { return @"INSERT INTO $PREFIX_link (site_id,pid,[type],[text],[uri],
+            get
+            {
+                return @"INSERT INTO $PREFIX_link (site_id,pid,[type],[text],[uri],
                     img_url,[target],bind, visible,sort_number)VALUES(@siteId,@pid,@TypeID,
                     @Text,@Uri,@imgurl,@Target,@bind,@visible,@sortNumber)";
             }
@@ -372,7 +380,9 @@ namespace J6.Cms.Sql
 
         public override string Link_UpdateSiteLink
         {
-            get { return @"UPDATE $PREFIX_link SET pid=@pid,[type]=@TypeID,[text]=@Text,
+            get
+            {
+                return @"UPDATE $PREFIX_link SET pid=@pid,[type]=@TypeID,[text]=@Text,
                             visible=@visible,[uri]=@Uri,img_url=@imgurl,[target]=@Target,
                             bind=@bind,sort_number=@sortNumber WHERE [ID]=@LinkId AND site_id=@siteId";
             }

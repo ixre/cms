@@ -167,17 +167,17 @@ namespace J6.Cms.Service
         }
 
 
-        public ArchiveDto[] GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number)
+        public ArchiveDto[] GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number, int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetArchivesContainChildCategories(lft, rgt, number);
+            IEnumerable<IArchive> archives = content.GetArchivesContainChildCategories(lft, rgt, number,skipSize);
             return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public ArchiveDto[] GetArchivesByCategoryTag(int siteId, string categoryTag, int number)
+        public ArchiveDto[] GetArchivesByCategoryTag(int siteId, string categoryTag, int number, int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetArchivesByCategoryTag(categoryTag, number);
+            IEnumerable<IArchive> archives = content.GetArchivesByCategoryTag(categoryTag, number,skipSize);
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }
@@ -216,18 +216,18 @@ namespace J6.Cms.Service
             return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number)
+        public ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number,int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetSpecialArchives(lft, rgt, number);
+            IEnumerable<IArchive> archives = content.GetSpecialArchives(lft, rgt, number,skipSize);
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number)
+        public ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetSpecialArchives(categoryTag, number);
+            IEnumerable<IArchive> archives = content.GetSpecialArchives(categoryTag, number,skipSize);
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }

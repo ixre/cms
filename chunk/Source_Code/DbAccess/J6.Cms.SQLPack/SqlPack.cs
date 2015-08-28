@@ -136,7 +136,7 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 根据栏目获取特殊文档(包括子类)
         /// </summary>
-        public abstract string Archive_GetSpecialArchivesByCategoryID { get; }
+        public abstract string Archive_GetSpecialArchivesByCategoryId { get; }
 
         /// <summary>
         /// 根据栏目获取特殊文档（不包括子类)

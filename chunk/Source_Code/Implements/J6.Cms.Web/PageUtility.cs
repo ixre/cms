@@ -114,7 +114,7 @@ namespace J6.Cms
         /// <param name="pageFunc">对模板处理前操作，可以添加数据对象</param>
         public static string Require(string templateId,TemplatePageHandler pageFunc)
         {
-            using (CmsTemplates tpl = new CmsTemplates())
+            using (CmsTemplateImpl tpl = new CmsTemplateImpl())
             {
                 TemplatePage page = new TemplatePage(templateId);
                 //if (data != null)
@@ -136,7 +136,7 @@ namespace J6.Cms
 
         public static TemplatePage RegistEventHandlers(TemplatePage page)
         {
-        	using (CmsTemplates tpl = new CmsTemplates()){
+        	using (CmsTemplateImpl tpl = new CmsTemplateImpl()){
         	 	page.TemplateHandleObject = tpl;
                 page.OnPreInit += PreHandler;
                 page.OnPreRender += CompliedTemplate;

@@ -125,7 +125,7 @@ namespace J6.Cms.Web.Mvc
                     CmsVariables.TEMP_PATH,
                     "tpl_lang_guid.xml");
                 AutoObjectXml obj = new AutoObjectXml(fileName);
-                obj.InsertFromType(typeof(CmsTemplates), false);
+                obj.InsertFromType(typeof(CmsTemplateImpl), false);
                 obj.Flush();
 
                 var rsp = System.Web.HttpContext.Current.Response;

@@ -49,14 +49,14 @@ namespace J6.Cms.Domain.Implement.Content
         }
 
 
-        public IEnumerable<IArchive> GetArchivesByCategoryTag(string categoryTag, int number)
+        public IEnumerable<IArchive> GetArchivesByCategoryTag(string categoryTag, int number, int skipSize)
         {
-            return this._archiveRep.GetArchivesByCategoryTag(this.SiteId,categoryTag, number);
+            return this._archiveRep.GetArchivesByCategoryTag(this.SiteId,categoryTag, number,skipSize);
         }
 
-        public IEnumerable<IArchive> GetArchivesContainChildCategories(int lft,int rgt, int number)
+        public IEnumerable<IArchive> GetArchivesContainChildCategories(int lft, int rgt, int number, int skipSize)
         {
-            return this._archiveRep.GetArchivesContainChildCategories(this.SiteId, lft,rgt, number);
+            return this._archiveRep.GetArchivesContainChildCategories(this.SiteId, lft,rgt, number,skipSize);
         }
 
         public IEnumerable<IArchive> GetArchivesByModuleId(int moduleId, int number)
@@ -79,14 +79,14 @@ namespace J6.Cms.Domain.Implement.Content
             return this._archiveRep.GetSpecialArchivesByModuleId(this.SiteId, moduleId, number);
         }
 
-        public IEnumerable<IArchive> GetSpecialArchives(int lft,int rgt, int number)
+        public IEnumerable<IArchive> GetSpecialArchives(int lft, int rgt, int number, int skipSize)
         {
-            return this._archiveRep.GetSpecialArchives(this.SiteId, lft,rgt, number);
+            return this._archiveRep.GetSpecialArchives(this.SiteId, lft,rgt, number,skipSize);
         }
 
-        public IEnumerable<IArchive> GetSpecialArchives(string categoryTag, int number)
+        public IEnumerable<IArchive> GetSpecialArchives(string categoryTag, int number, int skipSize)
         {
-            return this._archiveRep.GetSpecialArchives(this.SiteId, categoryTag, number);
+            return this._archiveRep.GetSpecialArchives(this.SiteId, categoryTag, number,skipSize);
         }
 
         public IEnumerable<IArchive> GetArchivesByViewCountByModuleId(int moduleId, int number)
