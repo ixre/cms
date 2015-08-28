@@ -1444,9 +1444,9 @@ namespace J6.Cms.Template
                         // 项目顺序类
                         case "class":
                             if (dt == null || index < 0) return String.Empty;
-                            if (index == dt.Count() - 1) return " class=\"last\"";
-                            else if (index == 0) return " class=\"first\"";
-                            return String.Concat(" class=\"i", index.ToString(), "\"");
+                            if (index == dt.Count() - 1) return " class=\"item last\"";
+                            else if (index == 0) return " class=\"item first\"";
+                            return String.Concat(" class=\"item i", index.ToString(), "\"");
 
                         //特性列表
                         case "prolist":
@@ -1672,12 +1672,12 @@ namespace J6.Cms.Template
         /// <param name="listContainer"></param>
         private void AppendSplitHtm(StringBuilder sb, int index, int splitSize, bool listContainer)
         {
-            const string splitHtm = "<div class=\"split-bar\"><div></div></div>";
+            const string splitHtm = "<div class=\"break-space\"><div></div></div>";
             if (splitSize > 0 && index % splitSize == 0)
             {
                 if (listContainer)
                 {
-                    sb.Append("<li>").Append(splitHtm).Append("</li>");
+                    sb.Append("<li class=\"break\">").Append(splitHtm).Append("</li>");
                 }
                 else
                 {
@@ -1916,9 +1916,9 @@ namespace J6.Cms.Template
 
                             // 项目顺序类
                             case "class":
-                                if (i == archivesCount - 1) return " class=\"last\"";
-                                else if (i == 0) return " class=\"first\"";
-                                return string.Empty;
+                                if (i == archivesCount - 1) return " class=\"item last\"";
+                                else if (i == 0) return " class=\"item first\"";
+                                return " class=\"item\"";
 
                             default:
                                 //读取自定义属性
