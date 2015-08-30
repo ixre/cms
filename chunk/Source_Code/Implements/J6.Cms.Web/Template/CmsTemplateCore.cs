@@ -267,7 +267,7 @@ namespace J6.Cms.Template
             {
                 if (binds[0] == "category")
                 {
-                    CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.site.SiteId,int.Parse(binds[1]));
+                    CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.site.SiteId, int.Parse(binds[1]));
                     if (category.Id > 0)
                     {
                         return this.GetCategoryUrl(category, 1);
@@ -997,7 +997,7 @@ namespace J6.Cms.Template
                     categoryTag,
                     this.TplSetting.CFG_SitemapSplit,
                 this.FormatUrl(UrlRulePageKeys.Category, null));
-            },DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
+            }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }
 
         /// <summary>
@@ -1081,7 +1081,7 @@ namespace J6.Cms.Template
             string tempLinkStr;
 
 
-            LinkGenerateGBehavior bh = (int _total, ref int current, int selected, bool child, SiteLinkDto link,int childCount) =>
+            LinkGenerateGBehavior bh = (int _total, ref int current, int selected, bool child, SiteLinkDto link, int childCount) =>
             {
                 StringBuilder sb2 = new StringBuilder();
 
@@ -1091,14 +1091,14 @@ namespace J6.Cms.Template
                 isLast = current == _total - 1;
                 String clsName = "";
 
-//                if (selected == current)
-//                {
-//                    sb2.Append(isLast ? "<li class=\"current last\">" : "<li class=\"current\">");
-//                }
-//                else
-//                {
-//                    sb2.Append(isLast ? "<li class=\"last\">" : "<li>");
-//                }
+                //                if (selected == current)
+                //                {
+                //                    sb2.Append(isLast ? "<li class=\"current last\">" : "<li class=\"current\">");
+                //                }
+                //                else
+                //                {
+                //                    sb2.Append(isLast ? "<li class=\"last\">" : "<li>");
+                //                }
 
                 if (childCount != 0)
                 {
@@ -1155,12 +1155,12 @@ namespace J6.Cms.Template
                     j = i;
 
                     childs = new List<SiteLinkDto>(links.Where(a => a.Pid == links[i].Id));
-                    phtml = bh(total, ref j, navIndex, false, links[i],childs.Count);
+                    phtml = bh(total, ref j, navIndex, false, links[i], childs.Count);
 
                     if ((cTotal = childs.Count) != 0)
                     {
                         phtml = phtml.Replace("</li>",
-                            String.Format("<div id=\"{0}_child{1}\" class=\"child child{1}\"><div class=\"box clear\">"+
+                            String.Format("<div id=\"{0}_child{1}\" class=\"child child{1}\"><div class=\"box clear\">" +
                                           "<ul class=\"menu\">",
                             links[i].Type.ToString().ToLower(),
                             links[i].Id.ToString())
@@ -1169,7 +1169,7 @@ namespace J6.Cms.Template
                         cCurrent = 0;
                         for (int k = 0; k < childs.Count; k++)
                         {
-                            phtml += bh(cTotal, ref cCurrent, -1, true, childs[k],0);
+                            phtml += bh(cTotal, ref cCurrent, -1, true, childs[k], 0);
                             cCurrent++;
                             //links.Remove(childs[k]);
                         }
@@ -1355,15 +1355,16 @@ namespace J6.Cms.Template
         /// <param name="splitSize"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        protected virtual string ArchiveList(ArchiveDto[] archives, int splitSize,string format)
+        protected virtual string ArchiveList(ArchiveDto[] archives, int splitSize, string format)
         {
             StringBuilder sb = new StringBuilder();
             bool listContainer = format.StartsWith("<li>");
             int tmpInt = 0;
+            int intTotal = archives.Length;
             foreach (ArchiveDto archiveDto in archives)
             {
                 this.FormatArchive(sb, archiveDto, ref format, archives, tmpInt++);
-                this.AppendSplitHtm(sb, tmpInt, splitSize, listContainer);
+                this.AppendSplitHtm(sb, intTotal, tmpInt, splitSize, listContainer);
             }
             return sb.ToString();
         }
@@ -1506,7 +1507,7 @@ namespace J6.Cms.Template
         /// <param name="format">格式</param>
         /// <param name="skipSize">跳过的页码</param>
         /// <returns></returns>
-        protected string Paging_Archives(string categoryTag, string pageIndex, string pageSize,int skipSize,int splitSize,string format)
+        protected string Paging_Archives(string categoryTag, string pageIndex, string pageSize, int skipSize, int splitSize, string format)
         {
             int _pageIndex,
                  _pageSize,
@@ -1515,7 +1516,7 @@ namespace J6.Cms.Template
 
             int archiveId;
             int categoryId;
-         
+
 
 
             CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryTag);
@@ -1525,7 +1526,7 @@ namespace J6.Cms.Template
             }
 
             bool listContainer = format.StartsWith("<li>");
-           
+
             int.TryParse(pageIndex, out _pageIndex);
             int.TryParse(pageSize, out _pageSize);
 
@@ -1581,7 +1582,7 @@ namespace J6.Cms.Template
                             case "title": return dr["title"].ToString();
                             case "small_title": return (dr["small_title"] ?? "").ToString();
                             case "publisher_id": return dr["publisher_id"].ToString();
-                            case "author_name": return ArchiveUtility.GetPublisherName(Convert.ToInt32(dr["publisher_id"]??0));
+                            case "author_name": return ArchiveUtility.GetPublisherName(Convert.ToInt32(dr["publisher_id"] ?? 0));
                             case "source": return dr["source"].ToString();
                             case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
                                  (dr["outline"] ?? "").ToString(),
@@ -1648,7 +1649,7 @@ namespace J6.Cms.Template
 
 
                 // 添加分割栏
-                this.AppendSplitHtm(sb, archiveIndex, splitSize, listContainer);
+                this.AppendSplitHtm(sb, totalNum, archiveIndex, splitSize, listContainer);
             }
 
             //设置分页
@@ -1667,21 +1668,32 @@ namespace J6.Cms.Template
         /// 添加分割栏
         /// </summary>
         /// <param name="sb"></param>
+        /// <param name="total"></param>
         /// <param name="index"></param>
         /// <param name="splitSize"></param>
         /// <param name="listContainer"></param>
-        private void AppendSplitHtm(StringBuilder sb, int index, int splitSize, bool listContainer)
+        private void AppendSplitHtm(StringBuilder sb, int total, int index, int splitSize, bool listContainer)
         {
             const string splitHtm = "<div class=\"break-space\"><div></div></div>";
-            if (splitSize > 0 && index % splitSize == 0)
+            const string splitHtmEven = "<div class=\"break-space break-even\"><div></div></div>";
+            if (splitSize > 0 && total != index && index % splitSize == 0)
             {
+                bool isEven = index / splitSize % 2 == 0;
                 if (listContainer)
                 {
-                    sb.Append("<li class=\"break\">").Append(splitHtm).Append("</li>");
+                    if (isEven)
+                    {
+                        sb.Append("<li class=\"break break-even\">").Append(splitHtmEven);
+                    }
+                    else
+                    {
+                        sb.Append("<li class=\"break\">").Append(splitHtm);
+                    }
+                    sb.Append("</li>");
                 }
                 else
                 {
-                    sb.Append(splitHtm);
+                    sb.Append(isEven ? splitHtmEven : splitHtm);
                 }
             }
         }
@@ -1701,13 +1713,13 @@ namespace J6.Cms.Template
             }
 
             ArchiveDto[] dt = container
-                ? ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.siteId, category.Lft, category.Rgt, intNum,skipSize)
-                : ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.siteId, category.Tag, intNum,skipSize);
+                ? ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.siteId, category.Lft, category.Rgt, intNum, skipSize)
+                : ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.siteId, category.Tag, intNum, skipSize);
 
             return this.ArchiveList(dt, splitSize, format);
         }
 
-        protected string Archives(string tag, string num,int skipSize,int splitSize, bool container, string format)
+        protected string Archives(string tag, string num, int skipSize, int splitSize, bool container, string format)
         {
             int intNum;
             int.TryParse(num, out intNum);
@@ -1722,7 +1734,7 @@ namespace J6.Cms.Template
             ArchiveDto[] archives = container ? ServiceCall.Instance.ArchiveService.GetArchivesContainChildCategories(this.siteId, category.Lft, category.Rgt, intNum, skipSize) :
                 ServiceCall.Instance.ArchiveService.GetArchivesByCategoryTag(this.siteId, category.Tag, intNum, skipSize);
 
-            return this.ArchiveList(archives,splitSize,format);
+            return this.ArchiveList(archives, splitSize, format);
         }
 
 
@@ -2227,7 +2239,7 @@ namespace J6.Cms.Template
                             case "special_title": return title_hightlight;
                             case "title": return archive.Title;
                             case "small_title": return archive.SmallTitle;
-                            case "publisher_id":  return archive.PublisherId.ToString();
+                            case "publisher_id": return archive.PublisherId.ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
@@ -2502,7 +2514,7 @@ namespace J6.Cms.Template
             string result = sb.ToString();
 
             //缓存
-            Cms.Cache.Insert(cacheKey, result,DateTime.Now.AddDays(Settings.OptiDefaultCacheHours));
+            Cms.Cache.Insert(cacheKey, result, DateTime.Now.AddDays(Settings.OptiDefaultCacheHours));
 
             return result;
 
