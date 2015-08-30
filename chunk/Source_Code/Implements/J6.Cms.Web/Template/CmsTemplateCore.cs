@@ -1191,21 +1191,21 @@ namespace J6.Cms.Template
         /// <returns></returns>
         protected string Archive(int _siteId, object idOrAlias, string format)
         {
-            ArchiveDto archive;
+            ArchiveDto archiveDto;
             if (idOrAlias is int)
             {
-                archive = ServiceCall.Instance.ArchiveService.GetArchiveById(_siteId, Convert.ToInt32(idOrAlias));
+                archiveDto = ServiceCall.Instance.ArchiveService.GetArchiveById(_siteId, Convert.ToInt32(idOrAlias));
             }
             else
             {
-                archive = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(_siteId, idOrAlias.ToString());
+                archiveDto = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(_siteId, idOrAlias.ToString());
             }
 
-            if (archive.Id <= 0) return TplMessage(String.Format("不存在编号（或别名）为:{0}的文档!", idOrAlias));
+            if (archiveDto.Id <= 0) return TplMessage(String.Format("不存在编号（或别名）为:{0}的文档!", idOrAlias));
 
 
             StringBuilder sb = new StringBuilder(500);
-            this.FormatArchive(sb, archive, ref format, null, -1);
+            this.FormatArchive(sb, archiveDto, ref format, null, -1);
             return sb.ToString();
         }
 
@@ -1219,11 +1219,11 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string PrevArchive(string id, string format)
         {
-            ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetSameCategoryPreviousArchive(siteId, int.Parse(id));
-            if (!(archive.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoPrevious);
+            ArchiveDto archiveDto = ServiceCall.Instance.ArchiveService.GetSameCategoryPreviousArchive(siteId, int.Parse(id));
+            if (!(archiveDto.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoPrevious);
 
             StringBuilder sb = new StringBuilder(500);
-            this.FormatArchive(sb, archive, ref format, null, -1);
+            this.FormatArchive(sb, archiveDto, ref format, null, -1);
             return sb.ToString();
         }
 
@@ -1238,12 +1238,12 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string NextArchive(string id, string format)
         {
-            ArchiveDto arch = ServiceCall.Instance.ArchiveService.GetSameCategoryNextArchive(this.siteId, int.Parse(id));
+            ArchiveDto archiveDto = ServiceCall.Instance.ArchiveService.GetSameCategoryNextArchive(this.siteId, int.Parse(id));
 
-            if (!(arch.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoNext);
+            if (!(archiveDto.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoNext);
 
             StringBuilder sb = new StringBuilder(500);
-            this.FormatArchive(sb, arch, ref format, null, -1);
+            this.FormatArchive(sb, archiveDto, ref format, null, -1);
             return sb.ToString();
 
         }
@@ -1358,7 +1358,7 @@ namespace J6.Cms.Template
         protected virtual string ArchiveList(ArchiveDto[] archives, int splitSize, string format)
         {
             StringBuilder sb = new StringBuilder();
-            bool listContainer = format.StartsWith("<li>");
+            bool listContainer = format.EndsWith("</li>");
             int tmpInt = 0;
             int intTotal = archives.Length;
             foreach (ArchiveDto archiveDto in archives)
@@ -1525,7 +1525,7 @@ namespace J6.Cms.Template
                 return TplMessage("Error:栏目不存在!");
             }
 
-            bool listContainer = format.StartsWith("<li>");
+            bool listContainer = format.EndsWith("</li>");
 
             int.TryParse(pageIndex, out _pageIndex);
             int.TryParse(pageSize, out _pageSize);
