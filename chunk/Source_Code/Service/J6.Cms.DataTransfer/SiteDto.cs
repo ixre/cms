@@ -125,7 +125,7 @@ namespace J6.Cms.DataTransfer
         /// 站点使用语言
         /// </summary>
         [FormField("language", Group = "basic", Text = "国际化/语言",IsRequired = true)]
-        [SelectField(UseDrop = true, Data = "中文简体(Chinese Simplified)=1;中文繁体(Chinese Traditional)=4;英语(Unit States)=2;西班牙语(Español)=3;泰语(ภาษาไทย)=5")]
+        [SelectField(UseDrop = true, Data = "中文简体(Chinese Simplified)=1;中文繁体(Chinese Traditional)=2;英语(Unit States)=3;西班牙语(Spanish)=4;法语(French)=5;泰语(Thai)=6;俄语(Russian)=7;阿拉伯语(Arabic)=8")]
         public Languages Language { get; set; }
 
 

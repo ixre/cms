@@ -630,28 +630,28 @@ LOCK TABLES `cms_table_row` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `cms_tplbind`
+-- Table structure for table `cms_tpl_bind`
 --
 
-DROP TABLE IF EXISTS `cms_tplbind`;
+DROP TABLE IF EXISTS `cms_tpl_bind`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cms_tplbind` (
+CREATE TABLE `cms_tpl_bind` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bindid` int(20) NOT NULL,
-  `bindtype` int(2) NOT NULL,
-  `tplpath` varchar(200) DEFAULT NULL,
+  `bind_id` int(20) NOT NULL,
+  `bind_type` int(2) NOT NULL,
+  `tpl_path` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cms_tplbind`
+-- Dumping data for table `cms_tpl_bind`
 --
 
-LOCK TABLES `cms_tplbind` WRITE;
-/*!40000 ALTER TABLE `cms_tplbind` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cms_tplbind` ENABLE KEYS */;
+LOCK TABLES `cms_tpl_bind` WRITE;
+/*!40000 ALTER TABLE `cms_tpl_bind` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cms_tpl_bind` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

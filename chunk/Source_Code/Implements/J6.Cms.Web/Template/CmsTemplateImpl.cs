@@ -859,7 +859,7 @@ namespace J6.Cms.Template
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return Paging_Archives(tag, pageindex.ToString(), pageSize,0,0,format);
+            return base.Paging_Archives(tag, pageindex.ToString(), pageSize,0,0,format);
         }
 
         [TemplateTag]
@@ -883,10 +883,8 @@ namespace J6.Cms.Template
             int intSplitSize;
             int.TryParse(splitSize, out intSplitSize);
 
-            return Paging_Archives(tag, pageindex.ToString(), pageSize, 0, intSplitSize, format);
+            return base.Paging_Archives(tag, pageindex.ToString(), pageSize, 0, intSplitSize, format);
         }
-
-
 
 
 

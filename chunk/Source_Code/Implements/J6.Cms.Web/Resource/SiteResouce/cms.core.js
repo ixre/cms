@@ -213,3 +213,35 @@ if (ele_dts.length != 0) {
 }
 */
 
+/**
+ *  将元素绝对定位
+ * @param {} e 
+ * @param {} callback 
+ * @returns {} 
+ */
+function fixedDiv(e, callback) {
+    var p = e.parentNode;
+    if (!p) { alert('missing container'); return false; }
+    var plTop = e.offsetTop + p.offsetTop;
+    var plLft = p.offsetLeft;
+    var plWidth = e.offsetWidth;
+    setInterval(function () {
+        var scrollTop = document.body.scrollTop;
+        if (scrollTop > plTop) {
+            e.style.position = 'fixed';
+            e.style.left = plLft + 'px';
+            e.style.width = plWidth + 'px';
+            if (callback && callback instanceof Function) {
+                callback(e);
+            }
+        } else {
+            e.style.position = '';
+            e.style.width = 'auto';
+            e.style.left = '0';
+            if (!e.style.top) {
+                e.style.top = '0';
+            }
+        }
+    }, 50);
+}
+

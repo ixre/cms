@@ -148,7 +148,7 @@ namespace J6.Cms.Web
                         title = String.Format("- 第" + pageIndex.ToString() + "页");
                         break;
                     default:
-                    case Languages.En_US:
+                    case Languages.En:
                         title = String.Format("- page " + pageIndex.ToString());
                         break;
                 }

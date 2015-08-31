@@ -781,17 +781,17 @@ namespace J6.Cms.Sql
 
         #region 模板绑定
 
-        public readonly string TplBind_Add = "INSERT INTO $PREFIX_tplbind (bindID,bindType,tplPath) VALUES(@bindID,@bindType,@tplPath)";
-        public readonly string TplBind_Update = "UPDATE $PREFIX_tplbind SET tplPath=@tplPath WHERE bindID=@bindID AND bindType=@bindType";
-        public readonly string TplBind_GetBind = "SELECT * FROM $PREFIX_tplbind WHERE bindID=@bindID AND bindType=@bindType";
-        public readonly string TplBind_CheckExists = "SELECT count(0) FROM $PREFIX_tplbind WHERE bindID=@bindID AND bindType=@bindType";
-        public readonly string TplBind_RemoveBind = "DELETE FROM $PREFIX_tplbind WHERE bindID=@bindID AND bindType=@bindType";
-        public readonly string TplBind_GetBindList = "SELECT * FROM $PREFIX_tplbind";
+        public readonly string TplBind_Add = "INSERT INTO $PREFIX_tpl_bind (bind_id,bind_type,tpl_path) VALUES(@bindID,@bindType,@tplPath)";
+        public readonly string TplBind_Update = "UPDATE $PREFIX_tpl_bind SET tpl_path=@tplPath WHERE bind_id=@bindID AND bind_type=@bindType";
+        public readonly string TplBind_GetBind = "SELECT * FROM $PREFIX_tpl_bind WHERE bind_id=@bindID AND bind_type=@bindType";
+        public readonly string TplBind_CheckExists = "SELECT count(0) FROM $PREFIX_tpl_bind WHERE bind_id=@bindID AND bind_type=@bindType";
+        public readonly string TplBind_RemoveBind = "DELETE FROM $PREFIX_tpl_bind WHERE bind_id=@bindID AND bind_type=@bindType";
+        public readonly string TplBind_GetBindList = "SELECT * FROM $PREFIX_tpl_bind";
 
         /// <summary>
         /// 删除未关联的栏目模版
         /// </summary>
-        public readonly string TplBind_RemoveErrorCategoryBind = "DELETE FROM $PREFIX_tplbind WHERE bindID NOT IN (SELECT id FROM $PREFIX_category) AND bindType IN(3,4)";
+        public readonly string TplBind_RemoveErrorCategoryBind = "DELETE FROM $PREFIX_tpl_bind WHERE bind_id NOT IN (SELECT id FROM $PREFIX_category) AND bind_type IN(3,4)";
 
         #endregion
 

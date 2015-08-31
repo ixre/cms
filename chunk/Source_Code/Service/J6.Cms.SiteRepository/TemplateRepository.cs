@@ -32,10 +32,10 @@ namespace J6.Cms.ServiceRepository
                         {
                             tpl = this.CreateTemplateBind(
                                 int.Parse(rd["id"].ToString()),
-                                (TemplateBindType)int.Parse(rd["bindType"].ToString()),
-                                rd["tplPath"].ToString()
+                                (TemplateBindType)int.Parse(rd["bind_type"].ToString()),
+                                rd["tpl_path"].ToString()
                                 );
-                            tpl.BindRefrenceId = int.Parse(rd["bindId"].ToString());
+                            tpl.BindRefrenceId = int.Parse(rd["bind_id"].ToString());
                             tpls.Add(tpl);
                         }
                     });

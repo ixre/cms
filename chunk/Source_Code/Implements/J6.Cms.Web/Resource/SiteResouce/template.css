@@ -1,5 +1,5 @@
 ﻿body{font:62.5% Sans-Serif,Arial;margin:0;}
-img{border:none;}
+img{border:none;max-width: 100%;}
 a{outline:none;}
 a:link,a:visited{color:#0000FF;}
 mask,.mask{background:url(/framework/assets/images/mask.gif);

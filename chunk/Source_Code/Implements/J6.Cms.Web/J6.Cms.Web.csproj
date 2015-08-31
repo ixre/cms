@@ -243,9 +243,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="install\db\access.mdb">
+    <Content Include="install\db\access.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="install\db\mssql.sql" />
     <None Include="install\db\sqlite.db" />
     <Content Include="install\install.html" />

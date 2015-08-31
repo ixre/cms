@@ -26,26 +26,40 @@ namespace J6.Cms.Domain.Interface.Common.Language
         /// </summary>
         Zh_CN = 1,
 
-
         /// <summary>
         /// 中文繁体(Chinese Traditional)
         /// </summary>
-        Zh_TW = 4,
+        Zh_TW = 2,
 
         /// <summary>
         /// 英语(Unit States)
         /// </summary>
-        En_US = 2,
+        En = 3,
 
         /// <summary>
         /// 西班牙语
         /// </summary>
-        Es = 3,
+        Es = 4,
+
+        /// <summary>
+        /// 法语France
+        /// </summary>
+        Fr = 5,
 
         /// <summary>
         /// 泰语(ภาษาไทย)
         /// </summary>
-        Thai = 5
+        Th = 6,
+
+        /// <summary>
+        /// 俄语
+        /// </summary>
+        Ru = 7,
+
+        /// <summary>
+        /// 阿拉伯语Arabic
+        /// </summary>
+        Ar = 8,
 
     }
 }

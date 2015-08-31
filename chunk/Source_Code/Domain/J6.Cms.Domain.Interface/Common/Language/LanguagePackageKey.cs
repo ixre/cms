@@ -49,6 +49,11 @@ namespace J6.Cms.Domain.Interface.Common.Language
         /// <summary>
         /// 没有下一篇
         /// </summary>
-        ARCHIVE_NoNext
+        ARCHIVE_NoNext,
+
+        /// <summary>
+        /// 文档关键词
+        /// </summary>
+        ARCHIVE_Tags
     }
 }

@@ -42,7 +42,7 @@ namespace J6.Cms.Template
 
         protected ArchiveDto archive;           //当前读取的文档,使用require(archiveID)获取的文档
         private SettingFile _settingsFile;      //设置文件，用于保存当前实例的状态
-        private LangLabelReader langReader;     //语言字典读取器
+       // private LangLabelReader langReader;     //语言字典读取器
         protected string _resourceUri;           //资源域名
 
         /// <summary>
@@ -1966,7 +1966,7 @@ namespace J6.Cms.Template
                 switch (site.Language)
                 {
                     default:
-                    case Languages.En_US:
+                    case Languages.En:
                         message = "No result";
                         break;
                     case Languages.Zh_CN:
@@ -2088,6 +2088,10 @@ namespace J6.Cms.Template
             string[] tagArr = tags.Split(',');
             int i = tagArr.Length;
 
+            if (i > 0)
+            {
+                sb.Append(Cms.Language.Get(LanguagePackageKey.ARCHIVE_Tags)).Append("：");
+            }
             foreach (string tag in tagArr)
             {
                 sb.Append(TplEngine.FieldTemplate(format, a =>

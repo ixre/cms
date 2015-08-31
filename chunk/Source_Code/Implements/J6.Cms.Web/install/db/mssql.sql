@@ -364,20 +364,20 @@ SET IDENTITY_INSERT [cms_table_rowdata] ON
 
 
 SET IDENTITY_INSERT [cms_table_rowdata] OFF
-if exists (select * from sysobjects where id = OBJECT_ID('[cms_tplbind]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
-DROP TABLE [cms_tplbind]
+if exists (select * from sysobjects where id = OBJECT_ID('[cms_tpl_bind]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
+DROP TABLE [cms_tpl_bind]
 
-CREATE TABLE [cms_tplbind] (
+CREATE TABLE [cms_tpl_bind] (
 [id] [int]  IDENTITY (1, 1)  NOT NULL,
-[bindid] [nvarchar]  (60) NOT NULL,
-[bindtype] [int]  NOT NULL,
-[tplpath] [nvarchar]  (600) NULL)
+[bind_id] [int] NOT NULL,
+[bind_type] [int]  NOT NULL,
+[tpl_path] [nvarchar]  (200) NULL)
 
-ALTER TABLE [cms_tplbind] WITH NOCHECK ADD  CONSTRAINT [PK_cms_tplbind] PRIMARY KEY  NONCLUSTERED ( [id] )
-SET IDENTITY_INSERT [cms_tplbind] ON
+ALTER TABLE [cms_tpl_bind] WITH NOCHECK ADD  CONSTRAINT [PK_cms_tpl_bind] PRIMARY KEY  NONCLUSTERED ( [id] )
+SET IDENTITY_INSERT [cms_tpl_bind] ON
 
 
-SET IDENTITY_INSERT [cms_tplbind] OFF
+SET IDENTITY_INSERT [cms_tpl_bind] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_usergroup]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
 DROP TABLE [cms_usergroup]
 

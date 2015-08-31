@@ -18,7 +18,6 @@ namespace J6.Cms.Core
         {
 
             lang = new LanguagePackage();
-
             lang.LoadFromXml(ResourceMap.XmlLangPackage);
 
 

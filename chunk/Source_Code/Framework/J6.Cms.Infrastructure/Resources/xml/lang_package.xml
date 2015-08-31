@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <lang>
-  <item key="PAGE_NO_TAGS" Zh_CN="无标签" Zh_TW="无标签" En_US="no tags" Es="no tags" Thai="ไม่มี แท็ก"/>
-  <item key="PAGER_PrePageText" Zh_CN="上一页" Zh_TW="上一頁" En_US="Previous" Es="Previous" Thai="ก่อน"/>
-  <item key="PAGER_NextPageText" Zh_CN="下一页" Zh_TW="下一頁" En_US="Next" Es="Next" Thai="ต่อไป"/>
-  <item key="PAGER_SelectPageText" Zh_CN="选择页码：{0}页" Zh_TW="選擇頁碼：{0}頁" En_US="Select Page:{0}" Es="Select Page:{0}" Thai="ถัดไปเลือกหน้า:{0}"/>
-  <item key="PAGE_PagerTitle" Zh_CN="(第{0}页)" Zh_TW="(第{0}頁)" En_US="(Page:{0})" Es="(Page:{0})" Thai="หน้าแรก {0}"/>
-  <item key="PAGER_PagerTotal" Zh_CN="第{0}/{1}页,共{2}条记录" Zh_TW="第{0}/{1}頁,共{2}条記錄" En_US="Page:{0}/{1},total {2}" Es="Page:{0}/{1},total {2}" Thai="ครั้งแรก {0} / {1} ของ {2} บันทึก"/>
-  <item key="ARCHIVE_NoPrevious" Zh_CN="没有了" Zh_TW="没有了" En_US="End" Es="End" Thai=""/>
-  <item key="ARCHIVE_NoNext" Zh_CN="没有了" Zh_TW="没有了" En_US="End" Es="End" Thai=""/>
+  <item key="PAGE_NO_TAGS" Zh_CN="无标签" Zh_TW="无标签" En="No tags" Es="No tags" Th="ไม่มี แท็ก" Fr="Pas d'étiquette" Ru="нет Этикетка" Ar="لا تسمية"/>
+  <item key="PAGER_PrePageText" Zh_CN="上一页" Zh_TW="上一頁" En="previous" Es="previo" Th="ก่อน" Fr="antérieur" Ru="предыдущий" Ar="سابق"/>
+  <item key="PAGER_NextPageText" Zh_CN="下一页" Zh_TW="下一頁" En="next" Es="próximo" Th="ต่อไป" Fr="prochaine" Ru="следующий" Ar="التالي"/>
+  <item key="PAGER_SelectPageText" Zh_CN="选择页码：{0}页" Zh_TW="選擇頁碼：{0}頁" En="Select Page:{0}"
+          Es="Elija Página:{0}" Th="ถัดไปเลือกหน้า:{0}" Fr="Choisissez la page:{0}" Ru="Выберите страницу:{0}" Ar="اختيار الصفحة {0}"/>
+  <item key="PAGE_PagerTitle" Zh_CN="(第{0}页)" Zh_TW="(第{0}頁)" En="(Page:{0})" Es="(Página:{0})"
+         Th="หน้าแรก :{0}" Fr="(page:{0})" Ru="(страница:{0})" Ar="(صفحة:{0})"/>
+  <item key="PAGER_PagerTotal" Zh_CN="第{0}/{1}页,共{2}条记录" Zh_TW="第{0}/{1}頁,共{2}条記錄" En="Page:{0}/{1},total {2}" 
+         Es="Página:{0}/{1},total {2}" Th="ครั้งแรก {0} / {1} ของ {2} บันทึก" Fr="{0}/{1},total:{2}" Ru="{0}/{1},общее:{2}" Ar="{0}/{1},مجموع{2}"/>
+  <item key="ARCHIVE_NoPrevious" Zh_CN="没有了" Zh_TW="没有了" En="end" Es="sin" Th="โดยไม่ต้อง" Fr="sans" Ru="без" Ar="بدون"/>
+  <item key="ARCHIVE_NoNext" Zh_CN="没有了"  Zh_TW="没有了" En="end" Es="sin" Th="โดยไม่ต้อง" Fr="sans" Ru="без" Ar="بدون"/>
+  <item key="ARCHIVE_Tags" Zh_CN="标签" Zh_TW="標籤" En="Tags" Es="Tags" Th="ฉลาก" Fr="étiquette" Ru="этикетка" Ar="ملصق"/>
 </lang>
