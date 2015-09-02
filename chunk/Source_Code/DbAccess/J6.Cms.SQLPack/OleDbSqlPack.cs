@@ -41,7 +41,7 @@
                 return @"
                         SELECT v.id as id,field_id as extendFieldId,f.name as fieldName,field_value as extendFieldValue,
 	                    relation_id FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
-	                    WHERE relationType=@relationType AND relation_id IN (
+	                    WHERE relation_type=@relationType AND relation_id IN (
 
                         SELECT TOP {0} $PREFIX_archive.id
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON 
@@ -61,7 +61,7 @@
                 return @"
                         SELECT v.id as id,field_id as extendFieldId,f.name as fieldName,field_value as extendFieldValue,relation_id
 	                    FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
-	                    WHERE relationType=@relationType AND relation_id IN (
+	                    WHERE relation_type=@relationType AND relation_id IN (
 
                         SELECT TOP {0} $PREFIX_archive.id FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid

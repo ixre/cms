@@ -1,6 +1,6 @@
  /* 此文件由系统自动生成,所有样式表请引用此文件!*/
 body{font:62.5% Sans-Serif,Arial;margin:0;}
-img{border:none;}
+img{border:none;max-width: 100%;}
 a{outline:none;}
 a:link,a:visited{color:#0000FF;}
 mask,.mask{background:url(/framework/assets/images/mask.gif);
@@ -12,7 +12,7 @@ mask,.mask{background:url(/framework/assets/images/mask.gif);
 .left{float:left;}
 .right{float:right;}
 .center{text-align:center;}
-.clear,.clear-fixcler{clear:both;}
+.clear,.clear-fix,.clearfix{clear:both;}
 .overflow{overflow:hidden;}
 .hidden{display:none;}
 .clearfix{clear:both;}

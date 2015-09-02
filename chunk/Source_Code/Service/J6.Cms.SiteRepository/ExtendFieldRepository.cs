@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Security.Permissions;
 using J6.Cms.Dal;
 using J6.Cms.Domain.Implement.Site.Extend;
 using J6.Cms.Domain.Interface.Content.Archive;
 using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Extend;
-using J6.DevFw.Data.Extensions;
 
 namespace J6.Cms.ServiceRepository
 {
     public class ExtendFieldRepository : BaseExtendFieldRepository, IExtendFieldRepository
     {
-        private ExtendFieldDal extendDAL = new ExtendFieldDal();
+        private readonly ExtendFieldDal _extendDal = new ExtendFieldDal();
 
         //缓存数据
         private IDictionary<int, IList<IExtendField>> dicts;
@@ -28,7 +26,7 @@ namespace J6.Cms.ServiceRepository
                 IExtendField field;
                 int inSiteId;
 
-                extendDAL.GetAllExtendFields(rd =>
+                _extendDal.GetAllExtendFields(rd =>
                 {
                     while (rd.Read())
                     {
@@ -59,11 +57,11 @@ namespace J6.Cms.ServiceRepository
 
             if (extendField.Id > 0)
             {
-                extendDAL.UpdateExtendField(siteId, extendField);
+                _extendDal.UpdateExtendField(siteId, extendField);
             }
             else
             {
-                extendDAL.AddExtendField(siteId, extendField);
+                _extendDal.AddExtendField(siteId, extendField);
             }
 
             //清理
@@ -84,7 +82,7 @@ namespace J6.Cms.ServiceRepository
 
         public bool DeleteExtendField(int siteId,int extendFieldId)
         {
-            return this.extendDAL.DeleteExtendField(siteId, extendFieldId);
+            return this._extendDal.DeleteExtendField(siteId, extendFieldId);
         }
 
 
@@ -98,16 +96,16 @@ namespace J6.Cms.ServiceRepository
                 extendValues.Add(field.Id, this.CreateExtendValue(field, -1, null));
             }
 
-            this.extendDAL.GetExtendValues(siteId,(int)ExtendRelationType.Archive, archive.Id, rd =>
+            this._extendDal.GetExtendValues(siteId,(int)ExtendRelationType.Archive, archive.Id, rd =>
             {
                 while (rd.Read())
                 {
-                    extendId = int.Parse(rd["fieldId"].ToString());
+                    extendId = int.Parse(rd["field_id"].ToString());
 
                     if (extendValues.ContainsKey(extendId))
                     {
                         extendValues[extendId].Id = int.Parse(rd["id"].ToString());
-                        extendValues[extendId].Value = rd["fieldValue"].ToString().Replace("\n", "<br />");
+                        extendValues[extendId].Value = rd["field_value"].ToString().Replace("\n", "<br />");
                     }
 
                 }
@@ -122,12 +120,12 @@ namespace J6.Cms.ServiceRepository
             int relationId;
             IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
 
-            this.extendDAL.GetExtendValuesList(siteId, (int)ExtendRelationType.Archive, idList, rd =>
+            this._extendDal.GetExtendValuesList(siteId, (int)ExtendRelationType.Archive, idList, rd =>
             {
                 while (rd.Read())
                 {
-                    relationId = int.Parse(rd["relationId"].ToString());
-                    fieldId = int.Parse(rd["fieldId"].ToString());
+                    relationId = int.Parse(rd["relation_id"].ToString());
+                    fieldId = int.Parse(rd["field_id"].ToString());
                     if (!extendValues.ContainsKey(relationId))
                     {
                         extendValues.Add(relationId, new List<IExtendValue>());
@@ -135,7 +133,7 @@ namespace J6.Cms.ServiceRepository
                     extendValues[relationId].Add(
                         new ExtendValue(int.Parse(rd["id"].ToString()),
                             this.GetExtendFieldById(siteId, fieldId),
-                            rd["fieldValue"].ToString().Replace("\n","<br />")
+                            rd["field_value"].ToString().Replace("\n","<br />")
                         )
 
                         );
@@ -147,7 +145,7 @@ namespace J6.Cms.ServiceRepository
         public IEnumerable<IExtendField> GetExtendFields(int siteId, int categoryId)
         {
             IList<IExtendField> list = this.GetAllExtendsBySiteId(siteId);
-            int[] ids = this.extendDAL.GetCategoryExtendIdList(siteId, categoryId);
+            int[] ids = this._extendDal.GetCategoryExtendIdList(siteId, categoryId);
             foreach (IExtendField field in list)
             {
                 if (Array.Exists(ids, a => a == field.Id))
@@ -174,7 +172,7 @@ namespace J6.Cms.ServiceRepository
                     value.Value);
             }
 
-            this.extendDAL.InsertDataExtendFields(ExtendRelationType.Archive, archive.Id, extendValues);
+            this._extendDal.InsertDataExtendFields(ExtendRelationType.Archive, archive.Id, extendValues);
 
             /*
             foreach (DataExtendField f in this.GetExtendFileds(relationID))
@@ -202,7 +200,7 @@ namespace J6.Cms.ServiceRepository
 
             while (rd.Read())
             {
-                if (!extendValues.ContainsKey(relationId = int.Parse(rd["relationId"].ToString())))
+                if (!extendValues.ContainsKey(relationId = int.Parse(rd["relation_id"].ToString())))
                 {
                     extendValues.Add(relationId, new List<IExtendValue>());
                 }
@@ -221,7 +219,7 @@ namespace J6.Cms.ServiceRepository
 
         public int GetCategoryExtendRefrenceNum(ICategory category, int extendId)
         {
-            return this.extendDAL.GetCategoryExtendRefrenceNum(category.Site.Id, category.Id, extendId);
+            return this._extendDal.GetCategoryExtendRefrenceNum(category.Site.Id, category.Id, extendId);
         }
 
 
@@ -233,7 +231,7 @@ namespace J6.Cms.ServiceRepository
             {
                 extendIds[i++] = field.Id;
             }
-            this.extendDAL.UpdateCategoryExtendsBind(category.Id, extendIds);
+            this._extendDal.UpdateCategoryExtendsBind(category.Id, extendIds);
         }
     }
 }

@@ -744,7 +744,7 @@ namespace J6.Cms.Sql
         public readonly string DataExtend_GetExtendValues = @"
             SELECT v.id as id,relation_id,field_id,f.name as fieldName,field_value
 	        FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
-	        WHERE relation_id=@relationId AND f.site_id=@siteId AND relationType=@relationType";
+	        WHERE relation_id=@relationId AND f.site_id=@siteId AND relation_type=@relationType";
 
         /// <summary>
         /// 获取相关联的数据
@@ -752,12 +752,12 @@ namespace J6.Cms.Sql
         public readonly string DataExtend_GetExtendValuesList = @"
             SELECT v.id as id,relation_id,field_id,f.name as fieldName,field_value
 	        FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
-	        WHERE  relationType=@relationType AND f.site_id=@siteId AND relation_id IN ({0})";
+	        WHERE  relation_type=@relationType AND f.site_id=@siteId AND relation_id IN ({0})";
 
 
         public readonly string DataExtend_ClearupExtendFielValue = @"
                 DELETE FROM $PREFIX_extend_value WHERE /*fieldId=@fieldId AND*/
-                relation_id=@relationId AND relationType=@relationType;";
+                relation_id=@relationId AND relation_type=@relationType;";
 
         /// <summary>
         /// 修改扩展字段值
@@ -765,7 +765,7 @@ namespace J6.Cms.Sql
         //public readonly string DataExtend_UpdateFieldValue = "UPDATE $PREFIX_dataExtendField SET attrVal=@attrVal WHERE attrId=@attrId AND rid=@rid";
         public readonly string DataExtend_InsertOrUpdateFieldValue = @"
                     INSERT INTO $PREFIX_extend_value
-                    (relationId,field_id,field_value,relationType)
+                    (relation_id,field_id,field_value,relation_type)
                     VALUES (@relationId,@fieldId,@fieldValue,@relationType)
                 ";
 
@@ -773,7 +773,7 @@ namespace J6.Cms.Sql
         /// 获取栏目的扩展属性
         /// </summary>
         public readonly string DataExtend_GetCategoryExtendIdList = @"
-                SELECT extend.extendId FROM $PREFIX_category_extend extend
+                SELECT extend.extend_id FROM $PREFIX_category_extend extend
                 INNER JOIN $PREFIX_category c ON c.id=extend.category_id
                 WHERE c.site_id=@siteId AND c.id=@categoryId
                 ";
