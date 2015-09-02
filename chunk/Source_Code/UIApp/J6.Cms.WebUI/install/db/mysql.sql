@@ -96,28 +96,28 @@ INSERT INTO `cms_category` VALUES (1,1,1,'root','根栏目','',1,4,'','','','',0
 UNLOCK TABLES;
 
 --
--- Table structure for table `cms_categoryExtend`
+-- Table structure for table `cms_category_extend`
 --
 
-DROP TABLE IF EXISTS `cms_categoryExtend`;
+DROP TABLE IF EXISTS `cms_category_extend`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cms_categoryExtend` (
+CREATE TABLE `cms_category_extend` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `categoryId` int(11) NOT NULL,
-  `extendId` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `extend_id` int(11) NOT NULL,
   `enabled` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cms_categoryExtend`
+-- Dumping data for table `cms_category_extend`
 --
 
-LOCK TABLES `cms_categoryExtend` WRITE;
-/*!40000 ALTER TABLE `cms_categoryExtend` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cms_categoryExtend` ENABLE KEYS */;
+LOCK TABLES `cms_category_extend` WRITE;
+/*!40000 ALTER TABLE `cms_category_extend` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cms_category_extend` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -175,13 +175,13 @@ LOCK TABLES `cms_credential` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `cms_extendField`
+-- Table structure for table `cms_extend_field`
 --
 
-DROP TABLE IF EXISTS `cms_extendField`;
+DROP TABLE IF EXISTS `cms_extend_field`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cms_extendField` (
+CREATE TABLE `cms_extend_field` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `site_id` int(11) DEFAULT NULL,
   `name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -194,38 +194,38 @@ CREATE TABLE `cms_extendField` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cms_extendField`
+-- Dumping data for table `cms_extend_field`
 --
 
-LOCK TABLES `cms_extendField` WRITE;
-/*!40000 ALTER TABLE `cms_extendField` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cms_extendField` ENABLE KEYS */;
+LOCK TABLES `cms_extend_field` WRITE;
+/*!40000 ALTER TABLE `cms_extend_field` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cms_extend_field` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `cms_extendValue`
+-- Table structure for table `cms_extend_value`
 --
 
-DROP TABLE IF EXISTS `cms_extendValue`;
+DROP TABLE IF EXISTS `cms_extend_value`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cms_extendValue` (
+CREATE TABLE `cms_extend_value` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `relationId` int(11) NOT NULL,
-  `relationType` int(11) NOT NULL,
-  `fieldId` int(11) NOT NULL,
-  `fieldValue` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `relation_id` int(11) NOT NULL,
+  `relation_type` int(11) NOT NULL,
+  `field_id` int(11) NOT NULL,
+  `field_value` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cms_extendValue`
+-- Dumping data for table `cms_extend_value`
 --
 
-LOCK TABLES `cms_extendValue` WRITE;
-/*!40000 ALTER TABLE `cms_extendValue` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cms_extendValue` ENABLE KEYS */;
+LOCK TABLES `cms_extend_value` WRITE;
+/*!40000 ALTER TABLE `cms_extend_value` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cms_extend_value` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

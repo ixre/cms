@@ -170,8 +170,8 @@ namespace J6.Cms.Dal
         public void UpdateCategoryExtendsBind(int categoryId, int[] extendIds)
         {
             SqlQuery[] querys = new SqlQuery[extendIds.Length + 1];
-            const string insertSql = "INSERT INTO $PREFIX_categoryextend (categoryId,extendId,enabled) VALUES (@categoryId, @extendId,1)";
-            const string delSql = "DELETE FROM $PREFIX_categoryextend WHERE categoryId=@categoryId";
+            const string insertSql = "INSERT INTO $PREFIX_category_extend (categoryId,extendId,enabled) VALUES (@categoryId, @extendId,1)";
+            const string delSql = "DELETE FROM $PREFIX_category_extend WHERE categoryId=@categoryId";
 
             querys[0] = SqlQueryHelper.Format(delSql, new object[,]{
                 {"@categoryId",categoryId}

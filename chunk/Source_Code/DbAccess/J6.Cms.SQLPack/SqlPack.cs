@@ -709,25 +709,25 @@ namespace J6.Cms.Sql
         #region 扩展相关
 
         public readonly string DataExtend_CreateField = @"
-                INSERT INTO $PREFIX_extendfield(site_id,name,type,default_value,regex,message)
+                INSERT INTO $PREFIX_extend_field(site_id,name,type,default_value,regex,message)
                 VALUES(@siteId,@name,@type,@defaultValue,@regex,@message)";
 
 
         public readonly string DataExtend_DeleteExtendField =
-                @"DELETE FROM $PREFIX_extendfield WHERE site_id=@siteId AND id=@id";
+                @"DELETE FROM $PREFIX_extend_field WHERE site_id=@siteId AND id=@id";
 
         /// <summary>
         /// 获取分类扩展属性绑定次数
         /// </summary>
         public readonly string DataExtend_GetCategoryExtendRefrenceNum = @"
-                SELECT Count(0) FROM $PREFIX_extendvalue v
+                SELECT Count(0) FROM $PREFIX_extend_value v
                 INNER JOIN $PREFIX_archive a ON v.relationId=a.id
                 INNER JOIN $PREFIX_category c ON c.id=a.cid
-                AND v.relationType=1 AND c.site_id=@siteId AND a.cid=@categoryId AND v.fieldId=@fieldId";
+                AND v.relationType=1 AND c.site_id=@siteId AND a.cid=@categoryId AND v.field_id=@fieldId";
 
 
         public readonly string DataExtend_UpdateField = @"
-                UPDATE $PREFIX_extendfield SET name=@name,type=@type,regex=@regex,
+                UPDATE $PREFIX_extend_field SET name=@name,type=@type,regex=@regex,
                 default_value=@defaultValue,message=@message WHERE id=@id AND site_id=@siteId";
 
 
@@ -736,36 +736,36 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 获取所有的扩展字段
         /// </summary>
-        public readonly string DataExtend_GetAllExtends = @"SELECT * FROM $PREFIX_extendfield";
+        public readonly string DataExtend_GetAllExtends = @"SELECT * FROM $PREFIX_extend_field";
 
         /// <summary>
         /// 获取相关联的数据
         /// </summary>
         public readonly string DataExtend_GetExtendValues = @"
-            SELECT v.id as id,relationId,fieldId,f.name as fieldName,fieldValue
-	        FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
-	        WHERE relationId=@relationId AND f.site_id=@siteId AND relationType=@relationType";
+            SELECT v.id as id,relation_id,field_id,f.name as fieldName,field_value
+	        FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
+	        WHERE relation_id=@relationId AND f.site_id=@siteId AND relationType=@relationType";
 
         /// <summary>
         /// 获取相关联的数据
         /// </summary>
         public readonly string DataExtend_GetExtendValuesList = @"
-            SELECT v.id as id,relationId,fieldId,f.name as fieldName,fieldValue
-	        FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
-	        WHERE  relationType=@relationType AND f.site_id=@siteId AND relationId IN ({0})";
+            SELECT v.id as id,relation_id,field_id,f.name as fieldName,field_value
+	        FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
+	        WHERE  relationType=@relationType AND f.site_id=@siteId AND relation_id IN ({0})";
 
 
         public readonly string DataExtend_ClearupExtendFielValue = @"
-                DELETE FROM $PREFIX_extendvalue WHERE /*fieldId=@fieldId AND*/
-                relationId=@relationId AND relationType=@relationType;";
+                DELETE FROM $PREFIX_extend_value WHERE /*fieldId=@fieldId AND*/
+                relation_id=@relationId AND relationType=@relationType;";
 
         /// <summary>
         /// 修改扩展字段值
         /// </summary>
         //public readonly string DataExtend_UpdateFieldValue = "UPDATE $PREFIX_dataExtendField SET attrVal=@attrVal WHERE attrId=@attrId AND rid=@rid";
         public readonly string DataExtend_InsertOrUpdateFieldValue = @"
-                    INSERT INTO $PREFIX_extendvalue
-                    (relationId,fieldId,fieldValue,relationType)
+                    INSERT INTO $PREFIX_extend_value
+                    (relationId,field_id,field_value,relationType)
                     VALUES (@relationId,@fieldId,@fieldValue,@relationType)
                 ";
 
@@ -773,8 +773,8 @@ namespace J6.Cms.Sql
         /// 获取栏目的扩展属性
         /// </summary>
         public readonly string DataExtend_GetCategoryExtendIdList = @"
-                SELECT extend.extendId FROM $PREFIX_categoryextend extend
-                INNER JOIN $PREFIX_category c ON c.id=extend.categoryId
+                SELECT extend.extendId FROM $PREFIX_category_extend extend
+                INNER JOIN $PREFIX_category c ON c.id=extend.category_id
                 WHERE c.site_id=@siteId AND c.id=@categoryId
                 ";
         #endregion

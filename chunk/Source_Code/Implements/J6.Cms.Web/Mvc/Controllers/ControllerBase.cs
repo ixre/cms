@@ -38,19 +38,15 @@ namespace J6.Cms.Web.Mvc
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
-            if (!Cms.Installed)
-            {
-                requestContext.HttpContext.Response.Redirect("/install/install.html", true);
-                return;
-            }
+            //if (!Cms.Installed) HttpRuntime.UnloadAppDomain();
 
             this.OutputCntext = Cms.Context;
             this.OutputCntext.Source = this;
-            _startTime = new TimeSpan(DateTime.Now.Ticks);
 
 
            // ==========================================//
 
+            _startTime = new TimeSpan(DateTime.Now.Ticks);
             _showDebugInformation = Settings.Opti_Debug;
             if(_showDebugInformation) CmsDataBase.Instance.StartNewTotal();
             //如果自动301

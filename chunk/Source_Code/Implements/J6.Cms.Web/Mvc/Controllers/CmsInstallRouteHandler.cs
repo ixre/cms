@@ -38,7 +38,7 @@ namespace J6.Cms.Web
                 }
                 else
                 {
-                    context.Response.StatusCode = 404;
+                    context.Response.Redirect("/install/install.html");
                 }
             }
         }

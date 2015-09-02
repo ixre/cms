@@ -31,11 +31,12 @@ namespace J6.Cms.Web.Mvc
 	/// </summary>
 	public static class Routes
 	{
-		/// <summary>
-		/// 注册路由
-		/// </summary>
-		/// <param name="routes">路由集合</param>
-		public static void RegisterCmsRoutes(RouteCollection routes, Type cmsHandleType)
+	    /// <summary>
+	    /// 注册路由
+	    /// </summary>
+	    /// <param name="routes">路由集合</param>
+	    /// <param name="cmsHandleType"></param>
+	    private static void RegisterInstalledCmsRoutes(RouteCollection routes, Type cmsHandleType)
 		{
 			//路由前缀，前缀+虚拟路径
 			//string routePrefix = (String.IsNullOrEmpty(prefix) ? "" : prefix + "/")
@@ -64,7 +65,6 @@ namespace J6.Cms.Web.Mvc
 			dict.Add(UrlRulePageKeys.Archive, new string[] { "cms_archive", routePrefix + "{*allhtml}", urlPrefix + "{0}/{1}.html" });
 			dict.Add(UrlRulePageKeys.SinglePage, new string[] { null, null, urlPrefix + "{0}.html" });
 
-
 			//注册插件路由
 			//Cms.Plugins.Extends.MapRoutes(routes);
 			
@@ -72,13 +72,6 @@ namespace J6.Cms.Web.Mvc
 
 
 			#region 设置路由
-
-			
-
-			
-			
-			
-			
 			//获取所有的控制器名称，以"|"排除
 			
 			string controllerArr="Cms_Core";
@@ -234,9 +227,16 @@ namespace J6.Cms.Web.Mvc
 		/// <summary>
 		/// 注册路由
 		/// </summary>
-		public static void RegisterCmsRoutes(RouteCollection routes)
+        public static void RegisterCmsRoutes(RouteCollection routes, Type cmsHandleType)
 		{
-			RegisterCmsRoutes(routes, null);
+		    if (!Cms.Installed)
+		    {
+                //安装路由
+                routes.Add("install_route", new Route("install/process", new CmsInstallRouteHandler()));
+                routes.Add("install_route_redirect", new Route("{*path}", new CmsInstallRouteHandler()));
+		        return;
+		    }
+		    RegisterInstalledCmsRoutes(routes, cmsHandleType);
 		}
 		
 	}

@@ -39,9 +39,9 @@
             get
             {
                 return @"
-                        SELECT v.id as id,fieldId as extendFieldId,f.name as fieldName,fieldValue as extendFieldValue,
-	                    relationId FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
-	                    WHERE relationType=@relationType AND relationId IN (
+                        SELECT v.id as id,field_id as extendFieldId,f.name as fieldName,field_value as extendFieldValue,
+	                    relation_id FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
+	                    WHERE relationType=@relationType AND relation_id IN (
 
                         SELECT TOP {0} $PREFIX_archive.id
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON 
@@ -59,9 +59,9 @@
             get
             {
                 return @"
-                        SELECT v.id as id,fieldId as extendFieldId,f.name as fieldName,fieldValue as extendFieldValue,relationId
-	                    FROM $PREFIX_extendvalue v INNER JOIN $PREFIX_extendfield f ON v.fieldId=f.id
-	                    WHERE relationType=@relationType AND relationId IN (
+                        SELECT v.id as id,field_id as extendFieldId,f.name as fieldName,field_value as extendFieldValue,relation_id
+	                    FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
+	                    WHERE relationType=@relationType AND relation_id IN (
 
                         SELECT TOP {0} $PREFIX_archive.id FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
