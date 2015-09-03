@@ -28,7 +28,7 @@ namespace J6.Cms.Domain.Interface.Site
         /// <summary>
         /// 站点名称
         /// </summary>
-        string Name { get; }
+        string Name { get; set; }
 
 
         /// <summary>

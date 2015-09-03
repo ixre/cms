@@ -55,7 +55,7 @@ namespace J6.Cms.Service
         }
 
 
-        public IList<DataTransfer.SiteDto> GetSites()
+        public IList<SiteDto> GetSites()
         {
             IList<SiteDto> siteDtos = new List<SiteDto>();
             IList<ISite> sites = _resp.GetSites();
@@ -293,7 +293,6 @@ namespace J6.Cms.Service
 
         public string GetCategorySitemapHtml(int siteId, string categoryTag, string split, string linkFormat)
         {
-            string categoryPath = null;
             ISite site = this._resp.GetSiteById(siteId);
             int rootLft =  site.RootCategory.Lft;
             ICategory category = site.GetCategoryByTag(categoryTag);

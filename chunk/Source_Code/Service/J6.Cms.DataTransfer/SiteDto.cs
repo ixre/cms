@@ -60,6 +60,7 @@ namespace J6.Cms.DataTransfer
 
         public static ISite CopyTo(SiteDto dto, ISite site)
         {
+            site.Name = dto.Name;
             site.ProAddress = dto.ProAddress;
             site.DirName = dto.DirName;
             site.Domain = dto.Domain;

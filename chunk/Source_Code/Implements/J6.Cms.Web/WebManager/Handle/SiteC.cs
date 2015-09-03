@@ -111,6 +111,7 @@ namespace J6.Cms.Web.WebManager.Handle
             }
             else
             {
+                entity.SiteId = 0;
                 ServiceCall.Instance.SiteService.SaveSite(entity);
                 base.RenderSuccess("站点创建成功!");
             }

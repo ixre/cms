@@ -68,7 +68,7 @@ namespace J6.Cms.Domain.Implement.Site
         /// <summary>
         /// 站点名称
         /// </summary>
-       public string Name { get; private set; }
+       public string Name { get; set; }
 
 
         /// <summary>
