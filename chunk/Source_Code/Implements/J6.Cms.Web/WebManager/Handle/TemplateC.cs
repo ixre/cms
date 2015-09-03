@@ -17,7 +17,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using J6.Cms.CacheService;
 using J6.Cms.DataTransfer;
-using J6.Cms.Domain.Interface.User;
 using J6.Cms.Template;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
@@ -420,16 +419,15 @@ namespace J6.Cms.Web.WebManager.Handle
         }
 
         /// <summary>
-        /// 解压模板文件
+        /// 解压上传模板文件
         /// </summary>
-        /// <param name="form"></param>
         /// <returns></returns>
-        public void ExtractZip_POST()
+        public void UploadInstall_POST()
         {
             string tplRootPath =String.Format("{0}templates/",AppDomain.CurrentDomain.BaseDirectory);
             string tempTplPath = tplRootPath + "~.tpl";
-            const string jsTip = "<script>window.parent.uploadTip('{0}')</script>";
-            string resultMessage = String.Empty;
+            const string jsTip = "{msg:'{0}'}";
+            string resultMessage;
 
             /*
             Stream upStrm = Request.Files[0].InputStream;
