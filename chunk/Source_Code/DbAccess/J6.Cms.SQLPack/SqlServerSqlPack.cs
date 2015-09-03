@@ -24,13 +24,12 @@ namespace J6.Cms.Sql
         {
             get
             {
-                return @"SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
+                return @"SELECT * FROM (SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
                     $PREFIX_archive.id,str_id,[alias],cid,title,$PREFIX_archive.location,[flags],[Outline],publisher_id,tags,source,
                         thumbnail,[Content],lastmodifydate,[CreateDate],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cid]
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND (lft>=@lft AND rgt<=@rgt) 
-                         AND $PREFIX_category.site_id=@siteId  AND rowNum BETWEEN {0} AND {0}+{1}
-                        ORDER BY $PREFIX_archive.sort_number DESC";
+                         AND $PREFIX_category.site_id=@siteId) t  WHERE rowNum BETWEEN {0} AND {0}+{1}";
             }
         }
         public override string Archive_GetSelfAndChildArchiveExtendValues
@@ -44,7 +43,7 @@ namespace J6.Cms.Sql
                         SELECT id FROM (SELECT $PREFIX_archive.id, ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE  (lft>=@lft AND rgt<=@rgt)  AND " + SqlConst.Archive_NotSystemAndHidden
-                        + @" AND rowNum BETWEEN {0} AND {1}+{0})t )";
+                        + @") t  WHERE rowNum BETWEEN {0} AND {1}+{0})";
             }
         }
 
@@ -59,7 +58,7 @@ namespace J6.Cms.Sql
                         SELECT id FROM (SELECT $PREFIX_archive.id, ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
                         WHERE tag=@Tag AND " + SqlConst.Archive_NotSystemAndHidden
-                        + @" AND rowNum BETWEEN {0} AND {1}+{0})t)";
+                        + @")t  WHERE rowNum BETWEEN {0} AND {1}+{0})";
             }
         }
 
@@ -67,13 +66,12 @@ namespace J6.Cms.Sql
         {
             get
             {
-                return @"SELECT  ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
+                return @"SELECT * FROM (SELECT  ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
                         $PREFIX_archive.id,str_id,[alias],cid,flags,title,$PREFIX_archive.location,
                         outline,thumbnail,publisher_id,lastmodifydate,source,tags,
                         [content],view_count,[createdate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.cid WHERE site_id=@siteId AND  tag=@tag AND " +
-                        SqlConst.Archive_NotSystemAndHidden + @"
-                         AND rowNum BETWEEN {0} AND {1}+{0} ORDER BY $PREFIX_archive.sort_number DESC";
+                        SqlConst.Archive_NotSystemAndHidden + @") t WHERE rowNum BETWEEN {0} AND {1}+{0}";
             }
         }
 

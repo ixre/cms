@@ -313,7 +313,6 @@ namespace J6.Cms.Dal
         /// <summary>
         /// 获取指定数量和模块的特殊文章
         /// </summary>
-        /// <param name="c"></param>
         /// <param name="siteId"></param>
         /// <param name="moduleId"></param>
         /// <param name="number"></param>
@@ -606,6 +605,7 @@ namespace J6.Cms.Dal
         /// <summary>
         /// 搜索关键词相关的内容
         /// </summary>
+        /// <param name="siteId"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
         /// <param name="currentPageIndex"></param>
@@ -862,6 +862,8 @@ namespace J6.Cms.Dal
                      }), func
                );
             */
+
+           // throw new Exception( String.Format(DbSql.Archive_GetSelfAndChildArchiveExtendValues,skipSize.ToString(),number.ToString()));
             base.ExecuteReader(
                 SqlQueryHelper.Format(DbSql.Archive_GetSelfAndChildArchiveExtendValues,
                  new object[,]{
