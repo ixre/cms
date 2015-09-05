@@ -26,22 +26,22 @@ namespace J6.Cms.Cache.CacheCompoment
     /// </summary>
     public class CmsDependCache : CmsCacheBase
     {
-        private static readonly string cacheDependFile;
+        private readonly string _cacheDependFile;
 
-        internal CmsDependCache() { }
-        static CmsDependCache()
+        internal CmsDependCache()
         {
-            cacheDependFile = Variables.PhysicPath + "config/cache.pid";
+            _cacheDependFile = Variables.PhysicPath + "config/cache.pid";
         }
+
 
         public override void Insert(string key, object value, DateTime absoluteExpireTime)
         {
-            HttpRuntime.Cache.Insert(key, value, new CacheDependency(cacheDependFile), absoluteExpireTime, TimeSpan.Zero);
+            HttpRuntime.Cache.Insert(key, value, new CacheDependency(_cacheDependFile), absoluteExpireTime, TimeSpan.Zero);
         }
 
         public override void Insert(string key, object value)
         {
-            HttpRuntime.Cache.Insert(key, value, new CacheDependency(cacheDependFile),
+            HttpRuntime.Cache.Insert(key, value, new CacheDependency(_cacheDependFile),
                 System.Web.Caching.Cache.NoAbsoluteExpiration,
                 System.Web.Caching.Cache.NoSlidingExpiration);
         }
@@ -57,7 +57,7 @@ namespace J6.Cms.Cache.CacheCompoment
                 Directory.CreateDirectory(String.Concat(Variables.PhysicPath, "config/")).Create();
             }
 
-            using (FileStream fs = new FileStream(cacheDependFile, FileMode.OpenOrCreate, FileAccess.Write))
+            using (FileStream fs = new FileStream(_cacheDependFile, FileMode.OpenOrCreate, FileAccess.Write))
             {
                 byte[] pid = Encoding.UTF8.GetBytes(new Random().Next(1000, 5000).ToString());
                 fs.Seek(0, SeekOrigin.Begin);
@@ -65,7 +65,7 @@ namespace J6.Cms.Cache.CacheCompoment
                 fs.Flush();
             }
 
-            return  IoUtil.GetFileSHA1(cacheDependFile);
+            return  IoUtil.GetFileSHA1(_cacheDependFile);
             
             //FileInfo file = new FileInfo(cacheDependFile);
             //file.LastWriteTimeUtc = DateTime.UtcNow;

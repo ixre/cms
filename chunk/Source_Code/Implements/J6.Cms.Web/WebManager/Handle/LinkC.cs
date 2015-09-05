@@ -517,18 +517,18 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderSuccess();
         }
 
-        private string GetCategorySelector(int siteID, int categoryID)
+        private string GetCategorySelector(int siteId, int categoryId)
         {
             StringBuilder sb = new StringBuilder();
 
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (_category, level) =>
+            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level) =>
             {
-                if (_category.Site.Id != siteID) return;
+                if (c.Site.Id != siteId) return;
 
-                sb.Append("<option value=\"").Append(_category.Id.ToString()).Append("\"");
+                sb.Append("<option value=\"").Append(c.Id.ToString()).Append("\"");
 
 
-                sb.Append(_category.Id == categoryID ? " selected=\"selected\"" : "").Append(">");
+                sb.Append(c.Id == categoryId ? " selected=\"selected\"" : "").Append(">");
 
 
                 for (int i = 0; i < level; i++)
@@ -536,7 +536,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     sb.Append(CmsCharMap.Dot);
                 }
 
-                sb.Append(_category.Name).Append("</option>");
+                sb.Append(c.Name).Append("</option>");
 
             });
             return sb.ToString();

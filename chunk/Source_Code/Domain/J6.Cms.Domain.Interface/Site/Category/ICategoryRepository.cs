@@ -13,6 +13,13 @@ namespace J6.Cms.Domain.Interface.Site.Category
         ICategory GetCategoryById(int categoryId);
 
         /// <summary>
+        /// 获取最大的栏目编号
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        int GetNewCategoryId(int siteId);
+
+        /// <summary>
         /// 根据SiteId和tag获取栏目编号
         /// </summary>
         /// <param name="siteId"></param>

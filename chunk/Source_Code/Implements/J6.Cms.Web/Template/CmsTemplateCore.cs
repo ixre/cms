@@ -1091,15 +1091,6 @@ namespace J6.Cms.Template
                 isLast = current == _total - 1;
                 String clsName = "";
 
-                //                if (selected == current)
-                //                {
-                //                    sb2.Append(isLast ? "<li class=\"current last\">" : "<li class=\"current\">");
-                //                }
-                //                else
-                //                {
-                //                    sb2.Append(isLast ? "<li class=\"last\">" : "<li>");
-                //                }
-
                 if (childCount != 0)
                 {
                     clsName = "parent ";
@@ -1113,6 +1104,10 @@ namespace J6.Cms.Template
                 if (isLast)
                 {
                     clsName = String.Concat(clsName, "last ");
+                }
+                else if (current == 0)
+                {
+                    clsName = String.Concat(clsName, "first "); ;
                 }
 
                 sb2.Append(clsName.Length == 0 ? "<li>" : "<li class=\"" + clsName + "\">");
@@ -1160,7 +1155,7 @@ namespace J6.Cms.Template
                     if ((cTotal = childs.Count) != 0)
                     {
                         phtml = phtml.Replace("</li>",
-                            String.Format("<div id=\"{0}_child{1}\" class=\"child child{1}\"><div class=\"box clear\">" +
+                            String.Format("<div id=\"{0}_child{1}\" class=\"child child{1}\"><div class=\"top\"></div><div class=\"box\">" +
                                           "<ul class=\"menu\">",
                             links[i].Type.ToString().ToLower(),
                             links[i].Id.ToString())

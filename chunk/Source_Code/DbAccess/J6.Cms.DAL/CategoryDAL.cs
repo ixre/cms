@@ -8,6 +8,7 @@
 // 2011/02/20  newmin:修改GetJson(CategoryType type)生成的json多了','的Bug
 //
 
+using System;
 using J6.DevFw.Data;
 
 namespace J6.Cms.Dal
@@ -26,7 +27,7 @@ namespace J6.Cms.Dal
         /// <summary>
         /// 更新栏目
         /// </summary>
-        public bool Update(int id,int siteId,int moduleId, string name, 
+        public bool Update(int id,int siteId,string name, 
             string tag,string icon, string pagetitle, string keywords, 
             string description,string location, int orderIndex)
         {
@@ -34,7 +35,6 @@ namespace J6.Cms.Dal
                 SqlQueryHelper.Create(DbSql.CategoryUpdate,
                     new object[,]{
                 {"@siteId", siteId},
-                {"@moduleId", moduleId},
                {"@name", name},
                 {"@tag", tag},
                 {"@icon", icon},
@@ -47,7 +47,7 @@ namespace J6.Cms.Dal
                     })) == 1;
         }
 
-        public int Insert(int siteId,int left, int right, int moduleID, 
+        public int Insert(int siteId,int categoryId,int left, int right, 
             string name, string tag, string icon,string pagetitle, 
             string keywords, string description,
             string location, int orderIndex
@@ -58,9 +58,9 @@ namespace J6.Cms.Dal
                 SqlQueryHelper.Create(DbSql.CategoryInsert,
                     new object[,]{
                 {"@siteId",siteId},
+                {"@categoryId",categoryId},
                 {"@lft", left},
                 {"@rgt", right},
-                {"@moduleId", moduleID},
                {"@name", name},
                  {"@tag", tag},
                  {"@icon", icon},
@@ -82,7 +82,6 @@ namespace J6.Cms.Dal
         /// <summary>
         /// 删除栏目包含子栏目
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         public bool DeleteSelfAndChildCategoy(int siteId, int lft,int rgt)
         {
@@ -210,5 +209,12 @@ namespace J6.Cms.Dal
                    })).ToString());
 
        }
+
+        public int GetMaxCategoryId(int siteId)
+        {
+            const string sql = "SELECT MAX(id) FROM $PREFIX_category WHERE site_id={0}";
+            SqlQuery query = new SqlQuery(base.OptimizeSql(String.Format(sql, siteId.ToString())));
+            return int.Parse(base.ExecuteScalar(query).ToString());
+        }
     }
 }

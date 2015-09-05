@@ -229,7 +229,7 @@ namespace J6.Cms.Dal
         public void GetArchivesByModuleId(int siteId, int moduleId, int number, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(String.Format(DbSql.Archive_GetArchivesByModuleID, number)),
+                new SqlQuery(base.OptimizeSql(String.Format(DbSql.Archive_GetArchivesByModuleId, number)),
                  new object[,]{
                 {"@siteId",siteId},
                 {"@ModuleId", moduleId}

@@ -62,16 +62,16 @@ namespace J6.Cms.DataTransfer
         {
             site.Name = dto.Name;
             site.ProAddress = dto.ProAddress;
-            site.DirName = dto.DirName;
-            site.Domain = dto.Domain;
-            site.Location = dto.Location;
+            site.DirName = dto.DirName.Trim();
+            site.Domain = dto.Domain.Trim();
+            site.Location = dto.Location.Trim();
             site.ProEmail = dto.ProEmail;
-            site.ProFax = dto.ProFax;
+            site.ProFax = dto.ProFax.Trim();
             site.Language = dto.Language;
-            site.ProPost = dto.ProPost;
-            site.Note = dto.Note;
-            site.ProNotice = dto.ProNotice;
-            site.ProPhone = dto.ProPhone;
+            site.ProPost = dto.ProPost.Trim();
+            site.Note = dto.Note.Trim();
+            site.ProNotice = dto.ProNotice.Trim();
+            site.ProPhone = dto.ProPhone.Trim();
             site.ProIm = dto.ProIm;
             site.SeoDescription = dto.SeoDescription;
             site.SeoKeywords = dto.SeoKeywords;

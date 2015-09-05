@@ -75,7 +75,7 @@ namespace J6.Cms.Sql
             }
         }
 
-        public override string Archive_GetArchivesByModuleID
+        public override string Archive_GetArchivesByModuleId
         {
             get
             {

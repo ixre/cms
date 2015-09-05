@@ -115,7 +115,7 @@ namespace J6.Cms.Sql
         /// <summary>
         /// 根据模块编号获取文档
         /// </summary>
-        public abstract string Archive_GetArchivesByModuleID { get; }
+        public abstract string Archive_GetArchivesByModuleId { get; }
 
         /// <summary>
         /// 获取指定栏目浏览最多的文档
@@ -281,7 +281,7 @@ namespace J6.Cms.Sql
         /// </summary>
         public readonly string CategoryUpdate = @"
                     UPDATE $PREFIX_category SET /*lft=@lft,rgt=@rgt,*/
-                    moduleid=@moduleID,name=@name,tag=@tag,icon=@icon,page_title=@pagetitle,
+                    name=@name,tag=@tag,icon=@icon,page_title=@pagetitle,
                     page_keywords=@keywords,page_description=@description,location=@location,
                     sort_number=@sortNumber WHERE id=@id";
 
@@ -289,9 +289,9 @@ namespace J6.Cms.Sql
         /// 添加栏目
         /// </summary>
         public readonly string CategoryInsert = @"
-                    INSERT INTO $PREFIX_category(site_id,lft,rgt,moduleid,
-                    name,tag,icon,page_title,page_keywords,page_description,location,sort_number)
-                    VALUES (@siteId,@lft,@rgt,@moduleID,@name,@tag,@icon,@pagetitle,
+                    INSERT INTO $PREFIX_category(site_id,lft,rgt,name,tag,icon,page_title,
+                    page_keywords,page_description,location,sort_number)
+                    VALUES (@siteId,@lft,@rgt,@name,@tag,@icon,@pagetitle,
                     @keywords,@description,@location,@sortNumber)";
 
         /// <summary>
@@ -721,9 +721,9 @@ namespace J6.Cms.Sql
         /// </summary>
         public readonly string DataExtend_GetCategoryExtendRefrenceNum = @"
                 SELECT Count(0) FROM $PREFIX_extend_value v
-                INNER JOIN $PREFIX_archive a ON v.relationId=a.id
+                INNER JOIN $PREFIX_archive a ON v.relation_id=a.id
                 INNER JOIN $PREFIX_category c ON c.id=a.cid
-                AND v.relationType=1 AND c.site_id=@siteId AND a.cid=@categoryId AND v.field_id=@fieldId";
+                AND v.relation_type=1 AND c.site_id=@siteId AND a.cid=@categoryId AND v.field_id=@fieldId";
 
 
         public readonly string DataExtend_UpdateField = @"

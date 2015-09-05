@@ -54,20 +54,11 @@ namespace J6.Cms.ServiceRepository
         {
             if (site.Id == 0)
             {
-                //
-                //NOTO:创建站点时应创建一个ROOT栏目节点
-                //
-
                 int siteId=siteDal.CreateSite(site);
-                if (siteId==-1)
+               int  rootCategoryId = this._categoryRep.GetNewCategoryId(siteId);
+                if (siteId!=-1 && siteDal.InitRootCategory(siteId,rootCategoryId))
                 {
                     throw new ArgumentException("创建站点失败");
-                }
-                else
-                {
-                    //清理缓存
-                    RepositoryDataCache._siteDict = null;
-                    RepositoryDataCache._categories = null;
                 }
             }
             else
@@ -76,11 +67,12 @@ namespace J6.Cms.ServiceRepository
                 {
                     throw new ArgumentException("站点不存在，保存失败");
                 }
-
-                //清理缓存
-                RepositoryDataCache._siteDict = null;
-                RepositoryDataCache._categories = null;
             }
+
+
+            //清理缓存
+            RepositoryDataCache._siteDict = null;
+            RepositoryDataCache._categories = null;
 
             return site.Id;
         }
@@ -154,26 +146,27 @@ namespace J6.Cms.ServiceRepository
         {
             ISite site = null;
             IList<ISite> sites = GetSiteByUri(uri, ref site);
-            if (site == null)
+            if (site != null)
             {
-                if (sites.Count == 0) throw new Exception("Missing site");
-
-                //获取host和dir均为空的站点
-                foreach (ISite _site in sites)
-                {
-                    //if (_site.Id == 7)
-                    //{
-                     //   return _site;
-                    //}
-                    if (_site.Domain == "" && _site.DirName == "")
-                    {
-                        return _site;
-                    }
-                }
-
-                return sites[0];
+                return site;
             }
-            return site;
+
+            if (sites.Count == 0) throw new Exception("Missing site");
+
+            //获取host和dir均为空的站点
+            foreach (ISite _site in sites)
+            {
+                //if (_site.Id == 7)
+                //{
+                //   return _site;
+                //}
+                if (_site.Domain == "" && _site.DirName == "")
+                {
+                    return _site;
+                }
+            }
+
+            return sites[0];
         }
 
         private IList<ISite> GetSiteByUri(Uri uri, ref ISite site)

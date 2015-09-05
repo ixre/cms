@@ -80,7 +80,7 @@
             }
         }
 
-        public override string Archive_GetArchivesByModuleID
+        public override string Archive_GetArchivesByModuleId
         {
             get
             {

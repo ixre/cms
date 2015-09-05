@@ -63,8 +63,8 @@ namespace J6.Cms.Cache.CacheCompoment
             {
                 foreach (DictionaryEntry dict in HttpRuntime.Cache)
                 {
-                    if (dict.Key.ToString().IndexOf(keySign, StringComparison.Ordinal) != -1)
-                        HttpRuntime.Cache.Remove(dict.Key.ToString());
+                    String key = dict.Key.ToString();
+                    if (key.StartsWith(keySign))  HttpRuntime.Cache.Remove(key);
                 }
             }
         }

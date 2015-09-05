@@ -236,9 +236,11 @@ namespace J6.Cms.ServiceRepository
                 //更新
                 categoryDal.UpdateInsertLftRgt(siteId, parentLft);
 
+                int categoryId = this.GetNewCategoryId(category.Site.Id);
+
                 category.Id = categoryDal.Insert(siteId,
+                    categoryId,
                      parentLft + 1, parentLft + 2,
-                     category.ModuleId,
                      category.Name,
                      category.Tag,
                      category.Icon,
@@ -286,7 +288,6 @@ namespace J6.Cms.ServiceRepository
 
                 //更新
                 categoryDal.Update(category.Id, siteId,
-                    category.ModuleId,
                     category.Name,
                     category.Tag,
                     category.Icon,
@@ -489,6 +490,22 @@ namespace J6.Cms.ServiceRepository
             RepositoryDataCache._categories = null;
 
             return category.Id;
+        }
+
+        /// <summary>
+        /// 获取最大的栏目编号
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        public int GetNewCategoryId(int siteId)
+        {
+            //根据站点编号 * 200 递增，为了更好的将各个站点数据分离开
+            int categoryId = this.categoryDal.GetMaxCategoryId(siteId);
+            if (categoryId == 0)
+            {
+                return siteId*200;
+            }
+            return categoryId + 1;
         }
 
 
