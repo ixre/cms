@@ -56,7 +56,7 @@ namespace J6.Cms.ServiceRepository
             {
                 int siteId=siteDal.CreateSite(site);
                int  rootCategoryId = this._categoryRep.GetNewCategoryId(siteId);
-                if (siteId!=-1 && siteDal.InitRootCategory(siteId,rootCategoryId))
+                if (!(siteId !=-1 && siteDal.InitRootCategory(siteId,rootCategoryId)))
                 {
                     throw new ArgumentException("创建站点失败");
                 }

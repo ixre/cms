@@ -57,8 +57,8 @@ namespace J6.Cms.Dal
             base.ExecuteNonQuery(
                 SqlQueryHelper.Create(DbSql.CategoryInsert,
                     new object[,]{
-                {"@siteId",siteId},
                 {"@categoryId",categoryId},
+                {"@siteId",siteId},
                 {"@lft", left},
                 {"@rgt", right},
                {"@name", name},

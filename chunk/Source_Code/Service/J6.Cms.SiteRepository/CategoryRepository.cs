@@ -150,21 +150,21 @@ namespace J6.Cms.ServiceRepository
 
         public int GetCategoryLftByTag(int siteId, string tag)
         {
-            if (RepositoryDataCache._categories == null)
-            {
-                GetCategoryDictionary();
-            }
+            this.ChkPreload();
             string key =  String.Format("{0}:cache:t:lft:{1}", siteId.ToString(), tag);
             return Kvdb.GetInt(key);
         }
 
-        public int GetCategoryLftById(int siteId, int id)
+        private void ChkPreload()
         {
             if (RepositoryDataCache._categories == null)
             {
                 GetCategoryDictionary();
             }
-          
+        }
+
+        public int GetCategoryLftById(int siteId, int id)
+        {
             //添加ID映射
             string key = String.Format("{0}:cache:id:lft:{1}", siteId.ToString(), id.ToString());
             return Kvdb.GetInt(key);
@@ -236,7 +236,7 @@ namespace J6.Cms.ServiceRepository
                 //更新
                 categoryDal.UpdateInsertLftRgt(siteId, parentLft);
 
-                int categoryId = this.GetNewCategoryId(category.Site.Id);
+                int categoryId = this.GetNewCategoryId(siteId);
 
                 category.Id = categoryDal.Insert(siteId,
                     categoryId,
@@ -512,10 +512,9 @@ namespace J6.Cms.ServiceRepository
         public ICategory GetCategoryById(int categoryId)
         {
             IList<ISite> sites = this._siteRep.GetSites();
-            ICategory category;
             foreach (ISite site in sites)
             {
-                category = this.GetCategoryById(site.Id, categoryId);
+                var category = this.GetCategoryById(site.Id, categoryId);
                 if (category != null) return category;
             }
             return null;

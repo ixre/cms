@@ -100,6 +100,7 @@ namespace J6.Cms.Conf
         /// <summary>
         /// 多模板公享模式
         /// </summary>
+        [Obsolete]
         public static bool TPL_MultMode = false;
 
         #endregion

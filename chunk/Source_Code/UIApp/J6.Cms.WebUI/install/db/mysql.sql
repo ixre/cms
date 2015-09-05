@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS `cms_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `site_id` int(11) DEFAULT '1',
   `moduleid` int(11) NOT NULL,
   `tag` varchar(100) DEFAULT NULL,

@@ -201,10 +201,10 @@ namespace J6.Cms.WebManager
         /// <param name="dir"></param>
         /// <param name="sb"></param>
         /// <param name="pageType"></param>
-       public static void EachTemplatePage(DirectoryInfo dir, StringBuilder sb, params TemplatePageType[] pageType)
+       public static void EachTemplatePage(DirectoryInfo rootDir, DirectoryInfo dir, StringBuilder sb, params TemplatePageType[] pageType)
        {
            if(!dir.Exists|| dir.Name == ".backup")return;
-           int rootDirLength = (Cms.PyhicPath + "templates/").Length;
+           int rootDirLength =rootDir.FullName.Length;
            
            string path;
            foreach (FileInfo file in dir.GetFiles())
@@ -215,8 +215,7 @@ namespace J6.Cms.WebManager
                    && (Settings.TPL_MultMode || !Cms.Template.IsSystemTemplate(file.Name))          //独享模式不显示系统模板
                    )
                {
-                   sb.Append("<option value=\"templates/");
-
+                   sb.Append("<option value=\"");
                    path = file.FullName.Substring(rootDirLength).Replace("\\", "/");
                    sb.Append(path).Append("\">/").Append(path).Append("</option>");
 
@@ -236,7 +235,7 @@ namespace J6.Cms.WebManager
 
            foreach (DirectoryInfo _dir in dir.GetDirectories())
            {
-               EachTemplatePage(_dir, sb, pageType);
+               EachTemplatePage(rootDir,_dir, sb, pageType);
            }
        }
     }

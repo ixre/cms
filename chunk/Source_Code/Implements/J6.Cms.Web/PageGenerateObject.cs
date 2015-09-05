@@ -40,26 +40,28 @@ namespace J6.Cms.Web
 
         public virtual string GetTemplateId(string tplPath)
         {
-            const string pattern = "^\\/*templates\\/(?<id>.+?)\\.html$";
-            //const string pattern="^templates\\/(?<id>[^\\.]+)\\.[a-z]+$";
+            const string pattern = "^\\/*templates\\/(?<id>.+?)\\.h*tml$";
             Match m = Regex.Match(tplPath, pattern);
             return m.Groups[1].Value;
         }
 
         /// <summary>
-        /// 获取栏目的模板ID
+        /// 获取栏目的模板Id
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
         public virtual string GetCategoryTemplateId(CategoryDto category)
         {
-            //Module m = CmsLogic.Module.GetModule(category.ModuleID);
-            //if (m != null)
-            //{ //}
-
             if (category.CategoryTemplate!=null)
             {
-                return "/"+this.GetTemplateId(category.CategoryTemplate);
+                if (category.CategoryTemplate.StartsWith("templates"))
+                {
+                    return "/" + this.GetTemplateId(category.CategoryTemplate);
+                }
+                else
+                {
+                    return this.FormatTemplatePath(category.CategoryTemplate.Replace(".tml", "").Replace(".html", ""));
+                }
             }
             //设置默认的模板
             return this.FormatTemplatePath("category");
@@ -97,7 +99,16 @@ namespace J6.Cms.Web
 
             if (archive.TemplatePath!=null)
             {
-                return "/" + this.GetTemplateId(archive.TemplatePath);
+                //return "/" + this.GetTemplateId(archive.TemplatePath);
+                if (archive.TemplatePath.StartsWith("templates"))
+                {
+                    return "/" + this.GetTemplateId(archive.TemplatePath);
+                }
+                else
+                {
+                    return this.FormatTemplatePath(archive.TemplatePath.Replace(".tml", "").Replace(".html", ""));
+                }
+
             }
             //设置默认的模板
             return this.FormatTemplatePath("archive");

@@ -221,36 +221,36 @@ namespace J6.Cms.Template
 
         protected string PopPagerKey()
         {
-            int _pagerNumber = 0;
+            int pagerNumber = 0;
             object pagerNum = Cms.Context.Items["pagerNumber"];
             if (pagerNum == null)
             {
-                _pagerNumber = 0;
+                pagerNumber = 0;
             }
             else
             {
-                int.TryParse(pagerNum.ToString(), out _pagerNumber);
-                --_pagerNumber;
+                int.TryParse(pagerNum.ToString(), out pagerNumber);
+                --pagerNumber;
             }
-            Cms.Context.Items["pagerNumber"] = _pagerNumber;
-            return String.Format("pager_{0}", (_pagerNumber + 1).ToString());
+            Cms.Context.Items["pagerNumber"] = pagerNumber;
+            return String.Format("pager_{0}", (pagerNumber + 1).ToString());
         }
 
         protected string PushPagerKey()
         {
-            int _pagerNumber = 0;
+            int pagerNumber = 0;
             object pagerNum = Cms.Context.Items["pagerNumber"];
             if (pagerNum == null)
             {
-                _pagerNumber = 1;
+                pagerNumber = 1;
             }
             else
             {
-                int.TryParse(pagerNum.ToString(), out _pagerNumber);
-                ++_pagerNumber;
+                int.TryParse(pagerNum.ToString(), out pagerNumber);
+                ++pagerNumber;
             }
-            Cms.Context.Items["pagerNumber"] = _pagerNumber;
-            return String.Format("pager_{0}", _pagerNumber.ToString());
+            Cms.Context.Items["pagerNumber"] = pagerNumber;
+            return String.Format("pager_{0}", pagerNumber.ToString());
         }
 
         #endregion
@@ -989,7 +989,6 @@ namespace J6.Cms.Template
         [ContainSetting]
         protected string Sitemap(string categoryTag)
         {
-
             string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category, siteId.ToString(), categoryTag);
             return Cms.Cache.GetCachedResult(cacheKey, () =>
             {
@@ -1364,9 +1363,9 @@ namespace J6.Cms.Template
             return sb.ToString();
         }
 
-        protected void FormatArchive(StringBuilder sb, ArchiveDto archive, ref string format, IEnumerable<ArchiveDto> dt, int index)
+        protected void FormatArchive(StringBuilder sb, ArchiveDto archiveDto, ref string format, IEnumerable<ArchiveDto> dt, int index)
         {
-            string id = string.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias;
+            string id = string.IsNullOrEmpty(archiveDto.Alias) ? archiveDto.StrId : archiveDto.Alias;
 
             //读取自定义扩展数据字段
             IDictionary<string, string> extendFields = null;
@@ -1376,41 +1375,42 @@ namespace J6.Cms.Template
                 {
                     switch (field)
                     {
-                        case "title": return archive.Title;
-                        case "small_title": return archive.SmallTitle;
-                        case "special_title": return !ArchiveFlag.GetFlag(archive.Flags, BuiltInArchiveFlags.IsSpecial) ?
-                             archive.Title : "<span class=\"special\">" + archive.Title + "</span>";
+                        case "title": return archiveDto.Title;
+                        case "small_title": return archiveDto.SmallTitle;
+                        case "special_title": return !ArchiveFlag.GetFlag(archiveDto.Flags, BuiltInArchiveFlags.IsSpecial) ?
+                             archiveDto.Title : "<span class=\"special\">" + archiveDto.Title + "</span>";
 
-                        case "publisher_id": return archive.PublisherId.ToString();
+                        case "publisher_id": return archiveDto.PublisherId.ToString();
 
                         //
                         //TODO:Archive应持有一个author
                         //
                         //case "authorname": return ArchiveUtility.GetAuthorName(dr["author"].ToString());
-                        case "source": return archive.Source == "" ? "原创" : archive.Source;
+                        case "source": return archiveDto.Source == "" ? "原创" : archiveDto.Source;
                         case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
-                             archive.Outline,
-                             archive.Content,
+                             archiveDto.Outline,
+                             archiveDto.Content,
                              this.TplSetting.CFG_OutlineLength);
-                        case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archive.Outline) ? archive.Content : archive.Outline, this.TplSetting.CFG_OutlineLength);
-                        case "initid": return archive.Id.ToString();
+                        case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline, this.TplSetting.CFG_OutlineLength);
+                        case "initid": return archiveDto.Id.ToString();
                         case "id": return id;      //用于链接的ID标识
-                        case "tags": return archive.Tags;
-                        case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archive.StrId).ToString();
-                        case "count": return archive.ViewCount.ToString();
+                        case "tags": return archiveDto.Tags;
+                        case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archiveDto.StrId).ToString();
+                        case "count": return archiveDto.ViewCount.ToString();
 
                         //时间
-                        case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archive.LastModifyDate);
-                        case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
-                        case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archive.CreateDate);
-                        case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
+                        case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.LastModifyDate);
+                        case "modify_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.LastModifyDate);
+                        case "modify_sdate": return String.Format("{0:MM-dd}", archiveDto.LastModifyDate);
+                        case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.CreateDate);
+                        case "create_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.CreateDate);
 
                         //栏目
                         // case "categoryid":
                         // case "cid": return archive.Category.ID.ToString();
-                        case "category_name": return archive.Category.Name;
-                        case "category_tag": return archive.Category.Tag;
-                        case "category_url": return this.GetCategoryUrl(archive.Category, 1);
+                        case "category_name": return archiveDto.Category.Name;
+                        case "category_tag": return archiveDto.Category.Tag;
+                        case "category_url": return this.GetCategoryUrl(archiveDto.Category, 1);
 
 
                         //
@@ -1418,31 +1418,31 @@ namespace J6.Cms.Template
                         //
                         //链接
                         case "url":
-                            return GetArchiveUrl(archive.Location, archive.Flags, archive.Category, id);
+                            return GetArchiveUrl(archiveDto.Location, archiveDto.Flags, archiveDto.Category, id);
 
                         //内容
-                        case "content": return archive.Content;
+                        case "content": return archiveDto.Content;
 
                         //压缩过的内容
                         case "content2":
-                            return Regex.Replace(archive.Content, "\\r|\\t|\\s\\s", String.Empty);
+                            return Regex.Replace(archiveDto.Content, "\\r|\\t|\\s\\s", String.Empty);
 
                         //图片元素
                         case "img":
-                            string url = this.GetThumbnailUrl(archive.Thumbnail);
-                            return String.IsNullOrEmpty(url) ? "" : String.Format("<img class=\"thumb thumbnail\" src=\"{0}\" alt=\"{1}\"/>", url, archive.Title);
+                            string url = this.GetThumbnailUrl(archiveDto.Thumbnail);
+                            return String.IsNullOrEmpty(url) ? "" : String.Format("<img class=\"thumb thumbnail\" src=\"{0}\" alt=\"{1}\"/>", url, archiveDto.Title);
 
                         //缩略图
-                        case "thumb": return this.GetThumbnailUrl(archive.FirstImageUrl);
+                        case "thumb": return this.GetThumbnailUrl(archiveDto.FirstImageUrl);
 
-                        case "thumbnail": return this.GetThumbnailUrl(archive.Thumbnail);
+                        case "thumbnail": return this.GetThumbnailUrl(archiveDto.Thumbnail);
 
                         // 项目顺序类
                         case "class":
                             if (dt == null || index < 0) return String.Empty;
-                            if (index == dt.Count() - 1) return " class=\"item last\"";
-                            else if (index == 0) return " class=\"item first\"";
-                            return String.Concat(" class=\"item i", index.ToString(), "\"");
+                            if (index == dt.Count() - 1) return " class=\"a last\"";
+                            else if (index == 0) return " class=\"a first\"";
+                            return String.Concat(" class=\"a a", index.ToString(), "\"");
 
                         //特性列表
                         case "prolist":
@@ -1450,7 +1450,7 @@ namespace J6.Cms.Template
                             StringBuilder sb2 = new StringBuilder();
                             sb.Append("<ul class=\"extend_field_list\">");
 
-                            foreach (IExtendValue f in archive.ExtendValues)
+                            foreach (IExtendValue f in archiveDto.ExtendValues)
                             {
                                 if (!String.IsNullOrEmpty(f.Value))
                                 {
@@ -1471,14 +1471,14 @@ namespace J6.Cms.Template
                             if (Regex.IsMatch(field, matchPattern))
                             {
                                 int length = int.Parse(Regex.Match(field, matchPattern).Groups[1].Value);
-                                return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archive.Outline) ? archive.Content : archive.Outline, length);
+                                return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline, length);
                             }
 
                             //读取自定义属性
                             if (extendFields == null)
                             {
                                 extendFields = new Dictionary<string, string>();
-                                foreach (IExtendValue value in archive.ExtendValues)
+                                foreach (IExtendValue value in archiveDto.ExtendValues)
                                 {
                                     extendFields.Add(value.Field.Name, value.Value);
                                 }
@@ -1594,6 +1594,7 @@ namespace J6.Cms.Template
                             //时间
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["lastmodifydate"]);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", dr["lastmodifydate"]);
+                            case "modify_sdate":return String.Format("{0:MM-dd}", dr["lastmodifydate"]);
                             case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["createdate"]);
                             case "create_date": return String.Format("{0:yyyy-MM-dd}", dr["createdate"]);
 
@@ -1624,9 +1625,9 @@ namespace J6.Cms.Template
 
                             // 项目顺序类
                             case "class":
-                                if (archiveIndex == 1) return "first item";
-                                if (archiveIndex == totalNum) return "last item";
-                                return "item";
+                                if (archiveIndex == 1) return "first a";
+                                if (archiveIndex == totalNum) return "last a";
+                                return "a";
 
                             case "index":
                                 return archiveIndex.ToString();
@@ -1923,9 +1924,9 @@ namespace J6.Cms.Template
 
                             // 项目顺序类
                             case "class":
-                                if (i == archivesCount - 1) return " class=\"item last\"";
-                                else if (i == 0) return " class=\"item first\"";
-                                return " class=\"item\"";
+                                if (i == archivesCount - 1) return " class=\"a last\"";
+                                else if (i == 0) return " class=\"a first\"";
+                                return " class=\"a\"";
 
                             default:
                                 //读取自定义属性

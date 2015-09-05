@@ -71,6 +71,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             EachClass.EachTemplatePage(
                 dir,
+                dir,
                 sb2,
                 TemplatePageType.Custom,
                 TemplatePageType.Archive
@@ -420,7 +421,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
                 ));
 
-            EachClass.EachTemplatePage(dir,
+            EachClass.EachTemplatePage(dir,dir,
                 sb2,
                 TemplatePageType.Custom,
                 TemplatePageType.Archive

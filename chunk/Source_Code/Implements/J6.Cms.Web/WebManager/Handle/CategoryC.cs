@@ -205,12 +205,12 @@ namespace J6.Cms.Web.WebManager.Handle
                 Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
                 ));
 
-            EachClass.EachTemplatePage(dir, sb, TemplatePageType.Archive);
+            EachClass.EachTemplatePage(dir, dir,sb, TemplatePageType.Archive);
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, sb, TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir,dir, sb, TemplatePageType.Category);
             categoryTplOpts = sb.ToString();
 
             object entity = new
@@ -362,12 +362,12 @@ namespace J6.Cms.Web.WebManager.Handle
                 Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
                 ));
 
-            EachClass.EachTemplatePage(dir, sb, TemplatePageType.Archive);
+            EachClass.EachTemplatePage(dir,dir, sb, TemplatePageType.Archive);
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, sb, TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir, dir,sb, TemplatePageType.Category);
             categoryTplOpts = sb.ToString();
 
 

@@ -289,9 +289,9 @@ namespace J6.Cms.Sql
         /// 添加栏目
         /// </summary>
         public readonly string CategoryInsert = @"
-                    INSERT INTO $PREFIX_category(site_id,lft,rgt,name,tag,icon,page_title,
+                    INSERT INTO $PREFIX_category(id,site_id,lft,rgt,name,tag,icon,page_title,
                     page_keywords,page_description,location,sort_number)
-                    VALUES (@siteId,@lft,@rgt,@name,@tag,@icon,@pagetitle,
+                    VALUES (@categoryId,@siteId,@lft,@rgt,@name,@tag,@icon,@pagetitle,
                     @keywords,@description,@location,@sortNumber)";
 
         /// <summary>
