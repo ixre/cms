@@ -13,13 +13,13 @@ public class FileJsonExplor
 
 	private delegate void DirectoryHandler(DirectoryInfo dir);
 	private delegate void FileHandler(FileInfo file);
-	private static readonly string[] sysInts = new string[] {"bin","config", "templates", "libs", "global\\.asax", "web\\.config","cms.config" };
+	private static readonly string[] sysInts = new string[] {"bin","config", "templates", "libs", "global\\.asax", "web\\.config","cms.conf" };
 
 	private static string[] readOnlyFiles;
 	
 	static FileJsonExplor()
 	{
-		readOnlyFiles=new string[]{"cms.config","web.config","install.lock","global.asax"};
+		readOnlyFiles=new string[]{"cms.conf","web.config","install.lock","global.asax"};
 	}
 	
 	/// <summary>

@@ -16,6 +16,7 @@ using System.Web;
 using J6.Cms.Infrastructure;
 using J6.DevFw.Framework;
 using J6.Cms.DataTransfer;
+using J6.DevFw.Framework.IO;
 
 namespace J6.Cms.Conf
 {
@@ -63,6 +64,7 @@ namespace J6.Cms.Conf
 		{
 			CmsConfigFile = filePath;
 
+
 			//从配置文件中加载
 			SettingFile sf = new SettingFile(CmsConfigFile);
 			Settings.loaded = true;
@@ -85,7 +87,6 @@ namespace J6.Cms.Conf
 			Settings.DB_TYPE = sf["db_type"];
 			Settings.DB_CONN = sf["db_conn"];
 			Settings.DB_PREFIX = sf["db_prefix"];
-
 
 			Settings.MM_AVATAR_PATH = sf["mm_avatar_path"];
 
@@ -127,6 +128,7 @@ namespace J6.Cms.Conf
 				settingChanged=true;
 			}
 
+
             if (false)//sf.Contains("server_upgrade"))
             {
                 Settings.SERVER_UPGRADE = sf["server_upgrade"];
@@ -151,6 +153,18 @@ namespace J6.Cms.Conf
                 sf.Set("server_static_enabled", "false");
 				settingChanged=true;
 			}
+
+
+
+            if (sf.Contains("sys_encode_conf"))
+            {
+                Settings.SYS_ENCODE_CONF_FILE = sf["sys_encode_conf"] == "true";
+            }
+            else
+            {
+                sf.Set("sys_encode_conf", Settings.SYS_ENCODE_CONF_FILE ? "true" : "false");
+                settingChanged = true;
+            }
 
 			
 			if(sf.Contains("sys_admin_tag"))
@@ -182,14 +196,29 @@ namespace J6.Cms.Conf
         }*/
 		}
 
+
+
+        private static SettingFile sf = null;
+
+
+        public static void UpdateByPrefix(string prefix)
+        {
+            if (sf == null)
+            {
+                throw new Exception("请先调用Configuration.BeginWrite()");
+            }
+            lock (sf)
+            {
+                UpdateKeys(prefix);
+            }
+        }
+
 		/// <summary>
 		/// 更新资料
 		/// </summary>
 		/// <param name="prefix"></param>
-		public static void Update(string prefix)
+		private static void UpdateKeys(string prefix)
 		{
-			SettingFile sf = new SettingFile(CmsConfigFile);
-
 			switch (prefix)
 			{
 				case "sys":
@@ -198,6 +227,7 @@ namespace J6.Cms.Conf
 					sf["server_static_enabled"]=Settings.SERVER_STATIC_ENABLED?"true":"false";
                     sf["server_static"] = Settings.SERVER_STATIC;
                     sf["sys_admin_tag"] = Settings.SYS_ADMIN_TAG;
+			        sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE?"true":"false";
 
 					//301跳转
 					if (!sf.Contains("sys_autowww"))
@@ -342,5 +372,36 @@ namespace J6.Cms.Conf
 		{
 			if (OnCmsConfigure != null) OnCmsConfigure();
 		}
+
+        public static void BeginWrite()
+        {
+            bool isEncoded = FileEncoder.IsEncoded(CmsConfigFile, CmsVariables.FileEncodeHeader);
+            if (isEncoded)
+            {
+                FileEncoder.DecodeFile(CmsConfigFile, CmsConfigFile, CmsVariables.FileEncodeHeader,
+                    CmsVariables.FileEncodeToken);
+            }
+
+            sf = new SettingFile(CmsConfigFile);
+
+            if (isEncoded)
+            {
+                FileEncoder.EncodeFile(CmsConfigFile, CmsConfigFile, CmsVariables.FileEncodeHeader,
+                    CmsVariables.FileEncodeToken);
+            }
+        }
+
+        public static void EndWrite()
+        {
+            sf.Flush();
+
+            if (Settings.SYS_ENCODE_CONF_FILE)
+            {
+                FileEncoder.EncodeFile(CmsConfigFile, CmsConfigFile, CmsVariables.FileEncodeHeader,
+                    CmsVariables.FileEncodeToken);
+            }
+
+            sf = null;
+        }
 	}
 }

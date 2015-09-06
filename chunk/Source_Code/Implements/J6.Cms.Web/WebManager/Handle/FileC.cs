@@ -124,7 +124,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string content,
                    bakinfo;
 
-            if (path.ToLower().IndexOf("config/cms.config") != -1)
+            if (path.ToLower().IndexOf("config/cms.conf") != -1)
                 throw new ArgumentException();
 
             string mode = "html";
@@ -207,7 +207,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
 
 
-            if (path.ToLower().IndexOf("config/cms.config") != -1 && Request["pwd"]!="$Newmin888")
+            if (path.ToLower().IndexOf("config/cms.conf") != -1 && Request["pwd"]!="$Newmin888")
                 throw new ArgumentException();
 
             FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + path);

@@ -6,7 +6,7 @@ namespace J6.Cms.Conf
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="1.1.05";
+        public const string VERSION="1.1.06";
 
         /// <summary>
         /// 框架目录
@@ -69,6 +69,8 @@ namespace J6.Cms.Conf
 
         public const string Archive_ThumbPrefix = "thumb";
 
+        internal const string FileEncodeHeader = "J6CMS";
+        internal const string FileEncodeToken = "j6cmspowbyk3fnet";
     }
 
     public static class CmsCharMap

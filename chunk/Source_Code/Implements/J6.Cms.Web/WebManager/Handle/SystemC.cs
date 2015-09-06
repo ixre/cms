@@ -480,6 +480,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 site_domain = Request.Url.Host,
                 sys_autowww = Settings.SYS_AUTOWWW,
                 sys_admin_tag = Settings.SYS_ADMIN_TAG,
+                sys_encode_conf = Settings.SYS_ENCODE_CONF_FILE,
                 db_prefix = Settings.DB_PREFIX,
                 opti_IndexCacheSeconds = (Settings.Opti_IndexCacheSeconds / 60).ToString(),
                 opti_ClientCacheSeconds = (Settings.Opti_ClientCacheSeconds / 60).ToString(),
@@ -508,6 +509,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     Settings.License_KEY = req["license_key"];
                     Settings.License_NAME = req["license_name"];
                     Settings.SYS_AUTOWWW = req["sys_autowww"] == "on";
+                    Settings.SYS_ENCODE_CONF_FILE = req["sys_encode_conf"] == "on";
                     Settings.DB_PREFIX = req["db_prefix"];
                     Settings.TPL_UseCompress = req["tpl_usecompress"] == "on";
                     Settings.TPL_UseFullPath = req["tpl_usefullpath"] == "on";
@@ -525,9 +527,6 @@ namespace J6.Cms.Web.WebManager.Handle
                     //是否调试
                     Settings.Opti_Debug = req["opti_debug"] == "on";
 
-                    /// <summary>
-                    /// 静态分发内容
-                    /// </summary>
                     Settings.SERVER_STATIC_ENABLED = req["server_static_enabled"] == "on";
 
                     if (!String.IsNullOrEmpty(req["server_static"]))
@@ -535,10 +534,12 @@ namespace J6.Cms.Web.WebManager.Handle
                         Settings.SERVER_STATIC = req["server_static"];
                     }
 
-                    Configuration.Update("tpl");
-                    Configuration.Update("opti");
-                    Configuration.Update("sys");
-                    Configuration.Update("db");
+                    Configuration.BeginWrite();
+                    Configuration.UpdateByPrefix("tpl");
+                    Configuration.UpdateByPrefix("opti");
+                    Configuration.UpdateByPrefix("sys");
+                    Configuration.UpdateByPrefix("db");
+                    Configuration.EndWrite();
 
                     break;
             }

@@ -55,7 +55,7 @@ namespace J6.Cms.Web
 
         public const string FILE_DB_SQLITE = "install/db/sqlite.db";
         public const string FILE_DB_OLEDB = "install/db/access.mdb";
-        public const string FILE_SETTING = "config/cms.config";
+        public const string FILE_SETTING = "config/cms.conf";
         public const string MYSQL_INSTALL_SCRIPT = "install/db/mysql.sql";
         public const string MSSQL_INSTALL_SCRIPT = "install/db/mssql.sql";
         public const string INSTALL_LOCK = "config/install.lock";

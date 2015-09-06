@@ -22,6 +22,7 @@ using J6.DevFw.Framework;
 using J6.DevFw.PluginKernel;
 using J6.Cms.DataTransfer;
 using J6.Cms.DB;
+using J6.DevFw.Framework.IO;
 
 namespace J6.Cms
 {
@@ -195,23 +196,14 @@ namespace J6.Cms
         /// </summary>
         public static void Init()
         {
+            BeforeInit();
+
             if (!Installed) return;
           
             //初始化目录
             ChkCreate(CmsVariables.TEMP_PATH);
-            //todo:
 
-            //初始化设置
-            string cmsConfigFile = String.Format("{0}config/cms.config", Cms.PyhicPath);
-            FileInfo cfgFile = new FileInfo(cmsConfigFile);
-            if (cfgFile.Exists)
-            {
-                Configuration.Load(cmsConfigFile);
-            }
-            else
-            {
-                throw new Exception("CMS配置文件不存在");
-            }
+            LoadFromConfFile();
 
             //设置数据库
             CmsDataBase.Initialize(
@@ -270,6 +262,47 @@ namespace J6.Cms
             if (OnInit != null)
             {
                 Cms.OnInit();
+            }
+        }
+
+        private static void BeforeInit()
+        {
+            //初始化设置
+            string cmsConfigFile = String.Format("{0}config/cms.config", Cms.PyhicPath);
+            if (File.Exists(cmsConfigFile))
+            {
+                File.Move(cmsConfigFile,cmsConfigFile.Replace("cms.config","cms.conf"));
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static void LoadFromConfFile()
+        {
+            //初始化设置
+            string cmsConfigFile = String.Format("{0}config/cms.conf", Cms.PyhicPath);
+            FileInfo cfgFile = new FileInfo(cmsConfigFile);
+            if (cfgFile.Exists)
+            {
+                bool isEncoded = FileEncoder.IsEncoded(cmsConfigFile, CmsVariables.FileEncodeHeader);
+                if (isEncoded)
+                {
+                    FileEncoder.DecodeFile(cmsConfigFile, cmsConfigFile, CmsVariables.FileEncodeHeader,
+                        CmsVariables.FileEncodeToken);
+                }
+
+                Configuration.Load(cmsConfigFile);
+
+                if (isEncoded || Settings.SYS_ENCODE_CONF_FILE)
+                {
+                    FileEncoder.EncodeFile(cmsConfigFile, cmsConfigFile, CmsVariables.FileEncodeHeader,
+                        CmsVariables.FileEncodeToken);
+                }
+            }
+            else
+            {
+                throw new Exception("CMS配置文件不存在");
             }
         }
 

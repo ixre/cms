@@ -54,8 +54,9 @@
   <ItemGroup>
     <Compile Include="%24DelegatesDifined.cs" />
     <Compile Include="BinarySearch.cs" />
+    <Compile Include="Coder.cs" />
     <Compile Include="HttpApp.cs" />
-    <Compile Include="IDGenerator.cs" />
+    <Compile Include="IdGenerator.cs" />
     <Compile Include="Ioc\Ioc.cs" />
     <Compile Include="Kvdb.cs" />
     <Compile Include="KV\LevelDb.cs" />

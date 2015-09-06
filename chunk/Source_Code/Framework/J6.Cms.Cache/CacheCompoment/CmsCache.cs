@@ -16,8 +16,8 @@ using System.Web;
 using System.Web.Caching;
 using J6.Cms.Infrastructure;
 using J6.DevFw.Framework;
-using J6.DevFw.Framework.IO;
 using J6.DevFw.Framework.Web.Cache;
+using J6.DevFw.Utils;
 
 namespace J6.Cms.Cache.CacheCompoment
 {
@@ -65,7 +65,7 @@ namespace J6.Cms.Cache.CacheCompoment
                 fs.Flush();
             }
 
-            return  IoUtil.GetFileSHA1(_cacheDependFile);
+            return  IoUtil.GetFileSha1(_cacheDependFile);
             
             //FileInfo file = new FileInfo(cacheDependFile);
             //file.LastWriteTimeUtc = DateTime.UtcNow;

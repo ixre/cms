@@ -1,7 +1,7 @@
 ﻿//
 // Copyright (C) 2007-2013 Z3Q.NET,All rights reseved.
 // 
-// Project: Cms.Cms.Config
+// Project: Cms.Core
 // FileName : Settings.cs
 // author : PC-CWLIU (new.min@msn.com)
 // Create : 2012/5/26 19:25:33
@@ -85,6 +85,10 @@ namespace J6.Cms.Conf
         /// </summary>
         public static bool SYS_AUTOWWW;
 
+        /// <summary>
+        /// 是否加密配置文件
+        /// </summary>
+        public static bool SYS_ENCODE_CONF_FILE = true;
 
         #region 模板相关
         /// <summary>
