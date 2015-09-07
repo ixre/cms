@@ -236,7 +236,7 @@ function fixedDiv(e, callback) {
             }
         } else {
             e.style.position = '';
-            e.style.width = 'auto';
+            e.style.width = '';
             e.style.left = '0';
             if (!e.style.top) {
                 e.style.top = '0';
