@@ -7,7 +7,7 @@
 // Create : 2013/06/23 14:53:11
 // Description :
 //
-// Get infromation of this software,please visit our site http://h3f.net/cms
+// Get infromation of this software,please visit our site http://k3f.net/cms
 //
 //
 

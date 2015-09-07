@@ -9,7 +9,7 @@
 //  2013-03-21  newmin [+] : 支持将URL参数作为模板内容
 //
 //
-// Get infromation of this software,please visit our site http://h3f.net/cms
+// Get infromation of this software,please visit our site http://k3f.net/cms
 //
 //
 
@@ -79,7 +79,7 @@ namespace J6.Cms
 <!--
 *************************************************************************************
 * 本站使用《OPSite》驱动。唯一跨平台,支持多种数据库,基于ASP.net技术构建的网站管理系统。
-* 欢迎访问 http://h3f.net/cms/soft/opsite.html 获取详细信息及试用版本。
+* 欢迎访问 http://k3f.net/cms/soft/opsite.html 获取详细信息及试用版本。
 
 * 【承接】定制网站,营销型网站,WAP手机网站开发。联系电话：18616999822  QQ:188867734
 *************************************************************************************

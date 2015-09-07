@@ -7,7 +7,7 @@
 // Create : 2011/10/15 21:16:56
 // Description :
 //
-// Get infromation of this software,please visit our site http://h3f.net/cms
+// Get infromation of this software,please visit our site http://k3f.net/cms
 // Modify:
 //  2013-06-08 22:30 newmin [!] : 添加模块更新菜单数据
 //
@@ -67,7 +67,7 @@ namespace J6.Cms.Web.WebManager.Handle
             {
                 try
                 {
-                    WebRequest request = WebRequest.Create("http://ct.cms.h3f.net/view/opsite_notice/");
+                    WebRequest request = WebRequest.Create("http://ct.cms.k3f.net/view/opsite_notice/");
                     StreamReader sr = new StreamReader(request.GetResponse().GetResponseStream());
                     notice = sr.ReadToEnd();
                     sr.Dispose();

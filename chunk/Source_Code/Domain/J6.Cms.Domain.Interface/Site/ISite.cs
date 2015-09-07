@@ -47,7 +47,7 @@ namespace J6.Cms.Domain.Interface.Site
         string Location { get; set; }
 
         /// <summary>
-        /// 获取基础URL,如:http://h3f.net/cms/.
+        /// 获取基础URL,如:http://k3f.net/cms/.
         /// 如果未绑定域名，则用#代替Host部分,如：
         /// http://#/sub
         /// </summary>

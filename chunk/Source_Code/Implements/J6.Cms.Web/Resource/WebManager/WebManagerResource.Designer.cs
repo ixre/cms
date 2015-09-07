@@ -571,8 +571,8 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///      &lt;links title=&quot;欢迎使用&quot; toggle=&quot;true&quot; iconPos=&quot;-240|0&quot;&gt;
         ///        &lt;link href=&quot;?module=system&amp;amp;action=welcome&quot; text=&quot;欢迎首页&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
         ///        &lt;link href=&quot;?module=system&amp;amp;action=serverSummary&quot; text=&quot;系统运行信息&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
-        ///        &lt;link href=&quot;http://h3f.net/cms/cms/help.html&quot; text=&quot;帮助指南&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
-        ///        &lt;link href=&quot;http://h3f.net/cms/cms/about.html&quot; text=&quot;关于系统&quot; title=&quot;&quot; siteid= [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///        &lt;link href=&quot;http://k3f.net/cms/cms/help.html&quot; text=&quot;帮助指南&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
+        ///        &lt;link href=&quot;http://k3f.net/cms/cms/about.html&quot; text=&quot;关于系统&quot; title=&quot;&quot; siteid= [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string sysset_conf {
             get {

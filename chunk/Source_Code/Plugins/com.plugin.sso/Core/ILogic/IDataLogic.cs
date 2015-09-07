@@ -1,6 +1,6 @@
 ﻿/**
  * Copyright (C) 2007-2015 Z3Q.NET,All rights reseved.
- * Get more infromation of this software,please visit site http://h3f.net/cms
+ * Get more infromation of this software,please visit site http://k3f.net/cms
  * 
  * name : IDataLogic.cs
  * author : newmin (new.min@msn.com)

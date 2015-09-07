@@ -317,7 +317,7 @@ CREATE TABLE `O_links` (
 
 LOCK TABLES `O_links` WRITE;
 /*!40000 ALTER TABLE `O_links` DISABLE KEYS */;
-INSERT INTO `O_links` VALUES (1,3,'建站软件','http://h3f.net/cms/soft/opsite.html','_blank',2,1),(2,3,'奥博网络','http://h3f.net/cms','_blank',1,1);
+INSERT INTO `O_links` VALUES (1,3,'建站软件','http://k3f.net/cms/soft/opsite.html','_blank',2,1),(2,3,'奥博网络','http://k3f.net/cms','_blank',1,1);
 /*!40000 ALTER TABLE `O_links` ENABLE KEYS */;
 UNLOCK TABLES;
 

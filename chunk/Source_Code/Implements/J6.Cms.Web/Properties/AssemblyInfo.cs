@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Z3Q.NET")]
 [assembly: AssemblyProduct("Spc.Web")]
-[assembly: AssemblyCopyright("Copyright © h3f.net/cms")]
+[assembly: AssemblyCopyright("Copyright © k3f.net/cms")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
