@@ -214,7 +214,9 @@ namespace J6.Cms.Dal
         {
             const string sql = "SELECT MAX(id) FROM $PREFIX_category WHERE site_id={0}";
             SqlQuery query = new SqlQuery(base.OptimizeSql(String.Format(sql, siteId.ToString())));
-            return int.Parse(base.ExecuteScalar(query).ToString());
+            object obj = base.ExecuteScalar(query);
+            if (obj == DBNull.Value) return 0;
+            return int.Parse(obj.ToString());
         }
     }
 }
