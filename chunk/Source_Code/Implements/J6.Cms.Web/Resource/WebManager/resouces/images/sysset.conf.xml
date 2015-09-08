@@ -1,28 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <menu>
-    <bar id="home" name="我的首页">
-      <links title="欢迎使用" toggle="true" iconPos="-240|0">
-        <link href="?module=system&amp;action=welcome" text="欢迎首页" title="" siteid="-1"/>
-        <link href="?module=system&amp;action=serverSummary" text="系统运行信息" title="" siteid="-1"/>
-        <link href="http://k3f.net/cms/cms/help.html" text="帮助指南" title="" siteid="-1"/>
-        <link href="http://k3f.net/cms/cms/about.html" text="关于系统" title="" siteid="-1"/>
-      </links>
-      <links title="我的资料" toggle="true" iconPos="-240|0">
-        <link href="?module=user&amp;action=saveProfile" text="修改资料" title="" siteid="-1"/>
-        <link href="?module=user&amp;action=saveProfile" text="修改密码" title="" siteid="-1"/>
-      </links>
-      <links title="快捷操作" toggle="true" iconPos="-240|0">
-        <link href="?module=site&amp;action=index" text="站点管理" title="系统所有网站管理" siteid="0"/>
-        <link href="?module=file&amp;action=filemanager" text="文件管理器" title="" siteid="0"/>
-        <link href="?module=system&amp;action=appconfig&amp;item=1" text="系统设置" title="" siteid="-1"/>
-        <link href="?module=link&amp;action=list&amp;type=1" text="导航设置" title="" siteid="-1"/>
-        <link href="?module=link&amp;action=list&amp;type=2" text="友情链接" title="" siteid="-1"/>
-        <link href="?module=category&amp;action=all" text="栏目管理" title="" siteid="-1"/>
-      </links>
-      
-    </bar>
-    
     <bar id="site" name="网站管理">
       <links title="栏目管理" toggle="true" iconPos="-240|0">
         <link href="?module=category&amp;action=all" text="栏目管理" title="" siteid="-1"/>
@@ -100,8 +78,16 @@
 
       </links>
 
-      
-    <!--
+
+      <links title="欢迎使用" toggle="true" iconPos="-240|0">
+        <link href="?module=system&amp;action=welcome" text="欢迎首页" title="" siteid="-1"/>
+        <link href="?module=system&amp;action=serverSummary" text="系统运行信息" title="" siteid="-1"/>
+        <link href="http://k3f.net/cms/cms/help.html" text="帮助指南" title="" siteid="-1"/>
+        <link href="http://k3f.net/cms/cms/about.html" text="关于系统" title="" siteid="-1"/>
+      </links>
+
+
+      <!--
       <link href="?module=system&amp;action=notfound#?module=log&amp;action=errorlog" text="错误日志" title="" siteid="-1"/>
       <link href="?module=system&amp;action=modifyuserbasicprofile" text="修改资料" title="" siteid="-1" siteid="-1"/>-->
   	</bar>

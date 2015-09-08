@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
     <title>请稍后</title>
-    <link rel="stylesheet" type="text/css" href="${ui_css_path}" />
+    <link rel="StyleSheet" href="${ui_css_path}?ver=${version}" type="text/css"/>
 </head>
 <body>
     <div class="page-top">
@@ -14,8 +15,9 @@
             <img field="userAvatar" class="avatar" />
             <div class="text">
                 <span field="dateStr"></span><br />
-                欢迎您1：<span class="username" field="userName"></span>
-                【<a href="javascript:;" id="btn_logout" title="安全退出系统">退出</a>】
+                欢迎您1：<span class="username" field="userName"></span>&nbsp;&nbsp; |&nbsp;&nbsp;
+                <a href="javascript:void(0)" onclick="FwTab.show('修改用户资料', '?module=user&amp;action=saveProfile', true);">修改密码</a>&nbsp;|&nbsp;
+                <a href="javascript:;" id="btn_logout" title="安全退出系统">退出</a>
             </div>
         </div>
 
