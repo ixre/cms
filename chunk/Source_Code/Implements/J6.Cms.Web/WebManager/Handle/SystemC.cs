@@ -63,6 +63,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             string pageTemplate;
             UserDto usr = UserState.Administrator.Current;
+            SiteDto currentSite = this.CurrentSite;
 
             if (!usr.IsMaster)
             {
@@ -83,15 +84,22 @@ namespace J6.Cms.Web.WebManager.Handle
                 pageTemplate = ResourceMap.GetPageContent(ManagementPage.Index);
             }
 
+
+            String localJsRef = String.Format("/{0}{1}/mui_override.js",CmsVariables.SITE_CONF_PRE_PATH,currentSite.SiteId.ToString());
+            if (!File.Exists(Cms.PyhicPath + localJsRef))
+            {
+                localJsRef = "";
+            }
+
             base.RenderTemplateUseCache(pageTemplate,
                                         new
                                         {
                                             version = Cms.Version,
                                             path = GetPath(),
                                             admin_path = Settings.SYS_ADMIN_TAG,
-                                            //ui_component_path = ResourceMap.GetPageUrl(ManagementPage.UI_Component),
+                                            site_id = currentSite.SiteId,
+                                            local_js = localJsRef,
                                             ui_css_path = ResourceMap.GetPageUrl(ManagementPage.UI_Index_Css),
-                                            ui_custom_js_path = ResourceMap.GetPageUrl(ManagementPage.UI_Index_Custom_Js)
                                             //initData=new Ajax().GetAppInit()
                                         });
         }

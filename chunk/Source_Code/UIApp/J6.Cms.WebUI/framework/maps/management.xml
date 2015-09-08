@@ -3,7 +3,6 @@
   <direction path="framework/"/>
   <group name="pages">
     <map for="UI_Index_Css" to="mui/css/latest/ui_style.css"/>
-    <map for="UI_Index_Custom_Js" to="mui/js/ui_custom.js"/>
     <map for="UI_Component" to="mui/js/ui.component.js"/>
     <map for="Css_Style" to="mui/css/latest/page_style.css"/>
     <map for="Login" to="mui/html/login.html"/>

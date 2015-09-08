@@ -144,7 +144,6 @@
     <Content Include="framework\mui\css\index.css" />
     <Content Include="framework\mui\css\latest\ajax-loader.gif" />
     <Content Include="framework\mui\css\latest\avatar.gif" />
-    <Content Include="framework\mui\css\latest\avatar_bg.png" />
     <Content Include="framework\mui\css\latest\blank.png" />
     <Content Include="framework\mui\css\latest\blocks.gif" />
     <Content Include="framework\mui\css\latest\columns.png" />
@@ -228,9 +227,8 @@
     <Content Include="framework\maps\management.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="framework\mui\js\ui_custom.js" />
+    <Content Include="framework\demo\mui_override.js" />
     <None Include="install\db\mssql.sql" />
-    <None Include="config\cms.config8" />
     <Content Include="framework\assets\editor\handler\file_manager_json.ashx" />
     <Content Include="framework\assets\editor\handler\upload_json.ashx" />
     <None Include="install\db\sqlite.db" />

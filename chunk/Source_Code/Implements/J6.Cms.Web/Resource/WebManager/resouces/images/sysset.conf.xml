@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <menu>
-    <bar id="site" name="网站管理">
+    <bar id="site" name="基本管理">
       
       <links title="欢迎使用" toggle="true" iconPos="-240|0">
         <link href="?module=system&amp;action=summary" text="欢迎首页" title="" siteid="-1"/>

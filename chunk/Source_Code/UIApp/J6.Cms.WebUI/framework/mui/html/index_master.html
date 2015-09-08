@@ -23,9 +23,9 @@
     </div>
 
     <div class="top-ctrl">
-        <div class="site_selector">
+        <div class="site_selector hidden" id="site_selector">
             <select>
-                <option>一选择站点一</option>
+                <option value="">一选择站点一</option>
             </select>
         </div>
         <ul class="icon-ctrl">
@@ -34,30 +34,6 @@
                     <img class="icon" src="/framework/mui/css/latest/icon_user.png" height="20"/>网站管理
                 </a>
             </li>
-            <li class="drop hidden">
-                <a class="title">
-                    <img class="icon" src="/framework/mui/css/latest/icon_server.png" height="20"/>网站管理
-                </a>
-                <div class="menu" style="width: 200px;">
-                    <a class="block" href="javascript:;" onclick="FwMenu.change('site');">
-                        <img class="icon" src="/framework/mui/css/latest/icon_secret.png" style="height: 15px"/>
-                        <b>基本管理</b>
-                    </a>
-                    <a class="block" href="javascript:;" onclick="FwMenu.change('content');">
-                        <img class="icon" src="/framework/mui/css/latest/icon_chart.png" style="height: 15px"/>
-                        <b>内容管理</b>
-                    </a>
-                    <div class="hr"></div>
-                    <strong>选择并管理其他站点：</strong>
-                    <div id="sites">
-                        <div class="list">
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <em>注:管理其他站点需要重新加载页面。</em>
-                </div>
-            </li>
-
 
             <li>
                 <a class="title" href="javascript:FwMenu.change('content');">
@@ -116,9 +92,12 @@
 
     $js()
 
-    <script type="text/javascript"> window._path = '${admin_path}';</script>
+    <script type="text/javascript">
+        window._path = '${admin_path}';
+        window._siteId = ${site_id};
+        window._localJs = '${local_js}';
+    </script>
     <script type="text/javascript" src="?res=dWlfY29tcG9uZW50&amp;${version}.js"></script>
-    <script type="text/javascript" src="${ui_custom_js_path}">/*用户自定义JS*/</script>
     <script type="text/javascript">
         var pageVar = {
             sysName: ':: 控制面板中心管理端 一 J6 Cms .NET! v${version} ::',
@@ -130,6 +109,10 @@
             userName: '管理员',
             userAvatar: '/framework/mui/css/latest/avatar.gif'
         };
+
+        if (window._localJs) {
+            j6.ldScript(window._localJs);
+        }
 
         /** 获取时间 **/
         var cmath = function (v) {
@@ -155,27 +138,26 @@
         }
         logoEle.className = 'logo';
 
-
-        var siteEle = j6.$('sites');
+        var siteEle = j6.$('site_selector');
 
         //初始化站点
         function initSites() {
-            if (window.sites.length == 0) {
-                siteEle.style.display = 'none';
-            } else {
-                var html = '<ul>';
+            if (window.sites.length > 0) {
+                siteEle.className = 'site_selector';
+                var siteSel = siteEle.getElementsByTagName('SELECT')[0];
                 for (var i in window.sites) {
-                    html += '<li><b><a href="javascript:;" onclick="setSite(this);" siteid="' + window.sites[i].id + '">' + window.sites[i].name + '</b></a>';
+                    var site = window.sites[i];
+                    var opt = document.createElement('OPTION');
+                    opt.value = site.id;
+                    opt.innerHTML = site.name;
+                    siteSel.appendChild(opt);
                 }
-                html += '</ul>';
-
-                siteEle.getElementsByTagName('DIV')[0].innerHTML = html;
-                j6.each(siteEle.getElementsByTagName('DIV')[0].getElementsByTagName('LI'), function (i, e) {
-                    e.getElementsByTagName('A')[0].onclick = function () {
-                        setSite(this.getAttribute('siteid'));
-                    };
-                });
-
+                siteSel.value = window._siteId;
+                siteSel.onchange = function () {
+                    if (this.value) {
+                        setSite(this.value);
+                    }
+                }
             }
         }
         function setSite(t) {

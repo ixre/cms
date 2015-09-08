@@ -40,9 +40,9 @@ namespace J6.Cms.Conf
         public const string RESOURCE_PATH = "resources/";
 
         /// <summary>
-        /// 缓存
+        /// 站点配置目录 
         /// </summary>
-        public const string FRAMEWORK_LOCAL_PATH = "framework/local/";
+        public const string SITE_CONF_PRE_PATH = "config/site_";
 
         /// <summary>
         /// 缓存

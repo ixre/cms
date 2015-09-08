@@ -109,7 +109,6 @@ namespace J6.Cms.WebManager
 
         //首页UI组件
         UI_Index_Css = 71,
-        UI_Index_Custom_Js,
 
         //UI_Component,
 

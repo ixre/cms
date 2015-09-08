@@ -119,8 +119,6 @@ namespace J6.Cms.Web.WebManager.Handle
             int i = 0;
             foreach (SiteDto s in ServiceCall.Instance.SiteService.GetSites())
             {
-                if (s.SiteId != currSiteId)
-                {
                     if (i++ != 0)
                     {
                         sb.Append(",");
@@ -134,7 +132,6 @@ namespace J6.Cms.Web.WebManager.Handle
 
                     }
                     sb.Append("'}");
-                }
             }
 
             sites = sb.ToString();

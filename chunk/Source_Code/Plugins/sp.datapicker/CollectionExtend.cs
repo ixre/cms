@@ -162,7 +162,7 @@ namespace sp.datapicker
             HttpTags _tags = null;
             if (!tags.Keys.Contains(siteId))
             {
-                string dirPath = String.Concat(Cms.PyhicPath, "config/s", siteId.ToString(), "/");
+                string dirPath = String.Concat(Cms.PyhicPath, CmsVariables.SITE_CONF_PRE_PATH, siteId.ToString(),"/");
                 if (!Directory.Exists(dirPath))
                 {
                     Directory.CreateDirectory(dirPath).Create();

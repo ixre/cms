@@ -101,7 +101,7 @@ namespace J6.Cms.Web.WebManager
                 cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
             }
 
-            context.Response.Cookies.Add(cookie);
+            context.Response.Cookies.Set(cookie);
             context.Session[CmsWebMaster.CurrentSiteSessionStr] = value;
         }
     }
