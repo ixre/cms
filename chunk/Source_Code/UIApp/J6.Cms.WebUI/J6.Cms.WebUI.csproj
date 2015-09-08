@@ -71,6 +71,7 @@
     <Content Include="config\s1\tags.conf" />
     <Content Include="config\s2\tags.conf" />
     <Content Include="config\settings.conf" />
+    <Content Include="config\site_1\mui_override.js" />
     <Content Include="config\tags.conf" />
     <Content Include="data\clear\#db_clear.db3" />
     <Content Include="data\db.db" />
@@ -179,7 +180,7 @@
     <Content Include="framework\mui\html\archive\archive_forword.html" />
     <Content Include="framework\mui\html\user\user_role_set.html" />
     <Content Include="framework\mui\html\user\user_role.html" />
-    <Content Include="framework\mui\html\index_master.html" />
+    <Content Include="framework\mui\html\index.html" />
     <Content Include="framework\mui\html\login.html" />
     <Content Include="framework\mui\html\archive\archive_view.html" />
     <Content Include="framework\mui\html\archive\archive_create.html" />
@@ -212,7 +213,6 @@
     <Content Include="framework\mui\html\site\extend\extend.list.html" />
     <Content Include="framework\mui\html\site\site.edit.html" />
     <Content Include="framework\mui\html\site\site.index.html" />
-    <Content Include="framework\mui\html\subsite\index.html" />
     <Content Include="framework\mui\html\summary.html" />
     <Content Include="framework\mui\html\template\template_edit.html" />
     <Content Include="framework\mui\html\template\template_editfile.html" />

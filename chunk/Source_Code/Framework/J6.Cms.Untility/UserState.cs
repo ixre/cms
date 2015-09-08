@@ -226,12 +226,8 @@ namespace J6.Cms.Utility
 
             public static int Login(string username, string password, double minutes)
             {
-                String sha1Pwd =  Generator.Sha1Pwd(password,Generator.Offset);
+                String sha1Pwd = password;
                 LoginResultDto result = ServiceCall.Instance.UserService.TryLogin(username,sha1Pwd);
-                if (result.Tag !=  1)
-                {
-                    result = ServiceCall.Instance.UserService.TryLogin(username, Generator.Md5Pwd(password, null));
-                }
 
                 if (result.Tag == 1)
                 {

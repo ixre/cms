@@ -10,12 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Caching;
 using System.Xml;
-using J6.Cms.Web;
-using J6.Cms.Web.Resource;
 using J6.Cms.Web.Resource.WebManager;
 
 namespace J6.Cms.WebManager
@@ -95,11 +90,6 @@ namespace J6.Cms.WebManager
         /// 插件迷你应用
         /// </summary>
         Plugin_MiniApps,
-
-        /// <summary>
-        /// 子站首页
-        /// </summary>
-        SUB_Index = 41,
 
 
         /// <summary>

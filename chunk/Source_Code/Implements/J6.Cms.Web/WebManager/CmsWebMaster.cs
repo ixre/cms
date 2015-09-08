@@ -90,6 +90,7 @@ namespace J6.Cms.Web.WebManager
                 }
                 else
                 {
+                    cookie.Values.Clear();
                     cookie.Value = value.SiteId.ToString();
                     cookie.Expires = DateTime.Now.AddDays(2);
                 }
@@ -101,8 +102,8 @@ namespace J6.Cms.Web.WebManager
                 cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
             }
 
-            context.Response.Cookies.Set(cookie);
-            context.Session[CmsWebMaster.CurrentSiteSessionStr] = value;
+            context.Response.Cookies.Add(cookie);
+            context.Session[CmsWebMaster.CurrentSiteSessionStr] = null;
         }
     }
 }

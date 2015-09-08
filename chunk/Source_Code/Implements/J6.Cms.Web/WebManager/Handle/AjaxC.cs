@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -113,11 +114,20 @@ namespace J6.Cms.Web.WebManager.Handle
             #region 获取站点
 
             int currSiteId = base.SiteId;
-
             StringBuilder sb = new StringBuilder(100);
 
+            SiteDto[] siteArr = null;
+            if (usr.IsMaster)
+            {
+                siteArr = ServiceCall.Instance.SiteService.GetSites().ToArray();
+            }
+            else
+            {
+                siteArr = ServiceCall.Instance.UserService.GetUserRelationSites(usr.Id);
+            }
+
             int i = 0;
-            foreach (SiteDto s in ServiceCall.Instance.SiteService.GetSites())
+            foreach (SiteDto s in siteArr)
             {
                     if (i++ != 0)
                     {
@@ -125,12 +135,6 @@ namespace J6.Cms.Web.WebManager.Handle
                     }
                     sb.Append("{id:'").Append(s.SiteId.ToString())
                         .Append("',name:'").Append(s.Name.Replace("'", "\\'"));
-
-                    if (s.Note.Trim() != "")
-                    {
-                        sb.Append("[").Append(s.Note).Append("]");
-
-                    }
                     sb.Append("'}");
             }
 
@@ -144,18 +148,7 @@ namespace J6.Cms.Web.WebManager.Handle
             {
                 //菜单siteid
                 int siteId = base.CurrentSite.SiteId;
-                string cacheKey = String.Format("{0}_{1}_manager_menujson", CacheSign.Site.ToString(), (siteId).ToString());
-                object json =Cms.Cache.Get(cacheKey);
-                if (json != null)
-                {
-                    menuData = json as string;
-                }
-                else
-                {
-                    menuData = GetMenuJsonFromFile(usr.IsMaster,siteId);
-                    Cms.Cache.Insert(cacheKey, menuData,DateTime.Now.AddMinutes(15));
-                }
-
+                menuData = GetMenuJsonFromFile(usr.IsMaster, siteId);
             }
 
             #endregion

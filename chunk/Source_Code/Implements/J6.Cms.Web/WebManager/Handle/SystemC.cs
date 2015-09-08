@@ -19,8 +19,6 @@ using System.Web;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.DataTransfer;
-using J6.Cms.Domain.Interface.Models;
-using J6.Cms.Domain.Interface.User;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Web.UI;
@@ -43,7 +41,8 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public void NotFound_GET()
         {
-            HttpContext.Current.Response.Write("<div style=\"margin-top:50px;text-align:center\"><span style=\"color:red\">后续推出....</span></div>");
+            HttpContext.Current.Response.Write(
+                "<div style=\"margin-top:50px;text-align:center\"><span style=\"color:red\">后续推出....</span></div>");
         }
 
         /// <summary>
@@ -57,51 +56,53 @@ namespace J6.Cms.Web.WebManager.Handle
             if (base.Request.Url.Query == "" || path.EndsWith("/"))
             {
                 if (path.EndsWith("/")) path = path.Substring(0, path.Length - 1);
-                base.Response.Write(String.Format("<script>window.parent.location.replace('{0}?ver={1}')</script>", path, Cms.Version));
+                base.Response.Write(String.Format("<script>window.parent.location.replace('{0}?ver={1}')</script>", path,
+                    Cms.Version));
                 return;
             }
 
-            string pageTemplate;
+            string pageTemplate = ResourceMap.GetPageContent(ManagementPage.Index);
             UserDto usr = UserState.Administrator.Current;
             SiteDto currentSite = this.CurrentSite;
+//
+//            if (!usr.IsMaster)
+//            {
+//                //子站用户跳转标识
+//                //if (base.Request["f"] != "s")
+//                //{
+//                //    base.Response.Write(String.Format("<script>window.parent.location.replace('{0}?ver={1}&f=s')</script>", base.Request.Path, Cms.Version));
+//                //    return;
+//                //}
+//                //else
+//                //{
+//                //    page_Template = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
+//                //}
+//                pageTemplate = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
+//            }
+//            else
+//            {
+//                pageTemplate = ResourceMap.GetPageContent(ManagementPage.Index);
+//            }
+//
 
-            if (!usr.IsMaster)
-            {
-                //子站用户跳转标识
-                //if (base.Request["f"] != "s")
-                //{
-                //    base.Response.Write(String.Format("<script>window.parent.location.replace('{0}?ver={1}&f=s')</script>", base.Request.Path, Cms.Version));
-                //    return;
-                //}
-                //else
-                //{
-                //    page_Template = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
-                //}
-                pageTemplate = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
-            }
-            else
-            {
-                pageTemplate = ResourceMap.GetPageContent(ManagementPage.Index);
-            }
-
-
-            String localJsRef = String.Format("/{0}{1}/mui_override.js",CmsVariables.SITE_CONF_PRE_PATH,currentSite.SiteId.ToString());
+            String localJsRef = String.Format("/{0}{1}/mui_override.js", CmsVariables.SITE_CONF_PRE_PATH,
+                currentSite.SiteId.ToString());
             if (!File.Exists(Cms.PyhicPath + localJsRef))
             {
                 localJsRef = "";
             }
 
-            base.RenderTemplateUseCache(pageTemplate,
-                                        new
-                                        {
-                                            version = Cms.Version,
-                                            path = GetPath(),
-                                            admin_path = Settings.SYS_ADMIN_TAG,
-                                            site_id = currentSite.SiteId,
-                                            local_js = localJsRef,
-                                            ui_css_path = ResourceMap.GetPageUrl(ManagementPage.UI_Index_Css),
-                                            //initData=new Ajax().GetAppInit()
-                                        });
+            base.RenderTemplate(pageTemplate,
+                new
+                {
+                    version = Cms.Version,
+                    path = GetPath(),
+                    admin_path = Settings.SYS_ADMIN_TAG,
+                    site_id = currentSite.SiteId,
+                    local_js = localJsRef,
+                    ui_css_path = ResourceMap.GetPageUrl(ManagementPage.UI_Index_Css),
+                    //initData=new Ajax().GetAppInit()
+                });
         }
 
         /// <summary>
@@ -111,20 +112,32 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             //设置站点
             UserDto user = UserState.Administrator.Current;
-            if (user.IsMaster)
+
+            int siteId = 0;
+            int.TryParse(base.Request["site_id"], out siteId);
+            var site = SiteCacheManager.GetSite(siteId);
+            if (site.SiteId > 0)
             {
-                int siteId = 0;
-                int.TryParse(base.Request["siteid"], out siteId);
-                var site = SiteCacheManager.GetSite(siteId);
-                if (site.SiteId > 0)
+                if (user.IsMaster)
                 {
                     base.CurrentSite = site;
                     base.RenderSuccess();
                     return;
                 }
+
+                foreach (int siteId2 in user.Roles.GetSiteIds())
+                {
+                    if (siteId == siteId2)
+                    {
+                        base.CurrentSite = site;
+                        base.RenderSuccess();
+                        return;
+                    }
+                }
             }
 
-            base.RenderError("没有权限管理其他站点");
+
+            base.RenderError("没有权限管理站点");
         }
 
 
@@ -136,7 +149,7 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Server_Summary), new
             {
                 path = GetPath(),
-                shortServer ="//"+Server.ShortUrlServer,
+                shortServer = "//" + Server.ShortUrlServer,
                 soft_ver = Cms.Version,
                 sys_alias = Settings.License_NAME, // + "(KEY:" + Settings.SYS_KEY + ")",
                 server_name = HttpContext.Current.Server.MachineName,
@@ -150,14 +163,14 @@ namespace J6.Cms.Web.WebManager.Handle
                     Environment.Version.Revision,
                 server_https = Request.Url.ToString().IndexOf("https://") != -1 ? "是" : "否",
                 server_port = Request.ServerVariables["Server_Port"],
-                server_hour = String.Format("{0}小时", ((Environment.TickCount/0x3e8)/3600).ToString()),
+                server_hour = String.Format("{0}小时", ((Environment.TickCount / 0x3e8) / 3600).ToString()),
                 server_time = DateTime.Now.ToString(),
                 server_cpu =
                     String.Format("{0},{1}核", Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER"),
                         Environment.GetEnvironmentVariable("NUMBER_OF_PROCESSORS")),
-                server_meory = (Environment.WorkingSet/1024/1024) + "M",
+                server_meory = (Environment.WorkingSet / 1024 / 1024) + "M",
                 server_net_meory =
-                    ((Double) System.Diagnostics.Process.GetCurrentProcess().WorkingSet64/1048576).ToString("N2") + "M",
+                    ((Double)System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 / 1048576).ToString("N2") + "M",
                 person_os = this.GetOSNameByUserAgent(base.Request.UserAgent),
                 person_ip = base.Request.UserHostAddress,
                 person_soft = base.Request.Browser.Browser,
@@ -342,7 +355,7 @@ namespace J6.Cms.Web.WebManager.Handle
             }
             else
             {
-              int tag = UserState.Administrator.Login(username, password, 3600 * 120);
+                int tag = UserState.Administrator.Login(username, password, 3600 * 120);
 
                 if (tag == -1)
                 {
