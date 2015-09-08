@@ -2,6 +2,15 @@
 <config>
   <menu>
     <bar id="site" name="网站管理">
+      
+      <links title="欢迎使用" toggle="true" iconPos="-240|0">
+        <link href="?module=system&amp;action=summary" text="欢迎首页" title="" siteid="-1"/>
+        <!--
+        <link href="http://k3f.net/cms/cms/help.html" text="帮助指南" title="" siteid="-1"/>
+        <link href="http://k3f.net/cms/cms/about.html" text="关于系统" title="" siteid="-1"/>-->
+      </links>
+
+      
       <links title="栏目管理" toggle="true" iconPos="-240|0">
         <link href="?module=category&amp;action=all" text="栏目管理" title="" siteid="-1"/>
         <link href="?module=extend&amp;action=fields" text="扩展属性" title="" siteid="0"/>
@@ -78,13 +87,6 @@
 
       </links>
 
-
-      <links title="欢迎使用" toggle="true" iconPos="-240|0">
-        <link href="?module=system&amp;action=welcome" text="欢迎首页" title="" siteid="-1"/>
-        <link href="?module=system&amp;action=serverSummary" text="系统运行信息" title="" siteid="-1"/>
-        <link href="http://k3f.net/cms/cms/help.html" text="帮助指南" title="" siteid="-1"/>
-        <link href="http://k3f.net/cms/cms/about.html" text="关于系统" title="" siteid="-1"/>
-      </links>
 
 
       <!--

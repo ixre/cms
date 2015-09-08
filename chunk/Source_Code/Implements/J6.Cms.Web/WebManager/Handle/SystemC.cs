@@ -119,52 +119,45 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderError("没有权限管理其他站点");
         }
 
-        /// <summary>
-        /// 欢迎首页
-        /// </summary>
-        public void Welcome_GET()
-        {
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Welcome), new
-            {
-                path = GetPath(),
-                dashurl = Server.DashbordRssServer,
-                soft_ver = Cms.Version,
-                sys_alias = Settings.License_NAME,
-            });
-        }
 
         /// <summary>
         /// 服务器信息页面
         /// </summary>
-        public void ServerSummary_GET()
+        public void Summary_GET()
         {
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Server_Summary), new
-                                {
-                                    path = GetPath(),
-                                    dashurl = Server.DashbordRssServer,
-                                    soft_ver = Cms.Version,
-                                    sys_alias = Settings.License_NAME,// + "(KEY:" + Settings.SYS_KEY + ")",
-                                    server_name = HttpContext.Current.Server.MachineName,
-                                    server_os = Environment.OSVersion.VersionString,
-                                    server_local = System.Globalization.CultureInfo.InstalledUICulture.EnglishName,
-                                    server_ip = Request.ServerVariables["LOCAl_ADDR"],
-                                    server_host = Request.ServerVariables["SERVER_NAME"],
-                                    server_iis = Request.ServerVariables["Server_SoftWare"],
-                                    server_netver = Environment.Version.Major + "." + Environment.Version.Minor + "." + Environment.Version.Build + "." + Environment.Version.Revision,
-                                    server_https = Request.Url.ToString().IndexOf("https://") != -1 ? "是" : "否",
-                                    server_port = Request.ServerVariables["Server_Port"],
-                                    server_hour = String.Format("{0}小时", ((Environment.TickCount / 0x3e8) / 3600).ToString()),
-                                    server_time = DateTime.Now.ToString(),
-                                    server_cpu = String.Format("{0},{1}核", Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER"), Environment.GetEnvironmentVariable("NUMBER_OF_PROCESSORS")),
-                                    server_meory = (Environment.WorkingSet / 1024 / 1024) + "M",
-                                    server_net_meory = ((Double)System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 / 1048576).ToString("N2") + "M",
-                                    person_os = this.GetOSNameByUserAgent(base.Request.UserAgent),
-                                    person_ip = base.Request.UserHostAddress,
-                                    person_soft = base.Request.Browser.Browser,
-                                    person_softver = base.Request.Browser.Version,
-                                    person_cookie = base.Request.Browser.Cookies ? "支持" : "<span style=\"color:Red\">不支持</span>",
-                                    person_java = base.Request.Browser.EcmaScriptVersion.Major >= 1 ? "支持" : "<span style=\"color:Red\">不支持</span>",
-                                });
+            {
+                path = GetPath(),
+                shortServer ="//"+Server.ShortUrlServer,
+                soft_ver = Cms.Version,
+                sys_alias = Settings.License_NAME, // + "(KEY:" + Settings.SYS_KEY + ")",
+                server_name = HttpContext.Current.Server.MachineName,
+                server_os = Environment.OSVersion.VersionString,
+                server_local = System.Globalization.CultureInfo.InstalledUICulture.EnglishName,
+                server_ip = Request.ServerVariables["LOCAl_ADDR"],
+                server_host = Request.ServerVariables["SERVER_NAME"],
+                server_iis = Request.ServerVariables["Server_SoftWare"],
+                server_netver =
+                    Environment.Version.Major + "." + Environment.Version.Minor + "." + Environment.Version.Build + "." +
+                    Environment.Version.Revision,
+                server_https = Request.Url.ToString().IndexOf("https://") != -1 ? "是" : "否",
+                server_port = Request.ServerVariables["Server_Port"],
+                server_hour = String.Format("{0}小时", ((Environment.TickCount/0x3e8)/3600).ToString()),
+                server_time = DateTime.Now.ToString(),
+                server_cpu =
+                    String.Format("{0},{1}核", Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER"),
+                        Environment.GetEnvironmentVariable("NUMBER_OF_PROCESSORS")),
+                server_meory = (Environment.WorkingSet/1024/1024) + "M",
+                server_net_meory =
+                    ((Double) System.Diagnostics.Process.GetCurrentProcess().WorkingSet64/1048576).ToString("N2") + "M",
+                person_os = this.GetOSNameByUserAgent(base.Request.UserAgent),
+                person_ip = base.Request.UserHostAddress,
+                person_soft = base.Request.Browser.Browser,
+                person_softver = base.Request.Browser.Version,
+                person_cookie = base.Request.Browser.Cookies ? "支持" : "<span style=\"color:Red\">不支持</span>",
+                person_java =
+                    base.Request.Browser.EcmaScriptVersion.Major >= 1 ? "支持" : "<span style=\"color:Red\">不支持</span>",
+            });
 
         }
 

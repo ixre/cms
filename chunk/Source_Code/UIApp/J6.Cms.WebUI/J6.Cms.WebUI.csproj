@@ -180,7 +180,6 @@
     <Content Include="framework\mui\html\archive\archive_forword.html" />
     <Content Include="framework\mui\html\user\user_role_set.html" />
     <Content Include="framework\mui\html\user\user_role.html" />
-    <Content Include="framework\mui\html\welcome.html" />
     <Content Include="framework\mui\html\index_master.html" />
     <Content Include="framework\mui\html\login.html" />
     <Content Include="framework\mui\html\archive\archive_view.html" />
@@ -201,7 +200,6 @@
     <Content Include="framework\mui\html\file\file_edit.html" />
     <Content Include="framework\mui\html\file\file_manager.html" />
     <Content Include="framework\mui\html\file\file_selectedit.html" />
-    <Content Include="framework\mui\html\index.main.html" />
     <Content Include="framework\mui\html\link\link.related_link.html" />
     <Content Include="framework\mui\html\link\link.sitelink_edit.html" />
     <Content Include="framework\mui\html\link\link.sitelink_edit_navigator.html" />
@@ -216,7 +214,7 @@
     <Content Include="framework\mui\html\site\site.edit.html" />
     <Content Include="framework\mui\html\site\site.index.html" />
     <Content Include="framework\mui\html\subsite\index.html" />
-    <Content Include="framework\mui\html\server_summary.html" />
+    <Content Include="framework\mui\html\summary.html" />
     <Content Include="framework\mui\html\template\template_edit.html" />
     <Content Include="framework\mui\html\template\template_editfile.html" />
     <Content Include="framework\mui\html\template\template_manager.html" />

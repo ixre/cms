@@ -8,9 +8,7 @@
     <map for="Css_Style" to="mui/css/latest/page_style.css"/>
     <map for="Login" to="mui/html/login.html"/>
     <map for="Index" to="mui/html/index_master.html"/>
-    <map for="Server_Summary" to="mui/html/server_summary.html"/>
-    <map for="IndexMain" to="mui/html/index.main.html"/>
-    <map for="Welcome" to="mui/html/welcome.html"/>
+    <map for="Server_Summary" to="mui/html/summary.html"/>
     <map for="SUB_Index" to="mui/html/subsite/index.html"/>
     <map for="App_Config" to="mui/html/cms.config.html"/>
     <map for="Site_Index" to="mui/html/site/site.index.html"/>
