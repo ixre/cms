@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Caching;
 using System.Xml;
@@ -182,27 +183,13 @@ namespace J6.Cms.WebManager
 
         public static string GetPageContent(ManagementPage page)
         {
-            initialize();
-
-            string cacheKey = String.Concat("$MP_", ((int)page).ToString());
-            return CacheFactory.Sington.GetCachedResult<String>(
-                cacheKey,
-                () =>
-                {
-                    string pageContent = null;
-                    string pagePath = null;
-                    pageSrcs.TryGetValue(page, out pagePath);
-
-                    if (pagePath == null || pagePath.Trim() == String.Empty)
-                    {
-                        throw new Exception("页面不存在,PAGE:" + page.ToString());
-                    }
-
-                    pagePath = Cms.PyhicPath + pagePath;
-                    pageContent = File.ReadAllText( pagePath);
-                    return pageContent;
-                },DateTime.Now.AddHours(1)
-                );
+            String pagePath = GetPageUrl(page);
+            if (pagePath == null || pagePath.Trim() == String.Empty)
+            {
+                throw new Exception("页面不存在,PAGE:" + page.ToString());
+            }
+            pagePath = Cms.PyhicPath + pagePath;
+            return File.ReadAllText(pagePath);
         }
 
         public static string GetPageUrl(ManagementPage page)

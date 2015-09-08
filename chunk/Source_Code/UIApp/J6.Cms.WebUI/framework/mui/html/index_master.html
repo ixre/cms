@@ -14,18 +14,18 @@
             <img field="userAvatar" class="avatar" />
             <div class="text">
                 <span field="dateStr"></span><br />
-                欢迎您：<span class="username" field="userName"></span>
+                欢迎您1：<span class="username" field="userName"></span>
                 【<a href="javascript:;" id="btn_logout" title="安全退出系统">退出</a>】
             </div>
         </div>
 
-        <ul class="icon-ctrl hidden">
+        <ul class="icon-ctrl">
             <li class="first">
-                <a class="title" href="javascript:FwMenu.change('home');">
-                    <img class="icon" src="/framework/mui/css/latest/icon_user.png" height="20" />我的首页
+                <a class="title" href="javascript:FwMenu.change('site');">
+                    <img class="icon" src="/framework/mui/css/latest/icon_user.png" height="20"/>网站管理
                 </a>
             </li>
-            <li class="drop">
+            <li class="drop hidden">
                 <a class="title">
                     <img class="icon" src="/framework/mui/css/latest/icon_server.png" height="20" />网站管理
                 </a>
@@ -49,12 +49,12 @@
                 </div>
             </li>
 
-            <!--
-            <li class="first">
+            
+            <li>
                 <a class="title" href="javascript:FwMenu.change('content');">
                     <img class="icon" src="/framework/mui/css/latest/icon_chart.png" height="20" />内容管理
                 </a>
-            </li>-->
+            </li>
 
             <li>
                 <a class="title" href="javascript:FwMenu.change('system');">
@@ -109,7 +109,7 @@
 
     <script type="text/javascript"> window._path = '${admin_path}';</script>
     <script type="text/javascript" src="?res=dWlfY29tcG9uZW50&amp;${version}.js"></script>
-    <script type="text/javascript" src="${ui_custom_js_path}">        /*用户自定义JS*/</script>
+    <script type="text/javascript" src="${ui_custom_js_path}">/*用户自定义JS*/</script>
     <script type="text/javascript">
         var pageVar = {
             sysName: ':: 控制面板中心管理端 一 J6 Cms .NET! v${version} ::',

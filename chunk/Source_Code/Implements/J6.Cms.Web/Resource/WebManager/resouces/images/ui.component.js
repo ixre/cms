@@ -518,8 +518,7 @@ var frameDiv = getDivByCls('page-frames');
 var splitDiv = getDivByCls('page-main-split');
 //框架遮盖层
 var frameShadowDiv = getDivByCls('page-frame-shadow');
-//图标操作栏
-var iconCtrlDiv = getDivByCls('icon-ctrl', document.body);
+
 //用户操作栏
 var userDiv = getDivByCls('page-user', document.body);
 
@@ -534,10 +533,6 @@ function _resizeWin() {
     //设置右栏的宽度
     rightDiv.style.width = (width - leftDiv.offsetWidth - splitDiv.offsetWidth + 1) + 'px';
 
-    //设置图标操作栏居中显示
-    iconCtrlDiv.className = 'icon-ctrl';
-    var iconCtrlLeft = Math.floor((width - iconCtrlDiv.offsetWidth - userDiv.offsetWidth) / 2);
-    iconCtrlDiv.style.left = (iconCtrlDiv < 180 ? 180 : iconCtrlLeft) + 'px';
 }
 
 j6.event.add(window, 'resize', _resizeWin);

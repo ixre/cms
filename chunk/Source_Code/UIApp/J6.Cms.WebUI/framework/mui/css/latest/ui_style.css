@@ -1,4 +1,4 @@
-﻿html{overflow:auto; /*关闭IE6的右侧*/}
+html{overflow:auto; /*关闭IE6的右侧*/}
 body{
    font-size:12px;
    margin:0px;font:12px '微软雅黑',sans-serif,arial;
@@ -21,7 +21,8 @@ dd,dt{margin:0;}
 .page-user .text{margin:5px 6px;line-height:20px;}
 .page-user .text a{color:#ddd;text-decoration:none;}
 
-.page-top ul.icon-ctrl{position:absolute;top:9px;left:300px;z-index:100;padding:0;margin:0;list-style:none;height:100%; vertical-align:middle;height:34px;/*overflow:hidden;*/}
+.page-top ul.icon-ctrl{position:absolute;top:9px;left:0;right:0;margin:0 auto;width:400px;
+    z-index:100;padding:0;list-style:none;height:100%;vertical-align:middle;height:34px;}
 .page-top ul.icon-ctrl li{float:left;padding:5px;margin-right:15px;text-align:center;position:relative;border:solid 1px transparent;}
 .page-top ul.icon-ctrl li.first{/*background:none;*/}
 .page-top ul.icon-ctrl a.title{color:#fff;font-size:14px;font-weight:bold;text-decoration:none;line-height:30px;overflow:hidden;}
@@ -58,7 +59,8 @@ dd,dt{margin:0;}
 /* menu */
 .page-left-menu{border:solid 1px #d0d0d0;background:#fff;border-left:none;border-bottom:none;margin-top:3px;height:100%;}
 .page-left-menu ul{margin:0;padding:5px;list-style:none;border-bottom:solid 1px #d0d0d0;margin-bottom:1px;}
-.page-left-menu .group-title{background:url(menu_bar_bg.gif) repeat-x;line-height:38px;border-bottom:solid 1px #d0d0d0;font-weight:bold;padding-left:15px;margin-bottom:1px;color:#333;}
+.page-left-menu .group-title{background:url(menu_bar_bg.gif) repeat-x;line-height:38px;border-bottom:solid 1px #d0d0d0;
+    font-weight:bold;padding-left:15px;margin-top:1px;color:#333;}
 .page-left-menu .group-title span{padding-left:18px;background:url(menu_icon.gif) left center no-repeat;}
 .page-left-menu ul li{padding-left:0px;line-height:25px;background:#eee;margin-bottom:1px;}
 .page-left-menu ul li.current{background:url(left_menu_current.gif) 0 center no-repeat;}
