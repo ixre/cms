@@ -50,8 +50,8 @@ vertical-align: middle;	 text-indent:-999em;}
 
 /** flash player **/
 .flash-panel{ margin: 0;}
-.flash-panel ul{list-style:none;margin:0;padding:0;}
-.flash-panel div.item{height:100%;background:#F5F5F5 center top no-repeat;}
+.flash-panel ul{list-style:none;margin:0;padding:0;height: 100%;}
+.flash-panel .item{height:100%;background:#F5F5F5 center top no-repeat;width: 100%;}
 .flash-pager{position:absolute;bottom:5px;left:0;right:0;text-align:center;height:7px;overflow:hidden;}
 
 
