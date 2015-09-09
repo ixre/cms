@@ -52,7 +52,7 @@ textarea.box{ height: auto;}
 
 input.box:focus,select.box:focus,textarea.box:focus{border:solid 2px #0A0;margin:0;box-shadow:0px 10px 15px #FFC inset}
 input.btn,a.btn {
-    padding: 0px 20px;
+    padding: 0px 5px;
     -ms-border-radius: 5px;
     border-radius: 5px;cursor: pointer;
     -webkit-box-shadow: 0px 1px 1px #EEE;

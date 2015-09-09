@@ -311,7 +311,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 升级操作
         /// </summary>
-        public void CheckUpgrade_POST()
+        public void CheckUpgrade_GET()
         {
             const string upgradeTpl = "{result:%result%,message:'%msg%',version:'%ver%',log:'%log%'}";
 
@@ -328,7 +328,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 case -2: message = "未发现更新版本"; break;
                 case -3: message = "无法连接到更新服务器"; break;
                 case -4: message = "更新服务器发生内部错误"; break;
-                case -5:message = "非正式环境禁止更新"; break;
+                case -5:message = "非正式环境无法升级"; break;
                 case 1: message = "有新版本可以更新!"; break;
             }
 
@@ -340,7 +340,7 @@ namespace J6.Cms.Web.WebManager.Handle
             base.Response.Write(
                 upgradeTpl.Replace("%result%", result.ToString())
                 .Replace("%msg%", message.Replace("'", "\\'")).Replace("%ver%", verResult[0])
-                .Replace("%log%", changeLog.Replace("'", "\\'").Replace("\n", "<br />").Replace("\r", ""))
+                .Replace("%log%", changeLog.TrimStart().Replace("'", "\\'").Replace("\n", "<br />").Replace("\r", ""))
             );
         }
 
@@ -358,10 +358,11 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 升级进度
         /// </summary>
-        public void UpgradeStatus_POST()
+        public void GetUpgradeStatus_GET()
         {
             float f = Updater.UpgradePercent;
             base.Response.Write(f.ToString(CultureInfo.InvariantCulture));
+
             if (f == 1F)
             {
                 Updater.ApplyCoreLib();
@@ -374,8 +375,6 @@ namespace J6.Cms.Web.WebManager.Handle
                     Updater.UpgradePercent = 0.96F;
                 }
             }
-
-            Thread.Sleep(1000);
         }
 
         #endregion

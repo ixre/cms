@@ -164,6 +164,7 @@
     <Content Include="framework\mui\css\latest\menu_bar_bg.gif" />
     <Content Include="framework\mui\css\latest\menu_icon.gif" />
     <Content Include="framework\mui\css\latest\panel_item_line.gif" />
+    <Content Include="framework\mui\css\latest\site_sel_bg.gif" />
     <Content Include="framework\mui\css\latest\tab_bg.gif" />
     <Content Include="framework\mui\css\latest\tab_bg_hover.gif" />
     <Content Include="framework\mui\css\latest\tab_close.gif" />

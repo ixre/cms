@@ -101,6 +101,13 @@ namespace J6.Cms
             catch{
             	return -3;
             }
+
+            Stream rspStream;
+            if (rsp == null || (rspStream = rsp.GetResponseStream()) == null)
+            {
+                return -3;
+            }
+
             switch (rsp.StatusCode)
             {
                 //更新服务器发生内部错误
@@ -118,7 +125,7 @@ namespace J6.Cms
                 case HttpStatusCode.OK: break;// return 1;
             }
             byte[] xmlData = new byte[rsp.ContentLength];
-            rsp.GetResponseStream().Read(xmlData, 0, xmlData.Length);
+            rspStream.Read(xmlData, 0, xmlData.Length);
 
             XmlDocument xd = new XmlDocument();
             string result = Encoding.UTF8.GetString(xmlData);
