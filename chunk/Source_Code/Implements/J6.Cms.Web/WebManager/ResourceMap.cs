@@ -110,6 +110,9 @@ namespace J6.Cms.WebManager
         Template_Edit,
         Template_EditFile,
         Template_Manager,
+
+
+        Assistant_Category_Clone,
     }
 
 

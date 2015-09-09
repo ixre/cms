@@ -2,33 +2,28 @@
 <html>
 <head>
     <title>所有栏目</title>
-    $css()   
-    $iconcss()
+    $css()
 </head>
 <body>
     <div id="main" class="autoStyle" style="overflow: hidden;">
         <table cellpadding="0" cellspacing="0" width="100%" height="100%">
             <tr>
-                <td width="250" valign="top">
-                    <div style="padding:20px 20px 0 20px">
-                        <input type="button" class="btn" value="新建" id="btn_create" />&nbsp;
-                        <input type="button" class="btn" value="收起" id="btn_collage" />&nbsp;
-                        <input type="button" class="btn" value="刷新" id="btn_refrensh" />&nbsp;
-                        <input type="button" class="btn" value="栏目助手" id="btn_utility" />
-                    </div>
-                    <div id="dg" style="padding:20px"></div>
+                <td width="50%" valign="top">
+                    <select id="site_selector">
+                        <option value="">请选择</option>
+                        ${site_opt}
+                    </select>
+                    <div id="from_tree"></div>
+
                 </td>
-                <td valign="top">
-                        <div id="pl" class="panel formPanel helpPanel relative" style="overflow:auto">
-                            <h2>操作帮助</h2>
-                            <div class="line"></div>
-                            <ol>
-                                <li>点击“新增栏目”按钮进行栏目添加。</li>
-                                <li>点击栏目可进行栏目修改。</li>
-                                <li>鼠标右键点击栏目，可进行栏目其他操作。</li>
-                                <li>点击展开栏目，可以展开所有栏目，点击收起栏目，可以折叠所有栏目。</li>
-                            </ol>
-                        </div>
+                <td>
+                    目标站点：${target_name}
+                    <div class="hidden" style="padding: 20px 20px 0 20px">
+                        <input type="button" class="btn" value="新建栏目" id="btn_create"/>&nbsp;
+                        <input type="button" class="btn" value="收起栏目" id="btn_collage"/>&nbsp;
+                        <input type="button" class="btn" value="栏目助手" id="btn_utility"/>
+                    </div>
+                    <div id="dg" style="padding: 20px"></div>
                 </td>
             </tr>
         </table>
@@ -108,10 +103,6 @@
         if (window._thisLoadCategoryTree) window._thisLoadCategoryTree();
     }
 
-    function refresh() {
-        _reloadTree();
-    }
-
     //创建
     Fn.create = function (id) {
         j6.load2('pl', 'category', 'create', id?'lft='+id:'');
@@ -122,20 +113,18 @@
         Fn.create();
     };
 
-    j6.$('btn_refrensh').onclick = refresh;
-
     j6.$('btn_collage').onclick = function () {
         if (this.value.indexOf('收起') != -1) {
             treeObj.closeAll();
-            this.value = '展开';
+            this.value = '展开栏目';
         } else {
             treeObj.openAll();
-            this.value = '收起';
+            this.value = '收起栏目';
         }
     };
 
     j6.$('btn_utility').onclick = function() {
-        parent.FwTab.show('栏目助手', '?module=assistant&action=category_clone&target_site=' + siteId);
+        parent.FwTab.show('栏目助手', '?module=category&action=clone&from_site=' + siteId);
     };
 
     var menu = {

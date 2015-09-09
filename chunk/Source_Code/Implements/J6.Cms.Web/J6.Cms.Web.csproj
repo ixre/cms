@@ -154,6 +154,7 @@
     <Compile Include="WebManager\Handle\ArchiveC.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WebManager\Handle\AssistantC.cs" />
     <Compile Include="WebManager\Handle\CategoryC.cs" />
     <Compile Include="WebManager\Handle\ExtendC.cs" />
     <Compile Include="WebManager\Handle\FileC.cs" />

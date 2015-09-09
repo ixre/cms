@@ -13,7 +13,7 @@
 //
 //
 
-using J6.Cms.CacheService;
+using System.Collections;
 using J6.Cms.Conf;
 using J6.DevFw;
 using J6.DevFw.Framework.Extensions;
@@ -24,7 +24,6 @@ namespace J6.Cms.WebManager
     using J6.Cms.DataTransfer;
     using J6.Cms.Web;
     using J6.Cms.Web.WebManager;
-    using J6.DevFw.Template;
     using System;
     using System.IO.Compression;
     using System.Reflection;
@@ -39,6 +38,13 @@ namespace J6.Cms.WebManager
         protected HttpRequest Request { get { return HttpContext.Current.Request; } }
         private static readonly string[] ignoreURI;
         protected SiteDto _site;
+        private Hashtable _viewData;
+
+        public Hashtable ViewData
+        {
+            get { return (_viewData ?? (_viewData = new Hashtable())); }
+        }
+
 
         /// <summary>
         /// 管理后台模板标签
@@ -128,6 +134,55 @@ namespace J6.Cms.WebManager
             response.AddHeader("X-AspNet-Version", String.Format("J6.Cms v{0}", Cms.Version));
             response.AddHeader("Support-URL", "cms.k3f.net/cms/");
 
+        }
+
+
+        protected void RenderTemplate(string content)
+        {
+            HttpResponse response = this.Response;
+            response.Write(RequireTemplate(content));
+        }
+
+        protected string RequireTemplate(string content)
+        {
+            string html = null;
+            HttpResponse response = this.Response;
+
+            MicroTemplateEngine _tpl = new MicroTemplateEngine(tpl);
+            html = _tpl.Execute(content);
+
+                object value;
+            foreach (object p in this.ViewData.Keys)
+            {
+                if ((value = this.ViewData[p]) != null)
+                {
+                    html = ReplaceHtml(html, p.ToString(), value.ToString());
+                }
+            }
+
+
+            if (!Array.Exists(ignoreURI, a => HttpContext.Current.Request.Url.Query.IndexOf(a) != -1))
+            {
+                html = CompressHtml(html);
+            }
+
+            if (Settings.Opti_SupportGZip)
+            {
+                response.Filter = new GZipStream(response.Filter, CompressionMode.Compress);
+                response.AddHeader("Content-Encoding", "gzip");
+            }
+
+            if (this.Request["ajax"] == "1" || HttpContext.Current.Items["ajax"] == "1")
+            {
+                const string ajaxPartern = "<body([^>]*)>([\\s\\S]+)</body>";
+                if (Regex.IsMatch(html, ajaxPartern))
+                {
+                    Match match = Regex.Match(html, ajaxPartern);
+
+                    return match.Groups[2].Value;
+                }
+            }
+            return html;
         }
 
         protected void RenderTemplate(string content, object dataObj)
@@ -333,5 +388,7 @@ namespace J6.Cms.WebManager
             }
             return false;
         }
+
+
     }
 }

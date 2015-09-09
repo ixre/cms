@@ -13,6 +13,7 @@
 //
 
 using System;
+using System.Collections;
 using System.IO;
 using System.Text;
 using System.Web;
@@ -49,60 +50,35 @@ namespace J6.Cms.Web.WebManager.Handle
         /// 管理首页
         /// </summary>
         //[StaticCache]
-        public void Index_GET()
+        public string Index_GET()
         {
             //重定向管理页
             string path = base.Request.Path;
             if (base.Request.Url.Query == "" || path.EndsWith("/"))
             {
                 if (path.EndsWith("/")) path = path.Substring(0, path.Length - 1);
-                base.Response.Write(String.Format("<script>window.parent.location.replace('{0}?ver={1}')</script>", path,
-                    Cms.Version));
-                return;
+                return String.Format("<script>window.parent.location.replace('{0}?ver={1}')</script>", path, Cms.Version);
             }
 
             string pageTemplate = ResourceMap.GetPageContent(ManagementPage.Index);
-            UserDto usr = UserState.Administrator.Current;
             SiteDto currentSite = this.CurrentSite;
-//
-//            if (!usr.IsMaster)
-//            {
-//                //子站用户跳转标识
-//                //if (base.Request["f"] != "s")
-//                //{
-//                //    base.Response.Write(String.Format("<script>window.parent.location.replace('{0}?ver={1}&f=s')</script>", base.Request.Path, Cms.Version));
-//                //    return;
-//                //}
-//                //else
-//                //{
-//                //    page_Template = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
-//                //}
-//                pageTemplate = ResourceMap.GetPageContent(ManagementPage.SUB_Index);
-//            }
-//            else
-//            {
-//                pageTemplate = ResourceMap.GetPageContent(ManagementPage.Index);
-//            }
-//
 
             String localJsRef = String.Format("/{0}{1}/mui_override.js", CmsVariables.SITE_CONF_PRE_PATH,
                 currentSite.SiteId.ToString());
             if (!File.Exists(Cms.PyhicPath + localJsRef))
             {
                 localJsRef = "";
+
             }
 
-            base.RenderTemplate(pageTemplate,
-                new
-                {
-                    version = Cms.Version,
-                    path = GetPath(),
-                    admin_path = Settings.SYS_ADMIN_TAG,
-                    site_id = currentSite.SiteId,
-                    local_js = localJsRef,
-                    ui_css_path = ResourceMap.GetPageUrl(ManagementPage.UI_Index_Css),
-                    //initData=new Ajax().GetAppInit()
-                });
+            ViewData["version"] = Cms.Version;
+            ViewData["path"] = GetPath();
+            ViewData["admin_path"] = Settings.SYS_ADMIN_TAG;
+            ViewData["site_id"] = currentSite.SiteId;
+            ViewData["local_js"] = localJsRef;
+            ViewData["ui_css_path"] = ResourceMap.GetPageUrl(ManagementPage.UI_Index_Css);
+
+            return base.RequireTemplate(pageTemplate);
         }
 
         /// <summary>

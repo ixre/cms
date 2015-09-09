@@ -12,6 +12,7 @@
 //
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -31,7 +32,6 @@ namespace J6.Cms.Web.WebManager.Handle
 {
     public class CategoryC : BasePage
     {
-
 
         public void Data_POST()
         {
@@ -59,93 +59,11 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 所有栏目
         /// </summary>
-        public void All_GET()
+        public string All_GET()
         {
-            /*
-            string categoryRowsHtml;            //栏目行HTML
-
-            StringBuilder sb = new StringBuilder();
-            ModuleBLL mb = new ModuleBLL();
-            Module m;
-
-            var allCate = CmsLogic.Category.GetCategories();
-
-
-            if (allCate != null && allCate.Count != 0)
-            {
-                //根节点
-                Category root = CmsLogic.Category.Root;
-
-                CmsLogic.Category.HandleCategoryTree(root.Name, (c, level) =>
-                {
-                    m = mb.GetModule(c.ModuleID);
-                    sb.Append("<tr><td class=\"hidden\">").Append(c.Lft).Append("</td>")
-                          .Append("<td><span class=\"pnode\"></span>");
-
-                    for (var i = 0; i < level; i++)
-                    {
-                        sb.Append("&nbsp;&nbsp;");
-                    }
-
-                    sb.Append(c.Name).Append("</td>")
-                    .Append("<td class=\"center\">").Append(c.Tag).Append("</td>")
-                    .Append("<td class=\"center\">").Append(m == null ? "-" : m.Name).Append("</td><td class=\"center\">")
-                            .Append(c.Keywords)
-                            .Append("</td><td class=\"center\"><button class=\"draw\" onclick=\"location.href='?module=archive&action=create&moduleID=").Append(c.ModuleID.ToString())
-                    .Append("&categoryID=").Append(c.ID).Append("'\" /></td><td class=\"center\"><button class=\"edit\" /></td><td class=\"center\"><button class=\"delete\" /></td></tr>");
-
-                });
-            */
-            /*
-            foreach (Category parentCategory in CmsLogic.Category.GetCategories(a => a.PID == 0))
-            {
-                m = mb.GetModule(parentCategory.ModuleID);
-
-                sb.Append("<tr class=\"row\"><td class=\"hidden\">").Append(parentCategory.ID).Append("</td>")
-                    .Append("<td style=\"padding-left:10px\"><span class=\"pnode\"></span>").Append(parentCategory.Name).Append("</td>")
-                    .Append("<td class=\"center\">").Append(parentnode.tag).Append("</td>")
-                    .Append("<td class=\"center\">").Append(m == null ? "-" : m.Name).Append("</td><td class=\"center\">")
-                            .Append(parentCategory.Keywords)
-                            .Append("</td><td class=\"center\"><button class=\"draw\" onclick=\"location.href='?module=archive&action=create&moduleID=").Append(parentCategory.ModuleID.ToString())
-                    .Append("&categoryID=").Append(parentCategory.ID).Append("'\" /></td><td class=\"center\"><button class=\"edit\" /></td><td class=\"center\"><button class=\"delete\" /></td></tr>");
-
-                childCategories = new List<global::Spc.Category>(CmsLogic.Category.GetCategories(a => a.PID == parentCategory.ID));
-                if (childCategories.Count != 0)
-                {
-                    // sb.Append("<tr><td colspan=\"8\"><table class=\"childCategories\" cellspacing=\"0\">");
-
-                    foreach (global::Spc.Category childCategory in childCategories)
-                    {
-                        m = mb.GetModule(childCategory.ModuleID);
-                        sb.Append("<tr><td class=\"hidden\">").Append(childCategory.ID).Append("</td><td style=\"padding-left:10px\"><span class=\"cnode\"></span>")
-                            .Append(childCategory.Name).Append("</td>")
-                            .Append("<td class=\"center\">").Append(childnode.tag).Append("</td><td class=\"center\">")
-                            .Append(m == null ? "-" : m.Name)
-                            .Append("</td><td class=\"center\">")
-                            .Append(childCategory.Keywords)
-                            .Append("</td><td class=\"center\"><button class=\"draw\" onclick=\"location.href='?module=archive&action=create&moduleID=")
-                            .Append(childCategory.ModuleID).Append("&categoryID=").Append(childCategory.ID).Append("'\" /></td>")
-                            .Append("<td class=\"center\"><button class=\"edit\" /></td>")
-                            .Append("<td class=\"center\"><button class=\"delete\" /></td></tr>");
-                    }
-
-                    //sb.Append("</table></td></tr>");
-                }
-
-            }
-             */
-
-
-
-            //模块JSON
-            //categoryTypeJSON = CmsLogic.Module.GetModuleJson();
-
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Category_List), new
-            {
-                //categoryRowsHtml = categoryRowsHtml,
-                //categoryTypeJSON = categoryTypeJSON,
-                //count=allCate.Count.ToString()
-            });
+            SiteDto siteDto = base.CurrentSite;
+            ViewData["site_id"] = siteDto.SiteId;
+            return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Category_List));
         }
 
 
@@ -527,147 +445,5 @@ namespace J6.Cms.Web.WebManager.Handle
                 this.Response.Write("')</script>");
             }
         }
-
-        //private IList<Category> cates;
-        //private Category nextCategory;
-        //private Category parentNextCategory;
-        //private Category tempCategory;
-
-
-        //[Obsolete]
-        //private void ItrTree(Category cate, StringBuilder sb,int siteID)
-        //{
-
-        //    int level = new List<Category>(CmsLogic.Category.GetCategories(cate.Lft, cate.Rgt, CategoryContainerOption.Parents)).Count;
-
-        //    if (level >= 2) return;
-
-
-        //    if (cate.Lft != 1)
-        //    {
-        //        if (cate.SiteId != siteID) return;  //判断站点
-        //        sb.Append("<dd>");
-        //    }
-
-        //    cates=new List<Category>(cate.NextLevelCategories);
-        //    nextCategory = CmsLogic.Category.GetNext(cate.Lft, cate.Rgt);
-        //    string className="";
-
-        //    //获取父类及父类的下一个类目
-        //    if (cate.Lft != 1)
-        //    {
-        //        tempCategory = CmsLogic.Category.GetParent(cate.Lft, cate.Rgt);
-        //        parentNextCategory = CmsLogic.Category.GetNext(tempCategory.Lft, tempCategory.Rgt);
-        //    }
-
-
-        //    if (cates.Count != 0)
-        //    {
-        //        if (cate.Lft != 1)
-        //        {
-        //            sb.Append("<dl><dt")
-        //                .Append(" lft=\"").Append(cate.Lft.ToString()).Append("\" level=\"")
-        //                .Append(level.ToString()).Append("\">");
-
-        //            for (int i = 0; i < level; i++)
-        //            {
-        //                //最后一个竖线不显示
-        //                 if (i!=0 && nextCategory==null && (i!=level-1 || ( i==level-1 && parentNextCategory==null)))
-        //                {
-        //                    sb.Append("<img src=\"/framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
-        //                }
-        //                else
-        //                {
-        //                    sb.Append("<img class=\"tree-line\" src=\"/framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
-        //                }
-        //            }
-
-        //            //tree-expand:已展开
-        //            //tree-expand-last:已经展开最后一个
-
-        //            //tree-collage:未开展
-        //            //tree-collage:未展开最后一个
-
-        //            if (level == 0)
-        //            {
-        //                if (nextCategory == null)
-        //                {
-        //                    className = "tree-expand tree-expand-last";
-        //                }
-        //                else
-        //                {
-        //                    className = "tree-expand";
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (nextCategory == null)
-        //                {
-        //                    className = "tree-collage tree-collage-last";
-        //                }
-        //                else
-        //                {
-        //                    className = "tree-collage";
-        //                }
-        //            }
-
-
-        //            sb.Append("<img class=\"").Append(className)
-        //            .Append("\" src=\"/framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt parent\" cid=\"")
-        //            .Append(cate.ID.ToString()).Append("\">").Append(cate.Name).Append("</span></dt>");
-        //        }
-
-        //        foreach (var c in cates)
-        //        {
-        //            ItrTree(c, sb,siteID);
-        //        }
-        //        if (cate.Lft != 1)
-        //        {
-        //            sb.Append("</dl>");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        for (int i = 0; i <level; i++)
-        //        {
-        //            if (i != 0 && i == level - 1 && nextCategory==null)
-        //            {
-        //                sb.Append("<img src=\"/framework/assets/sys_themes/default/icon_trans.png\"/>");
-        //            }
-        //            else if (parentNextCategory != null)
-        //            {
-        //                sb.Append("<img class=\"tree-line\" src=\"/framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
-        //            }
-        //            else
-        //            {
-        //                sb.Append("<img src=\"/framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
-        //            }
-        //        }
-
-        //        sb.Append("<img class=\"tree-item\" src=\"/framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt archvie\" cid=\"")
-        //            .Append(cate.ID.ToString()).Append("\">").Append(cate.Name).Append("</span>");
-        //    }
-
-        //    if (cate.Lft != 1)
-        //    {
-        //        sb.Append("</dd>");
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 分类页
-        ///// </summary>
-        //public void GetTree_GET()
-        //{
-        //    int lft = int.Parse(base.Request["lft"]);
-        //    int lineNum = int.Parse(base.Request["lines"]);
-        //    int level = int.Parse(base.Request["level"]);
-
-
-        //   // string html= ServiceCall.Instance.SiteService.GetChildsTreeHtml(this.SiteId, lft, lineNum, level);
-
-        //   // base.Render(html);
-        //}
-
     }
 }

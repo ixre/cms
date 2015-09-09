@@ -179,6 +179,7 @@
     <Content Include="framework\mui\css\res\logo_login.png" />
     <Content Include="framework\mui\css\latest\page_style.css" />
     <Content Include="framework\mui\html\archive\archive_forword.html" />
+    <Content Include="framework\mui\html\assistant\category_clone.html" />
     <Content Include="framework\mui\html\user\user_role_set.html" />
     <Content Include="framework\mui\html\user\user_role.html" />
     <Content Include="framework\mui\html\index.html" />
