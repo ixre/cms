@@ -36,7 +36,7 @@
 
 
     <script type="text/template" id="list_menu_tpl">
-        <div class="item" onclick="menu.add()">
+        <div class="item" onclick="window.menu.add()">
             <a href="javascript:;">$icon(create)新建栏目</a>
         </div>
         <div class="item" onclick="menu.refresh()">
@@ -45,7 +45,7 @@
     </script>
 
     <script type="text/template" id="tpl">
-        <div class="item" onclick="menu.add('%id%')">
+        <div class="item" onclick="window.menu.add('%id%')">
             <a href="javascript:;">$icon(create)新建子栏目</a>
         </div>
         <div class="item" onclick="menu.extend('%id%')">
@@ -108,21 +108,43 @@
         if (window._thisLoadCategoryTree) window._thisLoadCategoryTree();
     }
 
-    function refresh() {
-        _reloadTree();
-    }
 
+    
     //创建
     Fn.create = function (id) {
         j6.load2('pl', 'category', 'create', id?'lft='+id:'');
     };
 
 
+window.menu = {
+    add: Fn.create,
+    refresh: _reloadTree,
+    extend: function(id) {
+        var d = j6.dialog.create2('扩展属性', true, true);
+        d.open('?module=extend&action=category_check&lft=' + id, 500, 400);
+
+    },
+    del: function(id) {
+        if (confirm('确定删除吗?删除后将不可恢复!')) {
+            j6.xhr.jsonPost('?', 'module=category&action=delete&lft=' + id,
+                function(json) {
+                    if (json.result) {
+                        _reloadTree();
+                    } else {
+                        showErr(json.message);
+                    }
+                });
+        }
+    }
+};
+
+
+
     j6.$('btn_create').onclick = function () {
         Fn.create();
     };
 
-    j6.$('btn_refrensh').onclick = refresh;
+    j6.$('btn_refrensh').onclick = menu.refresh;
 
     j6.$('btn_collage').onclick = function () {
         if (this.value.indexOf('收起') != -1) {
@@ -138,24 +160,7 @@
         parent.FwTab.show('栏目助手', '?module=assistant&action=category_clone&target_site=' + siteId);
     };
 
-    var menu = {
-        add: Fn.create,
-        extend: function (id) {
-            var d = j6.dialog.create2('扩展属性',true,true);
-            d.open('?module=extend&action=category_check&lft=' + id,500,400);
-
-        },
-        del: function (id) {
-            if (confirm('确定删除吗?删除后将不可恢复!')) {
-                j6.xhr.jsonPost('?', 'module=category&action=delete&lft=' + id,
-                    function (json) {
-                        if (json.result) {
-                            _reloadTree();
-                        } else {showErr(json.message); }
-                    });
-            }
-        }
-    };
+    
 </script>
 
 </body>

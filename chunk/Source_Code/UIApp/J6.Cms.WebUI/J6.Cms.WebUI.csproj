@@ -206,7 +206,6 @@
     <Content Include="framework\mui\html\link\link.sitelink_edit.html" />
     <Content Include="framework\mui\html\link\link.sitelink_edit_navigator.html" />
     <Content Include="framework\mui\html\link\link.sitelink_list.html" />
-    <Content Include="framework\mui\html\link\link_list%28new%29.html" />
     <Content Include="framework\mui\html\link\link_navigator.html" />
     <Content Include="framework\mui\html\plugin\plugin_dashboard.html" />
     <Content Include="framework\mui\html\plugin\plugin_miniapps.html" />
@@ -292,9 +291,6 @@
     <Content Include="templates\default\inc\online-chat.phtml" />
     <Content Include="templates\default\inc\picscroll.phtml" />
     <Content Include="templates\default\inc\side.phtml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

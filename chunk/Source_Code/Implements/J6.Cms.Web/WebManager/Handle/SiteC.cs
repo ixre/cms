@@ -85,7 +85,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 site.SiteId = sites[sites.Count - 1].SiteId + 1;
                 //site.Name = "未命名站点"+site.SiteId.ToString();
             }
-            string html=EntityForm.Build<SiteDto>(site,true,"创建");
+            string html=EntityForm.Build<SiteDto>(site);
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Edit), new
             {
                 form=html,
@@ -123,7 +123,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             SiteDto site =SiteCacheManager.GetSite(siteId);
 
-            string html = EntityForm.Build<SiteDto>(site, true, "提交");
+            string html = EntityForm.Build<SiteDto>(site);
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Edit), new
             {
                 form = html,

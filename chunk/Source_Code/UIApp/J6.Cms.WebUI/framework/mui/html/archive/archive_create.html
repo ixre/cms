@@ -154,10 +154,21 @@
                         </div>
                     </div>
 
-                    <div class="submitbar clearfix">
-                        <br />
-                        <a href="javascript:;" class="btn" onclick="return submitForm();">添加</a>
-                        <a href="javascript:;" class="btn" style="margin-left:5px">重置</a>
+                    <div class="submitbar clearfix" style="padding-left:85px">
+                       
+                        <span class="ui-button w150">
+                            <span class="button-inner">
+                                <span class="button-txt">添加</span>
+                                <a href="javascript:;" onclick="return submitForm();"></a>
+                            </span>
+                        </span>
+
+                        <span class="ui-button w150" style="margin-left:5px">
+                            <span class="button-inner">
+                                <span class="button-txt">重置</span>
+                                <input type="reset" />
+                            </span>
+                        </span>
                     </div>
 
                 </div>
@@ -253,7 +264,6 @@
 
         function submitForm() {
             if (j6.validator.validate()) {
-
                 var data = j6.json.toObject('form1');
                 data.Content = editor.html();
                 if(data.IsRedirect=='0')data.Location='';

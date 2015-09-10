@@ -2,180 +2,180 @@
 <html>
 	<head>
 		<title>模板列表</title>
-    
-    <style type="text/css">
-        body{
-	margin:20px;
-    background:#f5f5f5;
-	font:12px/24px Verdana, Geneva, sans-serif;
-}
-ul,li,p{
-	margin:0;
-	padding:0;
-	list-style:none;
-}
-a{
-	text-decoration:none;
-	color:#666;
-}
+
+	    <style type="text/css">
+    	    body {
+    	        margin: 20px;
+    	        background: #f5f5f5;
+    	        font: 12px/24px Verdana, Geneva, sans-serif;
+    	    }
+    	    ul, li, p {
+    	        margin: 0;
+    	        padding: 0;
+    	        list-style: none;
+    	    }
+    	    a {
+    	        text-decoration: none;
+    	        color: #666;
+    	    }
 
 
-/*模板列表样式*/
-.Template_title{
-	background:none;
-	border-bottom:1px solid #e2e2e2;
-	line-height:33px;
-	height:33px;
-}
-.Template_title span{
-	font:bold 14px/30px "宋体";
-	color:#666;
-	padding-left: 7px;
-}
+    	    /*模板列表样式*/
+    	    .Template_title {
+    	        background: none;
+    	        border-bottom: 1px solid #e2e2e2;
+    	        line-height: 33px;
+    	        height: 33px;
+    	    }
+    	    .Template_title span {
+    	        font: bold 14px/30px "宋体";
+    	        color: #666;
+    	        padding-left: 7px;
+    	    }
 
-.Edit_t{
-	margin:20px 0;
-	background-color:#ededed;
-	padding:10px 0;
-	height:210px;
-	clear:both;  border: 1px solid #aaa;
-}
-.Edit_t .l{
-	float:left;
-	width:250px;
-	border-right:1px dotted #c2c2c2;
-}
-.Edit_t .l p{
-	margin:3px 0;
-	text-align:center;
-	color:#808080;
-}
-.Edit_t .l p img{
-	border:5px solid #c2c2c2;
-}
-.Edit_t .l p a.t,.List_t ul li p a.t{
-	color:#808080;
-	font-weight:bold;
-}
-.Edit_t .l p a.t:hover,.List_t ul li p a.t:hover{
-	color:#cb221a;
-}
-.Edit_t .l p a.btn,.List_t ul li p a.btn{
-	background:#0066cc;
-    display: inline-block;
-    height: 20px;
-	line-height:18px;
-	line-height:21px\9;
-	*line-height:21px;
-	text-align:center;
-	color:#fff;
-    width: 40px;
-	*zoom:1;
-}
-.Edit_t .l p a.btn:hover,.List_t ul li p a.btn:hover{
-	text-decoration:underline;
-}
+    	    .Edit_t {
+    	        margin: 20px 0;
+    	        background-color: #ededed;
+    	        padding: 10px 0;
+    	        height: 210px;
+    	        clear: both;border: 1px solid #aaa;
+    	    }
+    	    .Edit_t .l {
+    	        float: left;
+    	        width: 250px;
+    	        border-right: 1px dotted #c2c2c2;
+    	    }
+    	    .Edit_t .l p {
+    	        margin: 3px 0;
+    	        text-align: center;
+    	        color: #808080;
+    	    }
+    	    .Edit_t .l p img {
+    	        border: 5px solid #c2c2c2;
+    	    }
+    	    .Edit_t .l p a.t, .List_t ul li p a.t {
+    	        color: #808080;
+    	        font-weight: bold;
+    	    }
+    	    .Edit_t .l p a.t:hover, .List_t ul li p a.t:hover {
+    	        color: #cb221a;
+    	    }
+    	    .Edit_t .l p a.btn, .List_t ul li p a.btn {
+    	        background: #0066cc;
+    	        display: inline-block;
+    	        height: 20px;
+    	        line-height: 18px;
+    	        line-height: 21px\9;
+    	        *line-height: 21px;
+    	        text-align: center;
+    	        color: #fff;
+    	        width: 40px;
+    	        *zoom: 1;
+    	    }
+    	    .Edit_t .l p a.btn:hover, .List_t ul li p a.btn:hover {
+    	        text-decoration: underline;
+    	    }
 
-.Edit_t .r{
-	float:left;
-	margin-left:50px;
-}
-.Edit_t .r h1{
-	font-size:14px;
-	color:#666;
-	margin:3px 0;
-}
+    	    .Edit_t .r {
+    	        float: left;
+    	        margin-left: 50px;
+    	    }
+    	    .Edit_t .r h1 {
+    	        font-size: 14px;
+    	        color: #666;
+    	        margin: 3px 0;
+    	    }
 
-.Edit_t .r p{
-	color:#8c8c8c;
-	margin:7px 0;
-}
-.Edit_t .r p img{
-	margin:25px 0 10px;
-}
+    	    .Edit_t .r p {
+    	        color: #8c8c8c;
+    	        margin: 7px 0;
+    	    }
+    	    .Edit_t .r p img {
+    	        margin: 25px 0 10px;
+    	    }
 
-.Edit_t .r p a.btn{
-	display:inline-block;
-	color:#ff6600;
-	font:bold 14px/30px "宋体";
-	line-height:30px;
-	text-align:center;
-	*display:inline;
-	*zoom:1;
-	background:#ffffcc;
-	border:solid 1px #ff6600;
-	width:128px;
-	height:30px;
-	margin-left:50px;
-}
-.Edit_t .r p.btns{
-	margin-left:15px;
-	margin-top:30px;
-}
-
-
-.List_t{
-	margin:20px 0;
-}
-.List_t ul{
-	clear:both;
-	margin-bottom:20px;
-	margin-left: 25px;
-}
-.List_t ul li{
-	width:120px;
-	display:inline-block;
-	*display:inline;
-	*zoom:1;
-	padding:0 40px;
-	height:280px;
-	text-align:center;
-}
-.List_t ul li p img,span.thumbnail
-{
-    width:100px;
-    height:120px;
-	margin:4px;
-	border:1px solid #c2c2c2;
-}
-span.thumbnail{display:block;padding-top:40px;height:80px;margin:0 auto;}
-p.thumbnail img{width:100px;height:120px;}
-p.thumbnail{text-align:center;}
-.List_t ul li p img:hover,span.thumbnail:hover{
-	margin:0;
-	border:5px solid #c2c2c2;
-}
-
-p.thumbnail span.thumbnail:hover{margin:0 auto;border:1px solid #c2c2c2;}
-.Page_t{
-	text-align:right;
-	margin:10px;
-}
-.Page_t a.btn{
-	background:red;
-	line-height:16px;
-	height:18px;
-	text-align:center;
-	color:#fff;
-	width:30px;
-	display:inline-block;
-	*display:inline;
-	*zoom:1;
-}
-
-/*清除浮动*/
-.wrapfix:after {content: "."; display: block;height: 0; clear: both;visibility: hidden;}
-.wrapfix {display: inline-table;}
-* html .wrapfix {height: 1%;}
-.wrapfix {display: block;}
+    	    .Edit_t .r p a.btn {
+    	        display: inline-block;
+    	        color: #ff6600;
+    	        font: bold 14px/30px "宋体";
+    	        line-height: 30px;
+    	        text-align: center;
+    	        *display: inline;
+    	        *zoom: 1;
+    	        background: #ffffcc;
+    	        border: solid 1px #ff6600;
+    	        width: 128px;
+    	        height: 30px;
+    	        margin-left: 50px;
+    	    }
+    	    .Edit_t .r p.btns {
+    	        margin-left: 15px;
+    	        margin-top: 30px;
+    	    }
 
 
-.uploadform{position:relative;}
-.tplfileC{position:absolute;top:0px;left:198px;width:72px;height:30px;overflow:hidden;}
-.tplfile{opacity:0;filter:alpha(opacity=0);overflow:hidden;height:30px;cursor:pointer;margin-left:-133px;width:200px;}
-.hidden{display:none;}
+    	    .List_t {
+    	        margin: 20px 0;
+    	    }
+    	    .List_t ul {
+    	        clear: both;
+    	        margin-bottom: 20px;
+    	        margin-left: 25px;
+    	    }
+    	    .List_t ul li {
+    	        width: 120px;
+    	        display: inline-block;
+    	        *display: inline;
+    	        *zoom: 1;
+    	        padding: 0 40px;
+    	        height: 280px;
+    	        text-align: center;
+    	    }
+    	    .List_t ul li p img, span.thumbnail
+    	    {
+    	        width: 100px;
+    	        height: 120px;
+    	        margin: 4px;
+    	        border: 1px solid #c2c2c2;
+    	    }
+    	    span.thumbnail {display: block;padding-top: 40px;height: 80px;margin: 0 auto;}
+    	    p.thumbnail img {width: 100px;height: 120px;}
+    	    p.thumbnail { text-align: center; }
+    	    .List_t ul li p img:hover, span.thumbnail:hover {
+    	        margin: 0;
+    	        border: 5px solid #c2c2c2;
+    	    }
 
-    </style>
+    	    p.thumbnail span.thumbnail:hover {margin: 0 auto;border: 1px solid #c2c2c2;}
+    	    .Page_t {
+    	        text-align: right;
+    	        margin: 10px;
+    	    }
+    	    .Page_t a.btn {
+    	        background: red;
+    	        line-height: 16px;
+    	        height: 18px;
+    	        text-align: center;
+    	        color: #fff;
+    	        width: 30px;
+    	        display: inline-block;
+    	        *display: inline;
+    	        *zoom: 1;
+    	    }
+
+    	    /*清除浮动*/
+    	    .wrapfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+    	    .wrapfix { display: inline-table; }
+    	    * html .wrapfix { height: 1%; }
+    	    .wrapfix { display: block; }
+
+
+    	    .uploadform { position: relative; }
+    	    .tplfileC {position: absolute;top: 0px;left: 198px;width: 72px;height: 30px;overflow: hidden;}
+    	    .tplfile {opacity: 0;filter: alpha(opacity=0);overflow: hidden;height: 30px;cursor: pointer;margin-left: -133px;width: 200px;}
+    	    .hidden { display: none; }
+
+    	</style>
 	</head>
 <body>
 

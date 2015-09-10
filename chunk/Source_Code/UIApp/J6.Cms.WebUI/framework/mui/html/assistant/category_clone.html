@@ -5,75 +5,55 @@
     $css()
 </head>
 <body>
-    <div id="main" class="autoStyle" style="overflow: hidden;">
-        <table cellpadding="0" cellspacing="0" width="100%" height="100%">
-            <tr>
-                <td width="50%" valign="top">
-                    <select id="site_selector">
-                        <option value="">请选择</option>
-                        ${site_opt}
-                    </select>
-                    <div id="from_tree"></div>
+<div id="main" class="autoStyle" style="overflow: hidden;">
+    <table cellpadding="0" cellspacing="0" width="100%" height="100%">
+        <tr>
+            <td width="50%" valign="top">
+                <select id="site_selector">
+                    <option value="">请选择</option>
+                    ${site_opt}
+                </select>
+                <div id="from_tree"></div>
 
-                </td>
-                <td>
-                    目标站点：${target_name}
-                    <div class="hidden" style="padding: 20px 20px 0 20px">
-                        <input type="button" class="btn" value="新建栏目" id="btn_create"/>&nbsp;
-                        <input type="button" class="btn" value="收起栏目" id="btn_collage"/>&nbsp;
-                        <input type="button" class="btn" value="栏目助手" id="btn_utility"/>
-                    </div>
-                    <div id="dg" style="padding: 20px"></div>
-                </td>
-            </tr>
-        </table>
-    </div>
+            </td>
+            <td>
+                目标站点：${target_name}
+                <div class="hidden" style="padding: 20px 20px 0 20px">
+                    <input type="button" class="btn" value="新建栏目" id="btn_create"/>&nbsp;
+                    <input type="button" class="btn" value="收起栏目" id="btn_collage"/>&nbsp;
+                    <input type="button" class="btn" value="栏目助手" id="btn_utility"/>
+                </div>
+                <div id="dg" style="padding: 20px"></div>
+            </td>
+        </tr>
+    </table>
+</div>
 
-
-    <script type="text/template" id="list_menu_tpl">
-        <div class="item" onclick="menu.add()">
-            <a href="javascript:;">$icon(create)新建栏目</a>
-        </div>
-        <div class="item" onclick="menu.refresh()">
-            <a href="javascript:;">$icon(refresh)刷新</a>
-        </div>
-    </script>
-
-    <script type="text/template" id="tpl">
-        <div class="item" onclick="menu.add('%id%')">
-            <a href="javascript:;">$icon(create)新建子栏目</a>
-        </div>
-        <div class="item" onclick="menu.extend('%id%')">
-            <a href="javascript:;" title="通过设置扩展属性，可以提供更多的信息！">$icon(edit)扩展设置</a>
-        </div>
-        <div class="item" onclick="menu.del('%id%')">
-            <a href="javascript:;">$icon(delete)删除</a>
-        </div>
-        <div class="item" onclick="menu.refresh()">
-            <a href="javascript:;">$icon(refresh)刷新</a>
-        </div>
-    </script>$js()
+   $js()
 <script type="text/javascript">
     j6.dom.fitHeight(j6.$('main'));
-    j6.dom.fitHeight(j6.$('pl'));
-    var siteId = ${site_id};
+    var siteId = ${target_site};
     var treePanel = j6.$('dg');
+    var fromTreePanel = j6.$('from_tree');
     var treeObj = null;
-    var tmpTpl = j6.$('tpl').innerHTML;
-    function _showCategory(e, d, t) {
-        var id = j6.toJson(d).lft;
-        j6.load2('pl', 'category', 'update', 'lft=' + id);
-    }
+
+    j6.$('site_selector').onchange = function() {
+        var fromSiteId = this.value;
+        if (fromSiteId !== '') {
+            _thisLoadCategoryTree(fromSiteId,fromTreePanel);
+        }
+    };
+
 
     //加载栏目树
-    function _thisLoadCategoryTree() {
+    function _thisLoadCategoryTree(siteId,panel) {
         j6.xhr.request({
-            uri: '?module=ajax&action=CategoryNodes',
+            uri: '?module=ajax&action=CategoryNodes&site_id='+siteId,
             method: 'GET',
             data: 'json'
         }, {
             success: function (json) {
-                treeObj = j6.tree.load(treePanel, json, '/framework/assets/tree/', _showCategory);
+                treeObj = j6.tree.load(panel, json, '/framework/assets/tree/', null);
                 var nodeLinks;
                 j6.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
                     if (e.className == 'node') {
@@ -95,7 +75,7 @@
             }
         });
     }
-    _thisLoadCategoryTree();
+
 
     //重新加载栏目树
     function _reloadTree() {
@@ -103,16 +83,7 @@
         if (window._thisLoadCategoryTree) window._thisLoadCategoryTree();
     }
 
-    //创建
-    Fn.create = function (id) {
-        j6.load2('pl', 'category', 'create', id?'lft='+id:'');
-    };
-
-
-    j6.$('btn_create').onclick = function () {
-        Fn.create();
-    };
-
+    /*
     j6.$('btn_collage').onclick = function () {
         if (this.value.indexOf('收起') != -1) {
             treeObj.closeAll();
@@ -121,30 +92,7 @@
             treeObj.openAll();
             this.value = '收起栏目';
         }
-    };
-
-    j6.$('btn_utility').onclick = function() {
-        parent.FwTab.show('栏目助手', '?module=category&action=clone&from_site=' + siteId);
-    };
-
-    var menu = {
-        add: Fn.create,
-        extend: function (id) {
-            var d = j6.dialog.create2('扩展属性',true,true);
-            d.open('?module=extend&action=category_check&lft=' + id,500,400);
-
-        },
-        del: function (id) {
-            if (confirm('确定删除吗?删除后将不可恢复!')) {
-                j6.xhr.jsonPost('?', 'module=category&action=delete&lft=' + id,
-                    function (json) {
-                        if (json.result) {
-                            _reloadTree();
-                        } else {showErr(json.message); }
-                    });
-            }
-        }
-    };
+    };*/
 </script>
 
 </body>

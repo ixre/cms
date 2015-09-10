@@ -19,8 +19,13 @@
 </head>
 <body>
  <div id="control">
-    <span class="left"><strong>新建文件:&nbsp;</strong><input type="text" name="filename" id="create_filename" />&nbsp;</span>
-    <a class="btn" onclick="ctobj.newfile('create_filename')" href="javascript:;">创建</a>
+     <span class="left"><strong>新建文件:&nbsp;</strong><input type="text" name="filename" id="create_filename" />&nbsp;</span>
+     <span class="ui-button w50 small-button" onclick="ctobj.newfile('create_filename')">
+         <span class="button-inner">
+             <span class="button-txt">创建</span>
+             <a href="javascript:;"></a>
+         </span>
+     </span>
 </div>
 
 <table style="width:98%;margin:1%" cellspacing="0" cellpadding="0" id="filesexp" class="ui-table ui-grid-table">
@@ -252,16 +257,20 @@ $js()
         newfile: function (id) {
             var _this = this;
             var fileName = j6.val(id);
-            j6.xhr.post(fm_handler, 'act=create&dir=' + encodeURIComponent(curdir) + '&file=' + encodeURIComponent(fileName),
-            function (result) {
-                var json = j6.toJson(result);
-                if (json.error) {
-                    _this.tip(json.error, true);
-                } else {
-                    load(curdir);
-                }
-            }, function (x) {
-            });
+            if (fileName.length > 0) {
+                j6.xhr.post(fm_handler, 'act=create&dir=' + encodeURIComponent(curdir) + '&file=' + encodeURIComponent(fileName),
+                    function(result) {
+                        var json = j6.toJson(result);
+                        if (json.error) {
+                            _this.tip(json.error, true);
+                        } else {
+                            load(curdir);
+                        }
+                    }, function(x) {
+                    });
+            } else {
+                alert('请输入文件名');
+            }
         },
         down: function (t) {
             var tr = t.parentNode.parentNode.getElementsByTagName('TD')[0];

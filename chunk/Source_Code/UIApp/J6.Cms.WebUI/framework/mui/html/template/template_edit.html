@@ -15,8 +15,20 @@
      &nbsp;&nbsp;选择文件：<select class="tb_normal box" id="files">${tplfiles}</select>
      &nbsp;&nbsp;创建文件：<input type="text" id="tplname" class="tb_normal box" style="width:120px"/>
      <select id="tpltype" class="tb_normal box" style="width:100px"><option value="0">页面视图</option><option value="1">部分视图</option></select>
-     <input type="button" value="创建" class="btn" id="createview" />
-     <a href="javascript:;" class="btn fn" fn="download">下载模板</a>
+
+      <span class="ui-button w50 small-button" id="createview">
+          <span class=" button-inner">
+              <span class="button-txt">创建</span>
+              <a href="javascript:;"></a>
+          </span>
+      </span>
+
+      <span class="ui-button small-button">
+          <span class=" button-inner">
+              <span class="button-txt">下载模板</span>
+              <a href="javascript:;" class="fn" fn="download"></a>
+          </span>
+      </span>
   </div>
   <iframe id="ifr" src="about:blank" frameborder="0" scrolling="no"></iframe>
 $js()
