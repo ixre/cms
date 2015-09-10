@@ -47,15 +47,31 @@
         </table>
 
 
-        <div class="control">
-        <input class="button" type="button" value="保存" onclick="return submitFORM('save')"/>&nbsp;&nbsp;&nbsp;
-        <input class="button" type="button" value="删除" onclick="return submitFORM('delete')" />
+            <div class="control">
 
-        <div class="pager" class="hidden" style="display:none">
-            分页：${pagetext}
-        </div>
-        
-        </div>
+
+                <div class="float" style="height:30px">
+
+                    <span class="ui-button w80" onclick="submitFORM('save')">
+                        <span class="button-inner">
+                            <span class="button-txt">保存</span>
+                            <a href="javascript:;"></a>
+                        </span>
+                    </span>&nbsp;&nbsp;
+                    <span class="ui-button w80" onclick="submitFORM('delete')">
+                        <span class="button-inner">
+                            <span class="button-txt">删除</span>
+                            <a href="javascript:;"></a>
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="pager" class="hidden" style="display: none">
+                    分页：${pagetext}
+                </div>
+
+            </div>
 
         
         </form>

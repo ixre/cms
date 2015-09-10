@@ -25,7 +25,7 @@ span.required{ color: red;}
 
 .p10{padding:10px;}
 
-input,span,select,textarea,label{ vertical-align: middle;}
+div,input,span,select,textarea,label{ vertical-align: middle;}
 
 .ui-button{border:solid 1px #FFF;border-color: #ADB1B8 #A2A6AC #8D9096;border-radius:3px;display: inline-block;vertical-align:middle;}
 .ui-button .button-inner{display:block;position: relative;background:#F0F0F0;border-radius:2px;
@@ -44,6 +44,7 @@ input,span,select,textarea,label{ vertical-align: middle;}
 
 
 input.tb_normal,select.tb_normal,textarea.tb_normal{width:200px;}
+
 select.tb_normal{width:200px;padding:1px 3px;overflow:hidden;
                  /*border-bottom:solid 1px #e0e0e0;border-right:solid 1px #e0e0e0;*/}
 textarea.code{font-size:14px;line-height:20px;color:black;overflow-y:auto;border:none;}

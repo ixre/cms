@@ -3,12 +3,17 @@
 <head>
     <title>用户列表</title>$css()
 </head>
-<body>
+<body style="margin: 1em;">
 <div>
-    <a class="btn btn-min" href="javascript:void(0)" onclick="newRec()">新增用户</a>
+    <span class="ui-button w150" onclick="newRec()">
+        <span class="button-inner">
+            <span class="button-txt">新增用户</span>
+            <a href="javascript:;"></a>
+        </span>
+    </span>
 </div>
-<div>
-    <div id="dg" class="control"></div>
+<div><br/>
+    <div id="dg" class="control" style="border-bottom:solid 1px #ddd"></div>
 </div>
 <script type="text/template" id="list_menu_tpl">
         <div class="item" onclick="menu.add()">
@@ -58,8 +63,10 @@ $js()
                 align: 'center',
                 width: 150,
                 formatter: function(v, r) {
-                    return j6.template('<a class="btn btn-min" href="javascript:;" onclick="editRec({id})">修改</a>' +
-                        '<a class="btn btn-min" href="javascript:;" onclick="delRec({id})">删除</a>', {
+                    return j6.template('<span class="ui-button w50 small-button" onclick="editRec({id})"><span class="button-inner">'
+                        + '<span class="button-txt">修改</span><a href="javascript:;"></a></span></span>&nbsp;&nbsp;' +
+                        '<span class="ui-button w50 small-button" onclick="delRec({id})"><span class="button-inner">'
+                        + '<span class="button-txt">删除</span><a href="javascript:;"></a></span></span>', {
                             id: v,
                         });
                 }
@@ -92,10 +99,10 @@ $js()
     };
 
     function newRec() {
-        j6.dialog.create2('新建用户', true, true).open('?module=user&action=newUser',700,400);
+        j6.dialog.create2('新建用户', true, true).open('?module=user&action=newUser',700,450);
     }
     function editRec(id) {
-        j6.dialog.create2('编辑用户', true, true).open('?module=user&action=updateUser&id='+id, 700, 400);
+        j6.dialog.create2('编辑用户', true, true).open('?module=user&action=updateUser&id='+id, 700, 450);
     }
     function delRec(id) {
         if (confirm('确定删除吗?删除后将不可恢复!')) {

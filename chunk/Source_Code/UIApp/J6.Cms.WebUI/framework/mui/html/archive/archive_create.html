@@ -51,7 +51,13 @@
                     <dl>
                         <dt>别名：</dt>
                         <dd>
-                            <input style="width: 340px;" tipin="alias_tipin" type="text" id="alias" field="Alias" class="tb_normal box ui-validate" summary="{error:'别名为50位以下的数字,字母,连接符(-),下划线的组合'}" /><a style="margin-left: 5px" href="javascript:;">自动填写</a>&nbsp;&nbsp;
+                            <input style="width: 340px;" tipin="alias_tipin" type="text" id="alias" field="Alias" class="tb_normal box ui-validate" summary="{error:'别名为50位以下的数字,字母,连接符(-),下划线的组合'}" /><span class="ui-button w80 middle-button">
+                                <span class=" button-inner">
+                                    <span class="button-txt">自动填写</span>
+                                    <a href="javascript:;"></a>
+                                </span>
+                            </span>&nbsp;&nbsp;
+
                             <span id="alias_tipin"></span>
                             <br/>
                             <span style="padding-left:41px;line-height:30px">注：用于生成更又好的文档地址，比如：http://abc.com/about/contact.html。</span>
@@ -114,10 +120,22 @@
 
                             <input class="tb_normal box ui-validate" length="[0,150]" type="hidden" field="Thumbnail" id="thumbnail" size="100" />
 
-                            <span id="upload_thumbnail"><button>选择图片上传</button></span>
-                            <br /><br />
-                            <button id="ipt_getImg" type="button" onclick="getImg();">获取编辑器图片</button>&nbsp;
-                            <select id="upimg" name="upimg" style="display: none">
+                            <span class="ui-button w100 middle-button">
+                                <span class=" button-inner">
+                                    <span class="button-txt" id="upload_thumbnail">选择图片上传</span>
+                                    <a href="javascript:;"></a>
+                                </span>
+                            </span>
+
+                            <br/><br/>
+
+                            <span class="ui-button w100 middle-button" id="ipt_getImg" onclick="getImg();">
+                                <span class=" button-inner">
+                                    <span class="button-txt">获取编辑器图片</span>
+                                    <a href="javascript:;"></a>
+                                </span>
+                            </span>&nbsp;
+                            <select class="box" id="upimg" name="upimg" style="display: none">
                                 <option value="">选择图片</option>
                             </select>&nbsp;
                         </dd>
