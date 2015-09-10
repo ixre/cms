@@ -178,7 +178,7 @@ ul.centform{margin:100px auto;}
 .ui-table{width:100%;color:#666;}
 .ui-table th{background:#edf7fe;border-bottom:solid 1px #e5e5e5;
              text-align:center;color:#336699;font-weight:normal;position:relative;}
-.ui-table .th-split{background:url(/framework/assets/sys_themes/default/th.gif);padding:5px 1px 0px 0px;position:relative;right:3px;top:0;}
+.ui-table .th-split{border-right: solid 1px #ddd;padding:5px 1px 0px 0px;position:relative;right:3px;top:0;}
 .ui-table tr td{line-height:18px;background:#fff;border-bottom:solid 1px #f2f2f2;}
 .ui-table tr.selected td{background:#ffffcc;}
 

@@ -55,7 +55,6 @@ namespace J6.Cms.Web.WebManager.Handle
             fileMImE.Add("btn_spirites_pic", "image/png");  //YnRuX3NwaXJpdGVzX3BpYw==
             fileMImE.Add("icon_trans", "image/png");        //aWNvbl90cmFucw==
             fileMImE.Add("sys_bg", "image/gif");            //c3lzX2Jn
-            fileMImE.Add("sys_tab", "image/gif");           //c3lzX3RhYg==
             fileMImE.Add("ui_component", "text/javascript");	//dWlfY29tcG9uZW50
         }
 

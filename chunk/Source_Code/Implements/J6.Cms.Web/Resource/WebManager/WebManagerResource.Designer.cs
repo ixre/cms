@@ -370,16 +370,6 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Bitmap sys_tab {
-            get {
-                object obj = ResourceManager.GetObject("sys_tab", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         public static System.Drawing.Bitmap sysindex {
             get {
                 object obj = ResourceManager.GetObject("sysindex", resourceCulture);
