@@ -84,7 +84,8 @@
      </links>
 
       <links title="系统设置" toggle="true" iconPos="-432|0">
-        <link href="?module=system&amp;action=appconfig&amp;item=1" text="系统设置" title="" siteid="-1"/>
+        <link href="?module=assistant&amp;action=local_patch" text="补丁升级" title="" siteid="0"/>
+        <link href="?module=system&amp;action=appconfig&amp;item=1" text="系统设置" title="" siteid="0"/>
         <link href="?module=site&amp;action=index" text="站点管理" title="系统所有网站管理" siteid="0"/>
         <!--
         <link href="?module=system&amp;action=patch" text="系统补丁" title="" siteid="-1"/>-->

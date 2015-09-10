@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>安装系统补丁</title>
+  $css()
+  <style type="text/css">
+  #patchlist div{line-height:25px;}
+  </style>
+</head>
+<body>
+
+<div style="border: solid 1px #ddd; background: #FFF; margin: 2em; padding: 2em;">
+
+    <div style="border: solid 1px #FFC000; background: #FFE; padding: 1em; display: inline; "><span style="color:#F00">此功能用于管理员上传补丁</span>，如插件及模版等数据。请将文件压缩成zip包。补丁包将直接解压到根目录下</div>
+    <br /><br /><br />
+    <form action="?module=assistant&action=patch_upload" method="post" enctype="multipart/form-data">
+        <div style="margin-bottom:1em"> <b>上传补丁：</b>
+        </div>
+
+        <input type="file" name="patchfile" id="patchfile" class="ui-box"/>
+
+        <span class="ui-button w50 middle-button" id="btn_upload">
+                    <span class=" button-inner">
+                        <span class="button-txt">上传</span>
+                        <a href="javascript:;"></a>
+                    </span>
+                </span>
+
+                
+    </form>
+
+    <div id="patchlist"><br/>
+        <div><b>安装补丁：</b>
+        </div>
+
+        ${patchlist}
+
+        <br/>
+        <span class="ui-button w150" id="btn_patch">
+                    <span class=" button-inner">
+                        <span class="button-txt">安装</span>
+                        <a href="javascript:;"></a>
+                    </span>
+                </span>
+
+        <div id="btn_msg"></div>
+    </div>
+
+
+</div>
+
+$js()
+<script type="text/javascript">
+
+    j6.$("btn_upload").onclick = function() {
+        var filename = j6.$('patchfile').value;
+        if (!/\.zip$/.test(filename)) {
+            alert('不是有效的补丁文件!');
+            return false;
+        } else {
+            j6.form.asyncSubmit(0);
+        }
+    };
+
+
+    j6.$("btn_patch").onclick = function() {
+        var e = this;
+        var patchfiles = document.getElementsByName('applypatchfile');
+        if (patchfiles.length != 0) {
+            var patchfile = '';
+            for (var i = 0; i < patchfiles.length; i++) {
+                if (patchfiles[i].getAttribute('checked') === 'checked') patchfile = escape(patchfiles[i].value);
+            }
+
+            j6.$('btn_msg').innerHTML = '安装中,请稍后....';
+            j6.xhr.post(location.href, 'file=' + patchfile, function(result) {
+                j6.$('btn_msg').innerHTML = result.length == 0 ? '<span style="color:green">补丁安装成功！</span>' :
+                    '<span style="color:red">错误：' + result + '</span>';
+            });
+        }
+    };
+
+</script>
+
+</body>
+</html>

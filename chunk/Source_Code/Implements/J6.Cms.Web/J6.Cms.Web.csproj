@@ -270,9 +270,6 @@
     <Content Include="Resource\SiteResouce\jslib\js_lib_ui.js" />
     <Content Include="Resource\SiteResouce\js_ui-min.js" />
     <Content Include="Resource\SiteResouce\template.css" />
-    <Content Include="Resource\WebManager\resouces\file\file.edit.html" />
-    <Content Include="Resource\WebManager\resouces\file\file.selectedit.html" />
-    <Content Include="Resource\WebManager\resouces\file\filemanager.html" />
     <Content Include="Resource\WebManager\resouces\images\old\frame_index2.js" />
     <Content Include="Resource\WebManager\resouces\images\guest-avatar.jpg" />
     <Content Include="Resource\WebManager\resouces\images\sysset.conf.xml">
@@ -280,13 +277,9 @@
     </Content>
     <EmbeddedResource Include="Resource\WebManager\resouces\images\ui.component.js" />
     <Content Include="Resource\WebManager\resouces\images\ui.component.source.js" />
-    <Content Include="Resource\WebManager\resouces\module\editModule.html" />
-    <Content Include="Resource\WebManager\resouces\module\moduleList.html" />
     <Content Include="Resource\WebManager\resouces\plugin\archiveTagReplace.html" />
     <Content Include="Resource\WebManager\resouces\plugin\createdatapickerproject.html" />
     <Content Include="Resource\WebManager\resouces\plugin\datapicker.html" />
-    <Content Include="Resource\WebManager\resouces\system\patch.html" />
-    <Content Include="Resource\WebManager\resouces\system\quick.html" />
     <Content Include="Resource\WebManager\resouces\table\columns.html" />
     <Content Include="Resource\WebManager\resouces\table\editcolumn.html" />
     <Content Include="Resource\WebManager\resouces\table\edittable.html" />
@@ -296,7 +289,6 @@
     <Content Include="Resource\WebManager\resouces\template\tpl.edit.html" />
     <Content Include="Resource\WebManager\resouces\template\tpl.editfile.html" />
     <Content Include="Resource\WebManager\resouces\template\tplsettings.html" />
-    <None Include="Resource\WebManager\resouces\system\pageLoading.html" />
     <None Include="Resource\WebManager\resouces\images\manage.js_source.js" />
     <EmbeddedResource Include="Resource\WebManager\resouces\images\manage.js_min.js" />
     <None Include="Resource\WebManager\resouces\images\ajax-loader.gif" />

@@ -113,6 +113,7 @@ namespace J6.Cms.WebManager
 
 
         Assistant_Category_Clone,
+        Assistant_Local_Patch,
     }
 
 
@@ -213,22 +214,6 @@ namespace J6.Cms.WebManager
         }
 
 
-        public static string ModuleList
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/archivelist.html") : WebManagerResource.moduleList;
-            }
-        }
-
-        public static string EditModule
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/archivelist.html") : WebManagerResource.editModule;
-            }
-        }
-
         public static string SetProperties
         {
             get
@@ -264,24 +249,7 @@ namespace J6.Cms.WebManager
 
 
 
-        public static string PageLoading
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("system/pageloading.html") : WebManagerResource.pageLoading;
-            }
-        }
 
-
-
-
-        public static string Patch
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("system/patch.html") : WebManagerResource.patch;
-            }
-        }
 
         public static string Edittable
         {
@@ -334,21 +302,7 @@ namespace J6.Cms.WebManager
             }
         }
 
-        public static string OperationList
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/archivelist.html") : WebManagerResource.operationList;
-            }
-        }
 
-        public static string SetPermissions
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/archivelist.html") : WebManagerResource.setPermissions;
-            }
-        }
 
         public static string RightText
         {

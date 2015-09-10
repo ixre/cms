@@ -184,29 +184,6 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///   查找类似 &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;
-        ///    &lt;title&gt;模块修改&lt;/title&gt;$css()
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///        &lt;form action=&quot;&quot; method=&quot;post&quot;&gt;&lt;br /&gt;
-        ///    &lt;div class=&quot;form&quot;&gt;
-        ///        &lt;div class=&quot;tip&quot;&gt;
-        ///            &lt;b&gt;什么是模块?&lt;/b&gt;&lt;br /&gt;
-        ///            模块与栏目相关，栏目与文档相关。模块可以提供视图设置和自定义属性给栏目和文档。
-        ///        &lt;/div&gt;&lt;br /&gt;
-        ///        &lt;dl&gt;
-        ///            &lt;dt&gt;模块名称：&lt;/dt&gt;&lt;dd&gt;&lt;input type=&quot;text&quot; class=&quot;tb_normal box ui-validate&quot; required=&quot;true&quot; length=&quot;[0,10]&quot; field=&quot;tplname&quot; value=&quot;${tplName}&quot; summary=&quot;{required:&apos;不能为空&apos;,length:&apos;不能超过10个字&apos;}&quot;/&gt;&lt;/dd&gt;&lt;/dl&gt;
-        ///    [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        public static string editModule {
-            get {
-                return ResourceManager.GetString("editModule", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///&lt;head&gt;
         ///    &lt;title&gt;创建表格&lt;/title&gt;
         ///    $css()
         ///    &lt;script type=&quot;text/javascript&quot; src=&quot;/framework/assets/editor/minpack.js&quot;&gt;&lt;/script&gt;
@@ -312,114 +289,6 @@ namespace J6.Cms.Web.Resource.WebManager {
         }
         
         /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;title&gt;模块列表&lt;/title&gt;
-        ///    $css()
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///&lt;div class=&quot;tabarea1&quot;&gt;
-        ///
-        ///    &lt;!--
-        ///    &lt;div class=&quot;tab_mini&quot;&gt;
-        ///        &lt;a href=&quot;javascript:;&quot; class=&quot;current&quot;&gt;模块列表&lt;/a&gt;
-        ///        &lt;a href=&quot;?module=module&amp;amp;action=create&quot;&gt;创建模块&lt;/a&gt;
-        ///    &lt;/div&gt;
-        ///    --&gt;
-        ///
-        ///    &lt;table class=&quot;ui-table&quot; id=&quot;gd&quot; cellpadding=&quot;0&quot; cellspacing=&quot;1&quot;&gt;
-        ///      &lt;tr&gt;
-        ///        &lt;th width=&quot;40&quot;&gt;&lt;span class=&quot;th&quot;&gt;编号&lt;/span&gt;&lt;/th&gt;
-        ///        &lt;th width=&quot;100&quot;&gt;&lt;span class=&quot;th&quot;&gt;模块名称&lt;/span&gt;&lt;/th&gt;
-        ///        &lt;th width=&quot;60&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        public static string moduleList {
-            get {
-                return ResourceManager.GetString("moduleList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;title&gt;操作列表&lt;/title&gt;
-        ///    $css()
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;	
-        ///
-        ///&lt;div class=&quot;_tabarea&quot;&gt;
-        ///&lt;!--
-        ///    &lt;div class=&quot;tab_mini&quot;&gt;
-        ///        &lt;a href=&quot;?module=user&amp;amp;action=systemuserlist&quot;&gt;系统用户&lt;/a&gt;
-        ///        &lt;a href=&quot;?module=user&amp;amp;action=setpermissions&quot;&gt;用户组权限设置&lt;/a&gt;
-        ///        &lt;a href=&quot;javascript:;l&quot; class=&quot;current&quot;&gt;权限管理&lt;/a&gt;
-        ///    &lt;/div&gt;
-        ///    --&gt;
-        ///        &lt;div class=&quot;area&quot;&gt;
-        ///
-        ///&lt;table class=&quot;ui-table&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; id=&quot;operations&quot;&gt;
-        ///      &lt;tr&gt;
-        ///        &lt;th width=&quot;40&quot;&gt;编号&lt;/th&gt;        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        public static string operationList {
-            get {
-                return ResourceManager.GetString("operationList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///&lt;head&gt;
-        ///  &lt;title&gt;加载页面&lt;/title&gt;
-        ///  $js()$css()
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///  &lt;div id=&quot;pl&quot;&gt;&lt;/div&gt;
-        ///  &lt;script type=&quot;text/javascript&quot;&gt;
-        ///      j6.$(&apos;pl&apos;).style.height = document.documentElement.clientHeight + &apos;px&apos;;
-        ///      j6.load(&apos;pl&apos;,&apos;?&apos;+location.search.replace(&apos;?load=&apos;,&apos;&apos;));
-        ///  &lt;/script&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;
-        /// 的本地化字符串。
-        /// </summary>
-        public static string pageLoading {
-            get {
-                return ResourceManager.GetString("pageLoading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///&lt;head&gt;
-        ///  &lt;title&gt;安装系统补丁&lt;/title&gt;
-        ///  $css()
-        ///  &lt;style type=&quot;text/css&quot;&gt;
-        ///  #patchlist div{line-height:25px;}
-        ///  &lt;/style&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///&lt;div class=&quot;tabarea&quot; style=&quot;padding:30px&quot;&gt;
-        ///&lt;!--
-        ///    &lt;div class=&quot;tab_mini&quot;&gt;
-        ///        &lt;a href=&quot;javascript:;&quot; class=&quot;current&quot;&gt;安装补丁&lt;/a&gt;
-        ///    &lt;/div&gt;
-        ///    &lt;div class=&quot;area&quot; id=&quot;area&quot;&gt;
-        ///    --&gt;
-        ///    &lt;form action=&quot;?module=system&amp;action=patchupload&quot; method=&quot;post&quot;  enctype=&quot;multipart/form-data&quot;&gt;
-        ///        上传补丁：&lt;input type=&quot;file&quot; name=&quot;patchfile&quot;  id=&quot;patchfi [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        public static string patch {
-            get {
-                return ResourceManager.GetString("patch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 &lt;span style=&quot;color:green&quot;&gt;√&lt;/span&gt; 的本地化字符串。
         /// </summary>
         public static string rightText {
@@ -463,31 +332,6 @@ namespace J6.Cms.Web.Resource.WebManager {
         public static string rows {
             get {
                 return ResourceManager.GetString("rows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;title&gt;更新权限&lt;/title&gt;
-        ///    $css()
-        ///	&lt;/head&gt;
-        ///	&lt;body class=&quot;p10&quot;&gt;
-        ///	 &lt;div class=&quot;_tabarea&quot;&gt;
-        ///     &lt;!--
-        ///    &lt;div class=&quot;tab_mini&quot;&gt;
-        ///        &lt;a href=&quot;?module=user&amp;amp;action=systemuserlist&quot;&gt;系统用户&lt;/a&gt;
-        ///        &lt;a href=&quot;javascript:;&quot; class=&quot;current&quot;&gt;用户组权限设置&lt;/a&gt;
-        ///        &lt;a href=&quot;?module=user&amp;amp;action=operationlist&amp;amp;filter=all&quot;&gt;权限管理&lt;/a&gt;
-        ///    &lt;/div&gt;--&gt;
-        ///        &lt;div class=&quot;area&quot;&gt;
-        ///            &lt;div&gt;选择用户组：&lt;select class=&quot;tb_normal&quot;id=&quot;groups&quot;&gt;${usergroups}&lt;/select&gt;&lt;br /&gt;&lt;/div&gt;
-        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        public static string setPermissions {
-            get {
-                return ResourceManager.GetString("setPermissions", resourceCulture);
             }
         }
         

@@ -430,62 +430,62 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 操作列表
         /// </summary>
-        public void OperationList_GET()
-        {
-
-            string pagerHtml,
-                operationRowsHtml;
-
-            //page:当前页
-            //filter:筛选
-            int pageSize = 10;
-            int currentPageIndex;
-            int pageCount = 1, recordCount = 0;
-
-            int.TryParse(HttpContext.Current.Request["page"], out currentPageIndex);
-            if (currentPageIndex < 1) currentPageIndex = 1;
-
-            string filter = HttpContext.Current.Request["filter"];
-
-
-            DataTable dt;
-            StringBuilder sb = new StringBuilder();
-            switch (filter)
-            {
-                case "disabled":
-
-                    dt = CmsLogic.User.GetPagedAvailableOperationList(false, pageSize, currentPageIndex, out recordCount, out pageCount);
-                    break;
-                case "available":
-                    dt = CmsLogic.User.GetPagedAvailableOperationList(true, pageSize, currentPageIndex, out recordCount, out pageCount);
-                    break;
-                default:
-                    dt = CmsLogic.User.GetPagedOperationList(pageSize, currentPageIndex, out recordCount, out pageCount);
-                    break;
-            }
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                sb.Append("<tr><td>").Append(dr["id"].ToString()).Append("</td>")
-                    .Append("<td><input type=\"text\" class=\"tb_normal\" value=\"").Append(dr["name"].ToString()).Append("\"/></td>")
-                    .Append("<td><input type=\"text\" class=\"tb_normal\" value=\"").Append(dr["Path"].ToString()).Append("\"/></td>")
-                    .Append("<td align=\"center\"><input type=\"checkbox\"")
-                    .Append(String.Compare("true",dr["available"].ToString(),true)==0?" checked=\"checked\"":"")
-                    .Append("/></td><td><button class=\"save\"/></td></tr>");
-            }
-
-            operationRowsHtml = sb.ToString();
-
-
-            pagerHtml= Helper.BuildPagerInfo("?module=user&action=operationlist&page={0}&filter=" + filter, currentPageIndex, recordCount, pageCount);
-
-
-            base.RenderTemplate(ResourceMap.OperationList, new
-            {
-                operationRowsHtml=operationRowsHtml,
-                pagerHtml=pagerHtml
-            });
-        }
+//        public void OperationList_GET()
+//        {
+//
+//            string pagerHtml,
+//                operationRowsHtml;
+//
+//            //page:当前页
+//            //filter:筛选
+//            int pageSize = 10;
+//            int currentPageIndex;
+//            int pageCount = 1, recordCount = 0;
+//
+//            int.TryParse(HttpContext.Current.Request["page"], out currentPageIndex);
+//            if (currentPageIndex < 1) currentPageIndex = 1;
+//
+//            string filter = HttpContext.Current.Request["filter"];
+//
+//
+//            DataTable dt;
+//            StringBuilder sb = new StringBuilder();
+//            switch (filter)
+//            {
+//                case "disabled":
+//
+//                    dt = CmsLogic.User.GetPagedAvailableOperationList(false, pageSize, currentPageIndex, out recordCount, out pageCount);
+//                    break;
+//                case "available":
+//                    dt = CmsLogic.User.GetPagedAvailableOperationList(true, pageSize, currentPageIndex, out recordCount, out pageCount);
+//                    break;
+//                default:
+//                    dt = CmsLogic.User.GetPagedOperationList(pageSize, currentPageIndex, out recordCount, out pageCount);
+//                    break;
+//            }
+//
+//            foreach (DataRow dr in dt.Rows)
+//            {
+//                sb.Append("<tr><td>").Append(dr["id"].ToString()).Append("</td>")
+//                    .Append("<td><input type=\"text\" class=\"tb_normal\" value=\"").Append(dr["name"].ToString()).Append("\"/></td>")
+//                    .Append("<td><input type=\"text\" class=\"tb_normal\" value=\"").Append(dr["Path"].ToString()).Append("\"/></td>")
+//                    .Append("<td align=\"center\"><input type=\"checkbox\"")
+//                    .Append(String.Compare("true",dr["available"].ToString(),true)==0?" checked=\"checked\"":"")
+//                    .Append("/></td><td><button class=\"save\"/></td></tr>");
+//            }
+//
+//            operationRowsHtml = sb.ToString();
+//
+//
+//            pagerHtml= Helper.BuildPagerInfo("?module=user&action=operationlist&page={0}&filter=" + filter, currentPageIndex, recordCount, pageCount);
+//
+//
+//            base.RenderTemplate(ResourceMap.OperationList, new
+//            {
+//                operationRowsHtml=operationRowsHtml,
+//                pagerHtml=pagerHtml
+//            });
+//        }
 
         /// <summary>
         /// 创建新操作
@@ -518,57 +518,57 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 设置权限
         /// </summary>
-        public void SetPermissions_GET()
-        {
-            string usergroupOptions,            //用户组下拉列表
-                usergroupPermissionOptions,     //用户组权限下拉列表
-                otherPermissionOptions;         //其他权限下拉列表
-
-            int groupId;
-            int.TryParse(HttpContext.Current.Request["groupid"], out groupId);
-            if (groupId == 0) groupId = 1;
-            UserGroup usergroup=CmsLogic.User.GetUserGroup((UserGroups)groupId);
-
-
-            StringBuilder sb=new StringBuilder();
-            //用户组下拉列表
-            foreach(UserGroup group in CmsLogic.User.GetUserGroups())
-            {
-                sb.Append("<option value=\"").Append(group.Id).Append(group.Id==groupId?"\" selected=\"selected\"":"\"").Append(">").Append(group.Name).Append("</option>");
-            }
-            usergroupOptions=sb.ToString();
-            sb.Remove(0,sb.Length);
-
-            //用户组权限下拉列表
-            foreach (Operation op in usergroup.Permissions)
-            {
-                sb.Append("<option value=\"").Append(op.ID).Append("\">").Append(op.Name).Append("</option>");
-            }
-            usergroupPermissionOptions = sb.ToString();
-            sb.Remove(0, sb.Length);
-
-
-            //其他的权限下拉列表
-            foreach (Operation op in CmsLogic.User.GetOperationList())
-            {
-                if (Array.Find(usergroup.Permissions, a => a.ID == op.ID) == null)
-                {
-                    sb.Append("<option value=\"").Append(op.ID).Append("\">").Append(op.Name).Append("</option>");
-                }
-            }
-            otherPermissionOptions = sb.ToString();
-            sb.Remove(0, sb.Length);
-
-            //显示页面
-            base.RenderTemplate(ResourceMap.SetPermissions, new
-            {
-                groupID=groupId,
-                usergroups=usergroupOptions,
-                usergroupPermissions = usergroupPermissionOptions,
-                otherPermissions=otherPermissionOptions,
-                usergroupPermissionCount=usergroup.Permissions==null?0:usergroup.Permissions.Length
-            });
-        }
+//        public void SetPermissions_GET()
+//        {
+//            string usergroupOptions,            //用户组下拉列表
+//                usergroupPermissionOptions,     //用户组权限下拉列表
+//                otherPermissionOptions;         //其他权限下拉列表
+//
+//            int groupId;
+//            int.TryParse(HttpContext.Current.Request["groupid"], out groupId);
+//            if (groupId == 0) groupId = 1;
+//            UserGroup usergroup=CmsLogic.User.GetUserGroup((UserGroups)groupId);
+//
+//
+//            StringBuilder sb=new StringBuilder();
+//            //用户组下拉列表
+//            foreach(UserGroup group in CmsLogic.User.GetUserGroups())
+//            {
+//                sb.Append("<option value=\"").Append(group.Id).Append(group.Id==groupId?"\" selected=\"selected\"":"\"").Append(">").Append(group.Name).Append("</option>");
+//            }
+//            usergroupOptions=sb.ToString();
+//            sb.Remove(0,sb.Length);
+//
+//            //用户组权限下拉列表
+//            foreach (Operation op in usergroup.Permissions)
+//            {
+//                sb.Append("<option value=\"").Append(op.ID).Append("\">").Append(op.Name).Append("</option>");
+//            }
+//            usergroupPermissionOptions = sb.ToString();
+//            sb.Remove(0, sb.Length);
+//
+//
+//            //其他的权限下拉列表
+//            foreach (Operation op in CmsLogic.User.GetOperationList())
+//            {
+//                if (Array.Find(usergroup.Permissions, a => a.ID == op.ID) == null)
+//                {
+//                    sb.Append("<option value=\"").Append(op.ID).Append("\">").Append(op.Name).Append("</option>");
+//                }
+//            }
+//            otherPermissionOptions = sb.ToString();
+//            sb.Remove(0, sb.Length);
+//
+//            //显示页面
+//            base.RenderTemplate(ResourceMap.SetPermissions, new
+//            {
+//                groupID=groupId,
+//                usergroups=usergroupOptions,
+//                usergroupPermissions = usergroupPermissionOptions,
+//                otherPermissions=otherPermissionOptions,
+//                usergroupPermissionCount=usergroup.Permissions==null?0:usergroup.Permissions.Length
+//            });
+//        }
 
         /// <summary>
         /// 更新权限

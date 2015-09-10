@@ -13,9 +13,7 @@
 //
 
 using System;
-using System.Collections;
 using System.IO;
-using System.Text;
 using System.Web;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
@@ -23,8 +21,6 @@ using J6.Cms.DataTransfer;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Web.UI;
-using SharpCompress.Archive;
-using SharpCompress.Common;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -164,14 +160,6 @@ namespace J6.Cms.Web.WebManager.Handle
         public void IndexMain_GET()
         {
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.IndexMain), null);
-        }
-
-        /// <summary>
-        /// 加载页面
-        /// </summary>
-        public void Load_GET()
-        {
-            base.RenderTemplate(ResourceMap.PageLoading, null);
         }
 
         /// <summary>
@@ -541,132 +529,6 @@ namespace J6.Cms.Web.WebManager.Handle
         }
 
 
-        #region 系统补丁
-
-        /// <summary>
-        /// 系统补丁页面
-        /// </summary>
-        public void Patch_GET()
-        {
-            string patchlistHtml;
-
-            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "patch");
-            if (!dir.Exists)
-            {
-                dir.Create();
-                patchlistHtml = "<div style=\"color:red\">没有补丁可供安装！</div>";
-            }
-            else
-            {
-                FileInfo[] files = dir.GetFiles("*.zip");
-                if (files.Length == 0)
-                {
-                    patchlistHtml = "<div style=\"color:red\">没有补丁可供安装！</div>";
-                }
-                else
-                {
-                    //对文件排序
-                    //Array.Sort(files, new Comparison<FileInfo>((a, b) => { return a.CreationTime > b.CreationTime ? 1 : -1; }));
-
-                    StringBuilder sb = new StringBuilder();
-                    int i = 0;
-                    foreach (FileInfo file in files)
-                    {
-                        sb.Append("<div><input type=\"radio\" name=\"applypatchfile\"")
-                            .Append(++i == 1 ? " checked=\"checked\"" : String.Empty)
-                            .Append(" value=\"")
-                            .Append(file.Name).Append("\"/><label>")
-                            .Append(file.Name).Append("</label></div>");
-                    }
-
-                    patchlistHtml = sb.ToString();
-                }
-            }
-
-            base.RenderTemplate(ResourceMap.Patch, new
-                                {
-                                    patchlist = patchlistHtml
-                                });
-        }
-
-        /// <summary>
-        /// 上传补丁文件
-        /// </summary>
-        public void PatchUpload_POST()
-        {
-            if (base.Request.Files.Count != 0)
-            {
-                HttpPostedFile file = base.Request.Files[0];
-
-                try
-                {
-                    file.SaveAs(String.Format("{0}/patch/{1}", AppDomain.CurrentDomain.BaseDirectory, file.FileName));
-                    base.Response.Write("<script>window.parent.location.reload();</script>");
-                }
-                catch
-                {
-                    base.Response.Write("<script>alert('无权限保存补丁文件!');</script>");
-                }
-            }
-        }
-
-        /// <summary>
-        /// 安装补丁
-        /// </summary>
-        public void Patch_POST()
-        {
-            string appDir = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = String.Format(@"{0}\patch\{1}", appDir, base.Request["file"]);
-            FileInfo file = new FileInfo(filePath);
-            if (file.Exists)
-            {
-                //bool result=ZipUtility.UncompressFile(@"C:\", filePath, true);
-                try
-                {
-                    System.Threading.Thread.Sleep(1000);
-
-                    #region dotnetzip
-                    /*
-
-                    // var options = new ReadOptions { StatusMessageWriter = System.Console.Out };
-                    using (ZipFile zip = ZipFile.Read(filePath))//, options))
-                    {
-                        // This call to ExtractAll() assumes:
-                        //   - none of the entries are password-protected.
-                        //   - want to extract all entries to current working directory
-                        //   - none of the files in the zip already exist in the directory;
-                        //     if they do, the method will throw.
-                        zip.ExtractAll(appDir,ExtractExistingFileAction.OverwriteSilently);
-                    }
-
-					 */
-                    #endregion
-
-                    #region sharpcompress
-
-                    IArchive archive = ArchiveFactory.Open(filePath);
-                    foreach (IArchiveEntry entry in archive.Entries)
-                    {
-                        if (!entry.IsDirectory)
-                        {
-                            //Console.WriteLine(entry.FilePath);
-                            entry.WriteToDirectory(appDir, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
-                        }
-                    }
-                    archive.Dispose();
-
-                    #endregion
-
-
-                }
-                catch (System.Exception ex1)
-                {
-                    base.Response.Write(ex1.Message);
-                }
-            }
-        }
-
-        #endregion
 
 
     }
