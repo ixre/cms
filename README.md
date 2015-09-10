@@ -24,7 +24,7 @@
 
 ## 部署 ##
 ### LINUX平台 ###
-        wget -nd http://s.z3q.net/j6cms_latest
+        wget -nd http://z3q.net/j6cms_latest
         unzip cms_release_latest.zip
         fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
 浏览器访问: http://127.0.0.1:8080
@@ -34,11 +34,10 @@
 正式环境请配置IIS
 
 ## 插件开发 ##
-详见：github.com/newmin/cms/tree/master/plugin
-
-
+详见：github.com/jsix/cms/tree/master/plugin
 
 ## 如何加入开发 ##
-
-请先在github上fork代码,克隆到本地修改后直接提交。
 交流QQ群：306064037
+
+
+
