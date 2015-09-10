@@ -34,7 +34,13 @@
                         <input type="hidden" field="BindType" id="bindtype" />
 
                         <span id="bindtip" field="BindTitle"></span>&nbsp;&nbsp;
-                        <a href="javascript:cancelBind()" id="cancelbind">取消绑定</a>
+
+                        <span class="ui-button w80 small-button" id="cancelbind" onclick="cancelBind()">
+                            <span class="button-inner">
+                                <span class="button-txt">取消绑定</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
 
                     </dd>
                 </dl>
@@ -55,8 +61,15 @@
                     <dt>图片：</dt>
                     <dd>
                         <input type="text" class="ui-validate box" length="[0,100]" field="ImgUrl" id="imgurl" tipin="imgurl_tip" />
-                        <span id="imgurl_tip">选填</span><br />
-                        <span style="display:block;padding-left:46px;" id="upload"><a href="javascript:;" class="btn">选择图片</a></span>
+                        <span id="imgurl_tip">选填</span><br/>
+
+                        <span class="ui-button w80 small-button" style="margin-left: 46px">
+                            <span class="button-inner">
+                                <span class="button-txt" id="upload">选择图片</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
+
                     </dd>
                 </dl>
                 <dl>
@@ -87,7 +100,15 @@
                     </dd>
                 </dl>
 
-                <dl><dt>&nbsp;</dt><dd><a id="btn" field="Btn" class="btn" href="javascript:;"></a></dd></dl>
+                <dl><dt>&nbsp;</dt><dd>
+
+                    <span class="ui-button w150" id="btn">
+                                           <span class="button-inner">
+                                               <span class="button-txt" field="Btn">保存</span>
+                                               <a href="javascript:;"></a>
+                                           </span>
+                                       </span>
+                </dd></dl>
 
 
 
@@ -101,17 +122,33 @@
 
                 绑定栏目:<br />
                 <div>
-                    <select name="categoryid" field="CategoryId" class="left box" style="width:200px">
+                    <select name="categoryid" id="cate_sel" field="CategoryId" class="left box" style="width: 200px">
                         <option value="">一请选择栏目一</option>
                         ${categoryNodes}
-                    </select><a class="btn" href="javascript:;" onclick="bind({id:this.previousSibling.value,text:this.previousSibling.options[this.previousSibling.selectedIndex].innerHTML,type:'category'});return false;">绑定</a>
+                    </select>
+
+                    <span class="ui-button w50 small-button" onclick="cateBind()">
+                        <span class="button-inner">
+                            <span class="button-txt">绑定</span>
+                            <a href="javascript:;"></a>
+                        </span>
+                    </span>
+
 
                 </div>
 
                 <div class="clearfix"></div>
                 绑定文档:<br />
 
-                <input class="box left" type="text" id="title" style="width:192px" /><a class="btn" onclick="searchArchive('title');" href="javascript:;">搜索</a>
+                <input class="box left" type="text" id="title" style="width: 192px"/>
+                <span class="ui-button w50 small-button" onclick="searchArchive('title')">
+                    <span class="button-inner">
+                        <span class="button-txt">搜索</span>
+                        <a href="javascript:;"></a>
+                    </span>
+                </span>
+
+
                 <div class="archivelist clearfix">
 
                 </div>
@@ -190,6 +227,10 @@
             }
         }
 
+        function cateBind() {
+            var cateSel = j6.$('cate_sel');
+            bind({id:cateSel.value,text:cateSel.options[cateSel.selectedIndex].innerHTML,type:'category'});
+        }
 
         function cancelBind() {
             bindid.value = '';

@@ -25,7 +25,7 @@ span.required{ color: red;}
 
 .p10{padding:10px;}
 
-
+input,span,select,textarea,label{ vertical-align: middle;}
 
 .ui-button{border:solid 1px #FFF;border-color: #ADB1B8 #A2A6AC #8D9096;border-radius:3px;display: inline-block;vertical-align:middle;}
 .ui-button .button-inner{display:block;position: relative;background:#F0F0F0;border-radius:2px;
@@ -35,6 +35,7 @@ span.required{ color: red;}
 .ui-button .button-txt{padding:0 5px;display:block;line-height: 29px;text-align:center;color:#111;}
 .ui-button a,.ui-button input{display:block;position: absolute;left:0;top:0;width:100%;height:100%;opacity:0.01;filter: alpha(opacity=1);cursor: pointer;}
 .small-button .button-txt{line-height:18px;padding:0 5px;}
+.middle-button .button-txt{ line-height: 24px;overflow: hidden;}
 .w50{ width: 50px;}
 .w80{width:80px;}
 .w100{ width: 100px;}
@@ -61,35 +62,11 @@ input.button {box-shadow: none;border-radius:0;background:#006699;color:#fff;bor
 
 input.box,select.box,textarea.box {
     border:solid 1px #888;border-radius: 2px;line-height:1.5rem;height:1.5rem;padding:0 10px;margin:1px;
-    -webkit-box-shadow: 0px 10px 15px inset;
-    -ms-box-shadow:0px 10px 15px #EEE inset;
-    box-shadow:0px 10px 15px #EEE inset
+    box-shadow: 0px 1px 0px #DDD inset; background:#F7F8F9;border-color: #AAA #A0A0A5 #AAA;
 }
 textarea.box{ height: auto;}
 
-input.box:focus,select.box:focus,textarea.box:focus{border:solid 2px #0A0;margin:0;box-shadow:0px 10px 15px #FFC inset}
-input.btn,a.btn {
-    padding: 0px 5px;
-    -ms-border-radius: 5px;
-    border-radius: 5px;cursor: pointer;
-    -webkit-box-shadow: 0px 1px 1px #EEE;
-    -ms-box-shadow: 0px 1px 1px #EEE;
-    box-shadow: 0px 1px 1px #EEE;
-    border: 1px solid #CCC;
-    font-size: 12px;color:#333;
-		line-height:1.5;
-		background: -webkit-linear-gradient(#F5F5F5, #E5E5E5); /* Safari 5.1 - 6.0 */
-		background: -o-linear-gradient(#F5F5F5, #E5E5E5); /* Opera 11.1 - 12.0 */
-		background: -moz-linear-gradient(#F5F5F5, #E5E5E5); /* Firefox 3.6 - 15 */
-		background: linear-gradient(#F5F5F5, #E5E5E5); /* 标准的语法 */
-}
-
-input.btn:hover,a.btn:hover{
-    background: #FFF none repeat scroll 0% 0%;
-    box-shadow: 0px 0px 0px #EEE, 0px 10px 15px #EEE inset;
-    border-color:#ddd;
-    color:#333;
-}
+input.box:focus,select.box:focus,textarea.box:focus{border:solid 1px #0a0;margin:1px;}
 
 /*.gate{background:#f0f0f0;opacity:0.2;filter:alpha(opacity=20);position:absolute;left:0;top:0;z-index:30;}*/
 .loading{font-weight:bold;color:#006699;text-align:center;position:absolute;left:0;top:0;z-index:31;

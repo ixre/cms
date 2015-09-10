@@ -10,7 +10,7 @@ using J6.DevFw.Framework.Extensions;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
-    public class ExtendC:BasePage
+    public class ExtendC : BasePage
     {
         public void SetProperty_GET()
         {
@@ -20,14 +20,12 @@ namespace J6.Cms.Web.WebManager.Handle
             });
         }
 
-        public void Fields_GET()
+        public string Fields_GET()
         {
 
-            string form = EntityForm.Build<ExtendFieldDto>(new ExtendFieldDto(), false, "btn");
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Extend_List), new
-            {
-                form = form
-            });
+            string form = EntityForm.Build<ExtendFieldDto>(new ExtendFieldDto());
+            ViewData["form"] = form;
+            return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Extend_List));
         }
 
         public void GetExtendFields_POST()
@@ -54,16 +52,17 @@ namespace J6.Cms.Web.WebManager.Handle
 
             string json = JsonSerializer.Serialize(list);
             category.ExtendFields = null;
-            string categoryJson = JsonSerializer.Serialize(new {
-                ID=category.Id,
-                Lft=category.Lft,
-                Name = category.Name, 
+            string categoryJson = JsonSerializer.Serialize(new
+            {
+                ID = category.Id,
+                Lft = category.Lft,
+                Name = category.Name,
                 ExtendIds = extendIds
             });
 
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Extend_Category_Check), new
             {
-                url=base.Request.RawUrl,
+                url = base.Request.RawUrl,
                 json = json,
                 category = categoryJson
             });
@@ -76,11 +75,11 @@ namespace J6.Cms.Web.WebManager.Handle
 
             int[] extendIds = null;
 
-            if(!String.IsNullOrEmpty(extendIdstr))
+            if (!String.IsNullOrEmpty(extendIdstr))
             {
                 extendIds = Array.ConvertAll<string, int>(
                 extendIdstr.Split(',')
-                ,a=>int.Parse(a));
+                , a => int.Parse(a));
             }
 
             CategoryDto category = ServiceCall.Instance.SiteService.GetCategoryByLft(
@@ -111,7 +110,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
         }
 
-        
+
         public string SaveExtendField_POST()
         {
             try
