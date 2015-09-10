@@ -39,10 +39,6 @@ namespace J6.Cms.Web.WebManager.Handle
         static ResourceC()
         {
             fileMImE = new Dictionary<string, string>();
-            fileMImE.Add("cms_top_logo", "image/gif");
-            fileMImE.Add("syslogin", "image/gif");
-            fileMImE.Add("syslogin_bg", "image/gif");
-            fileMImE.Add("sysindex", "image/png");
             fileMImE.Add("style", "text/css");
             fileMImE.Add("manage_js_min", "text/javascript");   //bWFuYWdlX2pzX21pbg==
             fileMImE.Add("ajax_loader", "image/gif");

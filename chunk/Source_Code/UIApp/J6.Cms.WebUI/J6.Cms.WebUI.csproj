@@ -148,6 +148,7 @@
     <Content Include="framework\mui\css\latest\blank.png" />
     <Content Include="framework\mui\css\latest\blocks.gif" />
     <Content Include="framework\mui\css\latest\columns.png" />
+    <Content Include="framework\mui\css\latest\context_menu.gif" />
     <Content Include="framework\mui\css\latest\control-exit.png" />
     <Content Include="framework\mui\css\latest\drop_arraw.gif" />
     <Content Include="framework\mui\css\latest\icon_chart.png" />
@@ -157,6 +158,7 @@
     <Content Include="framework\mui\css\latest\icon_secret.png" />
     <Content Include="framework\mui\css\latest\icon_server.png" />
     <Content Include="framework\mui\css\latest\icon_user.png" />
+    <Content Include="framework\mui\css\latest\item_circle.gif" />
     <Content Include="framework\mui\css\latest\layout_left_bg.gif" />
     <Content Include="framework\mui\css\latest\left_menu_current.gif" />
     <Content Include="framework\mui\css\latest\loading_box.gif" />
@@ -175,6 +177,12 @@
     <Content Include="framework\mui\css\latest\ui_style.source.css" />
     <Content Include="framework\mui\css\latest\ui_style.css" />
     <Content Include="framework\mui\css\login.css" />
+    <Content Include="framework\mui\css\old\sys_themes\default\ajax-loader.gif" />
+    <Content Include="framework\mui\css\old\sys_themes\default\bg.gif" />
+    <Content Include="framework\mui\css\old\sys_themes\default\btn_spirites.css" />
+    <Content Include="framework\mui\css\old\sys_themes\default\btn_spirites.png" />
+    <Content Include="framework\mui\css\old\sys_themes\default\icon_trans.png" />
+    <Content Include="framework\mui\css\old\sys_themes\default\tree.gif" />
     <Content Include="framework\mui\css\res\highlight-bg.jpg" />
     <Content Include="framework\mui\css\res\logo_login.png" />
     <Content Include="framework\mui\css\latest\page_style.css" />

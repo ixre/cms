@@ -225,29 +225,6 @@ namespace J6.Cms.Web.Resource.WebManager {
         }
         
         /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///&lt;head&gt;
-        ///  &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
-        ///  &lt;title&gt;加载页面&lt;/title&gt;
-        ///  $css()
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///  &lt;div id=&quot;pl&quot;&gt;&lt;/div&gt;$js()
-        ///  &lt;script type=&quot;text/javascript&quot;&gt;
-        ///      cms.load2(&apos;pl&apos;,&apos;system&apos;,&apos;summary&apos;,&apos;token=dsfg&apos;);
-        ///  &lt;/script&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;
-        /// 的本地化字符串。
-        /// </summary>
-        public static string index_main {
-            get {
-                return ResourceManager.GetString("index_main", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 //Core
         ///function j6l() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } j6l.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = f[f.length - 1]; var g = s.src; this.__WORKPATH__ = g.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (!document.getElementsByClassName) { document.getElementsByClassName = function (a, b) { if (b &amp;&amp; !b.nodeName) { b = document.getElementById(b) } var  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
@@ -354,36 +331,6 @@ namespace J6.Cms.Web.Resource.WebManager {
         public static string setProperties {
             get {
                 return ResourceManager.GetString("setProperties", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        public static System.Drawing.Bitmap sys_bg {
-            get {
-                object obj = ResourceManager.GetObject("sys_bg", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        public static System.Drawing.Bitmap sysindex {
-            get {
-                object obj = ResourceManager.GetObject("sysindex", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        public static System.Drawing.Bitmap syslogin_bg {
-            get {
-                object obj = ResourceManager.GetObject("syslogin_bg", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
