@@ -275,8 +275,6 @@
     <Content Include="Resource\WebManager\resouces\file\filemanager.html" />
     <Content Include="Resource\WebManager\resouces\images\old\frame_index2.js" />
     <Content Include="Resource\WebManager\resouces\images\guest-avatar.jpg" />
-    <Content Include="Resource\WebManager\resouces\images\syslogin.gif" />
-    <Content Include="Resource\WebManager\resouces\images\syslogin_bg.gif" />
     <Content Include="Resource\WebManager\resouces\images\sysset.conf.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -299,12 +297,8 @@
     <Content Include="Resource\WebManager\resouces\template\tpl.editfile.html" />
     <Content Include="Resource\WebManager\resouces\template\tplsettings.html" />
     <None Include="Resource\WebManager\resouces\system\pageLoading.html" />
-    <None Include="Resource\WebManager\resouces\images\sysindex.gif" />
-    <None Include="Resource\WebManager\resouces\images\sys_tab.gif" />
-    <None Include="Resource\WebManager\resouces\images\sys_bg.gif" />
     <None Include="Resource\WebManager\resouces\images\manage.js_source.js" />
     <EmbeddedResource Include="Resource\WebManager\resouces\images\manage.js_min.js" />
-    <None Include="Resource\WebManager\resouces\images\cms_top_logo.gif" />
     <None Include="Resource\WebManager\resouces\images\ajax-loader.gif" />
     <None Include="Resource\SiteResouce\jslib\js_lib_upload.js" />
   </ItemGroup>

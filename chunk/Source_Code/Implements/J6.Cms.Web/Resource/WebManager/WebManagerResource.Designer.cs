@@ -69,19 +69,20 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///	&lt;/head&gt;
         ///	&lt;body style=&quot;padding:30px&quot;&gt;
         ///	&lt;div&gt;
-        ///        注：使用此功能可以将整个站点的文档的关键词进行批量自动添加内链！
-        ///        &lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
-        ///    &lt;/div&gt;
-        ///     &lt;input class=&quot;btn&quot; type=&quot;button&quot; onclick=&quot;batReplace()&quot; value=&quot;批量替换&quot; /&gt;
-        ///     &lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;
-        ///     
-        ///	$js()
-        ///     &lt;script type=&quot;text/javascript&quot;&gt;
-        ///       var msg = j6.$(&apos;msg&apos;);
-        ///       function batReplace(t) {
-        ///         if (confirm(&apos;需要较长时间，确定继续吗？&apos;)) {
-        ///           msg.innerHTML = &apos;更新中....&apos;;
-        ///        [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///	    注：使用此功能可以将整个站点的文档的关键词进行批量自动添加内链！
+        ///	    &lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+        ///	&lt;/div&gt;
+        ///
+        ///        &lt;div&gt;
+        ///            &lt;span class=&quot;ui-button w150&quot; onclick=&quot;batReplace()&quot;&gt;
+        ///                &lt;span class=&quot;button-inner&quot;&gt;
+        ///                    &lt;span class=&quot;button-txt&quot;&gt;批量替换&lt;/span&gt;
+        ///                    &lt;a href=&quot;javascript:;&quot;&gt;&lt;/a&gt;
+        ///                &lt;/span&gt;
+        ///            &lt;/span&gt;
+        ///        &lt;/div&gt;
+        ///
+        ///     &lt;div id=&quot;msg&quot;&gt;&lt;/div [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string archiveTagReplace {
             get {
@@ -193,8 +194,8 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///            模块与栏目相关，栏目与文档相关。模块可以提供视图设置和自定义属性给栏目和文档。
         ///        &lt;/div&gt;&lt;br /&gt;
         ///        &lt;dl&gt;
-        ///            &lt;dt&gt;模块名称：&lt;/dt&gt;&lt;dd&gt;&lt;input type=&quot;text&quot; class=&quot;tb_normal ui-validate&quot; required=&quot;true&quot; length=&quot;[0,10]&quot; field=&quot;tplname&quot; value=&quot;${tplName}&quot; summary=&quot;{required:&apos;不能为空&apos;,length:&apos;不能超过10个字&apos;}&quot;/&gt;&lt;/dd&gt;&lt;/dl&gt;
-        ///        [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///            &lt;dt&gt;模块名称：&lt;/dt&gt;&lt;dd&gt;&lt;input type=&quot;text&quot; class=&quot;tb_normal box ui-validate&quot; required=&quot;true&quot; length=&quot;[0,10]&quot; field=&quot;tplname&quot; value=&quot;${tplName}&quot; summary=&quot;{required:&apos;不能为空&apos;,length:&apos;不能超过10个字&apos;}&quot;/&gt;&lt;/dd&gt;&lt;/dl&gt;
+        ///    [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string editModule {
             get {
@@ -257,7 +258,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///&lt;body&gt;
         ///  &lt;div id=&quot;pl&quot;&gt;&lt;/div&gt;$js()
         ///  &lt;script type=&quot;text/javascript&quot;&gt;
-        ///      j6.load2(&apos;pl&apos;,&apos;system&apos;,&apos;summary&apos;,&apos;token=dsfg&apos;);
+        ///      cms.load2(&apos;pl&apos;,&apos;system&apos;,&apos;summary&apos;,&apos;token=dsfg&apos;);
         ///  &lt;/script&gt;
         ///&lt;/body&gt;
         ///&lt;/html&gt;
@@ -302,7 +303,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///  }
         ///  function deleteMember(t, id) {
         ///    var b = confirm(&apos;是否删除改会员的评论及文章信息?&apos;);
-        ///    j6.xhr.post(&apos;/app.axd&apos;, &apos;do=member:delete:&apos; + id +  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///    cms.xhr.post(&apos;/app.axd&apos;, &apos;do=member:delete:&apos; + id +  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string memberList {
             get {
@@ -360,8 +361,7 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///
         ///&lt;table class=&quot;ui-table&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; id=&quot;operations&quot;&gt;
         ///      &lt;tr&gt;
-        ///        &lt;th width=&quot;40&quot;&gt;编号&lt;/th&gt;
-        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///        &lt;th width=&quot;40&quot;&gt;编号&lt;/th&gt;        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string operationList {
             get {
@@ -546,16 +546,6 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Bitmap syslogin {
-            get {
-                object obj = ResourceManager.GetObject("syslogin", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         public static System.Drawing.Bitmap syslogin_bg {
             get {
                 object obj = ResourceManager.GetObject("syslogin_bg", resourceCulture);
@@ -567,12 +557,17 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;config&gt;
         ///  &lt;menu&gt;
-        ///    &lt;bar id=&quot;home&quot; name=&quot;我的首页&quot;&gt;
+        ///    &lt;bar id=&quot;site&quot; name=&quot;基本管理&quot;&gt;
+        ///      
         ///      &lt;links title=&quot;欢迎使用&quot; toggle=&quot;true&quot; iconPos=&quot;-240|0&quot;&gt;
-        ///        &lt;link href=&quot;?module=system&amp;amp;action=welcome&quot; text=&quot;欢迎首页&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
-        ///        &lt;link href=&quot;?module=system&amp;amp;action=serverSummary&quot; text=&quot;系统运行信息&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
+        ///        &lt;link href=&quot;?module=system&amp;amp;action=summary&quot; text=&quot;欢迎首页&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
+        ///        &lt;!--
         ///        &lt;link href=&quot;http://k3f.net/cms/cms/help.html&quot; text=&quot;帮助指南&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
-        ///        &lt;link href=&quot;http://k3f.net/cms/cms/about.html&quot; text=&quot;关于系统&quot; title=&quot;&quot; siteid= [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///        &lt;link href=&quot;http://k3f.net/cms/cms/about.html&quot; text=&quot;关于系统&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;--&gt;
+        ///      &lt;/links&gt;
+        ///
+        ///      
+        ///      &lt;links title=&quot;栏目管理&quot; toggle=&quot;tr [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string sysset_conf {
             get {
@@ -610,7 +605,29 @@ namespace J6.Cms.Web.Resource.WebManager {
         }
         
         /// <summary>
-        ///   查找类似 eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p }(&apos;4(!9.17){9.17=\&apos;2T\&apos;}9.2U=[];9.2V=s;4(9.28==1K){12.1L.29(9.17+\&apos;?1q=1r&amp;1s=2W\&apos;,6(x){3 a,2X,2a,2b;2Y(x);9 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 if (!window._path) {
+        ///    window._path = &apos;admin&apos;;
+        ///}
+        ///window.sites = [];
+        ///window.groupname = null;
+        ///
+        ///if (window.menuData == undefined) {
+        ///    j6.xhr.get(window._path + &apos;?module=ajax&amp;action=appinit&apos;, function (x) {
+        ///        var ip, address, md, username;
+        ///        eval(x);
+        ///        window.menuData = md;
+        ///        j6.json.bind(document, { userName: username });
+        ///    });
+        ///    //window.menuData = [];
+        ///}
+        ///
+        ///if (window.menuHandler == undefined) {
+        ///    window.menuHandler = null;
+        ///}
+        ///
+        ///
+        ///var FwMenu = {
+        ///    ele: nul [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string ui_component {
             get {
