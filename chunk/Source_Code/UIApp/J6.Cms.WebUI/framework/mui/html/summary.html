@@ -160,7 +160,7 @@ $js()
             if (width < pwidth && percent !== 1) {
                 e.previousSibling.innerHTML = '下载升级包：' + parseInt(percent * 100) + '%';
                 setTimeout(function() {
-                    j6.xhr.get('module=ajax&action=getUpgradeStatus', function (x) {
+                    j6.xhr.get('?module=ajax&action=getUpgradeStatus', function (x) {
                         setUpgradeStatus(e, parseFloat(x));
                     });
                 }, 1000);
