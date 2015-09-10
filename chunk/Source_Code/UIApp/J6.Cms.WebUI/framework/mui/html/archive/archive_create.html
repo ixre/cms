@@ -26,7 +26,7 @@
                     <dl>
                         <dt><span class="star">*</span>栏目：</dt>
                         <dd>
-                            <select field="CategoryId" class="tb_normal box" required="true" summary="{required:'请选择栏目!'}">
+                            <select field="CategoryId" class="tb_normal ui-box" required="true" summary="{required:'请选择栏目!'}">
                                 <option>一请选择栏目一</option>
                                 ${nodes}
                             </select>
@@ -36,7 +36,7 @@
                     <dl>
                         <dt><span class="star">*</span>标题：</dt>
                         <dd>
-                            <input class="tb_normal box ui-validate" required="true" length="[1,100]" summary="{required:'标题不能为空!',length:'标题长度1-100字!'}" type="text" field="Title" id="title" style="width: 500px" />
+                            <input class="tb_normal ui-box ui-validate" required="true" length="[1,100]" summary="{required:'标题不能为空!',length:'标题长度1-100字!'}" type="text" field="Title" id="title" style="width: 500px" />
 
                         </dd>
                     </dl>
@@ -44,14 +44,14 @@
                     <dl>
                         <dt>子标题：</dt>
                         <dd>
-                            <input class="tb_normal box ui-validate" style="width: 340px;" length="[0,100]" summary="{length:' 子标题长度1-100字!'}" type="text" field="SmallTitle" />
+                            <input class="tb_normal ui-box ui-validate" style="width: 340px;" length="[0,100]" summary="{length:' 子标题长度1-100字!'}" type="text" field="SmallTitle" />
                         </dd>
                     </dl>
 
                     <dl>
                         <dt>别名：</dt>
                         <dd>
-                            <input style="width: 340px;" tipin="alias_tipin" type="text" id="alias" field="Alias" class="tb_normal box ui-validate" summary="{error:'别名为50位以下的数字,字母,连接符(-),下划线的组合'}" /><span class="ui-button w80 middle-button">
+                            <input style="width: 340px;" tipin="alias_tipin" type="text" id="alias" field="Alias" class="tb_normal ui-box ui-validate" summary="{error:'别名为50位以下的数字,字母,连接符(-),下划线的组合'}" /><span class="ui-button w80 middle-button">
                                 <span class=" button-inner">
                                     <span class="button-txt">自动填写</span>
                                     <a href="javascript:;"></a>
@@ -72,7 +72,7 @@
                             <input type="radio" class="radio" field="IsRedirect" name="IsRedirect" id="IsRedirect2" value="1" /><label for="IsRedirect1">是</label>
 
                             <span id="redirectPanel" class="hidden" style="padding-left:20px">
-                                网址(URL)：<input class="tb_normal box ui-validate" length="[0,150]" name="location" field="Location" />
+                                网址(URL)：<input class="tb_normal ui-box ui-validate" length="[0,150]" name="location" field="Location" />
                             </span>
                             <br /> <span class="desc" style="padding-left:60px">提示：重定向可以将文档页面跳转到指定的网址。</span>
                         </dd>
@@ -82,7 +82,7 @@
                     <dl>
                         <dt>来源：</dt>
                         <dd>
-                            <input class="tb_normal box ui-validate" length="[0,10]" type="text" field="Source" style="width: 100px" />
+                            <input class="tb_normal ui-box ui-validate" length="[0,10]" type="text" field="Source" style="width: 100px" />
                             &nbsp;&nbsp;&nbsp;<strong>设置：</strong>
                             <input type="checkbox" style="border: none" field="IsSpecial" title="以特殊的形式显示" id="ck_special" /><label for="ck_special">推荐</label>
                             &nbsp;<input type="checkbox" style="border: none" field="IsSystem" title="用于系统使用的文档(系统页面不会在搜索和列表中出现)" id="ck_system" /><label for="ck_system">系统</label>
@@ -118,7 +118,7 @@
                             <img id="thumbnail_img" style="width: 80px; height: 80px; position: absolute; left: 45px; top: 0px;border:solid 1px #aaa;padding:1px;" />
 
 
-                            <input class="tb_normal box ui-validate" length="[0,150]" type="hidden" field="Thumbnail" id="thumbnail" size="100" />
+                            <input class="tb_normal ui-box ui-validate" length="[0,150]" type="hidden" field="Thumbnail" id="thumbnail" size="100" />
 
                             <span class="ui-button w100 middle-button">
                                 <span class=" button-inner">
@@ -135,7 +135,7 @@
                                     <a href="javascript:;"></a>
                                 </span>
                             </span>&nbsp;
-                            <select class="box" id="upimg" name="upimg" style="display: none">
+                            <select class="ui-box" id="upimg" name="upimg" style="display: none">
                                 <option value="">选择图片</option>
                             </select>&nbsp;
                         </dd>
@@ -148,7 +148,7 @@
                     <dl>
                         <dt>视图：</dt>
                         <dd>
-                            <select field="TemplatePath" id="TemplatePath" class="tb_normal box">
+                            <select field="TemplatePath" id="TemplatePath" class="tb_normal ui-box">
                                 <option value="">一默认一</option>
                                 ${tpls}
                             </select>&nbsp;&nbsp;设置文档的显示模板，通常使用“默认”即可。
@@ -158,7 +158,7 @@
                     <dl>
                         <dt>Tags：</dt>
                         <dd>
-                            <textarea class="tb_normal box ui-validate" length="[0,100]" type="text" field="Tags" rows="3" style="width:500px"></textarea>
+                            <textarea class="tb_normal ui-box ui-validate" length="[0,100]" type="text" field="Tags" rows="3" style="width:500px"></textarea>
                             <br />
                             <span style="padding-left:41px;line-height:30px"><input id="ck_autotag" type="checkbox" style="border: none" field="autotag" title="自动链接Tags" checked="checked" /><label for="ck_autotag">自动链接(自动生成tags链接，有利于seo)</label></span>
                         </dd>

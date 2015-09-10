@@ -14,7 +14,7 @@
                         <dt>上级栏目：</dt>
                         <dd>
                             <span class="input">
-                                <select field="ParentLft" class="tb_normal box">
+                                <select field="ParentLft" class="tb_normal ui-box">
                                     <option value="1" style="color:Red">一根目录一</option>
                                     ${categories}
                                 </select>
@@ -26,13 +26,13 @@
                     <dl>
                         <dt><span class="red">*</span>名称：</dt>
                         <dd>
-                            <input type="text" class="tb_normal box ui-validate" required="true" length="[0,50]" summary="{required:'不能为空!',length:'长度不能超过50位!'}" field="Name" id="name" />
+                            <input type="text" class="tb_normal ui-box ui-validate" required="true" length="[0,50]" summary="{required:'不能为空!',length:'长度不能超过50位!'}" field="Name" id="name" />
                         </dd>
                     </dl>
                     <dl>
                         <dt><span class="red">*</span>栏目标识：</dt>
                         <dd>
-                            <input type="text" class="tb_normal box ui-validate" field="Tag" id="tag" size="20"/><span class="ui-button w80 middle-button" summary="{required:'不能为空',strerr:'长度为50位以下的字母，数字，下划线和连接线的组合'}">
+                            <input type="text" class="tb_normal ui-box ui-validate" field="Tag" id="tag" size="20"/><span class="ui-button w80 middle-button" summary="{required:'不能为空',strerr:'长度为50位以下的字母，数字，下划线和连接线的组合'}">
                                 <span class=" button-inner">
                                     <span class="button-txt">自动标识</span>
                                     <a href="javascript:;"></a>
@@ -49,7 +49,7 @@
                             <input type="radio" class="radio" field="IsRedirect" name="IsRedirect" id="IsRedirect2" value="1" /><label for="IsRedirect1">是</label>
 
                             <span id="redirectPanel" class="hidden" style="padding-left:20px">
-                                网址(URL)：<input class="tb_normal box ui-validate" length="[0,150]" name="location" field="Location" />
+                                网址(URL)：<input class="tb_normal ui-box ui-validate" length="[0,150]" name="location" field="Location" />
                             </span>
                             <br /> <span class="desc" style="padding-left:60px">提示：重定向可以将栏目页面跳转到指定的网址。</span>
                         </dd>
@@ -59,7 +59,7 @@
                         <dt>图标：</dt>
                         <dd>
                             <img id="icon_img" style="display:none;width: 80px; height: 80px; position: absolute; left: 5px; top: 0px" />
-                            <input class="tb_normal box ui-validate" length="[0,100]" type="text" readonly="readonly" field="Icon" id="icon" />
+                            <input class="tb_normal ui-box ui-validate" length="[0,100]" type="text" readonly="readonly" field="Icon" id="icon" />
                             <span class="ui-button w80 middle-button">
                                 <span class=" button-inner">
                                     <span class="button-txt" id="upload_icon">上传缩略图</span>
@@ -72,13 +72,13 @@
                     <dl style="display:none">
                         <dt>模块：</dt>
                         <dd>
-                            <select class="tb_normal box" field="ModuleId">${categoryTypes}</select>
+                            <select class="tb_normal ui-box" field="ModuleId">${categoryTypes}</select>
                         </dd>
                     </dl>
                     <dl>
                         <dt>排序：</dt>
                         <dd>
-                            <input class="tb_normal box ui-validate" isnumber="true" field="SortNumber" style="width:50px;" value="0" />
+                            <input class="tb_normal ui-box ui-validate" isnumber="true" field="SortNumber" style="width:50px;" value="0" />
                         </dd>
                     </dl>
 
@@ -87,7 +87,7 @@
                     <dl>
                         <dt>视图：</dt>
                         <dd>
-                            <select field="CategoryTemplate" id="CategoryTemplate" class="tb_normal box"><option value="">一默认一</option>${category_tpls} </select><span class="desc">注：默认则使用模块的视图设置</span>
+                            <select field="CategoryTemplate" id="CategoryTemplate" class="tb_normal ui-box"><option value="">一默认一</option>${category_tpls} </select><span class="desc">注：默认则使用模块的视图设置</span>
                         </dd>
                     </dl>
 
@@ -95,7 +95,7 @@
                     <dl>
                         <dt>文档视图：</dt>
                         <dd>
-                            <select field="CategoryArchiveTemplate" id="CategoryArchiveTemplate" class="tb_normal box"> <option value="">一默认一</option>${archive_tpls}</select><span class="desc">注：默认则使用模块（或文档）的视图设置</span>
+                            <select field="CategoryArchiveTemplate" id="CategoryArchiveTemplate" class="tb_normal ui-box"> <option value="">一默认一</option>${archive_tpls}</select><span class="desc">注：默认则使用模块（或文档）的视图设置</span>
                         </dd>
                     </dl>
 
@@ -103,19 +103,19 @@
                     <dl>
                         <dt>标题：</dt>
                         <dd>
-                            <textarea class="tb_normal box ui-validate" length="[0,100]" field="PageTitle" name="PageTitle" style="width:500px;height:25px;"></textarea>
+                            <textarea class="tb_normal ui-box ui-validate" length="[0,100]" field="PageTitle" name="PageTitle" style="width:500px;height:25px;"></textarea>
                         </dd>
                     </dl>
                     <dl>
                         <dt>关键字：</dt>
                         <dd>
-                            <textarea class="tb_normal box ui-validate" length="[0,100]" field="Keywords" style="width:500px;height:25px;"></textarea>
+                            <textarea class="tb_normal ui-box ui-validate" length="[0,100]" field="Keywords" style="width:500px;height:25px;"></textarea>
                         </dd>
                     </dl>
                     <dl>
                         <dt>描述：</dt>
                         <dd>
-                            <textarea class="tb_normal box ui-validate" length="[,200]" field="Description" style="width:500px;height:75px;"></textarea>
+                            <textarea class="tb_normal ui-box ui-validate" length="[,200]" field="Description" style="width:500px;height:75px;"></textarea>
                         </dd>
                     </dl>
 
