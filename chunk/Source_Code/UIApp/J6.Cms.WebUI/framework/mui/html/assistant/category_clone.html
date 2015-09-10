@@ -3,77 +3,134 @@
 <head>
     <title>所有栏目</title>
     $css()
+    <style type="text/css">
+        .panel{ margin: 1em;padding: 1em;background: #FFF;border: solid 1px #EEE;}
+        table{ background: #FFF;}
+        table .panel{ background: #F8F8F8;}
+        .ctrl-panel{ text-align: right;padding-right: 2em;}
+    </style>
 </head>
 <body>
-<div id="main" class="autoStyle" style="overflow: hidden;">
-    <table cellpadding="0" cellspacing="0" width="100%" height="100%">
+<div>
+    <table cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td width="50%" valign="top">
-                <select id="site_selector">
-                    <option value="">请选择</option>
-                    ${site_opt}
-                </select>
-                <div id="from_tree"></div>
-
-            </td>
-            <td>
-                目标站点：${target_name}
-                <div class="hidden" style="padding: 20px 20px 0 20px">
-                    <input type="button" class="btn" value="新建栏目" id="btn_create"/>&nbsp;
-                    <input type="button" class="btn" value="收起栏目" id="btn_collage"/>&nbsp;
-                    <input type="button" class="btn" value="栏目助手" id="btn_utility"/>
+                <div class="panel">
+                    <select id="site_selector">
+                        <option value="">请选择</option>
+                        ${site_opt}
+                    </select>
+                    <div id="from_tree"></div>
                 </div>
-                <div id="dg" style="padding: 20px"></div>
+            </td>
+            <td valign ="top">
+                <div class="panel">
+                    目标站点：
+                    <br />
+                    ${target_name}
+                    <div class="hidden" style="padding: 20px 20px 0 20px">
+                        <input type="button" class="btn" value="新建栏目" id="btn_create" />&nbsp;
+                        <input type="button" class="btn" value="收起栏目" id="btn_collage" />&nbsp;
+                        <input type="button" class="btn" value="栏目助手" id="btn_utility" />
+                    </div>
+                    <div id="to_tree" style="padding: 20px"></div>
+                </div>
             </td>
         </tr>
     </table>
 </div>
 
-   $js()
+<div class="panel ctrl-panel">
+    <span id="tip-msg">还未选择栏目</span>
+    <span class="ui-button w150">
+        <span class="button-inner">
+            <span class="button-txt">拷贝栏目</span>
+            <a href="javascript:;"></a>
+        </span>
+    </span>
+</div>
+
+$js()
 <script type="text/javascript">
-    j6.dom.fitHeight(j6.$('main'));
     var siteId = ${target_site};
-    var treePanel = j6.$('dg');
     var fromTreePanel = j6.$('from_tree');
+    var toTreePanel = j6.$('to_tree');
+    var tipMsg = j6.$('tip-msg');
+    var fromNode = {};
+    var toNode = {};
     var treeObj = null;
 
     j6.$('site_selector').onchange = function() {
         var fromSiteId = this.value;
         if (fromSiteId !== '') {
-            _thisLoadCategoryTree(fromSiteId,fromTreePanel);
+            loadFromCategoryTree(fromSiteId,fromTreePanel);
         }
     };
 
 
     //加载栏目树
-    function _thisLoadCategoryTree(siteId,panel) {
+    function loadFromCategoryTree(siteId, panel) {
+        fromNode = {};
+        reqTree(siteId, function(json) {
+            treeObj = j6.tree.load(panel, json, '/framework/assets/tree/', function(a, d) {
+                treeChecked(true,a,d);
+            });
+            var nodeLinks;
+            j6.each(fromTreePanel.getElementsByTagName('DIV'), function(i, e) {
+                if (e.className == 'node') {
+                    nodeLinks = e.getElementsByClassName
+                        ? e.getElementsByClassName('node')
+                        : document.getElementsByClassName('node', e);
+                }
+            });
+        });
+    }
+
+    function loadToCategoryTree() {
+        reqTree(siteId, function(json) {
+            j6.tree.load(toTreePanel, json, '/framework/assets/tree/', function(a, d) {
+                treeChecked(false,a,d);
+            });
+        });
+    }
+
+    function reqTree(siteId, callback) {
         j6.xhr.request({
             uri: '?module=ajax&action=CategoryNodes&site_id='+siteId,
             method: 'GET',
             data: 'json'
         }, {
             success: function (json) {
-                treeObj = j6.tree.load(panel, json, '/framework/assets/tree/', null);
-                var nodeLinks;
-                j6.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
-                    if (e.className == 'node') {
-                        nodeLinks = e.getElementsByClassName
-                            ? e.getElementsByClassName('node')
-                            : document.getElementsByClassName('node', e);
-
-                        if (nodeLinks.length != 0) {
-                            var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).lft;
-                            e.title = '更多功能点击鼠标右键';
-                            j6.contextmenu.bind(e, null, function (menu) {
-                                menu.innerHTML = j6.template(tmpTpl, { id: id });
-                            });
-                        }
-                    }
-                });
+                callback(json);
             }, error: function () {
-                treePanel.innerHTML = '<span class="error">栏目加载失败! </span>';
+                alert('栏目加载失败!');
             }
         });
+    }
+
+    function treeChecked(from,a, d) {
+        a.className = 'node node-selelected';
+        var json = j6.toJson(d);
+        var node =  { id: json.cid, name: a.innerHTML };
+        if (from) {
+            fromNode = node;
+        } else {
+            toNode = node;
+        }
+        absMsg();
+    }
+
+    function absMsg() {
+        if (fromNode.id == undefined) {
+            tipMsg.innerHTML = '源栏目未选择!';
+        }else if (toNode.id == undefined) {
+            tipMsg.innerHTML = '目标上级栏目未选择';
+        } else {
+            tipMsg.innerHTML = j6.template('即将从<b>{fName}</b>拷贝到<b>{tName}</b>', {
+                fName: fromNode.name,
+                tName: toNode.name
+            });
+        }
     }
 
 
@@ -82,6 +139,8 @@
         if (parent._loadCategoryTree) parent._loadCategoryTree();
         if (window._thisLoadCategoryTree) window._thisLoadCategoryTree();
     }
+
+    loadToCategoryTree();
 
     /*
     j6.$('btn_collage').onclick = function () {
