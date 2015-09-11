@@ -7,47 +7,69 @@
         .panel{ margin: 1em;padding: 1em;background: #FFF;border: solid 1px #EEE;}
         table{ background: #FFF;}
         table .panel{ background: #F8F8F8;}
-        .ctrl-panel{ text-align: right;padding-right: 2em;}
+        .ctrl-panel{ text-align: left;padding: 1em 1em;border-top: solid 1px #EEE;}
+        .ctrl-panel #tip-msg{ padding-left: 2em;color: #ff0000;}
+        .panel .tit {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #F00;
+            margin-bottom: 1em;
+        }
+        .note{ padding: 2em;border-bottom: solid 1px #E0E0E0;box-shadow: 0 1px 0 #FFF;}
     </style>
 </head>
 <body>
-<div>
-    <table cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-            <td width="50%" valign="top">
-                <div class="panel">
-                    <select id="site_selector">
-                        <option value="">请选择</option>
-                        ${site_opt}
-                    </select>
-                    <div id="from_tree"></div>
-                </div>
-            </td>
-            <td valign ="top">
-                <div class="panel">
-                    目标站点：
-                    <br />
-                    ${target_name}
-                    <div class="hidden" style="padding: 20px 20px 0 20px">
-                        <input type="button" class="btn" value="新建栏目" id="btn_create" />&nbsp;
-                        <input type="button" class="btn" value="收起栏目" id="btn_collage" />&nbsp;
-                        <input type="button" class="btn" value="栏目助手" id="btn_utility" />
+
+
+<div class="note"><span>使用此工具，可以将其他站点的栏目拷贝到当前站点,</span></div>
+ <div>
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="50%" valign="top">
+                    <div class="panel">
+
+                        <div class="tit">
+                            源栏目：
+                            <select id="site_selector" class="ui-box">
+                                <option value="">选择站点</option>
+                                ${site_opt}
+                            </select>
+                        </div>
+
+                        <div class="true" id="from_tree"></div>
                     </div>
-                    <div id="to_tree" style="padding: 20px"></div>
-                </div>
-            </td>
-        </tr>
-    </table>
+                </td>
+                <td valign="top">
+                    <div class="panel">
+                        <div class="tit">目标栏目</div>
+                        <div class="hidden" style="padding: 20px 20px 0 20px">
+                            <input type="button" class="btn" value="新建栏目" id="btn_create" />&nbsp;
+                            <input type="button" class="btn" value="收起栏目" id="btn_collage" />&nbsp;
+                            <input type="button" class="btn" value="栏目助手" id="btn_utility" />
+                        </div>
+                        <div class="tree" id="to_tree"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 </div>
 
-<div class="panel ctrl-panel">
-    <span id="tip-msg">还未选择栏目</span>
-    <span class="ui-button w150">
+
+<div class="ctrl-panel">
+
+    <div>
+        <input type="checkbox" id="ck_with_child" checked="checked"/><label for="ck_with_child">包括拷贝子栏目</label>
+    </div>
+
+    <br/>
+    <span class="ui-button w150" id="btn_clone">
         <span class="button-inner">
             <span class="button-txt">拷贝栏目</span>
             <a href="javascript:;"></a>
         </span>
     </span>
+
+    <span id="tip-msg">还未选择栏目</span>
 </div>
 
 $js()
@@ -58,7 +80,6 @@ $js()
     var tipMsg = j6.$('tip-msg');
     var fromNode = {};
     var toNode = {};
-    var treeObj = null;
 
     j6.$('site_selector').onchange = function() {
         var fromSiteId = this.value;
@@ -70,33 +91,25 @@ $js()
 
     //加载栏目树
     function loadFromCategoryTree(siteId, panel) {
-        fromNode = {};
-        reqTree(siteId, function(json) {
-            treeObj = j6.tree.load(panel, json, '/framework/assets/tree/', function(a, d) {
+        fromNode = {siteId:siteId};
+        reqTree(siteId, 'false',function(json) {
+            j6.tree.load(panel, json, '/framework/assets/tree/', function(a, d) {
                 treeChecked(true,a,d);
-            });
-            var nodeLinks;
-            j6.each(fromTreePanel.getElementsByTagName('DIV'), function(i, e) {
-                if (e.className == 'node') {
-                    nodeLinks = e.getElementsByClassName
-                        ? e.getElementsByClassName('node')
-                        : document.getElementsByClassName('node', e);
-                }
             });
         });
     }
 
     function loadToCategoryTree() {
-        reqTree(siteId, function(json) {
+        reqTree(siteId, 'true',function(json) {
             j6.tree.load(toTreePanel, json, '/framework/assets/tree/', function(a, d) {
                 treeChecked(false,a,d);
             });
         });
     }
 
-    function reqTree(siteId, callback) {
+    function reqTree(siteId,withRoot, callback) {
         j6.xhr.request({
-            uri: '?module=ajax&action=CategoryNodes&site_id='+siteId,
+            uri: '?module=ajax&action=CategoryNodes&root='+withRoot+'&site_id='+siteId,
             method: 'GET',
             data: 'json'
         }, {
@@ -152,6 +165,27 @@ $js()
             this.value = '收起栏目';
         }
     };*/
+
+    j6.$('btn_clone').onclick = function() {
+        if (toNode.id != undefined && fromNode.id != undefined) {
+            var data = {
+                fromSiteId : fromNode.siteId,
+                toSiteId : siteId,
+                fromCid : fromNode.id,
+                toCid : toNode.id
+            }
+            j6.xhr.jsonPost(location.href, data,function(j) {
+                if (j.result) {
+                    showMsg2('操作成功', function() {
+                        loadToCategoryTree();
+                    });
+                } else {
+                    showErr(j.message);
+                }
+            });
+        }
+    };
+
 </script>
 
 </body>

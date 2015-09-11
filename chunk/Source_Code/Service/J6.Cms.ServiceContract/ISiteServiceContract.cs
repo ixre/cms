@@ -161,6 +161,13 @@ namespace J6.Cms.ServiceContract
         TreeNode GetCategoryTreeNode(int siteId, int lft);
 
         /// <summary>
+        /// 获取栏目树，包含根节点
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        TreeNode GetCategoryTreeWithRootNode(int siteId);
+
+        /// <summary>
         /// 获取站点地图HTML
         /// </summary>
         /// <param name="siteId"></param>
@@ -221,5 +228,6 @@ namespace J6.Cms.ServiceContract
 
 
         IList<RoleValue> GetAppRoles(int siteId);
+
     }
 }

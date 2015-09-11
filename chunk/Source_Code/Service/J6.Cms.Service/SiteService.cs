@@ -289,6 +289,12 @@ namespace J6.Cms.Service
             return site.GetCategoryTree(lft);
         }
 
+        public TreeNode GetCategoryTreeWithRootNode(int siteId)
+        {
+            ISite site = this._resp.GetSiteById(siteId);
+            return site.GetCategoryTreeWithRootNode();
+        }
+
 
         public string GetCategorySitemapHtml(int siteId, string categoryTag, string split, string linkFormat)
         {

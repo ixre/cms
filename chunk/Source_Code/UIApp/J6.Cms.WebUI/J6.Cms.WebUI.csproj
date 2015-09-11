@@ -202,7 +202,6 @@
     <Content Include="framework\mui\html\archive\comment_list.html" />
     <Content Include="framework\mui\html\archive\archive_search.html" />
     <Content Include="framework\mui\html\archive\archive_tags.html" />
-    <Content Include="framework\mui\html\category\categoryTree2.html" />
     <Content Include="framework\mui\html\category\category_create.html" />
     <Content Include="framework\mui\html\category\category_edit.html" />
     <Content Include="framework\mui\html\category\category_leftbar_tree.html" />

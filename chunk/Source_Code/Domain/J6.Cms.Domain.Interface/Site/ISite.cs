@@ -209,6 +209,12 @@ namespace J6.Cms.Domain.Interface.Site
         TreeNode GetCategoryTree(int lft);
 
         /// <summary>
+        /// 获取栏目树，包含根节点
+        /// </summary>
+        /// <returns></returns>
+        TreeNode GetCategoryTreeWithRootNode();
+
+        /// <summary>
         /// 重新加载数据
         /// </summary>
         void ClearSelf();

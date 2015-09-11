@@ -255,9 +255,7 @@ namespace J6.Cms.Domain.Implement.Site
        {
            get
            {
-               //
                //NOTO:应为Lft最小的一个，但分类已按Lft排序，所以获取第一个
-               //
                ICategory category = this.Categories.FirstOrDefault();
                if (category == null)
                {
@@ -555,18 +553,31 @@ namespace J6.Cms.Domain.Implement.Site
        /// <returns></returns>
        public TreeNode GetCategoryTree(int lft)
        {
-           TreeNode node;
            ICategory root = lft == 1 ?
                this.RootCategory :
                this.GetCategoryByLft(lft);
 
-           node = lft == 1 ?
+           var node = lft == 1 ?
                new TreeNode(this.Name, "1", "javascript:;",true, "") :
                new TreeNode(root.Name, String.Format("{0}cid:{1},lft:1{3}", "{", root.Id.ToString(), "}"),
-                            "javascript:;", true, "");
+                   "javascript:;", true, "");
 
            ItrNodeTree(node, root);
 
+           return node;
+       }
+
+
+
+       public TreeNode GetCategoryTreeWithRootNode()
+       {
+           ICategory root = this.RootCategory;
+           var node = new TreeNode(this.Name,"0","javascript:;",true,"");
+           var rootNode = new TreeNode(root.Name,
+               String.Format("{0}cid:{1},lft:{2}{3}","{",root.Id.ToString(),root.Lft.ToString(),"}"),
+               "javascript:;",true,"");
+           node.childs.Add(rootNode);
+           ItrNodeTree(rootNode, root);
            return node;
        }
 
@@ -587,6 +598,7 @@ namespace J6.Cms.Domain.Implement.Site
        {
            this._categories = null;
        }
+
 
     }
 }

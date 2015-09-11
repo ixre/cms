@@ -24,7 +24,7 @@ var cms = j6;
 j6.libpath = '/framework/assets/';
 
 /***  AJAX ***/
-function showMsg(msg, second) {
+function showMsg(msg, callback, second) {
     var win = window.parent || window;
     if (!win.xhrCt) {
         win.xhrCt = document.createElement("DIV");
@@ -42,19 +42,23 @@ function showMsg(msg, second) {
     win.xhrGate.innerHTML = msg;
     win.xhrCt.className = 'xhr-container';
     if (second) {
-        setTimeout(closeMsg, second);
+        setTimeout(function() {
+            closeMsg();
+            if (callback && callback instanceof Function)callback();
+        }, second);
     }
 }
+
 function closeMsg() {
     var win = window.parent || window;
     win.xhrCt.className = 'xhr-container hidden';
 }
 
 function showErr(msg, second) {
-    showMsg('<span class="error">' + msg + '</span>', second || 3000);
+    showMsg('<span class="error">' + msg + '</span>',null, second || 3000);
 }
-function showMsg2(msg, second) {
-    showMsg(msg, second || 2000);
+function showMsg2(msg,callback,second) {
+    showMsg(msg, callback,second || 2000);
 }
 
 j6.xhr.filter = function (s, method, c) {

@@ -129,13 +129,13 @@ namespace J6.Cms.Web.WebManager.Handle
             int i = 0;
             foreach (SiteDto s in siteArr)
             {
-                    if (i++ != 0)
-                    {
-                        sb.Append(",");
-                    }
-                    sb.Append("{id:'").Append(s.SiteId.ToString())
-                        .Append("',name:'").Append(s.Name.Replace("'", "\\'"));
-                    sb.Append("'}");
+                if (i++ != 0)
+                {
+                    sb.Append(",");
+                }
+                sb.Append("{id:'").Append(s.SiteId.ToString())
+                    .Append("',name:'").Append(s.Name.Replace("'", "\\'"));
+                sb.Append("'}");
             }
 
             sites = sb.ToString();
@@ -169,7 +169,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// 从文件中获取菜单JSON数据
         /// </summary>
         /// <returns></returns>
-        private static string GetMenuJsonFromFile(bool isMaster,int siteId)
+        private static string GetMenuJsonFromFile(bool isMaster, int siteId)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -328,7 +328,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 case -2: message = "未发现更新版本"; break;
                 case -3: message = "无法连接到更新服务器"; break;
                 case -4: message = "更新服务器发生内部错误"; break;
-                case -5:message = "非正式环境无法升级"; break;
+                case -5: message = "非正式环境无法升级"; break;
                 case 1: message = "有新版本可以更新!"; break;
             }
 
@@ -460,7 +460,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void GetSpellWord_POST()
         {
-            string title =base.Request["word"].Trim();
+            string title = base.Request["word"].Trim();
             string alias = ChineseSpell.GetSpellWord(title,
                 SpellOptions.TranslateUnknowWordToInterrogation |
                 SpellOptions.TranslateSpecialWordToConnect);
@@ -473,7 +473,25 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <returns></returns>
         public string CategoryNodes_GET()
         {
-            TreeNode node = ServiceCall.Instance.SiteService.GetCategoryTreeNode(this.SiteId, 1);
+            TreeNode node;
+            int siteId;
+            if (Request["site_id"] != null)
+            {
+                int.TryParse(Request["site_id"], out siteId);
+            }
+            else
+            {
+                siteId = this.SiteId;
+            }
+
+            if (Request["root"] == "true")
+            {
+                node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
+            }
+            else
+            {
+                node = ServiceCall.Instance.SiteService.GetCategoryTreeNode(siteId, 1);
+            }
             try
             {
                 return JsonSerializer.Serialize(node);
