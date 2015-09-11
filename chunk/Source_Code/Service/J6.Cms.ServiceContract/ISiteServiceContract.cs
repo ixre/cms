@@ -229,5 +229,6 @@ namespace J6.Cms.ServiceContract
 
         IList<RoleValue> GetAppRoles(int siteId);
 
+        void CloneCategory(int fromSiteId, int toSiteId, int fromCid, int toCid, bool includeChild, bool includeExtend, bool includeTemplateBind);
     }
 }

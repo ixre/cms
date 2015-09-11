@@ -415,5 +415,77 @@ namespace J6.Cms.Service
             ISite site = this._resp.GetSiteById(siteId);
             return site.GetUserManager().GetAppRoles();
         }
+
+
+        public void CloneCategory(int fromSiteId, int toSiteId, int fromCid, int toCid,
+            bool includeChild,bool includeExtend,bool includeTemplateBind)
+        {
+            ISite fromSite = this._resp.GetSiteById(fromSiteId);
+            ISite toSite = this._resp.GetSiteById(toSiteId);
+            if (fromSite == null || toSite == null)
+            {
+                throw new ArgumentException("no such site");
+            }
+
+            ICategory toCate = toSite.GetCategory(toCid);
+            ICategory fromCate = fromSite.GetCategory(fromCid);
+
+
+           int newCateId =  CloneCategoryDetails(toSiteId, fromCate, toCate.Lft, includeExtend, includeTemplateBind);
+
+            if (includeChild)
+            {
+                ItrCloneCate(toSite,fromCate,newCateId,includeExtend,includeTemplateBind);
+            }
+        }
+
+        private void ItrCloneCate(ISite toSite,ICategory fromCate,int parentCateId,bool includeExtend, bool includeTemplateBind)
+        {
+            ICategory newCategory = toSite.GetCategory(parentCateId);
+            foreach (var cate in fromCate.NextLevelChilds)
+            {
+                int id = CloneCategoryDetails(toSite.Id, cate, newCategory.Lft, includeExtend, includeTemplateBind);
+                ItrCloneCate(toSite,cate,id,includeExtend,includeTemplateBind);
+            }
+        }
+
+        private int CloneCategoryDetails(int toSiteId, ICategory fromCate, int toCateLft, bool includeExtend, bool includeTemplateBind)
+        {
+            CategoryDto dto = CategoryDto.ConvertFrom(fromCate);
+            dto.Id = 0;
+
+            // 包含扩展
+            //todo?
+            //            if (includeExtend)
+            //            {
+            //                IList<IExtendField> fromExtends = fromCate.ExtendFields;
+            //                toCate.ExtendFields = new List<IExtendField>(fromExtends.Count);
+            //                foreach (var extendField in fromExtends)
+            //                {
+            //                    IExtendField field = new ExtendField(0, extendField.Name);
+            //                    field.
+            //                    toCate.ExtendFields.Add(field);
+            //                }
+            //            }
+
+            // 包含模版
+            if (includeTemplateBind)
+            {
+                foreach (ITemplateBind tplBind in fromCate.Templates)
+                {
+                    switch (tplBind.BindType)
+                    {
+                        case TemplateBindType.CategoryTemplate:
+                            dto.CategoryTemplate = tplBind.TplPath;
+                            break;
+                        case TemplateBindType.CategoryArchiveTemplate:
+                            dto.CategoryArchiveTemplate = tplBind.TplPath;
+                            break;
+                    }
+                }
+            }
+
+           return this.SaveCategory(toSiteId, toCateLft, dto);
+        }
     }
 }

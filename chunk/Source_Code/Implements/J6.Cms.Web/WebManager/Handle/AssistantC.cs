@@ -8,6 +8,7 @@ using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.DataTransfer;
 using J6.Cms.WebManager;
+using NPOI.HSSF.Record.Chart;
 using SharpCompress.Archive;
 using SharpCompress.Common;
 
@@ -44,7 +45,37 @@ namespace J6.Cms.Web.WebManager.Handle
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Assistant_Category_Clone));
         }
 
+        public string Category_Clone_POST()
+        {
+            int fromSiteId, toSiteId, fromCid, toCid;
+            int.TryParse(Request["fromSiteId"], out fromSiteId);
+            int.TryParse(Request["toSiteId"], out toSiteId);
+            int.TryParse(Request["fromCid"], out fromCid);
+            int.TryParse(Request["toCid"], out toCid);
+            bool includeChild = Request["includeChild"] == "true";
+            bool includeExtend = Request["includeExtend"] == "true";
+            bool includeTempateBind = Request["includeTemplateBind"] == "true";
 
+            if (fromSiteId == 0 || toSiteId == 0 || fromCid == 0 || toCid == 0)
+            {
+                return base.ReturnError("参数不正确");
+            }
+            else if (toSiteId != this.CurrentSite.SiteId)
+            {
+                return base.ReturnError("非法操作");
+            }
+
+            try
+            {
+                ServiceCall.Instance.SiteService.CloneCategory(fromSiteId, toSiteId, fromCid, toCid, 
+                    includeChild,includeExtend,includeTempateBind);
+                return base.ReturnSuccess();
+            }
+            catch(Exception exc)
+            {
+                return base.ReturnError(exc.Message);
+            }
+        }
         #region 系统补丁
 
         /// <summary>

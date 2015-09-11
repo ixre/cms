@@ -58,7 +58,9 @@
 <div class="ctrl-panel">
 
     <div>
-        <input type="checkbox" id="ck_with_child" checked="checked"/><label for="ck_with_child">包括拷贝子栏目</label>
+        <input type="checkbox" id="ck_with_child" checked="checked" /><label for="ck_with_child">包括拷贝子栏目</label>
+        <span class="hidden"><input type="checkbox" id="ck_with_extend" checked="checked" /><label for="ck_with_extend">包括扩展属性</label></span>
+        <input type="checkbox" id="ck_with_templateBind" checked="checked" /><label for="ck_with_templateBind">包含模版绑定</label>
     </div>
 
     <br/>
@@ -75,13 +77,14 @@
 $js()
 <script type="text/javascript">
     var siteId = ${target_site};
+    var fromSiteId = 0;
     var fromTreePanel = j6.$('from_tree');
     var toTreePanel = j6.$('to_tree');
     var tipMsg = j6.$('tip-msg');
     var fromNode = {};
     var toNode = {};
 
-    j6.$('site_selector').onchange = function() {
+   j6.$('site_selector').onchange = function() {
         var fromSiteId = this.value;
         if (fromSiteId !== '') {
             loadFromCategoryTree(fromSiteId,fromTreePanel);
@@ -91,7 +94,8 @@ $js()
 
     //加载栏目树
     function loadFromCategoryTree(siteId, panel) {
-        fromNode = {siteId:siteId};
+        fromNode = {};
+        fromSiteId = siteId;
         reqTree(siteId, 'false',function(json) {
             j6.tree.load(panel, json, '/framework/assets/tree/', function(a, d) {
                 treeChecked(true,a,d);
@@ -124,7 +128,7 @@ $js()
     function treeChecked(from,a, d) {
         a.className = 'node node-selelected';
         var json = j6.toJson(d);
-        var node =  { id: json.cid, name: a.innerHTML };
+        var node = { id: json.cid, name: a.innerHTML };
         if (from) {
             fromNode = node;
         } else {
@@ -169,10 +173,13 @@ $js()
     j6.$('btn_clone').onclick = function() {
         if (toNode.id != undefined && fromNode.id != undefined) {
             var data = {
-                fromSiteId : fromNode.siteId,
+                fromSiteId :fromSiteId,
                 toSiteId : siteId,
                 fromCid : fromNode.id,
-                toCid : toNode.id
+                toCid : toNode.id,
+                includeChild:j6.$('ck_with_child').checked,
+                includeExtend:j6.$('ck_with_extend').checked,
+                includeTemplateBind:j6.$('ck_with_templateBind').checked
             }
             j6.xhr.jsonPost(location.href, data,function(j) {
                 if (j.result) {
