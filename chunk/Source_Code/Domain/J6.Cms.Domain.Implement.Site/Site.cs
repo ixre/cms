@@ -398,11 +398,11 @@ namespace J6.Cms.Domain.Implement.Site
                            && category.Childs.Count()==0
                            )
                        {
-                           sb.Append("<img src=\"framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
+                           sb.Append("<img src=\"framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
                        }
                        else
                        {
-                           sb.Append("<img class=\"tree-line\" src=\"framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
+                           sb.Append("<img class=\"tree-line\" src=\"framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
                        }
                    }
 
@@ -437,7 +437,7 @@ namespace J6.Cms.Domain.Implement.Site
 
 
                    sb.Append("<img class=\"").Append(className)
-                   .Append("\" src=\"framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt parent\" cid=\"")
+                   .Append("\" src=\"framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt parent\" cid=\"")
                    .Append(category.Id.ToString()).Append("\" lft=\"")
                    .Append(category.Lft.ToString()).Append("\">")
                    .Append(category.Name).Append("</span></dt>");
@@ -459,19 +459,19 @@ namespace J6.Cms.Domain.Implement.Site
                {
                    if (i != 0 && i == level - 1 && nextCategory == null)
                    {
-                       sb.Append("<img src=\"framework/assets/sys_themes/default/icon_trans.png\"/>");
+                       sb.Append("<img src=\"framework/mui/css/old/sys_themes/default/icon_trans.png\"/>");
                    }
                    else if (parentNextCategory != null)
                    {
-                       sb.Append("<img class=\"tree-line\" src=\"framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
+                       sb.Append("<img class=\"tree-line\" src=\"framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
                    }
                    else
                    {
-                       sb.Append("<img src=\"framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
+                       sb.Append("<img src=\"framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/>");
                    }
                }
 
-               sb.Append("<img class=\"tree-item\" src=\"framework/assets/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt archvie\" cid=\"")
+               sb.Append("<img class=\"tree-item\" src=\"framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt archvie\" cid=\"")
                    .Append(category.Id.ToString()).Append("\">").Append(category.Name).Append("</span>");
                }
            }

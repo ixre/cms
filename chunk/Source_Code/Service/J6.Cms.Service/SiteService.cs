@@ -203,7 +203,11 @@ namespace J6.Cms.Service
         public int SaveCategory(int siteId, int parentLft, CategoryDto category)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            ICategory ic = site.GetCategoryByLft(category.Lft);
+            ICategory ic = null;
+            if (category.Lft > 0)
+            {
+                ic = site.GetCategoryByLft(category.Lft);
+            }
             if (ic == null) ic = _categoryRep.CreateCategory(-1, site);
             ic.Id = category.Id;
             ic.Keywords = category.Keywords;
