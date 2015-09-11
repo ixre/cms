@@ -80,8 +80,8 @@
                 'extendIds='+extendIdStr,
                 function (json) { 
                     if (json.result) {
-                       showMsg2(json.message);
                         j6.dialog.close();
+                       showMsg2(json.message);
                     } else {
                        showErr(json.message);
                     }

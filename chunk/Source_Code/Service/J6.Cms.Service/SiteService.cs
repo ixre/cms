@@ -2,7 +2,6 @@
 using J6.Cms.ServiceContract;
 using System;
 using System.Collections.Generic;
-using System.Security.Permissions;
 using System.Text;
 using J6.Cms.Domain.Interface;
 using J6.Cms.Domain.Interface.Site;
@@ -283,7 +282,6 @@ namespace J6.Cms.Service
             if (category == null || category.Parent == null)
                 return default(CategoryDto);
             return CategoryDto.ConvertFrom(category.Parent);
-
         }
 
 
