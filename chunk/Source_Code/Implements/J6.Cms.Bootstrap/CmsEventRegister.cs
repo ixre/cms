@@ -33,7 +33,7 @@ namespace J6.Cms
                 x.For<IComment>().Singleton().Use<CommentBll>();
                 // x.For<ILink>().Singleton().Use<LinkBLL>();
                 x.For<Imember>().Singleton().Use<MemberBll>();
-                x.For<Imessage>().Singleton().Use<MessageBLL>();
+                x.For<Imessage>().Singleton().Use<MessageBll>();
                 x.For<Imodule>().Singleton().Use<ModuleBLL>();
                 //x.For<ISite>().Singleton().Use<SiteBLL>();
                 // x.For<ITemplateBind>().Singleton().Use<TemplateBindBLL>();

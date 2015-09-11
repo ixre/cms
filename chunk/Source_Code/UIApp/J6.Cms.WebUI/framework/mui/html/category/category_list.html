@@ -9,12 +9,33 @@
     <div id="main" class="autoStyle" style="overflow: hidden;">
         <table cellpadding="0" cellspacing="0" width="100%" height="100%">
             <tr>
-                <td width="250" valign="top">
-                    <div style="padding:20px 20px 0 20px">
-                        <input type="button" class="btn" value="新建" id="btn_create" />&nbsp;
-                        <input type="button" class="btn" value="收起" id="btn_collage" />&nbsp;
-                        <input type="button" class="btn" value="刷新" id="btn_refrensh" />&nbsp;
-                        <input type="button" class="btn" value="栏目助手" id="btn_utility" />
+                <td width="300" valign="top">
+                    <div style="padding: 20px 20px 0 20px">
+                        <span class="ui-button w50 small-button" id="btn_create">
+                            <span class=" button-inner">
+                                <span class="button-txt">新建</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
+                        <span class="ui-button w50 small-button" id="btn_collage">
+                            <span class=" button-inner">
+                                <span class="button-txt">收起</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
+                        <span class="ui-button w50 small-button" id="btn_refrensh">
+                            <span class=" button-inner">
+                                <span class="button-txt">刷新</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
+                        <span class="ui-button w80 small-button" id="btn_utility">
+                            <span class=" button-inner">
+                                <span class="button-txt">栏目助手</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
+
                     </div>
                     <div id="dg" style="padding:20px"></div>
                 </td>
@@ -147,12 +168,13 @@ window.menu = {
     j6.$('btn_refrensh').onclick = menu.refresh;
 
     j6.$('btn_collage').onclick = function () {
-        if (this.value.indexOf('收起') != -1) {
+        var e = j6.dom.getsByClass(this, 'button-txt')[0];
+        if (e.innerHTML.indexOf('收起') != -1) {
             treeObj.closeAll();
-            this.value = '展开';
+            e.innerHTML= '展开';
         } else {
             treeObj.openAll();
-            this.value = '收起';
+            e.innerHTML = '收起';
         }
     };
 

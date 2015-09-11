@@ -3,6 +3,7 @@ using J6.Cms.ServiceContract;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 using J6.Cms.Domain.Interface;
 using J6.Cms.Domain.Interface.Site;
 using J6.Cms.Domain.Interface.Site.Category;
@@ -149,7 +150,6 @@ namespace J6.Cms.Service
 
         public IEnumerable<CategoryDto> GetCategories(int siteId)
         {
-            IList<SiteDto> siteDtos = new List<SiteDto>();
             ISite site = this._resp.GetSiteById(siteId);
             IList<ICategory> categories = site.Categories;
             foreach (ICategory category in categories)
@@ -458,7 +458,6 @@ namespace J6.Cms.Service
             dto.Id = 0;
 
             // 包含扩展
-
             if (!includeExtend)
             {
                 dto.ExtendFields = new IExtendField[0];

@@ -158,8 +158,9 @@ namespace J6.Cms.Domain.Interface.Site.Category
         /// 获取下级的节点
         /// </summary>
         /// <param name="left"></param>
+        /// <param name="categories"></param>
         /// <returns></returns>
-        private static IEnumerable<ICategory> GetNextLevelCategories(IEnumerable<ICategory> _categories)
+        private static IEnumerable<ICategory> GetNextLevelCategories(IEnumerable<ICategory> categories)
         {
             /*无子节点
              *当左值+1==右值时，该节点没有子节点，则下一节点不为其子节点
@@ -167,9 +168,10 @@ namespace J6.Cms.Domain.Interface.Site.Category
              */
 
             ICategory c = null;
-            IList<ICategory> category1 = new List<ICategory>(_categories);
+            IList<ICategory> category1 = new List<ICategory>(categories);
 
-            foreach (ICategory c1 in _categories)
+            // 如果出现不连续，则可能出现少于实际栏目的情况
+            foreach (ICategory c1 in categories)
             {
                 if (c == null || c1.Lft - 1 == c.Rgt)
                 {

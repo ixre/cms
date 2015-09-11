@@ -26,7 +26,7 @@ span.required{ color: red;}
 .p10{padding:10px;}
 
 /*居中*/
-div,input,span,select,textarea,label{ vertical-align: middle;}
+div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
 /*验证无外框*/
 *:required { /* insert your own styles for invalid form input */ -moz-box-shadow: none; box-shadow: none;}
 
@@ -244,7 +244,7 @@ ul.centform{margin:100px auto;}
 .ui-dialog .box .bottom{display:none;}
 
 .ui-tree .title{font-size:14px;color:#0066cc;}
-.ui-tree div.node{font-size:0.8em;line-height:16px;font-weight: bold;}
+.ui-tree div.node{font-size:0.9em;line-height:16px;font-weight: bold;}
 .ui-tree div.node img{border: 0px;vertical-align: middle;}
 .ui-tree div.node a{text-decoration:none;color:#333;}
 .ui-tree div.node a:hover{text-decoration:underline;color:#000;}

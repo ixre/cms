@@ -134,7 +134,7 @@ namespace J6.Cms.ServiceRepository
                     _category.Tag);
                 }
  
-                //添加ID映射
+                //添加Id映射
                 Kvdb.Put(String.Format("{0}:cache:id:lft:{1}",
                    _category.Site.Id.ToString(),
                    _category.Id.ToString()),
