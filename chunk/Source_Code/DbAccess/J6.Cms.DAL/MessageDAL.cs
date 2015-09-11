@@ -14,13 +14,11 @@ namespace J6.Cms.Dal
     /// <summary>
     /// 会员数据访问
     /// </summary>
-    public sealed class MessageDAL:DalBase,ImessageDAL
+    public sealed class MessageDal:DalBase,ImessageDAL
     {
         /// <summary>
         /// 验证用户并返回
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
         /// <returns></returns>
         public void GetMessage(int id, DataReaderFunc func)
         {

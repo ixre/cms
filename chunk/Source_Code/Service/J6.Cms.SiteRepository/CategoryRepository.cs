@@ -19,7 +19,7 @@ namespace J6.Cms.ServiceRepository
 
 
 
-        private CategoryDAL categoryDal = new CategoryDAL();
+        private CategoryDal categoryDal = new CategoryDal();
         private ISiteRepository __siteRep;
         private ITemplateRepository _tempRep;
 

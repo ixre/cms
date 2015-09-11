@@ -738,6 +738,10 @@ namespace J6.Cms.Sql
         /// </summary>
         public readonly string DataExtend_GetAllExtends = @"SELECT * FROM $PREFIX_extend_field";
 
+
+        public readonly string DataExtend_GetExtendFieldByName =
+            "SELECT * FROM $PREFIX_extend_field WHERE site_id=@siteId AND name=@name AND type=@type";
+
         /// <summary>
         /// 获取相关联的数据
         /// </summary>

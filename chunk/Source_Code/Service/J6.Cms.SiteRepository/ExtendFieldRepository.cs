@@ -80,7 +80,7 @@ namespace J6.Cms.ServiceRepository
             return null;
         }
 
-        public bool DeleteExtendField(int siteId,int extendFieldId)
+        public bool DeleteExtendField(int siteId, int extendFieldId)
         {
             return this._extendDal.DeleteExtendField(siteId, extendFieldId);
         }
@@ -90,13 +90,13 @@ namespace J6.Cms.ServiceRepository
         {
             int extendId;
             int siteId = archive.Category.Site.Id;
-            IDictionary<int, IExtendValue> extendValues =new Dictionary<int, IExtendValue>();
+            IDictionary<int, IExtendValue> extendValues = new Dictionary<int, IExtendValue>();
             foreach (IExtendField field in archive.Category.ExtendFields)
             {
                 extendValues.Add(field.Id, this.CreateExtendValue(field, -1, null));
             }
 
-            this._extendDal.GetExtendValues(siteId,(int)ExtendRelationType.Archive, archive.Id, rd =>
+            this._extendDal.GetExtendValues(siteId, (int) ExtendRelationType.Archive, archive.Id, rd =>
             {
                 while (rd.Read())
                 {
@@ -114,13 +114,14 @@ namespace J6.Cms.ServiceRepository
             return new List<IExtendValue>(extendValues.Values);
         }
 
-        public IDictionary<int, IList<IExtendValue>> GetExtendFieldValuesList(int siteId, ExtendRelationType type, IList<int> idList)
+        public IDictionary<int, IList<IExtendValue>> GetExtendFieldValuesList(int siteId, ExtendRelationType type,
+            IList<int> idList)
         {
             int fieldId;
             int relationId;
             IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
 
-            this._extendDal.GetExtendValuesList(siteId, (int)ExtendRelationType.Archive, idList, rd =>
+            this._extendDal.GetExtendValuesList(siteId, (int) ExtendRelationType.Archive, idList, rd =>
             {
                 while (rd.Read())
                 {
@@ -133,8 +134,8 @@ namespace J6.Cms.ServiceRepository
                     extendValues[relationId].Add(
                         new ExtendValue(int.Parse(rd["id"].ToString()),
                             this.GetExtendFieldById(siteId, fieldId),
-                            rd["field_value"].ToString().Replace("\n","<br />")
-                        )
+                            rd["field_value"].ToString().Replace("\n", "<br />")
+                            )
 
                         );
                 }
@@ -168,8 +169,8 @@ namespace J6.Cms.ServiceRepository
                 //如果为默认数据，也要填写进去,以免模板获取不到
                 if (value.Value != null)
                     extendValues.Add(value.Field.Id,
-                    //value.Value == field.DefaultValue ? String.Empty : value.Value);
-                    value.Value);
+                        //value.Value == field.DefaultValue ? String.Empty : value.Value);
+                        value.Value);
             }
 
             this._extendDal.InsertDataExtendFields(ExtendRelationType.Archive, archive.Id, extendValues);
@@ -191,7 +192,7 @@ namespace J6.Cms.ServiceRepository
         }
 
         [Obsolete]
-        public IDictionary<int, IList<IExtendValue>> _GetExtendValuesFromDataReader(int siteId,DbDataReader rd)
+        public IDictionary<int, IList<IExtendValue>> _GetExtendValuesFromDataReader(int siteId, DbDataReader rd)
         {
             IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
 
@@ -207,9 +208,9 @@ namespace J6.Cms.ServiceRepository
                 extendId = int.Parse(rd["extendFieldId"].ToString());
                 extendValues[relationId].Add(
                     new ExtendValue(int.Parse(rd["id"].ToString()),
-                    this.GetExtendFieldById(siteId, extendId),
-                    (rd["extendFieldValue"] ?? "").ToString()
-                    ));
+                        this.GetExtendFieldById(siteId, extendId),
+                        (rd["extendFieldValue"] ?? "").ToString()
+                        ));
             }
 
             return extendValues;
@@ -226,12 +227,31 @@ namespace J6.Cms.ServiceRepository
         public void UpdateCategoryExtends(ICategory category)
         {
             int[] extendIds = new int[category.ExtendFields.Count];
-            int i=0;
-            foreach(IExtendField field in category.ExtendFields)
+            int i = 0;
+            foreach (IExtendField field in category.ExtendFields)
             {
                 extendIds[i++] = field.Id;
             }
             this._extendDal.UpdateCategoryExtendsBind(category.Id, extendIds);
         }
+
+
+        public IExtendField GetExtendByName(int siteId, string name, string type)
+        {
+            IExtendField field = null;
+            _extendDal.GetExtendFieldByName(siteId,name,type,rd =>
+            {
+                if (rd.Read())
+                {
+                    field = this.CreateExtendField(int.Parse(rd["id"].ToString()),name);
+                    field.Message = Convert.ToString(rd["message"]);
+                    field.DefaultValue = Convert.ToString(rd["default_value"]);
+                    field.Regex = Convert.ToString(rd["regex"]);
+                    field.Type = type;
+                }
+            });
+            return field;
+        }
+
     }
 }

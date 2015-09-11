@@ -8,7 +8,7 @@ namespace J6.Cms.ServiceRepository
 {
     public class LinkRepository : ILinkRepository
     {
-        private LinkDAL _linkDal = new LinkDAL();
+        private LinkDal _linkDal = new LinkDal();
 
         /// <summary>
         /// 

@@ -84,19 +84,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveDal.cs" />
-    <Compile Include="BaseDAL.cs" />
-    <Compile Include="CategoryDAL.cs" />
-    <Compile Include="CommentDAL.cs" />
+    <Compile Include="BaseDal.cs" />
+    <Compile Include="CategoryDal.cs" />
+    <Compile Include="CommentDal.cs" />
+    <Compile Include="LinkDal.cs" />
+    <Compile Include="MemberDal.cs" />
+    <Compile Include="MessageDal.cs" />
     <Compile Include="OperateResult.cs" />
     <Compile Include="SiteDal.cs" />
     <Compile Include="SqlQueryHelper.cs" />
     <Compile Include="TableDal.cs" />
-    <Compile Include="LinkDAL.cs" />
-    <Compile Include="MemberDAL.cs" />
-    <Compile Include="MessageDAL.cs" />
     <Compile Include="ModuleDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ExtendFieldDAL.cs" />
+    <Compile Include="ExtendFieldDal.cs" />
     <Compile Include="ReviewsDAL.cs" />
     <Compile Include="SqlRegex.cs" />
     <Compile Include="TemplateBindDAL.cs" />

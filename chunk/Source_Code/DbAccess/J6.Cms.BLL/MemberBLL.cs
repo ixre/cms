@@ -20,7 +20,7 @@ namespace J6.Cms.BLL
     /// </summary>
     public sealed class MemberBll : Imember
     {
-        private MemberDAL dal = new MemberDAL();
+        private MemberDal dal = new MemberDal();
 
         /// <summary>
         /// 检测用户名是否可用

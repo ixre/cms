@@ -15,9 +15,9 @@ namespace J6.Cms.BLL
     /// <summary>
     /// 会员数据访问
     /// </summary>
-    public sealed class MessageBLL : Imessage
+    public sealed class MessageBll : Imessage
     {
-        private static MessageDAL dal = new MessageDAL();
+        private static MessageDal dal = new MessageDal();
 
        /// <summary>
        /// 

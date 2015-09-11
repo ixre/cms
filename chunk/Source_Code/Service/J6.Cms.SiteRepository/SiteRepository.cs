@@ -20,7 +20,7 @@ namespace J6.Cms.ServiceRepository
     public class SiteRepository:BaseSiteRepository,ISiteRepository
     {
         private static readonly SiteDal siteDal = new SiteDal();
-        private static readonly LinkDAL linkDal = new LinkDAL();
+        private static readonly LinkDal linkDal = new LinkDal();
 
         private readonly IExtendFieldRepository _extendFieldRepository;
         private readonly ICategoryRepository _categoryRep;

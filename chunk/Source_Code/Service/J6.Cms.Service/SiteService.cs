@@ -2,6 +2,7 @@
 using J6.Cms.ServiceContract;
 using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using System.Text;
 using J6.Cms.Domain.Interface;
 using J6.Cms.Domain.Interface.Site;
@@ -204,7 +205,6 @@ namespace J6.Cms.Service
             ISite site = this._resp.GetSiteById(siteId);
             ICategory ic = site.GetCategoryByLft(category.Lft);
             if (ic == null) ic = _categoryRep.CreateCategory(-1, site);
-            //ic.CloneData(category);
             ic.Id = category.Id;
             ic.Keywords = category.Keywords;
             ic.Description = category.Description;
@@ -452,40 +452,56 @@ namespace J6.Cms.Service
         private int CloneCategoryDetails(int toSiteId, ICategory fromCate, int toCateLft, bool includeExtend, bool includeTemplateBind)
         {
             CategoryDto dto = CategoryDto.ConvertFrom(fromCate);
+            dto.Lft = 0;
             dto.Id = 0;
 
             // 包含扩展
-            //todo?
-            //            if (includeExtend)
-            //            {
-            //                IList<IExtendField> fromExtends = fromCate.ExtendFields;
-            //                toCate.ExtendFields = new List<IExtendField>(fromExtends.Count);
-            //                foreach (var extendField in fromExtends)
-            //                {
-            //                    IExtendField field = new ExtendField(0, extendField.Name);
-            //                    field.
-            //                    toCate.ExtendFields.Add(field);
-            //                }
-            //            }
 
-            // 包含模版
-            if (includeTemplateBind)
+            if (!includeExtend)
             {
-                foreach (ITemplateBind tplBind in fromCate.Templates)
+                dto.ExtendFields = new IExtendField[0];
+            }
+            else
+            {
+                dto.ExtendFields = new List<IExtendField>(fromCate.ExtendFields.Count);
+                foreach (var extendField in fromCate.ExtendFields)
                 {
-                    switch (tplBind.BindType)
-                    {
-                        case TemplateBindType.CategoryTemplate:
-                            dto.CategoryTemplate = tplBind.TplPath;
-                            break;
-                        case TemplateBindType.CategoryArchiveTemplate:
-                            dto.CategoryArchiveTemplate = tplBind.TplPath;
-                            break;
-                    }
+                    var toField = GetCloneNewExtendField(toSiteId, extendField);
+                    dto.ExtendFields.Add(toField);
                 }
             }
 
-           return this.SaveCategory(toSiteId, toCateLft, dto);
+            // 不包含模版
+            if (!includeTemplateBind)
+            {
+                dto.CategoryTemplate = null;
+                dto.CategoryArchiveTemplate = null;
+            }
+            
+            return this.SaveCategory(toSiteId, toCateLft, dto);
+        }
+
+        private IExtendField GetCloneNewExtendField(int toSiteId, IExtendField extendField)
+        {
+            IExtendField toField = this.GetExtendFieldByName(toSiteId, extendField.Name, extendField.Type);
+            if (toField == null)
+            {
+                int id = this.SaveExtendField(toSiteId, new ExtendFieldDto
+                {
+                    DefaultValue = extendField.DefaultValue,
+                    Message = extendField.Message,
+                    Regex = extendField.Regex,
+                    Name = extendField.Name,
+                    Type = extendField.Type,
+                });
+                toField = new ExtendField(id, extendField.Name);
+            }
+            return toField;
+        }
+
+        private IExtendField GetExtendFieldByName(int siteId, string name, string type)
+        {
+            return this._extendResp.GetExtendByName(siteId, name, type);
         }
     }
 }

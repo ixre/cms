@@ -14,7 +14,7 @@ namespace J6.Cms.Dal
     /// <summary>
     /// 会员数据访问
     /// </summary>
-    public sealed class MemberDAL:DalBase,ImemberDAL
+    public sealed class MemberDal:DalBase,ImemberDAL
     {
         public bool DetectUserName(string username)
         {

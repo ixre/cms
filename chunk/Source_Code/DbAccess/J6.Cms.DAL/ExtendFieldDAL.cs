@@ -188,5 +188,16 @@ namespace J6.Cms.Dal
 
             base.ExecuteNonQuery(querys);
         }
+
+        public void GetExtendFieldByName(int siteId, string name, string type,DataReaderFunc rd)
+        {
+            base.ExecuteReader(
+                SqlQueryHelper.Format(DbSql.DataExtend_GetExtendFieldByName, new object[,]
+                {
+                    {"@siteId", siteId},
+                    {"@name", name},
+                    {"@type", type}
+                }), rd);
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace J6.Cms.Dal
     /// <summary>
     /// 文档评论数据访问
     /// </summary>
-    public sealed class CommentDAL:DalBase,ICommentDAL
+    public sealed class CommentDal:DalBase,ICommentDAL
     {
         public void Add(string archiveID,int memberID,string ip,string content,bool recycle)
         {

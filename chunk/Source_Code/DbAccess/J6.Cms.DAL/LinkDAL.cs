@@ -14,7 +14,7 @@ namespace J6.Cms.Dal
     /// <summary>
     /// 友情链接数据访问
     /// </summary>
-    public sealed class LinkDAL : DalBase
+    public sealed class LinkDal : DalBase
     {
         /// <summary>
         /// 获取所有的友情链接

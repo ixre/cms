@@ -28,7 +28,7 @@ namespace J6.Cms.BLL
         
         private static ICommentDAL dal
         {
-        	get{return _dal??(_dal=new CommentDAL());}
+        	get{return _dal??(_dal=new CommentDal());}
         }
  		private static IRenewsDAL renewDal
         {

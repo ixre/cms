@@ -36,5 +36,7 @@ namespace J6.Cms.Domain.Interface.Site.Extend
         /// </summary>
         /// <param name="category"></param>
         void UpdateCategoryExtends(ICategory category);
+
+        IExtendField GetExtendByName(int siteId, string name, string type);
     }
 }

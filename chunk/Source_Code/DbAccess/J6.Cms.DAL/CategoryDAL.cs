@@ -13,7 +13,7 @@ using J6.DevFw.Data;
 
 namespace J6.Cms.Dal
 {
-    public class CategoryDAL : DalBase
+    public class CategoryDal : DalBase
     {
         /// <summary>
         /// 从数据库读取栏目
