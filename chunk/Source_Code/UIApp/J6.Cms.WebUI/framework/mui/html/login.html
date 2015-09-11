@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>登录到管理中心-J6.Cms v${version}</title>
-    <link rel="stylesheet" href="/framework/mui/css/login.css?ver=${version}" />
+    <link rel="stylesheet" href="/framework/mui/css/login.css?ver=${version}"/>
 </head>
 <body>
     <div class="extra">
@@ -28,7 +28,14 @@
                         <p style="margin-top: 10px">
 
                             <input type="hidden" field="pwd_join" value="@cms.z3q.net" />
-                            <span class="txt">&nbsp;</span><a class="btn" href="javascript:;" onclick=" login();return false; ">登录</a>
+                            <span class="txt">&nbsp;</span>
+                            
+                            <span class="ui-button w100 middle-button" id="btn_login">
+                                <span class="button-inner">
+                                    <span class="button-txt">登录</span>
+                                    <a href="javascript:;"></a>
+                                </span>
+                            </span>
                         </p>
                     </form>
 
@@ -59,11 +66,6 @@
         window.bind_initKey = false;
         var tip = j6.$("tip");
 
-        document.body.onkeydown = function (event) {
-            if ((window.event||event).keyCode == 13) {
-                login();
-            }
-        };
         function login() {
             var formData = j6.json.toObject('loginForm');
 
@@ -97,7 +99,15 @@
                     tip.innerHTML = '<span style="color:red">服务器出错，请重试!</span>';
                 });
             }
+            return false;
         }
+
+        document.body.onkeydown = function (event) {
+            if ((window.event || event).keyCode == 13) {
+                login();
+            }
+        };
+        j6.$('btn_login').onclick = login;
 
         j6.animation.show('login-panel',null,4);
 

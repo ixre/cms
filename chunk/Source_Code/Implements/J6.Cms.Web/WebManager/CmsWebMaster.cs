@@ -93,16 +93,20 @@ namespace J6.Cms.Web.WebManager
                     cookie.Values.Clear();
                     cookie.Value = value.SiteId.ToString();
                     cookie.Expires = DateTime.Now.AddDays(2);
+                    cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
                 }
+                context.Response.Cookies.Set(cookie);
             }
             else
             {
-                cookie = new HttpCookie(CmsWebMaster.CookieNameKey, value.SiteId.ToString());
-                cookie.Expires = DateTime.Now.AddDays(2);
-                cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
+                cookie = new HttpCookie(CmsWebMaster.CookieNameKey, value.SiteId.ToString())
+                {
+                    Expires = DateTime.Now.AddDays(2),
+                    Path = "/" + Settings.SYS_ADMIN_TAG
+                };
+                context.Response.Cookies.Add(cookie);
             }
 
-            context.Response.Cookies.Add(cookie);
             context.Session[CmsWebMaster.CurrentSiteSessionStr] = null;
         }
     }
