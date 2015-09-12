@@ -1,5 +1,9 @@
 # AtNet.CMS #
 
+![多站点](https://raw.githubusercontent.com/jsix/cms/master/snapshot/cms_02.png "多站点")
+
+![多站点](https://raw.githubusercontent.com/jsix/cms/master/docs/cms_01.png "插件")
+
 基于asp.net mvc + DDD 构架的开源.net cms系统.
 
 ## 特性：##
@@ -37,7 +41,18 @@
 详见：github.com/jsix/cms/tree/master/plugin
 
 ## 如何加入开发 ##
-交流QQ群：306064037
+二次开发和定制交流QQ群：306064037
+
+## J6.CMS ##
+
+J6.CMS是在AtNet.CMS基础上衍生出的面向企业的内容管理系统。
+拥有全新的UI界面，架构与AtNet.CMS一致。
+
+下载地址：http://z3q.net/j6cms_latest
+
+
+## 如何捐赠 ##
+支付宝:jarrysix@gmail.com
 
 
 
