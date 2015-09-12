@@ -1,10 +1,14 @@
 # AtNet.CMS #
 
+基于asp.net mvc + DDD 构架的开源.net cms系统.
+
+可配置+易扩展+轻量级+跨平台
+
 ![多站点](https://raw.githubusercontent.com/jsix/cms/master/snapshots/cms_02.png "多站点")
 
 ![多站点](https://raw.githubusercontent.com/jsix/cms/master/snapshots/cms_01.png "插件")
 
-基于asp.net mvc + DDD 构架的开源.net cms系统.
+
 
 ## 特性：##
 
