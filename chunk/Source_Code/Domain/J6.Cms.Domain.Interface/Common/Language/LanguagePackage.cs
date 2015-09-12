@@ -73,7 +73,11 @@ namespace J6.Cms.Domain.Interface.Common.Language
         }
 
 
-
+        /// <summary>
+        /// 加载单独的XML
+        /// </summary>
+        /// <param name="lang"></param>
+        /// <param name="xmlPath"></param>
         public void LoadStandXml(Languages lang, string xmlPath)
         {
             XmlDocument xd = new XmlDocument();

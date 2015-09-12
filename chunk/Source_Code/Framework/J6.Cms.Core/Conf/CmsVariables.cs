@@ -39,6 +39,12 @@ namespace J6.Cms.Conf
         /// </summary>
         public const string RESOURCE_PATH = "resources/";
 
+
+        /// <summary>
+        /// 配置目录 
+        /// </summary>
+        public const string SITE_CONF_PATH = "config/";
+
         /// <summary>
         /// 站点配置目录 
         /// </summary>

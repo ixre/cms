@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
-using J6.Cms.Cache;
 using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Common.Language;
 using J6.Cms.Infrastructure;
@@ -26,7 +24,10 @@ namespace J6.Cms.Core
         {
             _lang = new LanguagePackage();
             _lang.LoadFromXml(ResourceMap.XmlLangPackage);
-            LoadLocaleXml();
+            // 加载系统内置的
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
+            // 加载自定义的配置
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale");
 
             /*
            IDictionary<Languages,String> dict = new Dictionary<Languages,String>();
@@ -52,9 +53,9 @@ namespace J6.Cms.Core
         /// <summary>
         /// 加载系统内置的语言配置文件
         /// </summary>
-        private void LoadLocaleXml()
+        private void LoadLocaleXml(string dirPath)
         {
-            DirectoryInfo dir = new DirectoryInfo(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
+            DirectoryInfo dir = new DirectoryInfo(dirPath);
             if (dir.Exists)
             {
                 FileInfo[] files = dir.GetFiles("*.xml");
