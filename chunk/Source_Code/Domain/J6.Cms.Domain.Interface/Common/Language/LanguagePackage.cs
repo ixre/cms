@@ -7,7 +7,7 @@ namespace J6.Cms.Domain.Interface.Common.Language
 {
     public class LanguagePackage
     {
-        private IDictionary<string, string> languagePack = new Dictionary<string, string>();
+        private readonly IDictionary<string, string> languagePack = new Dictionary<string, string>();
 
         /// <summary>
         /// 从XML中加载语言
@@ -85,7 +85,7 @@ namespace J6.Cms.Domain.Interface.Common.Language
         /// <param name="key"></param>
         /// <param name="lang"></param>
         /// <returns></returns>
-        public string Get(LanguagePackageKey key, Languages lang)
+        public string Get(Languages lang,LanguagePackageKey key)
         {
             string dictKey = String.Concat(
                 ((int)key).ToString(CultureInfo.InvariantCulture), 
@@ -135,5 +135,9 @@ namespace J6.Cms.Domain.Interface.Common.Language
         }
 
 
+        public void LoadStandXml(string getXmlString)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

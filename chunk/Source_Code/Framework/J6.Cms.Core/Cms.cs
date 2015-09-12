@@ -115,7 +115,7 @@ namespace J6.Cms
         {
             get
             {
-                return _cmsLang ?? (_cmsLang = new CmsLanguagePackage());
+                return CmsLanguagePackage.Create();
             }
         }
 
@@ -124,12 +124,7 @@ namespace J6.Cms
         /// </summary>
         public static event CmsHandler OnInit;
 
-        /// <summary>
-        /// 重置缓存时发生
-        /// </summary>
-       // public static event CmsHandler OnResetCache;
-        private static CmsLanguagePackage _cmsLang;
-
+    
 
         static Cms()
         {
@@ -199,7 +194,7 @@ namespace J6.Cms
             BeforeInit();
 
             if (!Installed) return;
-          
+
             //初始化目录
             ChkCreate(CmsVariables.TEMP_PATH);
 
@@ -207,7 +202,7 @@ namespace J6.Cms
 
             //设置数据库
             CmsDataBase.Initialize(
-                String.Format("{0}://{1}", Settings.DB_TYPE.ToString(), 
+                String.Format("{0}://{1}", Settings.DB_TYPE.ToString(),
                 Settings.DB_CONN.ToString()),
                 Settings.DB_PREFIX);
 
@@ -271,7 +266,7 @@ namespace J6.Cms
             string cmsConfigFile = String.Format("{0}config/cms.config", Cms.PyhicPath);
             if (File.Exists(cmsConfigFile))
             {
-                File.Move(cmsConfigFile,cmsConfigFile.Replace("cms.config","cms.conf"));
+                File.Move(cmsConfigFile, cmsConfigFile.Replace("cms.config", "cms.conf"));
             }
         }
 

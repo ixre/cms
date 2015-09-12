@@ -14,49 +14,49 @@ using J6.DevFw.Data;
 
 namespace J6.Cms.Dal
 {
-    public class TemplateBindDAL:DalBase
+    public class TemplateBindDal : DalBase
     {
-        private bool HasExists(TemplateBindType type, int bindID)
+        private bool HasExists(TemplateBindType type, int bindId)
         {
             return int.Parse(base.ExecuteScalar(
                  new SqlQuery(base.OptimizeSql(DbSql.TplBind_CheckExists),
                      new object[,]{
-                 {"@bindId", bindID},
+                 {"@bindId", bindId},
                  {"@bindType", type}
                      })
                  ).ToString()) != 0;
         }
 
-        public bool SetBind(TemplateBindType type,int bindId,string templatePath)
+        public bool SetBind(TemplateBindType type, int bindId, string templatePath)
         {
             int rowcount;
+            //如果模板为空，则删除
+            if (String.IsNullOrEmpty(templatePath))
+            {
+                return RemoveBind(type, bindId);
+            }
+
             if (!HasExists(type, bindId))
             {
                 rowcount = base.ExecuteNonQuery(
-                     new SqlQuery(base.OptimizeSql(DbSql.TplBind_Add),
-                         new object[,]{
-                     {"@bindId", bindId},
-                     {"@bindType",(int)type},
-                    {"@tplPath",templatePath}
-                         }));
+                    new SqlQuery(base.OptimizeSql(DbSql.TplBind_Add),
+                        new object[,]
+                        {
+                            {"@bindId", bindId},
+                            {"@bindType", (int) type},
+                            {"@tplPath", templatePath}
+                        }));
             }
             else
             {
-                //如果模板为空，则删除
-                if (String.IsNullOrEmpty(templatePath))
-                {
-                    return RemoveBind(type, bindId);
-                }
-                else
-                {
-                    rowcount = base.ExecuteNonQuery(
-                         new SqlQuery(base.OptimizeSql(DbSql.TplBind_Update),
-                             new object[,]{
-                        {"@tplPath",templatePath},
-                         {"@bindId",bindId},
-                         {"@bindType",(int)type}
-                             }));
-                }
+                rowcount = base.ExecuteNonQuery(
+                    new SqlQuery(base.OptimizeSql(DbSql.TplBind_Update),
+                        new object[,]
+                        {
+                            {"@tplPath", templatePath},
+                            {"@bindId", bindId},
+                            {"@bindType", (int) type}
+                        }));
             }
 
             return rowcount == 1;

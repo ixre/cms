@@ -118,7 +118,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
 
             foreach (ITemplateBind templateBind in this.Templates)
             {
-                this._tempRep.SaveTemplateBind(templateBind,this.Id);
+                this._tempRep.SaveTemplateBind(templateBind, this.Id);
                 if (String.IsNullOrEmpty(templateBind.TplPath))
                 {
                     delBinds.Add(templateBind);

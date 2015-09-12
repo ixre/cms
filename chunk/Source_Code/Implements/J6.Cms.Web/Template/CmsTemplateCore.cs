@@ -529,7 +529,7 @@ namespace J6.Cms.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang(string key)
         {
-            return Cms.Language.Get(key, this.site.Language);
+            return Cms.Language.Get(this.site.Language,key);
         }
 
         /// <summary>

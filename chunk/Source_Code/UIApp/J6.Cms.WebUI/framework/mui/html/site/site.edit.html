@@ -13,7 +13,7 @@
             </div>
             <div class="clearfix"></div>
 
-            <select class="hidden" name="">
+            <select class="hidden ui-box" name="">
                 ${tpls}
             </select>
 
@@ -72,7 +72,7 @@
                         }
                     });
                     j6.each(eles, function (i3, e3) {
-                        e3.className = e3 == e ? cls + ' current' : cls;
+                        e3.className = e3 === e ? cls + ' current' : cls;
                     });
                 };
             });

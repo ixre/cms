@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using J6.Cms.Cache;
 using J6.Cms.Conf;
@@ -12,42 +13,68 @@ namespace J6.Cms.Core
     /// </summary>
     public class CmsLanguagePackage
     {
-        private static LanguagePackage lang;
+        private static LanguagePackage _lang;
+        private static CmsLanguagePackage _instance;
 
-        static CmsLanguagePackage()
+
+        internal static CmsLanguagePackage Create()
         {
+            return _instance ?? (_instance = new CmsLanguagePackage());
+        }
 
-            lang = new LanguagePackage();
-            lang.LoadFromXml(ResourceMap.XmlLangPackage);
-
-
-
-
+        private CmsLanguagePackage()
+        {
+            _lang = new LanguagePackage();
+            _lang.LoadFromXml(ResourceMap.XmlLangPackage);
+            LoadLocaleXml();
 
             /*
-            IDictionary<Languages,String> dict = new Dictionary<Languages,String>();
+           IDictionary<Languages,String> dict = new Dictionary<Languages,String>();
 
-            //标签
-            dict.Add(Languages.Zh_CN,"无标签");
-            dict.Add(Languages.Zh_TW,"无标签");
-            dict.Add(Languages.En_US,"no tags");
+           //标签
+           dict.Add(Languages.Zh_CN,"无标签");
+           dict.Add(Languages.Zh_TW,"无标签");
+           dict.Add(Languages.En_US,"no tags");
 
-            lang.Add(LanguagePackageKey.PAGE_NO_TAGS, dict);
+           lang.Add(LanguagePackageKey.PAGE_NO_TAGS, dict);
 
-            dict.Clear();
-             const string zh_cn_pack = "上一页|下一页|{0}|选择页码：{0}页";
-            const string zh_tw_pack = "上一頁|下一頁|{0}|選擇頁碼：{0}頁";
-            const string en_us_pack = "Previous|Next|{0}|Select Page：{0}";
+           dict.Clear();
+            const string zh_cn_pack = "上一页|下一页|{0}|选择页码：{0}页";
+           const string zh_tw_pack = "上一頁|下一頁|{0}|選擇頁碼：{0}頁";
+           const string en_us_pack = "Previous|Next|{0}|Select Page：{0}";
 
 
-            dict.Add(Languages.Zh_CN, "上一页");
-            */
+           dict.Add(Languages.Zh_CN, "上一页");
+           */
         }
 
-        internal CmsLanguagePackage()
+
+        /// <summary>
+        /// 加载系统内置的语言配置文件
+        /// </summary>
+        private void LoadLocaleXml()
         {
-
+            DirectoryInfo dir = new DirectoryInfo(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
+            if (dir.Exists)
+            {
+                FileInfo[] files = dir.GetFiles("*.xml");
+                foreach (var fileInfo in files)
+                {
+                    _lang.LoadStandXml(GetXmlString(fileInfo.FullName));
+                }
+            }
         }
+
+        private string GetXmlString(string path)
+        {
+            if (File.Exists(path))
+            {
+                return File.ReadAllText(path);
+            }
+            return null;
+        }
+
+
 
         /// <summary>
         /// 获取值
@@ -56,11 +83,10 @@ namespace J6.Cms.Core
         /// <returns></returns>
         public String Get(LanguagePackageKey key)
         {
-            return lang.Get(key,
-                global::J6.Cms.Cms.Context.CurrentSite.Language);
+            return _lang.Get(Cms.Context.CurrentSite.Language,key);
         }
 
-        public string Get(string key, Languages language)
+        public string Get(Languages language,string key)
         {
             const string cacheKey = "lang_local";
 

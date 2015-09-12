@@ -140,8 +140,15 @@
     <Content Include="framework\assets\tree\img\plusbottom.gif" />
     <Content Include="framework\assets\tree\img\question.gif" />
     <Content Include="framework\assets\tree\img\trash.gif" />
+    <Content Include="framework\locale\en.xml" />
+    <Content Include="framework\locale\es.xml" />
+    <Content Include="framework\locale\ar.xml" />
+    <Content Include="framework\locale\ru.xml" />
+    <Content Include="framework\locale\th.xml" />
+    <Content Include="framework\locale\fr.xml" />
+    <Content Include="framework\locale\zh_tw.xml" />
+    <Content Include="framework\locale\zh_cn.xml" />
     <Content Include="framework\maps.xml" />
-    <Content Include="framework\local\lang_package.xml" />
     <Content Include="framework\mui\css\index.css" />
     <Content Include="framework\mui\css\latest\ajax-loader.gif" />
     <Content Include="framework\mui\css\latest\avatar.gif" />

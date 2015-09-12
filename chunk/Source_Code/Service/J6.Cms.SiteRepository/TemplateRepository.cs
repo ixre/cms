@@ -8,7 +8,7 @@ namespace J6.Cms.ServiceRepository
 {
     public class TemplateRepository:BaseTemplateRepository,ITemplateRepository
     {
-        private TemplateBindDAL tpldal = new TemplateBindDAL();
+        private TemplateBindDal tpldal = new TemplateBindDal();
 
         public ITemplateBind GetTemplateBind(int bindRelationId, TemplateBindType templateBindType)
         {

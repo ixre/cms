@@ -128,7 +128,7 @@ $js()
 		}
 		
         function confirmUpgrade(noVersionShow) {
-            dia = j6.dialog.create2('系统在线升级', true, true);
+            dia = j6.dialog.create2('系统升级', true, true);
             var html = '<strong>更新日志:</strong><hr class="upline"/><p>' + versionInfo + '</p>';
            dia.write('<div style="color:#666;font-size:14px;line-height:25px;padding:20px 40px;">' + html
                + '<div style="color:#666;font-size:12px;margin:10px 0 0 0"><span style="color:#FF0000">重要：</span><span>'
@@ -141,7 +141,7 @@ $js()
         function upgrade() {
             window.autoCheck = false;
             if (dia != null)dia.close();
-            dia = j6.dialog.create2('系统升级中 - 升级过程中请不要进行任何操作！', true, true);
+            dia = j6.dialog.create2('请等待，系统升级中...', true, true);
             dia.write('<div style="width:400px;overflow:hidden;position:relative;background:#333;">' +
                        '<div style="position:absolute;left:160px;top:0px;line-height:24px;color:#ffff00;font-family:Arial;font-weight:bold;">0%</div>'+
                         '<div id="updatePercent" style="background:orange;line-height:24px;width:0%;overflow:hidden;">&nbsp;</div></div>'
