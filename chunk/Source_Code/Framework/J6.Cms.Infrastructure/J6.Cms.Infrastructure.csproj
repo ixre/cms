@@ -55,6 +55,7 @@
     <Compile Include="%24DelegatesDifined.cs" />
     <Compile Include="BinarySearch.cs" />
     <Compile Include="Coder.cs" />
+    <Compile Include="DataChecker.cs" />
     <Compile Include="HttpApp.cs" />
     <Compile Include="IdGenerator.cs" />
     <Compile Include="Ioc\Ioc.cs" />

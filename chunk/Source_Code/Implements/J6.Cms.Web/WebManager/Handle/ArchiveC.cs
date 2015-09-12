@@ -28,9 +28,11 @@ using J6.Cms.Domain.Interface.Content.Archive;
 using J6.Cms.Domain.Interface.Enum;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.Site.Extend;
+using J6.Cms.Infrastructure;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Toolkit.Tags;
+using ResourceMap = J6.Cms.WebManager.ResourceMap;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -644,6 +646,12 @@ namespace J6.Cms.Web.WebManager.Handle
             int.TryParse(request["publisher_id"],out publisherId);
 
             bool includeChild = request["include_child"] == "true";
+            String keyword = Request.Form["keyword"];
+
+            if (!String.IsNullOrEmpty(keyword) && DataChecker.SqlIsInject(keyword))
+            {
+                throw  new ArgumentException("Sql  inject?",keyword);
+            }
 
             if (_categoryId != null)
             {
@@ -682,7 +690,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             //文档数据表,并生成Html
             DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId,
-                publisherId, includeChild, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
+                publisherId, includeChild, flags,keyword, null, false, pageSize, pageIndex, out recordCount, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {

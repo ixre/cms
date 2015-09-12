@@ -32,9 +32,19 @@
                     <div class="top">
 
                         <input type="checkbox" id="ck_full_select"/><label for="ck_full_select">全选</label>
-                        &nbsp;&nbsp;&nbsp;
-                          <input type="checkbox" id="ck_child" /><label for="ck_child">包含子栏目</label>
-                            <a href="javascript:;" class="fn" fn="create">$icon(create)添加</a>
+                        &nbsp;&nbsp;
+                        <label for="ck_child">包含子栏目:</label>
+                        <input type="checkbox" id="ck_child" />
+                        &nbsp;
+                        <input type="text" class="ui-box w80 small-search-box" id="search_key"/>
+                        <span class="ui-button w50 small-button" id="btn_search">
+                            <span class=" button-inner">
+                                <span class="button-txt">搜索</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
+
+                        <a href="javascript:;" class="fn" fn="create">$icon(create)添加</a>
                         
                     </div>
                     <div class="main" id="dg"></div>
@@ -95,13 +105,14 @@
             <a href="javascript:;">$icon(refresh)刷新列表</a>
         </div>
     </script>
-    <script type="text/template" id="archive_item_template">
+<script type="text/template" id="archive_item_template">
         <div valign="middle" style="overflow:hidden-x;width:100%">
             <span class="index">{index}</span>
             <span title="{title}">{title}</span>
             <br>
             <input class="ck" type="checkbox" style="border:none">
             <span class="time">{publish}</span>
+            &nbsp;&nbsp;浏览:<em> {viewCount}</em> 次
         </div>
     </script>
 
@@ -125,7 +136,7 @@
             include_child:false
         };
 
-        pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 60);
+        pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 46);
         pagerPram.include_child = j6.$('ck_child').checked;
 
         var _dg = j6.grid('dg', {
@@ -134,11 +145,12 @@
             idField: 'id',
             columns: [
                 {
-                    field: 'title', title: '名称', width: 200, formatter: function (val, row, index) {
+                    field: 'title', title: '名称',  formatter: function (val, row, index) {
                         return j6.template(itemTemplate, {
                             index: (index + 1),
                             title: val.length > 25 ? val.substring(0, 25) + '...' : val,
-                            publish: row.createDate.replace('T', ' ')
+                            publish: row.createDate.replace('T', ' '),
+                            viewCount:row.view_count
                         });
                     }
                 }
@@ -189,6 +201,12 @@
 
         j6.$('ck_child').onchange = function() {
             pagerPram.include_child = this.checked;
+            pagerPram.page_index = 1;
+            _dg.reload(pagerPram);
+        };
+
+        j6.$('btn_search').onclick = function() {
+            pagerPram.keyword = j6.$('search_key').value;
             pagerPram.page_index = 1;
             _dg.reload(pagerPram);
         };

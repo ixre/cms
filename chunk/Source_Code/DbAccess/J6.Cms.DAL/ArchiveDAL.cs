@@ -501,6 +501,7 @@ namespace J6.Cms.Dal
         /// <param name="publisherId"></param>
         /// <param name="includeChild"></param>
         /// <param name="flags"></param>
+        /// <param name="keyword"></param>
         /// <param name="orderByField"></param>
         /// <param name="orderAsc"></param>
         /// <param name="pageSize"></param>
@@ -510,18 +511,19 @@ namespace J6.Cms.Dal
         /// <returns></returns>
         public DataTable GetPagedArchives(int siteId, int moduleId,
             int lft, int rgt, int publisherId, bool includeChild,
-            string[,] flags, string orderByField, bool orderAsc,
+            string[,] flags,string keyword, string orderByField, bool orderAsc,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
         {
             //SQL Condition Template
-            const string conditionTpl = "$[siteid]$[module]$[category]$[publisher_id]$[flags]";
+            const string conditionTpl = "$[siteid]$[module]$[category]$[publisher_id]$[flags]$[keyword]";
 
             string condition,                                                             //SQL where condition
                     order = String.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
                     orderType = orderAsc ? "ASC" : "DESC";                                      //ASC or DESC
 
             string flag = ArchiveFlag.GetSQLString(flags);
+
 
             condition = SQLRegex.Replace(conditionTpl, match =>
             {
@@ -548,7 +550,8 @@ namespace J6.Cms.Dal
                         : String.Format(" AND publisher_id='{0}'", publisherId);
 
                     case "flags": return String.IsNullOrEmpty(flag) ? "" : " AND " + flag;
-
+                    case "keyword": if (String.IsNullOrEmpty(keyword)) return "";
+                        return String.Format(" AND (title LIKE '%{0}%' OR Content LIKE '%{0}%')", keyword);
                 }
                 return null;
             });

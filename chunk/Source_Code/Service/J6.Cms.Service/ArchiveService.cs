@@ -242,7 +242,7 @@ namespace J6.Cms.Service
 
 
         public DataTable GetPagedArchives(int siteId, int? categoryId, int publisherId, bool includeChild,
-            string[,] flags,
+            string[,] flags, string keyword,
             string orderByField, bool orderAsc, int pageSize, int currentPageIndex, out int recordCount, out int pages)
         {
             //
@@ -264,7 +264,7 @@ namespace J6.Cms.Service
             }
 
             return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, publisherId,
-                includeChild, flags, orderByField, orderAsc, pageSize, currentPageIndex,
+                includeChild, flags,keyword, orderByField, orderAsc, pageSize, currentPageIndex,
                 out recordCount, out pages);
         }
 

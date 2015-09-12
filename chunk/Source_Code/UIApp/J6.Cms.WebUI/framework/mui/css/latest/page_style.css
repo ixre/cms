@@ -29,7 +29,6 @@ span.required{ color: red;}
 div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
 /*验证无外框*/
 *:required { /* insert your own styles for invalid form input */ -moz-box-shadow: none; box-shadow: none;}
-
 .w50{ width: 50px;}
 .w80{width:80px;}
 .w100{ width: 100px;}
@@ -53,6 +52,13 @@ div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
     box-shadow: 0px 1px 0px #DDD inset; background:#F7F8F9;border-color: #AAA #A0A0A5 #AAA;}
 .ui-box:focus{border:solid 1px #0a0;margin:1px;}
 input.ui-box,select.ui-box{ height: auto;height:1.5rem;}
+
+
+
+
+
+
+
 
 
 
@@ -95,9 +101,8 @@ input.button {box-shadow: none;border-radius:0;background:#006699;color:#fff;bor
               padding-left:20px;font-size:14px;color:#006699;}
 .helpPanel ol{margin:10px 30px;color:#666;line-height:150%;padding:0;}
 .control{background:#fff;border-right:solid 1px #d0d0d0;}
-.control .top{
-    background:#F5F5F5 linear-gradient(to bottom, #F7F8FA, #E7E9EC);
-    border-bottom:solid 1px #d0d0d0;padding:0 10px;height:25px;line-height:25px;clear:both;}
+.control .top{background:#F5F5F5 linear-gradient(to bottom, #F7F8FA, #E7E9EC);box-shadow: 0 0 1px #FFF inset;
+    border-bottom:solid 1px #d0d0d0;padding:0 10px;height:2.5em;line-height:2.5em;clear:both;}
 .control .top ul{list-style:none;margin:0;padding:0;}
 .control .top li{float:left;margin-right:1px;}
 
@@ -117,6 +122,7 @@ input.button {box-shadow: none;border-radius:0;background:#006699;color:#fff;bor
 
 /*======================== 布局结束 ======================*/
 
+input.small-search-box{height: 18px;line-height: 16px;padding: 0 2px;}
 
 a.green{color:green;}
 a.green:hover{text-decoration:underline;}
