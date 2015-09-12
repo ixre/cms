@@ -58,22 +58,17 @@ namespace J6.Cms.Core
             if (dir.Exists)
             {
                 FileInfo[] files = dir.GetFiles("*.xml");
+                Languages lang;
                 foreach (var fileInfo in files)
                 {
-                    _lang.LoadStandXml(GetXmlString(fileInfo.FullName));
+                    bool result = Enum.TryParse(fileInfo.Name.Substring(0, fileInfo.Name.IndexOf(".", StringComparison.Ordinal)), true, out lang);
+                    if (result)
+                    {
+                        _lang.LoadStandXml(lang, fileInfo.FullName);
+                    }
                 }
             }
         }
-
-        private string GetXmlString(string path)
-        {
-            if (File.Exists(path))
-            {
-                return File.ReadAllText(path);
-            }
-            return null;
-        }
-
 
 
         /// <summary>
@@ -83,42 +78,12 @@ namespace J6.Cms.Core
         /// <returns></returns>
         public String Get(LanguagePackageKey key)
         {
-            return _lang.Get(Cms.Context.CurrentSite.Language,key);
+            return _lang.Get(Cms.Context.CurrentSite.Language, key);
         }
 
-        public string Get(Languages language,string key)
+        public string Get(Languages language, string key)
         {
-            const string cacheKey = "lang_local";
-
-
-            LanguagePackage localLang = CacheFactory.Sington.GetCachedResult<LanguagePackage>(
-                cacheKey,
-                () =>
-                {
-                    LanguagePackage languagePackage = new LanguagePackage();
-
-                    try
-                    {
-                        string myLang = ResourceMap.XmlMyLangPackage;
-                        if (myLang != null)
-                        {
-                            languagePackage.LoadFromXml(myLang);
-                        }
-                    }
-                    catch
-                    {
-                        throw new FileLoadException(String.Format(
-                            "本地语言包无法识别！请参考:http://{0}/framework/local/lang_package.xml修改.",
-                          Settings.SERVER_STATIC));
-                    }
-
-                    CacheFactory.Sington.Insert(cacheKey, languagePackage,string.Format("{0}framework/local/lang_package.xml", Cms.PyhicPath));
-
-                    return languagePackage;
-                },DateTime.MaxValue
-                );
-
-            return localLang.GetOtherLangItemValue(key, language);
+            return _lang.GetValueByKey(language, key);
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Xml;
 
 namespace J6.Cms.Domain.Interface.Common.Language
 {
     public class LanguagePackage
     {
-        private readonly IDictionary<string, string> languagePack = new Dictionary<string, string>();
+        private readonly IDictionary<string, string> _languagePack = new Dictionary<string, string>();
 
         /// <summary>
         /// 从XML中加载语言
@@ -60,6 +61,65 @@ namespace J6.Cms.Domain.Interface.Common.Language
                 }
         }
 
+
+
+        private string GetXmlString(string path)
+        {
+            if (File.Exists(path))
+            {
+                return File.ReadAllText(path);
+            }
+            return null;
+        }
+
+
+
+        public void LoadStandXml(Languages lang, string xmlPath)
+        {
+            XmlDocument xd = new XmlDocument();
+            xd.Load(xmlPath);
+
+            XmlNodeList nodes = xd.SelectNodes("/lang/item");
+            string strKey;
+            string strVal;
+
+            IDictionary<Languages, string> dict = new Dictionary<Languages, string>();
+
+            bool isRewrite = false;
+
+            if (nodes != null)
+                foreach (XmlNode node in nodes)
+                {
+                    dict.Clear();
+                    strKey = node.Attributes["key"].Value;
+                    strVal = node.InnerText;
+
+                    this.AddOne(lang, strKey, strVal);
+
+                    //如果不是文本注释,删除第一个节点并重新保存值
+                    if (node.FirstChild != null && node.FirstChild.Name != "#cdata-section")
+                    {
+                        node.RemoveChild(node.FirstChild);
+                        node.InsertBefore(xd.CreateCDataSection(strVal ?? ""), node.FirstChild);
+                        isRewrite = true;
+                    }
+                }
+
+            if (isRewrite)
+            {
+                xd.Save(xmlPath);
+            }
+        }
+
+        private void AddOne(Languages lang, string key, string value)
+        {
+            var packKeyStr = String.Concat(key, ">", ((int) lang).ToString());
+            if (!_languagePack.ContainsKey(packKeyStr))
+            {
+                _languagePack.Add(packKeyStr, value);
+            }
+        }
+
         /// <summary>
         /// 添加默认语言
         /// </summary>
@@ -68,14 +128,22 @@ namespace J6.Cms.Domain.Interface.Common.Language
         public void Add(LanguagePackageKey key, IDictionary<Languages, string> langs)
         {
             String keyStr = ((int)key).ToString();
-            string packKeyStr;
-
             foreach (KeyValuePair<Languages, string> pair in langs)
             {
-                packKeyStr = String.Concat(keyStr, ">", ((int)pair.Key).ToString());
-                if(languagePack.ContainsKey(packKeyStr))
-                    break;
-                languagePack.Add(packKeyStr , pair.Value);
+                this.AddOne(pair.Key,keyStr,pair.Value);
+            }
+        }
+
+        /// <summary>
+        /// 添加自定义语言项
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="langs"></param>
+        public void AddOtherLangItem(string key, IDictionary<Languages, string> langs)
+        {
+            foreach (KeyValuePair<Languages, string> pair in langs)
+            {
+                _languagePack.Add(String.Concat(key, ">", ((int)pair.Key).ToString()), pair.Value);
             }
         }
 
@@ -93,7 +161,7 @@ namespace J6.Cms.Domain.Interface.Common.Language
                 ((int)lang).ToString(CultureInfo.InvariantCulture));
 
             string outStr = null;
-            if (languagePack.TryGetValue(dictKey, out outStr))
+            if (_languagePack.TryGetValue(dictKey, out outStr))
             {
                 return outStr;
             }
@@ -105,39 +173,20 @@ namespace J6.Cms.Domain.Interface.Common.Language
         }
 
         /// <summary>
-        /// 添加自定义语言项
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="langs"></param>
-        public void AddOtherLangItem(string key,IDictionary<Languages,string> langs)
-        {
-            foreach (KeyValuePair<Languages, string> pair in langs)
-            {
-                languagePack.Add(String.Concat(key, ">", ((int)pair.Key).ToString()), pair.Value);
-            }
-        }
-
-        /// <summary>
         /// 获取自定义的语言项值，如果不存在此项，则返回String.Empty
         /// </summary>
         /// <param name="key"></param>
         /// <param name="lang"></param>
         /// <returns></returns>
-        public String GetOtherLangItemValue(string key, Languages lang)
+        public String GetValueByKey(Languages lang,string key)
         {
             string dictKey = String.Concat(key, ">", ((int)lang).ToString());
             string outStr = null;
-            if (languagePack.TryGetValue(dictKey, out outStr))
+            if (_languagePack.TryGetValue(dictKey, out outStr))
             {
                 return outStr;
             }
             return String.Empty;
-        }
-
-
-        public void LoadStandXml(string getXmlString)
-        {
-            throw new NotImplementedException();
         }
     }
 }
