@@ -1,5 +1,11 @@
 # AtNet.CMS #
 
+
+![Go2o](https://raw.githubusercontent.com/jsix/cms/master/snapshot/cms_02.png "多站点")
+
+![Go2o](https://raw.githubusercontent.com/jsix/cms/master/docs/cms_01.png "插件")
+
+
 基于asp.net mvc + DDD 构架的开源.net cms系统.
 
 ## 特性：##
