@@ -7,19 +7,17 @@ namespace J6.Cms.ServiceRepository.Query
     {
         private readonly ArchiveDal _dal = new ArchiveDal();
 
-        public DataTable GetPagedArchives(int siteId, int lft,int rgt , 
-            int publisherId, string[,] flags, string orderByField, bool orderAsc, 
-            int pageSize, int currentPageIndex, 
+        public DataTable GetPagedArchives(int siteId, int lft, int rgt, int publisherId, bool includeChild,
+            string[,] flags, string orderByField, bool orderAsc, int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
         {
-            return _dal.GetPagedArchives(siteId,-1,
-            lft, rgt, publisherId,
-            flags, orderByField,
-            orderAsc,pageSize,
-            currentPageIndex,
-            out recordCount,
-            out pages);
-
+            return _dal.GetPagedArchives(siteId, -1,
+                lft, rgt, publisherId, includeChild,
+                flags, orderByField,
+                orderAsc, pageSize,
+                currentPageIndex,
+                out recordCount,
+                out pages);
         }
 
         public DataTable GetPagedArchives(

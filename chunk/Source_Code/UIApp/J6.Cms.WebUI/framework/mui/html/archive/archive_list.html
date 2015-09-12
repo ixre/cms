@@ -30,10 +30,12 @@
             <tr>
                 <td width="350px" class="control" valign="top">
                     <div class="top">
-                        <ul>
-                            <li><a href="javascript:;" class="fn" fn="create">$icon(create)添加</a></li>
-                            <!-- <li><a href="javascript:;" class="fn" fn="del">$icon(delete)删除</a></li>-->
-                        </ul>
+
+                        <input type="checkbox" id="ck_full_select"/><label for="ck_full_select">全选</label>
+                        &nbsp;&nbsp;&nbsp;
+                          <input type="checkbox" id="ck_child" /><label for="ck_child">包含子栏目</label>
+                            <a href="javascript:;" class="fn" fn="create">$icon(create)添加</a>
+                        
                     </div>
                     <div class="main" id="dg"></div>
                     <div class="ui-table-meta" id="pager">共-条</div>
@@ -99,7 +101,6 @@
             <span title="{title}">{title}</span>
             <br>
             <input class="ck" type="checkbox" style="border:none">
-            <span style="color:#666">{alias}</span>
             <span class="time">{publish}</span>
         </div>
     </script>
@@ -113,17 +114,19 @@
         var tplHtml = j6.$('tpl').innerHTML;
 
         var pagerPram = {
-            category_id: '${categoryid}',
+            category_id: '${category_id}',
             publisher_id: '',
             page_size: 10,
             page_index: 1,
             lb_visible: -1,
             lb_special: -1,
             lb_system: -1,
-            lb_page: -1
+            lb_page: -1,
+            include_child:false
         };
 
-        pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 45);
+        pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 60);
+        pagerPram.include_child = j6.$('ck_child').checked;
 
         var _dg = j6.grid('dg', {
             url: '?module=archive&action=pagerJsonData',
@@ -135,8 +138,7 @@
                         return j6.template(itemTemplate, {
                             index: (index + 1),
                             title: val.length > 25 ? val.substring(0, 25) + '...' : val,
-                            publish: row.createDate.replace('T', ' '),
-                            alias: row.alias ? '(别名：' + row.alias + ')' : ''
+                            publish: row.createDate.replace('T', ' ')
                         });
                     }
                 }
@@ -185,10 +187,15 @@
             _dg.reload(pagerPram);
         }
 
+        j6.$('ck_child').onchange = function() {
+            pagerPram.include_child = this.checked;
+            pagerPram.page_index = 1;
+            _dg.reload(pagerPram);
+        };
 
         //创建
         Fn.create = function () {
-            j6.load2('pl', 'archive', 'create', 'category.id=${categoryid}', initEditor);
+            j6.load2('pl', 'archive', 'create', 'category.id=${category_id}', initEditor);
         };
 
 

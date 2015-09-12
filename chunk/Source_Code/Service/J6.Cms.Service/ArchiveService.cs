@@ -241,7 +241,9 @@ namespace J6.Cms.Service
         }
 
 
-        public DataTable GetPagedArchives(int siteId, int? categoryId, int publisherId, string[,] flags, string orderByField, bool orderAsc, int pageSize, int currentPageIndex, out int recordCount, out int pages)
+        public DataTable GetPagedArchives(int siteId, int? categoryId, int publisherId, bool includeChild,
+            string[,] flags,
+            string orderByField, bool orderAsc, int pageSize, int currentPageIndex, out int recordCount, out int pages)
         {
             //
             //TODO:moduleId暂时去掉
@@ -262,8 +264,8 @@ namespace J6.Cms.Service
             }
 
             return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, publisherId,
-                flags, orderByField, orderAsc, pageSize, currentPageIndex,
-                out  recordCount, out  pages);
+                includeChild, flags, orderByField, orderAsc, pageSize, currentPageIndex,
+                out recordCount, out pages);
         }
 
 

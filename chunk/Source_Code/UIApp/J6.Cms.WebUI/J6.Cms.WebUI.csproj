@@ -155,6 +155,7 @@
     <Content Include="framework\mui\css\index.css" />
     <Content Include="framework\mui\css\latest\ajax-loader.gif" />
     <Content Include="framework\mui\css\latest\avatar.gif" />
+    <Content Include="framework\mui\css\latest\td_bg.gif" />
     <Content Include="framework\mui\css\latest\blank.png" />
     <Content Include="framework\mui\css\latest\blocks.gif" />
     <Content Include="framework\mui\css\latest\columns.png" />

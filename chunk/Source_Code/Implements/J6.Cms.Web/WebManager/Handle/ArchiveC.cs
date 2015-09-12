@@ -603,211 +603,17 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 文档列表
         /// </summary>
-        public void List_GET()
+        public string List_GET()
         {
+            //const int __pageSize = 10;
 
-            HttpRequest request = HttpContext.Current.Request;
+            string categoryId = Request["category.id"];
+            int publisherId = int.Parse(Request["publisher_id"]??"0");
 
-            const int __pageSize = 10;
+            ViewData["category_id"] = categoryId ?? String.Empty;
+            ViewData["publisher_id"] = publisherId;
 
-            object data;            //返回的数据
-
-            int pageSize,
-                pageIndex,
-                recordCount,
-                pages;
-
-            bool? visible,
-                 special,
-                 system,
-                 aspage;
-
-            int? categoryId = null,
-                 moduleId = null;
-
-            string _categoryId = request["category.id"],    //只有这个参数为必传
-                   _moduleId = request["moduleId"],
-                   _pageIndex = request["page"] ?? "1",
-                    _pageSize = request["size"],
-                   _visible = request["visible"],
-                   _special = request["special"],
-                   _system = request["system"],
-            _aspage = request["aspage"];
-
-            int _publisherId = int.Parse(request["publisher_id"]??"0");
-
-            StringBuilder sb = new StringBuilder();
-            string categoryOpts,                 //栏目Options
-                   pagerHtml,                   //分页链接
-                   tableHeaderText,             //表头字段
-                   archiveListHtml;             //文档列表HTML
-
-
-            goto result;
-
-
-            //处理页码大小并保存
-
-            if (!Regex.IsMatch(_pageIndex, "^(?!0)\\d+$")) pageIndex = 1;   //If pageindex start with zero or lower
-            else pageIndex = int.Parse(_pageIndex);
-
-            if (String.IsNullOrEmpty(_pageSize))
-            {
-                object o = HttpContext.Current.Session["archivelist_pagesize"];
-                int.TryParse(HttpContext.Current.Session["archivelist_pagesize"] as string, out pageSize);
-            }
-            else
-            {
-                int.TryParse(_pageSize, out pageSize);
-                HttpContext.Current.Session["archivelist_pagesize"] = pageSize;
-            }
-            if (pageSize == 0) pageSize = __pageSize;
-
-
-
-            //文档显示选项
-            #region
-            if (String.IsNullOrEmpty(_visible))
-            {
-                visible = null;
-            }
-            else
-            {
-                visible = String.Compare(_visible, String.Intern("true"), true) == 0;
-            }
-
-            if (String.IsNullOrEmpty(_special))
-            {
-                special = null;
-            }
-            else
-            {
-                special = String.Compare(_special, String.Intern("true"), true) == 0;
-            }
-
-            if (String.IsNullOrEmpty(_system))
-            {
-                system = null;
-            }
-            else
-            {
-                system = String.Compare(_system, String.Intern("true"), true) == 0;
-            }
-
-
-            if (String.IsNullOrEmpty(_aspage))
-            {
-                aspage = null;
-            }
-            else
-            {
-                aspage = String.Compare(_aspage, String.Intern("true"), true) == 0;
-            }
-
-            #endregion
-
-
-            //获取表头
-            bool isMaster = UserState.Administrator.Current.IsMaster;
-            tableHeaderText = isMaster ? "<th style=\"width:60px\" class=\"center\">发布人</th>" : String.Empty;
-
-            //加载栏目
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (category, level) =>
-            {
-                sb.Append("<option value=\"").Append(category.Id.ToString()).Append("\">");
-                for (var i = 0; i < level; i++)
-                {
-                    sb.Append("-");
-                }
-                sb.Append(category.Name).Append("</option>");
-
-            });
-
-            categoryOpts = sb.ToString();
-            sb.Remove(0, sb.Length);
-
-
-            string[,] flags = new string[,]{
-                {ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem),system==null?"":(system.Value?"1":"0")},
-                {ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial),special==null?"":(special.Value?"1":"0")},
-                {ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible),visible==null?"":(visible.Value?"1":"0")},
-                {ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage),aspage==null?"":(aspage.Value?"1":"0")}
-            };
-
-            //文档数据表,并生成Html
-            DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId, _publisherId, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
-
-
-            //moduleID == null ? CmsLogic.Archive.GetPagedArchives(categoryID, _publisher_id,flags, null, false, pageSize, pageIndex, out recordCount, out pages)
-            //: CmsLogic.Archive.GetPagedArchives((SysModuleType)(moduleID ?? 1), _publisher_id, flags,null, false, pageSize, pageIndex, out recordCount, out pages);
-
-
-            IDictionary<string, bool> flagsDict;
-
-            bool isSpecial,
-                isSystem,
-                isVisible,
-                isPage;
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                flagsDict = ArchiveFlag.GetFlagsDict(dr["flags"].ToString());
-                isSpecial = flagsDict.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial))
-                    && flagsDict[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial)];
-
-                isSystem = flagsDict.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem))
-                    && flagsDict[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem)];
-
-                isVisible = flagsDict.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible))
-                                    && flagsDict[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible)];
-
-                isPage = flagsDict.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage))
-                                    && flagsDict[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage)];
-
-
-                //编号
-                sb.Append("<tr indent=\"").Append(dr["id"].ToString()).Append("\"><td align=\"center\">").Append(dr["id"].ToString()).Append("</td>");
-                //标题
-                sb.Append("<td").Append(isSpecial ? " class=\"special\">" : ">").Append(dr["title"].ToString());
-
-                if (!String.IsNullOrEmpty(dr["alias"] as string))
-                {
-                    sb.Append("&nbsp;<span style=\"color:#777\">( 别名：").Append(dr["alias"].ToString()).Append(" )</span>");
-                }
-                sb.Append("</td>");
-
-                //管理员可以查看发布人
-                if (isMaster)
-                {
-                    sb.Append("<td class=\"center\"><a href=\"?module=archive&amp;action=list&amp;moduleID=").Append(_moduleId).Append("&amp;publisher_id=")
-                        .Append(dr["author"].ToString()).Append("\" title=\"查看该用户发布的文档\">").Append(dr["Author"].ToString()).Append("</a></td>");
-                }
-
-                sb.Append("<td>").Append(String.Format("{0:yyyy/MM/dd HH:mm}", Convert.ToDateTime(dr["CreateDate"]))).Append("</td><td align=\"center\">")
-                    .Append(dr["view_count"].ToString()).Append("</td><td><button class=\"refresh\" /></td><td><button class=\"file\" /></td><td><button class=\"edit\" /></td><td><button class=\"delete\" /></td></tr>");
-
-            }
-
-            archiveListHtml = sb.ToString();
-
-
-
-            string format = String.Format("?module=archive&action=list&categoryID={0}&moduleID={1}&page={2}&size={3}&publisher_id={4}&visible={5}&special={6}&system={7}",
-                _categoryId, _moduleId, "{0}", pageSize, _publisherId, _visible, _special, _system);
-
-            pagerHtml = Helper.BuildPagerInfo(format, pageIndex, recordCount, pages);
-
-
-        result:
-
-            data = new
-            {
-                moduleID = _moduleId ?? String.Empty,
-                categoryID = _categoryId ?? String.Empty,
-                username = _publisherId
-            };
-
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_List), data);
+           return  base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_List));
         }
 
         /// <summary>
@@ -834,8 +640,10 @@ namespace J6.Cms.Web.WebManager.Handle
                    _system = request["lb_system"] ?? "-1",
                    _aspage = request["lb_page"] ?? "-1";
 
-            int _publisherId ;
-            int.TryParse(request["publisher_id"],out _publisherId);
+            int publisherId ;
+            int.TryParse(request["publisher_id"],out publisherId);
+
+            bool includeChild = request["include_child"] == "true";
 
             if (_categoryId != null)
             {
@@ -874,7 +682,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             //文档数据表,并生成Html
             DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId,
-                _publisherId, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
+                publisherId, includeChild, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {

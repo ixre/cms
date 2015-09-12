@@ -499,6 +499,7 @@ namespace J6.Cms.Dal
         /// <param name="siteId"></param>
         /// <param name="moduleId">参数暂时不使用为-1</param>
         /// <param name="publisherId"></param>
+        /// <param name="includeChild"></param>
         /// <param name="flags"></param>
         /// <param name="orderByField"></param>
         /// <param name="orderAsc"></param>
@@ -508,7 +509,7 @@ namespace J6.Cms.Dal
         /// <param name="pages"></param>
         /// <returns></returns>
         public DataTable GetPagedArchives(int siteId, int moduleId,
-            int lft, int rgt, int publisherId,
+            int lft, int rgt, int publisherId, bool includeChild,
             string[,] flags, string orderByField, bool orderAsc,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
@@ -516,21 +517,9 @@ namespace J6.Cms.Dal
             //SQL Condition Template
             const string conditionTpl = "$[siteid]$[module]$[category]$[publisher_id]$[flags]";
 
-
-            //Get records count
-            //{0}==$[condition]
-
-            const string sql1 = @"SELECT TOP $[pagesize] a.id AS id,alias,title,
-                                    c.name as CategoryName,cid,flags,publisher_id,content,source,
-                                    createdate,view_count,location,sort_number as sortNumber FROM $PREFIX_archive a
-                                    INNER JOIN $PREFIX_category c ON a.cid=c.id
-                                    WHERE $[condition] ORDER BY $[orderByField] $[orderASC],a.id";
-
-
             string condition,                                                             //SQL where condition
                     order = String.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
                     orderType = orderAsc ? "ASC" : "DESC";                                      //ASC or DESC
-
 
             string flag = ArchiveFlag.GetSQLString(flags);
 
@@ -540,8 +529,17 @@ namespace J6.Cms.Dal
                 {
                     case "siteid": return String.Format(" c.site_id={0}", siteId.ToString());
 
-                    case "category": return lft <= 0 || rgt <= 0 ? ""
-                        : String.Format(" AND lft>={0} AND rgt<={1}", lft.ToString(), rgt.ToString());
+                    case "category":
+                        if (lft <= 0 || rgt <= 0)
+                        {
+                            return "";
+                        }
+                        else if (includeChild)
+                        {
+                            return String.Format(" AND lft>={0} AND rgt<={1}", lft.ToString(), rgt.ToString());
+                        }
+                        return String.Format(" AND lft={0} AND rgt={1}", lft.ToString(), rgt.ToString());
+
 
                     case "module": return moduleId <= 0 ? ""
                         : String.Format(" AND m.id={0}", moduleId.ToString());
@@ -572,10 +570,7 @@ namespace J6.Cms.Dal
             int skipCount = pageSize * (currentPageIndex - 1);
 
 
-            //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
-                        sql1 :
-                        DbSql.Archive_GetPagedArchivesByCategoryId;
+            string sql = DbSql.Archive_GetPagedArchivesByCategoryId;
 
             sql = SQLRegex.Replace(sql, m =>
             {
@@ -589,6 +584,7 @@ namespace J6.Cms.Dal
                 }
                 return null;
             });
+
             //throw new Exception(new SqlQuery(base.OptimizeSQL(sql));
             //throw new Exception(sql+"-"+DbHelper.DbType.ToString()+"-"+new SqlQuery(base.OptimizeSQL(SP.ToString());
             //System.Web.HttpContext.Current.Response.Write(sql);
@@ -863,7 +859,7 @@ namespace J6.Cms.Dal
                );
             */
 
-           // throw new Exception( String.Format(DbSql.Archive_GetSelfAndChildArchiveExtendValues,skipSize.ToString(),number.ToString()));
+            // throw new Exception( String.Format(DbSql.Archive_GetSelfAndChildArchiveExtendValues,skipSize.ToString(),number.ToString()));
             base.ExecuteReader(
                 SqlQueryHelper.Format(DbSql.Archive_GetSelfAndChildArchiveExtendValues,
                  new object[,]{

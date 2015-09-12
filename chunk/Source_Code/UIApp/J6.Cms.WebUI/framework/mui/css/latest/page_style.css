@@ -95,14 +95,15 @@ input.button {box-shadow: none;border-radius:0;background:#006699;color:#fff;bor
               padding-left:20px;font-size:14px;color:#006699;}
 .helpPanel ol{margin:10px 30px;color:#666;line-height:150%;padding:0;}
 .control{background:#fff;border-right:solid 1px #d0d0d0;}
-.control .top{background:url(../old/sys_themes/default/bg.gif) 0 -3px repeat-x;border-bottom:solid 1px #d0d0d0;padding:0 10px;height:25px;line-height:25px;clear:both;}
+.control .top{
+    background:#F5F5F5 linear-gradient(to bottom, #F7F8FA, #E7E9EC);
+    border-bottom:solid 1px #d0d0d0;padding:0 10px;height:25px;line-height:25px;clear:both;}
 .control .top ul{list-style:none;margin:0;padding:0;}
 .control .top li{float:left;margin-right:1px;}
 
 .control .fn{line-height:20px;}
 .control .fn img{vertical-align:middle;}
 .control .fn{display:block;padding:2px 2px;vertical-align:middle;}
-.control .fn:hover{background:#ffffcc;border:solid 1px #e5e5e5;padding:1px 1px;}
 
 .control .main{clear:both;}
 
@@ -186,11 +187,11 @@ ul.centform{margin:100px auto;}
 
 
 .ui-table-list{width:100%;color:#666;}
-.ui-table-list .index{background:url(item_circle.gif) center top no-repeat;padding:0 6px;color:#fff;margin-right:5px;color:#333;}
+.ui-table-list .index{background:url(/framework/mui/css/latest/item_circle.gif) center top no-repeat;padding:0 6px;color:#fff;margin-right:5px;color:#333;}
 .ui-table-list th{background:#edf7fe url(../old/sys_themes/default/bg.gif) -0px 0 repeat-x;
              line-height:20px;height:20px;overflow:hidden;border-bottom:solid 1px #e5e5e5;
              text-align:center;color:#336699;font-weight:normal;position:relative;}
-.ui-table-list tr td,.ui-table-list tr.hover td{background:#fff url(../old/sys_themes/default/bg.gif) 0 -160px repeat-x;border-bottom:solid 1px #eee;color:#222;}
+.ui-table-list tr td,.ui-table-list tr.hover td{background:#fff url(/framework/mui/css/latest/td_bg.gif) 0 -160px repeat-x;border-bottom:solid 1px #eee;color:#222;}
 
 .ui-table-low tr td{background-position:0 -180px;}
 .ui-table-low tr.hover td{background:#fff;}

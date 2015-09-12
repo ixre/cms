@@ -140,6 +140,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="siteId"></param>
         /// <param name="categoryId"></param>
         /// <param name="publisherId"></param>
+        /// <param name="includeChild"></param>
         /// <param name="flags"></param>
         /// <param name="orderByField"></param>
         /// <param name="orderAsc"></param>
@@ -149,7 +150,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="pages"></param>
         /// <returns></returns>
         DataTable GetPagedArchives(int siteId, int? categoryId,
-            int publisherId, string[,] flags, 
+            int publisherId, bool includeChild,string[,] flags, 
             string orderByField, bool orderAsc, int pageSize, 
             int currentPageIndex, out int recordCount, out int pages);
 
@@ -161,6 +162,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="categoryLft"></param>
         /// <param name="categoryRgt"></param>
         /// <param name="pageSize"></param>
+        /// <param name="skipSize"></param>
         /// <param name="pageIndex"></param>
         /// <param name="records"></param>
         /// <param name="pages"></param>
