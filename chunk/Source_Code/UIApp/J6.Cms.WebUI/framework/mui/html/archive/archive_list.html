@@ -47,8 +47,16 @@
                                 <a href="javascript:;"></a>
                             </span>
                         </span>
+                        
+                        <div class="list-menu" id="list-menu">
+                            <span class="icon"></span>菜单
+                            <div class="drop">
+                                <a href="javascript:;" class="fn item" fn="create">$icon(create)新建文档</a>
+                                <a href="javascript:;" class="fn item" fn="create">$icon(create)发布至其他站点</a>
+                                <a href="javascript:;" class="fn item last" onclick="menu.refresh()">$icon(refresh)刷新列表</a>
+                            </div>
+                        </div>
 
-                        <a href="javascript:;" class="fn" fn="create">$icon(create)添加</a>
 
                     </div>
 
@@ -61,19 +69,8 @@
             </tr>
         </table>
     </div>
-    <script type="text/template" id="list_menu_tpl">
-        <div class="item" onclick="menu.add()">
-            <a href="javascript:;">$icon(create)新建文档</a>
-        </div>
-        <div class="item" onclick="menu.refresh()">
-            <a href="javascript:;">$icon(refresh)刷新列表</a>
-        </div>
-    </script>
 
 <script type="text/template" id="tpl">
-        <div class="item" onclick="menu.add()">
-            <a href="javascript:;">$icon(create)新建文档</a>
-        </div>
         <div class="item" onclick="menu.edit('%id%')">
             <a href="javascript:;">$icon(edit)编辑</a>
         </div>
@@ -97,17 +94,11 @@
         <div class="item" onclick="menu.del('%id%')">
             <a href="javascript:;">$icon(delete)删除</a>
         </div>
-
         <div class="item" onclick="menu.comment('%id%')">
             <a href="javascript:;">$icon(comment)评论管理</a>
         </div>
-
-
         <div class="item" onclick="menu.relatedlink('%id%')">
             <a href="javascript:;">$icon(link)关联链接</a>
-        </div>
-        <div class="item" onclick="menu.refresh()">
-            <a href="javascript:;">$icon(refresh)刷新列表</a>
         </div>
     </script>
 <script type="text/template" id="archive_item_template">
@@ -128,6 +119,8 @@
         j6.dom.fitHeight(document.body.getElementsByTagName('DIV')[0]);
         var itemTemplate = j6.$('archive_item_template').innerHTML;
         var tplHtml = j6.$('tpl').innerHTML;
+        var listMenu = j6.$('list-menu');
+        j6.hover(listMenu);
 
         var pagerPram = {
             category_id: '${category_id}',
@@ -141,7 +134,7 @@
             include_child:false
         };
 
-        pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 66);
+        pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 50);
         pagerPram.include_child = j6.$('ck_child').checked;
 
         var _dg = j6.grid('dg', {
@@ -220,11 +213,6 @@
         Fn.create = function () {
             j6.load2('pl', 'archive', 'create', 'category.id=${category_id}', initEditor);
         };
-
-
-        //绑定列表菜单
-        j6.contextmenu.bind(j6.$('dg').parentNode, j6.$('list_menu_tpl').innerHTML);
-
 
         var menu = {
             refresh: function () {

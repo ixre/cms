@@ -55,13 +55,6 @@ input.ui-box,select.ui-box{ height: auto;height:1.5rem;}
 
 
 
-
-
-
-
-
-
-
 input.tb_normal,select.tb_normal,textarea.tb_normal{width:200px;}
 
 select.tb_normal{width:200px;padding:1px 3px;overflow:hidden;
@@ -119,6 +112,16 @@ input.button {box-shadow: none;border-radius:0;background:#006699;color:#fff;bor
 .level2{padding-left:30px;}
 .level3{padding-left:45px;}
 .level4{padding-left:60px;}
+
+
+.list-menu{display:inline-block;float:left;height:100%;margin-right:2em;cursor:pointer;position:relative;}
+.list-menu span.icon{display: inline-block;float:left;padding:0 10px;height:100%;background:url(/framework/mui/css/latest/icon-menu.png) left center no-repeat;}
+.list-menu .drop{display:none;position:fixed;left:0;top: 30px;z-index:100;border:solid 1px #D0D0D0;background:#FFF;
+    box-shadow: 2px 2px 2px #EEE;border-left: 0;}
+.list-menu:hover .drop,.hover .drop{display:block;}
+.list-menu a.item{padding:0 3em 0 1em;border-bottom:dashed 1px #ddd;line-height: 2.5em;background: url(/framework/mui/css/latest/td_bg.gif)  0 -170px repeat-x;}
+.list-menu a.last{ border-bottom: 0;}
+.list-menu a.item img.icon{ margin-right: 5px;}
 
 /*======================== 布局结束 ======================*/
 
