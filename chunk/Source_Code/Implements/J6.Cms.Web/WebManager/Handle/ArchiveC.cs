@@ -135,42 +135,7 @@ namespace J6.Cms.Web.WebManager.Handle
             foreach (IExtendField p in category.ExtendFields)
             {
                 uiType = (PropertyUI)int.Parse(p.Type);
-
-                sb.Append("<dl><dt>").Append(p.Name).Append("：</dt><dd>");
-
-                switch (uiType)
-                {
-                    case PropertyUI.Text:
-                        sb.Append("<input type=\"text\" class=\"tb_normal box\" field=\"extend_").Append(p.Id.ToString())
-                        .Append("\" value=\"").Append(p.DefaultValue).Append("\"/>");
-                        break;
-
-                    case PropertyUI.MultLine:
-                        sb.Append("<textarea class=\"tb_normal box\" field=\"extend_").Append(p.Id.ToString())
-                        .Append("\">").Append(p.DefaultValue).Append("</textarea>");
-                        break;
-
-                    case PropertyUI.Integer:
-                        sb.Append("<input type=\"text\" class=\"tb_normal box ui-validate\" isnum=\"true\" field=\"extend_").Append(p.Id.ToString())
-                       .Append("\" value=\"").Append(p.DefaultValue).Append("\"/>");
-                        break;
-
-                    case PropertyUI.Upload:
-                        sb.Append("<input type=\"text  upload_value\" class=\"tb_normal box\" id=\"extend_").Append(p.Id.ToString())
-                       .Append("\" field=\"extend_").Append(p.Id.ToString())
-                       .Append("\" value=\"").Append(p.DefaultValue).Append("\"/>&nbsp;&nbsp;<span id=\"upload_")
-                       .Append(p.Id.ToString()).Append("\">选择文件</span>")
-                       .Append("<script type=\"text/javascript\">j6.propertyUpload(")
-                       .Append("'upload_").Append(p.Id.ToString()).Append("','extend_").Append(p.Id.ToString()).Append("');</script>");
-                        break;
-                }
-
-                sb.Append("</dd></dl>");
-
-                /*<p><span class="txt">标签：</span>
-                    <span class="input"><input type="text" name="tags" size="30"/></span>
-                    <span class="msg"></span></p>
-                */
+                this.AppendExtendFormHtml(sb,p,p.DefaultValue);
             }
 
 
@@ -361,47 +326,11 @@ namespace J6.Cms.Web.WebManager.Handle
 
             sb.Append("<div class=\"dataextend_item\">");
 
-            PropertyUI uiType;
             foreach (IExtendValue extValue in archive.ExtendValues)
             {
                 field = extValue.Field;
-                uiType = (PropertyUI)int.Parse(field.Type);
                 attrValue = (extValue.Value ?? field.DefaultValue).Replace("<br />", "\n");
-
-                sb.Append("<dl><dt>").Append(field.Name).Append("：</dt><dd>");
-
-
-                switch (uiType)
-                {
-                    case PropertyUI.Text:
-                        sb.Append("<input type=\"text\" class=\"tb_normal box\" field=\"extend_").Append(field.Id.ToString())
-                            .Append("\" value=\"").Append(attrValue).Append("\"/>");
-                        break;
-
-                    case PropertyUI.MultLine:
-                        sb.Append("<textarea class=\"tb_normal box\" field=\"extend_").Append(field.Id.ToString())
-                        .Append("\">").Append(attrValue).Append("</textarea>");
-                        break;
-
-                    case PropertyUI.Integer:
-                        sb.Append("<input type=\"text\" class=\"tb_normal box ui-validate\" isnum=\"true\" field=\"extend_")
-                            .Append(field.Id.ToString()).Append("\" value=\"").Append(attrValue).Append("\"/>");
-                        break;
-
-                    case PropertyUI.Upload:
-                        // sb.Append("<input type=\"text\" disabled=\"disabled\" class=\"tb_normal\" id=\"extend_").Append(field.ID.ToString())
-                        sb.Append("<input type=\"text\" class=\"tb_normal box upload_value\" id=\"extend_").Append(field.Id.ToString())
-                      .Append("\" field=\"extend_").Append(field.Id.ToString())
-                      .Append("\" value=\"").Append(attrValue).Append("\"/>&nbsp;&nbsp;<span id=\"upload_")
-                      .Append(field.Id.ToString()).Append("\">选择文件</span>")
-                      .Append("<script type=\"text/javascript\">j6.propertyUpload(")
-                      .Append("'upload_").Append(field.Id.ToString()).Append("','extend_").Append(field.Id.ToString())
-                      .Append("');</script>");
-                        break;
-                }
-
-
-                sb.Append("</dd></dl>");
+                this.AppendExtendFormHtml(sb, field, attrValue);
             }
 
 
@@ -508,6 +437,53 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderTemplate(
               BasePage.CompressHtml(ResourceMap.GetPageContent(ManagementPage.Archive_Update)),
                 data);
+        }
+
+        /// <summary>
+        /// 生成扩展表单HTML
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="field"></param>
+        /// <param name="attrValue"></param>
+        private void AppendExtendFormHtml(StringBuilder sb, IExtendField field, string attrValue)
+        {
+            PropertyUI uiType = (PropertyUI)int.Parse(field.Type);
+            sb.Append("<dl><dt>").Append(field.Name).Append("：</dt><dd>");
+
+
+            switch (uiType)
+            {
+                case PropertyUI.Text:
+                    sb.Append("<input type=\"text\" class=\"w300 box\" field=\"extend_").Append(field.Id.ToString())
+                        .Append("\" value=\"").Append(attrValue).Append("\"/>");
+                    break;
+
+                case PropertyUI.MultLine:
+                    sb.Append("<textarea class=\"w300 box\" field=\"extend_").Append(field.Id.ToString())
+                        .Append("\">").Append(attrValue).Append("</textarea>");
+                    break;
+
+                case PropertyUI.Integer:
+                    sb.Append("<input type=\"text\" class=\"w300 ui-box ui-validate\" isnum=\"true\" field=\"extend_")
+                        .Append(field.Id.ToString()).Append("\" value=\"").Append(attrValue).Append("\"/>");
+                    break;
+
+                case PropertyUI.Upload:
+                    // sb.Append("<input type=\"text\" disabled=\"disabled\" class=\"tb_normal\" id=\"extend_").Append(field.ID.ToString())
+                    sb.Append("<input type=\"text\" class=\"w300 ui-box upload_value\" id=\"extend_")
+                        .Append(field.Id.ToString())
+                        .Append("\" field=\"extend_").Append(field.Id.ToString())
+                        .Append("\" value=\"").Append(attrValue).Append("\"/>&nbsp;&nbsp;<span class=\"ui-button w80 middle-button\" id=\"upload_")
+                        .Append(field.Id.ToString()).Append("\"><span class=\" button-inner\"><span class=\"button-txt\">选择文件</span>")
+                        .Append("<a href=\"javascript:;\"></a></span></span>")
+                        .Append("<script type=\"text/javascript\">j6.propertyUpload(")
+                        .Append("'upload_").Append(field.Id.ToString()).Append("','extend_").Append(field.Id.ToString())
+                        .Append("');</script>");
+                    break;
+            }
+
+
+            sb.Append("</dd></dl>");
         }
 
         public void Update_POST()

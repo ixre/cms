@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\label.conf" />
+    <Content Include="config\locale\zh_cn.xml" />
     <Content Include="config\net_crawl.conf" />
     <Content Include="config\picker.conf" />
     <Content Include="config\s1\tags.conf" />
@@ -147,7 +148,9 @@
     <Content Include="framework\locale\th.xml" />
     <Content Include="framework\locale\fr.xml" />
     <Content Include="framework\locale\zh_tw.xml" />
-    <Content Include="framework\locale\zh_cn.xml" />
+    <Content Include="framework\locale\zh_cn.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="framework\maps.xml" />
     <Content Include="framework\mui\css\index.css" />
     <Content Include="framework\mui\css\latest\ajax-loader.gif" />

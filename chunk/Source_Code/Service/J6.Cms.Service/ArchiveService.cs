@@ -15,7 +15,7 @@ using J6.Cms.Domain.Interface.Site.Extend;
 
 namespace J6.Cms.Service
 {
-    public class ArchiveService:IArchiveServiceContract
+    public class ArchiveService : IArchiveServiceContract
     {
         private IContentRepository _contentRep;
         private ISiteRepository _siteRep;
@@ -170,14 +170,14 @@ namespace J6.Cms.Service
         public ArchiveDto[] GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number, int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetArchivesContainChildCategories(lft, rgt, number,skipSize);
+            IEnumerable<IArchive> archives = content.GetArchivesContainChildCategories(lft, rgt, number, skipSize);
             return this.GetArchiveEnumertor(archives).ToArray();
         }
 
         public ArchiveDto[] GetArchivesByCategoryTag(int siteId, string categoryTag, int number, int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetArchivesByCategoryTag(categoryTag, number,skipSize);
+            IEnumerable<IArchive> archives = content.GetArchivesByCategoryTag(categoryTag, number, skipSize);
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }
@@ -216,10 +216,10 @@ namespace J6.Cms.Service
             return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-        public ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number,int skipSize)
+        public ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number, int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetSpecialArchives(lft, rgt, number,skipSize);
+            IEnumerable<IArchive> archives = content.GetSpecialArchives(lft, rgt, number, skipSize);
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }
@@ -227,7 +227,7 @@ namespace J6.Cms.Service
         public ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetSpecialArchives(categoryTag, number,skipSize);
+            IEnumerable<IArchive> archives = content.GetSpecialArchives(categoryTag, number, skipSize);
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }
@@ -261,8 +261,8 @@ namespace J6.Cms.Service
                 }
             }
 
-            return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, publisherId, 
-                flags, orderByField, orderAsc, pageSize, currentPageIndex, 
+            return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, publisherId,
+                flags, orderByField, orderAsc, pageSize, currentPageIndex,
                 out  recordCount, out  pages);
         }
 
@@ -280,7 +280,7 @@ namespace J6.Cms.Service
         {
             //获取数据
             DataTable dt = this._archiveQuery.GetPagedArchives(siteId, categoryLft, categoryRgt,
-                 pageSize,skipSize, ref pageIndex, out records, out pages);
+                 pageSize, skipSize, ref pageIndex, out records, out pages);
 
             IList<int> archiveIds = new List<int>();
             foreach (DataRow dr in dt.Rows)
@@ -302,7 +302,15 @@ namespace J6.Cms.Service
                 }
                 foreach (IExtendValue value in dict[key])
                 {
-                    extendValues[key].Add(value.Field.Name, value.Value);
+                    // 避免重复键
+                    if (!extendValues[key].ContainsKey(value.Field.Name))
+                    {
+                        extendValues[key].Add(value.Field.Name, value.Value);
+                    }
+                    else
+                    {
+                        extendValues[key][value.Field.Name] = value.Value;
+                    }
                 }
             }
 
@@ -392,14 +400,14 @@ namespace J6.Cms.Service
             IBaseContent archive = this._contentRep.GetContent(siteId).GetArchiveById(id);
             if (archive == null)
             {
-                throw new ArgumentException("no such archive","id");
+                throw new ArgumentException("no such archive", "id");
             }
 
-            if (direction ==1)
+            if (direction == 1)
             {
                 archive.SortUpper();
             }
-            else if (direction ==2)
+            else if (direction == 2)
             {
                 archive.SortLower();
             }

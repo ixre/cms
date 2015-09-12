@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using J6.Cms.Cache;
 using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Common.Language;
 using J6.Cms.Infrastructure;
@@ -13,6 +14,8 @@ namespace J6.Cms.Core
     {
         private static LanguagePackage _lang;
         private static CmsLanguagePackage _instance;
+        private bool _observerStarted;
+        private const string CfgLocaleKey = "cfg_locale_observer";
 
 
         internal static CmsLanguagePackage Create()
@@ -25,9 +28,9 @@ namespace J6.Cms.Core
             _lang = new LanguagePackage();
             _lang.LoadFromXml(ResourceMap.XmlLangPackage);
             // 加载系统内置的
-            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale",false,null);
             // 加载自定义的配置
-            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale");
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale",true,CfgLocaleKey);
 
             /*
            IDictionary<Languages,String> dict = new Dictionary<Languages,String>();
@@ -53,12 +56,21 @@ namespace J6.Cms.Core
         /// <summary>
         /// 加载系统内置的语言配置文件
         /// </summary>
-        private void LoadLocaleXml(string dirPath)
+        private void LoadLocaleXml(string dirPath,bool observer,string cacheKey)
         {
             DirectoryInfo dir = new DirectoryInfo(dirPath);
             if (dir.Exists)
             {
                 FileInfo[] files = dir.GetFiles("*.xml");
+
+                // 监视文件目录
+                if (files.Length > 0 && observer)
+                {
+                    this._observerStarted = true;
+                    CacheFactory.Sington.Insert(cacheKey,1,dirPath);
+                }
+
+                // 加载
                 Languages lang;
                 foreach (var fileInfo in files)
                 {
@@ -79,11 +91,25 @@ namespace J6.Cms.Core
         /// <returns></returns>
         public String Get(LanguagePackageKey key)
         {
+            this.Observer();
             return _lang.Get(Cms.Context.CurrentSite.Language, key);
+        }
+
+        private void Observer()
+        {
+            if (this._observerStarted && CacheFactory.Sington.Get(CfgLocaleKey) == null)
+            {
+                lock (_lang)
+                {
+                    _lang = null;
+                    _instance = new CmsLanguagePackage();
+                }
+            }
         }
 
         public string Get(Languages language, string key)
         {
+            this.Observer();
             return _lang.GetValueByKey(language, key);
         }
     }

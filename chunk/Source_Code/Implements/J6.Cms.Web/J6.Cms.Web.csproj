@@ -285,10 +285,6 @@
     <Content Include="Resource\WebManager\resouces\table\edittable.html" />
     <Content Include="Resource\WebManager\resouces\table\rows.html" />
     <Content Include="Resource\WebManager\resouces\table\tables.html" />
-    <Content Include="Resource\WebManager\resouces\template\templates.html" />
-    <Content Include="Resource\WebManager\resouces\template\tpl.edit.html" />
-    <Content Include="Resource\WebManager\resouces\template\tpl.editfile.html" />
-    <Content Include="Resource\WebManager\resouces\template\tplsettings.html" />
     <None Include="Resource\WebManager\resouces\images\manage.js_source.js" />
     <EmbeddedResource Include="Resource\WebManager\resouces\images\manage.js_min.js" />
     <None Include="Resource\WebManager\resouces\images\ajax-loader.gif" />
