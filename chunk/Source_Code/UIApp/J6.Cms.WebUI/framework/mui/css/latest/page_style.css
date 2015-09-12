@@ -100,7 +100,7 @@ input.button {box-shadow: none;border-radius:0;background:#006699;color:#fff;bor
 .helpPanel h2{margin:5px 0;background:url(/framework/assets/icons/admin/file2.gif) left center no-repeat;
               padding-left:20px;font-size:14px;color:#006699;}
 .helpPanel ol{margin:10px 30px;color:#666;line-height:150%;padding:0;}
-.control{background:#fff;border-right:solid 1px #d0d0d0;}
+.control{background:#fff;border-right:solid 1px #d0d0d0;position: relative;}
 .control .top{background:#F5F5F5 linear-gradient(to bottom, #F7F8FA, #E7E9EC);box-shadow: 0 0 1px #FFF inset;
     border-bottom:solid 1px #d0d0d0;padding:0 10px;height:2.5em;line-height:2.5em;clear:both;}
 .control .top ul{list-style:none;margin:0;padding:0;}
@@ -208,7 +208,10 @@ ul.centform{margin:100px auto;}
 .ui-table-padding tr td{border-bottom:none;}
 .ui-table-padding .th-split{display:none;}
 
-.ui-table-meta{background:#ffffcc;line-height:25px;text-align:right;border:solid 1px #ddd;border-left:none;border-right:none;}
+.ui-table-meta{background:#ffc;line-height:25px;text-align:right;
+               border:solid 1px #DDD;border-left:none;
+    position: absolute; bottom: 0;width: 100%;padding-right: -1px;
+}
 .ui-table-meta .pager a:link,.ui-table-meta .pager a:visited{
     vertical-align:middle; padding:0 5px;border:solid 1px #f0f0f0;margin:0 1px;background:#888;color:#fff;
 }

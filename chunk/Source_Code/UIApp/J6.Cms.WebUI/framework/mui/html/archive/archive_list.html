@@ -32,9 +32,13 @@
                     <div class="top">
 
                         <input type="checkbox" id="ck_full_select"/><label for="ck_full_select">全选</label>
-                        &nbsp;&nbsp;
-                        <label for="ck_child">包含子栏目:</label>
-                        <input type="checkbox" id="ck_child" />
+                        &nbsp;
+
+                     
+                        <input type="checkbox" id="ck_child" name="ck_child" style="opacity: 1; filter: alpha(opacity=100); width: 10px; height: 10px;"/>
+                        <label for="ck_child" title="显示子栏目的文档">子栏目</label>
+
+                        &nbsp;
                         &nbsp;
                         <input type="text" class="ui-box w80 small-search-box" id="search_key"/>
                         <span class="ui-button w50 small-button" id="btn_search">
@@ -45,8 +49,9 @@
                         </span>
 
                         <a href="javascript:;" class="fn" fn="create">$icon(create)添加</a>
-                        
+
                     </div>
+
                     <div class="main" id="dg"></div>
                     <div class="ui-table-meta" id="pager">共-条</div>
                 </td>
@@ -136,7 +141,7 @@
             include_child:false
         };
 
-        pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 46);
+        pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 66);
         pagerPram.include_child = j6.$('ck_child').checked;
 
         var _dg = j6.grid('dg', {
