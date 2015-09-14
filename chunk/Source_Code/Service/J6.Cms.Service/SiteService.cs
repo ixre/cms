@@ -419,11 +419,11 @@ namespace J6.Cms.Service
         }
 
 
-        public void CloneCategory(int fromSiteId, int toSiteId, int fromCid, int toCid,
+        public void CloneCategory(int sourceSiteId, int targetSiteId, int fromCid, int toCid,
             bool includeChild,bool includeExtend,bool includeTemplateBind)
         {
-            ISite fromSite = this._resp.GetSiteById(fromSiteId);
-            ISite toSite = this._resp.GetSiteById(toSiteId);
+            ISite fromSite = this._resp.GetSiteById(sourceSiteId);
+            ISite toSite = this._resp.GetSiteById(targetSiteId);
             if (fromSite == null || toSite == null)
             {
                 throw new ArgumentException("no such site");
@@ -433,7 +433,7 @@ namespace J6.Cms.Service
             ICategory fromCate = fromSite.GetCategory(fromCid);
 
 
-           int newCateId =  CloneCategoryDetails(toSiteId, fromCate, toCate.Lft, includeExtend, includeTemplateBind);
+           int newCateId =  CloneCategoryDetails(targetSiteId, fromCate, toCate.Lft, includeExtend, includeTemplateBind);
 
             if (includeChild)
             {

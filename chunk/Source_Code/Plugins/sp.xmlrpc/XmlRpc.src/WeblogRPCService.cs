@@ -427,7 +427,7 @@ namespace sp.xmlrpc.XmlRpc.src
 
                 DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(
                     this.siteId, null,
-                    user.IsMaster?0: user.Id, flags, null,
+                    user.IsMaster?0: user.Id,false, flags,null, null,
                     false, numberOfPosts, 1, out totalRecords, out pages);
 
                 //如果返回的数量没有制定数多

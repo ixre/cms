@@ -52,7 +52,7 @@
                             <span class="icon"></span>菜单
                             <div class="drop">
                                 <a href="javascript:;" class="fn item" fn="create">$icon(create)新建文档</a>
-                                <a href="javascript:;" class="fn item" fn="create">$icon(create)发布至其他站点</a>
+                                <a href="javascript:;" class="fn item" fn="pubToSite">$icon(create)发布至其他站点</a>
                                 <a href="javascript:;" class="fn item last" onclick="menu.refresh()">$icon(refresh)刷新列表</a>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="main" id="dg"></div>
-                    <div class="ui-table-meta" id="pager">共-条</div>
+                    <div class="ui-table-meta" id="list-pager">共-条</div>
                 </td>
                 <td valign="top">
                     <div id="pl" class="relative autoHeight autoScroll"></div>
@@ -106,7 +106,7 @@
             <span class="index">{index}</span>
             <span title="{title}">{title}</span>
             <br>
-            <input class="ck" type="checkbox" style="border:none">
+            <input class="ck" type="checkbox" style="border:none" value="{id}">
             <span class="time">{publish}</span>
             &nbsp;&nbsp;浏览:<em> {viewCount}</em> 次
         </div>
@@ -145,6 +145,7 @@
                 {
                     field: 'title', title: '名称',  formatter: function (val, row, index) {
                         return j6.template(itemTemplate, {
+                            id:row.id,
                             index: (index + 1),
                             title: val.length > 25 ? val.substring(0, 25) + '...' : val,
                             publish: row.createDate.replace('T', ' '),
@@ -166,8 +167,8 @@
                 });
 
                 j6.each(tds, function (i, e) {
-                    j6.contextmenu.bind(e, null, function (menu) {
 
+                    j6.contextmenu.bind(e, null, function (menu) {
                         menu.innerHTML = j6.template(tplHtml, { id: e.parentNode.getAttribute('data-indent') });
                     });
                 });
@@ -182,11 +183,14 @@
 
 
                 //加载分页
-                this.panel.nextSibling.innerHTML = data.pager;
+                j6.$('list-pager').innerHTML = data.pager;
 
                 if (j6.$('pl').innerHTML == '' && data.rows.length != 0) {
                     j6.load2('pl', 'archive', 'view', 'archive.id=' + data.rows[0].id);
                 }
+
+                // 重新绑定事件
+                reBindCkEvent();
             }
         });
 
@@ -213,6 +217,59 @@
         Fn.create = function () {
             j6.load2('pl', 'archive', 'create', 'category.id=${category_id}', initEditor);
         };
+
+    
+
+        // 全选
+        var ckList = [];
+        Fn.pubToSite = function () {
+            if (ckList.length === 0) {
+                alert('请先选择文档');
+            } else {
+                j6.load2('pl', 'assistant', 'pub_archive', 'source_site=${site_id}&id_list='+ckList.join(','));
+            }
+        };
+
+        var fullCk = j6.$('ck_full_select');
+        function reBindCkEvent() {
+            ckList = [];
+            var cks = j6.dom.getsByClass(document.body, 'ck');
+            j6.each(cks, function(i, e) {
+                e.onchange = function () {
+                    ckList = getCkList();
+                    if (window.pubList) window.pubList = ckList;
+                };
+            });
+        }
+
+        function getCkList() {
+            var list = [];
+            var cks = j6.dom.getsByClass(document.body, 'ck');
+            j6.each(cks, function (i, e) {
+                if (e.checked) {
+                    list.push(e.value);
+                }
+            });
+            return list;
+        }
+
+        fullCk.onchange = function () {
+            var isCheckd = this.checked;
+            var cks = j6.dom.getsByClass(document.body, 'ck');
+            j6.each(cks, function (i, e) {
+                if (e.checked !== isCheckd) {
+                    if (isCheckd) {
+                        e.setAttribute('checked', 'checked');
+                    } else {
+                        e.removeAttribute('checked');
+                    }
+                }
+            });
+            ckList = getCkList();
+            if (window.pubList)window.pubList = ckList;
+        };
+
+
 
         var menu = {
             refresh: function () {

@@ -502,7 +502,7 @@ namespace J6.Cms.ServiceRepository
             //根据站点编号 * 1000 递增，为了更好的将各个站点数据分离开
             //todo: 如有空余的应该填充
             int categoryId = this.categoryDal.GetMaxCategoryId(siteId);
-            if (categoryId == 0)
+            if (siteId > 1 && categoryId == 0)
             {
                 return siteId*1000;
             }

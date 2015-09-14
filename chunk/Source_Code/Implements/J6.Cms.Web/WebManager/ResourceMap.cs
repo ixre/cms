@@ -114,6 +114,7 @@ namespace J6.Cms.WebManager
 
         Assistant_Category_Clone,
         Assistant_Local_Patch,
+        Assistant_Archive_Clone_Pub
     }
 
 

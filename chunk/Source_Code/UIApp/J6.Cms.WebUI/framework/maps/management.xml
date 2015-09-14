@@ -44,6 +44,8 @@
     <map for="Template_Edit" to="mui/html/template/template_edit.html"/>
     <map for="Template_EditFile" to="mui/html/template/template_editfile.html"/>
     <map for="Assistant_Category_Clone" to="mui/html/assistant/category_clone.html"/>
+    <map for="Assistant_Archive_Clone_Pub" to="mui/html/assistant/archive_clone_pub.html"/>
     <map for="Assistant_Local_Patch" to="mui/html/assistant/local_patch.html"/>
+    
   </group>
 </maps>

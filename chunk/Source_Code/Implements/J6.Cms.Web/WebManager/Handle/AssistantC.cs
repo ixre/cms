@@ -18,8 +18,8 @@ namespace J6.Cms.Web.WebManager.Handle
     {
         public string Category_Clone_GET()
         {
-            int fromSiteId;
-            int.TryParse(Request["target_site"], out fromSiteId);
+            int targetSiteId;
+            int.TryParse(Request["target_site"], out targetSiteId);
 
             String siteOpt;
             SiteDto targetSite = default(SiteDto);
@@ -27,7 +27,7 @@ namespace J6.Cms.Web.WebManager.Handle
             IDictionary<string, string> dict = new Dictionary<string, string>();
             foreach (var e in SiteCacheManager.GetAllSites())
             {
-                if (e.SiteId != fromSiteId)
+                if (e.SiteId != targetSiteId)
                 {
                     dict.Add(e.SiteId.ToString(), e.Name);
                 }
@@ -47,27 +47,27 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public string Category_Clone_POST()
         {
-            int fromSiteId, toSiteId, fromCid, toCid;
-            int.TryParse(Request["fromSiteId"], out fromSiteId);
-            int.TryParse(Request["toSiteId"], out toSiteId);
+            int sourceSiteId, targetSiteId, fromCid, toCid;
+            int.TryParse(Request["sourceSiteId"], out sourceSiteId);
+            int.TryParse(Request["targetSiteId"], out targetSiteId);
             int.TryParse(Request["fromCid"], out fromCid);
             int.TryParse(Request["toCid"], out toCid);
             bool includeChild = Request["includeChild"] == "true";
             bool includeExtend = Request["includeExtend"] == "true";
             bool includeTempateBind = Request["includeTemplateBind"] == "true";
 
-            if (fromSiteId == 0 || toSiteId == 0 || fromCid == 0 || toCid == 0)
+            if (sourceSiteId == 0 || targetSiteId == 0 || fromCid == 0 || toCid == 0)
             {
                 return base.ReturnError("参数不正确");
             }
-            else if (toSiteId != this.CurrentSite.SiteId)
+            else if (targetSiteId != this.CurrentSite.SiteId)
             {
                 return base.ReturnError("非法操作");
             }
 
             try
             {
-                ServiceCall.Instance.SiteService.CloneCategory(fromSiteId, toSiteId, fromCid, toCid, 
+                ServiceCall.Instance.SiteService.CloneCategory(sourceSiteId, targetSiteId, fromCid, toCid, 
                     includeChild,includeExtend,includeTempateBind);
                 return base.ReturnSuccess();
             }
@@ -76,6 +76,69 @@ namespace J6.Cms.Web.WebManager.Handle
                 return base.ReturnError(exc.Message);
             }
         }
+
+        public string Pub_Archive_GET()
+        {
+            int sourceSiteId;
+            int.TryParse(Request["source_site"], out sourceSiteId);
+
+            String siteOpt;
+            SiteDto sourceSite = default(SiteDto);
+
+            IDictionary<string, string> dict = new Dictionary<string, string>();
+            foreach (var e in SiteCacheManager.GetAllSites())
+            {
+                if (e.SiteId != sourceSiteId)
+                {
+                    dict.Add(e.SiteId.ToString(), e.Name);
+                }
+                else
+                {
+                    sourceSite = e;
+                }
+            }
+            siteOpt = Helper.GetOptions(dict, null);
+
+            ViewData["site_opt"] = siteOpt;
+            ViewData["source_name"] = sourceSite.Name;
+            ViewData["source_site"] = sourceSite.SiteId;
+
+            return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Assistant_Archive_Clone_Pub));
+        }
+
+
+        public string Category_Clone1_POST()
+        {
+            int sourceSiteId, targetSiteId, fromCid, toCid;
+            int.TryParse(Request["sourceSiteId"], out sourceSiteId);
+            int.TryParse(Request["targetSiteId"], out targetSiteId);
+            int.TryParse(Request["fromCid"], out fromCid);
+            int.TryParse(Request["toCid"], out toCid);
+            bool includeChild = Request["includeChild"] == "true";
+            bool includeExtend = Request["includeExtend"] == "true";
+            bool includeTempateBind = Request["includeTemplateBind"] == "true";
+
+            if (sourceSiteId == 0 || targetSiteId == 0 || fromCid == 0 || toCid == 0)
+            {
+                return base.ReturnError("参数不正确");
+            }
+            else if (targetSiteId != this.CurrentSite.SiteId)
+            {
+                return base.ReturnError("非法操作");
+            }
+
+            try
+            {
+                ServiceCall.Instance.SiteService.CloneCategory(sourceSiteId, targetSiteId, fromCid, toCid,
+                    includeChild, includeExtend, includeTempateBind);
+                return base.ReturnSuccess();
+            }
+            catch (Exception exc)
+            {
+                return base.ReturnError(exc.Message);
+            }
+        }
+
         #region 系统补丁
 
         /// <summary>

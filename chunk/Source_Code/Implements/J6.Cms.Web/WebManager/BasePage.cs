@@ -70,7 +70,7 @@ namespace J6.Cms.WebManager
 
         internal static string CompressHtml(string html)
         {
-           // return html;
+           return html;
             html = Regex.Replace(html, ">(\\s)+<", "><");
 
             //替换 //单行注释
@@ -286,7 +286,7 @@ namespace J6.Cms.WebManager
                 sb.Append("{'result':false,'message':'");
                 if (message != null)
                 {
-                    sb.Append(message.Replace("'", "\\'"));
+                    sb.Append(message.Replace("'", "\\'").Replace("\\n",""));
                 }
                 sb.Append("'}");
                 this.Response.ContentType = "application/json";

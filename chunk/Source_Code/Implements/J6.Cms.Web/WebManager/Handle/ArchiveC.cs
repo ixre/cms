@@ -614,6 +614,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             ViewData["category_id"] = categoryId ?? String.Empty;
             ViewData["publisher_id"] = publisherId;
+            ViewData["site_id"] = this.CurrentSite.SiteId;
 
            return  base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_List));
         }
