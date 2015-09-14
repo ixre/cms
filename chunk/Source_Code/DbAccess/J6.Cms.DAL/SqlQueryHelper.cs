@@ -23,23 +23,6 @@ namespace J6.Cms.Dal
                     switch (m.Groups[1].Value.ToUpper())
                     {
                         case "PREFIX_": return CmsDataBase.TablePrefix;
-                        /*
-                        case "SITE":
-                            if(j6.MultSiteVersion)
-                            {
-                                Site site = Cms.Context.CurrentSite;
-                                return " siteid=" + site.SiteId.ToString();
-                            }
-                            return null;
-
-                        case "ANDSITE":
-                            if(j6.MultSiteVersion)
-                            {
-                                Site site = Cms.Context.CurrentSite;
-                                return " AND siteid=" + site.SiteId.ToString();
-                            }
-                            return null;
-                        */
                     }
                     return string.Empty;
                 });

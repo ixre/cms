@@ -85,14 +85,14 @@ namespace J6.Cms.Dal
         /// <returns></returns>
         public bool DeleteSelfAndChildCategoy(int siteId, int lft,int rgt)
         {
-            base.ExecuteNonQuery(
-                 SqlQueryHelper.Create(DbSql.Category_DeleteByLft,
-                    new object[,]{
-               {"@siteId", siteId},
-               {"@lft", lft},
-               {"@rgt",rgt}
-                    }));
-            return true;
+           return base.ExecuteNonQuery(
+                SqlQueryHelper.Create(DbSql.Category_DeleteByLft,
+                    new object[,]
+                    {
+                        {"@siteId", siteId},
+                        {"@lft", lft},
+                        {"@rgt", rgt}
+                    })) >= 1;
         }
 
 

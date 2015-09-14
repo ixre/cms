@@ -37,7 +37,7 @@ function showMsg(msg, callback, second) {
         win.xhrGate = win.document.getElementById('xhr_gate_layout');
     }
 
-    var mw = msg.replace(/<[^.]+>/ig, '').length * 12 + 10;
+    var mw = msg.replace(/<[^>]+>/ig, '').length * 12 + 10;
     win.xhrGate.innerHTML = msg;
     win.xhrGate.style.width = mw + 'px';
 

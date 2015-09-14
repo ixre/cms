@@ -13,7 +13,6 @@ using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.Domain.Interface.Site.Template;
 using J6.Cms.Domain.Interface.User;
 using J6.Cms.Infrastructure;
-using J6.Cms.Infrastructure.Domain;
 using J6.Cms.Infrastructure.Tree;
 using J6.DevFw.Framework.Extensions;
 
@@ -560,7 +559,11 @@ namespace J6.Cms.Service
                             ref shouldReSave);
                     }
 
-                    if (shouldReSave)
+                    if (isFailed)
+                    {
+                        this._archiveRep.DeleteArchive(targetSiteId, tarArchive.Id);
+                    }
+                    else if (shouldReSave)
                     {
                         tarArchive.Save();
                     }

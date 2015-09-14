@@ -629,8 +629,12 @@ namespace J6.Cms.ServiceRepository
                 //tb.RemoveBind(TemplateBindType.CategoryTemplate, lft.ToString());
                 //tb.RemoveBind(TemplateBindType.CategoryArchiveTemplate, lft.ToString());
 
+
+
             }
             //return result;
+
+            RepositoryDataCache._categories = null;
 
         }
 

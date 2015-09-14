@@ -337,7 +337,6 @@ namespace J6.Cms.Domain.Implement.Site
            }
 
            this._categoryRep.DeleteCategory(this.Id, lft, category.Rgt);
-           this.Categories.Remove(category);
 
            foreach (ITemplateBind bind in category.Templates)
            {
