@@ -893,12 +893,14 @@ namespace J6.Cms.Dal
 
         public int GetMaxSortNumber(int siteId)
         {
-            return int.Parse(base.ExecuteScalar(
+            object obj = base.ExecuteScalar(
                 SqlQueryHelper.Format(DbSql.ArchiveGetMaxSortNumber,
                     new object[,]
                     {
                         {"@siteId", siteId},
-                    })).ToString());
+                    })).ToString();
+            if (obj == DBNull.Value || (string) obj =="") return 0;
+            return int.Parse(obj.ToString());
         }
 
         public void SaveSortNumber(int archiveId, int sortNumber)

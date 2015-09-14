@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>栏目助手</title>
+    <title>文档跨站发布</title>
     $css()
    
 </head>
@@ -45,9 +45,10 @@
             padding: 2em;
             border-bottom: solid 1px #E0E0E0;
             box-shadow: 0 1px 0 #FFF;
+            background: #F5F5F5;
         }
     </style>
-<div class="note"><span>使用此工具，可以将其他站点的栏目拷贝到当前站点,</span></div>
+<div class="note"><span>使用此工具，可以选中的文档发布到其他站点</span></div>
  <div>
         <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
@@ -65,6 +66,10 @@
                         <div class="true" id="to_tree"></div>
                     </div>
                 </td>
+                <td valign="top">
+                    <strong>消息框</strong><br />
+                    <textarea id="msg" rows="8" class="ui-box" style="width: 80%; font-size: 12px; line-height: 16px;">等待发布...</textarea>
+                </td>
             </tr>
         </table>
 </div>
@@ -73,14 +78,14 @@
 <div class="ctrl-panel">
 
     <div>
-        <input type="checkbox" id="ck_with_extend" checked="checked" /><label for="ck_with_extend">包括扩展</label>
+        <input type="checkbox" id="ck_with_extend" checked="checked" /><label for="ck_with_extend">包括扩展数据</label>
         <input type="checkbox" id="ck_with_templateBind" checked="checked" /><label for="ck_with_templateBind">包含模版绑定</label>
     </div>
 
     <br/>
     <span class="ui-button w150" id="btn_clone">
         <span class="button-inner">
-            <span class="button-txt">拷贝栏目</span>
+            <span class="button-txt">开始发布</span>
             <a href="javascript:;"></a>
         </span>
     </span>
@@ -143,7 +148,7 @@ $js()
         if (toNode.id == undefined) {
             tipMsg.innerHTML = '目标栏目未选择';
         } else {
-            tipMsg.innerHTML = j6.template('即将拷贝到<b>{tName}</b>下', {
+            tipMsg.innerHTML = j6.template('目标发布栏目：<b>{tName}</b>', {
                 tName: toNode.name
             });
         }
@@ -166,13 +171,11 @@ $js()
                 includeExtend: j6.$('ck_with_extend').checked,
                 includeTemplateBind: j6.$('ck_with_templateBind').checked
             };
-            j6.xhr.jsonPost(location.href, data,function(j) {
+            j6.xhr.jsonPost('${post_url}', data,function(j) {
                 if (j.result) {
-                    showMsg2('操作成功', function() {
-                        loadCategoryTree();
-                    });
+                    showMsg2('操作成功');
                 } else {
-                    showErr(j.message);
+                    j6.$('msg').innerHTML = j.message;
                 }
             });
         }

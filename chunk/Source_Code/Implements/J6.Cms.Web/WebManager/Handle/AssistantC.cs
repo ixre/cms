@@ -103,6 +103,7 @@ namespace J6.Cms.Web.WebManager.Handle
             ViewData["source_name"] = sourceSite.Name;
             ViewData["source_site"] = sourceSite.SiteId;
             ViewData["id_array"] = Request["id_array"] ?? "";
+            ViewData["post_url"] = Request.Url.PathAndQuery;
 
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Assistant_Archive_Clone_Pub));
         }
@@ -125,6 +126,21 @@ namespace J6.Cms.Web.WebManager.Handle
             }
 
             int[] idArray = Array.ConvertAll(idArrParam.Split(','), a =>int.Parse(a));
+
+
+             IDictionary<int,string> errs = ServiceCall.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,
+                idArray, includeExtend, includeTempateBind);
+            if (errs.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var err in errs)
+                {
+                    sb.Append(err.Value.Replace("<break>", "\\n")).Append("\\n");
+                }
+                return "{result:false,message:'" + sb.ToString() + "'}";
+            }
+            return base.ReturnSuccess();
+
             try
             {
                 ServiceCall.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,

@@ -545,7 +545,9 @@ namespace J6.Cms.Service
                 shouldReSave = false;
                 if (tarArchive.Save() > 0)
                 {
-                    if (includeTempateBind && !string.IsNullOrEmpty(srcArchive.Template.TplPath))
+                    if (includeTempateBind && srcArchive.Template!= null && 
+                        srcArchive.Template.BindType == TemplateBindType.ArchiveTemplate &&
+                        !string.IsNullOrEmpty(srcArchive.Template.TplPath))
                     {
                         tarArchive.SetTemplatePath(srcArchive.Template.TplPath);
                         shouldReSave = true;
@@ -603,7 +605,7 @@ namespace J6.Cms.Service
                         }
                         else
                         {
-                            errDict[tarArchive.Id] = "文档\"" + tarArchive.Title + "\"" + message;
+                            errDict[tarArchive.Id] = "发布文档\"" + tarArchive.Title + "\"不成功！原因：" + message;
                         }
                         isFailed = true;
                     }
