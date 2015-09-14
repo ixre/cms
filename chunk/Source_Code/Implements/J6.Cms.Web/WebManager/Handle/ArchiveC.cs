@@ -223,102 +223,6 @@ namespace J6.Cms.Web.WebManager.Handle
 
             int categoryId = archive.Category.Id;
 
-
-
-
-            #region 旧的
-
-            //获取上次发布的栏目
-            //Category category = CmsLogic.Category.Get(a => a.ID == archive.Category.ID);
-
-            //if (base.CompareSite(category.SiteId)) return;
-
-            //bool categoryIsNull = category == null;
-            /*
-            if (!categoryIsNull)
-            {
-
-                module = CmsLogic.Module.GetModule(category.ModuleID);
-
-                //=============  拼接模块的属性值 ==============//
-
-                StringBuilder sb = new StringBuilder(50);
-                IList<DataExtend> extends = null;// new List<DataExtend>(CmsLogic.DataExtend.GetExtendsByModule(module));
-
-                if (extends.Count > 0)
-                {
-
-                    //========= 统计tab =============//
-                    sb.Append("<ul class=\"dataExtend_tabs\">");
-                    foreach (DataExtend e in extends)
-                    {
-                        sb.Append("<li><span>").Append(e.Name).Append("</span></li>");
-                    }
-                    sb.Append("</ul>");
-
-                    extendItemsHtml = sb.ToString();
-
-                    sb.Capacity = 1000;
-                    sb.Remove(0, sb.Length);
-
-
-                    //======== 生成值 =============//
-
-                    IEnumerable<DataExtendAttr> attrs;
-                    IDictionary<string, string> extendFields = null;// CmsLogic.DataExtend.GetExtendFiledDictionary(archive.ID);
-                    string attrValue;
-
-                    foreach (DataExtend e in extends)
-                    {
-                        sb.Append("<div class=\"dataextend_item\">");
-
-                        attrs = CmsLogic.DataExtend.GetExtendAttrs(e.ID);
-
-                        foreach (DataExtendAttr p in attrs)
-                        {
-
-
-                            attrValue = extendFields.ContainsKey(p.AttrName) ? extendFields[p.AttrName] : p.AttrVal;
-
-                            sb.Append("<dl><dt>").Append(p.AttrName).Append("：</dt><dd>");
-
-                            if (p.AttrType == ((int)PropertyUI.Text).ToString())
-                            {
-                                sb.Append("<input type=\"text\" class=\"tb_normal\" name=\"extend_").Append(p.ID.ToString())
-                                    .Append("\" value=\"").Append(attrValue).Append("\"/>");
-                            }
-                            else if (p.AttrType == ((int)PropertyUI.Upload).ToString())
-                            {
-                                sb.Append("<input type=\"text\" disabled=\"disabled\" class=\"tb_normal\" id=\"extend_").Append(p.ID.ToString()).Append("\" name=\"extend_").Append(p.ID.ToString())
-                                    .Append("\" value=\"").Append(attrValue).Append("\"/><span id=\"upload_")
-                                    .Append(p.ID.ToString()).Append("\">选择文件</span>")
-                                    .Append("<script type=\"text/javascript\">j6.propertyUpload(")
-                                    .Append("'upload_").Append(p.ID.ToString()).Append("','extend_").Append(p.ID.ToString()).Append("');</script>");
-                            }
-
-
-                            sb.Append("</dd></dl>");
-
-                            //<p><span class="txt">标签：</span>
-                            //    <span class="input"><input type="text" name="tags" size="30"/></span>
-                             //   <span class="msg"></span></p>
-                            
-                        }
-
-
-                        sb.Append("</div>");
-                    }
-
-                    extendFieldsHtml = sb.ToString();
-                }
-
-                // extendFieldsHtml = "<div style=\"color:red;padding:20px;\">所选栏目模块不包含任何自定义属性，如需添加请到模块管理-》属性设置</div>";
-
-            }
-*/
-
-            #endregion
-
             //=============  拼接模块的属性值 ==============//
 
             StringBuilder sb = new StringBuilder(50);
@@ -456,12 +360,12 @@ namespace J6.Cms.Web.WebManager.Handle
             switch (uiType)
             {
                 case PropertyUI.Text:
-                    sb.Append("<input type=\"text\" class=\"w300 box\" field=\"extend_").Append(field.Id.ToString())
+                    sb.Append("<input type=\"text\" class=\"w300 ui-box\" field=\"extend_").Append(field.Id.ToString())
                         .Append("\" value=\"").Append(attrValue).Append("\"/>");
                     break;
 
                 case PropertyUI.MultLine:
-                    sb.Append("<textarea class=\"w300 box\" field=\"extend_").Append(field.Id.ToString())
+                    sb.Append("<textarea class=\"w300 ui-box\" field=\"extend_").Append(field.Id.ToString())
                         .Append("\">").Append(attrValue).Append("</textarea>");
                     break;
 
@@ -483,8 +387,6 @@ namespace J6.Cms.Web.WebManager.Handle
                         .Append("');</script>");
                     break;
             }
-
-
             sb.Append("</dd></dl>");
         }
 

@@ -198,7 +198,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
                         if (i++ != 0) strBuilder.Append("、");
                         strBuilder.Append(extend.Name);
                     }
-                    strBuilder.Append("正使用中，无法删除！");
+                    strBuilder.Append("已使用该扩展，请先清理后再删除绑定！");
 
                     throw new Exception(strBuilder.ToString());
                 }

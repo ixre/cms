@@ -545,7 +545,7 @@ namespace J6.Cms.Service
                 shouldReSave = false;
                 if (tarArchive.Save() > 0)
                 {
-                    if (includeTempateBind && srcArchive.Template!= null && 
+                    if (includeTempateBind && srcArchive.Template != null &&
                         srcArchive.Template.BindType == TemplateBindType.ArchiveTemplate &&
                         !string.IsNullOrEmpty(srcArchive.Template.TplPath))
                     {
@@ -591,12 +591,27 @@ namespace J6.Cms.Service
                 IExtendField tarField;
                 tarArchive.ExtendValues = new List<IExtendValue>(extendCount);
 
+                // category extend
+                IList<IExtendField> cflist = tarArchive.Category.ExtendFields;
+                IDictionary<string, IExtendField> cateFields = new Dictionary<string, IExtendField>();
+                foreach (IExtendField f in cflist)
+                {
+                    cateFields.Add(f.Name, f);
+                }
+
                 foreach (IExtendValue extendValue in srcArchive.ExtendValues)
                 {
                     if (String.IsNullOrEmpty(extendValue.Value)) continue;
                     field = extendValue.Field;
-                    tarField = this._extendRep.GetExtendByName(targetSiteId, field.Name, field.Type);
-                    if (tarField == null)
+                    if (cateFields.ContainsKey(field.Name))
+                    {
+                        // tarField = this._extendRep.GetExtendByName(targetSiteId, field.Name, field.Type);
+                        tarField = cateFields[field.Name];
+                        field.Id = tarField.Id;
+                        tarArchive.ExtendValues.Add(this._extendRep.CreateExtendValue(tarField, -1, extendValue.Value));
+                        shouldReSave = true;
+                    }
+                    else
                     {
                         string message = " <break>[1001]：扩展字段\"" + field.Name + "\"不存在";
                         if (errDict.ContainsKey(tarArchive.Id))
@@ -608,12 +623,6 @@ namespace J6.Cms.Service
                             errDict[tarArchive.Id] = "发布文档\"" + tarArchive.Title + "\"不成功！原因：" + message;
                         }
                         isFailed = true;
-                    }
-                    else
-                    {
-                        field.Id = tarField.Id;
-                        tarArchive.ExtendValues.Add(this._extendRep.CreateExtendValue(tarField, -1, extendValue.Value));
-                        shouldReSave = true;
                     }
                 }
             }

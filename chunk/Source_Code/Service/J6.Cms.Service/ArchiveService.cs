@@ -40,7 +40,6 @@ namespace J6.Cms.Service
             if (archive == null) return default(ArchiveDto);
 
             return ArchiveDto.ConvertFrom(archive, true, true, true);
-
         }
 
 

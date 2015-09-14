@@ -28,18 +28,19 @@ function showMsg(msg, callback, second) {
     var win = window.parent || window;
     if (!win.xhrCt) {
         win.xhrCt = document.createElement("DIV");
-        win.xhrCt.className = 'xhr-container';
-        var w = j6.screen.width();
-        var mw = msg.replace(/<[^.]+>/ig, '').length * 14 + 52;
-        win.xhrCt.innerHTML = j6.template('<div class="gate" style="width:{w}px;height:{h}px"></div><div class="msg" id="xhr_gate_layout" style="left:{l}px;"></div>', {
-            w: w,
-            h: j6.screen.height(),
-            l: (w - mw) / 2
+        win.xhrCt.className = 'xhr-container hidden';
+        win.xhrCt.innerHTML = j6.template('<div class="gate" style="width:{w}px;height:{h}px"></div><div class="msg" id="xhr_gate_layout"></div>', {
+            w: j6.screen.width(),
+            h: j6.screen.height()
         });
         win.document.body.appendChild(win.xhrCt);
         win.xhrGate = win.document.getElementById('xhr_gate_layout');
     }
+
+    var mw = msg.replace(/<[^.]+>/ig, '').length * 12 + 10;
     win.xhrGate.innerHTML = msg;
+    win.xhrGate.style.width = mw + 'px';
+
     win.xhrCt.className = 'xhr-container';
     if (second) {
         setTimeout(function() {
