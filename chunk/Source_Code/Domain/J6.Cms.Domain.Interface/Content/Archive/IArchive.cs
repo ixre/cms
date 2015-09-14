@@ -73,10 +73,10 @@ namespace J6.Cms.Domain.Interface.Content.Archive
         ITemplateBind Template {get; set;}
 
         /// <summary>
-        /// 更新模板绑定
+        /// 设置模板
         /// </summary>
         /// <param name="templatePath"></param>
-        void UpdateTemplateBind(string templatePath);
+        void SetTemplatePath(string templatePath);
 
         /// <summary>
         /// 扩展数据

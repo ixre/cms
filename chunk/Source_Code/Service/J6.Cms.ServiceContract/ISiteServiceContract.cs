@@ -229,6 +229,28 @@ namespace J6.Cms.ServiceContract
 
         IList<RoleValue> GetAppRoles(int siteId);
 
+        /// <summary>
+        /// 克隆栏目
+        /// </summary>
+        /// <param name="fromSiteId"></param>
+        /// <param name="toSiteId"></param>
+        /// <param name="fromCid"></param>
+        /// <param name="toCid"></param>
+        /// <param name="includeChild"></param>
+        /// <param name="includeExtend"></param>
+        /// <param name="includeTemplateBind"></param>
+        //todo: 新建extend设计为单独同步
         void CloneCategory(int fromSiteId, int toSiteId, int fromCid, int toCid, bool includeChild, bool includeExtend, bool includeTemplateBind);
+
+        /// <summary>
+        /// 克隆文档
+        /// </summary>
+        /// <param name="sourceSiteId"></param>
+        /// <param name="targetSiteId"></param>
+        /// <param name="toCid"></param>
+        /// <param name="archiveIdArray"></param>
+        /// <param name="includeExtend"></param>
+        /// <param name="includeTempateBind"></param>
+        IDictionary<int, string> ClonePubArchive(int sourceSiteId, int targetSiteId, int toCid, int[] archiveIdArray, bool includeExtend, bool includeTempateBind);
     }
 }

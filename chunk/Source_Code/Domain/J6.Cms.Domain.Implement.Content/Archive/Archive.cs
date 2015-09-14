@@ -132,7 +132,7 @@ namespace J6.Cms.Domain.Implement.Content.Archive
             }
         }
 
-        public void UpdateTemplateBind(string templatePath)
+        public void SetTemplatePath(string templatePath)
         {
             bool templateIsNull = String.IsNullOrEmpty(templatePath);
 

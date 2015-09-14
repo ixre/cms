@@ -7,7 +7,7 @@ namespace J6.Cms.Infrastructure
     public delegate T2 BinarySearchGetValue<T,T2>(T t);
 
     /// <summary>
-    /// 二分算法
+    /// 二分算法,  .NET已经包含　Array.BinarySearch
     /// </summary>
     public static class BinarySearch
     {

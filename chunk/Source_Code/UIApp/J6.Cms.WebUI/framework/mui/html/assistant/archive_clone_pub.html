@@ -91,19 +91,19 @@
 $js()
 <script type="text/javascript">
     var siteId = ${source_site};
-    var toSiteId = 0;
-    var idList = '${id_list}'.split(',');
+    var targetSiteId = 0;
+    var idArr = '${id_array}'.split(',');
     var toTreePanel = j6.$('to_tree');
     var tipMsg = j6.$('tip-msg');
     var toNode = {};
 
     function pubList(d) {
-        idList = d;
+        idArr = d;
     }
    j6.$('site_selector').onchange = function() {
-       var toSiteId = this.value;
-       if (toSiteId !== '') {
-            loadCategoryTree(toSiteId,toTreePanel);
+       var targetSiteId = this.value;
+       if (targetSiteId !== '') {
+            loadCategoryTree(targetSiteId,toTreePanel);
         }
     };
 
@@ -111,7 +111,7 @@ $js()
     //加载栏目树
    function loadCategoryTree(siteId, panel) {
         toNode = {};
-        toSiteId = siteId;
+        targetSiteId = siteId;
         reqTree(siteId, 'false',function(json) {
             j6.tree.load(panel, json, '/framework/assets/tree/', function(a, d) {
                 treeChecked(true,a,d);
@@ -160,9 +160,9 @@ $js()
         if (toNode.id != undefined) {
             var data = {
                 sourceSiteId: siteId,
-                toSiteId: siteId,
+                targetSiteId: targetSiteId,
                 toCid: toNode.id,
-                idList : idList.join(','),
+                idArr : idArr.join(','),
                 includeExtend: j6.$('ck_with_extend').checked,
                 includeTemplateBind: j6.$('ck_with_templateBind').checked
             };

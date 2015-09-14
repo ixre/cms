@@ -2,15 +2,18 @@
 using J6.Cms.ServiceContract;
 using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Text;
-using System.Xml;
 using J6.Cms.Domain.Interface;
+using J6.Cms.Domain.Interface.Content.Archive;
 using J6.Cms.Domain.Interface.Site;
 using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Extend;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.Domain.Interface.Site.Template;
 using J6.Cms.Domain.Interface.User;
+using J6.Cms.Infrastructure;
+using J6.Cms.Infrastructure.Domain;
 using J6.Cms.Infrastructure.Tree;
 using J6.DevFw.Framework.Extensions;
 
@@ -18,19 +21,22 @@ namespace J6.Cms.Service
 {
     public class SiteService : ISiteServiceContract
     {
-        private ISiteRepository _resp;
-        private IExtendFieldRepository _extendResp;
-        private ICategoryRepository _categoryRep;
-        private ITemplateRepository _tempRep;
+        private readonly ISiteRepository _resp;
+        private readonly IExtendFieldRepository _extendRep;
+        private readonly ICategoryRepository _categoryRep;
+        private readonly ITemplateRepository _tempRep;
+        private IArchiveRepository _archiveRep;
 
         public SiteService(ISiteRepository resp,
             ICategoryRepository categoryRep,
+            IArchiveRepository archiveRep,
             IExtendFieldRepository extendFieldPository,
             ITemplateRepository tempRep)
         {
             this._resp = resp;
-            this._extendResp = extendFieldPository;
+            this._extendRep = extendFieldPository;
             this._categoryRep = categoryRep;
+            this._archiveRep = archiveRep;
             this._tempRep = tempRep;
         }
 
@@ -50,7 +56,7 @@ namespace J6.Cms.Service
                 site = _resp.CreateSite(siteDto.SiteId, siteDto.Name);
             }
 
-            SiteDto.CopyTo(siteDto,site);
+            SiteDto.CopyTo(siteDto, site);
             return site.Save();
         }
 
@@ -121,7 +127,7 @@ namespace J6.Cms.Service
             if (site == null)
                 throw new Exception("站点不存在");
 
-            IExtendField field = this._extendResp.CreateExtendField(dto.Id, dto.Name);
+            IExtendField field = this._extendRep.CreateExtendField(dto.Id, dto.Name);
             field.CloneData(dto);
             return site.GetExtendManager().SaveExtendField(field);
         }
@@ -301,7 +307,7 @@ namespace J6.Cms.Service
         public string GetCategorySitemapHtml(int siteId, string categoryTag, string split, string linkFormat)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            int rootLft =  site.RootCategory.Lft;
+            int rootLft = site.RootCategory.Lft;
             ICategory category = site.GetCategoryByTag(categoryTag);
 
             string html = "";
@@ -420,7 +426,7 @@ namespace J6.Cms.Service
 
 
         public void CloneCategory(int sourceSiteId, int targetSiteId, int fromCid, int toCid,
-            bool includeChild,bool includeExtend,bool includeTemplateBind)
+            bool includeChild, bool includeExtend, bool includeTemplateBind)
         {
             ISite fromSite = this._resp.GetSiteById(sourceSiteId);
             ISite toSite = this._resp.GetSiteById(targetSiteId);
@@ -433,21 +439,21 @@ namespace J6.Cms.Service
             ICategory fromCate = fromSite.GetCategory(fromCid);
 
 
-           int newCateId =  CloneCategoryDetails(targetSiteId, fromCate, toCate.Lft, includeExtend, includeTemplateBind);
+            int newCateId = CloneCategoryDetails(targetSiteId, fromCate, toCate.Lft, includeExtend, includeTemplateBind);
 
             if (includeChild)
             {
-                ItrCloneCate(toSite,fromCate,newCateId,includeExtend,includeTemplateBind);
+                ItrCloneCate(toSite, fromCate, newCateId, includeExtend, includeTemplateBind);
             }
         }
 
-        private void ItrCloneCate(ISite toSite,ICategory fromCate,int parentCateId,bool includeExtend, bool includeTemplateBind)
+        private void ItrCloneCate(ISite toSite, ICategory fromCate, int parentCateId, bool includeExtend, bool includeTemplateBind)
         {
             ICategory newCategory = toSite.GetCategory(parentCateId);
             foreach (var cate in fromCate.NextLevelChilds)
             {
                 int id = CloneCategoryDetails(toSite.Id, cate, newCategory.Lft, includeExtend, includeTemplateBind);
-                ItrCloneCate(toSite,cate,id,includeExtend,includeTemplateBind);
+                ItrCloneCate(toSite, cate, id, includeExtend, includeTemplateBind);
             }
         }
 
@@ -478,7 +484,7 @@ namespace J6.Cms.Service
                 dto.CategoryTemplate = null;
                 dto.CategoryArchiveTemplate = null;
             }
-            
+
             return this.SaveCategory(toSiteId, toCateLft, dto);
         }
 
@@ -502,7 +508,113 @@ namespace J6.Cms.Service
 
         private IExtendField GetExtendFieldByName(int siteId, string name, string type)
         {
-            return this._extendResp.GetExtendByName(siteId, name, type);
+            return this._extendRep.GetExtendByName(siteId, name, type);
+        }
+
+
+        public IDictionary<int, string> ClonePubArchive(int sourceSiteId, int targetSiteId, int toCid, int[] archiveIdArray, bool includeExtend, bool includeTempateBind)
+        {
+            int totalFailed = 0;
+            int totalSuccess = 0;
+
+            IDictionary<int, string> errDict = new Dictionary<int, string>();
+            IArchive srcArchive;
+            IArchive tarArchive;
+            bool isFailed;
+            bool shouldReSave;
+            foreach (int archiveId in archiveIdArray)
+            {
+                srcArchive = this._archiveRep.GetArchiveById(sourceSiteId, archiveId);
+                tarArchive = this._archiveRep.CreateArchive(0, IdGenerator.GetNext(5), toCid, srcArchive.Title);
+
+                tarArchive.CreateDate = DateTime.Now;
+                tarArchive.LastModifyDate = tarArchive.CreateDate;
+                tarArchive.Content = srcArchive.Content;
+                tarArchive.Alias = srcArchive.Alias;
+                tarArchive.PublisherId = srcArchive.PublisherId;
+                tarArchive.Flags = srcArchive.Flags;
+                tarArchive.Outline = srcArchive.Outline;
+                tarArchive.Source = srcArchive.Source;
+                tarArchive.Tags = srcArchive.Tags;
+                tarArchive.Location = srcArchive.Location;
+                tarArchive.Thumbnail = srcArchive.Thumbnail;
+                tarArchive.SmallTitle = srcArchive.SmallTitle;
+                tarArchive.ViewCount = srcArchive.ViewCount;
+
+                isFailed = false;
+                shouldReSave = false;
+                if (tarArchive.Save() > 0)
+                {
+                    if (includeTempateBind && !string.IsNullOrEmpty(srcArchive.Template.TplPath))
+                    {
+                        tarArchive.SetTemplatePath(srcArchive.Template.TplPath);
+                        shouldReSave = true;
+                    }
+
+                    //克隆扩展
+                    if (includeExtend)
+                    {
+                        this.CloneArchiveExtendValue(targetSiteId, srcArchive, tarArchive, errDict, ref isFailed,
+                            ref shouldReSave);
+                    }
+
+                    if (shouldReSave)
+                    {
+                        tarArchive.Save();
+                    }
+                }
+
+                if (isFailed)
+                {
+                    totalFailed += 1;
+                }
+                else
+                {
+                    totalSuccess += 1;
+                }
+                srcArchive = null;
+            }
+
+            return errDict;
+
+        }
+
+        private void CloneArchiveExtendValue(int targetSiteId, IArchive srcArchive, IArchive tarArchive,
+            IDictionary<int, string> errDict, ref bool isFailed, ref bool shouldReSave)
+        {
+            int extendCount = srcArchive.ExtendValues.Count;
+            if (extendCount > 0)
+            {
+                IExtendField field;
+                IExtendField tarField;
+                tarArchive.ExtendValues = new List<IExtendValue>(extendCount);
+
+                foreach (IExtendValue extendValue in srcArchive.ExtendValues)
+                {
+                    if (String.IsNullOrEmpty(extendValue.Value)) continue;
+                    field = extendValue.Field;
+                    tarField = this._extendRep.GetExtendByName(targetSiteId, field.Name, field.Type);
+                    if (tarField == null)
+                    {
+                        string message = " <break>[1001]：扩展字段\"" + field.Name + "\"不存在";
+                        if (errDict.ContainsKey(tarArchive.Id))
+                        {
+                            errDict[tarArchive.Id] += message;
+                        }
+                        else
+                        {
+                            errDict[tarArchive.Id] = "文档\"" + tarArchive.Title + "\"" + message;
+                        }
+                        isFailed = true;
+                    }
+                    else
+                    {
+                        field.Id = tarField.Id;
+                        tarArchive.ExtendValues.Add(this._extendRep.CreateExtendValue(tarField, -1, extendValue.Value));
+                        shouldReSave = true;
+                    }
+                }
+            }
         }
     }
 }

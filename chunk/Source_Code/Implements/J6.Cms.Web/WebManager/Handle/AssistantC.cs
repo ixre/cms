@@ -102,41 +102,40 @@ namespace J6.Cms.Web.WebManager.Handle
             ViewData["site_opt"] = siteOpt;
             ViewData["source_name"] = sourceSite.Name;
             ViewData["source_site"] = sourceSite.SiteId;
+            ViewData["id_array"] = Request["id_array"] ?? "";
 
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Assistant_Archive_Clone_Pub));
         }
 
 
-        public string Category_Clone1_POST()
+        public string Pub_Archive_POST()
         {
-            int sourceSiteId, targetSiteId, fromCid, toCid;
+            int sourceSiteId, targetSiteId, toCid;
             int.TryParse(Request["sourceSiteId"], out sourceSiteId);
             int.TryParse(Request["targetSiteId"], out targetSiteId);
-            int.TryParse(Request["fromCid"], out fromCid);
+
             int.TryParse(Request["toCid"], out toCid);
-            bool includeChild = Request["includeChild"] == "true";
             bool includeExtend = Request["includeExtend"] == "true";
             bool includeTempateBind = Request["includeTemplateBind"] == "true";
 
-            if (sourceSiteId == 0 || targetSiteId == 0 || fromCid == 0 || toCid == 0)
+            string idArrParam = Request["id_array"];
+            if (sourceSiteId != this.CurrentSite.SiteId || string.IsNullOrEmpty(idArrParam) || toCid ==0)
             {
                 return base.ReturnError("参数不正确");
             }
-            else if (targetSiteId != this.CurrentSite.SiteId)
-            {
-                return base.ReturnError("非法操作");
-            }
 
+            int[] idArray = Array.ConvertAll(idArrParam.Split(','), a =>int.Parse(a));
             try
             {
-                ServiceCall.Instance.SiteService.CloneCategory(sourceSiteId, targetSiteId, fromCid, toCid,
-                    includeChild, includeExtend, includeTempateBind);
+                ServiceCall.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,
+                    idArray, includeExtend, includeTempateBind);
                 return base.ReturnSuccess();
             }
             catch (Exception exc)
             {
                 return base.ReturnError(exc.Message);
             }
+            return "";
         }
 
         #region 系统补丁

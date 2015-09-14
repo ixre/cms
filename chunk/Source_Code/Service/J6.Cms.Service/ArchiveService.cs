@@ -96,7 +96,7 @@ namespace J6.Cms.Service
                 || (archive.Id == -1 && !String.IsNullOrEmpty(archiveDto.TemplatePath))
                 )
             {
-                archive.UpdateTemplateBind(archiveDto.TemplatePath);
+                archive.SetTemplatePath(archiveDto.TemplatePath);
             }
 
             return archive.Save();
