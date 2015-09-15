@@ -68,7 +68,7 @@
                 </td>
                 <td valign="top">
                     <strong>消息框</strong><br />
-                    <textarea id="msg" rows="8" class="ui-box" style="width: 80%; font-size: 12px; line-height: 16px;">等待发布...</textarea>
+                    <textarea id="msg" rows="10" class="ui-box" style="width: 80%; font-size: 12px; line-height: 16px;">等待发布...</textarea>
                 </td>
             </tr>
         </table>
@@ -178,10 +178,9 @@ $js()
             };
             j6.xhr.jsonPost('${post_url}', data,function(j) {
                 if (j.result) {
-                    showMsg2('操作成功');
-                } else {
-                    j6.$('msg').innerHTML = j.message;
-                }
+                    showMsg2('发布成功');
+                } 
+                j6.$('msg').innerHTML =j.result?'发布成功':j.message;
             });
         }
         return true;

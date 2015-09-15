@@ -53,8 +53,8 @@
                             <div class="drop">
                                 <a href="javascript:;" class="fn item" fn="create">$icon(create)新建文档</a>
                                 <a href="javascript:;" class="fn item" fn="pubToSite">$icon(create)发布至其他站点</a>
-                                <a href="javascript:;" class="fn item last" onclick="menu.refresh()">$icon(refresh)刷新列表</a>
-                                <a href="javascript:;" class="fn item" fn="batDel" style="color:#F00">$icon(delete)批量删除</a>
+                                <a href="javascript:;" class="fn item" onclick="menu.refresh()">$icon(refresh)刷新列表</a>
+                                <a href="javascript:;" class="fn item last" fn="batchDel" style="color:#F00">$icon(delete)批量删除</a>
                             </div>
                         </div>
 
@@ -231,7 +231,7 @@
             }
         };
 
-        Fn.batDel = function() {
+        Fn.batchDel = function() {
             if (ckList.length === 0) {
                 alert('请先选择文档');
             } else if (confirm('确定删除吗?删除后将不可恢复!')) {

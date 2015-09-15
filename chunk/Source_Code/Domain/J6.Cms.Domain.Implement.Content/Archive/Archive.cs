@@ -168,42 +168,49 @@ namespace J6.Cms.Domain.Implement.Content.Archive
         {
             get
             {
-                return _extendValues ?? (_extendValues = new List<IExtendValue>(this._extendRep.GetExtendFieldValues(this)));
+                return this._extendValues ?? (_extendValues = new List<IExtendValue>(this._extendRep.GetExtendFieldValues(this)));
             }
             set
             {
-                _extendValues = value;
+              this. _extendValues = value;
             }
         }
 
         public override int Save()
         {
+
             //初始化
-            if (this.Id<=0)
+            if (this.Id <= 0)
             {
                 int sortNum = this._archiveRep.GetMaxSortNumber(this.Category.Site.Id);
                 if (this.SortNumber == 0)
                 {
                     this.SortNumber = sortNum + 1;
                 }
+                this.Id = this._archiveRep.SaveArchive(this);
             }
-
-            this.Id = this._archiveRep.SaveArchive(this);
-            this._extendRep.UpdateArchiveRelationExtendValues(this);
-
-            //保存文档绑定的模板
-            if (this._templateBind != null)
+            else
             {
-                if (this._templateBind.BindRefrenceId == this.Id)
-                {
-                    this._templateRep.SaveTemplateBind(this._templateBind, this.Id);
 
-                    if (this._templateBind.TplPath == null)
+                this._extendRep.UpdateArchiveRelationExtendValues(this);
+
+                //保存文档绑定的模板
+                if (this._templateBind != null)
+                {
+                    if (this._templateBind.BindRefrenceId == this.Id)
                     {
-                        this._templateBind = null;
+                        this._templateRep.SaveTemplateBind(this._templateBind, this.Id);
+
+                        if (this._templateBind.TplPath == null)
+                        {
+                            this._templateBind = null;
+                        }
                     }
                 }
+
+                this._archiveRep.SaveArchive(this);
             }
+
 
             //保存其他
             base.Save();
@@ -214,7 +221,7 @@ namespace J6.Cms.Domain.Implement.Content.Archive
         public override void SortLower()
         {
             int siteId = this.Category.Site.Id;
-            IArchive prev = this._archiveRep.GetNextArchive(siteId, this.Id,true,true);
+            IArchive prev = this._archiveRep.GetNextArchive(siteId, this.Id, true, true);
             this.SwapSortNumber(prev);
         }
 
@@ -222,7 +229,7 @@ namespace J6.Cms.Domain.Implement.Content.Archive
         public override void SortUpper()
         {
             int siteId = this.Category.Site.Id;
-            IArchive next = this._archiveRep.GetPreviousArchive(siteId, this.Id,true,true);
+            IArchive next = this._archiveRep.GetPreviousArchive(siteId, this.Id, true, true);
 
             this.SwapSortNumber(next);
         }

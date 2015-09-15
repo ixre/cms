@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Security.Policy;
 using System.Text;
 using J6.Cms.Domain.Interface;
+using J6.Cms.Domain.Interface.Content;
 using J6.Cms.Domain.Interface.Content.Archive;
 using J6.Cms.Domain.Interface.Site;
 using J6.Cms.Domain.Interface.Site.Category;
@@ -24,18 +25,21 @@ namespace J6.Cms.Service
         private readonly IExtendFieldRepository _extendRep;
         private readonly ICategoryRepository _categoryRep;
         private readonly ITemplateRepository _tempRep;
-        private IArchiveRepository _archiveRep;
+        private readonly IArchiveRepository _archiveRep;
+        private readonly IContentRepository _contentRep;
 
         public SiteService(ISiteRepository resp,
             ICategoryRepository categoryRep,
             IArchiveRepository archiveRep,
             IExtendFieldRepository extendFieldPository,
+            IContentRepository contentRep,
             ITemplateRepository tempRep)
         {
             this._resp = resp;
             this._extendRep = extendFieldPository;
             this._categoryRep = categoryRep;
             this._archiveRep = archiveRep;
+            this._contentRep = contentRep;
             this._tempRep = tempRep;
         }
 
@@ -517,14 +521,16 @@ namespace J6.Cms.Service
             int totalSuccess = 0;
 
             IDictionary<int, string> errDict = new Dictionary<int, string>();
-            IArchive srcArchive;
-            IArchive tarArchive;
             bool isFailed;
             bool shouldReSave;
+
+            IContentContainer srcContent = this._contentRep.GetContent(sourceSiteId);
+            IContentContainer tarContent = this._contentRep.GetContent(targetSiteId);
             foreach (int archiveId in archiveIdArray)
             {
-                srcArchive = this._archiveRep.GetArchiveById(sourceSiteId, archiveId);
-                tarArchive = this._archiveRep.CreateArchive(0, IdGenerator.GetNext(5), toCid, srcArchive.Title);
+                var srcArchive = srcContent.GetArchiveById(archiveId);
+                
+                var tarArchive = tarContent.CreateArchive(0, IdGenerator.GetNext(5), toCid, srcArchive.Title);
 
                 tarArchive.CreateDate = DateTime.Now;
                 tarArchive.LastModifyDate = tarArchive.CreateDate;
@@ -555,7 +561,7 @@ namespace J6.Cms.Service
                     //克隆扩展
                     if (includeExtend)
                     {
-                        this.CloneArchiveExtendValue(targetSiteId, srcArchive, tarArchive, errDict, ref isFailed,
+                        this.CloneArchiveExtendValue(srcArchive, tarArchive, errDict, ref isFailed,
                             ref shouldReSave);
                     }
 
@@ -577,32 +583,31 @@ namespace J6.Cms.Service
                 {
                     totalSuccess += 1;
                 }
-                srcArchive = null;
             }
 
             return errDict;
 
         }
 
-        private void CloneArchiveExtendValue(int targetSiteId, IArchive srcArchive, IArchive tarArchive,
+        private void CloneArchiveExtendValue(IArchive srcArchive, IArchive tarArchive,
             IDictionary<int, string> errDict, ref bool isFailed, ref bool shouldReSave)
         {
-            int extendCount = srcArchive.ExtendValues.Count;
-            if (extendCount > 0)
+            IList<IExtendValue> extends = srcArchive.ExtendValues;
+            // category extend
+            IList<IExtendField> cflist = tarArchive.Category.ExtendFields;
+            IDictionary<string, IExtendField> cateFields = new Dictionary<string, IExtendField>();
+            foreach (IExtendField f in cflist)
+            {
+                cateFields.Add(f.Name, f);
+            }
+
+            if (extends.Count > 0 && cateFields.Count > 0) 
             {
                 IExtendField field;
                 IExtendField tarField;
-                tarArchive.ExtendValues = new List<IExtendValue>(extendCount);
+                tarArchive.ExtendValues = new List<IExtendValue>(extends.Count);
 
-                // category extend
-                IList<IExtendField> cflist = tarArchive.Category.ExtendFields;
-                IDictionary<string, IExtendField> cateFields = new Dictionary<string, IExtendField>();
-                foreach (IExtendField f in cflist)
-                {
-                    cateFields.Add(f.Name, f);
-                }
-
-                foreach (IExtendValue extendValue in srcArchive.ExtendValues)
+                foreach (IExtendValue extendValue in extends)
                 {
                     if (String.IsNullOrEmpty(extendValue.Value)) continue;
                     field = extendValue.Field;
@@ -610,7 +615,6 @@ namespace J6.Cms.Service
                     {
                         // tarField = this._extendRep.GetExtendByName(targetSiteId, field.Name, field.Type);
                         tarField = cateFields[field.Name];
-                        field.Id = tarField.Id;
                         tarArchive.ExtendValues.Add(this._extendRep.CreateExtendValue(tarField, -1, extendValue.Value));
                         shouldReSave = true;
                     }
