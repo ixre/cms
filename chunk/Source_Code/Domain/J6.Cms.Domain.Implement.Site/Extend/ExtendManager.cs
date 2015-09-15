@@ -5,12 +5,12 @@ namespace J6.Cms.Domain.Implement.Site.Extend
 {
     internal class ExtendManager:IExtendManager
     {
-        private IExtendFieldRepository _resp;
+        private IExtendFieldRepository _rep;
 
         public ExtendManager(IExtendFieldRepository resp, int siteId)
         {
             this.SiteId = siteId;
-            this._resp = resp;
+            this._rep = resp;
         }
         public int SiteId
         {
@@ -20,7 +20,7 @@ namespace J6.Cms.Domain.Implement.Site.Extend
 
         public IList<IExtendField> GetAllExtends()
         {
-            return _resp.GetAllExtendsBySiteId(this.SiteId);
+            return _rep.GetAllExtendsBySiteId(this.SiteId);
         }
 
         /*
@@ -35,12 +35,12 @@ namespace J6.Cms.Domain.Implement.Site.Extend
 
         public int SaveExtendField(IExtendField extendField)
         {
-            return _resp.SaveExtendField(this.SiteId, extendField);
+            return _rep.SaveExtendField(this.SiteId, extendField);
         }
 
         public bool DeleteExtendAttr(int extendFieldId)
         {
-            return _resp.DeleteExtendField(this.SiteId,extendFieldId);
+            return _rep.DeleteExtendField(this.SiteId,extendFieldId);
 
         }
 

@@ -342,8 +342,7 @@ namespace J6.Cms.Domain.Implement.Site
            {
                this._tempRep.RemoveBind(bind.BindType, category.Id);
            }
-
-           category = null;
+           this._categories = null;
 
            return true;
        }

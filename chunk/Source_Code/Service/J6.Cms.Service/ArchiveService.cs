@@ -17,10 +17,10 @@ namespace J6.Cms.Service
 {
     public class ArchiveService : IArchiveServiceContract
     {
-        private IContentRepository _contentRep;
-        private ISiteRepository _siteRep;
-        private ArchiveQuery _archiveQuery = new ArchiveQuery();
-        private IExtendFieldRepository _extendRep;
+        private readonly IContentRepository _contentRep;
+        private readonly ISiteRepository _siteRep;
+        private readonly ArchiveQuery _archiveQuery = new ArchiveQuery();
+        private readonly IExtendFieldRepository _extendRep;
 
         public ArchiveService(
             IContentRepository contentRep,
@@ -48,9 +48,7 @@ namespace J6.Cms.Service
             IContentContainer ic = this._contentRep.GetContent(siteId);
             IArchive archive = ic.GetArchiveById(archiveId);
             if (archive == null) return default(ArchiveDto);
-
             return ArchiveDto.ConvertFrom(archive, true, true, true);
-
         }
 
 

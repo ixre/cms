@@ -61,7 +61,7 @@ namespace J6.Cms.ServiceRepository
             }
             else
             {
-                _extendDal.AddExtendField(siteId, extendField);
+                extendField.Id = _extendDal.AddExtendField(siteId, extendField);
             }
 
             //清理

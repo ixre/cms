@@ -18,9 +18,9 @@ namespace J6.Cms.Dal
 {
     public class ExtendFieldDal : DalBase
     {
-        public bool AddExtendField(int siteId, IExtendField field)
+        public int AddExtendField(int siteId, IExtendField field)
         {
-            int rowcount = base.ExecuteNonQuery(
+            int row = base.ExecuteNonQuery(
                  new SqlQuery(base.OptimizeSql(DbSql.DataExtend_CreateField),
                      new object[,]{
                          {"@siteId",siteId},
@@ -32,7 +32,13 @@ namespace J6.Cms.Dal
                      })
                 );
 
-            return rowcount == 1;
+            if (row > 0)
+            {
+                SqlQuery q = new SqlQuery(base.OptimizeSql("SELECT MAX(id) FROM $PREFIX_extend_field WHERE site_id="+siteId.ToString()), null);
+                return int.Parse(this.ExecuteScalar(q).ToString());
+            }
+
+            return -1;
 
         }
 
@@ -189,7 +195,7 @@ namespace J6.Cms.Dal
             base.ExecuteNonQuery(querys);
         }
 
-        public void GetExtendFieldByName(int siteId, string name, string type,DataReaderFunc rd)
+        public void GetExtendFieldByName(int siteId, string name, string type, DataReaderFunc rd)
         {
             base.ExecuteReader(
                 SqlQueryHelper.Format(DbSql.DataExtend_GetExtendFieldByName, new object[,]
