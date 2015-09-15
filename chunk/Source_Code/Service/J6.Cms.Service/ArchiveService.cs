@@ -411,5 +411,15 @@ namespace J6.Cms.Service
                 archive.SortLower();
             }
         }
+
+
+        public void BatchDelete(int siteId, int[] idArray)
+        {
+            IContentContainer content = this._contentRep.GetContent(siteId);
+            foreach (int id in idArray)
+            {
+                content.DeleteArchive(id);
+            }
+        }
     }
 }

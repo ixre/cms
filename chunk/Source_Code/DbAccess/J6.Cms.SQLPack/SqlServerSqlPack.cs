@@ -390,7 +390,7 @@ namespace J6.Cms.Sql
         {
             get
             {
-                return @"INSERT INTO $PREFIX_archive(strId,alias,cid,publisher_id,title,small_title,[flags],location,sort_number,
+                return @"INSERT INTO $PREFIX_archive(str_id,alias,cid,publisher_id,title,small_title,[flags],location,sort_number,
                                     [Source],thumbnail,[Outline],[Content],[Tags],[Agree],[Disagree],view_count,
                                     [CreateDate],[LastModifyDate])
                                     VALUES(@strId,@alias,@CategoryId,@publisherId,@Title,@smallTitle,@Flags,@location,@sortNumber,

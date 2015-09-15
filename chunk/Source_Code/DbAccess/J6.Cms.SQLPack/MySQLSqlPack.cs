@@ -389,7 +389,7 @@
             {
                 return @"INSERT INTO $PREFIX_archive(str_id,`alias`,`cid`,`publisher_id`,`title`,small_title,`flags`,`location`,sort_number,
                                     `source`,`thumbnail`,`outline`,`content`,`tags`,`agree`,`disagree`,view_count,
-                                     `createdate`,`lastmodifydate`)VALUES(@strid,@alias,@CategoryId,@publisherId,@Title,
+                                     `createdate`,`lastmodifydate`)VALUES(@strId,@alias,@CategoryId,@publisherId,@Title,
                                     @smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail,@Outline, @Content,@Tags,0,0,1,@CreateDate,
                                     @LastModifyDate)";

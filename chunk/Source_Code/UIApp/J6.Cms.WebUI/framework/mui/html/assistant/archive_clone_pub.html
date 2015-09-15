@@ -162,6 +162,11 @@ $js()
     }
  
     j6.$('btn_clone').onclick = function() {
+
+        if (idArr == null || idArr.length == 0) {
+            showErr('请选择文档');
+            return false;
+        }
         if (toNode.id != undefined) {
             var data = {
                 sourceSiteId: siteId,
@@ -179,6 +184,7 @@ $js()
                 }
             });
         }
+        return true;
     };
 
 </script>

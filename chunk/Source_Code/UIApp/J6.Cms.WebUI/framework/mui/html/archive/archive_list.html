@@ -54,6 +54,7 @@
                                 <a href="javascript:;" class="fn item" fn="create">$icon(create)新建文档</a>
                                 <a href="javascript:;" class="fn item" fn="pubToSite">$icon(create)发布至其他站点</a>
                                 <a href="javascript:;" class="fn item last" onclick="menu.refresh()">$icon(refresh)刷新列表</a>
+                                <a href="javascript:;" class="fn item" fn="batDel" style="color:#F00">$icon(delete)批量删除</a>
                             </div>
                         </div>
 
@@ -102,7 +103,7 @@
         </div>
     </script>
 <script type="text/template" id="archive_item_template">
-        <div valign="middle" style="overflow:hidden-x;width:100%">
+        <div class="archive-item" valign="middle" style="overflow:hidden-x;width:100%">
             <span class="index">{index}</span>
             <span title="{title}">{title}</span>
             <br>
@@ -230,16 +231,38 @@
             }
         };
 
+        Fn.batDel = function() {
+            if (ckList.length === 0) {
+                alert('请先选择文档');
+            } else if (confirm('确定删除吗?删除后将不可恢复!')) {
+                j6.xhr.jsonPost('?', 'module=archive&action=batch_delete&id_array=' + ckList.join(','),
+                    function(json) {
+                        if (!json.result) {
+                            showErr('部分文档删除失败！原因：'+json.message);
+                        }
+                        _dg.reload();
+                    }
+                );
+            }
+        };
+
         var fullCk = j6.$('ck_full_select');
+        fullCk.checked = false;
         function reBindCkEvent() {
             ckList = [];
             var cks = j6.dom.getsByClass(document.body, 'ck');
             j6.each(cks, function(i, e) {
-                e.onchange = function () {
+                e.onchange = function (event) {
                     ckList = getCkList();
-                    if (window.pubList) window.pubList = ckList;
+                    if (window.pubList) window.pubList(ckList);
+                    j6.event.stopBubble(event);
+                    return false;
                 };
             });
+            if (fullCk.checked) {
+                fullCk.checked = false;
+                fullCk.onchange();
+            }
         }
 
         function getCkList() {
@@ -258,15 +281,11 @@
             var cks = j6.dom.getsByClass(document.body, 'ck');
             j6.each(cks, function (i, e) {
                 if (e.checked !== isCheckd) {
-                    if (isCheckd) {
-                        e.setAttribute('checked', 'checked');
-                    } else {
-                        e.removeAttribute('checked');
-                    }
+                    e.checked = isCheckd;
                 }
             });
             ckList = getCkList();
-            if (window.pubList)window.pubList = ckList;
+            if (window.pubList)window.pubList(ckList);
         };
 
 

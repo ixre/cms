@@ -71,7 +71,7 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.id,strId,alias,cid,title,$PREFIX_archive.location,flags,outline,
+                return @"SELECT $PREFIX_archive.id,str_id,alias,cid,title,$PREFIX_archive.location,flags,outline,
                         thumbnail,publisher_id,lastmodifydate,source,tags,
                         [content],createdate,view_count,$PREFIX_category.name,$PREFIX_category.tag
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON

@@ -137,7 +137,7 @@ namespace J6.Cms.Web.WebManager.Handle
             foreach (IExtendField p in category.ExtendFields)
             {
                 uiType = (PropertyUI)int.Parse(p.Type);
-                this.AppendExtendFormHtml(sb,p,p.DefaultValue);
+                this.AppendExtendFormHtml(sb, p, p.DefaultValue);
             }
 
 
@@ -211,7 +211,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             object data;
             int archiveId = int.Parse(base.Request["archive.id"]);
-            string tpls,nodesHtml,
+            string tpls, nodesHtml,
                 //栏目JSON
                 extendFieldsHtml = "";                                        //属性Html
 
@@ -256,7 +256,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
                 ));
 
-            EachClass.EachTemplatePage(dir,dir,
+            EachClass.EachTemplatePage(dir, dir,
                 sb2,
                 TemplatePageType.Custom,
                 TemplatePageType.Archive
@@ -512,13 +512,13 @@ namespace J6.Cms.Web.WebManager.Handle
             //const int __pageSize = 10;
 
             string categoryId = Request["category.id"];
-            int publisherId = int.Parse(Request["publisher_id"]??"0");
+            int publisherId = int.Parse(Request["publisher_id"] ?? "0");
 
             ViewData["category_id"] = categoryId ?? String.Empty;
             ViewData["publisher_id"] = publisherId;
             ViewData["site_id"] = this.CurrentSite.SiteId;
 
-           return  base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_List));
+            return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_List));
         }
 
         /// <summary>
@@ -545,15 +545,15 @@ namespace J6.Cms.Web.WebManager.Handle
                    _system = request["lb_system"] ?? "-1",
                    _aspage = request["lb_page"] ?? "-1";
 
-            int publisherId ;
-            int.TryParse(request["publisher_id"],out publisherId);
+            int publisherId;
+            int.TryParse(request["publisher_id"], out publisherId);
 
             bool includeChild = request["include_child"] == "true";
             String keyword = Request.Form["keyword"];
 
             if (!String.IsNullOrEmpty(keyword) && DataChecker.SqlIsInject(keyword))
             {
-                throw  new ArgumentException("Sql  inject?",keyword);
+                throw new ArgumentException("Sql  inject?", keyword);
             }
 
             if (_categoryId != null)
@@ -593,7 +593,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             //文档数据表,并生成Html
             DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId,
-                publisherId, includeChild, flags,keyword, null, false, pageSize, pageIndex, out recordCount, out pages);
+                publisherId, includeChild, flags, keyword, null, false, pageSize, pageIndex, out recordCount, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -763,6 +763,7 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_Search), data);
 
         }
+
         /// <summary>
         /// 文档评论
         /// </summary>
@@ -834,7 +835,7 @@ namespace J6.Cms.Web.WebManager.Handle
             };
 
             //base.RenderTemplate(ResourceMap.CommentList, data);
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Comment_List),data);
+            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Comment_List), data);
         }
 
         public void Forword_GET()
@@ -902,6 +903,20 @@ namespace J6.Cms.Web.WebManager.Handle
             return base.ReturnSuccess();
         }
 
+        public string Batch_Delete_POST()
+        {
+            int siteId = this.CurrentSite.SiteId;
+            int[] idArray = Array.ConvertAll(Request["id_array"].Split(','), a => int.Parse(a));
+            try
+            {
+                ServiceCall.Instance.ArchiveService.BatchDelete(siteId, idArray);
+            }
+            catch (Exception exc)
+            {
+                return base.ReturnError(exc.Message);
+            }
+            return base.ReturnSuccess();
+        }
 
         /// <summary>
         /// 重新发布文档(刷新文档)

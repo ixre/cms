@@ -48,13 +48,13 @@ namespace J6.Cms.Web.WebManager.Handle
         public string Category_Clone_POST()
         {
             int sourceSiteId, targetSiteId, fromCid, toCid;
-            int.TryParse(Request["sourceSiteId"], out sourceSiteId);
-            int.TryParse(Request["targetSiteId"], out targetSiteId);
-            int.TryParse(Request["fromCid"], out fromCid);
-            int.TryParse(Request["toCid"], out toCid);
-            bool includeChild = Request["includeChild"] == "true";
-            bool includeExtend = Request["includeExtend"] == "true";
-            bool includeTempateBind = Request["includeTemplateBind"] == "true";
+            int.TryParse(Request.Form["sourceSiteId"], out sourceSiteId);
+            int.TryParse(Request.Form["targetSiteId"], out targetSiteId);
+            int.TryParse(Request.Form["fromCid"], out fromCid);
+            int.TryParse(Request.Form["toCid"], out toCid);
+            bool includeChild = Request.Form["includeChild"] == "true";
+            bool includeExtend = Request.Form["includeExtend"] == "true";
+            bool includeTempateBind = Request.Form["includeTemplateBind"] == "true";
 
             if (sourceSiteId == 0 || targetSiteId == 0 || fromCid == 0 || toCid == 0)
             {
@@ -112,14 +112,14 @@ namespace J6.Cms.Web.WebManager.Handle
         public string Pub_Archive_POST()
         {
             int sourceSiteId, targetSiteId, toCid;
-            int.TryParse(Request["sourceSiteId"], out sourceSiteId);
-            int.TryParse(Request["targetSiteId"], out targetSiteId);
+            int.TryParse(Request.Form["sourceSiteId"], out sourceSiteId);
+            int.TryParse(Request.Form["targetSiteId"], out targetSiteId);
 
-            int.TryParse(Request["toCid"], out toCid);
-            bool includeExtend = Request["includeExtend"] == "true";
-            bool includeTempateBind = Request["includeTemplateBind"] == "true";
+            int.TryParse(Request.Form["toCid"], out toCid);
+            bool includeExtend = Request.Form["includeExtend"] == "true";
+            bool includeTempateBind = Request.Form["includeTemplateBind"] == "true";
 
-            string idArrParam = Request["id_array"];
+            string idArrParam = Request.Form["idArr"];
             if (sourceSiteId != this.CurrentSite.SiteId || string.IsNullOrEmpty(idArrParam) || toCid ==0)
             {
                 return base.ReturnError("参数不正确");
@@ -128,30 +128,25 @@ namespace J6.Cms.Web.WebManager.Handle
             int[] idArray = Array.ConvertAll(idArrParam.Split(','), a =>int.Parse(a));
 
 
-             IDictionary<int,string> errs = ServiceCall.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,
-                idArray, includeExtend, includeTempateBind);
-            if (errs.Count > 0)
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (var err in errs)
-                {
-                    sb.Append(err.Value.Replace("<break>", "\\n")).Append("\\n");
-                }
-                return "{result:false,message:'" + sb.ToString() + "'}";
-            }
-            return base.ReturnSuccess();
-
             try
             {
-                ServiceCall.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,
-                    idArray, includeExtend, includeTempateBind);
+                IDictionary<int, string> errs = ServiceCall.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,
+                  idArray, includeExtend, includeTempateBind);
+                if (errs.Count > 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var err in errs)
+                    {
+                        sb.Append(err.Value.Replace("<break>", "\\n")).Append("\\n");
+                    }
+                    return "{result:false,message:'" + sb.ToString() + "'}";
+                }
                 return base.ReturnSuccess();
             }
             catch (Exception exc)
             {
                 return base.ReturnError(exc.Message);
             }
-            return "";
         }
 
         #region 系统补丁
