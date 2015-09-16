@@ -151,7 +151,7 @@
                 var data = cms.json.toObject('form1');
                 cms.xhr.jsonPost(location.href, data, function (json) {
                     if (json.result) {
-                        showMsg(json.message,1000);
+                        showMsg2(json.message);
                     } else {
                         showErr(json.message,2000);
                     }

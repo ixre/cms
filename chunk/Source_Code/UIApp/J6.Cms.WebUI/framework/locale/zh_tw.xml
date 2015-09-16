@@ -1,4 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <lang>
-  <item key="sitemap_location" Zh_CN="您的位置" Zh_TW="您的位置" En="Your Location" Th="Your Location"/>
+  <item key="sitemap"><![CDATA[站點地圖]]></item>
+  <item key="sitemap_location">您的位置</item>
+  <item key="search"><![CDATA[搜尋]]></item>
 </lang>

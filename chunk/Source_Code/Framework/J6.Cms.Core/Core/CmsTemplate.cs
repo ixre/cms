@@ -214,31 +214,31 @@ namespace J6.Cms.Core
         {
             RegexOptions regopt = RegexOptions.IgnoreCase;
 
-            if (Regex.IsMatch(templatePath, "/*category\\.[^\\.]*\\.*html$", regopt))
+            if (Regex.IsMatch(templatePath, "(^category|/category)\\.[^\\.]*\\.*(html|tml)$", regopt))
             {
                 return TemplatePageType.Category;
             }
-            else if (Regex.IsMatch(templatePath, "[^\\.]+\\.phtml$", regopt))
+            else if (Regex.IsMatch(templatePath, "[^\\.]+\\.(phtml|ptml)$", regopt))
             {
                 return TemplatePageType.Partial;
             }
-            else if (Regex.IsMatch(templatePath, "/*archive\\.[^\\.]*\\.*html$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^archive|/archive)\\.[^\\.]*\\.*(html|tml)$", regopt))
             {
                 return TemplatePageType.Archive;
             }
-            else if (Regex.IsMatch(templatePath, "/*index\\.[^\\.]*\\.*html$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^index|/index)\\.[^\\.]*\\.*(html|tml)$", regopt))
             {
                 return TemplatePageType.Index;
             }
-            else if (Regex.IsMatch(templatePath, "/*search\\.[^\\.]*\\.*html$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^search|/search)\\.[^\\.]*\\.*(html|tml)$", regopt))
             {
                 return TemplatePageType.Search;
             }
-            else if (Regex.IsMatch(templatePath, "/*tag\\.[^\\.]*\\.*html$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^tag|/tag)\\.[^\\.]*\\.*(html|tml)$", regopt))
             {
                 return TemplatePageType.Tag;
             }
-            else if (Regex.IsMatch(templatePath, "/*notfound\\.[^\\.]*\\.*html$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^notfound|/notfound)\\.[^\\.]*\\.*(html|tml)$", regopt))
             {
                 return TemplatePageType.Notfound;
             }

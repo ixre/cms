@@ -156,13 +156,13 @@ namespace J6.Cms.Web.WebManager.Handle
 		        		if(!Directory.Exists(backupDir))
 		        		{
 		        			Directory.CreateDirectory(backupDir).Create();
-		        			global::System.IO.File.SetAttributes(backupDir,FileAttributes.Hidden);
+		        			File.SetAttributes(backupDir,FileAttributes.Hidden);
 		        		}
 		        		else
 		        		{
-		        			if(System.IO.File.Exists(backFile))
+		        			if(File.Exists(backFile))
 		        			{
-                        		global::System.IO.File.Delete(backFile);
+                        		File.Delete(backFile);
 		        			}
 		        		}
                         //生成备份文件
@@ -192,7 +192,7 @@ namespace J6.Cms.Web.WebManager.Handle
                             tmpfile.MoveTo(backFile);
 
                             //global::System.IO.File.SetAttributes(_fpath + ".bak",file.Attributes & FileAttributes.Hidden);
-                            global::System.IO.File.SetAttributes(_fpath,file.Attributes & FileAttributes.Normal);
+                            File.SetAttributes(_fpath,file.Attributes & FileAttributes.Normal);
                         }
                         Response.Write("还原成功!");
                     }
@@ -215,7 +215,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 AppDomain.CurrentDomain.BaseDirectory,
                 tplname);
 
-            if (global::System.IO.File.Exists(tplPath))
+            if (File.Exists(tplPath))
             {
                 Response.Write("文件已经存在!");
             }
@@ -224,7 +224,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 try
                 {
                     //global::System.IO.Directory.CreateDirectory(tplPath).Create();   //创建目录
-                    global::System.IO.File.Create(tplPath).Dispose();                           //创建文件
+                    File.Create(tplPath).Dispose();                           //创建文件
 
                     Cms.Template.Register();           //重新注册模板
 
@@ -343,7 +343,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 tplDescrpt = null;
 
                 tplConfigFile = String.Format("{0}{1}/tpl.conf", tplRootPath, tpl);
-                if (global::System.IO.File.Exists(tplConfigFile))
+                if (File.Exists(tplConfigFile))
                 {
                     sf = new SettingFile(tplConfigFile);
                     if (sf.Contains("name"))

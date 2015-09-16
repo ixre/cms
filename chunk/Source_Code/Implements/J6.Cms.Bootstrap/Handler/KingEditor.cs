@@ -88,7 +88,7 @@ namespace J6.Cms.Handler
             String fileName = imgFile.FileName;
             String fileExt = Path.GetExtension(fileName).ToLower();
 
-            if (imgFile.InputStream == null || imgFile.InputStream.Length > maxSize)
+            if (imgFile.InputStream.Length > maxSize)
             {
                 showError("上传文件大小超过限制。");
             }
