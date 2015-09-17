@@ -50,7 +50,6 @@ namespace J6.Cms.Service
                 act.For<IExtendFieldRepository>().Singleton().Use<ExtendFieldRepository>();
                 act.For<IArchiveRepository>().Singleton().Use<ArchiveRepository>();
                 act.For<ITemplateRepository>().Singleton().Use<TemplateRepository>();
-                act.For<ILinkRepository>().Singleton().Use<LinkRepository>();
 
                 act.For<IUserRepository>().Singleton().Use<UserRepository>();
 

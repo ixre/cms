@@ -569,7 +569,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public void Related_link_POST()
         {
-            IEnumerable<LinkDto> links = ServiceCall.Instance.ContentService
+            IEnumerable<RelatedLinkDto> links = ServiceCall.Instance.ContentService
                 .GetOuterRelatedLinks(
                     this.SiteId,
                     Request.Form["ContentType"],

@@ -30,17 +30,16 @@ namespace J6.Cms.Service
             if(link.Id>0)
             {
                 IContentLink _link = content.LinkManager.GetLinkById(link.Id);
-                _link.LinkTitle = link.LinkTitle;
-                _link.LinkName = link.LinkName;
-                _link.LinkUri = link.LinkUri;
+                _link.RelatedIndent = link.RelatedIndent;
+                _link.RelatedContentId = link.RelatedContentId;
                 _link.Enabled = link.Enabled;
 
             }else{
-                content.LinkManager.Add(link.LinkID, link.LinkName, link.LinkTitle, link.LinkUri, link.Enabled);
+                content.LinkManager.Add(link.Id, link.RelatedIndent, link.RelatedContentId,link.Enabled);
             }
 
             content.LinkManager.SaveRelatedLinks();
-            return link.LinkID;
+            return link.Id;
         }
 
         public void RemoveOuterRelatedLink(int siteId, string typeIndent, int contentId, int relatedLinkId)
@@ -50,7 +49,7 @@ namespace J6.Cms.Service
             if (relatedLinkId > 0)
             {
                 IContentLink link = content.LinkManager.GetLinkById(relatedLinkId);
-                content.LinkManager.Remove(link);
+                content.LinkManager.RemoveRelatedLink(link.Id);
             }
             else
             {
