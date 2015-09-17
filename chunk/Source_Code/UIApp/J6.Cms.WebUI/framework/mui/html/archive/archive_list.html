@@ -319,7 +319,7 @@
             },
             forword:function(id){
                 var d = j6.dialog.create2("文档转发", true, true);
-                d.open("?module=archive&action=forword&archive.id=" + id,600,400,false);
+                d.open("?module=archive&action=forword&archive.id=" + id,600,400,'auto');
             },
             //评论管理
             comment: function (id) {
@@ -350,7 +350,7 @@
             },
             relatedlink: function (id) {
                 j6.$('pl').innerHTML = '<iframe frameborder="0" scrolling="no" width="100%" height="100%" ' +
-                    'src="?module=link&action=relatedlink&contentId=' + id + '&type=archive"></ifarme>';
+                    'src="?module=link&action=related_link&content_id=' + id + '&content_type=archive"></ifarme>';
             }
         };
     </script>

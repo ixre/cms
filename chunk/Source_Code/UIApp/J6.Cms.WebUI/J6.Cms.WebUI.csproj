@@ -65,15 +65,10 @@
     <Compile Include="_Boot\__ResolveAppDomain.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\label.conf" />
     <Content Include="config\locale\zh_cn.xml" />
-    <Content Include="config\net_crawl.conf" />
-    <Content Include="config\picker.conf" />
     <Content Include="config\s1\tags.conf" />
     <Content Include="config\s2\tags.conf" />
-    <Content Include="config\settings.conf" />
     <Content Include="config\site_1\mui_override.js" />
-    <Content Include="config\tags.conf" />
     <Content Include="data\clear\#db_clear.db3" />
     <Content Include="data\db.db" />
     <Content Include="framework\assemblies\leveldb-sharp.dll" />

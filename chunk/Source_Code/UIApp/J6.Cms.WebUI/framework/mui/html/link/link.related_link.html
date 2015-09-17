@@ -35,24 +35,57 @@
         </div>
     </div>
 
-    <script type="text/template" id="link_form">
-            <div class="form autostyle">
-                <div class="entityForm">
-                    <dl>
-                        <dt>链接内容：</dt>
-                        <dd><input type="text" class="tb_normal archiveGuest"/><br/>
-                        输入搜索内容后，在搜索结果中选择</dd>
-                    </dl>
+<script type="text/template" id="link_form">
+            
+                    <div class="form">
+                        
+                        <div class="fl">
+                            <div class="label">
+                                <span class="red">*&nbsp;</span>关联类型：</div>
+                            <div class="in">
+                                <select name="RelatedIndent" class="ui-box" field="RelatedIndent">
+                                    <option value="">-- 请选择 --</option>
+                                    ${indent_opts}
+                                </select>
+                            </div>
+                        </div>
 
-                    ${form}
-                    <dl>
-                        <dt>&nbsp;</dt>
-                        <dd>
-                            <a onclick="saveLink()" class="btn" href="javascript:;">{btntext}</a>
-                        </dd>
-                    </dl>
+                        <div class="fl">
+                            <div class="label">
+                                <span class="red">*&nbsp;</span>链接文档：
+                            </div>
+                            <div class="in">
+                                <input class="ui-validate ui-box" type="hidden" field="LinkId" value="0" />
+                                <input class="ui-validate ui-box" type="hidden" field="ContentType" value="${content_type}" />
+                                <input class="ui-validate ui-box" type="hidden" field="ContentId" value="${content_id}" />
+                                <input class="ui-validate ui-box" type="hidden" field="RelatedId" value="0" />
+                                <input type="text" class="tb_normal ui-box archiveGuest" field="ContentTitle" />
+                                <div>输入搜索内容后，在搜索结果中选择</div>
+                            </div>
+                        </div>
+                        
+                        <div class="fl">
+                            <div class="label">
+                                <span class="red">*&nbsp;</span>是否启用：
+                            </div>
+                            <div class="in">
+                                <input type="radio" field="Enabled" name="Enabled" value="1" id="enabled1" checked="checked"/><label for="enabled1">启用</label>
+                                <input type="radio" field="Enabled" name="Enabled" value="0" id="enabled2" /><label for="enabled2">停用</label>
+                            </div>
+                        </div>
+                        
+                        <div class="fl">
+                            <div class="label">&nbsp;</div>
+                            <div class="in">
+                                <span class="ui-button w150" id="btn" onclick="saveData()">
+                                    <span class="button-inner">
+                                        <span class="button-txt">{btntext}</span>
+                                        <a href="javascript:;"></a>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
                 </div>
-            </div>
         </script>
 
         <script type="text/template" id="tpl">
@@ -79,12 +112,10 @@
 
         
 
-        window.saveData = window.saveLink = function () {
+        window.saveData = function () {
             if (j6.validator.validate('pl')) {
                 var data = j6.json.toObject('pl');
-                data.contentId = j6.request('contentId');
-                data.typeIndent = j6.request('type');
-                j6.xhr.jsonPost('?module=link&action=saveReleatedLink', data, function (json) {
+                j6.xhr.jsonPost('?module=link&action=save_related_link', data, function (json) {
                     if (json.result) {
                         _dg.reload();
                     }
@@ -94,10 +125,10 @@
         };
 
         var _dg = j6.grid('dg', {
-            url: '?module=link&action=relatedlink',
+            url: '?module=link&action=related_link',
             data: {
-                contentId: j6.request('contentId'),
-                typeIndent: j6.request('type')
+                ContentId:'${content_id}',
+                ContentType: '${content_type}'
             },
             idField: 'LinkId',
             columns: [
@@ -154,20 +185,17 @@
         var menu = {
             add: function() {
                 j6.$('pl').innerHTML = j6.template(form_tpl, { btntext: '新增' });
-                j6.json.bind('pl', { Enabled: 'True' });
+                j6.json.bind('pl', { Enabled: true });
 
                 j6.each(j6.dom.getsByClass(j6.$('pl'), 'archiveGuest'), function (i, e) {
-                    j6.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=5', function (data) {
+                    j6.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=10', function (data) {
+                        j6.json.bind('pl', { RelatedId: 0 });
                         for (var j = 0; j < data.length; j++) {
                             data[j].text = data[j].title;
                             data[j].title = '栏目：'+ data[j].category;
                         }
                     }, function (data) {
-                        j6.json.bind('pl', {
-                            LinkUri: data.id,
-                            LinkTitle: data.text,
-                            Enabled: 'True'
-                        });
+                        j6.json.bind('pl', { RelatedId: data.id });
                     });
                 });
             },
@@ -175,10 +203,10 @@
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
                     var data = {
                         id: id,
-                        contentId: j6.request('contentId'),
-                        typeIndent: j6.request('type')
+                        content_id: j6.request('content_id'),
+                        type_indent: j6.request('type')
                     };
-                    j6.xhr.jsonPost('?module=link&action=deleterelatedlink', data,
+                    j6.xhr.jsonPost('?module=link&action=delete_related_link', data,
                         function (json) {
                             if (json.result) {
                                 _dg.reload();

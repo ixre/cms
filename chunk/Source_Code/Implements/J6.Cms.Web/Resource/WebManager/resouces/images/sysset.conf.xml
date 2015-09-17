@@ -71,7 +71,6 @@
       
       <links title="数据管理" toggle="true" iconPos="-432|0">
         <link href="?module=table&amp;action=all" text="数据表" title="" siteid="0"/>
-        <link href="?module=file&amp;action=editfile&amp;path=config/settings.conf" text="词典设置" title="" siteid="-1"/>
       </links>
 
 

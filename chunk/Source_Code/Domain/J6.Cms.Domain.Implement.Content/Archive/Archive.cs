@@ -302,7 +302,7 @@ namespace J6.Cms.Domain.Implement.Content.Archive
             {
                 if (this._uri == null)
                 {
-                    if (String.IsNullOrEmpty(this.Location))
+                    if (!String.IsNullOrEmpty(this.Location))
                     {
                         this._uri = this.Location;
                     }

@@ -128,6 +128,14 @@
       <Project>{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}</Project>
       <Name>J6.Cms.Domain.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Service\J6.Cms.ServiceContract\J6.Cms.ServiceContract.csproj">
+      <Project>{f512899c-b4c9-465f-a3db-8e511c92a8a8}</Project>
+      <Name>J6.Cms.ServiceContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\J6.Cms.ServiceUtil\J6.Cms.ServiceUtil.csproj">
+      <Project>{1b43fbd5-8e31-4688-9b25-a63378d375f2}</Project>
+      <Name>J6.Cms.ServiceUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\J6.Cms.Cache\J6.Cms.Cache.csproj">
       <Project>{f8362c26-b7f2-4a9c-aa1c-d2c943ea8621}</Project>
       <Name>J6.Cms.Cache</Name>

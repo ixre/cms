@@ -35,7 +35,6 @@ namespace J6.Cms.Template
 
     public abstract class CmsTemplateCore : IDisposable
     {
-        private const string settingsFile = "config/label.conf";
         private static PropertyInfo[] archivePros = typeof(ArchiveDto).GetProperties(BindingFlags.Instance | BindingFlags.Public); //文档的属性
         protected static MicroTemplateEngine TplEngine =
                             new MicroTemplateEngine(null); //模板引擎
@@ -503,14 +502,14 @@ namespace J6.Cms.Template
         [TemplateTag]
         public string Label(string key)
         {
-            const string cacheKey = "setting_cache_001";
+            string cacheKey =String.Format( "{0}_label_{1}",CacheSign.Site.ToString(),this.site.SiteId.ToString());
             if (this._settingsFile == null)
             {
                 //读取数据
                 this._settingsFile = Cms.Cache.Get(cacheKey) as SettingFile;
                 if (this._settingsFile == null)
                 {
-                    string phyPath = AppDomain.CurrentDomain.BaseDirectory + settingsFile;
+                    string phyPath = String.Format("{0}templates/{1}/label.conf", Cms.PyhicPath, this.site.Tpl);
                     this._settingsFile = new SettingFile(phyPath);
 
                     //缓存数据

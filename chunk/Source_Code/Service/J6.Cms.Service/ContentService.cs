@@ -22,7 +22,7 @@ namespace J6.Cms.Service
             return this._contentRep.GetContent(siteId).GetContent(typeIndent, contentId);
         }
 
-        public int SaveRelatedLink(int siteId,string typeIndent, int contentId, LinkDto link)
+        public int SaveOuterRelatedLink(int siteId,string typeIndent, int contentId, LinkDto link)
         {
 
             IBaseContent content = this.GetContent(siteId,typeIndent, contentId);
@@ -43,7 +43,7 @@ namespace J6.Cms.Service
             return link.LinkID;
         }
 
-        public void RemoveRelatedLink(int siteId, string typeIndent, int contentId, int relatedLinkId)
+        public void RemoveOuterRelatedLink(int siteId, string typeIndent, int contentId, int relatedLinkId)
         {
             IBaseContent content = this.GetContent(siteId,typeIndent, contentId);
 
@@ -61,7 +61,7 @@ namespace J6.Cms.Service
 
         }
 
-        public IEnumerable<LinkDto> GetRelatedLinks(int siteId, string typeIndent, int contentId)
+        public IEnumerable<LinkDto> GetOuterRelatedLinks(int siteId, string typeIndent, int contentId)
         {
             IBaseContent content = this.GetContent(siteId,typeIndent, contentId);
             IList<ILink> linkList = content.LinkManager.GetRelatedLinks();
@@ -81,6 +81,41 @@ namespace J6.Cms.Service
                 LinkName = link.LinkName,
                 LinkTitle = link.LinkTitle
             };
+        }
+
+
+        public IDictionary<int, string> GetRelatedIndents()
+        {
+            return ContentUtil.GetRelatedIndents();
+        }
+
+
+        public void SetRelatedIndents(IDictionary<int, string> relatedIndents)
+        {
+             ContentUtil.SetRelatedIndents(relatedIndents);
+        }
+
+        public int SaveRelatedLink(int siteId, int id, string contentType, int contentId, int relatedIndent, int relatedId)
+        {
+            IBaseContent content = this.GetContent(siteId, contentType, contentId);
+
+//            if (id > 0)
+//            {
+//                ILink _link = content.LinkManager.GetLinkById(link.LinkID);
+//                _link.LinkTitle = link.LinkTitle;
+//                _link.LinkName = link.LinkName;
+//                _link.LinkUri = link.LinkUri;
+//                _link.Enabled = link.Enabled;
+//
+//            }
+//            else
+//            {
+//                content.LinkManager.Add(link.LinkID, link.LinkName, link.LinkTitle, link.LinkUri, link.Enabled);
+//            }
+//
+//            content.LinkManager.SaveLinks();
+//            return link.LinkID;
+            return -1;
         }
     }
 }

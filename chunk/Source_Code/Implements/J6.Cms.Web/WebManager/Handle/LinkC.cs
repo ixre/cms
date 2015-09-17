@@ -50,7 +50,7 @@ namespace J6.Cms.Web.WebManager.Handle
             CategoryDto cate = default(CategoryDto);
 
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
-                ServiceCall.Instance.SiteService.GetLinksByType(this.SiteId, type,true));
+                ServiceCall.Instance.SiteService.GetLinksByType(this.SiteId, type, true));
 
 
             #region 链接拼凑
@@ -198,7 +198,7 @@ namespace J6.Cms.Web.WebManager.Handle
             int siteID = base.CurrentSite.SiteId;
 
             IEnumerable<SiteLinkDto> parentLinks = ServiceCall.Instance.SiteService
-                           .GetLinksByType(this.SiteId, type,true);
+                           .GetLinksByType(this.SiteId, type, true);
 
             foreach (SiteLinkDto _link in parentLinks)
             {
@@ -267,7 +267,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
                 if (binds[0] == "category")
                 {
-                    CategoryDto cate = ServiceCall.Instance.SiteService.GetCategory(this.SiteId,bindId);
+                    CategoryDto cate = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, bindId);
 
                     bindTitle = cate.Id > 0 ?
                         String.Format("栏目：{0}", cate.Name) :
@@ -310,7 +310,7 @@ namespace J6.Cms.Web.WebManager.Handle
             //plinks
             StringBuilder sb = new StringBuilder();
             IEnumerable<SiteLinkDto> parentLinks = ServiceCall.Instance.SiteService
-                .GetLinksByType(this.SiteId, link.Type,true);
+                .GetLinksByType(this.SiteId, link.Type, true);
 
             foreach (SiteLinkDto _link in parentLinks)
             {
@@ -543,57 +543,76 @@ namespace J6.Cms.Web.WebManager.Handle
         }
 
 
-        public void RelatedLink_GET()
+        public string Related_link_GET()
         {
-           string form = EntityForm.Build<LinkDto>(new LinkDto(), false, "btn");
-           base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Link_RelatedLink), new
-           {
-               form=form
-           });
+            ViewData["indent_opts"] = this.GetContentRelatedIndentOptions();
+            ViewData["content_type"] = Request.QueryString["content_type"];
+            ViewData["content_id"] = Request.QueryString["content_id"];
+
+            return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Link_RelatedLink));
         }
 
-        public void RelatedLink_POST()
+        private string GetContentRelatedIndentOptions()
+        {
+            StringBuilder sb = new StringBuilder();
+            IDictionary<int, string> indents = ServiceCall.Instance.ContentService.GetRelatedIndents();
+            foreach (var indent in indents)
+            {
+                if (indent.Value[0] != '#')
+                {
+                    sb.Append("<option value=\"").Append(indent.Key.ToString())
+                        .Append("\">").Append(indent.Value).Append("</option>");
+                }
+            }
+            return sb.ToString();
+        }
+
+        public void Related_link_POST()
         {
             IEnumerable<LinkDto> links = ServiceCall.Instance.ContentService
-                .GetRelatedLinks(
-                this.SiteId,
-                Request["typeIndent"],
-                int.Parse(Request["contentId"]));
-
-            // string pagerHtml = Helper.BuildJsonPagerInfo("javascript:window.toPage({0});", pageIndex, recordCount, pages);
-
+                .GetOuterRelatedLinks(
+                    this.SiteId,
+                    Request.Form["ContentType"],
+                    int.Parse(Request.Form["ContentId"]));
             base.PagerJson(links, "共" + links.Count().ToString() + "条");
         }
 
-        public string SaveReleatedLink_POST()
+        public string Save_related_link_POST()
         {
             try
             {
-                LinkDto link;
-                link = EntityForm.GetEntity<LinkDto>();
+                int id = int.Parse(Request.Form["Id"]);
+                int contentId = int.Parse(Request.Form["ContentId"]);
+                string contentType = Request.Form["ContentType"];
+                int relatedIndent = int.Parse(Request.Form["RelatedIndent"]);
+                int relatedId = int.Parse(Request.Form["RelatedId"]);
 
                 ServiceCall.Instance.ContentService.SaveRelatedLink(
                     this.SiteId,
-                    Request["typeIndent"],
-                    int.Parse(Request["contentId"]),
-                    link
+                    id,
+                    contentType,
+                    contentId,
+                    relatedIndent,
+                    relatedId
                     );
-                return base.ReturnSuccess(link.LinkID == 0 ? "添加成功" : "保存成功");
 
-            }catch(Exception exc)
+                return base.ReturnSuccess(id == 0 ? "添加成功" : "保存成功");
+
+            }
+            catch (Exception exc)
             {
                 return base.ReturnError(exc.Message);
             }
 
         }
-        public string DeleteRelatedLink_POST()
+        public string Delete_related_link_POST()
         {
             try
             {
-                ServiceCall.Instance.ContentService.RemoveRelatedLink(
+                ServiceCall.Instance.ContentService.RemoveOuterRelatedLink(
                     this.SiteId,
-                    Request["typeIndent"],
-                    int.Parse(Request["contentId"]),
+                    Request["type_indent"],
+                    int.Parse(Request["content_id"]),
                     int.Parse(Request["id"])
                     );
                 return base.ReturnSuccess();

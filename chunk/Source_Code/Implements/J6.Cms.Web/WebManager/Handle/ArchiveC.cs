@@ -843,7 +843,7 @@ namespace J6.Cms.Web.WebManager.Handle
             int id = int.Parse(base.Request["archive.id"]);
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
             string fullDomain = this.CurrentSite.FullDomain;
-            if (fullDomain.IndexOf("#") != -1)
+            if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
             {
                 fullDomain = fullDomain.Replace("#", Cms.Context.Host);
             }

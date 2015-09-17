@@ -19,7 +19,7 @@
                             <span class="txt"><span style="margin-right: 14px">用</span>户：</span><input field="uid" name="username" type="text" class="ui-box"/>
                         </p>
                         <p>
-                            <span class="txt"><span style="margin-right: 14px">密</span>码：</span><input field="pwd" name="password" type="password" class="ui-box" onfocus="this.value = '';"/>
+                            <span class="txt"><span style="margin-right: 14px">密</span>码：</span><input id="tb_pwd" field="pwd" name="password" type="password" class="ui-box" onfocus="this.value = '';"/>
                         </p>
                         <p class="verify-panel">
                             <span class="txt">验证码：</span><input id="vcode" field="code" name="verifycode" class="ui-box box2 left"/>
@@ -84,16 +84,15 @@
                 j6.xhr.jsonPost(location.href, formData, function (json) {
                     if (json.result) {
                         tip.innerHTML = '<span style="color:green">登录成功,正在进入...</span>';
-                        setTimeout(function () {
                             var returnUrl = j6.request('return_url') || '${path}?ver=${version}';
                             location.replace(returnUrl);
-                        }, 500);
                     }
                     else {
                         if (json.message.indexOf('验证码') != -1) {
                             refreshImage();
                         }
                         tip.innerHTML = '<span style="color:red">提示：' + json.message + '</span>';
+                        j6.$('tb_box').value = '';
                     }
                 }, function (x) {
                     tip.innerHTML = '<span style="color:red">服务器出错，请重试!</span>';
