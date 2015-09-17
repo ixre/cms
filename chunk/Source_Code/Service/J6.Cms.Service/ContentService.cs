@@ -22,14 +22,14 @@ namespace J6.Cms.Service
             return this._contentRep.GetContent(siteId).GetContent(typeIndent, contentId);
         }
 
-        public int SaveOuterRelatedLink(int siteId,string typeIndent, int contentId, LinkDto link)
+        public int SaveOuterRelatedLink(int siteId, string typeIndent, int contentId, RelatedLinkDto link)
         {
 
             IBaseContent content = this.GetContent(siteId,typeIndent, contentId);
 
-            if(link.LinkID>0)
+            if(link.Id>0)
             {
-                ILink _link = content.LinkManager.GetLinkById(link.LinkID);
+                IContentLink _link = content.LinkManager.GetLinkById(link.Id);
                 _link.LinkTitle = link.LinkTitle;
                 _link.LinkName = link.LinkName;
                 _link.LinkUri = link.LinkUri;
@@ -39,7 +39,7 @@ namespace J6.Cms.Service
                 content.LinkManager.Add(link.LinkID, link.LinkName, link.LinkTitle, link.LinkUri, link.Enabled);
             }
 
-            content.LinkManager.SaveLinks();
+            content.LinkManager.SaveRelatedLinks();
             return link.LinkID;
         }
 
@@ -49,7 +49,7 @@ namespace J6.Cms.Service
 
             if (relatedLinkId > 0)
             {
-                ILink link = content.LinkManager.GetLinkById(relatedLinkId);
+                IContentLink link = content.LinkManager.GetLinkById(relatedLinkId);
                 content.LinkManager.Remove(link);
             }
             else
@@ -57,29 +57,34 @@ namespace J6.Cms.Service
                 throw new Exception("relatedLinkId无效");
             }
 
-            content.LinkManager.SaveLinks();
+            content.LinkManager.SaveRelatedLinks();
 
         }
 
-        public IEnumerable<LinkDto> GetOuterRelatedLinks(int siteId, string typeIndent, int contentId)
+        public IEnumerable<RelatedLinkDto> GetOuterRelatedLinks(int siteId, string typeIndent, int contentId)
         {
             IBaseContent content = this.GetContent(siteId,typeIndent, contentId);
-            IList<ILink> linkList = content.LinkManager.GetRelatedLinks();
-            foreach (ILink link in linkList)
+            IList<IContentLink> linkList = content.LinkManager.GetRelatedLinks();
+            foreach (IContentLink link in linkList)
             {
-                yield return this.ConvertToLinkDto(link);
+                yield return this.ConvertToLinkDto(siteId,link);
             }
         }
 
-        private LinkDto ConvertToLinkDto(ILink link)
+        private RelatedLinkDto ConvertToLinkDto(int siteId, IContentLink link)
         {
-            return new LinkDto
+            IBaseContent content = this.GetContent(siteId, link.ContentType.ToString(), link.ContentId);
+
+            return new RelatedLinkDto
             {
-                LinkID = link.LinkId,
+                Id = link.Id,
                 Enabled = link.Enabled,
-                LinkUri = link.LinkUri,
-                LinkName = link.LinkName,
-                LinkTitle = link.LinkTitle
+                ContentId = link.ContentId,
+                ContentType = link.ContentType,
+                RelatedContentId = link.RelatedContentId,
+                RelatedIndent = link.RelatedIndent,
+                Title = content.Title,
+                Url = content.Uri,
             };
         }
 
@@ -118,4 +123,5 @@ namespace J6.Cms.Service
             return -1;
         }
     }
+
 }

@@ -53,5 +53,6 @@ namespace J6.Cms.DataTransfer
         [FormField("Enabled", Text = "是否使用")]
         [SelectField(Data="启用=True;停用=False",UseDrop=true)]
         public bool Enabled { get; set; }
+
     }
 }

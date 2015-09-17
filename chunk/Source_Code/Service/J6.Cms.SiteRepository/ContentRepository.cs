@@ -48,9 +48,9 @@ namespace J6.Cms.ServiceRepository
         /// <param name="linkManager"></param>
         /// <param name="contentType"></param>
         /// <param name="contentId"></param>
-        private void ReadLinks(IContentLinkManager linkManager, int contentType, int contentId)
+        public void ReadLinksOfContent(IContentLinkManager linkManager, int contentType, int contentId)
         {
-            this._linkDal.ReadLinksOfContent(contentType.ToString(), contentId, rd =>
+            this._linkDal.ReadLinksOfContent(contentType, contentId, rd =>
             {
                 while (rd.Read())
                 {
@@ -64,27 +64,20 @@ namespace J6.Cms.ServiceRepository
             });
         }
 
-        private void SaveLinksOfContent(string typeIndent, int relatedId, IList<IContentLink> list)
+        public void SaveLinksOfContent(int typeIndent, int relatedId, IList<IContentLink> list)
         {
             this._linkDal.SaveLinksOfContent(typeIndent, relatedId, list);
         }
 
 
 
-        public void RemoveRelatedLinks(string typeIndent, int relatedId, IList<int> list)
+        public void RemoveRelatedLinks(int typeIndent, int relatedId,int[] idList)
         {
-            String ids = "";
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (i != 0)
-                {
-                    ids += ",";
-                }
-                ids += list[i].ToString(CultureInfo.InvariantCulture);
-            }
+            String ids = String.Join(",",idList);
 
             this._linkDal.RemoveRelatedLinks(typeIndent, relatedId, ids);
         }
+
+
     }
 }

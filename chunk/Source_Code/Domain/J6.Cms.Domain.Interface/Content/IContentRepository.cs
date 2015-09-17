@@ -34,9 +34,9 @@ namespace J6.Cms.Domain.Interface.Content
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="typeIndent"></param>
-        /// <param name="relatedId"></param>
-        /// <param name="list"></param>
-        void RemoveRelatedLinks(string typeIndent, int relatedId, IList<int> list);
+        /// <param name="contentType"></param>
+        /// <param name="contentId"></param>
+        /// <param name="ids"></param>
+        void RemoveRelatedLinks(int contentType, int contentId, int[] ids);
     }
 }

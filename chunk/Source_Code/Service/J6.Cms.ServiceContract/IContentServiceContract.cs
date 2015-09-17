@@ -26,7 +26,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="contentId"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        int SaveOuterRelatedLink(int siteId, string typeIndent, int contentId, LinkDto link);
+        int SaveOuterRelatedLink(int siteId, string typeIndent, int contentId, RelatedLinkDto link);
 
         /// <summary>
         /// 
@@ -44,7 +44,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="typeIndent"></param>
         /// <param name="contentId"></param>
         /// <returns></returns>
-        IEnumerable<LinkDto> GetOuterRelatedLinks(int siteId, string typeIndent, int contentId);
+        IEnumerable<RelatedLinkDto> GetOuterRelatedLinks(int siteId, string typeIndent, int contentId);
 
         IDictionary<int, string> GetRelatedIndents();
 

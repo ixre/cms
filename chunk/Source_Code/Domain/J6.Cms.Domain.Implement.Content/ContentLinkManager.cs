@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using J6.Cms.Domain.Implement.Content.Archive;
 using J6.Cms.Domain.Interface.Common;
 using J6.Cms.Domain.Interface.Content;
@@ -58,9 +59,9 @@ namespace J6.Cms.Domain.Implement.Content
             if (this._delLinkIds!= null && this._delLinkIds.Count != 0)
             {
                 this._contentRep.RemoveRelatedLinks(
-                    this._contentModelIndent.ToString(),
+                    this._contentModelIndent,
                     this._contentId,
-                    this._delLinkIds);
+                    this._delLinkIds.ToArray());
             }
 
         }

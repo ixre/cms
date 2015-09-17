@@ -121,7 +121,7 @@ namespace J6.Cms.Domain.Implement.Content
         /// <returns></returns>
         public virtual int Save()
         {
-            this.LinkManager.SaveLinks();
+            this.LinkManager.SaveRelatedLinks();
             return -1;
         }
 

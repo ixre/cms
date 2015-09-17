@@ -10,7 +10,6 @@
 using J6.Cms.DataTransfer;
 using J6.Cms.ServiceContract;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Routing;
 using J6.Cms.CacheService;
@@ -92,7 +91,7 @@ namespace J6.Cms.Web
         internal static string GetRelatedlinks(int siteId, string typeIndent, int contentId)
         {
             IContentServiceContract cs = ServiceCall.Instance.ContentService;
-            IEnumerable<LinkDto> links = cs.GetOuterRelatedLinks(siteId, typeIndent, contentId);
+            IEnumerable<RelatedLinkDto> links = cs.GetOuterRelatedLinks(siteId, typeIndent, contentId);
 
             IList<ApiTypes.RLink> rlinks = new List<ApiTypes.RLink>();
 
@@ -101,22 +100,15 @@ namespace J6.Cms.Web
             {
                 string appPath = Cms.Context.SiteAppPath;
                 if (appPath == "/") appPath = "";
-                foreach (LinkDto link in links)
+                foreach (RelatedLinkDto link in links)
                 {
                     if (link.Enabled)
                     {
-                        if (Regex.IsMatch(link.LinkUri, "^\\d+$"))
-                        {
-                            url = appPath + cs.GetContent(siteId, typeIndent, int.Parse(link.LinkUri)).Uri;
-                        }
-                        else
-                        {
-                            url = link.LinkUri;
-                        }
+                            url = appPath + link.Url;
                         rlinks.Add(new ApiTypes.RLink
                         {
-                            name = link.LinkName,
-                            title = link.LinkTitle,
+                            name = link.Title,
+                            title = link.Title,
                             url = url
                         });
                     }
