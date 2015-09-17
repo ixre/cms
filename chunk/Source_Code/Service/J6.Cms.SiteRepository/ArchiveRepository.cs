@@ -23,27 +23,24 @@ namespace J6.Cms.ServiceRepository
 
         private ArchiveDal _dal = new ArchiveDal();
         private IContentRepository _contentRep;
-        private ILinkRepository _linkRep;
 
         public ArchiveRepository(
             IContentRepository contentRep,
             IExtendFieldRepository extendRep,
             ITemplateRepository templateRep,
-            ICategoryRepository categoryRep,
-            ILinkRepository linkRep
+            ICategoryRepository categoryRep
             )
         {
             this._contentRep = contentRep;
             this._extendRep = extendRep;
             this._templateRep = templateRep;
             this._categoryRep = categoryRep;
-            this._linkRep = linkRep;
         }
 
 
         public IArchive CreateArchive(int id, string strId, int categoryId, string title)
         {
-            return base.CreateArchive(this._contentRep, this, this._extendRep, this._categoryRep, this._templateRep, this._linkRep, id,
+            return base.CreateArchive(this._contentRep, this, this._extendRep, this._categoryRep, this._templateRep, id,
                 strId, categoryId, title);
         }
 

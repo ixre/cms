@@ -963,19 +963,19 @@ namespace J6.Cms.Sql
 
         #endregion
         public readonly String Link_RemoveRelatedLinks = @"DELETE FROM $PREFIX_related_link
-                        WHERE typeIndent = @typeIndent AND relatedId = @relatedId
+                        WHERE content_type = @contentType AND content_id = @contentId
                         AND id in ({0})
                         ";
 
         public readonly string Link_GetRelatedLinks =@"SELECT * FROM $PREFIX_related_link
-                        WHERE typeIndent = @typeIndent AND relatedId = @relatedId";
+                        WHERE content_type = @contentType AND content_id = @contentId";
 
         public readonly String Link_InsertRelatedLink = @"
-                        INSERT INTO $PREFIX_related_link(typeIndent,relatedId,name,title,uri,enabled)
-                        VALUES (@typeIndent,@relatedId,@name,@title,@uri,@enabled)";
+                        INSERT INTO $PREFIX_related_link(content_type,content_id,related_indent,related_content_id,enabled)
+                        VALUES (@contentType,@contentId,@relatedIndent,@relatedContentId,@enabled)";
 
-        public readonly String Link_UpdateRelatedLink=@"UPDATE $PREFIX_related_link
-	                    SET name = @name,title = @title,uri = @uri,enabled = @enabled
-	                    WHERE id=@id AND typeIndent = @typeIndent AND relatedId = @relatedId";
+        public readonly String Link_UpdateRelatedLink= @"UPDATE $PREFIX_related_link
+	                    SET related_indent=@relatedIndent,related_content_id=@relatedContentId,enabled = @enabled
+	                    WHERE id=@id AND content_type = @contentType AND content_id = @contentId";
     }
 }

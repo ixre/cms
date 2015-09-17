@@ -2,61 +2,36 @@
 using System.Collections.Generic;
 using J6.Cms.Domain.Implement.Content.Archive;
 using J6.Cms.Domain.Interface.Common;
+using J6.Cms.Domain.Interface.Content;
 
 namespace J6.Cms.Domain.Implement.Content
 {
-    internal class ContentLinkManager : ILinkManager
+    internal class ContentLinkManager : IContentLinkManager
     {
         private int _contentId;
         private int _contentModelIndent;
-        private ILinkRepository _linkRep;
-        private IList<ILink> _links;
+        private IContentRepository _contentRep;
+        private IList<IContentLink> _links;
         private IList<int> _delLinkIds;
 
-        public ContentLinkManager(ILinkRepository linkRep, int contentModelIndent, int contentId)
+        public ContentLinkManager(IContentRepository linkRep, int contentTypet, int contentId)
         {
-            this._contentModelIndent = contentModelIndent;
+            this._contentModelIndent = contentTypet;
             this._contentId = contentId;
-            this._linkRep = linkRep;
+            this._contentRep = linkRep;
 
-            _links = new List<ILink>();
+            _links = new List<IContentLink>();
             this.ReadLinks();
         }
 
-        public string TypeIndent
-        {
-            get { return this._contentModelIndent.ToString(); }
-        }
 
         private void ReadLinks()
         {
-            this._linkRep.ReadLinksOfContent(this, this._contentModelIndent, this._contentId);
+            this._contentRep.ReadLinksOfContent(this, this._contentModelIndent, this._contentId);
         }
 
-        public void Add(int linkId, string name, string title, string uri, bool enabled)
-        {
-            ILink link = null;
-            switch (this.TypeIndent)
-            {
-                case "1":
-                    link = new LinkOfArchive(linkId, name, title, uri, enabled);
-                    break;
-            }
 
-            if (link != null)
-            {
-                foreach (ILink _link in this._links)
-                {
-                    if (_link.Equal(link))
-                        throw new Exception("已存在重名的链接！");
-                }
-
-                this._links.Add(link);
-            }
-
-        }
-
-        public void Remove(ILink link)
+        public void Remove(IContentLink link)
         {
             if (this._delLinkIds == null)
             {
@@ -68,21 +43,21 @@ namespace J6.Cms.Domain.Implement.Content
             {
                 if (this._links[i].Equal(link))
                 {
-                    ILink _link = this._links[i];
+                    IContentLink _link = this._links[i];
                     this._links.Remove(_link);
-                    this._delLinkIds.Add(_link.LinkId);
+                    this._delLinkIds.Add(_link.Id);
                     _link = null;
                 }
             }
         }
 
-        public void SaveLinks()
+        public void SaveRelatedLinks()
         {
-            this._linkRep.SaveLinksOfContent(this._contentModelIndent, this._contentId, this._links);
+            this._contentRep.SaveLinksOfContent(this._contentModelIndent, this._contentId, this._links);
 
             if (this._delLinkIds!= null && this._delLinkIds.Count != 0)
             {
-                this._linkRep.RemoveRelatedLinks(
+                this._contentRep.RemoveRelatedLinks(
                     this._contentModelIndent.ToString(),
                     this._contentId,
                     this._delLinkIds);
@@ -92,16 +67,16 @@ namespace J6.Cms.Domain.Implement.Content
 
 
 
-        public IList<ILink> GetRelatedLinks()
+        public IList<IContentLink> GetRelatedLinks()
         {
             return this._links;
         }
 
 
 
-        public bool Contain(ILink link)
+        public bool Contain(IContentLink link)
         {
-            foreach (ILink _link in this._links)
+            foreach (IContentLink _link in this._links)
             {
                 if (_link.Equal(link))
                     return true;
@@ -110,14 +85,57 @@ namespace J6.Cms.Domain.Implement.Content
         }
 
 
-        public ILink GetLinkById(int id)
+        public IContentLink GetLinkById(int id)
         {
-            foreach (ILink link in this._links)
+            foreach (IContentLink link in this._links)
             {
-                if (link.LinkId == id)
+                if (link.Id == id)
                     return link;
             }
             return null;
+        }
+
+        public bool Contain(int relatedContentType, int relatedContentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(int id, int relatedIndent, int relatedId, bool enabled)
+        {
+            IContentLink link = null;
+            switch (this._contentModelIndent)
+            {
+                case 1:
+                    link = new LinkOfArchive(0, this._contentId, this._contentModelIndent, relatedId, relatedIndent,
+                        enabled);
+                    break;
+            }
+
+            if (link != null)
+            {
+                foreach (IContentLink _link in this._links)
+                {
+                    if (_link.Equal(link))
+                        throw new Exception("已存在重名的链接！");
+                }
+
+                this._links.Add(link);
+            }
+        }
+
+        IList<IContentLink> IContentLinkManager.GetRelatedLinks()
+        {
+            throw new NotImplementedException();
+        }
+
+        IContentLink IContentLinkManager.GetLinkById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveRelatedLink(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

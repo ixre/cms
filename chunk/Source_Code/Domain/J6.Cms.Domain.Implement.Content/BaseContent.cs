@@ -18,8 +18,7 @@ namespace J6.Cms.Domain.Implement.Content
         private  ICategory _category;
         private readonly ITemplateBind _templateBind;
         private readonly IContentRepository _contentRep;
-        private readonly ILinkRepository _linkRep;
-        private  ILinkManager _linkManager;
+        private  IContentLinkManager _linkManager;
 
         /// <summary>
         /// 内容模型标识
@@ -31,13 +30,11 @@ namespace J6.Cms.Domain.Implement.Content
             IExtendFieldRepository extendRep,
             ICategoryRepository categoryRep,
             ITemplateRepository templateRep,
-            ILinkRepository linkRep,
             int id,
             int categoryId,
             string title)
         {
             this._contentRep = contentRep;
-            this._linkRep = linkRep;
             this._extendRep = extendRep;
             this._categoryRep = categoryRep;
             this._templateRep = templateRep;
@@ -128,13 +125,13 @@ namespace J6.Cms.Domain.Implement.Content
             return -1;
         }
 
-        public ILinkManager LinkManager
+        public IContentLinkManager LinkManager
         {
             get
             {
                 return this._linkManager
                     ?? (this._linkManager =
-                    new ContentLinkManager(this._linkRep, this.ContentModelIndent, this.Id));
+                    new ContentLinkManager(this._contentRep, this.ContentModelIndent, this.Id));
             }
         }
 

@@ -98,14 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\ContentUtil.cs" />
+    <Compile Include="Content\IContentLinkManager.cs" />
     <Compile Include="Enum\Direction.cs" />
-    <Compile Include="Common\ILinkManager.cs" />
-    <Compile Include="Common\ILinkRepository.cs" />
     <Compile Include="Common\Language\LanguagePackage.cs" />
     <Compile Include="Common\Language\LanguagePackageKey.cs" />
     <Compile Include="Content\Archive\ArchiveFlag.cs" />
     <Compile Include="Content\Archive\IArchive.cs" />
-    <Compile Include="Common\ILink.cs" />
     <Compile Include="Content\Archive\IArchiveRepository.cs" />
     <Compile Include="Common\Language\Languages.cs" />
     <Compile Include="Content\ContentTypeIndent.cs" />

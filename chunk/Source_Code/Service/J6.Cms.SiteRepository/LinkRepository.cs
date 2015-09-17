@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using J6.Cms.Dal;
 using J6.Cms.Domain.Interface.Common;
+using J6.Cms.Domain.Interface.Content;
 
 namespace J6.Cms.ServiceRepository
 {
@@ -14,37 +15,36 @@ namespace J6.Cms.ServiceRepository
         /// 
         /// </summary>
         /// <param name="linkManager"></param>
-        /// <param name="typeIndent"></param>
-        /// <param name="relatedId"></param>
-        private void ReadLinks(ILinkManager linkManager, string typeIndent, int relatedId)
+        /// <param name="contentType"></param>
+        /// <param name="contentId"></param>
+        private void ReadLinks(IContentLinkManager linkManager, string contentType, int contentId)
         {
-            this._linkDal.ReadLinksOfContent(typeIndent, relatedId, rd =>
+            this._linkDal.ReadLinksOfContent(contentType, contentId, rd =>
             {
                 while (rd.Read())
                 {
                     linkManager.Add(
                         int.Parse(rd["id"].ToString()),
-                        rd["name"].ToString(),
-                        rd["title"].ToString(),
-                        rd["uri"].ToString(),
-                        rd["enabled"].ToString() == "1" || rd["enabled"].ToString()=="True"
+                       int.Parse(rd["related_indent"].ToString()),
+                       int.Parse(rd["related_content_id"].ToString()),
+                        rd["enabled"].ToString() == "1" || rd["enabled"].ToString() == "True"
                         );
                 }
             });
         }
-        private void SaveLinks(string typeIndent, int relatedId, IList<ILink> list)
+        private void SaveLinks(string typeIndent, int relatedId, IList<IContentLink> list)
         {
             this._linkDal.SaveLinksOfContent(typeIndent, relatedId, list);
         }
 
 
-        public void ReadLinksOfContent(ILinkManager linkManager, int contentModelIndent, int contentId)
+        public void ReadLinksOfContent(IContentLinkManager linkManager, int contentModelIndent, int contentId)
         {
             this.ReadLinks(linkManager, contentModelIndent.ToString(), contentId);
 
         }
 
-        public void SaveLinksOfContent(int contentModelIndent, int contentId, IList<ILink> list)
+        public void SaveLinksOfContent(int contentModelIndent, int contentId, IList<IContentLink> list)
         {
             SaveLinks(contentModelIndent.ToString(), contentId, list);
         }

@@ -6,6 +6,7 @@
 
 using System.Collections.Generic;
 using J6.Cms.Domain.Interface.Common;
+using J6.Cms.Domain.Interface.Content;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.DevFw.Data;
 
@@ -86,32 +87,31 @@ namespace J6.Cms.Dal
                 }), func);
         }
 
-        public void ReadLinksOfContent(string typeIndent, int relatedId,DataReaderFunc func)
+        public void ReadLinksOfContent(string contentType, int contentId,DataReaderFunc func)
         {
             base.ExecuteReader(
               SqlQueryHelper.Format(DbSql.Link_GetRelatedLinks, new object[,]{
-                    {"@typeIndent",typeIndent},
-                    {"@relatedId",relatedId}
+                    {"@contentType",contentType},
+                    {"@contentId",contentId}
                 }), func);
         }
 
-        public void SaveLinksOfContent(string typeIndent, int relatedId, IList<ILink> list)
+        public void SaveLinksOfContent(string contentType, int contentId, IList<IContentLink> list)
         {
             if (list.Count == 0) return;
             SqlQuery[] querys = new SqlQuery[list.Count];
 
             int i = 0;
-            foreach (ILink link in list)
+            foreach (IContentLink link in list)
             {
                     querys[i++] = SqlQueryHelper.Format(
-                        (link.LinkId <= 0 ? DbSql.Link_InsertRelatedLink:DbSql.Link_UpdateRelatedLink),
+                        (link.Id <= 0 ? DbSql.Link_InsertRelatedLink:DbSql.Link_UpdateRelatedLink),
                            new object[,]{
-                        {"@typeIndent",typeIndent},
-                        {"@relatedId",relatedId},
-                        {"@id",link.LinkId},
-                        {"@name",link.LinkName},
-                        {"@uri",link.LinkUri},
-                        {"@title",link.LinkTitle},
+                        {"@contentType",contentType},
+                        {"@contentId",contentId},
+                        {"@id",link.Id},
+                        {"@relatedContentId",link.RelatedContentId},
+                        {"@relatedIndent",link.RelatedIndent},
                         {"@enabled",link.Enabled}
                        });
                
@@ -120,12 +120,12 @@ namespace J6.Cms.Dal
             base.ExecuteNonQuery(querys);
         }
 
-        public void RemoveRelatedLinks(string typeIndent, int relatedId, string ids)
+        public void RemoveRelatedLinks(string contenType, int contentId, string ids)
         {
             base.ExecuteNonQuery(
              SqlQueryHelper.Format(DbSql.Link_RemoveRelatedLinks, new object[,]{
-                    {"@typeIndent",typeIndent},
-                    {"@relatedId",relatedId}
+                    {"@contentType",contenType},
+                    {"@contentId",contentId}
                 },ids));
         }
     }

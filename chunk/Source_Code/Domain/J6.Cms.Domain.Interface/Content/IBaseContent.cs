@@ -69,7 +69,7 @@ namespace J6.Cms.Domain.Interface.Content
         /// <summary>
         /// 链接管理
         /// </summary>
-        ILinkManager LinkManager {get;}
+        IContentLinkManager LinkManager {get;}
 
         /// <summary>
         /// 保存

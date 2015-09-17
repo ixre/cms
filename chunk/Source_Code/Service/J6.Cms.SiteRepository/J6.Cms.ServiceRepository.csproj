@@ -50,7 +50,6 @@
     <Compile Include="Export\DataExport.cs" />
     <Compile Include="Export\ExportManager.cs" />
     <Compile Include="ExtendFieldRepository.cs" />
-    <Compile Include="LinkRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\ArchiveQuery.cs" />
     <Compile Include="Query\UserQuery.cs" />

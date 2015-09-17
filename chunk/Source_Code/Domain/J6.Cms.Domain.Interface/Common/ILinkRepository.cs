@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using J6.Cms.Domain.Interface.Content;
 
 namespace J6.Cms.Domain.Interface.Common
 {
@@ -11,17 +12,17 @@ namespace J6.Cms.Domain.Interface.Common
         /// 
         /// </summary>
         /// <param name="linkManager"></param>
-        /// <param name="contentModelIndent"></param>
+        /// <param name="contentType"></param>
         /// <param name="contentId"></param>
-        void ReadLinksOfContent(ILinkManager linkManager, int contentModelIndent, int contentId);
+        void ReadLinksOfContent(IContentLinkManager linkManager, int contentType, int contentId);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="contentModelIndent"></param>
+        /// <param name="contentType"></param>
         /// <param name="contentId"></param>
         /// <param name="list"></param>
-        void SaveLinksOfContent(int contentModelIndent, int contentId, IList<ILink> list);
+        void SaveLinksOfContent(int contentType, int contentId, IList<IContentLink> list);
 
         /// <summary>
         /// 

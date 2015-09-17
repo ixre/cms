@@ -30,7 +30,6 @@ namespace J6.Cms.Domain.Implement.Content.Archive
         internal Archive(
             IContentRepository contentRep,
             IArchiveRepository archiveRep,
-            ILinkRepository linkRep,
             IExtendFieldRepository extendRep,
             ICategoryRepository categoryRep,
             ITemplateRepository templateRep,
@@ -43,7 +42,6 @@ namespace J6.Cms.Domain.Implement.Content.Archive
                 extendRep,
                 categoryRep,
                 templateRep,
-                linkRep,
                 id,
                 categoryId,
                 title

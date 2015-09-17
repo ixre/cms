@@ -32,13 +32,12 @@ namespace J6.Cms.Domain.Implement.Content.Archive
             IExtendFieldRepository extendRep,
             ICategoryRepository categoryRep,
             ITemplateRepository templateRep,
-            ILinkRepository linkRep,
             int id,
             string strId,
             int categoryId,
             string title)
         {
-            return new Archive(contentRep, archiveRep, linkRep, extendRep, categoryRep, templateRep, id, strId, categoryId, title);
+            return new Archive(contentRep, archiveRep, extendRep, categoryRep, templateRep, id, strId, categoryId, title);
         }
     }
 }
