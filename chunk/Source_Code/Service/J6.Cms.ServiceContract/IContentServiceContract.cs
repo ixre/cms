@@ -18,15 +18,7 @@ namespace J6.Cms.ServiceContract
         /// <returns></returns>
         IBaseContent GetContent(int siteId,string typeIndent, int contentId);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="typeIndent"></param>
-        /// <param name="contentId"></param>
-        /// <param name="link"></param>
-        /// <returns></returns>
-        int SaveOuterRelatedLink(int siteId, string typeIndent, int contentId, RelatedLinkDto link);
+      
 
         /// <summary>
         /// 
@@ -44,7 +36,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="typeIndent"></param>
         /// <param name="contentId"></param>
         /// <returns></returns>
-        IEnumerable<RelatedLinkDto> GetOuterRelatedLinks(int siteId, string typeIndent, int contentId);
+        IEnumerable<RelatedLinkDto> GetRelatedLinks(int siteId, string typeIndent, int contentId);
 
         IDictionary<int, string> GetRelatedIndents();
 
@@ -54,11 +46,7 @@ namespace J6.Cms.ServiceContract
         /// 保存关联文档
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="id"></param>
-        /// <param name="contentType"></param>
-        /// <param name="contentId"></param>
-        /// <param name="relatedIndent"></param>
-        /// <param name="relatedId"></param>
-        int SaveRelatedLink(int siteId, int id, string contentType, int contentId, int relatedIndent, int relatedId);
+        /// <param name="link"></param>
+        int SaveRelatedLink(int siteId, RelatedLinkDto link);
     }
 }

@@ -10,14 +10,14 @@ namespace J6.Cms.Domain.Implement.Content
     internal class ContentLinkManager : IContentLinkManager
     {
         private int _contentId;
-        private int _contentModelIndent;
+        private string _contentType;
         private IContentRepository _contentRep;
         private IList<IContentLink> _links;
         private IList<int> _delLinkIds;
 
-        public ContentLinkManager(IContentRepository linkRep, int contentTypet, int contentId)
+        public ContentLinkManager(IContentRepository linkRep, string contentType, int contentId)
         {
-            this._contentModelIndent = contentTypet;
+            this._contentType = contentType;
             this._contentId = contentId;
             this._contentRep = linkRep;
 
@@ -28,7 +28,7 @@ namespace J6.Cms.Domain.Implement.Content
 
         private void ReadLinks()
         {
-            this._contentRep.ReadLinksOfContent(this, this._contentModelIndent, this._contentId);
+            this._contentRep.ReadLinksOfContent(this, this._contentType, this._contentId);
         }
 
 
@@ -54,12 +54,12 @@ namespace J6.Cms.Domain.Implement.Content
 
         public void SaveRelatedLinks()
         {
-            this._contentRep.SaveLinksOfContent(this._contentModelIndent, this._contentId, this._links);
+            this._contentRep.SaveLinksOfContent(this._contentType, this._contentId, this._links);
 
             if (this._delLinkIds!= null && this._delLinkIds.Count != 0)
             {
                 this._contentRep.RemoveRelatedLinks(
-                    this._contentModelIndent,
+                    this._contentType,
                     this._contentId,
                     this._delLinkIds.ToArray());
             }
@@ -104,12 +104,11 @@ namespace J6.Cms.Domain.Implement.Content
         public void Add(int id, int relatedIndent, int relatedId, bool enabled)
         {
             IContentLink link = null;
-            switch (this._contentModelIndent)
+
+            if (this._contentType == ContentTypeIndent.Archive.ToString().ToLower())
             {
-                case 1:
-                    link = new LinkOfArchive(0, this._contentId, this._contentModelIndent, relatedId, relatedIndent,
-                        enabled);
-                    break;
+                link = new LinkOfArchive(0, this._contentType, this._contentId, relatedId, relatedIndent,
+                    enabled);
             }
 
             if (link != null)
@@ -122,11 +121,6 @@ namespace J6.Cms.Domain.Implement.Content
 
                 this._links.Add(link);
             }
-        }
-
-        IList<IContentLink> IContentLinkManager.GetRelatedLinks()
-        {
-            throw new NotImplementedException();
         }
 
         IContentLink IContentLinkManager.GetLinkById(int id)

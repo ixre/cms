@@ -91,7 +91,7 @@ namespace J6.Cms.Web
         internal static string GetRelatedlinks(int siteId, string typeIndent, int contentId)
         {
             IContentServiceContract cs = ServiceCall.Instance.ContentService;
-            IEnumerable<RelatedLinkDto> links = cs.GetOuterRelatedLinks(siteId, typeIndent, contentId);
+            IEnumerable<RelatedLinkDto> links = cs.GetRelatedLinks(siteId, typeIndent, contentId);
 
             IList<ApiTypes.RLink> rlinks = new List<ApiTypes.RLink>();
 

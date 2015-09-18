@@ -48,7 +48,7 @@ namespace J6.Cms.ServiceRepository
         /// <param name="linkManager"></param>
         /// <param name="contentType"></param>
         /// <param name="contentId"></param>
-        public void ReadLinksOfContent(IContentLinkManager linkManager, int contentType, int contentId)
+        public void ReadLinksOfContent(IContentLinkManager linkManager, string contentType, int contentId)
         {
             this._linkDal.ReadLinksOfContent(contentType, contentId, rd =>
             {
@@ -64,18 +64,18 @@ namespace J6.Cms.ServiceRepository
             });
         }
 
-        public void SaveLinksOfContent(int typeIndent, int relatedId, IList<IContentLink> list)
+        public void SaveLinksOfContent(string contentType, int relatedId, IList<IContentLink> list)
         {
-            this._linkDal.SaveLinksOfContent(typeIndent, relatedId, list);
+            this._linkDal.SaveLinksOfContent(contentType, relatedId, list);
         }
 
 
 
-        public void RemoveRelatedLinks(int typeIndent, int relatedId,int[] idList)
+        public void RemoveRelatedLinks(string contentType, int relatedId, int[] idList)
         {
             String ids = String.Join(",",idList);
 
-            this._linkDal.RemoveRelatedLinks(typeIndent, relatedId, ids);
+            this._linkDal.RemoveRelatedLinks(contentType, relatedId, ids);
         }
 
 

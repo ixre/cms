@@ -176,11 +176,11 @@ namespace J6.Cms.Domain.Implement.Content
 
 
 
-        public IBaseContent GetContent(string typeIndent, int contentId)
+        public IBaseContent GetContent(string contentType, int contentId)
         {
             IBaseContent content = null;
 
-            switch (typeIndent.ToLower())
+            switch (contentType.ToLower())
             {
                 case "1":
                 case "archive":

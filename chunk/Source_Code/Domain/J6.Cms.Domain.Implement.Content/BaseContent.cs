@@ -131,7 +131,7 @@ namespace J6.Cms.Domain.Implement.Content
             {
                 return this._linkManager
                     ?? (this._linkManager =
-                    new ContentLinkManager(this._contentRep, this.ContentModelIndent, this.Id));
+                    new ContentLinkManager(this._contentRep,((ContentTypeIndent) this.ContentModelIndent).ToString().ToLower(), this.Id));
             }
         }
 

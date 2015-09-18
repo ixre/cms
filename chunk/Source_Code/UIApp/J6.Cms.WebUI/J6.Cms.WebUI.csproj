@@ -218,7 +218,7 @@
     <Content Include="framework\mui\html\file\file_edit.html" />
     <Content Include="framework\mui\html\file\file_manager.html" />
     <Content Include="framework\mui\html\file\file_selectedit.html" />
-    <Content Include="framework\mui\html\link\link.related_link.html" />
+    <Content Include="framework\mui\html\link\related_link.html" />
     <Content Include="framework\mui\html\link\link.sitelink_edit.html" />
     <Content Include="framework\mui\html\link\link.sitelink_edit_navigator.html" />
     <Content Include="framework\mui\html\link\link.sitelink_list.html" />

@@ -6,12 +6,12 @@ namespace J6.Cms.Domain.Implement.Content.Archive
 {
     internal class LinkOfArchive : IContentLink
     {
-        public LinkOfArchive(int id, int contentId, int relatedIndent, int relatedContentId, int relatedContentType,
+        public LinkOfArchive(int id, string contentType, int contentId, int relatedIndent, int relatedContentId,
             bool enabled)
         {
             this.Id = id;
             this.RelatedContentId = relatedContentId;
-            this.ContentType = relatedContentType;
+            this.ContentType = contentType;
             this.RelatedIndent = relatedIndent;
             this.ContentId = contentId;
             this.Enabled = enabled;
@@ -22,7 +22,7 @@ namespace J6.Cms.Domain.Implement.Content.Archive
 
         public int RelatedContentId { get; set; }
 
-        public int ContentType { get; set; }
+        public string ContentType { get; set; }
 
         public int Id { get; set; }
 
@@ -35,13 +35,13 @@ namespace J6.Cms.Domain.Implement.Content.Archive
         {
             //todo:???
             throw new Exception();
-//            return String.Format(@"<span class=""content_link"">
-//                                    <span class=""content_link_name"">{0}</span>
-//                                    <a href=""{1}"" title=""{2}"">{2}</a>
-//                                   </span>",
-//                                            this.LinkName,
-//                                            this.LinkTitle,
-//                                            this.LinkUri);
+            //            return String.Format(@"<span class=""content_link"">
+            //                                    <span class=""content_link_name"">{0}</span>
+            //                                    <a href=""{1}"" title=""{2}"">{2}</a>
+            //                                   </span>",
+            //                                            this.LinkName,
+            //                                            this.LinkTitle,
+            //                                            this.LinkUri);
         }
 
 

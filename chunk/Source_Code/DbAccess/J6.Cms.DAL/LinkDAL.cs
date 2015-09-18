@@ -87,7 +87,7 @@ namespace J6.Cms.Dal
                 }), func);
         }
 
-        public void ReadLinksOfContent(int contentType, int contentId,DataReaderFunc func)
+        public void ReadLinksOfContent(string contentType, int contentId,DataReaderFunc func)
         {
             base.ExecuteReader(
               SqlQueryHelper.Format(DbSql.Link_GetRelatedLinks, new object[,]{
@@ -96,7 +96,7 @@ namespace J6.Cms.Dal
                 }), func);
         }
 
-        public void SaveLinksOfContent(int contentType, int contentId, IList<IContentLink> list)
+        public void SaveLinksOfContent(string contentType, int contentId, IList<IContentLink> list)
         {
             if (list.Count == 0) return;
             SqlQuery[] querys = new SqlQuery[list.Count];
@@ -120,7 +120,7 @@ namespace J6.Cms.Dal
             base.ExecuteNonQuery(querys);
         }
 
-        public void RemoveRelatedLinks(int contenType, int contentId, string ids)
+        public void RemoveRelatedLinks(string contenType, int contentId, string ids)
         {
             base.ExecuteNonQuery(
              SqlQueryHelper.Format(DbSql.Link_RemoveRelatedLinks, new object[,]{

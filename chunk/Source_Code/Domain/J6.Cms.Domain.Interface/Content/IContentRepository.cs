@@ -21,7 +21,7 @@ namespace J6.Cms.Domain.Interface.Content
         /// <param name="linkManager"></param>
         /// <param name="contentType"></param>
         /// <param name="contentId"></param>
-        void ReadLinksOfContent(IContentLinkManager linkManager, int contentType, int contentId);
+        void ReadLinksOfContent(IContentLinkManager linkManager, string contentType, int contentId);
 
         /// <summary>
         /// 
@@ -29,7 +29,7 @@ namespace J6.Cms.Domain.Interface.Content
         /// <param name="contentType"></param>
         /// <param name="contentId"></param>
         /// <param name="list"></param>
-        void SaveLinksOfContent(int contentType, int contentId, IList<IContentLink> list);
+        void SaveLinksOfContent(string contentType, int contentId, IList<IContentLink> list);
 
         /// <summary>
         /// 
@@ -37,6 +37,6 @@ namespace J6.Cms.Domain.Interface.Content
         /// <param name="contentType"></param>
         /// <param name="contentId"></param>
         /// <param name="ids"></param>
-        void RemoveRelatedLinks(int contentType, int contentId, int[] ids);
+        void RemoveRelatedLinks(string contentType, int contentId, int[] ids);
     }
 }

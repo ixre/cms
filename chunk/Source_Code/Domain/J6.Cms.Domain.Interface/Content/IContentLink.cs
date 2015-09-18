@@ -18,7 +18,7 @@ namespace J6.Cms.Domain.Interface.Content
         /// <summary>
         /// 链接的内容类型
         /// </summary>
-        int ContentType { get; set; }
+        string ContentType { get; set; }
 
         /// <summary>
         /// 关联类型

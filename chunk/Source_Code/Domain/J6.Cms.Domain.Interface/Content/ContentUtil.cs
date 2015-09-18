@@ -15,7 +15,7 @@ namespace J6.Cms.Domain.Interface.Content
            if (_indents == null)
            {
               _indents = new Dictionary<int, string>(8);
-               _indents.Add(0,"默认分组");
+               _indents.Add(0,"默认类型");
                _indents.Add(1, "#未配置1");
                _indents.Add(2, "#未配置2");
                _indents.Add(3, "#未配置3");

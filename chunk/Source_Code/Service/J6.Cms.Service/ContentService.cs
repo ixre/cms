@@ -2,8 +2,10 @@
 using J6.Cms.ServiceContract;
 using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using J6.Cms.Domain.Interface.Common;
 using J6.Cms.Domain.Interface.Content;
+using J6.Cms.Domain.Interface.Content.Archive;
 
 namespace J6.Cms.Service
 {
@@ -22,10 +24,10 @@ namespace J6.Cms.Service
             return this._contentRep.GetContent(siteId).GetContent(typeIndent, contentId);
         }
 
-        public int SaveOuterRelatedLink(int siteId, string typeIndent, int contentId, RelatedLinkDto link)
+        public int SaveRelatedLink(int siteId, RelatedLinkDto link)
         {
 
-            IBaseContent content = this.GetContent(siteId,typeIndent, contentId);
+            IBaseContent content = this.GetContent(siteId,link.ContentType, link.ContentId);
 
             if(link.Id>0)
             {
@@ -60,9 +62,9 @@ namespace J6.Cms.Service
 
         }
 
-        public IEnumerable<RelatedLinkDto> GetOuterRelatedLinks(int siteId, string typeIndent, int contentId)
+        public IEnumerable<RelatedLinkDto> GetRelatedLinks(int siteId, string contentType, int contentId)
         {
-            IBaseContent content = this.GetContent(siteId,typeIndent, contentId);
+            IBaseContent content = this.GetContent(siteId,contentType, contentId);
             IList<IContentLink> linkList = content.LinkManager.GetRelatedLinks();
             foreach (IContentLink link in linkList)
             {
@@ -73,6 +75,12 @@ namespace J6.Cms.Service
         private RelatedLinkDto ConvertToLinkDto(int siteId, IContentLink link)
         {
             IBaseContent content = this.GetContent(siteId, link.ContentType.ToString(), link.ContentId);
+            String thumbnail = null;
+            IArchive archive = content as IArchive;
+            if (archive != null)
+            {
+                thumbnail = archive.Thumbnail;
+            }
 
             return new RelatedLinkDto
             {
@@ -84,6 +92,7 @@ namespace J6.Cms.Service
                 RelatedIndent = link.RelatedIndent,
                 Title = content.Title,
                 Url = content.Uri,
+                Thumbnail = thumbnail,
             };
         }
 
@@ -99,28 +108,6 @@ namespace J6.Cms.Service
              ContentUtil.SetRelatedIndents(relatedIndents);
         }
 
-        public int SaveRelatedLink(int siteId, int id, string contentType, int contentId, int relatedIndent, int relatedId)
-        {
-            IBaseContent content = this.GetContent(siteId, contentType, contentId);
-
-//            if (id > 0)
-//            {
-//                ILink _link = content.LinkManager.GetLinkById(link.LinkID);
-//                _link.LinkTitle = link.LinkTitle;
-//                _link.LinkName = link.LinkName;
-//                _link.LinkUri = link.LinkUri;
-//                _link.Enabled = link.Enabled;
-//
-//            }
-//            else
-//            {
-//                content.LinkManager.Add(link.LinkID, link.LinkName, link.LinkTitle, link.LinkUri, link.Enabled);
-//            }
-//
-//            content.LinkManager.SaveLinks();
-//            return link.LinkID;
-            return -1;
-        }
     }
 
 }

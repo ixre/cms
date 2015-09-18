@@ -23,7 +23,6 @@ using J6.Cms.Conf;
 using J6.Cms.DataTransfer;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.WebManager;
-using J6.DevFw.Framework.Automation;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -561,7 +560,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 if (indent.Value[0] != '#')
                 {
                     sb.Append("<option value=\"").Append(indent.Key.ToString())
-                        .Append("\">").Append(indent.Value).Append("</option>");
+                        .Append("\">[").Append(indent.Key.ToString()).Append("] - ").Append(indent.Value).Append("</option>");
                 }
             }
             return sb.ToString();
@@ -570,7 +569,7 @@ namespace J6.Cms.Web.WebManager.Handle
         public void Related_link_POST()
         {
             IEnumerable<RelatedLinkDto> links = ServiceCall.Instance.ContentService
-                .GetOuterRelatedLinks(
+                .GetRelatedLinks(
                     this.SiteId,
                     Request.Form["ContentType"],
                     int.Parse(Request.Form["ContentId"]));
@@ -581,22 +580,20 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             try
             {
-                int id = int.Parse(Request.Form["Id"]);
-                int contentId = int.Parse(Request.Form["ContentId"]);
-                string contentType = Request.Form["ContentType"];
-                int relatedIndent = int.Parse(Request.Form["RelatedIndent"]);
-                int relatedId = int.Parse(Request.Form["RelatedId"]);
+
+                RelatedLinkDto dto = new RelatedLinkDto
+                {
+                    Id = int.Parse(Request.Form["Id"]),
+                    ContentId = int.Parse(Request.Form["ContentId"]),
+                    ContentType = Request.Form["ContentType"],
+                    RelatedIndent = int.Parse(Request.Form["RelatedIndent"]),
+                    RelatedContentId = int.Parse(Request.Form["RelatedId"])
+                };
 
                 ServiceCall.Instance.ContentService.SaveRelatedLink(
-                    this.SiteId,
-                    id,
-                    contentType,
-                    contentId,
-                    relatedIndent,
-                    relatedId
-                    );
+                    this.SiteId,dto);
 
-                return base.ReturnSuccess(id == 0 ? "添加成功" : "保存成功");
+                return base.ReturnSuccess(dto.Id == 0 ? "添加成功" : "保存成功");
 
             }
             catch (Exception exc)

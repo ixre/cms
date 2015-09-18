@@ -17,7 +17,7 @@
     <map for="Link_SiteLinkList" to="mui/html/link/link.sitelink_list.html"/>
     <map for="Link_SiteLinkEdit" to="mui/html/link/link.sitelink_edit.html"/>
     <map for="Link_SiteLinkEdit_Navigator" to="mui/html/link/link.sitelink_edit_navigator.html"/>
-    <map for="Link_RelatedLink" to="mui/html/link/link.related_link.html"/>
+    <map for="Link_RelatedLink" to="mui/html/link/related_link.html"/>
     <map for="Category_LeftBar_Tree" to="mui/html/category/category_leftbar_tree.html"/>
     <map for="Category_CreateCategory" to="mui/html/category/category_create.html"/>
     <map for="Category_EditCategory" to="mui/html/category/category_edit.html"/>
