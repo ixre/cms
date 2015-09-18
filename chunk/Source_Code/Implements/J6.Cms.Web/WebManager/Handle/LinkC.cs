@@ -51,18 +51,20 @@ namespace J6.Cms.Web.WebManager.Handle
 
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
                 ServiceCall.Instance.SiteService.GetLinksByType(this.SiteId, type, true));
-
+            
 
             #region 链接拼凑
 
             LinkBehavior bh = (link) =>
             {
+                i ++;
                 sb.Append("<tr visible=\"").Append(link.Visible ? "1" : "0").Append("\" indent=\"").Append(link.Id.ToString())
                        .Append("\"><td class=\"hidden\">").Append(link.Id.ToString()).Append("</td>")
-                       .Append("<td align=\"center\">").Append((++i).ToString()).Append("</td><td><b>")
-                       .Append(link.Pid != 0 ? "&nbsp;&nbsp;" : "")
+                       .Append("<td class=\"")
+                       .Append(link.Pid != 0 ? "child" : "parent")
+                       .Append("\">")
                        .Append(link.Visible ? link.Text : "<span style=\"color:#d0d0d0\">" + link.Text + "</span>")
-                       .Append("</b>&nbsp;<span class=\"micro\">(");
+                       .Append("<span class=\"micro\">(");
 
                 if (String.IsNullOrEmpty(link.Bind))
                 {
@@ -107,7 +109,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     sb.Append(bindTitle);
                 }
 
-                sb.Append(")</span></td><td class=\"center\">").Append(link.SortNumber.ToString()).Append("</td>")
+                sb.Append(")</span></td>")
                 .Append("</tr>");
 
                 return "";
@@ -384,85 +386,6 @@ namespace J6.Cms.Web.WebManager.Handle
             return base.ReturnSuccess();
         }
 
-
-        /// <summary>
-        /// 更新提交
-        /// </summary>
-        //[MCacheUpdate(CacheSign.Link)]
-        //public void Edit_POST()
-        //{
-        //    HttpRequest request = HttpContext.Current.Request;
-        //    Link link = CmsLogic.Link.Get(a => a.ID == linkID);
-
-        //    if (base.CompareSite(CmsLogic.Link.Get(a => a.ID == linkID).SiteId)) return;
-
-        //    string text = request.Form["text"],
-        //           uri = request.Form["uri"],
-        //           target = request.Form["target"],
-        //           imgurl=request.Form["imgurl"],
-        //           bindtype = request.Form["bindtype"],
-        //           bindID = request.Form["bindid"];
-
-        //    bool isRightBind=true;
-
-
-        //    if (String.IsNullOrEmpty(bindtype))
-        //    {
-        //        link.Bind = String.Empty;
-        //        isRightBind = false;
-        //    }
-        //    else if (bindtype == "category")
-        //    {
-        //        if(!Regex.IsMatch(bindID, "^\\d+$"))
-        //        {
-        //            isRightBind = false;
-        //        }
-        //    }
-        //    else if (bindtype != "archive")
-        //    {
-        //        isRightBind = false;
-        //    }
-        //    if(isRightBind)
-        //    {
-        //        link.Bind = String.Format("{0}:{1}", bindtype, bindID);
-        //    }
-
-
-        //    LinkType type = (LinkType)int.Parse(request.Form["linktype"]);
-
-        //    int index = 0;
-        //    int.TryParse(request.Form["index"], out index);
-
-        //    //判断pid修改
-        //    int pid =int.Parse(request["pid"]);
-        //    if (link.Pid != pid)
-        //    {
-        //        if (link.Pid == 0 && pid != 0)
-        //        {
-        //            if (new List<Link>(CmsLogic.Link.GetLinks(a => a.Pid == link.ID)).Count != 0)
-        //            {
-        //                base.RenderError("已经被继承,无法修改继承!");
-        //                return;
-        //            }
-        //        }
-
-        //        link.Pid = pid;
-        //    }
-
-
-        //    link.Index = index;
-        //    link.Uri = uri;
-        //    link.Text = text;
-        //    link.Type = (int)type;
-        //    link.Target = target;
-        //    link.ImgUrl = imgurl;
-
-        //    CmsLogic.Link.UpdateLink(link);
-
-        //    Cms.Cache.Clear(CacheSign.Link.ToString());
-
-        //    base.RenderSuccess("保存成功!");
-        //}
 
         /// <summary>
         /// 设置链接可见
