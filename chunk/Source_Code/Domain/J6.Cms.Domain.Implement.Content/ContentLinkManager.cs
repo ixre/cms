@@ -75,17 +75,6 @@ namespace J6.Cms.Domain.Implement.Content
 
 
 
-        public bool Contain(IContentLink link)
-        {
-            foreach (IContentLink _link in this._links)
-            {
-                if (_link.Equal(link))
-                    return true;
-            }
-            return false;
-        }
-
-
         public IContentLink GetLinkById(int id)
         {
             foreach (IContentLink link in this._links)
@@ -98,16 +87,21 @@ namespace J6.Cms.Domain.Implement.Content
 
         public bool Contain(int relatedContentType, int relatedContentId)
         {
-            throw new NotImplementedException();
+            foreach (IContentLink _link in this._links)
+            {
+                if (_link.RelatedContentId == relatedContentId && relatedContentType == _link.RelatedIndent)
+                    return true;
+            }
+            return false;
         }
 
-        public void Add(int id, int relatedIndent, int relatedId, bool enabled)
+        public void Add(int id, int relatedSiteId,int relatedIndent, int relatedId, bool enabled)
         {
             IContentLink link = null;
 
             if (this._contentType == ContentTypeIndent.Archive.ToString().ToLower())
             {
-                link = new LinkOfArchive(id, this._contentType, this._contentId, relatedIndent,relatedId,
+                link = new LinkOfArchive(id, this._contentType, this._contentId, relatedSiteId, relatedIndent,relatedId,
                     enabled);
             }
 

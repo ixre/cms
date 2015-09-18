@@ -6,13 +6,14 @@ namespace J6.Cms.Domain.Implement.Content.Archive
 {
     internal class LinkOfArchive : IContentLink
     {
-        public LinkOfArchive(int id, string contentType, int contentId, int relatedIndent, int relatedContentId,
+        public LinkOfArchive(int id, string contentType, int contentId, int relatedSiteId, int relatedIndent, int relatedContentId,
             bool enabled)
         {
             this.Id = id;
             this.RelatedContentId = relatedContentId;
             this.ContentType = contentType;
             this.RelatedIndent = relatedIndent;
+            this.RelatedSiteId = relatedSiteId;
             this.ContentId = contentId;
             this.Enabled = enabled;
         }
@@ -57,5 +58,8 @@ namespace J6.Cms.Domain.Implement.Content.Archive
             }
             return false;
         }
+
+
+        public int RelatedSiteId { get; set; }
     }
 }

@@ -434,17 +434,24 @@ namespace J6.Cms.Web.WebManager.Handle
 
             int i = 0;
             strBuilder.Append("[");
+            SiteDto site = default(SiteDto);
             foreach (ArchiveDto a in list)
             {
                 if (++i != 1)
                 {
                     strBuilder.Append(",");
                 }
+                if (site.SiteId == 0 || site.SiteId != a.Category.SiteId)
+                {
+                    site = ServiceCall.Instance.SiteService.GetSiteById(a.Category.SiteId);
+                }
+
                 strBuilder.Append("{'id':'").Append(a.Id)
                     .Append("','alias':'").Append(String.IsNullOrEmpty(a.Alias) ? a.StrId : a.Alias)
                     .Append("',title:'").Append(a.Title)
-                    .Append("',siteId:").Append(a.Category.SiteId)
-                    .Append(",category:'").Append(a.Category.Name).Append("(").Append(a.Category.Tag).Append(")")
+                    .Append("',siteId:").Append(site.SiteId)
+                    .Append(",siteName:'").Append(site.Name)
+                    .Append("',category:'").Append(a.Category.Name).Append("(").Append(a.Category.Tag).Append(")")
                     .Append("'}");
             }
             strBuilder.Append("]");

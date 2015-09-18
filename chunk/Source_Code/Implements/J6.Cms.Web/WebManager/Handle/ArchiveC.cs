@@ -32,6 +32,7 @@ using J6.Cms.Infrastructure;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Toolkit.Tags;
+using J6.DevFw.Web;
 using ResourceMap = J6.Cms.WebManager.ResourceMap;
 
 namespace J6.Cms.Web.WebManager.Handle
@@ -845,7 +846,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string fullDomain = this.CurrentSite.FullDomain;
             if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
             {
-                fullDomain = fullDomain.Replace("#", Cms.Context.Host);
+                fullDomain =Request.Url.Scheme+":"+fullDomain.Replace("#", WebCtx.Current.Host);
             }
             string url = fullDomain + archive.Url;
 

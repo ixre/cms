@@ -110,6 +110,7 @@ namespace J6.Cms.Dal
                         {"@contentType",contentType},
                         {"@contentId",contentId},
                         {"@id",link.Id},
+                        {"@relatedSiteId",link.RelatedSiteId},
                         {"@relatedContentId",link.RelatedContentId},
                         {"@relatedIndent",link.RelatedIndent},
                         {"@enabled",link.Enabled}

@@ -162,7 +162,7 @@ namespace J6.Cms.Core.Plugins
         {
             if (!this._loaded)
             {
-                this._domain = WebCtx.Domain;
+                this._domain = WebCtx.Current.Domain;
                 this._fpath = String.Format("{0}/{1}", _domain,
                        CmsVariables.FRAMEWORK_ASSETS_PATH
                            .Substring(0, CmsVariables.FRAMEWORK_ASSETS_PATH.Length - 1)

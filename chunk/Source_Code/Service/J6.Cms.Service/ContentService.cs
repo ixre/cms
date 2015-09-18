@@ -4,16 +4,19 @@ using System;
 using System.Collections.Generic;
 using J6.Cms.Domain.Interface.Content;
 using J6.Cms.Domain.Interface.Content.Archive;
+using J6.Cms.Domain.Interface.Site;
 
 namespace J6.Cms.Service
 {
     public class ContentService : IContentServiceContract
     {
         private readonly IContentRepository _contentRep;
+        private ISiteRepository _siteRep;
 
-        public ContentService(IContentRepository contentRep)
+        public ContentService(IContentRepository contentRep,ISiteRepository siteRep)
         {
             this._contentRep = contentRep;
+            this._siteRep = siteRep;
         }
 
         public IBaseContent GetContent(int siteId, string typeIndent, int contentId)
@@ -31,10 +34,11 @@ namespace J6.Cms.Service
                 link.RelatedIndent = linkDto.RelatedIndent;
                 link.RelatedContentId = linkDto.RelatedContentId;
                 link.Enabled = linkDto.Enabled;
+                link.RelatedSiteId = linkDto.RelatedSiteId;
             }
             else
             {
-                content.LinkManager.Add(linkDto.Id, linkDto.RelatedContentId, linkDto.RelatedIndent, linkDto.Enabled);
+                content.LinkManager.Add(linkDto.Id, linkDto.RelatedSiteId, linkDto.RelatedIndent, linkDto.RelatedContentId, linkDto.Enabled);
             }
 
             content.LinkManager.SaveRelatedLinks();
@@ -71,7 +75,8 @@ namespace J6.Cms.Service
 
         private RelatedLinkDto ConvertToLinkDto(int siteId, IContentLink link)
         {
-            IBaseContent content = this.GetContent(siteId, ContentTypeIndent.Archive.ToString().ToLower(), link.RelatedContentId);
+            ISite site = this._siteRep.GetSiteById(link.RelatedSiteId);
+            IBaseContent content = this.GetContent(site.Id, ContentTypeIndent.Archive.ToString().ToLower(), link.RelatedContentId);
             String thumbnail = null;
             IArchive archive = content as IArchive;
             if (archive != null)
@@ -85,10 +90,12 @@ namespace J6.Cms.Service
                 Enabled = link.Enabled,
                 ContentId = link.ContentId,
                 ContentType = link.ContentType,
+                RelatedSiteId = link.RelatedSiteId,
+                RelatedSiteName = site.Name,
                 RelatedContentId = link.RelatedContentId,
                 RelatedIndent = link.RelatedIndent,
                 Title = content.Title,
-                Url = content.Uri,
+                Url = site.FullDomain + content.Uri,
                 Thumbnail = thumbnail,
                 IndentName = ContentUtil.GetRelatedIndentName(link.RelatedIndent),
             };

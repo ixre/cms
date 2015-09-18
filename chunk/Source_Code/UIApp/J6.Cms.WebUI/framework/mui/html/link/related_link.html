@@ -68,6 +68,7 @@
                                 <input class="ui-validate ui-box" type="hidden" field="Id" value="0" />
                                 <input class="ui-validate ui-box" type="hidden" field="ContentType" value="${content_type}" />
                                 <input class="ui-validate ui-box" type="hidden" field="ContentId" value="${content_id}" />
+                                <input class="ui-validate ui-box" type="hidden" field="RelatedSiteId" value="0" />
                                 <input class="ui-validate ui-box" type="hidden" field="RelatedContentId" value="0" />
                                 <input type="text" class="tb_normal ui-box archiveGuest" field="Title" />
                                 <div>输入搜索内容后，在搜索结果中选择</div>
@@ -103,7 +104,9 @@
             <span class="index">{index}</span>
             <span title="{title}">{title}</span>
             <br/>
-            <span style="padding-left:2.2em"><span class="label">{type}</span>&nbsp;&nbsp;
+            <span style="padding-left:2.2em">
+                <span class="label">{type}</span>&nbsp;
+                <span class="label">{siteName}</span>&nbsp;
                 <a href="{url}" target="_blank" title="浏览关联文档">浏览</a> |
                 <a href="javascript:;" onclick="Fn.edit('{id}')">修改</a> |
                 <a href="javascript:;" onclick="Fn.dek('{id}')">删除</a>
@@ -148,8 +151,9 @@
                         return j6.template(itemTemplate, {
                             id: row.Id,
                             title: row.Title,
-                            url: row.Url,
-                            type:row.IndentName,
+                            url:'${scheme}'+ row.Url.replace('#','${host}'),
+                            type: row.IndentName,
+                            siteName:row.RelatedSiteName,
                             index:index+1,
                         });
                     }
@@ -181,7 +185,7 @@
                     showErr('请选择关联类型');
                     return false;
                 }
-                if (data.RelatedId <= 0) {
+                if (data.RelatedSiteId <= 0 || data.RelatedContentId <= 0) {
                     showErr('请选择关联文档');
                     return false;
                 }
@@ -216,11 +220,11 @@
                 j6.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true', function (data) {
                     j6.json.bind('pl', { RelatedId: 0 });
                     for (var j = 0; j < data.length; j++) {
-                        data[j].text = data[j].title;
-                        data[j].title = '栏目：' + data[j].category;
+                        data[j].text =data[j].title;
+                        data[j].title = '站点：'+data[j].siteName + '  ** 栏目：' + data[j].category;
                     }
                 }, function (data) {
-                    j6.json.bind('pl', { RelatedContentId: data.id });
+                    j6.json.bind('pl', { RelatedContentId: data.id,RelatedSiteId:data.siteId});
                 });
             });
         }

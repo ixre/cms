@@ -56,6 +56,7 @@ namespace J6.Cms.ServiceRepository
                 {
                     linkManager.Add(
                         int.Parse(rd["id"].ToString()),
+                        int.Parse(rd["related_site_id"].ToString()),
                         int.Parse(rd["related_indent"].ToString()),
                         int.Parse(rd["related_content_id"].ToString()),
                         rd["enabled"].ToString() == "1" || rd["enabled"].ToString() == "True"

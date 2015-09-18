@@ -162,23 +162,14 @@ namespace J6.Cms.Core
             {
                 if (this._siteDomain == null)
                 {
-                    string host = String.Format("{0}{1}", _context.Request.Url.Host,
-                                                _context.Request.Url.Port != 80 ? ":" + _context.Request.Url.Port.ToString() : "");
-
-                                         // _siteDomain= String.Format("http://{0}{1}{2}",
-                                          _siteDomain= String.Format("//{0}{1}{2}",
-                                                          host,
-                                                          this.ApplicationPath=="/"?"":this.ApplicationPath,
-                                                          this.SiteAppPath=="/"?"":this.SiteAppPath
-                                                         );
-
-//                    this._siteDomain = this.CurrentSite.FullDomain;
-//
-//                    if (this._siteDomain.IndexOf("#") != -1)
-//                    {
-//                        this._siteDomain = this._siteDomain.Replace(
-//                             "#", host);
-//                    }
+                    if (this.SiteAppPath != "/")
+                    {
+                        this._siteDomain = WebCtx.Current.Domain + this.SiteAppPath;
+                    }
+                    else
+                    {
+                        this._siteDomain = WebCtx.Current.Domain;
+                    }
                 }
                 return _siteDomain;
             }
@@ -191,7 +182,7 @@ namespace J6.Cms.Core
         {
             get
             {
-                return this._resouceDomain ?? (this._resouceDomain = WebCtx.Domain.Replace("http:",""));
+                return this._resouceDomain ?? (this._resouceDomain = WebCtx.Current.Domain);
             }
         }
 
@@ -206,7 +197,7 @@ namespace J6.Cms.Core
                 {
                     if (Settings.SERVER_STATIC_ENABLED && Settings.SERVER_STATIC.Length != 0)
                     {
-                       // this._staticDomain = String.Concat("http://", Settings.SERVER_STATIC);
+                        // this._staticDomain = String.Concat("http://", Settings.SERVER_STATIC);
                         this._staticDomain = String.Concat("//", Settings.SERVER_STATIC);
                     }
                     else

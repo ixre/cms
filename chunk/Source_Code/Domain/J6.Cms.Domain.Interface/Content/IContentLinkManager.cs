@@ -16,10 +16,11 @@ namespace J6.Cms.Domain.Interface.Content
         /// 
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="relatedSiteId"></param>
         /// <param name="relatedIndent"></param>
-        /// <param name="relatedId"></param>
+        /// <param name="relatedContentId"></param>
         /// <param name="enabled"></param>
-        void Add(int id,int relatedIndent, int relatedId,bool enabled);
+        void Add(int id,int relatedSiteId,int relatedIndent, int relatedContentId,bool enabled);
 
         /// <summary>
         /// 获取关联的链接

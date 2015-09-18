@@ -330,7 +330,7 @@ namespace J6.Cms.Template
                 //获取包含完整URL的图片地址
                 if (this._resourceUri == null)
                 {
-                    this._resourceUri = WebCtx.Domain;
+                    this._resourceUri = WebCtx.Current.Domain;
                 }
                 return String.Concat(this._resourceUri, thumbnail);
             }

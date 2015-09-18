@@ -25,6 +25,8 @@ namespace J6.Cms.Domain.Interface.Content
         /// </summary>
         int RelatedIndent { get; set; }
 
+        int RelatedSiteId { get; set; }
+
         int RelatedContentId { get; set; }
 
         bool Enabled { get; set; }

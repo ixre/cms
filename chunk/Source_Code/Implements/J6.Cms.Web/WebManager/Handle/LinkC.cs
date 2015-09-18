@@ -23,6 +23,7 @@ using J6.Cms.Conf;
 using J6.Cms.DataTransfer;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.WebManager;
+using J6.DevFw.Web;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -365,8 +366,6 @@ namespace J6.Cms.Web.WebManager.Handle
             if (linkId > 0) link = ServiceCall.Instance
                 .SiteService.GetLinkById(this.SiteId, linkId);
 
-            //link = base.Request.Form.BindToEntity(link);
-
             link.ImgUrl = base.Request.Form["ImgUrl"];
             link.SortNumber = int.Parse(base.Request.Form["SortNumber"]);
             link.Pid = int.Parse(base.Request.Form["Pid"]);
@@ -547,6 +546,8 @@ namespace J6.Cms.Web.WebManager.Handle
             ViewData["indent_opts"] = this.GetContentRelatedIndentOptions();
             ViewData["content_type"] = Request.QueryString["content_type"];
             ViewData["content_id"] = Request.QueryString["content_id"];
+            ViewData["scheme"] = Request.Url.Scheme + ":";
+            ViewData["host"] = WebCtx.Current.Host;
 
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Link_RelatedLink));
         }
@@ -586,6 +587,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     ContentId = int.Parse(Request.Form["ContentId"]),
                     ContentType = Request.Form["ContentType"],
                     RelatedIndent = int.Parse(Request.Form["RelatedIndent"]),
+                    RelatedSiteId = int.Parse(Request.Form["RelatedSiteId"]),
                     RelatedContentId = int.Parse(Request.Form["RelatedContentId"]),
                     Enabled = Request.Form["Enabled"] == "1",
                 };

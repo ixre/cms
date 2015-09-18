@@ -972,11 +972,11 @@ namespace J6.Cms.Sql
                         WHERE content_type = @contentType AND content_id = @contentId";
 
         public readonly String Link_InsertRelatedLink = @"
-                        INSERT INTO $PREFIX_related_link(content_type,content_id,related_indent,related_content_id,enabled)
-                        VALUES (@contentType,@contentId,@relatedIndent,@relatedContentId,@enabled)";
+                        INSERT INTO $PREFIX_related_link(content_type,content_id,related_site_id,related_indent,related_content_id,enabled)
+                        VALUES (@contentType,@contentId,@relatedSiteId,@relatedIndent,@relatedContentId,@enabled)";
 
         public readonly String Link_UpdateRelatedLink= @"UPDATE $PREFIX_related_link
-	                    SET related_indent=@relatedIndent,related_content_id=@relatedContentId,enabled = @enabled
+	                    SET related_site_id=@relatedSiteId,related_indent=@relatedIndent,related_content_id=@relatedContentId,enabled = @enabled
 	                    WHERE id=@id AND content_type = @contentType AND content_id = @contentId";
     }
 }

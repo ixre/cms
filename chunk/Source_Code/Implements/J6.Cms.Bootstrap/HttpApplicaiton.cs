@@ -53,7 +53,7 @@ namespace J6.Cms
             {
                 Cms.OnInit += CmsEventRegister.Init;
                 Cms.Init();
-                WebCtx.Plugin.Connect();
+                WebCtx.Current.Plugin.Connect();
             }
             catch (Exception exc)
             {
