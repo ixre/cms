@@ -55,6 +55,17 @@ div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
 .ui-box:focus{border:solid 1px #0a0;margin:1px;}
 input.ui-box,select.ui-box{ height: auto;height:1.5rem;}
 
+/* 智能提示 */
+.ui-autocompletion-panel{ border: solid 1px #ddd;border-top: 0px;color:#000000}
+.ui-autocompletion-panel *{vertical-align: middle;}
+.ui-autocompletion-panel .inner{ padding: 0px;}
+.ui-autocompletion-panel ul li {padding: 5px 10px; }
+.ui-autocompletion-panel ul li.first { border:none}
+.ui-autocompletion-panel ul li.selected {
+    background: #f0f0f0;
+}
+.ui-autocompletion-panel ul li b{ color: green;}
+
 
 
 input.tb_normal,select.tb_normal,textarea.tb_normal{width:200px;}

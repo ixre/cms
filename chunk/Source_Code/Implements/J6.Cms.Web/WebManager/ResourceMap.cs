@@ -58,11 +58,11 @@ namespace J6.Cms.WebManager
         Category_EditCategory,
         Category_List,
 
-        Link_SiteLinkList,
+        Link_List,
 
-        Link_SiteLinkEdit,
+        Link_Edit,
 
-        Link_SiteLinkEdit_Navigator,
+        Link_Edit_Navigator,
         Link_RelatedLink,
 
 

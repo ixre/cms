@@ -219,10 +219,9 @@
     <Content Include="framework\mui\html\file\file_manager.html" />
     <Content Include="framework\mui\html\file\file_selectedit.html" />
     <Content Include="framework\mui\html\link\related_link.html" />
-    <Content Include="framework\mui\html\link\link.sitelink_edit.html" />
-    <Content Include="framework\mui\html\link\link.sitelink_edit_navigator.html" />
-    <Content Include="framework\mui\html\link\link.sitelink_list.html" />
-    <Content Include="framework\mui\html\link\link_navigator.html" />
+    <Content Include="framework\mui\html\link\link_edit.html" />
+    <Content Include="framework\mui\html\link\link_edit_navigator.html" />
+    <Content Include="framework\mui\html\link\link_list.html" />
     <Content Include="framework\mui\html\plugin\plugin_dashboard.html" />
     <Content Include="framework\mui\html\plugin\plugin_miniapps.html" />
     <Content Include="framework\mui\html\site\extend\extend.category_check.html" />

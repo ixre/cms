@@ -4,12 +4,15 @@
     <title>链接列表</title>
     <!--<script src="script.js"></script>-->
     $css()
+    <style type="text/css">
+        .ui-autocompletion-panel{ line-height: 20px;}
+    </style>
 </head>
 <body>
     <div class="autoStyle">
         <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
-                <td width="400px">
+                <td width="350">
                     <div class="control">
                         <!--
                     <div class="top">
@@ -111,7 +114,7 @@
 	                var rows = Fn.table.rows;
 	                if (rows.length > 0) {
 	                    var id = rows[0].childNodes[0].innerHTML;
-	                    j6.load2('pl', 'link', 'edit', 'disabled=true&linkid=' + id);
+	                    j6.load2('pl', 'link', 'edit', 'disabled=true&link_id=' + id);
 	                }
 	            }
 				
@@ -132,21 +135,20 @@
 	            });
 	
 	            j6.initTable(Fn.table, false, function () {
-	                j6.load2('pl', 'link', 'edit', 'linkid=' + Fn.ids[Fn.ids.length - 1]);
+	                j6.load2('pl', 'link', 'edit', 'link_id=' + Fn.ids[Fn.ids.length - 1]);
 	            });
 			}
         };
 
         //加载数据
         Fn.loadData = function (page) {
-
             var _page = page || 1;
-            j6.pagerLoad('plist', 'pager', _page, 'link', 'data', 'type=${linktype}&page=' + _page, Fn.initTable);
+            j6.pagerLoad('plist', 'pager', _page, 'link', 'data', 'type=${link_type}&page=' + _page, Fn.initTable);
         };
 
         //创建
         Fn.create = function () {
-            j6.load2('pl', 'link', 'create', 'type=${linktype}');
+            j6.load2('pl', 'link', 'create', 'type=${link_type}');
         };
 
         Fn.loadData();
@@ -158,7 +160,7 @@
             add: Fn.create,
             setvisible: function (id) {
                 (function (_this) {
-                    j6.xhr.post('?', 'module=link&action=setvisible&linkID=' + id,
+                    j6.xhr.post('?', 'module=link&action=set_visible&link_id=' + id,
                  function () {
                     showMsg2('操作成功！');
                      _this.refresh();
@@ -168,7 +170,7 @@
             //删除文档
             del: function (id) {
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
-                    j6.xhr.jsonPost('?', 'module=link&action=delete&linkID=' + id,
+                    j6.xhr.jsonPost('?', 'module=link&action=delete&link_id=' + id,
                     function (json) {
                         if (json.result) {
                             Fn.loadData();

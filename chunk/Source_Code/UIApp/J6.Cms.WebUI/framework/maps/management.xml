@@ -14,9 +14,9 @@
     <map for="Site_Extend_List" to="mui/html/site/extend/extend.list.html"/>
     <map for="Site_Extend_Create" to="mui/html/site/extend/extend.create.html"/>
     <map for="Site_Extend_Category_Check" to="mui/html/site/extend/extend.category_check.html"/>
-    <map for="Link_SiteLinkList" to="mui/html/link/link.sitelink_list.html"/>
-    <map for="Link_SiteLinkEdit" to="mui/html/link/link.sitelink_edit.html"/>
-    <map for="Link_SiteLinkEdit_Navigator" to="mui/html/link/link.sitelink_edit_navigator.html"/>
+    <map for="Link_List" to="mui/html/link/link_list.html"/>
+    <map for="Link_Edit" to="mui/html/link/link_edit.html"/>
+    <map for="Link_Edit_Navigator" to="mui/html/link/link_edit_navigator.html"/>
     <map for="Link_RelatedLink" to="mui/html/link/related_link.html"/>
     <map for="Category_LeftBar_Tree" to="mui/html/category/category_leftbar_tree.html"/>
     <map for="Category_CreateCategory" to="mui/html/category/category_create.html"/>

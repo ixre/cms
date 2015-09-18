@@ -5,14 +5,6 @@
     $css() 
     $iconcss()
     <style type="text/css">
-        .ui-autocompletion-panel{ border: solid 1px #ddd;border-top: 0px;color:#000000}
-        .ui-autocompletion-panel .inner{ padding: 0px;}
-        .ui-autocompletion-panel ul li {padding: 5px 10px; }
-        .ui-autocompletion-panel ul li.first { border:none}
-        .ui-autocompletion-panel ul li.selected {
-            background: #f0f0f0;
-        }
-        .ui-autocompletion-panel ul li b{ color: green;}
         .ui-datagrid-header{display: none;}
     </style>
 </head>
@@ -70,7 +62,7 @@
                                 <input class="ui-validate ui-box" type="hidden" field="ContentId" value="${content_id}" />
                                 <input class="ui-validate ui-box" type="hidden" field="RelatedSiteId" value="0" />
                                 <input class="ui-validate ui-box" type="hidden" field="RelatedContentId" value="0" />
-                                <input type="text" class="tb_normal ui-box archiveGuest" field="Title" />
+                                <input type="text" class="tb_normal ui-box archiveGuess" field="Title" />
                                 <div>输入关键词后选择（注：不限站点）</div>
                                 <span class="label hidden" id="lb_selected"></span>
                             </div>
@@ -211,7 +203,7 @@
         };
 
         function initFormEvents() {
-            j6.each(j6.dom.getsByClass(j6.$('pl'), 'archiveGuest'), function (i, e) {
+            j6.each(j6.dom.getsByClass(j6.$('pl'), 'archiveGuess'), function (i, e) {
                 j6.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true', function (data) {
 
                     j6.json.bind('pl', { RelatedContentId: 0 });

@@ -24,12 +24,15 @@
 
         <div class="area" id="dataPanel">
             <div class="form">
-                <input type="hidden" field="Type" />
-                <input type="hidden" field="Id" />
+                <div class="title" style="margin-top: 0">
+                    <span class="icon icon1"></span>${form_title}
+                </div>
 
                 <dl class="hidden">
                     <dt>绑定:</dt>
                     <dd>
+                        <input type="hidden" field="Type" />
+                        <input type="hidden" field="Id" />
                         <input type="hidden" field="BindId" id="bindid" />
                         <input type="hidden" field="BindType" id="bindtype" />
 
@@ -166,29 +169,7 @@
             }
         });
 
-        function searchArchive(id) {
-            var key = j6.val(id);
-            var panel = document.getElementsByClassName('archivelist')[0];
-            if (key != '') {
-
-                panel.innerHTML = '获取搜索结果...';
-                j6.xhr.post('?', 'module=ajax&action=GetSearchArchivesJsonResult&key=' 
-                    + encodeURIComponent(key), function (result) {
-                    var data = j6.toJson(result);
-                    panel.innerHTML = '';
-                    for (var i = 0; i < data.length; i++) {
-                        var ele = document.createElement("DIV");
-                        ele.innerHTML = data[i].title.replace(key, '<span style="color:red">'
-                            + key + '</span>') + '<a href="javascript:bind({id:\'' + data[i].id 
-                            + '\',text:\'' + data[i].title + '\',type:\'archive\'})">绑定</a>';
-
-                        panel.appendChild(ele);
-                    }
-                }, function () {
-                    panel.innerHTML = '<span>获取搜索结果异常!</span>';
-                });
-            }
-        }
+        
 
         function bind(data) {
             var id = data.id,
@@ -228,7 +209,7 @@
                        , function (json) {
                            if (json.result) {
                                showMsg2(json.message);
-                               location.replace('?module=link&action=list&type=${linktype}');
+                               location.replace('?module=link&action=list&type=${link_type}');
                            } else {
                              showErr(json.message);
                            }

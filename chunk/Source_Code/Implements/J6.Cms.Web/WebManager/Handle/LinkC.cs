@@ -146,11 +146,10 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 链接列表
         /// </summary>
-        public void List_GET()
+        public string List_GET()
         {
             SiteLinkType type = (SiteLinkType)Enum.Parse(typeof(SiteLinkType), HttpContext.Current.Request["type"], true);
             string linkTypeName;
-
             switch (type)
             {
                 case SiteLinkType.FriendLink: linkTypeName = "友情链接"; break;
@@ -160,21 +159,16 @@ namespace J6.Cms.Web.WebManager.Handle
             }
 
 
-            //显示页面
-            object data = new
-            {
-                linktype = base.Request["type"],
-                linkTypeName = linkTypeName
-
-            };
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Link_SiteLinkList), data);
+            ViewData["link_type"] = base.Request["type"];
+            ViewData["type_name"] = linkTypeName;
+           return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Link_List));
 
         }
 
         /// <summary>
         /// 创建链接
         /// </summary>
-        public void Create_GET()
+        public string Create_GET()
         {
             object data;
             string plinks = "";
@@ -186,16 +180,16 @@ namespace J6.Cms.Web.WebManager.Handle
 
             switch (type)
             {
-                case SiteLinkType.FriendLink: linkTypeName = "友情链接"; resouce = ResourceMap.GetPageContent(ManagementPage.Link_SiteLinkEdit); break;
+                case SiteLinkType.FriendLink: linkTypeName = "友情链接"; resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit); break;
                 default:
-                case SiteLinkType.CustomLink: linkTypeName = "自定义链接"; resouce = ResourceMap.GetPageContent(ManagementPage.Link_SiteLinkEdit); break;
-                case SiteLinkType.Navigation: linkTypeName = "网站导航"; resouce = ResourceMap.GetPageContent(ManagementPage.Link_SiteLinkEdit_Navigator); break;
+                case SiteLinkType.CustomLink: linkTypeName = "自定义链接"; resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit); break;
+                case SiteLinkType.Navigation: linkTypeName = "网站导航"; resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit_Navigator); break;
             }
 
 
             //plinks
             StringBuilder sb = new StringBuilder();
-            int siteID = base.CurrentSite.SiteId;
+            int siteId = base.CurrentSite.SiteId;
 
             IEnumerable<SiteLinkDto> parentLinks = ServiceCall.Instance.SiteService
                            .GetLinksByType(this.SiteId, type, true);
@@ -228,14 +222,14 @@ namespace J6.Cms.Web.WebManager.Handle
                 Visible = "True"
             });
 
-            base.RenderTemplate(resouce, new
-            {
-                entity = json,
-                LinkType = Request["type"],
-                linkTypeName = linkTypeName,
-                categoryNodes = this.GetCategorySelector(siteID, -1),
-                plinks = plinks
-            });
+            ViewData["entity"] = json;
+            ViewData["link_type"] = (int)type;
+            ViewData["form_title"] = "创建" + linkTypeName;
+            ViewData["category_opts"] = this.GetCategorySelector(this.SiteId, -1);
+            ViewData["parent_opts"] = plinks;
+
+            return base.RequireTemplate(resouce);
+
         }
 
 
@@ -244,10 +238,10 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 更新链接
         /// </summary>
-        public void Edit_GET()
+        public string Edit_GET()
         {
-            object data;
-            int linkId = int.Parse(base.Request.QueryString["linkId"]);
+
+            int linkId = int.Parse(base.Request.QueryString["link_id"]);
             int bindId = 0;
             int categoryId = 0;
             string plinks = "";
@@ -296,14 +290,14 @@ namespace J6.Cms.Web.WebManager.Handle
             switch ((SiteLinkType)link.Type)
             {
                 case SiteLinkType.FriendLink: linkTypeName = "友情链接";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_SiteLinkEdit);
+                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
                     break;
                 default:
                 case SiteLinkType.CustomLink: linkTypeName = "自定义链接";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_SiteLinkEdit);
+                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
                     break;
                 case SiteLinkType.Navigation: linkTypeName = "网站导航";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_SiteLinkEdit_Navigator);
+                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit_Navigator);
                     break;
             }
 
@@ -341,14 +335,13 @@ namespace J6.Cms.Web.WebManager.Handle
                CategoryId = categoryId
            });
 
-            base.RenderTemplate(resouce, new
-            {
-                entity = json,
-                LinkType = (int)link.Type,
-                linkTypeName = linkTypeName,
-                categoryNodes = this.GetCategorySelector(this.SiteId, -1),
-                plinks = plinks
-            });
+            ViewData["entity"] = json;
+            ViewData["link_type"] = (int) link.Type;
+            ViewData["form_title"] = "修改" + linkTypeName;
+            ViewData["category_opts"] = this.GetCategorySelector(this.SiteId, -1);
+            ViewData["parent_opts"] = plinks;
+
+            return base.RequireTemplate(resouce);
 
         }
         [MCacheUpdate(CacheSign.Link)]
@@ -475,9 +468,9 @@ namespace J6.Cms.Web.WebManager.Handle
         /// 设置链接可见
         /// </summary>
         [MCacheUpdate(CacheSign.Link)]
-        public string SetVisible_POST()
+        public string Set_visible_POST()
         {
-            int linkId = int.Parse(base.Request.Form["linkId"]);
+            int linkId = int.Parse(base.Request.Form["link_id"]);
             SiteLinkDto link = ServiceCall.Instance.SiteService.GetLinkById(this.SiteId, linkId);
             link.Visible = !link.Visible;
             int id = ServiceCall.Instance.SiteService.SaveLink(this.SiteId, link);
@@ -490,7 +483,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void GetVisible_POST()
         {
-            int linkId = int.Parse(base.Request.Form["linkId"]);
+            int linkId = int.Parse(base.Request.Form["link_id"]);
 
             SiteLinkDto link = ServiceCall.Instance.SiteService.GetLinkById(this.SiteId, linkId);
 
@@ -510,7 +503,7 @@ namespace J6.Cms.Web.WebManager.Handle
         [MCacheUpdate(CacheSign.Link)]
         public void Delete_POST()
         {
-            int linkId = int.Parse(base.Request.Form["linkId"]);
+            int linkId = int.Parse(base.Request.Form["link_id"]);
             ServiceCall.Instance.SiteService.DeleteLink(this.SiteId, linkId);
             base.RenderSuccess();
         }
