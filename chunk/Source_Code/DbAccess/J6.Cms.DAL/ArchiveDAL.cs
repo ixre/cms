@@ -606,6 +606,7 @@ namespace J6.Cms.Dal
         /// 搜索关键词相关的内容
         /// </summary>
         /// <param name="siteId"></param>
+        /// <param name="onlyMatchTitle"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
         /// <param name="currentPageIndex"></param>

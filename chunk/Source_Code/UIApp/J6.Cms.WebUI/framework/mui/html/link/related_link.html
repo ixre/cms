@@ -218,6 +218,8 @@
                     j6.json.bind('pl', { RelatedContentId: data.id, RelatedSiteId: data.siteId });
                     lbSelected.className = 'label';
                     lbSelected.innerHTML = '站点：'+data.siteName + '  ** 栏目：' + data.category;
+                },function() {
+                    closeMsg();
                 });
             });
         }

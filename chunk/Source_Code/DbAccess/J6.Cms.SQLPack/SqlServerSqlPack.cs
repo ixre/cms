@@ -295,12 +295,11 @@ namespace J6.Cms.Sql
                 // $PREFIX_category.name as cname,
                 //        $PREFIX_category.tag,
 
-                return @"SELECT *  FROM (SELECT $PREFIX_archive.*,$PREFIX_archive.id AS id,$PREFIX_category.site_id,
+                return @"SELECT *  FROM (SELECT $PREFIX_archive.*,
                      ROW_NUMBER() OVER($[orderby]) as rowNum
 					 FROM $PREFIX_archive INNER JOIN $PREFIX_category
                     ON $PREFIX_archive.cid=$PREFIX_category.id
-                    WHERE $[condition]) _t
-                    WHERE rowNum BETWEEN $[skipsize]+1 AND
+                    WHERE $[condition]) _t WHERE rowNum BETWEEN $[skipsize]+1 AND
                     $[skipsize]+$[pagesize] ORDER BY rowNum";
             }
         }

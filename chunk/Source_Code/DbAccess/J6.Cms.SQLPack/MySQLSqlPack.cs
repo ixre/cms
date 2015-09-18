@@ -293,7 +293,7 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.*,$PREFIX_archive.id AS id,$PREFIX_category.site_id FROM $PREFIX_archive
+                return @"SELECT $PREFIX_archive.* FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=
                         $PREFIX_category.id WHERE $PREFIX_archive.id IN (SELECT id FROM 
 						(SELECT $PREFIX_archive.id AS id FROM $PREFIX_archive
