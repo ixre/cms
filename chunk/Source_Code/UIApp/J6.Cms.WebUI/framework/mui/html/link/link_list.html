@@ -43,16 +43,13 @@
 
 
 <script type="text/template" id="tpl">
-        <div class="item" onclick="menu.add()">
-            <a href="javascript:;">$icon(create)新建</a>
+        <div class="item" onclick="Fn.edit('{id}')">
+            <a href="javascript:;">$icon(edit)修改</a>
         </div>
-        <div class="item" onclick="menu.setvisible('%id%')">
+        <div class="item" onclick="menu.setvisible('{id}')">
             <a href="javascript:;">$icon(edit)%state%</a>
         </div>
-        <div class="item" onclick="menu.refresh('%id%')">
-            <a href="javascript:;">$icon(refresh)刷新</a>
-        </div>
-        <div class="item" onclick="menu.del('%id%')">
+        <div class="item" onclick="menu.del('{id}')">
             <a href="javascript:;">$icon(delete)删除</a>
         </div>
     </script>
@@ -108,7 +105,7 @@
                 });
 
                 j6.initTable(Fn.table, false, function () {
-                    j6.load2('pl', 'link', 'edit', 'link_id=' + Fn.ids[Fn.ids.length - 1]);
+                    Fn.edit(Fn.ids[Fn.ids.length - 1]);
                 });
             }
         };
@@ -126,10 +123,9 @@
 
         Fn.loadData();
 
-
-
-        //绑定列表菜单
-        j6.contextmenu.bind(j6.$('plist').parentNode, j6.$('list_menu_tpl').innerHTML);
+        Fn.edit = function(id) {
+            j6.load2('pl', 'link', 'edit', 'link_id=' +id);
+        };
 
         var menu = {
             add: Fn.create,
