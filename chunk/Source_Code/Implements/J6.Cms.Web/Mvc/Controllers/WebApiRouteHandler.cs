@@ -7,12 +7,15 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
+using System;
 using J6.Cms.DataTransfer;
 using J6.Cms.ServiceContract;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Routing;
 using J6.Cms.CacheService;
+using J6.DevFw.Web;
 
 namespace J6.Cms.Web
 {
@@ -42,30 +45,32 @@ namespace J6.Cms.Web
             public void ProcessRequest(HttpContext context)
             {
                 string apiName = context.Request["name"];
-                int siteId = Cms.Context.CurrentSite.SiteId;
+                SiteDto site = Cms.Context.CurrentSite;
                 switch (apiName)
                 {
-                    case "rlink":
-                        RLink(siteId, context);
+                    case "rel_link":
+                        RLink(site, context);
                         break;
 
-                    case "rlinked":
-                        WebApiProcess.GetRelatedArchiveLinks(siteId, int.Parse(context.Request["contentId"]));
+                    case "rel_link_json":
+                        WebApiProcess.GetRelatedArchiveLinks(site,
+                            context.Request["type"] ?? "archive",
+                            int.Parse(context.Request["content_id"]));
                         break;
 
                     default:
-                        context.Response.Write("J6.Cms  WebApi  ver 0.1");
+                        context.Response.Write("J6.Cms  WebApi  ver 1.0");
                         break;
                 }
 
             }
 
-            private void RLink(int siteId, HttpContext context)
+            private void RLink(SiteDto site, HttpContext context)
             {
                 context.Response.Write(WebApiProcess.GetRelatedlinks(
-                    siteId,
+                    site,
                     context.Request["type"] ?? "archive",
-                    int.Parse(context.Request["contentId"])));
+                    int.Parse(context.Request["content_id"])));
             }
         }
 
@@ -88,10 +93,10 @@ namespace J6.Cms.Web
 
     internal static class WebApiProcess
     {
-        internal static string GetRelatedlinks(int siteId, string typeIndent, int contentId)
+        internal static string GetRelatedlinks(SiteDto site, string contentType, int contentId)
         {
             IContentServiceContract cs = ServiceCall.Instance.ContentService;
-            IEnumerable<RelatedLinkDto> links = cs.GetRelatedLinks(siteId, typeIndent, contentId);
+            IEnumerable<RelatedLinkDto> links = cs.GetRelatedLinks(site.SiteId, contentType, contentId);
 
             IList<ApiTypes.RLink> rlinks = new List<ApiTypes.RLink>();
 
@@ -104,7 +109,7 @@ namespace J6.Cms.Web
                 {
                     if (link.Enabled)
                     {
-                            url = appPath + link.Url;
+                        url = appPath + link.Url;
                         rlinks.Add(new ApiTypes.RLink
                         {
                             name = link.Title,
@@ -117,12 +122,16 @@ namespace J6.Cms.Web
             return JsonSerializer.Serialize(rlinks);
         }
 
-        internal static string GetRelatedArchiveLinks(int siteId, int contentId)
+        internal static string GetRelatedArchiveLinks(SiteDto site, string contentType, int contentId)
         {
-            IEnumerable<ArchiveDto> archives  =  ServiceCall.Instance.ArchiveService.GetRelatedArchives(siteId, contentId);
-           
+            RelatedLinkDto[] archives = ServiceCall.Instance.ContentService
+                .GetRelatedLinks(site.SiteId, contentType, contentId).ToArray();
+            String preUrl = site.FullDomain.Replace("#", WebCtx.Current.Host);
+            foreach (var relatedLinkDto in archives)
+            {
+                relatedLinkDto.Url = String.Concat(preUrl, relatedLinkDto.Url);
+            }
             return JsonSerializer.Serialize(archives);
-            
         }
     }
 }

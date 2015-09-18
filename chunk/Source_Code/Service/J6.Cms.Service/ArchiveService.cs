@@ -376,7 +376,6 @@ namespace J6.Cms.Service
 
         public void AddCountForArchive(int siteId, int id, int count)
         {
-
             IContentContainer content = this._contentRep.GetContent(siteId);
             content.AddCountForArchive(id, count);
         }
@@ -385,11 +384,8 @@ namespace J6.Cms.Service
 
         public IEnumerable<ArchiveDto> GetRelatedArchives(int siteId, int contentId)
         {
-            //
-            //todo:
-            //
-            return null;
-            // return this._archiveQuery.GetRelatedArchives(siteId, contentId);
+            throw new NotImplementedException();
+            //return this._archiveQuery.GetRelatedArchives(siteId, contentId);
         }
 
 

@@ -69,7 +69,7 @@ namespace J6.Cms.Web.Resource {
         /////    global.js?hover=navi,clist,alist&amp;ld=：
         /////    对导航,栏目导航和文档导航设置样式为&quot;current&quot;
         /////
-        ///function j6l() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } j6l.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;) [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function j6l() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } j6l.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos; [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string cms_core_min {
             get {
@@ -108,7 +108,7 @@ namespace J6.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2014-11-06
         /////
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p }(&apos;$o.S({T:{q:9(a,b,c,d,e){8(!a)r;7 f=c!=x?c:0;7 g=d!=x?d:n; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///j6.extend({ animation: { timer: function (a, b, c, d, e) { if (!a) return; var f = c != null ? c : 0; var g = d != null ? d : 100; var h = 0; var i = 0; if (e &lt; 1 || e &gt; 5) { h = (d - c) &lt; 0 ? -e : e; i = 20 } else { h = (g - f) / (4 * (6 - e)); h *= (Math.abs(g - f) / 100); i = 1000 / h; i = i &lt; 0 ? -Math.ceil(i) : Math.floor(i); if (i &lt; 30) i = 30 } var t = setInterval(function () { f = f + h; if (Math.abs(f) &gt;= Math.abs(g)) { f = g; if (b instanceof Function [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_animation {
             get {
@@ -122,7 +122,7 @@ namespace J6.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2011-10-01
         /////
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p }(&apos;5 6(h,k){3.p=h.1j?h:$r.$(h);3.8=k.8;3.x=k.x||&quot;1k&quot;;3.F=k [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function datagrid(h, k) { this.panel = h.nodeName ? h : j6.$(h); this.columns = k.columns; this.idField = k.idField || &quot;id&quot;; this.data_url = k.url; this.data = k.data; this.onLoaded = k.loaded; this.loadbox = null; this.gridView = null; this.loading = function () { if (this.gridView.offsetHeight == 0) { var a = this.gridView.previousSibling.offsetHeight; var b = this.panel.offsetHeight - this.gridView.previousSibling.offsetHeight; this.gridView.style.cssText  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_datagrid {
             get {
@@ -136,7 +136,7 @@ namespace J6.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2011-10-01
         /////
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p }(&apos;5 s(e){3.1O=P;3.t=t;3.9=t;3.k=K;3.l=Q 1P().1Q()+1e(R.1R( [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function simpleDialog(e) { this._simgpleDialog = true; this.window = window; this.win = window; this.doc = null; this.id = new Date().getMilliseconds() + parseInt(Math.random() * 100); this.title = e.title; this.usedrag = e.usedrag; this.style = e.style || &apos;ui-dialog&apos;; this.setupFade = !e.setupFade ? e.setupFade : true; this.onclose = e.onclose; if (e.cross != false) { while (this.win.parent != this.win) { this.win = this.win.parent } } this.doc = this.win.doc [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_dialog {
             get {
@@ -152,7 +152,7 @@ namespace J6.Cms.Web.Resource {
         ///* history :
         ///*  2014-12-07 18:57 [!] : 修改验证器
         ///*/
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p } [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///j6.extend({ form: { getData: function (a) { var b = &apos;&apos;; var c = document.forms[a || 0]; return j6.json.toQueryString(c) }, asyncSubmit: function (a, b) { var c = document.forms[a || 0]; var d = document.getElementById(&apos;$async_ifr&apos;); if (!d) { try { d = document.createElement(&apos;&lt;iframe name=&quot;$async_ifr&quot;&gt;&apos;) } catch (ex) { d = document.createElement(&apos;iframe&apos;); d.setAttribute(&apos;name&apos;, &apos;$async_ifr&apos;) } d.setAtt [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_form {
             get {
@@ -167,7 +167,7 @@ namespace J6.Cms.Web.Resource {
         /////时间：2011-10-01
         /////
         ///
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] } ]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p } (&apos;$r.s({t:{u:2(a){3.7=a.7;3.n=a.n;3.o=a.o;3.7.4.v+=\&apos;w: [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///j6.extend({ roller: { init: function (a) { this.elem = a.elem; this.direction = a.direction; this.pix = a.pix; this.elem.style.cssText += &apos;overflow:hidden;&apos; }, start: function (a, b) { var c = this.elem, _pix = this.pix, a = a | 1; var i, j; var d; var e = function () { if (b != null) b() }; switch (this.direction) { case &quot;up&quot;: i = _pix; j = 0; d = setInterval(function () { i -= a; if (i &lt; 0) { i = 0; clearInterval(d); e() } c.style.height = i.toString() + &quot;p [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_roller {
             get {
@@ -181,7 +181,7 @@ namespace J6.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2011-10-01
         /////
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p }(&apos;3 u={$:j.$n,6:m,5:m,Z:{x:0,y:0},10:{x:0,y:0,z:-1},M:m,v: [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///var JS_scrollbar = { $: window.j6, pnode: null, ele: null, startP: { x: 0, y: 0 }, moveP: { x: 0, y: 0, z: -1 }, slideBar: null, init: function (e) { this.ele = e.nodeName ? e : document.getElementById(e); this.pnode = document.createElement(&apos;DIV&apos;); this.slideBar = null; this.timer = null; var a = this.ele.parentNode; a.insertBefore(this.pnode, this.ele); this.pnode.appendChild(this.ele); this.pnode.className = &apos;scrollbar&apos;; this.pnode.style.cssText += &apos;height: [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_scrollbar {
             get {
@@ -196,7 +196,7 @@ namespace J6.Cms.Web.Resource {
         /////时间：2011-10-01
         /////
         ///
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] } ]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p } (&apos;8 9(b,c,d){3.$P=s;3.$C=s;3.$L=s;3.w=s;3.j=0;3.1c=0; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function scroller(b, c, d) { this.$P = null; this.$C = null; this.$L = null; this.pagePanel = null; this.index = 0; this.offset = 0; this.scroll = 0; this.scrollUnit = c.unit || 5; this.lock = false; this.direction = c.direction || &apos;left&apos;; this.interval = d; this.timer = null; this.taskTimer = null; this.$P = document.getElementById(b); this.$P.style.cssText += &apos;overflow:hidden;position:relative;&apos;; var f = this.$P.getElementsByTagName(&apos;UL&apos;); if (f.length == [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_scroller {
             get {
@@ -210,7 +210,7 @@ namespace J6.Cms.Web.Resource {
         /////版本:1.0
         /////时间：2012-09-22
         /////
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] } ]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p } (&apos;$x.y({q:{z:7(f,g,h){4(f&amp;&amp;f.A===&quot;B&quot;){f.3+=\&apos; C-q\&apos;;l  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///j6.extend({ table: { dynamic: function (f, g, h) { if (f &amp;&amp; f.nodeName === &quot;TABLE&quot;) { f.className += &apos; ui-table&apos;; var j = f.getElementsByTagName(&apos;TH&apos;); window.j6.each(j, function (i, e) { if (i != j.length - 1) { if ((e.getElementsByClassName ? e.getElementsByClassName(&apos;th-split&apos;) : document.getElementsByClassName(&apos;th-split&apos;, e)).length == 0) { var a = document.createElement(&quot;SPAN&quot;); a.className = &apos;th-split&apos;; e.appendChild(a) } } }); var k = f.getElementsByT [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_table {
             get {
@@ -224,7 +224,8 @@ namespace J6.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2011-10-01
         /////
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] } ]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p } (&apos;$V.14({30:{31:7 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///
+        ///function HS_DateAdd(a, b, c) { b = parseInt(b); if (typeof (c) == &quot;string&quot;) { var c = new Date(c.split(&quot;-&quot;)[0], c.split(&quot;-&quot;)[1], c.split(&quot;-&quot;)[2]) } if (typeof (c) == &quot;object&quot;) { var c = c } switch (a) { case &quot;y&quot;: return new Date(c.getFullYear() + b, c.getMonth(), c.getDate()); break; case &quot;m&quot;: return new Date(c.getFullYear(), c.getMonth() + b, checkDate(c.getFullYear(), c.getMonth() + b, c.getDate())); break; case &quot;d&quot;:  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_ui {
             get {
@@ -238,7 +239,7 @@ namespace J6.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2013-10-01
         /////
-        ///eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p }(&apos;3 q(h,i){2.8=h.8;2.N=h.Z?9.O(h.Z):P;2.10=1n.1o()*F+F;2.G= [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function fileUpload(h, i) { this.id = h.id; this.infopanel = h.info ? document.getElementById(h.info) : null; this.processID = Math.random() * 100 + 100; this.debug = h.debug || false; this.uploadurl = h.url, this.processurl = h.processurl, this.filename = null; this.file = null; this.repeatSelect = h.repeatSelect == undefined ? false : h.repeatSelect; this.btnText = &apos;&apos;; this.btnClicked = false; this.repeatSelect = false; var j = document.getElementById(this.id [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_upload {
             get {
@@ -257,7 +258,7 @@ namespace J6.Cms.Web.Resource {
         
         /// <summary>
         ///   查找类似 body{font:62.5% Sans-Serif,Arial;margin:0;}
-        ///img{border:none;}
+        ///img{border:none;max-width: 100%;}
         ///a{outline:none;}
         ///a:link,a:visited{color:#0000FF;}
         ///mask,.mask{background:url(/framework/assets/images/mask.gif);
@@ -269,12 +270,11 @@ namespace J6.Cms.Web.Resource {
         ///.left{float:left;}
         ///.right{float:right;}
         ///.center{text-align:center;}
-        ///.clear,.clear-fixcler{clear:both;}
+        ///.clear,.clear-fix,.clearfix{clear:both;}
         ///.overflow{overflow:hidden;}
         ///.hidden{display:none;}
         ///.clearfix{clear:both;}
-        ///.nom{margin:auto;}
-        ///div [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///. [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string template {
             get {

@@ -6,19 +6,20 @@
 if (!window.j6) alert('未加载core.js！');
 j6.extend({
     api: {
-        path:'',
+        path: '',
         request: function (apiName, params, call, errCall) {
-            var uri = this.path+'/webapi?key=11857832134&name=' + apiName;
+            var uri = this.path + '/webapi?key=11857832134&name=' + apiName;
             for (var key in params) {
                 uri += '&' + key + '=' + params[key];
             }
             j6.xhr.request({ uri: uri, params: {}, method: 'GET', data: 'json' }, {
                 success: call,
-                error:errCall});
+                error: errCall
+            });
         },
-        getRLink: function (contentId,callback,error) {
-            this.request('rlink',
-                { contentId: contentId },
+        getRLink: function (contentId, callback, error, data) {
+            this.request(data === 'html' ? 'rel_link' : 'rel_link_json',
+                { content_id: contentId },
                 callback,
                 error
                 );

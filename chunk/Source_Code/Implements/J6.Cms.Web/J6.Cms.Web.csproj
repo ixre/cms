@@ -266,7 +266,7 @@
     <Content Include="Resource\SiteResouce\jslib\js_lib_scrollbar.js" />
     <Content Include="Resource\SiteResouce\jslib\js_lib_scroller.js" />
     <Content Include="Resource\SiteResouce\jslib\js_lib_table.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_cms_api.js" />
+    <Content Include="Resource\SiteResouce\js_cms_api.js" />
     <Content Include="Resource\SiteResouce\jslib\js_lib_ui.js" />
     <Content Include="Resource\SiteResouce\js_ui-min.js" />
     <Content Include="Resource\SiteResouce\template.css" />

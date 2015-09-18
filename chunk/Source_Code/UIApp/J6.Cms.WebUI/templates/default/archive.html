@@ -32,7 +32,7 @@
                     <div class="content">${archive.content}</div>
                     <br />
                     <div class="relation">
-                       
+                        <div id="rl-panel"></div>
                         <b>相关链接：</b><br />
                         <b>上一篇：</b>$prev_archive()&nbsp;&nbsp;
                         <b>下一篇：</b>$next_archive()
@@ -74,10 +74,12 @@
         j6.api.getRLink('${archive.id}',function(data){
             var html='<ul>';
             for(var i in data){
-                html+='<li><a href="'+data[i].url+'">'+data[i].name+':'+data[i].title+'</a></li>';
+                html+='<li><a href="'+data[i].url+'">'+data[i].title+'</a></li>';
             }
+            
             html+='</ul>';
-            alert(html);
+            j6.$('rl-panel').innerHTML = html;
+
         });
     </script>
 

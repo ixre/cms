@@ -9,12 +9,9 @@
  */
 
 
-using J6.Cms;
 using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Enum;
 using J6.DevFw;
-using J6.DevFw.PluginKernel;
-using J6.DevFw.Web;
 using J6.DevFw.Web.Plugin;
 
 namespace J6.Cms.Web.Mvc
