@@ -107,7 +107,7 @@ namespace J6.Cms.Domain.Implement.Content
 
             if (this._contentType == ContentTypeIndent.Archive.ToString().ToLower())
             {
-                link = new LinkOfArchive(0, this._contentType, this._contentId, relatedId, relatedIndent,
+                link = new LinkOfArchive(id, this._contentType, this._contentId, relatedIndent,relatedId,
                     enabled);
             }
 

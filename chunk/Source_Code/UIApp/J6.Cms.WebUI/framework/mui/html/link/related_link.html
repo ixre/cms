@@ -99,18 +99,18 @@
         <div class="archive-item" valign="middle" style="overflow:hidden-x;width:100%">
             <span class="index">{index}</span>
             <span title="{title}">{title}</span>
-            <br>
-            <span style="padding-left:2.2em"> <a href="{url}" target="_blank">[ 新窗口中浏览 ]</a></span>
+            <br/>
+            <span style="padding-left:2.2em"><span class="label">{type}</span>&nbsp;&nbsp;<a href="{url}" target="_blank">浏览文档</a></span>
         </div>
     </script>
 
 
 <script type="text/template" id="tpl">
-            <div class="item" onclick="Fn.edit('%id%')">
+            <div class="item" onclick="Fn.edit('{id}')">
                 <a href="javascript:;">$icon(edit)修改</a>
             </div>
    
-            <div class="item" onclick="Fn.del('%id%')">
+            <div class="item" onclick="Fn.del('{id}')">
                 <a href="javascript:;">$icon(delete)删除</a>
             </div>
         </script>$js()
@@ -146,16 +146,17 @@
                 ContentId:'${content_id}',
                 ContentType: '${content_type}'
             },
-            idField: 'LinkId',
+            idField: 'Id',
             columns: [
                 {
-                    field: 'title',
-                    title: '名称',
-                    formatter: function(val, row,index) {
+                    field: 'Id',
+                    title: '',
+                    formatter: function (val, row, index) {
                         return j6.template(itemTemplate, {
-                            id: row.id,
+                            id: row.Id,
                             title: row.Title,
                             url: row.Url,
+                            type:row.IndentName,
                             index:index+1,
                         });
                     }
@@ -168,31 +169,11 @@
                 var tables = document.getElementsByTagName('TABLE');
 
                 var tds = tables[2].getElementsByTagName('TD');
-
-                var allowMultSelect = false;
-
-                j6.table.dynamic(tables[2], allowMultSelect, function (trs) {
-                    var id = trs[0].getAttribute('data-indent');
-                    pl.innerHTML = j6.template(form_tpl, { btntext: '保存' });
-                    pl.getElementsByTagName('DL')[0].style.display = 'none';
-                    for (var i = 0; i < dataCollection.length; i++) {
-                        if (dataCollection[i].LinkId == id) {
-                            j6.json.bind(pl, {
-                                LinkId: id,
-                                LinkName: dataCollection[i].LinkName,
-                                LinkUri: dataCollection[i].LinkUri,
-                                LinkTitle: dataCollection[i].LinkTitle,
-                                Enabled: dataCollection[i] ? 'True' : 'False'
-                            });
-                        }
-                    }
-                });
-
                 j6.each(tds, function (i, e) {
                     j6.contextmenu.bind(e, null, function (menu) {
                         menu.innerHTML = j6.template(j6.$('tpl').innerHTML, {
                             id: e.parentNode.getAttribute('data-indent')
-                        });
+                    });
                     });
                 });
 
@@ -208,6 +189,18 @@
 
             }
         });
+
+        Fn.edit = function(id) {
+            for (var i = 0; i < dataCollection.length; i++) {
+                if (dataCollection[i].Id === id) {
+                    j6.json.bind(pl, dataCollection[i]);
+                    pl.innerHTML = j6.template(form_tpl, { btntext: '保存' });
+                    break;
+                } else {
+                    alert(dataCollection[i].Id +'/'+ id);
+                }
+            }
+        };
 
 
         Fn.create = function() {

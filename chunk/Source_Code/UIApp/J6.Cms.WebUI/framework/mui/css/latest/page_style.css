@@ -23,6 +23,8 @@ a:hover{color:#006699;}
 option.disabled{color:#666;}
 span.required{ color: red;}
 
+span.label{border:solid 1px #ffcc00;padding:0 4px;background:#FFC;color:#F00;}
+
 .p10{padding:10px;}
 
 /*居中*/

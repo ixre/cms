@@ -90,6 +90,7 @@ namespace J6.Cms.Service
                 Title = content.Title,
                 Url = content.Uri,
                 Thumbnail = thumbnail,
+                IndentName = ContentUtil.GetRelatedIndentName(link.RelatedIndent),
             };
         }
 

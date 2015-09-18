@@ -168,7 +168,6 @@
                 });
 
                 j6.each(tds, function (i, e) {
-
                     j6.contextmenu.bind(e, null, function (menu) {
                         menu.innerHTML = j6.template(tplHtml, { id: e.parentNode.getAttribute('data-indent') });
                     });

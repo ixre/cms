@@ -41,5 +41,14 @@ namespace J6.Cms.Domain.Interface.Content
                _indents = indents;
            }
        }
+
+       public static string GetRelatedIndentName(int relatedIndent)
+       {
+           if (_indents != null && _indents.ContainsKey(relatedIndent))
+           {
+               return _indents[relatedIndent];
+           }
+           return null;
+       }
    }
 }
