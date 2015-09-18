@@ -169,6 +169,20 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_Create), data);
         }
 
+        public string View_frame_GET()
+        {
+            int id = int.Parse(base.Request["archive_id"]);
+            ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
+            string fullDomain = this.CurrentSite.FullDomain;
+            if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
+            {
+                fullDomain = Request.Url.Scheme + ":" + fullDomain.Replace("#", WebCtx.Current.Host);
+            }
+            string url = fullDomain + archive.Url;
+            return "<html><head><title>" + archive.Title + "</title></head><body style='margin:0'><iframe src='" + url +
+                   "' frameBorder='0' width='100%' height='100%'></iframe></body></html>";
+        }
+
         /// <summary>
         /// 提交创建
         /// </summary>
@@ -846,7 +860,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string fullDomain = this.CurrentSite.FullDomain;
             if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
             {
-                fullDomain =Request.Url.Scheme+":"+fullDomain.Replace("#", WebCtx.Current.Host);
+                fullDomain = Request.Url.Scheme + ":" + fullDomain.Replace("#", WebCtx.Current.Host);
             }
             string url = fullDomain + archive.Url;
 

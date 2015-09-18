@@ -515,7 +515,7 @@ namespace J6.Cms.Service
         }
 
 
-        public IDictionary<int, string> ClonePubArchive(int sourceSiteId, int targetSiteId, int toCid, int[] archiveIdArray, bool includeExtend, bool includeTempateBind)
+        public IDictionary<int, string> ClonePubArchive(int sourceSiteId, int targetSiteId, int toCid, int[] archiveIdArray, bool includeExtend, bool includeTempateBind, bool includeRelatedLink)
         {
             int totalFailed = 0;
             int totalSuccess = 0;
@@ -529,7 +529,7 @@ namespace J6.Cms.Service
             foreach (int archiveId in archiveIdArray)
             {
                 var srcArchive = srcContent.GetArchiveById(archiveId);
-                
+
                 var tarArchive = tarContent.CreateArchive(0, IdGenerator.GetNext(5), toCid, srcArchive.Title);
 
                 tarArchive.CreateDate = DateTime.Now;
@@ -565,6 +565,12 @@ namespace J6.Cms.Service
                             ref shouldReSave);
                     }
 
+                    //包含关联链接
+                    if (includeRelatedLink)
+                    {
+                        this.CloneArchiveRelatedLink(srcArchive, tarArchive);
+                    }
+
                     if (isFailed)
                     {
                         this._archiveRep.DeleteArchive(targetSiteId, tarArchive.Id);
@@ -589,6 +595,20 @@ namespace J6.Cms.Service
 
         }
 
+        private void CloneArchiveRelatedLink(IArchive srcArchive, IArchive tarArchive)
+        {
+            IList<IContentLink> links = srcArchive.LinkManager.GetRelatedLinks();
+            if (links.Count > 0)
+            {
+                foreach (var contentLink in links)
+                {
+                    tarArchive.LinkManager.Add(0, contentLink.RelatedSiteId,
+                        contentLink.RelatedIndent, contentLink.RelatedContentId, contentLink.Enabled);
+                }
+                tarArchive.LinkManager.SaveRelatedLinks();
+            }
+        }
+
         private void CloneArchiveExtendValue(IArchive srcArchive, IArchive tarArchive,
             IDictionary<int, string> errDict, ref bool isFailed, ref bool shouldReSave)
         {
@@ -601,7 +621,7 @@ namespace J6.Cms.Service
                 cateFields.Add(f.Name, f);
             }
 
-            if (extends.Count > 0 && cateFields.Count > 0) 
+            if (extends.Count > 0 && cateFields.Count > 0)
             {
                 IExtendField field;
                 IExtendField tarField;

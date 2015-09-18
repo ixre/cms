@@ -118,6 +118,7 @@ namespace J6.Cms.Web.WebManager.Handle
             int.TryParse(Request.Form["toCid"], out toCid);
             bool includeExtend = Request.Form["includeExtend"] == "true";
             bool includeTempateBind = Request.Form["includeTemplateBind"] == "true";
+            bool includeRelatedLink = Request.Form["includeRelatedLink"] == "true";
 
             string idArrParam = Request.Form["idArr"];
             if (sourceSiteId != this.CurrentSite.SiteId || string.IsNullOrEmpty(idArrParam) || toCid ==0)
@@ -126,12 +127,12 @@ namespace J6.Cms.Web.WebManager.Handle
             }
 
             int[] idArray = Array.ConvertAll(idArrParam.Split(','), a =>int.Parse(a));
-
+            Array.Reverse(idArray,0,idArray.Length);  //反转顺序
 
             try
             {
                 IDictionary<int, string> errs = ServiceCall.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,
-                  idArray, includeExtend, includeTempateBind);
+                  idArray, includeExtend, includeTempateBind,includeRelatedLink);
                 if (errs.Count > 0)
                 {
                     StringBuilder sb = new StringBuilder();

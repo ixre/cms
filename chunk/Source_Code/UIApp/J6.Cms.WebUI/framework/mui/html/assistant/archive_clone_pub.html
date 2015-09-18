@@ -80,6 +80,7 @@
     <div>
         <input type="checkbox" id="ck_with_extend" checked="checked" /><label for="ck_with_extend">包括扩展数据</label>
         <input type="checkbox" id="ck_with_templateBind" checked="checked" /><label for="ck_with_templateBind">包含模版绑定</label>
+        <input type="checkbox" id="ck_with_relatedLink" checked="checked" /><label for="ck_with_relatedLink">包含文档关联</label>
     </div>
 
     <br/>
@@ -172,10 +173,11 @@ $js()
                 sourceSiteId: siteId,
                 targetSiteId: targetSiteId,
                 toCid: toNode.id,
-                idArr : idArr.join(','),
+                idArr: idArr.join(','),
                 includeExtend: j6.$('ck_with_extend').checked,
-                includeTemplateBind: j6.$('ck_with_templateBind').checked
-            };
+                includeTemplateBind: j6.$('ck_with_templateBind').checked,
+                includeRelatedLink: j6.$('ck_with_relatedLink').checked,
+        };
             j6.xhr.jsonPost('${post_url}', data,function(j) {
                 if (j.result) {
                     showMsg2('发布成功');
