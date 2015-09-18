@@ -607,10 +607,10 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             try
             {
-                ServiceCall.Instance.ContentService.RemoveOuterRelatedLink(
+                ServiceCall.Instance.ContentService.RemoveRelatedLink(
                     this.SiteId,
-                    Request["type_indent"],
-                    int.Parse(Request["content_id"]),
+                    Request["contentType"],
+                    int.Parse(Request["contentId"]),
                     int.Parse(Request["id"])
                     );
                 return base.ReturnSuccess();

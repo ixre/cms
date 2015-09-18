@@ -27,7 +27,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="typeIndent"></param>
         /// <param name="contentId"></param>
         /// <param name="relatedLinkId"></param>
-        void RemoveOuterRelatedLink(int siteId, string typeIndent, int contentId, int relatedLinkId);
+        void RemoveRelatedLink(int siteId, string typeIndent, int contentId, int relatedLinkId);
 
         /// <summary>
         /// 

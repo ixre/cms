@@ -71,7 +71,8 @@
                                 <input class="ui-validate ui-box" type="hidden" field="RelatedSiteId" value="0" />
                                 <input class="ui-validate ui-box" type="hidden" field="RelatedContentId" value="0" />
                                 <input type="text" class="tb_normal ui-box archiveGuest" field="Title" />
-                                <div>输入搜索内容后，在搜索结果中选择</div>
+                                <div>输入关键词后选择（注：不限站点）</div>
+                                <span class="label hidden" id="lb_selected"></span>
                             </div>
                         </div>
                         
@@ -109,39 +110,33 @@
                 <span class="label">{siteName}</span>&nbsp;
                 <a href="{url}" target="_blank" title="浏览关联文档">浏览</a> |
                 <a href="javascript:;" onclick="Fn.edit('{id}')">修改</a> |
-                <a href="javascript:;" onclick="Fn.dek('{id}')">删除</a>
+                <a href="javascript:;" onclick="Fn.del('{id}')">删除</a>
             </span>
         </div>
     </script>
 
-
-<script type="text/template" id="tpl">
-            <div class="item" onclick="Fn.edit('{id}')">
-                <a href="javascript:;">$icon(edit)修改</a>
-            </div>
-   
-            <div class="item" onclick="Fn.del('{id}')">
-                <a href="javascript:;">$icon(delete)删除</a>
-            </div>
-        </script>$js()
+>$js()
     <script type="text/javascript">
         
         var dataCollection = null;
+        var linkData = {
+            ContentId: '${content_id}',
+            ContentType: '${content_type}'
+        };
+
         var pl = j6.$('pl');
 
         var listMenu = j6.$('list-menu');
         j6.hover(listMenu);
 
         var itemTemplate = j6.$('item_template').innerHTML;
+        var lbSelected;
 
         var form_tpl = j6.$('link_form').innerHTML;
 
         var _dg = j6.grid('dg', {
             url: '?module=link&action=related_link',
-            data: {
-                ContentId:'${content_id}',
-                ContentType: '${content_type}'
-            },
+            data: linkData,
             idField: 'Id',
             columns: [
                 {
@@ -218,13 +213,19 @@
         function initFormEvents() {
             j6.each(j6.dom.getsByClass(j6.$('pl'), 'archiveGuest'), function (i, e) {
                 j6.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true', function (data) {
-                    j6.json.bind('pl', { RelatedId: 0 });
+
+                    j6.json.bind('pl', { RelatedContentId: 0 });
+                    lbSelected = j6.$('lb_selected');
+                    lbSelected.className = 'label hidden';
+
                     for (var j = 0; j < data.length; j++) {
                         data[j].text =data[j].title;
                         data[j].title = '站点：'+data[j].siteName + '  ** 栏目：' + data[j].category;
                     }
                 }, function (data) {
-                    j6.json.bind('pl', { RelatedContentId: data.id,RelatedSiteId:data.siteId});
+                    j6.json.bind('pl', { RelatedContentId: data.id, RelatedSiteId: data.siteId });
+                    lbSelected.className = 'label';
+                    lbSelected.innerHTML = '站点：'+data.siteName + '  ** 栏目：' + data.category;
                 });
             });
         }
@@ -238,12 +239,12 @@
 
         Fn.del = function(id) {
             if (confirm('确定删除吗?删除后将不可恢复!')) {
-                var data = {
+                var d = {
                     id: id,
-                    content_id: j6.request('content_id'),
-                    type_indent: j6.request('type')
+                    contentId:linkData.ContentId,
+                    contentType: linkData.ContentType
                 };
-                j6.xhr.jsonPost('?module=link&action=delete_related_link', data,
+                j6.xhr.jsonPost('?module=link&action=delete_related_link', d,
                     function(json) {
                         if (json.result) {
                             _dg.reload();

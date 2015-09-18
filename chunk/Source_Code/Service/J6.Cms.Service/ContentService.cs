@@ -13,7 +13,7 @@ namespace J6.Cms.Service
         private readonly IContentRepository _contentRep;
         private ISiteRepository _siteRep;
 
-        public ContentService(IContentRepository contentRep,ISiteRepository siteRep)
+        public ContentService(IContentRepository contentRep, ISiteRepository siteRep)
         {
             this._contentRep = contentRep;
             this._siteRep = siteRep;
@@ -45,22 +45,11 @@ namespace J6.Cms.Service
             return linkDto.Id;
         }
 
-        public void RemoveOuterRelatedLink(int siteId, string typeIndent, int contentId, int relatedLinkId)
+        public void RemoveRelatedLink(int siteId, string contentType, int contentId, int relatedId)
         {
-            IBaseContent content = this.GetContent(siteId, typeIndent, contentId);
-
-            if (relatedLinkId > 0)
-            {
-                IContentLink link = content.LinkManager.GetLinkById(relatedLinkId);
-                content.LinkManager.RemoveRelatedLink(link.Id);
-            }
-            else
-            {
-                throw new Exception("relatedLinkId无效");
-            }
-
+            IBaseContent content = this.GetContent(siteId, contentType, contentId);
+            content.LinkManager.RemoveRelatedLink(relatedId);
             content.LinkManager.SaveRelatedLinks();
-
         }
 
         public IEnumerable<RelatedLinkDto> GetRelatedLinks(int siteId, string contentType, int contentId)
