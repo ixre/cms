@@ -14,7 +14,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Routing;
+using J6.Cms;
 using J6.Cms.CacheService;
+using J6.Cms.Conf;
+using J6.Cms.Web;
 using J6.DevFw.Web;
 
 namespace J6.Cms.Web
@@ -44,34 +47,29 @@ namespace J6.Cms.Web
 
             public void ProcessRequest(HttpContext context)
             {
+                const string defaultRsp = "J6.Cms  WebApi  ver 1.0";
                 string apiName = context.Request["name"];
                 SiteDto site = Cms.Context.CurrentSite;
+                String result = null;
                 switch (apiName)
                 {
                     case "rel_link":
-                        RLink(site, context);
+                        result = WebApiProcess.GetRelatedlinks(
+                              site,
+                              context.Request["type"] ?? "archive",
+                              int.Parse(context.Request["content_id"]));
                         break;
 
                     case "rel_link_json":
-                        WebApiProcess.GetRelatedArchiveLinks(site,
+                        result = WebApiProcess.GetRelatedArchiveLinks(site,
                             context.Request["type"] ?? "archive",
                             int.Parse(context.Request["content_id"]));
                         break;
-
-                    default:
-                        context.Response.Write("J6.Cms  WebApi  ver 1.0");
-                        break;
                 }
 
+                context.Response.Write(result ?? defaultRsp);
             }
 
-            private void RLink(SiteDto site, HttpContext context)
-            {
-                context.Response.Write(WebApiProcess.GetRelatedlinks(
-                    site,
-                    context.Request["type"] ?? "archive",
-                    int.Parse(context.Request["content_id"])));
-            }
         }
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
@@ -88,50 +86,71 @@ namespace J6.Cms.Web
             public string name { get; set; }
             public string title { get; set; }
             public string url { get; set; }
+
+            public string thumbnail { get; set; }
+
+            public string relatedIndent { get; set; }
+        }
         }
     }
 
-    internal static class WebApiProcess
+internal static class WebApiProcess
+{
+    internal static string GetRelatedlinks(SiteDto site, string contentType, int contentId)
     {
-        internal static string GetRelatedlinks(SiteDto site, string contentType, int contentId)
+        IContentServiceContract cs = ServiceCall.Instance.ContentService;
+        IEnumerable<RelatedLinkDto> links = cs.GetRelatedLinks(site.SiteId, contentType, contentId);
+
+        IList<ApiTypes.RLink> rlinks = new List<ApiTypes.RLink>();
+
+        string url;
+        if (links != null)
         {
-            IContentServiceContract cs = ServiceCall.Instance.ContentService;
-            IEnumerable<RelatedLinkDto> links = cs.GetRelatedLinks(site.SiteId, contentType, contentId);
-
-            IList<ApiTypes.RLink> rlinks = new List<ApiTypes.RLink>();
-
-            string url;
-            if (links != null)
+            string appPath = Cms.Context.SiteAppPath;
+            if (appPath == "/") appPath = "";
+            foreach (RelatedLinkDto link in links)
             {
-                string appPath = Cms.Context.SiteAppPath;
-                if (appPath == "/") appPath = "";
-                foreach (RelatedLinkDto link in links)
+                if (link.Enabled)
                 {
-                    if (link.Enabled)
+                    url = appPath + link.Url;
+                    rlinks.Add(new ApiTypes.RLink
                     {
-                        url = appPath + link.Url;
-                        rlinks.Add(new ApiTypes.RLink
-                        {
-                            name = link.Title,
-                            title = link.Title,
-                            url = url
-                        });
-                    }
+                        name = link.Title,
+                        title = link.Title,
+                        url = url
+                    });
                 }
             }
-            return JsonSerializer.Serialize(rlinks);
         }
+        return JsonSerializer.Serialize(rlinks);
+    }
 
-        internal static string GetRelatedArchiveLinks(SiteDto site, string contentType, int contentId)
+    internal static string GetRelatedArchiveLinks(SiteDto site, string contentType, int contentId)
+    {
+        RelatedLinkDto[] archives = ServiceCall.Instance.ContentService
+            .GetRelatedLinks(site.SiteId, contentType, contentId).ToArray();
+        String host = WebCtx.Current.Host;
+        String resDomain = Cms.Context.ResourceDomain;
+        String defaultThumb = String.Concat(resDomain, "/" + CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto);
+
+        ReValueRelateLinks(archives, host, defaultThumb, resDomain);
+
+        return JsonSerializer.Serialize(archives);
+    }
+
+    private static void ReValueRelateLinks(RelatedLinkDto[] archives, string host, string defaultThumb, string resDomain)
+    {
+        foreach (var relatedLinkDto in archives)
         {
-            RelatedLinkDto[] archives = ServiceCall.Instance.ContentService
-                .GetRelatedLinks(site.SiteId, contentType, contentId).ToArray();
-            String preUrl = site.FullDomain.Replace("#", WebCtx.Current.Host);
-            foreach (var relatedLinkDto in archives)
+            relatedLinkDto.Url = relatedLinkDto.Url.Replace("#", host);
+            if (relatedLinkDto.Thumbnail.Length == 0)
             {
-                relatedLinkDto.Url = String.Concat(preUrl, relatedLinkDto.Url);
+                relatedLinkDto.Thumbnail = defaultThumb;
             }
-            return JsonSerializer.Serialize(archives);
+            else if (!relatedLinkDto.Thumbnail.StartsWith("http"))
+            {
+                relatedLinkDto.Thumbnail = String.Concat(resDomain, "/", relatedLinkDto.Thumbnail);
+            }
         }
     }
 }

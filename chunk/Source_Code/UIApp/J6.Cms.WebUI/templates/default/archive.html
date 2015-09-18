@@ -70,18 +70,20 @@
     ${partial:"inc/footer.phtml"}
     <script type="text/javascript" src="${page.fpath}/core.js?hover=navi,clist,alist&v=${page.version}"></script>
     <script type="text/javascript" src="${page.fpath}/api.js?v=${page.version}"></script>
-    <script>
-        j6.api.getRLink('${archive.id}',function(data){
-            var html='<ul>';
-            for(var i in data){
-                html+='<li><a href="'+data[i].url+'">'+data[i].title+'</a></li>';
-            }
+<script>
+    j6.api.setPath('${page.domain}');
+    j6.api.getRLink('${archive.id}',"json",function(data){
+        var html='<ul>';
+        var tpl = '<li><a href="{Url}"><img src="{Thumbnail}" /><br />{IndentName}-{Title}</a></li>';
+        for(var i in data) {
+            html += j6.template(tpl, data[i]);
+        }
             
-            html+='</ul>';
-            j6.$('rl-panel').innerHTML = html;
+        html+='</ul>';
+        j6.$('rl-panel').innerHTML = html;
 
-        });
-    </script>
+    });
+</script>
 
     
 </body>

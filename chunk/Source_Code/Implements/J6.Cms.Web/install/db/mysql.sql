@@ -106,7 +106,7 @@ CREATE TABLE `cms_category_extend` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
   `extend_id` int(11) NOT NULL,
-  `enabled` bit(1) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -441,12 +441,12 @@ DROP TABLE IF EXISTS `cms_related_link`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_related_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `typeIndent` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `relatedId` int(11) DEFAULT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `uri` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `enabled` bit(1) DEFAULT NULL,
+  `content_type` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content_id` int(11) DEFAULT NULL,
+  `related_site_id` int(11) DEFAULT NULL,
+  `related_indent` int(5) DEFAULT NULL,
+  `related_content_id`  int(11) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -538,8 +538,8 @@ CREATE TABLE `cms_table` (
   `name` varchar(50) NOT NULL,
   `note` varchar(500) DEFAULT NULL,
   `api_server` varchar(200) DEFAULT NULL,
-  `is_system` bit(1) NOT NULL,
-  `enabled` bit(1) NOT NULL,
+  `is_system` tinyint(1) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
