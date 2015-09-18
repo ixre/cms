@@ -344,14 +344,13 @@ namespace J6.Cms.Service
             return this.GetArchiveEnumertor(archives);
         }
 
-        public IEnumerable<ArchiveDto> SearchArchives(int siteId,
+        public IEnumerable<ArchiveDto> SearchArchives(int siteId,bool onlyMatchTitle,
             string keyword, int pageSize,
             int pageIndex, out int records,
             out int pages, string orderBy)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.SearchArchives(
-                keyword, pageSize, pageIndex, out records, out pages, orderBy);
+            IEnumerable<IArchive> archives = content.SearchArchives(onlyMatchTitle, keyword, pageSize, pageIndex, out records, out pages, orderBy);
             return this.GetArchiveEnumertor(archives);
         }
 

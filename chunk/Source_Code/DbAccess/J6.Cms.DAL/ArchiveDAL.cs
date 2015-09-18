@@ -10,6 +10,7 @@
 
 using System;
 using System.Data;
+using System.Text;
 using J6.Cms.Domain.Interface.Content.Archive;
 using J6.DevFw.Data;
 
@@ -511,7 +512,7 @@ namespace J6.Cms.Dal
         /// <returns></returns>
         public DataTable GetPagedArchives(int siteId, int moduleId,
             int lft, int rgt, int publisherId, bool includeChild,
-            string[,] flags,string keyword, string orderByField, bool orderAsc,
+            string[,] flags, string keyword, string orderByField, bool orderAsc,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
         {
@@ -612,7 +613,7 @@ namespace J6.Cms.Dal
         /// <param name="pageCount"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        public void SearchArchives(int siteId, string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount, string orderby, DataReaderFunc func)
+        public void SearchArchives(int siteId, bool onlyMatchTitle, string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount, string orderby, DataReaderFunc func)
         {
             /*
             string condition = ArchiveFlag.GetSQLString(new string[,]{
@@ -621,20 +622,31 @@ namespace J6.Cms.Dal
                 });
              */
 
-            const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
+            base.CheckSqlInject(keyword, orderby);
+
+            StringBuilder sb = new StringBuilder(" flags LIKE '%st:''0''%' AND flags LIKE '%v:''1''%' ");
+            if (siteId > 0)
+            {
+                sb.Append(" AND $PREFIX_category.site_id=").Append(siteId.ToString());
+            }
+
+            if (onlyMatchTitle)
+            {
+                sb.Append(" AND title LIKE '%").Append(keyword).Append("%'");
+            }
+            else
+            {
+                sb.Append(" AND ( title LIKE '%").Append(keyword).Append("%' OR outline LIKE '%").Append(keyword).Append("%' OR content LIKE '%").Append(keyword).Append("%')");
+            }
+
+            string condition = sb.ToString();
 
             //排序规则
             if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY $PREFIX_archive.sort_number DESC");
 
-            //数据库为OLEDB,且为第一页时
-            const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.id
-                    WHERE $[condition] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')  $[orderby],$PREFIX_archive.id";
-
 
             //记录数
-            recordCount = int.Parse(base.ExecuteScalar(
-                SqlQueryHelper.Format(DbSql.Archive_GetSearchRecordCount, keyword, siteId.ToString(), condition)
-                ).ToString());
+            recordCount = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(DbSql.Archive_GetSearchRecordCount, condition)).ToString());
 
             //页数
             pageCount = recordCount / pageSize;
@@ -648,19 +660,15 @@ namespace J6.Cms.Dal
             int skipCount = pageSize * (currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB ?
-                        sql1 :
-                        DbSql.Archive_GetPagedSearchArchives;
+            string sql = DbSql.Archive_GetPagedSearchArchives;
 
             sql = SQLRegex.Replace(sql, (match) =>
             {
                 switch (match.Groups[1].Value)
                 {
                     case "condition": return condition;
-                    case "siteid": return siteId.ToString();
                     case "pagesize": return pageSize.ToString();
                     case "skipsize": return skipCount.ToString();
-                    case "keyword": return keyword;
                     case "orderby": return orderby;
                 }
                 return null;
@@ -899,7 +907,7 @@ namespace J6.Cms.Dal
                     {
                         {"@siteId", siteId},
                     })).ToString();
-            if (obj == DBNull.Value || (string) obj =="") return 0;
+            if (obj == DBNull.Value || (string)obj == "") return 0;
             return int.Parse(obj.ToString());
         }
 

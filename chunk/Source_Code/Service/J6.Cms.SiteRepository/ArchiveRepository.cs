@@ -441,11 +441,11 @@ namespace J6.Cms.ServiceRepository
             return archives;
         }
 
-        public IEnumerable<IArchive> SearchArchives(int siteId, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy)
+        public IEnumerable<IArchive> SearchArchives(int siteId,bool onlyMatchTitle, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy)
         {
             IArchive archive;
             IList<IArchive> archives = new List<IArchive>();
-            _dal.SearchArchives(siteId, keyword,
+            _dal.SearchArchives(siteId, onlyMatchTitle,keyword,
                 pageSize, pageIndex, out records, out pages
                 , orderBy, rd =>
                 {

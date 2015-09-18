@@ -32,7 +32,7 @@ namespace J6.Cms.Domain.Implement.Content
         }
 
 
-        public void Remove(IContentLink link)
+        public void RemoveRelatedLink(int id)
         {
             if (this._delLinkIds == null)
             {
@@ -42,12 +42,12 @@ namespace J6.Cms.Domain.Implement.Content
 
             for (int i = 0; i < this._links.Count; i++)
             {
-                if (this._links[i].Equal(link))
+                if (this._links[i].Id == id)
                 {
-                    IContentLink _link = this._links[i];
-                    this._links.Remove(_link);
-                    this._delLinkIds.Add(_link.Id);
-                    _link = null;
+                    IContentLink link = this._links[i];
+                    this._links.Remove(link);
+                    this._delLinkIds.Add(link.Id);
+                    link = null;
                 }
             }
         }
@@ -123,14 +123,5 @@ namespace J6.Cms.Domain.Implement.Content
             }
         }
 
-        IContentLink IContentLinkManager.GetLinkById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveRelatedLink(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

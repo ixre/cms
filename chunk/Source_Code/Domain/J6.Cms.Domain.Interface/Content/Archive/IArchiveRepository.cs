@@ -180,10 +180,9 @@ namespace J6.Cms.Domain.Interface.Content.Archive
         /// <param name="records"></param>
         /// <param name="pages"></param>
         /// <param name="orderBy"></param>
+        /// <param name="onlyMatchTitle"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> SearchArchives(
-            int siteId, string keyword, int pageSize,
-            int pageIndex, out int records, out int pages, string orderBy);
+        IEnumerable<IArchive> SearchArchives(int siteId, bool onlyMatchTitle, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy);
 
         /// <summary>
         /// 

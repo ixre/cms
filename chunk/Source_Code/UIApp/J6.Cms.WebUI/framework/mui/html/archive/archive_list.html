@@ -98,8 +98,8 @@
         <div class="item" onclick="menu.comment('%id%')">
             <a href="javascript:;">$icon(comment)评论管理</a>
         </div>
-        <div class="item" onclick="menu.relatedlink('%id%')">
-            <a href="javascript:;">$icon(link)关联链接</a>
+        <div class="item" onclick="menu.relatedContent('%id%')">
+            <a href="javascript:;">$icon(link)关联文档</a>
         </div>
     </script>
 <script type="text/template" id="item_template" class="hidden">
@@ -347,7 +347,7 @@
                       }
                   });
             },
-            relatedlink: function (id) {
+            relatedContent: function (id) {
                 j6.$('pl').innerHTML = '<iframe frameborder="0" scrolling="no" width="100%" height="100%" ' +
                     'src="?module=link&action=related_link&content_id=' + id + '&content_type=archive"></ifarme>';
             }

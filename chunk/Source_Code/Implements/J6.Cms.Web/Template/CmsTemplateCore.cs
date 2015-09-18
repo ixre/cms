@@ -1812,7 +1812,7 @@ namespace J6.Cms.Template
             //如果未设置模块或栏目参数
             if (searchArchives == null)
             {
-                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, keyword, _pageSize, _pageIndex, out _records, out _pages, "ORDER BY CreateDate DESC");
+                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, false, keyword, _pageSize, _pageIndex, out _records, out _pages, "ORDER BY CreateDate DESC");
             }
 
             IDictionary<string, string> extendFields = null;
@@ -2161,7 +2161,7 @@ namespace J6.Cms.Template
 
             int C_LENGTH = this.TplSetting.CFG_OutlineLength;
             IEnumerable<ArchiveDto> searchArchives = ServiceCall.Instance.ArchiveService
-                .SearchArchives(this.siteId, tag,
+                .SearchArchives(this.siteId, false, tag,
                 _pageSize, _pageIndex,
                 out _records, out _pages, "ORDER BY CreateDate DESC");
 

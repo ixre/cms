@@ -9,7 +9,9 @@ namespace J6.Cms.Sql
         {
             switch (dbType)
             {
-                case DataBaseType.OLEDB: return new OleDbSqlPack();
+                case DataBaseType.OLEDB:
+                    throw  new NotSupportedException("版本1.2及以上，不再支持Access数据库！");
+                    //return new OleDbSqlPack();
 				case DataBaseType.MonoSQLite:
 				case DataBaseType.SQLite:
 					return new SQLiteSqlPack();
@@ -227,8 +229,7 @@ namespace J6.Cms.Sql
         public readonly string Archive_GetSearchRecordCount = @"
                         SELECT COUNT(0) FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
-                        WHERE $PREFIX_category.site_id={1} AND {2} AND 
-                        (title LIKE '%{0}%' OR outline LIKE '%{0}%' OR content LIKE '%{0}%' OR tags LIKE '%{0}%')";
+                        WHERE {0}";
 
         /// <summary>
         /// 获取搜索分页符合条件的文档列表

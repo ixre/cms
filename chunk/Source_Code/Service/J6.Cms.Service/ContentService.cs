@@ -71,7 +71,7 @@ namespace J6.Cms.Service
 
         private RelatedLinkDto ConvertToLinkDto(int siteId, IContentLink link)
         {
-            IBaseContent content = this.GetContent(siteId, link.ContentType.ToString(), link.ContentId);
+            IBaseContent content = this.GetContent(siteId, ContentTypeIndent.Archive.ToString().ToLower(), link.RelatedContentId);
             String thumbnail = null;
             IArchive archive = content as IArchive;
             if (archive != null)

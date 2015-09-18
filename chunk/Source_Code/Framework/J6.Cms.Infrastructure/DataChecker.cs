@@ -17,6 +17,8 @@ namespace J6.Cms.Infrastructure
         /// <returns></returns>
         public static bool SqlIsInject(string keyword)
         {
+            if (String.IsNullOrEmpty(keyword)) return false;
+
             foreach (String str in injStrArr)
             {
                 if (keyword.IndexOf(str, StringComparison.Ordinal)!=-1)

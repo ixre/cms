@@ -293,15 +293,12 @@
         {
             get
             {
-                return @"SELECT *,$PREFIX_archive.`ID` AS `id` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cid`=
-                        $PREFIX_category.`ID` WHERE $PREFIX_archive.id IN (SELECT id FROM 
-						(SELECT $PREFIX_archive.`id` AS `id` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cid`=
-                        $PREFIX_category.`ID` WHERE $[condition] AND $PREFIX_category.site_id=$[siteid]
-                        AND (`title` LIKE '%$[keyword]%'
-                        OR `outline` LIKE '%$[keyword]%' OR `content` LIKE '%$[keyword]%'
-                        OR `tags` LIKE '$[keyword]%') $[orderby] LIMIT $[skipsize],$[pagesize]) _t)
+                return @"SELECT $PREFIX_archive.*,$PREFIX_archive.id AS id,$PREFIX_category.site_id FROM $PREFIX_archive
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=
+                        $PREFIX_category.id WHERE $PREFIX_archive.id IN (SELECT id FROM 
+						(SELECT $PREFIX_archive.id AS id FROM $PREFIX_archive
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=
+                        $PREFIX_category.id WHERE $[condition] $[orderby] LIMIT $[skipsize],$[pagesize]) _t)
                          $[orderby]";
             }
         }

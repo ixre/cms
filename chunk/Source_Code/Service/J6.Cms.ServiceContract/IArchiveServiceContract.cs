@@ -212,6 +212,7 @@ namespace J6.Cms.ServiceContract
         /// 搜索文档
         /// </summary>
         /// <param name="siteId"></param>
+        /// <param name="onlyMatchTitle"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
         /// <param name="pageIndex"></param>
@@ -220,7 +221,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="orderBy"></param>
         /// <returns></returns>
         IEnumerable<ArchiveDto> SearchArchives(
-            int siteId,
+            int siteId, bool onlyMatchTitle,
             string keyword, int pageSize,
             int pageIndex, out int records,
             out int pages, string orderBy);

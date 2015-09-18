@@ -161,6 +161,7 @@ namespace J6.Cms.Domain.Interface.Content
         /// <summary>
         /// 搜索文档
         /// </summary>
+        /// <param name="onlyMatchTitle"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
         /// <param name="pageIndex"></param>
@@ -169,6 +170,7 @@ namespace J6.Cms.Domain.Interface.Content
         /// <param name="orderBy"></param>
         /// <returns></returns>
         IEnumerable<IArchive> SearchArchives(
+             bool onlyMatchTitle,
             string keyword, int pageSize, 
             int pageIndex, out int records,
             out int pages, string orderBy);

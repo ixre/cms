@@ -159,12 +159,13 @@ namespace J6.Cms.Domain.Implement.Content
         }
 
         public IEnumerable<IArchive> SearchArchives(
+            bool onlyMatchTitle,
             string keyword, int pageSize, 
             int pageIndex, out int records,
             out int pages, string orderBy)
         {
             return this._archiveRep.SearchArchives(
-                this.SiteId,keyword, pageSize,pageIndex, 
+                this.SiteId,onlyMatchTitle,keyword, pageSize,pageIndex, 
                  out  records, out pages, orderBy);
         }
 

@@ -586,7 +586,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     ContentId = int.Parse(Request.Form["ContentId"]),
                     ContentType = Request.Form["ContentType"],
                     RelatedIndent = int.Parse(Request.Form["RelatedIndent"]),
-                    RelatedContentId = int.Parse(Request.Form["RelatedId"]),
+                    RelatedContentId = int.Parse(Request.Form["RelatedContentId"]),
                     Enabled = Request.Form["Enabled"] == "1",
                 };
 

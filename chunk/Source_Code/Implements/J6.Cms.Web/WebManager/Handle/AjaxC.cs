@@ -416,19 +416,21 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             string key = base.Request["key"].Trim();
             string size = base.Request["size"] ?? "20";
+            bool onlyTitle = Request["only_title"] == "true";
             int count, pages;
+            int intSiteId = 0;
+            int.TryParse(Request["site_id"], out intSiteId);
+
             StringBuilder strBuilder = new StringBuilder(500);
 
             IEnumerable<ArchiveDto> list = ServiceCall.Instance.ArchiveService
-                .SearchArchives(this.SiteId, key,
+                .SearchArchives(intSiteId, onlyTitle, key,
                 int.Parse(size),
                 1,
                  out count,
                  out pages,
                  null
                 );
-
-
 
             int i = 0;
             strBuilder.Append("[");
@@ -441,7 +443,8 @@ namespace J6.Cms.Web.WebManager.Handle
                 strBuilder.Append("{'id':'").Append(a.Id)
                     .Append("','alias':'").Append(String.IsNullOrEmpty(a.Alias) ? a.StrId : a.Alias)
                     .Append("',title:'").Append(a.Title)
-                    .Append("',category:'").Append(a.Category.Name).Append("(").Append(a.Category.Tag).Append(")")
+                    .Append("',siteId:").Append(a.Category.SiteId)
+                    .Append(",category:'").Append(a.Category.Name).Append("(").Append(a.Category.Tag).Append(")")
                     .Append("'}");
             }
             strBuilder.Append("]");

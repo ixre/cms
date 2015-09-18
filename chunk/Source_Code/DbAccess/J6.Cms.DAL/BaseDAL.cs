@@ -2,6 +2,7 @@
 using System.Data;
 using System.Text.RegularExpressions;
 using J6.Cms.DB;
+using J6.Cms.Infrastructure;
 using J6.Cms.Sql;
 using J6.DevFw.Data;
 
@@ -144,6 +145,17 @@ namespace J6.Cms.Dal
             //db.CloseConn();
             return ds;
 
+        }
+
+        protected void CheckSqlInject(params string[] values)
+        {
+            foreach (var key in values)
+            {
+                if (DataChecker.SqlIsInject(key))
+                {
+                    throw new ArgumentException("SQL INCORRENT");
+                }
+            }
         }
     }
 }
