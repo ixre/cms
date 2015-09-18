@@ -102,7 +102,7 @@
             <a href="javascript:;">$icon(link)关联链接</a>
         </div>
     </script>
-<script type="text/template" id="archive_item_template">
+<script type="text/template" id="item_template" class="hidden">
         <div class="archive-item" valign="middle" style="overflow:hidden-x;width:100%">
             <span class="index">{index}</span>
             <span title="{title}">{title}</span>
@@ -118,7 +118,7 @@
     <script type="text/javascript">
 
         j6.dom.fitHeight(document.body.getElementsByTagName('DIV')[0]);
-        var itemTemplate = j6.$('archive_item_template').innerHTML;
+        var itemTemplate = j6.$('item_template').innerHTML;
         var tplHtml = j6.$('tpl').innerHTML;
         var listMenu = j6.$('list-menu');
         j6.hover(listMenu);

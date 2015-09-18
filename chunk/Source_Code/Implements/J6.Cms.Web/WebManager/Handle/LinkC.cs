@@ -580,18 +580,17 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             try
             {
-
                 RelatedLinkDto dto = new RelatedLinkDto
                 {
                     Id = int.Parse(Request.Form["Id"]),
                     ContentId = int.Parse(Request.Form["ContentId"]),
                     ContentType = Request.Form["ContentType"],
                     RelatedIndent = int.Parse(Request.Form["RelatedIndent"]),
-                    RelatedContentId = int.Parse(Request.Form["RelatedId"])
+                    RelatedContentId = int.Parse(Request.Form["RelatedId"]),
+                    Enabled = Request.Form["Enabled"] == "1",
                 };
 
-                ServiceCall.Instance.ContentService.SaveRelatedLink(
-                    this.SiteId,dto);
+                ServiceCall.Instance.ContentService.SaveRelatedLink(this.SiteId,dto);
 
                 return base.ReturnSuccess(dto.Id == 0 ? "添加成功" : "保存成功");
 
