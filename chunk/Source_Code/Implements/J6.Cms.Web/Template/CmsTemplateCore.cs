@@ -406,7 +406,7 @@ namespace J6.Cms.Template
             if (categories1 == null) return String.Empty;
             else
             {
-                IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.SortNumber | a.Lft));
+                IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.SortNumber));
                 StringBuilder sb = new StringBuilder(400);
                 int i = 0;
 
@@ -1306,7 +1306,7 @@ namespace J6.Cms.Template
             StringBuilder sb = new StringBuilder(400);
             int i = 0;
 
-            foreach (CategoryDto c in categories.OrderBy(a => a.SortNumber))// | a.Lft))
+            foreach (CategoryDto c in categories.OrderBy(a => a.SortNumber))
             {
                 if (c.SiteId == this.site.SiteId)
                 {

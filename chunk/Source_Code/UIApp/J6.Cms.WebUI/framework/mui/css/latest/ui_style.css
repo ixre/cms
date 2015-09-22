@@ -104,8 +104,9 @@ dd,dt{margin:0;}
 
 
 /* ++++++++++++++++ UI ++++++++++++++++++ */
-.ui-tree .title{font-size:1.2em;color:#0066cc;}
-.ui-tree div.node{line-height:17px;font-weight:bold}
+.ui-tree *{vertical-align: middle;}
+.ui-tree .title{font-size:1.1em;color:#0066cc;}
+.ui-tree div.node{line-height:17px;font-weight:bold;height:17px;overflow:hidden;}
 .ui-tree div.node img{border: 0px;vertical-align: middle;}
 .ui-tree div.node a{text-decoration:none;color:#006699;}
 .ui-tree div.node a:hover{text-decoration:underline;color:#000;}

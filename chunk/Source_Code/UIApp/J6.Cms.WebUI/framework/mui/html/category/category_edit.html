@@ -181,8 +181,8 @@
             if(this.checked){
                 if(this.value == '1'){
                     redirectPanel.className = '';
-                }else{
-                    redirectPanel.className = 'hidden'
+                }else {
+                    redirectPanel.className = 'hidden';
                 }
             }
         };
@@ -217,7 +217,7 @@
                      data,
                      function (json) {
                          if (json.result) {
-                             if (window._reloadTree) window._reloadTree();
+                             //if (window._reloadTree) window._reloadTree();
                             showMsg2(json.message);
                          } else {
                             showErr(json.message);

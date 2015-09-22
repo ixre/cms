@@ -1,36 +1,40 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<title>栏目树</title>
-        $css()$js()
-	</head>
-	<body>
-   
-        <div class="tree" id="menu_tree" style="padding:15px 0 0 20px"></div>
+<head>
+    <title>栏目树</title>
+    $css()$js()
+</head>
+<body>
 
-        <script type="text/javascript">
-            function showArchives(e,d,t){
-                d=j6.toJson(d);
-                parent.FwTab.show(t, '?module=archive&action=list&category.id=' + d.cid, '1_996_' + d.cid);
-            };
+    <div class="tree" id="menu_tree" style="padding: 15px 0 0 20px;"></div>
 
-            j6.tree.load(
-                'menu_tree',
-                ${tree},
-                '/framework/assets/tree/',
+    <script type="text/javascript">
+        function showArchives(e,d,t){
+            d=j6.toJson(d);
+            parent.FwTab.show(t, '?module=archive&action=list&category.id=' + d.cid, '1_996_' + d.cid);
+        };
+
+        var menuTreeEle = j6.$('menu_tree');
+        if (menuTreeEle.parentNode.nodeName === 'DIV') {
+            menuTreeEle.parentNode.style.cssText += 'height: 100%; overflow: auto;';
+        }
+
+        j6.tree.load(
+           menuTreeEle.id,
+            ${tree}, '/framework/assets/tree/',
                 showArchives);
 
-            var nodeLinks = j6.dom.getsByClass(j6.$('menu_tree'),'node');
-            j6.each(nodeLinks,function(i,e){
-                if(e.nodeName=='A'){
-                    if(e.innerHTML.length>18){
-                        e.innerHTML = '<span title="'+e.innerHTML + '">'
-                            + e.innerHTML.substring(0,18)
-                            + '..</span>';
-                    }
+        var nodeLinks = j6.dom.getsByClass(menuTreeEle,'node');
+        j6.each(nodeLinks,function(i,e){
+            if(e.nodeName=='A'){
+                if(e.innerHTML.length>18){
+                    e.innerHTML = '<span title="'+e.innerHTML + '">'
+                        + e.innerHTML.substring(0,18)
+                        + '..</span>';
                 }
-            });
-        </script>
-      
-	</body> 
+            }
+        });
+    </script>
+
+</body>
 </html>
