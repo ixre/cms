@@ -53,7 +53,7 @@ namespace J6.Cms.Handler
 			extTable.Add("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2,7z");
 
 			//最大文件大小
-			int maxSize = 1000000;
+            int maxSize = 10240000;
 			this.context = context;
 
 			HttpPostedFile imgFile = context.Request.Files["imgFile"];
