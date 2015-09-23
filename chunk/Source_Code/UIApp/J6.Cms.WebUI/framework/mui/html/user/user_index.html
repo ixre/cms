@@ -99,10 +99,10 @@ $js()
     };
 
     function newRec() {
-        j6.dialog.create2('新建用户', true, true).open('?module=user&action=newUser',700,450);
+        j6.dialog.create2('新建用户', true, true).open('?module=user&action=newUser',700,450,'auto');
     }
     function editRec(id) {
-        j6.dialog.create2('编辑用户', true, true).open('?module=user&action=updateUser&id='+id, 700, 450);
+        j6.dialog.create2('编辑用户', true, true).open('?module=user&action=updateUser&id='+id, 700, 450,'auto');
     }
     function delRec(id) {
         if (confirm('确定删除吗?删除后将不可恢复!')) {
@@ -117,7 +117,7 @@ $js()
         }
     }
     function extRec(id) {
-        j6.dialog.create2('用户角色管理', true, true).open('?module=user&action=UserRole&id=' + id, 700, 400);
+        j6.dialog.create2('用户角色管理', true, true).open('?module=user&action=UserRole&id=' + id, 700, 400,'auto');
     }
 
 </script>
