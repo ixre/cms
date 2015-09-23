@@ -42,7 +42,7 @@
 正式环境请配置IIS
 
 ## 插件开发 ##
-详见：github.com/jsix/cms/tree/master/plugin
+详见：http://github.com/jsix/cms/tree/master/plugin
 
 ## 如何加入开发 ##
 二次开发和定制交流QQ群：306064037
