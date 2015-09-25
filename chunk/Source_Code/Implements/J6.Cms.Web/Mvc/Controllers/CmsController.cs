@@ -134,7 +134,6 @@ namespace J6.Cms.Web.Mvc
                 int tmpInt = 0;
                 foreach (XmlObject _obj in obj.GetObjects())
                 {
-
                     rsp.Write(XmlObjectDoc.GetGrid(_obj, ++tmpInt));
                 }
             }

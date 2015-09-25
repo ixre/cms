@@ -75,7 +75,7 @@ namespace J6.Cms.Template
             {
                 id = idOrAlias;
             }
-            return base.Archive(this.site.SiteId, id, format);
+            return base.Archive(this._site.SiteId, id, format);
         }
 
         [TemplateTag]
@@ -91,7 +91,7 @@ namespace J6.Cms.Template
             {
                 return this.TplMessage("Error: 此标签只能在文档页面中调用!");
             }
-            return base.Archive(this.site.SiteId, id, format);
+            return base.Archive(this._site.SiteId, id, format);
         }
 
 
@@ -205,7 +205,7 @@ namespace J6.Cms.Template
                 module = CmsLogic.Module.GetModule(int.Parse(tag));
                 if (module != null)
                 {
-                    dt = ServiceCall.Instance.ArchiveService.GetArchivesByModuleId(this.siteId, module.ID, _num);
+                    dt = ServiceCall.Instance.ArchiveService.GetArchivesByModuleId(this.SiteId, module.ID, _num);
                     return ArchiveList(dt,0, format);
                 }
             }
@@ -505,15 +505,15 @@ namespace J6.Cms.Template
             CategoryDto category = default(CategoryDto);
             int.TryParse(num, out _num);
 
-            category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryTag);
+            category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
             if (!(category.Id > 0))
             {
                 return String.Format("ERROR:模块或栏目不存在!参数:{0}", categoryTag);
             }
 
             dt = container ?
-                ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(this.siteId, category.Lft, category.Rgt, _num) :
-                ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(this.siteId, category.Tag, _num);
+                ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(this.SiteId, category.Lft, category.Rgt, _num) :
+                ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(this.SiteId, category.Tag, _num);
 
 
             return this.ArchiveList(dt,0, format);
@@ -547,7 +547,7 @@ namespace J6.Cms.Template
                 module = CmsLogic.Module.GetModule(int.Parse(param));
                 if (module != null)
                 {
-                    dt = ServiceCall.Instance.ArchiveService.GetArchivesByViewCountByModuleId(this.siteId, module.ID, _num);
+                    dt = ServiceCall.Instance.ArchiveService.GetArchivesByViewCountByModuleId(this.SiteId, module.ID, _num);
                     return this.ArchiveList(dt,0, format);
                 }
             }
@@ -868,7 +868,8 @@ namespace J6.Cms.Template
         	<b>参数：</b><br />
         	==========================<br />
         	1：显示数量<br />
-        	2：显示格式
+            2 : 分割条数<br />
+        	3：显示格式
 		")]
         public string Paging_Archives(string pageSize,string splitSize,string format)
         {
@@ -884,6 +885,24 @@ namespace J6.Cms.Template
             int.TryParse(splitSize, out intSplitSize);
 
             return base.Paging_Archives(tag, pageindex.ToString(), pageSize, 0, intSplitSize, format);
+        }
+
+        [TemplateTag]
+        [XmlObjectProperty("显示栏目分页文档结果", @"
+        	<p class=""red"">只能在栏目页或文档页中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+            1 : 栏目标识<br />
+            2 : 当前页码<br />
+        	3：显示数量<br />
+            4 : 分割条数<br />
+        	5：显示格式
+		")]
+        public string Paging_Archives(string categoryTag, string pageIndex,string pageSize, string splitSize, string format)
+        {
+            int intSplitSize;
+            int.TryParse(splitSize, out intSplitSize);
+            return base.Paging_Archives(categoryTag, pageIndex, pageSize, 0, intSplitSize, format);
         }
 
 
@@ -909,7 +928,7 @@ namespace J6.Cms.Template
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return this.Search_Archives(param, key, pageindex.ToString(), pageSize, format);
+            return this.Search_Archives(param, key, pageindex.ToString(), pageSize,"0", format);
         }
 
         [TemplateTag]
@@ -918,12 +937,13 @@ namespace J6.Cms.Template
         	==========================<br />
         	1：关键词<br />
         	2：显示数量<br />
-        	3：显示格式
+            3 : 分割条数<br />
+        	4：显示格式
 		")]
-        public string Search_Archives(string keyword, string pageSize, string format)
+        public string Search_Archives(string keyword, string pageSize,string splitSize, string format)
         {
             string pageindex = HttpContext.Current.Items["page.index"] as string;
-            return this.Search_Archives(null, keyword, pageindex, pageSize, format);
+            return this.Search_Archives(null, keyword, pageindex, pageSize,splitSize, format);
         }
 
         /// <summary>
@@ -931,6 +951,7 @@ namespace J6.Cms.Template
         /// </summary>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
+        /// <param name="splitSize"></param>
         /// <param name="format"></param>
         /// <param name="pagerLinkPath">分页地址路径</param>
         /// <returns></returns>
@@ -940,10 +961,11 @@ namespace J6.Cms.Template
         	==========================<br />
         	1：关键词<br />
         	2：显示数量<br />
-        	3：显示格式<br />
-        	4：页面路径(可用于自定义搜索页的URL)
+            3 : 分割条数<br />
+        	4：显示格式<br />
+        	5：页面路径(可用于自定义搜索页的URL)
 		")]
-        public string Search_Archives(string keyword, string pageSize, string format, string pagerLinkPath)
+        public string Search_Archives(string keyword, string pageSize,string splitSize, string format, string pagerLinkPath)
         {
             int pageIndex,
                 recordCount,
@@ -953,11 +975,12 @@ namespace J6.Cms.Template
             if (pageIndex < 1) pageIndex = 1;
 
             string html = this.SearchArchives(
-                this.site.SiteId,
+                this._site.SiteId,
                 c,
                 keyword,
                 pageIndex.ToString(),
                 pageSize,
+                splitSize,
                 format,
                 out pageCount,
                 out recordCount);
@@ -989,6 +1012,8 @@ namespace J6.Cms.Template
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <param name="categoryTagOrModuleId"></param>
+        /// <param name="splitSize"></param>
+        /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
         [XmlObjectProperty("显示指定栏目下的文档搜索结果", @"
@@ -998,12 +1023,13 @@ namespace J6.Cms.Template
         	2：关键词<br />
         	3：当前页码<br />
         	4：显示数量<br />
-        	5：显示格式
+            5 : 分割条数<br />
+        	6：显示格式
 		")]
-        public string Search_Archives(string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize, string format)
+        public string Search_Archives(string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize,string splitSize,string format)
         {
             int pageCount, recordCount;
-            return this.SearchArchives(this.site.SiteId, categoryTagOrModuleId, keyword, pageIndex, pageSize, format, out pageCount, out recordCount);
+            return this.SearchArchives(this._site.SiteId, categoryTagOrModuleId, keyword, pageIndex, pageSize,splitSize, format, out pageCount, out recordCount);
         }
 
 
@@ -1030,7 +1056,6 @@ namespace J6.Cms.Template
         /// <summary>
         /// 链接
         /// </summary>
-        /// <param name="number"></param>
         /// <param name="type"></param>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -1130,11 +1155,11 @@ namespace J6.Cms.Template
 		")]
         public string Navigator()
         {
-            string cache = SiteLinkCache.GetNavigatorBySiteId(siteId);
+            string cache = SiteLinkCache.GetNavigatorBySiteId(SiteId);
             if (cache == null)
             {
                 cache = base.Navigator(base.TplSetting.CFG_NavigatorLinkFormat, base.TplSetting.CFG_NavigatorChildFormat, "-1");
-                SiteLinkCache.SetNavigatorForSite(siteId, cache);
+                SiteLinkCache.SetNavigatorForSite(SiteId, cache);
             }
             return cache;
         }
@@ -1159,11 +1184,11 @@ namespace J6.Cms.Template
 		")]
         public string Friend_Link(string num, string format)
         {
-            string cache = SiteLinkCache.GetFLinkBySiteId(siteId);
+            string cache = SiteLinkCache.GetFLinkBySiteId(SiteId);
             if (cache == null)
             {
                 cache = this.Link("2", format, int.Parse(num), "-1");
-                SiteLinkCache.SetFLinkForSite(siteId, cache);
+                SiteLinkCache.SetFLinkForSite(SiteId, cache);
             }
             return cache;
         }
@@ -1212,38 +1237,6 @@ namespace J6.Cms.Template
 
         #region 兼容标签
 
-        [TemplateTag]
-        [XmlObjectProperty("显示栏目分页文档结果", @"
-        	<p class=""red"">只能在栏目页或文档页中使用！</p>
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：显示数量<br />
-        	2：显示格式
-		")]
-        public string Pager_Archives(string pageSize, string format)
-        {
-            return this.Paging_Archives(pageSize, format);
-        }
-
-
-
-        protected string PagerArchiveList(string categoryTag, string pageIndex, string pageSize, string format)
-        {
-            return base.Paging_Archives(categoryTag, pageIndex, pageSize, 0,0,format);
-        }
-
-        protected string PagerArchiveList(string pageSize, string format)
-        {
-            return this.Pager_Archives(pageSize, format);
-        }
-
-
-        [TemplateTag]
-        protected string SearchList(string categoryTagOrModuleID, string keyword, string pageIndex, string pageSize, string format)
-        {
-            int pageCount, recordCount;
-            return this.SearchArchives(this.site.SiteId, categoryTagOrModuleID, keyword, pageIndex, pageSize, format, out pageCount, out recordCount);
-        }
 
         [TemplateTag]
         protected string SearchList(string keyword, string pageSize, string format)
@@ -1270,6 +1263,20 @@ namespace J6.Cms.Template
         protected string SearchList(string keyword, string pageSize, string format, string pagerLinkPath)
         {
             return this.Search_Archives(keyword, pageSize, format, pagerLinkPath);
+        }
+
+
+        [TemplateTag]
+        [XmlObjectProperty("显示栏目分页文档结果", @"
+        	<p class=""red"">只能在栏目页或文档页中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：显示数量<br />
+        	2：显示格式
+		")]
+        public string Pager_Archives(string pageSize, string format)
+        {
+            return this.Paging_Archives(pageSize, format);
         }
 
 
@@ -1340,7 +1347,7 @@ namespace J6.Cms.Template
                 int moduleID = int.Parse(id);
                 if (CmsLogic.Module.GetModule(moduleID) != null)
                 {
-                    ServiceCall.Instance.SiteService.HandleCategoryTree(this.siteId, 1, (c, level) =>
+                    ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level) =>
                     {
                         if (!onlyRoot || (onlyRoot && level == 0))
                         {
@@ -1416,7 +1423,7 @@ namespace J6.Cms.Template
         protected string _MCategoryTree(string moduleID)
         {
             //读取缓存
-            string cacheKey = String.Format("{0}_site{1}_mtree_{2}", CacheSign.Category.ToString(), this.siteId.ToString(), moduleID);
+            string cacheKey = String.Format("{0}_site{1}_mtree_{2}", CacheSign.Category.ToString(), this.SiteId.ToString(), moduleID);
 
             BuiltCacheResultHandler<String> bh = () =>
             {
@@ -1432,7 +1439,7 @@ namespace J6.Cms.Template
                 }
                 sb.Append("<div class=\"category_tree mtree\">");
 
-                CategoryDto dto = ServiceCall.Instance.SiteService.GetCategoryByLft(this.siteId, 1);
+                CategoryDto dto = ServiceCall.Instance.SiteService.GetCategoryByLft(this.SiteId, 1);
 
                 this.CategoryTree_Iterator(dto, sb, a => { return a.ModuleId == _moduleID; }, true);
 

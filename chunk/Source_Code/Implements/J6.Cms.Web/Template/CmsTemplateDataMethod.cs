@@ -49,7 +49,7 @@ namespace J6.Cms.Template
         /// <returns></returns>
         protected string GetCategory(string name)
         {
-          CategoryDto c = ServiceCall.Instance.SiteService.GetCategoryByName(this.siteId, name);
+          CategoryDto c = ServiceCall.Instance.SiteService.GetCategoryByName(this.SiteId, name);
            return c.Id<=0 ? "" : c.Tag;
         }
     }

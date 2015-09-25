@@ -47,12 +47,12 @@ namespace J6.Cms.Template
         /// <summary>
         /// 当前站点
         /// </summary>
-        protected SiteDto site;
+        protected SiteDto _site;
 
         /// <summary>
         /// 当前站点编号
         /// </summary>
-        protected int siteId;
+        protected int SiteId;
 
         /// <summary>
         /// 模板设置
@@ -61,16 +61,16 @@ namespace J6.Cms.Template
 
         public CmsTemplateCore()
         {
-            this.site = Cms.Context.CurrentSite;
-            this.siteId = this.site.SiteId;
+            this._site = Cms.Context.CurrentSite;
+            this.SiteId = this._site.SiteId;
 
             //缓存=》模板设置
-            string settingCacheKey = String.Format("{0}_{1}_settings", CacheSign.Template.ToString(), this.site.Tpl);
+            string settingCacheKey = String.Format("{0}_{1}_settings", CacheSign.Template.ToString(), this._site.Tpl);
             object settings = Cms.Cache.Get(settingCacheKey);
             if (settings == null)
             {
-                this.TplSetting = new TemplateSetting(this.site.Tpl);
-                Cms.Cache.Insert(settingCacheKey, this.TplSetting, String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this.site.Tpl));
+                this.TplSetting = new TemplateSetting(this._site.Tpl);
+                Cms.Cache.Insert(settingCacheKey, this.TplSetting, String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this._site.Tpl));
             }
             else
             {
@@ -266,7 +266,7 @@ namespace J6.Cms.Template
             {
                 if (binds[0] == "category")
                 {
-                    CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.site.SiteId, int.Parse(binds[1]));
+                    CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this._site.SiteId, int.Parse(binds[1]));
                     if (category.Id > 0)
                     {
                         return this.GetCategoryUrl(category, 1);
@@ -278,7 +278,7 @@ namespace J6.Cms.Template
                     int.TryParse(binds[1], out archiveId);
 
                     ArchiveDto archiveDto = ServiceCall.Instance.ArchiveService
-                        .GetArchiveById(this.siteId, archiveId);
+                        .GetArchiveById(this.SiteId, archiveId);
 
                     if (archiveDto.Id > 0)
                     {
@@ -366,7 +366,7 @@ namespace J6.Cms.Template
             //                 如果为字符串tag，则返回该子类下的栏目
             //
 
-            int siteId = this.site.SiteId;
+            int siteId = this._site.SiteId;
 
             int num = 0;
             if (Regex.IsMatch(dataNum, "^\\d+$"))
@@ -390,10 +390,10 @@ namespace J6.Cms.Template
                 }
                 else
                 {
-                    CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, param);
+                    CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, param);
                     if (category.Id > 0)
                     {
-                        categories1 = ServiceCall.Instance.SiteService.GetCategories(this.siteId, category.Lft, category.Rgt, CategoryContainerOption.NextLevel);
+                        categories1 = ServiceCall.Instance.SiteService.GetCategories(this.SiteId, category.Lft, category.Rgt, CategoryContainerOption.NextLevel);
                     }
                     else
                     {
@@ -416,7 +416,7 @@ namespace J6.Cms.Template
                     {
                         break;
                     }
-                    if (c.SiteId == this.siteId)
+                    if (c.SiteId == this.SiteId)
                     {
                         sb.Append(TplEngine.FieldTemplate(format, field =>
                         {
@@ -502,14 +502,14 @@ namespace J6.Cms.Template
         [TemplateTag]
         public string Label(string key)
         {
-            string cacheKey =String.Format( "{0}_label_{1}",CacheSign.Site.ToString(),this.site.SiteId.ToString());
+            string cacheKey =String.Format( "{0}_label_{1}",CacheSign.Site.ToString(),this._site.SiteId.ToString());
             if (this._settingsFile == null)
             {
                 //读取数据
                 this._settingsFile = Cms.Cache.Get(cacheKey) as SettingFile;
                 if (this._settingsFile == null)
                 {
-                    string phyPath = String.Format("{0}templates/{1}/label.conf", Cms.PyhicPath, this.site.Tpl);
+                    string phyPath = String.Format("{0}templates/{1}/label.conf", Cms.PyhicPath, this._site.Tpl);
                     this._settingsFile = new SettingFile(phyPath);
 
                     //缓存数据
@@ -528,7 +528,7 @@ namespace J6.Cms.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang(string key)
         {
-            return Cms.Language.Get(this.site.Language,key);
+            return Cms.Language.Get(this._site.Language,key);
         }
 
         /// <summary>
@@ -541,28 +541,28 @@ namespace J6.Cms.Template
             switch (key.ToLower())
             {
                 case "name":
-                    return this.site.Name;
+                    return this._site.Name;
                 case "tel":
-                    return this.site.ProTel ?? "";
+                    return this._site.ProTel ?? "";
                 case "phone":
-                    return this.site.ProPhone ?? "";
+                    return this._site.ProPhone ?? "";
                 case "fax":
-                    return this.site.ProFax ?? "";
+                    return this._site.ProFax ?? "";
                 case "address":
-                    return this.site.ProAddress ?? "";
+                    return this._site.ProAddress ?? "";
                 case "email":
-                    return this.site.ProEmail ?? "";
+                    return this._site.ProEmail ?? "";
                 case "im":
                 case "qq": //todo:需删除
-                    return this.site.ProIm ?? "";
+                    return this._site.ProIm ?? "";
                 case "post":
-                    return this.site.ProPost ?? "";
+                    return this._site.ProPost ?? "";
                 case "notice":
-                    return this.site.ProNotice ?? "";
+                    return this._site.ProNotice ?? "";
                 case "slogan":
-                    return this.site.ProSlogan ?? "";
+                    return this._site.ProSlogan ?? "";
                 case "tpl":
-                    return this.site.Tpl ?? "default";
+                    return this._site.Tpl ?? "default";
             }
             return key;
         }
@@ -575,7 +575,7 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string Archive_Redirect(string id)
         {
-            ArchiveDto a = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(this.site.SiteId, id);
+            ArchiveDto a = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(this._site.SiteId, id);
 
             if (a.Id > 0)
             {
@@ -604,7 +604,7 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string Require(string idOrAlias)
         {
-            ArchiveDto a = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(this.siteId, idOrAlias);
+            ArchiveDto a = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(this.SiteId, idOrAlias);
             if (a.Id > 0) archive = a;
             return string.Empty;
         }
@@ -988,10 +988,10 @@ namespace J6.Cms.Template
         [ContainSetting]
         protected string Sitemap(string categoryTag)
         {
-            string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category, siteId.ToString(), categoryTag);
+            string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category, SiteId.ToString(), categoryTag);
             return Cms.Cache.GetCachedResult(cacheKey, () =>
             {
-                return CategoryCacheManager.GetSitemapHtml(this.siteId,
+                return CategoryCacheManager.GetSitemapHtml(this.SiteId,
                     categoryTag,
                     this.TplSetting.CFG_SitemapSplit,
                 this.FormatUrl(UrlRulePageKeys.Category, null));
@@ -1060,7 +1060,7 @@ namespace J6.Cms.Template
 
             StringBuilder sb = new StringBuilder();
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
-                ServiceCall.Instance.SiteService.GetLinksByType(this.siteId, SiteLinkType.Navigation, false));
+                ServiceCall.Instance.SiteService.GetLinksByType(this.SiteId, SiteLinkType.Navigation, false));
             int total = links.Count;
             IList<SiteLinkDto> childs;
 
@@ -1212,7 +1212,7 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string PrevArchive(string id, string format)
         {
-            ArchiveDto archiveDto = ServiceCall.Instance.ArchiveService.GetSameCategoryPreviousArchive(siteId, int.Parse(id));
+            ArchiveDto archiveDto = ServiceCall.Instance.ArchiveService.GetSameCategoryPreviousArchive(SiteId, int.Parse(id));
             if (!(archiveDto.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoPrevious);
 
             StringBuilder sb = new StringBuilder(500);
@@ -1231,7 +1231,7 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string NextArchive(string id, string format)
         {
-            ArchiveDto archiveDto = ServiceCall.Instance.ArchiveService.GetSameCategoryNextArchive(this.siteId, int.Parse(id));
+            ArchiveDto archiveDto = ServiceCall.Instance.ArchiveService.GetSameCategoryNextArchive(this.SiteId, int.Parse(id));
 
             if (!(archiveDto.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoNext);
 
@@ -1280,14 +1280,14 @@ namespace J6.Cms.Template
             bool isModule = false;
             if (!isModule)
             {
-                CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, param);
+                CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, param);
 
-                if (!(category.Id > 0) || (category.SiteId != this.site.SiteId && category.Lft != 1))
+                if (!(category.Id > 0) || (category.SiteId != this._site.SiteId && category.Lft != 1))
                 {
                     return TplMessage("不存在栏目!标识:" + param);
                 }
 
-                categories = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(this.siteId,
+                categories = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(this.SiteId,
                     category.Lft, category.Rgt, CategoryContainerOption.NextLevel));
 
                 //如果没有下级了,则获取当前级
@@ -1308,7 +1308,7 @@ namespace J6.Cms.Template
 
             foreach (CategoryDto c in categories.OrderBy(a => a.SortNumber))
             {
-                if (c.SiteId == this.site.SiteId)
+                if (c.SiteId == this._site.SiteId)
                 {
                     sb.Append(TplEngine.FieldTemplate(format, field =>
                     {
@@ -1513,7 +1513,7 @@ namespace J6.Cms.Template
 
 
 
-            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryTag);
+            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
             if (!(category.Id > 0))
             {
                 return TplMessage("Error:栏目不存在!");
@@ -1538,7 +1538,7 @@ namespace J6.Cms.Template
             DataRowCollection drs;
 
             drs = ServiceCall.Instance.ArchiveService.GetPagedArchives(
-                this.siteId,
+                this.SiteId,
                 category.Lft,
                 category.Rgt,
                 _pageSize,
@@ -1562,7 +1562,7 @@ namespace J6.Cms.Template
                 id = (string.IsNullOrEmpty((dr["alias"] ?? "").ToString()) ? dr["str_id"] : dr["alias"]).ToString();      //用于链接的ID标识
                 if (categoryId != archiveCategory.Id)
                 {
-                    archiveCategory = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryId);
+                    archiveCategory = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
                     if (!(archiveCategory.Id > 0)) continue;
                 }
 
@@ -1700,7 +1700,7 @@ namespace J6.Cms.Template
             int.TryParse(num, out intNum);
 
             //获取栏目
-            var category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, tag);
+            var category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, tag);
 
             if (!(category.Id > 0))
             {
@@ -1708,8 +1708,8 @@ namespace J6.Cms.Template
             }
 
             ArchiveDto[] dt = container
-                ? ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.siteId, category.Lft, category.Rgt, intNum, skipSize)
-                : ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.siteId, category.Tag, intNum, skipSize);
+                ? ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.SiteId, category.Lft, category.Rgt, intNum, skipSize)
+                : ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.SiteId, category.Tag, intNum, skipSize);
 
             return this.ArchiveList(dt, splitSize, format);
         }
@@ -1720,14 +1720,14 @@ namespace J6.Cms.Template
             int.TryParse(num, out intNum);
 
             //栏目
-            var category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, tag);
+            var category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, tag);
 
             if (!(category.Id > 0))
             {
                 return String.Format("ERROR:模块或栏目不存在!参数:{0}", tag);
             }
-            ArchiveDto[] archives = container ? ServiceCall.Instance.ArchiveService.GetArchivesContainChildCategories(this.siteId, category.Lft, category.Rgt, intNum, skipSize) :
-                ServiceCall.Instance.ArchiveService.GetArchivesByCategoryTag(this.siteId, category.Tag, intNum, skipSize);
+            ArchiveDto[] archives = container ? ServiceCall.Instance.ArchiveService.GetArchivesContainChildCategories(this.SiteId, category.Lft, category.Rgt, intNum, skipSize) :
+                ServiceCall.Instance.ArchiveService.GetArchivesByCategoryTag(this.SiteId, category.Tag, intNum, skipSize);
 
             return this.ArchiveList(archives, splitSize, format);
         }
@@ -1744,25 +1744,31 @@ namespace J6.Cms.Template
         /// <param name="pageCount"></param>
         /// <param name="recordCount"></param>
         /// <returns></returns>
-        protected string SearchArchives(int siteId, string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize, string format, out int pageCount, out int recordCount)
+        protected string SearchArchives(int siteId, string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize,string splitSize, string format, out int pageCount, out int recordCount)
         {
-            int _pageIndex,
-                _pageSize,
-                _records = 0,
-                _pages = 0;
+            int intPageIndex,
+                intPageSize,
+                total = 0,
+                pages = 0;
 
             int C_LENGTH = this.TplSetting.CFG_OutlineLength;
+            int intSplitSize;
             bool hasSetCategory = false;                               //是否在搜索中指定栏目参数
 
             CategoryDto category = default(CategoryDto);
             J6.Cms.Domain.Interface.Models.Module module = null;
             Regex keyRegex;
 
-            int.TryParse(pageIndex, out _pageIndex);
-            int.TryParse(pageSize, out _pageSize);
+            int.TryParse(pageIndex, out intPageIndex);
+            int.TryParse(pageSize, out intPageSize);
+            int.TryParse(splitSize, out intSplitSize);
 
             keyword = keyword.Replace("+", String.Empty);                  //删除+号连接符
             keyRegex = new Regex(keyword, RegexOptions.IgnoreCase);
+
+
+
+            bool listContainer = format.EndsWith("</li>");
 
             /**** 显示列表 ****/
             StringBuilder sb = new StringBuilder(1000);
@@ -1797,7 +1803,7 @@ namespace J6.Cms.Template
                     if (category.Id > 0)
                     {
                         hasSetCategory = true;
-                        searchArchives = ServiceCall.Instance.ArchiveService.SearchArchivesByCategory(siteId, category.Lft, category.Rgt, keyword, _pageSize, _pageIndex, out _records, out _pages, "ORDER BY CreateDate DESC");
+                        searchArchives = ServiceCall.Instance.ArchiveService.SearchArchivesByCategory(siteId, category.Lft, category.Rgt, keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
                     }
                     else
                     {
@@ -1812,7 +1818,7 @@ namespace J6.Cms.Template
             //如果未设置模块或栏目参数
             if (searchArchives == null)
             {
-                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, false, keyword, _pageSize, _pageIndex, out _records, out _pages, "ORDER BY CreateDate DESC");
+                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, false, keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
             }
 
             IDictionary<string, string> extendFields = null;
@@ -1944,6 +1950,8 @@ namespace J6.Cms.Template
                     }));
 
 
+                // 添加分割栏
+                this.AppendSplitHtm(sb, total, i++, intSplitSize, listContainer);
 
 
 
@@ -1951,14 +1959,14 @@ namespace J6.Cms.Template
             }
 
 
-            pageCount = _pages;
-            recordCount = _records;
+            pageCount = pages;
+            recordCount = total;
 
             //如果无搜索结果
             if (sb.Length < 30)
             {
                 string message;
-                switch (site.Language)
+                switch (_site.Language)
                 {
                     default:
                     case Languages.En:
@@ -1975,9 +1983,9 @@ namespace J6.Cms.Template
             {
                 //设置分页
                 this.SetPager(
-                    _pageIndex,
-                    _pages,
-                    _records,
+                    intPageIndex,
+                    pages,
+                    total,
                     this.FormatUrl(UrlRulePageKeys.Search, HttpUtility.UrlEncode(keyword), categoryTagOrModuleId ?? ""),
                     this.FormatUrl(UrlRulePageKeys.SearchPager, HttpUtility.UrlEncode(keyword), categoryTagOrModuleId ?? "", "{0}")
                     );
@@ -2006,7 +2014,7 @@ namespace J6.Cms.Template
 
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
                 ServiceCall.Instance.SiteService
-                .GetLinksByType(this.siteId, linkType, false));
+                .GetLinksByType(this.SiteId, linkType, false));
 
             SiteLinkDto link;
 
@@ -2161,7 +2169,7 @@ namespace J6.Cms.Template
 
             int C_LENGTH = this.TplSetting.CFG_OutlineLength;
             IEnumerable<ArchiveDto> searchArchives = ServiceCall.Instance.ArchiveService
-                .SearchArchives(this.siteId, false, tag,
+                .SearchArchives(this.SiteId, false, tag,
                 _pageSize, _pageIndex,
                 out _records, out _pages, "ORDER BY CreateDate DESC");
 
@@ -2352,7 +2360,7 @@ namespace J6.Cms.Template
             }
 
             IList<CategoryDto> childs = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(
-                this.siteId,
+                this.SiteId,
                 category.Lft,
                 category.Rgt,
                 CategoryContainerOption.NextLevel));
@@ -2394,14 +2402,14 @@ namespace J6.Cms.Template
             if (categoryTag == "") categoryTag = "root";
 
             //读取缓存
-            string cacheKey = String.Format("{0}_site{1}_tree_{2}", CacheSign.Category.ToString(), siteId.ToString(), categoryTag);
+            string cacheKey = String.Format("{0}_site{1}_tree_{2}", CacheSign.Category.ToString(), SiteId.ToString(), categoryTag);
 
             BuiltCacheResultHandler<String> bh = () =>
             {
                 //无缓存,则继续执行
                 StringBuilder sb = new StringBuilder(400);
 
-                CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryTag);
+                CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
                 if (!(category.Id > 0))
                 {
                     return TplMessage("不存在栏目!标识:" + categoryTag);
@@ -2430,7 +2438,7 @@ namespace J6.Cms.Template
             //读取缓存
             string cacheKey = String.Format("{0}_site{1}_select_tree_{2}_{3}",
                 CacheSign.Category.ToString(),
-                this.siteId.ToString(),
+                this.SiteId.ToString(),
                 categoryTag,
                 split);
 
@@ -2463,7 +2471,7 @@ namespace J6.Cms.Template
                 }
                 */
 
-                if (_category.Site.Id != siteId) return;
+                if (_category.Site.Id != SiteId) return;
 
                 sb.Append("<option value=\"").Append(_category.Tag)
                     .Append("\" path=\"")
@@ -2492,20 +2500,20 @@ namespace J6.Cms.Template
                 if (CmsLogic.Module.GetModule(moduleId) != null)
                 {
                     isModule = true;
-                    ServiceCall.Instance.SiteService.HandleCategoryTree(this.siteId, 1, treeHandler);
+                    ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, treeHandler);
                 }
             }
 
             if (!isModule)
             {
 
-                CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.siteId, categoryTag);
+                CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
                 if (!(category.Id > 0))
                 {
                     return TplMessage("不存在栏目!标识:" + categoryTag);
                 }
 
-                ServiceCall.Instance.SiteService.HandleCategoryTree(this.siteId, category.Lft, treeHandler);
+                ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, category.Lft, treeHandler);
             }
 
 
