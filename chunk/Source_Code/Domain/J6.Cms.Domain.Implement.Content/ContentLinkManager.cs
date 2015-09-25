@@ -87,9 +87,9 @@ namespace J6.Cms.Domain.Implement.Content
 
         public bool Contain(int relatedContentType, int relatedContentId)
         {
-            foreach (IContentLink _link in this._links)
+            foreach (IContentLink link in this._links)
             {
-                if (_link.RelatedContentId == relatedContentId && relatedContentType == _link.RelatedIndent)
+                if (link.RelatedContentId == relatedContentId && relatedContentType == link.RelatedIndent)
                     return true;
             }
             return false;
@@ -107,9 +107,9 @@ namespace J6.Cms.Domain.Implement.Content
 
             if (link != null)
             {
-                foreach (IContentLink _link in this._links)
+                foreach (IContentLink link2 in this._links)
                 {
-                    if (_link.Equal(link))
+                    if (link2.Equal(link))
                         throw new Exception("已存在重名的链接！");
                 }
 

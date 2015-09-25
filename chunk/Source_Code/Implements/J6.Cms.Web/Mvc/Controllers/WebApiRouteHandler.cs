@@ -127,8 +127,8 @@ internal static class WebApiProcess
 
     internal static string GetRelatedArchiveLinks(SiteDto site, string contentType, int contentId)
     {
-        RelatedLinkDto[] archives = ServiceCall.Instance.ContentService
-            .GetRelatedLinks(site.SiteId, contentType, contentId).ToArray();
+        IList<RelatedLinkDto> archives = new List<RelatedLinkDto>(ServiceCall.Instance.ContentService
+            .GetRelatedLinks(site.SiteId, contentType, contentId));
         String host = WebCtx.Current.Host;
         String resDomain = Cms.Context.ResourceDomain;
         String defaultThumb = String.Concat(resDomain, "/" + CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto);
@@ -138,18 +138,26 @@ internal static class WebApiProcess
         return JsonSerializer.Serialize(archives);
     }
 
-    private static void ReValueRelateLinks(RelatedLinkDto[] archives, string host, string defaultThumb, string resDomain)
+    private static void ReValueRelateLinks(IList<RelatedLinkDto> archives, string host, string defaultThumb, string resDomain)
     {
-        foreach (var relatedLinkDto in archives)
+        for(int i=0;i<archives.Count;i++)
         {
-            relatedLinkDto.Url = relatedLinkDto.Url.Replace("#", host);
-            if (relatedLinkDto.Thumbnail.Length == 0)
+            if (archives[i].Enabled)
             {
-                relatedLinkDto.Thumbnail = defaultThumb;
+                archives[i].Url = archives[i].Url.Replace("#", host);
+                if (archives[i].Thumbnail.Length == 0)
+                {
+                    archives[i].Thumbnail = defaultThumb;
+                }
+                else if (!archives[i].Thumbnail.StartsWith("http"))
+                {
+                    archives[i].Thumbnail = String.Concat(resDomain, "/", archives[i].Thumbnail);
+                }
             }
-            else if (!relatedLinkDto.Thumbnail.StartsWith("http"))
+            else
             {
-                relatedLinkDto.Thumbnail = String.Concat(resDomain, "/", relatedLinkDto.Thumbnail);
+                archives.Remove(archives[i]);
+                i--;
             }
         }
     }
