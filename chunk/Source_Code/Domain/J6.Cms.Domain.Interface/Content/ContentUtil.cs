@@ -1,31 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace J6.Cms.Domain.Interface.Content
 {
    public  static class ContentUtil
    {
-       private static IDictionary<int, string> _indents;
+       private static IDictionary<int, RelateIndent> _indents;
 
 
-       public static IDictionary<int, string> GetRelatedIndents()
+       public static IDictionary<int, RelateIndent> GetRelatedIndents()
        {
            if (_indents == null)
            {
-              _indents = new Dictionary<int, string>(8);
-               _indents.Add(0,"默认类型");
-               _indents.Add(1, "#未配置1");
-               _indents.Add(2, "#未配置2");
-               _indents.Add(3, "#未配置3");
-               _indents.Add(4, "#未配置4");
-               _indents.Add(5, "#未配置5");
-               _indents.Add(6, "#未配置6");
-               _indents.Add(7, "#未配置7");
-               _indents.Add(8, "#未配置8");
-               _indents.Add(9, "#未配置9");
-               _indents.Add(10, "#未配置10");
+               _indents = new Dictionary<int, RelateIndent>(8);
+               RelateIndent[] indents = new RelateIndent[]
+               {
+                   new RelateIndent("默认类型","*","*",true),
+                   new RelateIndent("未配置1","*","*",true),
+                   new RelateIndent("未配置2","*","*",true),
+                   new RelateIndent("未配置3","*","*",true),
+                   new RelateIndent("未配置4","*","*",true),
+                   new RelateIndent("未配置5","*","*",true),
+                   new RelateIndent("未配置6","*","*",true),
+                   new RelateIndent("未配置7","*","*",true),
+                   new RelateIndent("未配置8","*","*",true),
+                   new RelateIndent("未配置9","*","*",true),
+                   new RelateIndent("未配置10","*","*",true),
+               };
+
+               int tmpInt = 0;
+               foreach (var relateIndent in indents)
+               {
+                   _indents.Add(tmpInt,relateIndent);
+                   tmpInt++;
+               }
            }
            return _indents;
        }
@@ -34,7 +41,7 @@ namespace J6.Cms.Domain.Interface.Content
        /// 设置关联类型
        /// </summary>
        /// <param name="indents"></param>
-       public static void SetRelatedIndents(IDictionary<int,string> indents)
+       public static void SetRelatedIndents(IDictionary<int,RelateIndent> indents)
        {
            if (indents != null && indents.Count != 0)
            {
@@ -42,7 +49,7 @@ namespace J6.Cms.Domain.Interface.Content
            }
        }
 
-       public static string GetRelatedIndentName(int relatedIndent)
+       public static RelateIndent GetRelatedIndentName(int relatedIndent)
        {
            if (_indents != null && _indents.ContainsKey(relatedIndent))
            {

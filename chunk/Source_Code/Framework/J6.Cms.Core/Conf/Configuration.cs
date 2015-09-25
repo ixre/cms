@@ -19,6 +19,7 @@ using J6.Cms.CacheService;
 using J6.Cms.Infrastructure;
 using J6.DevFw.Framework;
 using J6.Cms.DataTransfer;
+using J6.Cms.Domain.Interface.Content;
 using J6.DevFw.Framework.IO;
 
 namespace J6.Cms.Conf
@@ -414,9 +415,9 @@ namespace J6.Cms.Conf
             SettingFile sf = new SettingFile(relatedConf);
             var isModify = false;
             var isLoaded = false;
-            IDictionary<int, string> relatedIndents = ServiceCall.Instance.ContentService.GetRelatedIndents();
+            IDictionary<int, RelateIndent> relatedIndents = ServiceCall.Instance.ContentService.GetRelatedIndents();
 
-            IDictionary<int,string> newIndents = new Dictionary<int, string>(relatedIndents.Count);
+            IDictionary<int, RelateIndent> newIndents = new Dictionary<int, RelateIndent>(relatedIndents.Count);
 
             String key;
             String value;
@@ -430,11 +431,11 @@ namespace J6.Cms.Conf
                 }
                 else
                 {
-                    value = relatedIndent.Value;
+                    value = relatedIndent.ToString();
                     sf.Set(key, value);
                     isModify = true;
                 }
-                newIndents.Add(relatedIndent.Key,value);
+                newIndents.Add(relatedIndent.Key,new RelateIndent(value));
             }
 
             if (isModify)

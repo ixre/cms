@@ -38,9 +38,9 @@ namespace J6.Cms.ServiceContract
         /// <returns></returns>
         IEnumerable<RelatedLinkDto> GetRelatedLinks(int siteId, string typeIndent, int contentId);
 
-        IDictionary<int, string> GetRelatedIndents();
+        IDictionary<int, RelateIndent> GetRelatedIndents();
 
-        void SetRelatedIndents(IDictionary<int, string> relatedIndents);
+        void SetRelatedIndents(IDictionary<int, RelateIndent> relatedIndents);
 
         /// <summary>
         /// 保存关联文档

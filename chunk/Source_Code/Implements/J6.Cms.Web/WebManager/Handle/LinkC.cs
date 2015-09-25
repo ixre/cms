@@ -21,6 +21,7 @@ using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.DataTransfer;
+using J6.Cms.Domain.Interface.Content;
 using J6.Cms.Domain.Interface.Site.Link;
 using J6.Cms.WebManager;
 using J6.DevFw.Web;
@@ -471,12 +472,38 @@ namespace J6.Cms.Web.WebManager.Handle
         private string GetContentRelatedIndentOptions()
         {
             StringBuilder sb = new StringBuilder();
-            IDictionary<int, string> indents = ServiceCall.Instance.ContentService.GetRelatedIndents();
+            IDictionary<int, RelateIndent> indents = ServiceCall.Instance.ContentService.GetRelatedIndents();
+
+            string siteLimit;
+            string cateLimit;
             foreach (var indent in indents)
             {
-                if (indent.Value[0] != '#')
+                if (indent.Value.Enabled)
                 {
-                    sb.Append("<option value=\"").Append(indent.Key.ToString())
+                    if (indent.Value.SiteLimit == "-")
+                    {
+                        siteLimit = this.CurrentSite.SiteId.ToString();
+                    }
+                    else if (indent.Value.SiteLimit == "*")
+                    {
+                        siteLimit = "";
+                    }
+                    else
+                    {
+                        siteLimit = indent.Value.SiteLimit;
+                    }
+
+                    if (indent.Value.CategoryLimit == "*")
+                    {
+                        cateLimit = "";
+                    }
+                    else
+                    {
+                        cateLimit = indent.Value.CategoryLimit;
+                    }
+
+                    sb.Append("<option site-lmt=\"").Append(siteLimit).Append("\" cate-lmt=\"")
+                        .Append(cateLimit).Append("\" value=\"").Append(indent.Key.ToString())
                         .Append("\">[").Append(indent.Key.ToString()).Append("] - ").Append(indent.Value).Append("</option>");
                 }
             }

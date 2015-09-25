@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Content\ContentUtil.cs" />
     <Compile Include="Content\IContentLinkManager.cs" />
+    <Compile Include="Content\RelateIndent.cs" />
     <Compile Include="Enum\Direction.cs" />
     <Compile Include="Common\Language\LanguagePackage.cs" />
     <Compile Include="Common\Language\LanguagePackageKey.cs" />

@@ -86,18 +86,18 @@ namespace J6.Cms.Service
                 Title = content.Title,
                 Url = site.FullDomain + content.Uri,
                 Thumbnail = thumbnail,
-                IndentName = ContentUtil.GetRelatedIndentName(link.RelatedIndent),
+                IndentName = ContentUtil.GetRelatedIndentName(link.RelatedIndent).Name,
             };
         }
 
 
-        public IDictionary<int, string> GetRelatedIndents()
+        public IDictionary<int, RelateIndent> GetRelatedIndents()
         {
             return ContentUtil.GetRelatedIndents();
         }
 
 
-        public void SetRelatedIndents(IDictionary<int, string> relatedIndents)
+        public void SetRelatedIndents(IDictionary<int, RelateIndent> relatedIndents)
         {
             ContentUtil.SetRelatedIndents(relatedIndents);
         }
