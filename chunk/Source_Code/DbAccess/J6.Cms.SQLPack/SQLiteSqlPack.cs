@@ -264,11 +264,8 @@
             get
             {
                 return @"SELECT $PREFIX_archive.* FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=
-                        $PREFIX_category.id WHERE $PREFIX_archive.id IN
-					    (SELECT $PREFIX_archive.id FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
-                        WHERE $[condition] $[orderby] LIMIT $[skipsize],$[pagesize]) $[orderby]";
+                        WHERE $[condition] $[orderby] LIMIT $[skipsize],$[pagesize]";
             }
         }
 

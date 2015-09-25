@@ -644,7 +644,7 @@ namespace J6.Cms.Dal
 
             if (onlyMatchTitle)
             {
-                sb.Append(" AND title LIKE '%").Append(keyword).Append("%'");
+                sb.Append(" AND (title LIKE '%").Append(keyword).Append("%'");
             }
             else
             {
