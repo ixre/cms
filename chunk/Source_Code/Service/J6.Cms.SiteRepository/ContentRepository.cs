@@ -27,6 +27,14 @@ namespace J6.Cms.ServiceRepository
 
         public IContentContainer GetContent(int siteId)
         {
+            if (siteId == 0)
+            {
+                return base.CreateSiteContent(
+                    this._archiveRep ?? (this._archiveRep = ObjectFactory.GetInstance<IArchiveRepository>()),
+                    this._tempRep,
+                    siteId);
+            }
+
             if (!siteContents.ContainsKey(siteId))
             {
 

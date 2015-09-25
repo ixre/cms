@@ -230,6 +230,7 @@ namespace J6.Cms.Web.WebManager.Handle
             ViewData["form_title"] = "创建" + linkTypeName;
             ViewData["category_opts"] = this.GetCategorySelector(this.SiteId, -1);
             ViewData["parent_opts"] = plinks;
+            ViewData["site_id"] = siteId;
 
             return base.RequireTemplate(resouce);
 
@@ -246,6 +247,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             int linkId = int.Parse(base.Request.QueryString["link_id"]);
             int bindId = 0;
+            int siteId = this.SiteId;
             int categoryId = 0;
             string plinks = "";
 
@@ -343,6 +345,7 @@ namespace J6.Cms.Web.WebManager.Handle
             ViewData["form_title"] = "修改" + linkTypeName;
             ViewData["category_opts"] = this.GetCategorySelector(this.SiteId, -1);
             ViewData["parent_opts"] = plinks;
+            ViewData["site_id"] = siteId;
 
             return base.RequireTemplate(resouce);
 
@@ -465,6 +468,7 @@ namespace J6.Cms.Web.WebManager.Handle
             ViewData["content_id"] = Request.QueryString["content_id"];
             ViewData["scheme"] = Request.Url.Scheme + ":";
             ViewData["host"] = WebCtx.Current.Host;
+            ViewData["site_id"] = this.SiteId.ToString();
 
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Link_RelatedLink));
         }
@@ -504,7 +508,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
                     sb.Append("<option site-lmt=\"").Append(siteLimit).Append("\" cate-lmt=\"")
                         .Append(cateLimit).Append("\" value=\"").Append(indent.Key.ToString())
-                        .Append("\">[").Append(indent.Key.ToString()).Append("] - ").Append(indent.Value).Append("</option>");
+                        .Append("\"> ").Append(indent.Value.Name).Append(" - [").Append(indent.Key.ToString()).Append("]</option>");
                 }
             }
             return sb.ToString();

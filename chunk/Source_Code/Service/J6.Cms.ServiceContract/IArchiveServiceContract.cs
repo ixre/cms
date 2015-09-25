@@ -212,6 +212,7 @@ namespace J6.Cms.ServiceContract
         /// 搜索文档
         /// </summary>
         /// <param name="siteId"></param>
+        /// <param name="categoryRgt"></param>
         /// <param name="onlyMatchTitle"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
@@ -219,12 +220,10 @@ namespace J6.Cms.ServiceContract
         /// <param name="records"></param>
         /// <param name="pages"></param>
         /// <param name="orderBy"></param>
+        /// <param name="categoryLft"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> SearchArchives(
-            int siteId, bool onlyMatchTitle,
-            string keyword, int pageSize,
-            int pageIndex, out int records,
-            out int pages, string orderBy);
+        IEnumerable<ArchiveDto> SearchArchives(int siteId,int categoryLft,int categoryRgt, bool onlyMatchTitle,
+            string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy);
 
         /// <summary>
         /// 检查别名是否重复

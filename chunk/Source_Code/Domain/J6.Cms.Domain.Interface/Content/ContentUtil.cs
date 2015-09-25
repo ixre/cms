@@ -15,16 +15,16 @@ namespace J6.Cms.Domain.Interface.Content
                RelateIndent[] indents = new RelateIndent[]
                {
                    new RelateIndent("默认类型","*","*",true),
-                   new RelateIndent("未配置1","*","*",true),
-                   new RelateIndent("未配置2","*","*",true),
-                   new RelateIndent("未配置3","*","*",true),
-                   new RelateIndent("未配置4","*","*",true),
-                   new RelateIndent("未配置5","*","*",true),
-                   new RelateIndent("未配置6","*","*",true),
-                   new RelateIndent("未配置7","*","*",true),
-                   new RelateIndent("未配置8","*","*",true),
-                   new RelateIndent("未配置9","*","*",true),
-                   new RelateIndent("未配置10","*","*",true),
+                   new RelateIndent("未配置1","*","*",false),
+                   new RelateIndent("未配置2","*","*",false),
+                   new RelateIndent("未配置3","*","*",false),
+                   new RelateIndent("未配置4","*","*",false),
+                   new RelateIndent("未配置5","*","*",false),
+                   new RelateIndent("未配置6","*","*",false),
+                   new RelateIndent("未配置7","*","*",false),
+                   new RelateIndent("未配置8","*","*",false),
+                   new RelateIndent("未配置9","*","*",false),
+                   new RelateIndent("未配置10","*","*",false),
                };
 
                int tmpInt = 0;

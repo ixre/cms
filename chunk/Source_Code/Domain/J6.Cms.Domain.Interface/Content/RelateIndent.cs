@@ -13,6 +13,10 @@ namespace J6.Cms.Domain.Interface.Content
            this.SiteLimit = siteLimit;
            this.CategoryLimit = categoryLimit;
            this.Enabled = enabled;
+           if (!String.IsNullOrEmpty(this.CategoryLimit) &&( this.SiteLimit == "*" || this.SiteLimit ==" "))
+           {
+               throw new FormatException("Category limit need site limit first!");
+           }
        }
 
        public RelateIndent(string strSign)
@@ -26,6 +30,10 @@ namespace J6.Cms.Domain.Interface.Content
            this.SiteLimit = data[1];
            this.CategoryLimit = data[2];
            this.Enabled = data[3] == "1" || data[3] == "true";
+           if (!String.IsNullOrEmpty(this.CategoryLimit) && (this.SiteLimit == "*" || this.SiteLimit == " "))
+           {
+               throw new FormatException("Category limit need site limit first!");
+           }
        }
 
        /// <summary>

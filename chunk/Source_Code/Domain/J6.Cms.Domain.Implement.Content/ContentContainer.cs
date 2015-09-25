@@ -31,7 +31,7 @@ namespace J6.Cms.Domain.Implement.Content
             private set;
         }
 
-        public IArchive CreateArchive(int id,string strId,int categoryId,string title)
+        public IArchive CreateArchive(int id, string strId, int categoryId, string title)
         {
             return _archiveRep.CreateArchive(id, strId, categoryId, title);
         }
@@ -51,12 +51,12 @@ namespace J6.Cms.Domain.Implement.Content
 
         public IEnumerable<IArchive> GetArchivesByCategoryTag(string categoryTag, int number, int skipSize)
         {
-            return this._archiveRep.GetArchivesByCategoryTag(this.SiteId,categoryTag, number,skipSize);
+            return this._archiveRep.GetArchivesByCategoryTag(this.SiteId, categoryTag, number, skipSize);
         }
 
         public IEnumerable<IArchive> GetArchivesContainChildCategories(int lft, int rgt, int number, int skipSize)
         {
-            return this._archiveRep.GetArchivesContainChildCategories(this.SiteId, lft,rgt, number,skipSize);
+            return this._archiveRep.GetArchivesContainChildCategories(this.SiteId, lft, rgt, number, skipSize);
         }
 
         public IEnumerable<IArchive> GetArchivesByModuleId(int moduleId, int number)
@@ -64,9 +64,9 @@ namespace J6.Cms.Domain.Implement.Content
             return this._archiveRep.GetArchivesByModuleId(this.SiteId, moduleId, number);
         }
 
-        public IEnumerable<IArchive> GetArchivesByViewCount(int lft,int rgt, int number)
+        public IEnumerable<IArchive> GetArchivesByViewCount(int lft, int rgt, int number)
         {
-            return this._archiveRep.GetArchivesByViewCount(this.SiteId, lft,rgt, number);
+            return this._archiveRep.GetArchivesByViewCount(this.SiteId, lft, rgt, number);
         }
 
         public IEnumerable<IArchive> GetArchivesByViewCount(string categoryTag, int number)
@@ -81,12 +81,12 @@ namespace J6.Cms.Domain.Implement.Content
 
         public IEnumerable<IArchive> GetSpecialArchives(int lft, int rgt, int number, int skipSize)
         {
-            return this._archiveRep.GetSpecialArchives(this.SiteId, lft,rgt, number,skipSize);
+            return this._archiveRep.GetSpecialArchives(this.SiteId, lft, rgt, number, skipSize);
         }
 
         public IEnumerable<IArchive> GetSpecialArchives(string categoryTag, int number, int skipSize)
         {
-            return this._archiveRep.GetSpecialArchives(this.SiteId, categoryTag, number,skipSize);
+            return this._archiveRep.GetSpecialArchives(this.SiteId, categoryTag, number, skipSize);
         }
 
         public IEnumerable<IArchive> GetArchivesByViewCountByModuleId(int moduleId, int number)
@@ -97,12 +97,12 @@ namespace J6.Cms.Domain.Implement.Content
 
         public IArchive GetPreviousSiblingArchive(int id)
         {
-            return this._archiveRep.GetPreviousArchive(this.SiteId, id,true,false);
+            return this._archiveRep.GetPreviousArchive(this.SiteId, id, true, false);
         }
 
         public IArchive GetNextSiblingArchive(int id)
         {
-            return this._archiveRep.GetNextArchive(this.SiteId, id,true,false);
+            return this._archiveRep.GetNextArchive(this.SiteId, id, true, false);
         }
 
         public void RefreshArchive(int archiveId)
@@ -132,7 +132,7 @@ namespace J6.Cms.Domain.Implement.Content
                 //
 
                 //删除评论
-               // new CommentDAL().DeleteArchiveComments(archiveID);
+                // new CommentDAL().DeleteArchiveComments(archiveID);
 
                 //删除点评
                 //new CommentBLL().DeleteArchiveReviews(archiveID);
@@ -159,13 +159,14 @@ namespace J6.Cms.Domain.Implement.Content
         }
 
         public IEnumerable<IArchive> SearchArchives(
+            int categoryLft, int categoryRgt,
             bool onlyMatchTitle,
-            string keyword, int pageSize, 
+            string keyword, int pageSize,
             int pageIndex, out int records,
             out int pages, string orderBy)
         {
             return this._archiveRep.SearchArchives(
-                this.SiteId,onlyMatchTitle,keyword, pageSize,pageIndex, 
+                this.SiteId, categoryLft, categoryRgt, onlyMatchTitle, keyword, pageSize, pageIndex,
                  out  records, out pages, orderBy);
         }
 

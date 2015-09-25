@@ -417,14 +417,28 @@ namespace J6.Cms.Web.WebManager.Handle
             string key = base.Request["key"].Trim();
             string size = base.Request["size"] ?? "20";
             bool onlyTitle = Request["only_title"] == "true";
+            string categoryTag = Request["category"];
             int count, pages;
             int intSiteId = 0;
             int.TryParse(Request["site_id"], out intSiteId);
 
             StringBuilder strBuilder = new StringBuilder(500);
 
+            int lft = 0;
+            int rgt = 0;
+
+            if (!String.IsNullOrEmpty(categoryTag))
+            {
+                CategoryDto c = ServiceCall.Instance.SiteService.GetCategory(intSiteId, categoryTag);
+                if (c.Id > 0)
+                {
+                    lft = c.Lft;
+                    rgt = c.Rgt;
+                }
+            }
+
             IEnumerable<ArchiveDto> list = ServiceCall.Instance.ArchiveService
-                .SearchArchives(intSiteId, onlyTitle, key,
+                .SearchArchives(intSiteId, lft,rgt,onlyTitle, key,
                 int.Parse(size),
                 1,
                  out count,

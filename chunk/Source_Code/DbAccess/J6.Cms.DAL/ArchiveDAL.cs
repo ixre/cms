@@ -606,6 +606,7 @@ namespace J6.Cms.Dal
         /// 搜索关键词相关的内容
         /// </summary>
         /// <param name="siteId"></param>
+        /// <param name="categoryRgt"></param>
         /// <param name="onlyMatchTitle"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
@@ -613,8 +614,12 @@ namespace J6.Cms.Dal
         /// <param name="recordCount"></param>
         /// <param name="pageCount"></param>
         /// <param name="orderby"></param>
+        /// <param name="func"></param>
+        /// <param name="categoryLft"></param>
         /// <returns></returns>
-        public void SearchArchives(int siteId, bool onlyMatchTitle, string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount, string orderby, DataReaderFunc func)
+        public void SearchArchives(int siteId, int categoryLft, int categoryRgt, bool onlyMatchTitle,
+            string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount,
+            string orderby, DataReaderFunc func)
         {
             /*
             string condition = ArchiveFlag.GetSQLString(new string[,]{
@@ -629,6 +634,12 @@ namespace J6.Cms.Dal
             if (siteId > 0)
             {
                 sb.Append(" AND $PREFIX_category.site_id=").Append(siteId.ToString());
+            }
+
+            if (categoryLft > 0 && categoryRgt > 0)
+            {
+                sb.Append(" AND ($PREFIX_category.lft>=").Append(categoryLft.ToString())
+                    .Append(" AND $PREFIX_category.rgt<=").Append(categoryRgt).Append(")");
             }
 
             if (onlyMatchTitle)

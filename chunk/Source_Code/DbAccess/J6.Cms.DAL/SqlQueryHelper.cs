@@ -50,13 +50,13 @@ namespace J6.Cms.Dal
 
         public static SqlQuery Format(string sql,params string[] formatValues)
         {
-            return new SqlQuery(String.Format(OptimizeSql(sql), formatValues));
+            return new SqlQuery(OptimizeSql(String.Format(sql, formatValues)));
         }
 
         public static SqlQuery Format(string sql, object[,] data, params string[] formatValues)
         {
-            string _sql = OptimizeSql(sql);
-            _sql = formatValues.Length == 0 ? _sql : String.Format(_sql, formatValues);
+            string _sql = formatValues.Length == 0 ? sql : String.Format(sql, formatValues);
+            _sql = OptimizeSql(_sql);
             return new SqlQuery(_sql, data);
         }
     }

@@ -6,6 +6,7 @@
     $iconcss()
     <style type="text/css">
         .ui-datagrid-header{display: none;}
+        .ui-datagrid-view td, .ui-datagrid-header td{ border-left: none;}
     </style>
 </head>
 <body>
@@ -45,7 +46,7 @@
                             <div class="label">
                                 <span class="red">*&nbsp;</span>关联类型：</div>
                             <div class="in">
-                                <select name="RelatedIndent" class="ui-box" field="RelatedIndent">
+                                <select name="RelatedIndent" class="ui-box" field="RelatedIndent" onchange="relatedIndentChanged.apply(this)">
                                     <option value="">-- 请选择 --</option>
                                     ${indent_opts}
                                 </select>
@@ -63,7 +64,7 @@
                                 <input class="ui-validate ui-box" type="hidden" field="RelatedSiteId" value="0" />
                                 <input class="ui-validate ui-box" type="hidden" field="RelatedContentId" value="0" />
                                 <input type="text" class="tb_normal ui-box archiveGuess" field="Title" />
-                                <div>输入关键词后选择（注：不限站点）</div>
+                                <div>输入关键词后选择（注：类型可能不限站点）</div>
                                 <span class="label hidden" id="lb_selected"></span>
                             </div>
                         </div>
@@ -105,9 +106,8 @@
                 <a href="javascript:;" onclick="Fn.del('{id}')">删除</a>
             </span>
         </div>
-    </script>
-
->$js()
+ </script>
+$js()
     <script type="text/javascript">
         
         var dataCollection = null;
@@ -196,39 +196,59 @@
                     d = dataCollection[i];
                     pl.innerHTML = j6.template(form_tpl, { btntext: '保存', form_title: '修改文档关联' });
                     j6.json.bind(pl, d);
-                    initFormEvents();
+                    initFormEvents('${site_id}','');
                     break;
                 }
             }
         };
 
-        function initFormEvents() {
+
+        function relatedIndentChanged() {
+            if (this.value == '') {
+                initFormEvents('${site_id}', '');
+            }else{
+            var selOpt = this.options[this.selectedIndex];
+                var siteId = selOpt.getAttribute('site-lmt');
+                var cateId = selOpt.getAttribute('cate-lmt');
+                initFormEvents(siteId, cateId);
+            }
+        }
+
+
+        var com;
+        function initFormEvents(siteId,categoryId) {
             j6.each(j6.dom.getsByClass(j6.$('pl'), 'archiveGuess'), function (i, e) {
-                j6.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true', function (data) {
+                var url = '?module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true&site_id=' + siteId + '&category=' + categoryId;
+                if (e.getAttribute('inited') == undefined) {
+                  com =  j6.autoCompletion(e, url, function(data) {
 
-                    j6.json.bind('pl', { RelatedContentId: 0 });
-                    lbSelected = j6.$('lb_selected');
-                    lbSelected.className = 'label hidden';
+                        j6.json.bind('pl', { RelatedContentId: 0 });
+                        lbSelected = j6.$('lb_selected');
+                        lbSelected.className = 'label hidden';
 
-                    for (var j = 0; j < data.length; j++) {
-                        data[j].text =data[j].title;
-                        data[j].title = '站点：'+data[j].siteName + '  ** 栏目：' + data[j].category;
-                    }
-                }, function (data) {
-                    j6.json.bind('pl', { RelatedContentId: data.id, RelatedSiteId: data.siteId });
-                    lbSelected.className = 'label';
-                    lbSelected.innerHTML = '站点：'+data.siteName + '  ** 栏目：' + data.category;
-                },function() {
-                    closeMsg();
-                });
+                        for (var j = 0; j < data.length; j++) {
+                            data[j].text = data[j].title;
+                            data[j].title = '站点：' + data[j].siteName + '  ** 栏目：' + data[j].category;
+                        }
+                    }, function(data) {
+                        j6.json.bind('pl', { RelatedContentId: data.id, RelatedSiteId: data.siteId });
+                        lbSelected.className = 'label';
+                        lbSelected.innerHTML = '站点：' + data.siteName + '  ** 栏目：' + data.category;
+                    }, function() {
+                        closeMsg();
+                    });
+
+                    e.setAttribute('inited', '1');
+                } else {
+                    com.url = url;
+                }
             });
         }
 
         Fn.create = function() {
             j6.$('pl').innerHTML = j6.template(form_tpl, { btntext: '提交',form_title:'创建文档关联' });
             j6.json.bind('pl', { Enabled: true });
-
-            initFormEvents();
+            initFormEvents('${site_id}', '');
         };
 
         Fn.del = function(id) {

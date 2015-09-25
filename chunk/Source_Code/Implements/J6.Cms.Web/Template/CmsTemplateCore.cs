@@ -1736,15 +1736,19 @@ namespace J6.Cms.Template
         /// <summary>
         /// 搜索列表
         /// </summary>
+        /// <param name="siteId"></param>
         /// <param name="categoryTagOrModuleId"></param>
         /// <param name="keyword"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
+        /// <param name="splitSize"></param>
         /// <param name="format"></param>
         /// <param name="pageCount"></param>
         /// <param name="recordCount"></param>
         /// <returns></returns>
-        protected string SearchArchives(int siteId, string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize,string splitSize, string format, out int pageCount, out int recordCount)
+        protected string SearchArchives(int siteId, string categoryTagOrModuleId, string keyword,
+            string pageIndex, string pageSize,string splitSize, string format, out int pageCount, 
+            out int recordCount)
         {
             int intPageIndex,
                 intPageSize,
@@ -1803,7 +1807,9 @@ namespace J6.Cms.Template
                     if (category.Id > 0)
                     {
                         hasSetCategory = true;
-                        searchArchives = ServiceCall.Instance.ArchiveService.SearchArchivesByCategory(siteId, category.Lft, category.Rgt, keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
+                        searchArchives = ServiceCall.Instance.ArchiveService.SearchArchivesByCategory(siteId,
+                            category.Lft, category.Rgt, keyword, intPageSize, intPageIndex, out total, out pages,
+                            "ORDER BY CreateDate DESC");
                     }
                     else
                     {
@@ -1818,7 +1824,7 @@ namespace J6.Cms.Template
             //如果未设置模块或栏目参数
             if (searchArchives == null)
             {
-                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, false, keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
+                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, 0,0,false, keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
             }
 
             IDictionary<string, string> extendFields = null;
@@ -2169,7 +2175,7 @@ namespace J6.Cms.Template
 
             int C_LENGTH = this.TplSetting.CFG_OutlineLength;
             IEnumerable<ArchiveDto> searchArchives = ServiceCall.Instance.ArchiveService
-                .SearchArchives(this.SiteId, false, tag,
+                .SearchArchives(this.SiteId, 0,0, false,tag,
                 _pageSize, _pageIndex,
                 out _records, out _pages, "ORDER BY CreateDate DESC");
 

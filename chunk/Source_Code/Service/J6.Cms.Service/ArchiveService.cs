@@ -1,17 +1,15 @@
-﻿using J6.Cms.DataTransfer;
-using J6.Cms.ServiceContract;
-using J6.Cms.ServiceRepository.Query;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using J6.Cms.Domain.Interface.Common;
+using J6.Cms.DataTransfer;
 using J6.Cms.Domain.Interface.Content;
 using J6.Cms.Domain.Interface.Content.Archive;
-using J6.Cms.Domain.Interface.Enum;
 using J6.Cms.Domain.Interface.Site;
 using J6.Cms.Domain.Interface.Site.Category;
 using J6.Cms.Domain.Interface.Site.Extend;
+using J6.Cms.ServiceContract;
+using J6.Cms.ServiceRepository.Query;
 
 namespace J6.Cms.Service
 {
@@ -344,13 +342,14 @@ namespace J6.Cms.Service
             return this.GetArchiveEnumertor(archives);
         }
 
-        public IEnumerable<ArchiveDto> SearchArchives(int siteId,bool onlyMatchTitle,
-            string keyword, int pageSize,
-            int pageIndex, out int records,
+        
+        public IEnumerable<ArchiveDto> SearchArchives(int siteId, int categoryLft, int categoryRgt,
+            bool onlyMatchTitle, string keyword, int pageSize, int pageIndex,out int records, 
             out int pages, string orderBy)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.SearchArchives(onlyMatchTitle, keyword, pageSize, pageIndex, out records, out pages, orderBy);
+            IEnumerable<IArchive> archives = content.SearchArchives(categoryLft,categoryRgt,
+                onlyMatchTitle, keyword, pageSize, pageIndex, out records, out pages, orderBy);
             return this.GetArchiveEnumertor(archives);
         }
 

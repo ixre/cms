@@ -431,7 +431,7 @@ namespace J6.Cms.Conf
                 }
                 else
                 {
-                    value = relatedIndent.ToString();
+                    value = relatedIndent.Value.ToString();
                     sf.Set(key, value);
                     isModify = true;
                 }

@@ -82,35 +82,7 @@ namespace J6.Cms.Dal
         /// <returns></returns>
         protected string OptimizeSql(string sql)
         {
-        	if(signReg.IsMatch(sql))
-            {
-                return signReg.Replace(sql, m =>
-                {
-                    switch (m.Groups[1].Value.ToUpper())
-                    {
-                        case "PREFIX_": return CmsDataBase.TablePrefix;
-                        /*
-                        case "SITE":
-                            if(j6.MultSiteVersion)
-                            {
-                                Site site = Cms.Context.CurrentSite;
-                                return " siteid=" + site.SiteId.ToString();
-                            }
-                            return null;
-
-                        case "ANDSITE":
-                            if(j6.MultSiteVersion)
-                            {
-                                Site site = Cms.Context.CurrentSite;
-                                return " AND siteid=" + site.SiteId.ToString();
-                            }
-                            return null;
-                        */
-                    }
-                    return string.Empty;
-                });
-            }
-            return sql;
+            return SqlQueryHelper.OptimizeSql(sql);
         }
 
         /// <summary>
