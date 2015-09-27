@@ -1,5 +1,7 @@
 ﻿
 
+using System.Diagnostics;
+
 namespace J6.Cms.Template
 {
     using J6.Cms;
@@ -41,7 +43,7 @@ namespace J6.Cms.Template
 
         protected ArchiveDto archive;           //当前读取的文档,使用require(archiveID)获取的文档
         private SettingFile _settingsFile;      //设置文件，用于保存当前实例的状态
-       // private LangLabelReader langReader;     //语言字典读取器
+        // private LangLabelReader langReader;     //语言字典读取器
         protected string _resourceUri;           //资源域名
 
         /// <summary>
@@ -87,52 +89,75 @@ namespace J6.Cms.Template
         /// 格式化地址
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="datas"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public virtual string FormatUrl(UrlRulePageKeys key, params string[] datas)
+        public virtual string FormatPageUrl(UrlRulePageKeys key, params string[] data)
         {
-            string prefix = Cms.Context.SiteAppPath;
-            if (prefix.Length != 1)
+            string url = TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)key];
+            if (data != null)
             {
-                prefix = "/";
+                url = String.Format(url, data);
+            }
+            return this.ConcatUrl(url);
+        }
+
+        /// <summary>
+        /// 连接URL
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public virtual string ConcatUrl(string url)
+        {
+            if (url.IndexOf("//", StringComparison.Ordinal) != -1)
+            {
+                return url;
             }
 
             if (Settings.TPL_UseFullPath)
             {
-                prefix = Cms.Context.SiteDomain + prefix;
+                if (!String.IsNullOrEmpty(url) && url[0] != '/')
+                {
+                    url = String.Concat("/", url);
+                }
+                return String.Concat(Cms.Context.SiteDomain, url);
             }
 
-            string urlFormat = prefix + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)key];
-            return datas == null ? urlFormat : String.Format(urlFormat, datas);
+            return url;
         }
 
-        /// <summary>S
+
+        /// <summary>
         /// 获取文档的地址
         /// </summary>
+        /// <param name="location"></param>
         /// <param name="flags"></param>
-        /// <param name="categoryTag"></param>
+        /// <param name="category"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         public virtual string GetArchiveUrl(string location, string flags, CategoryDto category, string id)
         {
-            if (location == "" || location == null)
-            {
-                if (String.IsNullOrEmpty(flags) || (flags.IndexOf("p:'1'") == -1))
-                {
-                    return this.FormatUrl(UrlRulePageKeys.Archive, category.UriPath, id);
-                }
-                return this.FormatUrl(UrlRulePageKeys.SinglePage, id);
-            }
+            if (!string.IsNullOrEmpty(location)) return this.GetLocationUrl(location);
 
+            if (String.IsNullOrEmpty(flags) || (flags.IndexOf("p:'1'", StringComparison.Ordinal) == -1))
+            {
+                return this.FormatPageUrl(UrlRulePageKeys.Archive, category.UriPath, id);
+            }
+            return this.FormatPageUrl(UrlRulePageKeys.SinglePage, id);
+        }
+
+        private string GetLocationUrl(string location)
+        {
             //如果定义了跳转地址
-            if (Regex.IsMatch(location, "^http(s?)://", RegexOptions.IgnoreCase))
+            // if (Regex.IsMatch(location, "^http(s?)://", RegexOptions.IgnoreCase))
+            if (location.IndexOf("//", StringComparison.Ordinal) != -1)
             {
                 return location;
             }
-            //todo:在添加的页面正则判断
-            //if (archive.Location.StartsWith("/")) 
-            //    throw new Exception("URL不能以\"/\"开头!");
-            return String.Concat(Cms.Context.SiteDomain, "/", location);
+            if (!location.StartsWith("/"))
+            {
+                location = String.Concat("/", location);
+            }
+            return String.Concat(Cms.Context.SiteDomain, location);
         }
 
         /// <summary>
@@ -143,13 +168,15 @@ namespace J6.Cms.Template
         /// <returns></returns>
         public virtual string GetCategoryUrl(CategoryDto category, int pageIndex)
         {
+            if (!String.IsNullOrEmpty(category.Location)) return GetLocationUrl(category.Location);
+
             if (pageIndex < 2)
             {
-                return this.FormatUrl(UrlRulePageKeys.Category, category.UriPath);
+                return this.FormatPageUrl(UrlRulePageKeys.Category, category.UriPath);
             }
             else
             {
-                return this.FormatUrl(UrlRulePageKeys.CategoryPager, category.UriPath, pageIndex.ToString());
+                return this.FormatPageUrl(UrlRulePageKeys.CategoryPager, category.UriPath, pageIndex.ToString());
             }
         }
 
@@ -293,7 +320,7 @@ namespace J6.Cms.Template
                 }
             }
 
-            return "#no-such";
+            return "javascript:void(0,'no-such-link')";
 
         }
 
@@ -502,7 +529,7 @@ namespace J6.Cms.Template
         [TemplateTag]
         public string Label(string key)
         {
-            string cacheKey =String.Format( "{0}_label_{1}",CacheSign.Site.ToString(),this._site.SiteId.ToString());
+            string cacheKey = String.Format("{0}_label_{1}", CacheSign.Site.ToString(), this._site.SiteId.ToString());
             if (this._settingsFile == null)
             {
                 //读取数据
@@ -528,7 +555,7 @@ namespace J6.Cms.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang(string key)
         {
-            return Cms.Language.Get(this._site.Language,key);
+            return Cms.Language.Get(this._site.Language, key);
         }
 
         /// <summary>
@@ -733,7 +760,7 @@ namespace J6.Cms.Template
                     case "html":
                         return html;
                     case "img":
-                        return this.FormatUrl(UrlRulePageKeys.Common, "Cms_Core/verifyimg?length=4&opt=1");
+                        return this.FormatPageUrl(UrlRulePageKeys.Common, "Cms_Core/verifyimg?length=4&opt=1");
 
                     case "nickname":
                         Member member = UserState.Member.Current;
@@ -971,7 +998,7 @@ namespace J6.Cms.Template
                 .Append("var cfs=j6.$('cms_form_").Append(tableId).Append("_summary');")
                 .Append("if(j6.validator.validate('cms_form_").Append(tableId).Append("')){cfs.innerHTML='提交中...';j6.xhr.post('")
 
-                .Append(this.FormatUrl(UrlRulePageKeys.Common, "Cms_Core/submitform?tableid="))
+                .Append(this.FormatPageUrl(UrlRulePageKeys.Common, "Cms_Core/submitform?tableid="))
                 .Append(tableId).Append("&token=").Append(token).Append("',j6.json.toObject('cms_form_")
                 .Append(tableId).Append("'),function(r){var result;eval('result='+r);cfs.innerHTML=result.tag==-1?'<span style=\"color:red\">'+result.message+'</span>':result.message;},function(){cfs.innerHTML='<span style=\"color:red\">提交失败，请重试!</span>';});")
                 .Append("}});};}</script>");
@@ -994,7 +1021,7 @@ namespace J6.Cms.Template
                 return CategoryCacheManager.GetSitemapHtml(this.SiteId,
                     categoryTag,
                     this.TplSetting.CFG_SitemapSplit,
-                this.FormatUrl(UrlRulePageKeys.Category, null));
+                this.FormatPageUrl(UrlRulePageKeys.Category, null));
             }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }
 
@@ -1079,14 +1106,14 @@ namespace J6.Cms.Template
             string tempLinkStr;
 
 
-            LinkGenerateGBehavior bh = (int _total, ref int current, int selected, bool child, SiteLinkDto link, int childCount) =>
+            LinkGenerateGBehavior bh = (int genTotal, ref int current, int selected, bool child, SiteLinkDto link, int childCount) =>
             {
                 StringBuilder sb2 = new StringBuilder();
 
                 /* *********************
                  *  辨别选中的导航
                  * *********************/
-                isLast = current == _total - 1;
+                isLast = current == genTotal - 1;
                 String clsName = "";
 
                 if (childCount != 0)
@@ -1115,9 +1142,7 @@ namespace J6.Cms.Template
                 {
                     switch (a)
                     {
-                        case "url": return String.IsNullOrEmpty(link.Bind)
-                             ? link.Uri
-                             : this.GetBingLinkUrl(link.Bind);
+                        case "url":return this.ConcatUrl(String.IsNullOrEmpty(link.Bind) ? link.Uri : this.GetBingLinkUrl(link.Bind));
                         case "text": return link.Text;
                         case "imgurl": return link.ImgUrl;
                     }
@@ -1593,7 +1618,7 @@ namespace J6.Cms.Template
                             //时间
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["lastmodifydate"]);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", dr["lastmodifydate"]);
-                            case "modify_sdate":return String.Format("{0:MM-dd}", dr["lastmodifydate"]);
+                            case "modify_sdate": return String.Format("{0:MM-dd}", dr["lastmodifydate"]);
                             case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["createdate"]);
                             case "create_date": return String.Format("{0:yyyy-MM-dd}", dr["createdate"]);
 
@@ -1747,7 +1772,7 @@ namespace J6.Cms.Template
         /// <param name="recordCount"></param>
         /// <returns></returns>
         protected string SearchArchives(int siteId, string categoryTagOrModuleId, string keyword,
-            string pageIndex, string pageSize,string splitSize, string format, out int pageCount, 
+            string pageIndex, string pageSize, string splitSize, string format, out int pageCount,
             out int recordCount)
         {
             int intPageIndex,
@@ -1824,7 +1849,7 @@ namespace J6.Cms.Template
             //如果未设置模块或栏目参数
             if (searchArchives == null)
             {
-                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, 0,0,false, keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
+                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, 0, 0, false, keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
             }
 
             IDictionary<string, string> extendFields = null;
@@ -1992,8 +2017,8 @@ namespace J6.Cms.Template
                     intPageIndex,
                     pages,
                     total,
-                    this.FormatUrl(UrlRulePageKeys.Search, HttpUtility.UrlEncode(keyword), categoryTagOrModuleId ?? ""),
-                    this.FormatUrl(UrlRulePageKeys.SearchPager, HttpUtility.UrlEncode(keyword), categoryTagOrModuleId ?? "", "{0}")
+                    this.FormatPageUrl(UrlRulePageKeys.Search, HttpUtility.UrlEncode(keyword), categoryTagOrModuleId ?? ""),
+                    this.FormatPageUrl(UrlRulePageKeys.SearchPager, HttpUtility.UrlEncode(keyword), categoryTagOrModuleId ?? "", "{0}")
                     );
             }
 
@@ -2117,10 +2142,10 @@ namespace J6.Cms.Template
                             return HttpUtility.UrlEncode(tag);
 
                         //搜索页URL
-                        case "searchurl": return this.FormatUrl(UrlRulePageKeys.Search, HttpUtility.UrlEncode(tag), String.Empty);
+                        case "searchurl": return this.FormatPageUrl(UrlRulePageKeys.Search, HttpUtility.UrlEncode(tag), String.Empty);
 
                         //Tag页URL
-                        case "url": return this.FormatUrl(UrlRulePageKeys.Tag, HttpUtility.UrlEncode(tag));
+                        case "url": return this.FormatPageUrl(UrlRulePageKeys.Tag, HttpUtility.UrlEncode(tag));
                     }
                     return tag;
                 }));
@@ -2175,7 +2200,7 @@ namespace J6.Cms.Template
 
             int C_LENGTH = this.TplSetting.CFG_OutlineLength;
             IEnumerable<ArchiveDto> searchArchives = ServiceCall.Instance.ArchiveService
-                .SearchArchives(this.SiteId, 0,0, false,tag,
+                .SearchArchives(this.SiteId, 0, 0, false, tag,
                 _pageSize, _pageIndex,
                 out _records, out _pages, "ORDER BY CreateDate DESC");
 
@@ -2332,8 +2357,8 @@ namespace J6.Cms.Template
                     _pageIndex,
                     _pages,
                     _records,
-                    this.FormatUrl(UrlRulePageKeys.Tag, HttpUtility.UrlEncode(tag)),
-                    this.FormatUrl(UrlRulePageKeys.TagPager, HttpUtility.UrlEncode(tag), "{0}")
+                    this.FormatPageUrl(UrlRulePageKeys.Tag, HttpUtility.UrlEncode(tag)),
+                    this.FormatPageUrl(UrlRulePageKeys.TagPager, HttpUtility.UrlEncode(tag), "{0}")
                     );
             }
             //sb.Append("</div>");
