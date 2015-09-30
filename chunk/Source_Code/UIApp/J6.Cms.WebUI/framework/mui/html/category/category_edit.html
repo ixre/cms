@@ -217,7 +217,7 @@
                      data,
                      function (json) {
                          if (json.result) {
-                             //if (window._reloadTree) window._reloadTree();
+                             if (window._reloadTree) window._reloadTree(0);
                             showMsg2(json.message);
                          } else {
                             showErr(json.message);

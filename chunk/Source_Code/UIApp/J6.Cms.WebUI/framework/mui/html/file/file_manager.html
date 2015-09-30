@@ -4,41 +4,80 @@
     <title>文件管理</title>
     $css()
     <!--<link rel="Stylesheet" href="admin?res=c3R5bGU=&amp;.css" />-->
-    <style type="text/css">/*
-        *{font-size:12px;}
-         td{background:white;padding:5px 5px;margin-top:-2px;border-bottom:dotted 1px #e0e0e0;border-right:dotted 1px #e0e0e0;}
-         th{background:#f0f0f0;line-height:25px;border-right:solid 1px #e5e5e5;border-bottom:solid 1px #e5e5e5}*/
-         .center{text-align:center;}
-         .hidden{display:none}
-        .dir-name{color:#006680;font-weight:bold;padding-left:5px;}
-        .file-name{padding-left:5px;}
-        .th-split{display:none;}
-        td{padding:3px 5px;}
-        #control{padding:15px 1% 0 1%;}
+    <style type="text/css">
+
+        .center {
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+        th{ font-weight: bold;}
+
+        .ui-table tr div.dir-name {
+            color: #006680;
+            font-weight: bold;
+            padding-left: 3em;
+            background: url(framework/mui/css/latest/folder.png) 1em center no-repeat;
+        }
+
+        .file-name {
+            padding-left: 2em;
+        }
+
+        .th-split {
+            display: none;
+        }
+
+        td {
+            padding: 3px 5px;
+        }
+
+        #control {
+            padding: 15px 1% 0 1%;
+        }
+        .control a{ margin: 0 5px;}
+    
     </style>
 </head>
 <body>
  <div id="control">
-     <span class="left"><strong>新建文件:&nbsp;</strong><input type="text" class="ui-box" name="filename" id="create_filename" />&nbsp;</span>
-     <span class="ui-button w50 small-button" onclick="ctobj.newfile('create_filename')">
+     <span class="ui-button w100 middle-button" onclick="showCreateDialog(false)">
          <span class="button-inner">
-             <span class="button-txt">创建</span>
+             <span class="button-txt">创建文件</span>
              <a href="javascript:;"></a>
          </span>
      </span>
-</div>
+     &nbsp;
+     <span class="ui-button w100 middle-button" onclick="showCreateDialog(true)">
+         <span class="button-inner">
+             <span class="button-txt">新建文件夹</span>
+             <a href="javascript:;"></a>
+         </span>
+     </span>
+     
+
+     <span class="ui-button w100 middle-button" id="btn_upload">
+         <span class="button-inner">
+             <span class="button-txt">上传文件</span>
+             <a href="javascript:;"></a>
+         </span>
+     </span>
+
+ </div>
 
 <table style="width:98%;margin:1%" cellspacing="0" cellpadding="0" id="filesexp" class="ui-table ui-grid-table">
  <thead>
      <tr class="ui-datagrid-header">
          <th width="12" class="hidden"></th>
-         <th style="width:250px;text-align:left;padding-left:5px;">文件(夹)名称</th>
+         <th style="width:250px;text-align:left;">文件(夹)名称</th>
          <th>大小</th>
          <th>类型</th>
-         <th>创建时间</th>
-         <th>修改时间</th>
-         <th>只读</th>
-         <th style="border-right:none">下载/编辑/更名</th>
+         <th width="180">创建时间</th>
+         <th width="180">修改时间</th>
+         <th>属性</th>
+         <th style="border-right:none"></th>
      </tr>
  </thead>
  <tbody>
@@ -46,12 +85,47 @@
 </table>
 
 
+    <script type="text/template" class="hidden" id="tpl_create_file">
+        <div style="padding:2em">
+            <b>名称：</b>&nbsp;&nbsp;
+            <input type="text" class="ui-box" name="filename" id="tb_fileName" />
+            <span class="ui-button w100 middle-button" onclick="ctobj.newFile('tb_fileName',{isDir})">
+                <span class="button-inner">
+                    <span class="button-txt">创建</span>
+                    <a href="javascript:;"></a>
+                </span>
+            </span>
+        </div>
+    </script>
+
 $js()
 <script type="text/javascript">
     /*var cms = new js();*/
     var fm_handler = '?module=file&action=filemanager';
     var curdir = (location.hash || '#/').substring(1);
     var tb = j6.$('filesexp');
+    var createTpl = j6.$('tpl_create_file').innerHTML;
+
+
+    function showCreateDialog(isDir) {
+        var dg = j6.dialog.create({ title: '新建文件' + (isDir ? '夹' : ''),cross:false});
+        var htm = j6.template(createTpl, { isDir: (isDir ? 'true' : 'false') });
+        dg.write(htm);
+    }
+
+    //上传图标
+    var up = j6.upload({
+        id: 'btn_upload',
+        url: fm_handler + '&act=upload&dir='+curdir,
+        repeatSelect:true
+   }, function (result, data) {
+        if (data.url) {
+          load(curdir);
+        } else {
+            alert('上传失败：' + data.error);location.reload();
+        }
+    });
+
 
     var ctobj = {
         tip: function (msg, error) {
@@ -72,8 +146,8 @@ $js()
             var tr = tb.insertRow(-1);  //插入倒数第一行
             var cell = tr.insertCell(-1);
             cell.setAttribute('colspan', '8');
-            cell.setAttribute('style', 'background:#f0f0f0');
-            cell.innerHTML = '<a style="color:#0066cc" href="#' + encodeURIComponent(parentDir) +
+            cell.setAttribute('style', 'background:#FFE');
+            cell.innerHTML = '<a style="color:#0066cc" href="#' + escape(parentDir) +
                 '">&nbsp;&nbsp;[⇮上一级]</a>';
         },
         getFileLen: function (_len) {
@@ -97,24 +171,24 @@ $js()
         },
         getFileType: function (name) {
             switch (name) {
-                case 'Web.config': return 'ASP.NET网站配置文件';
-                case 'Global.asax': return '全局应用程序文件';
-                case 'web.conf': return 'CMS配置文件';
-                case 'plugin.config':return '插件配置文件';
+            case 'Web.config': return 'ASP.NET网站配置文件';
+            case 'Global.asax': return '全局应用程序文件';
+            case 'web.conf': return 'CMS配置文件';
+            case 'plugin.config':return '插件配置文件';
             }
             var ext = name.replace(/[\s\S]+\.(.+)\b/, '$1');
             switch (ext.toLowerCase()) {
-                case "conf":return '设置文件';
-                case "jpeg":
-                case 'gif':
-                case 'png':
-                case 'bmp':
-                case 'jpg':
-                    return ext + '图像格式';
+            case "conf":return '设置文件';
+            case "jpeg":
+            case 'gif':
+            case 'png':
+            case 'bmp':
+            case 'jpg':
+                return ext + '图像格式';
 
-                case 'dll': return '二进制代码文件';
-                case 'html': return 'HTML文件';
-                case 'phtml': return '部分视图文件';
+            case 'dll': return '二进制代码文件';
+            case 'html': return 'HTML文件';
+            case 'phtml': return '部分视图文件';
             }
             return ext.toUpperCase() + '文件';
         },
@@ -132,13 +206,13 @@ $js()
         appendDirRow: function (o) {
             var row = tb.insertRow(-1);
             this.insertCell(row, '<input type="hidden" file="' + o.name + '"/>', 'hidden');
-            this.insertCell(row, '<a href="#' + curdir + encodeURIComponent(o.name) + '/">' + o.name + '</a>', 'dir-name');
-            this.insertCell(row, (o.dirnum == 0 ? '' : '目录:' + o.dirnum + '&nbsp;') +
+            this.insertCell(row, '<div class="dir-name"><a href="#' + curdir + encodeURIComponent(o.name) + '/">' + o.name + '</a></a>', 'dir-name');
+            this.insertCell(row, (o.dirnum == 0 ? '<span style="color:red">空文件夹</span>' : '目录:' + o.dirnum + '&nbsp;') +
             (o.filenum == 0 ? '' : '文件:' + o.filenum), null, 5);
 
             this.insertCell(row, (o.system == 1 ? '' :
-            '<a href="javascript:;" onclick="ctobj.rename(this,\'dir\')">重命名</a>' +
-            '|<a href="javascript:;" onclick="ctobj.del(this,\'dir\')">删除</a>'
+                    '<a href="javascript:;" onclick="ctobj.rename(this,\'dir\')">重命名</a>' +
+                    '|<a href="javascript:;" onclick="ctobj.del(this,\'dir\')">删除</a>'
             ), 'center');
         },
         appendFileRow: function (o) {
@@ -149,13 +223,13 @@ $js()
             this.insertCell(row, this.getFileType(o.name));
             this.insertCell(row, o.date, 'center');
             this.insertCell(row, o.mdate, 'center');
-            this.insertCell(row, o.readonly == 1 ? '只读' : '可写', 'center');
+            this.insertCell(row, o.readonly == 1 ? '读' : '读 / 写', 'center');
             this.insertCell(row, '<a href="javascript:;" onclick="ctobj.down(this)">下载</a>' +
-                                    (o.system == 1 || o.readonly==1 ? '' :
-                                    '|<a href="javascript:;" onclick="ctobj.edit(this)">编辑</a>' +
-                                    '|<a href="javascript:;" onclick="ctobj.rename(this,\'file\')">重命名</a>' +
-                                    '|<a href="javascript:;" onclick="ctobj.del(this,\'file\')">删除</a>'
-                                    ), 'center');
+            (o.system == 1 || o.readonly==1 ? '' :
+                    '<a href="javascript:;" onclick="ctobj.edit(this)">编辑</a>' +
+                    '<a href="javascript:;" onclick="ctobj.rename(this,\'file\')">重命名</a>' +
+                    '<a href="javascript:;" onclick="ctobj.del(this,\'file\')">删除</a>'
+            ), 'center control');
         },
         del: function (t, type) {
             var _this = this;
@@ -174,18 +248,18 @@ $js()
                 var isDir = type == 'dir' ? 1 : 0;
                 j6.xhr.post(fm_handler, 'act=del&dir='
                     + encodeURIComponent(curdir) + '&isdir=' + isDir + '&file='
-                     + encodeURIComponent(file), function (result) {
+                    + encodeURIComponent(file), function (result) {
 
-                         if (result == "1") {
-                             //load(curdir); /*重新加载*/
-                             tb.deleteRow(trIndex);
-                         } else {
-                             _this.tip('系统文件/目录无法删除!', true);
-                         }
+                        if (result == "1") {
+                            //load(curdir); /*重新加载*/
+                            tb.deleteRow(trIndex);
+                        } else {
+                            _this.tip('系统文件/目录无法删除!', true);
+                        }
 
-                     }, function () {
-                         _this.tip('删除失败' + (isDir == 1 ? ',目录不为空或' : '') + '无权限删除!', true);
-                     });
+                    }, function () {
+                        _this.tip('删除失败' + (isDir == 1 ? ',目录不为空或' : '') + '无权限删除!', true);
+                    });
             }
         },
         rename: function (t, type) {
@@ -211,17 +285,16 @@ $js()
                 } else {
                     _this.tip('执行更改...');
                     j6.xhr.post(fm_handler, 'act=rename&isdir=' + isDir + '&dir='
-                    + encodeURIComponent(curdir) + '&file=' + encodeURIComponent(file)
-                    + '&newfile=' + encodeURIComponent(newfile),
-                 function (result) {
-                     /*_this.tip('');*/
-                     load(curdir);
-                 }, function (x) {
-                     _this.tip('操作失败!');
-                 }
+                        + encodeURIComponent(curdir) + '&file=' + encodeURIComponent(file)
+                        + '&newfile=' + encodeURIComponent(newfile),
+                        function (result) {
+                            /*_this.tip('');*/
+                            load(curdir);
+                        }, function (x) {
+                            _this.tip('操作失败!');
+                        }
                     );
                 }
-
                 t.innerHTML = '重命名';
             }
         },
@@ -231,34 +304,35 @@ $js()
             var ext = file.replace(/[\s\S]+\.(.+)\b/, '$1');
             var editurl = null;
             switch (ext.toLowerCase()) {
-                case "css":
-                case "js":
-                case "txt":
-                case "conf":
-                case 'config':
-                case 'log':
-                case "aspx":
-                case "xml":
-                case "cs":
-                    editurl = '?module=file&action=editfile&path=';
-                    break;
-                case "html":
-                case "phtml":
-                    editurl = '?module=template&action=editfile&path=';
-                    break;
+            case "css":
+            case "js":
+            case "txt":
+            case "conf":
+            case 'config':
+            case 'log':
+            case "aspx":
+            case "xml":
+            case "cs":
+                editurl = '?module=file&action=editfile&path=';
+                break;
+            case "html":
+            case "phtml":
+                editurl = '?module=template&action=editfile&path=';
+                break;
             }
             if (editurl != null) {
-               // window.open(editurl + curdir + file);
+                // window.open(editurl + curdir + file);
                 parent.FwTab.show(file, editurl + curdir + file);
             } else {
                 this.tip('不支持编辑的文件类型!', true);
             }
         },
-        newfile: function (id) {
+        newFile: function (id,isDir) {
             var _this = this;
             var fileName = j6.val(id);
             if (fileName.length > 0) {
-                j6.xhr.post(fm_handler, 'act=create&dir=' + encodeURIComponent(curdir) + '&file=' + encodeURIComponent(fileName),
+                j6.xhr.post(fm_handler, 'act=create&dir=' + encodeURIComponent(curdir) + '&is_dir='
+                    + (isDir ? "true" : "false") + '&file=' + encodeURIComponent(fileName),
                     function(result) {
                         var json = j6.toJson(result);
                         if (json.error) {
@@ -266,21 +340,24 @@ $js()
                         } else {
                             load(curdir);
                         }
+                        var d =  j6.dialog.getDialog();
+                        if (d)d.close();
+
                     }, function(x) {
                     });
             } else {
-                alert('请输入文件名');
+                alert('请输入名称');
             }
         },
         down: function (t) {
             var tr = t.parentNode.parentNode.getElementsByTagName('TD')[0];
             var file = tr.childNodes[0].getAttribute('file');
-            window.open('http://' + document.domain + curdir + file);
+            window.open('//' + document.domain + curdir + file);
         }
     };
 
     function load(dir) {
-       // ctobj.tip('加载中...', 0);
+        // ctobj.tip('加载中...', 0);
         ctobj.resetTable();
         j6.xhr.post(fm_handler, 'act=list&dir=' + dir, function (result) {
             var json = j6.toJson(result);
@@ -310,13 +387,13 @@ $js()
     var _hash = curdir;
     setInterval(function () {
         _hash = (location.hash || '#/').substring(1);
-        if (curdir != _hash) {
+        if (curdir !== _hash) {
             curdir = _hash;
             load(curdir);
         }
     }, 100);
 
-   load(curdir);
+    load(curdir);
 </script>
 
 

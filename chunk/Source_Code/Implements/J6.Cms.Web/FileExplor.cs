@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using J6.Cms;
 
 
 public class FileJsonExplor
@@ -215,17 +216,55 @@ public class FileJsonExplor
 	/// <param name="dir"></param>
 	/// <param name="path"></param>
 	/// <returns></returns>
-	internal static string Create(string dir, string path)
+	internal static string Create(string dir, string path,bool isDir)
 	{
-		string file = AppDomain.CurrentDomain.BaseDirectory + dir + path;
-		if (File.Exists(file))
-		{
-			return ReturnError("文件已存在!");
-		}
-		else
-		{
-			File.Create(file).Dispose();
-			return "{}";
-		}
+		string filePath = Cms.PyhicPath + dir + path;
+	    if (isDir)
+	    {
+	        return CreateDir(filePath);
+	    }
+        return CreateFile(filePath);
+	
 	}
+
+    private static string CreateDir(string filePath)
+    {
+        if (Directory.Exists(filePath))
+        {
+            return ReturnError("文件已存在!");
+        }
+        else
+        {
+            Directory.CreateDirectory(filePath).Create();
+            return "{}";
+        }
+    }
+
+    private static string CreateFile(string filePath)
+    {
+        if (File.Exists(filePath))
+        {
+            return ReturnError("文件已存在!");
+        }
+        else
+        {
+            File.Create(filePath).Dispose();
+            return "{}";
+        }
+    }
+
+    public static string Upload(string dir, HttpPostedFile file)
+    {
+        String dirPath = Cms.PyhicPath + dir;
+        String fileName = file.FileName;
+
+        String filePath = dirPath + file.FileName;
+        if (File.Exists(filePath))
+        {
+            return "{error:\"文件已经存在\"}";
+        }
+
+        file.SaveAs(filePath);
+        return "{url:\""+dir+fileName+"\"}";
+    }
 }

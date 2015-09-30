@@ -124,9 +124,9 @@
     _thisLoadCategoryTree();
 
     //重新加载栏目树
-    function _reloadTree() {
+    function _reloadTree(loadLocal) {
         if (parent._loadCategoryTree) parent._loadCategoryTree();
-        if (window._thisLoadCategoryTree) window._thisLoadCategoryTree();
+        if (window._thisLoadCategoryTree && loadLocal != 0) window._thisLoadCategoryTree();
     }
 
 

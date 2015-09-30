@@ -210,7 +210,7 @@
                      data,
                      function (json) {
                          if (json.result) {
-                             //if (window._reloadTree) window._reloadTree();
+                             if (window._reloadTree) window._reloadTree(0);
                              j6.load2('pl', 'category', 'update', 'lft=' + json.data);
                             showMsg2(json.message);
                          } else {

@@ -38,9 +38,7 @@ namespace J6.Cms.Web.WebManager.Handle
             string file = new FileUpload(dir, name).Upload();
             Response.Write("{" + String.Format("url:'{0}'", file) + "}");
         }
-        /// <summary>
-        /// 清除缓存
-        /// </summary>
+
         public void UploadFile_POST()
         {
             string uploadfor = base.Request["for"];

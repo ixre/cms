@@ -1,5 +1,5 @@
 /*
-// 后台管理样式
+// J6-CMS 后台管理样式
 // By Newmin @ 2011/02/06
 // Copyright 2011 OPSoft
 */
@@ -201,11 +201,14 @@ ul.centform{margin:100px auto;}
 /* 表格列表 */
 
 .ui-table{width:100%;color:#666;}
-.ui-table th{background:#edf7fe;border-bottom:solid 1px #e5e5e5;
-             text-align:center;color:#336699;font-weight:normal;position:relative;}
+.ui-table th{background:#edf7fe;border-bottom:solid 1px #E5E5E5;
+    text-align:center;color:#06c;font-weight:normal;position:relative;
+    line-height:3em;background-image:linear-gradient(to top,#F7F8FE,#FFF);
+    border-right: solid 1px #DDD;
+}
 .ui-table .th-split{border-right: solid 1px #ddd;padding:5px 1px 0px 0px;position:relative;right:3px;top:0;}
-.ui-table tr td{line-height:18px;background:#fff;border-bottom:solid 1px #f2f2f2;}
-.ui-table tr.selected td{background:#ffffcc;}
+.ui-table tr td{line-height:1.2em;height:2.5em;background:#fff;border-bottom:solid 1px #f2f2f2;}
+.ui-table tr.selected td{background:#ffc;}
 
 
 .ui-table-list{width:100%;color:#666;}

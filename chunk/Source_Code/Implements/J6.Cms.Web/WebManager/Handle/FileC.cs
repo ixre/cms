@@ -72,8 +72,8 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             string result = String.Empty;
             var form = base.Request.Form;
-            string dir = form["dir"];
-            string action = form["act"];
+            string dir = base.Request["dir"];
+            string action = base.Request["act"];
             if (action == "list")
             {
                 result = FileJsonExplor.GetJson(dir);
@@ -88,7 +88,11 @@ namespace J6.Cms.Web.WebManager.Handle
             }
             else if (action == "create")
             {
-                result = FileJsonExplor.Create(form["dir"], form["file"]);
+                result = FileJsonExplor.Create(form["dir"], form["file"], form["is_dir"] == "true");
+            }
+            else if(action == "upload")
+            {
+                result = FileJsonExplor.Upload(dir,base.Request.Files[0]);
             }
             base.Response.Write(result);
         }
