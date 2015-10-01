@@ -8,6 +8,7 @@
     <map for="Login" to="mui/html/login.html"/>
     <map for="Index" to="mui/html/index.html"/>
     <map for="Server_Summary" to="mui/html/summary.html"/>
+    <map for="Clear_Page" to="mui/html/clear_page.html"/>
     <map for="App_Config" to="mui/html/cms.config.html"/>
     <map for="Site_Index" to="mui/html/site/site.index.html"/>
     <map for="Site_Edit" to="mui/html/site/site.edit.html"/>

@@ -12,7 +12,7 @@
 
       
       <links title="栏目管理" toggle="true" iconPos="-240|0">
-        <link href="?module=category&amp;action=all" text="栏目管理" title="" siteid="-1"/>
+        <link href="?module=category&amp;action=all" text="网站栏目" title="" siteid="-1"/>
         <link href="?module=extend&amp;action=fields" text="扩展属性" title="" siteid="0"/>
       </links>
 
@@ -22,15 +22,15 @@
       </links>
       -->
 
-      <links title="导航与链接" toggle="true" iconPos="-24|-48">
-        <link href="?module=link&amp;action=list&amp;type=1" text="导航设置" title="" siteid="-1"/>
+      <links title="导航链接" toggle="true" iconPos="-24|-48">
+        <link href="?module=link&amp;action=list&amp;type=1" text="网站导航" title="" siteid="-1"/>
         <link href="?module=link&amp;action=list&amp;type=2" text="友情链接" title="" siteid="-1"/>
         <link href="?module=link&amp;action=list&amp;type=3" text="自定义链接" title="" siteid="-1"/>
       </links>
 
 
-      <links title="模板&amp;显示" toggle="true" iconPos="-264|0">
-        <link href="?module=template&amp;action=settings" text="模板设置" title="" siteid="-1"/>
+      <links title="模板界面" toggle="true" iconPos="-264|0">
+        <link href="?module=template&amp;action=settings" text="界面设置" title="" siteid="-1"/>
         <link href="?module=template&amp;action=edit" text="模板编辑" title="" siteid="-1"/>
       </links>
       
@@ -57,7 +57,7 @@
   	<bar id="system" name="系统管理">
       <links title="系统管理" toggle="true" iconPos="-432|0">
         <link href="?module=site&amp;action=index" text="站点管理" title="系统所有网站管理" siteid="0"/>
-        <link href="?module=file&amp;action=filemanager" text="文件管理器" title="" siteid="0"/>
+        <link href="?module=file&amp;action=filemanager" text="文件管理" title="" siteid="0"/>
         <link href="?module=template&amp;action=templates" text="模板管理" title="" siteid="0"/>
         <link href="?module=assistant&amp;action=local_patch" text="系统补丁" title="" siteid="0"/>
         <link href="?module=table&amp;action=all" text="数据表" title="" siteid="0"/>
@@ -74,6 +74,7 @@
 
       <links title="系统设置" toggle="true" iconPos="-432|0">
         <link href="?module=system&amp;action=appconfig&amp;item=1" text="系统设置" title="" siteid="0"/>
+        <link href="?module=system&amp;action=clear" text="缓存重启" title="" siteid="0"/>
       </links>
 
 

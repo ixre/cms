@@ -216,11 +216,7 @@ namespace J6.Cms
             //resetTempFiles();
 
 
-            //注册KvDB
-            string kvDir = Cms.PyhicPath + CmsVariables.TEMP_PATH + "data/.gca";
-            if (Directory.Exists(kvDir)) Directory.Delete(kvDir, true);
-            Kvdb.SetPath(kvDir);
-            Kvdb.Clean();
+            InitKvDb();
 
             //获取静态服务器
             //UpdateServerInfo();
@@ -265,14 +261,32 @@ namespace J6.Cms
             }
         }
 
+        private static void InitKvDb()
+        {
+            //注册KvDB
+            string kvDir = Cms.PyhicPath + CmsVariables.TEMP_PATH + "data/gcp";
+            if (Directory.Exists(kvDir))
+            {
+                try
+                {
+                    Directory.Delete(kvDir, true);
+                }
+                catch
+                {
+                }
+            }
+            Kvdb.SetPath(kvDir);
+            Kvdb.Clean();
+        }
+
         private static void BeforeInit()
         {
             //初始化设置
-            string cmsConfigFile = String.Format("{0}config/cms.config", Cms.PyhicPath);
-            if (File.Exists(cmsConfigFile))
-            {
-                File.Move(cmsConfigFile, cmsConfigFile.Replace("cms.config", "cms.conf"));
-            }
+            //            string cmsConfigFile = String.Format("{0}config/cms.config", Cms.PyhicPath);
+            //            if (File.Exists(cmsConfigFile))
+            //            {
+            //                File.Move(cmsConfigFile, cmsConfigFile.Replace("cms.config", "cms.conf"));
+            //            }
         }
 
         /// <summary>
@@ -280,7 +294,7 @@ namespace J6.Cms
         /// </summary>
         private static void LoadOtherConfig()
         {
-          Configuration. LoadRelatedIndent();
+            Configuration.LoadRelatedIndent();
         }
 
 

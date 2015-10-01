@@ -24,7 +24,6 @@
                 <span class="icon icon1"></span>${form_title}
             </div>
 
-
             <div>
 
                 <div class="fl">
@@ -51,7 +50,7 @@
                 <div class="fl">
                     <div class="label">文字：</div>
                     <div class="in">
-                        <input type="text" class="ui-validate ui-box" required="true" length="[0,50]" field="Text" id="text" />
+                        <input type="text" class="ui-validate ui-box" required="true" length="[0,50]" field="Text" id="tb_txt" />
                     </div>
                 </div>
 
@@ -234,6 +233,9 @@
                 bindtype.value = type;
                 bindtip.innerHTML = typeStr + ':' + text;
                 j6.$('cancelbind').style.display = '';
+                if (j6.$('tb_txt').value === '') {
+                    j6.$('tb_txt').value = text;
+                }
                 linkurl.style.display = 'none';
             }
             currentGuess = null;

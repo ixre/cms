@@ -40,7 +40,7 @@ namespace J6.Cms
     public class Updater
     {
 
-        public static string UpgadeDir = "/tmp/update";
+        public static string UpgadeDir = "/tmp/";
         /// <summary>
         /// 升级时发生
         /// </summary>

@@ -528,8 +528,22 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderSuccess("修改成功!");
         }
 
+        public string Clear_GET()
+        {
+            return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Clear_Page));
+        }
 
-
-
+        public string Clear_POST()
+        {
+            switch (base.Request["for"])
+            {
+                case "reboot":
+                    HttpRuntime.UnloadAppDomain();
+                    return base.ReturnSuccess("网站已重启");
+                case "cache":
+                    return base.ReturnSuccess("缓存清理成功");
+            }
+            return base.ReturnSuccess();
+        }
     }
 }

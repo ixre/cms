@@ -56,8 +56,7 @@
              <a href="javascript:;"></a>
          </span>
      </span>
-     
-
+     &nbsp;
      <span class="ui-button w100 middle-button" id="btn_upload">
          <span class="button-inner">
              <span class="button-txt">上传文件</span>
@@ -114,18 +113,28 @@ $js()
     }
 
     //上传图标
-    var up = j6.upload({
-        id: 'btn_upload',
-        url: fm_handler + '&act=upload&dir='+curdir,
-        repeatSelect:true
-   }, function (result, data) {
-        if (data.url) {
-          load(curdir);
-        } else {
-            alert('上传失败：' + data.error);location.reload();
-        }
-    });
+    var up = initUploadCom();
 
+    function initUploadCom() {
+        up = j6.upload({
+            id: 'btn_upload',
+            url: fm_handler + '&act=upload&dir='+curdir
+        }, function (result, data) {
+            if (data.url) {
+                load(curdir);
+            } else {
+                alert('上传失败：' + data.error);location.reload();
+            }
+            initUploadCom();
+        });
+        return up;
+    }
+    function resetUploadFormAction() {
+        var form =  j6.$(up.id).getElementsByTagName("FORM")[0];
+        if (form != undefined) {
+            form.setAttribute('action', fm_handler + '&act=upload&dir='+curdir);
+        }
+    }
 
     var ctobj = {
         tip: function (msg, error) {
@@ -207,7 +216,7 @@ $js()
             var row = tb.insertRow(-1);
             this.insertCell(row, '<input type="hidden" file="' + o.name + '"/>', 'hidden');
             this.insertCell(row, '<div class="dir-name"><a href="#' + curdir + encodeURIComponent(o.name) + '/">' + o.name + '</a></a>', 'dir-name');
-            this.insertCell(row, (o.dirnum == 0 ? '<span style="color:red">空文件夹</span>' : '目录:' + o.dirnum + '&nbsp;') +
+            this.insertCell(row, (o.dirnum == 0 ? '' : '目录:' + o.dirnum + '&nbsp;') +
             (o.filenum == 0 ? '' : '文件:' + o.filenum), null, 5);
 
             this.insertCell(row, (o.system == 1 ? '' :
@@ -389,6 +398,7 @@ $js()
         _hash = (location.hash || '#/').substring(1);
         if (curdir !== _hash) {
             curdir = _hash;
+            resetUploadFormAction();
             load(curdir);
         }
     }, 100);

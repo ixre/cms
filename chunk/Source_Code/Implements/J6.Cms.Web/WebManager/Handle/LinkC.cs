@@ -69,7 +69,14 @@ namespace J6.Cms.Web.WebManager.Handle
 
                 if (String.IsNullOrEmpty(link.Bind))
                 {
-                    sb.Append(link.Uri);
+                    if (link.Uri == "")
+                    {
+                        sb.Append("<span style=\"color:red\">未设置</span>");
+                    }
+                    else
+                    {
+                        sb.Append(link.Uri);
+                    }
                 }
                 else
                 {
