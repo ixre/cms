@@ -9,7 +9,7 @@ using J6.Cms.Domain.Interface.Site.Template;
 
 namespace J6.Cms.Domain.Implement.Site.Category
 {
-    public class Category:ICategory
+    public class Category : ICategory
     {
         private ICategoryRepository _rep;
         private IExtendFieldRepository _extendRep;
@@ -24,8 +24,8 @@ namespace J6.Cms.Domain.Implement.Site.Category
         private IList<ITemplateBind> _templates;
         private readonly ITemplateRepository _tempRep;
 
-        internal Category(ICategoryRepository rep,IExtendFieldRepository extendRep,
-            ITemplateRepository tmpRep, int id,ISite site)
+        internal Category(ICategoryRepository rep, IExtendFieldRepository extendRep,
+            ITemplateRepository tmpRep, int id, ISite site)
         {
             this.Site = site;
             this._rep = rep;
@@ -43,7 +43,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
         public int Id
         {
             get;
-             set;
+            set;
         }
 
         public int Lft
@@ -149,7 +149,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
         {
             get
             {
-                return _extendFields??(_extendFields=new List<IExtendField>(this._extendRep.GetExtendFields(this.Site.Id,this.Id)));
+                return _extendFields ?? (_extendFields = new List<IExtendField>(this._extendRep.GetExtendFields(this.Site.Id, this.Id)));
             }
             set
             {
@@ -177,7 +177,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
 
                     if (!isExists)
                     {
-                        delList.Add(extend); 
+                        delList.Add(extend);
 
                         //验证是否被占用
                         int usedNum = this._extendRep.GetCategoryExtendRefrenceNum(this, extend.Id);
@@ -248,7 +248,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
         {
             get
             {
-                return this._templates ?? (this._templates=new List<ITemplateBind>(this._tempRep.GetTemplateBindsForCategory(this)));
+                return this._templates ?? (this._templates = new List<ITemplateBind>(this._tempRep.GetTemplateBindsForCategory(this)));
             }
             set
             {
@@ -280,15 +280,17 @@ namespace J6.Cms.Domain.Implement.Site.Category
 
         public ICategory Parent
         {
-            get {
-                return _parent??(_parent??this._rep.GetParent(this));
+            get
+            {
+                return _parent ?? (_parent ?? this._rep.GetParent(this));
             }
             set { this._parent = value; }
         }
 
         public IEnumerable<ICategory> Childs
         {
-            get {
+            get
+            {
                 return _childs ?? (_childs ?? this._rep.GetChilds(this));
             }
         }
@@ -308,35 +310,32 @@ namespace J6.Cms.Domain.Implement.Site.Category
 
         public ICategory Next
         {
-            get { return this._next??(this._next=this._rep.GetNext(this)); }
+            get { return this._next ?? (this._next = this._rep.GetNext(this)); }
         }
 
         public ICategory Previous
         {
-            get { return this._previous??(this._previous=this._rep.GetPrevious(this)); }
+            get { return this._previous ?? (this._previous = this._rep.GetPrevious(this)); }
         }
 
 
         public string UriPath
         {
-            get 
+            get
             {
                 if (this._uriPath == null)
                 {
-                    string path=this.Tag;
-
-                    ICategory parent=this;
-                    int rootLft=this.Site.RootCategory.Lft;
+                    string path = this.Tag;
+                    ICategory parent = this;
+                    int rootLft = this.Site.RootCategory.Lft;
 
                     while ((parent = parent.Parent) != null && parent.Lft != rootLft)
                     {
                         path = String.Concat(parent.Tag, "/", path);
                     }
-
                     this._uriPath = path;
-
                 }
-                return this._uriPath; 
+                return this._uriPath;
             }
         }
 

@@ -309,12 +309,17 @@ namespace J6.Cms.Web
                 if (Regex.IsMatch(category.Location, "^http://", RegexOptions.IgnoreCase))
                 {
                     url = category.Location;
-                   
                 }
                 else
                 {
-                    if (category.Location.StartsWith("/")) throw new Exception("URL不能以\"/\"开头!");
-                    url = String.Concat(context.SiteDomain, "/",category.Location);
+                    if (!category.Location.StartsWith("/"))
+                    {
+                        url = String.Concat("/", category.Location);
+                    }
+                    else
+                    {
+                        url = category.Location;
+                    }
                 }
 
 

@@ -321,9 +321,26 @@ namespace J6.Cms.Service
             {
                 sb.Remove(0, sb.Length);
 
-                sb.Append("<a href=\"")
-                    .Append(String.Format(linkFormat, category.UriPath))
-                    .Append("\"");
+                sb.Append("<a href=\"");
+                if (!String.IsNullOrEmpty(category.Location))
+                {
+                    if (category.Location.IndexOf("//", StringComparison.Ordinal) != -1)
+                    {
+                        sb.Append(category.Location);
+                    }
+                    else
+                    {
+                        string path = category.Location;
+                        if (path.StartsWith("/")) path = path.Substring(1);
+                        if (path.EndsWith("/")) path = path.Substring(0, path.Length - 1);
+                        sb.Append(String.Format(linkFormat, path));
+                    }
+                }
+                else
+                {
+                    sb.Append(String.Format(linkFormat, category.UriPath));
+                }
+                sb.Append("\"");
 
                 //栏目的上一级添加不追踪特性
                 if (++tmpInt > 1)
