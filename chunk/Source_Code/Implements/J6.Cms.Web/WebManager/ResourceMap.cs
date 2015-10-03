@@ -232,22 +232,6 @@ namespace J6.Cms.WebManager
             }
         }
 
-        public static string Createdatapickerproject
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/archivelist.html") : WebManagerResource.createdatapickerproject;
-            }
-        }
-
-        public static string Datapicker
-        {
-            get
-            {
-                return IsOuterLink ? GetDebugContent("archive/archivelist.html") : WebManagerResource.datapicker;
-            }
-        }
-
 
 
 

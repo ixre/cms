@@ -164,12 +164,6 @@
   <data name="columns" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resouces\table\columns.html;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="createdatapickerproject" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resouces\plugin\createdatapickerproject.html;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="datapicker" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resouces\plugin\datapicker.html;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="editcolumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resouces\table\editcolumn.html;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

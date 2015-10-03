@@ -116,51 +116,6 @@ namespace J6.Cms.Web.Resource.WebManager {
         /// <summary>
         ///   查找类似 &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;title&gt;数据采集&lt;/title&gt;
-        ///        $css()
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///        &lt;iframe id=&quot;area&quot; src=&quot;/frameworkplugins/collection.ashx?action=createproject&quot;  scrolling=&quot;auto&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/iframe&gt;
-        ///  $js()
-        ///&lt;script type=&quot;text/javascript&quot;&gt;
-        /// j6.$(&apos;area&apos;).style.height = (document.documentElement.clientHeight - 69) + &apos;px&apos;;
-        ///&lt;/script&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt; 的本地化字符串。
-        /// </summary>
-        public static string createdatapickerproject {
-            get {
-                return ResourceManager.GetString("createdatapickerproject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;title&gt;&lt;/title&gt;
-        ///        $css()$js()
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///        &lt;iframe id=&quot;area&quot; src=&quot;/frameworkplugins/collection.ashx?action=list&quot;  scrolling=&quot;auto&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/iframe&gt;
-        ///
-        ///
-        ///&lt;script type=&quot;text/javascript&quot;&gt;
-        /// j6.$(&apos;area&apos;).style.height = (document.documentElement.clientHeight - 69) + &apos;px&apos;;
-        ///&lt;/script&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt; 的本地化字符串。
-        /// </summary>
-        public static string datapicker {
-            get {
-                return ResourceManager.GetString("datapicker", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
         ///&lt;head&gt;
         ///    &lt;title&gt;创建列&lt;/title&gt;$css()
         ///&lt;/head&gt;

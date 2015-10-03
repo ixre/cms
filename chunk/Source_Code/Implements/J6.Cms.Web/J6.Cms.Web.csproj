@@ -278,8 +278,6 @@
     <EmbeddedResource Include="Resource\WebManager\resouces\images\ui.component.js" />
     <Content Include="Resource\WebManager\resouces\images\ui.component.source.js" />
     <Content Include="Resource\WebManager\resouces\plugin\archiveTagReplace.html" />
-    <Content Include="Resource\WebManager\resouces\plugin\createdatapickerproject.html" />
-    <Content Include="Resource\WebManager\resouces\plugin\datapicker.html" />
     <Content Include="Resource\WebManager\resouces\table\columns.html" />
     <Content Include="Resource\WebManager\resouces\table\editcolumn.html" />
     <Content Include="Resource\WebManager\resouces\table\edittable.html" />

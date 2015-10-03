@@ -103,6 +103,8 @@ namespace sp.datapicker
                                  <label for=""ck_removelink"">移除超链接</label>
                                 <input id=""ck_autotag"" type=""checkbox"" style=""border: none"" name=""autotag"" field=""autotag"" title=""自动链接Tags"" checked=""checked"" />
                                  <label for=""ck_autotag"">生成内链(自动生成tags链接，有利于seo)</label>
+                                <input id=""ck_reverse"" type=""checkbox"" style=""border: none"" name=""reverse"" field=""reverse"" checked=""checked"" />
+                                 <label for=""ck_reverse"">列表页反序采集</label>
                                 ",
                 this.GetSelectElement(null));
         }
@@ -123,7 +125,7 @@ namespace sp.datapicker
                 project.State.FailCount);
         }
 
-        public override string Invoke_ListPage(Project project, string listPageUri)
+        public override string Invoke_ListPage(Project project,bool reverse, string listPageUri)
         {
             project.UseMultiThread = true;
 
@@ -131,15 +133,15 @@ namespace sp.datapicker
             project.ResetState();
 
             int categoryId = int.Parse(request.Form["category"]);
-            if (categoryId == -1) return "<strong>错误，请先选择采集目标栏目!<strong><br />";
+            if (categoryId == -1) return "<strong>错误：请先选择采集目标栏目!<strong><br />";
 
 
-            project.InvokeList(listPageUri, GetDataPackHandler(categoryId));
+            project.InvokeList(listPageUri,reverse, GetDataPackHandler(categoryId));
 
             return String.Format("任务总数:{0},成功：{1},失败:{2}", project.State.TotalCount, project.State.SuccessCount,
                 project.State.FailCount);
         }
-        public override string Invoke_ListPage(Project project, object parameter)
+        public override string Invoke_ListPage(Project project, bool reverse,object parameter)
         {
             project.UseMultiThread = true;
 
@@ -147,9 +149,9 @@ namespace sp.datapicker
             project.ResetState();
 
             int categoryId = int.Parse(request.Form["category"]);
-            if (categoryId == -1) return "<strong>错误，请先选择采集目标栏目!<strong><br />";
+            if (categoryId == -1) return "<strong>错误：请先选择采集目标栏目!<strong><br />";
 
-            project.InvokeList(parameter, GetDataPackHandler(categoryId));
+            project.InvokeList(parameter, reverse, GetDataPackHandler(categoryId));
 
             return String.Format("任务总数:{0},成功：{1},失败:{2}",
                 project.State.TotalCount,

@@ -43,16 +43,7 @@ namespace J6.Cms.Web.WebManager.Handle
             //}
         }
 
-        public void DataPicker_GET()
-        {
-            base.RenderTemplate(ResourceMap.Datapicker, null);
-        }
-
-        public void CreateDataPickerProject_GET()
-        {
-            base.RenderTemplate(ResourceMap.Createdatapickerproject, null);
-        }
-
+  
         
         #endregion
 
