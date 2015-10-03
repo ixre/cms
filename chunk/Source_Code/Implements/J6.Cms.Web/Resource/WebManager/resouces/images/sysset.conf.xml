@@ -40,9 +40,8 @@
       </links>
 
       <links title="内容采集" toggle="true" iconPos="-168|0">
-        <link href="/$prefix/dpicker?action=list" text="开始新的采集任务" title="" siteid="-1"/>
-        <link href="/$prefix/dpicker?action=createproject" text="新建采集项目" title="" siteid="-1"/>
-        <link href="/$prefix/dpicker" text="采集项目管理" title="" siteid="-1"/>
+        <link href="/$prefix/dpicker?action=createproject" text="新建项目" title="" siteid="-1"/>
+        <link href="/$prefix/dpicker?action=list" text="采集项目" title="" siteid="-1"/>
       </links>
       
     </bar>
