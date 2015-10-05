@@ -94,28 +94,25 @@ namespace J6.Cms.Web.WebManager.Handle
             });
         }
 
-        /// <summary>
-        /// 创建站点
-        /// </summary>
-        [MCacheUpdate(CacheSign.Site | CacheSign.Link)]
-        public void Create_POST()
+
+        private SiteDto CheckSiteEntity(SiteDto entity)
         {
             string bindedDomains;
+            if (entity.DirName.IndexOf("/", StringComparison.Ordinal) != -1)
+            {
+                throw new ArgumentException("目录名不能包含\"/\"");
+            }
 
-            var entity = EntityForm.GetEntity<SiteDto>();
-            entity.Domain = Regex.Replace(entity.Domain, "\\s+|,+", " ");      //将多个空白替换成一个
+            entity.Domain = Regex.Replace(entity.Domain, "\\s+|,+", " "); //将多个空白替换成一个
+            entity.Domain = Regex.Replace(entity.Domain, "https*://", "", RegexOptions.IgnoreCase);
 
             if (this.CheckDomainBind(-1, entity.Domain, out bindedDomains))
             {
-                base.RenderError("以下域名已被绑定：<br />" + bindedDomains.Replace("\n", "<br />"));
+                throw new ArgumentException("以下域名已被绑定：" + bindedDomains.Replace("\n", "<br />"));
             }
-            else
-            {
-                entity.SiteId = 0;
-                ServiceCall.Instance.SiteService.SaveSite(entity);
-                base.RenderSuccess("站点创建成功!");
-            }
+            return entity;
         }
+    
 
         public void Edit_GET()
         {
@@ -133,21 +130,19 @@ namespace J6.Cms.Web.WebManager.Handle
         }
 
         [MCacheUpdate(CacheSign.Site | CacheSign.Link)]
-        public void Edit_POST()
+        public void Save_POST()
         {
-            string bindedDomains;
-
             var entity = EntityForm.GetEntity<SiteDto>();
-            entity.Domain = Regex.Replace(entity.Domain, "\\s+|,+", " ");      //将多个空白替换成一个
-
-            if (this.CheckDomainBind(entity.SiteId, entity.Domain, out bindedDomains))
+            bool siteIsExist = ServiceCall.Instance.SiteService.CheckSiteExists(entity.SiteId);
+            try
             {
-                base.RenderError("以下域名已被绑定：<br />" + bindedDomains.Replace("\n", "<br />"));
-            }
-            else
-            {
+                entity = CheckSiteEntity(entity);
                 ServiceCall.Instance.SiteService.SaveSite(entity);
-                base.RenderSuccess("站点保存成功!");
+                base.RenderSuccess(siteIsExist ? "站点保存成功!" : "站点创建成功!");
+            }
+            catch (Exception exc)
+            {
+                base.RenderError(exc.Message);
             }
         }
     }

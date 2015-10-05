@@ -858,6 +858,7 @@ namespace J6.Cms.Web.WebManager.Handle
             int id = int.Parse(base.Request["archive.id"]);
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
             string fullDomain = this.CurrentSite.FullDomain;
+
             if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
             {
                 fullDomain = Request.Url.Scheme + ":" + fullDomain.Replace("#", WebCtx.Current.Host);
@@ -965,7 +966,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// </summary>
         public void DeleteComment_POST()
         {
-            string commentID = HttpContext.Current.Request.Form["commentId"];
+            string commentId = HttpContext.Current.Request.Form["commentId"];
 
             //
             //TODO:根据文档获取评论
@@ -974,7 +975,7 @@ namespace J6.Cms.Web.WebManager.Handle
             // var category = CmsLogic.Category.Get(a => a.ID == archive.Cid);
             // if (base.CompareSite(category.SiteId)) return;
 
-            CmsLogic.Comment.DeleteComment(int.Parse(commentID));
+            CmsLogic.Comment.DeleteComment(int.Parse(commentId));
         }
 
 

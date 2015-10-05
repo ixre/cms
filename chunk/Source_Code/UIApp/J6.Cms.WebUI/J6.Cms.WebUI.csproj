@@ -150,6 +150,7 @@
     <Content Include="framework\mui\css\index.css" />
     <Content Include="framework\mui\css\latest\ajax-loader.gif" />
     <Content Include="framework\mui\css\latest\avatar.gif" />
+    <Content Include="framework\mui\css\latest\folder.png" />
     <Content Include="framework\mui\css\latest\icon-menu.png" />
     <Content Include="framework\mui\css\latest\td_bg.gif" />
     <Content Include="framework\mui\css\latest\blank.png" />

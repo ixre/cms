@@ -294,6 +294,7 @@
                 j6.xhr.jsonPost('${url}', data, function (json) {
                     if (json.result) {
                         showMsg2('操作成功！');
+                        if (menu.edit!=undefined)menu.edit(json.message);
                         if (_dg) _dg.reload();
                     } else {
                         showErr(json.message);

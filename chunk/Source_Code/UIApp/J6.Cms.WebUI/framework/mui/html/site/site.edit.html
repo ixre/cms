@@ -47,9 +47,9 @@
 
         window.saveData = function () {
             if (j6.validator.validate()) {
-                j6.xhr.jsonPost('${post_url}', j6.json.toObject(document), function (json) {
+                j6.xhr.jsonPost('?module=site&action=save', j6.json.toObject(document), function (json) {
                     if (json.result) {
-                        showMsg2('保存成功');
+                        showMsg2(json.message);
                                location.reload();
                     } else {
                        showErr(json.message);

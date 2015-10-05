@@ -612,6 +612,19 @@ namespace J6.Cms.Service
 
         }
 
+        public bool CheckSiteExists(int siteId)
+        {
+            IList<ISite> sites = this._resp.GetSites();
+            foreach (ISite site in sites)
+            {
+                if (site.Id == siteId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void CloneArchiveRelatedLink(IArchive srcArchive, IArchive tarArchive)
         {
             IList<IContentLink> links = srcArchive.LinkManager.GetRelatedLinks();

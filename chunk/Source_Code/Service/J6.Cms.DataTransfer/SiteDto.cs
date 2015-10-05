@@ -92,31 +92,32 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// 站点名称
         /// </summary>
-        [FormField("Name", Group = "basic", Text = "站点名称", IsRequired = true, Length = "[0,30]")]
+        [FormField("Name", Group = "basic", Text = "<span class=\"red\">*</span>站点名称", IsRequired = true, Length = "[0,30]", Descript = "站点显示的名称")]
         public string Name { get; set; }
 
         /// <summary>
         /// 站点备注
         /// </summary>
-        [FormField("Note", Group = "basic", Text = "站点备注", Length = "[0,5]",Descript="如：中文")]
+        [FormField("Note", Group = "basic", Text = "备注名称", Length = "[0,20]",Descript="不显示在站点中，如：中文网站")]
         public string Note { get; set; }
-
-        /// <summary>
-        /// 目录名称
-        /// </summary>
-        [FormField("DirName", Group = "basic", Text = "目录名称", Descript = "如果如顶级域名绑定，则填写目录名称,以\"http://abc.com/目录名称/\"访问网站", Regex = "[A-Za-z0-9_]{0,10}")]
-        public string DirName { get; set; }
 
         /// <summary>
         /// 域名绑定
         /// </summary>
-        [FormField("domain", Group = "basic", Text = "域名绑定", Descript = "选填,可绑定(解析到本站的)域名.如：www.abc.com;多个域名请用空格隔开。")]
+        [FormField("domain", Group = "basic", Text = "绑定域名", Descript = "多个域名用空格隔开，并确保域名解析正确！")]
         public string Domain { get; set; }
+
+
+        /// <summary>
+        /// 目录名称
+        /// </summary>
+        [FormField("DirName", Group = "basic", Text = "虚拟目录", Descript = "可指定虚拟目录名称,以\"http://abc.com/目录名称/\"访问站点", Regex = "[A-Za-z0-9_]{0,10}")]
+        public string DirName { get; set; }
 
         /// <summary>
         /// 重定向地址
         /// </summary>
-        [FormField("location", Group = "basic", Text = "重定向", Descript = "选填,可将首页重定向至指定位置,如：index.aspx将定位到www.xxx.com/index.aspx")]
+        [FormField("location", Group = "basic", Text = "重定向", Descript = "可将首页重定向至指定URL,如：index.aspx将定位到www.xxx.com/index.aspx")]
         public string Location { get; set; }
 
 
@@ -152,13 +153,13 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// SEO关键字
         /// </summary>
-        [FormField("SeoKeywords", Group = "basic", Text = "SEO关键字", MultLine = true, Descript = "选填,不超过150字", Length = "[0,150]")]
+        [FormField("SeoKeywords", Group = "basic", Text = "首页关键字", MultLine = true, Descript = "不超过150字", Length = "[0,150]")]
         public string SeoKeywords { get; set; }
 
         /// <summary>
         /// SEO描述
         /// </summary>
-        [FormField("SeoDescription", Group = "basic", Text = "SEO描述", MultLine = true, Length = "[0,150]")]
+        [FormField("SeoDescription", Group = "basic", Text = "首页SEO描述", MultLine = true, Length = "[0,150]")]
         public string SeoDescription { get; set; }
 
         /// <summary>

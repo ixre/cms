@@ -253,5 +253,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="includeTempateBind"></param>
         /// <param name="includeRelatedLink"></param>
         IDictionary<int, string> ClonePubArchive(int sourceSiteId, int targetSiteId, int toCid, int[] archiveIdArray, bool includeExtend, bool includeTempateBind, bool includeRelatedLink);
+
+        bool CheckSiteExists(int siteId);
     }
 }
