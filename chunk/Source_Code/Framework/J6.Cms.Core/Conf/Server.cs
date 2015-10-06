@@ -16,7 +16,7 @@ namespace J6.Cms.Conf
     	/// 默认静态服务器
     	/// 
     	/// </summary>
-        internal static string DefaultStaticServer="iss.z3q.net/cms";
+        internal static string DefaultStaticServer="ssp-sz.z3q.net/cms";
 
 
         /// <summary>
@@ -27,6 +27,6 @@ namespace J6.Cms.Conf
         /// <summary>
         /// 更新服务器
         /// </summary>
-        public static string DefaultUpgradeServer = "http://iss.z3q.net/cms/patch/latest/";
+        public static string DefaultUpgradeServer = "http://ssp-sz.z3q.net/cms/patch/latest/";
     }
 }

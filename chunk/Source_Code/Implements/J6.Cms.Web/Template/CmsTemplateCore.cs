@@ -108,7 +108,8 @@ namespace J6.Cms.Template
         /// <returns></returns>
         public virtual string ConcatUrl(string url)
         {
-            if (url.IndexOf("//", StringComparison.Ordinal) != -1)
+            if (url.IndexOf("//", StringComparison.Ordinal) != -1
+                || url.IndexOf("javascript:", StringComparison.Ordinal) != -1)
             {
                 return url;
             }
@@ -1271,7 +1272,7 @@ namespace J6.Cms.Template
         /// </summary>
         /// <param name="format"></param>
         /// <returns></returns>
-        protected string CategoriesList(string param, string format)
+        protected string CategoryList(string param, string format)
         {
             IList<CategoryDto> categories = new List<CategoryDto>();
 
@@ -1399,6 +1400,8 @@ namespace J6.Cms.Template
                 {
                     switch (field)
                     {
+                        case "id": return archiveDto.Id.ToString();
+                        case "str_id": return id;      //用于链接的ID标识
                         case "title": return archiveDto.Title;
                         case "small_title": return archiveDto.SmallTitle;
                         case "special_title": return !ArchiveFlag.GetFlag(archiveDto.Flags, BuiltInArchiveFlags.IsSpecial) ?
@@ -1416,8 +1419,6 @@ namespace J6.Cms.Template
                              archiveDto.Content,
                              this.TplSetting.CFG_OutlineLength);
                         case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline, this.TplSetting.CFG_OutlineLength);
-                        case "initid": return archiveDto.Id.ToString();
-                        case "id": return id;      //用于链接的ID标识
                         case "tags": return archiveDto.Tags;
                         case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archiveDto.StrId).ToString();
                         case "count": return archiveDto.ViewCount.ToString();
@@ -1921,6 +1922,8 @@ namespace J6.Cms.Template
                     {
                         switch (field)
                         {
+                            case "id":return archive.Id.ToString();
+                            case "str_id": return alias;
                             case "special_title": return title_hightlight;
                             case "small_title": return archive.SmallTitle;
                             case "title": return archive.Title;
@@ -1928,7 +1931,6 @@ namespace J6.Cms.Template
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
-                            case "id": return alias;
                             case "tags": return archive.Tags;
                             case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archive.StrId).ToString();
                             case "count": return archive.ViewCount.ToString();
@@ -1936,6 +1938,7 @@ namespace J6.Cms.Template
                             //时间
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
+                            case "modify_sdate": return String.Format("{0:MM-dd}", archive.LastModifyDate);
                             case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
                             case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
 
@@ -2274,6 +2277,9 @@ namespace J6.Cms.Template
                     {
                         switch (field)
                         {
+                            case "id":
+                                return archive.Id.ToString();
+                            case "str_id": return alias;
                             case "special_title": return title_hightlight;
                             case "title": return archive.Title;
                             case "small_title": return archive.SmallTitle;
@@ -2281,7 +2287,6 @@ namespace J6.Cms.Template
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
-                            case "id": return alias;
                             case "tags": return archive.Tags;
                             case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archive.StrId).ToString();
                             case "count": return archive.ViewCount.ToString();
@@ -2289,6 +2294,7 @@ namespace J6.Cms.Template
                             //时间
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
+                            case "modify_sdate": return String.Format("{0:MM-dd}", archive.LastModifyDate);
                             case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
                             case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
 

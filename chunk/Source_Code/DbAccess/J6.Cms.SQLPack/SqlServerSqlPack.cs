@@ -130,25 +130,25 @@ namespace J6.Cms.Sql
         {
             get
             {
-                return @"SELECT  ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
-                            $PREFIX_archive.id,flags,str_id,[alias],[cid],[flags],title,
+                return @"SELECT * FROM (SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
+                            $PREFIX_archive.id,flags,str_id,[alias],[cid],title,
                         $PREFIX_archive.location,[content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.[cid] WHERE (lft>=@lft AND rgt<=@rgt) AND site_id=@siteId AND "
-                    + SqlConst.Archive_Special + @" AND rowNum BETWEEN {0} AND {0}+{1} 
-                    ORDER BY $PREFIX_archive.sort_number DESC";
+                       + SqlConst.Archive_Special + @") t WHERE rowNum BETWEEN {0} AND {0}+{1}";
             }
         }
         public override string Archive_GetSpecialArchivesByCategoryTag
         {
             get
             {
-                return @"SELECT  ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
+                return @"SELECT  * FROM (SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
                         $PREFIX_archive.id,str_id,[alias],[cid],[flags],title,$PREFIX_archive.location,[content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.[cid] WHERE $PREFIX_category.[tag]=@CategoryTag AND site_id=@siteId AND "
-                    + SqlConst.Archive_Special + @"  AND rowNum BETWEEN {0} AND {0}+{1} 
-                    ORDER BY $PREFIX_archive.sort_number DESC";
+                       + SqlConst.Archive_Special + @" ) t WHERE rowNum BETWEEN {0} AND {0}+{1}";
+
+
             }
         }
 

@@ -777,7 +777,7 @@ namespace J6.Cms.Template
 		")]
         public string Categories(string categoryTag, string format)
         {
-            return base.CategoriesList(categoryTag, format);
+            return base.CategoryList(categoryTag, format);
         }
 
         [TemplateTag]
