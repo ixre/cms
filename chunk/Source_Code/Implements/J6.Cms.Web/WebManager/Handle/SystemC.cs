@@ -108,7 +108,6 @@ namespace J6.Cms.Web.WebManager.Handle
                 }
             }
 
-
             base.RenderError("没有权限管理站点");
         }
 
