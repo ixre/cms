@@ -95,7 +95,7 @@ namespace J6.Cms.Web.WebManager.Handle
         }
 
 
-        private SiteDto CheckSiteEntity(SiteDto entity)
+        private SiteDto CheckSiteEntity(bool siteIsExist, SiteDto entity)
         {
             string bindedDomains;
             if (entity.DirName.IndexOf("/", StringComparison.Ordinal) != -1)
@@ -103,12 +103,15 @@ namespace J6.Cms.Web.WebManager.Handle
                 throw new ArgumentException("目录名不能包含\"/\"");
             }
 
-            entity.Domain = Regex.Replace(entity.Domain, "\\s+|,+", " "); //将多个空白替换成一个
-            entity.Domain = Regex.Replace(entity.Domain, "https*://", "", RegexOptions.IgnoreCase);
-
-            if (this.CheckDomainBind(entity.SiteId, entity.Domain, out bindedDomains))
+            if (!String.IsNullOrEmpty(entity.Domain))
             {
-                throw new ArgumentException("以下域名已被绑定：" + bindedDomains.Replace("\n", "<br />"));
+                entity.Domain = Regex.Replace(entity.Domain, "\\s+|,+", " "); //将多个空白替换成一个
+                entity.Domain = Regex.Replace(entity.Domain, "https*://", "", RegexOptions.IgnoreCase);
+
+                if (this.CheckDomainBind(siteIsExist ? entity.SiteId : -1, entity.Domain, out bindedDomains))
+                {
+                    throw new ArgumentException("以下域名已被绑定：" + bindedDomains.Replace("\n", "<br />"));
+                }
             }
             return entity;
         }
@@ -136,7 +139,8 @@ namespace J6.Cms.Web.WebManager.Handle
             bool siteIsExist = ServiceCall.Instance.SiteService.CheckSiteExists(entity.SiteId);
             try
             {
-                entity = CheckSiteEntity(entity);
+                entity = CheckSiteEntity(siteIsExist,entity);
+                if (!siteIsExist)entity.SiteId = 0;
                 ServiceCall.Instance.SiteService.SaveSite(entity);
                 base.RenderSuccess(siteIsExist ? "站点保存成功!" : "站点创建成功!");
             }
