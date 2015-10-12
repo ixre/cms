@@ -31,23 +31,23 @@ namespace J6.Cms.Web.WebManager.Handle
         /// 检查域名是否已经绑定
         /// </summary>
         /// <param name="siteId">当前站点编号，-1表示不限制</param>
-        /// <param name="domain"></param>
+        /// <param name="domainStr"></param>
         /// <param name="bindDomain"></param>
         /// <returns></returns>
-        private bool CheckDomainBind(int siteId, string domain, out string bindDomain)
+        private bool CheckDomainBind(int siteId, string domainStr, out string bindDomain)
         {
             bindDomain = null;
-            if (!String.IsNullOrEmpty(domain))
+            if (!String.IsNullOrEmpty(domainStr))
             {
                 char[] split = new char[] { ' ', ',' };
-                foreach (string _domain in domain.Split(split))
+                foreach (string domain in domainStr.Split(split))
                 {
                     foreach (SiteDto s in SiteCacheManager.GetAllSites())
                     {
                         if (String.IsNullOrEmpty(s.Domain) || (siteId!=-1&&siteId==s.SiteId) ) continue;
-                        if (Array.Exists(s.Domain.Split(split), a => String.Compare(a, _domain, true) == 0))
+                        if (Array.Exists(s.Domain.Split(split), a => String.Compare(a, domain, StringComparison.OrdinalIgnoreCase) == 0))
                         {
-                            bindDomain += "\n" + _domain;
+                            bindDomain += "\n" + domain;
                             break;
                         }
                     }
@@ -106,7 +106,7 @@ namespace J6.Cms.Web.WebManager.Handle
             entity.Domain = Regex.Replace(entity.Domain, "\\s+|,+", " "); //将多个空白替换成一个
             entity.Domain = Regex.Replace(entity.Domain, "https*://", "", RegexOptions.IgnoreCase);
 
-            if (this.CheckDomainBind(-1, entity.Domain, out bindedDomains))
+            if (this.CheckDomainBind(entity.SiteId, entity.Domain, out bindedDomains))
             {
                 throw new ArgumentException("以下域名已被绑定：" + bindedDomains.Replace("\n", "<br />"));
             }

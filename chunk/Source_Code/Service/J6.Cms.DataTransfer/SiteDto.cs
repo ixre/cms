@@ -92,7 +92,7 @@ namespace J6.Cms.DataTransfer
         /// <summary>
         /// 站点名称
         /// </summary>
-        [FormField("Name", Group = "basic", Text = "<span class=\"red\">*</span>站点名称", IsRequired = true, Length = "[0,30]", Descript = "站点显示的名称")]
+        [FormField("Name", Group = "basic", Text = "站点名称", IsRequired = true, Length = "[0,30]", Descript = "站点显示的名称")]
         public string Name { get; set; }
 
         /// <summary>
