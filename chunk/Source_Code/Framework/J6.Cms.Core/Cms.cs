@@ -132,9 +132,13 @@ namespace J6.Cms
             PyhicPath = AppDomain.CurrentDomain.BaseDirectory;
 
             //获取编译生成的时间
-            Version ver=typeof(Cms).Assembly.GetName().Version;
             //DateTime builtDate = new DateTime(2000, 1, 1).AddDays(ver.Build).AddSeconds(ver.Revision*2);
-            DateTime builtDate = File.GetLastWriteTime(typeof(Cms).Assembly.Location);
+            string filePath = typeof (Cms).Assembly.Location;
+            if (String.IsNullOrEmpty(filePath))
+            {
+                filePath = PyhicPath + CmsVariables.FRAMEWORK_ASSEMBLY_PATH + "j6.cms.dll";
+            }
+            DateTime builtDate = File.GetLastWriteTime(filePath);
             BuiltTime = DateHelper.ToUnix(builtDate);
 
             //获取平台
