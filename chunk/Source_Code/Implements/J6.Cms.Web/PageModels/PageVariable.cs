@@ -4,6 +4,7 @@ using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.Core;
 using J6.Cms.Domain.Interface.Enum;
+using J6.Cms.Infrastructure;
 
 namespace J6.Cms.Web
 {
@@ -23,6 +24,9 @@ namespace J6.Cms.Web
         private readonly CmsContext _context;
         private string _resDomain;
         static readonly String IeHtml5ShivTag;
+        private string _spam;
+        private string _built;
+        private static string _currentBuilt;
 
         static PageVariable()
         {
@@ -51,10 +55,34 @@ namespace J6.Cms.Web
             }
         }
 
+        [TemplateVariableField("生成标签")]
+        public string Built
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(this._built))
+                {
+                    this._built = _currentBuilt ?? Cms.BuiltTime.ToString().Substring(8);
+                }
+                return this._built;
+            }
+        }
+
+        public static void ResetBuilt()
+        {
+            String built = DateHelper.ToUnix(DateTime.Now).ToString().Substring(8);
+            PageVariable._currentBuilt = built;
+        }
+
         [TemplateVariableField("当前地址")]
         public string Url
         {
             get { return _context.Request.RawUrl; }
+        }
+
+        public string Spam
+        {
+            get { return this._spam; }
         }
 
         /// <summary>

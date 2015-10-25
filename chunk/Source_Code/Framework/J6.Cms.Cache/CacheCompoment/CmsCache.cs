@@ -59,12 +59,11 @@ namespace J6.Cms.Cache.CacheCompoment
 
             using (FileStream fs = new FileStream(_cacheDependFile, FileMode.OpenOrCreate, FileAccess.Write))
             {
-                byte[] pid = Encoding.UTF8.GetBytes(new Random().Next(1000, 5000).ToString());
+                byte[] pid = Encoding.UTF8.GetBytes(new Random().Next(100000, 500000).ToString());
                 fs.Seek(0, SeekOrigin.Begin);
                 fs.Write(pid, 0, pid.Length);
                 fs.Flush();
             }
-
             return  IoUtil.GetFileSha1(_cacheDependFile);
             
             //FileInfo file = new FileInfo(cacheDependFile);

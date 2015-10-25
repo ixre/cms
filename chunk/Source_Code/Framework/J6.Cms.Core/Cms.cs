@@ -36,7 +36,7 @@ namespace J6.Cms
         /// <summary>
         /// 最后生成时间
         /// </summary>
-        //public static readonly DateTime BuiltTime;
+        public static long BuiltTime;
 
         /// <summary>
         /// 是否为Mono平台
@@ -130,10 +130,12 @@ namespace J6.Cms
         {
             Version = CmsVariables.VERSION;
             PyhicPath = AppDomain.CurrentDomain.BaseDirectory;
+
             //获取编译生成的时间
-            //Version ver=typeof(Cms).Assembly.GetName().Version;
-            //BuiltTime= new DateTime(2000, 1, 1).AddDays(ver.Build).AddSeconds(ver.Revision * 2);
-            //BuiltTime=System.IO.File.GetLastWriteTime(typeof(Cms).Assembly.Location);
+            Version ver=typeof(Cms).Assembly.GetName().Version;
+            //DateTime builtDate = new DateTime(2000, 1, 1).AddDays(ver.Build).AddSeconds(ver.Revision*2);
+            DateTime builtDate = File.GetLastWriteTime(typeof(Cms).Assembly.Location);
+            BuiltTime = DateHelper.ToUnix(builtDate);
 
             //获取平台
 
