@@ -60,7 +60,7 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 编辑文件
         /// </summary>
-        public void EditFile_GET()
+        public string EditFile_GET()
         {
             string path = Request["path"];
             string content,
@@ -74,7 +74,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             if (!file.Exists)
             {
-                Response.Write("文件不存在!"); return;
+                return "文件不存在!"; 
             }
             else
             {
@@ -96,35 +96,19 @@ namespace J6.Cms.Web.WebManager.Handle
             content = sr.ReadToEnd();
             sr.Dispose();
 
-            //base.RenderTemplate(ManagerResouces.tpl_editfile, new
-            //{
-            //    file=path,
-            //    content=content,
-            //    bakinfo=bakinfo
-            //});
 
+            content = content.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
+            ViewData["raw_content"] = content;
+            ViewData["bakinfo"] = bakinfo;
+            ViewData["file"] = path;
+            ViewData["path"] = path;
 
-            // Response.Write(ManagerResouces.tpl_editfile.Replace("${file}", path)
-            //    .Replace("${content}", content).Replace("${bakinfo}", bakinfo));
-
-            content = Regex.Replace(content, "&", "&amp;");
-            content = Regex.Replace(content, "<", "&lt;");
-            content = Regex.Replace(content, ">", "&gt;");
-
-            base.RenderTemplate(
-                BasePage.CompressHtml(ResourceMap.GetPageContent(ManagementPage.Template_EditFile)),
-                new
-                {
-                    file = path,
-                    content = content,
-                    bakinfo = bakinfo,
-                    path = path
-                });
+            return base.RequireTemplate(BasePage.CompressHtml(ResourceMap.GetPageContent(ManagementPage.Template_EditFile)));
         }
         public void EditFile_POST()
         {
             //修改系统文件
-            if (Request["path"].IndexOf("templates/") == -1 && Request["pwd"] != "$Newmin")
+            if (Request["path"].IndexOf("templates/", StringComparison.Ordinal) == -1 && Request["pwd"] != "$Newmin")
             {
                 Response.Write("不允许修改!"); return;
             }

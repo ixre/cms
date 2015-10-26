@@ -13,6 +13,7 @@
 
 using System;
 using System.IO;
+using System.Net.Mime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -122,13 +123,13 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <summary>
         /// 编辑文件
         /// </summary>
-        public void EditFile_GET()
+        public string EditFile_GET()
         {
             string path = Request["path"];
             string content,
                    bakinfo;
 
-            if (path.ToLower().IndexOf("config/cms.conf") != -1)
+            if (path.ToLower().IndexOf("config/cms.conf", StringComparison.Ordinal) != -1)
                 throw new ArgumentException();
 
             string mode = "html";
@@ -142,7 +143,6 @@ namespace J6.Cms.Web.WebManager.Handle
             switch (file.Extension.ToLower())
             {
                 case ".css": dependJs = "/framework/assets/coder/mode/css.js"; mode = "css"; break;
-
                 case ".conf":
                 case ".config":
                 case ".xml":
@@ -151,7 +151,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
             if (!file.Exists)
             {
-                Response.Write("文件不存在!"); return;
+               return "文件不存在!"; 
             }
             else
             {
@@ -170,30 +170,16 @@ namespace J6.Cms.Web.WebManager.Handle
             StreamReader sr = new StreamReader(file.FullName);
             content = sr.ReadToEnd();
             sr.Dispose();
+            content = content.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
 
-            //base.RenderTemplate(ManagerResouces.tpl_editfile, new
-            //{
-            //    file=path,
-            //    content=content,
-            //    bakinfo=bakinfo
-            //});
+            ViewData["bakinfo"] = bakinfo;
+            ViewData["file"] = path;
+            ViewData["mode"] = mode;
+            ViewData["dependJs"] = dependJs;
+            ViewData["path"] = path;
+            ViewData["raw_content"] = content;
 
-
-            // Response.Write(ManagerResouces.tpl_editfile.Replace("${file}", path)
-            //    .Replace("${content}", content).Replace("${bakinfo}", bakinfo));
-
-            content = Regex.Replace(content, "<", "&lt;");
-            content = Regex.Replace(content, ">", "&gt;");
-
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.File_Edit), new
-            {
-                file = path,
-                mode = mode,
-                dependJs = dependJs,
-                content = content,
-                bakinfo = bakinfo,
-                path = path
-            });
+            return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.File_Edit));
         }
 
         public void EditFile_POST()

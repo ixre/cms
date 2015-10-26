@@ -142,7 +142,6 @@ namespace J6.Cms
             BuiltTime = DateHelper.ToUnix(builtDate);
 
             //获取平台
-
             Int32 platFormId = (Int32)Environment.OSVersion.Platform;
             if (platFormId == 4 || platFormId == 6 || platFormId == 128)
             {

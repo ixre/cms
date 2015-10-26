@@ -65,7 +65,8 @@ namespace J6.Cms.WebManager
 
         internal static string ReplaceHtml(string html, string tagKey, string tagValue)
         {
-            return Regex.Replace(html, "\\${" + tagKey + "}", tagValue, RegexOptions.IgnoreCase);
+           
+            return html.Replace("${" + tagKey + "}", tagValue);
         }
 
         internal static string CompressHtml(string html)
