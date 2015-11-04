@@ -21,7 +21,6 @@ namespace J6.Cms.ServiceRepository
         {
 
             this._tempRep = tempRep;
-
             siteContents = new Dictionary<int, IContentContainer>();
         }
 

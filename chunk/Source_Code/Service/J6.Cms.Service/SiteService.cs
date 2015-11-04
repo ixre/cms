@@ -313,15 +313,22 @@ namespace J6.Cms.Service
             int rootLft = site.RootCategory.Lft;
             ICategory category = site.GetCategoryByTag(categoryTag);
 
-            string html = "";
+            if (linkFormat.EndsWith("/")) linkFormat = linkFormat.Substring(0, linkFormat.Length - 1);
             StringBuilder sb = new StringBuilder();
             int tmpInt = 0;
 
             while (category != null && category.Lft != rootLft)
             {
-                sb.Remove(0, sb.Length);
+               // sb.Remove(0, sb.Length);
 
-                sb.Append("<a href=\"");
+
+                //添加分隔符
+                if (tmpInt != 0)
+                {
+                    sb.Append(split);
+                }
+
+                sb.Append("<a class=\"l").Append((tmpInt+1).ToString()).Append("\" href=\"");
                 if (!String.IsNullOrEmpty(category.Location))
                 {
                     if (category.Location.IndexOf("//", StringComparison.Ordinal) != -1)
@@ -330,15 +337,14 @@ namespace J6.Cms.Service
                     }
                     else
                     {
-                        string path = category.Location;
-                        if (path.StartsWith("/")) path = path.Substring(1);
-                        if (path.EndsWith("/")) path = path.Substring(0, path.Length - 1);
-                        sb.Append(String.Format(linkFormat, path));
+                        if (category.Location.StartsWith("/")) category.Location = category.Location.Substring(1);
+                        string path = String.Format(linkFormat, category.Location);
+                        sb.Append(path);
                     }
                 }
                 else
                 {
-                    sb.Append(String.Format(linkFormat, category.UriPath));
+                    sb.Append(String.Format(linkFormat, category.UriPath)).Append("/");
                 }
                 sb.Append("\"");
 
@@ -350,18 +356,10 @@ namespace J6.Cms.Service
                 sb.Append(">").Append(category.Name).Append("</a>");
 
 
-                //添加分隔符
-                if (tmpInt != 1)
-                {
-                    sb.Append(split);
-                }
-
-                html = sb.ToString() + html;
 
                 category = category.Parent;
             }
-
-            return html;
+            return sb.ToString();
         }
 
 
