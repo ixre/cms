@@ -316,17 +316,11 @@ namespace J6.Cms.Service
             if (linkFormat.EndsWith("/")) linkFormat = linkFormat.Substring(0, linkFormat.Length - 1);
             StringBuilder sb = new StringBuilder();
             int tmpInt = 0;
+            String html = "";
 
             while (category != null && category.Lft != rootLft)
             {
-               // sb.Remove(0, sb.Length);
-
-
-                //添加分隔符
-                if (tmpInt != 0)
-                {
-                    sb.Append(split);
-                }
+              
 
                 sb.Append("<a class=\"l").Append((tmpInt+1).ToString()).Append("\" href=\"");
                 if (!String.IsNullOrEmpty(category.Location))
@@ -355,11 +349,18 @@ namespace J6.Cms.Service
                 }
                 sb.Append(">").Append(category.Name).Append("</a>");
 
+                //添加分隔符
+                if (tmpInt > 1)
+                {
+                    sb.Append(split);
+                }
 
+                html = sb.ToString() + html;
+                sb.Remove(0, sb.Length);
 
                 category = category.Parent;
             }
-            return sb.ToString();
+            return html;
         }
 
 
