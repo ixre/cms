@@ -1347,7 +1347,7 @@ namespace J6.Cms.Template
                 int moduleID = int.Parse(id);
                 if (CmsLogic.Module.GetModule(moduleID) != null)
                 {
-                    ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level) =>
+                    ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level,isLast) =>
                     {
                         if (!onlyRoot || (onlyRoot && level == 0))
                         {

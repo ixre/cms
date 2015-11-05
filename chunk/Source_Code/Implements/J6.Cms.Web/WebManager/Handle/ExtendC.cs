@@ -40,10 +40,10 @@ namespace J6.Cms.Web.WebManager.Handle
         /// <returns></returns>
         public void Category_Check_GET()
         {
-            int categoryLft = int.Parse(base.Request["lft"]);
+            int categoryId = int.Parse(base.Request["category_id"]);
             IList<int> extendIds = new List<int>();
             IList<ExtendFieldDto> list = ExtendFieldCacheManager.GetExtendFields(base.CurrentSite.SiteId);
-            CategoryDto category = ServiceCall.Instance.SiteService.GetCategoryByLft(this.SiteId, categoryLft);
+            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
 
             foreach (IExtendField extend in category.ExtendFields)
             {
@@ -70,7 +70,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
         public string Category_Check_POST()
         {
-            int categoryLft = int.Parse(base.Request["lft"]);
+            int categoryId = int.Parse(base.Request["category_id"]);
             string extendIdstr = base.Request["extendIds"];
 
             int[] extendIds = null;
@@ -82,9 +82,8 @@ namespace J6.Cms.Web.WebManager.Handle
                 , a => int.Parse(a));
             }
 
-            CategoryDto category = ServiceCall.Instance.SiteService.GetCategoryByLft(
-                this.SiteId,
-                categoryLft);
+            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(
+                this.SiteId, categoryId);
 
             //重新设置扩展信息
             category.ExtendFields = new List<IExtendField>();

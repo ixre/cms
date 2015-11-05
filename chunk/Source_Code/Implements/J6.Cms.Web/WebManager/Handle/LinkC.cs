@@ -235,7 +235,7 @@ namespace J6.Cms.Web.WebManager.Handle
             ViewData["entity"] = json;
             ViewData["link_type"] = (int)type;
             ViewData["form_title"] = "创建" + linkTypeName;
-            ViewData["category_opts"] = this.GetCategorySelector(this.SiteId, -1);
+            ViewData["category_opts"] = Helper.GetCategoryIdSelector(this.SiteId, -1);
             ViewData["parent_opts"] = plinks;
             ViewData["site_id"] = siteId;
 
@@ -350,7 +350,7 @@ namespace J6.Cms.Web.WebManager.Handle
             ViewData["entity"] = json;
             ViewData["link_type"] = (int) link.Type;
             ViewData["form_title"] = "修改" + linkTypeName;
-            ViewData["category_opts"] = this.GetCategorySelector(this.SiteId, -1);
+            ViewData["category_opts"] = Helper.GetCategoryIdSelector(this.SiteId, -1);
             ViewData["parent_opts"] = plinks;
             ViewData["site_id"] = siteId;
 
@@ -442,30 +442,6 @@ namespace J6.Cms.Web.WebManager.Handle
             base.RenderSuccess();
         }
 
-        private string GetCategorySelector(int siteId, int categoryId)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level) =>
-            {
-                if (c.Site.Id != siteId) return;
-
-                sb.Append("<option value=\"").Append(c.Id.ToString()).Append("\"");
-
-
-                sb.Append(c.Id == categoryId ? " selected=\"selected\"" : "").Append(">");
-
-
-                for (int i = 0; i < level; i++)
-                {
-                    sb.Append(CmsCharMap.Dot);
-                }
-
-                sb.Append(c.Name).Append("</option>");
-
-            });
-            return sb.ToString();
-        }
 
 
         public string Related_link_GET()

@@ -38,7 +38,7 @@ namespace J6.Cms.Web.WebManager.Handle
             IList<CategoryDto> categories = new List<CategoryDto>();
 
             //根节点
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level) =>
+            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level, isLast) =>
              {
                  CategoryDto dto = CategoryDto.ConvertFrom(c);
 
@@ -79,7 +79,6 @@ namespace J6.Cms.Web.WebManager.Handle
                       categoryTplOpts;
 
             StringBuilder sb = new StringBuilder();
-            int siteID = base.CurrentSite.SiteId;
 
             //当前站点
             var site = base.CurrentSite;
@@ -96,21 +95,10 @@ namespace J6.Cms.Web.WebManager.Handle
             categoryTypeOptions = sb.ToString();
             sb.Remove(0, sb.Length);
             */
+            int parentId;
+            int.TryParse(Request["parent_id"], out parentId);
 
-            //加载栏目
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (category, level) =>
-            {
-                sb.Append("<option value=\"").Append(category.Lft.ToString()).Append("\">");
-                for (var i = 0; i < level; i++)
-                {
-                    sb.Append(CmsCharMap.Dot);
-                }
-                sb.Append(category.Name).Append("</option>");
-
-            });
-
-            categoryOptions = sb.ToString();
-
+            categoryOptions = Helper.GetCategoryIdSelector(this.SiteId, parentId);
 
 
             //获取模板视图下拉项
@@ -118,22 +106,20 @@ namespace J6.Cms.Web.WebManager.Handle
 
             //模板目录
             DirectoryInfo dir = new DirectoryInfo(
-                String.Format("{0}templates/{1}",
-                AppDomain.CurrentDomain.BaseDirectory,
-                Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
+                String.Format("{0}templates/{1}", AppDomain.CurrentDomain.BaseDirectory, site.Tpl
                 ));
 
-            EachClass.EachTemplatePage(dir, dir,sb, TemplatePageType.Archive);
+            EachClass.EachTemplatePage(dir, dir, sb, TemplatePageType.Archive);
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir,dir, sb, TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir, dir, sb, TemplatePageType.Category);
             categoryTplOpts = sb.ToString();
 
             object entity = new
             {
-                ParentLft = Request["lft"]
+                ParentId = Request["parent_id"]
             };
 
             object data = new
@@ -154,15 +140,24 @@ namespace J6.Cms.Web.WebManager.Handle
             var form = HttpContext.Current.Request.Form;
 
 
-            string parentLft = form["parentLft"];
+            string parentStrId = form["parentId"];
 
-            int _parentLft;//, t;
-            int.TryParse(parentLft, out _parentLft);
+            int parentId;//, t;
+            int.TryParse(parentStrId, out parentId);
             //int.TryParse(moduleID, out t);
 
             CategoryDto category = InitCategoryDtoFromHttpPost(form, new CategoryDto());
+            CategoryDto parentCategory = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, parentId);
+            if (parentCategory.Id == 0)
+            {
+                parentCategory.Lft = 1;
+            }
 
             //已经存在相同Tag的栏目
+            if (String.IsNullOrEmpty(category.Tag))
+            {
+                return base.ReturnError("标签不能为空");
+            }
             if (!ServiceCall.Instance.SiteService
                 .CheckCategoryTagAvailable(this.SiteId, -1, category.Tag))
             {
@@ -170,12 +165,9 @@ namespace J6.Cms.Web.WebManager.Handle
             }
 
             int categoryId = ServiceCall.Instance.SiteService
-                .SaveCategory(this.SiteId, _parentLft, category);
+                .SaveCategory(this.SiteId, parentCategory.Lft, category);
 
-            int categoryLeft = ServiceCall.Instance.SiteService.
-                GetCategory(this.SiteId, categoryId).Lft;
-
-            return base.ReturnSuccess(null, categoryLeft.ToString());
+            return base.ReturnSuccess(null, categoryId.ToString());
         }
 
         private static CategoryDto InitCategoryDtoFromHttpPost(NameValueCollection form, CategoryDto category)
@@ -217,26 +209,24 @@ namespace J6.Cms.Web.WebManager.Handle
         {
             string categoryOptions,             //栏目下拉列表
                       categoryTypeOptions,     //栏目类型下拉列表
-                      categoryTpl,
-                      archiveTpl,
+                archiveTpl,
                       archiveTplOpts,
                       categoryTplOpts;
 
             StringBuilder sb = new StringBuilder();
 
             //获取栏目
-            int leftID = int.Parse(base.Request["lft"]);
-            CategoryDto category = ServiceCall.Instance.SiteService.GetCategoryByLft(this.SiteId, leftID);
+            int categoryId = int.Parse(base.Request["category_id"]);
+            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
 
 
             //检验站点
             if (!(category.Id > 0)) return;
 
             //获取父栏目pleft
-            int pleft = 1;
+            int pId = 0;
             CategoryDto pc = ServiceCall.Instance.SiteService.GetParentCategory(this.SiteId, category.Lft);
-
-            if (pc.Id > 0) pleft = pc.Lft;
+            if (pc.Id > 0) pId = pc.Id;
 
             /*
             //加载模块
@@ -253,11 +243,11 @@ namespace J6.Cms.Web.WebManager.Handle
             */
 
             //加载栏目(排除当前栏目)
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level) =>
+            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level, isLast) =>
             {
-                if (c.Lft != leftID)
+                if (c.Lft != categoryId)
                 {
-                    sb.Append("<option value=\"").Append(c.Lft.ToString()).Append("\">");
+                    sb.Append("<option value=\"").Append(c.Id.ToString()).Append("\">");
                     for (var i = 0; i < level; i++)
                     {
                         sb.Append(CmsCharMap.Dot);
@@ -280,17 +270,17 @@ namespace J6.Cms.Web.WebManager.Handle
                 Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
                 ));
 
-            EachClass.EachTemplatePage(dir,dir, sb, TemplatePageType.Archive);
+            EachClass.EachTemplatePage(dir, dir, sb, TemplatePageType.Archive);
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, dir,sb, TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir, dir, sb, TemplatePageType.Category);
             categoryTplOpts = sb.ToString();
 
 
             //获取栏目及文档模板绑定
-            categoryTpl = String.IsNullOrEmpty(category.CategoryTemplate) ? "" : category.CategoryTemplate;
+            var categoryTpl = String.IsNullOrEmpty(category.CategoryTemplate) ? "" : category.CategoryTemplate;
             archiveTpl = String.IsNullOrEmpty(category.CategoryArchiveTemplate) ? "" : category.CategoryArchiveTemplate;
 
             object data = new
@@ -299,7 +289,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 url = base.Request.RawUrl,
                 categories = categoryOptions,
                 //categoryTypes = categoryTypeOptions,
-                parentLft = pleft,
+                parentId = pId,
                 categoryTplPath = categoryTpl,
                 archiveTplPath = archiveTpl,
                 category_tpls = categoryTplOpts,
@@ -326,7 +316,12 @@ namespace J6.Cms.Web.WebManager.Handle
             category = InitCategoryDtoFromHttpPost(form, category);
 
             //更改了categoryTag则检验,区分大小写
-            if (String.Compare(categoryTag, category.Tag,false,CultureInfo.InvariantCulture) != 0)
+            if (String.IsNullOrEmpty(category.Tag))
+            {
+                return base.ReturnError("标签不能为空");
+            }
+
+            if (String.Compare(categoryTag, category.Tag, false, CultureInfo.InvariantCulture) != 0)
             {
                 if (!ServiceCall.Instance.SiteService.CheckCategoryTagAvailable(
                     this.SiteId,

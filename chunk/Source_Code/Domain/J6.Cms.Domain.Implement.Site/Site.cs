@@ -515,8 +515,11 @@ namespace J6.Cms.Domain.Implement.Site
             //获取root节点的所有子节点
             IEnumerable<ICategory> childNodes = this.GetCategories(root.Lft, root.Rgt, CategoryContainerOption.Childs);
             /* SELECT * FROM tree WHERE lft BETWEEN @rootLft AND @rootRgt ORDER BY lft ASC'); */
+            int tmpInt = 0;
+            var categories = childNodes as ICategory[] ?? childNodes.ToArray();
+            int totalInt = categories.Count();
 
-            foreach (ICategory c in childNodes)
+            foreach (ICategory c in categories)
             {
                 if (arr.Count > 0)
                 {
@@ -531,7 +534,7 @@ namespace J6.Cms.Domain.Implement.Site
 
 
                 //树的层级= 列表arr的数量
-                treeHandler(c, arr.Count);
+                treeHandler(c, arr.Count,++tmpInt ==totalInt );
 
                 //把所有栏目的右值,再加入到列表中
                 arr.Add(c.Rgt);

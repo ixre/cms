@@ -69,7 +69,7 @@ namespace J6.Cms.Web.WebManager.Handle
             DirectoryInfo dir = new DirectoryInfo(
                 String.Format("{0}templates/{1}",
                 AppDomain.CurrentDomain.BaseDirectory,
-                Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
+                base.CurrentSite.Tpl + "/"
                 ));
 
             EachClass.EachTemplatePage(
@@ -86,28 +86,7 @@ namespace J6.Cms.Web.WebManager.Handle
             //获取该模块栏目JSON数据
             //categoryJSON = CmsLogic.Category.GetJson(m.ID);
 
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (_category, level) =>
-            {
-                sb2.Append("<option value=\"").Append(_category.Id.ToString()).Append("\"");
-
-                if (_category.Id == category.Id)
-                {
-                    sb2.Append(" selected=\"selected\"");
-                }
-
-                sb2.Append(">");
-
-
-                for (int i = 0; i < level; i++)
-                {
-                    sb2.Append(CmsCharMap.Dot);
-                }
-
-                sb2.Append(_category.Name).Append("</option>");
-
-
-            });
-            nodesHtml = sb2.ToString();
+            nodesHtml = Helper.GetCategoryIdSelector(this.SiteId, categoryId);
 
 
             //=============  拼接模块的属性值 ==============//
@@ -268,7 +247,7 @@ namespace J6.Cms.Web.WebManager.Handle
             DirectoryInfo dir = new DirectoryInfo(
                 String.Format("{0}templates/{1}",
                 AppDomain.CurrentDomain.BaseDirectory,
-                Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
+                base.CurrentSite.Tpl + "/"
                 ));
 
             EachClass.EachTemplatePage(dir, dir,
@@ -278,32 +257,8 @@ namespace J6.Cms.Web.WebManager.Handle
                 );
 
             tpls = sb2.ToString();
-            sb2.Remove(0, sb2.Length);
 
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (_category, level) =>
-            {
-                sb2.Append("<option value=\"").Append(_category.Id.ToString()).Append("\"");
-
-                //if (_category.ModuleID != category.ModuleID)
-                //{
-                //    sb2.Append(" disabled=\"disabled\" class=\"disabled\"");
-                //}
-
-
-                sb2.Append(_category.Id == categoryId ? " selected=\"selected\"" : "").Append(">");
-
-
-                for (int i = 0; i < level; i++)
-                {
-                    sb2.Append(CmsCharMap.Dot);
-                }
-
-                sb2.Append(_category.Name).Append("</option>");
-
-
-
-            });
-            nodesHtml = sb2.ToString();
+            nodesHtml = Helper.GetCategoryIdSelector(this.SiteId, categoryId);
 
             //标签
             Dictionary<string, bool> flags = ArchiveFlag.GetFlagsDict(archive.Flags);

@@ -11,6 +11,7 @@
 
 using J6.Cms.BLL;
 using J6.Cms.CacheService;
+using J6.Cms.Conf;
 using J6.DevFw.Framework;
 using J6.DevFw.Framework.Web.UI;
 
@@ -220,6 +221,67 @@ namespace J6.Cms.WebManager
         		return String.Concat(match.Groups[1].Value,"/.backup/",match.Groups[3].Value);
         	}
         	return filePath;
+        }
+
+        public static string GetCategoryDropOptions(int siteId,int sameLftId)
+        {
+            StringBuilder sb = new StringBuilder();
+            //加载栏目
+            ServiceCall.Instance.SiteService.HandleCategoryTree(siteId, 1, (category, level, isLast) =>
+            {
+                //if (sameLftId < 0 || category.Lft != sameLftId)
+                //{
+                    sb.Append("<option value=\"").Append(category.Lft.ToString()).Append("\">");
+                    for (var i = 0; i < level; i++)
+                    {
+                        sb.Append(CmsCharMap.Dot);
+                    }
+                    sb.Append(category.Name).Append("</option>");
+                //}
+            });
+
+            return sb.ToString();
+        }
+
+
+        public static String GetCategoryIdSelector(int siteId, int categoryId)
+        {
+            StringBuilder sb = new StringBuilder();
+            //加载栏目
+            ServiceCall.Instance.SiteService.HandleCategoryTree(siteId, 1, (category, level, isLast) =>
+            {
+                sb.Append("<option class=\"").Append("level_").Append(level.ToString());
+                if (isLast)
+                {
+                    sb.Append(" last");
+                }
+                sb.Append("\" value=\"").Append(category.Id.ToString()).Append("\"");
+
+                if (category.Id == categoryId)
+                {
+                    sb.Append(" selected=\"selected\"");
+                }
+
+                sb.Append(">");//.Append(isLast ? "└" : "├");
+
+
+                for (int i = 0; i < level; i++)
+                {
+                    sb.Append(CmsCharMap.Connect);
+//                    if (i == 0 || i == level - 1)
+//                    {
+//                        sb.Append("─");
+//                    }
+//                    else
+//                    {
+//                        sb.Append("├");
+//                    }
+                }
+
+                sb.Append(" ").Append(category.Name).Append("</option>");
+            });
+
+            return sb.ToString();
         }
     }
 }

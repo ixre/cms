@@ -6,7 +6,7 @@ namespace J6.Cms.Conf
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="1.2.18";
+        public const string VERSION="1.2.22";
 
         /// <summary>
         /// 框架目录
@@ -82,5 +82,6 @@ namespace J6.Cms.Conf
     public static class CmsCharMap
     {
         public const string Dot = "・";
+        public static char Connect = '-';
     }
 }

@@ -15,7 +15,7 @@
                     <dt>上级栏目：</dt>
                     <dd>
                         <span class="input">
-                            <select field="ParentLft" class="tb_normal ui-box">
+                            <select field="ParentId" class="tb_normal ui-box">
                                 <option value="1" style="color: Red">一根目录一</option>
                                 ${categories}
                             </select>
@@ -34,7 +34,7 @@
                     <dt><span class="red">*</span>栏目标识：</dt>
                     <dd>
                         <input type="text" class="tb_normal ui-box ui-validate" field="Tag" id="tag" size="20"/><span class="ui-button w80 middle-button" summary="{required:'不能为空',strerr:'长度为50位以下的字母，数字，下划线和连接线的组合'}">
-                            <span class=" button-inner">
+                            <span class="button-inner">
                                 <span class="button-txt">自动标识</span>
                                 <a href="javascript:;"></a>
                             </span>
@@ -211,7 +211,7 @@
                      function (json) {
                          if (json.result) {
                              if (window._reloadTree) window._reloadTree(0);
-                             j6.load2('pl', 'category', 'update', 'lft=' + json.data);
+                             j6.load2('pl', 'category', 'update', 'category_id=' + json.data);
                             showMsg2(json.message);
                          } else {
                             showErr(json.message);

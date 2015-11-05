@@ -14,7 +14,7 @@
                         <dt>上级栏目：</dt>
                         <dd>
                             <span class="input">
-                                <select field="ParentLft" class="tb_normal ui-box">
+                                <select field="ParentId" class="tb_normal ui-box">
                                     <option value="1" style="color:Red">一根目录一</option>
                                     ${categories}
                                 </select>
@@ -139,7 +139,7 @@
 
     <script type="text/javascript">
         var entity = ${entity} ||{};
-        entity.ParentLft = ${parentLft};
+        entity.ParentId = ${parentId};
         entity.IsRedirect = (entity.Location||'').length!=0;
         j6.json.bind('form1',entity);
 

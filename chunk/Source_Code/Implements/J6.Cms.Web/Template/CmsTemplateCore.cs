@@ -2495,7 +2495,7 @@ namespace J6.Cms.Template
 
 
             StringBuilder sb = new StringBuilder(600);
-            CategoryTreeHandler treeHandler = (_category, _level) =>
+            CategoryTreeHandler treeHandler = (_category, _level, isLast) =>
             {
                 /*
                 if (isModule)

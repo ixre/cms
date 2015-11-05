@@ -72,9 +72,9 @@ namespace sp.datapicker
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("<select id=\"categoryselect\" name=\"category\">");
+            sb.Append("<select id=\"categoryselect\" name=\"category\" class=\"ui-box\">");
             sb.Append("<option value=\"-1\">一 选择栏目 一</option>");
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.siteId, 1, (c, level) =>
+            ServiceCall.Instance.SiteService.HandleCategoryTree(this.siteId, 1, (c, level,isLast) =>
             {
                 sb.Append("<option value=\"").Append(c.Id.ToString()).Append("\">");
 
@@ -82,7 +82,7 @@ namespace sp.datapicker
                 {
                     sb.Append(CmsCharMap.Dot);
                 }
-                sb.Append(c.Name).Append("</option>");
+                sb.Append(" ").Append(c.Name).Append("</option>");
             });
 
 

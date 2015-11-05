@@ -87,8 +87,8 @@
     var treeObj = null;
     var tmpTpl = j6.$('tpl').innerHTML;
     function _showCategory(e, d, t) {
-        var id = j6.toJson(d).lft;
-        j6.load2('pl', 'category', 'update', 'lft=' + id);
+        var id = j6.toJson(d).cid;
+        j6.load2('pl', 'category', 'update', 'category_id=' + id);
     }
 
     //加载栏目树
@@ -108,7 +108,7 @@
                             : document.getElementsByClassName('node', e);
 
                         if (nodeLinks.length != 0) {
-                            var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).lft;
+                            var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).cid;
                             e.title = '更多功能点击鼠标右键';
                             j6.contextmenu.bind(e, null, function (menu) {
                                 menu.innerHTML = j6.template(tmpTpl, { id: id });
@@ -133,7 +133,7 @@
     
     //创建
     Fn.create = function (id) {
-        j6.load2('pl', 'category', 'create', id?'lft='+id:'');
+        j6.load2('pl', 'category', 'create', id?'parent_id='+id:'');
     };
 
 
@@ -142,7 +142,7 @@ window.menu = {
     refresh: _reloadTree,
     extend: function(id) {
         var d = j6.dialog.create2('扩展属性', true, true);
-        d.open('?module=extend&action=category_check&lft=' + id, 500, 400);
+        d.open('?module=extend&action=category_check&category_id=' + id, 500, 300);
 
     },
     del: function(id) {
