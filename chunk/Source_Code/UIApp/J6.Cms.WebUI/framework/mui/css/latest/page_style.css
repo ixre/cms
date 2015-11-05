@@ -75,7 +75,7 @@ select.tb_normal{width:200px;padding:1px 3px;overflow:hidden;
 textarea.code{font-size:14px;line-height:20px;color:black;overflow-y:auto;border:none;}
 textarea.singlerow{line-height:20px;height:20px;}
 input.button {box-shadow: none;border-radius:0;background:#006699;color:#fff;border:solid 1px #fff;margin-right:5px;}
-select.ui-box option{line-height: 120%;color:#666;padding:2px 2px;border-top:solid 1px #F0F0F0;border-bottom:solid 1px #BBB;}
+select.ui-box option.level{line-height: 120%;color:#666;padding:2px 2px;border-top:solid 1px #F0F0F0;border-bottom:solid 1px #BBB;}
 select.ui-box .level_0{background:#E0E0E0;color:#06C;}
 select.ui-box .level_1{background:#FFA;color:#06c;border-top-color:#FFF;border-bottom-color:#FE0;}
 select.ui-box .level_2{background:#FFF;color:#666;border-bottom:none;}

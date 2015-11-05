@@ -250,7 +250,7 @@ namespace J6.Cms.WebManager
             //加载栏目
             ServiceCall.Instance.SiteService.HandleCategoryTree(siteId, 1, (category, level, isLast) =>
             {
-                sb.Append("<option class=\"").Append("level_").Append(level.ToString());
+                sb.Append("<option class=\"").Append("level level_").Append(level.ToString());
                 if (isLast)
                 {
                     sb.Append(" last");

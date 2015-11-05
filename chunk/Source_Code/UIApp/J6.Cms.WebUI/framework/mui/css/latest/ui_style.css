@@ -30,8 +30,8 @@ dd,dt{margin:0;}
 .page-top .top-ctrl{position:absolute;top:2.5em;left:50%;right:0;margin:0 auto;width:600px;z-index:0;margin-left:-300px;/*兼容IE6 Position居中*/}
 .page-top .top-ctrl .site_selector{float:left;line-height:2em;margin:3px 1.5em 0 0;
     box-shadow: 0 1px 0 rgba(255,255, 255,0.15), inset 0 1px 0 rgba(255, 255, 255,0.5);}
-.page-top .top-ctrl .site_selector select{border:none;background:transparent;font-size:12px;overflow:hidden;color:#666;}
-.page-top .top-ctrl .site_selector select option{background:#FFF;color:#000;}
+.page-top .top-ctrl .site_selector select{border:none;background:transparent;font-size:12px;overflow:hidden;color:#06c;font-weight:bold;}
+.page-top .top-ctrl .site_selector select option{background:#FFF;color:#000;font-weight:normal}
 .page-top ul.icon-ctrl{margin:2px 0 0 0;padding:0;list-style:none;height:100%;vertical-align:middle;height:34px;}
 .page-top ul.icon-ctrl li{float:left;margin-right:1.5em;text-align:center;position:relative;border:solid 1px transparent;}
 .page-top ul.icon-ctrl li.first{/*background:none;*/}
