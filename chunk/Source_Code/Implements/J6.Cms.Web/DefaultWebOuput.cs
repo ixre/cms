@@ -57,27 +57,6 @@ namespace J6.Cms.Web
             if (!context.CheckAndSetClientCache()) return;
 
             SiteDto site = context.CurrentSite;
-
-            //跳转
-            if (!String.IsNullOrEmpty(site.Location))
-            {
-                //string url;
-                //if (Regex.IsMatch(archive.Location, "^http://", RegexOptions.IgnoreCase))
-                //{
-                //    url = archive.Location;
-                //}
-                //else
-                //{
-                //    if (archive.Location.StartsWith("/")) throw new Exception("URL不能以\"/\"开头!");
-                //    url = String.Concat(context.SiteDomain, site.Location);
-                //}
-
-                context.Response.Redirect(site.Location, true);  //302
-
-                return;
-            }
-
-
         	int siteId=site.SiteId;
         	string cacheId=String.Concat("cms_s",siteId.ToString(),"_index_page");
         	

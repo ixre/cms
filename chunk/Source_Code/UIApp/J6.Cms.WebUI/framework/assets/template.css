@@ -48,6 +48,9 @@ vertical-align: middle;	 text-indent:-999em;}
 .page-navigator .child .menu li{padding:0;float:none;background:none;}
 .page-navigator .child .menu li.first{border-top:none;}
 .page-navigator .child .menu li.last{border-bottom:none;}
+.page-navigator .navs li.parent a:hover{color:#333;}
+.page-navigator .navs li.parent .child a{color:#333;}
+.page-navigator .navs li.parent .child a:hover{color:#FF0000;}
 
 /** flash player **/
 .flash-panel{ margin: 0;}
@@ -64,7 +67,7 @@ vertical-align: middle;	 text-indent:-999em;}
 .page-main .side,.page-main .main{padding-bottom:1000px;margin-bottom:-1000px;}
 
 /* 页脚 */
-.page-footer{width:auto;}
+footer,.page-footer{width:auto;}
 
 /* 分页 */
 .pager{font-size:120%;text-align:right;margin:10px auto;line-height:40px;}
@@ -100,3 +103,8 @@ text-indent: 2em;}
 .drop{position: relative;}
 .drop div.menu{position:absolute;top:0px;left:0px;z-index:100;display:none;}
 .drop:hover div.menu,.hover div.menu{display:block;}
+
+/* Table*/
+table{border-right:solid 1px #ddd;border-bottom:solid 1px #ddd;}
+table td {border-left:solid 1px #ddd;border-top:solid 1px #ddd;padding:0.5em 1em;line-height:150%;background:#FEFEFE;}
+table td.tit,table th{background:#39C;color:#FFF;}

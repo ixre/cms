@@ -91,6 +91,17 @@ namespace J6.Cms.Web.Mvc
              
             if (!this.CheckSiteUrl()) return;
 
+            
+            SiteDto site = Cms.Context.CurrentSite;
+
+            //跳转
+            if (!String.IsNullOrEmpty(site.Location) && Request.Url != null 
+                && Request.Url.Query.Length ==0)
+            {
+                Response.Redirect(site.Location, true);  //302
+                return;
+            }
+
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
