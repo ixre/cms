@@ -103,7 +103,7 @@ namespace J6.Cms
             }
 
             Stream rspStream;
-            if (rsp == null || (rspStream = rsp.GetResponseStream()) == null)
+            if (rsp == null || rsp.ContentLength <= 0 || (rspStream = rsp.GetResponseStream()) == null)
             {
                 return -3;
             }
@@ -124,6 +124,8 @@ namespace J6.Cms
                 //有新版本
                 case HttpStatusCode.OK: break;// return 1;
             }
+
+ 
             byte[] xmlData = new byte[rsp.ContentLength];
             rspStream.Read(xmlData, 0, xmlData.Length);
 

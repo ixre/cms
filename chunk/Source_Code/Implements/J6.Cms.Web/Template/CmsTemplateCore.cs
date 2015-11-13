@@ -460,8 +460,8 @@ namespace J6.Cms.Template
                                 case "keywords": return c.Keywords;
                                 case "index": return i.ToString();
                                 case "class":
-                                    if (i == categories.Count - 1) return " class=\"last\"";
-                                    else if (i == 0) return " class=\"first\"";
+                                    if (i == categories.Count - 1) return "last";
+                                    else if (i == 0) return "first";
                                     return string.Empty;
                             }
                         }));
@@ -1353,10 +1353,11 @@ namespace J6.Cms.Template
 
                             case "description": return c.Description;
                             case "keywords": return c.Keywords;
+                            case "index":return  (i+1).ToString();
                             case "class":
-                                if (i == categories.Count - 1) return " class=\"last\"";
-                                else if (i == 0) return " class=\"first\"";
-                                return string.Empty;
+                                if (i == categories.Count - 1) return "c last";
+                                else if (i == 0) return "c first";
+                                return "c";
                         }
                     }));
                 }
@@ -1462,12 +1463,14 @@ namespace J6.Cms.Template
 
                         case "thumbnail": return this.GetThumbnailUrl(archiveDto.Thumbnail);
 
+                        case "index":  return (index+1).ToString();
+
                         // 项目顺序类
                         case "class":
                             if (dt == null || index < 0) return String.Empty;
-                            if (index == dt.Count() - 1) return " class=\"a last\"";
-                            else if (index == 0) return " class=\"a first\"";
-                            return String.Concat(" class=\"a a", index.ToString(), "\"");
+                            if (index == dt.Count() - 1) return "a last";
+                            else if (index == 0) return "a first";
+                            return String.Concat("a a", index.ToString());
 
                         //特性列表
                         case "prolist":
