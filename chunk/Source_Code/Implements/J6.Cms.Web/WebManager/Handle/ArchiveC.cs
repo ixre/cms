@@ -816,17 +816,15 @@ namespace J6.Cms.Web.WebManager.Handle
 
             if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
             {
-                fullDomain = Request.Url.Scheme + ":" + fullDomain.Replace("#", WebCtx.Current.Host);
+                fullDomain =  fullDomain.Replace("#", WebCtx.Current.Host);
             }
-            string url = fullDomain + archive.Url;
+            string url = Request.Url.Scheme + ":" + fullDomain + archive.Url;
 
 
             if (String.IsNullOrEmpty(archive.Outline))
             {
                 archive.Outline = ArchiveUtility.GetOutline(archive.Content, 100);
             }
-
-            //Cms.Context.SiteDomain
 
             object data = new
             {
