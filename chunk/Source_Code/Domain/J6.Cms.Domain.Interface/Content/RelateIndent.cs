@@ -13,7 +13,7 @@ namespace J6.Cms.Domain.Interface.Content
            this.SiteLimit = siteLimit;
            this.CategoryLimit = categoryLimit;
            this.Enabled = enabled;
-           if (this.CategoryLimit!=null && this.CategoryLimit !="*" &&( this.SiteLimit == "*" || this.SiteLimit ==" "))
+           if (this.CategoryLimit !=null && this.CategoryLimit !="*" &&( this.SiteLimit == "*" || this.SiteLimit ==" "))
            {
                throw new FormatException("Category limit need site limit first!");
            }

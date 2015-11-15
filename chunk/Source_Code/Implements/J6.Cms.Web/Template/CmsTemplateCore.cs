@@ -1470,7 +1470,7 @@ namespace J6.Cms.Template
                             if (dt == null || index < 0) return String.Empty;
                             if (index == dt.Count() - 1) return "a last";
                             else if (index == 0) return "a first";
-                            return String.Concat("a a", index.ToString());
+                            return String.Concat("a a", (index+1).ToString());
 
                         //特性列表
                         case "prolist":

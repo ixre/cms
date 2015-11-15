@@ -47,6 +47,7 @@ vertical-align: middle;	 text-indent:-999em;}
 .page-navigator .child .menu li{padding:0;float:none;background:none;}
 .page-navigator .child .menu li.first{border-top:none;}
 .page-navigator .child .menu li.last{border-bottom:none;}
+.page-navigator .navs li.parent:hover{ background: transparent;}
 .page-navigator .navs li.parent a:hover{color:#333;}
 .page-navigator .navs li.parent .child a{color:#333;}
 .page-navigator .navs li.parent .child a:hover{color:#FF0000;}
