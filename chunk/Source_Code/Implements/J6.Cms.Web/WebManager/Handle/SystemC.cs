@@ -17,6 +17,7 @@ using System.IO;
 using System.Web;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
+using J6.Cms.Core;
 using J6.Cms.DataTransfer;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
@@ -518,6 +519,7 @@ namespace J6.Cms.Web.WebManager.Handle
                     Configuration.UpdateByPrefix("db");
                     Configuration.EndWrite();
 
+                    Cms.Template.Register();
                     break;
             }
 

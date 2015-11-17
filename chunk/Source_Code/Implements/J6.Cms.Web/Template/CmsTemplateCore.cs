@@ -114,12 +114,13 @@ namespace J6.Cms.Template
                 return url;
             }
 
+            if (!String.IsNullOrEmpty(url) && url[0] != '/')
+            {
+                url = String.Concat("/", url);
+            }
+
             if (Settings.TPL_UseFullPath)
             {
-                if (!String.IsNullOrEmpty(url) && url[0] != '/')
-                {
-                    url = String.Concat("/", url);
-                }
                 return String.Concat(Cms.Context.SiteDomain, url);
             }
 
@@ -137,8 +138,7 @@ namespace J6.Cms.Template
         /// <returns></returns>
         public virtual string GetArchiveUrl(string location, string flags, CategoryDto category, string id)
         {
-            if (!string.IsNullOrEmpty(location)) return this.GetLocationUrl(location);
-
+            if (!string.IsNullOrEmpty(location)) return this.ConcatUrl(location);
             if (String.IsNullOrEmpty(flags) || (flags.IndexOf("p:'1'", StringComparison.Ordinal) == -1))
             {
                 return this.FormatPageUrl(UrlRulePageKeys.Archive, category.UriPath, id);
@@ -154,11 +154,7 @@ namespace J6.Cms.Template
             {
                 return location;
             }
-            if (!location.StartsWith("/"))
-            {
-                location = String.Concat("/", location);
-            }
-            return String.Concat(Cms.Context.SiteDomain, location);
+            return this.ConcatUrl(location);
         }
 
         /// <summary>
@@ -169,8 +165,7 @@ namespace J6.Cms.Template
         /// <returns></returns>
         public virtual string GetCategoryUrl(CategoryDto category, int pageIndex)
         {
-            if (!String.IsNullOrEmpty(category.Location)) return GetLocationUrl(category.Location);
-
+            if (!String.IsNullOrEmpty(category.Location)) return ConcatUrl(category.Location);
             if (pageIndex < 2)
             {
                 return this.FormatPageUrl(UrlRulePageKeys.Category, category.UriPath);
@@ -1075,16 +1070,7 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string Navigator(string format, string childFormat, string index)
         {
-            const string tpl = @"<div id=""navigator"" class=""page-navigator"">
-                       <div class=""left""></div>
-                       <div class=""right""></div>
-                       <div class=""navs"">
-                            <ul>
-                                {0}
-                            </ul>
-                            <div class=""clearfix""></div>
-                        </div>
-                </div>";
+            const string tpl = @"<div id=""navigator"" class=""page-navigator""><div class=""left""></div><div class=""right""></div><div class=""navs""><ul>{0}</ul><div class=""clear-fix""></div></div></div>";
 
             StringBuilder sb = new StringBuilder();
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
@@ -1192,12 +1178,12 @@ namespace J6.Cms.Template
                             cCurrent++;
                             //links.Remove(childs[k]);
                         }
-                        phtml += "</ul></div></div></li>\r\n";
+                        phtml += "</ul></div></div></li>";
                     }
                     sb.Append(phtml);
                 }
             }
-            return Regex.Replace(String.Format(tpl, sb.ToString()), "\\r|\\t|\\s\\s", string.Empty);
+            return String.Format(tpl, sb.ToString());
         }
 
 

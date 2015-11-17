@@ -172,6 +172,7 @@ namespace J6.Cms.Core
 
             //模板设置是否缓存
             global::J6.DevFw.Template.Config.EnabledCompress = Settings.TPL_UseCompress;
+          
 
             //将配置写入模板缓存
             RegisterTemplate();
