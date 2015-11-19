@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 using J6.Cms.Dal;
 using J6.Cms.Domain.Implement.Site.Extend;
 using J6.Cms.Domain.Interface.Content.Archive;
@@ -93,7 +94,10 @@ namespace J6.Cms.ServiceRepository
             IDictionary<int, IExtendValue> extendValues = new Dictionary<int, IExtendValue>();
             foreach (IExtendField field in archive.Category.ExtendFields)
             {
-                extendValues.Add(field.Id, this.CreateExtendValue(field, -1, null));
+                if (!extendValues.Keys.Contains(field.Id))
+                {
+                    extendValues.Add(field.Id, this.CreateExtendValue(field, -1, null));
+                }
             }
 
             this._extendDal.GetExtendValues(siteId, (int) ExtendRelationType.Archive, archive.Id, rd =>
@@ -226,13 +230,15 @@ namespace J6.Cms.ServiceRepository
 
         public void UpdateCategoryExtends(ICategory category)
         {
-            int[] extendIds = new int[category.ExtendFields.Count];
-            int i = 0;
+            IList<int> extendIds = new int[] {};
             foreach (IExtendField field in category.ExtendFields)
             {
-                extendIds[i++] = field.Id;
+                if (!extendIds.Contains(field.Id))
+                {
+                    extendIds.Add(field.Id);
+                }
             }
-            this._extendDal.UpdateCategoryExtendsBind(category.Id, extendIds);
+            this._extendDal.UpdateCategoryExtendsBind(category.Id, extendIds.ToArray());
         }
 
 
