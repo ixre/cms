@@ -349,16 +349,15 @@ namespace J6.Cms.Web.WebManager.Handle
         [MCacheUpdate(CacheSign.Category | CacheSign.Link)]
         public string Delete_POST()
         {
-            int lft = int.Parse(base.Request.Form["lft"]);
-            CategoryDto category = ServiceCall.Instance.SiteService.GetCategoryByLft(this.SiteId, lft);
+            int categoryId = int.Parse(base.Request.Form["category_id"]);
+            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
 
-            if (!(category.Id > 0))
-                return base.ReturnError("栏目不存在");
+            if (!(category.Id > 0))return base.ReturnError("栏目不存在");
 
             try
             {
                 //bool result =
-                ServiceCall.Instance.SiteService.DeleteCategoryByLft(this.SiteId, lft);
+                ServiceCall.Instance.SiteService.DeleteCategoryByLft(this.SiteId, category.Lft);
                 return base.ReturnSuccess();
             }
             catch (Exception exc)

@@ -1,6 +1,6 @@
 body {
     background:#e6e6e6 url(res/highlight-bg.jpg) 100px top no-repeat;
-    margin:0;font-size:16px;font-family:'Microsoft YaHei','微软雅黒';
+    margin:0;font-size:16px;font-family:'Microsoft YaHei','寰蒋闆呴粧';
 }
 img{border:none;}
  
@@ -13,17 +13,16 @@ a{text-decoration:none;outline:none;color:#006699;}
   /*background:url(res/logo_login.png) center bottom no-repeat;*/}
   .main{min-height:200px;padding-top:30px;}
   .xhr-container{ display: none;}
-
+  
 .login-panel{margin:0 auto;opacity:0;filter:alpha(opacity=0);width:360px;}
 .login-panel p{margin:0;padding:6px 0;}
-.login-panel .panel{border:solid 1px #BBB;background:#E5E5E5;padding:0;box-shadow: 0 0 10px #DDD;}
-.login-panel .panel .panel_con{background:#FFF;padding:20px 40px;box-shadow:0 1px 0 #EEE inset}
+.login-panel .panel{border:solid 1px #D5D5D5;background:#E5E5E5;padding:0;box-shadow: 0 0 5px #DDD;}
+.login-panel .panel .panel_con{background:#FFF;padding:20px 40px;box-shadow:0 0px 0 #EEE inset}
 .login-panel #tip{padding-left:15px;border-bottom:dashed 1px #ddd;padding-bottom:10px;line-height:30px;font-size:12px;margin-bottom:20px;}
 
-
-/*居中*/
+/*灞呬腑*/
 div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
-/*验证无外框*/
+/*楠岃瘉鏃犲妗�*/
 *:required { /* insert your own styles for invalid form input */ -moz-box-shadow: none; box-shadow: none;}
 
 .w50{ width: 50px;}
@@ -42,11 +41,12 @@ div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
 .ui-button a,.ui-button input{display:block;position: absolute;left:0;top:0;width:100%;height:100%;opacity:0.01;filter: alpha(opacity=1);cursor: pointer;}
 .small-button .button-txt{line-height:18px;padding:0 5px;}
 .middle-button .button-txt{ line-height: 24px;overflow: hidden;}
+
 /* 输入框 */
-.ui-box{border:solid 1px #888;border-radius: 2px;line-height:1.5rem;padding:0 10px;margin:1px;
-    box-shadow: 0px 1px 0px #DDD inset; background:#F7F8F9;border-color: #AAA #A0A0A5 #AAA;}
-.ui-box:focus{border:solid 1px #0a0;margin:1px;}
-input.ui-box,select.ui-box{ height: auto;height:1.5rem;}
+.ui-box{border:solid 1px #DDD;border-radius: 2px;line-height:1.5rem;padding:0 10px;margin:1px;
+    box-shadow: 0px 0px 0px #DDD inset; background:#F7F8F9;border-color: #AAA #A0A0A5 #AAA;}
+.ui-box:focus{border:solid 1px #A4CFE3;margin:1px;background:#F6F9FC;}
+input.ui-box,select.ui-box{ height: auto;height:1.8em;}
 
 
 .verify-panel{position: relative;}

@@ -230,7 +230,7 @@ namespace J6.Cms.ServiceRepository
 
         public void UpdateCategoryExtends(ICategory category)
         {
-            IList<int> extendIds = new int[] {};
+            IList<int> extendIds = new List<int>();
             foreach (IExtendField field in category.ExtendFields)
             {
                 if (!extendIds.Contains(field.Id))

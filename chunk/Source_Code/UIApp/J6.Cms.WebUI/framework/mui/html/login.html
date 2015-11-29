@@ -77,7 +77,9 @@
                 tip.innerHTML = '<span style="color:red">请输入验证码!</span>'; return false;
             } else {
                 tip.innerHTML = '<span style="color:green">登录中...</span>';
-                formData.pwd = hex_sha1(formData.pwd + formData.pwd_join);
+                if (formData.pwd.length < 32) {
+                    formData.pwd = hex_sha1(formData.pwd + formData.pwd_join);
+                }
                 j6.json.bind('loginForm', formData);
                 formData.pwd_join = '';
 

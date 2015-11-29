@@ -127,6 +127,9 @@ namespace J6.Cms.DataTransfer
         /// 转换文档传输对象
         /// </summary>
         /// <param name="archive">文档</param>
+        /// <param name="copyCategory"></param>
+        /// <param name="copyTemplate"></param>
+        /// <param name="copyExtend"></param>
         /// <returns></returns>
         public static ArchiveDto ConvertFrom(IArchive archive,bool copyCategory,bool copyTemplate,bool copyExtend)
         {
