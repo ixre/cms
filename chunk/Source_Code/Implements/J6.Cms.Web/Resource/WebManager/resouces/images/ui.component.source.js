@@ -42,23 +42,22 @@ var FwMenu = {
         var menuEle = this.ele;
 
         menuEle.innerHTML = '';
-        var title, html, linktext, url;
+        var html, linkText, url;
         for (var i1 = 0; i1 < md.length; i1++) {
-            title = md[i1].text;
             html = '';
             for (var i2 = 0; i2 < md[i1].childs.length; i2++) {
                 if (md[i1].childs[i2].childs.length > 0) {
-                    html += '<div class="group-title" group="' + md[i1].id + '" style="cursor:pointer" title="点击展开操作菜单"><span>' + md[i1].childs[i2].text + '</span></div>';
+                    html += '<div class="group hidden"><div class="group-title" group="' + md[i1].id + '" style="cursor:pointer" title="点击展开操作菜单"><span>' + md[i1].childs[i2].text + '</span></div>';
                     html += '<div class="panel hidden"><ul id="fns_' + i2 + '">';
                     for (var i3 = 0; i3 < md[i1].childs[i2].childs.length; i3++) {
-                        linktext = md[i1].childs[i2].childs[i3].text;
+                        linkText = md[i1].childs[i2].childs[i3].text;
                         url = md[i1].childs[i2].childs[i3].uri;
                         // html += (i3 != 0 && i3 % 4 == 0 ? '<div class="clearfix"></div>' : '') +
                         html += '<li' + (i2 == 0 && i3 == 0 ? ' class="current"' : '') + '><a class="fn" style="cursor:pointer;" url="' + url + '"' +
                        //(md[i1].childs[i2].childs.length == 1 ? ' style="margin:0 ' + ((100 - linktext.length * 14) / 2) + 'px"' : '') +
-                       '><span class="icon icon_' + i1 + '_' + i2 + '_' + i3 + '"></span>' + linktext + '</a></li>';
+                       '><span class="icon icon_' + i1 + '_' + i2 + '_' + i3 + '"></span>' + linkText + '</a></li>';
                     }
-                    html += '</ul></div>';
+                    html += '</ul></div></div>';
                 }
             }
             menuEle.innerHTML += html;
@@ -75,6 +74,7 @@ var FwMenu = {
                 };
             })(t, e));
 
+            //设置打开
             j6.each(e.nextSibling.getElementsByTagName('LI'), function (i2, e2) {
                 j6.event.add(e2, 'click', (function (_this, _t, g) {
                     return function () {
@@ -87,7 +87,6 @@ var FwMenu = {
                 })(e2, t, groupName));
             });
         });
-
     },
     //设置第几组显示
     change: function (id) {
@@ -108,12 +107,10 @@ var FwMenu = {
 
         j6.each(menuTitles, function (i, e) {
             if (e.getAttribute('group') != groupName) {
-                e.className = 'group-title hidden';
-                e.nextSibling.className = 'panel hidden';
+                e.parentNode.className = 'group hidden';
             } else {
                 titleGroups.push(e);
-                e.className = 'group-title';
-
+                e.parentNode.className = 'group';
                 //第一个panel
                 if (firstPanel == null) {
                     firstPanel = e.nextSibling;
@@ -518,15 +515,14 @@ var frameDiv = getDivByCls('page-frames');
 var splitDiv = getDivByCls('page-main-split');
 //框架遮盖层
 var frameShadowDiv = getDivByCls('page-frame-shadow');
-//图标操作栏
-var iconCtrlDiv = getDivByCls('icon-ctrl', document.body);
+
 //用户操作栏
 var userDiv = getDivByCls('page-user', document.body);
 
 //重置窗口尺寸
 function _resizeWin() {
     var height = document.documentElement.clientHeight;
-    var width = document.documentElement.clientWidth;
+    var width = j6.screen.width();
 
     mainDiv.style.height = (height - mainDiv.offsetTop) + 'px';
     frameDiv.style.height = (mainDiv.offsetHeight - frameDiv.offsetTop) + 'px';
@@ -534,10 +530,6 @@ function _resizeWin() {
     //设置右栏的宽度
     rightDiv.style.width = (width - leftDiv.offsetWidth - splitDiv.offsetWidth + 1) + 'px';
 
-    //设置图标操作栏居中显示
-    iconCtrlDiv.className = 'icon-ctrl';
-    var iconCtrlLeft = Math.floor((width - iconCtrlDiv.offsetWidth - userDiv.offsetWidth) / 2);
-    iconCtrlDiv.style.left = (iconCtrlDiv < 180 ? 180 : iconCtrlLeft) + 'px';
 }
 
 j6.event.add(window, 'resize', _resizeWin);
@@ -585,7 +577,6 @@ window.onload = function () {
         return function (event) {
             //显示遮罩层以支持drag
             frameShadowDiv.className = frameShadowDiv.className.replace(' hidden', '');
-
             var e = event || window.event;
             window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
             if (e.preventDefault) e.preventDefault();                       //这两句便是解决firefox拖动问题的.
