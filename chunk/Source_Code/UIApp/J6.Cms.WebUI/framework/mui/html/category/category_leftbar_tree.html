@@ -17,6 +17,7 @@
         var menuTreeEle = j6.$('menu_tree');
         if (menuTreeEle.parentNode.nodeName === 'DIV') {
             menuTreeEle.parentNode.style.cssText += 'height: 100%; overflow: auto;';
+            menuTreeEle.parentNode.parentNode.style.cssText += 'height: 100%;';
         }
 
         j6.tree.load(
