@@ -1,10 +1,9 @@
 html{overflow:auto; /*关闭IE6的右侧*/}
 body{
-   font-size:12px;
-   margin:0px;font-size:62.5%;
+   margin:0px;
    background:#eee;
    overflow:hidden;
-   font-family:'微软雅黑',sans-serif,arial;
+   font: 12px/1.4 Helvetica,arial,sans-serif;
 }
 img{border:none;}
 .clearfix,.clear-fix{clear:both;}
@@ -14,7 +13,7 @@ dd,dt{margin:0;}
 .hr{border-top:solid 1px #fff;border-bottom:solid 1px #ddd;}
 
 .page-top{background:#0066cc url(/top_bg.gif) center bottom repeat-x;
-    border-bottom:solid 1px #1C60A5;font-size: 1.2em;height:6em;}
+    border-bottom:solid 1px #1C60A5;height:6em;}
 .page-top .top{background:url(top_bg.gif) center 1px repeat-x;height:2px;}
 .page-top a.logo{display:inline-block;float:left;/*width:238px;*/width:400px;height:49px;
     background:url(logo.gif) 0 bottom no-repeat;text-indent:-999em;margin-left:20px;
@@ -24,7 +23,7 @@ dd,dt{margin:0;}
 
 .page-user{position:absolute;right:10px;top:1.5em;color:#fff;width:300px;max-width:400px;overflow:hidden;}
 .page-user .avatar{float:left;background:#FFF;padding:2px;box-shadow:0 0 5px #000;margin-right:1em;}
-.page-user .text{margin:2px 6px 0 0;line-height:18px;}
+.page-user .text{margin:2px 6px 0 0;}
 .page-user .text a{color:#FFF;text-decoration:none;}
 
 .page-top .top-ctrl{position:absolute;top:2.5em;left:50%;right:0;margin:0 auto;width:600px;z-index:0;margin-left:-300px;/*兼容IE6 Position居中*/}
@@ -69,9 +68,9 @@ dd,dt{margin:0;}
 
 
 .page-main{overflow:hidden;position:relative;}
-.page-main-left{float:left;width:180px;margin-right:-180px;background:#f0f0f0;overflow:hidden;}
-.page-main-right{float:right;margin-left:185px;width:auto;}
-.page-main-left,.page-main-right{padding-bottom:3000px;margin-bottom:-3000px;height:100%;font-size:1.2em;}
+.page-main-left{float:left;width:180px;margin-right:180px;background:#f0f0f0;overflow:hidden;}
+.page-main-right{float:right;margin-left:-185px;width:auto;}
+.page-main-left,.page-main-right{padding-bottom:3000px;margin-bottom:-3000px;height:100%;}
 
 .page-main-split{border-right:solid 1px #d0d0d0;position:absolute;left:190px;left:180px;top:2px;width:3px;height:100%;cursor:w-resize;
     background:#EEE;}
