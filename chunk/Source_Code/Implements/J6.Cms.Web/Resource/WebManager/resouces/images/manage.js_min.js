@@ -52,7 +52,9 @@ function showMsg(msg, callback, second,notMask) {
 
 function closeMsg() {
     var win = window.parent || window;
-    win.xhrCt.className = 'xhr-container hidden';
+    if (win.xhrCt) {
+        win.xhrCt.className = 'xhr-container hidden';
+    }
 }
 
 function showErr(msg, second) {
@@ -64,7 +66,6 @@ function showMsg2(msg,callback,second) {
 
 j6.xhr.filter = function (s, method, c) {
     if (s === 0) {
-        showMsg('<span class="load"></span>请求中',null,null, method === "GET");
     } else if (s === 2) {
         var title = /<title>(.+)<\/title>/.exec(c)[1];
         if (title) {
@@ -74,7 +75,6 @@ j6.xhr.filter = function (s, method, c) {
             showErr('请求出错');
         }
     } else {
-        closeMsg();
     }
     return true;
 };

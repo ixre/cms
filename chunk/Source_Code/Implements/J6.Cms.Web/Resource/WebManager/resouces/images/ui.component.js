@@ -18,6 +18,18 @@ if (window.menuHandler == undefined) {
     window.menuHandler = null;
 }
 
+function showGate() {
+    var els = document.getElementsByTagName("DIV");
+    els[0].className = 'loading-gate';
+    els[1].className = 'loading-bar';
+}
+
+function cancelGate() {
+    var els = document.getElementsByTagName("DIV");
+    els[0].className = 'loading-gate hidden';
+    els[1].className = 'loading-bar hidden';
+}
+
 
 var FwMenu = {
     ele: null,
@@ -165,8 +177,6 @@ var FwMenu = {
 var FwTab = {
     //框架集
     frames: null,
-    maskEle: null,
-    loadEle: null,
     tabs: null,
     initialize: function () {
         var framebox = j6.$('pageframes');
@@ -176,17 +186,6 @@ var FwTab = {
             return (framebox.getElementsByClassName ? framebox.getElementsByClassName(cls) : document.getElementsByClassName(cls, framebox))[0];
         };
         this.frames = getByCls('frames');
-        this.maskEle = getByCls('mask');
-        this.loadEle = getByCls('loading');
-
-        var fx = this.frames.offsetWidth,
-            fy = this.frames.offsetHeight;
-
-        //mask位置
-        if (this.maskEle) {
-            this.maskEle.style.width = fx + 'px';
-            this.maskEle.style.height = fy + 'px';
-        }
     },
     pageBeforeLoad: function () {
         this.showLoadBar();
@@ -194,16 +193,8 @@ var FwTab = {
     pageLoad: function () {
         this.hiddenLoadBar();
     },
-    showLoadBar: function () {
-        this.loadEle.className = 'loading';
-        this.maskEle.className = 'mask';
-        this.loadEle.style.display = 'inline-block';
-        this.loadEle.style.cssText = 'position:fixed;left:50%;top:40%;margin-left:-'+Math.floor(this.loadEle.offsetWidth/2) + 'px';
-    },
-    hiddenLoadBar: function () {
-        this.maskEle.className = 'mask hidden';
-        this.loadEle.style.display = 'none';
-    },
+    showLoadBar: function () {},
+    hiddenLoadBar: function () {},
     show: function (text, url, closeable) {
         var _tabs = this.tabs.getElementsByTagName('LI');
         var _indent;
