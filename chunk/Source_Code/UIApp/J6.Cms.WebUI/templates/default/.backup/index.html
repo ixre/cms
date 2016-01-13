@@ -2,17 +2,18 @@ $tag_product="product"
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${page.title}</title>
-    <link rel="Stylesheet" href="${page.fpath}/template.css?version=${page.version}" type="text/css" />
-    <link rel="Stylesheet" href="${page.tpath}/theme/style.css" type="text/css"/>
+    <title>${page.built}-${page.title}</title>
+    <link rel="Stylesheet" href="${page.fpath}/template.css?v=${page.built}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/theme/style.css?spam=${page.built}" type="text/css"/>
     <meta name="keywords" content="${page.keywords}" />
     <meta name="description" content="${page.description}" />
     <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc?wsd"/>
 </head>
-<body><!--[if lt IE 9]>
-    <script type="text/javascript" src="${page.fpath}/html5/html5.js?version=${page.version}"></script>
-<![endif]-->
-$lang(sitemap_location)
+<body>
+
+$lang(sitemap)
+    $lang(location)
+
 ${partial:"inc/header.phtml"}
 
 ${partial:"inc/banner.phtml"}
@@ -92,8 +93,8 @@ ${partial:"inc/banner.phtml"}
 ${partial:"inc/footer.phtml"}
 
 
-<script type="text/javascript" src="${page.fpath}/core.js?hover=navi,clist,alist&version=${page.version}"></script>
-<script type="text/javascript" src="${page.fpath}/js/scroller.js?version=${page.version}"></script>
+<script type="text/javascript" src="${page.fpath}/core.js?hover=navi,clist,alist&v=${page.version}"></script>
+<script type="text/javascript" src="${page.fpath}/js/scroller.js?v=${page.version}"></script>
 <script type="text/javascript">
     j6.scroller('fla', { direction: 'left', unit: 250, pagerid: 'fla_pager' }, 4000);
 </script>

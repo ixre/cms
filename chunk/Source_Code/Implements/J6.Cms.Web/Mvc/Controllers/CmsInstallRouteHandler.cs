@@ -1,15 +1,12 @@
-﻿using J6.DevFw.Data;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Web;
 using System.Web.Routing;
-using J6.Cms.CacheService;
 using J6.Cms.Conf;
-using J6.Cms.DataTransfer;
 using J6.Cms.Domain.Interface.User;
-using J6.Cms.Domain.Interface.Value;
 using J6.Cms.Infrastructure.Domain;
+using J6.DevFw.Data;
 using J6.DevFw.Framework;
 using J6.DevFw.Framework.Extensions;
 
@@ -102,7 +99,7 @@ namespace J6.Cms.Web
                 Directory.CreateDirectory(Cms.PyhicPath + "config").Create();
             }
 
-            if (System.IO.File.Exists(String.Concat(physical, INSTALL_LOCK)))
+            if (File.Exists(String.Concat(physical, INSTALL_LOCK)))
             {
                 return InstallCode.Installed;
             }
@@ -157,7 +154,7 @@ namespace J6.Cms.Web
                     Directory.CreateDirectory(physical + dbDirName).Create();
                 }
 
-                System.IO.File.Copy(physical + FILE_DB_SQLITE, physical + dbDirName+"/" + dbFile, true);
+                File.Copy(physical + FILE_DB_SQLITE, physical + dbDirName+"/" + dbFile, true);
                 dbStr = "Data Source=$ROOT/"+dbDirName+"/" + dbFile;
             }
             else if (dbType == "oledb")
@@ -204,9 +201,9 @@ namespace J6.Cms.Web
 
             #region 写入配置
 
-            if (System.IO.File.Exists(physical + FILE_SETTING))
+            if (File.Exists(physical + FILE_SETTING))
             {
-                System.IO.File.Delete(physical + FILE_SETTING);
+                File.Delete(physical + FILE_SETTING);
             }
             SettingFile file = new SettingFile(physical + FILE_SETTING);
             file.Set("license_key", tKey);
@@ -242,11 +239,12 @@ namespace J6.Cms.Web
 
             //更新默认站点
             this.db.ExecuteNonQuery(new SqlQuery(
-                String.Format("UPDATE {0}site SET domain=@domain,name=@name,tpl=@tpl,seo_title=@name where site_id=1", dbPrefix),
+                String.Format("UPDATE {0}site SET domain=@domain,name=@name,tpl=@tpl,language=@language,seo_title=@name where site_id=1", dbPrefix),
                 new object[,]{
                     {"@domain",siteDomain},
                     {"@name",siteName},
-                    {"@tpl","default"}
+                    {"@tpl","default"},
+                    {"@language",siteLanguage},
                 }));
 
             //创建管理用户
@@ -276,7 +274,7 @@ namespace J6.Cms.Web
 
 
             //创建安装文件
-            System.IO.File.Create(String.Concat(physical, INSTALL_LOCK));
+            File.Create(String.Concat(physical, INSTALL_LOCK));
 
             Settings.TurnOffDebug();
 

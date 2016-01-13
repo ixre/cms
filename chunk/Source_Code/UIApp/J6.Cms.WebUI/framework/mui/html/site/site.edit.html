@@ -36,50 +36,50 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var plTpl = j6.$('pl_tpl');
-        var tplTD = document.getElementsByName('field_tpl')[0].parentNode;
-        var selector = plTpl.getElementsByTagName('SELECT')[0];
-        tplTD.innerHTML = '';
-        selector.setAttribute('field','tpl');
-        selector.className = selector.className.replace('hidden', '');
-        tplTD.appendChild(selector);
+<script type="text/javascript">
+   
+    var plTpl = j6.$('pl_tpl');
+    var tplTD = document.getElementsByName('field_tpl')[0].parentNode;
+    var selector = plTpl.getElementsByTagName('SELECT')[0];
+    tplTD.innerHTML = '';
+    selector.setAttribute('field','tpl');
+    selector.className = selector.className.replace('hidden', '');
+    tplTD.appendChild(selector);
 
-        window.saveData = function () {
-            if (j6.validator.validate()) {
-                j6.xhr.jsonPost('?module=site&action=save', j6.json.toObject(document), function (json) {
-                    if (json.result) {
-                        showMsg2(json.message);
-                               location.reload();
-                    } else {
-                       showErr(json.message);
+    window.saveData = function () {
+        if (j6.validator.validate()) {
+            j6.xhr.jsonPost('?module=site&action=save', j6.json.toObject(document), function (json) {
+                if (json.result) {
+                    showMsg2(json.message, function() { location.reload(); });
+                } else {
+                    showErr(json.message);
+                }
+            });
+        }
+    };
+
+
+    j6.$('btn').onclick = window.saveData;
+
+    function initTab(cls) {
+        var eles = document.getElementsByClassName(cls);
+        j6.each(eles, function (i, e) {
+            e.onclick = function () {
+                var group = e.getAttribute('group');
+                j6.each(document.getElementsByTagName('DL'), function (i2, e2) {
+                    if (e2.getAttribute('group')) {
+                        e2.style.display = e2.getAttribute('group') == group ? 'block' : 'none';
                     }
                 });
-            }
-        };
+                j6.each(eles, function (i3, e3) {
+                    e3.className = e3 === e ? cls + ' current' : cls;
+                });
+            };
+        });
+        eles[0].onclick();
+    }
 
-
-        j6.$('btn').onclick = window.saveData;
-
-        function initTab(cls) {
-            var eles = document.getElementsByClassName(cls);
-            j6.each(eles, function (i, e) {
-                e.onclick = function () {
-                    var group = e.getAttribute('group');
-                    j6.each(document.getElementsByTagName('DL'), function (i2, e2) {
-                        if (e2.getAttribute('group')) {
-                            e2.style.display = e2.getAttribute('group') == group ? 'block' : 'none';
-                        }
-                    });
-                    j6.each(eles, function (i3, e3) {
-                        e3.className = e3 === e ? cls + ' current' : cls;
-                    });
-                };
-            });
-            eles[0].onclick();
-        }
-
-        initTab('tabitem');
-    </script>
+    initTab('tabitem');
+</script>
 </body>
 </html>

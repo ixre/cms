@@ -65,17 +65,9 @@
                data.content = coder.getValue();
             }
 
-            j6.xhr.post(location.href,data, function (result) {
-                if (result.indexOf('成功') == -1) {
-                    tip(false, result);
-                } else {
-                    tip(true, result);
-                }
+            j6.xhr.post(location.href, data, function (result) {
+                window.parent.showMsg2(result);
             });
-        }
-
-        function tip(result, msg) {
-            parent.parent.M.alert(msg);
         }
 
         window.saveData = function () {

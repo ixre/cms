@@ -69,9 +69,6 @@
     <Compile Include="MySQLSqlPack.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sql&amp;db\2013-06-09.changelog.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -90,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="j6.cms.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="sql&amp;db\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

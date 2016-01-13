@@ -61,10 +61,10 @@ dd,dt{margin:0;}
 .icon-ctrl li.drop div.menu a.block{display:block;padding:2px 10px;border:solid 1px #1174ef;color:#fff;text-decoration:none;}
 .icon-ctrl li.drop div.menu a.block:hover{background:#fff;border:solid 1px #00356a;color:#00356a;}
 
-.xhr-container{font-size:1.2em}
-.xhr-container .gate{z-index:1;position: fixed;top:0;right:0;background:#FFF;filter:alpha(opacity=1);opacity: 0.1;}
-.xhr-container .msg{position:fixed;left:0;right: 0;top:0;background:#ffd700;color:#FFB;border-top:0;border-radius: 0 0 5px 5px;
-                    z-index:100;text-align:center;padding: 2px 10px;line-height: 20px;margin: 0 auto;}
+.xhr-container{font-size:1.2em;position:absolute;left:0;right:0;top:2px;bottom:0;margin:0 auto; z-index:100;}
+.xhr-container .msg{background:#FFB;color:#F30;font-size:12px;line-height:2em;border-top:0;text-align:center;
+    border:solid 1px #FC0;
+}
 .xhr-container .error{ color: #ff0000;}
 
 
@@ -141,7 +141,7 @@ opacity:0.1;filter:alpha(opacity=10);}
     box-shadow:0 0 5px 0px #bbb; /*opera或ie9*/
     zoom: 1; filter: progid:DXImageTransform.Microsoft.DropShadow(OffX=5, OffY=0, Color=#bbb); /* ie6,ie7,ie8 */
 }
-.ui-dialog .box .title{padding-top:10px;font-size:14px;font-weight:bold;color:#006699;background:#F0F0F0;padding:0 10px;line-height:30px;
+.ui-dialog .box .title{padding-top:10px;font-size:14px;font-weight:bold;color:#666;background:#F0F0F0;padding:0 10px;line-height:30px;
                        background:#f9f9f9 url(title_bg.gif) 0 5px repeat-x;
 /*border-bottom:solid 2px #FFF;*/}
 .ui-dialog .box .title .txt{padding-left:25px;background:url(blocks.gif) left center no-repeat;}
@@ -149,6 +149,13 @@ opacity:0.1;filter:alpha(opacity=10);}
                             background:url(tab_close.gif) center center no-repeat;text-indent:-99em}
 .ui-dialog .box .boxcontent{margin:0 5px 5px 5px;background:#fff;border:solid 1px #d0d0d0}
 .ui-dialog .box .bottom{display:none;}
+.ui-dialog .ui-alert-message{padding:1em;font-size:1em;min-width:200px;font-weight: bold;color:#F00}
+.ui-dialog .ui-alert-control{background:#EEE;text-align:right;padding:5px;border-top:solid 1px #ddd;}
+.ui-dialog .ui-alert-control input{border:solid 1px #FFF;border-color: #ADB1B8 #A2A6AC #8D9096;
+    border-radius:3px;display: inline-block;vertical-align:middle;
+    background:transparent linear-gradient(to bottom, #F7F8FA, #E7E9EC);height:100%;
+    box-shadow:0px 1px 0px rgba(255, 255, 255, 0.6) inset,0 1px 0 rgba(255,255,255,0.1);;}
+
 
 /* tipbox */
 .ui-tipbox { border: solid 3px #ff3300;background: #ffffcc; z-index: 3000; }

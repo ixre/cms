@@ -301,8 +301,9 @@
 
                 j6.xhr.jsonPost('${url}', data, function (json) {
                     if (json.result) {
-                       showMsg2('操作成功！');
-                        if(_dg)_dg.reload();
+                        showMsg2('文档保存成功！', function() {
+                            if (_dg)_dg.reload();
+                        });
                     } else {
                        showErr(json.message);
                     }
