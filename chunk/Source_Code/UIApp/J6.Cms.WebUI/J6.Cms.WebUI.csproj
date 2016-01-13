@@ -400,6 +400,7 @@
     <Content Include="framework\mui\html\assistant\category_clone.html" />
     <Content Include="framework\mui\html\assistant\local_patch.html" />
     <Content Include="framework\mui\html\clear_page.html" />
+    <Content Include="framework\mui\html\cms.locale.html" />
     <Content Include="framework\mui\html\user\user_role_set.html" />
     <Content Include="framework\mui\html\user\user_role.html" />
     <Content Include="framework\mui\html\index.html" />

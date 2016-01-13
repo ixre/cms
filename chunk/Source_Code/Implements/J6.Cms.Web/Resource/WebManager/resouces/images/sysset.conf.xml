@@ -57,6 +57,7 @@
       <links title="系统管理" toggle="true" iconPos="-432|0">
         <link href="?module=site&amp;action=index" text="站点管理" title="系统所有网站管理" siteid="0"/>
         <link href="?module=file&amp;action=filemanager" text="文件管理" title="" siteid="0"/>
+        <link href="?module=system&amp;action=locale" text="本地化" title="" siteid="0"/>
         <link href="?module=template&amp;action=templates" text="模板管理" title="" siteid="0"/>
         <link href="?module=assistant&amp;action=local_patch" text="系统补丁" title="" siteid="0"/>
         <link href="?module=table&amp;action=all" text="数据表" title="" siteid="0"/>

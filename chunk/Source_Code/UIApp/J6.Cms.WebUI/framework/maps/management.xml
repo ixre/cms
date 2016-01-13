@@ -7,6 +7,7 @@
     <map for="Css_Style" to="mui/css/latest/page_style.css"/>
     <map for="Login" to="mui/html/login.html"/>
     <map for="Index" to="mui/html/index.html"/>
+    <map for="Locale" to="mui/html/cms.locale.html"/>
     <map for="Server_Summary" to="mui/html/summary.html"/>
     <map for="Clear_Page" to="mui/html/clear_page.html"/>
     <map for="App_Config" to="mui/html/cms.config.html"/>

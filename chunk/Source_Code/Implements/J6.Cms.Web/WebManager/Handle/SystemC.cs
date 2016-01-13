@@ -14,14 +14,17 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Web;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.Core;
 using J6.Cms.DataTransfer;
+using J6.Cms.Infrastructure;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Web.UI;
+using ResourceMap = J6.Cms.WebManager.ResourceMap;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -546,6 +549,51 @@ namespace J6.Cms.Web.WebManager.Handle
                     return base.ReturnSuccess("缓存清理成功");
             }
             return base.ReturnSuccess();
+        }
+
+        public string Locale_GET() {
+            return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Locale));
+        }
+
+        public string GetLocaleJson_POST()
+        {
+            String path= "";
+            String type = this.Request.Form["type"];
+            switch (type)
+            {
+                case "system":
+                    path = Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale.json";
+                    break;
+                case "custom":
+                    path = Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale.json";
+                    break;
+                default:
+                    return base.ReturnError("error type");
+            }
+            if (!File.Exists(path))
+            {
+                File.Create(path).Dispose();
+                return "[]";
+            }
+            
+            StreamReader rd = new StreamReader(path,Encoding.UTF8);
+            String json = rd.ReadToEnd();
+            rd.Close();
+            return json;
+        }
+
+        public string CreateNewLocaleKey_POST()
+        {
+            String key = this.Request.Form["key"];
+            try
+            {
+                Locale.AddKey(key);
+            }
+            catch (Exception exc)
+            {
+                return this.ReturnError(exc.Message);
+            }
+            return this.ReturnSuccess("");
         }
     }
 }

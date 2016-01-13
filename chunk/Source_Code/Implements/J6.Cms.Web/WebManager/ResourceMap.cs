@@ -44,6 +44,7 @@ namespace J6.Cms.WebManager
 
 
         App_Config,
+        Locale,  //本地化
         Site_Index,
         Site_Edit,
         Site_Extend_List,
