@@ -337,8 +337,9 @@
                 j6.xhr.jsonPost('?', 'module=archive&action=moveToSort&archive.id=' + id+'&direction='+val,
                   function (json) {
                       if (json.result) {
-                          showMsg2('操作成功！');
-                          _dg.reload();
+                          showMsg2('操作成功！', function () {
+                              _dg.reload();
+                          });
                       } else {
                           showErr(json.message);
                       }

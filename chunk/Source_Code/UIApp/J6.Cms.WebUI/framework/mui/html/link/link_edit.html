@@ -266,14 +266,12 @@
                        , j6.json.toObject('dataPanel')
                        , function (json) {
                            if (json.result) {
-                               showMsg2(json.message);
-                               location.replace('?module=link&action=list&type=${link_type}');
+                               showMsg2(json.message,function(){ location.replace('?module=link&action=list&type=${link_type}');});
                            } else {
                                showErr(json.message);
                            }
 
                        });
-
             }
         };
 

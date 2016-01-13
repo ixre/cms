@@ -274,8 +274,9 @@
                } else {
                    j6.xhr.jsonPost('?', 'module=template&action=netinstall&url=' + encodeURIComponent(url), function (json) {
                        if (json.result) {
-                          showMsg2('安装完成!');
-                           location.replace(location.href);
+                           showMsg2('安装完成!', function () {
+                               location.replace(location.href);
+                           });
                        } else {
                            alert('安装出现问题,请重试');
                        }
@@ -292,10 +293,11 @@
            exts: '*.gif;*.jpg;*.png;*.bmp'
        }, function (result, data) {
            if (result) {
-               showMsg2(data.msg);
+               showMsg2(data.msg,function(){
                if (data.msg.indexOf('成功') != -1) {
                    location.reload();
                }
+               });
            } else {
                showErr('上传失败：' + data, 2000);
            }

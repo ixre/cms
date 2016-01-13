@@ -133,8 +133,7 @@
                 (function (_this) {
                     j6.xhr.post('?', 'module=link&action=set_visible&link_id=' + id,
                  function () {
-                     showMsg2('操作成功！');
-                     Fn.refresh();
+                     showMsg2('操作成功！', function () { Fn.refresh(); });
                  });
                 }(this));
             },
