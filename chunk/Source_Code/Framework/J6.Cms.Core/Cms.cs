@@ -22,8 +22,6 @@ using J6.DevFw.Framework;
 using J6.DevFw.PluginKernel;
 using J6.Cms.DataTransfer;
 using J6.Cms.DB;
-using J6.DevFw.Framework.IO;
-
 namespace J6.Cms
 {
     public static class Cms
@@ -111,13 +109,8 @@ namespace J6.Cms
         /// <summary>
         /// 语言包
         /// </summary>
-        public static CmsLanguagePackage Language
-        {
-            get
-            {
-                return CmsLanguagePackage.Create();
-            }
-        }
+        public static readonly CmsLanguagePackage Language = new CmsLanguagePackage();
+        
 
         /// <summary>
         /// 开始初始化

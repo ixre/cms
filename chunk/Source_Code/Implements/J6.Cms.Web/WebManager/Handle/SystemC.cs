@@ -13,9 +13,11 @@
 //
 
 using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.Core;
@@ -562,10 +564,10 @@ namespace J6.Cms.Web.WebManager.Handle
             switch (type)
             {
                 case "system":
-                    path = Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale.json";
+                    path = Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale/locale.db";
                     break;
                 case "custom":
-                    path = Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale.json";
+                    path = Cms.PyhicPath + CmsVariables.SITE_LOCALE_PATH;
                     break;
                 default:
                     return base.ReturnError("error type");
@@ -588,6 +590,37 @@ namespace J6.Cms.Web.WebManager.Handle
             try
             {
                 Locale.AddKey(key);
+            }
+            catch (Exception exc)
+            {
+                return this.ReturnError(exc.Message);
+            }
+            return this.ReturnSuccess("");
+        }
+
+        public string DelLocaleKey_POST()
+        {
+            String key = this.Request.Form["key"];
+            try
+            {
+                Locale.DelKey(key);
+            }
+            catch (Exception exc)
+            {
+                return this.ReturnError(exc.Message);
+            }
+            return this.ReturnSuccess("");
+        }
+
+        public string SaveLocale_POST()
+        {
+            try
+            {
+                String json = Locale.SaveByPostForm(this.Request.Form);
+                if (json != null)
+                {
+                    Cms.Language.GetPackage().LoadFromJson(json);
+                }
             }
             catch (Exception exc)
             {

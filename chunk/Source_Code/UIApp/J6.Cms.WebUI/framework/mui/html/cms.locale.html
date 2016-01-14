@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>本地化</title>
+	    $css()
+	    <style type="text/css">
+            .top {
+                background: #F5F5F5;
+                height: 30px;
+            }
+
+                .top .rgt {
+                    position: absolute;
+                    right: 1em;
+                    top: 5px;
+                }
+
+                .top ul {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    line-height: 30px;
+                }
+
+                    .top ul li {
+                        float: left;
+                        font-weight: bold;
+                        padding: 0 1em;
+                    }
+
+                        .top ul li.current {
+                            background: #167CD2;
+                            color: #FFF;
+                        }
+
+            .data-table thead td {
+                background: #ddd;
+                padding: 5px;
+                text-align: center;
+                border-right: solid 1px #ddd;
+            }
+
+            .data-table tbody td {
+                background: #FFF;
+                padding: 3px 0;
+                border-right: solid 1px #ddd;
+                border-top: solid 1px #ddd;
+                text-align: center;
+            }
+
+            .data-table {
+                border-bottom: solid 1px #ddd;
+            }
+
+                .data-table tbody input {
+                    line-height: 1.4em;
+                    width: 80%;
+                    margin: 1px auto;
+                    color: #666;
+                }
+                .data-table tbody input:focus{ margin: 1px auto;}
+    	</style>
+	</head>
+<body style="overflow-y: hidden">
+
+<div class="top">
+    <ul>
+        <li class="current">自定义</li>
+        <li>系统</li>
+    </ul>
+    <div class="rgt">
+        <span class="ui-button small-button">
+            <span class=" button-inner">
+                <span class="button-txt">&nbsp;保存本地化设置&nbsp;</span>
+                <input type="button" id="btn_save" />
+            </span>
+        </span>
+        &nbsp;&nbsp;
+
+        &nbsp;&nbsp;创建新的键：<input type="text" id="keyName" class="tb_normal ui-box" style="width: 120px; line-height: 1.4em"/>
+        <span class="ui-button w50 small-button" id="btn_create">
+            <span class=" button-inner">
+                <span class="button-txt">创建</span>
+                <input type="button" />
+            </span>
+        </span>
+      
+
+        <!--
+        <span class="ui-button small-button">
+              <span class=" button-inner">
+                  <span class="button-txt">导入</span>
+                  <a href="javascript:;" class="fn" fn="download"></a>
+              </span>
+          </span>-->
+    </div>
+</div>
+
+<div class="data" id="locale-data">
+    <table width="100%" class="data-table" cellspacing="0">
+        <thead>
+        <tr>
+            <td width="10%" style="min-width: 150px;">键</td>
+            <td width="">中文简体<br/>(Chinese Simplified)</td>
+            <td width="">中文繁体<br/>(Chinese Traditional</td>
+            <td width="">英语<br/>(Unit States)</td>
+            <td width="">西班牙语<br/>(Spanish)</td>
+            <td width="">法语<br/>(French)</td>
+            <td width="">泰语<br/>(Thai)</td>
+            <td width="">俄语<br/>(Russian)</td>
+            <td width="">阿拉伯语<br/>(Arabic)</td>
+            <td width="5%">操作</td>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        
+        </tbody>
+    </table>
+</div>
+
+$js()
+<script type="text/javascript">
+    var currentType = "custom";
+    var langCount = 8;
+    var tby = j6.$('tbody');
+    var rowTpl = '<tr><td class="key"><b><span field="k_{row}">{key}</span></b></td>{lang}<td><a href="javascript:;" onclick="delKey(\'{key}\')">删除</a></td></tr>';
+    var editTpl = '<td><input type="text" class="ui-box" field="f_{row}_{col}" value="{value}"/></td>';
+    function writeToBody(d) {
+        if (d == null)return;
+        var html = '';
+        var editHtm = '';
+        var val = "";
+        for (var i = 0; i < d.length; i++) {
+            editHtm = '';
+            for (var j = 0; j < langCount; j++) {
+                if (d[i].value != null ) val = d[i].value[j+1] || '';
+                editHtm += j6.template(editTpl, { row: i, col: j + 1, value: val });
+            }
+            html += j6.template(rowTpl, { row: i, key: d[i].key, lang: editHtm });
+        }
+        tby.innerHTML = html;
+    }
+
+    function loadKeys(type) {
+        j6.xhr.jsonPost('?module=system&action=GetLocaleJson', { type: type }, function(d) {
+            writeToBody(d);
+        });
+    }
+    loadKeys(currentType);
+    j6.$('btn_create').onclick = function() {
+        var key = j6.$('keyName').value;
+        j6.xhr.jsonPost("?module=system&action=CreateNewLocaleKey", { key: key }, function(r) {
+            if (r.result) {
+                loadKeys(currentType);
+            } else {
+                showErr(r.message);
+            }
+        });
+    };
+
+
+    window.saveData = function() {
+        j6.$('btn_save').onclick();
+    };
+
+    j6.$('btn_save').onclick = function () {
+        var data = j6.json.toObject('locale-data');
+        var t = this;
+        t.disabled = true;
+        j6.xhr.jsonPost('?module=system&action=SaveLocale', data, function (r) {
+            t.disabled = false;
+            if (r.result) {
+                j6.dialog.alert('保存成功', function () { loadKeys(currentType); });
+            } else {
+                j6.dialog.alert(r.message);
+            }
+        });
+    };
+
+    function delKey(k) {
+        j6.dialog.confirm('请在删除之前，确定是否保存更改？', function(b) {
+            if (b) {
+                j6.xhr.jsonPost("?module=system&action=DelLocaleKey", { key: k }, function (r) {
+                    if (r.result) {
+                        j6.dialog.alert('删除成功', function () { loadKeys(currentType); });
+                    } else {
+                        j6.dialog.alert(r.message);
+                    }
+                });
+            }
+        });
+    }
+</script>
+</body>
+</html>

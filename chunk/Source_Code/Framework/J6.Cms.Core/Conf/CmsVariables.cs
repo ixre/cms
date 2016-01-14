@@ -3,10 +3,11 @@ namespace J6.Cms.Conf
 {
     public class CmsVariables
     {
+        
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="1.2.44";
+        public const string VERSION="1.2.45";
 
         /// <summary>
         /// 框架目录
@@ -71,6 +72,10 @@ namespace J6.Cms.Conf
         /// </summary>
         public const string FRAMEWORK_ARCHIVE_NoPhoto = "framework/assets/images/no_photo.gif";
 
+        /// <summary>
+        /// 本地化文件
+        /// </summary>
+        public static string SITE_LOCALE_PATH = "config/locale.db";
 
 
         public const string Archive_ThumbPrefix = "thumb";

@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Web;
 using J6.Cms.Cache;
 using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.CacheService;
@@ -47,6 +48,10 @@ namespace J6.Cms.WebManager
                 if ((this.sign & CacheSign.Link)!=0)
                 {
                     SiteLinkCache.ClearForSite(siteId);
+                }
+                if ((this.sign & CacheSign.Site) != 0) 
+                {
+                    HttpRuntime.UnloadAppDomain();
                 }
             }
             CacheFactory.Sington.Clear(this.Key);

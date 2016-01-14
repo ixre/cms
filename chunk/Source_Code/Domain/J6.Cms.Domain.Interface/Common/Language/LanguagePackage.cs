@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml;
+using Newtonsoft.Json;
 
 namespace J6.Cms.Domain.Interface.Common.Language
 {
@@ -122,6 +123,10 @@ namespace J6.Cms.Domain.Interface.Common.Language
             {
                 _languagePack.Add(packKeyStr, value);
             }
+            else
+            {
+                _languagePack[packKeyStr] = value;
+            }
         }
 
         /// <summary>
@@ -191,6 +196,26 @@ namespace J6.Cms.Domain.Interface.Common.Language
                 return outStr;
             }
             return String.Empty;
+        }
+
+        public void LoadFromJson(string json)
+        {
+            IList<LangKvPair> list = JsonConvert.DeserializeObject<List<LangKvPair>>(json);
+            if (list != null)
+            {
+                foreach (LangKvPair l in list)
+                {
+                    if (l.value != null)
+                    {
+                        foreach (int k in l.value.Keys)
+                        {
+                            String v = l.value[k];
+                            if (v == null) continue;
+                            this.AddOne((Languages) k, l.key, v);
+                        }
+                    }
+                }
+            }
         }
     }
 }

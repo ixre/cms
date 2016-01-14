@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using J6.Cms.Cache;
 using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Common.Language;
@@ -12,25 +13,27 @@ namespace J6.Cms.Core
     /// </summary>
     public class CmsLanguagePackage
     {
-        private static LanguagePackage _lang;
-        private static CmsLanguagePackage _instance;
-        private bool _observerStarted;
-        private const string CfgLocaleKey = "cfg_locale_observer";
+        private LanguagePackage _lang;
 
 
-        internal static CmsLanguagePackage Create()
+        public LanguagePackage GetPackage()
         {
-            return _instance ?? (_instance = new CmsLanguagePackage());
+            return _lang;
         }
 
-        private CmsLanguagePackage()
+        internal CmsLanguagePackage()
         {
             _lang = new LanguagePackage();
             _lang.LoadFromXml(ResourceMap.XmlLangPackage);
             // 加载系统内置的
             LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale",false,null);
             // 加载自定义的配置
-            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale",true,CfgLocaleKey);
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale",true,null);
+
+            //加载JSON格式语言
+            loadFromFile(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH+"locale/locale.db");
+            loadFromFile( Cms.PyhicPath + CmsVariables.SITE_LOCALE_PATH);
+
 
             /*
            IDictionary<Languages,String> dict = new Dictionary<Languages,String>();
@@ -52,10 +55,22 @@ namespace J6.Cms.Core
            */
         }
 
+        private void loadFromFile(string file)
+        {
+            if (File.Exists(file))
+            {
+                StreamReader rd = new StreamReader(file, Encoding.UTF8);
+                String json = rd.ReadToEnd();
+                rd.Close();
+                _lang.LoadFromJson(json);
+            }
+        }
+
 
         /// <summary>
         /// 加载系统内置的语言配置文件
         /// </summary>
+        [Obsolete]
         private void LoadLocaleXml(string dirPath,bool observer,string cacheKey)
         {
             DirectoryInfo dir = new DirectoryInfo(dirPath);
@@ -63,12 +78,12 @@ namespace J6.Cms.Core
             {
                 FileInfo[] files = dir.GetFiles("*.xml");
 
-                // 监视文件目录
-                if (files.Length > 0 && observer)
-                {
-                    this._observerStarted = true;
-                    CacheFactory.Sington.Insert(cacheKey,1,dirPath);
-                }
+//                // 监视文件目录
+//                if (files.Length > 0 && observer)
+//                {
+//                    this._observerStarted = true;
+//                    CacheFactory.Sington.Insert(cacheKey,1,dirPath);
+//                }
 
                 // 加载
                 Languages lang;
@@ -91,25 +106,11 @@ namespace J6.Cms.Core
         /// <returns></returns>
         public String Get(LanguagePackageKey key)
         {
-            this.Observer();
             return _lang.Get(Cms.Context.CurrentSite.Language, key);
-        }
-
-        private void Observer()
-        {
-            if (this._observerStarted && CacheFactory.Sington.Get(CfgLocaleKey) == null)
-            {
-                lock (_lang)
-                {
-                    _lang = null;
-                    _instance = new CmsLanguagePackage();
-                }
-            }
         }
 
         public string Get(Languages language, string key)
         {
-            this.Observer();
             return _lang.GetValueByKey(language, key);
         }
     }

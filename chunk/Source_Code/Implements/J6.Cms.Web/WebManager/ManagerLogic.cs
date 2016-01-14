@@ -234,7 +234,7 @@ namespace J6.Cms.WebManager
                         method.Invoke(obj, null);
                     }
 
-                    CmsCacheUtility.EvalCacheUpdate<MCacheUpdateAttribute>(method);
+                    CmsCacheUtility.EvalCacheUpdate<MCacheUpdateAttribute>(method); //清理缓存
                     return;
                 }
             }

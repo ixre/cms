@@ -133,7 +133,7 @@ namespace J6.Cms.Web.WebManager.Handle
         }
 
         [MCacheUpdate(CacheSign.Site | CacheSign.Link)]
-        public void Save_POST()
+        public string Save_POST()
         {
             var entity = EntityForm.GetEntity<SiteDto>();
             bool siteIsExist = ServiceCall.Instance.SiteService.CheckSiteExists(entity.SiteId);
@@ -142,12 +142,12 @@ namespace J6.Cms.Web.WebManager.Handle
                 entity = CheckSiteEntity(siteIsExist,entity);
                 if (!siteIsExist)entity.SiteId = 0;
                 ServiceCall.Instance.SiteService.SaveSite(entity);
-                base.RenderSuccess(siteIsExist ? "站点保存成功!" : "站点创建成功!");
             }
             catch (Exception exc)
             {
-                base.RenderError(exc.Message);
+               return base.ReturnError(exc.Message);
             }
+            return base.ReturnSuccess(siteIsExist ? "站点保存成功!" : "站点创建成功!");
         }
     }
 }
