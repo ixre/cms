@@ -22,19 +22,19 @@ namespace J6.Cms.Domain.Interface.Common.Language
         Unknown=0,
 
         /// <summary>
+        /// 英语(Unit States)
+        /// </summary>
+        En = 1,
+
+        /// <summary>
         /// 中文简体(Chinese Simplified)
         /// </summary>
-        Zh_CN = 1,
+        Zh_CN = 2,
 
         /// <summary>
         /// 中文繁体(Chinese Traditional)
         /// </summary>
-        Zh_TW = 2,
-
-        /// <summary>
-        /// 英语(Unit States)
-        /// </summary>
-        En = 3,
+        Zh_TW = 3,
 
         /// <summary>
         /// 西班牙语
