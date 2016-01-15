@@ -34,8 +34,8 @@
                         }
 
             .data-table thead td {
-                background: #ddd;
-                padding: 5px;
+                background: #EEE;
+                padding: 5px 0;
                 text-align: center;
                 border-right: solid 1px #ddd;
             }
@@ -48,17 +48,20 @@
                 text-align: center;
             }
 
-            .data-table {
-                border-bottom: solid 1px #ddd;
-            }
-
                 .data-table tbody input {
                     line-height: 1.4em;
                     width: 80%;
                     margin: 1px auto;
                     color: #666;
                 }
-                .data-table tbody input:focus{ margin: 1px auto;}
+                .data-table tbody input:focus {
+                    margin: 1px auto;
+                }
+            .data-panel .panel {
+                overflow: auto;
+                border-bottom: solid 1px #ddd;
+            }
+
     	</style>
 	</head>
 <body style="overflow-y: hidden">
@@ -96,26 +99,29 @@
     </div>
 </div>
 
-<div class="data" id="locale-data">
-    <table width="100%" class="data-table" cellspacing="0">
-        <thead>
+<div class="data-panel" id="locale-data">
+    <table width="100%" class="data-table" cellspacing="0" style="border-top: solid 1px #167CD2;">
+        <thead id="thead">
         <tr>
-            <td width="10%" style="min-width: 150px;">键</td>
-            <td width="">英语<br />(Unit States)</td>
-            <td width="">中文简体<br/>(Chinese Simplified)</td>
-            <td width="">中文繁体<br/>(Chinese Traditional</td>
-            <td width="">西班牙语<br/>(Spanish)</td>
-            <td width="">法语<br/>(French)</td>
-            <td width="">泰语<br/>(Thai)</td>
-            <td width="">俄语<br/>(Russian)</td>
-            <td width="">阿拉伯语<br/>(Arabic)</td>
-            <td width="5%">操作</td>
+            <td class="fix-col" style="min-width: 100px;">键</td>
+            <td class="fix-col" width="">英语<br/>(Unit States)</td>
+            <td class="fix-col" width="">中文简体<br/>(Chinese Simplified)</td>
+            <td class="fix-col" width="">中文繁体<br/>(Chinese Traditional</td>
+            <td class="fix-col" width="">西班牙语<br/>(Spanish)</td>
+            <td class="fix-col" width="">法语<br/>(French)</td>
+            <td class="fix-col" width="">泰语<br/>(Thai)</td>
+            <td class="fix-col" width="">俄语<br/>(Russian)</td>
+            <td class="fix-col" width="">阿拉伯语<br/>(Arabic)</td>
+            <td class="fix-col">操作</td>
         </tr>
         </thead>
-        <tbody id="tbody">
-        
-        </tbody>
     </table>
+
+    <div class="panel" id="locale-data-list">
+        <table width="100%" class="data-table" cellspacing="0">
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
 </div>
 
 $js()
@@ -123,7 +129,8 @@ $js()
     var currentType = "custom";
     var langCount = 8;
     var tby = j6.$('tbody');
-    var rowTpl = '<tr><td class="key"><b><span field="k_{row}">{key}</span></b></td>{lang}<td><a href="javascript:;" onclick="delKey(\'{key}\')">删除</a></td></tr>';
+    var tds = j6.$('thead').getElementsByTagName('TD');
+    var rowTpl = '<tr><td class="key" style="min-width: 120px;"><b><span field="k_{row}">{key}</span></b></td>{lang}<td width="40px"><a href="javascript:;" onclick="delKey(\'{key}\')">删除</a></td></tr>';
     var editTpl = '<td><input type="text" class="ui-box" field="f_{row}_{col}" value="{value}"/></td>';
     function writeToBody(d) {
         if (d == null)return;
@@ -139,6 +146,39 @@ $js()
             html += j6.template(rowTpl, { row: i, key: d[i].key, lang: editHtm });
         }
         tby.innerHTML = html;
+        if (d.length > 0) {
+            fixTitRow();
+        }
+    }
+
+    function fixTitRow() {
+        var srcTds = tby.getElementsByTagName('TR')[0].getElementsByTagName('TD');
+        for (var i = 0; i < tds.length; i++) {
+            var width = Math.floor(srcTds[i].offsetWidth);
+            if (tds.length - 1 == i) {
+                tds[i].style.width = ( width+ getScrollWidth()) + 'px';
+            } else {
+                tds[i].style.width = width+ 'px';
+                srcTds[i].style.width =width+ 'px';
+            }
+        }
+        var pl = j6.$('locale-data-list');
+        var y = document.documentElement.clientHeight;
+        if (pl.scrollHeight > y - 80) {
+            pl.style.height = (y - 80) + 'px';
+        } else {
+            pl.style.height = 'inherit';
+        }
+    }
+
+    function getScrollWidth() {
+        var noScroll, scroll, oDiv = document.createElement("DIV");
+        oDiv.style.cssText = "position:absolute; top:-1000px; width:100px; height:100px; overflow:hidden;";
+        noScroll = document.body.appendChild(oDiv).clientWidth;
+        oDiv.style.overflowY = "scroll";
+        scroll = oDiv.clientWidth;
+        document.body.removeChild(oDiv);
+        return noScroll - scroll;
     }
 
     function loadKeys(type) {
@@ -151,9 +191,10 @@ $js()
         var key = j6.$('keyName').value;
         j6.xhr.jsonPost("?module=system&action=CreateNewLocaleKey", { key: key }, function(r) {
             if (r.result) {
+                showMsg2('创建成功');
                 loadKeys(currentType);
             } else {
-                showErr(r.message);
+                j6.dialog.alert(r.message);
             }
         });
     };

@@ -118,7 +118,7 @@ namespace J6.Cms.Domain.Interface.Common.Language
 
         private void AddOne(Languages lang, string key, string value)
         {
-            var packKeyStr = String.Concat(key, ">", ((int) lang).ToString());
+            var packKeyStr = String.Concat( ((int) lang).ToString(),"$",key);
             if (!_languagePack.ContainsKey(packKeyStr))
             {
                 _languagePack.Add(packKeyStr, value);
@@ -152,7 +152,7 @@ namespace J6.Cms.Domain.Interface.Common.Language
         {
             foreach (KeyValuePair<Languages, string> pair in langs)
             {
-                _languagePack.Add(String.Concat(key, ">", ((int)pair.Key).ToString()), pair.Value);
+                _languagePack.Add(String.Concat( ((int)pair.Key).ToString(),"$",key), pair.Value);
             }
         }
 
@@ -165,9 +165,8 @@ namespace J6.Cms.Domain.Interface.Common.Language
         public string Get(Languages lang,LanguagePackageKey key)
         {
             string dictKey = String.Concat(
-                ((int)key).ToString(CultureInfo.InvariantCulture), 
-                ">", 
-                ((int)lang).ToString(CultureInfo.InvariantCulture));
+                ((int)lang).ToString(CultureInfo.InvariantCulture),
+                "$", ((int)key).ToString(CultureInfo.InvariantCulture) );
 
             string outStr = null;
             if (_languagePack.TryGetValue(dictKey, out outStr))
@@ -189,7 +188,7 @@ namespace J6.Cms.Domain.Interface.Common.Language
         /// <returns></returns>
         public String GetValueByKey(Languages lang,string key)
         {
-            string dictKey = String.Concat(key, ">", ((int)lang).ToString());
+            string dictKey = String.Concat(((int)lang).ToString(),"$",key );
             string outStr = null;
             if (_languagePack.TryGetValue(dictKey, out outStr))
             {
@@ -200,6 +199,7 @@ namespace J6.Cms.Domain.Interface.Common.Language
 
         public void LoadFromJson(string json)
         {
+            if (String.IsNullOrEmpty(json)) return;
             IList<LangKvPair> list = JsonConvert.DeserializeObject<List<LangKvPair>>(json);
             if (list != null)
             {

@@ -149,7 +149,7 @@
         window.saveData = function () {
             if (cms.validator.validate('form1')) {
                 var data = cms.json.toObject('form1');
-                cms.xhr.jsonPost(location.href, data, function (json) {
+                j6.xhr.jsonPost(location.href, data, function (json) {
                     if (json.result) {
                         showMsg2(json.message);
                     } else {

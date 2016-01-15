@@ -26,13 +26,13 @@ namespace J6.Cms.Core
             _lang = new LanguagePackage();
             _lang.LoadFromXml(ResourceMap.XmlLangPackage);
             // 加载系统内置的
-            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale",false,null);
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
             // 加载自定义的配置
-            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale",true,null);
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale");
 
             //加载JSON格式语言
-            loadFromFile(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH+"locale/locale.db");
-            loadFromFile( Cms.PyhicPath + CmsVariables.SITE_LOCALE_PATH);
+            LoadFromFile(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH+"locale/locale.db");
+            LoadFromFile( Cms.PyhicPath + CmsVariables.SITE_LOCALE_PATH);
 
 
             /*
@@ -55,7 +55,7 @@ namespace J6.Cms.Core
            */
         }
 
-        private void loadFromFile(string file)
+        private void LoadFromFile(string file)
         {
             if (File.Exists(file))
             {
@@ -71,20 +71,12 @@ namespace J6.Cms.Core
         /// 加载系统内置的语言配置文件
         /// </summary>
         [Obsolete]
-        private void LoadLocaleXml(string dirPath,bool observer,string cacheKey)
+        private void LoadLocaleXml(string dirPath)
         {
             DirectoryInfo dir = new DirectoryInfo(dirPath);
             if (dir.Exists)
             {
                 FileInfo[] files = dir.GetFiles("*.xml");
-
-//                // 监视文件目录
-//                if (files.Length > 0 && observer)
-//                {
-//                    this._observerStarted = true;
-//                    CacheFactory.Sington.Insert(cacheKey,1,dirPath);
-//                }
-
                 // 加载
                 Languages lang;
                 foreach (var fileInfo in files)
