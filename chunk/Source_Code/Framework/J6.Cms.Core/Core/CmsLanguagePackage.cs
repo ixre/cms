@@ -26,9 +26,9 @@ namespace J6.Cms.Core
             _lang = new LanguagePackage();
             _lang.LoadFromXml(ResourceMap.XmlLangPackage);
             // 加载系统内置的
-            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
+            //LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
             // 加载自定义的配置
-            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale");
+           // LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale");
 
             //加载JSON格式语言
             LoadFromFile(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH+"locale/locale.db");

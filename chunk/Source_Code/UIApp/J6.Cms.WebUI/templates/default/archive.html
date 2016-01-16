@@ -1,90 +1,103 @@
-<!DOCTYPE html>
+$require('${archive.id}')
+<!DOCTYPE html />
 <html>
 <head>
     <title>${page.title}</title>
-
-    <link rel="Stylesheet" href="${page.fpath}/template.css?v=${page.version}" type="text/css" />
-    <link rel="Stylesheet" href="${page.tpath}/theme/style.css" type="text/css" />
+    <link rel="Stylesheet" href="${page.fpath}/template.css?v=${page.built}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/themes/default/style.css?v=${page.built}" type="text/css" />
     <meta name="keywords" content="${page.keywords}" />
     <meta name="description" content="${page.description}" />
+    ${page.html5}
 </head>
 <body>
-    ${partial:"inc/header.phtml"}
-
-    ${partial:"inc/main_top.phtml"}
-
-    <div class="container3">
-       
-        <div class="clearfix sitemap">您的位置：<a rel="nofollow" href="${page.domain}">首页</a> > $sitemap() > ${archive.title}</div>
-    <div class="partLayer">
-            
-
-             <div class="main">
-           
-               <div class="pd10 archive-page">
-                   
-                   <h1><center><strong>${archive.title}</strong></center></h1>
-                    <div class="meta">
-                        <!--<b>发布时间：</b>${archive.publish}&nbsp;&nbsp;--><b>浏览：</b><em>${archive.count}</em>&nbsp;&nbsp;
-                        <span class="tags"><b>标签：<span id="tags">无标签</span></b></span>
-                        <script type="text/javascript">var _tags='$tags('${archive.tags}')';if(_tags!='')tags.innerHTML=_tags;</script>
-                    </div>
-                    <div class="content">${archive.content}</div>
-                    <br />
-                    <div class="relation">
-                        <div id="rl-panel"></div>
-                        <b>相关链接：</b><br />
-                        <b>上一篇：</b>$prev_archive()&nbsp;&nbsp;
-                        <b>下一篇：</b>$next_archive()
-                       <br />
-                        <!--
-                           <ul class="extra-archives">
-                               $-archives(20)
-                           </ul>
-						-->
-               		 </div>
-                   
-                   <div>
-                   </div>
-
-
-                 </div></div>
-
-                <div class="side">
-                    <div class="side_title">栏目导航</div>
-                    <div class="category">
-                        <h2 class="title">${category.name}</h2>
-                        <div class="content">
-                            <ul class="clist">
-                                $categories('product','<li><a href="{url}">{name}</a></li>')
-                            </ul>
-                        </div>
-                    </div>
-        		</div>
-           <!-- Content END -->
-
-           <div class="clearfix"></div>
-        </div>
+    ${partial:"include/header.phtml"}
+    
+    <div class="sitemap">
+       <div class="panel">当前位置:<a href="/">首页</a> > $sitemap()</div>
     </div>
 
-    ${partial:"inc/footer.phtml"}
-    <script type="text/javascript" src="${page.fpath}/core.js?hover=navi,clist,alist&v=${page.version}"></script>
-    <script type="text/javascript" src="${page.fpath}/api.js?v=${page.version}"></script>
-<script>
-    j6.api.setPath('${page.domain}');
-    j6.api.getRLink('${archive.id}',"json",function(data){
-        var html='<ul>';
-        var tpl = '<li><a href="{Url}"><img src="{Thumbnail}" /><br />{IndentName}-{Title}</a></li>';
-        for(var i in data) {
-            html += j6.template(tpl, data[i]);
-        }
-            
-        html+='</ul>';
-        j6.$('rl-panel').innerHTML = html;
+    <div class="page-main page-archive">
+        <div class="panel">
+            <div class="main">
+                <h1>${archive.title}</h1>
+                <div class="info">
+                    ${archive.publish}<br />
+                    来源：<em>${archive.source}</em>
+                    &nbsp;&nbsp;
+                    浏览:<em>${archive.count}</em>次
 
-    });
-</script>
+                    <span class="abs">
+                        <div class="share bshare-custom">
+                        <a title="分享到" href="javascript:;" id="bshare-shareto" class="bshare-more">分享到</a>
+                        <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a>
+                        <a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a>
+                        <a title="分享到腾讯微博" class="bshare-qqmb">腾讯微博</a>
+                        <a title="分享到微信" class="bshare-weixin">微信</a>
+                        <a title="分享到网易微博" class="bshare-neteasemb">网易微博</a>
+                        <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+                    </div>
+                    </span>
+                </div>
+                <div class="content">
+                    ${archive.content}
+                    <div class="author">
+                       <!-- [编辑:${archive.author}]-->
+                        <span class="right tags">
+                             $tags('${archive.tags}')
+                        </span>
+                    </div>
+                </div>
+                    
+                <div class="share">
+                     <div class="bshare-custom">
+                        <a title="分享到" href="javascript:;" id="bshare-shareto" class="bshare-more">分享到</a>
+                        <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a>
+                        <a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a>
+                        <a title="分享到腾讯微博" class="bshare-qqmb">腾讯微博</a>
+                        <a title="分享到微信" class="bshare-weixin">微信</a>
+                        <a title="分享到网易微博" class="bshare-neteasemb">网易微博</a>
+                        <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span>
+                    </div>
+                </div>
 
-    
-</body>
+                <div class="tags">
+                   
+                </div>
+                <div class="relation">
+                              上一篇: $prev_archive('<a href="{url}">{title}</a>')   
+                            &nbsp;下一篇:
+                               $next_archive('<a href="{url}">{title}</a>')   
+                  </div>
+            </div>
+                    
+                    <div class="side">
+                        <div class="border border-b">
+                            <div class="tit">推荐信息</div>
+                            <ul class="conn">
+                                $special_archives(5,'<li><span class="arrow"></span><a href="{url}" target="_blank">{title}</a></li>')
+                            </ul>
+                        </div>
+                        
+                        <div class="border border-b" style="margin-top:10px">
+                            <div class="tit">${category.Name}</div>
+                            <ul class="conn">
+                                $archives('10','<li><span class="arrow"></span><a href="{url}">{title}</a></li>')
+                            </ul>
+                        </div>
+                        
+                       
+                       
+                        
+                </div>
+            </div>
+        </div>
+           ${partial:"include/footer.phtml"}
+        <script type="text/javascript" src="${page.fpath}/core.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
+        <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+        <script type="text/javascript">
+            var plContact = j6.$('pl-contact');
+            fixedDiv(plContact);
+        </script>
+     </body>
 </html>
