@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Xml;
 using Newtonsoft.Json;
@@ -9,7 +8,23 @@ namespace J6.Cms.Domain.Interface.Common.Language
 {
     public class LanguagePackage
     {
-        private readonly IDictionary<string, string> _languagePack = new Dictionary<string, string>();
+        private readonly IDictionary<Languages, IDictionary<string, string>> _languagePack;  //语言字典
+
+        public LanguagePackage()
+        {
+            _languagePack = new Dictionary<Languages, IDictionary<string, string>>();
+            this.InitPackage();
+        }
+
+        private void InitPackage()
+        {
+            int i = 1;
+            while (System.Enum.IsDefined(typeof(Languages),i))
+            {
+                this._languagePack.Add((Languages)i, new Dictionary<string, string>());
+                i++;
+            }
+        }
 
         /// <summary>
         /// 从XML中加载语言
@@ -118,14 +133,14 @@ namespace J6.Cms.Domain.Interface.Common.Language
 
         private void AddOne(Languages lang, string key, string value)
         {
-            var packKeyStr = String.Concat( ((int) lang).ToString(),"$",key);
-            if (!_languagePack.ContainsKey(packKeyStr))
+            IDictionary<string, string> dict = this._languagePack[lang];
+            if (!dict.ContainsKey(key))
             {
-                _languagePack.Add(packKeyStr, value);
+                dict.Add(key, value);
             }
             else
             {
-                _languagePack[packKeyStr] = value;
+                dict[key] = value;
             }
         }
 
@@ -152,7 +167,14 @@ namespace J6.Cms.Domain.Interface.Common.Language
         {
             foreach (KeyValuePair<Languages, string> pair in langs)
             {
-                _languagePack.Add(String.Concat( ((int)pair.Key).ToString(),"$",key), pair.Value);
+                if (_languagePack[pair.Key].ContainsKey(key))
+                {
+                    this._languagePack[pair.Key][key] = pair.Value;
+                }
+                else
+                {
+                    this._languagePack[pair.Key].Add(key,pair.Value);
+                }
             }
         }
 
@@ -164,20 +186,13 @@ namespace J6.Cms.Domain.Interface.Common.Language
         /// <returns></returns>
         public string Get(Languages lang,LanguagePackageKey key)
         {
-            string dictKey = String.Concat(
-                ((int)lang).ToString(CultureInfo.InvariantCulture),
-                "$", ((int)key).ToString(CultureInfo.InvariantCulture) );
-
             string outStr = null;
-            if (_languagePack.TryGetValue(dictKey, out outStr))
+            if (this._languagePack[lang].TryGetValue(key.ToString(), out outStr))
             {
                 return outStr;
             }
-
             throw new ArgumentNullException("key", 
-                String.Format("({0}->{1})不包含当前语言的配置项!", 
-                lang.ToString(),
-                key.ToString()));
+                String.Format("({0}->{1})不包含当前语言的配置项!", lang,key));
         }
 
         /// <summary>
@@ -188,9 +203,8 @@ namespace J6.Cms.Domain.Interface.Common.Language
         /// <returns></returns>
         public String GetValueByKey(Languages lang,string key)
         {
-            string dictKey = String.Concat(((int)lang).ToString(),"$",key );
-            string outStr = null;
-            if (_languagePack.TryGetValue(dictKey, out outStr))
+            String outStr;
+            if (_languagePack[lang].TryGetValue(key, out outStr))
             {
                 return outStr;
             }

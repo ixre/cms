@@ -56,7 +56,8 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 .page-navigator .navs li.parent .child a:hover{color:#FF0000;}
 
 /** flash player **/
-.flash-panel{ margin: 0;}
+.flash-panel{margin: 0;}
+.flash-panel .top{position:absolute;left:0;right:0;margin:auto;width:100%;height:100%;background-size: cover;}
 .flash-panel ul{list-style:none;margin:0;padding:0;height: 100%;}
 .flash-panel li{ height: 100%;margin: 0;padding: 0;}
 .flash-panel .item{height:100%;background:#F5F5F5 center top no-repeat;width: 100%;}

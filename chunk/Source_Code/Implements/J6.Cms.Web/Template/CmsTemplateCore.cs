@@ -1,7 +1,4 @@
 ﻿
-
-using System.Diagnostics;
-
 namespace J6.Cms.Template
 {
     using J6.Cms;
@@ -1341,9 +1338,10 @@ namespace J6.Cms.Template
                             case "keywords": return c.Keywords;
                             case "index":return  (i+1).ToString();
                             case "class":
-                                if (i == categories.Count - 1) return "c last";
-                                else if (i == 0) return "c first";
-                                return "c";
+                                String cls = String.Format("c{0}",(i + 1)%2 == 0 ? " even" : "");
+                                if (i == categories.Count - 1) return cls + " last";
+                                else if (i == 0) return cls+" first";
+                                return cls;
                         }
                     }));
                 }
@@ -1454,9 +1452,11 @@ namespace J6.Cms.Template
                         // 项目顺序类
                         case "class":
                             if (dt == null || index < 0) return String.Empty;
-                            if (index == dt.Count() - 1) return "a last";
-                            else if (index == 0) return "a first";
-                            return String.Concat("a a", (index+1).ToString());
+                            String cls = String.Format("a a{0}{1}", (index + 1).ToString(),
+                                (index + 1) % 2 == 0 ? " even" : "");
+                            if (index == dt.Count() - 1) return cls+" last";
+                            else if (index == 0) return cls+" first";
+                            return cls;
 
                         //特性列表
                         case "prolist":

@@ -109,7 +109,7 @@ namespace J6.Cms
         /// <summary>
         /// 语言包
         /// </summary>
-        public static readonly CmsLanguagePackage Language = new CmsLanguagePackage();
+        public static readonly CmsLanguagePackage Language;
         
 
         /// <summary>
@@ -151,6 +151,7 @@ namespace J6.Cms
             Template = new CmsTemplate();
             Cache = CacheFactory.Sington as CmsCache;
             Utility = new CmsUtility();
+            Language = new CmsLanguagePackage();
 
             #region  缓存清除
 

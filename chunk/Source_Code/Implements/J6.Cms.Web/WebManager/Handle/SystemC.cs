@@ -545,7 +545,7 @@ namespace J6.Cms.Web.WebManager.Handle
             {
                 case "reboot":
                     HttpRuntime.UnloadAppDomain();
-                    return base.ReturnSuccess("网站已重启");
+                    return base.ReturnSuccess("网站正在重启...");
                 case "cache":
                     PageVariable.ResetBuilt();
                     return base.ReturnSuccess("缓存清理成功");

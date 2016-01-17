@@ -50,9 +50,10 @@
             j6.xhr.jsonPost(location.href, {'for':f}, function (json) {
                 if (json.result) {
                     if (f == "reboot") {
+                        showMsg2(json.message,null,20000);
                         j6.xhr.get(location.href, function () {
+                            showMsg2('网站已重启');
                             t.disabled = false;
-                            showMsg2(json.message);
                         }, function (x) {
                             t.disabled = false;
                             showMsg2(x);
