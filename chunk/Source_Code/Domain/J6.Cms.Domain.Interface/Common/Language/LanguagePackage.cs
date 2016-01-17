@@ -187,7 +187,7 @@ namespace J6.Cms.Domain.Interface.Common.Language
         public string Get(Languages lang,LanguagePackageKey key)
         {
             string outStr = null;
-            if (this._languagePack[lang].TryGetValue(key.ToString(), out outStr))
+            if (this._languagePack[lang].TryGetValue( ((int)key).ToString(), out outStr))
             {
                 return outStr;
             }
