@@ -114,9 +114,9 @@ namespace J6.Cms
         /// <param name="pageFunc">对模板处理前操作，可以添加数据对象</param>
         public static string Require(string templateId,TemplatePageHandler pageFunc)
         {
+            TemplatePage page = new TemplatePage(templateId);
             using (CmsTemplateImpl tpl = new CmsTemplateImpl())
             {
-                TemplatePage page = new TemplatePage(templateId);
                 //if (data != null)
                 //{
                 //   page.AddDataObject(data);

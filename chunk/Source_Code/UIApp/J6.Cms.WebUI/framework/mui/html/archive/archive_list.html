@@ -74,40 +74,38 @@
 
 <script type="text/template" id="tpl">
         <div class="item" onclick="menu.edit('%id%')">
-            <a href="javascript:;">$icon(edit)编辑</a>
+            <a href="javascript:;"><span>$icon(edit)</span>编辑</a>
         </div>
-
         <div class="item" onclick="menu.show('%id%')">
-            <a href="javascript:;">$icon(show)预览</a>
+            <a href="javascript:;"><span>$icon(show)</span>预览</a>
         </div>
-
+        <div class="item last" onclick="menu.del('%id%')">
+            <a href="javascript:;"><span>$icon(delete)</span>删除</a>
+        </div>
+        <div class="line"></div>
         <div class="item" onclick="menu.moveToSort('%id%', 1)">
-            <a href="javascript:;">$icon(refresh)上移</a>
+            <a href="javascript:;"><span>$icon(refresh)</span>上移</a>
         </div>
 
         <div class="item" onclick="menu.moveToSort('%id%',2)">
-            <a href="javascript:;">$icon(refresh)下移</a>
+            <a href="javascript:;"><span>$icon(refresh)</span>下移</a>
         </div>
-
-        <div class="item" onclick="menu.relatedContent('%id%')">
-            <a href="javascript:;">$icon(link)文档关联</a>
-        </div>
-
-        <div class="item" onclick="menu.forword('%id%')">
-            <a href="javascript:;">$icon(comment)转发文档</a>
-        </div>
-
         <div class="item" onclick="menu.republish('%id%')">
-            <a href="javascript:;">$icon(refresh)重新发布</a>
+            <a href="javascript:;"><span>$icon(refresh)</span>重新发布</a>
         </div>
 
+        <div class="line"></div>
+        <div class="item" onclick="menu.forword('%id%')">
+            <a href="javascript:;"><span></span>转发文档</a>
+        </div>
+        <div class="item" onclick="menu.relatedContent('%id%')">
+            <a href="javascript:;"><span>$icon(link)</span>文档关联</a>
+        </div>
+        <div class="line"></div>
         <div class="item" onclick="menu.comment('%id%')">
-            <a href="javascript:;">$icon(comment)评论管理</a>
+            <a href="javascript:;"><span>$icon(comment)</span>评论管理</a>
         </div>
 
-        <div class="item last" onclick="menu.del('%id%')">
-            <a href="javascript:;">$icon(delete)删除</a>
-        </div>
     </script>
 <script type="text/template" id="item_template" class="hidden">
         <div class="archive-item" valign="middle" style="overflow:hidden-x;width:100%">

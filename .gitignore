@@ -4,6 +4,7 @@
 Debug
 obj
 bin/*
+.backup
 chunk/Source_Code/*.dll
 /chunk/Source_Code/UIApp/Ops.Cms.WebUI/config/cms.config.mssql
 /chunk/Source_Code/Framework/Ops.Cms.Cache/CacheCompoment

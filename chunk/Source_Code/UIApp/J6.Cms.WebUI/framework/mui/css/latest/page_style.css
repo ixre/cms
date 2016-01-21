@@ -250,15 +250,14 @@ ul.centform{margin:100px auto;}
 
 
 /* 右键 */
-.ui-contextmenu{border:1px solid #b0b0b0;border-top:0px;width:120px;padding:0;
-                background:#fff url(/framework/mui/css/latest/context_menu.gif) repeat-y;display:none;
-                  -webkit-box-shadow: 2px 2px 1px #ddd;
-            -moz-box-shadow:2px 2px 1px #aaa;
-             box-shadow: 2px 2px 1px #aaa;
-}  
-.ui-contextmenu .item{border-top:1px solid #b0b0b0;height:22px;line-height:22px;border-bottom:solid 1px #fff;}
-.ui-contextmenu img.icon{float:left;margin:2px 8px 0 3px;}
-.ui-contextmenu a{text-decoration:none;color:#000;cursor:default;}
+.ui-contextmenu{border:1px solid #bbb;width:150px;background:#FFF;padding:0.2em 0;}  
+.ui-contextmenu .item{border-bottom:solid 0px #fff;padding-left:1em;line-height:24px;}
+.ui-contextmenu span{display:inline-block;width:24px;margin-right:6px;margin-top:-4px;}
+.ui-contextmenu .item:hover{background:#06c;}
+.ui-contextmenu .item:hover a{color:#FFF;}
+.ui-contextmenu img.icon{float:left;margin:0 3px;}
+.ui-contextmenu a{text-decoration:none;color:#555;cursor:default;}
+.ui-contextmenu div.line{border-top:none;border-bottom:solid 1px #ddd;margin:5px 3px;}
 
 /* 对话框 */
 .ui-dialog .bglayer{background:#d0d0d0;opacity:0.2;filter:alpha(opacity=20);}

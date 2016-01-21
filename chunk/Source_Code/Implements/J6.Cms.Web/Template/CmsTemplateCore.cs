@@ -429,6 +429,7 @@ namespace J6.Cms.Template
                 IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.SortNumber));
                 StringBuilder sb = new StringBuilder(400);
                 int i = 0;
+                int total = categories.Count;
 
                 foreach (CategoryDto c in categories)
                 {
@@ -452,9 +453,7 @@ namespace J6.Cms.Template
                                 case "keywords": return c.Keywords;
                                 case "index": return i.ToString();
                                 case "class":
-                                    if (i == categories.Count - 1) return "last";
-                                    else if (i == 0) return "first";
-                                    return string.Empty;
+                                    return GetCssClass(total, i, "c");
                             }
                         }));
                     }
@@ -872,7 +871,7 @@ namespace J6.Cms.Template
                         //会员链接
                         case "url":
                             return memberId == 0 ? "javascript:;" :
-                                // (Settings.TPL_UseFullPath ? Settings.SYS_DOMAIN : String.Empty)+
+                                // (Settings.TPL_UseFullPath ? Settings.SYS_DOMAIN : String.GetCssClass)+
                                  String.Format("/member/{1}", memberId.ToString());
 
                         //会员编号
@@ -887,14 +886,7 @@ namespace J6.Cms.Template
 
                         //样式
                         case "class":
-                            if ((i + 1) % 2 == 0)
-                            {
-                                return replayCount == i + 1 ? "even last" : "even";
-                            }
-                            else
-                            {
-                                return i == 0 ? "first" : "";
-                            }
+                            return GetCssClass(replayCount, i, "cm");
 
                         //评论时间
                         case "date":
@@ -1309,8 +1301,9 @@ namespace J6.Cms.Template
                 //    }
                 //}
             }
-
-            if (categories.Count == 0) return String.Empty;
+            
+            int total = categories.Count;
+            if (total== 0) return String.Empty;
 
             StringBuilder sb = new StringBuilder(400);
             int i = 0;
@@ -1338,10 +1331,7 @@ namespace J6.Cms.Template
                             case "keywords": return c.Keywords;
                             case "index":return  (i+1).ToString();
                             case "class":
-                                String cls = String.Format("c{0}",(i + 1)%2 == 0 ? " even" : "");
-                                if (i == categories.Count - 1) return cls + " last";
-                                else if (i == 0) return cls+" first";
-                                return cls;
+                                return GetCssClass(total, i, "c");
                         }
                     }));
                 }
@@ -1439,10 +1429,10 @@ namespace J6.Cms.Template
 
                         //图片元素
                         case "img":
-                            string url = this.GetThumbnailUrl(archiveDto.Thumbnail);
-                            return String.IsNullOrEmpty(url) ? "" : String.Format("<img class=\"thumb thumbnail\" src=\"{0}\" alt=\"{1}\"/>", url, archiveDto.Title);
-
-                        //缩略图
+                            return ThumbnailTag(archiveDto.Thumbnail,archiveDto.Title,true);
+                        case "img2":
+                            return this.ThumbnailTag(archiveDto.Thumbnail, archiveDto.Title, false);
+                            //缩略图
                         case "thumb": return this.GetThumbnailUrl(archiveDto.FirstImageUrl);
 
                         case "thumbnail": return this.GetThumbnailUrl(archiveDto.Thumbnail);
@@ -1451,14 +1441,10 @@ namespace J6.Cms.Template
 
                         // 项目顺序类
                         case "class":
-                            if (dt == null || index < 0) return String.Empty;
-                            String cls = String.Format("a a{0}{1}", (index + 1).ToString(),
-                                (index + 1) % 2 == 0 ? " even" : "");
-                            if (index == dt.Count() - 1) return cls+" last";
-                            else if (index == 0) return cls+" first";
-                            return cls;
+                            if (dt == null) return String.Empty;
+                            return GetCssClass(dt.Count(), index,"a");
 
-                        //特性列表
+                            //特性列表
                         case "prolist":
                         case "property_list":
                             StringBuilder sb2 = new StringBuilder();
@@ -1497,12 +1483,44 @@ namespace J6.Cms.Template
                                     extendFields.Add(value.Field.Name, value.Value);
                                 }
                             }
-                            if (extendFields.ContainsKey(field))
+                            if (extendFields.ContainsKey(field))  // 查找自定义属性
                                 return extendFields[field];
-                            return "";
+
+                            return Cms.Language.Get(Cms.Context.CurrentSite.Language, field); //查找语言项
                     }
                 }));
 
+        }
+
+        /// <summary>
+        /// 获取缩略图
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="title"></param>
+        /// <param name="useDefault"></param>
+        /// <returns></returns>
+        private string ThumbnailTag(String url,String title,bool useDefault)
+        {
+            if (!useDefault && String.IsNullOrEmpty(url)) return "";
+           url = this.GetThumbnailUrl(url);
+            return String.Format("<img class=\"thumb thumbnail\" src=\"{0}\" alt=\"{1}\"/>", url, title);
+        }
+
+        /// <summary>
+        /// 获取css样式
+        /// </summary>
+        /// <param name="total"></param>
+        /// <param name="index"></param>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        private static string GetCssClass(int total, int index,string prefix)
+        {
+            if (total ==0 || index < 0) return String.Empty;
+            String cls = String.Format("{0} {1}{2}{3}",prefix,prefix, (index + 1).ToString(),
+                (index + 1)%2 == 0 ? " even" : "");
+            if (index == total - 1) return cls + " last";
+            else if (index == 0) return cls + " first";
+            return cls;
         }
 
 
@@ -1630,19 +1648,15 @@ namespace J6.Cms.Template
 
                             //图片元素
                             case "img":
-                                string url = this.GetThumbnailUrl(dr["thumbnail"].ToString());
-                                return String.IsNullOrEmpty(url) ? "" : String.Format("<img class=\"thumb thumbnail\" src=\"{0}\" alt=\"{1}\"/>", url, dr["title"].ToString());
-
+                                return ThumbnailTag(dr["thumbnail"].ToString(), dr["title"].ToString(), true);
+                            case "img2":return ThumbnailTag(dr["thumbnail"].ToString(), dr["title"].ToString(), false);
 
                             //缩略图
                             case "thumbnail": return this.GetThumbnailUrl(dr["thumbnail"].ToString());
 
                             // 项目顺序类
                             case "class":
-                                if (archiveIndex == 1) return "first a";
-                                if (archiveIndex == totalNum) return "last a";
-                                return "a";
-
+                                return GetCssClass(totalNum, archiveIndex-1, "a");
                             case "index":
                                 return archiveIndex.ToString();
 
@@ -1839,7 +1853,8 @@ namespace J6.Cms.Template
             //如果未设置模块或栏目参数
             if (searchArchives == null)
             {
-                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, 0, 0, false, keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
+                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, 0, 0, false, 
+                    keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
             }
 
             IDictionary<string, string> extendFields = null;
@@ -1863,7 +1878,7 @@ namespace J6.Cms.Template
 
                 if (keyRegex.IsMatch(title_hightlight))
                 {
-                    title_hightlight = keyRegex.Replace(title_hightlight, "<span class=\"search_hightlight\">$0</span>");
+                    title_hightlight = keyRegex.Replace(title_hightlight, "<span class=\"high-light\">$0</span>");
                 }
 
                 //关键词前数字索引算法
@@ -1892,7 +1907,7 @@ namespace J6.Cms.Template
                             content = content.Remove(C_LENGTH);
                         }
                     }
-                    content = keyRegex.Replace(content, "<span class=\"search_hightlight\">$0</span>") + "...";
+                    content = keyRegex.Replace(content, "<span class=\"high-light\">$0</span>") + "...";
                 }
                 else
                 {
@@ -1905,7 +1920,6 @@ namespace J6.Cms.Template
                 #endregion
 
 
-                int archivesCount = searchArchives.Count();
                 sb.Append(TplEngine.FieldTemplate(format,
                     field =>
                     {
@@ -1913,9 +1927,8 @@ namespace J6.Cms.Template
                         {
                             case "id":return archive.Id.ToString();
                             case "str_id": return alias;
-                            case "special_title": return title_hightlight;
                             case "small_title": return archive.SmallTitle;
-                            case "title": return archive.Title;
+                            case "title": return title_hightlight;
                             case "publisher_id": return archive.PublisherId.ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
@@ -1944,17 +1957,16 @@ namespace J6.Cms.Template
 
                             //图片元素
                             case "img":
-                                string url = this.GetThumbnailUrl(archive.Thumbnail);
-                                return String.IsNullOrEmpty(url) ? "" : String.Format("<img class=\"thumb thumbnail\" src=\"{0}\" alt=\"{1}\"/>", url, archive.Title);
+                                return ThumbnailTag(archive.Thumbnail,archive.Title, true);
+                            case "img2":
+                                return this.ThumbnailTag(archive.Thumbnail,archive.Title, false);
 
                             //缩略图
                             case "thumbnail": return this.GetThumbnailUrl(archive.Thumbnail);
 
                             // 项目顺序类
                             case "class":
-                                if (i == archivesCount - 1) return " class=\"a last\"";
-                                else if (i == 0) return " class=\"a first\"";
-                                return " class=\"a\"";
+                                return GetCssClass(total, i, "a");
 
                             default:
                                 //读取自定义属性
@@ -1968,7 +1980,7 @@ namespace J6.Cms.Template
                                 }
                                 if (extendFields.ContainsKey(field))
                                     return extendFields[field];
-                                return "";
+                                return Cms.Language.Get(Cms.Context.CurrentSite.Language, field);
                         }
                     }));
 
@@ -2052,7 +2064,6 @@ namespace J6.Cms.Template
                 int.TryParse(index, out navIndex);
             }
 
-
             if (number < 1) number = links.Count;
             else if (number > links.Count) number = links.Count;
 
@@ -2072,7 +2083,7 @@ namespace J6.Cms.Template
                         default: return String.Empty;
                         case "text": return link.Text;
                         case "imgurl": return link.ImgUrl;
-                        case "img": return String.IsNullOrEmpty(link.ImgUrl) ? "" : String.Format("<img src=\"{0}\" alt=\"{1}\"/>", link.ImgUrl, link.Text);
+                        case "img": return ThumbnailTag(link.ImgUrl,link.Text, true);
                         case "url": return String.IsNullOrEmpty(link.Bind) ? link.Uri : this.GetBingLinkUrl(link.Bind);
                         case "target": return String.IsNullOrEmpty(link.Target) || String.Compare(link.Target, "_self", true) == 0 ? String.Empty : " target=\"_blank\"";
                         case "id": return link.Id.ToString();
@@ -2198,6 +2209,7 @@ namespace J6.Cms.Template
 
 
             IDictionary<string, string> extendFields = null;
+            int total = searchArchives.Count();
 
 
             foreach (ArchiveDto archive in searchArchives)
@@ -2302,17 +2314,16 @@ namespace J6.Cms.Template
 
                             //图片元素
                             case "img":
-                                string url = this.GetThumbnailUrl(archive.Thumbnail);
-                                return String.IsNullOrEmpty(url) ? "" : String.Format("<img class=\"thumb thumbnail\" src=\"{0}\" alt=\"{1}\"/>", url, archive.Title);
+                                return ThumbnailTag(archive.Thumbnail,archive.Title, true);
+                            case "img2":
+                                return this.ThumbnailTag(archive.Thumbnail, archive.Title, false);
 
                             //缩略图
                             case "thumbnail": return this.GetThumbnailUrl(archive.Thumbnail);
 
                             // 项目顺序类
                             case "class":
-                                if (i == archivesCount - 1) return " class=\"last\"";
-                                else if (i == 0) return " class=\"first\"";
-                                return string.Empty;
+                                return GetCssClass(total, i, "a");
 
                             default:
                                 //读取自定义属性

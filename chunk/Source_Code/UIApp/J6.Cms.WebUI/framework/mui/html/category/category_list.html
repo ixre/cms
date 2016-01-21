@@ -58,27 +58,36 @@
 
     <script type="text/template" id="list_menu_tpl">
         <div class="item" onclick="window.menu.add()">
-            <a href="javascript:;">$icon(create)新建栏目</a>
+            <a href="javascript:;"><span>$icon(create)</span>新建栏目</a>
         </div>
         <div class="item" onclick="menu.refresh()">
-            <a href="javascript:;">$icon(refresh)刷新</a>
+            <a href="javascript:;"><span>$icon(refresh)</span>刷新</a>
         </div>
     </script>
 
-    <script type="text/template" id="tpl">
+<script type="text/template" id="tpl">
         <div class="item" onclick="window.menu.add('%id%')">
-            <a href="javascript:;">$icon(create)新建子栏目</a>
-        </div>
-        <div class="item" onclick="menu.extend('%id%')">
-            <a href="javascript:;" title="通过设置扩展属性，可以提供更多的信息！">$icon(edit)扩展设置</a>
-        </div>
-        <div class="item" onclick="menu.del('%id%')">
-            <a href="javascript:;">$icon(delete)删除</a>
+            <a href="javascript:;"><span>$icon(create)</span>创建下级栏目</a>
         </div>
         <div class="item" onclick="menu.refresh()">
-            <a href="javascript:;">$icon(refresh)刷新</a>
+            <a href="javascript:;"><span>$icon(refresh)</span>刷新</a>
         </div>
-    </script>$js()
+        <div class="line"></div>
+         <div class="item" onclick="window.menu.add('%id%')">
+            <a href="javascript:;"><span>$icon(edit)</span>编辑</a>
+        </div>
+        <div class="line"></div>
+        <div class="item" onclick="menu.extend('%id%')">
+            <a href="javascript:;" title="通过设置扩展属性，可以提供更多的信息！"><span>$icon(edit)</span>扩展设置</a>
+        </div>
+        <div class="line"></div>
+        <div class="item" onclick="menu.del('%id%')">
+            <a href="javascript:;"><span>$icon(delete)</span>删除</a>
+        </div>
+        
+    
+
+</script>$js()
 <script type="text/javascript">
     j6.dom.fitHeight(j6.$('main'));
     j6.dom.fitHeight(j6.$('pl'));
@@ -144,6 +153,9 @@ window.menu = {
         var d = j6.dialog.create2('扩展属性', true, true);
         d.open('?module=extend&action=category_check&category_id=' + id, 500, 300);
 
+    },
+    edit:function(id) {
+        j6.load2('pl', 'category', 'update', 'category_id=' + id);
     },
     del: function(id) {
         if (confirm('确定删除吗?删除后将不可恢复!')) {

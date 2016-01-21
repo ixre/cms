@@ -3,7 +3,8 @@ body{font:62.5%/1.5 Sans-Serif,Arial;margin:0;}
 img{border:none;max-width: 100%;}
 a{outline:none;}
 table{border-collapse:collapse;border:none;}
-a:link,a:visited{color:#0000FF;}
+a:link,a:visited{color:#0066ff;}
+a:hover{color:#0000cc;}
 mask,.mask{background:url(/framework/assets/images/mask.gif);
 	width:100%;opacity:0.2;alpha(opacity=20);position:absolute;top:0;left:0;}
 p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}

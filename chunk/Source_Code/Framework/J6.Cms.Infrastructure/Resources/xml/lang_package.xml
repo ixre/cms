@@ -12,4 +12,21 @@
   <item key="ARCHIVE_NoPrevious" Zh_CN="没有了" Zh_TW="没有了" En="end" Es="sin" Th="โดยไม่ต้อง" Fr="sans" Ru="без" Ar="بدون"/>
   <item key="ARCHIVE_NoNext" Zh_CN="没有了"  Zh_TW="没有了" En="end" Es="sin" Th="โดยไม่ต้อง" Fr="sans" Ru="без" Ar="بدون"/>
   <item key="ARCHIVE_Tags" Zh_CN="标签" Zh_TW="標籤" En="Tags" Es="Tags" Th="ฉลาก" Fr="étiquette" Ru="этикетка" Ar="ملصق"/>
+
+  <!-- 模板翻译 -->
+  <item key="home" Zh_CN="首页" Zh_TW="" En="Home" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="sitemap_location" Zh_CN="你的位置" Zh_TW="" En="Location" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="close" Zh_CN="关闭" Zh_TW="" En="Close" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="space" Zh_CN="" Zh_TW="" En=" " Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="product" Zh_CN="产品" Zh_TW="" En="Product" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="service" Zh_CN="服务" Zh_TW="" En="Service" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="help" Zh_CN="帮助" Zh_TW="" En="Help" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="case" Zh_CN="案例" Zh_TW="" En="Case" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="company" Zh_CN="公司" Zh_TW="" En="Company" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="about" Zh_CN="关于" Zh_TW="" En="About" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="contact" Zh_CN="联系" Zh_TW="" En="Contact" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="tel" Zh_CN="电话" Zh_TW="" En="Tel" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="us" Zh_CN="我们" Zh_TW="" En="Us" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="search" Zh_CN="搜索" Zh_TW="" En="Us" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="dot" Zh_CN="▪" Zh_TW="▪" En="▪" Es="▪" Th="▪" Fr="▪" Ru="▪" Ar="▪"/>
 </lang>
