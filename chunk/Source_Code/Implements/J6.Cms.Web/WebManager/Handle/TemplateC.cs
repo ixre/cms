@@ -16,6 +16,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using J6.Cms.CacheService;
+using J6.Cms.Core;
 using J6.Cms.DataTransfer;
 using J6.Cms.Template;
 using J6.Cms.Utility;

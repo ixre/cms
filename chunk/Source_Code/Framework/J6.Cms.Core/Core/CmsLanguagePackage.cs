@@ -98,7 +98,7 @@ namespace J6.Cms.Core
         /// <returns></returns>
         public String Get(LanguagePackageKey key)
         {
-            return _lang.Get(Cms.Context.CurrentSite.Language, key);
+            return _lang.Get(Cms.Context.UserLanguage, key);
         }
 
         public string Get(Languages language, string key)

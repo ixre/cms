@@ -6,6 +6,7 @@
 //  2013-03-28  09:55   newmin  [!]:301重定向
 //
 
+using System.Web.Routing;
 using J6.Cms.Conf;
 using J6.Cms.Core;
 using J6.Cms.DB;
@@ -44,11 +45,11 @@ namespace J6.Cms.Web.Mvc
             this.OutputCntext.Source = this;
 
 
-           // ==========================================//
+            // ==========================================//
 
             _startTime = new TimeSpan(DateTime.Now.Ticks);
             _showDebugInformation = Settings.Opti_Debug;
-            if(_showDebugInformation) CmsDataBase.Instance.StartNewTotal();
+            if (_showDebugInformation) CmsDataBase.Instance.StartNewTotal();
             //如果自动301
             if (Settings.SYS_AUTOWWW)
             {
@@ -56,7 +57,7 @@ namespace J6.Cms.Web.Mvc
                 HttpContextBase c = requestContext.HttpContext;
                 string url = c.Request.Url.ToString();
                 string protrol = url.Remove(url.IndexOf("://"));
-                string host = c.Request.Url.Host;    // c.Request.ServerVariables["server_name"];
+                string host = c.Request.Url.Host; // c.Request.ServerVariables["server_name"];
                 string appPath = c.Request.ApplicationPath;
 
 
@@ -94,16 +95,14 @@ namespace J6.Cms.Web.Mvc
                     return;
                 }
             }
-
             //初始化
-        initialize:
-
+            initialize:
             base.Initialize(requestContext);
-
-
         }
 
-         protected override void OnActionExecuting(ActionExecutingContext filterContext)
+       
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             //检测网站状态
             if (!this.OutputCntext.CheckSiteState())
@@ -164,6 +163,5 @@ namespace J6.Cms.Web.Mvc
         {
             this.OutputCntext.Response.Write("Access denied!");
         }
-        
     }
 }

@@ -110,6 +110,11 @@ namespace J6.Cms
         /// 语言包
         /// </summary>
         public static readonly CmsLanguagePackage Language;
+
+        /// <summary>
+        /// 模版管理器
+        /// </summary>
+        public static readonly TemplateManager TemplateManager;
         
 
         /// <summary>
@@ -152,7 +157,7 @@ namespace J6.Cms
             Cache = CacheFactory.Sington as CmsCache;
             Utility = new CmsUtility();
             Language = new CmsLanguagePackage();
-
+            TemplateManager = new TemplateManager(Cms.PyhicPath+CmsVariables.TEMPLATE_PATH);
             #region  缓存清除
 
             //
@@ -236,7 +241,7 @@ namespace J6.Cms
             }
 
             //注册模板
-            Template.Register("/templates/", true);
+            Template.Register("/" + CmsVariables.TEMPLATE_PATH, true);
 
             //PluginConfig.PLUGIN_FILE_PARTTERN = "*.dll,*.so";
             PluginConfig.PLUGIN_DIRECTORY = CmsVariables.PLUGIN_PATH;

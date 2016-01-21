@@ -34,7 +34,6 @@ namespace J6.Cms.Web.Mvc
     /// </summary>
     public abstract class CmsController : ControllerBase
     {
-
         /// <summary>
         /// 首页请求
         /// </summary>
@@ -75,7 +74,6 @@ namespace J6.Cms.Web.Mvc
             CmsController.OnSearchRequest += Cms.Plugins.Portal.SearchRequest;
             CmsController.OnTagRequest += Cms.Plugins.Portal.TagRequest;
         }
-
 
         /// <summary>
         /// 首页
@@ -293,7 +291,6 @@ namespace J6.Cms.Web.Mvc
         /// <returns></returns>
         public void Tag(string t)
         {
-
             bool eventResult = false;
             if (OnTagRequest != null)
             {
@@ -366,7 +363,7 @@ namespace J6.Cms.Web.Mvc
 
         #endregion
 
-
+        [HttpGet]
         public void Combine()
         {
             HttpContext context = Cms.Context.HttpContext;
@@ -413,5 +410,68 @@ namespace J6.Cms.Web.Mvc
                 });
         }
 
+        [HttpGet]
+        public void Change()
+        {
+            HttpContext ctx = System.Web.HttpContext.Current;
+            String langOpt = Request["lang"];
+            String deviceOpt = Request["device"];
+            bool isChange = false;
+            int i;
+            if (!String.IsNullOrEmpty(langOpt))
+            {
+                int.TryParse(langOpt, out i);
+                if (Cms.Context.SetUserLanguage(ctx,i))
+                {
+                    isChange = true;
+                }
+            }
+            if (!String.IsNullOrEmpty(deviceOpt))
+            {
+                int.TryParse(deviceOpt, out i);
+                if (Cms.Context.SetUserDevice(ctx, i))
+                {
+                    isChange = true;
+                }
+            }
+
+            if (isChange)
+            {
+                Uri refer = Request.UrlReferrer;
+                var returnUrl = refer == null ? "/" : refer.ToString();
+                Response.Redirect(returnUrl, true);
+            }
+            else
+            {
+                Response.Write("error params ! should be  /"+CmsVariables.DEFAULT_CONTROLLER_NAME+"/change?lang=[1-8]&device=[1-2]");
+            }
+        }
+
+        [HttpGet]
+        public void Change_Device()
+        {
+            String langOpt = Request["device"];
+            if (!String.IsNullOrEmpty(langOpt))
+            {
+                int lang;
+                int.TryParse(langOpt, out lang);
+                if (Cms.Context.SetUserLanguage(null, lang))
+                {
+                    String returnUrl;
+                    Uri refer = Request.UrlReferrer;
+                    if (refer == null)
+                    {
+                        returnUrl = "/";
+                    }
+                    else
+                    {
+                        returnUrl = refer.ToString();
+                    }
+                    Response.Redirect(returnUrl, true);
+                    return;
+                }
+            }
+            Response.Write("error params ! should be  /.cms/change_lang?lang=[1-8]");
+        }
     }
 }

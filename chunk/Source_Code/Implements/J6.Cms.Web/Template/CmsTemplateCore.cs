@@ -1,4 +1,5 @@
 ﻿
+
 namespace J6.Cms.Template
 {
     using J6.Cms;
@@ -9,6 +10,7 @@ namespace J6.Cms.Template
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using J6.Cms.Core;
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -58,9 +60,12 @@ namespace J6.Cms.Template
         /// </summary>
         protected TemplateSetting TplSetting;
 
+        private CmsContext _ctx;
+
         public CmsTemplateCore()
         {
-            this._site = Cms.Context.CurrentSite;
+            this._ctx = Cms.Context;
+            this._site =this._ctx.CurrentSite;
             this.SiteId = this._site.SiteId;
 
             //缓存=》模板设置
@@ -547,7 +552,7 @@ namespace J6.Cms.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang(string key)
         {
-            return Cms.Language.Get(this._site.Language, key);
+            return Cms.Language.Get(this._ctx.UserLanguage, key);
         }
 
         /// <summary>
@@ -559,7 +564,7 @@ namespace J6.Cms.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang_Upper(string key)
         {
-            return Cms.Language.Get(this._site.Language, key).ToUpper();
+            return Cms.Language.Get(this._ctx.UserLanguage, key).ToUpper();
         }
 
         /// <summary>
@@ -571,7 +576,7 @@ namespace J6.Cms.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang_Lower(string key)
         {
-            return Cms.Language.Get(this._site.Language, key).ToLower();
+            return Cms.Language.Get(this._ctx.UserLanguage, key).ToLower();
         }
 
         /// <summary>
@@ -776,7 +781,7 @@ namespace J6.Cms.Template
                     case "html":
                         return html;
                     case "img":
-                        return this.FormatPageUrl(UrlRulePageKeys.Common, "Cms_Core/verifyimg?length=4&opt=1");
+                        return this.FormatPageUrl(UrlRulePageKeys.Common, CmsVariables.DEFAULT_CONTROLLER_NAME+"/verifyimg?length=4&opt=1");
 
                     case "nickname":
                         Member member = UserState.Member.Current;
@@ -1007,7 +1012,7 @@ namespace J6.Cms.Template
                 .Append("var cfs=j6.$('cms_form_").Append(tableId).Append("_summary');")
                 .Append("if(j6.validator.validate('cms_form_").Append(tableId).Append("')){cfs.innerHTML='提交中...';j6.xhr.post('")
 
-                .Append(this.FormatPageUrl(UrlRulePageKeys.Common, "Cms_Core/submitform?tableid="))
+                .Append(this.FormatPageUrl(UrlRulePageKeys.Common, CmsVariables.DEFAULT_CONTROLLER_NAME+"/submitform?tableid="))
                 .Append(tableId).Append("&token=").Append(token).Append("',j6.json.toObject('cms_form_")
                 .Append(tableId).Append("'),function(r){var result;eval('result='+r);cfs.innerHTML=result.tag==-1?'<span style=\"color:red\">'+result.message+'</span>':result.message;},function(){cfs.innerHTML='<span style=\"color:red\">提交失败，请重试!</span>';});")
                 .Append("}});};}</script>");
@@ -1510,7 +1515,7 @@ namespace J6.Cms.Template
                             if (extendFields.ContainsKey(field))  // 查找自定义属性
                                 return extendFields[field];
 
-                            return Cms.Language.Get(Cms.Context.CurrentSite.Language, field); //查找语言项
+                            return Cms.Language.Get(this._ctx.UserLanguage, field); //查找语言项
                     }
                 }));
 
@@ -2004,7 +2009,7 @@ namespace J6.Cms.Template
                                 }
                                 if (extendFields.ContainsKey(field))
                                     return extendFields[field];
-                                return Cms.Language.Get(Cms.Context.CurrentSite.Language, field);
+                                return Cms.Language.Get(this._ctx.UserLanguage, field);
                         }
                     }));
 
@@ -2025,7 +2030,7 @@ namespace J6.Cms.Template
             if (sb.Length < 30)
             {
                 string message;
-                switch (_site.Language)
+                switch (this._ctx.UserLanguage)
                 {
                     default:
                     case Languages.En:

@@ -82,19 +82,19 @@ namespace J6.Cms.Web.Resource {
         /////文件：Cms Javascript WebApi
         /////版本: 0.0.1
         /////时间：2014-06-21
+        ///// Note : 请调用API前，先调用j6.api.setPath(&apos;${page.domain}&apos;);这样才能请求到指定站点的接口。
+        ///// Modify :  2015-09-18 19:37  [jsix] [!] : 重构
         /////
         ///if (!window.j6) alert(&apos;未加载core.js！&apos;);
         ///j6.extend({
         ///    api: {
-        ///        path:&apos;&apos;,
+        ///        path: &apos;&apos;,
+        ///        setPath:function(p) {
+        ///            this.path = p;
+        ///        },
         ///        request: function (apiName, params, call, errCall) {
-        ///            var uri = this.path+&apos;/webapi?key=11857832134&amp;name=&apos; + apiName;
-        ///            for (var key in params) {
-        ///                uri += &apos;&amp;&apos; + key + &apos;=&apos; + params[key];
-        ///            }
-        ///            j6.xhr.request({ uri: uri, params: {}, method: &apos;GET&apos;, data: &apos;json&apos; }, {
-        ///                success: call,
-        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///            var uri = this.path + &apos;/webapi?key=11857832134&amp;name=&apos; + apiName;
+        ///            for (var key in param [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_cms_api {
             get {
@@ -136,7 +136,7 @@ namespace J6.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2011-10-01
         /////
-        ///function simpleDialog(e) { this._simgpleDialog = true; this.window = window; this.win = window; this.doc = null; this.id = new Date().getMilliseconds() + parseInt(Math.random() * 100); this.title = e.title; this.usedrag = e.usedrag; this.style = e.style || &apos;ui-dialog&apos;; this.setupFade = !e.setupFade ? e.setupFade : true; this.onclose = e.onclose; if (e.cross != false) { while (this.win.parent != this.win) { this.win = this.win.parent } } this.doc = this.win.doc [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function simpleDialog(e) { this._simgpleDialog = true; this.window = window; this.win = window; this.doc = null; this.id = new Date().getMilliseconds() + parseInt(Math.random() * 100); this.title = e.title; this.usedrag = e.drag; this.style = e.style || &apos;ui-dialog&apos;; this.setupFade = !e.setupFade ? e.setupFade : true; this.onclose = e.onclose; this.canNotClose = e.canClose == false; if (e.cross != false) { while (this.win.parent != this.win) { this.win = this.w [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_dialog {
             get {
@@ -257,24 +257,21 @@ namespace J6.Cms.Web.Resource {
         }
         
         /// <summary>
-        ///   查找类似 body{font:62.5% Sans-Serif,Arial;margin:0;}
+        ///   查找类似 body{font:62.5%/1.5 Sans-Serif,Arial;margin:0;}
         ///img{border:none;max-width: 100%;}
         ///a{outline:none;}
-        ///a:link,a:visited{color:#0000FF;}
-        ///mask,.mask{background:url(/framework/assets/images/mask.gif);
-        ///	width:100%;opacity:0.2;alpha(opacity=20);position:absolute;top:0;left:0;}
+        ///table{border-collapse:collapse;border:none;}
+        ///a:link,a:visited{color:#0066ff;}
+        ///a:hover{color:#0000cc;}
+        ///.mask{background:url(/framework/assets/images/mask.gif);opacity:0.2;alpha(opacity=20);position:absolute;top:0;left:0;bottom: 0;right: 0;}
+        ///p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
         ///
         ///
         ////* +++++++++++++ Classes ++++++++++++++ */
         ///
         ///.left{float:left;}
         ///.right{float:right;}
-        ///.center{text-align:center;}
-        ///.clear,.clear-fix,.clearfix{clear:both;}
-        ///.overflow{overflow:hidden;}
-        ///.hidden{display:none;}
-        ///.clearfix{clear:both;}
-        ///. [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///.cente [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string template {
             get {

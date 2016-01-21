@@ -77,6 +77,16 @@ namespace J6.Cms.Conf
         /// </summary>
         public static string SITE_LOCALE_PATH = "config/locale.db";
 
+        /// <summary>
+        /// 默认的控制器前缀
+        /// </summary>
+        public static string DEFAULT_CONTROLLER_NAME ="cms.do";
+
+        /// <summary>
+        /// 模板目录
+        /// </summary>
+        public const string TEMPLATE_PATH = "template/";
+
 
         public const string Archive_ThumbPrefix = "thumb";
 

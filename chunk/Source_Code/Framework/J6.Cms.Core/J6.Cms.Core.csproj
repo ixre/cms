@@ -88,6 +88,8 @@
     <Compile Include="Core\Plugins\ArchivePlugin.cs" />
     <Compile Include="Core\CmsContext.cs" />
     <Compile Include="Cms.cs" />
+    <Compile Include="Core\TemplateManager.cs" />
+    <Compile Include="Core\TemplateSettings.cs" />
     <Compile Include="old\HttpModuleBase.cs" />
     <Compile Include="Core\Interface\ICmsPageGenerator.cs" />
     <Compile Include="old\PermissionAttribute.cs" />

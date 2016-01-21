@@ -17,6 +17,7 @@ using J6.Cms.BLL;
 using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
+using J6.Cms.Core;
 using J6.Cms.Domain.Interface.Enum;
 using J6.Cms.Domain.Interface.Models;
 using J6.Cms.Domain.Interface.Site.Category;

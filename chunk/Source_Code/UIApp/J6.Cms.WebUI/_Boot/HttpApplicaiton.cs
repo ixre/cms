@@ -54,7 +54,26 @@ namespace J6.Cms
                Cms.OfficialEnvironment = false;
                 Cms.OnInit += CmsEventRegister.Init;
                 Cms.Init();
+
+                //注册路由;
+                RouteCollection routes = RouteTable.Routes;
+                routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+                //注册自定义路由
+                RegisterRoutes(routes);
+
+                //注册CMS路由
+                Routes.RegisterCmsRoutes(routes, null);
+                //RouteDebug.RouteDebugger.RewriteRoutesForTesting(routes);
+
+                //加载自定义插件
+                //Cms.Plugins.Extends.LoadFromAssembly(typeof(sp.datapicker.CollectionExtend).Assembly);
+
+                // 加载插件，在加载cms后避免覆盖 /cms.do
                 WebCtx.Current.Plugin.Connect();
+
+                //注册定时任务
+                CmsTask.Init();
             }
             catch (Exception exc)
             {
@@ -85,22 +104,7 @@ namespace J6.Cms
                 return;
             }
 
-            //注册路由;
-            RouteCollection routes = RouteTable.Routes;
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            //注册自定义路由
-            RegisterRoutes(routes);
-
-            //注册CMS路由
-            Routes.RegisterCmsRoutes(routes, null);
-            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(routes);
-
-            //注册定时任务
-            CmsTask.Init();
-
-            //加载自定义插件
-            //Cms.Plugins.Extends.LoadFromAssembly(typeof(sp.datapicker.CollectionExtend).Assembly);
+           
         }
 
         protected virtual void Application_Error(object o, EventArgs e)
