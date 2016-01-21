@@ -55,31 +55,24 @@ namespace J6.Cms.Template
         /// </summary>
         protected int SiteId;
 
+        private CmsContext _ctx;
+
         /// <summary>
         /// 模板设置
         /// </summary>
-        protected TemplateSetting TplSetting;
-
-        private CmsContext _ctx;
+        private TemplateSetting _tplSetting;
 
         public CmsTemplateCore()
         {
             this._ctx = Cms.Context;
             this._site =this._ctx.CurrentSite;
             this.SiteId = this._site.SiteId;
+        }
 
-            //缓存=》模板设置
-            string settingCacheKey = String.Format("{0}_{1}_settings", CacheSign.Template.ToString(), this._site.Tpl);
-            object settings = Cms.Cache.Get(settingCacheKey);
-            if (settings == null)
-            {
-                this.TplSetting = new TemplateSetting(this._site.Tpl);
-                Cms.Cache.Insert(settingCacheKey, this.TplSetting, String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this._site.Tpl));
-            }
-            else
-            {
-                this.TplSetting = settings as TemplateSetting;
-            }
+
+        protected TemplateSetting GetSetting()
+        {
+            return this._tplSetting ?? (this._tplSetting = Cms.TemplateManager.Get(this._ctx.CurrentSite.Tpl));
         }
 
 
@@ -369,7 +362,7 @@ namespace J6.Cms.Template
         /// <returns></returns>
         protected string TplMessage(string msg)
         {
-            if (this.TplSetting.CFG_ShowError)
+            if (this.GetSetting().CfgShowError)
             {
                 return String.Format("提示：{0}", msg);
             }
@@ -1034,7 +1027,7 @@ namespace J6.Cms.Template
             {
                 return CategoryCacheManager.GetSitemapHtml(this.SiteId,
                     categoryTag,
-                    this.TplSetting.CFG_SitemapSplit,
+                    this.GetSetting().CFG_SitemapSplit,
                 this.FormatPageUrl(UrlRulePageKeys.Category, null));
             }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }
@@ -1060,7 +1053,7 @@ namespace J6.Cms.Template
             string ipaddress = HttpContext.Current.Request.UserHostAddress;
             TrafficCounter.Record(ipaddress);
 
-            string format = this.TplSetting.CFG_TrafficFormat;
+            string format = this.GetSetting().CFG_TrafficFormat;
 
             string result = TplEngine.FieldTemplate(format, key =>
             {
@@ -1421,8 +1414,8 @@ namespace J6.Cms.Template
                         case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
                              archiveDto.Outline,
                              archiveDto.Content,
-                             this.TplSetting.CFG_OutlineLength);
-                        case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline, this.TplSetting.CFG_OutlineLength);
+                             this.GetSetting().CfgOutlineLength);
+                        case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline, this.GetSetting().CfgOutlineLength);
                         case "tags": return archiveDto.Tags;
                         case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archiveDto.StrId).ToString();
                         case "count": return archiveDto.ViewCount.ToString();
@@ -1643,8 +1636,8 @@ namespace J6.Cms.Template
                             case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
                                  (dr["outline"] ?? "").ToString(),
                                  dr["content"].ToString(),
-                                 this.TplSetting.CFG_OutlineLength);
-                            case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty((dr["outline"] ?? "").ToString()) ? dr["content"].ToString() : dr["outline"].ToString(), this.TplSetting.CFG_OutlineLength);
+                                 this.GetSetting().CfgOutlineLength);
+                            case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty((dr["outline"] ?? "").ToString()) ? dr["content"].ToString() : dr["outline"].ToString(), this.GetSetting().CfgOutlineLength);
                             case "intid": return dr["id"].ToString();
                             case "id": return id;
                             case "alias": return dr["alias"].ToString();
@@ -1813,7 +1806,7 @@ namespace J6.Cms.Template
                 total = 0,
                 pages = 0;
 
-            int C_LENGTH = this.TplSetting.CFG_OutlineLength;
+            int C_LENGTH = this.GetSetting().CfgOutlineLength;
             int intSplitSize;
             bool hasSetCategory = false;                               //是否在搜索中指定栏目参数
 
@@ -2230,7 +2223,7 @@ namespace J6.Cms.Template
 
             int i = 0;
 
-            int C_LENGTH = this.TplSetting.CFG_OutlineLength;
+            int C_LENGTH = this.GetSetting().CfgOutlineLength;
             IEnumerable<ArchiveDto> searchArchives = ServiceCall.Instance.ArchiveService
                 .SearchArchives(this.SiteId, 0, 0, false, tag,
                 _pageSize, _pageIndex,

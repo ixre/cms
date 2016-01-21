@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>所有栏目</title>
+    $css()   
+    $iconcss()
+</head>
+<body>
+    <div id="main" class="autoStyle" style="overflow: hidden;">
+        <table cellpadding="0" cellspacing="0" width="100%" height="100%">
+            <tr>
+                <td width="300" valign="top">
+                    <div style="padding: 20px 20px 0 20px">
+                        <span class="ui-button w50 small-button" id="btn_create">
+                            <span class=" button-inner">
+                                <span class="button-txt">新建</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>&nbsp;
+                        <span class="ui-button w50 small-button" id="btn_collage">
+                            <span class=" button-inner">
+                                <span class="button-txt">收起</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>&nbsp;
+                        <span class="ui-button w50 small-button" id="btn_refrensh">
+                            <span class=" button-inner">
+                                <span class="button-txt">刷新</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>&nbsp;
+                        <span class="ui-button w80 small-button" id="btn_utility">
+                            <span class=" button-inner">
+                                <span class="button-txt">栏目助手</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
+
+                    </div>
+                    <div id="dg" style="padding: 20px;overflow:auto"></div>
+                </td>
+                <td valign="top">
+                        <div id="pl" class="panel formPanel helpPanel relative" style="overflow:auto">
+                            <h2>操作帮助</h2>
+                            <div class="line"></div>
+                            <ol>
+                                <li>点击“新增栏目”按钮进行栏目添加。</li>
+                                <li>点击栏目可进行栏目修改。</li>
+                                <li>鼠标右键点击栏目，可进行栏目其他操作。</li>
+                                <li>点击展开栏目，可以展开所有栏目，点击收起栏目，可以折叠所有栏目。</li>
+                            </ol>
+                        </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <script type="text/template" id="list_menu_tpl">
+        <div class="item" onclick="window.menu.add()">
+            <a href="javascript:;"><span>$icon(create)</span>新建栏目</a>
+        </div>
+        <div class="item" onclick="menu.refresh()">
+            <a href="javascript:;"><span>$icon(refresh)</span>刷新</a>
+        </div>
+    </script>
+
+<script type="text/template" id="tpl">
+        <div class="item" onclick="window.menu.add('%id%')">
+            <a href="javascript:;"><span>$icon(create)</span>创建下级栏目</a>
+        </div>
+        <div class="item" onclick="menu.refresh()">
+            <a href="javascript:;"><span>$icon(refresh)</span>刷新</a>
+        </div>
+        <div class="line"></div>
+         <div class="item" onclick="window.menu.add('%id%')">
+            <a href="javascript:;"><span>$icon(edit)</span>编辑</a>
+        </div>
+        <div class="line"></div>
+        <div class="item" onclick="menu.extend('%id%')">
+            <a href="javascript:;" title="通过设置扩展属性，可以提供更多的信息！"><span>$icon(edit)</span>扩展设置</a>
+        </div>
+        <div class="line"></div>
+        <div class="item" onclick="menu.del('%id%')">
+            <a href="javascript:;"><span>$icon(delete)</span>删除</a>
+        </div>
+        
+    
+
+</script>$js()
+<script type="text/javascript">
+    j6.dom.fitHeight(j6.$('main'));
+    j6.dom.fitHeight(j6.$('pl'));
+    var siteId = ${site_id};
+    var treePanel = j6.$('dg');
+    var treeObj = null;
+    var tmpTpl = j6.$('tpl').innerHTML;
+    function _showCategory(e, d, t) {
+        var id = j6.toJson(d).cid;
+        j6.load2('pl', 'category', 'update', 'category_id=' + id);
+    }
+
+    //加载栏目树
+    function _thisLoadCategoryTree() {
+        j6.xhr.request({
+            uri: '?module=ajax&action=CategoryNodes',
+            method: 'GET',
+            data: 'json'
+        }, {
+            success: function (json) {
+                treeObj = j6.tree.load(treePanel, json, '/public/assets/tree/', _showCategory);
+                var nodeLinks;
+                j6.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
+                    if (e.className == 'node') {
+                        nodeLinks = e.getElementsByClassName
+                            ? e.getElementsByClassName('node')
+                            : document.getElementsByClassName('node', e);
+
+                        if (nodeLinks.length != 0) {
+                            var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).cid;
+                            e.title = '更多功能点击鼠标右键';
+                            j6.contextmenu.bind(e, null, function (menu) {
+                                menu.innerHTML = j6.template(tmpTpl, { id: id });
+                            });
+                        }
+                    }
+                });
+            }, error: function () {
+                treePanel.innerHTML = '<span class="error">栏目加载失败! </span>';
+            }
+        });
+    }
+    _thisLoadCategoryTree();
+
+    //重新加载栏目树
+    function _reloadTree(loadLocal) {
+        if (parent._loadCategoryTree) parent._loadCategoryTree();
+        if (window._thisLoadCategoryTree && loadLocal != 0) window._thisLoadCategoryTree();
+    }
+
+
+    
+    //创建
+    Fn.create = function (id) {
+        j6.load2('pl', 'category', 'create', id?'parent_id='+id:'');
+    };
+
+
+window.menu = {
+    add: Fn.create,
+    refresh: _reloadTree,
+    extend: function(id) {
+        var d = j6.dialog.create2('扩展属性', true, true);
+        d.open('?module=extend&action=category_check&category_id=' + id, 500, 300);
+
+    },
+    edit:function(id) {
+        j6.load2('pl', 'category', 'update', 'category_id=' + id);
+    },
+    del: function(id) {
+        if (confirm('确定删除吗?删除后将不可恢复!')) {
+            j6.xhr.jsonPost('?', 'module=category&action=delete&category_id=' + id,
+                function(json) {
+                    if (json.result) {
+                        _reloadTree();
+                    } else {
+                        showErr(json.message);
+                    }
+                });
+        }
+    }
+};
+
+
+
+    j6.$('btn_create').onclick = function () {
+        Fn.create();
+    };
+
+    j6.$('btn_refrensh').onclick = menu.refresh;
+
+    j6.$('btn_collage').onclick = function () {
+        var e = j6.dom.getsByClass(this, 'button-txt')[0];
+        if (e.innerHTML.indexOf('收起') != -1) {
+            treeObj.closeAll();
+            e.innerHTML= '展开';
+        } else {
+            treeObj.openAll();
+            e.innerHTML = '收起';
+        }
+    };
+
+    j6.$('btn_utility').onclick = function() {
+        parent.FwTab.show('栏目助手', '?module=assistant&action=category_clone&target_site=' + siteId);
+    };
+
+    
+</script>
+
+</body>
+</html>

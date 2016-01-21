@@ -22,6 +22,7 @@ using J6.Cms.Template;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework;
+using Newtonsoft.Json;
 using SharpCompress.Archive;
 using SharpCompress.Common;
 
@@ -234,13 +235,13 @@ namespace J6.Cms.Web.WebManager.Handle
                 tpl = base.CurrentSite.Tpl;
             }
 
-            var tplSetting = new TemplateSetting(tpl);
+            var tplSetting = Cms.TemplateManager.Get(tpl);
 
-            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Template_Setting), new
+            base.ViewData["json"] = JsonConvert.SerializeObject(new
             {
                 //模板
-                tpl_CFG_OutlineLength = tplSetting.CFG_OutlineLength.ToString(),
-                tpl_CFG_allowAmousComment = tplSetting.CFG_AllowAmousComment ? " checked=\"checked\"" : String.Empty,
+                tpl_CFG_OutlineLength = tplSetting.CfgOutlineLength.ToString(),
+                tpl_CFG_AllowAmousComment = tplSetting.CFG_AllowAmousComment,
                 tpl_CFG_CommentEditorHtml = tplSetting.CFG_CommentEditorHtml,
                 tpl_CFG_ArchiveTagsFormat = tplSetting.CFG_ArchiveTagsFormat,
                 tpl_CFG_FriendLinkFormat = tplSetting.CFG_FriendLinkFormat,
@@ -248,8 +249,11 @@ namespace J6.Cms.Web.WebManager.Handle
                 tpl_CFG_NavigatorLinkFormat = tplSetting.CFG_NavigatorLinkFormat,
                 tpl_CFG_NavigatorChildFormat = tplSetting.CFG_NavigatorChildFormat,
                 tpl_CFG_SitemapSplit = tplSetting.CFG_SitemapSplit,
-                tpl_CFG_TrafficFormat = tplSetting.CFG_TrafficFormat
+                tpl_CFG_TrafficFormat = tplSetting.CFG_TrafficFormat,
+                tpl_CFG_Enabled_Mobi = tplSetting.CfgEnabledMobiPage?"1":"0",
+                tpl_CFG_Show_Error = tplSetting.CfgShowError ? "1" : "0",
             });
+            base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Template_Setting));
         }
 
         public void Settings_POST()
@@ -268,22 +272,24 @@ namespace J6.Cms.Web.WebManager.Handle
                 }
             }
 
-            TemplateSetting tplSetting = new TemplateSetting(tpl);
+            TemplateSetting tplSetting = Cms.TemplateManager.Get(tpl);
             var req = base.Request;
             int outlineLength;
-            int.TryParse(req["tpl_cfg_outlinelength"], out outlineLength);
-            tplSetting.CFG_OutlineLength = outlineLength;
-            tplSetting.CFG_AllowAmousComment = req["tpl_cfg_allowamouscomment"] == "on";
-            tplSetting.CFG_CommentEditorHtml = req["tpl_cfg_commenteditorhtml"];
-            tplSetting.CFG_ArchiveTagsFormat = req["tpl_cfg_archivetagsformat"];
-            tplSetting.CFG_FriendLinkFormat = req["tpl_cfg_friendlinkformat"];
+            int.TryParse(req["tpl_CFG_OutlineLength"], out outlineLength);
+            tplSetting.CfgOutlineLength = outlineLength;
+            tplSetting.CFG_AllowAmousComment = req["tpl_CFG_AllowAmousComment"] == "on";
+            tplSetting.CFG_CommentEditorHtml = req["tpl_CFG_CommentEditorHtml"];
+            tplSetting.CFG_ArchiveTagsFormat = req["tpl_CFG_ArchiveTagsFormat"];
+            tplSetting.CFG_FriendLinkFormat = req["tpl_CFG_FriendLinkFormat"];
             int friendlinkNum;
-            int.TryParse(req["tpl_cfg_friendshownum"], out friendlinkNum);
+            int.TryParse(req["tpl_CFG_FriendShowNum"], out friendlinkNum);
             tplSetting.CFG_FriendShowNum = friendlinkNum;
-            tplSetting.CFG_NavigatorLinkFormat = req["tpl_cfg_navigatorlinkformat"];
-            tplSetting.CFG_NavigatorChildFormat = req["tpl_cfg_navigatorchildformat"];
-            tplSetting.CFG_SitemapSplit = req["tpl_cfg_sitemapsplit"];
-            tplSetting.CFG_TrafficFormat = req["tpl_cfg_trafficformat"];
+            tplSetting.CFG_NavigatorLinkFormat = req["tpl_CFG_NavigatorLinkFormat"];
+            tplSetting.CFG_NavigatorChildFormat = req["tpl_CFG_NavigatorChildFormat"];
+            tplSetting.CFG_SitemapSplit = req["tpl_CFG_SitemapSplit"];
+            tplSetting.CFG_TrafficFormat = req["tpl_CFG_TrafficFormat"];
+            tplSetting.CfgEnabledMobiPage = req["tpl_CFG_Enabled_Mobi"] == "1";
+            tplSetting.CfgShowError = req["tpl_CFG_Show_Error"] == "1";
             tplSetting.Save();
 
             base.RenderSuccess("修改成功!");

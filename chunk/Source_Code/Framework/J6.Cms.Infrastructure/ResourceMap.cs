@@ -21,7 +21,7 @@ namespace J6.Cms.Infrastructure
             get
             {
                 //local表示本地目录
-                string filePath = AppDomain.CurrentDomain.BaseDirectory + "framework/local/lang_package.xml";
+                string filePath = AppDomain.CurrentDomain.BaseDirectory + "public/local/lang_package.xml";
                 FileInfo file = new FileInfo(filePath);
                 if (file.Exists)
                 {

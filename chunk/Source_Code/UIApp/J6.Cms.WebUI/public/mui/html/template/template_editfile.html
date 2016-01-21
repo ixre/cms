@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑文件</title>
+    $css()
+    <link rel="stylesheet" href="/public/assets/coder/cdr.css">
+    <style type="text/css">
+        body {
+            margin: 0;
+            font-family: Arial;
+            font-size: 14px;
+        }
+
+        .file .txt {
+            color: Black;
+        }
+
+        .CodeMirror {
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+    <div class="tabarea" id="form1">
+        <div class="top" style="font-size:12px">
+            <span class="tab" style="margin-left: 25px">源代码</span>
+            <span class="ui-button w50 small-button" onclick="process('save')">
+                <span class=" button-inner">
+                    <span class="button-txt">保存</span>
+                    <a href="javascript:;"></a>
+                </span>
+            </span>&nbsp;&nbsp;${bakinfo}
+            &nbsp;<!--<span class="txt">【当前修改文件】:&nbsp;&nbsp;</span>/${file}-->
+        </div>
+
+        <input type="hidden" id="action" field="action" value="save" />
+        <input type="hidden" id="path" field="path" value="${path}" />
+        <textarea rows="100" field="content" class="contentarea code" id="ctarea">${raw_content}</textarea>
+        <!--
+        <div class="bottom"></div>-->
+    </div>
+
+    $js()
+    <script type="text/javascript">
+        var editor = document.getElementById('ctarea');
+        var height = (document.documentElement.clientHeight - 31);
+        editor.style.height = height + "px";
+        editor.style.width = (document.documentElement.clientWidth - 14 - 2) + "px";
+    </script>
+
+    <script src="/public/assets/coder/cdr.js"></script>
+    <script src="/public/assets/coder/mode/xml.js"></script>
+    <script src="/public/assets/coder/mode/javascript.js"></script>
+    <script src="/public/assets/coder/mode/css.js"></script>
+    <script src="/public/assets/coder/mode/htmlmixed.js"></script>
+
+    <script type="text/javascript">
+
+        var coder = j6.coder(editor.id, { mode: 'html', height: height });
+
+        function process(action) {
+            document.getElementById('action').value = action;
+            var data = j6.json.toObject('form1');
+            if (coder) {
+               data.content = coder.getValue();
+            }
+
+            j6.xhr.post(location.href, data, function (result) {
+                window.parent.showMsg2(result);
+            });
+        }
+
+        window.saveData = function () {
+            process('save');
+        };
+
+        /*
+        j6.event.add(document, 'keydown', function (event) {
+            var e = window.event || event;
+            //CTRL+S保存
+            if (e.ctrlKey && e.keyCode == 83) {
+                process('save');
+                return j6.event.preventDefault(e);
+            }
+        });*/
+    </script>
+</body>
+</html>

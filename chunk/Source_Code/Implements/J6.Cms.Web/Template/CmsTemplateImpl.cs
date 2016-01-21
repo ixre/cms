@@ -134,21 +134,21 @@ namespace J6.Cms.Template
         [XmlObjectProperty("获取文档(默认格式)", @"")]
         public string Archive()
         {
-            return this.Archive(base.TplSetting.CFG_ArchiveFormat);
+            return this.Archive(base.GetSetting().CFG_ArchiveFormat);
         }
 
         [TemplateTag]
         [XmlObjectProperty("获取上一篇文档(默认格式)", @"")]
         public string Prev_Archive()
         {
-            return Prev_Archive(base.TplSetting.CFG_PrevArchiveFormat);
+            return Prev_Archive(base.GetSetting().CFG_PrevArchiveFormat);
         }
 
         [TemplateTag]
         [XmlObjectProperty("获取下一篇文档(默认格式)", @"")]
         public string Next_Archive()
         {
-            return Next_Archive(base.TplSetting.CFG_NextArchiveFormat);
+            return Next_Archive(base.GetSetting().CFG_NextArchiveFormat);
         }
 
 
@@ -253,7 +253,7 @@ namespace J6.Cms.Template
 		")]
         public string Archives(string num)
         {
-            return Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Archives(num, base.GetSetting().CFG_ArchiveLinkFormat);
         }
 
         /// <summary>
@@ -313,7 +313,7 @@ namespace J6.Cms.Template
 		")]
         public string Self_Archives(string num)
         {
-            return Self_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Self_Archives(num, base.GetSetting().CFG_ArchiveLinkFormat);
         }
 
 
@@ -413,7 +413,7 @@ namespace J6.Cms.Template
 		")]
         public string Special_Archives(string num)
         {
-            return Special_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Special_Archives(num, base.GetSetting().CFG_ArchiveLinkFormat);
         }
 
         /// <summary>
@@ -476,7 +476,7 @@ namespace J6.Cms.Template
 		")]
         public string Self_Special_Archives(string num)
         {
-            return Self_Special_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Self_Special_Archives(num, base.GetSetting().CFG_ArchiveLinkFormat);
         }
 
 
@@ -594,7 +594,7 @@ namespace J6.Cms.Template
 		")]
         public string Hot_Archives(string num)
         {
-            return Hot_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Hot_Archives(num, base.GetSetting().CFG_ArchiveLinkFormat);
         }
 
 
@@ -656,7 +656,7 @@ namespace J6.Cms.Template
 		")]
         public string Self_Hot_Archives(string num)
         {
-            return Self_Hot_Archives(num, base.TplSetting.CFG_ArchiveLinkFormat);
+            return Self_Hot_Archives(num, base.GetSetting().CFG_ArchiveLinkFormat);
         }
 
         /// <summary>
@@ -801,7 +801,7 @@ namespace J6.Cms.Template
         [XmlObjectProperty("显示栏目列表（栏目页或文档页中）", @"")]
         public string Categories()
         {
-            return Categories(base.TplSetting.CFG_CategoryLinkFormat);
+            return Categories(base.GetSetting().CFG_CategoryLinkFormat);
         }
 
         //        [TemplateTag]
@@ -836,7 +836,7 @@ namespace J6.Cms.Template
         //[XmlObjectProperty("显示栏目(不含子栏目)列表（栏目页或文档页中）",@"")]
         //public string Categories2()
         //{
-        //    return Categories2(base.TplSetting.CFG_CategoryLinkFormat);
+        //    return Categories2(base.GetSetting().CFG_CategoryLinkFormat);
         //}
 
         #endregion
@@ -1082,7 +1082,7 @@ namespace J6.Cms.Template
 		")]
         public string Tags(string tags)
         {
-            return base.Tags(tags, base.TplSetting.CFG_ArchiveTagsFormat);
+            return base.Tags(tags, base.GetSetting().CFG_ArchiveTagsFormat);
         }
 
         [TemplateTag]
@@ -1093,7 +1093,7 @@ namespace J6.Cms.Template
         public string Tags()
         {
             if (!(archive.Id > 0)) return this.TplMessage("请先使用标签$require('id')获取文档后再调用属性");
-            return Tags(archive.Tags, base.TplSetting.CFG_ArchiveTagsFormat);
+            return Tags(archive.Tags, base.GetSetting().CFG_ArchiveTagsFormat);
         }
 
         [TemplateTag]
@@ -1124,8 +1124,8 @@ namespace J6.Cms.Template
 		")]
         public string Comment_Editor()
         {
-            return this.Comment_Editor(base.TplSetting.CFG_AllowAmousComment ? "true" : "false",
-                base.TplSetting.CFG_CommentEditorHtml);
+            return this.Comment_Editor(base.GetSetting().CFG_AllowAmousComment ? "true" : "false",
+                base.GetSetting().CFG_CommentEditorHtml);
         }
 
 
@@ -1159,7 +1159,7 @@ namespace J6.Cms.Template
             string cache = SiteLinkCache.GetNavigatorBySiteId(SiteId);
             if (cache == null)
             {
-                cache = base.Navigator(base.TplSetting.CFG_NavigatorLinkFormat, base.TplSetting.CFG_NavigatorChildFormat, "-1");
+                cache = base.Navigator(base.GetSetting().CFG_NavigatorLinkFormat, base.GetSetting().CFG_NavigatorChildFormat, "-1");
                 SiteLinkCache.SetNavigatorForSite(SiteId, cache);
             }
             return cache;
@@ -1172,7 +1172,7 @@ namespace J6.Cms.Template
 		")]
         public string Friend_Link()
         {
-            return this.Friend_Link(base.TplSetting.CFG_FriendShowNum.ToString(), base.TplSetting.CFG_FriendLinkFormat);
+            return this.Friend_Link(base.GetSetting().CFG_FriendShowNum.ToString(), base.GetSetting().CFG_FriendLinkFormat);
         }
 
         [TemplateTag]

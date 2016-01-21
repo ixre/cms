@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>模板设置</title>
+    $css()
+    <style type="text/css">
+        textarea {
+            width: 500px;
+        }
+
+        .form .fl div.label {
+            width: 120px;
+        }
+
+        .form .fl div.in {
+            margin-left: 120px;
+        }
+    </style>
+</head>
+<body>
+        <div class="form form2" style="margin:20px;" id="form1">
+
+            <div class="title"><span class="icon icon1"></span>基本</div>
+
+            <div class="fl">
+                <div class="label">模板错误显示：</div>
+                <div class="in">
+                    <input type="radio" field="tpl_CFG_Show_Error" id="show_error" value="1" /><label for="show_error">开启</label>
+                    <input type="radio" field="tpl_CFG_Show_Error" id="hidden_error" value="0" checked="checked" /><label for="hidden_error">关闭</label>
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label">开启手机页面：</div>
+                <div class="in">
+                    <input type="radio" field="tpl_CFG_Enabled_Mobi" id="tpl_cfg_enabled_mobi_page1" value="1"/><label for="tpl_cfg_enabled_mobi_page1">开启</label>
+                    <input type="radio" field="tpl_CFG_Enabled_Mobi" id="tpl_cfg_enabled_mobi_page2" value="0" checked="checked" /><label for="tpl_cfg_enabled_mobi_page2">关闭</label>
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>站点地图分割符：</div>
+                <div class="in">
+                    <input class="ui-box" field="tpl_CFG_SitemapSplit" />
+                </div>
+            </div>
+
+            <div class="title"><span class="icon icon1"></span>文档</div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>摘要长度：</div>
+                <div class="in">
+                    <input type="text" class="ui-validate ui-box" isnumber="true" field="tpl_CFG_OutlineLength" style="width:30px" />
+                    &nbsp; 字<span style="color:Red">(用于显示在列表中的描述，默认80字)</span>
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>标签链接格式：</div>
+                <div class="in">
+                    <textarea class="ui-box" field="tpl_CFG_ArchiveTagsFormat" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label">允许匿名评论：</div>
+                <div class="in">
+                    <input type="checkbox" style="width:auto;border:none;" field="tpl_CFG_AllowAmousComment" />
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>评论HTML：</div>
+                <div class="in">
+                    <textarea class="ui-box" field="tpl_CFG_CommentEditorHtml" rows="3"></textarea>
+                </div>
+            </div>
+
+
+            <div class="title"><span class="icon icon1"></span>友情链接</div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>显示条数：</div>
+                <div class="in">
+                    <input type="text" class="tb_normal ui-box ui-validate" isnumber="true" field="tpl_CFG_FriendShowNum" style="width:30px" />&nbsp;条
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>显示格式：</div>
+                <div class="in">
+                    <textarea class="ui-box" field="tpl_CFG_FriendLinkFormat" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="title"><span class="icon icon1"></span>导航</div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>导航链接格式：</div>
+                <div class="in">
+                    <textarea class="ui-box" field="tpl_CFG_NavigatorLinkFormat" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>子导航链接格式：</div>
+                <div class="in">
+                    <textarea class="ui-box" field="tpl_CFG_NavigatorChildFormat" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="title"><span class="icon icon1"></span>统计</div>
+
+            <div class="fl">
+                <div class="label"><span class="red">*</span>流量统计格式：</div>
+                <div class="in">
+                    <textarea class="ui-box" field="tpl_CFG_TrafficFormat" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label"></div>
+                <div class="in">
+                    <span class="ui-button w150" onclick=" submitForm()">
+                        <span class=" button-inner">
+                            <span class="button-txt">保存</span>
+                            <a href="javascript:;"></a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+ 
+
+    $js()
+<script type="text/javascript">
+    var d = ${json};
+    j6.json.bind(j6.$('form1'), d);
+
+    function submitForm() {
+        if (j6.validator.validate()) {
+            j6.xhr.jsonPost(location.href, j6.json.toObject('form1'), function (json) {
+                if (json.result) {
+                   showMsg2(json.message);
+                } else {
+                    showErr(json.message);
+                }
+            });
+        }
+        return false;
+    }
+
+    window.saveData = submitForm;
+</script>
+
+</body>
+</html>

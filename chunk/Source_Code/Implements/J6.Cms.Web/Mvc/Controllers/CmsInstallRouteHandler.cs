@@ -254,7 +254,7 @@ namespace J6.Cms.Web
                     VALUES(@name,@avatar,@phone,@email,@checkCode,@flag,@time,@time)", dbPrefix),
                 new object[,]{
                     {"@name","管理员"},
-                    {"@avatar","/framework/mui/css/latest/avatar.gif"},
+                    {"@avatar","/public/mui/css/latest/avatar.gif"},
                     {"@phone",""},
                     {"@email",""},
                     {"@checkCode",""},

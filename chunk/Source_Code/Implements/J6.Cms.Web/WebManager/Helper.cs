@@ -67,13 +67,13 @@ namespace J6.Cms.WebManager
         public static string SingleTree(string title, TreeItem[] array)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("<div class=\"tree\" id=\"single_tree\"><dl><dt class=\"tree-title\"><img src=\"/framework/mui/css/old/sys_themes/default/icon_trans.png\" class=\"tree-title\" width=\"24\" height=\"24\"/>").Append(title).Append("</dt>");
+            sb.Append("<div class=\"tree\" id=\"single_tree\"><dl><dt class=\"tree-title\"><img src=\"/public/mui/css/old/sys_themes/default/icon_trans.png\" class=\"tree-title\" width=\"24\" height=\"24\"/>").Append(title).Append("</dt>");
             int i=0;
             foreach (TreeItem t in array)
             {
                 sb.Append("<dd treeid=\"").Append(t.ID.ToString()).Append("\"><img class=\"")
                     .Append(++i == array.Length ? "tree-item-last" : "tree-item")
-                    .Append("\" src=\"/framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt\"><a class=\"namelink\" href=\"javascript:;\">")
+                    .Append("\" src=\"/public/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt\"><a class=\"namelink\" href=\"javascript:;\">")
                     .Append(t.Name)
                     .Append("</a></span></dd>");
             }

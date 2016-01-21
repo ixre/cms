@@ -383,7 +383,7 @@ namespace J6.Cms.Web.WebManager.Handle
 
                 //var allCate = CmsLogic.Category.GetCategories();
 
-                sb.Append("<dl><dt class=\"tree-title\"><img src=\"/framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\" class=\"tree-title\"/>")
+                sb.Append("<dl><dt class=\"tree-title\"><img src=\"/public/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\" class=\"tree-title\"/>")
                 .Append(this.CurrentSite.Name ?? "默认站点").Append("</dt>");
 
 

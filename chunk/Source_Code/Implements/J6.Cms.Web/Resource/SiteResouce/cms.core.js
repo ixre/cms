@@ -16,7 +16,7 @@ j6.event.add(window, 'load', function () { j6.each(document.getElementsByClassNa
 window.cms = window.j6;
 
 //设置工作路径
-j6.__WORKPATH__ = '/framework/assets/js/';
+j6.__WORKPATH__ = '/public/assets/js/';
 
 /****************  页面处理事件 **************/
 var _scripts = document.getElementsByTagName('SCRIPT');

@@ -4,7 +4,7 @@ a{outline:none;}
 table{border-collapse:collapse;border:none;}
 a:link,a:visited{color:#0066ff;}
 a:hover{color:#0000cc;}
-.mask{background:url(/framework/assets/images/mask.gif);opacity:0.2;alpha(opacity=20);position:absolute;top:0;left:0;bottom: 0;right: 0;}
+.mask{background:url(/public/assets/images/mask.gif);opacity:0.2;alpha(opacity=20);position:absolute;top:0;left:0;bottom: 0;right: 0;}
 p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
 
 

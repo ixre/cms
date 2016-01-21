@@ -221,29 +221,12 @@ namespace J6.Cms.Web
                     {
                         string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category, siteId.ToString(), tag);
                         _sitemap = Cms.Cache.GetCachedResult(cacheKey, () =>
-                                                      {
-                                                          TemplateSetting tSetting = null;
-
-                                                          //缓存=》模板设置
-                                                          string settingCacheKey = String.Format("{0}_{1}_settings", CacheSign.Template.ToString(), tpl);
-                                                          object settings = Cms.Cache.Get(settingCacheKey);
-                                                          if (settings == null)
-                                                          {
-                                                              tSetting = new TemplateSetting(Cms.Context.CurrentSite.Tpl);
-                                                              Cms.Cache.Insert(settingCacheKey, tSetting, String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, tpl));
-                                                          }
-                                                          else
-                                                          {
-                                                              tSetting = settings as TemplateSetting;
-                                                          }
-
-                                                          string urlFormat = (Settings.TPL_UseFullPath ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath)
-                                                              + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)UrlRulePageKeys.Category];
-
-
-                                                          return CategoryCacheManager.GetSitemapHtml(siteId, tag, tSetting.CFG_SitemapSplit, urlFormat);
-
-                                                      }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
+                        {
+                            TemplateSetting tSetting = Cms.TemplateManager.Get(tpl);
+                            string urlFormat = (Settings.TPL_UseFullPath ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath)
+                                + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)UrlRulePageKeys.Category];
+                            return CategoryCacheManager.GetSitemapHtml(siteId, tag, tSetting.CFG_SitemapSplit, urlFormat);
+                        }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
                     }
                 }
                 return _sitemap;

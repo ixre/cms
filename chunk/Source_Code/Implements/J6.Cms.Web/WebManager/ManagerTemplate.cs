@@ -29,7 +29,7 @@ namespace J6.Cms.WebManager
         {
             js = "<script type=\"text/javascript\" charset=\"utf-8\" src=\"?res=bWFuYWdlX2pzX21pbg==&amp;" + Cms.Version + ".js\"></script>";
             css = "<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + Cms.Version + ".css\"/>";
-            iconTreeCss="<link rel=\"Stylesheet\" type=\"text/css\" href=\"framework/mui/css/old/sys_themes/default/btn_spirites.css?v=" + Cms.Version + "\"/>";
+            iconTreeCss="<link rel=\"Stylesheet\" type=\"text/css\" href=\"public/mui/css/old/sys_themes/default/btn_spirites.css?v=" + Cms.Version + "\"/>";
         }
 
        
@@ -89,7 +89,7 @@ namespace J6.Cms.WebManager
         [TemplateTag]
         public string Icon(string key)
         {
-            const string tpl = "<img src=\"framework/mui/css/old/sys_themes/default/icon_trans.png\" width=\"18\" height=\"18\" class=\"icon {0}\"/>";
+            const string tpl = "<img src=\"public/mui/css/old/sys_themes/default/icon_trans.png\" width=\"18\" height=\"18\" class=\"icon {0}\"/>";
             string cssKey = string.Empty;
 
             switch (key)

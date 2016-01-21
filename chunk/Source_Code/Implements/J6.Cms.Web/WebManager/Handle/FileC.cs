@@ -142,11 +142,11 @@ namespace J6.Cms.Web.WebManager.Handle
 
             switch (file.Extension.ToLower())
             {
-                case ".css": dependJs = "/framework/assets/coder/mode/css.js"; mode = "css"; break;
+                case ".css": dependJs = "/public/assets/coder/mode/css.js"; mode = "css"; break;
                 case ".conf":
                 case ".config":
                 case ".xml":
-                    dependJs = "/framework/assets/coder/mode/xml.js"; mode = "xml"; break;
+                    dependJs = "/public/assets/coder/mode/xml.js"; mode = "xml"; break;
             }
 
             if (!file.Exists)

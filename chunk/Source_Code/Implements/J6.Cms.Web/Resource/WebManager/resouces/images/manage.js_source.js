@@ -20,7 +20,7 @@ j6.event.add(window, 'load', function () { j6.each(document.getElementsByClassNa
 var cms = j6;
 
 //库目录
-j6.libpath = '/framework/assets/';
+j6.libpath = '/public/assets/';
 
 /***  AJAX ***/
 function showMsg(msg, callback, second, notMask) {
@@ -213,9 +213,9 @@ j6.coder = function (id, arg) {
     }
 
 
-    // var htmljs = new Array('//framework/assets/coder/lib/codemirror.js', '//framework/assets/coder/mode/xml/xml.js',
-    //                   '//framework/assets/coder/mode/javascript/javascript.js', '//framework/assets/coder/mode/css/css.js',
-    //                   '//framework/assets/coder/mode/htmlmixed/htmlmixed.js');
+    // var htmljs = new Array('//public/assets/coder/lib/codemirror.js', '//public/assets/coder/mode/xml/xml.js',
+    //                   '//public/assets/coder/mode/javascript/javascript.js', '//public/assets/coder/mode/css/css.js',
+    //                   '//public/assets/coder/mode/htmlmixed/htmlmixed.js');
 
     var editor = null;
     var mode = arg.mode || 'html';

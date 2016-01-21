@@ -55,7 +55,7 @@ namespace J6.Cms.Service
 
             });
 
-            ExportManager.Initialize(AppDomain.CurrentDomain.BaseDirectory + "framework/query/",CmsDataBase.Instance);
+            ExportManager.Initialize(AppDomain.CurrentDomain.BaseDirectory + "public/query/",CmsDataBase.Instance);
         }
 	}
 }

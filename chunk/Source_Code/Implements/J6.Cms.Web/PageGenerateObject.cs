@@ -6,12 +6,7 @@
 //
 
 
-using J6.Cms.Core;
-using J6.Cms.Core.Interface;
-using J6.Cms.Domain.Interface.Common.Language;
-using J6.Cms.Domain.Interface.Models;
-using J6.Cms.Template;
-using J6.Cms.Web.PageModels;
+using J6.Cms.Domain.Interface.Enum;
 
 namespace J6.Cms.Web
 {
@@ -20,6 +15,11 @@ namespace J6.Cms.Web
     using System.Web;
     using J6.Cms.DataTransfer;
     using J6.Cms;
+    using J6.Cms.Core;
+    using J6.Cms.Core.Interface;
+    using J6.Cms.Domain.Interface.Common.Language;
+    using J6.Cms.Domain.Interface.Models;
+    using J6.Cms.Web.PageModels;
 
     /// <summary>
     /// 页面生成器对象
@@ -36,7 +36,12 @@ namespace J6.Cms.Web
 
         public virtual string FormatTemplatePath(string tplPath)
         {
-            return String.Format("/{0}/{1}/{2}", _site.Tpl, tplPath);
+            if (Cms.Context.DeviceType == DeviceType.Mobi &&
+                Cms.TemplateManager.Get(this._site.Tpl).CfgEnabledMobiPage)
+            {
+                return String.Format("/{0}/mobi/{1}", _site.Tpl, tplPath);
+            }
+            return String.Format("/{0}/{1}", _site.Tpl, tplPath);
         }
 
         public virtual string GetTemplateId(string tplPath)

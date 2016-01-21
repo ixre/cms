@@ -205,7 +205,7 @@ namespace J6.Cms.WebManager
 
         private static string GetDebugContent(string filePath)
         {
-            string path = String.Concat(Cms.PyhicPath, "/framework/admin/", filePath);
+            string path = String.Concat(Cms.PyhicPath, "/public/admin/", filePath);
             if (File.Exists(path))
             {
                 return File.ReadAllText(path);

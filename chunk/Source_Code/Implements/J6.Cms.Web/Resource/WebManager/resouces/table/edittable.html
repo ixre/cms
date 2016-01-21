@@ -3,8 +3,8 @@
 <head>
     <title>创建表格</title>
     $css()
-    <script type="text/javascript" src="/framework/assets/editor/kindeditor-all-min.js"></script>
-    <script type="text/javascript" src="/framework/assets/editor/plugins/code/prettify.js"></script>
+    <script type="text/javascript" src="/public/assets/editor/kindeditor-all-min.js"></script>
+    <script type="text/javascript" src="/public/assets/editor/plugins/code/prettify.js"></script>
 </head>
 <body>
     <div class="tabarea">
@@ -54,9 +54,9 @@
                         var editor;
                         KindEditor.ready(function (K) {
                             editor = K.create('#editor', {
-                                cssPath: '/framework/assets/editor/plugins/code/prettify.css',
-                                uploadJson: '/framework/assets/editor/handler/upload_json.ashx',
-                                fileManagerJson: '/framework/assets/editor/handler/file_manager_json.ashx',
+                                cssPath: '/public/assets/editor/plugins/code/prettify.css',
+                                uploadJson: '/public/assets/editor/handler/upload_json.ashx',
+                                fileManagerJson: '/public/assets/editor/handler/file_manager_json.ashx',
                                 allowFileManager: true,
                                 filterMode: false
                             });

@@ -141,8 +141,8 @@ namespace J6.Cms.Web.Resource.WebManager {
         ///&lt;head&gt;
         ///    &lt;title&gt;创建表格&lt;/title&gt;
         ///    $css()
-        ///    &lt;script type=&quot;text/javascript&quot; src=&quot;/framework/assets/editor/minpack.js&quot;&gt;&lt;/script&gt;
-        ///    &lt;script type=&quot;text/javascript&quot; src=&quot;/framework/assets/editor/plugins/code/prettify.js&quot;&gt;&lt;/script&gt;
+        ///    &lt;script type=&quot;text/javascript&quot; src=&quot;/public/assets/editor/minpack.js&quot;&gt;&lt;/script&gt;
+        ///    &lt;script type=&quot;text/javascript&quot; src=&quot;/public/assets/editor/plugins/code/prettify.js&quot;&gt;&lt;/script&gt;
         ///&lt;/head&gt;
         ///&lt;body&gt;
         ///    &lt;div class=&quot;tabarea&quot;&gt;

@@ -119,7 +119,7 @@ namespace J6.Cms.Service
             user.CheckCode = "";
             if (user.Avatar == "" || String.IsNullOrEmpty(usr.Avatar))
             {
-                usr.Avatar = "/framework/mui/css/latest/avatar.gif";
+                usr.Avatar = "/public/mui/css/latest/avatar.gif";
             }
             if (user.IsMaster)
             {
