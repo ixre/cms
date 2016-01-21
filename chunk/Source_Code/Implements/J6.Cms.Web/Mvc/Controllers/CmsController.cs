@@ -280,7 +280,9 @@ namespace J6.Cms.Web.Mvc
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.RenderSearch(base.OutputCntext, c, w);
+                if (c != null) c = c.Trim();
+                if (w != null) w = w.Trim();
+                DefaultWebOuput.RenderSearch(base.OutputCntext, c,w);
             }
         }
 

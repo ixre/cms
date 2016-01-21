@@ -551,6 +551,30 @@ namespace J6.Cms.Template
         }
 
         /// <summary>
+        /// 语言标签
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("获取字典数据", @"")]
+        public string Lang_Upper(string key)
+        {
+            return Cms.Language.Get(this._site.Language, key).ToUpper();
+        }
+
+        /// <summary>
+        /// 语言标签
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("获取字典数据", @"")]
+        public string Lang_Lower(string key)
+        {
+            return Cms.Language.Get(this._site.Language, key).ToLower();
+        }
+
+        /// <summary>
         /// 获取网站的资料
         /// </summary>
         /// <param name="key"></param>
