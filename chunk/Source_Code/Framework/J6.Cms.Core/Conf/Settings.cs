@@ -88,7 +88,7 @@ namespace J6.Cms.Conf
         /// <summary>
         /// 是否加密配置文件
         /// </summary>
-        public static bool SYS_ENCODE_CONF_FILE = true;
+        public static bool SYS_ENCODE_CONF_FILE = false;
 
         #region 模板相关
         /// <summary>

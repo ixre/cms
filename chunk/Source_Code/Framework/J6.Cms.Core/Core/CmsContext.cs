@@ -155,6 +155,7 @@ namespace J6.Cms.Core
                     ck.Value = lang.ToString();
                 }
                 ck.Expires = DateTime.Now.AddHours(24);
+                ck.Path = this.SiteAppPath;
                 ck.HttpOnly = true;
                 ctx.Response.Cookies.Add(ck);
                 this.SetSessionLangSet(ctx, lang);
@@ -180,6 +181,7 @@ namespace J6.Cms.Core
                     ck.Value = device.ToString();
                 }
                 ck.Expires = DateTime.Now.AddHours(24);
+                ck.Path = this.SiteAppPath;
                 ck.HttpOnly = true;
                 ctx.Response.Cookies.Add(ck);
                 this.SetSessionUserDeviceSet(ctx, device);

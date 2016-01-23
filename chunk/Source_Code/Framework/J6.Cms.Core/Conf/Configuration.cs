@@ -117,7 +117,7 @@ namespace J6.Cms.Conf
 
             /**************** 静态服务器 ******************/
 
-            if (false)// sf.Contains("server_static"))
+            if (sf.Contains("server_static"))
             {
                 Settings.SERVER_STATIC = sf["server_static"];
                 if (Settings.SERVER_STATIC.Length == 0)
@@ -133,7 +133,7 @@ namespace J6.Cms.Conf
             }
 
 
-            if (false)//sf.Contains("server_upgrade"))
+            if (sf.Contains("server_upgrade"))
             {
                 Settings.SERVER_UPGRADE = sf["server_upgrade"];
                 if (Settings.SERVER_UPGRADE.Length == 0)
@@ -234,14 +234,8 @@ namespace J6.Cms.Conf
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
 
                     //301跳转
-                    if (!sf.Contains("sys_autowww"))
-                    {
-                        sf.Set("sys_autowww", Settings.SYS_AUTOWWW ? "true" : "false");
-                    }
-                    else
-                    {
+                    
                         sf["sys_autowww"] = Settings.SYS_AUTOWWW ? "true" : "false";
-                    }
 
                     //虚拟路径
                     //if (!sf.Contains("sys_virthpath"))
@@ -261,25 +255,10 @@ namespace J6.Cms.Conf
                 case "tpl":
 
                     //压缩代码
-                    if (!sf.Contains("tpl_usecompress"))
-                    {
                         sf.Set("tpl_usecompress", Settings.TPL_UseCompress ? "true" : "false");
-                    }
-                    else
-                    {
-                        sf["tpl_usecompress"] = Settings.TPL_UseCompress ? "true" : "false";
-                    }
-
                     //使用完整路径
-                    if (!sf.Contains("tpl_usefullpath"))
-                    {
                         sf.Set("tpl_usefullpath", Settings.TPL_UseFullPath ? "true" : "false");
-                    }
-                    else
-                    {
-                        sf["tpl_usefullpath"] = Settings.TPL_UseFullPath ? "true" : "false";
-                    }
-
+               
 
                     Cms.Template.Register();
 
@@ -291,79 +270,10 @@ namespace J6.Cms.Conf
                     WebConfig.SetDebug(Settings.Opti_Debug);
 
                     //缓存项
-                    if (!sf.Contains("opti_IndexCacheSeconds"))
-                    {
                         sf.Set("opti_IndexCacheSeconds", Settings.Opti_IndexCacheSeconds.ToString());
-                    }
-                    else
-                    {
-                        sf["opti_IndexCacheSeconds"] = Settings.Opti_IndexCacheSeconds.ToString();
-                    }
-
-                    if (!sf.Contains("Opti_GC_Collect_Interval"))
-                    {
                         sf.Set("Opti_GC_Collect_Interval", Settings.Opti_GC_Collect_Interval.ToString());
-                    }
-                    else
-                    {
-                        sf["Opti_GC_Collect_Interval"] = Settings.Opti_GC_Collect_Interval.ToString();
-                    }
-
-                    if (!sf.Contains("opti_ClientCacheSeconds"))
-                    {
                         sf.Set("opti_ClientCacheSeconds", Settings.Opti_ClientCacheSeconds.ToString());
-                    }
-                    else
-                    {
-                        sf["opti_ClientCacheSeconds"] = Settings.Opti_ClientCacheSeconds.ToString();
-                    }
-
-
                     break;
-            }
-
-            //
-            //Version:兼容更新站点
-            //
-            SiteDto site = Cms.Context.CurrentSite;
-            if (site.SiteId > 0)
-            {
-                if (sf.Contains("idx_title"))
-                {
-                    site.SeoTitle = sf["idx_title"];
-                    sf.Remove("idx_title");
-                }
-                if (sf.Contains("idx_keywords"))
-                {
-                    site.SeoKeywords = sf["idx_keywords"];
-                    sf.Remove("idx_keywords");
-                }
-                if (sf.Contains("idx_description"))
-                {
-                    site.SeoDescription = sf["idx_description"];
-                    sf.Remove("idx_description");
-                }
-                if (sf.Contains("sys_alias"))
-                {
-                    sf.Remove("sys_alias");
-                }
-            }
-
-            if (sf.Contains("sys_name"))
-            {
-                if (sf.Contains("license_name"))
-                {
-                    sf["license_name"] = sf["sys_name"];
-                    sf["license_key"] = sf["sys_key"];
-                }
-                else
-                {
-
-                    sf.Set("license_name", sf["sys_name"]);
-                    sf.Set("license_key", sf["sys_key"]);
-                }
-                sf.Remove("sys_name");
-                sf.Remove("sys_key");
             }
 
             sf.Flush();
