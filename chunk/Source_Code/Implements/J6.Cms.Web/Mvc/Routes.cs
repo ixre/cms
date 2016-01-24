@@ -29,6 +29,16 @@ namespace J6.Cms.Web.Mvc
     /// </summary>
     public static class Routes
     {
+
+        public static void RegisterCmsMajorRoutes(RouteCollection routes)
+        {
+            string defaultControllerPrefix = CmsVariables.DEFAULT_CONTROLLER_NAME; //使用别名访问cms系统action
+            routes.MapRoute(
+                "major_cms_controller", defaultControllerPrefix + "/{action}",
+                new { controller = "Cms", action = "Help" }
+               );
+
+        }
         /// <summary>
         /// 注册路由
         /// </summary>
@@ -70,11 +80,7 @@ namespace J6.Cms.Web.Mvc
 
 
             #region 系统路由
-            string defaultControllerPrefix = CmsVariables.DEFAULT_CONTROLLER_NAME; //使用别名访问cms系统action
-            routes.MapRoute(
-                "major_cms_controller", defaultControllerPrefix + "/{action}",
-                new { controller = cmsControllerName, action = "Help" }
-               );
+           
 
             //忽略静态目录
             routes.IgnoreRoute("{staticdir}/{*pathInfo}", new { staticdir = "^(uploads|resources|content|static|plugins|libs|scripts|images|style|themes)$" });
@@ -89,6 +95,18 @@ namespace J6.Cms.Web.Mvc
             //管理后台
             routes.Add("administrator_route", new Route(Settings.SYS_ADMIN_TAG, new CmsManagerRouteHandler()));
 
+            
+            //兼容以前插件
+             IRouteHandler pluginHandler = new PluginRouteHandler();
+            routes.Add("plugin_sh_pl", new Route("{plugin}.sh/{*path}", pluginHandler));
+            routes.Add("plugin_sh_aspx", new Route("{plugin}.sh.aspx/{*path}", pluginHandler));
+
+            if (FwCtx.Mono())
+            {
+                routes.Add("plugin_mono_sh_pl", new Route("{plugin}.sh", pluginHandler));
+                routes.Add("plugin_mono_sh_aspx", new Route("{plugin}.sh.aspx", pluginHandler));
+            }
+             
             //WebAPI接口
             //routes.Add("webapi", new Route("webapi/{*path}", new WebApiRouteHandler()));
             routes.Add("webapi_router", new Route("webapi", new WebApiRouteHandler()));
@@ -136,7 +154,8 @@ namespace J6.Cms.Web.Mvc
             //栏目档案列表
             routes.MapRoute(
                 dict[UrlRulePageKeys.Category][0], dict[UrlRulePageKeys.Category][1],
-                new { controller = cmsControllerName, action = "Category", page = 1 }, new { allcate = "^(?!" + defaultControllerPrefix + ")((.+?)/(p\\d+\\.html)?|([^/]+/)*[^\\.]+)$" }
+                new { controller = cmsControllerName, action = "Category", page = 1 }, new { allcate = "^(?!" + 
+                    CmsVariables.DEFAULT_CONTROLLER_NAME+ ")((.+?)/(p\\d+\\.html)?|([^/]+/)*[^\\.]+)$" }
             );
 
             #region Route For Mono

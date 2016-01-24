@@ -79,6 +79,12 @@ namespace J6.Cms
 
         private static LogFile _logFile;
 
+
+        /// <summary>
+        /// 是否已经初始化完成
+        /// </summary>
+        internal static bool IsInitFinish { get; set; }
+
         /// <summary>
         /// Cms上下文对象
         /// </summary>
@@ -263,6 +269,8 @@ namespace J6.Cms
             {
                 Cms.OnInit();
             }
+
+            IsInitFinish = true;
         }
 
         private static void InitKvDb()

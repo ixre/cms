@@ -1,18 +1,17 @@
 ﻿
+
+namespace J6.Cms.Web
+{
+    using J6.DevFw.PluginKernel;
+    using J6.Cms.DataTransfer;
+    using J6.DevFw.Template;
+    using System;
 using J6.Cms.Cache.CacheCompoment;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.Core;
 using J6.Cms.Domain.Interface.Enum;
 using J6.Cms.Infrastructure;
-
-namespace J6.Cms.Web
-{
-    using J6.DevFw.PluginKernel;
-    using J6.Cms.DataTransfer;
-    using J6.Cms.Template;
-    using J6.DevFw.Template;
-    using System;
 
     public class PageVariable
     {

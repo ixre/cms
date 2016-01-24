@@ -93,13 +93,19 @@ namespace J6.Cms.Core
                 OnBeginRequest();
             }
             this._context = HttpContext.Current;
+
+            if (!Cms.IsInitFinish) return;
             //设置当前站点
             this.CurrentSite = SiteCacheManager.GetSingleOrDefaultSite(this._context.Request.Url); ;
             //是否为虚拟目录运行
             if ((SiteRunType)this.CurrentSite.RunType == SiteRunType.VirtualDirectory)
                 this.IsVirtualDirectoryRunning = true;
             this._userLanguage = this.CurrentSite.Language;
+            LoadByCookie();
+        }
 
+        private void LoadByCookie()
+        {
             int lang = this.GetUserLangSet(this._context); //从COOKIE中加载语言
             if (lang != -1)
             {
@@ -107,7 +113,6 @@ namespace J6.Cms.Core
             }
 
             this._userDevice = this.GetUserDeviceSet(this._context);
-
         }
 
         /// <summary>
