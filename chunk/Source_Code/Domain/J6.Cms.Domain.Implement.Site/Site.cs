@@ -586,7 +586,8 @@ namespace J6.Cms.Domain.Implement.Site
 
         private void ItrNodeTree(TreeNode node, ICategory root)
         {
-            foreach (ICategory c in root.NextLevelChilds)
+            IEnumerable<ICategory> list = root.NextLevelChilds.OrderBy(a => a.SortNumber);
+            foreach (ICategory c in list)
             {
                 var tNode = new TreeNode(c.Name,
                     String.Format("{0}cid:{1},lft:{2}{3}", "{", c.Id.ToString(), c.Lft.ToString(), "}"),

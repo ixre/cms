@@ -683,5 +683,29 @@ namespace J6.Cms.Service
                 }
             }
         }
+
+
+        /// <summary>
+        /// 移动栏目排序编号
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="id"></param>
+        /// <param name="direction"></param>
+        public void MoveCategorySortNumber(int siteId, int id, int direction)
+        {
+            ISite site = this._resp.GetSiteById(siteId);
+            if(site == null)throw  new ArgumentException("no such site");
+            ICategory c = site.GetCategory(id);
+            if (c == null) throw new ArgumentException("no such category");
+
+            if (direction == 1)
+            {
+                c.MoveSortUp();
+            }
+            else if (direction == 2)
+            {
+                c.MoveSortDown();
+            }
+        }
     }
 }

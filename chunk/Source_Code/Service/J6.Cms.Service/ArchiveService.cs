@@ -388,7 +388,7 @@ namespace J6.Cms.Service
         }
 
 
-        public void MoveToSort(int siteId, int id, int direction)
+        public void MoveSortNumber(int siteId, int id, int direction)
         {
             IBaseContent archive = this._contentRep.GetContent(siteId).GetArchiveById(id);
             if (archive == null)
@@ -398,11 +398,11 @@ namespace J6.Cms.Service
 
             if (direction == 1)
             {
-                archive.SortUpper();
+                archive.MoveSortUp();
             }
             else if (direction == 2)
             {
-                archive.SortLower();
+                archive.MoveSortDown();
             }
         }
 

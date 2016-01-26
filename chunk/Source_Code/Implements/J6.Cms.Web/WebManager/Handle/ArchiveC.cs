@@ -898,14 +898,14 @@ namespace J6.Cms.Web.WebManager.Handle
         }
 
 
-        public void MoveToSort_post()
+        public void MoveSortNumber_post()
         {
             int id = int.Parse(base.Request["archive.id"]);
             int di = int.Parse(base.Request["direction"]);
 
             try
             {
-                ServiceCall.Instance.ArchiveService.MoveToSort(this.SiteId, id, di);
+                ServiceCall.Instance.ArchiveService.MoveSortNumber(this.SiteId, id, di);
                 base.RenderSuccess();
             }
             catch (Exception exc)

@@ -42,6 +42,7 @@
                         <br/><span class="desc" style="padding-left: 60px">建议手动填写,用于调用数据的唯一标识,且显示在地址栏中,如http://k3f.net/cms/news/,news就是一个标识</span>
                     </dd>
                 </dl>
+
                 <dl>
                     <dt>重定向：</dt>
                     <dd>
@@ -74,7 +75,7 @@
                         <select class="tb_normal ui-box" field="ModuleId">${categoryTypes}</select>
                     </dd>
                 </dl>
-                <dl>
+                <dl class="hidden">
                     <dt>排序：</dt>
                     <dd>
                         <input class="tb_normal ui-box ui-validate" isnumber="true" field="SortNumber" style="width: 50px;" value="0"/>

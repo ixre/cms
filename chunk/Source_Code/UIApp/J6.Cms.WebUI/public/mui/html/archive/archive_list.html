@@ -83,11 +83,11 @@
             <a href="javascript:;"><span>$icon(delete)</span>删除</a>
         </div>
         <div class="line"></div>
-        <div class="item" onclick="menu.moveToSort('%id%', 1)">
+        <div class="item" onclick="menu.moveSortNumber('%id%', 1)">
             <a href="javascript:;"><span>$icon(refresh)</span>上移</a>
         </div>
 
-        <div class="item" onclick="menu.moveToSort('%id%',2)">
+        <div class="item" onclick="menu.moveSortNumber('%id%',2)">
             <a href="javascript:;"><span>$icon(refresh)</span>下移</a>
         </div>
         <div class="item" onclick="menu.republish('%id%')">
@@ -325,8 +325,8 @@
             comment: function (id) {
                 j6.load2('pl', 'archive', 'comment', 'desc=true&archive.id=' + id);
             },
-            moveToSort: function (id,val) {
-                j6.xhr.jsonPost('?', 'module=archive&action=moveToSort&archive.id=' + id+'&direction='+val,
+            moveSortNumber: function (id,val) {
+                j6.xhr.jsonPost('?', 'module=archive&action=moveSortNumber&archive.id=' + id+'&direction='+val,
                   function (json) {
                       if (json.result) {
                           _dg.reload();

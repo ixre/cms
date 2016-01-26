@@ -255,5 +255,13 @@ namespace J6.Cms.ServiceContract
         IDictionary<int, string> ClonePubArchive(int sourceSiteId, int targetSiteId, int toCid, int[] archiveIdArray, bool includeExtend, bool includeTempateBind, bool includeRelatedLink);
 
         bool CheckSiteExists(int siteId);
+        
+        /// <summary>
+        /// 移动栏目排序编号
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="id"></param>
+        /// <param name="direction"></param>
+        void MoveCategorySortNumber(int siteId, int id, int direction);
     }
 }

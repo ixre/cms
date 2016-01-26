@@ -110,6 +110,10 @@ namespace J6.Cms.Domain.Implement.Site.Category
 
         public int Save()
         {
+            if (this.Id <= 0)
+            {
+                this.SetAutoSortNumber();
+            }
             int result = this._rep.SaveCategory(this);
 
             #region 保存模板
@@ -142,6 +146,18 @@ namespace J6.Cms.Domain.Implement.Site.Category
             this.Site.ClearSelf();
             this.ClearSelf();
             return result;
+        }
+
+        private void SetAutoSortNumber()
+        {
+            if (this.Parent.Childs != null && this.Parent.Childs.Any())
+            {
+                this.SortNumber = this.Parent.Childs.Max(a => a.SortNumber) + 1;
+            }
+            else
+            {
+                this.SortNumber = 1;
+            }
         }
 
 
@@ -357,5 +373,65 @@ namespace J6.Cms.Domain.Implement.Site.Category
 
         }
 
+        /// <summary>
+        /// 向上移动排序
+        /// </summary>
+        public void MoveSortUp()
+        {
+            if (this.Parent != null)
+            {
+                ICategory[] list = this.Parent.Childs.OrderBy(a=>a.SortNumber).ToArray();
+                for (int i = 0; i < list.Length; i++)
+                {
+                    if (list[i].Id == this.Id && i !=0)
+                    {
+                        this.SwapSortNumber(list[i - 1],true);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 向下移动排序
+        /// </summary>
+        public void MoveSortDown()
+        {
+            if (this.Parent != null)
+            {
+                ICategory[] list = this.Parent.Childs.OrderBy(a => a.SortNumber).ToArray();
+                for (int i = 0; i < list.Length; i++)
+                {
+                    if (list[i].Id == this.Id && i < list.Length - 1)
+                    {
+                        this.SwapSortNumber(list[i + 1],false);
+                    }
+                }
+            }
+        }
+
+        private void SwapSortNumber(ICategory c,bool up)
+        {
+            if (c == null) return;
+            int sortN = c.SortNumber;
+            c.SortNumber = this.SortNumber;
+            if (this.SortNumber == sortN) //为了兼容旧有数据
+            {
+                this.SortNumber = sortN + (up ? 1 : -1);
+            }
+            else
+            {
+                this.SortNumber = sortN;
+            }
+            c.SaveSortNumber();
+            this.SaveSortNumber();
+        }
+
+        /// <summary>
+        /// 保存排序号码
+        /// </summary>
+       public void SaveSortNumber()
+        {
+            this._rep.SaveCategory(this);
+        }
     }
 }

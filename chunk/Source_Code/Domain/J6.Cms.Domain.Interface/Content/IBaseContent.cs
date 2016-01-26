@@ -80,11 +80,11 @@ namespace J6.Cms.Domain.Interface.Content
         /// <summary>
         /// 下移排序
         /// </summary>
-        void SortLower();
+        void MoveSortDown();
 
         /// <summary>
         /// 上移排序
         /// </summary>
-        void SortUpper();
+        void MoveSortUp();
     }
 }

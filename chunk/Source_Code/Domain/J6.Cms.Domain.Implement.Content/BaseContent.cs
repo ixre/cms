@@ -138,12 +138,12 @@ namespace J6.Cms.Domain.Implement.Content
         /// <summary>
         /// 下移排序
         /// </summary>
-        public abstract void SortLower();
+        public abstract void MoveSortDown();
 
 
         /// <summary>
         /// 上移排序
         /// </summary>
-        public abstract void SortUpper();
+        public abstract void MoveSortUp();
     }
 }

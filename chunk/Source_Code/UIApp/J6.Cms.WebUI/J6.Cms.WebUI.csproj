@@ -386,6 +386,7 @@
     <Content Include="public\locale\th.xml" />
     <Content Include="public\locale\zh_cn.xml" />
     <Content Include="public\locale\zh_tw.xml" />
+    <Content Include="public\maps.xml" />
     <Content Include="public\maps\management.xml" />
     <Content Include="public\mui\css\index.css" />
     <Content Include="public\mui\css\latest\ajax-loader.gif" />

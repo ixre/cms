@@ -216,7 +216,7 @@ namespace J6.Cms.Domain.Implement.Content.Archive
             return this.Id;
         }
 
-        public override void SortLower()
+        public override void MoveSortDown()
         {
             int siteId = this.Category.Site.Id;
             IArchive prev = this._archiveRep.GetNextArchive(siteId, this.Id, true, true);
@@ -224,7 +224,7 @@ namespace J6.Cms.Domain.Implement.Content.Archive
         }
 
 
-        public override void SortUpper()
+        public override void MoveSortUp()
         {
             int siteId = this.Category.Site.Id;
             IArchive next = this._archiveRep.GetPreviousArchive(siteId, this.Id, true, true);
@@ -240,7 +240,7 @@ namespace J6.Cms.Domain.Implement.Content.Archive
             this.SortNumber = sortN;
 
             archive.SaveSortNumber();
-            this.Save();
+            this.SaveSortNumber();
         }
 
         public string FirstImageUrl

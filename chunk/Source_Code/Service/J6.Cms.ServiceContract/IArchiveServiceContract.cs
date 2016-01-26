@@ -256,7 +256,7 @@ namespace J6.Cms.ServiceContract
         /// <param name="siteId"></param>
         /// <param name="id"></param>
         /// <param name="direction"></param>
-        void MoveToSort(int siteId, int id, int direction);
+        void MoveSortNumber(int siteId, int id, int direction);
 
         void BatchDelete(int siteId, int[] idArray);
     }

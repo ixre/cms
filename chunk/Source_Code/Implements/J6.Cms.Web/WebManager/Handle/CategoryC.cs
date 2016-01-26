@@ -170,6 +170,25 @@ namespace J6.Cms.Web.WebManager.Handle
             return base.ReturnSuccess(null, categoryId.ToString());
         }
 
+        /// <summary>
+        /// 移动顺序
+        /// </summary>
+        public void MoveSortNumber_post()
+        {
+            int id = int.Parse(base.Request["category.id"]);
+            int di = int.Parse(base.Request["direction"]);
+
+            try
+            {
+                ServiceCall.Instance.SiteService.MoveCategorySortNumber(this.SiteId, id, di);
+                base.RenderSuccess();
+            }
+            catch (Exception exc)
+            {
+                base.RenderError(exc.Message);
+            }
+        }
+
         private static CategoryDto InitCategoryDtoFromHttpPost(NameValueCollection form, CategoryDto category)
         {
             //form.BindToEntity(category);

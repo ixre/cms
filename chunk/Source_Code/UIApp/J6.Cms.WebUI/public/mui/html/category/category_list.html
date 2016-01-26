@@ -73,6 +73,14 @@
             <a href="javascript:;"><span>$icon(refresh)</span>刷新</a>
         </div>
         <div class="line"></div>
+        <div class="item" onclick="menu.moveSortNumber('%id%', 1)">
+            <a href="javascript:;"><span>$icon(refresh)</span>上移</a>
+        </div>
+
+        <div class="item" onclick="menu.moveSortNumber('%id%',2)">
+            <a href="javascript:;"><span>$icon(refresh)</span>下移</a>
+        </div>
+        <div class="line"></div>
          <div class="item" onclick="window.menu.add('%id%')">
             <a href="javascript:;"><span>$icon(edit)</span>编辑</a>
         </div>
@@ -115,7 +123,6 @@
                         nodeLinks = e.getElementsByClassName
                             ? e.getElementsByClassName('node')
                             : document.getElementsByClassName('node', e);
-
                         if (nodeLinks.length != 0) {
                             var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).cid;
                             e.title = '更多功能点击鼠标右键';
@@ -156,6 +163,16 @@ window.menu = {
     },
     edit:function(id) {
         j6.load2('pl', 'category', 'update', 'category_id=' + id);
+    },  
+    moveSortNumber: function (id,val) {
+        j6.xhr.jsonPost('?', 'module=category&action=moveSortNumber&category.id=' + id+'&direction='+val,
+          function (json) {
+              if (json.result) {
+                  menu.refresh();
+              } else {
+                  showErr(json.message);
+              }
+          });
     },
     del: function(id) {
         if (confirm('确定删除吗?删除后将不可恢复!')) {

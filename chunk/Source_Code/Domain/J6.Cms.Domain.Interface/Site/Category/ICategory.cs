@@ -148,6 +148,19 @@ namespace J6.Cms.Domain.Interface.Site.Category
         ///// </summary>
         //int Level { get; set; }
 
+        /// <summary>
+        /// 向上移动排序
+        /// </summary>
+        void MoveSortUp();
+       
+        /// <summary>
+        /// 向下移动排序
+        /// </summary>
+        void MoveSortDown();
 
+        /// <summary>
+        /// 保存排序号码
+        /// </summary>
+        void SaveSortNumber();
     }
 }
