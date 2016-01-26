@@ -213,6 +213,32 @@ if (ele_dts.length != 0) {
 }
 */
 
+function tabCard(e,event,call) {
+    var tabItems = j6.dom.getsByClass(e, 'item');
+    var tabFrames = j6.dom.getsByClass(e, 'frame');
+    for (var i = 0; i < tabItems.length; i++) {
+        var func = function () {
+            for (var j = 0; j < tabItems.length; j++) {
+                var isCurr = tabItems[j] == this;
+                tabItems[j].className = isCurr ? "item current" : 'item';
+                with (tabFrames[j]) {
+                    if (isCurr) {
+                        className = className.replace(' hidden', '');
+                        if (call != null && call instanceof Function)call(tabItems[j], tabFrames[j]);
+                    } else if (className.indexOf(' hidden') == -1) {
+                        className = className + ' hidden';
+                    }
+                }
+            }
+        };
+        if (event == 'click') {
+            tabItems[i].onclick = func;
+        } else {
+            tabItems[i].onmouseover = func;
+        }
+    }
+}
+
 /**
  *  将元素绝对定位
  * @param {} e 
