@@ -74,11 +74,11 @@
         </div>
         <div class="line"></div>
         <div class="item" onclick="menu.moveSortNumber('%id%', 1)">
-            <a href="javascript:;"><span>$icon(refresh)</span>上移</a>
+            <a href="javascript:;"><span>$icon(refresh)</span>向上移动</a>
         </div>
 
         <div class="item" onclick="menu.moveSortNumber('%id%',2)">
-            <a href="javascript:;"><span>$icon(refresh)</span>下移</a>
+            <a href="javascript:;"><span>$icon(refresh)</span>向下移动</a>
         </div>
         <div class="line"></div>
          <div class="item" onclick="window.menu.add('%id%')">
@@ -103,9 +103,17 @@
     var treePanel = j6.$('dg');
     var treeObj = null;
     var tmpTpl = j6.$('tpl').innerHTML;
-    function _showCategory(e, d, t) {
+    function _showCategory(src, d, t) {
         var id = j6.toJson(d).cid;
         j6.load2('pl', 'category', 'update', 'category_id=' + id);
+        // 设置选择背景
+        var nodeLinks = j6.dom.getsByClass(treePanel, 'node');
+        j6.each(nodeLinks, function(i, e) {
+            if (e.nodeName === 'DIV') {
+                e.style.backgroundColor='';
+            }
+        });
+        src.parentNode.style.backgroundColor="#FBEC88";
     }
 
     //加载栏目树

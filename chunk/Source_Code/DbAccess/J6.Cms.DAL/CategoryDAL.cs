@@ -218,5 +218,12 @@ namespace J6.Cms.Dal
             if (obj == DBNull.Value) return 0;
             return int.Parse(obj.ToString());
         }
+
+        public void SaveSortNumber(int id, int sortNumber)
+        {
+            String sql = String.Format("UPDATE $PREFIX_category SET sort_number={0} WHERE id={1}",
+                sortNumber.ToString(), id.ToString());
+            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(sql)));
+        }
     }
 }

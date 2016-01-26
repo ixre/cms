@@ -58,5 +58,6 @@ namespace J6.Cms.Domain.Interface.Site.Category
 
 
         IEnumerable<ICategory> GetNextLevelChilds(ICategory category);
+        void SaveCategorySortNumber(int id, int sortNumber);
     }
 }

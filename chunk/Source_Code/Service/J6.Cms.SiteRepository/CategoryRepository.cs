@@ -574,6 +574,11 @@ namespace J6.Cms.ServiceRepository
                 );
         }
 
+        public void SaveCategorySortNumber(int id, int sortNumber)
+        {
+            this.categoryDal.SaveSortNumber(id, sortNumber);
+        }
+
 
         public ICategory GetParent(ICategory category)
         {

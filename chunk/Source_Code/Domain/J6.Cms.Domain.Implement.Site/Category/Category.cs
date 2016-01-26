@@ -386,6 +386,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
                     if (list[i].Id == this.Id && i !=0)
                     {
                         this.SwapSortNumber(list[i - 1],true);
+                        break;
                     }
                 }
             }
@@ -404,6 +405,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
                     if (list[i].Id == this.Id && i < list.Length - 1)
                     {
                         this.SwapSortNumber(list[i + 1],false);
+                        break;
                     }
                 }
             }
@@ -414,12 +416,25 @@ namespace J6.Cms.Domain.Implement.Site.Category
             if (c == null) return;
             int sortN = c.SortNumber;
             c.SortNumber = this.SortNumber;
-            if (this.SortNumber == sortN) //为了兼容旧有数据
+            if (this.SortNumber == sortN || sortN < 0 || this.SortNumber < 0) //为了兼容旧有数据
             {
-                this.SortNumber = sortN + (up ? 1 : -1);
+                if (sortN < 0 && !up)
+                {
+                    this.SortNumber = 0;
+                    c.SortNumber += 1;
+                    if (c.SortNumber <= 0)
+                    {
+                        c.SortNumber = 1;
+                    }
+                }
+                else
+                {
+                    this.SortNumber = sortN + (up ? 1 : -1);
+                }
             }
-            else
+            else 
             {
+                // 以上均为兼容
                 this.SortNumber = sortN;
             }
             c.SaveSortNumber();
@@ -431,7 +446,7 @@ namespace J6.Cms.Domain.Implement.Site.Category
         /// </summary>
        public void SaveSortNumber()
         {
-            this._rep.SaveCategory(this);
+            this._rep.SaveCategorySortNumber(this.Id,this.SortNumber);
         }
     }
 }

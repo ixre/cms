@@ -9,10 +9,6 @@
     <div class="tree" id="menu_tree" style="padding: 15px 0 15px 20px; background: #FFF;border-top:solid 1px #D0D0D0"></div>
 
     <script type="text/javascript">
-        function showArchives(e,d,t){
-            d=j6.toJson(d);
-            parent.FwTab.show(t, '?module=archive&action=list&category.id=' + d.cid, '1_996_' + d.cid);
-        };
 
         var menuTreeEle = j6.$('menu_tree');
         if (menuTreeEle.parentNode.nodeName === 'DIV') {
@@ -20,11 +16,21 @@
             menuTreeEle.parentNode.parentNode.style.cssText += 'height: 100%;';
         }
 
-        j6.tree.load(
-           menuTreeEle.id,
-            ${tree}, '/public/assets/tree/',
-                showArchives);
+        
+        function showArchives(src,d,t){
+            d=j6.toJson(d);
+            parent.FwTab.show(t, '?module=archive&action=list&category.id=' + d.cid, '1_996_' + d.cid);
+            // 设置选择背景
+            var nodeLinks = j6.dom.getsByClass(menuTreeEle, 'node');
+            j6.each(nodeLinks, function(i, e) {
+                if (e.nodeName === 'DIV') {
+                    e.style.backgroundColor='';
+                }
+            });
+            src.parentNode.style.backgroundColor="#FBEC88";
+        };
 
+        j6.tree.load(menuTreeEle.id,${tree}, '/public/assets/tree/',showArchives);
         var nodeLinks = j6.dom.getsByClass(menuTreeEle,'node');
         j6.each(nodeLinks,function(i,e){
             if(e.nodeName=='A'){
