@@ -38,7 +38,34 @@
             padding: 15px 1% 0 1%;
         }
         .control a{ margin: 0 5px;}
-    
+
+        .data-table thead td {
+            background: #EEE;
+            text-align: center;
+            border-right: solid 1px #ddd;
+        }
+
+        .data-table tbody td {
+            background: #FFF;
+            padding: 3px 10px;
+        }
+
+        .data-table tbody input {
+            line-height: 1.4em;
+            width: 80%;
+            margin: 1px auto;
+            color: #666;
+        }
+
+            .data-table tbody input:focus {
+                margin: 1px auto;
+            }
+
+        .data-panel .panel {
+            overflow: auto;
+            border-bottom: solid 1px #ddd;
+        }
+
     </style>
 </head>
 <body>
@@ -66,25 +93,31 @@
 
  </div>
 
-<table style="width:98%;margin:1%" cellspacing="0" cellpadding="0" id="filesexp" class="ui-table ui-grid-table">
- <thead>
-     <tr class="ui-datagrid-header">
-         <th width="12" class="hidden"></th>
-         <th style="width:250px;text-align:left;">文件(夹)名称</th>
-         <th>大小</th>
-         <th>类型</th>
-         <th width="180">创建时间</th>
-         <th width="180">修改时间</th>
-         <th>属性</th>
-         <th style="border-right:none"></th>
-     </tr>
- </thead>
- <tbody>
- </tbody>
-</table>
+    <div class="ui-table data-panel" id="locale-data">
+        <table width="100%" class="data-table" cellspacing="0">
+            <thead id="thead">
+                <tr class="ui-datagrid-header">
+                    <th class="fix-col" style="min-width: 100px;">文件(夹)名称</th>
+                    <th class="fix-col" width="">大小</th>
+                    <th class="fix-col" width="">类型</th>
+                    <th class="fix-col" width="">创建时间</th>
+                    <th class="fix-col" width="">修改时间</th>
+                    <th class="fix-col" width="">属性</th>
+                    <th class="fix-col">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+        <div class="panel" id="data-list">
+            <table width="100%" class="data-table" cellspacing="0" id="filesexp">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 
 
-    <script type="text/template" class="hidden" id="tpl_create_file">
+
+<script type="text/template" class="hidden" id="tpl_create_file">
         <div style="padding:2em">
             <b>名称：</b>&nbsp;&nbsp;
             <input type="text" class="ui-box" name="filename" id="tb_fileName" />
@@ -104,6 +137,38 @@ $js()
     var curdir = (location.hash || '#/').substring(1);
     var tb = j6.$('filesexp');
     var createTpl = j6.$('tpl_create_file').innerHTML;
+
+    
+    var tds = j6.$('thead').getElementsByTagName('TD');
+    function fixTitRow() {
+        var srcTds = tb.getElementsByTagName('TR')[0].getElementsByTagName('TD');
+        for (var i = 0; i < tds.length; i++) {
+            var width = Math.floor(srcTds[i].offsetWidth);
+            if (tds.length - 1 == i) {
+                tds[i].style.width = ( width+ getScrollWidth()) + 'px';
+            } else {
+                tds[i].style.width = width+ 'px';
+                srcTds[i].style.width =width+ 'px';
+            }
+        }
+        var pl = j6.$('data-list');
+        var y = document.documentElement.clientHeight;
+        if (pl.scrollHeight > y - 85) {
+            pl.style.height = (y - 85) + 'px';
+        } else {
+            pl.style.height = 'inherit';
+        }
+    }
+
+    function getScrollWidth() {
+        var noScroll, scroll, oDiv = document.createElement("DIV");
+        oDiv.style.cssText = "position:absolute; top:-1000px; width:100px; height:100px; overflow:hidden;";
+        noScroll = document.body.appendChild(oDiv).clientWidth;
+        oDiv.style.overflowY = "scroll";
+        scroll = oDiv.clientWidth;
+        document.body.removeChild(oDiv);
+        return noScroll - scroll;
+    }
 
 
     function showCreateDialog(isDir) {
@@ -142,10 +207,12 @@ $js()
         },
 
         resetTable: function () {
-            var leng = tb.rows.length;
-            for (var i = 1; i < leng; i++) {
-                tb.deleteRow(1);
-            }
+//            var leng = tb.rows.length;
+//            for (var i = 1; i < leng; i++) {
+//                tb.deleteRow(1);
+//            }
+
+            tb.innerHTML = '';  //清空
 
             var parentDir = '/';
             if (location.hash) {
@@ -154,7 +221,12 @@ $js()
 
             var tr = tb.insertRow(-1);  //插入倒数第一行
             var cell = tr.insertCell(-1);
-            cell.setAttribute('colspan', '8');
+            for (var i = 0; i < 6; i++) {
+                var c = tr.insertCell(-1);
+                c.innserHTML = '&nbsp;';
+                c.setAttribute('style', 'background:#FFE');
+            }
+           // cell.setAttribute('colspan', '8');
             cell.setAttribute('style', 'background:#FFE');
             cell.innerHTML = '<a style="color:#0066cc" href="#' + escape(parentDir) +
                 '">&nbsp;&nbsp;[⇮上一级]</a>';
@@ -388,6 +460,9 @@ $js()
                 j6.table.dynamic(document.getElementsByTagName("TABLE")[0],false,function (row) {
                 });
 
+                if (json.dirs.length + json.files.length > 0) {
+                    fixTitRow();
+                }
             }
         }, function (x) { });
 

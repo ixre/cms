@@ -1,7 +1,11 @@
 ﻿
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using J6.DevFw.Framework;
+using Newtonsoft.Json;
 
 namespace J6.Cms.Core
 {
@@ -399,6 +403,23 @@ namespace J6.Cms.Core
             sf.Flush();
         }
 
+        public IDictionary<string, string> GetNameDictionary()
+        {
+            SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this.tplName));
+            String json;
+            if (!sf.Contains("TPL_NAMES") || String.IsNullOrEmpty((json = sf.Get("TPL_NAMES"))))
+            {
+                return new Dictionary<string, string>();
+            }
+            return JsonConvert.DeserializeObject<Dictionary<String, String>>(json);
+        }
+
+        public void SaveTemplateNames(string json)
+        {
+           SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this.tplName));
+            sf.Set("TPL_NAMES", json);
+            sf.Flush();
+        }
     }
 
 }

@@ -21,6 +21,12 @@ namespace J6.Cms.WebManager
 
     internal static class EachClass
     {
+        internal class TemplateNames
+        {
+            public string path;
+            public string name;
+        }
+
         private static string[] allowListedExt = new String[] {".html",".phtml",".css",".js"};
         /// <summary>
         /// 查找文件夹
@@ -201,7 +207,8 @@ namespace J6.Cms.WebManager
         /// <param name="dir"></param>
         /// <param name="sb"></param>
         /// <param name="pageType"></param>
-       public static void EachTemplatePage(DirectoryInfo rootDir, DirectoryInfo dir, StringBuilder sb, params TemplatePageType[] pageType)
+        /// <param name="names"></param>
+        public static void EachTemplatePage(DirectoryInfo rootDir, DirectoryInfo dir, StringBuilder sb, IDictionary<String, String> names,params TemplatePageType[] pageType)
        {
            if(!dir.Exists|| dir.Name == ".backup")return;
            int rootDirLength =rootDir.FullName.Length;
@@ -217,7 +224,16 @@ namespace J6.Cms.WebManager
                {
                    sb.Append("<option value=\"");
                    path = file.FullName.Substring(rootDirLength).Replace("\\", "/");
-                   sb.Append(path).Append("\">/").Append(path).Append("</option>");
+                   
+                   String name;
+                   if (names.TryGetValue(path, out name) && name.Trim().Length > 0)
+                   {
+                       sb.Append(path).Append("\">").Append(name).Append(" - ( /").Append(path).Append(" )").Append("</option>");
+                   }
+                   else
+                   {
+                       sb.Append(path).Append("\">/").Append(path).Append("</option>");
+                   }
 
                    /*
                    if (isroot)
@@ -235,8 +251,33 @@ namespace J6.Cms.WebManager
 
            foreach (DirectoryInfo _dir in dir.GetDirectories())
            {
-               EachTemplatePage(rootDir,_dir, sb, pageType);
+               EachTemplatePage(rootDir,_dir, sb, names,pageType);
            }
        }
+
+        public static void IterialTemplateFiles2(DirectoryInfo dir, IList<TemplateNames> list, IDictionary<string, string> nameDictionary)
+        {
+            if (!dir.Exists || dir.Name == ".backup") return;
+            int rootDirLength = dir.FullName.Length;
+
+            string path;
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
+                    && (file.Name.EndsWith(".html") || file.Name.EndsWith(".tml")))
+                {
+                    path = file.FullName.Substring(rootDirLength).Replace("\\", "/");
+                    string value;
+                    nameDictionary.TryGetValue(path, out value);
+                    list.Add(new TemplateNames{path=path,name= value??""});
+                }
+            }
+
+            foreach (DirectoryInfo _dir in dir.GetDirectories())
+            {
+                IterialTemplateFiles2(_dir, list, nameDictionary);
+            }
+
+        }
     }
 }

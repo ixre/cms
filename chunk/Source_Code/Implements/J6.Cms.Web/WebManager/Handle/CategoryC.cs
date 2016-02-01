@@ -109,12 +109,14 @@ namespace J6.Cms.Web.WebManager.Handle
                 String.Format("{0}templates/{1}", AppDomain.CurrentDomain.BaseDirectory, site.Tpl
                 ));
 
-            EachClass.EachTemplatePage(dir, dir, sb, TemplatePageType.Archive);
+            IDictionary<String, String> names = Cms.TemplateManager.Get(base.CurrentSite.Tpl).GetNameDictionary();
+
+            EachClass.EachTemplatePage(dir, dir, sb, names,TemplatePageType.Archive);
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, dir, sb, TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir, dir, sb, names,TemplatePageType.Category);
             categoryTplOpts = sb.ToString();
 
             object entity = new
@@ -289,12 +291,13 @@ namespace J6.Cms.Web.WebManager.Handle
                 Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
                 ));
 
-            EachClass.EachTemplatePage(dir, dir, sb, TemplatePageType.Archive);
+            IDictionary<String, String> names = Cms.TemplateManager.Get(base.CurrentSite.Tpl).GetNameDictionary();
+            EachClass.EachTemplatePage(dir, dir, sb, names,TemplatePageType.Archive);
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, dir, sb, TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir, dir, sb, names,TemplatePageType.Category);
             categoryTplOpts = sb.ToString();
 
 

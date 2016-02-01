@@ -72,10 +72,12 @@ namespace J6.Cms.Web.WebManager.Handle
                 base.CurrentSite.Tpl + "/"
                 ));
 
+            IDictionary<String, String> names = Cms.TemplateManager.Get(base.CurrentSite.Tpl).GetNameDictionary();
             EachClass.EachTemplatePage(
                 dir,
                 dir,
                 sb2,
+                names,
                 TemplatePageType.Custom,
                 TemplatePageType.Archive
             );
@@ -250,8 +252,11 @@ namespace J6.Cms.Web.WebManager.Handle
                 base.CurrentSite.Tpl + "/"
                 ));
 
+            IDictionary<String, String> names = Cms.TemplateManager.Get(base.CurrentSite.Tpl).GetNameDictionary();
+
             EachClass.EachTemplatePage(dir, dir,
                 sb2,
+                names,
                 TemplatePageType.Custom,
                 TemplatePageType.Archive
                 );

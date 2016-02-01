@@ -12,16 +12,20 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using J6.Cms.CacheService;
+using J6.Cms.Conf;
 using J6.Cms.Core;
 using J6.Cms.DataTransfer;
+using J6.Cms.Domain.Interface.Common.Language;
 using J6.Cms.Template;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework;
+using J6.DevFw.Template;
 using Newtonsoft.Json;
 using SharpCompress.Archive;
 using SharpCompress.Common;
@@ -57,6 +61,48 @@ namespace J6.Cms.Web.WebManager.Handle
                 tplfiles= sb.ToString(),
                 tpl=tpl
             });
+        }
+
+        public string GetListJson_POST()
+        {
+            String tpl = Request.Form.Get("tpl");
+            DirectoryInfo dir = new DirectoryInfo(String.Format("{0}templates/{1}/", Cms.PyhicPath, tpl));
+            if (dir.Exists)
+            {
+                IList<EachClass.TemplateNames> list = new List<EachClass.TemplateNames>();
+                IDictionary<String, String> nameDict = Cms.TemplateManager.Get(tpl).GetNameDictionary();
+               EachClass.IterialTemplateFiles2(dir,list, nameDict);
+                return JsonConvert.SerializeObject(list);
+            }
+            return "[]";
+        }
+
+        public string SaveNames_POST()
+        {
+            String tpl = Request["tpl"];
+            var form = Request.Form;
+            IDictionary<String,String> list = new Dictionary<string, string>();
+            int row;
+            foreach (String pk in form.Keys)
+            {
+                if (pk.StartsWith("k_"))
+                {
+                    if (int.TryParse(pk.Substring(2), out row)) //获取行号
+                    {
+                        list.Add( form[pk], form["v_" + row.ToString()]);
+                    }
+                }
+            }
+
+            try
+            {
+                Cms.TemplateManager.Get(tpl).SaveTemplateNames(JsonConvert.SerializeObject(list));
+            }
+            catch (Exception exc)
+            {
+                return base.ReturnError(exc.Message);
+            }
+            return base.ReturnSuccess();
         }
     
         /// <summary>
