@@ -204,6 +204,7 @@ namespace J6.Cms.WebManager
         /// <summary>
         /// 迭代模板(指定类型)
         /// </summary>
+        /// <param name="rootDir"></param>
         /// <param name="dir"></param>
         /// <param name="sb"></param>
         /// <param name="pageType"></param>
@@ -217,7 +218,7 @@ namespace J6.Cms.WebManager
            foreach (FileInfo file in dir.GetFiles())
            {
                if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
-                   && file.Name.EndsWith(".html")
+                   && CheckExtension(file,".html|.tml")
                    && Array.Exists(pageType, a => Cms.Template.GetPageType(file.Name) == a)
                    && (Settings.TPL_MultMode || !Cms.Template.IsSystemTemplate(file.Name))          //独享模式不显示系统模板
                    )
@@ -234,18 +235,6 @@ namespace J6.Cms.WebManager
                    {
                        sb.Append(path).Append("\">/").Append(path).Append("</option>");
                    }
-
-                   /*
-                   if (isroot)
-                   {
-                       sb.Append(file.Name).Append("\">").Append(file.Name).Append("</option>");
-                   }
-                   else
-                   {
-                       path = dir.FullName.Replace(AppDomain.CurrentDomain.BaseDirectory, String.Empty).Replace("\\", "/");
-                       sb.Append(path).Append("/").Append(file.Name).Append("\">").Append(path.Replace("/", "\\")).Append("\\").Append(file.Name).Append("</option>");
-                   }
-                    */
                }
            }
 
@@ -255,18 +244,21 @@ namespace J6.Cms.WebManager
            }
        }
 
-        public static void IterialTemplateFiles2(DirectoryInfo dir, IList<TemplateNames> list, IDictionary<string, string> nameDictionary)
+        private static bool CheckExtension(FileInfo file, string extensions)
+        {
+            return extensions.IndexOf(file.Extension.ToLower(), StringComparison.Ordinal) != -1;
+        }
+
+        public static void IterTemplateFiles2(DirectoryInfo dir,int subLen, IList<TemplateNames> list, IDictionary<string, string> nameDictionary)
         {
             if (!dir.Exists || dir.Name == ".backup") return;
-            int rootDirLength = dir.FullName.Length;
-
             string path;
             foreach (FileInfo file in dir.GetFiles())
             {
                 if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
-                    && (file.Name.EndsWith(".html") || file.Name.EndsWith(".tml")))
+                    && CheckExtension(file, ".html|.tml|.phtml|.ptml"))
                 {
-                    path = file.FullName.Substring(rootDirLength).Replace("\\", "/");
+                    path = file.FullName.Substring(subLen).Replace("\\", "/");
                     string value;
                     nameDictionary.TryGetValue(path, out value);
                     list.Add(new TemplateNames{path=path,name= value??""});
@@ -275,7 +267,7 @@ namespace J6.Cms.WebManager
 
             foreach (DirectoryInfo _dir in dir.GetDirectories())
             {
-                IterialTemplateFiles2(_dir, list, nameDictionary);
+                IterTemplateFiles2(_dir,subLen,list, nameDictionary);
             }
 
         }

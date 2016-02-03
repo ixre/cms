@@ -12,7 +12,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -105,18 +104,14 @@ namespace J6.Cms.Web.WebManager.Handle
             sb.Remove(0, sb.Length);
 
             //模板目录
-            DirectoryInfo dir = new DirectoryInfo(
-                String.Format("{0}templates/{1}", AppDomain.CurrentDomain.BaseDirectory, site.Tpl
-                ));
-
+            DirectoryInfo dir = new DirectoryInfo(String.Format("{0}templates/{1}/",Cms.PyhicPath,base.CurrentSite.Tpl));
             IDictionary<String, String> names = Cms.TemplateManager.Get(base.CurrentSite.Tpl).GetNameDictionary();
-
-            EachClass.EachTemplatePage(dir, dir, sb, names,TemplatePageType.Archive);
+            EachClass.EachTemplatePage(dir, dir, sb, names, TemplatePageType.Archive);
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, dir, sb, names,TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir, dir, sb, names, TemplatePageType.Category);
             categoryTplOpts = sb.ToString();
 
             object entity = new
@@ -285,11 +280,7 @@ namespace J6.Cms.Web.WebManager.Handle
             sb.Remove(0, sb.Length);
 
             //模板目录
-            DirectoryInfo dir = new DirectoryInfo(
-                String.Format("{0}templates/{1}",
-                AppDomain.CurrentDomain.BaseDirectory,
-                Settings.TPL_MultMode ? "" : base.CurrentSite.Tpl + "/"
-                ));
+            DirectoryInfo dir = new DirectoryInfo(String.Format("{0}templates/{1}/",Cms.PyhicPath,base.CurrentSite.Tpl));
 
             IDictionary<String, String> names = Cms.TemplateManager.Get(base.CurrentSite.Tpl).GetNameDictionary();
             EachClass.EachTemplatePage(dir, dir, sb, names,TemplatePageType.Archive);

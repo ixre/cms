@@ -1081,7 +1081,7 @@ namespace J6.Cms.Template
         [TemplateTag]
         protected string Navigator(string format, string childFormat, string index)
         {
-            const string tpl = @"<div id=""navigator"" class=""page-navigator""><div class=""left""></div><div class=""right""></div><div class=""navs""><ul>{0}</ul><div class=""clear-fix""></div></div></div>";
+            const string tpl = @"<div id=""navigator"" class=""page-navigator""><div class=""left""></div><div class=""right""></div><div class=""navs""><ul>{0}</ul><div class=""clear""></div></div></div>";
 
             StringBuilder sb = new StringBuilder();
             IList<SiteLinkDto> links = new List<SiteLinkDto>(

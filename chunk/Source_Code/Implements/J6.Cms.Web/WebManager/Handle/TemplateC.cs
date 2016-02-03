@@ -71,7 +71,7 @@ namespace J6.Cms.Web.WebManager.Handle
             {
                 IList<EachClass.TemplateNames> list = new List<EachClass.TemplateNames>();
                 IDictionary<String, String> nameDict = Cms.TemplateManager.Get(tpl).GetNameDictionary();
-               EachClass.IterialTemplateFiles2(dir,list, nameDict);
+               EachClass.IterTemplateFiles2(dir,dir.FullName.Length,list, nameDict);
                 return JsonConvert.SerializeObject(list);
             }
             return "[]";
@@ -130,9 +130,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 {
                     bakinfo = String.Format(@"上次修改时间日期：{0:yyyy-MM-dd HH:mm:ss}&nbsp;
                                 <a style=""margin-right:20px"" href=""javascript:;"" onclick=""process('restore')"">还原</a>",
-                                bakfile.LastWriteTime, path);
-
-
+                        bakfile.LastWriteTime);
                 }
                 else
                 {

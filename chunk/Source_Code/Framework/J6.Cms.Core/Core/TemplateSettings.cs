@@ -42,22 +42,17 @@ namespace J6.Cms.Core
         private string _cfgCategoryLinkFormat = "<li><a href=\"{url}\" title=\"{title}\">{title}</a></li>";
         private bool _cfgAllowAmousComment = true;
         private bool _cfgEnabledMobiPage = false;
-
+        private string _tplDirName;
 
 
         public TemplateSetting(String tplName, String confPath)
         {
+            this._tplDirName = tplName;
             this.tplName = tplName;
             sf = new SettingFile(confPath);
-            if (sf.Contains("name"))
+            if (sf.Contains("TPL_NAME"))
             {
-                this.tplName = sf.Get("name");
-            }
-            else
-            {
-                sf["name"] = this.tplName;
-                sf.Set("name", this.tplName);
-                sf.Flush();
+                this.tplName = sf.Get("TPL_NAME");
             }
 
             #region 获取设置
@@ -383,6 +378,7 @@ namespace J6.Cms.Core
             SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this.tplName));
 
             /**************** 模板设置 ****************/
+            sf.Set("TPL_NAME", this.tplName);
             sf.Set("CFG_ShowErrror", this.CfgShowError ? "true" : "false");
             sf.Set("CFG_SitemapSplit", this._cfgSitemapSplit);
             sf.Set("CFG_ArchiveTagsFormat", this._cfgArchiveTagsFormat);
@@ -405,7 +401,7 @@ namespace J6.Cms.Core
 
         public IDictionary<string, string> GetNameDictionary()
         {
-            SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this.tplName));
+            SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this._tplDirName));
             String json;
             if (!sf.Contains("TPL_NAMES") || String.IsNullOrEmpty((json = sf.Get("TPL_NAMES"))))
             {
@@ -416,7 +412,7 @@ namespace J6.Cms.Core
 
         public void SaveTemplateNames(string json)
         {
-           SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this.tplName));
+           SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this._tplDirName));
             sf.Set("TPL_NAMES", json);
             sf.Flush();
         }
