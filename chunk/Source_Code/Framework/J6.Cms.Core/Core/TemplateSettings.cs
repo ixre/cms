@@ -63,7 +63,7 @@ namespace J6.Cms.Core
 
             if (sf.Contains("CFG_EnabledMobiPage"))
             {
-                this._cfgShowError = sf["CFG_EnabledMobiPage"] == "true";
+                this._cfgEnabledMobiPage = sf["CFG_EnabledMobiPage"] == "true";
             }
 
             if (sf.Contains("CFG_SitemapSplit"))
@@ -375,7 +375,7 @@ namespace J6.Cms.Core
 
         public void Save()
         {
-            SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this.tplName));
+            SettingFile sf = new SettingFile(String.Format("{0}templates/{1}/tpl.conf", Cms.PyhicPath, this._tplDirName));
 
             /**************** 模板设置 ****************/
             sf.Set("TPL_NAME", this.tplName);

@@ -42,7 +42,7 @@ namespace J6.Cms.WebManager
             foreach (FileInfo file in dir.GetFiles())
             {
                 if (file.Name!="cms.conf" && (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden 
-                    && (String.IsNullOrEmpty(ext) || ext.IndexOf(file.Extension) != -1))
+                    && (String.IsNullOrEmpty(ext) || ext.IndexOf(file.Extension, StringComparison.Ordinal) != -1))
                 {
 
                     sb.Append("<option value=\"").Append(dirName).Append("/");
@@ -166,8 +166,7 @@ namespace J6.Cms.WebManager
         /// </summary>
         /// <param name="dir"></param>
         /// <param name="sb"></param>
-        /// <param name="isroot"></param>
-       public static void EachTemplatePage(DirectoryInfo dir, StringBuilder sb)
+        public static void EachTemplatePage(DirectoryInfo dir, StringBuilder sb)
        {
            int rootDirLength = (Cms.PyhicPath + "templates/").Length;
            string path;
@@ -219,8 +218,9 @@ namespace J6.Cms.WebManager
            {
                if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
                    && CheckExtension(file,".html|.tml")
+                   && file.FullName.Replace("\\","/").IndexOf("/mobi/", StringComparison.Ordinal) == -1  //手机模版页面排除
                    && Array.Exists(pageType, a => Cms.Template.GetPageType(file.Name) == a)
-                   && (Settings.TPL_MultMode || !Cms.Template.IsSystemTemplate(file.Name))          //独享模式不显示系统模板
+                   && (!Cms.Template.IsSystemTemplate(file.Name))          //独享模式不显示系统模板
                    )
                {
                    sb.Append("<option value=\"");
