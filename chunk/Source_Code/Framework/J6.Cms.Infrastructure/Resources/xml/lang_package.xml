@@ -31,4 +31,8 @@
   <item key="dot" Zh_CN="▪" Zh_TW="▪" En="▪" Es="▪" Th="▪" Fr="▪" Ru="▪" Ar="▪"/>
   <item key="all" Zh_CN="全部" Zh_TW="全部" En="All" Es="todas" Th="ทั้งหมด" Fr="tous" Ru="все" Ar="جميع"/>
   <item key="by" Zh_CN="通过" Zh_TW="通過" En="By" Es="por" Th="โดย" Fr="par" Ru="от" Ar="بواسطة"/>
+  <item key="change" Zh_CN="切换" Zh_TW="Change" En="Change" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="Zh_CN" Zh_CN="中文(简体)" Zh_TW="" En="" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="En" Zh_CN="英文" Zh_TW="" En="English" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="Zh_TW" Zh_CN="中文(繁体)" Zh_TW="中文(繁体)" En="" Es="" Th="" Fr="" Ru="" Ar=""/>
 </lang>

@@ -24,8 +24,8 @@ using J6.Cms.Infrastructure;
         private string _resDomain;
         static readonly String IeHtml5ShivTag;
         private string _spam;
-        private string _built;
         private static string _currentBuilt;
+        private string _lang;
 
         static PageVariable()
         {
@@ -57,20 +57,18 @@ using J6.Cms.Infrastructure;
         [TemplateVariableField("生成标签")]
         public string Built
         {
-            get
-            {
-                if (String.IsNullOrEmpty(this._built))
-                {
-                    this._built = _currentBuilt ?? Cms.BuiltTime.ToString().Substring(8);
-                }
-                return this._built;
-            }
+            get { return this.Spam; }
         }
 
         public static void ResetBuilt()
         {
             String built = DateHelper.ToUnix(DateTime.Now).ToString().Substring(8);
             PageVariable._currentBuilt = built;
+        }
+
+        public string Lang
+        {
+            get { return this._lang ?? (this._lang = Cms.Context.UserLanguage.ToString()); }
         }
 
         [TemplateVariableField("当前地址")]
@@ -81,7 +79,14 @@ using J6.Cms.Infrastructure;
 
         public string Spam
         {
-            get { return this._spam; }
+            get
+            {
+                if (String.IsNullOrEmpty(this._spam))
+                {
+                    this._spam = _currentBuilt ?? Cms.BuiltTime.ToString().Substring(8);
+                }
+                return this._spam;
+            }
         }
 
         /// <summary>
