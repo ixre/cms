@@ -448,30 +448,9 @@ namespace J6.Cms.Web.Mvc
         }
 
         [HttpGet]
-        public void Change_Device()
+        public void MLogin()
         {
-            String langOpt = Request["device"];
-            if (!String.IsNullOrEmpty(langOpt))
-            {
-                int lang;
-                int.TryParse(langOpt, out lang);
-                if (Cms.Context.SetUserLanguage(null, lang))
-                {
-                    String returnUrl;
-                    Uri refer = Request.UrlReferrer;
-                    if (refer == null)
-                    {
-                        returnUrl = "/";
-                    }
-                    else
-                    {
-                        returnUrl = refer.ToString();
-                    }
-                    Response.Redirect(returnUrl, true);
-                    return;
-                }
-            }
-            Response.Write("error params ! should be  /.cms/change_lang?lang=[1-8]");
+            Response.Redirect("/"+Settings.SYS_ADMIN_TAG,true);
         }
     }
 }

@@ -11,7 +11,6 @@
 
 using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Enum;
-using J6.Cms.Infrastructure;
 using J6.DevFw;
 using J6.DevFw.Web.Plugin;
 
@@ -37,7 +36,10 @@ namespace J6.Cms.Web.Mvc
                 "major_cms_controller", defaultControllerPrefix + "/{action}",
                 new { controller = "Cms", action = "Help" }
                );
-
+            routes.MapRoute(
+              "major_sub_path_controller","{site}/"+ defaultControllerPrefix + "/{action}",
+              new { controller = "Cms", action = "Help" }
+             );
         }
         /// <summary>
         /// 注册路由
