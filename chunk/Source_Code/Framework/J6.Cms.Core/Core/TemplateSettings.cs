@@ -25,8 +25,8 @@ namespace J6.Cms.Core
         private int _cfgOutlineLength = 80;
         private string _cfgSitemapSplit = ">";
         private string _cfgArchiveTagsFormat = "<a href=\"{url}\">{text}</a>";
-        private string _cfgNavigatorLinkFormat = "<a href=\"{url}\" title=\"{text}\">{text}</a>";
-        private string _cfgNavigatorChildFormat = "<a href=\"{url}\" title=\"{text}\">{text}</a>";
+        private string _cfgNavigatorLinkFormat = "<a href=\"{url}\" class=\"l1\">{text}</a>";
+        private string _cfgNavigatorChildFormat = "<a href=\"{url}\" class=\"l2\">{text}</a>";
         private int _cfgFriendShowNum = 50;
         private string _cfgFriendLinkFormat = "<a href=\"{url}\">{text}</a>";
         private string _cfgTrafficFormat = "今日IP:{todayip},今日PV:{todaypv},历史PV:{totalpv},历史IP:{totalip}";

@@ -6,7 +6,18 @@ namespace J6.Cms.DataTransfer
 
     [Serializable]
     public delegate string LinkBehavior(SiteLinkDto link);
-    public delegate string LinkGenerateGBehavior(int total, ref int current, int selected, bool child, SiteLinkDto link, int childCount);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="total"></param>
+    /// <param name="current"></param>
+    /// <param name="levelCls">等级样式</param>
+    /// <param name="selected"></param>
+    /// <param name="child"></param>
+    /// <param name="link"></param>
+    /// <param name="childCount"></param>
+    /// <returns></returns>
+    public delegate string LinkGenerateGBehavior(int total, ref int current,String levelCls, int selected, bool child, SiteLinkDto link, int childCount);
     public struct SiteLinkDto
     {
         public int Pid
