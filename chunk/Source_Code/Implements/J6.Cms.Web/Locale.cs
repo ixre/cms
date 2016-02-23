@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Text;
 using J6.Cms.Conf;
 using J6.Cms.Domain.Interface.Common.Language;
@@ -137,7 +138,12 @@ namespace J6.Cms.Web
 
             if (list.Count > 0)
             {
-              return  FlushToFile(file,list);
+                LangKvPair[] arr = list.ToArray();
+                Array.Sort(arr, (e1, e2) =>
+                {
+                    return String.CompareOrdinal(e1.key, e2.key);
+                });
+              return  FlushToFile(file,arr);
             }
             return null;
         }

@@ -1507,8 +1507,13 @@ namespace J6.Cms.Template
                             }
                             if (extendFields.ContainsKey(field))  // 查找自定义属性
                                 return extendFields[field];
-
-                            return Cms.Language.Get(this._ctx.UserLanguage, field); //查找语言项
+                            
+                            //用语言代替
+                            if (field.StartsWith("lang_"))
+                            {
+                                return Cms.Language.Get(this._ctx.UserLanguage, field.Substring(5)); //查找语言项
+                            }
+                            return String.Empty;
                     }
                 }));
 
@@ -2002,7 +2007,13 @@ namespace J6.Cms.Template
                                 }
                                 if (extendFields.ContainsKey(field))
                                     return extendFields[field];
-                                return Cms.Language.Get(this._ctx.UserLanguage, field);
+
+                                //查找语言项
+                                if (field.StartsWith("lang_"))
+                                {
+                                    return Cms.Language.Get(this._ctx.UserLanguage, field.Substring(5)); 
+                                }
+                                return String.Empty;
                         }
                     }));
 
