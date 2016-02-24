@@ -33,7 +33,7 @@ namespace J6.Cms.Web
                 list = new List<LangKvPair>();
             }
             list.Add(new LangKvPair{key = key});
-            FlushToFile(file, list);
+            FlushToFile(file, SortLocaleList(list));
         }
 
         private static void ChkFile(string file)
@@ -138,14 +138,17 @@ namespace J6.Cms.Web
 
             if (list.Count > 0)
             {
-                LangKvPair[] arr = list.ToArray();
-                Array.Sort(arr, (e1, e2) =>
-                {
-                    return String.CompareOrdinal(e1.key, e2.key);
-                });
-              return  FlushToFile(file,arr);
+                var arr = SortLocaleList(list);
+                return  FlushToFile(file,arr);
             }
             return null;
+        }
+
+        private static LangKvPair[] SortLocaleList(IList<LangKvPair> list)
+        {
+            LangKvPair[] arr = list.ToArray();
+            Array.Sort(arr, (e1, e2) => { return String.CompareOrdinal(e1.key, e2.key); });
+            return arr;
         }
     }
 }
