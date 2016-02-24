@@ -186,29 +186,34 @@ namespace J6.Cms.Domain.Implement.Content.Archive
                     this.SortNumber = sortNum + 1;
                 }
                 this.Id = this._archiveRep.SaveArchive(this);
+
+                if (this._templateBind != null)
+                {
+                    this._templateBind.BindRefrenceId = this.Id;
+                }
             }
             else
             {
-
-                this._extendRep.UpdateArchiveRelationExtendValues(this);
-
-                //保存文档绑定的模板
-                if (this._templateBind != null)
-                {
-                    if (this._templateBind.BindRefrenceId == this.Id)
-                    {
-                        this._templateRep.SaveTemplateBind(this._templateBind, this.Id);
-
-                        if (this._templateBind.TplPath == null)
-                        {
-                            this._templateBind = null;
-                        }
-                    }
-                }
-
                 this._archiveRep.SaveArchive(this);
             }
 
+
+            //保存文档绑定的模板
+            if (this._templateBind != null)
+            {
+                if (this._templateBind.BindRefrenceId == this.Id)
+                {
+                    this._templateRep.SaveTemplateBind(this._templateBind, this.Id);
+
+                    if (this._templateBind.TplPath == null)
+                    {
+                        this._templateBind = null;
+                    }
+                }
+            }
+
+            //保存扩展属性
+            this._extendRep.UpdateArchiveRelationExtendValues(this);
 
             //保存其他
             base.Save();

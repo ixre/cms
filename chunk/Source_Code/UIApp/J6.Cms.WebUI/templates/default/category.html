@@ -1,4 +1,4 @@
-<!DOCTYPE html />
+<!DOCTYPE html>
 <html>
 <head>
     <title>${page.title}</title>
@@ -20,19 +20,30 @@ ${partial:"include/header.phtml"}
 </div>
 
     
-<div class="page-main">
-    <div class="panel">
+<div class="page-main page-c">
+    <div class="panel layout">
 
+        <div class="l s1">
+            <div class="col">
+                    <div class="tit">$lang(side-navigator)</div>
+                    <div class="content">
+                        <ul class="clist">
+                            $categories('article','<li><a href="{url}">▪&nbsp;{name}</a></li>')
+                        </ul>
+                    </div>
+                <br />
+               <!-- ${partial:"include/side_bar.phtml"}-->
+            </div>
+        </div>
 
-      <div class="main push">
+      <div class="m">
         <div class="panel-archives">
             <ul>
                 $paging_archives(15,0,'
                 <li>{img}
                     <h3><a href="{url}" target="_blank">{special_title}</a></h3>
                     <div class="meta">日期：{create_date}
-                        &nbsp;/&nbsp;点击：{count} &nbsp;/&nbsp; 作者：{author}
-                        &nbsp;/&nbsp;  来源：{source}</div>
+                        &nbsp;&nbsp;&nbsp;点击：{count} </div>
                     <p class="desc">
                         {outline}
                     </p>
@@ -46,9 +57,7 @@ ${partial:"include/header.phtml"}
         
     </div>
     
-    <div class="side pull">
-        ${partial:"include/side_bar.phtml"}
-    </div>
+   
     <div class="clear-fix"></div>
 </div>
 

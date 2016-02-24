@@ -89,8 +89,7 @@ namespace J6.Cms.Service
             //只更新自己的模板
             if (archiveDto.IsSelfTemplate
                 || (archive.Id == -1 && !String.IsNullOrEmpty(archiveDto.TemplatePath))
-                )
-            {
+                ){
                 archive.SetTemplatePath(archiveDto.TemplatePath);
             }
 

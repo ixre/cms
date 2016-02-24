@@ -12,13 +12,12 @@
     ${page.html5}
 </head>
 <body>
-            $archive('cd','{content}')00
 ${partial:"include/header.phtml"}
 <div class="flash-row">
     ${partial:"include/flash_banner.phtml"}
 </div>
-<div class="page-index panel">
-  <div class="row row-news">
+<div class="row row-news">
+  <div class="panel">
     <span class="icon icon-sound">
       $lang(new-notice):
     </span>
@@ -30,66 +29,157 @@ ${partial:"include/header.phtml"}
         </ul>
       </span>
   </div>
+</div>
 
-  <div class="row row-main">
+<div class="page-index panel">
+  <div class="busi-blocks">
+    <ul>
+      <li>
+        <a href="${page.domain}/product/">
+          <img src="${page.tpath}/themes/default/busi-1.jpg" alt="img"/>
+          <span class="text-mask"></span>
+          <span class="text">$lang(factory)</span>
+        </a>
+      </li>
+      <li>
+        <a href="${page.domain}/branch#trade">
+          <img src="${page.tpath}/themes/default/busi-2.jpg" alt="img"/>
+          <span class="text-mask"></span>
+          <span class="text">$lang(trade)</span>
+        </a>
+      </li>
+       <li>
+        <a href="${page.domain}/branch#finance">
+          <img src="${page.tpath}/themes/default/busi-3.jpg" alt="img"/>
+          <span class="text-mask"></span>
+          <span class="text">$lang(finance)</span>
+        </a>
+      </li>
+       <li class="last">
+        <a href="${page.domain}/branch#project">
+          <img src="${page.tpath}/themes/default/busi-4.jpg" alt="img"/>
+          <span class="text-mask"></span>
+          <span class="text">$lang(install-company)</span>
+        </a>
+      </li>
+      </ul>
+      <div class="clear"></div>
+  </div>
+
+  <div class="row row2">
+    <div class="col row-pro-cates" id="tab1">
+        <div class="tab">
+          <ul>
+              <li class="current item">$lang(product-category)</li>
+              <li class="item"><a href="${page.domain}/brand">$lang(brand-proxy)</a></li>
+          </ul>
+        </div>
+        <div class="clear-fix"></div>
+        <div class="frames">
+          <div class="frame flash-panel row-pro-cate" id="fla-pro-cate">
+            <ul>
+              $categories('product','
+              <li class="{class}"><a href="{url}">
+              <div class="auto-fit">
+                <img src="{thumbnail}" class="thumbnail"height="80"/>
+              </div>
+              <span>{name}</span></a></li>
+              ')
+            </ul>
+          </div>
+          <div class="frame hidden">
+          2
+          </div>
+       </div>
+    </div>
+    <div class="col col-last">
+      <a href="${page.domain}/product/pro-diy.html">
+        <img src="${page.tpath}/themes/default/busi-diy.jpg" alt="img" width="100%"/>
+      </a>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+
+<!--
+  <div class="row row-main hidden">
     <div class="col col-lft">
       <div class="box">
         <h2>$lang(service)</h2>
         <ul class="func-bar"> 
         <li><a class="s" href="${page.domain}/logistics/">$lang(logistics)$lang(space)$lang(delivery)</a></li>
-          <li><a href="${page.domain}/brand-proxy/">$lang(brand-proxy)</a></li>
+          <li><a href="${page.domain}/brand-proxy/">$lang(brand-proxy)</a></li> 
+          <li><a href="${page.domain}/about/qualification.html">$lang(Honor-and-qualification)</a></li>
         </ul>
         <h2>$lang(branch-company)</h2>
         <ul class="companies">
-            $archives('branch-company',5,'
+            $archives('branch',5,'
               <li><a href="{url}">{title}</a></li>
             ')  
         </ul>
       </div>
     </div>
     <div class="col col-rgt">
-      <div class="row-1">
+      <div class="row-1" id="tab1">
         <div class="tab">
           <ul>
-              <li>$lang(product-category)</li>
-              <li>$lang(dynamic-of-tianxin)</li>
-              <li>$lang(brand)</li>
+              <li class="current item">$lang(product-category)</li>
+              <li class="item">$lang(dynamic-of-tianxin)</li>
+              <li class="item">$lang(brand-proxy)</li>
           </ul>
-          <span class="rgt more">
+          <span class="rgt more hidden">
             <a href="${page.domain}/hr/">
-              $lang(human)$lang(space)$lang(space)$lang(entry)
+              $lang(human)$lang(space)$lang(entry)&nbsp;>>
             </a>
           </span>
+          <div class="clear-fix"></div>
         </div>
         <div class="frames">
           <div class="frame frame-category">
-            <ul>
-              $categories('product','<li><a href="{url}">{name}</a></li>')
-            </ul>
+            <div class="col1">
+              <ul>
+                $categories('product','<li class="{class}"><a href="{url}">{name}</a></li>')
+              </ul>
+              <div class="clear-fix"></div>
+            </div>
+            <div class="col2">
+
+            </div>
+              <div class="clear-fix"></div>
           </div>
-          <div class="frame frame-dynamic">
+          <div class="frame frame-dynamic hidden">
           </div>
-          <div class="frame frame-other">
+          <div class="frame frame-other hidden">
           </div>
         </div>
       </div>
 
-      <!-- CASE -->
       <div class="row-case">
         <h2 class="tit">
-          $lang(project)$lang(space)$lang(case)
+          <span>
+            $lang(project)$lang(space)$lang(case)
+          </span>
         </h2>
-        <div class="flash-panel flash-case">
+        <div class="flash-panel flash-case" id="fla-case">
           <ul>
-            $archives('apply-case',20,'
-            <li><a href="{url}"><img src="{thumbnail}" class="thumbnail" width="80" height="60"/>{title}</li>
-            ')'
+            $archives('case',6,'
+            <li><a href="{url}"><img src="{thumbnail}" class="thumbnail" width="100" height="75"/><span>{title}</span></a></li>
+            ')
           </ul>
         </div>
       </div>
 
     </div>
     <div class="clear-fix"></div>
+  </div>
+  -->
+
+  <div class="row row-zz">
+    <img src="${page.tpath}/themes/default/c_zizhi.jpg" alt="img" width="100%" />
+  </div>
+
+  <div class="friend-link">
+    <i>$lang(frend-links):</i>$friend_link()
   </div>
 </div>
 
@@ -98,8 +188,10 @@ ${partial:"include/header.phtml"}
   <script type="text/javascript" src="${page.fpath}/core.js?v=${page.built}&amp;hover=navi"></script>
   <script type="text/javascript" src="${page.fpath}/js/scroller.js?v=${page.built}&amp;hover=navi"></script>
   <script type="text/javascript">
-        j6.scroller('fla', {direction: 'left',unit:500,pagerid:'fla_pager'},4000);
+        j6.scroller('fla', {direction: 'left',unit:1200,pagerid:'fla_pager'},4000);
+        j6.scroller('fla-pro-cate', {direction: 'left',unit:100},2000);
         j6.scroller('notice_list',{direction:'up',unit:20},3000);
+        //tabCard(j6.$('tab1'));
   </script>
 </body>
 </html>
