@@ -11,8 +11,11 @@
     <div class="loading-bar hidden"><span></span></div>
 <div class="page-top">
     <div class="top"></div>
+    <div class="logo">
+        <img src="${logo}" alt="logo" height="60"/>
+    </div>
     <a href="javascript:;" class="logo hidden">
-        <h1 field="sysName">-</h1>
+        <h1 class="hidden" field="sysName">-</h1>
     </a>
     <div class="page-user">
         <img field="userAvatar" class="avatar"/>
@@ -100,7 +103,7 @@ $js()
         dateStr: '2014-10-15',
         firstTabName: '欢迎首页',
         // firstIframeUrl: '?module=system&action=indexmain',
-        firstIframeUrl: '?module=system&action=summary',
+        firstIframeUrl: '${entryFrameUrl}',
         userName: '管理员',
         userAvatar: '/public/mui/css/latest/avatar.gif'
     };
@@ -128,13 +131,7 @@ $js()
     document.title = pageVar.sysName;
     j6.json.bind(document, pageVar);
 
-    //绑定logo
-    var logoEle = document.getElementsByClassName('logo')[0];
-    if (pageVar.sysLogo && pageVar.sysLogo.length > 0) {
-        logoEle.style.background = 'url(' + pageVar.sysLogo + ')';
-    }
-    logoEle.className = 'logo';
-
+  
     var siteEle = j6.$('site_selector');
 
     //初始化站点

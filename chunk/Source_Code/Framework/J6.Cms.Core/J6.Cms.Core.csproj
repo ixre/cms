@@ -85,6 +85,7 @@
     <Compile Include="Conf\WebConfig.cs" />
     <Compile Include="Core\CmsException.cs" />
     <Compile Include="Core\CmsLanguagePackage.cs" />
+    <Compile Include="Core\CustomBuildSet.cs" />
     <Compile Include="Core\Plugins\CmsPlugin.cs" />
     <Compile Include="Core\Plugins\CmsPluginContext.cs" />
     <Compile Include="Core\Plugins\PortalPlugin.cs" />

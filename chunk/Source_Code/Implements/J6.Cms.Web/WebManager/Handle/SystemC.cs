@@ -13,20 +13,19 @@
 //
 
 using System;
-using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Web;
-using System.Web.Mvc;
 using J6.Cms.CacheService;
 using J6.Cms.Conf;
 using J6.Cms.Core;
 using J6.Cms.DataTransfer;
-using J6.Cms.Infrastructure;
 using J6.Cms.Utility;
 using J6.Cms.WebManager;
 using J6.DevFw.Framework.Web.UI;
-using ResourceMap = J6.Cms.WebManager.ResourceMap;
 
 namespace J6.Cms.Web.WebManager.Handle
 {
@@ -74,6 +73,8 @@ namespace J6.Cms.Web.WebManager.Handle
             }
 
             ViewData["version"] = Cms.Version;
+            ViewData["logo"] = Cms.BuildSet.Get(BuildSet.SystemLogo);
+            ViewData["entryFrameUrl"] = Cms.BuildSet.Get(BuildSet.EntryFrameUrl);
             ViewData["path"] = GetPath();
             ViewData["admin_path"] = Settings.SYS_ADMIN_TAG;
             ViewData["site_id"] = currentSite.SiteId;
@@ -131,7 +132,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 sys_alias = Settings.License_NAME, // + "(KEY:" + Settings.SYS_KEY + ")",
                 server_name = HttpContext.Current.Server.MachineName,
                 server_os = Environment.OSVersion.VersionString,
-                server_local = System.Globalization.CultureInfo.InstalledUICulture.EnglishName,
+                server_local = CultureInfo.InstalledUICulture.EnglishName,
                 server_ip = Request.ServerVariables["LOCAl_ADDR"],
                 server_host = Request.ServerVariables["SERVER_NAME"],
                 server_iis = Request.ServerVariables["Server_SoftWare"],
@@ -147,7 +148,7 @@ namespace J6.Cms.Web.WebManager.Handle
                         Environment.GetEnvironmentVariable("NUMBER_OF_PROCESSORS")),
                 server_meory = (Environment.WorkingSet / 1024 / 1024) + "M",
                 server_net_meory =
-                    ((Double)System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 / 1048576).ToString("N2") + "M",
+                    ((Double)Process.GetCurrentProcess().WorkingSet64 / 1048576).ToString("N2") + "M",
                 person_os = this.GetOSNameByUserAgent(base.Request.UserAgent),
                 person_ip = base.Request.UserHostAddress,
                 person_soft = base.Request.Browser.Browser,
@@ -273,7 +274,7 @@ namespace J6.Cms.Web.WebManager.Handle
             var font = v.GetDefaultFont();
             try
             {
-                font = new System.Drawing.Font(font.FontFamily, 16);
+                font = new Font(font.FontFamily, 16);
                 v.AllowRepeat = false;
                 Response.BinaryWrite(v.GraphicDrawImage(4,
                     VerifyWordOptions.Letter,

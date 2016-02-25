@@ -16,8 +16,10 @@ dd,dt{margin:0;}
 .page-top{background:#0066cc /*url(/top_bg.gif) */center bottom repeat-x;
     border-bottom:solid 1px #1C60A5;height:6em;}
 .page-top .top{background:url(top_bg.gif) center 1px repeat-x;height:2px;}
+.page-top .logo{width:300px;height:98%;float:left;position:relative;}
+.page-top .logo img{position: absolute;top:0;bottom:0;margin:auto;max-width:100%;}
 .page-top a.logo{display:inline-block;float:left;/*width:238px;*/width:400px;height:49px;
-    background:url(logo.gif) 0 bottom no-repeat;text-indent:-999em;margin-left:20px;
+    /*! background:url(logo.gif) 0 bottom no-repeat; */text-indent:-999em;margin-left:20px;
     margin:15px 0 0 1em;
 }
 .page-top a.logo h1{margin:0;padding:0;}

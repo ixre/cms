@@ -378,15 +378,8 @@
     <Content Include="public\assets\tree\img\trash.gif" />
     <Content Include="public\assets\ui-min.js" />
     <Content Include="public\demo\mui_override.js" />
-    <Content Include="public\locale\ar.xml" />
-    <Content Include="public\locale\en.xml" />
-    <Content Include="public\locale\es.xml" />
-    <Content Include="public\locale\fr.xml" />
-    <Content Include="public\locale\ru.xml" />
-    <Content Include="public\locale\th.xml" />
-    <Content Include="public\locale\zh_cn.xml" />
-    <Content Include="public\locale\zh_tw.xml" />
     <Content Include="public\maps.xml" />
+    <Content Include="public\maps\custom_build_set.xml" />
     <Content Include="public\maps\management.xml" />
     <Content Include="public\mui\css\index.css" />
     <Content Include="public\mui\css\latest\ajax-loader.gif" />
@@ -412,7 +405,7 @@
     <Content Include="public\mui\css\latest\loading-bar-transparent.gif" />
     <Content Include="public\mui\css\latest\loading-bar.gif" />
     <Content Include="public\mui\css\latest\loading_box.gif" />
-    <Content Include="public\mui\css\latest\logo.gif" />
+    <Content Include="public\mui\css\latest\logo.png" />
     <Content Include="public\mui\css\latest\menu_bar_bg.gif" />
     <Content Include="public\mui\css\latest\menu_icon.gif" />
     <Content Include="public\mui\css\latest\page_style.css" />

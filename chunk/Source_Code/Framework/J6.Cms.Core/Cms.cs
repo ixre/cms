@@ -121,6 +121,11 @@ namespace J6.Cms
         /// 模版管理器
         /// </summary>
         public static readonly TemplateManager TemplateManager;
+
+        /// <summary>
+        /// 定制设置
+        /// </summary>
+        public static readonly CustomBuildSet BuildSet;
         
 
         /// <summary>
@@ -164,6 +169,7 @@ namespace J6.Cms
             Utility = new CmsUtility();
             Language = new CmsLanguagePackage();
             TemplateManager = new TemplateManager(Cms.PyhicPath+CmsVariables.TEMPLATE_PATH);
+            BuildSet = new CustomBuildSet();
             #region  缓存清除
 
             //
