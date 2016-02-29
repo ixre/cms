@@ -1111,7 +1111,6 @@ namespace J6.Cms.Template
                 /* *********************
                  *  辨别选中的导航
                  * *********************/
-                isLast = current == genTotal - 1;
                 String clsName = levelCls;
 
                 if (childCount != 0)
@@ -1124,13 +1123,14 @@ namespace J6.Cms.Template
                     clsName = String.Concat(clsName, " current");
                 }
 
-                if (isLast)
+                if (current == 0)
+                {
+                    clsName = String.Concat(clsName," first");
+                }
+
+                if (current == genTotal - 1)
                 {
                     clsName = String.Concat(clsName, " last");
-                }
-                else if (current == 0)
-                {
-                    clsName = String.Concat(clsName, " first"); ;
                 }
 
                 sb2.Append("<li class=\"" + clsName + "\">");

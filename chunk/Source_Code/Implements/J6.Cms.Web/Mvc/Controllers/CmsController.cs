@@ -437,8 +437,12 @@ namespace J6.Cms.Web.Mvc
 
             if (isChange)
             {
-                Uri refer = Request.UrlReferrer;
-                var returnUrl = refer == null ? "/" : refer.ToString();
+                String returnUrl = Request["return_url"];
+                if (String.IsNullOrEmpty(returnUrl))
+                {
+                    Uri refer = Request.UrlReferrer;
+                    returnUrl = refer == null ? "/" : refer.ToString();
+                }
                 Response.Redirect(returnUrl, true);
             }
             else
