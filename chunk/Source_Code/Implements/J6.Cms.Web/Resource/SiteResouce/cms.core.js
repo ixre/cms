@@ -111,7 +111,7 @@ function setIE6Drop(lis) {
     //针对IE6不支持hover属性
     if (window.ActiveXObject) {
         var agent = window.navigator.userAgent;
-        if (/MSIE\s*6\.0/.test(agent)) {
+        if (/MSIE\s*(6|7)\.0/.test(agent)) {
 
             for (var i = 0; i < lis.length; i++) {
                 j6.event.add(lis[i], 'mouseover', (function (t) {

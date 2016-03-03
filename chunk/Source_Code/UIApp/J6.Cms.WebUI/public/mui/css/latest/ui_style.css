@@ -5,6 +5,7 @@ body{
    overflow:hidden;
    font: 12px/1.4 Helvetica,arial,sans-serif;
    height:100%;
+    position: relative;
 }
 img{border:none;}
 .clearfix,.clear-fix{clear:both;}
@@ -94,7 +95,7 @@ dd,dt{margin:0;}
 .page-left-menu ul li a{background:url(columns.png) 20px center no-repeat;padding-left:40px;}
 .loading-gate{background:#fff;height:100%;width:100%;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;z-index:100;
 opacity:0.1;filter:alpha(opacity=10);}
-.loading-bar{width:212px;height:150px;position:absolute;z-index:300;top:0;bottom:0;left:0;right:0;margin:auto;}
+.loading-bar{width:212px;height:150px;position:fixed;z-index:300;top:0;bottom:0;left:0;right:0;margin:auto;}
 .loading-bar span{display:block;height:13px;background:#FFF url(loading-bar.gif) no-repeat;}
 
 /*** tab ***/

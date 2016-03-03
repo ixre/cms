@@ -22,6 +22,10 @@ function showGate() {
     var els = document.getElementsByTagName("DIV");
     els[0].className = 'loading-gate';
     els[1].className = 'loading-bar';
+    if (/MSIE\s*(5|6|7)\./.test(window.navigator.userAgent)) {
+        els[1].style.left = (document.documentElement.clientWidth - els[1].offsetWidth) / 2 + 'px';
+        els[1].style.top = (document.documentElement.clientHeight - els[1].offsetHeight) / 2 + 'px';
+    }
 }
 
 function cancelGate() {
@@ -140,13 +144,11 @@ var FwMenu = {
                 }
             }
         }
-
         if (selectedLi != null) {
             selectedLi.parentNode.parentNode.className = 'panel';
         } else if (firstPanel != null) {
             firstPanel.className = 'panel';
         }
-
     },
     //查看菜单
     show: function (titleDiv) {

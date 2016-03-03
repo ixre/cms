@@ -5,7 +5,7 @@
 */
 
 /*dl,img,input,dt,dd{vertical-align:middle;}*/
-body{margin:0px;font:75% Tahoma,'微软雅黑',sans-serif;background:#f5f5f5;}
+body{margin:0px;font:75% Tahoma,sans-serif;background:#f5f5f5;}
 ul{margin:0;padding:0;list-style:none;}
 .left{float:left;}.tleft{text-align:left;padding-left:5px;}.right{float:right;}.center{text-align:center;}.clearfix{clear:both;height:0px;}.overflow{overflow:hidden;}.hidden{display:none;}
 .relative{position:relative;}.absolute{position:absolute;}.red{color:red}
@@ -250,7 +250,7 @@ ul.centform{margin:100px auto;}
 
 
 /* 右键 */
-.ui-contextmenu{border:1px solid #bbb;width:150px;background:#FFF;padding:0.2em 0;}  
+.ui-contextmenu{border:1px solid #bbb;width:150px;background:#FFF;padding:0.2em 0;display: none;}  
 .ui-contextmenu .item{border-bottom:solid 0px #fff;padding-left:1em;line-height:24px;}
 .ui-contextmenu span{display:inline-block;width:24px;margin-right:6px;margin-top:-4px;}
 .ui-contextmenu .item:hover{background:#06c;}
@@ -280,10 +280,10 @@ ul.centform{margin:100px auto;}
 
 /* ui-tree */
 .ui-tree .title{font-size:1.1em;color:#0066cc;}
-.ui-tree div.node{line-height:17px;font-weight:bold;height:17px;overflow:hidden;}
+.ui-tree div.node{line-height:17px;height:17px;overflow:hidden;}
 .ui-tree div.node img{border: 0px;vertical-align: middle;}
-.ui-tree div.node a{text-decoration:none;color:#006699;}
-.ui-tree div.node a:hover{text-decoration:underline;color:#000;}
+.ui-tree div.node a{text-decoration:none;color:#075E9E;}
+.ui-tree div.node a:hover{color:#000;}
 .ui-tree div.node a.node-selelected{background:#FFE;line-height: 15px;display:inline-block;border:solid 1px #FF6600;padding:0 5px;color:#FF6600;}
 
 

@@ -1157,12 +1157,15 @@ namespace J6.Cms.Template
         public string Navigator()
         {
             string cache = SiteLinkCache.GetNavigatorBySiteId(SiteId);
+            String siteDomain = Cms.Context.SiteDomain;
             if (cache == null)
             {
                 cache = base.Navigator(base.GetSetting().CFG_NavigatorLinkFormat, base.GetSetting().CFG_NavigatorChildFormat, "-1");
-                SiteLinkCache.SetNavigatorForSite(SiteId, cache);
+                String cache2 = cache.Replace(siteDomain, "$DOMAIN$");
+                SiteLinkCache.SetNavigatorForSite(SiteId, cache2);
+                return cache;
             }
-            return cache;
+            return cache.Replace("$DOMAIN$",siteDomain);
         }
 
         [TemplateTag]
