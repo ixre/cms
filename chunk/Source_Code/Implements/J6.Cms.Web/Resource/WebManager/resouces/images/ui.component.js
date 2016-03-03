@@ -195,8 +195,8 @@ var FwTab = {
     pageLoad: function () {
         this.hiddenLoadBar();
     },
-    showLoadBar: function () {},
-    hiddenLoadBar: function () {},
+    showLoadBar: function () { },
+    hiddenLoadBar: function () { },
     show: function (text, url, closeable) {
         var _tabs = this.tabs.getElementsByTagName('LI');
         var _indent;
@@ -504,7 +504,7 @@ var userDiv = getDivByCls('page-user', document.body);
 //重置窗口尺寸
 function _resizeWin() {
     var height = document.documentElement.clientHeight;
-    var width =j6.screen.width();
+    var width = j6.screen.width();
 
     mainDiv.style.height = (height - mainDiv.offsetTop) + 'px';
     frameDiv.style.height = (mainDiv.offsetHeight - frameDiv.offsetTop) + 'px';
@@ -525,7 +525,9 @@ window.onload = function () {
             window.M.setFullScreen();
             e.returnvalue = false;
             return false;
-        } else if (e.keyCode == 122) {
+        } else if (e.ctrlKey && e.keyCode === 83) {
+            return j6.event.preventDefault(event);
+        } else if (e.keyCode === 122) {
             window.M.setFullScreen();
             e.returnvalue = false;
             return false;

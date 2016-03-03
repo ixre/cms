@@ -293,12 +293,12 @@
 
                 j6.xhr.jsonPost('${url}', data, function (json) {
                     if (json.result) {
-                        showMsg2('文档添加成功',function() {
+                        j6.dialog.alert('文档添加成功',function() {
                             if (menu.edit!=undefined)menu.edit(json.message);
                             if (_dg) _dg.reload();
                         });
                     } else {
-                        showErr(json.message);
+                        j6.dialog.alert(json.message);
                     }
                 });
             }

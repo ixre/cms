@@ -40,7 +40,7 @@
                                 <a href="javascript:;"></a>
                             </span>
                         </span>
-                        <br /><span class="desc" style="padding-left: 60px">建议手动填写,用于调用数据的唯一标识,且显示在地址栏中,如http://k3f.net/cms/news/,news就是一个标识</span>
+                        <br /><span class="desc">建议手动填写,用于调用数据的唯一标识,且显示在地址栏中,如http://k3f.net/cms/news/,news就是一个标识</span>
                     </div>
                 </div>
 
@@ -131,7 +131,7 @@
                         <span class="ui-button w150" id="btn">
                             <span class="button-inner">
                                 <span class="button-txt">添加</span>
-                                <a href="javascript:;"></a>
+                                <input type="button" />
                             </span>
                         </span>
                     </div>
@@ -215,11 +215,11 @@
                      function (json) {
                          if (json.result) {
                              if (window._reloadTree) window._reloadTree(0);
-                             showMsg2(json.message || '栏目创建成功',function (){
+                             j6.dialog.alert(json.message || '栏目创建成功',function (){
                                  j6.load2('pl', 'category', 'update', 'category_id=' + json.data);
                              });
                          } else {
-                             showErr(json.message);
+                             j6.dialog.alert(json.message);
                          }
                      });
             }
