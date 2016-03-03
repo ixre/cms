@@ -40,17 +40,19 @@ div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
 .w300{ width: 300px;}
 
 /*按钮*/
-.ui-button{border:solid 1px #FFF;border-color: #ADB1B8 #A2A6AC #8D9096;border-radius:3px;display: inline-block;vertical-align:middle;}
+.ui-button{border:solid 1px #FFF;border-color: #ADB1B8 #A2A6AC #8D9096;border-radius:2px;display: inline-block;
+    position: relative;vertical-align: middle;cursor: default;}
 .ui-button .button-inner{display:block;position: relative;background:#F0F0F0;border-radius:2px;
     background:transparent linear-gradient(to bottom, #F7F8FA, #E7E9EC);height:100%;
     box-shadow:0px 1px 0px rgba(255, 255, 255, 0.6) inset;}
 .ui-button:hover .button-inner{background:transparent linear-gradient(to bottom, #E7E8EA, #D7D9DC)}
 .ui-button .button-txt{padding:0 5px;display:block;line-height: 29px;text-align:center;color:#111;}
-.ui-button a,.ui-button input{display:block;position: absolute;left:0;top:0;width:100%;height:100%;opacity:0.01;filter: alpha(opacity=1);cursor: pointer;}
+.ui-button a,.ui-button input{display:block;position: absolute;left:0;top:0;width:100%;height:100%;
+                              opacity:0.01;filter: alpha(opacity=1);cursor: default;zoom: 1;z-index: 2;}
 .small-button .button-txt{line-height:18px;padding:0 5px;}
 .middle-button .button-txt{ line-height: 24px;overflow: hidden;}
 /* 输入框 */
-.ui-box{border:solid 1px #DDD;border-radius: 0px;line-height:1.5rem;padding:0 4px;margin:1px;font-size:1em;
+.ui-box{border:solid 1px #DDD;border-radius: 2px;line-height:2em;height: 2em;padding:0 4px;margin:1px;font-size:1em;
     box-shadow: 0px 0px 0px #DDD inset; background-color:#F7F8F9;border-color: #AAA #A0A0A5 #AAA;}
 .ui-box:focus{border:solid 1px #A4CFE3;margin:1px;background-color:#F6F9FC;box-shadow:0 0 1px #ddd;}
 input.ui-box,select.ui-box{background-image:url(/public/mui/css/latest/text_bg.gif);}
@@ -167,7 +169,7 @@ div.form span.txt{width:60px;text-align:right;margin-right:5px;}
 div.form span.msg{padding-left:10px;color:#666;}
 div.form .btn{}
 div.form p.note{border:solid 1px #e0e0e0;background:#f5f5f5;padding:10px;color:#555;margin-left:40px;line-height:20px;}
-div.form dl{margin:5px 0;padding:5px 0;}
+div.form dl{margin:5px 0;padding:5px 0;vertical-align: middle;}
 div.form dl dt{float:left;width:80px;text-align:right;font-weight:bold;padding-right:5px;}
 div.form .descript{padding-left:1em;color:#666}
 
@@ -182,10 +184,10 @@ div.form .descript{padding-left:1em;color:#666}
 
 .form{}
 
-.form .fl{padding:8px 0;margin:0;}
-.form .fl div.label{width:80px;text-align: right;float:left;font-weight:bold;}
+.form .fl{padding:8px 0;margin:0;clear: both;}
+.form .fl div.label{width:80px;text-align: right;float:left;font-weight:bold;margin-right: -80px;}
 .form .fl div.in{margin-left:80px;}
-.form .fl div.in div{padding:0;font-size:100%;color:#666;line-height:150%;}
+.form .fl div.in div{padding:0;font-size:100%;color:#666;line-height:150%;d}
 .form .red,.form .fl div.in .red{color:red;}
 
 .form2 .fl div.label{width:100px;}

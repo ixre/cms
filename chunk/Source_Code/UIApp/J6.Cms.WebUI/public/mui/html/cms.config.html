@@ -7,59 +7,64 @@
 
 </head>
 <body>
-    <div class="form form2" id="form1" style="padding:20px">
-        <div class="title" style="margin-top:0"><span class="icon icon1"></span>基本</div>
+<div class="form form2" id="form1" style="padding: 20px">
+    <div class="title" style="margin-top: 0"><span class="icon icon1"></span>基本
+    </div>
 
-        <div class="fl hidden">
-            <div class="label"><span class="red">*</span>授权用户：</div>
-            <div class="in">
-                <input type="text" class="tb_normal ui-box ui-validate" required="true" field="license_name" id="name" />
-                <div class="tip">10字以下</div>
-            </div>
+    <div class="fl hidden">
+        <div class="label"><span class="red">*</span>授权用户：
         </div>
-
-        <div class="fl">
-            <div class="label"><span class="red">*</span>后台地址：</div>
-            <div class="in">
-                <b>http://<span field="site_domain"></span>/</b>
-                <input type="text" class="tb_normal ui-box ui-validate" required="true" field="sys_admin_tag" regex="^[a-zA-Z0-9_-]{1,5}$" style="width:60px" />
-                <div class="red tip"> (*)修改后请通过新地址进入管理,需重启网站！</div>
-            </div>
+        <div class="in">
+            <input type="text" class="tb_normal ui-box ui-validate" required="true" field="license_name" id="name"/>
+            <div class="tip">10字以下</div>
         </div>
+    </div>
 
-        <div class="fl hidden">
-            <div class="label"><span class="red">*</span>软件激活码：</div>
-            <div class="in">
-                <input type="text" class="tb_normal ui-box" field="license_key" style="width:400px" />
-                <div class="tip">10字以下</div>
-            </div>
+    <div class="fl">
+        <div class="label"><span class="red">*</span>后台地址：
         </div>
-
-        <div class="fl hidden">
-            <div class="label"><span class="red">*</span>软件激活码：</div>
-            <div class="in">
-                <input type="text" class="tb_normal ui-box" field="license_key" style="width:400px" />
-            </div>
+        <div class="in">
+            <b>http://<span field="site_domain"></span>/</b>
+            <input type="text" class="tb_normal ui-box ui-validate" required="true" field="sys_admin_tag" regex="^[a-zA-Z0-9_-]{1,5}$" style="width: 60px"/>
+            <div class="red tip"> (*)修改后请通过新地址进入管理,需重启网站！</div>
         </div>
+    </div>
 
-        <dl class="hidden">
-            <dt>数据表前缀:</dt>
-            <dd>
-                <input type="text" class="tb_normal ui-box ui-validate" required="true" field="db_prefix" style="width:70px" />
-                <span style="color:Red"> 请确保与数据库一致后修改，否则无法正常运行</span>
-            </dd>
-        </dl>
-
-        <div class="fl">
-            <div class="label">自动重定向：</div>
-            <div class="in">
-                <input type="radio" value="radio" value="True" field="sys_autowww" name="autowww" id="autowww_1" checked="checked" />
-                <label for="autowww_1">是</label>
-                <input type="radio" value="radio" value="True" field="sys_autowww" name="autowww" id="autowww_2" />
-                <label for="autowww_2">否</label>
-                <div>(自动将主域名(如:xxx.com)重定向到www前缀的域名)</div>
-            </div>
+    <div class="fl hidden">
+        <div class="label"><span class="red">*</span>软件激活码：
         </div>
+        <div class="in">
+            <input type="text" class="tb_normal ui-box" field="license_key" style="width: 400px"/>
+            <div class="tip">10字以下</div>
+        </div>
+    </div>
+
+    <div class="fl hidden">
+        <div class="label"><span class="red">*</span>软件激活码：
+        </div>
+        <div class="in">
+            <input type="text" class="tb_normal ui-box" field="license_key" style="width: 400px"/>
+        </div>
+    </div>
+
+    <dl class="hidden">
+        <dt>数据表前缀:</dt>
+        <dd>
+            <input type="text" class="tb_normal ui-box ui-validate" required="true" field="db_prefix" style="width: 70px"/>
+            <span style="color: Red"> 请确保与数据库一致后修改，否则无法正常运行</span>
+        </dd>
+    </dl>
+
+    <div class="fl">
+        <div class="label">自动重定向：</div>
+        <div class="in">
+            <input type="radio" value="radio" value="True" field="sys_autowww" name="autowww" id="autowww_1" checked="checked"/>
+            <label for="autowww_1">是</label>
+            <input type="radio" value="radio" value="True" field="sys_autowww" name="autowww" id="autowww_2"/>
+            <label for="autowww_2">否</label>
+            <div>(自动将主域名(如:xxx.com)重定向到www前缀的域名)</div>
+        </div>
+    </div>
 
     <div class="fl">
         <div class="label">调试模式：</div>
@@ -78,71 +83,76 @@
     </div>
 
 
-    <div class="title" style="margin-top:0"><span class="icon icon1"></span>性能</div>
+    <div class="title" style="margin-top: 0"><span class="icon icon1"></span>性能
+    </div>
 
-        <div class="fl">
-            <div class="label">静态服务器：</div>
-            <div class="in">
-                <input type="checkbox" class="tb_normal ui-box" style="width:auto" field="server_static_enabled" />
-                &nbsp;&nbsp;CDN地址：http://<span field="server_static"></span>/
-                <div>(建议开启,可提升访问速度)</div>
+    <div class="fl">
+        <div class="label">静态服务器：</div>
+        <div class="in">
+            <input type="checkbox" class="tb_normal ui-box" style="width: auto" field="server_static_enabled"/>
+            &nbsp;&nbsp;CDN地址：http://<span field="server_static"></span>/
+            <div>(建议开启,可提升访问速度)</div>
         </div>
 
-            <div class="fl">
-                <div class="label"><span class="red">*</span>内存回收：</div>
-                <div class="in">
-                    <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="Opti_GC_Collect_Interval" style="width:40px" />分钟/次&nbsp;&nbsp;
-                    <div>(设置为0则不回收，修改重启网站后生效!)</div>
-                </div>
+        <div class="fl">
+            <div class="label"><span class="red">*</span>内存回收：
             </div>
+            <div class="in">
+                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="Opti_GC_Collect_Interval" style="width: 40px"/>分钟/次&nbsp;&nbsp;
+                <div>(设置为0则不回收，修改重启网站后生效!)</div>
+            </div>
+        </div>
 
-            <div class="fl">
-                <div class="label"><span class="red">*</span>首页缓存：</div>
-                <div class="in">
-                    <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_IndexCacheSeconds" style="width:40px" />
-                    分钟(0表示不缓存)
-                </div>
+        <div class="fl">
+            <div class="label"><span class="red">*</span>首页缓存：
             </div>
-            <div class="fl">
-                <div class="label"><span class="red">*</span>客户端缓存：</div>
-                <div class="in">
-                    <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_ClientCacheSeconds" style="width:40px" />
-                    分钟(0表示不缓存)
-                </div>
+            <div class="in">
+                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_IndexCacheSeconds" style="width: 40px"/>
+                分钟(0表示不缓存)
             </div>
-       
-        <div class="title" style="margin-top:0"><span class="icon icon1"></span>模板视图</div>
+        </div>
+        <div class="fl">
+            <div class="label"><span class="red">*</span>客户端缓存：
+            </div>
+            <div class="in">
+                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_ClientCacheSeconds" style="width: 40px"/>
+                分钟(0表示不缓存)
+            </div>
+        </div>
 
-            <div class="fl">
-                <div class="label">选项：</div>
-                <div class="in">
-                    <input type="checkbox" id="ckitem1_1" class="tb_normal ui-box" style="width:auto" field="tpl_usecompress" />
-                    <label for="ckitem1_1">代码压缩</label>&nbsp;
-                    <input type="checkbox" id="ckitem1_2" class="tb_normal ui-box" style="width:auto" field="tpl_usefullpath" />
-                    <label for="ckitem1_2">完整路径(Full URL)</label>
-                </div>
-            </div>
+        <div class="title" style="margin-top: 0"><span class="icon icon1"></span>模板视图
+        </div>
 
-            <div class="fl">
-                <div class="label"></div>
-                <div class="in">
-                    
-                    <span class="ui-button w100" id="btn_save">
+        <div class="fl">
+            <div class="label">选项：</div>
+            <div class="in">
+                <input type="checkbox" id="ckitem1_1" class="tb_normal ui-box" style="width: auto" field="tpl_usecompress"/>
+                <label for="ckitem1_1">代码压缩</label>&nbsp;
+                <input type="checkbox" id="ckitem1_2" class="tb_normal ui-box" style="width: auto" field="tpl_usefullpath"/>
+                <label for="ckitem1_2">完整路径(Full URL)</label>
+            </div>
+        </div>
+
+        <div class="fl">
+            <div class="label"></div>
+            <div class="in">
+
+                <span class="ui-button w100" id="btn_save">
                         <span class="button-inner">
                             <a href="javascript:;"></a>
                             <span class="button-txt">保存</span>
                         </span>
                     </span>
 
-                </div>
             </div>
-        
+        </div>
 
-        <div class="btnarea" style="padding-left:58px;padding-top:25px;">
-            
+
+        <div class="btnarea" style="padding-left: 58px; padding-top: 25px;">
+
         </div>
     </div>
-
+</div>
     $js()
     <script type="text/javascript">
         cms.json.bind('form1',${json});

@@ -133,7 +133,7 @@
                             : document.getElementsByClassName('node', e);
                         if (nodeLinks.length != 0) {
                             var id = j6.toJson(nodeLinks[0].getAttribute('node-value')).cid;
-                            e.title = '更多功能点击鼠标右键';
+                            e.title = '鼠标右键更多功能';
                             j6.contextmenu.bind(e, null, function (menu) {
                                 menu.innerHTML = j6.template(tmpTpl, { id: id });
                             });
