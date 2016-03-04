@@ -293,7 +293,7 @@ namespace J6.Cms.Web
                 {
                     if (!category.Location.StartsWith("/"))
                     {
-                        url = String.Concat("/", category.Location);
+                        url = String.Concat(appPath,appPath.Length == 1?String.Empty:"/", category.Location);
                     }
                     else
                     {
