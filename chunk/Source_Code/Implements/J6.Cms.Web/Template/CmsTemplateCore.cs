@@ -451,7 +451,7 @@ namespace J6.Cms.Template
                                 case "keywords": return c.Keywords;
                                 case "index": return i.ToString();
                                 case "class":
-                                    return GetCssClass(total, i, "c");
+                                    return GetCssClass(total, i, "c",c.Icon);
                             }
                         }));
                     }
@@ -908,7 +908,7 @@ namespace J6.Cms.Template
 
                         //样式
                         case "class":
-                            return GetCssClass(replayCount, i, "cm");
+                            return GetCssClass(replayCount, i, "cm",null);
 
                         //评论时间
                         case "date":
@@ -1353,7 +1353,7 @@ namespace J6.Cms.Template
                             case "keywords": return c.Keywords;
                             case "index":return  (i+1).ToString();
                             case "class":
-                                return GetCssClass(total, i, "c");
+                                return GetCssClass(total, i,"c",c.Icon);
                         }
                     }));
                 }
@@ -1464,7 +1464,7 @@ namespace J6.Cms.Template
                         // 项目顺序类
                         case "class":
                             if (dt == null) return String.Empty;
-                            return GetCssClass(dt.Count(), index,"a");
+                            return GetCssClass(dt.Count(), index, "a",archiveDto.Thumbnail);
 
                             //特性列表
                         case "prolist":
@@ -1539,12 +1539,14 @@ namespace J6.Cms.Template
         /// <param name="total"></param>
         /// <param name="index"></param>
         /// <param name="prefix"></param>
+        /// <param name="thumb"></param>
         /// <returns></returns>
-        private static string GetCssClass(int total, int index,string prefix)
+        private static string GetCssClass(int total, int index, string prefix, String thumb)
         {
             if (total ==0 || index < 0) return String.Empty;
-            String cls = String.Format("{0} {1}{2}{3}",prefix,prefix, (index + 1).ToString(),
-                (index + 1)%2 == 0 ? " even" : "");
+            bool noThumb = String.IsNullOrEmpty(thumb);
+            String cls = String.Format("{0} {1}{2}{3}{4}",prefix,prefix, (index + 1).ToString(),
+                (index + 1)%2 == 0 ? " even" : "",noThumb?"  no-thumb":String.Empty);
             if (index == total - 1) return cls + " last";
             else if (index == 0) return cls + " first";
             return cls;
@@ -1611,7 +1613,7 @@ namespace J6.Cms.Template
             totalNum = drs.Count;
 
 
-            string id;
+            string id = null;
             foreach (DataRow dr in drs)
             {
                 ++archiveIndex;
@@ -1619,7 +1621,15 @@ namespace J6.Cms.Template
                 //获取栏目，如果栏目关联不起来则调到下一次
                 categoryId = int.Parse(dr["cid"].ToString());
                 archiveId = int.Parse(dr["id"].ToString());
-                id = (string.IsNullOrEmpty((dr["alias"] ?? "").ToString()) ? dr["str_id"] : dr["alias"]).ToString();      //用于链接的ID标识
+                var o = string.IsNullOrEmpty((dr["alias"] ?? "").ToString()) ? dr["str_id"] : dr["alias"];
+                if (o != null)
+                {
+                    id = o.ToString(); //用于链接的ID标识
+                }
+                else
+                {
+                    continue;
+                }
                 if (categoryId != archiveCategory.Id)
                 {
                     archiveCategory = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
@@ -1683,7 +1693,7 @@ namespace J6.Cms.Template
 
                             // 项目顺序类
                             case "class":
-                                return GetCssClass(totalNum, archiveIndex-1, "a");
+                                return GetCssClass(totalNum, archiveIndex - 1, "a", dr["thumbnail"].ToString());
                             case "index":
                                 return archiveIndex.ToString();
 
@@ -1993,7 +2003,7 @@ namespace J6.Cms.Template
 
                             // 项目顺序类
                             case "class":
-                                return GetCssClass(total, i, "a");
+                                return GetCssClass(total, i,"a",archive.Thumbnail);
 
                             default:
                                 //读取自定义属性
@@ -2356,7 +2366,7 @@ namespace J6.Cms.Template
 
                             // 项目顺序类
                             case "class":
-                                return GetCssClass(total, i, "a");
+                                return GetCssClass(total, i, "a",archive.Thumbnail);
 
                             default:
                                 //读取自定义属性
