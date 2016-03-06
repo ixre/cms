@@ -1544,7 +1544,7 @@ namespace J6.Cms.Template
         private static string GetCssClass(int total, int index, string prefix, String thumb)
         {
             if (total ==0 || index < 0) return String.Empty;
-            bool noThumb = String.IsNullOrEmpty(thumb);
+            bool noThumb = thumb != null && thumb.Length == 0;
             String cls = String.Format("{0} {1}{2}{3}{4}",prefix,prefix, (index + 1).ToString(),
                 (index + 1)%2 == 0 ? " even" : "",noThumb?"  no-thumb":String.Empty);
             if (index == total - 1) return cls + " last";
