@@ -240,7 +240,6 @@ namespace J6.Cms.Core
                 this.SetSessionUserDeviceSet(ctx, (int)DeviceType.Mobi);
                 return DeviceType.Mobi;
             }
-            this.SetSessionUserDeviceSet(ctx, (int)DeviceType.Mobi);
             return DeviceType.Standard;
         }
 
