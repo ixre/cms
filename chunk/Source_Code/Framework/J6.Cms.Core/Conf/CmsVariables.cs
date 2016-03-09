@@ -7,7 +7,7 @@ namespace J6.Cms.Conf
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="1.3.30";
+        public const string VERSION="1.3.31";
 
         /// <summary>
         /// 框架目录
