@@ -52,11 +52,12 @@ div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
 .small-button .button-txt{line-height:18px;padding:0 5px;}
 .middle-button .button-txt{ line-height: 24px;overflow: hidden;}
 /* 输入框 */
-.ui-box{border:solid 1px #DDD;border-radius: 2px;line-height:2em;height: 2em;padding:0 4px;margin:1px;font-size:1em;
+.ui-box{border:solid 1px #DDD;border-radius: 2px;line-height:2em;padding:0 4px;margin:1px;font-size:1em;
     box-shadow: 0px 0px 0px #DDD inset; background-color:#F7F8F9;border-color: #AAA #A0A0A5 #AAA;}
 .ui-box:focus{border:solid 1px #A4CFE3;margin:1px;background-color:#F6F9FC;box-shadow:0 0 1px #ddd;}
 input.ui-box,select.ui-box{background-image:url(/public/mui/css/latest/text_bg.gif);}
 input.ruler{background-image:url(/public/mui/css/latest/rule.gif);background-position:2px bottom;font-size:12px;}
+input.ui-box,select.ui-box{height: 2em;}
 
 /* 智能提示 */
 .ui-autocompletion-panel{ border: solid 1px #ddd;border-top: 0px;color:#000000}

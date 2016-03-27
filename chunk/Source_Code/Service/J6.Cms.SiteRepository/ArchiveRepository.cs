@@ -60,9 +60,9 @@ namespace J6.Cms.ServiceRepository
                 int.Parse(rd["cid"].ToString()),
                 rd["title"].ToString());
             archive.Alias = rd["alias"].ToString();
-            if (indexOf("small_title")!=-1) archive.SmallTitle =( rd["small_title"] ?? "").ToString();
+            if (indexOf("small_title") != -1) archive.SmallTitle = (rd["small_title"] ?? "").ToString();
             if (indexOf("flags") != -1) archive.Flags = rd["flags"].ToString();
-            if (indexOf("location") != -1)archive.Location = rd["location"].ToString();
+            if (indexOf("location") != -1) archive.Location = rd["location"].ToString();
             if (indexOf("sort_number") != -1) archive.SortNumber = int.Parse(rd["sort_number"].ToString());
             if (indexOf("outline") != -1) archive.Outline = (rd["outline"] ?? "").ToString();
             if (indexOf("publisher_id") != -1)
@@ -133,8 +133,8 @@ namespace J6.Cms.ServiceRepository
 
 
                 _dal.Add(strId, archive.Alias, categoryId, archive.PublisherId, archive.Title,
-                    archive.SmallTitle,archive.Source, archive.Thumbnail, archive.Outline, archive.Content, 
-                    archive.Tags, archive.Flags,archive.Location,archive.SortNumber);
+                    archive.SmallTitle, archive.Source, archive.Thumbnail, archive.Outline, archive.Content,
+                    archive.Tags, archive.Flags, archive.Location, archive.SortNumber);
 
                 return this.GetArchive(siteId, strId).Id;
             }
@@ -143,9 +143,9 @@ namespace J6.Cms.ServiceRepository
                 //Update
                 //archive.Thumbnail.IndexOf(CmsVariables.Archive_NoPhoto) != -1) 
 
-                _dal.Update(archive.Id, categoryId, archive.Title,archive.SmallTitle, archive.Alias,
+                _dal.Update(archive.Id, categoryId, archive.Title, archive.SmallTitle, archive.Alias,
                     archive.Source, archive.Thumbnail, archive.Outline, archive.Content ?? "",
-                    archive.Tags, archive.Flags,archive.Location,archive.SortNumber);
+                    archive.Tags, archive.Flags, archive.Location, archive.SortNumber);
             }
 
             return archive.Id;
@@ -188,7 +188,7 @@ namespace J6.Cms.ServiceRepository
         {
             IArchive archive = null;
 
-            _dal.GetNextArchive(siteId, id, sameCategory,ingoreSpecial,rd =>
+            _dal.GetNextArchive(siteId, id, sameCategory, ingoreSpecial, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
 
@@ -206,7 +206,7 @@ namespace J6.Cms.ServiceRepository
         {
             IArchive archive = null;
 
-            _dal.GetPreviousArchive(siteId, id, sameCategory,ingoreSpecial, rd =>
+            _dal.GetPreviousArchive(siteId, id, sameCategory, ingoreSpecial, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 if (rd.Read())
@@ -230,12 +230,12 @@ namespace J6.Cms.ServiceRepository
 
             IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
 
-            _dal.GetArchivesExtendValues(siteId, (int)ExtendRelationType.Archive, categoryTag, number,skipSize, rd =>
+            _dal.GetArchivesExtendValues(siteId, (int)ExtendRelationType.Archive, categoryTag, number, skipSize, rd =>
             {
                 extendValues = this._extendRep._GetExtendValuesFromDataReader(siteId, rd);
             });
 
-            _dal.GetArchives(siteId, categoryTag, number,skipSize, rd =>
+            _dal.GetArchives(siteId, categoryTag, number, skipSize, rd =>
             {
 
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
@@ -258,15 +258,17 @@ namespace J6.Cms.ServiceRepository
             IList<IArchive> archives = new List<IArchive>();
             IList<IExtendValue> defaultValues = new List<IExtendValue>();
 
-            IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
+            IDictionary<int, IList<IExtendValue>> extendValues = null;
 
-            _dal.GetSelftAndChildArchiveExtendValues(siteId, (int)ExtendRelationType.Archive, lft, rgt, number,skipSize, rd =>
+            _dal.GetSelftAndChildArchiveExtendValues(siteId, (int)ExtendRelationType.Archive, lft, rgt, number, skipSize, rd =>
             {
                 extendValues = this._extendRep._GetExtendValuesFromDataReader(siteId, rd);
             });
 
+            if (extendValues == null) extendValues = new Dictionary<int, IList<IExtendValue>>();
+
             IArchive archive;
-            _dal.GetSelftAndChildArchives(siteId, lft, rgt, number,skipSize, rd =>
+            _dal.GetSelftAndChildArchives(siteId, lft, rgt, number, skipSize, rd =>
             {
                 //DateTime dt = DateTime.Now;
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
@@ -325,7 +327,7 @@ namespace J6.Cms.ServiceRepository
             IList<IArchive> archives = new List<IArchive>();
 
             IArchive archive;
-            _dal.GetSpecialArchives(siteId, categoryTag, number, skipSize,rd =>
+            _dal.GetSpecialArchives(siteId, categoryTag, number, skipSize, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 while (rd.Read())
@@ -342,7 +344,7 @@ namespace J6.Cms.ServiceRepository
             IList<IArchive> archives = new List<IArchive>();
 
             IArchive archive;
-            _dal.GetSpecialArchives(siteId, lft, rgt, number,skipSize, rd =>
+            _dal.GetSpecialArchives(siteId, lft, rgt, number, skipSize, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 while (rd.Read())
@@ -441,11 +443,11 @@ namespace J6.Cms.ServiceRepository
             return archives;
         }
 
-        public IEnumerable<IArchive> SearchArchives(int siteId,int categoryLft,int categoryRgt,bool onlyMatchTitle, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy)
+        public IEnumerable<IArchive> SearchArchives(int siteId, int categoryLft, int categoryRgt, bool onlyMatchTitle, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy)
         {
             IArchive archive;
             IList<IArchive> archives = new List<IArchive>();
-            _dal.SearchArchives(siteId, categoryLft, categoryRgt,onlyMatchTitle, keyword,
+            _dal.SearchArchives(siteId, categoryLft, categoryRgt, onlyMatchTitle, keyword,
                 pageSize, pageIndex, out records, out pages
                 , orderBy, rd =>
                 {

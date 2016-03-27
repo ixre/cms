@@ -42,8 +42,8 @@
                         SELECT $PREFIX_archive.id
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON 
                         $PREFIX_category.id=$PREFIX_archive.cid
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden 
-                                + @" AND (lft>=@lft AND rgt<=@rgt) 
+                        WHERE " + SqlConst.Archive_NotSystemAndHidden
+                                + @" AND (lft>=@lft AND rgt<=@rgt)   AND $PREFIX_category.site_id=@siteId 
                         ORDER BY $PREFIX_archive.sort_number DESC,createdate DESC LIMIT {0},{1}
                         
                         )";
@@ -60,7 +60,7 @@
 	                    WHERE relation_type=@relationType AND relation_id IN (
                         SELECT $PREFIX_archive.id FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
-                        WHERE tag=@Tag AND " + SqlConst.Archive_NotSystemAndHidden
+                        WHERE tag=@Tag AND $PREFIX_category.site_id=@siteId AND " + SqlConst.Archive_NotSystemAndHidden
                         + @" ORDER BY $PREFIX_archive.sort_number DESC,createdate DESC LIMIT {0},{1}
                         
                         )";

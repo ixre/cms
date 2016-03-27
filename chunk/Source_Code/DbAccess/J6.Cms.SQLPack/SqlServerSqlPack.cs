@@ -42,7 +42,7 @@ namespace J6.Cms.Sql
 	                    WHERE relation_type=@relationType AND relation_id IN (
                         SELECT id FROM (SELECT $PREFIX_archive.id, ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
-                        WHERE  (lft>=@lft AND rgt<=@rgt)  AND " + SqlConst.Archive_NotSystemAndHidden
+                        WHERE  (lft>=@lft AND rgt<=@rgt)  AND $PREFIX_category.site_id=@siteId  AND " + SqlConst.Archive_NotSystemAndHidden
                         + @") t  WHERE rowNum BETWEEN {0} AND {1}+{0})";
             }
         }
@@ -57,7 +57,7 @@ namespace J6.Cms.Sql
 	                    WHERE relation_type=@relationType AND relation_id IN (
                         SELECT id FROM (SELECT $PREFIX_archive.id, ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
-                        WHERE tag=@Tag AND " + SqlConst.Archive_NotSystemAndHidden
+                        WHERE tag=@Tag AND $PREFIX_category.site_id=@siteId AND " + SqlConst.Archive_NotSystemAndHidden
                         + @")t  WHERE rowNum BETWEEN {0} AND {1}+{0})";
             }
         }

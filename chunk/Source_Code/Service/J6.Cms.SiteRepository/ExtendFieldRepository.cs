@@ -100,7 +100,7 @@ namespace J6.Cms.ServiceRepository
                 }
             }
 
-            this._extendDal.GetExtendValues(siteId, (int) ExtendRelationType.Archive, archive.Id, rd =>
+            this._extendDal.GetExtendValues(siteId, (int)ExtendRelationType.Archive, archive.Id, rd =>
             {
                 while (rd.Read())
                 {
@@ -125,7 +125,7 @@ namespace J6.Cms.ServiceRepository
             int relationId;
             IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
 
-            this._extendDal.GetExtendValuesList(siteId, (int) ExtendRelationType.Archive, idList, rd =>
+            this._extendDal.GetExtendValuesList(siteId, (int)ExtendRelationType.Archive, idList, rd =>
             {
                 while (rd.Read())
                 {
@@ -198,18 +198,20 @@ namespace J6.Cms.ServiceRepository
         [Obsolete]
         public IDictionary<int, IList<IExtendValue>> _GetExtendValuesFromDataReader(int siteId, DbDataReader rd)
         {
-            IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
-
-            int extendId;
-            int relationId;
+            IDictionary<int, IList<IExtendValue>> extendValues = null;
 
             while (rd.Read())
             {
+                if (extendValues == null)
+                {
+                    extendValues = new Dictionary<int, IList<IExtendValue>>();
+                }
+                int relationId;
                 if (!extendValues.ContainsKey(relationId = int.Parse(rd["relation_id"].ToString())))
                 {
                     extendValues.Add(relationId, new List<IExtendValue>());
                 }
-                extendId = int.Parse(rd["extendFieldId"].ToString());
+                var extendId = int.Parse(rd["extendFieldId"].ToString());
                 extendValues[relationId].Add(
                     new ExtendValue(int.Parse(rd["id"].ToString()),
                         this.GetExtendFieldById(siteId, extendId),
@@ -245,11 +247,11 @@ namespace J6.Cms.ServiceRepository
         public IExtendField GetExtendByName(int siteId, string name, string type)
         {
             IExtendField field = null;
-            _extendDal.GetExtendFieldByName(siteId,name,type,rd =>
+            _extendDal.GetExtendFieldByName(siteId, name, type, rd =>
             {
                 if (rd.Read())
                 {
-                    field = this.CreateExtendField(int.Parse(rd["id"].ToString()),name);
+                    field = this.CreateExtendField(int.Parse(rd["id"].ToString()), name);
                     field.Message = Convert.ToString(rd["message"]);
                     field.DefaultValue = Convert.ToString(rd["default_value"]);
                     field.Regex = Convert.ToString(rd["regex"]);

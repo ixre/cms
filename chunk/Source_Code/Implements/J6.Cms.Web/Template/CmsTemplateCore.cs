@@ -1505,6 +1505,7 @@ namespace J6.Cms.Template
                                     extendFields.Add(value.Field.Name, value.Value);
                                 }
                             }
+
                             if (extendFields.ContainsKey(field))  // 查找自定义属性
                                 return extendFields[field];
                             
