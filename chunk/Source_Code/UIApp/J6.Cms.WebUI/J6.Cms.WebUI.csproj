@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -376,7 +377,6 @@
     <Content Include="public\assets\tree\img\question.gif" />
     <Content Include="public\assets\tree\img\trash.gif" />
     <Content Include="public\assets\ui-min.js" />
-    <Content Include="public\datagrid.js" />
     <Content Include="public\demo\mui_override.js" />
     <Content Include="public\maps.xml" />
     <Content Include="public\maps\custom_build_set.xml" />

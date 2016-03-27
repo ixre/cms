@@ -7,16 +7,16 @@ echo =======================================
 
 
 set dir=%~dp0
-set megdir=%dir%\refrence.dll\
+set megdir=%dir%\dist\bin\
 
-if exist "%megdir%ILMerge.exe" (
+if exist "%megdir%merge.exe" (
 
   echo 生成中,请稍等...
   cd %dir%bin\
 
 echo  /keyfile:%dir%\Source_Code\J6.Cms.Core\j6.cms.snk>nul
 
-"%megdir%ILMerge.exe" /closed /ndebug /targetplatform:v4 /target:dll /out:%dir%dist\j6.cms.dll^
+"%megdir%merge.exe" /closed /ndebug /targetplatform:v4 /target:dll /out:%dir%dist\j6.cms.dll^
  J6.Cms.Core.dll J6.Cms.BLL.dll J6.Cms.DAL.dll J6.Cms.Domain.Interface.dll^
  J6.Cms.CacheService.dll J6.Cms.DataTransfer.dll J6.Cms.Domain.Implement.Content.dll^
  J6.Cms.DB.dll J6.Cms.Cache.dll J6.Cms.Domain.Implement.Site.dll J6.Cms.Domain.Implement.User.dll J6.Cms.Infrastructure.dll ^
