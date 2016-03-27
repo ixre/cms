@@ -228,12 +228,15 @@ namespace J6.Cms.ServiceRepository
             IList<IArchive> archives = new List<IArchive>();
             IList<IExtendValue> defaultValues = new List<IExtendValue>();
 
-            IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
+            IDictionary<int, IList<IExtendValue>> extendValues = null;
 
             _dal.GetArchivesExtendValues(siteId, (int)ExtendRelationType.Archive, categoryTag, number, skipSize, rd =>
             {
                 extendValues = this._extendRep._GetExtendValuesFromDataReader(siteId, rd);
             });
+
+            if (extendValues == null) extendValues = new Dictionary<int, IList<IExtendValue>>();
+
 
             _dal.GetArchives(siteId, categoryTag, number, skipSize, rd =>
             {
