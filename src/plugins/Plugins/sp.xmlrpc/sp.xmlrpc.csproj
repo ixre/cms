@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{001DD5EA-55F2-45FA-897F-5914FFA5AA7D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sp.xmlrpc</RootNamespace>
+    <AssemblyName>sp.xmlrpc</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\dist\plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\dist\plugins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="j6.cms">
+      <HintPath>..\..\..\..\dist\j6.cms.dll</HintPath>
+    </Reference>
+    <Reference Include="j6.devfw">
+      <HintPath>..\..\..\refrence.dll\j6.devfw.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PluginCore.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlRpc.src\interfaces\BloggerAPI.cs" />
+    <Compile Include="XmlRpc.src\interfaces\ILiveWriterExtension.cs" />
+    <Compile Include="XmlRpc.src\interfaces\MetaWeblogAPI.cs" />
+    <Compile Include="XmlRpc.src\interfaces\MovableTypeAPI.cs" />
+    <Compile Include="XmlRpc.src\readme.cs" />
+    <Compile Include="XmlRpc.src\src\DateTime8601.cs" />
+    <Compile Include="XmlRpc.src\src\GuidEx.cs" />
+    <Compile Include="XmlRpc.src\src\IXmlRpcProxy.cs" />
+    <Compile Include="XmlRpc.src\src\MappingActions.cs" />
+    <Compile Include="XmlRpc.src\src\MappingStack.cs" />
+    <Compile Include="XmlRpc.src\src\RequestResponseLogger.cs" />
+    <Compile Include="XmlRpc.src\src\Tracer.cs" />
+    <Compile Include="XmlRpc.src\src\util.cs" />
+    <Compile Include="XmlRpc.src\src\WebSettings.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcAsyncResult.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcBeginAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcClientFormatterSink.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcClientFormatterSinkProvider.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcClientProtocol.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XmlRpc.src\src\XmlRpcDebugLogger.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcDeserializer.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcEndAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcEnumMapping.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcException.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcFaultException.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcFormatSettings.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcLogger.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcMemberAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcMethodAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcMethodInfo.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcMissingMappingAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcNonStandard.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcNullMappingAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcParameterAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcParameterInfo.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcParser.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcProxyCodeGen.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcProxyGen.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcRequest.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcRequestEventArgs.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcRequestSerializer.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcResponse.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcResponseDeserializer.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcResponseEventArgs.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcReturnValueAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcSerializer.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcStruct.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcTypeInfo.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcUrlAttribute.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcXmlReader.cs" />
+    <Compile Include="XmlRpc.src\src\XmlRpcXmlWriter.cs" />
+    <Compile Include="XmlRpc.src\WeblogRPCService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlRpc.src\xmlrpcserver\IHttpRequest.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\IHttpRequestHandler.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\IHttpResponse.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\SystemMethodsBase.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcDocWriter.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcHttpRequest.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcHttpResponse.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcHttpServerProtocol.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcListenerRequest.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcListenerResponse.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcListenerService.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcRequestDeserializer.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcResponseSerializer.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcServerFormatterSink.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcServerFormatterSinkProvider.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcServerProtocol.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcService.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcServiceAttribute.cs" />
+    <Compile Include="XmlRpc.src\xmlrpcserver\XmlRpcServiceInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="XmlRpc.src\obj\Debug\TempPE\" />
+    <Folder Include="XmlRpc.src\obj\Release\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XmlRpc.src\interfaces\vssver.scc" />
+    <None Include="XmlRpc.src\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="XmlRpc.src\obj\Release\Spc.XmlRpc.csproj.FileListAbsolute.txt" />
+    <None Include="XmlRpc.src\obj\Release\Spc.XmlRpc.csprojResolveAssemblyReference.cache" />
+    <None Include="XmlRpc.src\obj\Release\Spc.XmlRpc.dll" />
+    <None Include="XmlRpc.src\obj\Release\Spc.XmlRpc.pdb" />
+    <None Include="XmlRpc.src\Spc.XmlRpc.csproj" />
+    <None Include="XmlRpc.src\Spc.XmlRpc.csproj.user" />
+    <None Include="XmlRpc.src\src\xmlrpc.csproj" />
+    <None Include="XmlRpc.src\xmlrpcserver\xmlrpcserver.csproj" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

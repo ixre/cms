@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extend", "Extend", "{1BFD9EBA-861C-4E65-A03F-86548438AD4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "J6.Cms.Extend", "Extend\J6.Cms.Extend\J6.Cms.Extend.csproj", "{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{219E7230-F005-4671-8825-B4D995EF5872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sp.xmlrpc", "Plugins\sp.xmlrpc\sp.xmlrpc.csproj", "{001DD5EA-55F2-45FA-897F-5914FFA5AA7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sp.datapicker", "Plugins\sp.datapicker\sp.datapicker.csproj", "{63764DFD-7388-4485-8F39-7D20E7F05E0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.plugin.sso", "Plugins\com.plugin.sso\com.plugin.sso.csproj", "{82C82959-AF55-4B42-AA60-6F0601AC4A6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001DD5EA-55F2-45FA-897F-5914FFA5AA7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001DD5EA-55F2-45FA-897F-5914FFA5AA7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001DD5EA-55F2-45FA-897F-5914FFA5AA7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001DD5EA-55F2-45FA-897F-5914FFA5AA7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C82959-AF55-4B42-AA60-6F0601AC4A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C82959-AF55-4B42-AA60-6F0601AC4A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C82959-AF55-4B42-AA60-6F0601AC4A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C82959-AF55-4B42-AA60-6F0601AC4A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379} = {1BFD9EBA-861C-4E65-A03F-86548438AD4D}
+		{001DD5EA-55F2-45FA-897F-5914FFA5AA7D} = {219E7230-F005-4671-8825-B4D995EF5872}
+		{63764DFD-7388-4485-8F39-7D20E7F05E0B} = {219E7230-F005-4671-8825-B4D995EF5872}
+		{82C82959-AF55-4B42-AA60-6F0601AC4A6D} = {219E7230-F005-4671-8825-B4D995EF5872}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Source_Code\OPSite.WebLogic\OPSite.WebLogic.csproj
+	EndGlobalSection
+EndGlobal
