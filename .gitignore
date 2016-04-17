@@ -1,6 +1,7 @@
 *.pdb
 *.txt
 *.suo
+.vs
 Debug
 obj
 bin/*

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<maps>
-  <!--配置管理资源-->
-  <map for="management_resource" to="maps/management.xml"></map>
-  <!--定制-->
-  <map for="custom_build_set" to="maps/custom_build_set.xml"></map>
-</maps>
