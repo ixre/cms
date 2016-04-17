@@ -22,7 +22,7 @@ namespace J6.Cms.Conf
         /// <summary>
         /// 短域名服务器
         /// </summary>
-        public static String ShortUrlServer = "z3q.net/cms_go";
+        public static String ShortUrlServer = "k3f.net/cms_go";
 
         /// <summary>
         /// 更新服务器
