@@ -30,11 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="j6.cms">
-      <HintPath>..\..\..\dist\j6.cms.dll</HintPath>
-    </Reference>
-    <Reference Include="j6.cms.extend">
-      <HintPath>..\..\..\dist\j6.cms.extend.dll</HintPath>
+    <Reference Include="j6.cms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\dist\j6.cms.dll</HintPath>
     </Reference>
     <Reference Include="j6.devfw">
       <HintPath>..\..\..\refrence.dll\j6.devfw.dll</HintPath>
@@ -92,6 +90,12 @@
     <Content Include="Demo\default.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Extend\J6.Cms.Extend\J6.Cms.Extend.csproj">
+      <Project>{a05fea7b-9bf8-4265-95e5-1b9d6aeca379}</Project>
+      <Name>J6.Cms.Extend</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

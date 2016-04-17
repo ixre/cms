@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="j6.cms">
-      <HintPath>..\..\..\dist\j6.cms.dll</HintPath>
+      <HintPath>..\..\..\..\dist\j6.cms.dll</HintPath>
     </Reference>
     <Reference Include="j6.devfw, Version=0.1.5558.24707, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

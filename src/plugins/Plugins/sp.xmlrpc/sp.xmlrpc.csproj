@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="j6.cms">
-      <HintPath>..\..\..\dist\j6.cms.dll</HintPath>
+      <HintPath>..\..\..\..\dist\j6.cms.dll</HintPath>
     </Reference>
     <Reference Include="j6.devfw">
       <HintPath>..\..\..\refrence.dll\j6.devfw.dll</HintPath>
