@@ -12,7 +12,6 @@ src/*.dll
 bin
 tmp
 dist
-bootstrap
 /chunk/dist/atnet.devfw.dll
 /chunk/dist/atnet.cms.dll
 /chunk/dist/leveldb-sharp.dll
