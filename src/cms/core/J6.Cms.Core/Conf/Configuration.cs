@@ -230,6 +230,7 @@ namespace J6.Cms.Conf
                     sf["license_key"] = Settings.License_KEY;
                     sf["server_static_enabled"] = Settings.SERVER_STATIC_ENABLED ? "true" : "false";
                     sf["server_static"] = Settings.SERVER_STATIC;
+                    sf["server_upgrade"] = Settings.SERVER_UPGRADE;
                     sf["sys_admin_tag"] = Settings.SYS_ADMIN_TAG;
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
 

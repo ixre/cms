@@ -471,6 +471,7 @@ namespace J6.Cms.Web.WebManager.Handle
                 Opti_GC_Collect_Interval = (Settings.Opti_GC_Collect_Interval / 3600000),
                 opti_debug = Settings.Opti_Debug,
                 server_static = Settings.SERVER_STATIC,
+                server_upgrade = Settings.SERVER_UPGRADE,
                 server_static_enabled = Settings.SERVER_STATIC_ENABLED,
                 tpl_usefullpath = Settings.TPL_UseFullPath,
                 tpl_usecompress = Settings.TPL_UseCompress
@@ -516,6 +517,10 @@ namespace J6.Cms.Web.WebManager.Handle
                     if (!String.IsNullOrEmpty(req["server_static"]))
                     {
                         Settings.SERVER_STATIC = req["server_static"];
+                    }
+                    if (!String.IsNullOrEmpty(req["server_upgrade"]))
+                    {
+                        Settings.SERVER_UPGRADE = req["server_upgrade"];
                     }
 
                     Configuration.BeginWrite();
