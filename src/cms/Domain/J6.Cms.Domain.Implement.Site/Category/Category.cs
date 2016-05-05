@@ -165,7 +165,8 @@ namespace J6.Cms.Domain.Implement.Site.Category
         {
             get
             {
-                return _extendFields ?? (_extendFields = new List<IExtendField>(this._extendRep.GetExtendFields(this.Site.Id, this.Id)));
+                return _extendFields ?? (_extendFields = new List<IExtendField>(
+                    this._extendRep.GetExtendFields(this.Site.Id, this.Id)));
             }
             set
             {

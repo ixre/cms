@@ -19,7 +19,6 @@ namespace J6.Cms.ServiceRepository
 
         public IList<IExtendField> GetAllExtendsBySiteId(int siteId)
         {
-
             if (dicts == null)
             {
 
@@ -50,7 +49,6 @@ namespace J6.Cms.ServiceRepository
             }
 
             return dicts.ContainsKey(siteId) ? dicts[siteId] : new List<IExtendField>();
-
         }
 
         public int SaveExtendField(int siteId, IExtendField extendField)
@@ -153,7 +151,7 @@ namespace J6.Cms.ServiceRepository
             int[] ids = this._extendDal.GetCategoryExtendIdList(siteId, categoryId);
             foreach (IExtendField field in list)
             {
-                if (Array.Exists(ids, a => a == field.Id))
+                if (field != null && Array.Exists(ids, a => a == field.Id))
                     yield return field;
             }
         }
