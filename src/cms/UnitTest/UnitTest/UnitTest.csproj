@@ -36,8 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="j6.cms">
-      <HintPath>..\..\..\dist\j6.cms.dll</HintPath>
+    <Reference Include="jrdev">
+      <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -57,6 +57,12 @@
     <Compile Include="IDictionary.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\JR.Cms.Infrastructure\JR.Cms.Infrastructure.csproj">
+      <Project>{28221385-8873-45F3-AFD6-611DFD041BEC}</Project>
+      <Name>JR.Cms.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

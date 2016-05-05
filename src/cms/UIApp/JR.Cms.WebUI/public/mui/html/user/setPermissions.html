@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>更新权限</title>
+    $css()
+	</head>
+	<body class="p10">
+	 <div class="_tabarea">
+     <!--
+    <div class="tab_mini">
+        <a href="?module=user&amp;action=systemuserlist">系统用户</a>
+        <a href="javascript:;" class="current">用户组权限设置</a>
+        <a href="?module=user&amp;action=operationlist&amp;filter=all">权限管理</a>
+    </div>-->
+        <div class="area">
+            <div>选择用户组：<select class="tb_normal ui-box"id="groups">${usergroups}</select><br /></div>
+            <div class="selectbox">
+              <div>
+                不可执行的操作：<br />
+                <select class="multiple tb_normal" id="sleft" multiple="true" size="15">${otherPermissions}</select>
+              </div>
+  
+              <div class="move">
+    <a id="moveRight" class="btn" href="javascript:;">&nbsp;>>&nbsp;&nbsp;</a><br /><br />
+    <a id="moveLeft" class="btn" href="javascript:;">&nbsp;<<&nbsp;&nbsp;</a><br /><br />
+    <a id="save" class="btn" href="javascript:;">保存</a>
+  </div>
+
+              <div>
+    可执行的操作：<br />
+    <select class="multiple tb_normal" id="sright" multiple="true" size="15">${usergroupPermissions}</select>
+  </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    
+$js()
+<script type="text/javascript">
+  var oLeng=${usergroupPermissionCount}; /*用户组权限数*/
+
+  var lbtn=jr.$('moveLeft'),rbtn=jr.$('moveRight'),sbtn=jr.$('save');
+  var ls=jr.$('sleft'),rs=jr.$('sright');
+
+  jr.$('groups').onchange=function(){
+    if(rs.options.length==oLeng||(rs.options.length!=oLeng&&confirm('确定放弃用户组权限的修改吗?')))
+    location.href='?module=user&action=setpermissions&groupid='+this.value;
+  };
+
+  lbtn.onclick=function(){
+    for(var i=0;i<rs.options.length;i++){
+      if(rs.options[i].selected){
+        rs.options[i].selected=false;
+        ls.appendChild(rs.options[i]);
+        i--; /*移除之后,如果不减1则相当于跳过了一个option*/
+      }
+    }
+  };
+  rbtn.onclick=function(){
+    for(var i=0;i<ls.options.length;i++){
+      if(ls.options[i].selected){
+        ls.options[i].selected=false;
+        rs.appendChild(ls.options[i]);
+        i--; /*移除之后,如果不减1则相当于跳过了一个option*/
+      }
+    }
+  };
+
+  sbtn.onclick=function(){
+    var permisstionStr='';
+    for(var i=0;i<rs.options.length;i++){
+     permisstionStr+=rs.options[i].value+'|';
+    }
+    if(permisstionStr.length>0)permisstionStr=permisstionStr.replace(/\|$/,'');
+
+    jr.xhr.post('?','module=user&action=updatepermission&groupid=${groupID}&permissions='+permisstionStr,
+      function(x){ showMsg2('更新权限成功！');},function(x){alert(x);});
+  };
+</script>
+
+
+	</body>
+</html>

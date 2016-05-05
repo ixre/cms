@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>用户列表</title>$css()
+    <style type="text/css">
+        .list-panel .item{ margin: 5px 5px 10px 5px;}
+        .list-panel li{ float: left;width: 20%;}
+        .list-panel .item .con{ padding-bottom:40px;}
+    </style>
+</head>
+<body>
+<div id="form1" class="list-panel">
+    <input type="hidden" field="UserId" value="${user_id}"/>
+    ${role_opts}
+
+    <span class="ui-button w150" id="btn_save">
+        <span class="button-inner">
+            <span class="button-txt">保存</span>
+            <a href="javascript:;"></a>
+        </span>
+    </span>
+</div>
+
+$js()
+<script type="text/javascript">
+    var entity = ${data};
+    jr.json.bind('form1', entity);
+
+    window.saveData = function () {
+        if (jr.validator.validate('form1')) {
+            var d = jr.json.toObject('form1');
+            jr.xhr.jsonPost('?module=user&action=SaveUserRole',d, function (json) {
+                if (json.result) {
+                    var dialog = jr.dialog.getDialog();
+                    dialog.window._dg.reload();
+                    dialog.close();
+                } else {
+                    showErr(json.message);
+                }
+            });
+        }
+    };
+
+    jr.$('btn_save').onclick = window.saveData;
+</script>
+
+
+</body>
+</html>

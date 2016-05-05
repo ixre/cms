@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>创建表格</title>
+    $css()
+    <script type="text/javascript" src="/public/assets/editor/kindeditor-all-min.js"></script>
+    <script type="text/javascript" src="/public/assets/editor/plugins/code/prettify.js"></script>
+</head>
+<body>
+    <div class="tabarea">
+
+        <div class="tab_mini">
+            <a href="?module=table&amp;action=all">所有表</a>
+            <a href="javascript:;" class="current" id="btnlink">添加表</a>
+        </div>
+
+        <div class="area">
+            <div class="form" style="padding:0">
+                <form method="post" action="" enctype="application/x-www-form-urlencoded">
+                    <dl>
+                        <dt>表&nbsp;名&nbsp;称：</dt>
+                        <dd>
+                            <input type="hidden" field="TableId" value="${table_id}"/>
+                            <input class="tb_normal ui-box ui-validate" required="true" length="[0,15]" summary="{length:'标题为5-15位！'}" type="text" field="name" value="${name}"/>
+                        </dd>
+                    </dl>
+
+                    <dl><dt>请求接口：</dt><dd><input class="tb_normal ui-box" type="text" field="apiserver" value="${apiserver}" /></dd></dl>
+
+
+                    <dl>
+                        <dt>设置：&nbsp;&nbsp;&nbsp;</dt>
+                        <dd>
+                            <span class="input">
+                                <input type="checkbox" style="border:none" field="issystem" ${issystem} />是否系统
+                                &nbsp;&nbsp;&nbsp;<input type="checkbox" style="border:none" field="isavailable" ${isavailable} />是否可用
+                            </span>
+                        </dd>
+                    </dl>
+
+
+
+                    <div style="padding-left:100px">
+                        <span>数据表备注及说明请填写在下面编辑器中(可为空，<span style="color:red">500字内</span>)：</span>
+                        <div>
+                            <textarea id="editor" field="note" style="overflow:hidden;width:670px;height:300px;">
+                                ${note}
+                            </textarea>
+                        </div>
+
+                    </div>
+                    $js()
+                    <script type="text/javascript">
+                        var editor;
+                        KindEditor.ready(function (K) {
+                            editor = K.create('#editor', {
+                                cssPath: '/public/assets/editor/plugins/code/prettify.css',
+                                uploadJson: '/public/assets/editor/handler/upload_json.ashx',
+                                fileManagerJson: '/public/assets/editor/handler/file_manager_json.ashx',
+                                allowFileManager: true,
+                                filterMode: false
+                            });
+                        });
+                    </script>
+
+
+                    <dl>
+                        <dt>&nbsp;</dt>
+                        <dd>
+                            <input type="hidden" name="tableid" value="${tableid}" />
+                            <a href="javascript:;" class="btn" onclick="return submitForm();">提交</a>
+                        </dd>
+                    </dl>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        jr.$('btnlink').innerHTML = location.href.indexOf('edit') != -1 ? '编辑表' : '添加表';
+
+        function submitForm() {
+            if (jr.validator.validate()) {
+                jr.val('editor', editor.html());
+                if (jr.val('editor').length > 500) {
+                    showMsg2('备注内容不能超过500字！');
+                    return false;
+                }
+
+                var data = jr.json.toObject(document);
+                jr.xhr.post(location.href, data, function(x) {
+
+                    var msg = '';
+                    var resultTag;
+                    eval('resultTag=' + x);
+                    switch (resultTag) {
+                    case 7:
+                        msg = '表名重复!';
+                        break;
+                    default:
+                        msg = location.href.indexOf('edit') != -1 ? '保存成功!' : '添加成功!';
+                        break;
+                    }
+
+                    showMsg2(msg);
+                    location.replace('?module=table&action=all');
+                });
+            }
+            return false;
+        }
+
+    </script>
+</body>
+</html>
