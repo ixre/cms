@@ -39,7 +39,7 @@ namespace JR.Cms.Web.Resource.WebManager {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("jr.Cms.Web.Resource.WebManager.WebManagerResource", typeof(WebManagerResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JR.Cms.Web.Resource.WebManager.WebManagerResource", typeof(WebManagerResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -180,7 +180,7 @@ namespace JR.Cms.Web.Resource.WebManager {
         }
         
         /// <summary>
-        ///   查找类似 function j6l() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } j6l.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = f[f.length - 1]; var g = s.src; this.__WORKPATH__ = g.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (!document.getElementsByClassName) { document.getElementsByClassName = function (a, b) { if (b &amp;&amp; !b.nodeName) { b = document.getElementById(b) } var c = (b | [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 function JR() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } JR.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = f[f.length - 1]; var g = s.src; this.__WORKPATH__ = g.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (!document.getElementsByClassName) { document.getElementsByClassName = function (a, b) { if (b &amp;&amp; !b.nodeName) { b = document.getElementById(b) } var c = (b ||  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string manage_js_min {
             get {

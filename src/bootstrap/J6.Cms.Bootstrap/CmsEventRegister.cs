@@ -9,14 +9,15 @@
 */
 
 using System.Linq;
-using J6.Cms.BLL;
-using J6.Cms.CacheService;
-using J6.Cms.Conf;
-using J6.Cms.Domain.Interface._old;
-using J6.Cms.Resource;
-using StructureMap;
+using JR.Cms;
+using JR.Cms.BLL;
+using JR.Cms.CacheService;
+using JR.Cms.Conf;
+using JR.Cms.Domain.Interface.User;
+using JR.Cms.Domain.Interface._old;
+using JR.Cms.Resource;
 
-namespace J6.Cms
+namespace JR.Cms
 {
     public class CmsEventRegister
     {
@@ -25,22 +26,6 @@ namespace J6.Cms
         /// </summary>
         public static void Init()
         {
-            //设置依赖反转
-            ObjectFactory.Configure(x =>
-            {
-                //x.For<IArchiveModel>().Singleton().Use<ArchiveBLL>();
-                // x.For<ICategoryModel>().Singleton().Use<CategoryBLL>();
-                x.For<IComment>().Singleton().Use<CommentBll>();
-                // x.For<ILink>().Singleton().Use<LinkBLL>();
-                x.For<Imember>().Singleton().Use<MemberBll>();
-                x.For<Imessage>().Singleton().Use<MessageBll>();
-                x.For<Imodule>().Singleton().Use<ModuleBLL>();
-                //x.For<ISite>().Singleton().Use<SiteBLL>();
-                // x.For<ITemplateBind>().Singleton().Use<TemplateBindBLL>();
-                x.For<IUser>().Singleton().Use<UserBll>();
-                x.For<ITable>().Singleton().Use<TableBll>();
-            });
-
 
             //读取站点
             if (Cms.Installed)

@@ -74,11 +74,11 @@ namespace JR.Cms
                 //注册定时任务
                 CmsTask.Init();
             }
-            catch (Exception exc)
+            catch (NotImplementedException exc)
             {
                 if (exc.InnerException != null)
                 {
-                    exc = exc.InnerException;
+                   // exc = exc.InnerException;
                 }
                 try
                 {

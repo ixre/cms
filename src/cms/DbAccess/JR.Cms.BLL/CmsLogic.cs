@@ -16,7 +16,7 @@ namespace JR.Cms.BLL
 
 
         public static ITable Table { get { return GetInstance<ITable>(); } }
-        public static IUser User { get { return GetInstance<IUser>(); } }
+        public static IUserBll UserBll { get { return GetInstance<IUserBll>(); } }
 
     }
 }

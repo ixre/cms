@@ -1,12 +1,11 @@
 ﻿using System;
-using StructureMap;
 using System.Collections.Generic;
-using System.Globalization;
 using JR.Cms.Dal;
 using JR.Cms.Domain.Implement.Content;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Site.Template;
+using JR.Cms.Infrastructure.Ioc;
 
 namespace JR.Cms.ServiceRepository
 {
@@ -29,7 +28,7 @@ namespace JR.Cms.ServiceRepository
             if (siteId == 0)
             {
                 return base.CreateSiteContent(
-                    this._archiveRep ?? (this._archiveRep = ObjectFactory.GetInstance<IArchiveRepository>()),
+                    this._archiveRep ?? (this._archiveRep = Ioc.GetInstance<IArchiveRepository>()),
                     this._tempRep,
                     siteId);
             }
@@ -39,7 +38,7 @@ namespace JR.Cms.ServiceRepository
 
                 siteContents.Add(siteId,
                     base.CreateSiteContent(
-                        this._archiveRep ?? (this._archiveRep = ObjectFactory.GetInstance<IArchiveRepository>()),
+                        this._archiveRep ?? (this._archiveRep = Ioc.GetInstance<IArchiveRepository>()),
                         this._tempRep,
                         siteId)
                     );

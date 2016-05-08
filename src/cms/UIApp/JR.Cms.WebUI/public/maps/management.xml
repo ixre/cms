@@ -24,10 +24,10 @@
     <map for="Category_CreateCategory" to="mui/html/category/category_create.html"/>
     <map for="Category_EditCategory" to="mui/html/category/category_edit.html"/>
     <map for="Category_List" to="mui/html/category/category_list.html"/>
-    <map for="User_Index" to="mui/html/user/user_index.html"/>
-    <map for="User_Edit" to="mui/html/user/user_edit.html"/>
-    <map for="User_Role" to="mui/html/user/user_role_set.html"/>
-    <map for="User_SaveProfile" to="mui/html/user/user_save_profile.html"/>
+    <map for="UserBll_Index" to="mui/html/user/user_index.html"/>
+    <map for="UserBll_Edit" to="mui/html/user/user_edit.html"/>
+    <map for="UserBll_Role" to="mui/html/user/user_role_set.html"/>
+    <map for="UserBll_SaveProfile" to="mui/html/user/user_save_profile.html"/>
     <map for="Plugin_Dashboard" to="mui/html/plugin/plugin_dashboard.html"/>
     <map for="Plugin_MiniApps" to="mui/html/plugin/plugin_miniapps.html"/>
     <map for="Archive_Create" to="mui/html/archive/archive_create.html"/>

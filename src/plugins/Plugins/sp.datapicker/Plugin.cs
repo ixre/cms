@@ -1,9 +1,9 @@
-﻿using J6.DevFw.PluginKernel;
-using J6.Cms.Web.WebManager;
+﻿using JR.DevFw.PluginKernel;
+using JR.Cms.Web.WebManager;
 using System;
 using System.Web;
-using J6.DevFw.Toolkit.NetCrawl;
-using J6.DevFw.Web.Plugin;
+using JR.DevFw.Toolkit.NetCrawl;
+using JR.DevFw.Web.Plugin;
 
 namespace sp.datapicker
 {

@@ -594,7 +594,7 @@ namespace JR.Cms.Web.WebManager.Handle
         {
             int id = int.Parse(base.Request["archive.id"]);
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(this.SiteId, id);
-            //User author = CmsLogic.User.GetUser(archive.Author);
+            //UserBll author = CmsLogic.UserBll.GetUser(archive.Author);
             UserDto user = ServiceCall.Instance.UserService.GetUser(archive.PublisherId);
 
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_View), new

@@ -17,7 +17,7 @@ using JR.DevFw.Framework.Extensions;
 
 namespace JR.Cms.BLL
 {
-    public class UserBll : IUser
+    public class UserBllBll : IUserBll
     {
         private readonly IUserDal _dal = new UserDal();
         private static IList<Operation> _operations;

@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="form1" class="list-panel">
-    <input type="hidden" field="UserId" value="${user_id}"/>
+    <input type="hidden" field="UserBllId" value="${user_id}"/>
     ${role_opts}
 
     <span class="ui-button w150" id="btn_save">
@@ -29,7 +29,7 @@ $js()
     window.saveData = function () {
         if (jr.validator.validate('form1')) {
             var d = jr.json.toObject('form1');
-            jr.xhr.jsonPost('?module=user&action=SaveUserRole',d, function (json) {
+            jr.xhr.jsonPost('?module=user&action=SaveUserBllRole',d, function (json) {
                 if (json.result) {
                     var dialog = jr.dialog.getDialog();
                     dialog.window._dg.reload();

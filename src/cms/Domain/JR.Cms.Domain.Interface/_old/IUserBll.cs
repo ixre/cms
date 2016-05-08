@@ -2,7 +2,7 @@
 
 namespace JR.Cms.Domain.Interface._old
 {
-    public interface IUser
+    public interface IUserBll
     {
         string ConvertPermissionArrayToString(Models.Operation[] operations);
         Models.Operation[] ConvertToPermissionArray(string permissions);

@@ -217,7 +217,7 @@ namespace JR.Cms.Utility
             /// <summary>
             /// 用户所在的组信息
             /// </summary>
-            public static UserGroup Group { get { return CmsLogic.User.GetUserGroup(Type); } }
+            public static UserGroup Group { get { return CmsLogic.UserBll.GetUserGroup(Type); } }
 
             /// <summary>
             /// 是否登录
@@ -256,7 +256,7 @@ namespace JR.Cms.Utility
 
             public static void Exit()
             {
-                //User user = Current;
+                //UserBll user = Current;
                 //移除会话
                 HttpContext.Current.Session.Remove(adminSK);
 

@@ -1,6 +1,6 @@
 ﻿/*
  * Created by SharpDevelop.
- * User: newmin
+ * UserBll: newmin
  * Date: 2014/1/4
  * Time: 18:25
  * 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using J6.Cms.Conf;
+using JR.Cms.Conf;
 
-namespace J6.Cms
+namespace JR.Cms
 {
     internal class __ResolveAppDomain
     {

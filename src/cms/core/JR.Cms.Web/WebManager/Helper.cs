@@ -185,7 +185,7 @@ namespace JR.Cms.WebManager
         public static string GetUserGroupOptions(int groupId)
         {
             IDictionary<string, string> dict = new Dictionary<string, string>();
-            foreach(var u in CmsLogic.User.GetUserGroups()){
+            foreach(var u in CmsLogic.UserBll.GetUserGroups()){
                 if (u.Id == 1) continue;
                 dict.Add(u.Id.ToString(), u.Name);
             }

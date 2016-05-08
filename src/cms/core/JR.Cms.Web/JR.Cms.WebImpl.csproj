@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JR.Cms.Web</RootNamespace>
     <AssemblyName>JR.Cms.WebImpl</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -47,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>None</DebugType>
@@ -57,12 +58,13 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>..\..\bin\JR.Cms.WebImpl.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>False</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>JR.cms.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>jr.cms.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
@@ -191,6 +193,10 @@
       <Project>{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}</Project>
       <Name>JR.Cms.Domain.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Service\JR.Cms.ServiceUtil\JR.Cms.ServiceUtil.csproj">
+      <Project>{1b43fbd5-8e31-4688-9b25-a63378d375f2}</Project>
+      <Name>JR.Cms.ServiceUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JR.Cms.Cache\JR.Cms.Cache.csproj">
       <Project>{f8362c26-b7f2-4a9c-aa1c-d2c943ea8621}</Project>
       <Name>JR.Cms.Cache</Name>
@@ -214,10 +220,6 @@
     <ProjectReference Include="..\..\Service\JR.Cms.ServiceContract\JR.Cms.ServiceContract.csproj">
       <Project>{f512899c-b4c9-465f-a3db-8e511c92a8a8}</Project>
       <Name>JR.Cms.ServiceContract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\JR.Cms.ServiceUtil\JR.Cms.ServiceUtil.csproj">
-      <Project>{1b43fbd5-8e31-4688-9b25-a63378d375f2}</Project>
-      <Name>JR.Cms.ServiceUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DbAccess\JR.Cms.BLL\JR.Cms.BLL.csproj">
       <Project>{39BCB411-39CA-4635-9C9B-F9FBAE40058E}</Project>
@@ -254,6 +256,7 @@
     <Content Include="install\install.html" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="jr.cms.snk" />
     <None Include="Resource\SiteResouce\cms.core_min.js" />
   </ItemGroup>
   <ItemGroup>

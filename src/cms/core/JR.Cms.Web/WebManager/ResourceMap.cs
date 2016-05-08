@@ -1,7 +1,7 @@
 ﻿using JR.Cms.Cache;
 /*
  * Created by SharpDevelop.
- * User: newmin
+ * UserBll: newmin
  * Date: 2013/12/27
  * Time: 7:34
  * 

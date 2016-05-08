@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using J6.DevFw.Framework.Extensions;
+using JR.DevFw.Framework.Extensions;
 
-namespace J6.Cms.Extend.SSO
+namespace JR.Cms.Extend.SSO
 {
     internal class SessionGenerator
     {

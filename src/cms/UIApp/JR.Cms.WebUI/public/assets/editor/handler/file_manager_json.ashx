@@ -1,1 +1,1 @@
-﻿<%@ webhandler Language="C#" class="jr.Cms.Handler.EditorFileManager" %>
+﻿<%@ webhandler Language="C#" class="JR.Cms.Handler.EditorFileManager" %>

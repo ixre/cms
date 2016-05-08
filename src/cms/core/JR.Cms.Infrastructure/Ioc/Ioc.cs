@@ -6,6 +6,7 @@ namespace JR.Cms.Infrastructure.Ioc
 {
     public class Ioc
     {
+        private static Container _container;
         /// <summary>
         /// 获取实例
         /// </summary>
@@ -18,15 +19,24 @@ namespace JR.Cms.Infrastructure.Ioc
 
             if (parameters == null)
             {
-                t = ObjectFactory.GetInstance<T>();
+                t = GetContainer().GetInstance<T>();
             }
             else
             {
-                t = ObjectFactory.GetInstance<T>(new StructureMap.Pipeline.ExplicitArguments(parameters));
+                t = GetContainer().GetInstance<T>(new StructureMap.Pipeline.ExplicitArguments(parameters));
             }
             return t;
         }
-        
+
+        private static Container GetContainer()
+        {
+            if (_container == null)
+            {
+                throw  new Exception("未初始化");
+            }
+            return _container;
+        }
+
         public static T GetInstance<T>()
         {
             return GetInstance<T>(null);
@@ -38,7 +48,7 @@ namespace JR.Cms.Infrastructure.Ioc
         /// <param name="configure"></param>
         public static void Configure(Action<ConfigurationExpression> configure)
         {
-            ObjectFactory.Configure(configure);
+            _container = new Container(configure);
         }
     }
 }

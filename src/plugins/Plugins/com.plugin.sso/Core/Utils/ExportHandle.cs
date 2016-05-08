@@ -14,9 +14,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
-using J6.DevFw.Toolkit.Data.Export;
-using J6.DevFw.Toolkit.Data.Export.ExportProvider;
-using J6.DevFw.Toolkit.Data.Export.UI;
+using JR.DevFw.Toolkit.Data.Export;
+using JR.DevFw.Toolkit.Data.Export.ExportProvider;
+using JR.DevFw.Toolkit.Data.Export.UI;
 using Newtonsoft.Json;
 
 namespace com.plugin.sso.Core.Utils

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Value;
 
 namespace JR.Cms.Domain.Interface.User

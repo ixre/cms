@@ -10,9 +10,9 @@
  */
 
 using System.Web;
-using J6.DevFw.PluginKernel;
-using J6.Cms.Utility;
-using J6.DevFw.Web.Plugin;
+using JR.DevFw.PluginKernel;
+using JR.Cms.Utility;
+using JR.DevFw.Web.Plugin;
 
 namespace com.plugin.sso
 {

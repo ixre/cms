@@ -1,2 +1,2 @@
-﻿<%@ webhandler Language="C#" class="jr.Cms.Handler.EditorUploadHandler" %>
+﻿<%@ webhandler Language="C#" class="JR.Cms.Handler.EditorUploadHandler" %>
 

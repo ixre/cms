@@ -9,6 +9,7 @@ using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Domain.Interface.Site.Template;
 using JR.Cms.Infrastructure;
+using JR.Cms.Infrastructure.Ioc;
 
 namespace JR.Cms.ServiceRepository
 {
@@ -41,7 +42,7 @@ namespace JR.Cms.ServiceRepository
         {
             get
             {
-                return __siteRep ?? (__siteRep = ObjectFactory.GetInstance<ISiteRepository>());
+                return __siteRep ?? (__siteRep = Ioc.GetInstance<ISiteRepository>());
             }
         }
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web;
-using J6.DevFw.PluginKernel;
+using JR.DevFw.PluginKernel;
 using sp.xmlrpc.XmlRpc.src;
-using J6.DevFw.Web.Plugin;
+using JR.DevFw.Web.Plugin;
 
 namespace sp.xmlrpc
 {

@@ -342,11 +342,11 @@ namespace JR.Cms.Web.WebManager.Handle
                 }
 
                 //设置站点
-                //                User usr = CmsLogic.User.GetUser(username, password);
+                //                UserBll usr = CmsLogic.UserBll.GetUser(username, password);
                 //
                 //                if (usr != null)
                 //                {
-                //                    CmsLogic.User.UpdateUserLastLoginDate(username);
+                //                    CmsLogic.UserBll.UpdateUserLastLoginDate(username);
                 //
                 //                    if (!usr.Enabled)
                 //                    {
@@ -423,7 +423,7 @@ namespace JR.Cms.Web.WebManager.Handle
 
 
             //作者
-            foreach (User u in  CmsLogic.User.GetAllUser())
+            foreach (UserBll u in  CmsLogic.UserBll.GetAllUser())
             {
                 sb.Append("<option value=\"").Append(u.UserName).Append("\">")
                     .Append(u.Name).Append("(").Append(u.UserName).Append(")</option>");

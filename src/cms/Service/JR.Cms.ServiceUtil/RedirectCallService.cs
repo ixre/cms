@@ -1,6 +1,6 @@
-﻿using JR.Cms.Service;
+﻿using JR.Cms.Infrastructure.Ioc;
+using JR.Cms.Service;
 using JR.Cms.ServiceContract;
-using StructureMap;
 
 namespace JR.Cms.ServiceUtil
 {
@@ -10,10 +10,11 @@ namespace JR.Cms.ServiceUtil
         {
             ServiceInit.Initialize();
         }
+
         public ISiteServiceContract SiteService
         {
             get {
-                return ObjectFactory.GetInstance<ISiteServiceContract>();
+                return Ioc.GetInstance<ISiteServiceContract>();
             }
         }
 
@@ -21,14 +22,14 @@ namespace JR.Cms.ServiceUtil
         {
             get
             {
-                return ObjectFactory.GetInstance<IArchiveServiceContract>();
+                return Ioc.GetInstance<IArchiveServiceContract>();
             }
         }
 
         public IContentServiceContract ContentService
         {
             get {
-                return ObjectFactory.GetInstance<IContentServiceContract>();
+                return Ioc.GetInstance<IContentServiceContract>();
             }
         }
 
@@ -37,7 +38,7 @@ namespace JR.Cms.ServiceUtil
         {
             get
             {
-                return ObjectFactory.GetInstance<IUserServiceContract>();
+                return Ioc.GetInstance<IUserServiceContract>();
             }
         }
     }

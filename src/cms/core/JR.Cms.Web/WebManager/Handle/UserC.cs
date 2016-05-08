@@ -2,7 +2,7 @@
 // Copyright (C) 2007-2008 Z3Q.NET,All rights reseved.
 // 
 // Project: jr.Cms.Manager
-// FileName : User.cs
+// FileName : UserBll.cs
 // Author : PC-CWLIU (new.min@msn.com)
 // Create : 2011/10/18 14:41:34
 // Description :
@@ -284,7 +284,7 @@ namespace JR.Cms.Web.WebManager.Handle
         /// </summary>
         public void SetUserState_POST()
         {
-            User user = CmsLogic.User.GetUser(base.Request["username"]);
+            User user = CmsLogic.UserBll.GetUser(base.Request["username"]);
             UserDto curUsr = UserState.Administrator.Current;
 
             throw new NotImplementedException();
@@ -305,7 +305,7 @@ namespace JR.Cms.Web.WebManager.Handle
 //                return;
 //            }
 //
-//            CmsLogic.User.UpdateUser(user.UserName, this.CurrentSite.SiteId, user.Name, (UserGroups)user.GroupId,!user.Enabled);
+//            CmsLogic.UserBll.UpdateUser(user.UserName, this.CurrentSite.SiteId, user.Name, (UserGroups)user.GroupId,!user.Enabled);
 //            base.RenderSuccess();
 
         }
@@ -350,16 +350,16 @@ namespace JR.Cms.Web.WebManager.Handle
 //            switch (filter)
 //            {
 //                case "disabled":
-//                    users = CmsLogic.User.GetUsers(a => !a.Enabled);
+//                    users = CmsLogic.UserBll.GetUsers(a => !a.Enabled);
 //                    break;
 //                case "available":
-//                    users = CmsLogic.User.GetUsers(a => a.Enabled);
+//                    users = CmsLogic.UserBll.GetUsers(a => a.Enabled);
 //                    break;
 //                case "site":
-//                    users = CmsLogic.User.GetUsers(a => a.SiteId == this.CurrentSite.SiteId);
+//                    users = CmsLogic.UserBll.GetUsers(a => a.SiteId == this.CurrentSite.SiteId);
 //                    break;
 //                default:
-//                    users = CmsLogic.User.GetAllUser();
+//                    users = CmsLogic.UserBll.GetAllUser();
 //                    break;
 //            }
 
@@ -454,13 +454,13 @@ namespace JR.Cms.Web.WebManager.Handle
 //            {
 //                case "disabled":
 //
-//                    dt = CmsLogic.User.GetPagedAvailableOperationList(false, pageSize, currentPageIndex, out recordCount, out pageCount);
+//                    dt = CmsLogic.UserBll.GetPagedAvailableOperationList(false, pageSize, currentPageIndex, out recordCount, out pageCount);
 //                    break;
 //                case "available":
-//                    dt = CmsLogic.User.GetPagedAvailableOperationList(true, pageSize, currentPageIndex, out recordCount, out pageCount);
+//                    dt = CmsLogic.UserBll.GetPagedAvailableOperationList(true, pageSize, currentPageIndex, out recordCount, out pageCount);
 //                    break;
 //                default:
-//                    dt = CmsLogic.User.GetPagedOperationList(pageSize, currentPageIndex, out recordCount, out pageCount);
+//                    dt = CmsLogic.UserBll.GetPagedOperationList(pageSize, currentPageIndex, out recordCount, out pageCount);
 //                    break;
 //            }
 //
@@ -498,7 +498,7 @@ namespace JR.Cms.Web.WebManager.Handle
             string name = form["name"],
                 path = form["path"];
 
-            CmsLogic.User.CreateNewOperation(name, path);
+            CmsLogic.UserBll.CreateNewOperation(name, path);
         }
 
         /// <summary>
@@ -512,7 +512,7 @@ namespace JR.Cms.Web.WebManager.Handle
                 path = form["path"],
                 available = form["available"];
 
-            CmsLogic.User.UpdateOperation(int.Parse(id), name, path,available == "true");
+            CmsLogic.UserBll.UpdateOperation(int.Parse(id), name, path,available == "true");
         }
 
         /// <summary>
@@ -527,12 +527,12 @@ namespace JR.Cms.Web.WebManager.Handle
 //            int groupId;
 //            int.TryParse(HttpContext.Current.Request["groupid"], out groupId);
 //            if (groupId == 0) groupId = 1;
-//            UserGroup usergroup=CmsLogic.User.GetUserGroup((UserGroups)groupId);
+//            UserGroup usergroup=CmsLogic.UserBll.GetUserGroup((UserGroups)groupId);
 //
 //
 //            StringBuilder sb=new StringBuilder();
 //            //用户组下拉列表
-//            foreach(UserGroup group in CmsLogic.User.GetUserGroups())
+//            foreach(UserGroup group in CmsLogic.UserBll.GetUserGroups())
 //            {
 //                sb.Append("<option value=\"").Append(group.Id).Append(group.Id==groupId?"\" selected=\"selected\"":"\"").Append(">").Append(group.Name).Append("</option>");
 //            }
@@ -549,7 +549,7 @@ namespace JR.Cms.Web.WebManager.Handle
 //
 //
 //            //其他的权限下拉列表
-//            foreach (Operation op in CmsLogic.User.GetOperationList())
+//            foreach (Operation op in CmsLogic.UserBll.GetOperationList())
 //            {
 //                if (Array.Find(usergroup.Permissions, a => a.ID == op.ID) == null)
 //                {
@@ -578,8 +578,8 @@ namespace JR.Cms.Web.WebManager.Handle
             string groupId = HttpContext.Current.Request.Form["groupid"],
                    permissionStr = HttpContext.Current.Request.Form["permissions"];
 
-            CmsLogic.User.UpdateUserGroupPermissions((UserGroups)(int.Parse(groupId)),
-                CmsLogic.User.ConvertToPermissionArray(permissionStr.Replace("|", ",")));
+            CmsLogic.UserBll.UpdateUserGroupPermissions((UserGroups)(int.Parse(groupId)),
+                CmsLogic.UserBll.ConvertToPermissionArray(permissionStr.Replace("|", ",")));
         }
 
     }

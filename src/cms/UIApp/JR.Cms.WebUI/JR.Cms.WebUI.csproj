@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JR.Cms.WebUI</RootNamespace>
     <AssemblyName>JR.Cms.WebUI</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -33,6 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,6 +42,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="jrdev, Version=1.0.1.0, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
@@ -51,21 +53,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\RouteDebug.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\refrence.dll\StructureMap.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SQLite, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.101.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -360,6 +364,7 @@
     <Content Include="public\assets\js\table.js" />
     <Content Include="public\assets\js\ui.js" />
     <Content Include="public\assets\js\upload.js" />
+    <Content Include="public\assets\require.js" />
     <Content Include="public\assets\template.css" />
     <Content Include="public\assets\tree\img\base.gif" />
     <Content Include="public\assets\tree\img\cd.gif" />
@@ -583,38 +588,17 @@
       <Name>JR.Cms.DataTransfer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="public\assets\editor2\lang\" />
-    <Folder Include="public\assets\editor2\plugins\anchor\" />
-    <Folder Include="public\assets\editor2\plugins\autoheight\" />
-    <Folder Include="public\assets\editor2\plugins\baidumap\" />
-    <Folder Include="public\assets\editor2\plugins\clearhtml\" />
-    <Folder Include="public\assets\editor2\plugins\code\" />
-    <Folder Include="public\assets\editor2\plugins\emoticons\images\" />
-    <Folder Include="public\assets\editor2\plugins\filemanager\images\" />
-    <Folder Include="public\assets\editor2\plugins\flash\" />
-    <Folder Include="public\assets\editor2\plugins\image\images\" />
-    <Folder Include="public\assets\editor2\plugins\insertfile\" />
-    <Folder Include="public\assets\editor2\plugins\lineheight\" />
-    <Folder Include="public\assets\editor2\plugins\link\" />
-    <Folder Include="public\assets\editor2\plugins\map\" />
-    <Folder Include="public\assets\editor2\plugins\media\" />
-    <Folder Include="public\assets\editor2\plugins\multiimage\images\" />
-    <Folder Include="public\assets\editor2\plugins\pagebreak\" />
-    <Folder Include="public\assets\editor2\plugins\plainpaste\" />
-    <Folder Include="public\assets\editor2\plugins\preview\" />
-    <Folder Include="public\assets\editor2\plugins\quickformat\" />
-    <Folder Include="public\assets\editor2\plugins\table\" />
-    <Folder Include="public\assets\editor2\plugins\template\html\" />
-    <Folder Include="public\assets\editor2\plugins\wordpaste\" />
-    <Folder Include="public\assets\editor2\themes\common\" />
-    <Folder Include="public\assets\editor2\themes\default\" />
-    <Folder Include="public\assets\editor2\themes\qq\" />
-    <Folder Include="public\assets\editor2\themes\simple\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

@@ -1,4 +1,4 @@
-﻿using J6.DevFw.PluginKernel;
+﻿using JR.DevFw.PluginKernel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

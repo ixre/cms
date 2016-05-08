@@ -26,7 +26,7 @@ namespace JR.Cms.Resource
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "template.css",
                 cssComment + ResourceUtility.CompressHtml(SiteResource.template), !true);
 
-            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "core.js", 
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "cms.js", 
                 comment + SiteResource.cms_core_min, !true);
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "api.js",

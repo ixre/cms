@@ -58,7 +58,7 @@ namespace JR.Cms.Utility
             return "";
 //            if (Regex.IsMatch(publisher_id, "^[a-z0-9_]+$"))
 //            {
-//                User u = ubll.GetUser(publisher_id);
+//                UserBll u = ubll.GetUser(publisher_id);
 //                if (u != null)
 //                {
 //                    return u.Name;

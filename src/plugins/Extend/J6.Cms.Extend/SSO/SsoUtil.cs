@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace J6.Cms.Extend.SSO
+namespace JR.Cms.Extend.SSO
 {
     public static class SsoUtil
     {

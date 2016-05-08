@@ -174,7 +174,7 @@ namespace JR.Cms.Service
             ISite site = this._resp.GetSiteById(siteId);
             IEnumerable<ICategory> categories =
                 site.GetCategories(lft, rgt, categoryContainerOption);
-            CategoryDto dto;
+            CategoryDto Bdto;
             foreach (ICategory category in categories)
             {
                 yield return CategoryDto.ConvertFrom(category);

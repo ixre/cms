@@ -39,7 +39,7 @@ namespace JR.Cms.Web.Resource {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("jr.Cms.Web.Resource.SiteResource", typeof(SiteResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JR.Cms.Web.Resource.SiteResource", typeof(SiteResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -69,7 +69,7 @@ namespace JR.Cms.Web.Resource {
         /////    global.js?hover=navi,clist,alist&amp;ld=：
         /////    对导航,栏目导航和文档导航设置样式为&quot;current&quot;
         /////
-        ///function j6l() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } j6l.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function JR() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } JR.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string cms_core_min {
             get {
