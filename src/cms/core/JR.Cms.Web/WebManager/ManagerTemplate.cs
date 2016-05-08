@@ -11,7 +11,9 @@
 //
 //
 
+using System;
 using System.Runtime.CompilerServices;
+using JR.Cms.Conf;
 using JR.DevFw;
 
 namespace JR.Cms.WebManager
@@ -27,7 +29,7 @@ namespace JR.Cms.WebManager
 
         static ManagerTemplate()
         {
-            js = "<script type=\"text/javascript\" charset=\"utf-8\" src=\"?res=bWFuYWdlX2pzX21pbg==&amp;" + Cms.Version + ".js\"></script>";
+            js = String.Format("<script type=\"text/javascript\" charset=\"utf-8\" src=\"/{0}/mui/js/base.js?{1}\"></script>",CmsVariables.FRAMEWORK_PATH,CmsVariables.VERSION);
             css = "<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + Cms.Version + ".css\"/>";
             iconTreeCss="<link rel=\"Stylesheet\" type=\"text/css\" href=\"public/mui/css/old/sys_themes/default/btn_spirites.css?v=" + Cms.Version + "\"/>";
         }
@@ -124,3 +126,4 @@ namespace JR.Cms.WebManager
         }
     }
 }
+

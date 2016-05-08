@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.Domain.Implement.Use
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.Domain.Interface", "Domain\JR.Cms.Domain.Interface\JR.Cms.Domain.Interface.csproj", "{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "J6.DevFw.WebResource", "..\..\..\net_devfw\src\toolkit\J6.DevFw.WebResource\J6.DevFw.WebResource.csproj", "{6DFC3F5F-8B0D-4826-8FB0-5FA565E9E886}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +164,10 @@ Global
 		{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DFC3F5F-8B0D-4826-8FB0-5FA565E9E886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DFC3F5F-8B0D-4826-8FB0-5FA565E9E886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DFC3F5F-8B0D-4826-8FB0-5FA565E9E886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DFC3F5F-8B0D-4826-8FB0-5FA565E9E886}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +196,7 @@ Global
 		{2A596A39-7197-4932-B30B-3AE4EE10FDFC} = {DA6E29CD-269C-4877-90FC-D39E4A215EED}
 		{EC1100C3-AAD0-44DA-BA75-BC4BF4F65D71} = {DA6E29CD-269C-4877-90FC-D39E4A215EED}
 		{DB45CA62-9B89-4ABE-9ED2-54B45175D37B} = {DA6E29CD-269C-4877-90FC-D39E4A215EED}
+		{6DFC3F5F-8B0D-4826-8FB0-5FA565E9E886} = {2EA5E627-2486-4013-ABE8-0CC136D1BAEB}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Source_Code\OPSite.WebLogic\OPSite.WebLogic.csproj

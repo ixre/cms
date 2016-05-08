@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JR.Cms</RootNamespace>
     <AssemblyName>JR.Cms.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -57,7 +57,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>jr.cms.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="jrdev, Version=1.0.1.0, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
@@ -116,7 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <None Include="jr.cms.snk" />
     <None Include="_#upgrade\tpl_packs\tpl_default.zip" />
     <None Include="_#upgrade\tpl_packs\tpl_diy.zip" />
   </ItemGroup>

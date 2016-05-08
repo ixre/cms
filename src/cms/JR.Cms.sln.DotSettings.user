@@ -4,4 +4,6 @@
   &lt;Assembly Path="D:\develop\cms\src\cms\packages\structuremap.4.2.0.402\lib\net40\StructureMap.dll" /&gt;&#xD;
   &lt;Assembly Path="D:\develop\cms\src\cms\packages\structuremap.4.2.0.402\lib\net40\StructureMap.Net4.dll" /&gt;&#xD;
   &lt;Assembly Path="D:\develop\cms\src\cms\packages\System.Data.SQLite.Core.1.0.101.0\lib\net40\System.Data.SQLite.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+  &lt;Assembly Path="D:\develop\cms\src\cms\packages\LevelDB.Net.1.2.1\lib\net40\LevelDB.Net.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:Int64 x:Key="/Default/Environment/SearchAndNavigation/DefaultOccurencesGroupingIndex/@EntryValue">0</s:Int64></wpf:ResourceDictionary>

@@ -7,7 +7,7 @@ namespace JR.Cms.Conf
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="1.3.37";
+        public const string VERSION="2.0.01";
 
         /// <summary>
         /// 框架目录

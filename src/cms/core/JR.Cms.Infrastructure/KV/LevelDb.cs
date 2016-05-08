@@ -24,13 +24,15 @@ namespace JR.Cms.Infrastructure.KV
 
         private void Rebuilt()
         {
-            Cache c = new Cache(100*1024*1024);
+
+           // Cache c = new Cache(100*1024*1024);
             var options = new Options()
             {
-                BlockCache = c,
+               // BlockCache = c,
                 CreateIfMissing = true,
             };
-            this._db = new DB(options, this._path);
+            this._db = LevelDB.DB.Open(this._path, options);
+
         }
 
         public void Clean()
@@ -52,9 +54,9 @@ namespace JR.Cms.Infrastructure.KV
 
         public string Put(string key, string value)
         {
-            string oldValue = this._db.Get(key);
-
-
+            Slice oldValue;
+            bool exits = this._db.TryGet(ReadOptions.Default, key, out oldValue);
+            
             if (value != null && !Platform.RunAtLinux() &&
                 value.Length > Platform.LimitCharLength)
             {
@@ -62,27 +64,32 @@ namespace JR.Cms.Infrastructure.KV
                 value = Convert.ToBase64String(bytes);
             }
 
-            this._db.Put(key, value);
-            return oldValue;
+            this._db.Put(WriteOptions.Default, key, value);
+            return exits?oldValue.ToString():String.Empty;
         }
 
         public void Delete(string key)
         {
-            this._db.Delete(key);
+            this._db.Delete(WriteOptions.Default, key);
         }
 
         public string Get(string key)
         {
-            string value = this._db.Get(key);
+            Slice s;
 
-            if (value != null && !Platform.RunAtLinux() && value.Length > Platform.LimitCharLength)
+            if (this._db.TryGet(ReadOptions.Default, key, out s))
             {
-                byte[] bytes = Convert.FromBase64String(value);
-                return Encoding.UTF8.GetString(bytes);
+                String value = s.ToString();
+                if (value != null && !Platform.RunAtLinux() && value.Length > Platform.LimitCharLength)
+                {
+                    byte[] bytes = Convert.FromBase64String(value);
+                    return Encoding.UTF8.GetString(bytes);
+                }
+
+
+                return value;
             }
-
-
-            return value;
+            return String.Empty;
         }
 
         internal int GetInt(string key)

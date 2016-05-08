@@ -18,7 +18,7 @@ using JR.Cms.Web.Mvc;
 using JR.Cms.Web.Task;
 using JR.DevFw.Web;
 
-namespace JR.Cms.Handler
+namespace JR.Cms
 {
     /// <summary>
     /// Description of HttpApplicaiton.
