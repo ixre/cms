@@ -30,18 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="j6.cms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\dist\j6.cms.dll</HintPath>
+    <Reference Include="jrcms">
+      <HintPath>..\..\..\..\dist\jrcms.dll</HintPath>
     </Reference>
-    <Reference Include="j6.devfw">
-      <HintPath>..\..\..\refrence.dll\j6.devfw.dll</HintPath>
+    <Reference Include="jrdev">
+      <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\refrence.dll\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\..\refrence.dll\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\..\refrence.dll\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -92,9 +94,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Extend\J6.Cms.Extend\J6.Cms.Extend.csproj">
+    <ProjectReference Include="..\..\Extend\J6.Cms.Extend\JR.Cms.Extend.csproj">
       <Project>{a05fea7b-9bf8-4265-95e5-1b9d6aeca379}</Project>
-      <Name>J6.Cms.Extend</Name>
+      <Name>JR.Cms.Extend</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

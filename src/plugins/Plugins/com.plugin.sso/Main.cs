@@ -9,9 +9,9 @@
  * history : 
  */
 
-using J6.DevFw.PluginKernel;
+using JR.DevFw.PluginKernel;
 using System;
-using J6.DevFw.Web.Plugin;
+using JR.DevFw.Web.Plugin;
 
 namespace com.plugin.sso
 {

@@ -11,7 +11,7 @@
 //
 //
 
-namespace J6.Cms.XmlRpc
+namespace JR.Cms.XmlRpc
 {
     using System;
     using System.Collections.Generic;

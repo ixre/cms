@@ -1,5 +1,5 @@
-﻿using J6.DevFw.PluginKernel;
-using J6.DevFw.Data;
+﻿using JR.DevFw.PluginKernel;
+using JR.DevFw.Data;
 
 namespace com.plugin.sso.Core
 {

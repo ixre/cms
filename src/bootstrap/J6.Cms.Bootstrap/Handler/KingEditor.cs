@@ -19,11 +19,12 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
-using J6.DevFw.Utils;
-using J6.Cms.Conf;
-using J6.Cms.WebManager;
+using JR.Cms;
+using JR.Cms.Conf;
+using JR.Cms.WebManager;
+using JR.DevFw.Utils;
 
-namespace J6.Cms.Handler
+namespace JR.Cms.Handler
 {
     public class EditorUploadHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
     {

@@ -12,7 +12,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using J6.DevFw.Toolkit.Data.Export;
+using JR.DevFw.Toolkit.Data.Export;
 
 namespace com.plugin.sso.Core.Utils
 {

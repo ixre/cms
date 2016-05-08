@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using LevelDB;
 
-namespace J6.Cms.Extend.SSO
+namespace JR.Cms.Extend.SSO
 {
     internal class LevelDbSessionProvider : ISessionSet
     {
