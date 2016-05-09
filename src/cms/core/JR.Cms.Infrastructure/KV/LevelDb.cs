@@ -54,12 +54,12 @@ namespace JR.Cms.Infrastructure.KV
 
         public string Put(string key, string value)
         {
+
             Slice oldValue;
             bool exits = this._db.TryGet(ReadOptions.Default, key, out oldValue);
             
             if (value != null && !Platform.RunAtLinux() &&
-                value.Length > Platform.LimitCharLength)
-            {
+                value.Length > Platform.LimitCharLength){
                 byte[] bytes = Encoding.UTF8.GetBytes(value);
                 value = Convert.ToBase64String(bytes);
             }
@@ -76,7 +76,6 @@ namespace JR.Cms.Infrastructure.KV
         public string Get(string key)
         {
             Slice s;
-
             if (this._db.TryGet(ReadOptions.Default, key, out s))
             {
                 String value = s.ToString();

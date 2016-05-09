@@ -88,9 +88,6 @@
     <Reference Include="jrdev.Toolkit.Tags">
       <HintPath>..\..\..\refrence.dll\jrdev.Toolkit.Tags.dll</HintPath>
     </Reference>
-    <Reference Include="jrdev.Toolkit.ThirdApi">
-      <HintPath>..\..\..\refrence.dll\jrdev.Toolkit.ThirdApi.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\refrence.dll\Newtonsoft.Json.dll</HintPath>
     </Reference>

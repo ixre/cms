@@ -1,7 +1,6 @@
 ﻿using System;
 using JR.Cms.BLL;
 using JR.Cms.DB;
-using JR.Cms.Domain.Interface.Common;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Site;
@@ -23,8 +22,6 @@ using JR.Cms.ServiceRepository.Export;
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using StructureMap;
-using IUser = JR.Cms.Domain.Interface.User.IUser;
 
 namespace JR.Cms.Service
 {
@@ -73,6 +70,7 @@ namespace JR.Cms.Service
 
             });
             ExportManager.Initialize(AppDomain.CurrentDomain.BaseDirectory + "public/query/", CmsDataBase.Instance);
+
         }
     }
 }
