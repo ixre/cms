@@ -10,8 +10,8 @@
  */
 
 using System;
-using J6.Cms.Conf;
-using J6.DevFw.Data;
+using JR.Cms.Conf;
+using JR.DevFw.Data;
 
 namespace com.plugin.sso.Core
 {

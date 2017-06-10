@@ -14,11 +14,11 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using J6.Cms.Web.Mvc;
-using J6.Cms.Web.Task;
-using J6.DevFw.Web;
+using JR.Cms.Web.Mvc;
+using JR.Cms.Web.Task;
+using JR.DevFw.Web;
 
-namespace J6.Cms
+namespace JR.Cms
 {
     /// <summary>
     /// Description of HttpApplicaiton.
@@ -85,7 +85,7 @@ namespace J6.Cms
                     HttpResponse rsp = HttpContext.Current.Response;
                     rsp.Write(@"<html><head></head>
                         <body style=""text-align:center""><h1 style="""">" + exc.Message
-                        + "</h1><hr /><span>J6.Cms v" + Cms.Version
+                        + "</h1><hr /><span>JR..Cms v" + Cms.Version
                         + "</span>\r\n<span style=\"display:none\">"
                         + exc.StackTrace + "</span>"
                         + "</body></html>");

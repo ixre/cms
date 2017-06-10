@@ -1,7 +1,7 @@
 ﻿
 
-using J6.DevFw.Toolkit.NetCrawl;
-using J6.DevFw.Toolkit.Tags;
+using JR.DevFw.Toolkit.NetCrawl;
+using JR.DevFw.Toolkit.Tags;
 
 namespace sp.datapicker
 {
@@ -16,14 +16,14 @@ namespace sp.datapicker
     using System;
     using System.IO;
     using System.Text;
-    using J6.Cms.Domain.Interface.Content.Archive;
-    using J6.Cms.DataTransfer;
-    using J6.Cms;
-    using J6.Cms.Web.WebManager;
-    using J6.Cms.CacheService;
+    using JR.Cms.Domain.Interface.Content.Archive;
+    using JR.Cms.DataTransfer;
+    using JR.Cms;
+    using JR.Cms.Web.WebManager;
+    using JR.Cms.CacheService;
     using System.Collections.Generic;
-    using J6.Cms.Utility;
-    using J6.Cms.Conf;
+    using JR.Cms.Utility;
+    using JR.Cms.Conf;
     using System.Text.RegularExpressions;
     using System.Net;
 

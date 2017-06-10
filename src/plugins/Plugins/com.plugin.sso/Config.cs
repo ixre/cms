@@ -9,7 +9,7 @@
  * history : 
  */
 
-using J6.DevFw.PluginKernel;
+using JR.DevFw.PluginKernel;
 
 namespace com.plugin.sso
 {

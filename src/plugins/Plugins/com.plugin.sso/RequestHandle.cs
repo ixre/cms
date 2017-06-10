@@ -9,10 +9,10 @@
  * history : 
  */
 
-using J6.DevFw.PluginKernel;
+using JR.DevFw.PluginKernel;
 using System.Web;
-using J6.Cms.Extend.SSO;
-using J6.Cms.Extend.SSO.Server;
+using JR.Cms.Extend.SSO;
+using JR.Cms.Extend.SSO.Server;
 
 
 //  Test :

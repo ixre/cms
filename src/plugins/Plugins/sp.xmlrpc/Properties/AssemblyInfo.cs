@@ -1,16 +1,16 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using J6.DevFw.PluginKernel;
+using JR.DevFw.PluginKernel;
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("J6.Cms XML-RPC")]
+[assembly: AssemblyTitle("JR.Cms XML-RPC")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("J6.Cms XML-RPC Plugin")]
+[assembly: AssemblyProduct("JR.Cms XML-RPC Plugin")]
 [assembly: AssemblyCopyright("Copyright © ops 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
