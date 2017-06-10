@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<lang>
+  <item key="PAGE_NO_TAGS" Zh_CN="无标签" Zh_TW="无标签" En="No tags" Es="No tags" Th="ไม่มี แท็ก" Fr="Pas d'étiquette" Ru="нет Этикетка" Ar="لا تسمية"/>
+  <item key="PAGER_PrePageText" Zh_CN="上一页" Zh_TW="上一頁" En="previous" Es="previo" Th="ก่อน" Fr="antérieur" Ru="предыдущий" Ar="سابق"/>
+  <item key="PAGER_NextPageText" Zh_CN="下一页" Zh_TW="下一頁" En="next" Es="próximo" Th="ต่อไป" Fr="prochaine" Ru="следующий" Ar="التالي"/>
+  <item key="PAGER_SelectPageText" Zh_CN="选择页码：{0}页" Zh_TW="選擇頁碼：{0}頁" En="Select Page:{0}"
+          Es="Elija Página:{0}" Th="ถัดไปเลือกหน้า:{0}" Fr="Choisissez la page:{0}" Ru="Выберите страницу:{0}" Ar="اختيار الصفحة {0}"/>
+  <item key="PAGE_PagerTitle" Zh_CN="(第{0}页)" Zh_TW="(第{0}頁)" En="(Page:{0})" Es="(Página:{0})"
+         Th="หน้าแรก :{0}" Fr="(page:{0})" Ru="(страница:{0})" Ar="(صفحة:{0})"/>
+  <item key="PAGER_PagerTotal" Zh_CN="第{0}/{1}页,共{2}条记录" Zh_TW="第{0}/{1}頁,共{2}条記錄" En="Page:{0}/{1},total {2}" 
+         Es="Página:{0}/{1},total {2}" Th="ครั้งแรก {0} / {1} ของ {2} บันทึก" Fr="{0}/{1},total:{2}" Ru="{0}/{1},общее:{2}" Ar="{0}/{1},مجموع{2}"/>
+  <item key="ARCHIVE_NoPrevious" Zh_CN="没有了" Zh_TW="没有了" En="end" Es="sin" Th="โดยไม่ต้อง" Fr="sans" Ru="без" Ar="بدون"/>
+  <item key="ARCHIVE_NoNext" Zh_CN="没有了"  Zh_TW="没有了" En="end" Es="sin" Th="โดยไม่ต้อง" Fr="sans" Ru="без" Ar="بدون"/>
+  <item key="ARCHIVE_Tags" Zh_CN="标签" Zh_TW="標籤" En="Tags" Es="Tags" Th="ฉลาก" Fr="étiquette" Ru="этикетка" Ar="ملصق"/>
+
+  <!-- 模板翻译 -->
+  <item key="home" Zh_CN="首页" Zh_TW="首頁" En="Home" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="sitemap_location" Zh_CN="你的位置" Zh_TW="位置" En="Location" Es="Localización" Th="สถานที่" Fr="Lieu" Ru="Место нахождения" Ar="موقع"/>
+  <item key="close" Zh_CN="关闭" Zh_TW="關閉" En="Close" Es="Cerca" Th="ปิด" Fr="Près" Ru="Закрыть" Ar="إغلاق"/>
+  <item key="space" Zh_CN="" Zh_TW="" En=" " Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="product" Zh_CN="产品" Zh_TW="產品" En="Product" Es="Producto" Th="สินค้า" Fr="Produit" Ru="Продукт" Ar="المنتج"/>
+  <item key="service" Zh_CN="服务" Zh_TW="服務" En="Service" Es="Servicio" Th="บริการ" Fr="Service" Ru="обслуживание" Ar="خدمة"/>
+  <item key="help" Zh_CN="帮助" Zh_TW="幫助" En="Help" Es="Ayuda" Th="ช่วยด้วย" Fr="Aidez-moi" Ru="Помогите" Ar="مساعدة"/>
+  <item key="case" Zh_CN="案例" Zh_TW="案例" En="Case" Es="caso" Th="กรณี" Fr="cas" Ru="дело" Ar="شركة"/>
+  <item key="company" Zh_CN="公司" Zh_TW="公司" En="Company" Es="Compañía" Th="บริษัท" Fr="entreprise" Ru="Компания" Ar="شركة"/>
+  <item key="about" Zh_CN="关于" Zh_TW="關於" En="About" Es="Acerca de" Th="เกี่ยวกับ" Fr="sur" Ru="Около" Ar="حول"/>
+  <item key="contact" Zh_CN="联系" Zh_TW="聯繫" En="Contact" Es="Contacto" Th="ติดต่อ" Fr="Contactez" Ru="контакт" Ar="اتصال"/>
+  <item key="tel" Zh_CN="电话" Zh_TW="電話" En="Tel" Es="tel" Th="โทร" Fr="tél" Ru="телефон" Ar="الهاتف"/>
+  <item key="us" Zh_CN="我们" Zh_TW="我們" En="Us" Es="nos" Th="เรา" Fr="nous" Ru="нас" Ar="لنا"/>
+  <item key="search" Zh_CN="搜索" Zh_TW="搜尋" En="Search" Es="buscar" Th="ค้นหา" Fr="chercher" Ru="поиск" Ar="البحث عن"/>
+  <item key="dot" Zh_CN="▪" Zh_TW="▪" En="▪" Es="▪" Th="▪" Fr="▪" Ru="▪" Ar="▪"/>
+  <item key="all" Zh_CN="全部" Zh_TW="全部" En="All" Es="todas" Th="ทั้งหมด" Fr="tous" Ru="все" Ar="جميع"/>
+  <item key="by" Zh_CN="通过" Zh_TW="通過" En="By" Es="por" Th="โดย" Fr="par" Ru="от" Ar="بواسطة"/>
+  <item key="more" Zh_CN="更多" Zh_TW="更多" En="More" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="details" Zh_CN="详情" Zh_TW="更多" En="Details" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="change" Zh_CN="切换" Zh_TW="Change" En="Change" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="Zh_CN" Zh_CN="中文(简体)" Zh_TW="" En="" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="En" Zh_CN="英文" Zh_TW="" En="English" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="Zh_TW" Zh_CN="中文(繁体)" Zh_TW="中文(繁体)" En="" Es="" Th="" Fr="" Ru="" Ar=""/>
+</lang>

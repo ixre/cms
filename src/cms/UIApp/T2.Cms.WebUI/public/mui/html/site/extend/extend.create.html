@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>创建扩展属性</title>
+        $css()
+	</head>
+	<body>
+        <div class="form">
+            <div class="title"><span class="icon icon1"></span>扩展属性</div>
+            <div id="extend_form">
+                ${form}
+
+                <dl>
+                    <dt>&nbsp;</dt>
+                    <dd>
+                        <span class="ui-button w150" id="btn">
+                            <span class=" button-inner">
+                                <span class="button-txt">保存</span>
+                                <a href="javascript:;"></a>
+                            </span>
+                        </span>
+
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+        
+        $js()
+        <script type="text/javascript">
+            jr.$('btn').onclick = function () {
+                if (jr.validator.validate('extend_form')) {
+                    jr.xhr.jsonPost('?module=extend&action=save',
+                        jr.json.toObject('extend_form'),
+                        function (json) {
+                            if (json.result) {
+                                showMsg2(json.message);
+                            } else {
+                               showErr(json.message);
+                            }
+                        });
+                }
+            };
+        </script>
+	</body>
+</html>

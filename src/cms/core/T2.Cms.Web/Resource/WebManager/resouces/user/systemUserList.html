@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>系统用户</title>$css()
+</head>
+<body>
+<div class="_tabarea">
+<!--
+    <div class="tab_mini">
+        <a href="javascript:;" class="current">系统用户</a>
+        <a href="?module=user&amp;action=setpermissions">用户组权限设置</a>
+        <a href="?module=user&amp;action=operationlist&amp;filter=all">权限管理</a>
+    </div>-->
+        <div class="area">  
+
+
+    <div class="tip" style="border:solid 1px #e5e5e5;margin-bottom:3px;">
+        <span>1.创建用户:在表格第一行输入数据后点击确定新建</span> <span>&nbsp;&nbsp;&nbsp;&nbsp;2.保存用户:点击相应用户表格中的
+            <button class="save">
+            </button>
+            按钮</span>
+        <br />
+        <span>3.修改密码:密码显示为***,如需修改密码，在输入框输入密码后点保存按钮修改</span>
+    </div>
+    <table class="ui-table" cellspacing="0" cellpadding="0" id="users">
+        <tr>
+            <th width="40">
+                编号
+            </th>
+            <th style="width:100px">
+                用户名
+            </th>
+            <th style="width:100px">
+                密码
+            </th>
+            <th>
+                名称
+            </th>
+            <th>
+                隶属用户组
+            </th>
+            <th width="40">
+                启用
+            </th>
+            <th width="120">
+                最后登录时间
+            </th>
+            <th width="40">
+                保存
+            </th>
+            <th width="40">
+                删除
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <strong>新增</strong>
+            </td>
+            <td>
+                <input type="text" class="tb_normal"/>
+            </td>
+            <td>
+                <input type="text" class="tb_normal" />
+            </td>
+            <td>
+                <input type="text" class="tb_normal"/>
+            </td>
+            <td>
+                <select class="tb_normal" id="group">
+                    ${groups}
+                </select>&nbsp;</td>
+            <td colspan="4">
+                <a href="javascript:;" class="btn" id="btncreate">创建用户</a>
+            </td>
+        </tr>
+        ${users}
+
+    </table>
+    
+    <div class="ui-table-meta">共${count}个系统用户</div>
+
+    </div>
+</div>
+$js()
+    <script type="text/javascript">
+
+        var tb = cms.$('users');
+        cms.table.dynamic(tb);
+
+        cms.$('btncreate').onclick = function () {
+            var tds = this.parentNode.parentNode.getElementsByTagName('input');
+            var username = escape(tds[0].value),
+      password = escape(tds[1].value),
+      name = escape(tds[2].value);
+            var groupID = this.parentNode.parentNode.getElementsByTagName('select')[0].value;
+
+
+            if (username == '')  parent.M.alert('请输入账号！');
+        else if (password == '') parent.M.alert('请输入密码！');
+        else if (name == '')  parent.M.alert('请输入名称！');
+            else {
+                cms.xhr.post('?', 'module=user&action=createuser&username=' + username + '&password=' + password + '&name=' + name + '&groupID=' + groupID,
+        function (x) {
+            eval(x);
+        }, function (x) { alert(x); });
+            }
+        };
+
+        var btns = tb.getElementsByTagName('button');
+        for (var i = 0; i < btns.length; i++) {
+
+            /*保存*/
+            if (btns[i].className == 'save') {
+
+                btns[i].onclick = (function (elem) {
+                    return function () {
+                        var tds = elem.parentNode.parentNode.getElementsByTagName('td');
+                        var username = escape(tds[1].innerHTML),
+            password = escape(tds[2].childNodes[0].value),
+            name = escape(tds[3].childNodes[0].value),
+            groupID = tds[4].getElementsByTagName('select')[0].value,
+            available = tds[5].childNodes[0].checked;
+
+                        cms.xhr.post('?', 'module=user&action=updateuser&username=' + username + '&password=' + password + '&name=' + name + '&groupID=' + groupID + '&available=' + available,
+        function (x) { eval(x); }, function (x) { alert(x); });
+
+                    };
+                })(btns[i]);
+            } else if (btns[i].className == 'delete') {
+                /*删除*/
+                btns[i].onclick = (function (elem) {
+                    return function () {
+                        var tr = elem.parentNode.parentNode;
+                        var username = escape(tr.getElementsByTagName('TD')[1].innerHTML);
+
+                        cms.xhr.post('?', 'module=user&action=deleteuser&username=' + username,
+        function (x) { eval(x); }, function (x) { alert(x); });
+                    };
+                })(btns[i]);
+
+            }
+
+
+        }
+
+        function tip(msg) {
+            parent.M.alert(msg);
+        }
+
+    </script>
+</body>
+</html>
