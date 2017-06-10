@@ -11,8 +11,8 @@
 
 using JR.DevFw.PluginKernel;
 using System.Web;
-using JR.Cms.Extend.SSO;
-using JR.Cms.Extend.SSO.Server;
+using T2.Cms.Extend.SSO;
+using T2.Cms.Extend.SSO.Server;
 
 
 //  Test :

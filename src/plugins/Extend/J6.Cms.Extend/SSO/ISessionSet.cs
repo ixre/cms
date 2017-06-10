@@ -1,5 +1,5 @@
 ﻿
-namespace JR.Cms.Extend.SSO
+namespace T2.Cms.Extend.SSO
 {
     /// <summary>
     /// 会话数据集合

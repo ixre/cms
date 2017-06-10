@@ -25,23 +25,22 @@ using System.Text.RegularExpressions;
 using System.Web;
 using CookComputing.MetaWeblog;
 using CookComputing.XmlRpc;
-using JR.Cms;
-using JR.Cms.CacheService;
-using JR.Cms.DataTransfer;
-using JR.Cms.Domain.Interface.Content.Archive;
-using JR.Cms.BLL;
+using T2.Cms;
+using T2.Cms.CacheService;
+using T2.Cms.DataTransfer;
+using T2.Cms.Domain.Interface.Content.Archive;
+using T2.Cms.BLL;
 using Post = CookComputing.MetaWeblog.Post;
-using JR.Cms.Conf;
-using JR.Cms.Domain.Interface.User;
-using JR.Cms.XmlRpc;
-using IUser = JR.Cms.Domain.Interface._old.IUser;
+using T2.Cms.Conf;
+using T2.Cms.XmlRpc;
+using IUser = T2.Cms.Domain.Interface._old.IUserBll;
 
 namespace sp.xmlrpc.XmlRpc.src
 {
     public class WeblogRPCService : XmlRpcService, ImetaWeblog, ILiveWriterExtension
     {
         private static IUser _ubll;
-        private static IUser ubll { get { return _ubll ?? (_ubll = CmsLogic.User); } }
+        private static IUser ubll { get { return _ubll ?? (_ubll = CmsLogic.UserBll); } }
 
         /// <summary>
         /// 是否使用Base64来保存较小的图片
@@ -102,7 +101,7 @@ namespace sp.xmlrpc.XmlRpc.src
 @"<?xml version=""1.0"" encoding=""UTF-8""?>
 <rsd version=""1.0"" xmlns=""http://archipelago.phrasewise.com/rsd"">
   <service>
-    <engineName>JR.Cms.NET! XML-RPC PLUGIN!</engineName>
+    <engineName>T2.Cms.NET! XML-RPC PLUGIN!</engineName>
     <engineLink>http://k3f.net/cms/cms/xmlrpc</engineLink>
     <homePageLink>{0}</homePageLink>
     <apis>

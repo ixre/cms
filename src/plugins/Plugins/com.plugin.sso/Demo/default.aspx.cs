@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using JR.Cms.Extend.SSO.Client;
+using T2.Cms.Extend.SSO.Client;
 
-namespace JR.Cms.Extend.SSO.Demo
+namespace T2.Cms.Extend.SSO.Demo
 {
     public partial class WebForm1 : System.Web.UI.Page
     {

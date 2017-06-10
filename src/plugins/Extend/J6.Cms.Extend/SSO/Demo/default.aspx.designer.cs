@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace JR.Cms.Extend.SSO.Demo {
+namespace T2.Cms.Extend.SSO.Demo {
     
     
     public partial class WebForm1 {

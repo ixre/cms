@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace JR.Cms.Extend.SSO.Client
+namespace T2.Cms.Extend.SSO.Client
 {
     public interface ISessionClient
     {
