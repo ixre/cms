@@ -11,7 +11,7 @@
 
 using System.Web;
 using JR.DevFw.PluginKernel;
-using JR.Cms.Utility;
+using T2.Cms.Utility;
 using JR.DevFw.Web.Plugin;
 
 namespace com.plugin.sso

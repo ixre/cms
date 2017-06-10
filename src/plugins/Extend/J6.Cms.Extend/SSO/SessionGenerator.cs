@@ -2,7 +2,7 @@
 using System.Text;
 using JR.DevFw.Framework.Extensions;
 
-namespace JR.Cms.Extend.SSO
+namespace T2.Cms.Extend.SSO
 {
     internal class SessionGenerator
     {

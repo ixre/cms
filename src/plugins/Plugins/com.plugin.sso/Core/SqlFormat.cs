@@ -10,7 +10,7 @@
  */
 
 using System;
-using JR.Cms.Conf;
+using T2.Cms.Conf;
 using JR.DevFw.Data;
 
 namespace com.plugin.sso.Core

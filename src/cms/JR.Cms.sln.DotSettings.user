@@ -1,9 +1,0 @@
-﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
-  &lt;Assembly Path="D:\develop\cms\src\cms\UIApp\JR.Cms.WebUI\Bin\StructureMap.Net4.dll" /&gt;&#xD;
-  &lt;Assembly Path="D:\develop\cms\src\cms\packages\structuremap.4.2.0.402\lib\net40\StructureMap.dll" /&gt;&#xD;
-  &lt;Assembly Path="D:\develop\cms\src\cms\packages\structuremap.4.2.0.402\lib\net40\StructureMap.Net4.dll" /&gt;&#xD;
-  &lt;Assembly Path="D:\develop\cms\src\cms\packages\System.Data.SQLite.Core.1.0.101.0\lib\net40\System.Data.SQLite.dll" /&gt;&#xD;
-  &lt;Assembly Path="D:\develop\cms\src\cms\packages\LevelDB.Net.1.2.1\lib\net40\LevelDB.Net.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String>
-	<s:Int64 x:Key="/Default/Environment/SearchAndNavigation/DefaultOccurencesGroupingIndex/@EntryValue">0</s:Int64></wpf:ResourceDictionary>

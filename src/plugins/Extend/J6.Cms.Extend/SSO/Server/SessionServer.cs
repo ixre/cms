@@ -4,7 +4,7 @@ using System.Text;
 using System.Web;
 using Newtonsoft.Json;
 
-namespace JR.Cms.Extend.SSO.Server
+namespace T2.Cms.Extend.SSO.Server
 {
     public class SessionServer
     {

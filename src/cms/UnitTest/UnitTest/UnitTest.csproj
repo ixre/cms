@@ -61,7 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\core\JR.Cms.Infrastructure\JR.Cms.Infrastructure.csproj">
+    <ProjectReference Include="..\..\core\T2.Cms.Infrastructure\T2.Cms.Infrastructure.csproj">
       <Project>{28221385-8873-45F3-AFD6-611DFD041BEC}</Project>
       <Name>JR.Cms.Infrastructure</Name>
     </ProjectReference>

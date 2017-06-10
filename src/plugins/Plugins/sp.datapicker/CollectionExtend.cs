@@ -16,14 +16,14 @@ namespace sp.datapicker
     using System;
     using System.IO;
     using System.Text;
-    using JR.Cms.Domain.Interface.Content.Archive;
-    using JR.Cms.DataTransfer;
-    using JR.Cms;
-    using JR.Cms.Web.WebManager;
-    using JR.Cms.CacheService;
+    using T2.Cms.Domain.Interface.Content.Archive;
+    using T2.Cms.DataTransfer;
+    using T2.Cms;
+    using T2.Cms.Web.WebManager;
+    using T2.Cms.CacheService;
     using System.Collections.Generic;
-    using JR.Cms.Utility;
-    using JR.Cms.Conf;
+    using T2.Cms.Utility;
+    using T2.Cms.Conf;
     using System.Text.RegularExpressions;
     using System.Net;
 
