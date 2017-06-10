@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Configuration;
-using J6.Cms.Infrastructure.Domain;
+using JR.Cms.Infrastructure.Domain;
 
 namespace UnitTest
 {

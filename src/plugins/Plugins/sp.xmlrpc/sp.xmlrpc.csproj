@@ -33,11 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="j6.cms">
-      <HintPath>..\..\..\..\dist\j6.cms.dll</HintPath>
+    <Reference Include="jrcms">
+      <HintPath>..\..\..\..\dist\jrcms.dll</HintPath>
     </Reference>
-    <Reference Include="j6.devfw">
-      <HintPath>..\..\..\refrence.dll\j6.devfw.dll</HintPath>
+    <Reference Include="jrdev">
+      <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

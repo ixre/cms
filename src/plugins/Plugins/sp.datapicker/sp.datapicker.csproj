@@ -31,18 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="j6.cms">
-      <HintPath>..\..\..\..\dist\j6.cms.dll</HintPath>
+    <Reference Include="jrcms">
+      <HintPath>..\..\..\..\dist\jrcms.dll</HintPath>
     </Reference>
-    <Reference Include="j6.devfw, Version=0.1.5558.24707, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\refrence.dll\j6.devfw.dll</HintPath>
+    <Reference Include="jrdev">
+      <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
-    <Reference Include="J6.DevFw.Toolkit.NetCrawl">
-      <HintPath>..\..\..\refrence.dll\J6.DevFw.Toolkit.NetCrawl.dll</HintPath>
+    <Reference Include="jrdev.toolkit.netcrawl">
+      <HintPath>..\..\..\refrence.dll\jrdev.toolkit.netcrawl.dll</HintPath>
     </Reference>
-    <Reference Include="J6.DevFw.Toolkit.Tags">
-      <HintPath>..\..\..\refrence.dll\J6.DevFw.Toolkit.Tags.dll</HintPath>
+    <Reference Include="jrdev.toolkit.tags">
+      <HintPath>..\..\..\refrence.dll\jrdev.toolkit.tags.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

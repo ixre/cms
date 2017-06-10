@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using J6.DevFw.Data;
+using jrdev.Data;
 using System.Net;
 
-namespace J6.DevFw.Data.Test
+namespace jrdev.Data.Test
 {
     class Program
     {

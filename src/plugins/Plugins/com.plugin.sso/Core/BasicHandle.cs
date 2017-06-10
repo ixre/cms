@@ -4,13 +4,13 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
 using com.plugin.sso.Core.Utils;
-using J6.Cms;
-using J6.Cms.Conf;
-using J6.Cms.Web;
-using J6.DevFw.Data;
-using J6.DevFw.Framework.Extensions;
-using J6.DevFw.Template;
-using J6.DevFw.Framework.Web.UI;
+using JR.Cms;
+using JR.Cms.Conf;
+using JR.Cms.Web;
+using JR.DevFw.Data;
+using JR.DevFw.Framework.Extensions;
+using JR.DevFw.Template;
+using JR.DevFw.Framework.Web.UI;
 
 namespace com.plugin.sso.Core
 {
