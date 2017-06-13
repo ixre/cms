@@ -32,7 +32,7 @@ namespace T2.Cms
         /// </summary>
         public static TemplateHandler<object> OnPreRender;
 
-        const string CopyStr = "<!-- power by jr.Cms v {0} -->";
+        const string CopyStr = "<!-- power by JR-CMS v {0} -->";
 
         private static string version;
         private static string copyStr2012;
@@ -78,10 +78,10 @@ namespace T2.Cms
             const string copyStr = @"
 <!--
 *************************************************************************************
-* 本站使用《OPSite》驱动。唯一跨平台,支持多种数据库,基于ASP.net技术构建的网站管理系统。
-* 欢迎访问 http://k3f.net/cms/soft/opsite.html 获取详细信息及试用版本。
+* 本站使用《JR-CMS》驱动。唯一跨平台,支持多种数据库,基于ASP.net技术构建的网站管理系统。
+* 欢迎访问 http://to2.net/cms 获取详细信息及试用版本。
 
-* 【承接】定制网站,营销型网站,WAP手机网站开发。联系电话：18616999822  QQ:188867734
+* 【承接】定制网站,营销型网站,WAP手机网站开发。联系电话：13162222872  QQ:188867734
 *************************************************************************************
 -->";
            // html = Regex.Replace(html, pattern, String.Format("{0}</body></html>", copyStr2012), RegexOptions.IgnoreCase);

@@ -7,7 +7,7 @@ namespace T2.Cms.CacheService
         /// <summary>
         /// 全局缓存
         /// </summary>
-        public static LevelDb Gca
+        public static MicroKvStorage Gca
         {
             get { return Infrastructure.Kvdb._currentInstance;}
         }

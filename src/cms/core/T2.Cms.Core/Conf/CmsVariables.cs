@@ -7,7 +7,7 @@ namespace T2.Cms.Conf
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="2.0.01";
+        public const string VERSION="2.1.11";
 
         /// <summary>
         /// 框架目录
@@ -90,8 +90,8 @@ namespace T2.Cms.Conf
 
         public const string Archive_ThumbPrefix = "thumb";
 
-        internal const string FileEncodeHeader = "J6CMS";
-        internal const string FileEncodeToken = "j6cmspowbyk3fnet";
+        internal const string FileEncodeHeader = "JRCMS";
+        internal const string FileEncodeToken = "jrcmspowbyto2net";
     }
 
     public static class CmsCharMap

@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>T2.Cms.WebUI</RootNamespace>
     <AssemblyName>T2.Cms.WebUI</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -49,6 +49,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="RouteDebug, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\RouteDebug.dll</HintPath>
@@ -56,18 +59,32 @@
     <Reference Include="System">
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\refrence.dll\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -489,43 +506,10 @@
     <Content Include="public\mui\html\user\user_role_set.html" />
     <Content Include="public\mui\html\user\user_save_profile.html" />
     <Content Include="public\mui\js\base.js" />
-    <Content Include="templates\default\archive.about.html" />
     <Content Include="templates\default\archive.html" />
-    <Content Include="templates\default\archive.ips.html" />
-    <Content Include="templates\default\archive.ips_player.html" />
-    <Content Include="templates\default\archive.pic.html" />
     <Content Include="templates\default\category.html" />
-    <Content Include="templates\default\category.pic.html" />
-    <Content Include="templates\default\category.stand.html" />
-    <Content Include="templates\default\include\footer.phtml" />
-    <Content Include="templates\default\include\header.phtml" />
     <Content Include="templates\default\index.html" />
-    <Content Include="templates\default\notfound.html" />
     <Content Include="templates\default\search.html" />
-    <Content Include="templates\default\theme\.backup\style.css" />
-    <Content Include="templates\default\theme\banner\01.jpg" />
-    <Content Include="templates\default\theme\banner\02.jpg" />
-    <Content Include="templates\default\theme\banner\03.jpg" />
-    <Content Include="templates\default\theme\border.gif" />
-    <Content Include="templates\default\theme\images\btn_search.gif" />
-    <Content Include="templates\default\theme\images\category_title.gif" />
-    <Content Include="templates\default\theme\images\footer_bg.gif" />
-    <Content Include="templates\default\theme\images\footer_icon1.gif" />
-    <Content Include="templates\default\theme\images\footer_icon2.gif" />
-    <Content Include="templates\default\theme\images\footer_logo.gif" />
-    <Content Include="templates\default\theme\images\icon_dev.gif" />
-    <Content Include="templates\default\theme\images\icon_new_product.gif" />
-    <Content Include="templates\default\theme\images\icon_tech.gif" />
-    <Content Include="templates\default\theme\images\icon_trade_news.gif" />
-    <Content Include="templates\default\theme\images\img_product.gif" />
-    <Content Include="templates\default\theme\images\logo.gif" />
-    <Content Include="templates\default\theme\images\partner_01.gif" />
-    <Content Include="templates\default\theme\images\partner_02.gif" />
-    <Content Include="templates\default\theme\images\service_item1.gif" />
-    <Content Include="templates\default\theme\images\service_item2.gif" />
-    <Content Include="templates\default\theme\images\service_item3.gif" />
-    <Content Include="templates\default\theme\images\user.gif" />
-    <Content Include="templates\default\theme\style.css" />
     <Content Include="templates\default\tpl.conf">
       <SubType>Designer</SubType>
     </Content>
@@ -534,18 +518,7 @@
     </Content>
     <Content Include="public\assets\editor\handler\file_manager_json.ashx" />
     <Content Include="public\assets\editor\handler\upload_json.ashx" />
-    <Content Include="templates\default\include\.backup\banner.phtml" />
-    <Content Include="templates\default\include\.backup\footer.phtml" />
-    <Content Include="templates\default\include\.backup\header.phtml" />
-    <Content Include="templates\default\include\.backup\main_top.phtml" />
-    <Content Include="templates\default\include\.backup\online-chat.phtml" />
-    <Content Include="templates\default\include\.backup\side.phtml" />
-    <Content Include="templates\default\include\banner.phtml" />
-    <Content Include="templates\default\include\main_top.phtml" />
-    <Content Include="templates\default\include\notice.phtml" />
-    <Content Include="templates\default\include\online-chat.phtml" />
-    <Content Include="templates\default\include\picscroll.phtml" />
-    <Content Include="templates\default\include\side.phtml" />
+    <Content Include="packages.config" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -623,7 +596,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

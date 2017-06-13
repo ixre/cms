@@ -311,10 +311,13 @@ namespace T2.Cms.Domain.Implement.Content.Archive
                     }
                     else
                     {
-                        this._uri = String.Concat(
-                            this.Category.UriPath,
-                            "/", String.IsNullOrEmpty(this.Alias) ? this.StrId : this.Alias
-                            , ".html");
+                        if (this.Category != null)
+                        {
+                            this._uri = String.Concat(
+                                this.Category.UriPath,
+                                "/", String.IsNullOrEmpty(this.Alias) ? this.StrId : this.Alias
+                                , ".html");
+                        }
                     }
                 }
                 return this._uri;

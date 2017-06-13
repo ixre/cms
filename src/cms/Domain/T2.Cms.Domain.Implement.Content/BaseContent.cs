@@ -62,7 +62,7 @@ namespace T2.Cms.Domain.Implement.Content
         {
             get
             {
-                if (this._category.Site == null)
+                if (this._category != null && this._category.Site == null)
                 {
                     this._category = this._categoryRep.GetCategoryById(this._category.Id);
                 }

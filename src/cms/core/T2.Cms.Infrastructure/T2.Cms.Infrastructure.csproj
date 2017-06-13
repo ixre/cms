@@ -43,10 +43,6 @@
     <Reference Include="jrdev">
       <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
-    <Reference Include="leveldb-sharp, Version=1.2.0.0, Culture=neutral, PublicKeyToken=2ef8a852105250ad, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\refrence.dll\leveldb-sharp.dll</HintPath>
-    </Reference>
     <Reference Include="StructureMap, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.dll</HintPath>
     </Reference>
@@ -66,7 +62,9 @@
     <Compile Include="IdGenerator.cs" />
     <Compile Include="Ioc\Ioc.cs" />
     <Compile Include="Kvdb.cs" />
-    <Compile Include="KV\LevelDBWrapper.cs" />
+    <None Include="Kvdb_leveldb.cs.bak" />
+    <None Include="KV\LevelDBWrapper.cs.bak" />
+    <Compile Include="KV\MicroKvStorage.cs" />
     <Compile Include="KV\Platform.cs" />
     <Compile Include="OperateResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

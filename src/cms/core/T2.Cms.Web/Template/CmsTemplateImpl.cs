@@ -1168,6 +1168,7 @@ namespace T2.Cms.Template
             return cache.Replace("$DOMAIN$",siteDomain);
         }
 
+
         [TemplateTag]
         [ContainSetting]
         [XmlObjectProperty("œ‘ æ”—«È¡¥Ω”", @"

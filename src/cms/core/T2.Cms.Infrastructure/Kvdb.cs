@@ -5,9 +5,9 @@ namespace T2.Cms.Infrastructure
 {
     public static class Kvdb
     {
-        private static LevelDb _db;
+        private static MicroKvStorage _db;
 
-        public static LevelDb _currentInstance
+        public static MicroKvStorage _currentInstance
         {
             get
             {
@@ -25,7 +25,7 @@ namespace T2.Cms.Infrastructure
         }
         public static void SetPath(string path)
         {
-            _db = new LevelDb(path);
+            _db = new MicroKvStorage();
         }
 
         public static string Put(string key, string value)

@@ -121,26 +121,25 @@ namespace T2.Cms.ServiceRepository
                 RepositoryDataCache._categories[_category.Site.Id].Add(_category);
 
                 //添加Tag映射
-                Kvdb.Put(String.Format("{0}:cache:t:lft:{1}",
+                Kvdb.Put(String.Format("cat:{0}:cache:t:lft:{1}",
                     _category.Site.Id.ToString(),
-                    _category.Tag),
-                    _category.Lft.ToString());
+                    _category.Tag),_category.Lft.ToString());
 
+                /*
                 if (_category.Site.Id == 1 && _category.Tag.IndexOf("duct") != -1)
                 {
                     var x = "1:cache:t:lft:duct-machine" == String.Format("{0}:cache:t:lft:{1}",
                     _category.Site.Id.ToString(),
                     _category.Tag);
                 }
+                */
 
                 //添加Id映射
-                Kvdb.Put(String.Format("{0}:cache:id:lft:{1}",
+                Kvdb.Put(String.Format("cat:{0}:cache:id:lft:{1}",
                    _category.Site.Id.ToString(),
-                   _category.Id.ToString()),
-                   _category.Lft.ToString());
+                   _category.Id.ToString()),_category.Lft.ToString());
 
             }
-
             //categories2 = null;
             categories = null;
         }
@@ -150,7 +149,7 @@ namespace T2.Cms.ServiceRepository
         public int GetCategoryLftByTag(int siteId, string tag)
         {
             this.ChkPreload();
-            string key = String.Format("{0}:cache:t:lft:{1}", siteId.ToString(), tag);
+            string key = String.Format("cat:{0}:cache:t:lft:{1}", siteId.ToString(), tag);
             return Kvdb.GetInt(key);
         }
 
@@ -165,7 +164,7 @@ namespace T2.Cms.ServiceRepository
         public int GetCategoryLftById(int siteId, int id)
         {
             //添加ID映射
-            string key = String.Format("{0}:cache:id:lft:{1}", siteId.ToString(), id.ToString());
+            string key = String.Format("cat:{0}:cache:id:lft:{1}", siteId.ToString(), id.ToString());
             return Kvdb.GetInt(key);
         }
 
@@ -648,7 +647,6 @@ namespace T2.Cms.ServiceRepository
             //return result;
 
             RepositoryDataCache._categories = null;
-
         }
 
 
