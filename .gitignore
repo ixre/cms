@@ -20,3 +20,4 @@ dist
 /chunk/Source_Code/UIApp/Ops.Cms.WebUI/config/cache.pid
 /chunk/dist/plugins
 packages
+.vs
