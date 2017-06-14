@@ -101,7 +101,7 @@ namespace T2.Cms.ServiceRepository
 
                 //添加Tag映射
                 String key = this.catTagKey(_category.Site.Id, _category.Tag);
-                Kvdb.Put(key,_category.Lft.ToString());
+                Kvdb.PutInt(key,_category.Lft);
 
                 /*
                 if (_category.Site.Id == 1 && _category.Tag.IndexOf("duct") != -1)
