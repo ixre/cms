@@ -33,6 +33,11 @@ namespace T2.Cms.Infrastructure
             return _db.Put(key, value);
         }
 
+        public static void PutInt(string key, int value)
+        {
+             _db.PutInt(key, value);
+        }
+
         public static void Delete(string key)
         {
             ChkDb();
@@ -54,5 +59,7 @@ namespace T2.Cms.Infrastructure
         {
             _db.Clean();
         }
+
+
     }
 }

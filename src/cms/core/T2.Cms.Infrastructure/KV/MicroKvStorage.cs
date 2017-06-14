@@ -74,9 +74,9 @@ namespace T2.Cms.Infrastructure.KV
             return this.data;
         }
 
-        internal void Set(string key, TypeFlag @string, string value)
+        internal void Set(string key, TypeFlag flag, object value)
         {
-            var p = new Pair(@string, value);
+            var p = new Pair(flag, value);
             if (this.data.ContainsKey(key))
             {
                 this.data[key] = p;
@@ -179,6 +179,12 @@ namespace T2.Cms.Infrastructure.KV
             block.Set(k.Key, TypeFlag.String, value);
             return value;
         }
+        internal void PutInt(string key, int value)
+        {
+            var k = this.GetKey(key);
+            var block = this.GetBlock(k.Prefix);
+            block.Set(k.Key, TypeFlag.Int, value);
+        }
 
         public void Delete(string key)
         {
@@ -208,5 +214,7 @@ namespace T2.Cms.Infrastructure.KV
             }
             return 0;
         }
+
+       
     }
 }

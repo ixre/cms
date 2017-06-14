@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using T2.Cms.Infrastructure.Domain;
+using T2.Cms.Infrastructure;
 
 namespace UnitTest
 {
@@ -57,6 +58,14 @@ namespace UnitTest
             A.Clear();
             //a = null;
             Assert.IsTrue(a == null);
+        }
+        [TestMethod]
+        public void TestKvDb()
+        {
+            Kvdb.SetPath("");
+            Kvdb.Put("abc:test", "123");
+            var x = Kvdb.Get("abc:test");
+            Assert.AreEqual(x, "123");
         }
     }
 }

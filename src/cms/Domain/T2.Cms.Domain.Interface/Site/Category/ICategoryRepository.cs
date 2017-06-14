@@ -20,13 +20,11 @@ namespace T2.Cms.Domain.Interface.Site.Category
         int GetNewCategoryId(int siteId);
 
         /// <summary>
-        /// 根据SiteId和tag获取栏目编号
+        /// 根据SiteId和tag获取栏目Left
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="tag"></param>
         /// <returns></returns>
-        int GetCategoryIdByTag(int siteId, string tag);
-
         int GetCategoryLftByTag(int siteId, string tag);
 
         int GetCategoryLftById(int siteId, int id);

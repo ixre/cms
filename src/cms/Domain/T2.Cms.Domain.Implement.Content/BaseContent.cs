@@ -15,10 +15,11 @@ namespace T2.Cms.Domain.Implement.Content
         private readonly ICategoryRepository _categoryRep;
 
         protected IList<IExtendValue> _extendValues;
-        private  ICategory _category;
+        protected  ICategory _category;
         private readonly ITemplateBind _templateBind;
         private readonly IContentRepository _contentRep;
         private  IContentLinkManager _linkManager;
+        protected int _categoryId;
 
         /// <summary>
         /// 内容模型标识
@@ -40,8 +41,8 @@ namespace T2.Cms.Domain.Implement.Content
             this._templateRep = templateRep;
 
             this.Id = id;
-            this._category = this._categoryRep.CreateCategory(categoryId, null);
             this.Title = title;
+            this._categoryId = categoryId;
             this.Id = id;
         }
 
@@ -62,9 +63,9 @@ namespace T2.Cms.Domain.Implement.Content
         {
             get
             {
-                if (this._category != null && this._category.Site == null)
+                if (this._category == null)
                 {
-                    this._category = this._categoryRep.GetCategoryById(this._category.Id);
+                    this._category = this._categoryRep.GetCategoryById(this._categoryId);
                 }
                 return this._category;
             }

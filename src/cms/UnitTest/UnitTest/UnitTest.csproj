@@ -56,14 +56,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="IDictionary.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\core\T2.Cms.Infrastructure\T2.Cms.Infrastructure.csproj">
-      <Project>{28221385-8873-45F3-AFD6-611DFD041BEC}</Project>
-      <Name>JR.Cms.Infrastructure</Name>
+      <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
+      <Name>T2.Cms.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

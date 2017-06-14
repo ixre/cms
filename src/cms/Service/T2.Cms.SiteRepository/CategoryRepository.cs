@@ -15,9 +15,6 @@ namespace T2.Cms.ServiceRepository
     public class CategoryRepository : BaseCategoryRepository, ICategoryRepository
     {
         private IExtendFieldRepository _extendRep;
-
-
-
         private CategoryDal categoryDal = new CategoryDal();
         private ISiteRepository __siteRep;
         private ITemplateRepository _tempRep;
@@ -57,24 +54,6 @@ namespace T2.Cms.ServiceRepository
             }
         }
 
-
-        public int GetCategoryIdByTag(int siteId, string tag)
-        {
-            /*
-            if (RepositoryDataCache._categoryIdMaps == null)
-            {
-                GetCategoryDictionary();
-            }
-
-            string key = tag + "@" + siteId.ToString();
-            if (RepositoryDataCache._categoryIdMaps.ContainsKey(key))
-            {
-                return RepositoryDataCache._categoryIdMaps[key];
-            }
-            return -1;
-             */
-            return -1;
-        }
 
         /// <summary>
         /// 加载分类词典
@@ -121,9 +100,8 @@ namespace T2.Cms.ServiceRepository
                 RepositoryDataCache._categories[_category.Site.Id].Add(_category);
 
                 //添加Tag映射
-                Kvdb.Put(String.Format("cat:{0}:cache:t:lft:{1}",
-                    _category.Site.Id.ToString(),
-                    _category.Tag),_category.Lft.ToString());
+                String key = this.catTagKey(_category.Site.Id, _category.Tag);
+                Kvdb.Put(key,_category.Lft.ToString());
 
                 /*
                 if (_category.Site.Id == 1 && _category.Tag.IndexOf("duct") != -1)
@@ -135,21 +113,32 @@ namespace T2.Cms.ServiceRepository
                 */
 
                 //添加Id映射
-                Kvdb.Put(String.Format("cat:{0}:cache:id:lft:{1}",
-                   _category.Site.Id.ToString(),
-                   _category.Id.ToString()),_category.Lft.ToString());
+                key = this.catIdKey(_category.Site.Id, _category.Id);
+                Kvdb.PutInt(key,_category.Lft);
 
             }
             //categories2 = null;
             categories = null;
         }
 
-
+        public string catIdKey(int siteId,int categoryId)
+        {
+            return String.Format("cat:{0}:cache:id:lft:{1}",
+                   siteId.ToString(),
+                   categoryId.ToString());
+        }
+        public string catTagKey(int siteId,string tag)
+        {
+            return String.Format("cat:{0}:cache:t:lft:{1}",
+                     siteId.ToString(),
+                     tag);
+        }
+        
 
         public int GetCategoryLftByTag(int siteId, string tag)
         {
             this.ChkPreload();
-            string key = String.Format("cat:{0}:cache:t:lft:{1}", siteId.ToString(), tag);
+            string key = this.catTagKey(siteId,tag);
             return Kvdb.GetInt(key);
         }
 
@@ -164,7 +153,7 @@ namespace T2.Cms.ServiceRepository
         public int GetCategoryLftById(int siteId, int id)
         {
             //添加ID映射
-            string key = String.Format("cat:{0}:cache:id:lft:{1}", siteId.ToString(), id.ToString());
+            string key = this.catIdKey(siteId, id);
             return Kvdb.GetInt(key);
         }
 

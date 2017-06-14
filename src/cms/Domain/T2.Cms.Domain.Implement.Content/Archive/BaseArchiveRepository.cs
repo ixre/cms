@@ -37,7 +37,8 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             int categoryId,
             string title)
         {
-            return new Archive(contentRep, archiveRep, extendRep, categoryRep, templateRep, id, strId, categoryId, title);
+            return new Archive(contentRep, archiveRep, extendRep,
+                categoryRep, templateRep, id, strId, categoryId, title);
         }
     }
 }
