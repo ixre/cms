@@ -358,7 +358,6 @@ namespace T2.Cms
 
                 //输出到文件
                 FileStream fs = file.OpenWrite();
-                //  fs.Write(ms.GetBuffer(), 0, (int)ms.Length);
                 fs.Write(bytes, 0, bytes.Length);
                 fs.Flush();
                 fs.Dispose();
@@ -368,7 +367,7 @@ namespace T2.Cms
         }
 
         /// <summary>
-        /// 下载文件并存为内存流产
+        /// 下载文件并存储到内存
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="fileBytes"></param>
@@ -491,7 +490,6 @@ namespace T2.Cms
             {
                 //线程沉睡并更新dll
                 FileInfo[] files = new DirectoryInfo(Cms.PyhicPath+UpgadeDir).GetFiles();
-                string toFile;
 
                 foreach (FileInfo file in files)
                 {

@@ -235,7 +235,7 @@ namespace T2.Cms.Conf
 
                     //301跳转
                     
-                        sf["sys_autowww"] = Settings.SYS_AUTOWWW ? "true" : "false";
+                    sf["sys_autowww"] = Settings.SYS_AUTOWWW ? "true" : "false";
 
                     //虚拟路径
                     //if (!sf.Contains("sys_virthpath"))

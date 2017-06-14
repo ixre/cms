@@ -42,6 +42,7 @@
       <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -60,6 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\core\T2.Cms.Core\T2.Cms.Core.csproj">
+      <Project>{C3841A42-DF60-43BB-BC3C-03185CF0216D}</Project>
+      <Name>T2.Cms.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\core\T2.Cms.Infrastructure\T2.Cms.Infrastructure.csproj">
       <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
       <Name>T2.Cms.Infrastructure</Name>

@@ -7,7 +7,7 @@ namespace T2.Cms.Conf
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="2.1.11";
+        public const string VERSION="2.1.12";
 
         /// <summary>
         /// 框架目录

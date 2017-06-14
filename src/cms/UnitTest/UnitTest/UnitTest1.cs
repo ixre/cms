@@ -3,6 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using T2.Cms.Infrastructure.Domain;
 using T2.Cms.Infrastructure;
+using T2.Cms;
+using System.Net;
+using System.IO;
 
 namespace UnitTest
 {
@@ -67,5 +70,25 @@ namespace UnitTest
             var x = Kvdb.Get("abc:test");
             Assert.AreEqual(x, "123");
         }
+        [TestMethod]
+        public void TestDownloadRedirect()
+        {
+            string remoteVersionDescript =  "http://hk1001.ns.to2.net/cms/patch/latest/upgrade.xml";
+            WebRequest wr = WebRequest.Create(remoteVersionDescript);
+
+            HttpWebResponse rsp = wr.GetResponse() as HttpWebResponse;
+            Stream rspStream = null;
+            if (rsp == null || rsp.ContentLength <= 0 || (rspStream = rsp.GetResponseStream()) == null)
+            {
+                Console.WriteLine("链接失败");
+            }
+
+            Console.WriteLine(rsp.StatusCode.ToString());
+            StreamReader rd = new StreamReader(rspStream);
+            Console.WriteLine(rd.ReadToEnd());
+            rd.Close();
+           
+        }
+
     }
 }

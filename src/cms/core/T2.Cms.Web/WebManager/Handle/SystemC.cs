@@ -518,8 +518,15 @@ namespace T2.Cms.Web.WebManager.Handle
                     {
                         Settings.SERVER_STATIC = req["server_static"];
                     }
-                    if (!String.IsNullOrEmpty(req["server_upgrade"]))
+
+                    String upgradeUrl = req["server_upgrade"];
+                    if (!String.IsNullOrEmpty(upgradeUrl))
                     {
+                        if(upgradeUrl.IndexOf("http") != 0)
+                        {
+                            base.RenderSuccess("升级服务器必须以http://开头!");
+                            return;
+                        }
                         Settings.SERVER_UPGRADE = req["server_upgrade"];
                     }
 
