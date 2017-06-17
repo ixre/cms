@@ -13,7 +13,7 @@
 ## 特性：##
 
 ### 1. 跨平台 ###
-支持Windows、Linux、MacOX运行。linux运行案例：http://blog.ops.cc
+支持Windows、Linux、MacOX运行。linux运行案例：http://to2.net/blog
 ### 2. DDD领域驱动 ###
 使用领域驱动设计构建，通过简单的领域模型，提供了强大扩展能力。
 ### 3. 支援多种数据库 ###
@@ -32,7 +32,7 @@
 
 ## 部署 ##
 ### LINUX平台 ###
-        wget -nd http://z3q.net/j6cms_latest
+        wget -nd http://to2.net/jrcms_latest
         unzip cms_release_latest.zip
         fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
 浏览器访问: http://127.0.0.1:8080
@@ -47,12 +47,11 @@
 ## 如何加入开发 ##
 二次开发和定制交流QQ群：306064037
 
-## J6.CMS ##
+## JR.CMS ##
 
-J6.CMS是在AtNet.CMS基础上衍生出的面向企业的内容管理系统。
-拥有全新的UI界面，架构与AtNet.CMS一致。
+JR.CMS是在基础上再次分发的面向企业的内容管理系统。
 
-下载地址：http://z3q.net/j6cms_latest
+下载地址：http://to2.net/jrcms_latest
 
 
 ## 如何捐赠 ##
