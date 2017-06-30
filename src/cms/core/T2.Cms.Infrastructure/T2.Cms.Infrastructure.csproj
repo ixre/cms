@@ -82,9 +82,6 @@
     <Folder Include="Config\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="leveldb.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\xml\lang_package.xml" />
     <Content Include="x86\leveldb.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -92,31 +92,23 @@ namespace T2.Cms.Dal
         /// <returns></returns>
         protected int ExecuteNonQuery(params SqlQuery[] sql)
         {
-            int result=this.Db.ExecuteNonQuery(sql);
-            //db.CloseConn();
-            return result;
+            return this.Db.ExecuteNonQuery(sql);
         }
 
         protected object ExecuteScalar(SqlQuery sqlEnt)
         {
-            object result = Db.ExecuteScalar(sqlEnt);
-            //db.CloseConn();
-            return result;
+            return Db.ExecuteScalar(sqlEnt);
         }
 
 
         protected void ExecuteReader(SqlQuery sql, DataReaderFunc func)
         {
             this.Db.ExecuteReader(sql, func);
-           // db.CloseConn();
         }
 
         public DataSet GetDataSet(SqlQuery sqlEnt)
         {
-            DataSet ds = this.Db.GetDataSet(sqlEnt);
-            //db.CloseConn();
-            return ds;
-
+            return this.Db.GetDataSet(sqlEnt);
         }
 
         protected void CheckSqlInject(params string[] values)
