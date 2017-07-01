@@ -66,7 +66,7 @@ namespace T2.Cms.DB
         /// <summary>
         /// 初始化数据库
         /// </summary>
-        public static void Initialize(string connectionString,string dataTablePrefix)
+        public static void Initialize(string connectionString,string dataTablePrefix, bool sqlTrace)
         {
             if (String.IsNullOrEmpty(connectionString))
             {
@@ -75,9 +75,10 @@ namespace T2.Cms.DB
             connectionString = connectionString.Replace("$ROOT",FwCtx.PhysicalPath);
             DataBaseType dbType=DataBaseType.MySQL;
             DataBaseAccess db= DbAccessCreator.GetDbAccess(connectionString, ref dbType);
-            _instance = new DbAccess(dbType, db.DataBaseAdapter.ConnectionString);
-            _instance.TablePrefix = dataTablePrefix;
+           
 
+            _instance = new DbAccess(dbType, db.GetAdapter().ConnectionString,sqlTrace);
+            _instance.TablePrefix = dataTablePrefix;
             //测试数据库连接
             testDbConnection(_instance);
         }

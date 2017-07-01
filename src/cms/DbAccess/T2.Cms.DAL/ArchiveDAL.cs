@@ -185,7 +185,7 @@ namespace T2.Cms.Dal
         [Obsolete]
         public DataTable GetArchives(string sqlcondition)
         {
-            return base.GetDataSet(new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetArchivesByCondition), sqlcondition), null)).Tables[0];
+            return base.GetDataSet(new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetArchivesByCondition), sqlcondition), DalBase.EmptyParameter)).Tables[0];
         }
 
 
@@ -561,7 +561,7 @@ namespace T2.Cms.Dal
 
             //获取记录条数
             recordCount = int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(String.Format(DbSql.ArchiveGetpagedArchivesCountSql, condition)), null)).ToString());
+                new SqlQuery(base.OptimizeSql(String.Format(DbSql.ArchiveGetpagedArchivesCountSql, condition)), DalBase.EmptyParameter)).ToString());
 
 
             pages = recordCount / pageSize;
@@ -799,7 +799,7 @@ namespace T2.Cms.Dal
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
                 new SqlQuery(base.OptimizeSql(String.Format(DbSql.ArchiveGetSearchRecordCountByModuleId, moduleId,
-                keyword, condition)), null)
+                keyword, condition)), DalBase.EmptyParameter)
                 ).ToString());
 
             //页数
@@ -866,7 +866,7 @@ namespace T2.Cms.Dal
         public int GetCategoryArchivesCount(string id)
         {
             return int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(SQLRegex.Replace(DbSql.Archive_GetCategoryArchivesCount, (c) => { return id; })), null)).ToString());
+                new SqlQuery(base.OptimizeSql(SQLRegex.Replace(DbSql.Archive_GetCategoryArchivesCount, (c) => { return id; })), DalBase.EmptyParameter)).ToString());
 
         }
 

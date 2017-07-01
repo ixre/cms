@@ -146,7 +146,7 @@ namespace T2.Cms
             string filePath = typeof (Cms).Assembly.Location;
             if (String.IsNullOrEmpty(filePath))
             {
-                filePath = PyhicPath + CmsVariables.FRAMEWORK_ASSEMBLY_PATH + "jr.cms.dll";
+                filePath = PyhicPath + CmsVariables.FRAMEWORK_ASSEMBLY_PATH + "jrcms.dll";
             }
             DateTime builtDate = File.GetLastWriteTime(filePath);
             BuiltTime = DateHelper.ToUnix(builtDate);
@@ -222,7 +222,8 @@ namespace T2.Cms
             CmsDataBase.Initialize(
                 String.Format("{0}://{1}", Settings.DB_TYPE.ToString(),
                 Settings.DB_CONN.ToString()),
-                Settings.DB_PREFIX);
+                Settings.DB_PREFIX,
+                Settings.SQL_PROFILE_TRACE);
 
 
             LoadOtherConfig();

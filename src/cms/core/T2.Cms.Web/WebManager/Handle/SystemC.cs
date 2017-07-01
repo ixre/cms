@@ -495,6 +495,7 @@ namespace T2.Cms.Web.WebManager.Handle
                     Settings.License_NAME = req["license_name"];
                     Settings.SYS_AUTOWWW = req["sys_autowww"] == "on";
                     Settings.SYS_ENCODE_CONF_FILE = req["sys_encode_conf"] == "on";
+                    Settings.SQL_PROFILE_TRACE = req["sql_profile_trace"] == "on";
                     Settings.DB_PREFIX = req["db_prefix"];
                     Settings.TPL_UseCompress = req["tpl_usecompress"] == "on";
                     Settings.TPL_UseFullPath = req["tpl_usefullpath"] == "on";

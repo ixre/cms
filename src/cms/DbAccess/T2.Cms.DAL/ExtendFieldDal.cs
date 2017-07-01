@@ -34,7 +34,7 @@ namespace T2.Cms.Dal
 
             if (row > 0)
             {
-                SqlQuery q = new SqlQuery(base.OptimizeSql("SELECT MAX(id) FROM $PREFIX_extend_field WHERE site_id="+siteId.ToString()), null);
+                SqlQuery q = new SqlQuery(base.OptimizeSql("SELECT MAX(id) FROM $PREFIX_extend_field WHERE site_id="+siteId.ToString()), DalBase.EmptyParameter);
                 return int.Parse(this.ExecuteScalar(q).ToString());
             }
 

@@ -169,6 +169,16 @@ namespace T2.Cms.Conf
                 settingChanged = true;
             }
 
+            if (sf.Contains("sql_profile_trace"))
+            {
+                Settings.SQL_PROFILE_TRACE = sf["sql_profile_trace"] == "true";
+            }
+            else
+            {
+                sf.Set("sql_profile_trace", Settings.SQL_PROFILE_TRACE ? "true" : "false");
+                settingChanged = true;
+            }
+
 
             if (sf.Contains("sys_admin_tag"))
             {
@@ -232,6 +242,7 @@ namespace T2.Cms.Conf
                     sf["server_upgrade"] = Settings.SERVER_UPGRADE;
                     sf["sys_admin_tag"] = Settings.SYS_ADMIN_TAG;
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
+                    sf["sql_profile_trace"] = Settings.SQL_PROFILE_TRACE ? "true" : "false";
 
                     //301跳转
                     

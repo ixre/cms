@@ -2,14 +2,17 @@
 using System.Data;
 using System.Text.RegularExpressions;
 using T2.Cms.DB;
-using T2.Cms.Infrastructure;
 using T2.Cms.Sql;
 using JR.DevFw.Data;
+using System.Data.Common;
+using T2.Cms.Infrastructure;
+
 
 namespace T2.Cms.Dal
 {
     public abstract class DalBase
     {
+        public static readonly DbParameter[] EmptyParameter = null;
         private static bool _inited = false;
 
         /// <summary>
@@ -23,7 +26,7 @@ namespace T2.Cms.Dal
             {
                 DataBaseAccess _db = CmsDataBase.Instance;
                 if (_db == null) throw new ArgumentNullException("_db");
-                DbFact = _db.DataBaseAdapter;
+                DbFact = _db.GetAdapter();
                 //SQLPack对象
                 _inited = true;
             }

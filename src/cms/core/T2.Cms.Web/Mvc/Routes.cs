@@ -92,7 +92,7 @@ namespace T2.Cms.Web.Mvc
             routes.MapRoute("tpl_catchall", "templates/{*catchall}", new { controller = cmsControllerName, action = "Disallow" });
 
             //安装路由
-            routes.Add("install_route", new Route("install/process", new CmsInstallRouteHandler()));
+            routes.Add("install_route", new Route("install/process", new CmsInstallHandler()));
 
             //管理后台
             routes.Add("administrator_route", new Route(Settings.SYS_ADMIN_TAG, new CmsManagerRouteHandler()));
@@ -228,8 +228,8 @@ namespace T2.Cms.Web.Mvc
             if (!Cms.Installed)
             {
                 //安装路由
-                routes.Add("install_route", new Route("install/process", new CmsInstallRouteHandler()));
-                routes.Add("install_route_redirect", new Route("{*path}", new CmsInstallRouteHandler()));
+                routes.Add("install_route", new Route("install/process", new CmsInstallHandler()));
+                routes.Add("install_route_redirect", new Route("{*path}", new CmsInstallHandler()));
                 return;
             }
             RegisterInstalledCmsRoutes(routes, cmsHandleType ?? typeof(CmsController));

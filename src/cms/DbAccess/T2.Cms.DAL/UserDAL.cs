@@ -55,7 +55,7 @@ namespace T2.Cms.Dal
         {
            return this.GetDataSet(new SqlQuery(
                 this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,email,last_login_time,create_time FROM $PREFIX_user u
-                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id"),null)).Tables[0];
+                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id"),DalBase.EmptyParameter)).Tables[0];
         }
 
         public int GetUserIdByUserName(string userName)
@@ -100,7 +100,7 @@ namespace T2.Cms.Dal
                int row= base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.UserCreateUser), data));
                 if (row > 0)
                 {
-                    SqlQuery q = new SqlQuery(base.OptimizeSql("SELECT MAX(id) FROM $PREFIX_user"),null);
+                    SqlQuery q = new SqlQuery(base.OptimizeSql("SELECT MAX(id) FROM $PREFIX_user"), DalBase.EmptyParameter);
                     return int.Parse(this.ExecuteScalar(q).ToString());
                 }
             }
@@ -175,7 +175,7 @@ namespace T2.Cms.Dal
 
         public void GetOperations(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperations), null), func);
+            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperations), DalBase.EmptyParameter), func);
         }
 
         public void UpdateOperation(int id, string name, string path, bool available)
@@ -201,7 +201,7 @@ namespace T2.Cms.Dal
             //计算页码
             recordCount =
                 int.Parse(
-                    base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperationCount), null))
+                    base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperationCount), DalBase.EmptyParameter))
                         .ToString());
             pageCount = recordCount/pageSize;
             if (recordCount%pageSize != 0) pageCount++;
@@ -231,7 +231,7 @@ namespace T2.Cms.Dal
                 });
 
             return base.GetDataSet(
-                new SqlQuery(sql, null)
+                new SqlQuery(sql, DalBase.EmptyParameter)
                 ).Tables[0];
         }
 
@@ -245,7 +245,7 @@ namespace T2.Cms.Dal
             recordCount = int.Parse(
                 base.ExecuteScalar(
                     new SqlQuery(
-                        String.Format(base.OptimizeSql(DbSql.Operation_GetOperationsCountByAvailable), condition), null)
+                        String.Format(base.OptimizeSql(DbSql.Operation_GetOperationsCountByAvailable), condition), DalBase.EmptyParameter)
                     ).ToString());
 
             //计算页码
@@ -277,7 +277,7 @@ namespace T2.Cms.Dal
                 return null;
             });
 
-            return base.GetDataSet(new SqlQuery(sql, null)).Tables[0];
+            return base.GetDataSet(new SqlQuery(sql, DalBase.EmptyParameter)).Tables[0];
         }
 
 

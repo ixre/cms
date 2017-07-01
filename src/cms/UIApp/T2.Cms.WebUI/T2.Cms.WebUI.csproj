@@ -101,9 +101,11 @@
     <Content Include="config\site_1\mui_override.js" />
     <Content Include="data\db.db" />
     <Content Include="config\cms.conf" />
-    <None Include="install\db\mssql.sql" />
-    <None Include="install\db\sqlite.db" />
+    <Content Include="install\db\access.mdb" />
+    <Content Include="install\db\mssql.sql" />
     <Content Include="install\db\mysql.sql" />
+    <Content Include="install\db\sqlite.sql" />
+    <Content Include="install\install.html" />
     <Content Include="public\assemblies\IronPython.dll" />
     <Content Include="public\assemblies\IronPython.Modules.dll" />
     <Content Include="public\assemblies\T2.DevFw.Toolkit.NetCrawl.dll" />
@@ -525,10 +527,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="install\db\access.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="install\install.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Cache\T2.Cms.CacheService\T2.Cms.CacheService.csproj">

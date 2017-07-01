@@ -86,9 +86,15 @@ namespace T2.Cms.Conf
         public static bool SYS_AUTOWWW;
 
         /// <summary>
+        /// 是否开启SQL跟踪
+        /// </summary>
+        public static bool SQL_PROFILE_TRACE = false;
+
+        /// <summary>
         /// 是否加密配置文件
         /// </summary>
         public static bool SYS_ENCODE_CONF_FILE = false;
+
 
         #region 模板相关
         /// <summary>

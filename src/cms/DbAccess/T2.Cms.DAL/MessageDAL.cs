@@ -93,7 +93,7 @@ namespace T2.Cms.Dal
 
 
             recordCount = int.Parse(base.ExecuteScalar(new SqlQuery(
-                String.Format(base.OptimizeSql(DbSql.Message_GetPagedMessagesCount), condition),null)
+                String.Format(base.OptimizeSql(DbSql.Message_GetPagedMessagesCount), condition), DalBase.EmptyParameter)
                 ).ToString());
 
 

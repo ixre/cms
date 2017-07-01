@@ -137,7 +137,7 @@
     <Compile Include="Json\JsonSerializer.cs" />
     <Compile Include="Locale.cs" />
     <Compile Include="Mvc\Controllers\CmsController.cs" />
-    <Compile Include="Mvc\Controllers\CmsInstallRouteHandler.cs" />
+    <Compile Include="Mvc\Controllers\CmsInstallHandler.cs" />
     <Compile Include="Mvc\Controllers\CmsManagerRouteHandler.cs" />
     <Compile Include="Mvc\Controllers\ControllerBase.cs" />
     <Compile Include="ForbiddenHandler.cs" />
@@ -269,7 +269,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="install\db\mssql.sql" />
-    <None Include="install\db\sqlite.db" />
+    <Content Include="install\db\sqlite.sql" />
     <Content Include="install\install.html" />
   </ItemGroup>
   <ItemGroup>
