@@ -34,6 +34,8 @@ using T2.Cms.WebManager;
 using JR.DevFw.Toolkit.Tags;
 using JR.DevFw.Web;
 using ResourceMap = T2.Cms.WebManager.ResourceMap;
+using JR.DevFw.Data;
+using T2.Cms.DB;
 
 namespace T2.Cms.Web.WebManager.Handle
 {
@@ -188,10 +190,7 @@ namespace T2.Cms.Web.WebManager.Handle
             archive.PublisherId = UserState.Administrator.Current.Id;
 
             archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
-
             int resultId = ServiceCall.Instance.ArchiveService.SaveArchive(this.SiteId, archive);
-
-
             //调用监视操作
             // WatchService.PublishArchive(archive);
 
@@ -393,10 +392,7 @@ namespace T2.Cms.Web.WebManager.Handle
             }
 
             archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
-
-            int resultId = ServiceCall.Instance.ArchiveService.SaveArchive(this.SiteId, archive);
-
-
+            ServiceCall.Instance.ArchiveService.SaveArchive(this.SiteId, archive);
             /*
             try
             {

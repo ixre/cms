@@ -33,6 +33,12 @@
 测试环境下，可直接运行$tools/server.bat
 正式环境请配置IIS
 
+### 打包发布核心类库 ###
+在项目生成事件-》后期生成事件命令行中输入：
+
+	cd $(SolutionDir)../../cmd/
+	./build_win32.bat
+
 ## 插件开发 ##
 详见：github.com/newmin/cms/tree/master/plugin
 

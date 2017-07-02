@@ -22,6 +22,7 @@ namespace T2.Cms.DB
             if (sqlTrace)
             {
                 this.logFile = new LogFile(AppDomain.CurrentDomain.BaseDirectory+"/tmp/sql_profile.txt");
+                this.logFile.Truncate();
                 this.dbAccess.Use(this.profileTrace);
             }
         }
@@ -32,11 +33,11 @@ namespace T2.Cms.DB
             DateTime dt = DateTime.Now;
             if (exc == null)
             {
-                logFile.Printf(" | {0:yyyy-MM-dd HH:mm:ss}:  {1} [OK]; SQL={2};Data={3} \r\n\r\n", dt, action,
+                logFile.Printf(" | {0:yyyy-MM-dd HH:mm:ss}:  {1} [ OK]; SQL={2};Data={3} \r\n\r\n", dt, action,
                     sql, DataUtil.ParamsToString(sqlParams), System.Environment.NewLine);
                 return true;
             }
-            logFile.Printf(" | {0:yyyy-MM-dd HH:mm:ss}: {1} [OK]; SQL={2};Data={3}; Exception:{4} | \r\n\r\n", dt, action,
+            logFile.Printf(" | {0:yyyy-MM-dd HH:mm:ss}: {1} [ Fail]; SQL={2};Data={3}; Exception:{4} | \r\n\r\n", dt, action,
                   sql, DataUtil.ParamsToString(sqlParams),exc.Message);
             return false;
         }
@@ -48,8 +49,13 @@ namespace T2.Cms.DB
 
         public DataBaseAccess CreateInstance()
         {
-            //return new DataBaseAccess(this._dbType, this._connectionString);
-            return this.dbAccess;
+            DataBaseAccess db = new DataBaseAccess(this._dbType, this._connectionString);
+            if (this._sqlTrace)
+            {
+                db.Use(this.profileTrace);
+            }
+            return db;
+            //return this.dbAccess;
         }
 
     }

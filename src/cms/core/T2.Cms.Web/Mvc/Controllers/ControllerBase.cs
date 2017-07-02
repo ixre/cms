@@ -49,7 +49,6 @@ namespace T2.Cms.Web.Mvc
 
             _startTime = new TimeSpan(DateTime.Now.Ticks);
             _showDebugInformation = Settings.Opti_Debug;
-            if (_showDebugInformation) CmsDataBase.Instance.StartNewTotal();
             //如果自动301
             if (Settings.SYS_AUTOWWW)
             {
@@ -126,27 +125,16 @@ namespace T2.Cms.Web.Mvc
          {
              if (_showDebugInformation)
              {
-                 IList<String> sqls = CmsDataBase.Instance.GetTotalSqls();
-
                  HttpResponseBase rsp = filterContext.HttpContext.Response;
                  rsp.Write("<div style=\"border-top:solid 2px #ff6600;background:#ffff00;font-size:12px;padding:10px 20px;color:#000\">");
                  rsp.Write("============= 页面执行信息 =============<br />");
-                 rsp.Write(String.Format("<br />缓存数：{0} - SQL查询：{1}次 - 内存占用：{2}M",
+                 rsp.Write(String.Format("<br />缓存数：{0} - 内存占用：{1}M",
                      HttpRuntime.Cache.Count.ToString(),
-                     sqls.Count.ToString(),
                      ((Double)Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024).ToString("N2")));
 
                  rsp.Write(String.Format("<br />程序执行时间：{0:mm}分{0:ss}秒{0:fff}毫秒.", DateTime.Now - _startTime));
 
                  rsp.Write("<br /><br /><span style=\"font-size:80%;color:#ff0000\">注：网站运行时，请在后台系统设置-》关闭调试模式！</font></div>");
-
-                 rsp.Write("<br /><br />============= SQL Querys ===============");
-                 int i = 0;
-                 foreach (string sql in sqls)
-                 {
-                     rsp.Write("<br />【"+(++i).ToString()+"】："+sql);
-
-                 }
              }
              base.OnResultExecuted(filterContext);
          }
