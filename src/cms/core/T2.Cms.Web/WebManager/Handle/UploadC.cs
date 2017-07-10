@@ -12,16 +12,16 @@
 //
 
 using System;
-using JR.Cms.Conf;
-using JR.Cms.WebManager;
-using JR.DevFw.Framework.Extensions;
-using JR.DevFw.Framework.Web.UI;
+using T2.Cms.Conf;
+using T2.Cms.WebManager;
+using T2.DevFw.Framework.Extensions;
+using T2.DevFw.Framework.Web.UI;
 using LitJson;
 using System.Net;
 using System.Collections.Generic;
 using System.IO;
 
-namespace JR.Cms.Web.WebManager.Handle
+namespace T2.Cms.Web.WebManager.Handle
 {
     public class UploadC:BasePage
     {
