@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ Z3Q.NET,All right reseved.
+// Copyright 2011 @ TO2.NET,All right reseved.
 // Name: ArchiveUtility.cs
 // publisher_id: newmin
 // Comments:

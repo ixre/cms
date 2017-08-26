@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ Z3Q.NET.
+// Copyright 2011 @ TO2.NET.
 // Permission.cs
 // publisher_id:
 //      newmin(new.min@msn.com)

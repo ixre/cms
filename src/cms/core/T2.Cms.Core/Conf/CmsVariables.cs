@@ -2,12 +2,11 @@
 namespace T2.Cms.Conf
 {
     public class CmsVariables
-    {
-        
+    { 
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="2.1.15";
+        public const string VERSION="2.1.16";
 
         /// <summary>
         /// 框架目录

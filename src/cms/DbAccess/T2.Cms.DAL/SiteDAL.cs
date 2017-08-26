@@ -7,7 +7,9 @@ namespace T2.Cms.Dal
     {
         public int CreateSite(ISite site)
         {
-            base.ExecuteNonQuery(SqlQueryHelper.Format(DbSql.SiteCreateSite,
+            base.ExecuteNonQuery(base.NewQuery(DbSql.SiteCreateSite,
+                                base.Db.CreateParametersFromArray(
+
                 new object[,]
                 {
                     {"@name", site.Name},
@@ -30,22 +32,24 @@ namespace T2.Cms.Dal
                     {"@proPost", site.ProPost},
                     {"@proNotice", site.ProNotice},
                     {"@proSlogan", site.ProSlogan}
-                }));
+                })));
 
-            return int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(
-                "SELECT MAX(site_id) FROM $PREFIX_site")).ToString());
+            return int.Parse(base.ExecuteScalar(base.NewQuery(
+                "SELECT MAX(site_id) FROM $PREFIX_site",null)).ToString());
         }
 
         public void ReadSites(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(base.DbSql.SiteGetSites)), func);
+            base.ExecuteReader(base.NewQuery(base.DbSql.SiteGetSites,null), func);
         }
 
 
         public int UpdateSite(ISite site)
         {
             return base.ExecuteNonQuery(
-                SqlQueryHelper.Format(DbSql.SiteEditSite,
+                base.NewQuery(DbSql.SiteEditSite,
+                                base.Db.CreateParametersFromArray(
+
                 new object[,]{
                     {"@siteId",site.Id},
                     {"@name",site.Name},
@@ -68,7 +72,7 @@ namespace T2.Cms.Dal
                     {"@proPost",site.ProPost},
                     {"@proNotice",site.ProNotice},
                     {"@proSlogan",site.ProSlogan}
-                }));
+                })));
         }
 
         /// <summary>
@@ -80,10 +84,10 @@ namespace T2.Cms.Dal
         public bool InitRootCategory(int siteId ,int rootCategoryId)
         {
             return base.ExecuteNonQuery(
-                SqlQueryHelper.Format(@"INSERT INTO $PREFIX_category 
+               base.NewQuery(@"INSERT INTO $PREFIX_category 
                                         (id,site_id,page_title,tag,name,page_keywords,page_description,lft,rgt,sort_number)
                                         VALUES(" + rootCategoryId.ToString() + "," + siteId.ToString() +
-                                      ",'ROOT','root','根栏目','','',1,2,1)")) == 1;
+                                      ",'ROOT','root','根栏目','','',1,2,1)",null)) == 1;
         }
     }
 }

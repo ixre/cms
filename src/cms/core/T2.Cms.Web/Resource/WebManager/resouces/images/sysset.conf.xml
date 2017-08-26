@@ -6,8 +6,8 @@
       <links title="欢迎使用" toggle="true" iconPos="-240|0">
         <link href="?module=system&amp;action=summary" text="欢迎首页" title="" siteid="-1"/>
         <!--
-        <link href="http://k3f.net/cms/cms/help.html" text="帮助指南" title="" siteid="-1"/>
-        <link href="http://k3f.net/cms/cms/about.html" text="关于系统" title="" siteid="-1"/>-->
+        <link href="http://to2.net/cms/cms/help.html" text="帮助指南" title="" siteid="-1"/>
+        <link href="http://to2.net/cms/cms/about.html" text="关于系统" title="" siteid="-1"/>-->
       </links>
 
       

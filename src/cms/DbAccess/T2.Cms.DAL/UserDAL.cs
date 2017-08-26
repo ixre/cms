@@ -18,7 +18,9 @@ namespace T2.Cms.Dal
         public void GetUserCredential(string username, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.UserGetUserCredentialByUserName), new object[,] {{"@userName", username}}),
+                base.NewQuery(DbSql.UserGetUserCredentialByUserName,
+                                base.Db.CreateParametersFromArray(
+new object[,] { { "@userName", username } })),
                 func
                 );
         }
@@ -27,11 +29,13 @@ namespace T2.Cms.Dal
         public void GetUserById(int id, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.UserGetUserById),
+                base.NewQuery(DbSql.UserGetUserById,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]
                     {
                         {"@id", id}
-                    }),
+                    })),
                 func
                 );
         }
@@ -42,30 +46,33 @@ namespace T2.Cms.Dal
         public void UpdateUserLastLoginDate(string username, DateTime date)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_UpdateUserLastLoginDate),
+                base.NewQuery(DbSql.Member_UpdateUserLastLoginDate,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]
                     {
                         {"@username", username},
                         {"@LastLoginDate", String.Format("{0:yyyy-MM-dd HH:mm:ss}", date)}
                     }
-                    ));
+                    )));
         }
 
         public DataTable GetAllUser()
         {
-           return this.GetDataSet(new SqlQuery(
-                this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,email,last_login_time,create_time FROM $PREFIX_user u
-                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id"),DalBase.EmptyParameter)).Tables[0];
+            return this.GetDataSet(new SqlQuery(
+                 this.OptimizeSql(@"SELECT u.id,name,avatar,user_name,phone,email,last_login_time,create_time FROM $PREFIX_user u
+                LEFT JOIN  $PREFIX_credential c ON c.user_id=u.id"), DalBase.EmptyParameter)).Tables[0];
         }
 
         public int GetUserIdByUserName(string userName)
         {
             object obj = base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.UserGetUserIdByUserName),
+                base.NewQuery(DbSql.UserGetUserIdByUserName,
+                base.Db.CreateParametersFromArray(
                     new object[,]
                     {
                         {"@userName", userName}
-                    })
+                    }))
                 );
             if (obj != null && obj != DBNull.Value)
             {
@@ -74,10 +81,10 @@ namespace T2.Cms.Dal
             return -1;
         }
 
-        public int SaveUser(IUser user,bool isNew)
+        public int SaveUser(IUser user, bool isNew)
         {
             //ame=@name,avatar=@avatar,phone=@phone,email=@email,
-             //   check_code=@checkCode,role_flag=@roleFlag,create_time=@createTime,last_login_time=@loginTime WHERE id=@id
+            //   check_code=@checkCode,role_flag=@roleFlag,create_time=@createTime,last_login_time=@loginTime WHERE id=@id
 
 
             var data = new object[,]
@@ -92,21 +99,21 @@ namespace T2.Cms.Dal
                 {"@loginTime", user.LastLoginTime},
                 {"@id", user.Id},
             };
-
+            var parameters = base.Db.CreateParametersFromArray(data);
             if (isNew)
             {
                 //@"INSERT INTO $PREFIX_user(name,avatar,phone,email, check_code,
                 //flag,create_time,last_login_time)VALUES(@name,@avatar,@phone,@email,@checkCode,@roleFlag,@createTime,@loginTime)";
-               int row= base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.UserCreateUser), data));
+                int row = base.ExecuteNonQuery(base.NewQuery(DbSql.UserCreateUser, parameters));
                 if (row > 0)
                 {
-                    SqlQuery q = new SqlQuery(base.OptimizeSql("SELECT MAX(id) FROM $PREFIX_user"), DalBase.EmptyParameter);
+                    SqlQuery q = base.NewQuery("SELECT MAX(id) FROM $PREFIX_user", DalBase.EmptyParameter);
                     return int.Parse(this.ExecuteScalar(q).ToString());
                 }
             }
             else
             {
-                base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.UserUpdateUser), data));
+                base.ExecuteNonQuery(base.NewQuery(DbSql.UserUpdateUser,parameters));
             }
 
             return user.Id;
@@ -115,11 +122,13 @@ namespace T2.Cms.Dal
         public int DeleteUser(int userId)
         {
             return base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql("DELETE FROM $PREFIX_user WHERE  id=@userId"),
+                base.NewQuery("DELETE FROM $PREFIX_user WHERE  id=@userId",
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]
                     {
                         {"@userId", userId}
-                    }));
+                    })));
         }
 
 
@@ -130,22 +139,26 @@ namespace T2.Cms.Dal
 
             //如果存在则返回false
             object obj = base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Operation_CheckPathExist),
+                base.NewQuery(DbSql.Operation_CheckPathExist,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]
                     {
                         {"@Path", path}
-                    })
+                    }))
                 );
             if (obj != null) return false;
 
             base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Operation_CreateOperation),
+                base.NewQuery(DbSql.Operation_CreateOperation,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]
                     {
                         {"@Name", name},
                         {"@Path", path},
                         {"@available", available}
-                    })
+                    }))
                 );
             return true;
         }
@@ -153,42 +166,46 @@ namespace T2.Cms.Dal
         public void DeleteOperation(int id)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Operation_DeleteOperation),
+                base.NewQuery(DbSql.Operation_DeleteOperation,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]
                     {
                         {"@id", id}
                     }
-                    ));
+                    )));
         }
 
         public void GetOperation(int id, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperation),
+                base.NewQuery(DbSql.Operation_GetOperation,
+                                base.Db.CreateParametersFromArray(
                     new object[,]
                     {
                         {"@id", id}
-                    }),
+                    })),
                 func
                 );
         }
 
         public void GetOperations(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperations), DalBase.EmptyParameter), func);
+            base.ExecuteReader(base.NewQuery(DbSql.Operation_GetOperations, DalBase.EmptyParameter), func);
         }
 
         public void UpdateOperation(int id, string name, string path, bool available)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Operation_UpdateOperation),
+                base.NewQuery(DbSql.Operation_UpdateOperation,
+                                base.Db.CreateParametersFromArray(
                     new object[,]
                     {
                         {"@Name", name},
                         {"@Path", path},
                         {"@available", available},
                         {"@id", id}
-                    })
+                    }))
                 );
         }
 
@@ -201,15 +218,15 @@ namespace T2.Cms.Dal
             //计算页码
             recordCount =
                 int.Parse(
-                    base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Operation_GetOperationCount), DalBase.EmptyParameter))
+                    base.ExecuteScalar(base.NewQuery(DbSql.Operation_GetOperationCount, DalBase.EmptyParameter))
                         .ToString());
-            pageCount = recordCount/pageSize;
-            if (recordCount%pageSize != 0) pageCount++;
+            pageCount = recordCount / pageSize;
+            if (recordCount % pageSize != 0) pageCount++;
 
             if (currentPageIndex > pageCount && currentPageIndex != 1) currentPageIndex = pageCount;
             if (currentPageIndex < 1) currentPageIndex = 1;
 
-            int skipCount = pageSize*(currentPageIndex - 1);
+            int skipCount = pageSize * (currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
             string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB
@@ -249,14 +266,14 @@ namespace T2.Cms.Dal
                     ).ToString());
 
             //计算页码
-            pageCount = recordCount/pageSize;
-            if (recordCount%pageSize != 0) pageCount++;
+            pageCount = recordCount / pageSize;
+            if (recordCount % pageSize != 0) pageCount++;
 
             if (currentPageIndex > pageCount && currentPageIndex != 1) currentPageIndex = pageCount;
             if (currentPageIndex < 1) currentPageIndex = 1;
 
 
-            int skipCount = pageSize*(currentPageIndex - 1);
+            int skipCount = pageSize * (currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
             string sql = skipCount == 0 && base.DbType == DataBaseType.OLEDB
@@ -270,7 +287,7 @@ namespace T2.Cms.Dal
                     case "pagesize":
                         return pageSize.ToString();
                     case "skipsize":
-                        return (pageSize*(currentPageIndex - 1)).ToString();
+                        return (pageSize * (currentPageIndex - 1)).ToString();
                     case "condition":
                         return condition;
                 }
@@ -284,23 +301,25 @@ namespace T2.Cms.Dal
         public void UpdateUserGroupPermissions(int groupId, string permissions)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.UserGroup_UpdatePermissions),
+                base.NewQuery(DbSql.UserGroup_UpdatePermissions,
+                                base.Db.CreateParametersFromArray(
                     new object[,]
                     {
                         {"@Permissions", permissions},
                         {"@GroupId", groupId}
-                    })
+                    }))
                 );
         }
 
         public void RenameUserGroup(int groupId, string groupName)
         {
-            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.UserGroup_RenameGroup),
+            base.ExecuteNonQuery(base.NewQuery(DbSql.UserGroup_RenameGroup,
+                                base.Db.CreateParametersFromArray(
                 new object[,]
                 {
                     {"@Name", groupName},
                     {"@GroupId", groupId}
-                }));
+                })));
         }
 
 
@@ -320,7 +339,7 @@ namespace T2.Cms.Dal
         }
 
 
-        public int SaveCredential(Credential credential,bool isNew)
+        public int SaveCredential(Credential credential, bool isNew)
         {
             var data = new object[,]
             {
@@ -330,12 +349,12 @@ namespace T2.Cms.Dal
                 {"@password", credential.Password},
                 {"@enabled", credential.Enabled},
             };
-
+            var parameters = base.Db.CreateParametersFromArray(data);
             if (isNew)
             {
-                int affer = this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
-                    "INSERT INTO $PREFIX_credential(user_id,user_name,password,enabled)VALUES(@userId,@userName,@password,@enabled)"),
-                    data));
+                int affer = this.ExecuteNonQuery(base.NewQuery(
+                    "INSERT INTO $PREFIX_credential(user_id,user_name,password,enabled)VALUES(@userId,@userName,@password,@enabled)",
+                    parameters));
                 if (affer > 0)
                 {
                     credential.Id =
@@ -351,8 +370,8 @@ namespace T2.Cms.Dal
             }
             else
             {
-                this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
-                    "UPDATE $PREFIX_credential SET user_name=@userName,password=@password,enabled=@enabled WHERE user_id=@userId"),data));
+                this.ExecuteNonQuery(base.NewQuery(
+                    "UPDATE $PREFIX_credential SET user_name=@userName,password=@password,enabled=@enabled WHERE user_id=@userId", parameters));
             }
             return credential.Id;
         }
@@ -360,7 +379,9 @@ namespace T2.Cms.Dal
         public void GetUserCredentialById(int userId, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.UserGetUserCredential), new object[,] { { "@userId", userId } }),
+                base.NewQuery(DbSql.UserGetUserCredential,
+                                base.Db.CreateParametersFromArray(
+new object[,] { { "@userId", userId } })),
                 func
                 );
         }
@@ -369,7 +390,9 @@ namespace T2.Cms.Dal
         public void ReadUserRoles(int userId, DataReaderFunc func)
         {
             base.ExecuteReader(
-              new SqlQuery(base.OptimizeSql(DbSql.UserGetUserRole), new object[,] { { "@userId", userId } }),
+              base.NewQuery(DbSql.UserGetUserRole,
+                              base.Db.CreateParametersFromArray(
+new object[,] { { "@userId", userId } })),
               func
               );
         }
@@ -377,51 +400,57 @@ namespace T2.Cms.Dal
 
         public void SaveUserRole(int userId, int appId, int flag)
         {
-            this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
-                    "INSERT INTO $PREFIX_user_role(user_id,app_id,flag)VALUES(@userId,@appId,@flag)"), new object[,]
+            this.ExecuteNonQuery(base.NewQuery(
+                    "INSERT INTO $PREFIX_user_role(user_id,app_id,flag)VALUES(@userId,@appId,@flag)",
+                                    base.Db.CreateParametersFromArray(
+new object[,]
                    {
                        {"@userId",userId},
                        {"@appId",appId},
                        {"@flag",flag},
-                   }));
+                   })));
         }
 
         public void CleanUserRoleFlag(int userId, int appId)
         {
-            this.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(
-                   "DELETE FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId"), new object[,]
+            this.ExecuteNonQuery(base.NewQuery(
+                   "DELETE FROM $PREFIX_user_role WHERE user_id=@userId AND app_id=@appId",
+                                   base.Db.CreateParametersFromArray(
+new object[,]
                    {
                        {"@userId",userId},
                        {"@appId",appId},
-                   }));
+                   })));
         }
 
         public string GetUserRealName(int userId)
         {
-            Object obj = this.ExecuteScalar(new SqlQuery(base.OptimizeSql(
-                "SELECT name FROM $PREFIX_user WHERE id=@userId"), new object[,]
+            Object obj = this.ExecuteScalar(base.NewQuery(
+                "SELECT name FROM $PREFIX_user WHERE id=@userId",
+                                base.Db.CreateParametersFromArray(
+new object[,]
                 {
                     {"@userId", userId},
-                }));
+                })));
             return obj != null ? obj.ToString() : null;
         }
 
         public int GetMinUserId()
         {
-            return int.Parse(this.ExecuteScalar(new SqlQuery(base.OptimizeSql(
-                "SELECT MIN(id) FROM $PREFIX_user"))).ToString());
+            return int.Parse(this.ExecuteScalar(base.NewQuery(
+                "SELECT MIN(id) FROM $PREFIX_user",null)).ToString());
         }
 
         public int DeleteRoleBind(int userId)
         {
-            return  base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSql("DELETE FROM $PREFIX_user_role WHERE user_id=" + userId.ToString())));
+            return base.ExecuteNonQuery(
+                    base.NewQuery("DELETE FROM $PREFIX_user_role WHERE user_id=" + userId.ToString(),null));
         }
 
         public int DeleteCredential(int userId)
         {
             return base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSql("DELETE FROM $PREFIX_credential WHERE user_id=" + userId.ToString())));
+                    base.NewQuery("DELETE FROM $PREFIX_credential WHERE user_id=" + userId.ToString(),null));
         }
     }
 }

@@ -27,9 +27,7 @@ namespace T2.Cms.Dal
             string outline, string content, string tags, string flags, string location, int sortNumber)
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
-            int rowcount = base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.ArchiveAdd),
-                      new object[,]{
+            var pa = new object[,]{
                 {"@strId", strId},
                 {"@alias", alias},
                 {"@CategoryId", categoryId},
@@ -38,18 +36,17 @@ namespace T2.Cms.Dal
                 {"@smallTitle", smallTitle??""},
                 {"@Flags",flags},
                 {"@location", location},
-                {"@sortNumber",sortNumber},   
-                {"@Source", source??""},   
+                {"@sortNumber",sortNumber},
+                {"@Source", source??""},
                 {"@thumbnail",thumbnail??""},
                 {"@Outline", outline??""},
                 {"@Content", content},
                 {"@Tags", tags??""},
                 {"@CreateDate",date},
                 {"@LastModifyDate",date}
-                     })
-                 );
-
-
+                     };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            int rowcount = base.ExecuteNonQuery(base.NewQuery(DbSql.ArchiveAdd, parameters));
             return rowcount == 1;
         }
 
@@ -62,14 +59,13 @@ namespace T2.Cms.Dal
             string tags, string flags, string location, int sortNumber)
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
-            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.ArchiveUpdate),
-                 new object[,]{
+            var pa = new object[,]{
                                 {"@CategoryId", categoryID},
                                 {"@Title", title},
                                 {"@smallTitle", smallTitle??""},
                                 {"@Flags", flags},
-                                {"@Alias", alias??""}, 
-                                {"@location", location},   
+                                {"@Alias", alias??""},
+                                {"@location", location},
                                 {"@sortNumber",sortNumber},
                                 {"@Source", source??""},
                                 {"@thumbnail",thumbnail??""},
@@ -78,7 +74,9 @@ namespace T2.Cms.Dal
                                 {"@Tags", tags??""},
                                 {"@lastModifyDate",date},
                                 {"@id", id}
-                 }));
+                 };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            base.ExecuteNonQuery(base.NewQuery(DbSql.ArchiveUpdate, parameters));
         }
 
         /// <summary>
@@ -87,13 +85,15 @@ namespace T2.Cms.Dal
         /// <param name="archiveId"></param>
         public void RePublish(int siteId, int archiveId)
         {
-            base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.ArchiveRepublish),
-                     new object[,]{
+            var pa = new object[,]{
                 {"@CreateDate",String.Format("{0:yyyy-MM-dd HH:mm:ss}",DateTime.Now)},
                 {"@id", archiveId},
                 {"@siteId",siteId}
-        }));
+        };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteNonQuery(
+                base.NewQuery(DbSql.ArchiveRepublish, parameters));
         }
 
 
@@ -104,11 +104,12 @@ namespace T2.Cms.Dal
         public void Delete(int siteId, int id)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Archive_Delete),
+                base.NewQuery(DbSql.Archive_Delete,
+                base.Db.CreateParametersFromArray(
                      new object[,]{
                         {"@siteId",siteId},
                         {"@id", id}
-                     }));
+                     })));
         }
 
         /// <summary>
@@ -118,12 +119,14 @@ namespace T2.Cms.Dal
         /// <returns></returns>
         public bool CheckAliasIsExist(int siteID, string alias)
         {
-            return base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Archive_CheckAliasIsExist),
-                     new object[,]{
+            var pa = new object[,]{
                         {"@siteId",siteID},
                         {"@alias", alias}
-                     })
+                     };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            return base.ExecuteScalar(
+                base.NewQuery(DbSql.Archive_CheckAliasIsExist, parameters)
                 ) != null;
         }
 
@@ -135,12 +138,15 @@ namespace T2.Cms.Dal
         /// <param name="number"></param>
         public void AddViewCount(int siteId, int id, int count)
         {
-            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Archive_AddViewCount),
-                 new object[,]{
+            var pa = new object[,]{
                      {"@siteId",siteId},
                 {"@Count", count},
                 {"@id", id}
-                 }));
+                 };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteNonQuery(base.NewQuery(DbSql.Archive_AddViewCount, parameters)
+                );
         }
 
         #region 获取文档
@@ -153,12 +159,14 @@ namespace T2.Cms.Dal
         /// <returns></returns>
         public void GetArchive(int siteId, string archiveIdOrAlias, DataReaderFunc func)
         {
-            base.ExecuteReader(
-                   new SqlQuery(base.OptimizeSql(DbSql.Archive_GetArchiveByStrIDOrAlias),
-                        new object[,]{
+            var pa = new object[,]{
                         {"@siteId",siteId},
                         {"@strid", archiveIdOrAlias}
-                     }),
+                     };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            base.ExecuteReader(
+                   base.NewQuery(DbSql.Archive_GetArchiveByStrIDOrAlias, parameters)
+                     ,
                    func
                    );
         }
@@ -167,19 +175,23 @@ namespace T2.Cms.Dal
 
         public void GetArchiveById(int siteId, int archiveId, DataReaderFunc func)
         {
-            base.ExecuteReader(
-                   new SqlQuery(base.OptimizeSql(DbSql.Archive_GetArchiveById),
-                        new object[,]{
+            var pa = new object[,]{
                         {"@siteId",siteId},
                         {"@id", archiveId}
-                     }),
+            };
+
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteReader(
+                   base.NewQuery(DbSql.Archive_GetArchiveById, parameters)
+                       ,
                    func
                    );
         }
 
         public DataTable GetAllArchives()
         {
-            return base.GetDataSet(new SqlQuery(base.OptimizeSql(DbSql.Archive_GetAllArchive))).Tables[0];
+            return base.GetDataSet(base.NewQuery(DbSql.Archive_GetAllArchive, null)).Tables[0];
         }
 
         [Obsolete]
@@ -229,12 +241,15 @@ namespace T2.Cms.Dal
         /// </summary>
         public void GetArchivesByModuleId(int siteId, int moduleId, int number, DataReaderFunc func)
         {
-            base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(String.Format(DbSql.Archive_GetArchivesByModuleId, number)),
-                 new object[,]{
+            var pa = new object[,]{
                 {"@siteId",siteId},
                 {"@ModuleId", moduleId}
-                 }), func);
+                 };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteReader(
+                base.NewQuery(String.Format(DbSql.Archive_GetArchivesByModuleId, number), parameters),
+             func);
         }
 
         /// <summary>
@@ -336,12 +351,14 @@ namespace T2.Cms.Dal
         /// <param name="func"></param>
         public void GetFirstSpecialArchive(int siteId, int categoryId, DataReaderFunc func)
         {
-            base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.Archive_GetFirstSpecialArchiveByCategoryID),
-                     new object[,]{
+            var pa = new object[,]{
                      {"@siteId", siteId},
                      {"@CategoryId", categoryId}
-                     }),
+                     };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteReader(
+                base.NewQuery(DbSql.Archive_GetFirstSpecialArchiveByCategoryID, parameters),
                 func
                 );
         }
@@ -359,15 +376,16 @@ namespace T2.Cms.Dal
         /// <param name="func"></param>
         public void GetPreviousArchive(int siteId, int id, bool sameCategory, bool ingoreSpecial, DataReaderFunc func)
         {
-            base.ExecuteReader(
-                    new SqlQuery(base.OptimizeSql(DbSql.Archive_GetPreviousArchive),
-                         new object[,]{
+            var pa = new object[,]{
                          {"@siteId",siteId},
                          {"@id", id},
                         {"@sameCategory", sameCategory?1:0},
                         {"@special",ingoreSpecial?1:0},
-                         }),
-                    func
+                         };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteReader(
+                    base.NewQuery(DbSql.Archive_GetPreviousArchive, parameters), func
                     );
         }
 
@@ -381,15 +399,17 @@ namespace T2.Cms.Dal
         /// <param name="sameCategory"></param>
         public void GetNextArchive(int siteId, int id, bool sameCategory, bool ingoreSpecial, DataReaderFunc func)
         {
-            base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.Archive_GetNextArchive),
-                    new object[,]
+            var pa = new object[,]
                     {
                         {"@siteId", siteId},
                         {"@id", id},
                         {"@sameCategory", sameCategory?1:0},
                         {"@special",ingoreSpecial?1:0},
-                    }),
+                    };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteReader(
+                base.NewQuery(DbSql.Archive_GetNextArchive, parameters),
                 func
                 );
         }
@@ -544,14 +564,17 @@ namespace T2.Cms.Dal
                         return String.Format(" AND lft={0} AND rgt={1}", lft.ToString(), rgt.ToString());
 
 
-                    case "module": return moduleId <= 0 ? ""
-                        : String.Format(" AND m.id={0}", moduleId.ToString());
+                    case "module":
+                        return moduleId <= 0 ? ""
+             : String.Format(" AND m.id={0}", moduleId.ToString());
 
-                    case "publisher_id": return publisherId == 0 ? null
-                        : String.Format(" AND publisher_id='{0}'", publisherId);
+                    case "publisher_id":
+                        return publisherId == 0 ? null
+       : String.Format(" AND publisher_id='{0}'", publisherId);
 
                     case "flags": return String.IsNullOrEmpty(flag) ? "" : " AND " + flag;
-                    case "keyword": if (String.IsNullOrEmpty(keyword)) return "";
+                    case "keyword":
+                        if (String.IsNullOrEmpty(keyword)) return "";
                         return String.Format(" AND (title LIKE '%{0}%' OR Content LIKE '%{0}%')", keyword);
                 }
                 return null;
@@ -561,7 +584,7 @@ namespace T2.Cms.Dal
 
             //获取记录条数
             recordCount = int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(String.Format(DbSql.ArchiveGetpagedArchivesCountSql, condition)), DalBase.EmptyParameter)).ToString());
+                base.NewQuery(String.Format(DbSql.ArchiveGetpagedArchivesCountSql, condition), DalBase.EmptyParameter)).ToString());
 
 
             pages = recordCount / pageSize;
@@ -593,7 +616,7 @@ namespace T2.Cms.Dal
             //throw new Exception(sql+"-"+DbHelper.DbType.ToString()+"-"+new SqlQuery(base.OptimizeSQL(SP.ToString());
             //System.Web.HttpContext.Current.Response.Write(sql);
             //throw new Exception(sql);
-            return base.GetDataSet(new SqlQuery(base.OptimizeSql(sql))).Tables[0];
+            return base.GetDataSet(base.NewQuery(sql,null)).Tables[0];
         }
 
 
@@ -686,7 +709,7 @@ namespace T2.Cms.Dal
                 return null;
             });
 
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(sql)), func);
+            base.ExecuteReader(base.NewQuery(sql,null), func);
         }
 
         /// <summary>
@@ -798,8 +821,8 @@ namespace T2.Cms.Dal
 
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(String.Format(DbSql.ArchiveGetSearchRecordCountByModuleId, moduleId,
-                keyword, condition)), DalBase.EmptyParameter)
+                base.NewQuery(String.Format(DbSql.ArchiveGetSearchRecordCountByModuleId, moduleId,
+                keyword, condition), DalBase.EmptyParameter)
                 ).ToString());
 
             //页数
@@ -831,7 +854,7 @@ namespace T2.Cms.Dal
                 return null;
             });
 
-            return base.GetDataSet(new SqlQuery(base.OptimizeSql(sql))).Tables[0];
+            return base.GetDataSet(base.NewQuery(sql,null)).Tables[0];
 
         }
 
@@ -844,29 +867,33 @@ namespace T2.Cms.Dal
         /// <param name="id"></param>
         public void DeleteMemberArchives(int id)
         {
-            base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.ArchiveDeleteMemberArchives),
-                     new object[,]{
+            var pa = new object[,]{
                 {"@id", id}
-                     })
-                );
+                     };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteNonQuery(
+                base.NewQuery(DbSql.ArchiveDeleteMemberArchives, parameters) );
         }
 
         public int TransferPublisher(int userId, int toPublisherId)
         {
-            return base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.ArchiveTransferPublisherId),
-                      new object[,]{
+            var pa = new object[,]{
                         {"@toPublisherId", toPublisherId},
                         {"@publisherId", userId}
-                     })
+                     };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            return base.ExecuteNonQuery(
+                 base.NewQuery(DbSql.ArchiveTransferPublisherId,parameters)
+                    
                  );
         }
 
         public int GetCategoryArchivesCount(string id)
         {
             return int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(SQLRegex.Replace(DbSql.Archive_GetCategoryArchivesCount, (c) => { return id; })), DalBase.EmptyParameter)).ToString());
+                base.NewQuery(SQLRegex.Replace(DbSql.Archive_GetCategoryArchivesCount, (c) => { return id; }),null)).ToString());
 
         }
 

@@ -21,15 +21,15 @@ namespace T2.Cms.Dal
         /// <returns></returns>
         public void GetAllCategories(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.CategoryGetAllCategories)), func);
+            base.ExecuteReader(base.NewQuery(DbSql.CategoryGetAllCategories,null), func);
         }
 
         /// <summary>
         /// 更新栏目
         /// </summary>
-        public bool Update(int id,int siteId,string name, 
-            string tag,string icon, string pagetitle, string keywords, 
-            string description,string location, int orderIndex)
+        public bool Update(int id, int siteId, string name,
+            string tag, string icon, string pagetitle, string keywords,
+            string description, string location, int orderIndex)
         {
             return base.ExecuteNonQuery(
                 SqlQueryHelper.Create(DbSql.CategoryUpdate,
@@ -47,8 +47,8 @@ namespace T2.Cms.Dal
                     })) == 1;
         }
 
-        public int Insert(int siteId,int categoryId,int left, int right, 
-            string name, string tag, string icon,string pagetitle, 
+        public int Insert(int siteId, int categoryId, int left, int right,
+            string name, string tag, string icon, string pagetitle,
             string keywords, string description,
             string location, int orderIndex
             )
@@ -83,16 +83,16 @@ namespace T2.Cms.Dal
         /// 删除栏目包含子栏目
         /// </summary>
         /// <returns></returns>
-        public bool DeleteSelfAndChildCategoy(int siteId, int lft,int rgt)
+        public bool DeleteSelfAndChildCategoy(int siteId, int lft, int rgt)
         {
-           return base.ExecuteNonQuery(
-                SqlQueryHelper.Create(DbSql.Category_DeleteByLft,
-                    new object[,]
-                    {
+            return base.ExecuteNonQuery(
+                 SqlQueryHelper.Create(DbSql.Category_DeleteByLft,
+                     new object[,]
+                     {
                         {"@siteId", siteId},
                         {"@lft", lft},
                         {"@rgt", rgt}
-                    })) >= 1;
+                     })) >= 1;
         }
 
 
@@ -101,13 +101,13 @@ namespace T2.Cms.Dal
         {
             object obj = base.ExecuteScalar(
                 SqlQueryHelper.Create(DbSql.Category_GetMaxRight,
-                new object[,] {  
+                new object[,] {
                     {"@siteId", siteId} }
                 ));
             if (obj == null) return 1;
             return int.Parse(obj.ToString());
         }
-       
+
         /*
         public void UpdateMoveLftRgt(int toLeft, int left, int right)
         {
@@ -132,88 +132,91 @@ namespace T2.Cms.Dal
                       {"@tolft", toLeft});
             
         }*/
-      
-       public void UpdateMoveLftRgt(int siteId,int toRgt, int left, int right)
-       {
 
-           object[,] pa = new object[,]{
+        public void UpdateMoveLftRgt(int siteId, int toRgt, int left, int right)
+        {
+
+            object[,] pa = new object[,]{
                     {"@siteId", siteId},
                    {"@lft", left},
                     {"@rgt", right},
                      {"@torgt", toRgt}
                        };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            base.ExecuteNonQuery(
+                    base.NewQuery(DbSql.Category_ChangeUpdateTreeLeft, parameters),
+                    base.NewQuery(DbSql.Category_ChangeUpdateTreeRight, parameters),
+                    base.NewQuery(DbSql.Category_ChangeUpdateTreeChildNodes, parameters)
+                       );
 
+        }
 
-           base.ExecuteNonQuery(
-                   new SqlQuery(base.OptimizeSql(DbSql.Category_ChangeUpdateTreeLeft),pa),
-                   new SqlQuery(base.OptimizeSql(DbSql.Category_ChangeUpdateTreeRight),pa),
-                   new SqlQuery(base.OptimizeSql(DbSql.Category_ChangeUpdateTreeChildNodes),pa)
-                      );
-
-       }
-
-       public void UpdateMoveLftRgt2(int siteId,int toRgt, int left, int right)
-       {
-           object[,] pa = new object[,]{
+        public void UpdateMoveLftRgt2(int siteId, int toRgt, int left, int right)
+        {
+            object[,] pa = new object[,]{
                     {"@siteId", siteId},
                     {"@lft", left},
                     {"@rgt", right},
                      {"@torgt", toRgt}
             };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            base.ExecuteNonQuery(
+                    base.NewQuery(DbSql.Category_ChangeUpdateTreeLeft2, parameters),
+                    base.NewQuery(DbSql.Category_ChangeUpdateTreeRight2, parameters),
+                    base.NewQuery(DbSql.Category_ChangeUpdateTreeBettown2, parameters)
+                 );
 
-           base.ExecuteNonQuery(
-                   new SqlQuery(base.OptimizeSql(DbSql.Category_ChangeUpdateTreeLeft2), pa),
-                   new SqlQuery(base.OptimizeSql(DbSql.Category_ChangeUpdateTreeRight2), pa),
-                   new SqlQuery(base.OptimizeSql(DbSql.Category_ChangeUpdateTreeBettown2), pa)
-                );
-
-       }
+        }
 
 
-       public void UpdateInsertLftRgt(int siteId,int left)
-       {
-           object[,] pa = new object[,]{
+        public void UpdateInsertLftRgt(int siteId, int left)
+        {
+            object[,] pa = new object[,]{
                 {"@siteId",siteId},
                 {"@lft", left}
             };
-           base.ExecuteNonQuery(
-               SqlQueryHelper.Create(DbSql.Category_UpdateInsertLeft, pa),
-               SqlQueryHelper.Create(DbSql.Category_UpdateInsertRight, pa)
-            );
-       }
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            base.ExecuteNonQuery(
+                base.NewQuery(DbSql.Category_UpdateInsertLeft, parameters),
+                     base.NewQuery(DbSql.Category_UpdateInsertRight, parameters)
+             );
+        }
 
 
-       public void UpdateDeleteLftRgt(int siteId,int lft, int rgt)
-       {
-           int val = rgt - lft + 1;
+        public void UpdateDeleteLftRgt(int siteId, int lft, int rgt)
+        {
+            int val = rgt - lft + 1;
 
-           object[,] pa = new object[,]{
+            object[,] pa = new object[,]{
                 {"@siteId", siteId},
                 {"@lft",lft},
                 {"@rgt",rgt},
                 {"@val",val}
             };
+            var parameters = base.Db.CreateParametersFromArray(pa);
 
-           base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Category_UpdateDeleteLft), pa),
-              new SqlQuery(base.OptimizeSql(DbSql.Category_UpdateDeleteRgt), pa)
-              );
-       }
-       public int GetCategoryArchivesCount(int siteId, int lft,int rgt)
-       {
-           return int.Parse(base.ExecuteScalar(
-               new SqlQuery(base.OptimizeSql(DbSql.Archive_GetCategoryArchivesCount),
-                   new object[,]{
+            base.ExecuteNonQuery(
+                base.NewQuery(DbSql.Category_UpdateDeleteLft, parameters),
+                base.NewQuery(DbSql.Category_UpdateDeleteRgt, parameters)
+               );
+        }
+        public int GetCategoryArchivesCount(int siteId, int lft, int rgt)
+        {
+            var parameters = base.Db.CreateParametersFromArray(new object[,]{
                        {"@siteId",siteId},
                        {"@lft",lft},
                        {"@rgt",rgt}
-                   })).ToString());
+                    });
 
-       }
+            return int.Parse(base.ExecuteScalar(
+                base.NewQuery(DbSql.Archive_GetCategoryArchivesCount,parameters)).ToString());
+
+        }
 
         public int GetMaxCategoryId(int siteId)
         {
             const string sql = "SELECT MAX(id) FROM $PREFIX_category WHERE site_id={0}";
-            SqlQuery query = new SqlQuery(base.OptimizeSql(String.Format(sql, siteId.ToString())));
+            SqlQuery query = base.NewQuery(String.Format(sql, siteId.ToString()),null);
             object obj = base.ExecuteScalar(query);
             if (obj == DBNull.Value) return 0;
             return int.Parse(obj.ToString());
@@ -223,7 +226,7 @@ namespace T2.Cms.Dal
         {
             String sql = String.Format("UPDATE $PREFIX_category SET sort_number={0} WHERE id={1}",
                 sortNumber.ToString(), id.ToString());
-            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(sql)));
+            base.ExecuteNonQuery(base.NewQuery(sql,null));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿
 /*
-* Copyright(C) 2010-2013 Z3Q.NET
+* Copyright(C) 2010-2013 TO2.NET
 * 
 * File Name	: CmsEventRegister.cs
 * publisher_id	: Newmin (new.min@msn.com)

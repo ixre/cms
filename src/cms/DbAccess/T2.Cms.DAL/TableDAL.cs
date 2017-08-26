@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2013 Z3Q.NET
+* Copyright(C) 2010-2013 TO2.NET
 * 
 * File Name	: TableDAL
 * Author	: Newmin (new.min@msn.com)
@@ -25,14 +25,15 @@ namespace T2.Cms.Dal
         {
             // try
             // {
-
+           
             int tableId = 0;
 
             base.ExecuteReader(
-                 new SqlQuery(base.OptimizeSql(DbSql.Table_GetTableIDByName),
+                 base.NewQuery(DbSql.Table_GetTableIDByName,
+                 base.Db.CreateParametersFromArray(
                      new object[,]{
                           {"@name",table.Name}
-                     }),
+                     })),
                  rd =>
                  {
                      if (rd.Read())
@@ -48,14 +49,14 @@ namespace T2.Cms.Dal
             }
 
             int rowcount = base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Table_Add),
+                base.NewQuery(DbSql.Table_Add,base.Db.CreateParametersFromArray(
                      new object[,]{
                 {"@name",table.Name},
                {"@note", table.Note},
                {"@apiServer", table.ApiServer},
                {"@isSystem", table.IsSystem},
                  {"@enabled", table.Enabled}
-                     })
+                     }))
                );
 
 
@@ -63,12 +64,12 @@ namespace T2.Cms.Dal
             if (rowcount == 1)
             {
                 base.ExecuteReader(
-                 new SqlQuery(base.OptimizeSql(DbSql.Table_GetTableIDByName),
-
+                 base.NewQuery(DbSql.Table_GetTableIDByName,
+                 base.Db.CreateParametersFromArray(
                       new object[,]{
                       
                 {"@name",table.Name}
-                      }),
+                      })),
                  rd =>
                  {
                      if (rd.Read())
@@ -84,14 +85,15 @@ namespace T2.Cms.Dal
                     foreach (TableColumn col in columns)
                     {
                         base.ExecuteNonQuery(
-                               new SqlQuery(base.OptimizeSql(DbSql.Table_CreateColumn),
+                               base.NewQuery(DbSql.Table_CreateColumn,
+                               base.Db.CreateParametersFromArray(
                                    new object[,]{
                               {"@tableId", tableId},
                               {"@name", col.Name},
                               {"@note", col.Note},
                               {"@validformat", col.ValidFormat},
                               {"@sortNumber", col.SortNumber}
-                                   })
+                                   }))
                               );
                     }
                 }
@@ -115,32 +117,36 @@ namespace T2.Cms.Dal
         {
 
             DataBaseAccess db = base.Db;
-            if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_HasExistsSystemTale),new object[,]{ {"@tableId", tableId}})).ToString()) != 0)
+            if (int.Parse(base.ExecuteScalar(base.NewQuery(DbSql.Table_HasExistsSystemTale,
+                base.Db.CreateParametersFromArray(new object[,] { { "@tableId", tableId } }))).ToString()) != 0)
             {
                 return OperateResult.IsSystem;
             }
-            else if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_GetMinTableId))).ToString()) == tableId)
+            else if (int.Parse(base.ExecuteScalar(base.NewQuery(DbSql.Table_GetMinTableId,null)).ToString()) == tableId)
             {
                 return OperateResult.Disallow;
             }
-            else if (int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Table_GetRowsCount), new object[,]{{"@tableId", tableId}})).ToString()) != 0)
+            else if (int.Parse(base.ExecuteScalar(base.NewQuery(DbSql.Table_GetRowsCount,
+                base.Db.CreateParametersFromArray(new object[,]{{"@tableId", tableId}}))).ToString()) != 0)
             {
                 return OperateResult.Related;   //存在表单记录无法删除
             }
             else
             {
                 //删除列
-                base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Table_DeleteColumns),
+                base.ExecuteNonQuery(base.NewQuery(DbSql.Table_DeleteColumns,
+                    base.Db.CreateParametersFromArray(
                     new object[,]{
                  {"@tableId", tableId}
-                    }));
+                    })));
 
                 //删除表单
                 return base.ExecuteNonQuery(
-                        new SqlQuery(base.OptimizeSql(DbSql.Table_DeleteTable),
+                        base.NewQuery(DbSql.Table_DeleteTable,
+                        base.Db.CreateParametersFromArray(
                             new object[,]{
                         {"@tableId", tableId}
-                            })) == 1
+                            }))) == 1
                         ? OperateResult.Success
                         : OperateResult.Fail;
             }
@@ -150,10 +156,11 @@ namespace T2.Cms.Dal
         {
             int tableId = 0;
             base.ExecuteReader(
-                     new SqlQuery(base.OptimizeSql(DbSql.Table_GetTableIDByName),
+                     base.NewQuery(DbSql.Table_GetTableIDByName,
+                     base.Db.CreateParametersFromArray(
                          new object[,]{
                       {"@name", table.Name}
-                         }),
+                         })),
                      rd =>
                      {
                          if (rd.Read())
@@ -170,7 +177,8 @@ namespace T2.Cms.Dal
 
 
             int rowcount = base.ExecuteNonQuery(
-                      new SqlQuery(base.OptimizeSql(DbSql.Table_Update),
+                      base.NewQuery(DbSql.Table_Update,
+                      base.Db.CreateParametersFromArray(
                           new object[,]{
                      {"@name", table.Name},
                      {"@note", table.Note},
@@ -178,7 +186,7 @@ namespace T2.Cms.Dal
                      {"@isSystem", table.IsSystem},
                      {"@enabled", table.Enabled},
                      {"@tableId", table.Id}
-                          })
+                          }))
                      );
 
             return rowcount == 1 ? OperateResult.Success : OperateResult.Fail;
@@ -187,10 +195,11 @@ namespace T2.Cms.Dal
         public void GetTable(int tableId, DataReaderFunc func)
         {
             base.ExecuteReader(
-                    new SqlQuery(base.OptimizeSql(DbSql.Table_GetTableById),
+                    base.NewQuery(DbSql.Table_GetTableById,
+                    base.Db.CreateParametersFromArray(
                         new object[,]{
                         {"@tableId", tableId}
-                        }),
+                        })),
                     func
                      
                   );
@@ -199,7 +208,7 @@ namespace T2.Cms.Dal
         public void GetTables(DataReaderFunc func)
         {
             base.ExecuteReader(
-                     new SqlQuery(base.OptimizeSql(DbSql.Table_GetTables)),
+                     base.NewQuery(DbSql.Table_GetTables,null),
                      func
                    );
         }
@@ -207,9 +216,10 @@ namespace T2.Cms.Dal
         public void GetColumns(int tableId, DataReaderFunc func)
         {
             base.ExecuteReader(
-                     new SqlQuery(base.OptimizeSql(DbSql.TableGetColumnsByTableId),
+                     base.NewQuery(DbSql.TableGetColumnsByTableId,
+                     base.Db.CreateParametersFromArray(
                          new object[,]{{"@tableId", tableId}
-                         }),
+                         })),
                      func
 
                    );
@@ -218,14 +228,15 @@ namespace T2.Cms.Dal
         public OperateResult AddColumn(TableColumn column)
         {
             int rowCount = base.ExecuteNonQuery(
-                      new SqlQuery(base.OptimizeSql(DbSql.Table_CreateColumn),
+                      base.NewQuery(DbSql.Table_CreateColumn,
+                      base.Db.CreateParametersFromArray(
                           new object[,]{
                       {"@name", column.Name},
                       {"@note", column.Note},
                       {"@validformat", column.ValidFormat},
                       {"@sortNumber", column.SortNumber},
                       {"@tableId", column.TableId}
-                          })
+                          }))
                     );
             return rowCount == 1 ? OperateResult.Success : OperateResult.Fail;
         }
@@ -233,10 +244,11 @@ namespace T2.Cms.Dal
         public void GetColumn(int columnId,DataReaderFunc func)
         {
             base.ExecuteReader(
-                    new SqlQuery(base.OptimizeSql(DbSql.Table_GetColumn),
+                    base.NewQuery(DbSql.Table_GetColumn,
+                    base.Db.CreateParametersFromArray(
                         new object[,]{
                         {"@columnId", columnId}
-                        }),
+                        })),
                     func
                      
                   );
@@ -245,14 +257,15 @@ namespace T2.Cms.Dal
         public OperateResult UpdateColumn(TableColumn column)
         {
             int rowCount = base.ExecuteNonQuery(
-                      new SqlQuery(base.OptimizeSql(DbSql.Table_UpdateColumn),
+                      base.NewQuery(DbSql.Table_UpdateColumn,
+                      base.Db.CreateParametersFromArray(
                           new object[,]{
                       {"@name", column.Name},
                       {"@note", column.Note},
                       {"@validformat", column.ValidFormat},
                       {"@sortNumber", column.SortNumber},
                       {"@columnId", column.Id}
-                          })
+                          }))
                     );
             return rowCount == 1 ? OperateResult.Success : OperateResult.Fail;
         }
@@ -261,11 +274,12 @@ namespace T2.Cms.Dal
         public OperateResult DeleteColumn(int tableId, int columnId)
         {
             OperateResult result = base.ExecuteNonQuery(
-                        new SqlQuery(base.OptimizeSql(DbSql.Table_DeleteColumn),
+                        base.NewQuery(DbSql.Table_DeleteColumn,
+                        base.Db.CreateParametersFromArray(
                             new object[,]{
                         {"@tableId", tableId},
                         {"@columnId", columnId}
-                            })
+                            }))
                         ) == 1
                         ? OperateResult.Success
                         : OperateResult.Fail;
@@ -273,11 +287,12 @@ namespace T2.Cms.Dal
             if (result == OperateResult.Success)
             {
                 base.ExecuteNonQuery(
-                        new SqlQuery(base.OptimizeSql(DbSql.Table_ClearDeletedColumnData),
+                        base.NewQuery(DbSql.Table_ClearDeletedColumnData,
+                        base.Db.CreateParametersFromArray(
                             new object[,]{
                         {"@tableId", tableId},
                         {"@columnId", columnId}
-                            })
+                            }))
                         );
             }
             return result;
@@ -289,8 +304,8 @@ namespace T2.Cms.Dal
         public int GetRowsCount(int tableId)
         {
            return int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Table_GetRowsCount)
-                ,new object[,]{{"@tableId",tableId}})
+                base.NewQuery(DbSql.Table_GetRowsCount
+                , base.Db.CreateParametersFromArray(new object[,]{{"@tableId",tableId}}))
                 ).ToString());
         }
 
@@ -302,25 +317,27 @@ namespace T2.Cms.Dal
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
 
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Table_CreateRow),
+                base.NewQuery(DbSql.Table_CreateRow,
+                base.Db.CreateParametersFromArray(
                     new object[,]{
                 {"@tableId", tableId},
                 {"@submittime",date}
-                    }));
+                    })));
 
             //获取生成的行编号
-            rowID = int.Parse(base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.TableGetLastedRowId))).ToString());
+            rowID = int.Parse(base.ExecuteScalar(base.NewQuery(DbSql.TableGetLastedRowId,null)).ToString());
 
             foreach (TableRowData row in rows)
             {
                 var i = rowID;
                 base.ExecuteNonQuery(
-                     new SqlQuery(base.OptimizeSql(DbSql.TableInsertRowData),
+                     base.NewQuery(DbSql.TableInsertRowData,
+                     base.Db.CreateParametersFromArray(
                          new object[,]{
                      {"@rowId", rowID},
                      {"@columnId", row.Cid},
                      {"@value", row.Value}
-                         })
+                         }))
                      );
 
             }
@@ -349,10 +366,11 @@ namespace T2.Cms.Dal
 
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Table_GetRowsCount),
+                base.NewQuery(DbSql.Table_GetRowsCount,
+                base.Db.CreateParametersFromArray(
                     new object[,]{
                 {"@tableId",tableID}
-                    })
+                    }))
                 ).ToString());
 
             //页数
@@ -391,20 +409,22 @@ namespace T2.Cms.Dal
         {
             //清理数据
             base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSql(DbSql.Table_ClearDeletedRowData),
+                    base.NewQuery(DbSql.Table_ClearDeletedRowData,
+                    base.Db.CreateParametersFromArray(
                         new object[,]{
                     {"@tableId", tableId},
                     {"@rowId", rowId}
-                        })
+                        }))
                     );
 
             //删除行
             return base.ExecuteNonQuery(
-                      new SqlQuery(base.OptimizeSql(DbSql.Table_DeleteRow),
+                      base.NewQuery(DbSql.Table_DeleteRow,
+                      base.Db.CreateParametersFromArray(
                           new object[,]{
                       {"@tableId", tableId},
                       {"@rowId", rowId}
-                          })
+                          }))
                     ) == 1 ? OperateResult.Success : OperateResult.Fail;
         }
 
@@ -412,10 +432,11 @@ namespace T2.Cms.Dal
         public void GetRow(int rowId,DataReaderFunc func)
         {
             base.ExecuteReader(
-                     new SqlQuery(base.OptimizeSql(DbSql.Table_GetRow),
+                     base.NewQuery(DbSql.Table_GetRow,
+                     base.Db.CreateParametersFromArray(
                          new object[,]{
                             {"@rowId", rowId}
-                         }),
+                         })),
                      func
                        
                    );

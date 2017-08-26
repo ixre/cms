@@ -1,6 +1,6 @@
 ﻿//
 // MemberDAL   会员数据访问
-// Copryright 2011 @ Z3Q.NET,All rights reseved !
+// Copryright 2011 @ TO2.NET,All rights reseved !
 // Create by newmin @ 2011/03/16
 //
 
@@ -19,20 +19,23 @@ namespace T2.Cms.Dal
         public bool DetectUserName(string username)
         {
             object obj = base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_DetectUsername),
+                base.NewQuery(DbSql.Member_DetectUsername,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@Username", username}
-                    }));
+                    })));
             return obj == null;
         }
 
         public bool DetectNickName(string nickname)
         {
             object obj = base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_DetectNickname),
+                base.NewQuery(DbSql.Member_DetectNickname,
+                                base.Db.CreateParametersFromArray(
                     new object[,]{
                 {"@Nickname", nickname}
-                    }));
+                    })));
             return obj == null;
         }
 
@@ -45,11 +48,13 @@ namespace T2.Cms.Dal
         public bool DetectUserAndNickNameExist(string username, string nickname)
         {
             object obj = base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_DetectUsernameAndNickNameHasExits),
+                base.NewQuery(DbSql.Member_DetectUsernameAndNickNameHasExits,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@Username", username},
                 {"@Nickname", nickname}
-                    }));
+                    })));
             return obj != null;
         }
 
@@ -60,7 +65,9 @@ namespace T2.Cms.Dal
         public void RegisterMember(string username,string password,string avatar,string sex,string nickname,string note,string email,string telephone)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_RegisterMember),
+                base.NewQuery(DbSql.Member_RegisterMember,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@Username",username},
                 {"@Password",password},
@@ -70,13 +77,15 @@ namespace T2.Cms.Dal
                 {"@Note", note},
                 {"@Email",email},
                 {"@Telephone",telephone}
-                    }));
+                    })));
         }
 
         public void InsertDetails(int memberID, string status, string regIP, string token)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_InsertMemberDetails),
+                base.NewQuery(DbSql.Member_InsertMemberDetails,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@UId",memberID},
                 {"@Status",status},
@@ -84,7 +93,7 @@ namespace T2.Cms.Dal
                 {"@RegTime",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"@LastLoginTime",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"@Token",token}
-        }));
+        })));
         }
 
         /// <summary>
@@ -95,10 +104,12 @@ namespace T2.Cms.Dal
         public int GetMemberUid(string username)
         {
             object obj= base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_GetMemberUID),
+                base.NewQuery(DbSql.Member_GetMemberUID,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@Username", username}
-                    })
+                    }))
                 );
             if (obj == null) return 0;
             return int.Parse(obj.ToString());
@@ -113,11 +124,12 @@ namespace T2.Cms.Dal
         public void VerifyMember(string username, string password,DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_VerifyMember),
+                base.NewQuery(DbSql.Member_VerifyMember,
+                                base.Db.CreateParametersFromArray(
                     new object[,]{
 {"@Username", username},
                 {"@Password", password}
-                    }),
+                    })),
                 func
                 );
         }
@@ -125,10 +137,11 @@ namespace T2.Cms.Dal
         public void GetMemberByID(int id, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_GetMemberByID),
+                base.NewQuery(DbSql.Member_GetMemberByID,
+                                base.Db.CreateParametersFromArray(
                     new object[,]{
                         {"@id", id}
-                    }),
+                    })),
                 func
                 );
         }
@@ -136,10 +149,12 @@ namespace T2.Cms.Dal
         public void GetMemberByUsername(string username, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_GetMemberByUsername),
+                base.NewQuery(DbSql.Member_GetMemberByUsername,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                        {"@Username", username}
-                    }),
+                    })),
                 func
                );
         }
@@ -154,11 +169,13 @@ namespace T2.Cms.Dal
         public void GetMemberDetailsByUsername(string username,DataReaderFunc func)
         {
             base.ExecuteReader(
-                  new SqlQuery(base.OptimizeSql(DbSql.Member_GetMemberInfoAndDetails),
+                  base.NewQuery(DbSql.Member_GetMemberInfoAndDetails,
+                                  base.Db.CreateParametersFromArray(
+
                       new object[,]{
                         {"@id",-1},
                         {"@Username", username}
-                      }),
+                      })),
                   func
                  );
         }
@@ -171,11 +188,13 @@ namespace T2.Cms.Dal
         public void GetMemberDetailsByID(int id,DataReaderFunc func)
         {
             base.ExecuteReader(
-                  new SqlQuery(base.OptimizeSql(DbSql.Member_GetMemberInfoAndDetails),
+                  base.NewQuery(DbSql.Member_GetMemberInfoAndDetails,
+                                  base.Db.CreateParametersFromArray(
+
                       new object[,]{
                         {"@id", id},
                         {"@Username", String.Empty}
-                      }),
+                      })),
 
                   func
                   );
@@ -196,7 +215,9 @@ namespace T2.Cms.Dal
             string avatar,string sex,string email,string telephone,string note)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Member_Update),
+                base.NewQuery(DbSql.Member_Update,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@Password",password},
                 {"@Avatar", avatar},
@@ -206,7 +227,7 @@ namespace T2.Cms.Dal
                 {"@Telephone", telephone},
                   {"@Note", note},
                   {"@id", memberId}
-                    }));
+                    })));
         }
 
         /// <summary>
@@ -215,10 +236,10 @@ namespace T2.Cms.Dal
         /// <param name="id"></param>
         public void Delete(int memberID)
         {
-            object[,] parameters=new object[,]{{"@id", memberID} };
-
-            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Member_DeleteMember),parameters),
-                        new SqlQuery(base.OptimizeSql(DbSql.Member_DeleteMemberDetails), parameters)); ;
+            object[,] pa=new object[,]{{"@id", memberID} };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            base.ExecuteNonQuery(base.NewQuery(DbSql.Member_DeleteMember,parameters),
+                        base.NewQuery(DbSql.Member_DeleteMemberDetails, parameters)); ;
         }
 
         /// <summary>
@@ -236,7 +257,7 @@ namespace T2.Cms.Dal
             const string sql1 = @"SELECT TOP $[pagesize] [id],[username],[avatar],[nickname],[RegIp],[RegTime],[LastLoginTime] FROM $PREFIX_member INNER JOIN $PREFIX_MemberDetails ON $PREFIX_member.[ID]=$PREFIX_MemberDetails.[UID]";
 
             recordCount = int.Parse(
-                   base.ExecuteScalar(new SqlQuery(base.OptimizeSql(DbSql.Member_GetMemberCount))).ToString()
+                   base.ExecuteScalar(base.NewQuery(DbSql.Member_GetMemberCount,null)).ToString()
                 );
 
             pages = recordCount / pageSize;

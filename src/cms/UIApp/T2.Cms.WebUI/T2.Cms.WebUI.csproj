@@ -508,6 +508,7 @@
     <Content Include="public\mui\html\user\user_role_set.html" />
     <Content Include="public\mui\html\user\user_save_profile.html" />
     <Content Include="public\mui\js\base.js" />
+    <Content Include="public\mui\js\base_new.js" />
     <Content Include="templates\default\archive.html" />
     <Content Include="templates\default\category.html" />
     <Content Include="templates\default\index.html" />

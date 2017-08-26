@@ -1,6 +1,6 @@
 ﻿//
 // LinkDAL   友情链接数据访问层
-// Copryright 2011 @ Z3Q.NET,All rights reseved !
+// Copryright 2011 @ TO2.NET,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
 
@@ -32,7 +32,9 @@ namespace T2.Cms.Dal
 
         public int AddSiteLink(int siteId,ISiteLink link)
         {
-            return base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Link_AddSiteLink),
+            return base.ExecuteNonQuery(base.NewQuery(DbSql.Link_AddSiteLink,
+                                base.Db.CreateParametersFromArray(
+
                  new object[,]{
                 {"@siteId",siteId},
                 {"@pid",link.Pid},
@@ -44,14 +46,16 @@ namespace T2.Cms.Dal
                 {"@Target", link.Target},
                 {"@sortNumber", link.SortNumber},
                 {"@bind",link.Bind}
-                }));
+                })));
         }
 
 
         public int UpdateSiteLink(int siteId,ISiteLink link)
         {
            return base.ExecuteNonQuery(
-               new SqlQuery(base.OptimizeSql(DbSql.Link_UpdateSiteLink),
+               base.NewQuery(DbSql.Link_UpdateSiteLink,
+                               base.Db.CreateParametersFromArray(
+
                     new object[,]{
                         {"@siteId",siteId},
                 {"@pid",link.Pid},
@@ -64,17 +68,19 @@ namespace T2.Cms.Dal
                 {"@visible",link.Visible},
                 {"@LinkId",link.Id},
                 {"@bind",link.Bind}
-                    }));
+                    })));
         }
 
         public int DeleteSiteLink(int siteId,int linkId)
         {
             return base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.Link_DeleteSiteLink),
+                 base.NewQuery(DbSql.Link_DeleteSiteLink,
+                                 base.Db.CreateParametersFromArray(
+
                  new object[,]{
                      {"@siteId",siteId},
                 {"@LinkId", linkId}
-                }));
+                })));
         }
 
 

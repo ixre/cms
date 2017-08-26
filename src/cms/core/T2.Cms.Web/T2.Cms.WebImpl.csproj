@@ -265,19 +265,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="install\db\access.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="install\db\mssql.sql" />
-    <Content Include="install\db\sqlite.sql" />
-    <Content Include="install\install.html" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resource\SiteResouce\cms.core_min.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="install\db\mysql.sql" />
     <Content Include="Resource\SiteResouce\base.min.js" />
     <Content Include="Resource\SiteResouce\cms.core.js" />
     <Content Include="Resource\SiteResouce\jslib\js_lib_animation.js" />

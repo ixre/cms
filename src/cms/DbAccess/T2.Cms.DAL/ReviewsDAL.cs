@@ -1,6 +1,6 @@
 ﻿//
 // ReviewsDAL   点评(赞同和反对)访问层
-// Copryright 2011 @ Z3Q.NET,All rights reseved !
+// Copryright 2011 @ TO2.NET,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
 
@@ -22,10 +22,12 @@ namespace T2.Cms.Dal
         public void CreateReviews(string id)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Reviews_Create),
+                base.NewQuery(DbSql.Reviews_Create,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@id",id}
-                    })
+                    }))
                 );
         }
 
@@ -37,10 +39,12 @@ namespace T2.Cms.Dal
         public string GetReviewsMembers(string id)
         {
             return base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Reviews_GetMember),
+                base.NewQuery(DbSql.Reviews_GetMember,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@id", id}
-                    })) as String;
+                    }))) as String;
         }
 
 
@@ -68,20 +72,24 @@ namespace T2.Cms.Dal
         public void UpdateReviews(string id,string members)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Reviews_UpdateReviews),
+                base.NewQuery(DbSql.Reviews_UpdateReviews,
+                                base.Db.CreateParametersFromArray(
+
                    new object[,]{
                 {"@Members", members},
                 {"@id",id}
-                   }));
+                   })));
         }
 
         public void DeleteReviews(string id)
         {
             base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Reviews_Delete),
+                base.NewQuery(DbSql.Reviews_Delete,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@id", id}
-                    }));
+                    })));
         }
 
     }

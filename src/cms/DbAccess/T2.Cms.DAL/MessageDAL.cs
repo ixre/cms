@@ -1,6 +1,6 @@
 ﻿//
 // MessageDAL   会员数据访问
-// Copryright 2011 @ Z3Q.NET,All rights reseved !
+// Copryright 2011 @ TO2.NET,All rights reseved !
 // Create by newmin @ 2011/04/06
 //
 
@@ -23,9 +23,10 @@ namespace T2.Cms.Dal
         public void GetMessage(int id, DataReaderFunc func)
         {
             base.ExecuteReader(
-                new SqlQuery(base.OptimizeSql(DbSql.Message_GetMessage),
+                base.NewQuery(DbSql.Message_GetMessage,
+                                base.Db.CreateParametersFromArray(
                     new object[,]{{"@id", id}
-                    }),
+                    })),
                 func
                 );
         }
@@ -33,7 +34,9 @@ namespace T2.Cms.Dal
         public void WriteMessage(int sendUID, int receiveUID, string subject, string content)
         {
             base.ExecuteNonQuery(
-               new SqlQuery(base.OptimizeSql(DbSql.Mesage_InsertMessage),
+               base.NewQuery(DbSql.Mesage_InsertMessage,
+                               base.Db.CreateParametersFromArray(
+
                    new object[,]{
                {"@SendUId", sendUID},
                {"@ReceiveUId", receiveUID},
@@ -42,37 +45,42 @@ namespace T2.Cms.Dal
                {"@HasRead", false},
                {"@Recycle", false},
                {"@SendDate",DateTime.Now.ToString()}
-                   })
+                   }))
                );
         }
         
         public int SetRead(int receiveUid, int id)
         {
             return base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Message_SetRead),
+                base.NewQuery(DbSql.Message_SetRead,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@ReceiveUId", receiveUid},
                 {"@id", id}
-                    }));
+                    })));
         }
 
         public int SetRecycle(int receiveUid,int id)
         {
             return base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Message_SetRecycle),new object[,]{
+                base.NewQuery(DbSql.Message_SetRecycle, base.Db.CreateParametersFromArray(
+new object[,]{
                 {"@ReceiveUId",receiveUid},
                 {"@id", id}
-                }));
+                })));
         }
 
         public int Delete(int receiveUid, int id)
         {
             return base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Message_Delete),
+                base.NewQuery(DbSql.Message_Delete,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                  {"@ReceiveUId", receiveUid},
                  {"@id", id}
-                    }));
+                    })));
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 Z3Q.NET,All rights reseved.
+// Copyright (C) 2007-2008 TO2.NET,All rights reseved.
 // 
 // Project: jr.Cms.Manager
 // FileName : BasePage.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/17 9:33:57
 // Description :
 //
-// Get infromation of this software,please visit our site http://k3f.net/cms
+// Get infromation of this software,please visit our site http://to2.net/cms
 // Modify:
 // 2013-07-15 14:00 newmin [!]: 修改模板呈现方式
 //
@@ -133,7 +133,7 @@ namespace T2.Cms.WebManager
             }
 
             response.AddHeader("X-AspNet-Version", String.Format("jr.Cms v{0}", Cms.Version));
-            response.AddHeader("Support-URL", "cms.k3f.net/cms/");
+            response.AddHeader("Support-URL", "cms.to2.net/cms/");
 
         }
 

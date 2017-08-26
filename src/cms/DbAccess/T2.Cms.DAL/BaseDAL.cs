@@ -89,6 +89,14 @@ namespace T2.Cms.Dal
         }
 
         /// <summary>
+        /// 创建新查询
+        /// </summary>
+        protected SqlQuery NewQuery(string sql,DbParameter[] parameters)
+        {
+            return new SqlQuery(OptimizeSql(sql), parameters);
+        }
+
+        /// <summary>
         /// 执行查询
         /// </summary>
         /// <param name="sql"></param>

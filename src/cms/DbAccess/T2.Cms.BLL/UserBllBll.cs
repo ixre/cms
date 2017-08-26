@@ -1,5 +1,5 @@
 ﻿//
-// Copyright Z3Q.NET.
+// Copyright TO2.NET.
 // UserBLL.cs newmin (new.min@msn.com)
 //
 

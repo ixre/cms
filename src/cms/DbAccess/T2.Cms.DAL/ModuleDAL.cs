@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 Z3Q.NET
+* Copyright(C) 2010-2012 TO2.NET
 * 
 * File Name	: ModuleDAL
 * Author	: Newmin (new.min@msn.com)
@@ -21,13 +21,15 @@ namespace T2.Cms.Dal
         public bool AddModule(Module module)
         {
             int rowcount = base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.Module_Add),
+                 base.NewQuery(DbSql.Module_Add,
+                                 base.Db.CreateParametersFromArray(
+
                      new object[,]{
                 {"@siteId",module.SiteId},
                 {"@name",module.Name},
                 {"@isSystem", module.IsSystem},
                 {"@isDelete", module.IsDelete}
-                     })
+                     }))
                 );
 
             return rowcount == 1;
@@ -36,10 +38,12 @@ namespace T2.Cms.Dal
         public bool DeleteModule(int moduleID)
         {
             int rowcount = base.ExecuteNonQuery(
-                  new SqlQuery(base.OptimizeSql(DbSql.Module_Delete),
+                  base.NewQuery(DbSql.Module_Delete,
+                                  base.Db.CreateParametersFromArray(
+
                       new object[,]{
                  {"@id", moduleID}
-                      })
+                      }))
                  );
             return rowcount==1;
         }
@@ -47,12 +51,14 @@ namespace T2.Cms.Dal
         public bool UpdateModule(Module module)
         {
             int rowcount = base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Module_Update),
+                base.NewQuery(DbSql.Module_Update,
+                                base.Db.CreateParametersFromArray(
+
                     new object[,]{
                 {"@id", module.ID},
                 {"@name", module.Name},
                 {"@isDelete", module.IsDelete}
-                    })
+                    }))
                 );
             return rowcount == 1;
         }
@@ -60,7 +66,7 @@ namespace T2.Cms.Dal
         public IList<Module> GetModules()
         {
             IList<Module> list = null;
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.Module_GetAll)),
+            base.ExecuteReader(base.NewQuery(DbSql.Module_GetAll,null),
                 reader =>
                 {
                     if (reader.HasRows)
@@ -74,10 +80,12 @@ namespace T2.Cms.Dal
         public Module GetModule(int moduleID)
         {
             Module m = null;
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.Module_GetByID),
+            base.ExecuteReader(base.NewQuery(DbSql.Module_GetByID,
+                                base.Db.CreateParametersFromArray(
+
                 new object[,]{
                     {"@id", moduleID}
-                }),
+                })),
                   reader =>
                   {
                       if (reader.HasRows)
@@ -91,10 +99,12 @@ namespace T2.Cms.Dal
         public Module GetModule(string moduleName)
         {
             Module m = null;
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.Module_GetByName),
+            base.ExecuteReader(base.NewQuery(DbSql.Module_GetByName,
+                                base.Db.CreateParametersFromArray(
+
                 new object[,]{
                     {"@name", moduleName}
-                }),
+                })),
                   reader =>
                   {
                       if (reader.HasRows)

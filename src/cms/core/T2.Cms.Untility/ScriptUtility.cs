@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 Z3Q.NET,All rights reseved.
+// Copyright (C) 2007-2008 TO2.NET,All rights reseved.
 // 
 // Project: jr.Cms.Utility
 // FileName : ScriptUtility.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/31 18:03:20
 // Description :
 //
-// Get infromation of this software,please visit our site http://k3f.net/cms
+// Get infromation of this software,please visit our site http://to2.net/cms
 //
 //
 

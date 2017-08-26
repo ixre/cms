@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 Z3Q.NET
+* Copyright(C) 2010-2012 TO2.NET
 * 
 * File Name	: ExtendAttrDAL
 * Author	: Newmin (new.min@msn.com)
@@ -21,7 +21,9 @@ namespace T2.Cms.Dal
         public int AddExtendField(int siteId, IExtendField field)
         {
             int row = base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.DataExtend_CreateField),
+                 base.NewQuery(DbSql.DataExtend_CreateField,
+                                 base.Db.CreateParametersFromArray(
+
                      new object[,]{
                          {"@siteId",siteId},
                         {"@name", field.Name},
@@ -29,12 +31,13 @@ namespace T2.Cms.Dal
                         {"@regex", field.Regex},
                         {"@defaultValue",field.DefaultValue},
                         {"@message",field.Message}
-                     })
+                     }))
                 );
 
             if (row > 0)
             {
-                SqlQuery q = new SqlQuery(base.OptimizeSql("SELECT MAX(id) FROM $PREFIX_extend_field WHERE site_id="+siteId.ToString()), DalBase.EmptyParameter);
+                SqlQuery q = base.NewQuery("SELECT MAX(id) FROM $PREFIX_extend_field WHERE site_id="+
+                    siteId.ToString(), DalBase.EmptyParameter);
                 return int.Parse(this.ExecuteScalar(q).ToString());
             }
 
@@ -45,10 +48,12 @@ namespace T2.Cms.Dal
         public bool DeleteExtendField(int siteId, int fieldId)
         {
             int rowcount = base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.DataExtend_DeleteExtendField), new object[,]{
+                 base.NewQuery(DbSql.DataExtend_DeleteExtendField,
+                                 base.Db.CreateParametersFromArray(
+new object[,]{
                      {"@siteId",siteId},
                     {"@id", fieldId}
-                 })
+                 }))
                 );
             return rowcount == 1;
         }
@@ -56,7 +61,9 @@ namespace T2.Cms.Dal
         public bool UpdateExtendField(int siteId, IExtendField field)
         {
             int rowcount = base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.DataExtend_UpdateField),
+                 base.NewQuery(DbSql.DataExtend_UpdateField,
+                                 base.Db.CreateParametersFromArray(
+
                      new object[,]{
                         {"@siteId",siteId},
                         {"@name", field.Name},
@@ -65,25 +72,27 @@ namespace T2.Cms.Dal
                         {"@defaultValue", field.DefaultValue},
                         {"@message",field.Message},
                         {"@id", field.Id}
-                     })
+                     }))
                 );
             return rowcount == 1;
         }
 
         public void GetAllExtendFields(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.DataExtend_GetAllExtends)),
+            base.ExecuteReader(base.NewQuery(DbSql.DataExtend_GetAllExtends,null),
                 func);
         }
 
         public void GetExtendValues(int siteId, int relationType, int relationID, DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.DataExtend_GetExtendValues),
+            base.ExecuteReader(base.NewQuery(DbSql.DataExtend_GetExtendValues,
+                                base.Db.CreateParametersFromArray(
+
                  new object[,]{
                      {"@siteId",siteId},
                      {"@relationType",relationType},
                      {"@relationId",relationID}
-                 }
+                 })
                 ), func);
         }
 
@@ -122,11 +131,13 @@ namespace T2.Cms.Dal
         public int[] GetCategoryExtendIdList(int siteId, int categoryId)
         {
             IList<int> list = new List<int>();
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.DataExtend_GetCategoryExtendIdList),
+            base.ExecuteReader(base.NewQuery(DbSql.DataExtend_GetCategoryExtendIdList,
+                                base.Db.CreateParametersFromArray(
+
                    new object[,]{
                      {"@siteId",siteId},
                      {"@categoryId",categoryId}
-                   }
+                   })
                   ),
                     rd =>
                     {

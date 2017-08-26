@@ -129,7 +129,7 @@ CREATE TABLE [cms_link] (
 ALTER TABLE [cms_link] WITH NOCHECK ADD  CONSTRAINT [PK_cms_link] PRIMARY KEY  NONCLUSTERED ( [id] )
 SET IDENTITY_INSERT [cms_link] ON
 
-INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[target],[index],[visible]) VALUES ( 1,0,1,2,N'SPC.NET',N'http://k3f.net/cms/cms/',N'_blank',2,1)
+INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[target],[index],[visible]) VALUES ( 1,0,1,2,N'JR-CMS.NET',N'http://to2.net/cms/cms/',N'_blank',2,1)
 INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[index],[visible]) VALUES ( 2,1,1,1,N'首页',N'/',1,1)
 INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[index],[visible]) VALUES ( 3,0,1,1,N'欢迎使用',N'/cms/welcome.html',2,1)
 
@@ -302,7 +302,7 @@ CREATE TABLE [cms_site] (
 ALTER TABLE [cms_site] WITH NOCHECK ADD  CONSTRAINT [PK_cms_site] PRIMARY KEY  NONCLUSTERED ( [siteid] )
 SET IDENTITY_INSERT [cms_site] ON
 
-INSERT [cms_site] ([siteid],[name],[language],[tpl],[seotitle],[state],[pronotice]) VALUES ( 1,N'默认站点',1,N'default',N'默认站点-Speicial Cms .NET!',1,N'SPC.NET是一款跨平台支持多站点基于ASP.NET MVC技术架构的内容管理系统!')
+INSERT [cms_site] ([siteid],[name],[language],[tpl],[seotitle],[state],[pronotice]) VALUES ( 1,N'默认站点',1,N'default',N'默认站点-Speicial Cms .NET!',1,N'JR-CMS.NET是一款跨平台支持多站点基于ASP.NET MVC技术架构的内容管理系统!')
 
 SET IDENTITY_INSERT [cms_site] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_table]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 

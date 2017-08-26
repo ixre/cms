@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 Z3Q.NET
+* Copyright(C) 2010-2012 TO2.NET
 * 
 * File Name	: TplBindType
 * publisher_id	: Newmin (new.min@msn.com)

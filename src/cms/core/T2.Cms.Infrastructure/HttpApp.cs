@@ -1,6 +1,6 @@
 ﻿/**
- * Copyright (C) 2007-2015 Z3Q.NET,All rights reseved.
- * Get more infromation of this software,please visit site http://k3f.net/cms
+ * Copyright (C) 2007-2015 TO2.NET,All rights reseved.
+ * Get more infromation of this software,please visit site http://to2.net/cms
  * 
  * name : HttpApp.cs
  * author : newmin (new.min@msn.com)

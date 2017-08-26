@@ -4,12 +4,8 @@ using T2.Cms.Conf;
 namespace T2.Cms.Resource
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using System.IO;
-    using SharpCompress.Archive;
-    using SharpCompress.Common;
     using T2.Cms.Web.Resource;
 
     /// <summary>
@@ -68,7 +64,6 @@ namespace T2.Cms.Resource
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/upload.js", 
                 comment + SiteResource.js_lib_upload, false);
-
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/animation.js",
                 comment + SiteResource.js_lib_animation, false);

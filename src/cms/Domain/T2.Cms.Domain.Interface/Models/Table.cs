@@ -1,6 +1,6 @@
 ﻿//
 // Form
-// Copryright 2011 @ Z3Q.NET,All rights reseved !
+// Copryright 2011 @ TO2.NET,All rights reseved !
 // Create by newmin @ 2014-01-06
 //
 

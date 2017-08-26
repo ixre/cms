@@ -297,8 +297,8 @@ namespace T2.Cms.Web.Resource.WebManager {
         ///      &lt;links title=&quot;欢迎使用&quot; toggle=&quot;true&quot; iconPos=&quot;-240|0&quot;&gt;
         ///        &lt;link href=&quot;?module=system&amp;amp;action=summary&quot; text=&quot;欢迎首页&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
         ///        &lt;!--
-        ///        &lt;link href=&quot;http://k3f.net/cms/cms/help.html&quot; text=&quot;帮助指南&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
-        ///        &lt;link href=&quot;http://k3f.net/cms/cms/about.html&quot; text=&quot;关于系统&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;--&gt;
+        ///        &lt;link href=&quot;http://to2.net/cms/cms/help.html&quot; text=&quot;帮助指南&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;
+        ///        &lt;link href=&quot;http://to2.net/cms/cms/about.html&quot; text=&quot;关于系统&quot; title=&quot;&quot; siteid=&quot;-1&quot;/&gt;--&gt;
         ///      &lt;/links&gt;
         ///
         ///      

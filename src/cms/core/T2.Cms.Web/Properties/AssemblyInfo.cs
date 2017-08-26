@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Spc.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Z3Q.NET")]
+[assembly: AssemblyCompany("TO2.NET")]
 [assembly: AssemblyProduct("Spc.Web")]
-[assembly: AssemblyCopyright("Copyright © k3f.net/cms")]
+[assembly: AssemblyCopyright("Copyright © to2.net/cms")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

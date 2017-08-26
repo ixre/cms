@@ -1,6 +1,6 @@
 ﻿//
 // CommentDAL   会员数据访问
-// Copryright 2011 @ Z3Q.NET,All rights reseved !
+// Copryright 2011 @ TO2.NET,All rights reseved !
 // Create by newmin @ 2011/03/13
 //
 
@@ -14,19 +14,22 @@ namespace T2.Cms.Dal
     /// <summary>
     /// 文档评论数据访问
     /// </summary>
-    public sealed class CommentDal:DalBase,ICommentDAL
+    public sealed class CommentDal : DalBase, ICommentDAL
     {
-        public void Add(string archiveID,int memberID,string ip,string content,bool recycle)
+        public void Add(string archiveID, int memberID, string ip, string content, bool recycle)
         {
-            base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.Comment_AddComment),
-                new object[,]{
+            var pa = new object[,]{
                 {"@ArchiveId", archiveID},
                 {"@MemberId",memberID},
                 {"@IP",ip},
                 {"@Content", content},
                 {"@Recycle", recycle},
                 {"@CreateDate",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}
-                }));
+                };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteNonQuery(base.NewQuery(DbSql.Comment_AddComment, parameters)
+              );
         }
 
         /// <summary>
@@ -37,21 +40,26 @@ namespace T2.Cms.Dal
         /// <returns></returns>
         public int GetArchiveCommentsCount(string archiveID)
         {
-            return int.Parse(base.ExecuteScalar(
-                new SqlQuery(base.OptimizeSql(DbSql.Comment_QueryCommentsCountForArchive),
-                    new object[,]{
+            var pa = new object[,]{
                  {"@ArchiveId", archiveID}
-                    })
+                    };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            return int.Parse(base.ExecuteScalar(
+                base.NewQuery(DbSql.Comment_QueryCommentsCountForArchive, parameters)
                  ).ToString());
         }
 
         public void Delete(int commentID)
         {
-            base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Comment_Delete),
-                    new object[,]{
+            var pa = new object[,]{
                 {"@id", commentID}
-                    })
+                    };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            base.ExecuteNonQuery(
+                base.NewQuery(DbSql.Comment_Delete, parameters)
+
                 );
         }
 
@@ -59,12 +67,16 @@ namespace T2.Cms.Dal
         {
             throw new NotImplementedException();
         }
-        public DataTable GetArchiveComments(string archiveID,bool desc)
+        public DataTable GetArchiveComments(string archiveID, bool desc)
         {
-            return base.GetDataSet(new SqlQuery(base.OptimizeSql(DbSql.Comment_GetCommentsForArchive) + (desc ? " ORDER BY createdate DESC" : ""),
-                new object[,]{
+            var pa = new object[,]{
                  {"@ArchiveId", archiveID}
-                })).Tables[0];
+                };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
+            return base.GetDataSet(base.NewQuery(DbSql.Comment_GetCommentsForArchive +
+                (desc ? " ORDER BY createdate DESC" : ""), parameters)
+              ).Tables[0];
         }
 
 
@@ -75,19 +87,23 @@ namespace T2.Cms.Dal
 
         public DataTable GetCommentsDetailsTable(string archiveID)
         {
+            var pa = new object[,]{
+                {"@archiveId",archiveID}};
+            var parameters = base.Db.CreateParametersFromArray(pa);
+
             return base.GetDataSet(
-                new SqlQuery(base.OptimizeSql(DbSql.Comment_GetCommentDetailsListForArchive),
-                    new object[,]{
-                {"@archiveId",archiveID}})).Tables[0];
+                base.NewQuery(DbSql.Comment_GetCommentDetailsListForArchive, parameters)
+                   ).Tables[0];
         }
 
         public void DeleteMemberComments(int id)
         {
-            base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Comment_DeleteMemberComments),
-                    new object[,]{
+            var pa = new object[,]{
                 {"@id", id}
-                    })
+                    };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            base.ExecuteNonQuery(
+                base.NewQuery(DbSql.Comment_DeleteMemberComments, parameters)
             );
         }
 
@@ -97,11 +113,13 @@ namespace T2.Cms.Dal
         /// <param name="archiveId"></param>
         public void DeleteArchiveComments(string archiveID)
         {
-            base.ExecuteNonQuery(
-                new SqlQuery(base.OptimizeSql(DbSql.Comment_DeleteArchiveComments), 
-                    new object[,]{
+            var pa = new object[,]{
                 {"@ArchiveId", archiveID}
-                    }));
+                    };
+            var parameters = base.Db.CreateParametersFromArray(pa);
+            base.ExecuteNonQuery(
+                base.NewQuery(DbSql.Comment_DeleteArchiveComments, parameters)
+                    );
         }
 
 

@@ -123,16 +123,20 @@ namespace T2.Cms
                 //有新版本
                 case HttpStatusCode.OK: break;// return 1;
             }
-
- 
-            byte[] xmlData = new byte[rsp.ContentLength];
-            rspStream.Read(xmlData, 0, xmlData.Length);
-
+            //读取内容
+            StreamReader sr = new StreamReader(rspStream);
+            String result = sr.ReadToEnd();
+            sr.Dispose();
+            //加载数据
             XmlDocument xd = new XmlDocument();
-            string result = Encoding.UTF8.GetString(xmlData);
             result = Regex.Match(result, "<upgrade[^>]+>[\\s\\S]+</upgrade>").Value;
-
-            xd.LoadXml(result);
+            try
+            {
+                xd.LoadXml(result);
+            }catch(XmlException exc)
+            {
+                throw new Exception("更新描述文件错误：" + result);
+            }
             XmlNode xn = xd.SelectSingleNode("/upgrade");
 
             data[0] = xn.Attributes["version"].Value;

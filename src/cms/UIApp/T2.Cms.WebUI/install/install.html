@@ -4,31 +4,88 @@
     <title>JRCms .NET! 安装向导</title>
     <script type="text/javascript" src="/public/assets/base.min.js"></script>
     <style type="text/css">
-        *{font-size:14px;}
-        .hidden{display:none;}
-        dl dt{float:left;margin-right:10px;}
-        input{width:200px;}
-        body{background:#f8f8f8;}
-        #setupPanel{width:600px;margin:50px auto;background:#f0f0f0;padding:10px 10px 40px 10px;border:solid 1px #e5e5e5;}
-        a.install_btn{display:block;background:#ff6600;color:#fff;text-decoration:none;float:right;width:100px;line-height:22px;text-align:center;margin:10px 5px 0 0;}
-        h2{background:#ff6600;color:#fff;line-height:25px;padding:0 20px;}
-        textarea{width:590px;height:300px;border:solid 1px #e0e0e0;}
-        #install_status{text-align:center;padding:20px 0;font-size:18px;color:#ff6600;}
+        * {
+            font-size: 14px;
+        }
+        .setup .box{
+            background: #FFF;
+            margin: 10px 0;
+            padding: 10px;
+            border:solid 1px #CCC;
+        }
+        dl dt {
+            float: left;
+            padding:0 20px;
+            width:80px;
+        }
+
+        input, select {
+            width: 200px;border: solid 1px #CCC;line-height: 25px;padding: 0 5px;
+        }
+
+        body {
+            background: #f8f8f8;
+        }
+
+        #setupPanel {
+            width: 600px;
+            margin: 50px auto;
+            background: #f0f0f0;
+            padding: 10px 10px 50px 10px;
+            border: solid 1px #e5e5e5;
+        }
+
+        .install-btn {
+            display: block;
+            background: #ff6600;
+            color: #fff;
+            text-decoration: none;
+            float: right;
+            width: 100px;
+            line-height: 22px;
+            text-align: center;
+            margin: 10px 5px 0 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h2 {
+            background: #ff6600;
+            color: #fff;
+            line-height: 25px;
+            padding: 0 20px;
+        }
+
+        textarea {
+            width: 575px;
+            height: 300px;
+            border: solid 0px #e0e0e0;
+        }
+
+        #install_status {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 18px;
+            color: #ff6600;
+        }
     </style>
 </head>
 <body>
 
-<div id="setupPanel">
-    <div class="setup hidden">
-        <h2>安装向导</h2>
-        <textarea>
+    <div id="setupPanel">
+        <div class="setup hidden" setup-tag="licence">
+            <h2>安装向导</h2>
+            <div class="box">
+                <textarea>
 
-		欢迎您使用本软件产品！
+                              欢迎您使用本软件产品！
 		
 		
         ==========================  安装条款  ==============================
 
-        本《JR软件最终用户许可协议》（以下简称《协议》）是您与Z3Q.NET之间关于下载、安装、使用、复制《JR》软件（以下简称“软件”—该软件的国家版本局的著作权登记号：2005SR04603）的法律协议。
+        本《JR软件最终用户许可协议》（以下简称《协议》）是您与TO2.NET之间关于下载、安装、使用、复制《JR》软件（以下简称“软件”—该软件的国家版本局的著作权登记号：2005SR04603）的法律协议。
     本《协议》描述JR与您之间关于“软件”许可使用及相关方面的权利义务。“用户”或“您”是指通过JR提供的获取软件授权的途径而获得软件授权许可和软件产品的个人或单位。请您仔细阅读本《协议》中的各项条款，包括免除或者限制JR责任的免责条款及对用户的权利限制。请您审阅并接受或不接受本《协议》（未成年人应在法定监护人陪同下审阅）。
     除非您接受本《协议》条款，否则您无权下载、安装或使用本“软件”及其相关服务。您的安装使用行为将视为对本《协议》的接受，并同意接受本《协议》各项条款的约束。
     同时拥有本《协议》和与之相配套的软件以及JR或其代理商、经销商开具的收款凭证是您使用JR软件产品的标志，未经JR授权，任何拷贝、销售、转让、出租、修改本“软件”的行为均被认为是侵权行为。
@@ -85,152 +142,175 @@
 
 JR保留对本协议的最终解释权。 
         </textarea>
-    </div>
-    <div id="setupForm">
-    
-    <div class="setup hidden">
-        <h2>1/3：配置站点</h2>
-        <dl><dt>授权给:</dt><dd><input type="text" field="t_name" class="ui-validate ui-box" required="true" value="免费用户" /></dd></dl>
-        <dl><dt>授权码:</dt><dd><input type="text" field="t_key" class="ui-validate ui-box" required="true" value="YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI=" style="font-size:10px;" /></dd></dl>
-        <dl><dt>站点名称:</dt><dd><input type="text" field="site_name" class="ui-validate ui-box" required="true" /></dd></dl>
-        <dl><dt>站点域名:</dt><dd><input type="text" field="site_domain" class="ui-validate ui-box" required="true" value="" placeholder="如：www.k3f.net" /></dd></dl>
-        <dl><dt>站点语言:</dt>
-        <dd><select class="ui-validate ui-box" field="site_language">
-                <option selected="selected" value="1">英语(英国,美国)</option>
-                <option value="2">中文(简体)</option>
-                <option value="3">中文(繁体)</option>
-                <option value="4">西班牙语</option>
-                <option value="5">法语France</option>
-                <option value="6">泰语(ภาษาไทย)</option>
-                <option value="7">俄语</option>
-                <option value="8">阿拉伯语</option>
-        </select></dd></dl>
-        <dl><dt>管理账号:</dt><dd><input type="text" field="user_name" class="ui-validate ui-box" required="true" value="master" /></dd></dl>
-        <dl><dt>管理密码:</dt><dd><input type="password" field="user_pwd" class="ui-validate ui-box" required="true" value="" /></dd></dl>
-    </div>
-    <div class="setup hidden">
-        <h2>2/3：配置数据库</h2>
-        <dl><dt>数据环境:</dt><dd>
-            <select field="db_type">
-                <option value="sqlite">SQLite(小型站选用)</option>
-                <option value="mysql" selected="selected">MySQL(推荐)</option>
-                <option value="mssql" disabled="disabled">SQLServer(请手工生成数据库)</option>
-                <option value="oledb">Access(虚拟主机适用)</option>
-            </select></dd></dl>
-        
-        <div id="db_credential">
-            <dl><dt>服务器:</dt><dd><input type="text" field="db_server"/></dd></dl>
-            <dl><dt>数据库:</dt><dd><input type="text" field="db_name" /></dd></dl>
-            <dl><dt>表前缀:</dt><dd><input type="text" field="db_prefix" value="cms_"/></dd></dl>
-            <dl><dt>用户名:</dt><dd><input type="text" field="db_usr" /></dd></dl>
-            <dl><dt>密码:</dt><dd><input type="password" field="db_pwd" /></dd></dl>
+            </div>
+        </div>
+        <div id="setupForm">
+
+            <div class="setup hidden" setup-tag="site">
+                <h2>1/3：配置站点</h2>
+                <div class="box">
+                    <dl><dt>授权给:</dt><dd><input type="text" name="licence_name" field="licence_name" class="ui-validate ui-box" value="免费用户" /></dd></dl>
+                    <dl><dt>授权码:</dt><dd><input type="text" name="licence_key" field="licence_key" class="ui-validate ui-box" value="YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI=" style="font-size:10px;" /></dd></dl>
+                    <dl><dt>站点名称:</dt><dd><input type="text" name="site_name" field="site_name" class="ui-validate ui-box"/></dd></dl>
+                    <dl><dt>站点域名:</dt><dd><input type="text" name="site_domain" field="site_domain" class="ui-validate ui-box" value="" placeholder="如：www.to2.net" /></dd></dl>
+                    <dl>
+                        <dt>站点语言:</dt>
+                        <dd>
+                            <select class="ui-validate ui-box" field="site_language">
+                                <option selected="selected" value="1">英语(英国,美国)</option>
+                                <option value="2">中文(简体)</option>
+                                <option value="3">中文(繁体)</option>
+                                <option value="4">西班牙语</option>
+                                <option value="5">法语France</option>
+                                <option value="6">泰语(ภาษาไทย)</option>
+                                <option value="7">俄语</option>
+                                <option value="8">阿拉伯语</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl><dt>管理账号:</dt><dd><input type="text" name="user_name" field="user_name" class="ui-validate ui-box" required="true" value="master" /></dd></dl>
+                    <dl><dt>管理密码:</dt><dd><input type="password" name="user_pwd" field="user_pwd" class="ui-validate ui-box" required="true" value="" /></dd></dl>
+                </div>
+                </div>
+            <div class="setup hidden" setup-tag="database">
+                <h2>2/3：配置数据库</h2>
+                <div class="box">
+                    <dl>
+                        <dt>数据环境:</dt>
+                        <dd>
+                            <select name="db_type" field="db_type">
+                                <option value="sqlite">SQLite(小型站选用)</option>
+                                <option value="mysql" selected="selected">MySQL(推荐)</option>
+                                <option value="mssql" disabled="disabled">SQLServer(请手工生成数据库)</option>
+                                <option value="oledb">Access(虚拟主机适用)</option>
+                            </select>
+                        </dd>
+                    </dl>
+
+                    <div id="db_credential">
+                        <dl><dt>服务器:</dt><dd><input type="text" name="db_server" field="db_server" /></dd></dl>
+                        <dl><dt>数据库:</dt><dd><input type="text" name="db_name" field="db_name" /></dd></dl>
+                        <dl><dt>表前缀:</dt><dd><input type="text" name="db_prefix" field="db_prefix" value="cms_" /></dd></dl>
+                        <dl><dt>用户名:</dt><dd><input type="text" name="db_usr" field="db_usr" /></dd></dl>
+                        <dl><dt>密码:</dt><dd><input type="password" name="db_pwd" field="db_pwd" /></dd></dl>
+                    </div>
+
+                    <div id="db_file" class="hidden">
+                        <dl><dt>文件名:</dt><dd><input type="text" name="db_file" field="db_file" />*默认随机名称,建议不填写</dd></dl>
+                        <dl class="hidden"><dt>表前缀:</dt><dd><input type="text" name="db_prefix1" field="db_prefix1" value="cms_" /></dd></dl>
+                    </div>
+                </div>
+            </div>
+            <div class="setup hidden setup-install">
+                <h2>3/3：安装系统</h2>
+                <div id="install_status">安装进行中....</div>
+            </div>
+            <div class="setup hidden" setup-tag="complete">
+                <h2>安装完成!</h2>
+            </div>
+
         </div>
 
-        <div id="db_file" class="hidden">
-            <dl><dt>文件名:</dt><dd><input type="text" field="db_file" />*默认随机名称,建议不填写</dd></dl>
-            <dl class="hidden"><dt>表前缀:</dt><dd><input type="text" field="db_prefix1" value="cms_"/></dd></dl>
+        <div class="setup-ctrl-bar">
+            <a href="javascript:;" class="install-btn btn-next">>>下一步</a>
+            <a href="javascript:" class="install-btn btn-previous hidden">>>上一步</a>
         </div>
     </div>
-    <div class="setup hidden">
-        <h2>3/3：配置数据库</h2>
-        <div id="install_status">安装进行中....</div>
-    </div>
-    <div class="setup hidden">
-        <h2>安装完成!</h2>
-    </div>
-    
-    </div>
-    
-    <a href="javascript:;" class="install_btn" id="install_btn">>>下一步</a>
-    <a href="javascript:" onclick="INSTALL.setup.set(INSTALL.setup.current-1);this.className='hidden';btn.className='install_btn';" class="hidden" id="install_prev_btn">>>上一步</a>
-</div>
 
-<script>
-    var INSTALL = {
-        setups: null,
-        setup: {
-            total: 0,
-            current: 0,
-            set: function (i) {
-                if (i < INSTALL.setups.length) {
-                    for (var j = 0; j < INSTALL.setups.length; j++) {
-                        INSTALL.setups[j].className = j == i ? 'setup' : 'setup hidden';
+    <script>
+        var INSTALL = {
+            frames: [],
+            setup: {
+                total: 0,
+                current: 0,
+                set: function (i) {
+                    if (i < this.total) {
+                        this.current = i;
+                        INSTALL.frames.each(function (j, e) {
+                            if (i == j) {
+                                e.removeClass("hidden");
+                            } else {
+                                e.addClass("hidden");
+                            }
+                        });
                     }
-                    this.current = i;
+                },
+                next: function (callback) {
+                    var index = this.current + 1;
+                    if (index < this.total) {
+                        this.set(index);
+                        callback(index, this.total);
+                    }
                 }
             }
-        }
-    };
+        };
 
-    var pl = document.getElementById('setupPanel');
-    var btn = document.getElementById('install_btn');
-    var prev_btn=document.getElementById('install_prev_btn');
-    var divs = pl.getElementsByTagName('DIV');
-    INSTALL.setups = new Array();
-    for (var i = 0; i < divs.length; i++) {
-        if (divs[i].className.indexOf('setup') != -1) {
-            INSTALL.setups.push(divs[i]);
-        }
-    }
+        INSTALL.frames = jr.$fn(".setup");
+        INSTALL.setup.total = INSTALL.frames.len();
+        var btnPrevious = jr.$fn(".btn-previous");
+        var btnNext = jr.$fn(".btn-next");
+        btnPrevious.click(function () {
+            var current = INSTALL.setup.current - 1;
+            INSTALL.setup.set(current);
+            if (current == 0 || current == INSTALL.setup.total - 1) {
+                this.addClass("hidden");
+            } else {
+                this.removeClass("hidden");
+            }
+            btnNext.removeClass("hidden");
+        });
+        btnNext.click(function () {
+            INSTALL.setup.next(function (index, total) {
 
-    INSTALL.setup.total = INSTALL.setups.length;
-
-    btn.onclick = function () {
-        btn.className = 'install_btn';
-        var index = INSTALL.setup.current + 1;
-
-        if (index < INSTALL.setup.total) {
-            INSTALL.setup.set(index);
-        }
-        if (index + 2 >= INSTALL.setup.total) {
-            btn.className = 'hidden';
-        }
-
-        //处理安装
-        if (index == 3) {
-            var install_status_txt = document.getElementById('install_status');
-            prev_btn.className = 'hidden';
-            install_status_txt.innerHTML = '请稍等，安装中...';
-
-            jr.xhr.post('/install/process', jr.json.toQueryString(pl), function (status) {
-
-                if (status == 'SUCCESS' || status == '') {
-                    install_status_txt.innerHTML = '<center>恭喜，安装完成!<br />为了您的安全，建议手工删除/install/目录!<br /><a href="/admin">进入管理</a></center>';
-                    jr.xhr.get('/');
-                    setTimeout(function () { location.href = '/';}, 15000);
-                } else {
-                    INSTALL.setup.current = INSTALL.setup.current - 1;
-
-
-                    switch (status) {
-                        case 'NO_USER': install_status_txt.innerHTML = '管理用户或密码不能为空!'; break;
-                        case 'DB_ERROR': install_status_txt.innerHTML = '数据库配置不正确!'; break;
-                        case 'DB_INIT_ERROR': install_status_txt.innerHTML = '数据表已经存在或连接失败!'; break;
-                        case 'Installed': install_status_txt.innerHTML = '系统已经安装过了!'; break;
-                    }
-                    prev_btn.className = 'install_btn';
-                    btn.className = 'hidden';
+                btnNext.removeClass("hidden");
+                if (index > 0) {
+                    btnPrevious.removeClass("hidden");
                 }
 
-            }, function (x) { alert(x); });
-        }
-    };
-    INSTALL.setup.set(0);
+                //处理安装
+                if (index == 3) {
+                    btnPrevious.addClass("hidden");
+                    btnNext.addClass("hidden");
+                    var install_status_txt = document.getElementById('install_status');
+                    install_status_txt.innerHTML = '请稍等，安装中...';
+                    var pl = document.getElementById("setupForm");
+                    jr.xhr.post('/install/process', jr.json.toQueryString(pl), function (status) {
 
-    //其他事件
-    var dbtype = document.getElementsByTagName('SELECT')[1];
-    dbtype.onchange = function () {
-        var idx = this.selectedIndex;
-        var divs = this.parentNode.parentNode.parentNode.getElementsByTagName('DIV');
-        if (idx == 1 || idx == 2) {
-            divs[0].className = '';
-            divs[1].className = 'hidden';
-        } else {
-            divs[1].className = '';
-            divs[0].className = 'hidden';
-        }
-    };
-</script>
+                        if (status == 'SUCCESS' || status == '') {
+                            install_status_txt.innerHTML = '<center>恭喜，安装完成!<br />为了系统安全，建议手工删除/install/目录!<br /><br/>5秒后跳转到首页或<a href="/admin">进入管理</a></center>';
+                            jr.xhr.get('/', function () { location.href = '/'; }, function () { location.href = '/'; });
+                        } else {
+                            switch (status) {
+                                case "NO_LICENCE": install_status_txt.innerHTML = "授权信息不正确"; break;
+                                case "NO_SITE_NAME": install_status_txt.innerHTML = "站点名称不能为空"; break;
+                                case 'NO_USER': install_status_txt.innerHTML = '管理用户或密码不能为空!'; break;
+                                case 'DB_ERROR': install_status_txt.innerHTML = '数据库配置不正确!'; break;
+                                case 'DB_INIT_ERROR': install_status_txt.innerHTML = '数据表已经存在或连接失败!'; break;
+                                case 'INSTALLED': install_status_txt.innerHTML = '系统已经安装过了!'; break;
+                            }
+                            btnPrevious.removeClass("hidden");
+                        }
+
+                    }, function (x) { alert(x); });
+                }
+            });
+        });
+        INSTALL.setup.set(0);
+
+        //其他事件
+        var dbtype = document.getElementsByTagName('SELECT')[1];
+        dbtype.onchange = function () {
+            var idx = this.selectedIndex;
+            var divs = this.parentNode.parentNode.parentNode.getElementsByTagName('DIV');
+            if (idx == 1 || idx == 2) {
+                divs[0].className = '';
+                divs[1].className = 'hidden';
+            } else {
+                divs[1].className = '';
+                divs[0].className = 'hidden';
+            }
+        };
+    </script>
 
 </body>
 </html>

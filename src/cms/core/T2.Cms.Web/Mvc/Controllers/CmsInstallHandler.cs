@@ -64,14 +64,24 @@ namespace T2.Cms.Web
             /// <summary>
             /// 已经安装成功
             /// </summary>
-            Installed = 0,
+            INSTALLED = 0,
 
             SUCCESS = 1,
 
             /// <summary>
+            ///  无授权信息
+            /// </summary>
+            NO_LICENCE = -1,
+
+            /// <summary>
             /// 未指定用户
             /// </summary>
-            NO_USER = -1,
+            NO_USER = -2,
+
+            /// <summary>
+            /// 未设置站点
+            /// </summary>
+            NO_SITE_NAME = -3,
 
             /// <summary>
             /// 未知数据库
@@ -103,28 +113,36 @@ namespace T2.Cms.Web
 
             if (File.Exists(String.Concat(physical, INSTALL_LOCK)))
             {
-                return InstallCode.Installed;
+                return InstallCode.INSTALLED;
             }
 
-            string tKey = form["t_key"],
-                   tName = form["t_name"],
-                   siteName = form["site_name"],
-                   siteDomain = form["site_domain"],
+            string licenceKey = form["licence_key"].Trim(),
+                   licenceName = form["licence_name"].Trim(),
+                   siteName = form["site_name"].Trim(),
+                   siteDomain = form["site_domain"].Trim(),
                    siteLanguage = form["site_language"],
-                   userName = form["user_name"],
-                   userPwd = form["user_pwd"],
-                   dbType = form["db_type"],
-                   dbServer = form["db_server"],
-                   dbPrefix = form["db_prefix"],
-                   dbPrefix1 = form["db_prefix1"],
-                   dbName = form["db_name"],
-                   dbUsr = form["db_usr"],
-                   dbPwd = form["db_pwd"],
-                   dbFile = form["db_file"];
+                   userName = form["user_name"].Trim(),
+                   userPwd = form["user_pwd"].Trim(),
+                   dbType = form["db_type"].Trim(),
+                   dbServer = form["db_server"].Trim(),
+                   dbPrefix = form["db_prefix"].Trim(),
+                   dbPrefix1 = form["db_prefix1"].Trim(),
+                   dbName = form["db_name"].Trim(),
+                   dbUsr = form["db_usr"].Trim(),
+                   dbPwd = form["db_pwd"].Trim(),
+                   dbFile = form["db_file"].Trim();
 
             string dbStr = "";
 
             #region 检测数据
+            if(String.IsNullOrEmpty(licenceName) || String.IsNullOrEmpty(licenceKey))
+            {
+                return InstallCode.NO_LICENCE;
+            }
+            if (String.IsNullOrEmpty(siteName))
+            {
+                return InstallCode.NO_SITE_NAME;
+            }
 
             if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(userPwd))
             {
@@ -206,8 +224,8 @@ namespace T2.Cms.Web
                 File.Delete(physical + FILE_SETTING);
             }
             SettingFile file = new SettingFile(physical + FILE_SETTING);
-            file.Set("license_key", tKey);
-            file.Set("license_name", tName);
+            file.Set("license_key", licenceKey);
+            file.Set("license_name", licenceName);
             file.Set("server_static", "");
             file.Set("server_static_enabled", "false");
 

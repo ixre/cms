@@ -257,7 +257,7 @@ CREATE TABLE `cms_link` (
 
 LOCK TABLES `cms_link` WRITE;
 /*!40000 ALTER TABLE `cms_link` DISABLE KEYS */;
-INSERT INTO `cms_link` VALUES (1,0,1,2,'SPC.NET','http://k3f.net/cms/cms/','_blank',NULL,NULL,2,1),(2,0,1,1,'首页','/',NULL,NULL,NULL,1,1),(3,0,1,1,'欢迎使用','/cms/welcome.html',NULL,NULL,NULL,2,1);
+INSERT INTO `cms_link` VALUES (1,0,1,2,'JR-CMS.NET','http://to2.net/cms/cms/','_blank',NULL,NULL,2,1),(2,0,1,1,'首页','/',NULL,NULL,NULL,1,1),(3,0,1,1,'欢迎使用','/cms/welcome.html',NULL,NULL,NULL,2,1);
 /*!40000 ALTER TABLE `cms_link` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -522,7 +522,7 @@ CREATE TABLE `cms_site` (
 
 LOCK TABLES `cms_site` WRITE;
 /*!40000 ALTER TABLE `cms_site` DISABLE KEYS */;
-INSERT INTO `cms_site` VALUES (1,'默认站点',NULL,NULL,NULL,1,'default',NULL,'默认站点-Speicial Cms .NET!',NULL,NULL,1,'','','','',NULL,NULL,NULL,'SPC.NET是一款跨平台支持多站点基于ASP.NET MVC技术架构的内容管理系统!','');
+INSERT INTO `cms_site` VALUES (1,'默认站点',NULL,NULL,NULL,1,'default',NULL,'默认站点-Speicial Cms .NET!',NULL,NULL,1,'','','','',NULL,NULL,NULL,'JR-CMS.NET是一款跨平台支持多站点基于ASP.NET MVC技术架构的内容管理系统!','');
 /*!40000 ALTER TABLE `cms_site` ENABLE KEYS */;
 UNLOCK TABLES;
 

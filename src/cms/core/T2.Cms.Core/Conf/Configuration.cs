@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 Z3Q.NET,All rights reseved.
+// Copyright (C) 2007-2008 TO2.NET,All rights reseved.
 // 
 // Project: Cms.Cms
 // FileName : ApplicationManager.cs

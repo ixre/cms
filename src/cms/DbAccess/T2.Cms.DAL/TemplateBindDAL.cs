@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 Z3Q.NET
+* Copyright(C) 2010-2012 TO2.NET
 * 
 * File Name	: TemplateBindDAL
 * Author	: Administrator
@@ -18,12 +18,13 @@ namespace T2.Cms.Dal
     {
         private bool HasExists(TemplateBindType type, int bindId)
         {
-            return int.Parse(base.ExecuteScalar(
-                 new SqlQuery(base.OptimizeSql(DbSql.TplBind_CheckExists),
-                     new object[,]{
+            var parameters = base.Db.CreateParametersFromArray(
+                          new object[,]{
                  {"@bindId", bindId},
                  {"@bindType", type}
-                     })
+                      });
+            return int.Parse(base.ExecuteScalar(
+                 base.NewQuery(DbSql.TplBind_CheckExists, parameters)
                  ).ToString()) != 0;
         }
 
@@ -36,27 +37,24 @@ namespace T2.Cms.Dal
                 return RemoveBind(type, bindId);
             }
 
-            if (!HasExists(type, bindId))
-            {
-                rowcount = base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSql(DbSql.TplBind_Add),
-                        new object[,]
-                        {
-                            {"@bindId", bindId},
-                            {"@bindType", (int) type},
-                            {"@tplPath", templatePath}
-                        }));
-            }
-            else
-            {
-                rowcount = base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSql(DbSql.TplBind_Update),
+            var paramsters = base.Db.CreateParametersFromArray(
                         new object[,]
                         {
                             {"@tplPath", templatePath},
                             {"@bindId", bindId},
                             {"@bindType", (int) type}
-                        }));
+                        });
+
+            if (!HasExists(type, bindId))
+            {
+                rowcount = base.ExecuteNonQuery(
+                    base.NewQuery(DbSql.TplBind_Add, paramsters));
+            }
+            else
+            {
+                rowcount = base.ExecuteNonQuery(
+                    base.NewQuery(DbSql.TplBind_Update, paramsters)
+                    );
             }
 
             return rowcount == 1;
@@ -84,23 +82,23 @@ namespace T2.Cms.Dal
         public bool RemoveBind(TemplateBindType type, int bindRefrenceId)
         {
             return base.ExecuteNonQuery(
-                 new SqlQuery(base.OptimizeSql(DbSql.TplBind_RemoveBind),
+                 base.NewQuery(DbSql.TplBind_RemoveBind, base.Db.CreateParametersFromArray(
                       new object[,]{
                  {"@bindId", bindRefrenceId},
                  {"@bindType", type}
-                      })) == 1;
+                      }))) == 1;
         }
 
 
         public int RemoveErrorCategoryBind()
         {
-            return base.ExecuteNonQuery(new SqlQuery(base.OptimizeSql(DbSql.TplBind_RemoveErrorCategoryBind)));
+            return base.ExecuteNonQuery(base.NewQuery(DbSql.TplBind_RemoveErrorCategoryBind, null));
         }
 
 
         public void GetBindList(DataReaderFunc func)
         {
-            base.ExecuteReader(new SqlQuery(base.OptimizeSql(DbSql.TplBind_GetBindList)),
+            base.ExecuteReader(base.NewQuery(DbSql.TplBind_GetBindList, null),
                  func);
         }
     }
