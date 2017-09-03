@@ -134,15 +134,20 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
     background:#333;}
 .mod-flash-banner li div.p p{margin:1em 20px 1em 0;text-indent:1em;line-height:1.7em;color:#000;}
 
-/* mod-crumb 站点地图 */
-.mod-crumb{line-height:4em;background:#F5F5F5;color:#333;padding-left:1em;
+/* mod-crumb 面包屑 */
+.mod-crumb{line-height:3em;background:#F5F5F5;color:#333;padding-left:1em;
     text-shadow:0px 0px 0 #FFF;position:relative;}
 .mod-crumb a{color:#333;text-decoration: none;margin:0 5px;}
 .mod-crumb .rgt{position: absolute;right:1em;top:5px;}
 
 /* mod-nav-side 边栏 */
-.mod-nav-side .mod-nav-border .tit{background:#CCC;line-height:3em;padding:0 1em;margin-bottom:0;color:#FFF;font-weight: bold;}
-.mod-nav-side .mod-nav-border .content{}
+.mod-nav-side {}
+
+/* mod-nav-border */
+.mod-nav-border .tit {background: #CCC;line-height: 3em;padding: 0 1em;margin-bottom: 0;color: #FFF; font-weight: bold;}
+.mod-nav-border .content{}
+.mod-nav-border .archive-list{margin: 1em}
+.mod-nav-border .archive-list li { height: 2em;line-height: 2em;overflow: hidden;}
 
 /* mod-cat-list */
 .mod-cat-list{padding:0;margin:0;list-style:none;}

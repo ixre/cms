@@ -19,7 +19,7 @@ view_count [int]  NULL DEFAULT (0),
 [disagree] [int]  NULL,
 [createdate] [datetime]  NULL,
 [lastmodifydate] [datetime]  NULL,
-[flags] [nvarchar]  (300) NULL DEFAULT ('{st:''''0'''',sc:''''0'''',v:''''1'''',p:''''0''''}'),
+[flags] [nvarchar]  (300) NULL DEFAULT ('{st:''''0'''',sc:''''0'''',v:''''0'''',p:''''0''''}'),
 [thumbnail] [nvarchar]  (450) NULL)
 
 ALTER TABLE [cms_archive] WITH NOCHECK ADD  CONSTRAINT [PK_cms_archive] PRIMARY KEY  NONCLUSTERED ( [aid],[id],[alias],[cid] )
