@@ -1,8 +1,7 @@
  /* 此文件由系统自动生成,所有样式表请引用此文件!*/
- /* 此文件由系统自动生成,所有模板请引用此文件!*/
+
 
 /* ---------- 页面元素定义样式 --------- */
-
 a,abbr,acronym,address,applet,big,blockquote,body,caption,
 cite,code,dd,del,dfn,div,dl,dt,em,font,form,h1,h2,h3,h4,h5,
 h6,html,i,iframe,img,ins,kbd,label,legend, li,object,ol,p,
@@ -392,33 +391,33 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 
 
 /* 导航栏 */
-.page-navigator{height:35px;z-index:200;}
-.page-navigator div,.page-navigator p{margin:0;}
-.page-navigator .navs,.page-navigator .left,.page-navigator .right{padding-bottom:0px;margin-bottom:-0px;}
-.page-navigator .left{float:left;width:10px;margin-right:-10px;}
-.page-navigator .right{float:right;width:10px;margin-left:-10px;}
-.page-navigator .navs{width:auto;margin:0 10px;}
-.page-navigator .navs ul{margin:0;padding:0;list-style:none;}
-.page-navigator .navs li.l1{float:left;position:relative;z-index: 200;}/*ie7bug*/
-.page-navigator .child{left:0;right: 0;margin: 0 auto;top:35px;position:absolute;display:none;z-index:201}
-.page-navigator .child .box {}
-.page-navigator .navs li.drop .child,.page-navigator .navs li:hover .child{display:block;}
-.page-navigator .child .menu li.l2{padding:0;float:none;background:none;}
-.page-navigator .child .menu li.first{border-top:none;}
-.page-navigator .child .menu li.last{border-bottom:none;}
-.page-navigator .navs li.parent:hover{ background: transparent;}
-.page-navigator .navs li.parent a.l1:hover{color:#333;}
-.page-navigator .navs li.parent .child a.l2{color:#333;}
-.page-navigator .navs li.parent .child a.l2:hover{color:#FF0000;}
+.mod-navigator{height:35px;z-index:200;}
+.mod-navigator div,.mod-navigator p{margin:0;}
+.mod-navigator-navs,.mod-navigator-left,.mod-navigator-right{padding-bottom:0px;margin-bottom:-0px;}
+.mod-navigator-left{float:left;width:10px;margin-right:-10px;}
+.mod-navigator-right{float:right;width:10px;margin-left:-10px;}
+.mod-navigator-navs{width:auto;margin:0 10px;}
+.mod-navigator-navs ul{margin:0;padding:0;list-style:none;}
+.mod-navigator-navs li.l1{float:left;position:relative;z-index: 200;}/*ie7bug*/
+.mod-navigator-child{left:0;right: 0;margin: 0 auto;top:35px;position:absolute;display:none;z-index:201}
+.mod-navigator-child .box {}
+.mod-navigator-navs li.drop .mod-navigator-child,.mod-navigator-navs li:hover .mod-navigator-child{display:block;}
+.mod-navigator-child .menu li.l2{padding:0;float:none;background:none;}
+.mod-navigator-child .menu li.first{border-top:none;}
+.mod-navigator-child .menu li.last{border-bottom:none;}
+.mod-navigator-navs li.parent:hover{ background: transparent;}
+.mod-navigator-navs li.parent a.l1:hover{color:#333;}
+.mod-navigator-navs li.parent .mod-navigator-child a.l2{color:#333;}
+.mod-navigator-navs li.parent .mod-navigator-child a.l2:hover{color:#FF0000;}
 
-/** flash player **/
-.flash-panel{margin: 0;}
-.flash-panel .top{position:absolute;left:0;right:0;margin:auto;width:100%;height:100%;background-size: cover;}
-.flash-panel ul{list-style:none;margin:0;padding:0;height: 100%;}
-.flash-panel li{ height: 100%;margin: 0;padding: 0;}
-.flash-panel .item{height:100%;background:#F5F5F5 center top no-repeat;width: 100%;}
-.flash-pager{position:absolute;bottom:5px;left:0;right:0;margin:0 auto;width:100px;}
-.flash-pager a{width:18px;line-height:18px;text-align:center;display:inline-block;background:#666;margin:0 2px;
+/* mod-flash-p */
+.mod-flash-p{margin: 0;}
+.mod-flash-p .top{position:absolute;left:0;right:0;margin:auto;width:100%;height:100%;background-size: cover;}
+.mod-flash-o ul{list-style:none;margin:0;padding:0;height: 100%;}
+.mod-flash-p li{ height: 100%;margin: 0;padding: 0;}
+.mod-flash-p .item{height:100%;background:#F5F5F5 center top no-repeat;width: 100%;}
+.mod-flash-p .flash-pager{position:absolute;bottom:5px;left:0;right:0;margin:0 auto;width:100px;}
+.mod-flash-p .flash-pager a{width:18px;line-height:18px;text-align:center;display:inline-block;background:#666;margin:0 2px;
 	border-radius:3px;text-decoration:none;outline:none;}
 
 

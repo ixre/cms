@@ -6,8 +6,8 @@ namespace T2.Cms.CacheService
     {
         public static void ClearForSite(int siteId)
         {
-            SetNavigatorForSite(siteId, String.Empty);
-            SetFLinkForSite(siteId, String.Empty);
+            Kvdb.Gca.Delete("link:navigator:" + siteId.ToString());
+            Kvdb.Gca.Delete("link:flink:" + siteId.ToString());
         }
 
         public static string GetNavigatorBySiteId(int siteId)

@@ -61,7 +61,8 @@ namespace T2.Cms.Web.Resource {
         }
         
         /// <summary>
-        ///   查找类似 function JR() { this.VERSION = &apos;3.2&apos;; this.WORKPATH = &apos;&apos;; this._Extend_PROTOTYPE = true; this._eventArray = [&quot;abort&quot;, &quot;blur&quot;, &quot;change&quot;, &quot;click&quot;, &quot;dblclick&quot;, &quot;error&quot;, &quot;focus&quot;, &quot;keydown&quot;, &quot;keypress&quot;, &quot;keyup&quot;, &quot;load&quot;, &quot;mousedown&quot;, &quot;mousemove&quot;, &quot;mouseout&quot;, &quot;mouseover&quot;, &quot;mouseup&quot;, &quot;reset&quot;, &quot;resize&quot;, &quot;select&quot;, &quot;submit&quot;, &quot;unload&quot;]; this.__init__ = function () { var a = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = a[a.length - 1]; var b = s.src; this.WORKPATH = b.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (this._Extend_PR [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 
+        ///function JR() { this.VERSION = &apos;3.2&apos;; this.WORKPATH = &apos;&apos;; this._Extend_PROTOTYPE = true; this._eventArray = [&quot;abort&quot;, &quot;blur&quot;, &quot;change&quot;, &quot;click&quot;, &quot;dblclick&quot;, &quot;error&quot;, &quot;focus&quot;, &quot;keydown&quot;, &quot;keypress&quot;, &quot;keyup&quot;, &quot;load&quot;, &quot;mousedown&quot;, &quot;mousemove&quot;, &quot;mouseout&quot;, &quot;mouseover&quot;, &quot;mouseup&quot;, &quot;reset&quot;, &quot;resize&quot;, &quot;select&quot;, &quot;submit&quot;, &quot;unload&quot;]; this.__init__ = function () { var a = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = a[a.length - 1]; var b = s.src; this.WORKPATH = b.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (this._Extend_ [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string base_min {
             get {
@@ -266,25 +267,44 @@ namespace T2.Cms.Web.Resource {
         }
         
         /// <summary>
-        ///   查找类似 body{font:62.5%/1.5 Sans-Serif,Arial;margin:0;}
-        ///img{border:none;}
-        ///a{outline:none;}
-        ///table{border-collapse:collapse;border:none;}
-        ///a:link,a:visited{color:#0066ff;}
-        ///a:hover{color:#0000cc;}
-        ///.mask{background:url(/public/assets/images/mask.gif);opacity:0.2;alpha(opacity=20);position:absolute;top:0;left:0;bottom: 0;right: 0;}
-        ///p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
+        ///   查找类似 body{color:#333;font-family:Arial &apos;MiCROSOFT YAHEI&apos;;/*background:#F0F0F0;*/}
         ///
-        ///
-        ////* +++++++++++++ Classes ++++++++++++++ */
-        ///
-        ///.left{float:left;}
-        ///.right{float:right;}
-        ///.center{text-align:center [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///h1,h2,h3{margin:0;padding:0;}
+        ///h1{font-size:1.25em;line-height: 2em;}
+        ///a:link,a:visited{color:#333;}
+        ///a:hover{color:#D50000;}
+        ///.wrapper,.container{width:1019px;margin:0 auto;}
+        ///.relative{position: relative;}
+        ///.pull{float:left;}
+        ///.push{margin-right:3%;float:left;}
+        ///.arrow{background:url(img/arrow.gif) no-repeat;width:10px;height:10px;display:inline-block;margin-right:3px;}
+        ///.panel{width:1019px;margin:0 auto;font-size:1.2em;}
+        ///table{border:so [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string template {
+        internal static string site_page {
             get {
-                return ResourceManager.GetString("template", resourceCulture);
+                return ResourceManager.GetString("site_page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 
+        ///
+        ///
+        ////* ---------- 页面元素定义样式 --------- */
+        ///a,abbr,acronym,address,applet,big,blockquote,body,caption,
+        ///cite,code,dd,del,dfn,div,dl,dt,em,font,form,h1,h2,h3,h4,h5,
+        ///h6,html,i,iframe,img,ins,kbd,label,legend, li,object,ol,p,
+        ///pre,q,s,samp,small,span,strike,strong,table, tbody,td,tfoot,
+        ///th,thead,tr,tt,ul,var{  margin:0;padding:0;border:0;outline:0;
+        ///    font-weight:inherit;font-style:normal;font-family:inherit;
+        ///    text-decoration:none;-webkit-text-size-adjust:none;
+        ///    -ms-interpolation-mode:bicubic;}
+        ///str [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string site_template {
+            get {
+                return ResourceManager.GetString("site_template", resourceCulture);
             }
         }
     }

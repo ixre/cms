@@ -212,7 +212,7 @@ namespace T2.Cms.Template
 
             UrlPager p = UrlPaging.NewPager(pageIndex, pageCount, getter);
             p.LinkCount = 10;
-            p.PagerTotal = "<span class=\"pagerinfo\">" + Cms.Language.Get(LanguagePackageKey.PAGER_PagerTotal) + "</span>";
+            p.PagerTotal = "<span class=\"pagination-info\">" + Cms.Language.Get(LanguagePackageKey.PAGER_PagerTotal) + "</span>";
             p.RecordCount = recordCount;
             /* StringBuilder sb = new StringBuilder();
            
@@ -1081,7 +1081,7 @@ namespace T2.Cms.Template
         [TemplateTag]
         protected string Navigator(string format, string childFormat, string index)
         {
-            const string tpl = @"<div id=""navigator"" class=""page-navigator""><div class=""left""></div><div class=""right""></div><div class=""navs""><ul>{0}</ul><div class=""clear""></div></div></div>";
+            const string tpl = @"<div id=""navigator"" class=""page-navigator mod-navigator""><div class=""left mod-navigator-left""></div><div class=""right mod-navigator-right""></div><div class=""container mod-navigator-navs navs""><ul>{0}</ul><div class=""clearfix""></div></div></div>";
 
             StringBuilder sb = new StringBuilder();
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
@@ -1176,7 +1176,7 @@ namespace T2.Cms.Template
                     if ((cTotal = childs.Count) != 0)
                     {
                         phtml = phtml.Replace("</li>",
-                            String.Format("<div id=\"{0}_child{1}\" class=\"child child{1}\"><div class=\"top\"></div><div class=\"box\">" +
+                            String.Format("<div id=\"{0}_child{1}\" class=\"mod-navigator-child child child{1}\"><div class=\"top\"></div><div class=\"box\">" +
                                           "<ul class=\"menu\">",
                             links[i].Type.ToString().ToLower(),
                             links[i].Id.ToString())

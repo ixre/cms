@@ -18,6 +18,8 @@
   <item key="sitemap_location" Zh_CN="你的位置" Zh_TW="位置" En="Location" Es="Localización" Th="สถานที่" Fr="Lieu" Ru="Место нахождения" Ar="موقع"/>
   <item key="close" Zh_CN="关闭" Zh_TW="關閉" En="Close" Es="Cerca" Th="ปิด" Fr="Près" Ru="Закрыть" Ar="إغلاق"/>
   <item key="space" Zh_CN="" Zh_TW="" En=" " Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="category" Zh_CN="分类" Zh_TW="分類" En="Category" Es="Categoría" Th="หมวดหมู่" Fr="Catégorie" Ru="катэгорыя" Ar="فئة"/>
+  <item key="navigator" Zh_CN="导航" Zh_TW="導航" En="Navigator" Es="navegador" Th="นักเดินเรือ" Fr="Navigateur" Ru="навігатар" Ar="ملاح"/>
   <item key="product" Zh_CN="产品" Zh_TW="產品" En="Product" Es="Producto" Th="สินค้า" Fr="Produit" Ru="Продукт" Ar="المنتج"/>
   <item key="service" Zh_CN="服务" Zh_TW="服務" En="Service" Es="Servicio" Th="บริการ" Fr="Service" Ru="обслуживание" Ar="خدمة"/>
   <item key="help" Zh_CN="帮助" Zh_TW="幫助" En="Help" Es="Ayuda" Th="ช่วยด้วย" Fr="Aidez-moi" Ru="Помогите" Ar="مساعدة"/>
