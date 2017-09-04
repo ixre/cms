@@ -19,20 +19,20 @@ table td{border:solid 1px #333;padding:0 10px;}
 /* gra-mg5 */
 .gra-mg5{margin:5px 0;}
 
-/* rewrite */
-/* 设置全局内容容器的宽度 */
-.page-top{background:#f5f5f5;line-height:4em;}
-.page-top .qr{position:relative;margin-left:1em;}
-.page-top .qr img{display: none;}
-.page-top .qr:hover img{display: block;position:absolute;left:55px;top:20px;max-width:80px;
+/* mod-top-bar 头部工具栏 */
+.mod-top-bar{background:#f5f5f5;line-height:2.5em;}
+.mod-top-bar .qr{position:relative;margin-left:1em;}
+.mod-top-bar .qr img{display: none;}
+.mod-top-bar .qr:hover img{display: block;position:absolute;left:55px;top:20px;max-width:80px;
     border:solid 1px #ddd;padding:2px;background:#FFF;z-index:10;z-index:300;}
-.page-top i.phone{background:url(img/hd-phone.png) 0 6px no-repeat;padding:10px;}
-.page-top ul{margin:0;list-style: none;}
-.page-top ul li{float:left;margin-left:10px;}
+.mod-top-bar i.phone{background:url(img/hd-phone.png) 0 6px no-repeat;padding:10px;}
+.mod-top-bar ul{margin:0;list-style: none;}
+.mod-top-bar ul li{float:left;margin-left:10px;}
 
 /* mod-header 头部 */
 .mod-header{background:#EEE url(hd_bg.jpg) center bottom repeat-x;box-shadow:0 2px 6px #EEE;position:relative;padding:10px 0;}
-.mod-header .mod-header-logo{margin:1em 0;width:280px;float:left;margin:0;}
+.mod-header .mod-header-logo{position:relative;margin:1em 0;width:280px;float:left;margin:0;}
+.mod-header .mod-header-logo .mask{position:absolute;left:0;top:0;margin:auto;display:block;background:none;width:100%;height: 100%;}
 .mod-header .mod-header-search{padding:30px 0 0 60px;float:left;}
 .mod-header .search-input{border:solid 1px #CCC;height:28px;line-height:28px;float:left;
     padding:0 5px;width:190px;border-right:none;font-weight: bold;vertical-align: middle;}
@@ -156,12 +156,33 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-cat-list li.current{background:url(tit-bar-03-no-r.png) no-repeat;background-position:0 -36px;}
 .mod-cat-list li.current a{color:#FFF;font-weight:bold;display:block;}
 
+/* mod-footer 底部 */
+.mod-footer{margin-top:5em;font-size:1em;line-height:2em;text-align:center;background:#FCFCFC}
+.mod-footer-con{padding:1em 0;}
+.mod-footer .small {font-size: 12px;}
 
+/* mod-friend-link : 友情链接 */
+.mod-friend-link{font-size:12px;}
+.mod-friend-link i{padding-right:10px;color:#CCC;}
+
+/* mod-quick-link 快捷链接 */
+.mod-quick-link{padding:2em 0;background:#F0F0F0;box-shadow:0 0 20px #EEE inset;margin-bottom:0;}
+.mod-quick-link .col{float:left;width:16%;font-size:1.1em;}
+.mod-quick-link .col-last{width:36%;}
+.mod-quick-link .con-last{border-left:solid 1px #BBB;margin-right:0;padding-left:10%;text-align:left;position:relative;}
+.mod-quick-link .col div.con{padding:2px 0 0 0;margin-right:30%;}
+.mod-quick-link .col .tit{font-weight:bold;color:#D50000;font-size:1.1em;margin-top:0;}
+.mod-quick-link .col-last div.con{border:none;}
+.mod-quick-link .col a:link,.page-footer .col a:visited{display: block;margin:10px 0;color:#666;text-decoration: none;}
+.mod-quick-link .col a:hover{color:#D50000;text-decoration:underline;}
+.mod-quick-link .col p{line-height:2.5em;}
+
+
+
+/* UNSORTED */
 
 .auto-fit{position:relative;padding-top:60px;text-align:center;}
 .auto-fit img{max-width:100%;max-height:100%;position: absolute;left:0;top:0;right:0;bottom:0;margin:auto;}
-
-
 
 .proc{margin:0;padding:0;list-style:none;}
 .proc li{border-bottom:dashed 0px #ddd;margin:2px 0em;line-height:2.4em;}
@@ -174,21 +195,3 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .side .hot-list li{line-height:2em;height:25px;overflow:hidden;border-bottom:dashed 1px #ddd;margin:5px 0;}
 .side .hot-list li a:link{text-decoration:none;color:#777;}
 .side .hot-list li a:hover{color:#D50000;}
-
-/* mod-footer 底部 */
-.mod-footer{margin-top:5em;font-size:1em;}
-.mod-footer-con{padding:1em 0;}
-
-/* mod-quick-link 快捷链接 */
-.mod-quick-link{padding:2em 0;box-shadow:0 0 20px #EEE inset;margin-bottom:0;}
-.mod-quick-link .col{float:left;width:16%;font-size:1.1em;}
-.mod-quick-link .col-last{width:36%;}
-.mod-quick-link .con-last{border-left:solid 1px #BBB;margin-right:0;padding-left:10%;text-align:left;position:relative;}
-.mod-quick-link .col div.con{padding:2px 0 0 0;margin-right:30%;}
-.mod-quick-link .col .tit{font-weight:bold;color:#D50000;font-size:1.1em;margin-top:0;}
-.mod-quick-link .col-last div.con{border:none;}
-.mod-quick-link .col a:link,.page-footer .col a:visited{display: block;margin:10px 0;color:#666;text-decoration: none;}
-.mod-quick-link .col a:hover{color:#D50000;text-decoration:underline;}
-.mod-quick-link .col p{line-height:2.5em;}
-
-

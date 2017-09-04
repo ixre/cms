@@ -511,8 +511,34 @@
     <Content Include="public\mui\js\base_new.js" />
     <Content Include="templates\default\archive.html" />
     <Content Include="templates\default\category.html" />
+    <Content Include="templates\default\css\default\bg_ver-line-01.png" />
+    <Content Include="templates\default\css\default\category-bar-bg-w250.png" />
+    <Content Include="templates\default\css\default\category-bar-bg.png" />
+    <Content Include="templates\default\css\default\china.png" />
+    <Content Include="templates\default\css\default\flash-cover.png" />
+    <Content Include="templates\default\css\default\hd_bg.jpg" />
+    <Content Include="templates\default\css\default\hd_bg_origin.jpg" />
+    <Content Include="templates\default\css\default\laba-bg.gif" />
+    <Content Include="templates\default\css\default\label-go.png" />
+    <Content Include="templates\default\css\default\main-bg.jpg" />
+    <Content Include="templates\default\css\default\map.png" />
+    <Content Include="templates\default\css\default\nav-curr-up.gif" />
+    <Content Include="templates\default\css\default\nav-curr-up.png" />
+    <Content Include="templates\default\css\default\page.css" />
+    <Content Include="templates\default\css\default\pop_down.png" />
+    <Content Include="templates\default\css\default\rect-mask.png" />
+    <Content Include="templates\default\css\default\rect_3sdw.png" />
+    <Content Include="templates\default\css\default\side-lft-split.png" />
+    <Content Include="templates\default\css\default\split-ddd.png" />
+    <Content Include="templates\default\css\default\tab-bg.png" />
+    <Content Include="templates\default\css\default\tit-bar-03-no-r.png" />
+    <Content Include="templates\default\css\default\tit-bar-03.png" />
+    <Content Include="templates\default\css\default\tit-bar-mult.png" />
+    <Content Include="templates\default\css\default\ver-split.png" />
     <Content Include="templates\default\index.html" />
+    <Content Include="templates\default\not_found.html" />
     <Content Include="templates\default\search.html" />
+    <Content Include="templates\default\tag.html" />
     <Content Include="templates\default\tpl.conf">
       <SubType>Designer</SubType>
     </Content>
@@ -522,6 +548,12 @@
     <Content Include="public\assets\editor\handler\file_manager_json.ashx" />
     <Content Include="public\assets\editor\handler\upload_json.ashx" />
     <Content Include="packages.config" />
+    <Content Include="templates\default\include\flash_banner.phtml" />
+    <Content Include="templates\default\include\footer.backup.phtml" />
+    <Content Include="templates\default\include\footer.phtml" />
+    <Content Include="templates\default\include\header.phtml" />
+    <Content Include="templates\default\include\share_control.phtml" />
+    <Content Include="templates\default\include\side_bar.phtml" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,49 @@
+<!DOCTYPE html />
+<html>
+<head>
+    <title>${page.title}</title>
+   <link rel="Stylesheet" href="${page.fpath}/template.css?v=${page.built}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/mobi/themes/style.css?v=${page.built}" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    ${page.html5}
+</head>
+<body>
+
+${partial:"include/header.phtml"}
+
+<div class="cms-adt hidden">
+    <img src="http://www.sgfm168.com/Html/Index/images/h_05.jpg"/>
+</div>    
+    
+<div class="page-article">
+    <div class="mod-layout_ panel">
+
+      <div class="m">
+        <div class="mod-crumb">
+               $lang(sitemap_location):<a href="/">$lang(home)</a> > $sitemap()
+        </div>
+        <div class="panel-article">
+            <ul>
+                $paging_archives(20,5,'
+                <li><a href="{url}" target="_blank">{special_title}</a>
+                    <span class="dt">{modify_sdate}</span>
+                </li>')
+            </ul>
+        </div>
+
+        <div class="clearfix pd">
+            $pager()
+        </div>
+        
+    </div>
+    
+    
+    <div class="clear-fix"></div>
+</div>
+
+  ${partial:"include/footer.phtml"}
+
+        <script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
+</body>
+</html>

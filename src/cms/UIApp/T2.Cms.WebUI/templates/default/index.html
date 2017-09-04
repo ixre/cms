@@ -1,28 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>${page.title}</title>
   	<meta charset="utf-8" />
   	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="Stylesheet" type="text/css" href="${page.fpath}/template.css?v=${page.built}" />
-    <link rel="Stylesheet" type="text/css" href="${page.tpath}/themes/default/style.css?v=${page.built}" />
+    <link rel="Stylesheet" type="text/css" href="${page.tpath}/css/default/page.css?v=${page.built}" />
     <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc?wsd" />
     <meta name="keywords" content="${page.keywords}" />
     <meta name="description" content="${page.description}" />
+    ${page.html5}
 </head>
 <body>
-<div class="flash-row">
-    $navigator()
-    d
+${partial:"include/header.phtml"}
+    <div class="mod-flash-p mod-flash-banner gra-mg5 flash-row container" style="margin:5px auto">
+    ${partial:"include/flash_banner.phtml"}
 </div>
 <div class="row row-news">
-  <div class="panel">
+  <div class="container">
     <span class="icon icon-sound">
-      $lang(new-notice):
+      最新公告:
     </span>
       <span class="list" id="notice_list">
         <ul>
-          $archives('notice',5,'
+          $archives('news',5,'
             <li><a href="{url}">{title}</a></li>
           ')
         </ul>
@@ -30,42 +31,22 @@
   </div>
 </div>
 
-<div class="page-index panel">
+<div class="page-index container">
   <div class="busi-blocks">
     <ul>
+      $archives('items',4,'
       <li>
-        <a href="${page.domain}/product/">
-          <img src="${page.tpath}/themes/default/busi-1.jpg" alt="img"/>
+        <a href="{url}">
+          <img src="{thumbnail}" alt="{title2}"/>
           <span class="text-mask"></span>
-          <span class="text">$lang(factory)</span>
+          <span class="text">{title}</span>
         </a>
-      </li>
-      <li>
-        <a href="${page.domain}/branch#trade">
-          <img src="${page.tpath}/themes/default/busi-2.jpg" alt="img"/>
-          <span class="text-mask"></span>
-          <span class="text">$lang(trade)</span>
-        </a>
-      </li>
-       <li>
-        <a href="${page.domain}/branch#finance">
-          <img src="${page.tpath}/themes/default/busi-3.jpg" alt="img"/>
-          <span class="text-mask"></span>
-          <span class="text">$lang(finance)</span>
-        </a>
-      </li>
-       <li class="last">
-        <a href="${page.domain}/branch#project">
-          <img src="${page.tpath}/themes/default/busi-4.jpg" alt="img"/>
-          <span class="text-mask"></span>
-          <span class="text">$lang(install-company)</span>
-        </a>
-      </li>
+      </li>')
       </ul>
-      <div class="clear"></div>
+      <div class="clearfix"></div>
   </div>
 
-  <div class="row row2">
+  <div class="row row2 hidden">
     <div class="col row-pro-cates" id="tab1">
         <div class="tab">
           <ul>
@@ -96,100 +77,25 @@
         <img src="${page.tpath}/themes/default/busi-diy.jpg" alt="img" width="100%"/>
       </a>
     </div>
-    <div class="clear"></div>
+    <div class="clearfix"></div>
   </div>
 
 
-<!--
-  <div class="row row-main hidden">
-    <div class="col col-lft">
-      <div class="box">
-        <h2>$lang(service)</h2>
-        <ul class="func-bar"> 
-        <li><a class="s" href="${page.domain}/logistics/">$lang(logistics)$lang(space)$lang(delivery)</a></li>
-          <li><a href="${page.domain}/brand-proxy/">$lang(brand-proxy)</a></li> 
-          <li><a href="${page.domain}/about/qualification.html">$lang(Honor-and-qualification)</a></li>
-        </ul>
-        <h2>$lang(branch-company)</h2>
-        <ul class="companies">
-            $archives('branch',5,'
-              <li><a href="{url}">{title}</a></li>
-            ')  
-        </ul>
-      </div>
-    </div>
-    <div class="col col-rgt">
-      <div class="row-1" id="tab1">
-        <div class="tab">
-          <ul>
-              <li class="current item">$lang(product-category)</li>
-              <li class="item">$lang(dynamic-of-tianxin)</li>
-              <li class="item">$lang(brand-proxy)</li>
-          </ul>
-          <span class="rgt more hidden">
-            <a href="${page.domain}/hr/">
-              $lang(human)$lang(space)$lang(entry)&nbsp;>>
-            </a>
-          </span>
-          <div class="clear-fix"></div>
-        </div>
-        <div class="frames">
-          <div class="frame frame-category">
-            <div class="col1">
-              <ul>
-                $categories('product','<li class="{class}"><a href="{url}">{name}</a></li>')
-              </ul>
-              <div class="clear-fix"></div>
-            </div>
-            <div class="col2">
 
-            </div>
-              <div class="clear-fix"></div>
-          </div>
-          <div class="frame frame-dynamic hidden">
-          </div>
-          <div class="frame frame-other hidden">
-          </div>
-        </div>
-      </div>
-
-      <div class="row-case">
-        <h2 class="tit">
-          <span>
-            $lang(project)$lang(space)$lang(case)
-          </span>
-        </h2>
-        <div class="flash-panel flash-case" id="fla-case">
-          <ul>
-            $archives('case',6,'
-            <li><a href="{url}"><img src="{thumbnail}" class="thumbnail" width="100" height="75"/><span>{title}</span></a></li>
-            ')
-          </ul>
-        </div>
-      </div>
-
-    </div>
-    <div class="clear-fix"></div>
-  </div>
-  -->
-
-  <div class="row row-zz">
-    <img src="${page.tpath}/themes/default/c_zizhi.jpg" alt="img" width="100%" />
-  </div>
-
-  <div class="friend-link">
-    <i>$lang(frend-links):</i>$friend_link()
+  <div class="mod-friend-link">
+    <i>$lang(friend-link):</i>$friend_link()
   </div>
 </div>
 
 
-  <script type="text/javascript" src="${page.fpath}/core.js?v=${page.built}&amp;hover=navi"></script>
+  ${partial:"include/footer.phtml"}
+  <script type="text/javascript" src="${page.fpath}/base.min.js?v=${page.built}&amp;hover=navi"></script>
   <script type="text/javascript" src="${page.fpath}/js/scroller.js?v=${page.built}&amp;hover=navi"></script>
   <script type="text/javascript">
-        jr.scroller('fla', {direction: 'left',unit:1200,pagerid:'fla_pager'},4000);
-        jr.scroller('fla-pro-cate', {direction: 'left',unit:100},2000);
-        jr.scroller('notice_list',{direction:'up',unit:20},3000);
-        //tabCard(jr.$('tab1'));
+        j6.scroller('fla', {direction: 'left',unit:1200,pagerid:'fla_pager'},4000);
+        j6.scroller('fla-pro-cate', {direction: 'left',unit:100},2000);
+        j6.scroller('notice_list',{direction:'up',unit:20},3000);
+        //tabCard(j6.$('tab1'));
   </script>
 </body>
 </html>

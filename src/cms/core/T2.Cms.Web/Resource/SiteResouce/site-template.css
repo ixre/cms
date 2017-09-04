@@ -254,6 +254,10 @@ a.f{color:#6E6E6E;}
 .gra-toolbar-right{float:right;}
 .gra-toolbar-top{margin-top:1em;}
 
+/* gra-dashed-box : 虚线盒子 */
+.gra-dashed-box{background: #FFF;padding: 5px 1em;border: dashed 1px #CCC;}
+
+
 /* gra-table / 表格*/
 .gra-table,.gra-table table{width:100%;border-collapse: collapse;line-height:30px;}
 .gra-table td{padding-left:12px;margin-right:-12px;}
@@ -314,10 +318,6 @@ a.f{color:#6E6E6E;}
 .mod-mini-cart-table .td-unit-price em{display:inline;margin:0 2px;}
 .mod-mini-cart-table .td-delete{width:30px;text-align: right;}
 
-
-/* ---------- 页面基础模块 -------- */
-.mod-footer{text-align:center;font-size:12px;line-height:2em;color:#999;padding-bottom:10px;margin:3em 0;}
-.mod-footer a{color:#666;margin:0 5px;}
 
 /* ---------- 商品模块 ---------- */
 

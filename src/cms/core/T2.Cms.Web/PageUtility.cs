@@ -32,7 +32,7 @@ namespace T2.Cms
         /// </summary>
         public static TemplateHandler<object> OnPreRender;
 
-        const string CopyStr = "<!-- power by JR-CMS v {0} -->";
+        const string CopyStr = "<!-- power by JRCMS v {0} , known more visit http://to2.net/cms -->";
 
         private static string version;
         private static string copyStr2012;

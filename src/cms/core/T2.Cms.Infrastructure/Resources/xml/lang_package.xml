@@ -20,6 +20,7 @@
   <item key="friend-link" Zh_CN="友情链接" Zh_TW="" En=" " Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="previous-archive" Zh_CN="上一篇" Zh_TW="" En=" " Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="next-archive" Zh_CN="下一篇" Zh_TW="" En=" " Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="hot-keyword" Zh_CN="热门关键词" Zh_TW="" En=" " Es="" Th="" Fr="" Ru="" Ar=""/>
 
   <!-- 模板翻译 -->
   <item key="home" Zh_CN="首页" Zh_TW="首頁" En="Home" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
@@ -30,6 +31,8 @@
   <item key="navigator" Zh_CN="导航" Zh_TW="導航" En="Navigator" Es="navegador" Th="นักเดินเรือ" Fr="Navigateur" Ru="навігатар" Ar="ملاح"/>
   <item key="product" Zh_CN="产品" Zh_TW="產品" En="Product" Es="Producto" Th="สินค้า" Fr="Produit" Ru="Продукт" Ar="المنتج"/>
   <item key="service" Zh_CN="服务" Zh_TW="服務" En="Service" Es="Servicio" Th="บริการ" Fr="Service" Ru="обслуживание" Ar="خدمة"/>
+  <item key="item" Zh_CN="项目" Zh_TW="項目" En="Item" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+
   <item key="relation" Zh_CN="相关" Zh_TW="關聯" En="Relation" Es="relación" Th="ความสัมพันธ์" Fr="relation" Ru="стаўленне" Ar="علاقة"/>
   <item key="information" Zh_CN="信息" Zh_TW="訊息" En="Information" Es="información" Th="ข้อมูล" Fr="information" Ru="інфармацыя" Ar="معلومات"/>
   <item key="help" Zh_CN="帮助" Zh_TW="幫助" En="Help" Es="Ayuda" Th="ช่วยด้วย" Fr="Aidez-moi" Ru="Помогите" Ar="مساعدة"/>
@@ -37,6 +40,7 @@
   <item key="company" Zh_CN="公司" Zh_TW="公司" En="Company" Es="Compañía" Th="บริษัท" Fr="entreprise" Ru="Компания" Ar="شركة"/>
   <item key="about" Zh_CN="关于" Zh_TW="關於" En="About" Es="Acerca de" Th="เกี่ยวกับ" Fr="sur" Ru="Около" Ar="حول"/>
   <item key="contact" Zh_CN="联系" Zh_TW="聯繫" En="Contact" Es="Contacto" Th="ติดต่อ" Fr="Contactez" Ru="контакт" Ar="اتصال"/>
+  <item key="follow" Zh_CN="关注" Zh_TW="關注" En="Follow" Es="seguir" Th="ปฏิบัติตาม" Fr="suivre" Ru="прытрымлівацца" Ar="إتبع"/>
   <item key="tel" Zh_CN="电话" Zh_TW="電話" En="Tel" Es="tel" Th="โทร" Fr="tél" Ru="телефон" Ar="الهاتف"/>
   <item key="us" Zh_CN="我们" Zh_TW="我們" En="Us" Es="nos" Th="เรา" Fr="nous" Ru="нас" Ar="لنا"/>
   <item key="search" Zh_CN="搜索" Zh_TW="搜尋" En="Search" Es="buscar" Th="ค้นหา" Fr="chercher" Ru="поиск" Ar="البحث عن"/>
