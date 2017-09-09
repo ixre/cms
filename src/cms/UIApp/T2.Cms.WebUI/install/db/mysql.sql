@@ -56,7 +56,7 @@ CREATE TABLE `cms_archive` (
 
 LOCK TABLES `cms_archive` WRITE;
 /*!40000 ALTER TABLE `cms_archive` DISABLE KEYS */;
-INSERT INTO `cms_archive` VALUES (2,'cms','welcome',2,'1','欢迎使用J6 Cms .NET',NULL,NULL,0,NULL,NULL,NULL,'<div style=\\\"text-align:center;font-size:30px\\\"><h2>欢迎使用J6 Cms .NET!</h2></div>',0,NULL,NULL,'2015-08-01 00:00:00','2015-08-01 00:00:00','{st:\'\'0\'\',sc:\'\'0\'\',v:\'\'0\'\',p:\'\'0\'\'}',NULL);
+INSERT INTO `cms_archive` VALUES (2,'cms','welcome',2,'1','欢迎使用JRCms .NET',NULL,NULL,0,NULL,NULL,NULL,'<div style=\\\"text-align:center;font-size:30px\\\"><h2>欢迎使用JRCms .NET!</h2></div>',0,NULL,NULL,'2015-08-01 00:00:00','2015-08-01 00:00:00','{st:\'0\',sc:\'0\',v:\'1\',p:\'0\'}',NULL);
 /*!40000 ALTER TABLE `cms_archive` ENABLE KEYS */;
 UNLOCK TABLES;
 
