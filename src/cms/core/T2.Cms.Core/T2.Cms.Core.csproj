@@ -74,6 +74,7 @@
       <HintPath>..\..\..\refrence.dll\SharpCompress.3.5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />

@@ -22,6 +22,7 @@ using JR.DevFw.Framework;
 using T2.Cms.DataTransfer;
 using T2.Cms.DB;
 using JR.DevFw.PluginKernel;
+using JR.DevFw.Framework.Web.UI;
 
 namespace T2.Cms
 {
@@ -209,33 +210,20 @@ namespace T2.Cms
         public static void Init()
         {
             BeforeInit();
-
             if (!Installed) return;
-
             //初始化目录
             ChkCreate(CmsVariables.TEMP_PATH);
-
-
+            // 加载配置
             Configuration.LoadCmsConfig();
-
             //设置数据库
-            CmsDataBase.Initialize(
-                String.Format("{0}://{1}", Settings.DB_TYPE.ToString(),
-                Settings.DB_CONN.ToString()),
-                Settings.DB_PREFIX,
-                Settings.SQL_PROFILE_TRACE);
-
-
-            LoadOtherConfig();
-
-
-
+            CmsDataBase.Initialize(String.Format("{0}://{1}", Settings.DB_TYPE.ToString(),
+                Settings.DB_CONN.ToString()), Settings.DB_PREFIX,Settings.SQL_PROFILE_TRACE);
             //清空临时文件
             //resetTempFiles();
-
-
+            // 初始化键值存储
             InitKvDb();
-
+            // 加载其他配置
+            LoadOtherConfig();
             //获取静态服务器
             //UpdateServerInfo();
 
@@ -244,34 +232,31 @@ namespace T2.Cms
             //
             //检查网站激活状态
             //SoftwareActivator.VerifyActivation();
-
             //如果不存在模板文件夹，则创建目录
             if (!Directory.Exists(Cms.PyhicPath + "templates/"))
             {
                 Directory.CreateDirectory(Cms.PyhicPath + "templates/").Create();
-
                 //暂时网络安装默认模板(后可使用资源代替)
                 Updater.InstallTemplate("default", "tpl_default.zip");
             }
-
-            //注册模板
+            // 注册模板
             Template.Register("/" + CmsVariables.TEMPLATE_PATH, true);
-
+            // 注册插件
             //PluginConfig.PLUGIN_FILE_PARTTERN = "*.dll,*.so";
             PluginConfig.PLUGIN_DIRECTORY = CmsVariables.PLUGIN_PATH;
             PluginConfig.PLUGIN_TMP_DIRECTORY = CmsVariables.TEMP_PATH + "plugin/";
             PluginConfig.PLUGIN_LOG_OPENED = true;
             PluginConfig.PLUGIN_LOG_EXCEPT_FORMAT = "** {time} **:{message}\r\nSource:{source}\r\nAddress:{addr}\r\nStack:{stack}\r\n\r\n";
-
             string pluginPhysicPath = Cms.PyhicPath + PluginConfig.PLUGIN_TMP_DIRECTORY;
             if (!Directory.Exists(pluginPhysicPath))
             {
                 Directory.CreateDirectory(pluginPhysicPath).Create();
             }
-
-            //连接插件
+            // 连接插件
             CmsPluginContext.Connect();
 
+            // 设置验证码字体
+            VerifyCodeGenerator.SetFontFamily(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
 
             if (OnInit != null)
             {

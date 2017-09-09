@@ -269,12 +269,14 @@ namespace T2.Cms.Web.WebManager.Handle
         /// </summary>
         public void VerifyCode_GET()
         {
+            if (Cms.RunAtMono) return; // mono下字体无法识别
+
             string word = null;
-            VerifyCode v = new VerifyCode();
-            var font = v.GetDefaultFont();
+            VerifyCodeGenerator v = new VerifyCodeGenerator();
             try
             {
-                font = new Font(font.FontFamily, 16);
+                FontFamily f = VerifyCodeGenerator.GetFontFamily();
+                Font font = new Font(f, 16);
                 v.AllowRepeat = false;
                 Response.BinaryWrite(v.GraphicDrawImage(4,
                     VerifyWordOptions.Letter,
@@ -287,10 +289,6 @@ namespace T2.Cms.Web.WebManager.Handle
             }
             catch (Exception exc)
             {
-                if (font != null)
-                {
-                    font.Dispose();
-                }
                 throw exc;
             }
         }
@@ -305,6 +303,7 @@ namespace T2.Cms.Web.WebManager.Handle
                 new
                 {
                     path = GetPath(),
+                    linux = Cms.RunAtMono ? "true" : "false",
                     version = Cms.Version,
                     year = DateTime.Now.Year.ToString()
                 });
@@ -315,67 +314,69 @@ namespace T2.Cms.Web.WebManager.Handle
         /// </summary>
         public void Login_POST()
         {
-            string username = base.Request.Form["uid"],
-            password = base.Request.Form["pwd"],
-            verifycode = base.Request.Form["code"];
+            string username = base.Request.Form["uid"].Trim(),
+            password = base.Request.Form["pwd"].Trim(),
+            verifycode = base.Request.Form["code"].Trim();
 
-            if (!VerifyCodeManager.Compare(verifycode))
+            if (!Cms.RunAtMono)
             {
-                base.RenderError("验证码不正确");
+                if (verifycode == "" || !VerifyCodeManager.Compare(verifycode))
+                {
+                    base.RenderError("验证码不正确");
+                    return;
+                }
+            }
+
+            int tag = UserState.Administrator.Login(username, password, 3600 * 120);
+
+            if (tag == -1)
+            {
+                base.RenderError("账户或密码不正确!");
+            }
+            else if (tag == -2)
+            {
+                base.RenderError("账号已被停用,请联系管理员!");
             }
             else
             {
-                int tag = UserState.Administrator.Login(username, password, 3600 * 120);
-
-                if (tag == -1)
-                {
-                    base.RenderError("账户或密码不正确!");
-                }
-                else if (tag == -2)
-                {
-                    base.RenderError("账号已被停用,请联系管理员!");
-                }
-                else
-                {
-                    base.RenderSuccess();
-                    //保存登陆信息
-                }
-
-                //设置站点
-                //                UserBll usr = CmsLogic.UserBll.GetUser(username, password);
-                //
-                //                if (usr != null)
-                //                {
-                //                    CmsLogic.UserBll.UpdateUserLastLoginDate(username);
-                //
-                //                    if (!usr.Enabled)
-                //                    {
-                //                        base.RenderError("账号已被停用,请联系管理员!");
-                //                    }
-                //                    else
-                //                    {
-                //                        //保存登陆信息
-                //                        bool result = UserState.Administrator.Login(username, password, 3600 * 120);
-                //
-                //                        //验证站点信息
-                //                        if (usr.SiteId > 0)
-                //                        {
-                //                            SiteDto site = SiteCacheManager.GetSite(usr.SiteId);
-                //                            if (!(site.SiteId > 0))
-                //                            {
-                //                                base.RenderError("账号已被停用,请联系管理员!");
-                //                                return;
-                //                            }
-                //                            base.CurrentSite = site;
-                //                        }
-                //                        base.RenderSuccess();
-                //                    }
-                //}
-                //else
-                // {
-                //   base.RenderError("账户或密码不正确!");
-                //}
+                base.RenderSuccess();
+                //保存登陆信息
             }
+
+            //设置站点
+            //                UserBll usr = CmsLogic.UserBll.GetUser(username, password);
+            //
+            //                if (usr != null)
+            //                {
+            //                    CmsLogic.UserBll.UpdateUserLastLoginDate(username);
+            //
+            //                    if (!usr.Enabled)
+            //                    {
+            //                        base.RenderError("账号已被停用,请联系管理员!");
+            //                    }
+            //                    else
+            //                    {
+            //                        //保存登陆信息
+            //                        bool result = UserState.Administrator.Login(username, password, 3600 * 120);
+            //
+            //                        //验证站点信息
+            //                        if (usr.SiteId > 0)
+            //                        {
+            //                            SiteDto site = SiteCacheManager.GetSite(usr.SiteId);
+            //                            if (!(site.SiteId > 0))
+            //                            {
+            //                                base.RenderError("账号已被停用,请联系管理员!");
+            //                                return;
+            //                            }
+            //                            base.CurrentSite = site;
+            //                        }
+            //                        base.RenderSuccess();
+            //                    }
+            //}
+            //else
+            // {
+            //   base.RenderError("账户或密码不正确!");
+            //}
         }
 
         #endregion
@@ -523,7 +524,7 @@ namespace T2.Cms.Web.WebManager.Handle
                     String upgradeUrl = req["server_upgrade"];
                     if (!String.IsNullOrEmpty(upgradeUrl))
                     {
-                        if(upgradeUrl.IndexOf("http") != 0)
+                        if (upgradeUrl.IndexOf("http") != 0)
                         {
                             base.RenderSuccess("升级服务器必须以http://开头!");
                             return;
@@ -567,13 +568,14 @@ namespace T2.Cms.Web.WebManager.Handle
             return base.ReturnSuccess();
         }
 
-        public string Locale_GET() {
+        public string Locale_GET()
+        {
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Locale));
         }
 
         public string GetLocaleJson_POST()
         {
-            String path= "";
+            String path = "";
             String type = this.Request.Form["type"];
             switch (type)
             {
@@ -591,8 +593,8 @@ namespace T2.Cms.Web.WebManager.Handle
                 File.Create(path).Dispose();
                 return "[]";
             }
-            
-            StreamReader rd = new StreamReader(path,Encoding.UTF8);
+
+            StreamReader rd = new StreamReader(path, Encoding.UTF8);
             String json = rd.ReadToEnd();
             rd.Close();
             return json;

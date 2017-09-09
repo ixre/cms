@@ -183,7 +183,7 @@ namespace T2.Cms.Web.Mvc
                 _opt = (VerifyWordOptions)int.Parse(opt);
             }
 
-            VerifyCode v = new VerifyCode();
+            VerifyCodeGenerator v = new VerifyCodeGenerator();
             v.AllowRepeat = false;
 
             //显示验证码
