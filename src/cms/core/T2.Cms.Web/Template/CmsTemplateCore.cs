@@ -1,5 +1,4 @@
 ﻿
-
 namespace T2.Cms.Template
 {
     using T2.Cms;
@@ -55,7 +54,7 @@ namespace T2.Cms.Template
         /// </summary>
         protected int SiteId;
 
-        private CmsContext _ctx;
+        protected CmsContext _ctx;
 
         /// <summary>
         /// 模板设置

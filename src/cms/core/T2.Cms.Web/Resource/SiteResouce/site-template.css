@@ -54,7 +54,7 @@ img{max-width:100%;}
 body{font-size:13px;background:#FAFBFC;}
 p,div{margin:0 0 10px 0;}
 
-.container,.wrapper{min-width:320px;margin:0 auto;overflow:hidden}
+.container,.wrapper{min-width:320px;margin:0 auto}
 .container-top,.wrapper-top{padding-top:41px;}
 .container-btm,.wrapper-btm{padding-bottom:40px;}
 .typead,.typead div{margin-bottom:0;}

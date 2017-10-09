@@ -55,7 +55,7 @@ img{max-width:100%;}
 body{font-size:13px;background:#FAFBFC;}
 p,div{margin:0 0 10px 0;}
 
-.container,.wrapper{min-width:320px;margin:0 auto;overflow:hidden}
+.container,.wrapper{min-width:320px;margin:0 auto}
 .container-top,.wrapper-top{padding-top:41px;}
 .container-btm,.wrapper-btm{padding-bottom:40px;}
 .typead,.typead div{margin-bottom:0;}
@@ -642,7 +642,7 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 
 /* mod-quick-link 快捷链接 */
 .mod-quick-link{padding:2em 0;background:#F0F0F0;box-shadow:0 0 20px #EEE inset;margin-bottom:0;}
-.mod-quick-link .col{float:left;width:16%;font-size:1.1em;}
+.mod-quick-link .col{float:left;width:16%;}
 .mod-quick-link .col-last{width:36%;}
 .mod-quick-link .con-last{border-left:solid 1px #BBB;margin-right:0;padding-left:10%;text-align:left;position:relative;}
 .mod-quick-link .col div.con{padding:2px 0 0 0;margin-right:30%;}

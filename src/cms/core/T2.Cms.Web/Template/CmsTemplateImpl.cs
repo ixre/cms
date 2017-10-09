@@ -1157,15 +1157,16 @@ namespace T2.Cms.Template
         public string Navigator()
         {
             string cache = SiteLinkCache.GetNavigatorBySiteId(SiteId);
-            String siteDomain = Cms.Context.SiteDomain;
-            if (cache == null)
+            String siteDomain = this._ctx.SiteDomain;
+            if (String.IsNullOrEmpty(cache))
             {
                 cache = base.Navigator(base.GetSetting().CFG_NavigatorLinkFormat, base.GetSetting().CFG_NavigatorChildFormat, "-1");
-                String cache2 = cache.Replace(siteDomain, "$DOMAIN$");
+                String cache2 = cache.Replace(siteDomain, "${DOMAIN}");
                 SiteLinkCache.SetNavigatorForSite(SiteId, cache2);
                 return cache;
             }
-            return cache.Replace("$DOMAIN$",siteDomain);
+            //throw new Exception(siteDomain +" | "+ cache );
+            return cache.Replace("${DOMAIN}", siteDomain);
         }
 
 

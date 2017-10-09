@@ -4,7 +4,7 @@ h1,h2,h3{margin:0;padding:0;}
 h1{font-size:1.25em;line-height: 2em;}
 a:link,a:visited{color:#333;}
 a:hover{color:#D50000;}
-.wrapper,.container{width:1019px;margin:0 auto;overflow: hidden;}
+.wrapper,.container{width:1019px;margin:0 auto;}
 .relative{position: relative;}
 .pull{float:left;}
 .push{margin-right:3%;float:left;}
@@ -435,7 +435,6 @@ div.palist a.title{padding-left:10px;background:url(images/ico.png) 0 center no-
 /* 覆盖样式 */
 
 body{font-size:14px;}
-.container{overflow:hidden;}
 .mod-header{box-shadow:none;padding:20px 0;background:none;}
 .mod-header-right{}
 .mod-navigator{box-shadow:none;}
