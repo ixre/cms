@@ -10,12 +10,11 @@ namespace T2.Cms.UnitTest
     [TestClass]
     public class ArticleUpdateTest
     {
+        private TestBase _base = new TestBase();
         [TestMethod]
         public void TestArchiveUpdate()
         {
-            DataBaseAccess db = new DataBaseAccess(DataBaseType.SQLite, "Data Source=\"../../../../UIApp/T2.Cms.WebUI/data/db.db\"");
-            db.Use(this.profileTrace);
-
+            DataBaseAccess db = this._base.GetDb();
             int aid = 94;
             int sid = 1;
 
@@ -63,19 +62,6 @@ namespace T2.Cms.UnitTest
         }
 
 
-        private bool profileTrace(string action, string sql, DbParameter[] sqlParams, Exception exc)
-        {
-            DateTime dt = DateTime.Now;
-            if (exc == null)
-            {
-                Console.Write(" | {0:yyyy-MM-dd HH:mm:ss}:  {1} [ OK]; SQL={2};Data={3} \r\n\r\n", dt, action,
-                    sql, DataUtil.ParamsToString(sqlParams), System.Environment.NewLine);
-                return true;
-            }
-            Console.Write(" | {0:yyyy-MM-dd HH:mm:ss}: {1} [ Fail]; SQL={2};Data={3}; Exception:{4} | \r\n\r\n", dt, action,
-                  sql, DataUtil.ParamsToString(sqlParams), exc.Message);
-            return false;
-        }
 
         /// <summary>
         /// 更新

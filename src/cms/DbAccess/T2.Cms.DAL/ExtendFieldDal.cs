@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using T2.Cms.Domain.Interface.Site.Extend;
 using JR.DevFw.Data;
+using System.Text;
 
 namespace T2.Cms.Dal
 {
@@ -188,21 +189,29 @@ new object[,]{
         {
             SqlQuery[] querys = new SqlQuery[extendIds.Length + 1];
             const string insertSql = "INSERT INTO $PREFIX_category_extend (category_id,extend_id,enabled) VALUES (@categoryId, @extendId,1)";
-            const string delSql = "DELETE FROM $PREFIX_category_extend WHERE category_id=@categoryId";
+            StringBuilder sb = new StringBuilder("DELETE FROM $PREFIX_category_extend WHERE category_id = @categoryId");
 
-            querys[0] = SqlQueryHelper.Format(delSql, new object[,]{
-                {"@categoryId",categoryId}
-            });
-
-            for (int i = 0; i < extendIds.Length; i++)
+            if (extendIds.Length > 0)
             {
-                querys[i + 1] = SqlQueryHelper.Format(insertSql, new object[,]{
+                sb.Append(" AND extend_id NOT IN(");
+                for (int i = 0; i < extendIds.Length; i++)
+                {
+                    if (i > 0)
+                    {
+                        sb.Append(",");
+                    }
+                    sb.Append(extendIds[i].ToString());
+                    querys[i + 1] = base.NewQuery(insertSql, base.Db.CreateParametersFromArray(new object[,]{
                                     {"@categoryId",categoryId},
                                     {"@extendId",extendIds[i]}
                                 }
-                             );
+                                 ));
+                }
+                sb.Append(")");
             }
-
+            querys[0] = base.NewQuery(sb.ToString(),base.Db.CreateParametersFromArray(new object[,]{
+                {"@categoryId",categoryId}
+            }));
             base.ExecuteNonQuery(querys);
         }
 

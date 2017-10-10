@@ -103,6 +103,7 @@ namespace T2.Cms.Web.WebManager.Handle
             }
             catch (Exception exc)
             {
+                throw exc;
                 return base.ReturnError(exc.Message);
             }
             return base.ReturnSuccess("保存成功!");

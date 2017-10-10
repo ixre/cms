@@ -10,24 +10,31 @@ namespace T2.Cms.Conf
         internal static bool IsDebug()
         {
             bool isDebug = false;
-            using (StreamReader fs = new StreamReader(String.Format("{0}Web.config", AppDomain.CurrentDomain.BaseDirectory)))
+            try
             {
-                string content;
-                Regex reg = new Regex("<compilation[^(debug)]+debug=\"([^\"]+)\"", RegexOptions.IgnoreCase);
-                while ((content = fs.ReadLine()) != null)
+                using (StreamReader fs = new StreamReader(String.Format("{0}Web.config", AppDomain.CurrentDomain.BaseDirectory)))
                 {
-                    if (reg.IsMatch(content))
+                    string content;
+                    Regex reg = new Regex("<compilation[^(debug)]+debug=\"([^\"]+)\"", RegexOptions.IgnoreCase);
+                    while ((content = fs.ReadLine()) != null)
                     {
-                        Match m = reg.Match(content);
-                        if (m.Groups[1].Value == "true")
+                        if (reg.IsMatch(content))
                         {
-                            isDebug = true;
+                            Match m = reg.Match(content);
+                            if (m.Groups[1].Value == "true")
+                            {
+                                isDebug = true;
+                            }
                         }
                     }
+                    fs.Dispose();
                 }
-                fs.Dispose();
-                return isDebug;
             }
+            catch (IOException exc)
+            {
+
+            }
+           return isDebug;
         }
 
         /// <summary>

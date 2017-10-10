@@ -52,7 +52,7 @@ namespace T2.Cms
             try
             {
                 Cms.OnInit += CmsEventRegister.Init;
-                Cms.Init();
+                Cms.Init(BootFlag.Normal,null);
 
                 //注册路由;
                 RouteCollection routes = RouteTable.Routes;

@@ -296,7 +296,7 @@ namespace T2.Cms.Web
 
             Settings.TurnOffDebug();
 
-            Cms.Init();
+            Cms.Init(BootFlag.Normal,null);
 
             // 重启
             HttpRuntime.UnloadAppDomain();

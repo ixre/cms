@@ -371,25 +371,28 @@ namespace T2.Cms.Conf
         }
 
 
-        internal static void LoadCmsConfig()
+        internal static void LoadCmsConfig(String confPath)
         {
             //初始化设置
-            string cmsConfigFile = String.Format("{0}{1}cms.conf", Cms.PyhicPath, CmsVariables.SITE_CONF_PATH);
-            FileInfo cfgFile = new FileInfo(cmsConfigFile);
+            if (String.IsNullOrEmpty(confPath))
+            {
+                confPath = String.Format("{0}{1}cms.conf", Cms.PyhicPath, CmsVariables.SITE_CONF_PATH);
+            }
+            FileInfo cfgFile = new FileInfo(confPath);
             if (cfgFile.Exists)
             {
-                bool isEncoded = FileEncoder.IsEncoded(cmsConfigFile, CmsVariables.FileEncodeHeader);
+                bool isEncoded = FileEncoder.IsEncoded(confPath, CmsVariables.FileEncodeHeader);
                 if (isEncoded)
                 {
-                    FileEncoder.DecodeFile(cmsConfigFile, cmsConfigFile, CmsVariables.FileEncodeHeader,
+                    FileEncoder.DecodeFile(confPath, confPath, CmsVariables.FileEncodeHeader,
                         CmsVariables.FileEncodeToken);
                 }
 
-                Configuration.Load(cmsConfigFile);
+                Configuration.Load(confPath);
 
                 if (isEncoded || Settings.SYS_ENCODE_CONF_FILE)
                 {
-                    FileEncoder.EncodeFile(cmsConfigFile, cmsConfigFile, CmsVariables.FileEncodeHeader,
+                    FileEncoder.EncodeFile(confPath, confPath, CmsVariables.FileEncodeHeader,
                         CmsVariables.FileEncodeToken);
                 }
             }
