@@ -1,4 +1,4 @@
-body{color:#333;font-family:Arial 'MiCROSOFT YAHEI';/*background:#F0F0F0;*/}
+﻿body{color:#333;font-family:Arial 'MiCROSOFT YAHEI';/*background:#F0F0F0;*/}
 
 h1,h2,h3{margin:0;padding:0;}
 h1{font-size:1.25em;line-height: 2em;}
@@ -72,8 +72,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-navigator-navs li a.l1{color:#FFF;text-decoration:none;text-align:center;display:block;
      line-height:35px;}
 .mod-navigator-navs li.current a.l1{color:#FFF;border-bottom-color:transparent;padding:0 1em;}
-.mod-navigator-navs li.parent:hover,.page-navigator .navs li:hover,.page-navigator .navs li.hover{
-    background:#333;}
 .mod-navigator-navs li.parent:hover{background:#333 url(nav-curr-up.png) center 40px no-repeat;}
 .mod-navigator-navs li.parent a.l1:hover{color:#FFF;}
 .mod-navigator-navs li.parent .child a.l2{color:#333;}
