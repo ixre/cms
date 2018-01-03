@@ -178,7 +178,7 @@ namespace T2.Cms.Dal
             var parameters = base.Db.CreateParametersFromArray(pa);
             base.ExecuteNonQuery(
                 base.NewQuery(DbSql.Category_UpdateInsertLeft, parameters),
-                     base.NewQuery(DbSql.Category_UpdateInsertRight, parameters)
+                base.NewQuery(DbSql.Category_UpdateInsertRight, parameters)
              );
         }
 
