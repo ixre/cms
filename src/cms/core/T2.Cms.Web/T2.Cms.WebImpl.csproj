@@ -166,8 +166,8 @@
     <Compile Include="Template\CmsTemplateCore.cs" />
     <Compile Include="Template\CmsTemplateImpl.cs" />
     <Compile Include="Template\CmsTemplateDataMethod.cs" />
-    <Compile Include="utility\ArchiveHandler.cs" />
-    <Compile Include="utility\PageGenerator.cs" />
+    <Compile Include="Utility\ArchiveHandler.cs" />
+    <Compile Include="Utility\PageGenerator.cs" />
     <Compile Include="WebManager\BasePage.cs" />
     <Compile Include="WebManager\CmsWebMaster.cs" />
     <Compile Include="WebManager\EachClass.cs" />

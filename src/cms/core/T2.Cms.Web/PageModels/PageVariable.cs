@@ -6,12 +6,12 @@ namespace T2.Cms.Web
     using T2.Cms.DataTransfer;
     using JR.DevFw.Template;
     using System;
-using T2.Cms.Cache.CacheCompoment;
-using T2.Cms.CacheService;
-using T2.Cms.Conf;
-using T2.Cms.Core;
-using T2.Cms.Domain.Interface.Enum;
-using T2.Cms.Infrastructure;
+    using T2.Cms.Cache.CacheCompoment;
+    using T2.Cms.CacheService;
+    using T2.Cms.Conf;
+    using T2.Cms.Core;
+    using T2.Cms.Domain.Interface.Enum;
+    using T2.Cms.Infrastructure;
 
     public class PageVariable
     {
@@ -26,6 +26,7 @@ using T2.Cms.Infrastructure;
         private string _spam;
         private static string _currentBuilt;
         private string _lang;
+        private string _resPath;
 
         static PageVariable()
         {
@@ -171,16 +172,35 @@ using T2.Cms.Infrastructure;
         }
 
         [TemplateVariableField("框架资源根路径")]
-        public string Fpath { get { return this.FrameworkPath; } }
+        public string FPath { get { return this.FrameworkPath; } }
 
         [TemplateVariableField("模板根路径")]
-        public string Tpath { get { return this.TemplatePath; } }
-
-        [TemplateVariableField("资源域名路径")]
-        public string Rdomain { get { return this.ResDomain; } }
+        public string TPath { get { return this.TemplatePath; } }
 
         [TemplateVariableField("插件根路径")]
-        public string Ppath { get { return this.PluginPath; } }
+        public string PPath { get { return this.PluginPath; } }
+
+        [TemplateVariableField("资源根路径")]
+        public string RPath
+        {
+            get
+            {
+                return this.getResPath();
+            }
+        }
+
+        private string getResPath()
+        {
+            if (_resPath == null)
+            {
+                _resPath = this.ResDomain +"/"+ CmsVariables.RESOURCE_PATH.Substring(0,CmsVariables.RESOURCE_PATH.Length-1);
+            }
+            return _resPath;
+        }
+
+        [TemplateVariableField("资源域名路径")]
+        public string RDomain { get { return this.ResDomain; } }
+
 
 
         /// <summary>
