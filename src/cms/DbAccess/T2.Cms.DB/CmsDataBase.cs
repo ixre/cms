@@ -77,7 +77,7 @@ namespace T2.Cms.DB
             DataBaseAccess db= DbAccessCreator.GetDbAccess(connectionString, ref dbType);
            
 
-            _instance = new DbAccess(dbType, db.GetAdapter().ConnectionString,sqlTrace);
+            _instance = new DbAccess(dbType, db.GetAdapter().GetConnectionString(),sqlTrace);
             _instance.TablePrefix = dataTablePrefix;
             //测试数据库连接
             testDbConnection(_instance);

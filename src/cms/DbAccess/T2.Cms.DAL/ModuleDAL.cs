@@ -11,8 +11,7 @@
 using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Models;
 using T2.Cms.IDAL;
-using JR.DevFw.Data;
-using JR.DevFw.Data.Extensions;
+using System.Data;
 
 namespace T2.Cms.Dal
 {

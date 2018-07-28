@@ -40,6 +40,7 @@ namespace T2.Cms.Infrastructure
         public static T TSearch<T, T2>(T[] list, int low, int high, 
             T2 find, BinarySeachCompare<T, T2> compare)
         {
+            if (list == null || list.Length == 0) return default(T);
             if (low > high) return default(T);
             int mid =(low + high) / 2;
             if (compare(list[mid], find) > 0)
@@ -56,6 +57,7 @@ namespace T2.Cms.Infrastructure
         public static T TSearch<T, T2>(IList<T> list, int low, int high,
            T2 find, BinarySeachCompare<T, T2> compare)
         {
+            if (list == null || list.Count == 0) return default(T);
             if (low > high) return default(T);
             int mid = (low + high) / 2;
             if (compare(list[mid], find) > 0)
@@ -73,6 +75,7 @@ namespace T2.Cms.Infrastructure
         public static T IntSearch<T>(T[] list, int low, int high,
             int find, BinarySearchGetValue<T, int> get)
         {
+            if (list == null || list.Length == 0) return default(T);
             if (low > high) return default(T);
             int mid = (low + high) / 2;
             if (get(list[mid]) > find)
@@ -89,6 +92,7 @@ namespace T2.Cms.Infrastructure
         public static T IntSearch<T>(IList<T> list, int low, int high,
            int find, BinarySearchGetValue<T, int> get)
         {
+            if (list == null || list.Count == 0) return default(T);
             if (low > high) return default(T);
             int mid = (low + high) / 2;
             if (get(list[mid]) > find)

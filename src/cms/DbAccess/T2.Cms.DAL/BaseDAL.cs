@@ -18,7 +18,7 @@ namespace T2.Cms.Dal
         /// <summary>
         /// 用于生成参数的数据库访问对象
         /// </summary>
-        public static IDataBase DbFact;
+        public static IDbDialect DbFact;
 
         private static void CheckAndInit()
         {
