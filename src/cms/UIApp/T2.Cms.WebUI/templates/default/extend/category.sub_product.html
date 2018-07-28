@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+   <link rel="Stylesheet" href="${page.fpath}/template.css?v=${page.built}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/css/default/page.css?v=${page.built}" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    ${page.html5}
+</head>
+<body>
+${partial:"include/header.phtml"}
+<div class="page-goods">
+    <div class="panel layout">
+
+     <div class="l mod-nav-side">
+        <div class="box">
+            <div class="tit">$lang(product-category)</div>
+            <div class="content">
+                <ul class="clist">
+                    <li><a href="${page.domain}/product/">▪&nbsp;$lang(all)$lang(space)$lang(product)</a></li>
+                    $categories(product,'<li><a href="{url}">▪&nbsp;{name}</a></li>')
+                </ul>
+            </div>
+           <!-- ${partial:"include/side_bar.phtml"}-->
+        </div>
+
+    </div>
+
+    <div class="r">
+    &nbsp;
+    </div>
+
+    <div class="m">
+         <div class="mod-crumb">
+               $lang(sitemap_location):<a href="/">$lang(home)</a> > $sitemap()
+
+               ${partial:"include/share_control.phtml"}
+        </div>
+
+         <div class="brands">
+             <div class="tit">$lang(brand):</div>
+             <ul class="alist">
+                 $archives('b_${category.tag}',30,'
+                 <li class="{class}"><img src="{thumbnail}" alt="{title}" width="120"/>{title}</li>')
+             </ul>
+         </div>
+        
+        <div class="category-bar hidden">
+            ${category.name}
+        </div>
+        <div class="goods">
+            <ul>
+                $paging_archives(15,0,'
+                <li class="{class}">
+                <a href="{url}" target="_blank">
+                    <div class="mask"></div>
+                    {img}
+                   <span>{special_title}</span>
+                </a>
+                </li>')
+            </ul>
+        </div>
+
+        <div class="clearfix">
+            $pager()
+        </div>
+        
+    </div>
+    <div class="clear-fix"></div>
+    </div>
+</div>
+
+  ${partial:"include/footer.phtml"}
+
+  <script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
+</body>
+</html>

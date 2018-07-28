@@ -1,0 +1,76 @@
+<!DOCTYPE html />
+<html>
+<head>
+    <title>${page.title}</title>
+   <link rel="Stylesheet" href="${page.fpath}/template.css?v=${page.built}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/css/default/page.css?v=${page.built}" type="text/css" />
+    <link rel="stylesheet" href="${page.tpath}/flowplayer/skin/functional.css?v=${page.built}">
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    ${page.html5}
+</head>
+<body>
+${partial:"include/header.phtml"}
+
+
+
+<div class="mod-crumb">
+   <div class="container">当前位置:<a href="/">首页</a> > $sitemap() > ${archive.title}</div>
+</div>
+
+<div class="page-main page-video">
+    <div class="container">
+        <div class="side pull">
+           	<div class="border">
+                <div class="tit">
+                    ${category.Name}
+                </div>
+                <div class="con">
+                    <ol class="page-items clist">
+                        $self_archives('10','<li class="{class}"><a href="{url}">{title}</a></li>')
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="pull main">
+       		<div class="web-player" id="player">
+            </div>
+        </div>
+    </div>
+</div>
+
+${partial:"include/footer.phtml"}
+
+        <script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;v=${page.built}"></script>
+    <script type="text/javascript" src="${page.tpath}/flowplayer/flowplayer.min.js?v=${page.built}"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+              var fileUrl = '${archive.__dict__[视频(FLV)]}';
+              var fileType = 'video/flv';
+                if(fileUrl.indexOf('.mp4')!=-1){
+                    fileType='video/mp4';
+                }
+              flowplayer("#player", {
+                autoplay: !true,
+                keyboard: false,
+                fullscreen: false,
+                embed: false,
+                ratio: 6/8,
+                  // logo: "https://flowplayer.org/media/img/mylogo.png",
+                  //key: "$130763224349944, $863732616083910",
+                clip: {
+                  sources: [
+                  { type: fileType,src:fileUrl}
+                  ],
+                  title:'${archive.title}'
+                }
+            
+              }).on("ready", function (e, api) {
+                  //api.disable(true);
+              }).on("finish", function () {
+              });
+            
+            };
+        </script>
+</body>
+</html>

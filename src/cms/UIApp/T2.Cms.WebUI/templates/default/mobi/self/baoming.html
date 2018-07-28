@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>网上在线报名 - 七天彩妆造型职业学校</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="Stylesheet" href="${page.tpath}/themes/common.css?version=${page.version}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/themes/template.css?version=${page.version}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/themes/style.css?version=${page.version}" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc?wsd" />
+</head>
+<body>
+        <script>window.top_attach=false;</script>
+        ${partial:"../inc/header.phtml"}
+        ${partial:"../self/baoming.phtml"}
+
+
+        <div class="panel panel-index-page">
+
+        <div style="text-align:center">
+            <img src="${page.tpath}/themes/self/flash_bottom.gif"/>
+        </div>
+
+        <!-- 学校信息 -->
+        <div class="xxinfo3">
+            <div class="p1">
+                <div class="title"><b>学员在线报名</b></div>
+                <div class="line"></div>
+
+                <div class="bm_panel">
+                    <p class="note">
+                    注：在线报名后可根据身份证或手机号码查询报名信息。
+                    </p>
+
+                    <table cellpadding="0" cellspacing="0" id="bm">
+                        <tr>
+                            <td class="txt" valign="top" style="width:100px">
+                                学员姓名：
+                            </td>
+                            <td>
+                                <input class="textbox ui-validate" field="Name" required="true"/><br />
+                                <span class="descript">*填写您的姓名</span>
+                            </td>
+                        </tr>
+
+                         <tr>
+                            <td class="txt" valign="top">
+                                QQ号码：
+                            </td>
+                            <td>
+                                <input class="textbox ui-validate" field="Qq" required="true"/><br />
+                                <span class="descript">*填写您的QQ</span>
+                            </td>
+                        </tr>
+
+                         <tr>
+                            <td class="txt" valign="top">
+                                学习课程：
+                            </td>
+                            <td>
+                                <table class="tb2" style="width:100%" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td width="250">
+                                            <input type="checkbox" field="CourseName[0]" id="c1" value="自我形象彩妆班"/><label for="c1">自我形象彩妆班</label>&nbsp;[<a href="${page.domain}/course/c1.html" target="_blank">介绍</a>]
+                                        </td>
+                                        <td>
+                                         <input type="checkbox" field="CourseName[1]" id="c2" value="专业化妆初级班"/><label for="c2">专业化妆初级班</label>&nbsp;[<a href="${page.domain}/course/c2.html" target="_blank">介绍</a>]
+                                        </td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>
+                                            <input type="checkbox" field="CourseName[2]" id="c3" value="专业化妆造型影楼班班"/><label for="c3">专业化妆造型影楼班班</label>&nbsp;[<a href="${page.domain}/course/c3.html" target="_blank">介绍</a>]
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" field="CourseName[2]" id="c4" value="专业化妆造型高级全能班"/><label for="c4">专业化妆造型高级全能班</label>&nbsp;[<a href="${page.domain}/course/c4.html" target="_blank">介绍</a>]
+                                        </td>
+                                    </tr>
+
+                                     <tr>
+                                      <td>
+                                            <input type="checkbox" field="CourseName[3]" id="c5" value="化妆讲师培训班"/><label for="c5">化妆讲师培训班</label>&nbsp;[<a href="${page.domain}/course/c5.html" target="_blank">介绍</a>]
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" field="CourseName[4]" id="c6" value="高级化妆造型师提升班"/><label for="c6">高级化妆造型师提升班</label>&nbsp;[<a href="${page.domain}/course/c6.html" target="_blank">介绍</a>]
+                                        </td>
+                                       
+                                    </tr>
+
+                                     <tr>
+                                      <td>
+                                            <input type="checkbox" field="CourseName[5]" id="c9" value="高级化妆造型师研修班"/><label for="c9">高级化妆造型师研修班</label>&nbsp;[<a href="${page.domain}/course/c9.html" target="_blank">介绍</a>]
+                                        </td>
+                                        <td> 
+                                            <input type="checkbox" field="CourseName[6]" id="c7" value="专业美甲技能课程(美甲A班)"/><label for="c7">专业美甲技能课程(美甲A班)</label>&nbsp;[<a href="${page.domain}/course/c7.html" target="_blank">介绍</a>]
+                                        </td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" field="CourseName[7]" id="c8" value="专业美甲技能课程(美甲B班)"/><label for="c8">专业美甲技能课程(美甲B班)</label>&nbsp;[<a href="${page.domain}/course/c8.html" target="_blank">介绍</a>]
+                                        </td>
+                                        <td> 
+                                           
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                             </td>
+                        </tr>
+
+                        <tr>
+                            <td class="txt" valign="top">
+                                所在区域：
+                            </td>
+                            <td>
+                               <select field="AreaName" required="true" class="ui-validate textbox">
+                                   <option value="">一请选择一</option>
+                                   <option value="禅城区">禅城区</option>
+                                   <option value="南海区">南海区</option>
+                                   <option value="顺德区">顺德区</option>
+                                   <option value="三水区">三水区</option>
+                                   <option value="高明区">高明区</option>
+                               </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="txt" valign="top">
+                                联系电话：
+                            </td>
+                            <td>
+                                <input class="textbox ui-validate" field="Phone" required="true"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="txt" valign="top">
+                                联系地址：
+                            </td>
+                            <td>
+                                <input class="textbox ui-validate" field="Address" required="true"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <br />
+                                <img src="${page.tpath}/themes/self/bm_btn.gif" alt="提交报名信息" onclick="submitReq()"/>
+
+                            </td>
+                        </tr> 
+                    </table>
+                </div>
+            </div>
+            <div class="p3">
+                <!--
+                <div class="cent">
+                    <div class="title"><b><a href="javascript:;">最新活动</a></b></div>
+                        <div class="line"></div>
+                    $archive('activity','{content}')
+                </div>
+                -->
+                <div class="pl">
+                <span>扫描二维码，关注七天彩妆动态</span>
+                <br /><br />
+                <img class="qrcode" src="${page.tpath}/themes/self/qrcode.jpg" alt="扫描七天彩妆二纬码"/>
+                </div>
+
+            </div>
+        </div>
+
+        <!--
+        <div class="xyzp">
+            <div class="category-title">
+                <h2><a href="${page.domain}/show/" target="_blank">学员作品</a><em>CASE SHOW</em></h2>
+            </div>
+             <div class="photos show">
+                <ul>
+                    $archives('show',10,'
+                         <li class="item">
+                              <a class="title" title="{title}" target="_blank" href="{url}">
+                              <mask></mask>
+                              <img class="thumbnail" src="{thumbnail}" alt="{title}"/><br />
+                              <span>{title2}</span></a>
+                          </li>
+                      
+                     ')
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+
+        <div class="xyzp">
+            <div class="category-title">
+                <h2><a href="${page.domain}/show/" target="_blank">学员分享</a><em>STUDENT</em></h2>
+            </div>
+            
+             <div class="photos show">
+                <ul>
+                    $archives('student',5,'
+                         <li class="item">
+                              <a class="title" title="{title}" target="_blank" href="{url}">
+                              <mask></mask>
+                              <img class="thumbnail" src="{thumbnail}" alt="{title}"/><br />
+                              <span>{title2}</span></a>
+                          </li>
+                      
+                     ')
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>-->
+  </div>
+    ${partial:"../inc/footer.phtml"}
+
+<script type="text/javascript" src="${page.fpath}/js/form.js?version=${page.version}"></script>
+
+<script type="text/javascript">
+        function submitReq() {
+            if (cms.validator.validate()) {
+                var data = cms.json.toObject('bm');
+                if(data.Name=="")return;
+                cms.xhr.jsonPost('submitbm', data, function (json) {
+                    if (json.result) {
+                        alert('报名成功！');
+                        location.href='${page.domain}';
+                    } else {
+                        alert(json.message);
+                    }
+                });
+            }
+            return false;
+        }
+</script
+
+</body>
+</html>
