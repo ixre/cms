@@ -1,22 +1,28 @@
 @echo off
+
 color 66
 
-echo =======================================
-echo = JR Cms .NET ! 核心程序集生成工具 =
+echo "======================================="
+
+echo "= JR Cms .NET ! 核心程序集生成工具 ="
+
 echo =======================================
 
-set cur=%cd%
-%~d0
+set cur=%cd%%~d0
+
 cd ..\
+
 echo 上级目录为：%cd%
+
 set dir=%cd%
 
-echo "set dir2=%~dp0 echo 当前目录">nul
+
 set megdir=%dir%\dist\bin\
 
 if exist "%cur%/merge.exe" (
 
   echo 生成中,请稍等...
+
   cd %dir%/src/bin/
 
 echo  /keyfile:%dir%\src\t2.cms.snk>nul
@@ -33,6 +39,5 @@ echo  /keyfile:%dir%\src\t2.cms.snk>nul
   echo 完成!输出到:%dir%/dist/jrcms.dll
 
 )
-
 
 pause
