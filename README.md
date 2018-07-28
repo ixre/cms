@@ -1,19 +1,11 @@
-# AtNet.CMS #
+﻿# J6.CMS #
 
 基于asp.net mvc + DDD 构架的开源.net cms系统.
-
-可配置+易扩展+轻量级+跨平台
-
-![多站点](https://raw.githubusercontent.com/jsix/cms/master/snapshots/cms_02.png "多站点")
-
-![多站点](https://raw.githubusercontent.com/jsix/cms/master/snapshots/cms_01.png "插件")
-
-
 
 ## 特性：##
 
 ### 1. 跨平台 ###
-支持Windows、Linux、MacOX运行。linux运行案例：http://to2.net/blog
+支持Windows、Linux、MacOX运行。linux运行案例：http://blog.ops.cc
 ### 2. DDD领域驱动 ###
 使用领域驱动设计构建，通过简单的领域模型，提供了强大扩展能力。
 ### 3. 支援多种数据库 ###
@@ -32,7 +24,7 @@
 
 ## 部署 ##
 ### LINUX平台 ###
-        wget -nd http://to2.net/jrcms_latest
+        wget -nd http://s.z3q.net/j6cms_latest
         unzip cms_release_latest.zip
         fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
 浏览器访问: http://127.0.0.1:8080
@@ -41,21 +33,18 @@
 测试环境下，可直接运行$tools/server.bat
 正式环境请配置IIS
 
+### 打包发布核心类库 ###
+在项目生成事件-》后期生成事件命令行中输入：
+
+	cd $(SolutionDir)../../cmd/
+	./build_win32.bat
+
 ## 插件开发 ##
-详见：http://github.com/jsix/cms/tree/master/plugin
+详见：github.com/newmin/cms/tree/master/plugin
+
+
 
 ## 如何加入开发 ##
-二次开发和定制交流QQ群：306064037
 
-## JR.CMS ##
-
-JR.CMS是在基础上再次分发的面向企业的内容管理系统。
-
-下载地址：http://to2.net/jrcms_latest
-
-
-## 如何捐赠 ##
-支付宝:jarrysix@gmail.com
-
-
-
+请先在github上fork代码,克隆到本地修改后直接提交。
+交流QQ群：306064037

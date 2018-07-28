@@ -1,0 +1,65 @@
+﻿@import url(../common.css);
+@import url(../elements.css);
+
+body{background:url(images/body_bg.gif) repeat-x;margin:0;}
+
+#top,#navigator{width:960px;margin:0 auto;}
+
+/* 头部 */
+#top{}
+#top a.logo{width:300px;height:90px;background:url(images/logo.gif) center center no-repeat;margin-left:35px;}
+
+/* 导航 */
+#navigator{background:url(images/nav_bg.gif) repeat-x;}
+#navigator .left{float:left;width:5px;margin-right:-5px;background:green url(images/nav_left.gif) left center no-repeat;}
+#navigator .right{float:right;width:5px;margin-left:-5px;background:url(images/nav_right.gif) right center no-repeat;}
+#navigator .navs{width:auto;margin:0 5px 0 5px;}
+#navigator .left,#navigator .right{width:5px;height:30px;}
+
+#navigator .navs li{padding:0 20px 0 12px;background:url(images/nav_split.gif) right center no-repeat;}
+#navigator .navs li.current{background:red;}
+#navigator .navs li a{color:White;text-decoration:none;font-weight:bold;font-size:12px;}
+#navigator .navs li a:hover{color:#c20000;}
+
+
+ul.clist li.current{background:red;}
+ul.alist li.current{background:red;}
+
+/* 友情链接 */
+#flink{width:960px;margin:0 auto; border-top:dotted 1px #e5e5e5;padding:20px 0;font-size:12px;}
+
+/* 底部 */
+#footer{width:960px;margin:0 auto;text-align:center;line-height:23px;padding:20px 0 10px 0;background:url(images/footer_bg.gif) repeat-x;color:#666}
+
+div.title{background:#f0f0f0;margin:10px 0;padding:5px 10px;}
+
+
+/*****************  首页 ********************/
+
+#idxmain{background:url(images/idxmain_bg.gif) repeat-x;}
+#idxmain .container{width:960px;padding:30px 0;}
+#idxmain h3{margin:10px 0;color:#555;font-size:12px;background:url(images/h3_item.gif) left center no-repeat;padding:0 15px;}
+
+#idxmain div.panel{float:left;padding-right:10px;margin-right:10px;background:url(images/panel_split.gif) right center no-repeat;}
+#idxmain div.last{margin-right:0;background:none;}
+#idxmain .p1{width:290px;}#idxmain .p2{width:400px;}
+
+#idxmain ul.archives li{float:left;width:180px;padding-left:10px;height:20px;overflow:hidden;line-height:20px;
+                        font-size:12px;background:url(images/item.gif) left center no-repeat;}
+#idxmain ul.archives a{text-decoration:none;color:#666;}
+#idxmain ul.archives a.special,ul.archives span.special{color:#c20000;}
+#idxmain ul.archives a:hover{color:#c20000;text-decoration:underline;}
+
+
+/**************** 列表页 *******************/
+div.palist p{border-bottom:dotted 1px #e0e0e0;height:68px;overflow:hidden;}
+div.palist p img.thumb{width:40px;height:40px;margin-left:5px;}
+div.pagewrap{font-size:12px;}
+
+#listmain{width:960px;margin:0 auto;}
+#listmain .side{width:200px;float:left;margin-right:-200px;}
+#listmain .main{width:auto;margin:0 0 0 200px;}
+
+/*************** 搜索页 ******************/
+div.slist p{border-bottom:dotted 1px #e0e0e0;height:68px;overflow:hidden;}
+div.slist p img.thumb{width:40px;height:40px;margin-left:5px;}
