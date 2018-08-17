@@ -83,8 +83,10 @@ namespace T2.Cms.ServiceRepository
                     category.Name = Convert.ToString(rd["name"]);
                     category.Tag = Convert.ToString(rd["tag"]);
                     category.SortNumber = Convert.ToInt32(rd["sort_number"]);
-
-                    categories.Add(category);
+                    if (category.Site != null)
+                    {
+                        categories.Add(category);
+                    }
                 }
             });
 

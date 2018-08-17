@@ -118,14 +118,14 @@ namespace T2.Cms.Domain.Implement.Site
 
         public int Save()
         {
-            bool create = this.Id <= 0;
+            bool create = this.GetAggregaterootId() <= 0;
             int siteId = _siteRepository.SaveSite(this);
-            this.Id = siteId;
+            this.value.SiteId = siteId;
             if (create)
             {
                 this.initSiteCategories();
             }
-            return this.Id;
+            return this.GetAggregaterootId();
         }
 
 
@@ -147,7 +147,7 @@ namespace T2.Cms.Domain.Implement.Site
 
         public IExtendManager GetExtendManager()
         {
-            return _extendManager ?? (_extendManager = new ExtendManager(this._extendRepository, this.Id));
+            return _extendManager ?? (_extendManager = new ExtendManager(this._extendRepository, this.GetAggregaterootId()));
         }
 
         public ISiteLinkManager GetLinkManager()
@@ -162,7 +162,7 @@ namespace T2.Cms.Domain.Implement.Site
         /// <returns></returns>
         public IAppUserManager GetUserManager()
         {
-            return this._appUserManager ?? (this._appUserManager = this._userRep.GetAppUserManager(this.Id));
+            return this._appUserManager ?? (this._appUserManager = this._userRep.GetAppUserManager(this.GetAggregaterootId()));
         }
 
 
@@ -173,7 +173,7 @@ namespace T2.Cms.Domain.Implement.Site
                 if (this._categories == null)
                 {
                     reload:
-                    var categories =  this._categoryRep.GetCategories(this.Id);
+                    var categories =  this._categoryRep.GetCategories(this.GetAggregaterootId());
                     if (categories == null || categories.Count == 0)
                     {
                         this.initSiteCategories();
@@ -214,12 +214,11 @@ namespace T2.Cms.Domain.Implement.Site
                 return category;
             }
         }
-
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        
 
         public ICategory GetCategory(int categoryId)
         {
-            int lft = this._categoryRep.GetCategoryLftById(this.Id, categoryId);
+            int lft = this._categoryRep.GetCategoryLftById(this.GetAggregaterootId(), categoryId);
             if (lft > 0)
             {
                 return BinarySearch.IntSearch(this.Categories, 0, this.Categories.Count, lft, a => a.Lft);
@@ -236,13 +235,13 @@ namespace T2.Cms.Domain.Implement.Site
 
         public IEnumerable<ICategory> GetCategories(int lft, int rgt, CategoryContainerOption option)
         {
-            return this._categoryRep.GetCategories(this.Id, lft, rgt, option);
+            return this._categoryRep.GetCategories(this.GetAggregaterootId(), lft, rgt, option);
         }
 
         public ICategory GetCategoryByTag(string categoryTag)
         {
             //如果包含映射，则二分查找
-            int lft = this._categoryRep.GetCategoryLftByTag(this.Id, categoryTag);
+            int lft = this._categoryRep.GetCategoryLftByTag(this.GetAggregaterootId(), categoryTag);
             if (lft != -1)
             {
                 return BinarySearch.IntSearch(this.Categories, 0, this.Categories.Count, lft, a => a.Lft);
@@ -282,12 +281,12 @@ namespace T2.Cms.Domain.Implement.Site
                 throw new Exception("栏目包含子栏目!");
             }
 
-            if (this._categoryRep.GetArchiveCount(this.Id, lft, category.Rgt) != 0)
+            if (this._categoryRep.GetArchiveCount(this.GetAggregaterootId(), lft, category.Rgt) != 0)
             {
                 throw new Exception("栏目包含文档!");
             }
 
-            this._categoryRep.DeleteCategory(this.Id, lft, category.Rgt);
+            this._categoryRep.DeleteCategory(this.GetAggregaterootId(), lft, category.Rgt);
 
             foreach (ITemplateBind bind in category.Templates)
             {
