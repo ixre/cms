@@ -124,6 +124,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="_#upgrade\upgrade.xml" />
+    <Content Include="_#upgrade\upgrade_mysql.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Cache\T2.Cms.CacheService\T2.Cms.CacheService.csproj">

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Site.Link;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Site
 {
     public interface ISiteRepository
     {
-        ISite CreateSite(int siteid, string name);
+        ISite CreateSite(CmsSiteEntity site);
 
         /// <summary>
         /// 创建链接对象

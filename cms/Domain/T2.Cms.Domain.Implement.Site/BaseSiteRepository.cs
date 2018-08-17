@@ -4,6 +4,7 @@ using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Link;
 using T2.Cms.Domain.Interface.Site.Template;
 using T2.Cms.Domain.Interface.User;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Implement.Site
 {
@@ -25,8 +26,7 @@ namespace T2.Cms.Domain.Implement.Site
             ICategoryRepository categoryRep,
             ITemplateRepository tempRep,
             IUserRepository userRep,
-            int siteId,
-            string name
+            CmsSiteEntity site
             )
         {
             return new Site(resp,
@@ -34,8 +34,7 @@ namespace T2.Cms.Domain.Implement.Site
                 categoryRep,
                 tempRep,
                 userRep,
-                siteId,
-                name);
+                site);
         }
 
         /// <summary>

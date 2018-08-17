@@ -19,3 +19,8 @@ find ./ -name "*.java"|xargs sed -i 's/varchar(.\{1,4\})/String/g'
 # 格式化thrift代码
 find ./ -name "*.thrift"|xargs sed -i 's/int(.\{1,\})/i32/g'
 find ./ -name "*.thrift"|xargs sed -i 's/varchar(.\{1,\})/string/g'
+
+# 格式化C#代码
+find ./ -name "*.cs"|xargs sed -i 's/int(.\{1,\})/int/g'
+find ./ -name "*.cs"|xargs sed -i 's/varchar(.\{1,\})/string/g'
+

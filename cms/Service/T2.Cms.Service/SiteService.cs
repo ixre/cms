@@ -56,7 +56,7 @@ namespace T2.Cms.Service
             }
             else
             {
-                site = _resp.CreateSite(siteDto.SiteId, siteDto.Name);
+                site = _resp.CreateSite(new Models.CmsSiteEntity());
             }
 
             SiteDto.CopyTo(siteDto, site);

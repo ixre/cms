@@ -493,7 +493,7 @@ DROP TABLE IF EXISTS `cms_site`;
 CREATE TABLE `cms_site` (
   `site_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `dir_name` varchar(50) DEFAULT NULL,
+  `app_name` varchar(50) DEFAULT NULL,
   `domain` varchar(50) DEFAULT NULL,
   `location` varchar(100) DEFAULT NULL,
   `language` int(1) NOT NULL,

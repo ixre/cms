@@ -1,41 +1,41 @@
 ﻿using T2.Cms.Domain.Interface.Site;
 using JR.DevFw.Data;
+using T2.Cms.Models;
+using System.Collections.Generic;
+using System;
 
 namespace T2.Cms.Dal
 {
     public class SiteDal : DalBase
     {
-        public int CreateSite(ISite site)
+        public int CreateSite(ISite ist)
         {
+            CmsSiteEntity site = ist.Get();
+            IDictionary<string, Object> data = new Dictionary<string, Object>();
+            data.Add("@name", site.Name);
+            data.Add("@appName", site.AppName);
+            data.Add("@domain", site.Domain);
+            data.Add("@location", site.Location);
+            data.Add("@tpl", site.Tpl);
+            data.Add("@language", site.Language);
+            data.Add("@note", site.Note);
+            data.Add("@seoTitle", site.SeoTitle);
+            data.Add("@seoKeywords", site.SeoKeywords);
+            data.Add("@seoDescription", site.SeoDescription);
+            data.Add("@state", site.State);
+            data.Add("@proTel", site.ProTel);
+            data.Add("@proPhone", site.ProPhone);
+            data.Add("@proFax", site.ProFax);
+            data.Add("@proAddress", site.ProAddress);
+            data.Add("@proEmail", site.ProEmail);
+            data.Add("@proIm", site.ProIm);
+            data.Add("@proPost", site.ProPost);
+            data.Add("@proNotice", site.ProNotice);
+            data.Add("@proSlogan", site.ProSlogan);
             base.ExecuteNonQuery(base.NewQuery(DbSql.SiteCreateSite,
-                                base.Db.CreateParametersFromArray(
-
-                new object[,]
-                {
-                    {"@name", site.Name},
-                    {"@dirName", site.DirName},
-                    {"@domain", site.Domain},
-                    {"@location", site.Location},
-                    {"@tpl", site.Tpl},
-                    {"@language", site.Language},
-                    {"@note", site.Note},
-                    {"@seoTitle", site.SeoTitle},
-                    {"@seoKeywords", site.SeoKeywords},
-                    {"@seoDescription", site.SeoDescription},
-                    {"@state", site.State},
-                    {"@proTel", site.ProTel},
-                    {"@proPhone", site.ProPhone},
-                    {"@proFax", site.ProFax},
-                    {"@proAddress", site.ProAddress},
-                    {"@proEmail", site.ProEmail},
-                    {"@proIm", site.ProIm},
-                    {"@proPost", site.ProPost},
-                    {"@proNotice", site.ProNotice},
-                    {"@proSlogan", site.ProSlogan}
-                })));
-
+                Db.GetAdapter().ParseParameters(data)));
             return int.Parse(base.ExecuteScalar(base.NewQuery(
-                "SELECT MAX(site_id) FROM $PREFIX_site",null)).ToString());
+                "SELECT MAX(site_id) FROM $PREFIX_site", null)).ToString());
         }
 
         public void ReadSites(DataReaderFunc func)
@@ -44,35 +44,33 @@ namespace T2.Cms.Dal
         }
 
 
-        public int UpdateSite(ISite site)
+        public int UpdateSite(ISite ist)
         {
-            return base.ExecuteNonQuery(
-                base.NewQuery(DbSql.SiteEditSite,
-                                base.Db.CreateParametersFromArray(
-
-                new object[,]{
-                    {"@siteId",site.Id},
-                    {"@name",site.Name},
-                    {"@dirName",site.DirName},
-                    {"@tpl",site.Tpl},
-                    {"@domain",site.Domain},
-                    {"@location",site.Location},
-                    {"@language",site.Language},
-                    {"@note",site.Note},
-                    {"@seoTitle",site.SeoTitle},
-                    {"@seoKeywords",site.SeoKeywords},
-                    {"@seoDescription",site.SeoDescription},
-                    {"@state",site.State},
-                    {"@proTel",site.ProTel},
-                    {"@proPhone",site.ProPhone},
-                    {"@proFax",site.ProFax},
-                    {"@proAddress",site.ProAddress},
-                    {"@proEmail",site.ProEmail},
-                    {"@proIm",site.ProIm},
-                    {"@proPost",site.ProPost},
-                    {"@proNotice",site.ProNotice},
-                    {"@proSlogan",site.ProSlogan}
-                })));
+            CmsSiteEntity site = ist.Get();
+            IDictionary<string, Object> data = new Dictionary<string, Object>();
+            data.Add("@name", site.Name);
+            data.Add("@appName", site.AppName);
+            data.Add("@domain", site.Domain);
+            data.Add("@location", site.Location);
+            data.Add("@tpl", site.Tpl);
+            data.Add("@language", site.Language);
+            data.Add("@note", site.Note);
+            data.Add("@seoTitle", site.SeoTitle);
+            data.Add("@seoKeywords", site.SeoKeywords);
+            data.Add("@seoDescription", site.SeoDescription);
+            data.Add("@state", site.State);
+            data.Add("@proTel", site.ProTel);
+            data.Add("@proPhone", site.ProPhone);
+            data.Add("@proFax", site.ProFax);
+            data.Add("@proAddress", site.ProAddress);
+            data.Add("@proEmail", site.ProEmail);
+            data.Add("@proIm", site.ProIm);
+            data.Add("@proPost", site.ProPost);
+            data.Add("@proNotice", site.ProNotice);
+            data.Add("@proSlogan", site.ProSlogan);
+            data.Add("@siteId", site.SiteId);
+            return base.ExecuteNonQuery(base.NewQuery(DbSql.SiteEditSite, base.Db.GetAdapter().ParseParameters(data)));
+                               
         }
 
         /// <summary>
