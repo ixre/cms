@@ -150,6 +150,11 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         private void SetAutoSortNumber()
         {
+            if(this.Parent == null)
+            {
+                this.SortNumber = 1;
+                return;
+            }
             if (this.Parent.Childs != null && this.Parent.Childs.Any())
             {
                 this.SortNumber = this.Parent.Childs.Max(a => a.SortNumber) + 1;

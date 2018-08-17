@@ -216,9 +216,7 @@ namespace T2.Cms.WebManager
         internal void CallMethod(string className, string methodName)
         {
             var requestMethod = request.HttpMethod;
-
             var obj = assembly.CreateInstance(String.Format("{0}.{1}", nameSpace, className));
-
             if (obj != null)
             {
                 MethodInfo method = obj.GetType().GetMethod(String.Format("{0}_{1}", methodName, requestMethod),
@@ -240,7 +238,6 @@ namespace T2.Cms.WebManager
                     return;
                 }
             }
-
             OutputInternalError(className, methodName, requestMethod);
         }
 

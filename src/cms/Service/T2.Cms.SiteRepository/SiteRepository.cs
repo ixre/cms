@@ -56,7 +56,7 @@ namespace T2.Cms.ServiceRepository
             {
                 int siteId=siteDal.CreateSite(site);
                int  rootCategoryId = this._categoryRep.GetNewCategoryId(siteId);
-                if (!(siteId !=-1 && siteDal.InitRootCategory(siteId,rootCategoryId)))
+                if (siteId <= 0)
                 {
                     throw new ArgumentException("创建站点失败");
                 }
@@ -139,7 +139,6 @@ namespace T2.Cms.ServiceRepository
             IList<ISite> sites = this.GetSites();
             if (sites.Count == 0) throw new Exception("Missing site");
             return BinarySearch.IntSearch(sites, 0, sites.Count, siteId, a => a.Id);
-            return sites[0];
         }
 
         public ISite GetSingleOrDefaultSite(Uri uri)

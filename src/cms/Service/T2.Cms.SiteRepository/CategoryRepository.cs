@@ -570,6 +570,10 @@ namespace T2.Cms.ServiceRepository
         public ICategory GetParent(ICategory category)
         {
             if (category == null) return null;
+            if (!this.Categories.ContainsKey(category.Site.Id))
+            {
+                return null;
+            }
             try
             {
                 //获取父类

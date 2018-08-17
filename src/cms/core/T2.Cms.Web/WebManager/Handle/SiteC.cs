@@ -136,6 +136,10 @@ namespace T2.Cms.Web.WebManager.Handle
         public string Save_POST()
         {
             var entity = EntityForm.GetEntity<SiteDto>();
+            if(entity.SiteId <= 0)
+            {
+                return this.ReturnError("不允许新增站点");
+            }
             bool siteIsExist = ServiceCall.Instance.SiteService.CheckSiteExists(entity.SiteId);
             try
             {

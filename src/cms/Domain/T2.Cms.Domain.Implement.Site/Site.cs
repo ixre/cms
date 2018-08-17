@@ -212,7 +212,14 @@ namespace T2.Cms.Domain.Implement.Site
 
         public int Save()
         {
-            return _siteRepository.SaveSite(this);
+            bool create = this.Id <= 0;
+            int siteId = _siteRepository.SaveSite(this);
+            this.Id = siteId;
+            if (create)
+            {
+                this.initSiteCategories();
+            }
+            return this.Id;
         }
 
 
@@ -248,8 +255,35 @@ namespace T2.Cms.Domain.Implement.Site
         {
             get
             {
-                return _categories ?? (_categories = this._categoryRep.GetCategories(this.Id));
+                if (this._categories == null)
+                {
+                    reload:
+                    var categories =  this._categoryRep.GetCategories(this.Id);
+                    if (categories == null || categories.Count == 0)
+                    {
+                        this.initSiteCategories();
+                        goto reload;
+                    }
+                    this._categories = categories;
+                }
+                return this._categories;
             }
+        }
+
+        private void initSiteCategories()
+        {
+            ICategory ic = this._categoryRep.CreateCategory(0, this);
+            ic.Name = "根栏目";
+            ic.Tag = "root";
+            ic.SortNumber = 1;
+            ic.Lft = 1;
+            ic.Rgt = 2;
+            ic.Description = "";
+            ic.Icon = "";
+            ic.Keywords = "";
+            ic.Location = "";
+            ic.PageTitle = "";
+            ic.Save();
         }
 
         public ICategory RootCategory
