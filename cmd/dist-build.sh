@@ -1,13 +1,14 @@
 #!/usr/bin/env sh
 
 echo "======================================="
-echo "= JR Cms .NET ! 核心程序集生成工具 ="
+echo "= JR Cms .NET ! assembly ="
 echo "======================================="
 
-echo 生成中,请稍等...
+echo scanning assemblies...
 
 cur=$(pwd)
-cd ../src/bin
+
+cd ../bin
 
 
 #set megdir=%dir%\dist\bin\
@@ -15,7 +16,7 @@ cd ../src/bin
 #cd %dir%/src/bin/
 #echo  /keyfile:%dir%\src\t2.cms.snk>nul
 
-${cur}/merge.exe -closed -ndebug /targetplatform:v4 /target:dll /out:../../dist/jrcms.dll \
+${cur}/merge.exe -closed -ndebug /targetplatform:v4 /target:dll /out:../dist/jrcms.dll \
  T2.Cms.Core.dll T2.Cms.BLL.dll T2.Cms.DAL.dll T2.Cms.Domain.Interface.dll \
  T2.Cms.CacheService.dll T2.Cms.DataTransfer.dll T2.Cms.Domain.Implement.Content.dll \
  T2.Cms.DB.dll T2.Cms.Cache.dll T2.Cms.Domain.Implement.Site.dll \
