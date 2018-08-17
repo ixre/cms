@@ -490,30 +490,8 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `cms_site`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cms_site` (
-  `site_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `app_name` varchar(50) DEFAULT NULL,
-  `domain` varchar(50) DEFAULT NULL,
-  `location` varchar(100) DEFAULT NULL,
-  `language` int(1) NOT NULL,
-  `tpl` varchar(100) DEFAULT NULL,
-  `note` varchar(200) DEFAULT NULL,
-  `seo_title` varchar(200) DEFAULT NULL,
-  `seo_keywords` varchar(250) DEFAULT NULL,
-  `seo_description` varchar(250) DEFAULT NULL,
-  `state` int(1) NOT NULL,
-  `pro_tel` varchar(50) DEFAULT NULL,
-  `pro_phone` varchar(11) DEFAULT NULL,
-  `pro_fax` varchar(50) DEFAULT NULL,
-  `pro_address` varchar(100) DEFAULT NULL,
-  `pro_email` varchar(100) DEFAULT NULL,
-  `pro_im` varchar(100) DEFAULT NULL,
-  `pro_post` varchar(100) DEFAULT NULL,
-  `pro_notice` varchar(250) DEFAULT NULL,
-  `pro_slogan` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`site_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE cms_site (site_id int(11) NOT NULL AUTO_INCREMENT comment '站点编号', name varchar(50) NOT NULL comment '名称', domain varchar(50) NOT NULL comment '域名', app_name varchar(50) NOT NULL comment '应用名称', location varchar(100) NOT NULL comment '重定向URL', language int(1) NOT NULL comment '语言', tpl varchar(100) NOT NULL comment '模板', note varchar(200) NOT NULL comment '备注', seo_title varchar(200) NOT NULL comment 'SEO标题', seo_keywords varchar(250) NOT NULL comment 'SEO关键词', seo_description varchar(250) NOT NULL comment 'SEO描述', state int(1) NOT NULL comment '站点状态', pro_tel varchar(50) NOT NULL comment '电话', pro_phone varchar(11) NOT NULL comment '移动电话', pro_fax varchar(50) NOT NULL comment '传真', pro_address varchar(100) NOT NULL comment '地址', pro_email varchar(100) NOT NULL comment '邮箱', pro_im varchar(100) NOT NULL comment '即时通讯', pro_post varchar(100) NOT NULL comment '邮编', pro_notice varchar(250) NOT NULL comment '公告', pro_slogan varchar(250) NOT NULL comment '标语', PRIMARY KEY (site_id)) comment='站点';
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -522,7 +500,10 @@ CREATE TABLE `cms_site` (
 
 LOCK TABLES `cms_site` WRITE;
 /*!40000 ALTER TABLE `cms_site` DISABLE KEYS */;
-INSERT INTO `cms_site` VALUES (1,'默认站点',NULL,NULL,NULL,1,'default',NULL,'默认站点-Speicial Cms .NET!',NULL,NULL,1,'','','','',NULL,NULL,NULL,'JR-CMS.NET是一款跨平台支持多站点基于ASP.NET MVC技术架构的内容管理系统!','');
+INSERT INTO `cms_site`
+(site_id, name, domain, app_name, location, language, tpl, note, seo_title, seo_keywords, seo_description, state, pro_tel, pro_phone, pro_fax, pro_address, pro_email, pro_im, pro_post, pro_notice, pro_slogan)
+ VALUES (1,'默认站点','','','',1,'default','','默认站点-Speicial Cms .NET!',
+'','',1,'','','','','','','','JR-CMS.NET是一款跨平台支持多站点基于ASP.NET MVC技术架构的内容管理系统!','');
 /*!40000 ALTER TABLE `cms_site` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="_#upgrade\sql_init.txt" />
     <Content Include="_#upgrade\upgrade.xml" />
     <Content Include="_#upgrade\upgrade_mysql.txt" />
   </ItemGroup>
