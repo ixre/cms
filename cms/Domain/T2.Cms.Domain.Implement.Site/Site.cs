@@ -26,6 +26,7 @@ using T2.Cms.Domain.Interface.Site.Template;
 using T2.Cms.Domain.Interface.User;
 using T2.Cms.Infrastructure;
 using T2.Cms.Infrastructure.Tree;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Implement.Site
 {
@@ -41,17 +42,17 @@ namespace T2.Cms.Domain.Implement.Site
         private string _fullDomain;
         private IAppUserManager _appUserManager;
         private IUserRepository _userRep;
+        private CmsSiteEntity value;
+        private SiteRunType runType = SiteRunType.Unknown;
 
         internal Site(ISiteRepository siteRepository,
             IExtendFieldRepository extendRepository,
             ICategoryRepository categoryRep,
             ITemplateRepository tempRep,
             IUserRepository userRep,
-            int siteId,
-            string name)
+            CmsSiteEntity site)
         {
-            this.Id = siteId;
-            this.Name = name;
+            this.value = site;
             this._siteRepository = siteRepository;
             this._categoryRep = categoryRep;
             this._extendRepository = extendRepository;
@@ -59,36 +60,6 @@ namespace T2.Cms.Domain.Implement.Site
             this._userRep = userRep;
         }
 
-
-        /// <summary>
-        /// 站点ID
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// 站点名称
-        /// </summary>
-        public string Name { get; set; }
-
-
-        /// <summary>
-        /// 目录名称
-        /// </summary>
-        public string DirName { get; set; }
-
-        /// <summary>
-        /// 域名绑定
-        /// </summary>
-        public string Domain { get; set; }
-
-        /// <summary>
-        /// 重定向地址
-        /// </summary>
-        public string Location
-        {
-            get;
-            set;
-        }
 
         /// <summary>
         /// 
@@ -99,11 +70,11 @@ namespace T2.Cms.Domain.Implement.Site
             {
                 if (this._fullDomain == null)
                 {
-                    string host = String.IsNullOrEmpty(this.Domain) ? "#" : this.Domain;
+                    string host = String.IsNullOrEmpty(this.value.Domain) ? "#" : this.value.Domain;
                     string appPath = HttpApp.GetApplicationPath();
                     string siteAppPath;
 
-                    switch (this.RunType)
+                    switch (this.RunType())
                     {
                         default:
                         case SiteRunType.Stand:
@@ -111,7 +82,7 @@ namespace T2.Cms.Domain.Implement.Site
                             break;
 
                         case SiteRunType.VirtualDirectory:
-                            siteAppPath = "/" + this.DirName + "/";
+                            siteAppPath = "/" + this.value.AppName + "/";
                             break;
                     }
 
@@ -130,84 +101,19 @@ namespace T2.Cms.Domain.Implement.Site
         /// <summary>
         /// 站点使用语言
         /// </summary>
-        public Languages Language { get; set; }
-
-
-        /// <summary>
-        /// 模板
-        /// </summary>
-        public string Tpl { get; set; }
-
-        /// <summary>
-        /// 站点备注
-        /// </summary>
-        public string Note { get; set; }
+        public Languages Language()
+        {
+            return (Languages)this.value.Language;
+        }
 
         /// <summary>
         /// 站点状态
         /// </summary>
-        public SiteState State { get; set; }
+        public SiteState State()
+        {
+            return (SiteState)this.value.State;
+        }
 
-        /// <summary>
-        /// SEO标题
-        /// </summary>
-        public string SeoTitle { get; set; }
-
-        /// <summary>
-        /// SEO关键字
-        /// </summary>
-        public string SeoKeywords { get; set; }
-
-        /// <summary>
-        /// SEO描述
-        /// </summary>
-        public string SeoDescription { get; set; }
-
-        /// <summary>
-        /// 电话
-        /// </summary>
-        public string ProTel { get; set; }
-
-        /// <summary>
-        /// 手机号码
-        /// </summary>
-        public string ProPhone { get; set; }
-
-        /// <summary>
-        /// 传真号码
-        /// </summary>
-        public string ProFax { get; set; }
-
-        /// <summary>
-        /// 联系地址
-        /// </summary>
-        public string ProAddress { get; set; }
-
-
-        /// <summary>
-        /// 电子邮箱
-        /// </summary>
-        public string ProEmail { get; set; }
-
-        /// <summary>
-        /// QQ号码
-        /// </summary>
-        public string ProIm { get; set; }
-
-        /// <summary>
-        /// MSN账号
-        /// </summary>
-        public string ProPost { get; set; }
-
-        /// <summary>
-        /// 网站公告
-        /// </summary>
-        public string ProNotice { get; set; }
-
-        /// <summary>
-        /// 网站标语
-        /// </summary>
-        public string ProSlogan { get; set; }
 
 
         public int Save()
@@ -223,12 +129,21 @@ namespace T2.Cms.Domain.Implement.Site
         }
 
 
-        public SiteRunType RunType
+        public SiteRunType RunType()
         {
-            get;
-            set;
+            if (this.runType == SiteRunType.Unknown)
+            {
+                if (String.IsNullOrEmpty(this.value.AppName))
+                {
+                    this.runType = SiteRunType.Stand;
+                }
+                else
+                {
+                    this.runType = SiteRunType.VirtualDirectory;
+                }
+            }
+            return this.runType;
         }
-
 
         public IExtendManager GetExtendManager()
         {
@@ -300,6 +215,7 @@ namespace T2.Cms.Domain.Implement.Site
             }
         }
 
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public ICategory GetCategory(int categoryId)
         {
@@ -595,7 +511,7 @@ namespace T2.Cms.Domain.Implement.Site
                 this.GetCategoryByLft(lft);
 
             var node = lft == 1 ?
-                new TreeNode(this.Name, "1", "javascript:;", true, "") :
+                new TreeNode(this.value.Name, "1", "javascript:;", true, "") :
                 new TreeNode(root.Name, String.Format("{0}cid:{1},lft:1{3}", "{", root.Id.ToString(), "}"),
                     "javascript:;", true, "");
 
@@ -609,7 +525,7 @@ namespace T2.Cms.Domain.Implement.Site
         public TreeNode GetCategoryTreeWithRootNode()
         {
             ICategory root = this.RootCategory;
-            var node = new TreeNode(this.Name, "0", "javascript:;", true, "");
+            var node = new TreeNode(this.value.Name, "0", "javascript:;", true, "");
             var rootNode = new TreeNode(root.Name,
                 String.Format("{0}cid:{1},lft:{2}{3}", "{", root.Id.ToString(), root.Lft.ToString(), "}"),
                 "javascript:;", true, "");
@@ -637,6 +553,20 @@ namespace T2.Cms.Domain.Implement.Site
             this._categories = null;
         }
 
+        public CmsSiteEntity Get()
+        {
+            return this.value;
+        }
 
+        public Error Set(CmsSiteEntity value)
+        {
+            this.value.AppName = value.AppName;
+            return null;
+        }
+
+        public void SetRunType(SiteRunType runType)
+        {
+            this.runType = runType;
+        }
     }
 }

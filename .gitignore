@@ -21,3 +21,4 @@ dist
 /chunk/dist/plugins
 packages
 .vs
+/script/generator/generated_code

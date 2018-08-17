@@ -12,6 +12,7 @@
 using T2.Cms.Domain.Interface.Common.Language;
 using T2.Cms.Domain.Interface.Site;
 using JR.DevFw.Framework.Automation;
+using T2.Cms.Models;
 
 namespace T2.Cms.DataTransfer
 {
@@ -26,31 +27,32 @@ namespace T2.Cms.DataTransfer
         /// </summary>
         /// <param name="site"></param>
         /// <returns></returns>
-        public static SiteDto ConvertFromSite(ISite site)
+        public static SiteDto ConvertFromSite(ISite ist)
         {
+            CmsSiteEntity site = ist.Get();
             return new SiteDto
             {
                 ProAddress = site.ProAddress,
-                DirName = site.DirName,
+                DirName = site.AppName,
                 Domain = site.Domain,
-                FullDomain =  site.FullDomain,
+                FullDomain =  ist.FullDomain,
                 Location = site.Location,
                 ProEmail = site.ProEmail,
                 ProFax = site.ProFax,
-                Language = site.Language,
+                Language = ist.Language(),
                 ProPost = site.ProPost,
                 Name = site.Name,
                 Note = site.Note,
                 ProNotice = site.ProNotice,
                 ProPhone = site.ProPhone,
                 ProIm = site.ProIm,
-                RunType = (int)site.RunType,
+                RunType =(int)ist.RunType(),
                 SeoDescription = site.SeoDescription,
                 SeoKeywords = site.SeoKeywords,
                 SeoTitle = site.SeoTitle,
-                SiteId = site.Id,
+                SiteId = site.SiteId,
                 ProSlogan = site.ProSlogan,
-                State = site.State,
+                State = ist.State(),
                 ProTel = site.ProTel,
                 Tpl = site.Tpl
             };
@@ -58,16 +60,17 @@ namespace T2.Cms.DataTransfer
 
 
 
-        public static ISite CopyTo(SiteDto dto, ISite site)
+        public static ISite CopyTo(SiteDto dto, ISite ist)
         {
+            CmsSiteEntity site = ist.Get();
             site.Name = dto.Name;
             site.ProAddress = dto.ProAddress;
-            site.DirName = dto.DirName.Trim();
+            site.AppName = dto.DirName.Trim();
             site.Domain = dto.Domain.Trim();
             site.Location = dto.Location.Trim();
             site.ProEmail = dto.ProEmail;
             site.ProFax = dto.ProFax.Trim();
-            site.Language = dto.Language;
+            site.Language = (int)dto.Language;
             site.ProPost = dto.ProPost.Trim();
             site.Note = dto.Note.Trim();
             site.ProNotice = dto.ProNotice.Trim();
@@ -77,10 +80,10 @@ namespace T2.Cms.DataTransfer
             site.SeoKeywords = dto.SeoKeywords;
             site.SeoTitle = dto.SeoTitle;
             site.ProSlogan = dto.ProSlogan;
-            site.State = dto.State;
+            site.State = (int)dto.State;
            site. ProTel = dto.ProTel;
             site.Tpl = dto.Tpl;
-            return site;
+            return ist;
         }
 
         /// <summary>

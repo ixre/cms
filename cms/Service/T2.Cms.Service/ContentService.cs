@@ -80,7 +80,7 @@ namespace T2.Cms.Service
                 ContentId = link.ContentId,
                 ContentType = link.ContentType,
                 RelatedSiteId = link.RelatedSiteId,
-                RelatedSiteName = site.Name,
+                RelatedSiteName = site.Get().Name,
                 RelatedContentId = link.RelatedContentId,
                 RelatedIndent = link.RelatedIndent,
                 Title = content.Title,

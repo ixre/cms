@@ -14,6 +14,7 @@ using T2.Cms.Domain.Interface.Site.Link;
 using T2.Cms.Domain.Interface.Site.Template;
 using T2.Cms.Domain.Interface.User;
 using T2.Cms.Infrastructure;
+using T2.Cms.Models;
 
 namespace T2.Cms.ServiceRepository
 {
@@ -40,15 +41,14 @@ namespace T2.Cms.ServiceRepository
             this._userRep = userRep;
         }
 
-        public ISite CreateSite(int siteId, string name)
+        public ISite CreateSite(CmsSiteEntity site)
         {
             return base.CreateSite(this,
                 this._extendFieldRepository,
                 this._categoryRep,
                 this._tempRep,
                 this._userRep,
-                siteId,
-                name);
+                site);
         }
         public int SaveSite(ISite site)
         {
@@ -86,22 +86,21 @@ namespace T2.Cms.ServiceRepository
                {
                    while (rd.Read())
                    {
-                       ISite site = this.CreateSite(Convert.ToInt32(rd["site_id"]), rd["name"].ToString());
+                       CmsSiteEntity site = new CmsSiteEntity();
 
-
+                       site.SiteId = Convert.ToInt32(rd["site_id"]);
+                       site.Name = rd["name"].ToString();
+                       //ISite site = this.CreateSite(Convert.ToInt32(rd["site_id"]), );
 
                        //rd.CopyToEntity<ISite>(site);
-                       site.DirName = rd["dir_name"].ToString();
-                       site.RunType = String.IsNullOrEmpty(site.DirName)
-                           ? SiteRunType.Stand
-                           : SiteRunType.VirtualDirectory;
-
+                       site.AppName = rd["app_name"].ToString();
                        site.Tpl = rd["tpl"].ToString();
-                       site.State =(SiteState)int.Parse(rd["state"].ToString());
-
+                       site.State =int.Parse(rd["state"].ToString());
                        site.Location = rd["location"].ToString();
-                       if (site.Location!= null  && site.Location.Trim() == "") site.Location = null;
-
+                       if (site.Location != null && site.Location.Trim() == "")
+                       {
+                           site.Location = "";
+                       }
                        site.Domain = rd["domain"].ToString();
                        site.ProAddress = rd["pro_address"].ToString();
                        site.ProEmail = rd["pro_email"].ToString();
@@ -116,9 +115,9 @@ namespace T2.Cms.ServiceRepository
                        site.SeoDescription = rd["seo_description"].ToString();
                        site.ProSlogan = rd["pro_slogan"].ToString();
                        site.ProTel = rd["pro_tel"].ToString();
-                       site.Language = (Languages)int.Parse(rd["language"].ToString());
-
-                       RepositoryDataCache._siteDict.Add(site.Id, site);
+                       site.Language = int.Parse(rd["language"].ToString());
+                       ISite ist = this.CreateSite(site);
+                       RepositoryDataCache._siteDict.Add(site.SiteId, ist);
                    }
                });
 
@@ -159,7 +158,7 @@ namespace T2.Cms.ServiceRepository
                 //{
                 //   return _site;
                 //}
-                if (_site.Domain == "" && _site.DirName == "")
+                if (_site.Get().Domain == "" && _site.Get().AppName == "")
                 {
                     return _site;
                 }
@@ -190,12 +189,12 @@ namespace T2.Cms.ServiceRepository
 
             foreach (ISite s in sites)
             {
-                if (!String.IsNullOrEmpty(s.Domain))
+                if (!String.IsNullOrEmpty(s.Get().Domain))
                 {
-                    if (Regex.IsMatch(s.Domain, _hostName, RegexOptions.IgnoreCase))
+                    if (Regex.IsMatch(s.Get().Domain, _hostName, RegexOptions.IgnoreCase))
                     {
                         site = s;
-                        site.RunType = SiteRunType.Stand;
+                        site.SetRunType(SiteRunType.Stand);
                         break;
                     }
                 }
@@ -211,10 +210,10 @@ namespace T2.Cms.ServiceRepository
                     string dirName = segments[1].Replace("/", "");
                     foreach (ISite s in sites)
                     {
-                        if (String.Compare(s.DirName, dirName,true,CultureInfo.InvariantCulture) == 0)
+                        if (String.Compare(s.Get().AppName, dirName,true,CultureInfo.InvariantCulture) == 0)
                         {
                             site = s;
-                            site.RunType = SiteRunType.VirtualDirectory;
+                            site.SetRunType(SiteRunType.VirtualDirectory);
                             break;
                         }
                     }

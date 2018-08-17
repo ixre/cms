@@ -3,8 +3,7 @@
 using JR.DevFw.Framework;
 using JR.DevFw.Data.Orm.Mapping;
 
-namespace zunxinApp.App_Start
-{
+namespace T2.Cms.Models{
 
     /// <summary>
     /// {{.T.Comment}}

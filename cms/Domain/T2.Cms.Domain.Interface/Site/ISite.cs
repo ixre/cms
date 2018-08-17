@@ -9,6 +9,7 @@
 *
 */
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 using T2.Cms.Domain.Interface.Common.Language;
@@ -17,6 +18,7 @@ using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Link;
 using T2.Cms.Domain.Interface.User;
 using T2.Cms.Infrastructure.Tree;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Site
 {
@@ -26,25 +28,17 @@ namespace T2.Cms.Domain.Interface.Site
     public interface ISite:IDomain<int>
     {
         /// <summary>
-        /// 站点名称
+        /// 获取值
         /// </summary>
-        string Name { get; set; }
-
-
-        /// <summary>
-        /// 目录名称
-        /// </summary>
-        string DirName { get; set; }
+        /// <returns></returns>
+        CmsSiteEntity Get();
 
         /// <summary>
-        /// 域名绑定
+        /// 设置值
         /// </summary>
-        string Domain { get; set; }
-
-        /// <summary>
-        /// 重定向地址
-        /// </summary>
-        string Location { get; set; }
+        /// <param name="value"></param>
+        /// <returns></returns>
+        Error Set(CmsSiteEntity value);
 
         /// <summary>
         /// 获取基础URL,如:http://to2.net/cms/.
@@ -56,88 +50,18 @@ namespace T2.Cms.Domain.Interface.Site
         /// <summary>
         /// 是否为虚拟目录
         /// </summary>
-        SiteRunType RunType { get; set; }
+        SiteRunType RunType();
 
         /// <summary>
         /// 站点使用语言
         /// </summary>
-        Languages Language { get; set; }
-
-
-        /// <summary>
-        /// 模板
-        /// </summary>
-        string Tpl { get; set; }
-
-        /// <summary>
-        /// 站点备注
-        /// </summary>
-        string Note { get; set; }
+        Languages Language();
 
         /// <summary>
         /// 站点状态
         /// </summary>
-        SiteState State { get; set; }
+        SiteState State();
 
-        /// <summary>
-        /// SEO标题
-        /// </summary>
-        string SeoTitle { get; set; }
-
-        /// <summary>
-        /// SEO关键字
-        /// </summary>
-        string SeoKeywords { get; set; }
-
-        /// <summary>
-        /// SEO描述
-        /// </summary>
-        string SeoDescription { get; set; }
-
-        /// <summary>
-        /// 电话
-        /// </summary>
-        string ProTel { get; set; }
-
-        /// <summary>
-        /// 手机号码
-        /// </summary>
-        string ProPhone { get; set; }
-
-        /// <summary>
-        /// 传真号码
-        /// </summary>
-        string ProFax { get; set; }
-
-        /// <summary>
-        /// 联系地址
-        /// </summary>
-        string ProAddress { get; set; }
-
-        /// <summary>
-        /// 邮编号码
-        /// </summary>
-        string ProPost { get; set; }
-
-        /// <summary>
-        /// 电子邮箱
-        /// </summary>
-        string ProEmail { get; set; }
-
-        /// <summary>
-        /// QQ号码
-        /// </summary>
-        string ProIm{get;set;}
-
-        /// <summary>
-        /// 网站公告
-        /// </summary>
-        string ProNotice { get; set; }
-
-        /// <summary>
-        /// 网站标语
-        /// </summary>
-        string ProSlogan { get; set; }
 
         /// <summary>
         /// 保存站点并返回编号
@@ -218,6 +142,6 @@ namespace T2.Cms.Domain.Interface.Site
         /// 重新加载数据
         /// </summary>
         void ClearSelf();
-
+        void SetRunType(SiteRunType stand);
     }
 }
