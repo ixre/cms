@@ -1,0 +1,12 @@
+<div class="panel hidden" style="margin:1px auto 3px auto">
+	<img alt="" src="${page.tpath}/themes/self/navigator_revert.gif"/>
+</div>
+
+<script type="text/template" id="bmtpl">
+<div class="panel-baoming" style="background:url(${page.tpath}/themes/self/baoming_btn.gif) no-repeat;width:93px;height:27px;line-height:27px;font-size:14px;text-align:center;position:absolute;right:10px;top:4px;"><strong><a style="color:#b846a9;text-decoration:none;" href="${page.domain}/qt/baoming" target="_blank">优惠报名</a></strong></div>
+</script>
+<script type="text/javascript">
+	var nav = document.getElementById('navigator');
+	nav.innerHTML += document.getElementById('bmtpl').innerHTML;
+</script>
+

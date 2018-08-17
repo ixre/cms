@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="Stylesheet" href="${page.fpath}/template.css?version=${page.version}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/themes/style.css?version=${page.version}" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <style type="text/css">
+        .page-main .side,.page-main .main{margin-bottom: 0;padding-bottom: 0}
+    </style>
+</head>
+<body>
+    ${partial:"../inc/header.phtml"}
+
+    <div class="container">
+
+             <div class="page-main">
+
+            <div class="clearfix sitemap">
+                $lang(location)<a rel="nofollow" href="${page.domain}">$lang(home)</a> > $sitemap() 
+            </div>
+            
+                <div class="photo-title">
+                    <img src="${page.tpath}/themes/self/working-in-mafpre2.jpg" style="width:100%">
+                    <h1 class="text">${category.name}</h1>
+                </div>
+
+
+
+
+
+                <div class="panel-archives careers-list">
+
+                 <div class="top">
+                    <p style="text-align:left;text-indent: 2em;" class="nom">
+                        我们诚邀有志之士加入我们年轻的团队，一起分享您的才智与激情! 公司有很好的内部升级机制，和薪酬体系。 服务的客户均为高端人群，对沟通能力，协调能力以及职业生涯的发展均很有好处。公司内部提升组长，主管，经理级别，有不断完善的培训机制。
+                    </p>
+                    <p style="text-align:left;" class="contact">
+                        公司网站：http://www.roadchina.com.cn<br />
+                        E-mail: hr@roadchina.com.cn<br />公司地址： $site(address)
+                    </p>
+                </div>
+
+                <div class="line line-archive"></div>
+
+                       <div class="details">
+                       <ol>
+                       $pager_archives(40,'<li id="{id}"  class="{class}">
+                       <div class="collage"><strong>{title}</strong></div>
+                          <ul class="hidden">
+                              <li>
+                              <dl><dt class="left">
+                              <b>任职要求：</b></dt>
+                                <dd style="margin-left:60px" >{任职要求}</dd>
+                                </dl>
+
+                            </li>
+
+                              <li><b>招聘部门：</b>{招聘部门}</li>  
+
+                              <li><b>招聘人数：</b>{招聘人数}人</li>
+                              <li><b>工作地点：</b>{工作地点}</li>
+                              
+                              <li><br />{content}</li>
+                          </ul>
+
+
+                          <div class="clearfix"></div>
+                       </li>')
+                       </ol>
+                    </div>
+                   </div>
+        </div>
+    </div>
+
+    ${partial:"../inc/footer.phtml"}
+
+    <script type="text/javascript">
+    var clgs = $JS.getElementsByClassName(document,'collage');
+    $JS.each(clgs,function(i,e){
+      e.onclick=function(){
+        var nxt = e.nextSibling;
+        while(nxt.nodeName[0]=="#"){
+          nxt = nxt.nextSibling;
+        }
+        nxt.className = nxt.className==''?'hidden':'';
+      };
+      //if(i===0){
+      //  e.onclick();
+      //}
+    });
+     </script>
+</body>
+</html>

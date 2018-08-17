@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="Stylesheet" href="${page.tpath}/themes/template.css?version=${page.version}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/themes/style.css?version=${page.version}" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+</head>
+<body>
+    ${partial:"inc/header.phtml"}
+    
+    ${partial:"self/baoming.phtml"}
+
+    ${partial:"inc/main_top.phtml"}
+    
+        <div class="page-main panel">
+             <div class="main">
+
+                <div style="width:900px"></div>
+                
+                <div class="clearfix sitemap">您的位置：<a rel="nofollow" href="${page.domain}">首页</a> > $sitemap() > ${archive.title}</div>
+                <div class="line line-archive hidden"></div>
+
+               <div class="panel-archive">
+                   
+                   <h1><strong>${archive.title}</strong></h1>
+                    <div class="content">${archive.content}</div>
+                    <br />
+                    
+                   <div>
+                   </div>
+
+
+                 </div>
+                </div>
+
+                <div class="side">
+                    <div class="border">
+                        <div class="title"><strong>${category.name}</strong></div>
+                        <div class="category">
+                            <div class="content">
+                                <ul class="clist">
+                                    $archives(${category.tag},10,'<li><a href="{url}">{title2}</a></li>')
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    ${partial:"inc/sidebar.phtml"}
+                    
+        		</div>
+           <!-- Content END -->
+
+           <div class="clearfix"></div>
+        </div>
+
+    ${partial:"inc/footer.phtml"}
+    
+</body>
+</html>

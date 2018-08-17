@@ -1,0 +1,17 @@
+
+/*main css*/
+.izl-rmenu{position:fixed; right:1px; bottom:0;padding-bottom:100px; background:url(../images/r_b.png) 0px bottom no-repeat; z-index:999; }
+.izl-rmenu .btn{width:62px; height:63px; margin-bottom:1px; cursor:pointer; position:relative;}
+.izl-rmenu .btn-qq{background:url(../images/r_qq.png) center no-repeat; background-color:#6da9de;}
+.izl-rmenu .btn-qq:hover{background-color:#488bc7;}
+.izl-rmenu a.btn-qq,.izl-rmenu a.btn-qq:visited{background:url(../images/r_qq.png) center no-repeat;
+  background-size:cover;background-color:#6da9de; text-decoration:none; display:block;}
+.izl-rmenu .btn-wx{background:url(../images/r_wx.png) center no-repeat; background-size:cover;background-color:#78c340;}
+.izl-rmenu .btn-wx:hover{background-color:#58a81c;}
+.izl-rmenu img{max-width:auto;}
+.izl-rmenu .btn-wx .pic{position:absolute; left:-160px; top:0px; display:none;width:160px;height:160px;max-width:auto;}
+.izl-rmenu .btn-phone{background:url(../images/r_phone.png) center no-repeat;background-size:cover; background-color:#fbb01f;}
+.izl-rmenu .btn-phone:hover{background-color:#ff811b;}
+.izl-rmenu .btn-phone .phone{background-color:#ff811b; position:absolute; width:160px; left:-160px; top:0px; line-height:73px; color:#FFF; font-size:18px; text-align:center; display:none;}
+.izl-rmenu .btn-top{background:url(../images/r_top.png) center no-repeat; background-size:cover;background-color:#666666; display:none;}
+.izl-rmenu .btn-top:hover{background-color:#444;}

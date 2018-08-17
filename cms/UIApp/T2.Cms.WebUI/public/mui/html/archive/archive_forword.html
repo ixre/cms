@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>文档转发</title>
+    $css()
+	</head>
+	<body>
+	    <br />
+        <div class="form">
+            <div class="fl">
+                <div class="label">文档链接：</div>
+                <div class="in">
+                    <input class="tb_normal ui-box" value="${url}" style="width:400px"/>
+                    <div class="tip red"></div>
+                </div>
+            </div>
+
+            <div class="fl">
+                <div class="label">HTML：</div>
+                <div class="in">
+                    <textarea class="tb_normal ui-box" rows="5" style="width:400px;font-size:12px">${forword_content}</textarea>
+                    <div class="tip red"></div>
+                    <div style="margin-top:10px;width:380px;padding:12px;border:solid 1px #ff6600;background: #fff">
+                        预览：<br />
+                        ${forword_content}
+                    </div>
+                </div>
+            </div>
+        </div>
+        $js()
+	</body>
+</html>
