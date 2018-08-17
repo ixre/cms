@@ -95,6 +95,7 @@ namespace T2.Cms.Infrastructure
             if (list == null || list.Count == 0) return default(T);
             if (low > high) return default(T);
             int mid = (low + high) / 2;
+            if (mid >= list.Count) return default(T);
             if (get(list[mid]) > find)
             {
                 return IntSearch(list, low, mid - 1, find, get);
