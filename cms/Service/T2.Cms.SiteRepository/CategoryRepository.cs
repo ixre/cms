@@ -93,14 +93,14 @@ namespace T2.Cms.ServiceRepository
 
             foreach (ICategory _category in categories)
             {
-                if (!RepositoryDataCache._categories.ContainsKey(_category.Site.Id))
+                if (!RepositoryDataCache._categories.ContainsKey(_category.Site.GetAggregaterootId()))
                 {
-                    RepositoryDataCache._categories.Add(_category.Site.Id, new List<ICategory>());
+                    RepositoryDataCache._categories.Add(_category.Site.GetAggregaterootId(), new List<ICategory>());
                 }
-                RepositoryDataCache._categories[_category.Site.Id].Add(_category);
+                RepositoryDataCache._categories[_category.Site.GetAggregaterootId()].Add(_category);
 
                 //添加Tag映射
-                String key = this.catTagKey(_category.Site.Id, _category.Tag);
+                String key = this.catTagKey(_category.Site.GetAggregaterootId(), _category.Tag);
                 Kvdb.PutInt(key,_category.Lft);
 
                 /*
@@ -113,7 +113,7 @@ namespace T2.Cms.ServiceRepository
                 */
 
                 //添加Id映射
-                key = this.catIdKey(_category.Site.Id, _category.Id);
+                key = this.catIdKey(_category.Site.GetAggregaterootId(), _category.Id);
                 Kvdb.PutInt(key,_category.Lft);
 
             }
@@ -163,7 +163,7 @@ namespace T2.Cms.ServiceRepository
 
             //* 树状结构,只有一个根节点(默认Left为1)
             int parentLft = 1;
-            int siteId = category.Site.Id;
+            int siteId = category.Site.GetAggregaterootId();
 
             if (parentCategory != null)
             {
@@ -502,7 +502,7 @@ namespace T2.Cms.ServiceRepository
             IList<ISite> sites = this._siteRep.GetSites();
             foreach (ISite site in sites)
             {
-                var category = this.GetCategoryById(site.Id, categoryId);
+                var category = this.GetCategoryById(site.GetAggregaterootId(), categoryId);
                 if (category != null) return category;
             }
             return null;
@@ -548,7 +548,7 @@ namespace T2.Cms.ServiceRepository
             //return this.Categories[category.Site.ID].Where(a => a.Lft > category.Lft && a.Rgt < category.Lft);
 
             //获取第一级子类
-            return this.Categories[category.Site.Id].Where(a => a.Lft > category.Lft && a.Rgt < category.Rgt);
+            return this.Categories[category.Site.GetAggregaterootId()].Where(a => a.Lft > category.Lft && a.Rgt < category.Rgt);
         }
 
 
@@ -556,7 +556,7 @@ namespace T2.Cms.ServiceRepository
         {
             return CategoryFilter.GetCategories(category.Lft,
                 category.Rgt,
-                this.Categories[category.Site.Id],
+                this.Categories[category.Site.GetAggregaterootId()],
                 CategoryContainerOption.NextLevel
                 );
         }
@@ -570,7 +570,7 @@ namespace T2.Cms.ServiceRepository
         public ICategory GetParent(ICategory category)
         {
             if (category == null) return null;
-            if (!this.Categories.ContainsKey(category.Site.Id))
+            if (!this.Categories.ContainsKey(category.Site.GetAggregaterootId()))
             {
                 return null;
             }
@@ -579,7 +579,7 @@ namespace T2.Cms.ServiceRepository
                 //获取父类
                 /* SELECT TOP 1 * FROM 'tree' WHERE lft<@lft AND rgt>@rgt ORDER BY lft DESC  */
                 IEnumerable<ICategory> list =
-                    this.Categories[category.Site.Id].Where(a => a.Lft < category.Lft && a.Rgt > category.Rgt);
+                    this.Categories[category.Site.GetAggregaterootId()].Where(a => a.Lft < category.Lft && a.Rgt > category.Rgt);
 
 
                 /*
@@ -646,12 +646,12 @@ namespace T2.Cms.ServiceRepository
 
         public ICategory GetNext(ICategory category)
         {
-            return this.GetCategories(category.Site.Id, category.Lft, category.Rgt, CategoryContainerOption.SameLevelNext).FirstOrDefault();
+            return this.GetCategories(category.Site.GetAggregaterootId(), category.Lft, category.Rgt, CategoryContainerOption.SameLevelNext).FirstOrDefault();
         }
 
         public ICategory GetPrevious(ICategory category)
         {
-            return this.GetCategories(category.Site.Id, category.Lft, category.Rgt, CategoryContainerOption.SameLevelPrevious).FirstOrDefault();
+            return this.GetCategories(category.Site.GetAggregaterootId(), category.Lft, category.Rgt, CategoryContainerOption.SameLevelPrevious).FirstOrDefault();
         }
 
 

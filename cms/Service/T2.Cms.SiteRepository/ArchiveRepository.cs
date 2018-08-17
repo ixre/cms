@@ -94,15 +94,15 @@ namespace T2.Cms.ServiceRepository
             IList<int> idList = new List<int>();
             foreach (IArchive a in archives)
             {
-                idList.Add(a.Id);
+                idList.Add(a.GetAggregaterootId());
             }
 
             //获取扩展信息
             extendValues = this._extendRep.GetExtendFieldValuesList(siteId, ExtendRelationType.Archive, idList);
             foreach (IArchive a in archives)
             {
-                if (extendValues.ContainsKey(a.Id))
-                    a.ExtendValues = extendValues[a.Id];
+                if (extendValues.ContainsKey(a.GetAggregaterootId()))
+                    a.ExtendValues = extendValues[a.GetAggregaterootId()];
                 yield return a;
             }
 
@@ -113,7 +113,7 @@ namespace T2.Cms.ServiceRepository
 
         public int SaveArchive(IArchive archive)
         {
-            int siteId = archive.Category.Site.Id;
+            int siteId = archive.Category.Site.GetAggregaterootId();
             int categoryId = archive.Category.Id;
 
             if (archive.Thumbnail == null)
@@ -121,7 +121,7 @@ namespace T2.Cms.ServiceRepository
                 archive.Thumbnail = "";
             }
 
-            if (archive.Id <= 0)
+            if (archive.GetAggregaterootId() <= 0)
             {
                 string strId;
                 do
@@ -135,19 +135,19 @@ namespace T2.Cms.ServiceRepository
                     archive.SmallTitle, archive.Source, archive.Thumbnail, archive.Outline, archive.Content,
                     archive.Tags, archive.Flags, archive.Location, archive.SortNumber);
 
-                return this.GetArchive(siteId, strId).Id;
+                return this.GetArchive(siteId, strId).GetAggregaterootId();
             }
             else
             {
                 //Update
                 //archive.Thumbnail.IndexOf(CmsVariables.Archive_NoPhoto) != -1) 
 
-                _dal.Update(archive.Id, categoryId, archive.Title, archive.SmallTitle, archive.Alias,
+                _dal.Update(archive.GetAggregaterootId(), categoryId, archive.Title, archive.SmallTitle, archive.Alias,
                     archive.Source, archive.Thumbnail, archive.Outline, archive.Content ?? "",
                     archive.Tags, archive.Flags, archive.Location, archive.SortNumber);
             }
 
-            return archive.Id;
+            return archive.GetAggregaterootId();
         }
 
 
@@ -244,8 +244,8 @@ namespace T2.Cms.ServiceRepository
                 while (rd.Read())
                 {
                     archive = this.CreateArchiveFromDataReader(rd, dg);
-                    archive.ExtendValues = extendValues.ContainsKey(archive.Id) ?
-                        extendValues[archive.Id] :
+                    archive.ExtendValues = extendValues.ContainsKey(archive.GetAggregaterootId()) ?
+                        extendValues[archive.GetAggregaterootId()] :
                         defaultValues;
 
                     archives.Add(archive);
@@ -277,8 +277,8 @@ namespace T2.Cms.ServiceRepository
                 while (rd.Read())
                 {
                     archive = this.CreateArchiveFromDataReader(rd, dg);
-                    archive.ExtendValues = extendValues.ContainsKey(archive.Id) ?
-                        extendValues[archive.Id] :
+                    archive.ExtendValues = extendValues.ContainsKey(archive.GetAggregaterootId()) ?
+                        extendValues[archive.GetAggregaterootId()] :
                         defaultValues;
 
                     archives.Add(archive);

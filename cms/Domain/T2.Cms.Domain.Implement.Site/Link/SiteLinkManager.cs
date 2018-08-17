@@ -17,18 +17,18 @@ namespace T2.Cms.Domain.Implement.Site.Link
 
         public bool DeleteLink(int linkId)
         {
-           return this._siteRep.DeleteSiteLink(this._site.Id, linkId);
+           return this._siteRep.DeleteSiteLink(this._site.GetAggregaterootId(), linkId);
         }
 
 
         public ISiteLink GetLinkById(int linkId)
         {
-            return this._siteRep.GetSiteLinkById(this._site.Id, linkId);
+            return this._siteRep.GetSiteLinkById(this._site.GetAggregaterootId(), linkId);
         }
 
         public IEnumerable<ISiteLink> GetLinks(SiteLinkType type)
         {
-            return this._siteRep.GetSiteLinks(this._site.Id, type);
+            return this._siteRep.GetSiteLinks(this._site.GetAggregaterootId(), type);
         }
     }
 }

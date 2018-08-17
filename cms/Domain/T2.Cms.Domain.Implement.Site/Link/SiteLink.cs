@@ -79,7 +79,7 @@ namespace T2.Cms.Domain.Implement.Site.Link
 
         public int Save()
         {
-           return  this._siteRep.SaveSiteLink(this._site.Id, this);
+           return  this._siteRep.SaveSiteLink(this._site.GetAggregaterootId(), this);
         }
 
     }

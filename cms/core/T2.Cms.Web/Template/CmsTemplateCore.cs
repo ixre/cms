@@ -2551,7 +2551,7 @@ namespace T2.Cms.Template
                 }
                 */
 
-                if (_category.Site.Id != SiteId) return;
+                if (_category.Site.GetAggregaterootId() != SiteId) return;
 
                 sb.Append("<option value=\"").Append(_category.Tag)
                     .Append("\" path=\"")

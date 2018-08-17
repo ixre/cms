@@ -93,6 +93,11 @@ namespace T2.Cms.Domain.Implement.User
         {
             this._userRepository.SaveRoleFlags(this.Id, appId, flags);
         }
+
+        public int GetAggregaterootId()
+        {
+            return this.Id;
+        }
     }
 }
 

@@ -24,7 +24,7 @@ namespace T2.Cms.DataTransfer
                 ModuleId = category.ModuleId,
                 Location = category.Location,
                 ExtendFields = category.ExtendFields,
-                SiteId = category.Site.Id,
+                SiteId = category.Site.GetAggregaterootId(),
                 UriPath = category.UriPath,
                 Lft = category.Lft,
                 Rgt = category.Rgt

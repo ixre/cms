@@ -65,7 +65,7 @@ namespace T2.Cms.Service
         private RelatedLinkDto ConvertToLinkDto(int siteId, IContentLink link)
         {
             ISite site = this._siteRep.GetSiteById(link.RelatedSiteId);
-            IBaseContent content = this.GetContent(site.Id, ContentTypeIndent.Archive.ToString().ToLower(), link.RelatedContentId);
+            IBaseContent content = this.GetContent(site.GetAggregaterootId(), ContentTypeIndent.Archive.ToString().ToLower(), link.RelatedContentId);
             String thumbnail = null;
             IArchive archive = content as IArchive;
             if (archive != null)

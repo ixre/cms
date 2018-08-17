@@ -44,7 +44,7 @@ namespace T2.Cms.DataTransfer
         {
             UserDto usr = new UserDto
             {
-                Id = user.Id,
+                Id = user.GetAggregaterootId(),
                 Name = user.Name,
                 Avatar = user.Avatar,
                 CheckCode = user.CheckCode,

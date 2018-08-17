@@ -25,7 +25,7 @@ namespace T2.Cms.Domain.Interface.Site
     /// <summary>
     /// 站点
     /// </summary>
-    public interface ISite:IDomain<int>
+    public interface ISite:IAggregateroot
     {
         /// <summary>
         /// 获取值

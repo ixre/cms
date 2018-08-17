@@ -97,7 +97,7 @@ new object[,] { { "@userName", username } })),
                 {"@roleFlag", user.Flag},
                 {"@createTime", user.CreateTime},
                 {"@loginTime", user.LastLoginTime},
-                {"@id", user.Id},
+                {"@id", user.GetAggregaterootId()},
             };
             var parameters = base.Db.CreateParametersFromArray(data);
             if (isNew)
@@ -116,7 +116,7 @@ new object[,] { { "@userName", username } })),
                 base.ExecuteNonQuery(base.NewQuery(DbSql.UserUpdateUser,parameters));
             }
 
-            return user.Id;
+            return user.GetAggregaterootId();
         }
 
         public int DeleteUser(int userId)

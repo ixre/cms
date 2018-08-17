@@ -20,6 +20,13 @@ namespace T2.Cms.Domain.Implement.Content
             this._tempRep = tempRep;
             this.SiteId = siteId;
         }
+
+
+        public int GetAggregaterootId()
+        {
+            return this.Id;
+        }
+
         public int Id
         {
             get { return this.SiteId; }
@@ -119,12 +126,12 @@ namespace T2.Cms.Domain.Implement.Content
             {
                 throw new NotSupportedException("系统文档，不允许删除,请先取消系统设置后再进行删除！");
             }
-            bool result = this._archiveRep.DeleteArchive(this.SiteId, archive.Id);
+            bool result = this._archiveRep.DeleteArchive(this.SiteId, archive.GetAggregaterootId());
 
             if (result)
             {
                 //删除模板绑定
-                this._tempRep.RemoveBind(TemplateBindType.ArchiveTemplate, archive.Id);
+                this._tempRep.RemoveBind(TemplateBindType.ArchiveTemplate, archive.GetAggregaterootId());
 
 
                 //

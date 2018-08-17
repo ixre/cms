@@ -471,7 +471,7 @@ namespace T2.Cms.Service
             ICategory newCategory = toSite.GetCategory(parentCateId);
             foreach (var cate in fromCate.NextLevelChilds)
             {
-                int id = CloneCategoryDetails(toSite.Id, cate, newCategory.Lft, includeExtend, includeTemplateBind);
+                int id = CloneCategoryDetails(toSite.GetAggregaterootId(), cate, newCategory.Lft, includeExtend, includeTemplateBind);
                 ItrCloneCate(toSite, cate, id, includeExtend, includeTemplateBind);
             }
         }
@@ -589,7 +589,7 @@ namespace T2.Cms.Service
 
                     if (isFailed)
                     {
-                        this._archiveRep.DeleteArchive(targetSiteId, tarArchive.Id);
+                        this._archiveRep.DeleteArchive(targetSiteId, tarArchive.GetAggregaterootId());
                     }
                     else if (shouldReSave)
                     {
@@ -616,7 +616,7 @@ namespace T2.Cms.Service
             IList<ISite> sites = this._resp.GetSites();
             foreach (ISite site in sites)
             {
-                if (site.Id == siteId)
+                if (site.GetAggregaterootId() == siteId)
                 {
                     return true;
                 }
@@ -670,13 +670,13 @@ namespace T2.Cms.Service
                     else
                     {
                         string message = " <break>[1001]：扩展字段\"" + field.Name + "\"不存在";
-                        if (errDict.ContainsKey(tarArchive.Id))
+                        if (errDict.ContainsKey(tarArchive.GetAggregaterootId()))
                         {
-                            errDict[tarArchive.Id] += message;
+                            errDict[tarArchive.GetAggregaterootId()] += message;
                         }
                         else
                         {
-                            errDict[tarArchive.Id] = "发布文档\"" + tarArchive.Title + "\"不成功！原因：" + message;
+                            errDict[tarArchive.GetAggregaterootId()] = "发布文档\"" + tarArchive.Title + "\"不成功！原因：" + message;
                         }
                         isFailed = true;
                     }
