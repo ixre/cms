@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="${page.tpath}/themes/template.css?version=${page.version}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/themes/style.css?version=${page.version}" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+</head>
+<body>
+    ${partial:"inc/header.phtml"}
+
+    ${partial:"self/baoming.phtml"}
+
+    ${partial:"inc/main_top.phtml"}
+    
+   <div class="page-main panel">
+            <div class="main">
+
+                <div style="width:850px"></div>
+
+                <div class="clearfix sitemap">您的位置：<a rel="nofollow" href="${page.domain}">首页</a> > $sitemap()</div>
+
+                  <div class="line line-category hidden"></div>
+
+                  <div class="category-page">
+            		
+                   <div class="panel-archives block-items">
+                       <ul>
+                       $pager_archives(15,'<li class="item"{style}>
+                           {img}
+                           <a class="title" title="{title2}" target="_blank" href="{url}"><strong>．{title}</strong></a>
+                       	   <p class="outline">
+                               {outline}
+                           </p><div class="clearfix"></div>
+                       </li>')
+                       </ul>
+                   </div>
+                $pager()
+            </div>
+            </div>
+            <div class="side">
+               <div class="border">
+                  <div class="title"><strong>栏目导航</strong></div>
+          
+                  <div class="category">
+                      <ul class="clist">
+                      <!--
+                          $categories1('root','<li><a href="{url}">{name}</a></li>')
+                     -->
+                     <li><a href="http://localhost:8000/cz/trade/">行业动态</a></li><li><a href="http://localhost:8000/cz/show/">作品秀</a></li><li><a href="http://localhost:8000/cz/kc/">培训课程</a></li><li><a href="http://localhost:8000/cz/xxhj/">学校环境</a></li><li><a href="http://localhost:8000/cz/hzqy/">合作企业</a></li><li><a href="http://localhost:8000/cz/jygs/">就业故事</a></li>
+                      </ul>
+                  </div>
+               </div>
+
+                 ${partial:"inc/sidebar.phtml"}
+                 
+            </div>
+            <div class="clearfix"></div>
+    </div>
+    
+    ${partial:"inc/footer.phtml"}
+
+</body>
+</html>

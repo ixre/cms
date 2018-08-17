@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <link rel="Stylesheet" href="${page.fpath}/template.css?v=${page.built}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/css/default/page.css?v=${page.built}" type="text/css" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    ${page.html5}
+</head>
+<body>
+    ${partial:"include/header.phtml"}
+    
+    <div class="mod-crumb">
+       <div class="container">$lang(sitemap_location):<a href="/">$lang(home)</a> > $sitemap()</div>
+    </div>
+    
+    <div class="page-brands layout panel">
+
+            <div class="l_ hidden">
+                <img src="${page.tpath}/images/proxy-img1.jpg"/>
+                
+                <img src="${page.tpath}/images/proxy-img2.jpg"/>
+                
+                <img src="${page.tpath}/images/proxy-img3.jpg"/>
+                
+                <img src="${page.tpath}/images/proxy-img4.jpg"/>
+                
+                <div class="clearfix"></div>
+            </div>
+
+             <div class="m_">
+                 <div class="top">
+                    $archive('brand-top','{content}')
+                 </div>
+                <div class="brands">
+                    <ul>
+                        $archives('brand',9,0,0,0,'
+                        <li class="{class}">
+                          <div class="box">
+                            <div class="auto-fit">
+                              <img src="{thumbnail}" height="50"/>
+                            </div>
+                            {title}
+                          </div>
+                        </li>
+                        ')
+
+						<li class="a more" id="btn_more">
+                          <div class="box">
+                              <span>
+                              $lang(more)
+                              </span>
+                          </div>
+                        </li>
+                        
+                    </ul>
+                    <div class="clear"></div>
+                    
+                    <div id="brand_more" class="hidden">
+                        <ul>
+                            $archives('brand',100,9,0,0,'
+                            <li class="{class}">
+                                <div class="box">
+                                    <div class="auto-fit">
+                                        <img src="{thumbnail}" height="50"/>
+                                    </div>
+                                    {title}
+                                </div>
+                            </li>
+                            ')
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+    
+    
+           ${partial:"include/footer.phtml"}
+        <script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
+    <script type="text/javascript" src="${page.fpath}/js/animation.js?version=${page.version}"></script>
+    <script type="text/javascript">
+        j6.$('btn_more').onclick=function(){
+            j6.animation.toggleHeight(j6.$('brand_more',null,2));
+        };
+    </script>
+       
+     </body>
+</html>

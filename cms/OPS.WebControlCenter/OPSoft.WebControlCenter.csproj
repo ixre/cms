@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E29E54B5-B182-41E1-9CCC-710831A866AA}</ProjectGuid>
+    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OPSoft.WebControlCenter</RootNamespace>
+    <AssemblyName>OPSoft.WebControlCenter</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\OPS.WebControlCenter.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\OPS.WebControlCenter.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="OPSite.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\OPSite.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Codes\Controllers\ActivatorController.cs" />
+    <Compile Include="Codes\Handler\Admin.cs" />
+    <Compile Include="Codes\Handler\Check.cs" />
+    <Compile Include="Codes\Handler\ControlHandler.cs" />
+    <Compile Include="Codes\Handler\Server.cs" />
+    <Compile Include="Codes\Handler\Valid.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\GLOBAL.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="style\admin\adm_login_bg.gif" />
+    <Content Include="style\admin\adm_login_bottom.gif" />
+    <Content Include="style\admin\adm_login_top.gif" />
+    <Content Include="style\admin\bar_bg.gif" />
+    <Content Include="style\admin\bar_left.gif" />
+    <Content Include="style\admin\border_bg.gif" />
+    <Content Include="style\admin\border_bottom.gif" />
+    <Content Include="style\admin\border_top.gif" />
+    <Content Include="style\admin\email.png" />
+    <Content Include="style\admin\header.gif" />
+    <Content Include="style\admin\header_bg.gif" />
+    <Content Include="style\admin\icon.gif" />
+    <Content Include="style\admin\icons\add.gif" />
+    <Content Include="style\admin\icons\back_1.gif" />
+    <Content Include="style\admin\icons\book.gif" />
+    <Content Include="style\admin\icons\count.gif" />
+    <Content Include="style\admin\icons\count_1.gif" />
+    <Content Include="style\admin\icons\delete.gif" />
+    <Content Include="style\admin\icons\download.gif" />
+    <Content Include="style\admin\icons\draw.gif" />
+    <Content Include="style\admin\icons\edit.gif" />
+    <Content Include="style\admin\icons\file.gif" />
+    <Content Include="style\admin\icons\file2.gif" />
+    <Content Include="style\admin\icons\find.gif" />
+    <Content Include="style\admin\icons\foward_1.gif" />
+    <Content Include="style\admin\icons\jm.gif" />
+    <Content Include="style\admin\icons\jm_1.gif" />
+    <Content Include="style\admin\icons\mail.gif" />
+    <Content Include="style\admin\icons\ok.gif" />
+    <Content Include="style\admin\icons\phone.gif" />
+    <Content Include="style\admin\icons\print.gif" />
+    <Content Include="style\admin\icons\protected.gif" />
+    <Content Include="style\admin\icons\refrence.gif" />
+    <Content Include="style\admin\icons\refresh.gif" />
+    <Content Include="style\admin\icons\rss.gif" />
+    <Content Include="style\admin\icons\save.gif" />
+    <Content Include="style\admin\icons\set.gif" />
+    <Content Include="style\admin\icons\timer.gif" />
+    <Content Include="style\admin\icons\upload.gif" />
+    <Content Include="style\admin\icons\user.gif" />
+    <Content Include="style\admin\icons\warn.gif" />
+    <Content Include="style\admin\input.gif" />
+    <Content Include="style\admin\logo.png" />
+    <Content Include="style\admin\menu_icon.gif" />
+    <Content Include="style\admin\menu_title_bg.gif" />
+    <Content Include="style\admin\menu_title_icon.gif" />
+    <Content Include="style\admin\nav_current.gif" />
+    <Content Include="style\admin\orange-button.gif" />
+    <Content Include="style\admin\style.css" />
+    <Content Include="style\common.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Codes\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config\domain.conf">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="config\sites.conf">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="config\system.conf">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="style\admin\icons\Thumbs.db" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349C5851-65DF-11DA-9384-00065B846F21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>90</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+    <MonoDevelop>
+      <Properties VerifyCodeBehindFields="true" VerifyCodeBehindEvents="true">
+        <XspParameters Port="8080" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="true" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>
