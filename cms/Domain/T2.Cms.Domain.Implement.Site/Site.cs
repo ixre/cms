@@ -568,5 +568,10 @@ namespace T2.Cms.Domain.Implement.Site
         {
             this.runType = runType;
         }
+
+        public int GetAggregaterootId()
+        {
+            return this.value.SiteId;
+        }
     }
 }

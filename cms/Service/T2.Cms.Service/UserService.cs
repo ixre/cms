@@ -150,7 +150,7 @@ namespace T2.Cms.Service
                         throw new ArgumentException("用户名已经使用!");
                     }
                 }
-                user.Credential.UserId = usr.Id;
+                user.Credential.UserId = usr.GetAggregaterootId();
                 usr.SaveCredential(user.Credential);
             }
             return row;
@@ -222,7 +222,7 @@ namespace T2.Cms.Service
 
             int total = this._archiveRep.TransferArchives(userId, firstUserId);
 
-          return  this._userRepository.DeleteUser(user.Id);
+          return  this._userRepository.DeleteUser(user.GetAggregaterootId());
         }
     }
 }

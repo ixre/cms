@@ -171,7 +171,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             get
             {
                 return _extendFields ?? (_extendFields = new List<IExtendField>(
-                    this._extendRep.GetExtendFields(this.Site.Id, this.Id)));
+                    this._extendRep.GetExtendFields(this.Site.GetAggregaterootId(), this.Id)));
             }
             set
             {
@@ -254,7 +254,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
                 foreach (int extendId in addList)
                 {
-                    this.ExtendFields.Add(this._extendRep.GetExtendFieldById(this.Site.Id, extendId));
+                    this.ExtendFields.Add(this._extendRep.GetExtendFieldById(this.Site.GetAggregaterootId(), extendId));
                 }
 
                 #endregion

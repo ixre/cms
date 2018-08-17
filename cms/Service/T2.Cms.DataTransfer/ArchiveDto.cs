@@ -135,7 +135,7 @@ namespace T2.Cms.DataTransfer
         {
             ArchiveDto dto = new ArchiveDto
             {
-                Id = archive.Id,
+                Id = archive.GetAggregaterootId(),
                 StrId = archive.StrId,
                 Disagree = archive.Disagree,
                 Agree = archive.Agree,
@@ -173,7 +173,7 @@ namespace T2.Cms.DataTransfer
                 if (archive.Template != null)// && archive.Template.BindRefrenceId == archive.ID)
                 {
                     dto.TemplatePath = archive.Template.TplPath;
-                    dto.IsSelfTemplate = archive.Template.BindRefrenceId == archive.Id;
+                    dto.IsSelfTemplate = archive.Template.BindRefrenceId == archive.GetAggregaterootId();
                 }
             }
             return dto;

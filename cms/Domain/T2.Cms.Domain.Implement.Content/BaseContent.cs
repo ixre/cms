@@ -21,6 +21,12 @@ namespace T2.Cms.Domain.Implement.Content
         private  IContentLinkManager _linkManager;
         protected int _categoryId;
 
+
+        public int GetAggregaterootId()
+        {
+            return this.Id;
+        }
+
         /// <summary>
         /// 内容模型标识
         /// </summary>

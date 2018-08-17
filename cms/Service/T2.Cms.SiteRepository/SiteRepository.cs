@@ -52,7 +52,7 @@ namespace T2.Cms.ServiceRepository
         }
         public int SaveSite(ISite site)
         {
-            if (site.Id == 0)
+            if (site.GetAggregaterootId() == 0)
             {
                 int siteId=siteDal.CreateSite(site);
                int  rootCategoryId = this._categoryRep.GetNewCategoryId(siteId);
@@ -74,7 +74,7 @@ namespace T2.Cms.ServiceRepository
             RepositoryDataCache._siteDict = null;
             RepositoryDataCache._categories = null;
 
-            return site.Id;
+            return site.GetAggregaterootId();
         }
 
         public IList<ISite> GetSites()
@@ -137,7 +137,7 @@ namespace T2.Cms.ServiceRepository
         {
             IList<ISite> sites = this.GetSites();
             if (sites.Count == 0) throw new Exception("Missing site");
-            return BinarySearch.IntSearch(sites, 0, sites.Count, siteId, a => a.Id);
+            return BinarySearch.IntSearch(sites, 0, sites.Count, siteId, a => a.GetAggregaterootId());
         }
 
         public ISite GetSingleOrDefaultSite(Uri uri)

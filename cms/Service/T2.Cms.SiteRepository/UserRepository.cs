@@ -28,7 +28,7 @@ namespace T2.Cms.ServiceRepository
 
         public int SaveUser(IUser user)
         {
-            if (user.Id > 0)
+            if (user.GetAggregaterootId() > 0)
             {
                 return this._userDal.SaveUser(user, false);
             }

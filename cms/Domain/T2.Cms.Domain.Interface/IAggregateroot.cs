@@ -14,6 +14,6 @@ namespace T2.Cms.Domain.Interface
 	/// </summary>
 	public interface IAggregateroot
 	{
-        int Id { get; }
+        int GetAggregaterootId();
 	}
 }
