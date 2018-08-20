@@ -3,8 +3,8 @@
 arch=""
 tables=""
 conf="./"
-tpl="./code_templates"
-out="./generated_code/"
+tpl="./templates"
+out="./output"
 
 while getopts "a:c:t:v" args
 do
@@ -27,7 +27,9 @@ do
   esac
 done
 
-params=""
+
+params="-tpl ${tpl} -out ${out}"
+
 if [[ ${conf} != "" ]];then
     params="${params} -conf ${conf}"
 fi

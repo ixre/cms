@@ -22,3 +22,5 @@ dist
 packages
 .vs
 /script/generator/generated_code
+output
+

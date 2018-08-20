@@ -133,6 +133,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserGroup.cs" />
     <Compile Include="Models\UserGroups.cs" />
+    <Compile Include="Site\Category\entity_cs_cms_category.cs" />
     <Compile Include="Site\Category\NodeContainerOption.cs" />
     <Compile Include="Enum\PropertyUI.cs" />
     <Compile Include="Enum\sys\PageSign.cs" />

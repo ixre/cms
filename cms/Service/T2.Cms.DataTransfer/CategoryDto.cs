@@ -2,39 +2,41 @@
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Models;
 
 namespace T2.Cms.DataTransfer
 {
     public struct CategoryDto
     {
-        public static CategoryDto ConvertFrom(ICategory category)
+        public static CategoryDto ConvertFrom(ICategory ic)
         {
-            if (category == null) return default(CategoryDto);
+            if (ic == null) return default(CategoryDto);
+            CmsCategoryEntity category = ic.Get();
             //int moduleId = category.ModuleId;
             CategoryDto dto = new CategoryDto
             {
-                Id = category.Id,
+                Id = category.ID,
                 Keywords = category.Keywords,
                 Description = category.Description,
                 Tag = category.Tag,
                 Icon = category.Icon,
                 Name = category.Name,
-                PageTitle = category.PageTitle,
+                PageTitle = category.Title,
                 SortNumber = category.SortNumber,
                 ModuleId = category.ModuleId,
                 Location = category.Location,
-                ExtendFields = category.ExtendFields,
-                SiteId = category.Site.GetAggregaterootId(),
-                UriPath = category.UriPath,
-                Lft = category.Lft,
-                Rgt = category.Rgt
+                ExtendFields = ic.ExtendFields,
+                SiteId = ic.Site().GetAggregaterootId(),
+                UriPath = ic.UriPath,
+                //Lft = category.Lft,
+                //Rgt = category.Rgt
                 //ModuleID = moduleId
             };
             //dto.CloneData(category);
 
 
 
-            foreach (ITemplateBind tplBind in category.Templates)
+            foreach (ITemplateBind tplBind in ic.Templates)
             {
                 switch (tplBind.BindType)
                 {

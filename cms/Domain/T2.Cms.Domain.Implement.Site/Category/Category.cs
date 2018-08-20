@@ -6,6 +6,7 @@ using T2.Cms.Domain.Interface.Site;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Implement.Site.Category
 {
@@ -22,24 +23,20 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private IEnumerable<ICategory> _nextLevelChilds;
         private string _uriPath;
         private IList<ITemplateBind> _templates;
+        private CmsCategoryEntity value;
+        private ISite site;
         private readonly ITemplateRepository _tempRep;
 
         internal Category(ICategoryRepository rep, IExtendFieldRepository extendRep,
             ITemplateRepository tmpRep, int id, ISite site)
         {
-            this.Site = site;
+            this.site = site;
             this._rep = rep;
             this.Id = id;
             this._extendRep = extendRep;
             this._tempRep = tmpRep;
         }
-
-        public ISite Site
-        {
-            get;
-            private set;
-        }
-
+        
         public int Id
         {
             get;
@@ -143,7 +140,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
             #endregion
 
-            this.Site.ClearSelf();
+            this.Site().ClearSelf();
             this.ClearSelf();
             return result;
         }
@@ -171,7 +168,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             get
             {
                 return _extendFields ?? (_extendFields = new List<IExtendField>(
-                    this._extendRep.GetExtendFields(this.Site.GetAggregaterootId(), this.Id)));
+                    this._extendRep.GetExtendFields(this.Site().GetAggregaterootId(), this.Id)));
             }
             set
             {
@@ -254,7 +251,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
                 foreach (int extendId in addList)
                 {
-                    this.ExtendFields.Add(this._extendRep.GetExtendFieldById(this.Site.GetAggregaterootId(), extendId));
+                    this.ExtendFields.Add(this._extendRep.GetExtendFieldById(this.Site().GetAggregaterootId(), extendId));
                 }
 
                 #endregion
@@ -349,7 +346,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 {
                     string path = this.Tag;
                     ICategory parent = this;
-                    int rootLft = this.Site.RootCategory.Lft;
+                    int rootLft = this.Site().RootCategory.Lft;
 
                     while ((parent = parent.Parent) != null && parent.Lft != rootLft)
                     {
@@ -453,6 +450,27 @@ namespace T2.Cms.Domain.Implement.Site.Category
        public void SaveSortNumber()
         {
             this._rep.SaveCategorySortNumber(this.Id,this.SortNumber);
+        }
+
+        public CmsCategoryEntity Get()
+        {
+            return this.value;
+
+        }
+
+        public Error Set(CmsCategoryEntity category)
+        {
+            this.value = category;
+            return null;
+        }
+
+        public ISite Site()
+        {
+            if(this.site == null)
+            {
+                this.site = null;
+            }
+            return this.site;
         }
     }
 }
