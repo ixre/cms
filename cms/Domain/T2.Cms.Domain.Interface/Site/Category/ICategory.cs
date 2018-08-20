@@ -8,9 +8,11 @@
 
 //根节点只能有一个
 
+using System;
 using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Site.Category
 {
@@ -19,12 +21,24 @@ namespace T2.Cms.Domain.Interface.Site.Category
     /// </summary>
     public interface ICategory:IDomain<int>
     {
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <returns></returns>
+        CmsCategoryEntity Get();
+
+        /// <summary>
+        /// 设置值
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        Error Set(CmsCategoryEntity category);
 
         /// <summary>
         /// 站点编号
         /// </summary>
         //int SiteId { get; set; }
-        ISite Site { get; }
+        ISite Site();
 
         /// <summary>
         /// 左ID,在管理的时坐为主键
@@ -34,49 +48,7 @@ namespace T2.Cms.Domain.Interface.Site.Category
         //右ID
         int Rgt { get; set; }
 
-        /// <summary>
-        /// 排序编号
-        /// </summary>
-        int SortNumber { get; set; }
 
-        /// <summary>
-        ///模块ID,如新闻,单页等
-        /// </summary>
-        int ModuleId { get; set; }
-        /// <summary>
-        /// 标签
-        /// </summary>
-        string Tag { get; set; }
-
-        /// <summary>
-        /// 图标
-        /// </summary>
-        string Icon { get; set; }
-
-        /// <summary>
-        /// 名称(唯一)
-        /// </summary>
-        string Name { get; set; }
-
-        /// <summary>
-        /// 页面标题
-        /// </summary>
-        string PageTitle { get; set; }
-
-        /// <summary>
-        /// 关键字
-        /// </summary>
-        string Keywords { get; set; }
-
-        /// <summary>
-        /// 描述
-        /// </summary>
-        string Description { get; set; }
-
-        /// <summary>
-        /// 定位路径（打开栏目页定位到的路径）
-        /// </summary>
-        string Location { get; set; }
 
         /// <summary>
         /// 扩展属性

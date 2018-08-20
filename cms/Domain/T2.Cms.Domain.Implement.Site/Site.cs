@@ -187,18 +187,19 @@ namespace T2.Cms.Domain.Implement.Site
 
         private void initSiteCategories()
         {
-            ICategory ic = this._categoryRep.CreateCategory(0, this);
-            ic.Name = "根栏目";
-            ic.Tag = "root";
-            ic.SortNumber = 1;
-            ic.Lft = 1;
-            ic.Rgt = 2;
-            ic.Description = "";
-            ic.Icon = "";
-            ic.Keywords = "";
-            ic.Location = "";
-            ic.PageTitle = "";
-            ic.Save();
+            ICategory ic2 = this._categoryRep.CreateCategory(0, this);
+            CmsCategoryEntity cat = new CmsCategoryEntity();
+            cat.Name = "根栏目";
+            cat.Tag = "root";
+            cat.SortNumber = 1;
+            cat.Lft = 1;
+            cat.Rgt = 2;
+            cat.Description = "";
+            cat.Icon = "";
+            cat.Keywords = "";
+            cat.Location = "";
+            cat.PageTitle = "";
+            cat.Save();
         }
 
         public ICategory RootCategory
@@ -263,7 +264,7 @@ namespace T2.Cms.Domain.Implement.Site
         {
             foreach (ICategory category in this.Categories)
             {
-                if (String.Compare(category.Name, categoryName, true, CultureInfo.InvariantCulture) == 0) return category;
+                if (String.Compare(category.Get().Name, categoryName, true, CultureInfo.InvariantCulture) == 0) return category;
             }
             return null;
         }
@@ -388,7 +389,7 @@ namespace T2.Cms.Domain.Implement.Site
                     .Append("\" src=\"public/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt parent\" cid=\"")
                     .Append(category.Id.ToString()).Append("\" lft=\"")
                     .Append(category.Lft.ToString()).Append("\">")
-                    .Append(category.Name).Append("</span></dt>");
+                    .Append(category.Get().Name).Append("</span></dt>");
                 }
 
                 foreach (var c in categories)
@@ -421,7 +422,7 @@ namespace T2.Cms.Domain.Implement.Site
                     }
 
                     sb.Append("<img class=\"tree-item\" src=\"public/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt archvie\" cid=\"")
-                        .Append(category.Id.ToString()).Append("\">").Append(category.Name).Append("</span>");
+                        .Append(category.Id.ToString()).Append("\">").Append(category.Get().Name).Append("</span>");
                 }
             }
 
@@ -511,7 +512,7 @@ namespace T2.Cms.Domain.Implement.Site
 
             var node = lft == 1 ?
                 new TreeNode(this.value.Name, "1", "javascript:;", true, "") :
-                new TreeNode(root.Name, String.Format("{0}cid:{1},lft:1{3}", "{", root.Id.ToString(), "}"),
+                new TreeNode(root.Get().Name, String.Format("{0}cid:{1},lft:1{3}", "{", root.Id.ToString(), "}"),
                     "javascript:;", true, "");
 
             ItrNodeTree(node, root);
@@ -525,7 +526,7 @@ namespace T2.Cms.Domain.Implement.Site
         {
             ICategory root = this.RootCategory;
             var node = new TreeNode(this.value.Name, "0", "javascript:;", true, "");
-            var rootNode = new TreeNode(root.Name,
+            var rootNode = new TreeNode(root.Get().Name,
                 String.Format("{0}cid:{1},lft:{2}{3}", "{", root.Id.ToString(), root.Lft.ToString(), "}"),
                 "javascript:;", true, "");
             node.childs.Add(rootNode);
@@ -535,10 +536,10 @@ namespace T2.Cms.Domain.Implement.Site
 
         private void ItrNodeTree(TreeNode node, ICategory root)
         {
-            IEnumerable<ICategory> list = root.NextLevelChilds.OrderBy(a => a.SortNumber);
+            IEnumerable<ICategory> list = root.NextLevelChilds.OrderBy(a => a.Get().SortNumber);
             foreach (ICategory c in list)
             {
-                var tNode = new TreeNode(c.Name,
+                var tNode = new TreeNode(c.Get().Name,
                     String.Format("{0}cid:{1},lft:{2}{3}", "{", c.Id.ToString(), c.Lft.ToString(), "}"),
                     "javascript:;", true,
                     "");

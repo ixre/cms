@@ -954,7 +954,7 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 更新站点
         /// </summary>
-        public readonly string SiteEditSite = @"UPDATE $PREFIX_site SET name=@name,app_name=@dirName,
+        public readonly string SiteEditSite = @"UPDATE $PREFIX_site SET name=@name,app_name=@appName,
                                         domain=@domain,location=@location,tpl=@tpl,
                                         language=@language,note=@note,seo_title=@seoTitle,seo_keywords=@seoKeywords,
                                         seo_description=@seoDescription,state=@state,pro_tel=@proTel,pro_phone=@proPhone,
