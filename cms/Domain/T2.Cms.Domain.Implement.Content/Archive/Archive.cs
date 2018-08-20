@@ -180,7 +180,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             //初始化
             if (this.Id <= 0)
             {
-                int sortNum = this._archiveRep.GetMaxSortNumber(this.Category.Site.GetAggregaterootId());
+                int sortNum = this._archiveRep.GetMaxSortNumber(this.Category.Site().GetAggregaterootId());
                 if (this.SortNumber == 0)
                 {
                     this.SortNumber = sortNum + 1;
@@ -223,7 +223,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
 
         public override void MoveSortDown()
         {
-            int siteId = this.Category.Site.GetAggregaterootId();
+            int siteId = this.Category.Site().GetAggregaterootId();
             IArchive prev = this._archiveRep.GetNextArchive(siteId, this.Id, true, true);
             this.SwapSortNumber(prev);
         }
@@ -231,7 +231,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
 
         public override void MoveSortUp()
         {
-            int siteId = this.Category.Site.GetAggregaterootId();
+            int siteId = this.Category.Site().GetAggregaterootId();
             IArchive next = this._archiveRep.GetPreviousArchive(siteId, this.Id, true, true);
 
             this.SwapSortNumber(next);

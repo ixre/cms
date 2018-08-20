@@ -58,6 +58,7 @@
     <Compile Include="Coder.cs" />
     <Compile Include="DataChecker.cs" />
     <Compile Include="DateHelper.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="HttpApp.cs" />
     <Compile Include="IdGenerator.cs" />
     <Compile Include="Ioc\Ioc.cs" />

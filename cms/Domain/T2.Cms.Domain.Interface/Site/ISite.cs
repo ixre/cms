@@ -17,6 +17,7 @@ using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Link;
 using T2.Cms.Domain.Interface.User;
+using T2.Cms.Infrastructure;
 using T2.Cms.Infrastructure.Tree;
 using T2.Cms.Models;
 

@@ -16,6 +16,7 @@ using T2.Cms.Domain.Interface.User;
 using T2.Cms.Infrastructure;
 using T2.Cms.Infrastructure.Tree;
 using JR.DevFw.Framework.Extensions;
+using T2.Cms.Models;
 
 namespace T2.Cms.Service
 {
@@ -218,16 +219,17 @@ namespace T2.Cms.Service
             }
             if (ic == null) ic = _categoryRep.CreateCategory(-1, site);
             ic.Id = category.Id;
-            ic.Keywords = category.Keywords;
-            ic.Description = category.Description;
-            ic.Tag = category.Tag;
-            ic.Icon = category.Icon;
-            ic.Name = category.Name;
-            ic.PageTitle = category.PageTitle;
-            ic.SortNumber = category.SortNumber;
-            ic.ModuleId = category.ModuleId;
-            ic.Location = category.Location;
-
+            CmsCategoryEntity cat = ic.Get();
+            cat.Keywords = category.Keywords;
+            cat.Description = category.Description;
+            cat.Tag = category.Tag;
+            cat.Icon = category.Icon;
+            cat.Name = category.Name;
+            cat.Title = category.PageTitle;
+            cat.SortNumber = category.SortNumber;
+            cat.ModuleId = category.ModuleId;
+            cat.Location = category.Location;
+            ic.Set(cat);
             bool isExistCategoryBind = false;
             bool isExistArchiveBind = false;
 
@@ -323,16 +325,16 @@ namespace T2.Cms.Service
               
 
                 sb.Append("<a class=\"l").Append((tmpInt+1).ToString()).Append("\" href=\"");
-                if (!String.IsNullOrEmpty(category.Location))
+                if (!String.IsNullOrEmpty(category.Get().Location))
                 {
-                    if (category.Location.IndexOf("//", StringComparison.Ordinal) != -1)
+                    if (category.Get().Location.IndexOf("//", StringComparison.Ordinal) != -1)
                     {
-                        sb.Append(category.Location);
+                        sb.Append(category.Get().Location);
                     }
                     else
                     {
-                        if (category.Location.StartsWith("/")) category.Location = category.Location.Substring(1);
-                        string path = String.Format(linkFormat, category.Location);
+                        if (category.Get().Location.StartsWith("/")) category.Get().Location = category.Get().Location.Substring(1);
+                        string path = String.Format(linkFormat, category.Get().Location);
                         sb.Append(path);
                     }
                 }
@@ -347,7 +349,7 @@ namespace T2.Cms.Service
                 {
                     sb.Append(" rel=\"nofollow\"");
                 }
-                sb.Append(">").Append(category.Name).Append("</a>");
+                sb.Append(">").Append(category.Get().Name).Append("</a>");
 
                 //添加分隔符
                 if (tmpInt > 1)

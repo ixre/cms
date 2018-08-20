@@ -6,6 +6,7 @@ using T2.Cms.Domain.Interface.Site;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Infrastructure;
 using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Implement.Site.Category
@@ -154,7 +155,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             }
             if (this.Parent.Childs != null && this.Parent.Childs.Any())
             {
-                this.SortNumber = this.Parent.Childs.Max(a => a.SortNumber) + 1;
+                this.SortNumber = this.Parent.Childs.Max(a => a.Get().SortNumber) + 1;
             }
             else
             {
@@ -320,7 +321,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 if (this._nextLevelChilds == null)
                 {
-                    this._nextLevelChilds = this._rep.GetNextLevelChilds(this).OrderBy(a => a.SortNumber);
+                    this._nextLevelChilds = this._rep.GetNextLevelChilds(this).OrderBy(a => a.Get().SortNumber);
                 }
                 return this._nextLevelChilds;
             }
@@ -350,7 +351,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
                     while ((parent = parent.Parent) != null && parent.Lft != rootLft)
                     {
-                        path = String.Concat(parent.Tag, "/", path);
+                        path = String.Concat(parent.Get().Tag, "/", path);
                     }
                     this._uriPath = path;
                 }
@@ -383,7 +384,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             if (this.Parent != null)
             {
-                ICategory[] list = this.Parent.Childs.OrderBy(a=>a.SortNumber).ToArray();
+                ICategory[] list = this.Parent.Childs.OrderBy(a=>a.Get().SortNumber).ToArray();
                 for (int i = 0; i < list.Length; i++)
                 {
                     if (list[i].Id == this.Id && i !=0)
@@ -402,7 +403,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             if (this.Parent != null)
             {
-                ICategory[] list = this.Parent.Childs.OrderBy(a => a.SortNumber).ToArray();
+                ICategory[] list = this.Parent.Childs.OrderBy(a => a.Get().SortNumber).ToArray();
                 for (int i = 0; i < list.Length; i++)
                 {
                     if (list[i].Id == this.Id && i < list.Length - 1)
@@ -416,18 +417,19 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         private void SwapSortNumber(ICategory c,bool up)
         {
+            //todo: 应该是更改
             if (c == null) return;
-            int sortN = c.SortNumber;
-            c.SortNumber = this.SortNumber;
+            int sortN = c.Get().SortNumber;
+            c.Get().SortNumber = this.SortNumber;
             if (this.SortNumber == sortN || sortN < 0 || this.SortNumber < 0) //为了兼容旧有数据
             {
                 if (sortN < 0 && !up)
                 {
                     this.SortNumber = 0;
-                    c.SortNumber += 1;
-                    if (c.SortNumber <= 0)
+                    c.Get().SortNumber += 1;
+                    if (c.Get().SortNumber <= 0)
                     {
-                        c.SortNumber = 1;
+                        c.Get().SortNumber = 1;
                     }
                 }
                 else

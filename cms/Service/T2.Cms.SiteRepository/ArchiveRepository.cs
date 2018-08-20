@@ -113,7 +113,7 @@ namespace T2.Cms.ServiceRepository
 
         public int SaveArchive(IArchive archive)
         {
-            int siteId = archive.Category.Site.GetAggregaterootId();
+            int siteId = archive.Category.Site().GetAggregaterootId();
             int categoryId = archive.Category.Id;
 
             if (archive.Thumbnail == null)

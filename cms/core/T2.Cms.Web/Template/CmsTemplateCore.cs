@@ -893,7 +893,7 @@ namespace T2.Cms.Template
                         case "url":
                             return memberId == 0 ? "javascript:;" :
                                 // (Settings.TPL_UseFullPath ? Settings.SYS_DOMAIN : String.GetCssClass)+
-                                 String.Format("/member/{1}", memberId.ToString());
+                                 String.Format("/member/{0}", memberId.ToString());
 
                         //会员编号
                         case "mid":
@@ -2551,9 +2551,9 @@ namespace T2.Cms.Template
                 }
                 */
 
-                if (_category.Site.GetAggregaterootId() != SiteId) return;
+                if (_category.Site().GetAggregaterootId() != SiteId) return;
 
-                sb.Append("<option value=\"").Append(_category.Tag)
+                sb.Append("<option value=\"").Append(_category.Get().Tag)
                     .Append("\" path=\"")
 
                     //
@@ -2565,7 +2565,7 @@ namespace T2.Cms.Template
                 {
                     sb.Append(split);
                 }
-                sb.Append(_category.Name).Append("</option>");
+                sb.Append(_category.Get().Name).Append("</option>");
             };
 
 
