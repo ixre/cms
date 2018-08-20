@@ -275,7 +275,7 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 获取所有栏目
         /// </summary>
-        public readonly string CategoryGetAllCategories = "select * from $PREFIX_category ORDER BY lft";
+        public readonly string CategoryGetAllCategories = "select * from $PREFIX_category ORDER BY id";
 
         /// <summary>
         /// 更新栏目

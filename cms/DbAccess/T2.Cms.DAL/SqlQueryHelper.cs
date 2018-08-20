@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using T2.Cms.DB;
 using JR.DevFw.Data;
+using System.Collections.Generic;
 
 namespace T2.Cms.Dal
 {
@@ -47,6 +48,12 @@ namespace T2.Cms.Dal
         {
             return new SqlQuery(OptimizeSql(sql), data);
         }
+
+        public static SqlQuery Create(string sql, IDictionary<String,Object> data)
+        {
+            return new SqlQuery(OptimizeSql(sql),data);
+        }
+
 
         public static SqlQuery Format(string sql,params string[] formatValues)
         {
