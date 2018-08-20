@@ -32,8 +32,7 @@ namespace T2.Cms.Dal
             data.Add("@proPost", site.ProPost);
             data.Add("@proNotice", site.ProNotice);
             data.Add("@proSlogan", site.ProSlogan);
-            base.ExecuteNonQuery(base.NewQuery(DbSql.SiteCreateSite,
-                Db.GetAdapter().ParseParameters(data)));
+            base.ExecuteNonQuery(base.CreateQuery(DbSql.SiteCreateSite,data));
             return int.Parse(base.ExecuteScalar(base.NewQuery(
                 "SELECT MAX(site_id) FROM $PREFIX_site", null)).ToString());
         }
@@ -69,7 +68,7 @@ namespace T2.Cms.Dal
             data.Add("@proNotice", site.ProNotice);
             data.Add("@proSlogan", site.ProSlogan);
             data.Add("@siteId", site.SiteId);
-            return base.ExecuteNonQuery(base.NewQuery(DbSql.SiteEditSite, base.Db.GetAdapter().ParseParameters(data)));
+            return base.ExecuteNonQuery(base.NewQuery(DbSql.SiteEditSite, base.Db.GetDialect().ParseParameters(data)));
                                
         }
 

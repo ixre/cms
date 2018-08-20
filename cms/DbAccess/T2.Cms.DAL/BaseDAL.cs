@@ -6,7 +6,7 @@ using T2.Cms.Sql;
 using JR.DevFw.Data;
 using System.Data.Common;
 using T2.Cms.Infrastructure;
-
+using System.Collections.Generic;
 
 namespace T2.Cms.Dal
 {
@@ -26,7 +26,7 @@ namespace T2.Cms.Dal
             {
                 DataBaseAccess _db = CmsDataBase.Instance;
                 if (_db == null) throw new ArgumentNullException("_db");
-                DbFact = _db.GetAdapter();
+                DbFact = _db.GetDialect();
                 //SQLPack对象
                 _inited = true;
             }
@@ -92,6 +92,14 @@ namespace T2.Cms.Dal
         /// 创建新查询
         /// </summary>
         protected SqlQuery NewQuery(string sql,DbParameter[] parameters)
+        {
+            return new SqlQuery(OptimizeSql(sql), parameters);
+        }
+
+        /// <summary>
+        /// 创建新查询
+        /// </summary>
+        protected SqlQuery CreateQuery(string sql, IDictionary<String,Object> parameters)
         {
             return new SqlQuery(OptimizeSql(sql), parameters);
         }

@@ -9,7 +9,10 @@
 //
 
 using System;
+using System.Collections.Generic;
 using JR.DevFw.Data;
+using T2.Cms.Infrastructure;
+using T2.Cms.Models;
 
 namespace T2.Cms.Dal
 {
@@ -45,6 +48,32 @@ namespace T2.Cms.Dal
                 {"@sortNumber", orderIndex},
                 {"@id", id}
                     })) == 1;
+        }
+
+
+        public Error SaveCategory(CmsCategoryEntity category)
+        {
+            IDictionary<String, object> data = new Dictionary<string, object>();
+            data.Add("@siteId", category.SiteId);
+            data.Add("@name", category.Name);
+            data.Add("@tag", category.Tag);
+            data.Add("@icon", category.Icon);
+            data.Add("@pagetitle", category.Title);
+            data.Add("@keywords", category.Keywords);
+            data.Add("@description", category.Description);
+            data.Add("@location", category.Location);
+            data.Add("@sortNumber", category.SortNumber);
+            data.Add("@id", category.ID);
+            if (category.ID <= 0)
+            {
+                base.ExecuteNonQuery(SqlQueryHelper.Create(DbSql.CategoryInsert, data));
+                category.ID = this.GetMaxCategoryId(category.SiteId);
+            }
+            else
+            {
+                base.ExecuteNonQuery(base.CreateQuery(DbSql.CategoryInsert, data));
+            }
+            return null;
         }
 
         public int Insert(int siteId, int categoryId, int left, int right,
@@ -107,81 +136,7 @@ namespace T2.Cms.Dal
             if (obj == null) return 1;
             return int.Parse(obj.ToString());
         }
-
-        /*
-        public void UpdateMoveLftRgt(int toLeft, int left, int right)
-        {
-
-            
-            base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSQL(SP.Category_ChangeUpdateTreeRight),
-                   {"@lft", left},
-                     {"@rgt", right},
-                      {"@tolft", toLeft});
-
-            base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSQL(SP.Category_ChangeUpdateTreeLeft),
-                    {"@lft", left},
-                     {"@rgt", right},
-                      {"@tolft", toLeft});
-            
-            base.ExecuteNonQuery(
-                    new SqlQuery(base.OptimizeSQL(SP.Category_ChangeUpdateTreeChildNodes),
-                   {"@lft", left},
-                     {"@rgt", right},
-                      {"@tolft", toLeft});
-            
-        }*/
-
-        public void UpdateMoveLftRgt(int siteId, int toRgt, int left, int right)
-        {
-
-            object[,] pa = new object[,]{
-                    {"@siteId", siteId},
-                   {"@lft", left},
-                    {"@rgt", right},
-                     {"@torgt", toRgt}
-                       };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-            base.ExecuteNonQuery(
-                    base.NewQuery(DbSql.Category_ChangeUpdateTreeLeft, parameters),
-                    base.NewQuery(DbSql.Category_ChangeUpdateTreeRight, parameters),
-                    base.NewQuery(DbSql.Category_ChangeUpdateTreeChildNodes, parameters)
-                       );
-
-        }
-
-        public void UpdateMoveLftRgt2(int siteId, int toRgt, int left, int right)
-        {
-            object[,] pa = new object[,]{
-                    {"@siteId", siteId},
-                    {"@lft", left},
-                    {"@rgt", right},
-                     {"@torgt", toRgt}
-            };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-            base.ExecuteNonQuery(
-                    base.NewQuery(DbSql.Category_ChangeUpdateTreeLeft2, parameters),
-                    base.NewQuery(DbSql.Category_ChangeUpdateTreeRight2, parameters),
-                    base.NewQuery(DbSql.Category_ChangeUpdateTreeBettown2, parameters)
-                 );
-
-        }
-
-
-        public void UpdateInsertLftRgt(int siteId, int left)
-        {
-            object[,] pa = new object[,]{
-                {"@siteId",siteId},
-                {"@lft", left}
-            };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-            base.ExecuteNonQuery(
-                base.NewQuery(DbSql.Category_UpdateInsertLeft, parameters),
-                base.NewQuery(DbSql.Category_UpdateInsertRight, parameters)
-             );
-        }
-
+      
 
         public void UpdateDeleteLftRgt(int siteId, int lft, int rgt)
         {
