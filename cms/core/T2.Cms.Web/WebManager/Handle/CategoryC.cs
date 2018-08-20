@@ -268,7 +268,7 @@ namespace T2.Cms.Web.WebManager.Handle
                     {
                         sb.Append(CmsCharMap.Dot);
                     }
-                    sb.Append(c.Name).Append("</option>");
+                    sb.Append(c.Get().Name).Append("</option>");
                 }
             });
 

@@ -187,19 +187,20 @@ namespace T2.Cms.Domain.Implement.Site
 
         private void initSiteCategories()
         {
-            ICategory ic2 = this._categoryRep.CreateCategory(0, this);
+            ICategory ic = this._categoryRep.CreateCategory(0, this);
             CmsCategoryEntity cat = new CmsCategoryEntity();
             cat.Name = "根栏目";
             cat.Tag = "root";
             cat.SortNumber = 1;
-            cat.Lft = 1;
-            cat.Rgt = 2;
+            cat.ParentId = 0;
             cat.Description = "";
             cat.Icon = "";
             cat.Keywords = "";
             cat.Location = "";
-            cat.PageTitle = "";
-            cat.Save();
+            cat.Title = "";
+            Error err = ic.Set(cat);
+
+            ic.Save();
         }
 
         public ICategory RootCategory
@@ -512,7 +513,7 @@ namespace T2.Cms.Domain.Implement.Site
 
             var node = lft == 1 ?
                 new TreeNode(this.value.Name, "1", "javascript:;", true, "") :
-                new TreeNode(root.Get().Name, String.Format("{0}cid:{1},lft:1{3}", "{", root.Id.ToString(), "}"),
+                new TreeNode(root.Get().Name, String.Format("{0}cid:{1},lft:1{2}", "{", root.Id.ToString(), "}"),
                     "javascript:;", true, "");
 
             ItrNodeTree(node, root);

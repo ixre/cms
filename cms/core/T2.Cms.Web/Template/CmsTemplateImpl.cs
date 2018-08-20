@@ -1357,7 +1357,7 @@ namespace T2.Cms.Template
                     {
                         if (!onlyRoot || (onlyRoot && level == 0))
                         {
-                            if (c.ModuleId == moduleID)
+                            if (c.Get().ModuleId == moduleID)
                             {
                                 categories.Add(c);
                             }
@@ -1371,7 +1371,7 @@ namespace T2.Cms.Template
             StringBuilder sb = new StringBuilder(400);
             int i = 0;
 
-            foreach (ICategory c in categories.OrderBy(a => a.SortNumber ))
+            foreach (ICategory c in categories.OrderBy(a => a.Get().SortNumber ))
             {
                 sb.Append(TplEngine.FieldTemplate(format, field =>
                 {
@@ -1379,19 +1379,19 @@ namespace T2.Cms.Template
                     {
                         default: return String.Empty;
 
-                        case "name": return c.Name;
+                        case "name": return c.Get().Name;
 
                         //
                         //TODO:
                         //
                         //case "url": return this.GetCategoryUrl(c, 1);
-                        case "tag": return c.Tag;
+                        case "tag": return c.Get().Tag;
                         case "id": return c.Id.ToString();
 
                         //case "pid":  return c.PID.ToString();
 
-                        case "description": return c.Description;
-                        case "keywords": return c.Keywords;
+                        case "description": return c.Get().Description;
+                        case "keywords": return c.Get().Keywords;
                         case "class":
                             if (i == categories.Count - 1) return " class=\"last\"";
                             else if (i == 0) return " class=\"first\"";

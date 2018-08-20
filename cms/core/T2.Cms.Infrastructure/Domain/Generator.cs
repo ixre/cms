@@ -10,7 +10,7 @@ namespace T2.Cms.Infrastructure.Domain
         public static String Offset = "@cms.z3q.net";
         public static string Md5Pwd(string password, string offset)
         {
-            return (password + offset).Encode16MD5().EncodeMD5();
+            return (password + offset).MD516().EncodeMD5();
         }
 
         public static string Sha1Pwd(string password, string offset)

@@ -88,7 +88,7 @@ namespace T2.Cms.ServiceRepository
         public IList<IExtendValue> GetExtendFieldValues(IArchive archive)
         {
             int extendId;
-            int siteId = archive.Category.Site.GetAggregaterootId();
+            int siteId = archive.Category.Site().GetAggregaterootId();
             IDictionary<int, IExtendValue> extendValues = new Dictionary<int, IExtendValue>();
             foreach (IExtendField field in archive.Category.ExtendFields)
             {
@@ -160,7 +160,7 @@ namespace T2.Cms.ServiceRepository
         public void UpdateArchiveRelationExtendValues(IArchive archive)
         {
 
-            int siteId = archive.Category.Site.GetAggregaterootId();
+            int siteId = archive.Category.Site().GetAggregaterootId();
             //============ 更新 ============
             IDictionary<int, string> extendValues = new Dictionary<int, string>();
             IExtendField field;
@@ -224,7 +224,7 @@ namespace T2.Cms.ServiceRepository
 
         public int GetCategoryExtendRefrenceNum(ICategory category, int extendId)
         {
-            return this._extendDal.GetCategoryExtendRefrenceNum(category.Site.GetAggregaterootId(), category.Id, extendId);
+            return this._extendDal.GetCategoryExtendRefrenceNum(category.Site().GetAggregaterootId(), category.Id, extendId);
         }
 
 

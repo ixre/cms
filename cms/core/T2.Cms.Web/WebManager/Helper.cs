@@ -236,7 +236,7 @@ namespace T2.Cms.WebManager
                     {
                         sb.Append(CmsCharMap.Dot);
                     }
-                    sb.Append(category.Name).Append("</option>");
+                    sb.Append(category.Get().Name).Append("</option>");
                 //}
             });
 
@@ -278,7 +278,7 @@ namespace T2.Cms.WebManager
 //                    }
                 }
 
-                sb.Append(" ").Append(category.Name).Append("</option>");
+                sb.Append(" ").Append(category.Get().Name).Append("</option>");
             });
 
             return sb.ToString();
