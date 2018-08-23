@@ -29,7 +29,6 @@ namespace T2.Cms.DB
 
         private bool profileTrace(string action, string sql, DbParameter[] sqlParams, Exception exc)
         {
-
             DateTime dt = DateTime.Now;
             if (exc == null)
             {

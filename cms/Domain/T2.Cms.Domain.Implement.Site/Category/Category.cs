@@ -460,10 +460,57 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         }
 
-        public Error Set(CmsCategoryEntity category)
+        public Error Set(CmsCategoryEntity src)
         {
-            this.value = category;
+
+            if(this.value.ID <= 0)
+            {
+                if(src.SiteId <= 0)
+                {
+                    return new Error("参数错误:SiteId");
+                }
+                this.value.SiteId = src.SiteId;
+                this.value.Code = src.Code;
+                this.value.Path = "";
+                this.value.Flag = 0; //todo: 初始化flag
+                int maxSortNumber = this._rep.GetMaxSortNumber(this.value.SiteId);
+                if (maxSortNumber == 0) maxSortNumber = 1;
+                this.value.SortNumber = maxSortNumber;
+            }
+
+            if (!this._rep.CheckTagMatch(src.Tag,this.value.SiteId,this.value.ID))
+            {
+                return new Error("分类TAG已存在");
+            }
+
+            if(src.ParentId > 0)
+            {
+                ICategory ip = this._rep.GetCategoryById(src.ParentId);
+                if(ip == null || ip.Get().SiteId != this.value.SiteId)
+                {
+                    return new Error("上级分类不存在");
+                }
+            }
+            this.value.Tag = src.Tag;
+            if(this.value.ParentId != src.ParentId)
+            {
+                this.value.ParentId = src.ParentId;
+                this.parentChanged(src.ParentId);
+            }
+            this.value.Flag = src.Flag;
+            this.value.ModuleId = src.ModuleId;
+            this.value.Name = src.Name;
+            this.value.Icon = src.Icon;
+            this.value.Title = src.Title;
+            this.value.Keywords = src.Keywords;
+            this.value.Description = src.Description;
+            this.value.Location = src.Location;
             return null;
+        }
+
+        private void parentChanged(int parentId)
+        {
+           // throw new NotImplementedException();
         }
 
         public ISite Site()

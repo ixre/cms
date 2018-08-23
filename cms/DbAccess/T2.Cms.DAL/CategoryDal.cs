@@ -54,15 +54,20 @@ namespace T2.Cms.Dal
         public Error SaveCategory(CmsCategoryEntity category)
         {
             IDictionary<String, object> data = new Dictionary<string, object>();
-            data.Add("@siteId", category.SiteId);
-            data.Add("@name", category.Name);
             data.Add("@tag", category.Tag);
+            data.Add("@site_id", category.SiteId);
+            data.Add("@parent_id", category.ParentId);
+            data.Add("@code", category.Code);
+            data.Add("@path", category.Path);
+            data.Add("@flag", category.Flag);
+            data.Add("@module_id", category.ModuleId);
+            data.Add("@name", category.Name);
             data.Add("@icon", category.Icon);
-            data.Add("@pagetitle", category.Title);
-            data.Add("@keywords", category.Keywords);
-            data.Add("@description", category.Description);
+            data.Add("@page_title", category.Title);
+            data.Add("@page_keywords", category.Keywords);
+            data.Add("@page_description", category.Description);
             data.Add("@location", category.Location);
-            data.Add("@sortNumber", category.SortNumber);
+            data.Add("@sort_number", category.SortNumber);
             data.Add("@id", category.ID);
             if (category.ID <= 0)
             {
@@ -71,7 +76,7 @@ namespace T2.Cms.Dal
             }
             else
             {
-                base.ExecuteNonQuery(base.CreateQuery(DbSql.CategoryInsert, data));
+                base.ExecuteNonQuery(base.CreateQuery(DbSql.CategoryUpdate, data));
             }
             return null;
         }
@@ -182,6 +187,18 @@ namespace T2.Cms.Dal
             String sql = String.Format("UPDATE $PREFIX_category SET sort_number={0} WHERE id={1}",
                 sortNumber.ToString(), id.ToString());
             base.ExecuteNonQuery(base.NewQuery(sql,null));
+        }
+
+        public bool CheckTagMatch(string tag, int siteId, int catId)
+        {
+            const string sql = "SELECT id FROM $PREFIX_category WHERE site_id=@site_id AND tag=@tag AND id<>@id";
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@site_id", siteId);
+            data.Add("@tag", tag);
+            data.Add("@id",catId);
+            SqlQuery query = base.CreateQuery(String.Format(sql, siteId.ToString()),data);
+            object obj = base.ExecuteScalar(query);
+            return obj == null || obj == DBNull.Value;
         }
     }
 }
