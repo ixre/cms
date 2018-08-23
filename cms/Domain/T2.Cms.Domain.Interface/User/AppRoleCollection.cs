@@ -17,7 +17,12 @@ namespace T2.Cms.Domain.Interface.User
        }
        public int Id { get; set; }
 
-       public AppRolePair GetRole(int appId)
+        public int GetDomainId()
+        {
+            return this.Id;
+        }
+
+        public AppRolePair GetRole(int appId)
        {
            if (this._dict.ContainsKey(appId))
            {

@@ -187,7 +187,7 @@ namespace T2.Cms.Domain.Implement.Site
 
         private void initSiteCategories()
         {
-            ICategory ic = this._categoryRep.CreateCategory(0, this);
+            ICategory ic = this._categoryRep.CreateCategory(new CmsCategoryEntity());
             CmsCategoryEntity cat = new CmsCategoryEntity();
             cat.Name = "根栏目";
             cat.Tag = "root";
@@ -199,7 +199,6 @@ namespace T2.Cms.Domain.Implement.Site
             cat.Location = "";
             cat.Title = "";
             Error err = ic.Set(cat);
-
             ic.Save();
         }
 
@@ -228,7 +227,7 @@ namespace T2.Cms.Domain.Implement.Site
 
             foreach (ICategory c in this.Categories)
             {
-                if (c.Id == categoryId) return c;
+                if (c.GetDomainId() == categoryId) return c;
             }
             return null;
         }
@@ -292,7 +291,7 @@ namespace T2.Cms.Domain.Implement.Site
 
             foreach (ITemplateBind bind in category.Templates)
             {
-                this._tempRep.RemoveBind(bind.BindType, category.Id);
+                this._tempRep.RemoveBind(bind.BindType, category.GetDomainId());
             }
             this._categories = null;
 
@@ -388,7 +387,7 @@ namespace T2.Cms.Domain.Implement.Site
 
                     sb.Append("<img class=\"").Append(className)
                     .Append("\" src=\"public/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt parent\" cid=\"")
-                    .Append(category.Id.ToString()).Append("\" lft=\"")
+                    .Append(category.GetDomainId().ToString()).Append("\" lft=\"")
                     .Append(category.Lft.ToString()).Append("\">")
                     .Append(category.Get().Name).Append("</span></dt>");
                 }
@@ -423,7 +422,7 @@ namespace T2.Cms.Domain.Implement.Site
                     }
 
                     sb.Append("<img class=\"tree-item\" src=\"public/mui/css/old/sys_themes/default/icon_trans.png\" width=\"24\" height=\"24\"/><span class=\"txt archvie\" cid=\"")
-                        .Append(category.Id.ToString()).Append("\">").Append(category.Get().Name).Append("</span>");
+                        .Append(category.GetDomainId().ToString()).Append("\">").Append(category.Get().Name).Append("</span>");
                 }
             }
 
@@ -513,7 +512,7 @@ namespace T2.Cms.Domain.Implement.Site
 
             var node = lft == 1 ?
                 new TreeNode(this.value.Name, "1", "javascript:;", true, "") :
-                new TreeNode(root.Get().Name, String.Format("{0}cid:{1},lft:1{2}", "{", root.Id.ToString(), "}"),
+                new TreeNode(root.Get().Name, String.Format("{0}cid:{1},lft:1{2}", "{", root.GetDomainId().ToString(), "}"),
                     "javascript:;", true, "");
 
             ItrNodeTree(node, root);
@@ -528,7 +527,7 @@ namespace T2.Cms.Domain.Implement.Site
             ICategory root = this.RootCategory;
             var node = new TreeNode(this.value.Name, "0", "javascript:;", true, "");
             var rootNode = new TreeNode(root.Get().Name,
-                String.Format("{0}cid:{1},lft:{2}{3}", "{", root.Id.ToString(), root.Lft.ToString(), "}"),
+                String.Format("{0}cid:{1},lft:{2}{3}", "{", root.GetDomainId().ToString(), root.Lft.ToString(), "}"),
                 "javascript:;", true, "");
             node.childs.Add(rootNode);
             ItrNodeTree(rootNode, root);
@@ -541,7 +540,7 @@ namespace T2.Cms.Domain.Implement.Site
             foreach (ICategory c in list)
             {
                 var tNode = new TreeNode(c.Get().Name,
-                    String.Format("{0}cid:{1},lft:{2}{3}", "{", c.Id.ToString(), c.Lft.ToString(), "}"),
+                    String.Format("{0}cid:{1},lft:{2}{3}", "{", c.GetDomainId().ToString(), c.Lft.ToString(), "}"),
                     "javascript:;", true,
                     "");
                 node.childs.Add(tNode);

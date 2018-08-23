@@ -27,5 +27,10 @@
             get;
             set;
         }
+
+        public int GetDomainId()
+        {
+            return this.Id;
+        }
     }
 }

@@ -1386,7 +1386,7 @@ namespace T2.Cms.Template
                         //
                         //case "url": return this.GetCategoryUrl(c, 1);
                         case "tag": return c.Get().Tag;
-                        case "id": return c.Id.ToString();
+                        case "id": return c.GetDomainId().ToString();
 
                         //case "pid":  return c.PID.ToString();
 

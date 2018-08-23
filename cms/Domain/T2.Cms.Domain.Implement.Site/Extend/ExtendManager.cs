@@ -52,7 +52,7 @@ namespace T2.Cms.Domain.Implement.Site.Extend
             var i = list.Count;
             foreach (IExtendField e in list)
             {
-                if (e.Id == extendId) return e;
+                if (e.GetDomainId() == extendId) return e;
             }
             return null;
         }

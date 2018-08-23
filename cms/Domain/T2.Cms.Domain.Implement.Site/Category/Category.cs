@@ -26,24 +26,18 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private IList<ITemplateBind> _templates;
         private CmsCategoryEntity value;
         private ISite site;
+        private ISiteRepository siteRepo;
         private readonly ITemplateRepository _tempRep;
 
         internal Category(ICategoryRepository rep, IExtendFieldRepository extendRep,
-            ITemplateRepository tmpRep, int id, ISite site)
+            ITemplateRepository tmpRep,CmsCategoryEntity value)
         {
-            this.site = site;
+            this.value = value;
             this._rep = rep;
-            this.Id = id;
             this._extendRep = extendRep;
             this._tempRep = tmpRep;
         }
         
-        public int Id
-        {
-            get;
-            set;
-        }
-
         public int Lft
         {
             get;
@@ -108,7 +102,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         public int Save()
         {
-            if (this.Id <= 0)
+            if (this.GetDomainId() <= 0)
             {
                 this.SetAutoSortNumber();
             }
@@ -120,7 +114,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
             foreach (ITemplateBind templateBind in this.Templates)
             {
-                this._tempRep.SaveTemplateBind(templateBind, this.Id);
+                this._tempRep.SaveTemplateBind(templateBind, this.GetDomainId());
                 if (String.IsNullOrEmpty(templateBind.TplPath))
                 {
                     delBinds.Add(templateBind);
@@ -169,7 +163,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             get
             {
                 return _extendFields ?? (_extendFields = new List<IExtendField>(
-                    this._extendRep.GetExtendFields(this.Site().GetAggregaterootId(), this.Id)));
+                    this._extendRep.GetExtendFields(this.Site().GetAggregaterootId(), this.GetDomainId())));
             }
             set
             {
@@ -188,7 +182,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
                     foreach (IExtendField valueExtend in value)
                     {
-                        if (extend.Id == valueExtend.Id)
+                        if (extend.GetDomainId() == valueExtend.GetDomainId())
                         {
                             isExists = true;
                             break;
@@ -200,7 +194,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                         delList.Add(extend);
 
                         //验证是否被占用
-                        int usedNum = this._extendRep.GetCategoryExtendRefrenceNum(this, extend.Id);
+                        int usedNum = this._extendRep.GetCategoryExtendRefrenceNum(this, extend.GetDomainId());
                         if (usedNum > 0)
                         {
                             usedList.Add(extend);
@@ -237,7 +231,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     isExists = false;
                     foreach (IExtendField extend in this.ExtendFields)
                     {
-                        if (extend.Id == valueExtend.Id)
+                        if (extend.GetDomainId() == valueExtend.GetDomainId())
                         {
                             isExists = true;
                             break;
@@ -246,7 +240,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
                     if (!isExists)
                     {
-                        addList.Add(valueExtend.Id);
+                        addList.Add(valueExtend.GetDomainId());
                     }
                 }
 
@@ -387,7 +381,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 ICategory[] list = this.Parent.Childs.OrderBy(a=>a.Get().SortNumber).ToArray();
                 for (int i = 0; i < list.Length; i++)
                 {
-                    if (list[i].Id == this.Id && i !=0)
+                    if (list[i].GetDomainId() == this.GetDomainId() && i !=0)
                     {
                         this.SwapSortNumber(list[i - 1],true);
                         break;
@@ -406,7 +400,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 ICategory[] list = this.Parent.Childs.OrderBy(a => a.Get().SortNumber).ToArray();
                 for (int i = 0; i < list.Length; i++)
                 {
-                    if (list[i].Id == this.Id && i < list.Length - 1)
+                    if (list[i].GetDomainId() == this.GetDomainId() && i < list.Length - 1)
                     {
                         this.SwapSortNumber(list[i + 1],false);
                         break;
@@ -451,7 +445,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         /// </summary>
        public void SaveSortNumber()
         {
-            this._rep.SaveCategorySortNumber(this.Id,this.SortNumber);
+            this._rep.SaveCategorySortNumber(this.GetDomainId(),this.SortNumber);
         }
 
         public CmsCategoryEntity Get()
@@ -482,20 +476,19 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 return new Error("分类TAG已存在");
             }
-
-            if(src.ParentId > 0)
+            this.value.Tag = src.Tag;
+            if (src.ParentId > 0)
             {
                 ICategory ip = this._rep.GetCategoryById(src.ParentId);
                 if(ip == null || ip.Get().SiteId != this.value.SiteId)
                 {
                     return new Error("上级分类不存在");
                 }
-            }
-            this.value.Tag = src.Tag;
-            if(this.value.ParentId != src.ParentId)
-            {
-                this.value.ParentId = src.ParentId;
-                this.parentChanged(src.ParentId);
+                if (this.value.ParentId != src.ParentId)
+                {
+                    this.value.ParentId = src.ParentId;
+                    this.parentChanged(ip);
+                }
             }
             this.value.Flag = src.Flag;
             this.value.ModuleId = src.ModuleId;
@@ -508,18 +501,26 @@ namespace T2.Cms.Domain.Implement.Site.Category
             return null;
         }
 
-        private void parentChanged(int parentId)
+        private Error parentChanged(ICategory parent)
         {
+            this.value.Path = parent.UriPath + "/" + this.value.Tag;
+            this.value.Code = this.value.Path.GetHashCode().ToString();
+            return null;
            // throw new NotImplementedException();
         }
 
         public ISite Site()
         {
-            if(this.site == null)
+            if (this.site == null && this.value.SiteId > 0)
             {
-                this.site = null;
+                this.site = this.siteRepo.GetSiteById(this.value.SiteId);
             }
             return this.site;
+        }
+
+        public int GetDomainId()
+        {
+            return this.value.ID;
         }
     }
 }

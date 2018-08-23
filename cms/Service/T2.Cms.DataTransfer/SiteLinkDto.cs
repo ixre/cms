@@ -85,7 +85,7 @@ namespace T2.Cms.DataTransfer
             return new SiteLinkDto
             {
                 Bind = link.Bind,
-                Id = link.Id,
+                Id = link.GetDomainId(),
                 ImgUrl = link.ImgUrl,
                 SortNumber = link.SortNumber,
                 Pid = link.Pid,

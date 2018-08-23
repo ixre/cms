@@ -231,7 +231,7 @@ namespace T2.Cms.ServiceRepository
 
         public int SaveSiteLink(int siteId, ISiteLink link)
         {
-            if(link.Id <=0 )
+            if(link.GetDomainId() <=0 )
             {
                return linkDal.AddSiteLink(siteId, link);
             }

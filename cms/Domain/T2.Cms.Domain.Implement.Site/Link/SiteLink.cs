@@ -76,6 +76,10 @@ namespace T2.Cms.Domain.Implement.Site.Link
             set;
         }
 
+        public int GetDomainId()
+        {
+            return this.Id;
+        }
 
         public int Save()
         {

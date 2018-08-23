@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Site.Category
 {
     public interface ICategoryRepository
     {
-        ICategory CreateCategory(int categoryId,ISite site);
+        ICategory CreateCategory(CmsCategoryEntity value);
 
         int SaveCategory(ICategory category);
 

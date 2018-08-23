@@ -61,10 +61,10 @@ namespace T2.Cms.ServiceRepository
             //    bind = GetBind(TemplateBindType.ModuleCategoryTemplate, moduleID.ToString());
             //}
 
-           ITemplateBind bind=  this.GetBind(TemplateBindType.CategoryTemplate, category.Id);
+           ITemplateBind bind=  this.GetBind(TemplateBindType.CategoryTemplate, category.GetDomainId());
 
            if (bind != null) yield return bind;
-           bind= this.GetBind(TemplateBindType.CategoryArchiveTemplate, category.Id);
+           bind= this.GetBind(TemplateBindType.CategoryArchiveTemplate, category.GetDomainId());
            if (bind != null) yield return bind;
             
             /*
@@ -98,7 +98,7 @@ namespace T2.Cms.ServiceRepository
         {
             tpldal.SetBind(templateBind.BindType, bindRefrenceId, templateBind.TplPath);
             RepositoryDataCache.ClearTemplateBinds();
-            return templateBind.Id;
+            return templateBind.GetDomainId();
         }
 
 
