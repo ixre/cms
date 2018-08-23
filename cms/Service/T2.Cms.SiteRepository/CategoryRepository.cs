@@ -355,8 +355,14 @@ namespace T2.Cms.ServiceRepository
             return this.GetCategories(category.Site().GetAggregaterootId(), category.Lft, category.Rgt, CategoryContainerOption.SameLevelPrevious).FirstOrDefault();
         }
 
+        public int GetMaxSortNumber(int siteId)
+        {
+            return categoryDal.GetMaxCategoryId(siteId);
+        }
 
-
-
+        public bool CheckTagMatch(string tag, int siteId, int catId)
+        {
+            return categoryDal.CheckTagMatch(tag, siteId, catId);
+        }
     }
 }

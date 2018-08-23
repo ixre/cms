@@ -281,19 +281,19 @@ namespace T2.Cms.Sql
         /// 更新栏目
         /// </summary>
         public readonly string CategoryUpdate = @"
-                    UPDATE $PREFIX_category SET /*lft=@lft,rgt=@rgt,*/
-                    name=@name,tag=@tag,icon=@icon,page_title=@pagetitle,
-                    page_keywords=@keywords,page_description=@description,location=@location,
-                    sort_number=@sortNumber WHERE id=@id";
+                    UPDATE $PREFIX_category SET tag=@tag, site_id=@site_id, parent_id=@parent_id,
+                    code=@code, path=@path, flag=@flag,module_id=@module_id, name=@name, icon=@icon,
+                    page_title=@page_title, page_keywords=@page_keywords, page_description=@page_description, 
+                    location=@location, sort_number=@sort_number WHERE id=@id";
 
         /// <summary>
         /// 添加栏目
         /// </summary>
         public readonly string CategoryInsert = @"
-                    INSERT INTO $PREFIX_category(id,site_id,lft,rgt,name,tag,icon,page_title,
-                    page_keywords,page_description,location,sort_number)
-                    VALUES (@categoryId,@siteId,@lft,@rgt,@name,@tag,@icon,@pagetitle,
-                    @keywords,@description,@location,@sortNumber)";
+                    INSERT INTO $PREFIX_category (tag, site_id, parent_id, code, path, flag, 
+                    module_id, name, icon, page_title, page_keywords, page_description, 
+                    location, sort_number) VALUES(@tag,@site_id,@parent_id,@code,@path,@flag,@module_id,@name,
+                    @icon,@page_title,@page_keywords,@page_description,@location,@sort_number)";
 
         /// <summary>
         /// 获取子栏目的数量

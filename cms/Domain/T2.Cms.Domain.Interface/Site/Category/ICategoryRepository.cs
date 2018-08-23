@@ -57,5 +57,7 @@ namespace T2.Cms.Domain.Interface.Site.Category
 
         IEnumerable<ICategory> GetNextLevelChilds(ICategory category);
         void SaveCategorySortNumber(int id, int sortNumber);
+        int GetMaxSortNumber(int siteId);
+        bool CheckTagMatch(string tag, int siteId, int iD);
     }
 }
