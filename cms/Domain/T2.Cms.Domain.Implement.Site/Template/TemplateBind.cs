@@ -36,5 +36,10 @@ namespace T2.Cms.Domain.Implement.Site.Template
             get;
             set;
         }
+
+        public int GetDomainId()
+        {
+            return this.Id;
+        }
     }
 }

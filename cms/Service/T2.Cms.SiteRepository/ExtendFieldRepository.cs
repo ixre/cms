@@ -54,19 +54,20 @@ namespace T2.Cms.ServiceRepository
         public int SaveExtendField(int siteId, IExtendField extendField)
         {
 
-            if (extendField.Id > 0)
+            if (extendField.GetDomainId() > 0)
             {
                 _extendDal.UpdateExtendField(siteId, extendField);
             }
             else
             {
-                extendField.Id = _extendDal.AddExtendField(siteId, extendField);
+                //todo: fix
+               // extendField.GetDomainId() = _extendDal.AddExtendField(siteId, extendField);
             }
 
             //清理
             this.dicts = null;
 
-            return extendField.Id;
+            return extendField.GetDomainId();
         }
 
         public IExtendField GetExtendFieldById(int siteId, int extendId)
@@ -74,7 +75,7 @@ namespace T2.Cms.ServiceRepository
             IList<IExtendField> list = this.GetAllExtendsBySiteId(siteId);
             foreach (IExtendField extend in list)
             {
-                if (extend.Id == extendId) return extend;
+                if (extend.GetDomainId() == extendId) return extend;
             }
             return null;
         }
@@ -92,9 +93,9 @@ namespace T2.Cms.ServiceRepository
             IDictionary<int, IExtendValue> extendValues = new Dictionary<int, IExtendValue>();
             foreach (IExtendField field in archive.Category.ExtendFields)
             {
-                if (!extendValues.Keys.Contains(field.Id))
+                if (!extendValues.Keys.Contains(field.GetDomainId()))
                 {
-                    extendValues.Add(field.Id, this.CreateExtendValue(field, -1, null));
+                    extendValues.Add(field.GetDomainId(), this.CreateExtendValue(field, -1, null));
                 }
             }
 
@@ -106,7 +107,7 @@ namespace T2.Cms.ServiceRepository
 
                     if (extendValues.ContainsKey(extendId))
                     {
-                        extendValues[extendId].Id = int.Parse(rd["id"].ToString());
+                        //extendValues[extendId].Id = int.Parse(rd["id"].ToString());  //todo:fix
                         extendValues[extendId].Value = rd["field_value"].ToString().Replace("\n", "<br />");
                     }
 
@@ -151,7 +152,7 @@ namespace T2.Cms.ServiceRepository
             int[] ids = this._extendDal.GetCategoryExtendIdList(siteId, categoryId);
             foreach (IExtendField field in list)
             {
-                if (field != null && Array.Exists(ids, a => a == field.Id))
+                if (field != null && Array.Exists(ids, a => a == field.GetDomainId()))
                     yield return field;
             }
         }
@@ -166,11 +167,11 @@ namespace T2.Cms.ServiceRepository
             IExtendField field;
             foreach (IExtendValue value in archive.ExtendValues)
             {
-                field = this.GetExtendFieldById(siteId, value.Field.Id);
+                field = this.GetExtendFieldById(siteId, value.Field.GetDomainId());
 
                 //如果为默认数据，也要填写进去,以免模板获取不到
                 if (value.Value != null)
-                    extendValues.Add(value.Field.Id,
+                    extendValues.Add(value.Field.GetDomainId(),
                         //value.Value == field.DefaultValue ? String.Empty : value.Value);
                         value.Value);
             }
@@ -221,10 +222,10 @@ namespace T2.Cms.ServiceRepository
         }
 
 
-
+        
         public int GetCategoryExtendRefrenceNum(ICategory category, int extendId)
         {
-            return this._extendDal.GetCategoryExtendRefrenceNum(category.Site().GetAggregaterootId(), category.Id, extendId);
+            return this._extendDal.GetCategoryExtendRefrenceNum(category.Site().GetAggregaterootId(), category.GetDomainId(), extendId);
         }
 
 
@@ -233,12 +234,12 @@ namespace T2.Cms.ServiceRepository
             IList<int> extendIds = new List<int>();
             foreach (IExtendField field in category.ExtendFields)
             {
-                if (!extendIds.Contains(field.Id))
+                if (!extendIds.Contains(field.GetDomainId()))
                 {
-                    extendIds.Add(field.Id);
+                    extendIds.Add(field.GetDomainId());
                 }
             }
-            this._extendDal.UpdateCategoryExtendsBind(category.Id, extendIds.ToArray());
+            this._extendDal.UpdateCategoryExtendsBind(category.GetDomainId(), extendIds.ToArray());
         }
 
 

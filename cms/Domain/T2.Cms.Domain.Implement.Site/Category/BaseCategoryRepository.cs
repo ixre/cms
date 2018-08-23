@@ -2,6 +2,7 @@
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Implement.Site.Category
 {
@@ -23,10 +24,9 @@ namespace T2.Cms.Domain.Implement.Site.Category
             ICategoryRepository categoryRep,
             IExtendFieldRepository extendRep,
             ITemplateRepository tempRep,
-            int categoryId,
-            ISite site)
+            CmsCategoryEntity value)
         {
-            return new Category(categoryRep, extendRep, tempRep,categoryId, site);
+            return new Category(categoryRep, extendRep, tempRep,value);
         }
     }
 }

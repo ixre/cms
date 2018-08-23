@@ -72,7 +72,7 @@ new object[,]{
                         {"@regex", field.Regex},
                         {"@defaultValue", field.DefaultValue},
                         {"@message",field.Message},
-                        {"@id", field.Id}
+                        {"@id", field.GetDomainId()}
                      }))
                 );
             return rowcount == 1;

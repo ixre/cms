@@ -281,7 +281,7 @@ namespace T2.Cms.Web
                         if (!String.IsNullOrEmpty(value.Value))
                         {
                             sb.Append("<li class=\"extend_")
-                               .Append(value.Field.Id.ToString()).Append("\"><span class=\"attrName\">")
+                               .Append(value.Field.GetDomainId().ToString()).Append("\"><span class=\"attrName\">")
                                 .Append(value.Field.Name).Append(":</span><span class=\"value\">")
                                 .Append(value.Value).Append("</span></li>");
                         }

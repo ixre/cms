@@ -128,5 +128,10 @@ namespace T2.Cms.DataTransfer
         public string CategoryTemplate { get; set; }
 
         public string CategoryArchiveTemplate { get; set; }
+
+        /// <summary>
+        /// 上级编号
+        /// </summary>
+        public int ParentId { get; set; }
     }
 }

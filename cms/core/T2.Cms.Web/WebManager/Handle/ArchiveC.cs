@@ -334,30 +334,31 @@ namespace T2.Cms.Web.WebManager.Handle
             switch (uiType)
             {
                 case PropertyUI.Text:
-                    sb.Append("<input type=\"text\" class=\"w300 ui-box\" field=\"extend_").Append(field.Id.ToString())
+                    sb.Append("<input type=\"text\" class=\"w300 ui-box\" field=\"extend_").Append(field.GetDomainId().ToString())
                         .Append("\" value=\"").Append(attrValue).Append("\"/>");
                     break;
 
                 case PropertyUI.MultLine:
-                    sb.Append("<textarea class=\"w300 ui-box\" field=\"extend_").Append(field.Id.ToString())
+                    sb.Append("<textarea class=\"w300 ui-box\" field=\"extend_").Append(field.GetDomainId().ToString())
                         .Append("\">").Append(attrValue).Append("</textarea>");
                     break;
 
                 case PropertyUI.Integer:
                     sb.Append("<input type=\"text\" class=\"w300 ui-box ui-validate\" isnum=\"true\" field=\"extend_")
-                        .Append(field.Id.ToString()).Append("\" value=\"").Append(attrValue).Append("\"/>");
+                        .Append(field.GetDomainId().ToString()).Append("\" value=\"").Append(attrValue).Append("\"/>");
                     break;
 
                 case PropertyUI.Upload:
                     // sb.Append("<input type=\"text\" disabled=\"disabled\" class=\"tb_normal\" id=\"extend_").Append(field.ID.ToString())
                     sb.Append("<input type=\"text\" class=\"w300 ui-box upload_value\" id=\"extend_")
-                        .Append(field.Id.ToString())
-                        .Append("\" field=\"extend_").Append(field.Id.ToString())
+                        .Append(field.GetDomainId().ToString())
+                        .Append("\" field=\"extend_").Append(field.GetDomainId().ToString())
                         .Append("\" value=\"").Append(attrValue).Append("\"/>&nbsp;&nbsp;<span class=\"ui-button w80 middle-button\" id=\"upload_")
-                        .Append(field.Id.ToString()).Append("\"><span class=\" button-inner\"><span class=\"button-txt\">选择文件</span>")
+                        .Append(field.GetDomainId().ToString()).Append("\"><span class=\" button-inner\"><span class=\"button-txt\">选择文件</span>")
                         .Append("<a href=\"javascript:;\"></a></span></span>")
                         .Append("<script type=\"text/javascript\">jr.propertyUpload(")
-                        .Append("'upload_").Append(field.Id.ToString()).Append("','extend_").Append(field.Id.ToString())
+                        .Append("'upload_").Append(field.GetDomainId().ToString()).Append("','extend_")
+                        .Append(field.GetDomainId().ToString())
                         .Append("');</script>");
                     break;
             }

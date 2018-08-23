@@ -263,7 +263,7 @@ namespace T2.Cms.Web.WebManager.Handle
             {
                 if (c.Lft != categoryId)
                 {
-                    sb.Append("<option value=\"").Append(c.Id.ToString()).Append("\">");
+                    sb.Append("<option value=\"").Append(c.GetDomainId().ToString()).Append("\">");
                     for (var i = 0; i < level; i++)
                     {
                         sb.Append(CmsCharMap.Dot);

@@ -114,7 +114,7 @@ namespace T2.Cms.ServiceRepository
         public int SaveArchive(IArchive archive)
         {
             int siteId = archive.Category.Site().GetAggregaterootId();
-            int categoryId = archive.Category.Id;
+            int categoryId = archive.Category.GetDomainId();
 
             if (archive.Thumbnail == null)
             {

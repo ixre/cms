@@ -15,9 +15,8 @@ namespace T2.Cms.Domain.Interface
 	public interface IDomain<T>
 	{
         /// <summary>
-        /// 编号
+        /// 获取领域对象编号
         /// </summary>
-        T Id { get; set; }
-
+        T GetDomainId();
 	}
 }

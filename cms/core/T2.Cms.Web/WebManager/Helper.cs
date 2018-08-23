@@ -255,9 +255,9 @@ namespace T2.Cms.WebManager
                 {
                     sb.Append(" last");
                 }
-                sb.Append("\" value=\"").Append(category.Id.ToString()).Append("\"");
+                sb.Append("\" value=\"").Append(category.GetDomainId().ToString()).Append("\"");
 
-                if (category.Id == categoryId)
+                if (category.GetDomainId() == categoryId)
                 {
                     sb.Append(" selected=\"selected\"");
                 }

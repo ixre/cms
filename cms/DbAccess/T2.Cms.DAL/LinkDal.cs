@@ -66,7 +66,7 @@ namespace T2.Cms.Dal
                 {"@Target", link.Target},
                 {"@sortNumber", link.SortNumber},
                 {"@visible",link.Visible},
-                {"@LinkId",link.Id},
+                {"@LinkId",link.GetDomainId()},
                 {"@bind",link.Bind}
                     })));
         }

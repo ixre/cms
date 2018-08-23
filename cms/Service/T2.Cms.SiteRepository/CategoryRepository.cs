@@ -80,10 +80,7 @@ namespace T2.Cms.ServiceRepository
                     category.Tag = Convert.ToString(rd["tag"]);
                     category.SortNumber = Convert.ToInt32(rd["sort_number"]);
 
-                    ic = this.CreateCategory(
-                        int.Parse(rd["id"].ToString()),
-                        _siteRep.GetSiteById(int.Parse(rd["site_id"].ToString()))
-                        );
+                    ic = this.CreateCategory(category);
                     if (ic.Site() != null)
                     {
                         categories.Add(ic);
@@ -116,7 +113,7 @@ namespace T2.Cms.ServiceRepository
                 */
 
                 //添加Id映射
-                key = this.catIdKey(_category.Site().GetAggregaterootId(), _category.Id);
+                key = this.catIdKey(_category.Site().GetAggregaterootId(), _category.GetDomainId());
                 Kvdb.PutInt(key,_category.Lft);
 
             }
@@ -221,9 +218,9 @@ namespace T2.Cms.ServiceRepository
             return null;
         }
 
-        public ICategory CreateCategory(int categoryId, ISite site)
+        public ICategory CreateCategory(CmsCategoryEntity value)
         {
-            return base.CreateCategory(this, this._extendRep, this._tempRep, categoryId, site);
+            return base.CreateCategory(this, this._extendRep, this._tempRep,value);
         }
 
         public IList<ICategory> GetCategories(int siteId)

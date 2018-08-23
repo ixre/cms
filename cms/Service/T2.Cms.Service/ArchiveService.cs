@@ -64,7 +64,7 @@ namespace T2.Cms.Service
                 archive = ic.GetArchiveById(archiveDto.Id);
 
                 //修改栏目
-                if (archiveDto.Category.Id != archive.Category.Id)
+                if (archiveDto.Category.Id != archive.Category.GetDomainId())
                 {
                     ISite site = this._siteRep.GetSiteById(siteId);
                     archive.Category = site.GetCategory(archiveDto.Category.Id);
@@ -150,7 +150,7 @@ namespace T2.Cms.Service
                 //archive = new ArchiveDto().CloneData(ia);
                 //archive.ID = ia.ID;
 
-                if (!categories.TryGetValue(categoryId = ia.Category.Id, out cateDto))
+                if (!categories.TryGetValue(categoryId = ia.Category.GetDomainId(), out cateDto))
                 {
                     cateDto = CategoryDto.ConvertFrom(ia.Category);
                     categories.Add(categoryId, cateDto);

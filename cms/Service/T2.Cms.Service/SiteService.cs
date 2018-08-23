@@ -119,7 +119,7 @@ namespace T2.Cms.Service
             foreach (IExtendField extend in extends)
             {
                 dto = new ExtendFieldDto().CloneData(extend);
-                dto.Id = extend.Id;
+                dto.Id = extend.GetDomainId();
                 yield return dto;
             }
         }
@@ -213,15 +213,14 @@ namespace T2.Cms.Service
         {
             ISite site = this._resp.GetSiteById(siteId);
             ICategory ic = null;
-            if (category.Lft > 0)
-            {
-                ic = site.GetCategoryByLft(category.Lft);
+            if(category.Id > 0) {
+                ic = site.GetCategory(category.Id);
             }
-            if (ic == null) ic = _categoryRep.CreateCategory(-1, site);
-            ic.Id = category.Id;
-            CmsCategoryEntity cat = ic.Get();
+            if (ic == null) ic = _categoryRep.CreateCategory(new CmsCategoryEntity());
+            CmsCategoryEntity cat = new CmsCategoryEntity();
             cat.Keywords = category.Keywords;
             cat.Description = category.Description;
+            cat.ParentId = category.ParentId;
             cat.Tag = category.Tag;
             cat.Icon = category.Icon;
             cat.Name = category.Name;
@@ -256,7 +255,7 @@ namespace T2.Cms.Service
                         TemplateBindType.CategoryTemplate,
                         category.CategoryTemplate);
 
-                bind.BindRefrenceId = ic.Id;
+                bind.BindRefrenceId = ic.GetDomainId();
                 ic.Templates.Add(bind);
             }
 
@@ -267,7 +266,7 @@ namespace T2.Cms.Service
                         TemplateBindType.CategoryArchiveTemplate,
                         category.CategoryArchiveTemplate);
 
-                bind.BindRefrenceId = ic.Id;
+                bind.BindRefrenceId = ic.GetDomainId();
 
                 ic.Templates.Add(bind);
             }
@@ -378,7 +377,7 @@ namespace T2.Cms.Service
             //            {
             //                return false;
             //            }
-            return category.Id == categoryId;
+            return category.GetDomainId() == categoryId;
 
         }
 

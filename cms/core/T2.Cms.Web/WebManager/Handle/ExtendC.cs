@@ -47,7 +47,7 @@ namespace T2.Cms.Web.WebManager.Handle
 
             foreach (IExtendField extend in category.ExtendFields)
             {
-                extendIds.Add(extend.Id);
+                extendIds.Add(extend.GetDomainId());
             }
 
             string json = JsonSerializer.Serialize(list);
