@@ -29,13 +29,14 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private ISiteRepository siteRepo;
         private readonly ITemplateRepository _tempRep;
 
-        internal Category(ICategoryRepository rep, IExtendFieldRepository extendRep,
-            ITemplateRepository tmpRep,CmsCategoryEntity value)
+        internal Category(ICategoryRepository rep, ISiteRepository siteRepo,
+            IExtendFieldRepository extendRep,ITemplateRepository tmpRep,CmsCategoryEntity value)
         {
             this.value = value;
             this._rep = rep;
             this._extendRep = extendRep;
             this._tempRep = tmpRep;
+            this.siteRepo = siteRepo;
         }
         
         public int Lft

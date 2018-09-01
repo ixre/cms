@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace T2.Cms.Domain.Interface.Site.Category
@@ -179,6 +180,57 @@ namespace T2.Cms.Domain.Interface.Site.Category
                     yield return c1;
                 }
             }
+        }
+
+        public static IEnumerable<ICategory> GetCategories(int catId, IList<ICategory> list, CategoryContainerOption option)
+        {
+            return list;
+            /*
+            //如果在初始化,则直接用静态变量
+            switch (option)
+            {
+                case CategoryContainerOption.Childs:
+                    if (rgt - lft == 1)
+                    {
+                        return new List<ICategory>();
+                    }
+                    else
+                    {
+                        // return _categories.Where(a => a.Lft > lft && a.Rgt < lft);
+                        return _categories.Where(a => a.Lft > lft && a.Rgt < rgt);
+                    }
+
+                case CategoryContainerOption.ChildsAndSelf:
+                    //return _categories.Where(a => a.Lft >= lft && a.Rgt <= lft);
+                    return _categories.Where(a => a.Lft >= lft && a.Rgt <= rgt);
+
+                case CategoryContainerOption.Parents:
+                    return _categories.Where(a => a.Lft < lft && a.Rgt > rgt && a.Lft != 1);
+
+                case CategoryContainerOption.ParentsAndSelf:
+                    return _categories.Where(a => a.Lft <= lft && a.Rgt >= rgt && a.Lft != 1);
+
+                case CategoryContainerOption.NextLevel:
+             
+                    if (rgt - lft == 1)
+                    {
+                        return new List<ICategory>();
+                    }
+                    else
+                    {
+                        return GetNextLevelCategories(_categories.Where(a => a.Lft > lft && a.Rgt < rgt));
+                    }
+                case CategoryContainerOption.SameLevel:
+                    return GetSameLevelCategories(lft, rgt, _categories);
+
+                case CategoryContainerOption.SameLevelNext:
+                    return GetSameLevelNextCategories(lft, rgt, _categories);
+
+                case CategoryContainerOption.SameLevelPrevious:
+                    return GetSameLevelPreviousCategories(lft, rgt, _categories);
+
+            }
+            return null;*/
         }
     }
 }

@@ -410,7 +410,7 @@ namespace T2.Cms.Template
                     CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, param);
                     if (category.Id > 0)
                     {
-                        categories1 = ServiceCall.Instance.SiteService.GetCategories(this.SiteId, category.Lft, category.Rgt, CategoryContainerOption.NextLevel);
+                        categories1 = ServiceCall.Instance.SiteService.GetCategories(this.SiteId, category.Id, CategoryContainerOption.NextLevel);
                     }
                     else
                     {
@@ -1310,7 +1310,7 @@ namespace T2.Cms.Template
                 }
 
                 categories = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(this.SiteId,
-                    category.Lft, category.Rgt, CategoryContainerOption.NextLevel));
+                    category.Id, CategoryContainerOption.NextLevel));
 
                 //如果没有下级了,则获取当前级
                 //if (categories.Count == 0)
@@ -2440,10 +2440,7 @@ namespace T2.Cms.Template
             }
 
             IList<CategoryDto> childs = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(
-                this.SiteId,
-                category.Lft,
-                category.Rgt,
-                CategoryContainerOption.NextLevel));
+                this.SiteId,category.Id,CategoryContainerOption.NextLevel));
 
 
             if (childs.Count != 0)

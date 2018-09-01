@@ -88,11 +88,10 @@ namespace T2.Cms.ServiceContract
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
+        /// <param name="catId"></param>
         /// <param name="categoryContainerOption"></param>
         /// <returns></returns>
-        IEnumerable<CategoryDto> GetCategories(int siteId,int lft, int rgt, 
+        IEnumerable<CategoryDto> GetCategories(int siteId,int catId, 
             CategoryContainerOption categoryContainerOption);
 
         /// <summary>
@@ -131,9 +130,9 @@ namespace T2.Cms.ServiceContract
         /// 处理树型栏目
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="lft"></param>
+        /// <param name="parentId"></param>
         /// <param name="treeHandler"></param>
-        void HandleCategoryTree(int siteId,int lft, CategoryTreeHandler treeHandler);
+        void HandleCategoryTree(int siteId,int parentId, CategoryTreeHandler treeHandler);
 
         /// <summary>
         /// 保存分类，并返回分类的编号
