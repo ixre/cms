@@ -32,7 +32,7 @@ namespace T2.Cms.Domain.Interface.Site.Category
 
         IList<ICategory> GetCategories(int siteId);
 
-        IEnumerable<ICategory> GetCategories(int siteId, int lft, int rgt, CategoryContainerOption option);
+        IEnumerable<ICategory> GetCategories(int siteId, int catId, CategoryContainerOption option);
 
         IEnumerable<ICategory> GetChilds(ICategory category);
 

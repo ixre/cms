@@ -234,9 +234,9 @@ namespace T2.Cms.Domain.Implement.Site
 
 
 
-        public IEnumerable<ICategory> GetCategories(int lft, int rgt, CategoryContainerOption option)
+        public IEnumerable<ICategory> GetCategories(int catId, CategoryContainerOption option)
         {
-            return this._categoryRep.GetCategories(this.GetAggregaterootId(), lft, rgt, option);
+            return this._categoryRep.GetCategories(this.GetAggregaterootId(),catId, option);
         }
 
         public ICategory GetCategoryByTag(string categoryTag)
@@ -299,24 +299,23 @@ namespace T2.Cms.Domain.Implement.Site
         }
 
 
-        public void ItreCategoryTree(StringBuilder sb, int categoryLft)
+        public void ItreCategoryTree(StringBuilder sb, int catId)
         {
+            /*
 
             //
             //TODO:需要重构
             //
 
-            int lft = categoryLft, rgt;
-            ICategory category = this.GetCategoryByLft(categoryLft);
-            rgt = category.Rgt;
-            int level = this.GetCategories(lft, rgt, CategoryContainerOption.Parents).Count();
+            ICategory category = this.GetCategory(catId);
+            int level = this.GetCategories(catId, CategoryContainerOption.Parents).Count();
 
             //if (level >= 2) return;  //到2级就跳过了
             bool iscollage = level >= 2;
 
-            if (lft != 1) sb.Append("<dd>");
+           // if (lft != 1) sb.Append("<dd>");
 
-            IEnumerable<ICategory> cates = this.GetCategories(lft, rgt, CategoryContainerOption.NextLevel);
+            IEnumerable<ICategory> cates = this.GetCategories(catId, CategoryContainerOption.NextLevel);
             ICategory nextCategory = category.Next;
             ICategory tempCategory = null;
             ICategory parentNextCategory = null;
@@ -430,40 +429,16 @@ namespace T2.Cms.Domain.Implement.Site
             {
                 sb.Append("</dd>");
             }
+            */
         }
 
 
-        public void HandleCategoryTree(int lft, CategoryTreeHandler treeHandler)
+        public void HandleCategoryTree(int parentId, CategoryTreeHandler treeHandler)
         {
-            /*
-              * 好吧，现在整个树都在一个查询中了。现在就要像前面的递归函数那样显示这个树，
-              * 我们要加入一个ORDER BY子句在这个查询中。如果你从表中添加和删除行，你的表可能就顺序不对了，
-              * 我们因此需要按照他们的左值来进行排序。
-              * 
-              * SELECT * FROM tree WHERE lft BETWEEN 2 AND 11 ORDER BY lft ASC;
-              * 
-              * 就只剩下缩进的问题了。要显示树状结构，子节点应该比他们的父节点稍微缩进一些。
-              * 我们可以通过保存一个右值的一个栈。每次你从一个节点的子节点开始时，
-              * 你把这个节点的右值 添加到栈中。你也知道子节点的右值都比父节点的右值小，
-              * 这样通过比较当前节点和栈中的前一个节点的右值，你可以判断你是不是在
-              * 显示这个父节点的子节点。当你显示完这个节点，你就要把他的右值从栈中删除。
-              * 要获得当前节点的层数，只要数一下栈中的元素。
-              * 
-              * 
-              */
-
             IList<int> arr = new List<int>();
-
-            // 获得root节点的左边和右边的值
-            ICategory root = this.GetCategoryByLft(lft);
-
-            if (root == null) throw new Exception("栏目不存在!");
-
-            var rootLft = root.Lft;
-            var rootRgt = root.Rgt;
-
+           
             //获取root节点的所有子节点
-            IEnumerable<ICategory> childNodes = this.GetCategories(root.Lft, root.Rgt, CategoryContainerOption.Childs);
+            IEnumerable <ICategory> childNodes = this.GetCategories(parentId, CategoryContainerOption.Childs);
             /* SELECT * FROM tree WHERE lft BETWEEN @rootLft AND @rootRgt ORDER BY lft ASC'); */
             int tmpInt = 0;
             var categories = childNodes as ICategory[] ?? childNodes.ToArray();
@@ -481,23 +456,13 @@ namespace T2.Cms.Domain.Implement.Site
                         if (arr.Count == 0) break;
                     }
                 }
-
-
                 //树的层级= 列表arr的数量
                 treeHandler(c, arr.Count,++tmpInt ==totalInt );
 
                 //把所有栏目的右值,再加入到列表中
                 arr.Add(c.Rgt);
             }
-
-
-            // int right = left + 1;
-
-            //func(category);
-            // foreach (Category c in this.GetCategories(a => a.PID == category.ID))
-            // {
-            //    Foreach(c, func);
-            // }
+            
         }
 
         /// <summary>

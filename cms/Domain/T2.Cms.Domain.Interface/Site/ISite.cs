@@ -107,7 +107,7 @@ namespace T2.Cms.Domain.Interface.Site
         /// <returns></returns>
         ICategory GetCategoryByName(string categoryName);
 
-        IEnumerable<ICategory> GetCategories(int lft, int rgt, CategoryContainerOption option);
+        IEnumerable<ICategory> GetCategories(int catId, CategoryContainerOption option);
 
         ICategory GetCategoryByLft(int lft);
 
@@ -117,15 +117,15 @@ namespace T2.Cms.Domain.Interface.Site
         /// 迭代栏目树
         /// </summary>
         /// <param name="sb"></param>
-        /// <param name="categoryLft"></param>
-        void ItreCategoryTree(StringBuilder sb, int categoryLft);
+        /// <param name="catId"></param>
+        void ItreCategoryTree(StringBuilder sb, int catId);
 
         /// <summary>
         /// 处理分类树
         /// </summary>
-        /// <param name="lft"></param>
+        /// <param name="parentId"></param>
         /// <param name="treeHandler"></param>
-        void HandleCategoryTree(int lft, CategoryTreeHandler treeHandler);
+        void HandleCategoryTree(int parentId, CategoryTreeHandler treeHandler);
 
         /// <summary>
         /// 获取栏目树

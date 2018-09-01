@@ -169,13 +169,12 @@ namespace T2.Cms.Service
         }
 
         public IEnumerable<CategoryDto> GetCategories(
-            int siteId, int lft, int rgt,
+            int siteId, int catId,
             CategoryContainerOption categoryContainerOption)
         {
             ISite site = this._resp.GetSiteById(siteId);
             IEnumerable<ICategory> categories =
-                site.GetCategories(lft, rgt, categoryContainerOption);
-            CategoryDto Bdto;
+                site.GetCategories(catId, categoryContainerOption);
             foreach (ICategory category in categories)
             {
                 yield return CategoryDto.ConvertFrom(category);
@@ -202,10 +201,10 @@ namespace T2.Cms.Service
 
 
 
-        public void HandleCategoryTree(int siteId, int lft, CategoryTreeHandler treeHandler)
+        public void HandleCategoryTree(int siteId, int parentId, CategoryTreeHandler treeHandler)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            site.HandleCategoryTree(lft, treeHandler);
+            site.HandleCategoryTree(parentId, treeHandler);
         }
 
 

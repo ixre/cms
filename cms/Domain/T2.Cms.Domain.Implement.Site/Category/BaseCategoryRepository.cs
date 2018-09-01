@@ -22,11 +22,12 @@ namespace T2.Cms.Domain.Implement.Site.Category
         /// <returns></returns>
         public ICategory CreateCategory(
             ICategoryRepository categoryRep,
+             ISiteRepository siteRepo,
             IExtendFieldRepository extendRep,
             ITemplateRepository tempRep,
             CmsCategoryEntity value)
         {
-            return new Category(categoryRep, extendRep, tempRep,value);
+            return new Category(categoryRep,siteRepo, extendRep, tempRep,value);
         }
     }
 }

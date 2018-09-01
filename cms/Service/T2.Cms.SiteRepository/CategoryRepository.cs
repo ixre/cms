@@ -78,8 +78,12 @@ namespace T2.Cms.ServiceRepository
                     category.Location = Convert.ToString(rd["location"]);
                     category.Name = Convert.ToString(rd["name"]);
                     category.Tag = Convert.ToString(rd["tag"]);
+                    category.ParentId = Convert.ToInt32(rd["parent_id"]);
+                    category.SiteId = Convert.ToInt32(rd["site_id"]);
+                    category.Flag = Convert.ToInt32(rd["flag"]);
+                    category.Path = Convert.ToString(rd["path"]);
                     category.SortNumber = Convert.ToInt32(rd["sort_number"]);
-
+                
                     ic = this.CreateCategory(category);
                     if (ic.Site() != null)
                     {
@@ -220,7 +224,7 @@ namespace T2.Cms.ServiceRepository
 
         public ICategory CreateCategory(CmsCategoryEntity value)
         {
-            return base.CreateCategory(this, this._extendRep, this._tempRep,value);
+            return base.CreateCategory(this,this._siteRep, this._extendRep, this._tempRep,value);
         }
 
         public IList<ICategory> GetCategories(int siteId)
@@ -231,11 +235,12 @@ namespace T2.Cms.ServiceRepository
         }
 
 
-        public IEnumerable<ICategory> GetCategories(int siteId, int lft, int rgt, CategoryContainerOption option)
+        public IEnumerable<ICategory> GetCategories(int siteId, int catId, CategoryContainerOption option)
         {
             if (!this.Categories.ContainsKey(siteId))
                 throw new Exception("站点无栏目!");
-            return CategoryFilter.GetCategories(lft, rgt, this.Categories[siteId], option);
+            // return CategoryFilter.GetCategories(lft, rgt, this.Categories[siteId], option);
+            return CategoryFilter.GetCategories(catId, this.Categories[siteId], option);
         }
 
 
@@ -344,12 +349,18 @@ namespace T2.Cms.ServiceRepository
 
         public ICategory GetNext(ICategory category)
         {
+            /*
             return this.GetCategories(category.Site().GetAggregaterootId(), category.Lft, category.Rgt, CategoryContainerOption.SameLevelNext).FirstOrDefault();
+            */
+            return null;
         }
 
         public ICategory GetPrevious(ICategory category)
         {
+            return null;
+            /*
             return this.GetCategories(category.Site().GetAggregaterootId(), category.Lft, category.Rgt, CategoryContainerOption.SameLevelPrevious).FirstOrDefault();
+            */
         }
 
         public int GetMaxSortNumber(int siteId)
