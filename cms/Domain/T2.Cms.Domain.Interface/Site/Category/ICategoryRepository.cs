@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using T2.Cms.Infrastructure;
 using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Site.Category
@@ -7,7 +8,7 @@ namespace T2.Cms.Domain.Interface.Site.Category
     {
         ICategory CreateCategory(CmsCategoryEntity value);
 
-        int SaveCategory(ICategory category);
+        Error SaveCategory(CmsCategoryEntity category);
 
         //ICategory GetCategoryById(int siteId,int categoryId);
 
@@ -24,9 +25,9 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// 根据SiteId和tag获取栏目Left
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="tag"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        ICategory GetCategoryByTag(int siteId, string tag);
+        ICategory GetCategoryByPath(int siteId, string path);
 
         int GetCategoryLftById(int siteId, int id);
 
