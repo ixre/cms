@@ -49,7 +49,7 @@ namespace T2.Cms.ServiceRepository
             {
                 if (RepositoryDataCache._categories == null)
                 {
-                    GetCategoryDictionary();
+                    InitCategoryDictionary();
                 }
                 return RepositoryDataCache._categories;
             }
@@ -59,7 +59,7 @@ namespace T2.Cms.ServiceRepository
         /// <summary>
         /// 加载分类词典
         /// </summary>
-        private void GetCategoryDictionary()
+        private void InitCategoryDictionary()
         {
 
             RepositoryDataCache._categories = new Dictionary<int, IList<ICategory>>();
@@ -71,6 +71,7 @@ namespace T2.Cms.ServiceRepository
                 while (rd.Read())
                 {
                     CmsCategoryEntity category = new CmsCategoryEntity();
+                    category.ID = Convert.ToInt32(rd["id"]);
                     category.Title = (rd["page_title"] ?? "").ToString();
                     category.Description = (rd["page_description"] ?? "").ToString();
                     category.Icon = Convert.ToString(rd["icon"]);
@@ -144,14 +145,14 @@ namespace T2.Cms.ServiceRepository
             this.ChkPreload();
             string key = this.catTagKey(siteId,tag);
             int catId = Kvdb.GetInt(key);
-            return this.GetCategoryById(siteId, catId);
+            return this.GetCategory(siteId, catId);
         }
 
         private void ChkPreload()
         {
             if (RepositoryDataCache._categories == null)
             {
-                GetCategoryDictionary();
+                InitCategoryDictionary();
             }
         }
 
@@ -199,26 +200,15 @@ namespace T2.Cms.ServiceRepository
             return categoryId + 1;
         }
 
+        
 
-        public ICategory GetCategoryById(int categoryId)
-        {
-            IList<ISite> sites = this._siteRep.GetSites();
-            foreach (ISite site in sites)
-            {
-                var category = this.GetCategoryById(site.GetAggregaterootId(), categoryId);
-                if (category != null) return category;
-            }
-            return null;
-        }
-
-        public ICategory GetCategoryById(int siteId, int categoryId)
+        public ICategory GetCategory(int siteId, int catId)
         {
             IList<ICategory> list;
             if (this.Categories.ContainsKey(siteId))
             {
                 list = this.Categories[siteId];
-                int lft = this.GetCategoryLftById(siteId, categoryId);
-                return BinarySearch.IntSearch(list, 0, list.Count, lft, a => a.Lft);
+                return list.FirstOrDefault(a => a.GetDomainId() == catId);
             }
             return null;
         }

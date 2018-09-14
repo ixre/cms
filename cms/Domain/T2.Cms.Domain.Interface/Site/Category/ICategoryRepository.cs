@@ -11,7 +11,7 @@ namespace T2.Cms.Domain.Interface.Site.Category
 
         //ICategory GetCategoryById(int siteId,int categoryId);
 
-        ICategory GetCategoryById(int categoryId);
+        ICategory GetCategory(int siteId,int catId);
 
         /// <summary>
         /// 获取最大的栏目编号

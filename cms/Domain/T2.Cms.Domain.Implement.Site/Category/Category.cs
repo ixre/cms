@@ -57,6 +57,11 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             this._parentChanged = true;
 
+            if(src.ParentId != 0 &&src.ParentId == this.value.ID)
+            {
+                return new Error("父级栏目有误:与子栏目相同");
+            }
+
             if (this.value.ID <= 0)
             {
                 if (src.SiteId <= 0)
@@ -79,7 +84,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             this.value.Tag = src.Tag;
             if (src.ParentId > 0)
             {
-                ICategory ip = this._rep.GetCategoryById(src.ParentId);
+                ICategory ip = this._rep.GetCategory(this.value.SiteId,src.ParentId);
                 if (ip == null || ip.Get().SiteId != this.value.SiteId)
                 {
                     return new Error("上级分类不存在");
@@ -317,9 +322,9 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             get
             {
-                if(this._parent == null &&this.value.ParentId > 0)
+                if(this._parent == null && this.value.ParentId > 0)
                 {
-                    this._parent = this._rep.GetCategoryById(this.value.ParentId);
+                    this._parent = this._rep.GetCategory(this.value.SiteId,this.value.ParentId);
                 }
                 return this._parent;
             }
