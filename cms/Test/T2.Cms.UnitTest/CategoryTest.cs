@@ -29,7 +29,7 @@ namespace T2.Cms.UnitTest
         [TestMethod]
         public void TestGetCategory()
         {
-            ICategory ic = this.repo.GetCategoryById(1);
+            ICategory ic = this.repo.GetCategory(siteId,1);
             Console.WriteLine(this.Stringfy(ic.Get()));
         }
 

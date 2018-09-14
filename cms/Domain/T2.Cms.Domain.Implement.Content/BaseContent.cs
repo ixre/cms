@@ -71,7 +71,8 @@ namespace T2.Cms.Domain.Implement.Content
             {
                 if (this._category == null)
                 {
-                    this._category = this._categoryRep.GetCategoryById(this._categoryId);
+                    //todo: 获取站点
+                    this._category = this._categoryRep.GetCategory(0,this._categoryId);
                 }
                 return this._category;
             }
