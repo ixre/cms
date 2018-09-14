@@ -153,7 +153,7 @@ namespace T2.Cms.Service
         public CategoryDto GetCategory(int siteId, string categoryTag)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            return CategoryDto.ConvertFrom(site.GetCategoryByTag(categoryTag));
+            return CategoryDto.ConvertFrom(site.GetCategoryByPath(categoryTag));
         }
 
 
@@ -324,7 +324,7 @@ namespace T2.Cms.Service
         {
             ISite site = this._resp.GetSiteById(siteId);
             int rootLft = site.RootCategory.Lft;
-            ICategory category = site.GetCategoryByTag(categoryTag);
+            ICategory category = site.GetCategoryByPath(categoryTag);
 
             if (linkFormat.EndsWith("/")) linkFormat = linkFormat.Substring(0, linkFormat.Length - 1);
             StringBuilder sb = new StringBuilder();
@@ -380,7 +380,7 @@ namespace T2.Cms.Service
         public bool CheckCategoryTagAvailable(int siteId, int categoryId, string categoryTag)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            ICategory category = site.GetCategoryByTag(categoryTag);
+            ICategory category = site.GetCategoryByPath(categoryTag);
 
             if (category == null)
                 return true;

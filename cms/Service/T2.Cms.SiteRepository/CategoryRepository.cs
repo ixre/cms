@@ -105,7 +105,7 @@ namespace T2.Cms.ServiceRepository
                 RepositoryDataCache._categories[_category.Site().GetAggregaterootId()].Add(_category);
 
                 //添加Tag映射
-                String key = this.catTagKey(_category.Site().GetAggregaterootId(), _category.Get().Tag);
+                String key = this.catPathKey(_category.Site().GetAggregaterootId(), _category.Get().Path);
                 Kvdb.PutInt(key,_category.Lft);
 
                 /*
@@ -132,20 +132,23 @@ namespace T2.Cms.ServiceRepository
                    siteId.ToString(),
                    categoryId.ToString());
         }
-        public string catTagKey(int siteId,string tag)
+        public string catPathKey(int siteId,string path)
         {
-            return String.Format("cat:{0}:cache:t:lft:{1}",
-                     siteId.ToString(),
-                     tag);
+            return String.Format("cat:{0}:cache:t:path:{1}",
+                     siteId.ToString(), path.Replace("/","-"));
         }
-        
 
-        public ICategory GetCategoryByTag(int siteId, string tag)
+
+        public ICategory GetCategoryByPath(int siteId, string path)
         {
             this.ChkPreload();
-            string key = this.catTagKey(siteId,tag);
-            int catId = Kvdb.GetInt(key);
-            return this.GetCategory(siteId, catId);
+            IList<ICategory> list;
+            if (this.Categories.ContainsKey(siteId))
+            {
+                list = this.Categories[siteId];
+                return list.FirstOrDefault(a => String.Compare(a.Get().Path, path) == 0);
+            }
+            return null;
         }
 
         private void ChkPreload()
@@ -163,24 +166,14 @@ namespace T2.Cms.ServiceRepository
             return Kvdb.GetInt(key);
         }
 
-        public int SaveCategory(ICategory ic)
+        public Error SaveCategory(CmsCategoryEntity category)
         {
-            ICategory parentCategory = ic.Parent;
-
-            //* 树状结构,只有一个根节点(默认Left为1)
-            int parentLft = 1;
-            int siteId = ic.Site().GetAggregaterootId();
-
-            if (parentCategory != null)
-            {
-                parentLft = parentCategory.Lft;
-            }
-            CmsCategoryEntity category = ic.Get();
             Error err = categoryDal.SaveCategory(category);
-
-            RepositoryDataCache._categories = null;
-
-            return ic.Get().ID;
+            if (err == null)
+            {
+                RepositoryDataCache._categories = null;
+            }
+            return err;
         }
 
         /// <summary>
@@ -204,6 +197,7 @@ namespace T2.Cms.ServiceRepository
 
         public ICategory GetCategory(int siteId, int catId)
         {
+            this.ChkPreload();
             IList<ICategory> list;
             if (this.Categories.ContainsKey(siteId))
             {

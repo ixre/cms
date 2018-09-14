@@ -68,41 +68,57 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 {
                     return new Error("参数错误:SiteId");
                 }
+                if (String.IsNullOrEmpty(src.Tag))
+                {
+                    return new Error("缺少参数:Tag");
+                }
+                if (String.IsNullOrEmpty(src.Name))
+                {
+                    return new Error("栏目名称不能为空");
+                }
                 this.value.SiteId = src.SiteId;
-                this.value.Code = src.Code;
+                this.value.Code = src.Code??"";
+                this.value.Icon = "";
                 this.value.Path = "";
                 this.value.Flag = 0; //todo: 初始化flag
                 int maxSortNumber = this._rep.GetMaxSortNumber(this.value.SiteId);
                 if (maxSortNumber == 0) maxSortNumber = 1;
                 this.value.SortNumber = maxSortNumber;
+                this._parentChanged = true;
             }
-
             if (!this._rep.CheckTagMatch(src.Tag, this.value.SiteId, this.value.ID))
             {
                 return new Error("分类TAG已存在");
             }
-            this.value.Tag = src.Tag;
-            if (src.ParentId > 0)
+            if(this.value.ParentId != src.ParentId)
             {
-                ICategory ip = this._rep.GetCategory(this.value.SiteId,src.ParentId);
-                if (ip == null || ip.Get().SiteId != this.value.SiteId)
+                if(src.ParentId > 0)
                 {
-                    return new Error("上级分类不存在");
+                    ICategory ip = this._rep.GetCategory(this.value.SiteId, src.ParentId);
+                    if (ip == null || ip.Get().SiteId != this.value.SiteId)
+                    {
+                        return new Error("上级分类不存在");
+                    }
                 }
-                if (this.value.ParentId != src.ParentId)
-                {
-                    this.value.ParentId = src.ParentId;
-                    this._parentChanged = true;
-                }
+                this.value.ParentId = src.ParentId;
+                this._parentChanged = true;
             }
             this.value.Flag = src.Flag;
             this.value.ModuleId = src.ModuleId;
-            this.value.Name = src.Name;
-            this.value.Icon = src.Icon;
-            this.value.Title = src.Title;
-            this.value.Keywords = src.Keywords;
-            this.value.Description = src.Description;
-            this.value.Location = src.Location;
+            this.value.Name = src.Name??"";
+            this.value.Icon = src.Icon??"";
+            this.value.Title = src.Title??"";
+            this.value.Keywords = src.Keywords??"";
+            this.value.Description = src.Description??"";
+            this.value.Location = src.Location ?? "";
+            if (String.IsNullOrEmpty(src.Location))
+            {
+                this.value.Flag ^= (int)CategoryFlag.Redirect;
+            }
+            else
+            {
+                this.value.Flag |= (int) CategoryFlag.Redirect;
+            }
             return null;
         }
         
@@ -117,41 +133,42 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 this.UpdateCategoryPath();
             }
+            
 
-            return null;
-
-            int result = this._rep.SaveCategory(this);
-
-#region 保存模板
-
-            IList<ITemplateBind> delBinds = new List<ITemplateBind>();
-
-            foreach (ITemplateBind templateBind in this.Templates)
+            Error err = this._rep.SaveCategory(this.value);
+            if (err == null)
             {
-                this._tempRep.SaveTemplateBind(templateBind, this.GetDomainId());
-                if (String.IsNullOrEmpty(templateBind.TplPath))
+                #region 保存模板
+
+                IList<ITemplateBind> delBinds = new List<ITemplateBind>();
+
+                foreach (ITemplateBind templateBind in this.Templates)
                 {
-                    delBinds.Add(templateBind);
+                    this._tempRep.SaveTemplateBind(templateBind, this.GetDomainId());
+                    if (String.IsNullOrEmpty(templateBind.TplPath))
+                    {
+                        delBinds.Add(templateBind);
+                    }
                 }
+
+                for (int i = 0; i < delBinds.Count; i++)
+                {
+                    this.Templates.Remove(delBinds[i]);
+                    delBinds[i] = null;
+                }
+
+                #endregion
+
+                #region 保存扩展属性
+
+                this._extendRep.UpdateCategoryExtends(this);
+
+                #endregion
+
+                this.Site().ClearSelf();
+                this.ClearSelf();
             }
-
-            for (int i = 0; i < delBinds.Count; i++)
-            {
-                this.Templates.Remove(delBinds[i]);
-                delBinds[i] = null;
-            }
-
-#endregion
-
-#region 保存扩展属性
-
-            this._extendRep.UpdateCategoryExtends(this);
-
-#endregion
-
-            this.Site().ClearSelf();
-            this.ClearSelf();
-            return null;
+            return err;
         }
 
         // 更新分类的路径

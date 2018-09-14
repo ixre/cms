@@ -239,9 +239,9 @@ namespace T2.Cms.Domain.Implement.Site
             return this._categoryRep.GetCategories(this.GetAggregaterootId(),catId, option);
         }
 
-        public ICategory GetCategoryByTag(string categoryTag)
+        public ICategory GetCategoryByPath(string path)
         {
-            return this._categoryRep.GetCategoryByTag(this.GetAggregaterootId(), categoryTag);
+            return this._categoryRep.GetCategoryByPath(this.GetAggregaterootId(), path);
         }
 
 

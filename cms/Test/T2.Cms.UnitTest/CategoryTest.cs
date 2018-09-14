@@ -24,12 +24,19 @@ namespace T2.Cms.UnitTest
             repo = Ioc.GetInstance<ICategoryRepo>();
             siteRepo = Ioc.GetInstance<ISiteRepo>();
         }
-        
+
 
         [TestMethod]
         public void TestGetCategory()
         {
-            ICategory ic = this.repo.GetCategory(siteId,1);
+            ICategory ic = this.repo.GetCategory(siteId, 1);
+            Console.WriteLine(this.Stringfy(ic.Get()));
+            ISite ist = this.siteRepo.GetSiteById(siteId);
+            ic = ist.GetCategoryByPath("root/cat1");
+            if (ic == null)
+            {
+                Assert.Fail("no such category");
+            }
             Console.WriteLine(this.Stringfy(ic.Get()));
         }
 
@@ -43,8 +50,9 @@ namespace T2.Cms.UnitTest
                 Name = "一级分类",
                 ParentId = 1,
                 Tag = "cat1",
+                Location= "http://baidu.com",
             };
-            ICategory ic = ist.GetCategoryByTag("root/cat1");
+            ICategory ic = ist.GetCategoryByPath("root/cat1");
             if (ic == null)
             {
                 ic = this.repo.CreateCategory(cat);

@@ -98,7 +98,13 @@ namespace T2.Cms.Domain.Interface.Site
 
         ICategory GetCategory(int categoryId);
 
-        ICategory GetCategoryByTag(string categoryTag);
+
+        /// <summary>
+        /// 根据栏目路径获取站点下的分类
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        ICategory GetCategoryByPath(string path);
 
         /// <summary>
         /// 根据栏目名称获取栏目
