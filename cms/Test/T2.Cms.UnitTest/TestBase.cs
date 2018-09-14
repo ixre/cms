@@ -59,5 +59,10 @@ namespace T2.Cms.UnitTest
             }
             return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
         }
+
+        public void Println(string v)
+        {
+            Console.WriteLine(v);
+        }
     }
 }

@@ -13,11 +13,11 @@ using T2.Cms.Models;
 
 namespace T2.Cms.ServiceRepository
 {
-    public class CategoryRepository : BaseCategoryRepository, ICategoryRepository
+    public class CategoryRepository : BaseCategoryRepository, ICategoryRepo
     {
         private IExtendFieldRepository _extendRep;
         private CategoryDal categoryDal = new CategoryDal();
-        private ISiteRepository __siteRep;
+        private ISiteRepo __siteRep;
         private ITemplateRepository _tempRep;
 
         public CategoryRepository(
@@ -35,11 +35,11 @@ namespace T2.Cms.ServiceRepository
             // GetCategoryDictionary();
         }
 
-        private ISiteRepository _siteRep
+        private ISiteRepo _siteRep
         {
             get
             {
-                return __siteRep ?? (__siteRep = Ioc.GetInstance<ISiteRepository>());
+                return __siteRep ?? (__siteRep = Ioc.GetInstance<ISiteRepo>());
             }
         }
 

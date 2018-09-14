@@ -6,10 +6,10 @@ namespace T2.Cms.Domain.Implement.Site.Link
 {
     internal class SiteLinkManager:ISiteLinkManager
     {
-        private ISiteRepository _siteRep;
+        private ISiteRepo _siteRep;
         private ISite _site;
 
-        public SiteLinkManager(ISiteRepository siteRep,ISite site)
+        public SiteLinkManager(ISiteRepo siteRep,ISite site)
         {
             this._siteRep = siteRep;
             this._site = site;

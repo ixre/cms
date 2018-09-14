@@ -22,15 +22,15 @@ namespace T2.Cms.Service
 {
     public class SiteService : ISiteServiceContract
     {
-        private readonly ISiteRepository _resp;
+        private readonly ISiteRepo _resp;
         private readonly IExtendFieldRepository _extendRep;
-        private readonly ICategoryRepository _categoryRep;
+        private readonly ICategoryRepo _categoryRep;
         private readonly ITemplateRepository _tempRep;
         private readonly IArchiveRepository _archiveRep;
         private readonly IContentRepository _contentRep;
 
-        public SiteService(ISiteRepository resp,
-            ICategoryRepository categoryRep,
+        public SiteService(ISiteRepo resp,
+            ICategoryRepo categoryRep,
             IArchiveRepository archiveRep,
             IExtendFieldRepository extendFieldPository,
             IContentRepository contentRep,
@@ -208,11 +208,12 @@ namespace T2.Cms.Service
         }
 
 
-        public int SaveCategory(int siteId, int parentLft, CategoryDto category)
+        public Result SaveCategory(int siteId, int parentLft, CategoryDto category)
         {
             ISite site = this._resp.GetSiteById(siteId);
             ICategory ic = null;
-            if(category.Id > 0) {
+            if (category.Id > 0)
+            {
                 ic = site.GetCategory(category.Id);
             }
             if (ic == null) ic = _categoryRep.CreateCategory(new CmsCategoryEntity());
@@ -227,7 +228,7 @@ namespace T2.Cms.Service
             cat.SortNumber = category.SortNumber;
             cat.ModuleId = category.ModuleId;
             cat.Location = category.Location;
-            ic.Set(cat);
+            Error err = ic.Set(cat);
             bool isExistCategoryBind = false;
             bool isExistArchiveBind = false;
 
@@ -281,7 +282,19 @@ namespace T2.Cms.Service
             #endregion
 
             if (parentLft >= 0) ic.Parent = site.GetCategoryByLft(parentLft);
-            return ic.Save();
+            Result r = new Result();
+            if (err == null)
+            {
+                err = ic.Save();
+                if (err == null)
+                {
+                    r.Data = new Dictionary<String, String>();
+                    r.Data["CategoryId"] = ic.GetDomainId().ToString();
+                }
+            }
+            r.ErrCode = 1;
+            r.ErrMsg = err.Message;
+            return r;
         }
 
 
@@ -453,13 +466,10 @@ namespace T2.Cms.Service
             {
                 throw new ArgumentException("no such site");
             }
-
             ICategory toCate = toSite.GetCategory(toCid);
             ICategory fromCate = fromSite.GetCategory(fromCid);
-
-
-            int newCateId = CloneCategoryDetails(targetSiteId, fromCate, toCate.Lft, includeExtend, includeTemplateBind);
-
+            Result r = CloneCategoryDetails(targetSiteId, fromCate, toCate.Lft, includeExtend, includeTemplateBind);
+            int newCateId = Convert.ToInt32(r.Data["CategoryId"]);
             if (includeChild)
             {
                 ItrCloneCate(toSite, fromCate, newCateId, includeExtend, includeTemplateBind);
@@ -471,12 +481,13 @@ namespace T2.Cms.Service
             ICategory newCategory = toSite.GetCategory(parentCateId);
             foreach (var cate in fromCate.NextLevelChilds)
             {
-                int id = CloneCategoryDetails(toSite.GetAggregaterootId(), cate, newCategory.Lft, includeExtend, includeTemplateBind);
-                ItrCloneCate(toSite, cate, id, includeExtend, includeTemplateBind);
+                Result r = CloneCategoryDetails(toSite.GetAggregaterootId(), cate, newCategory.Lft, includeExtend, includeTemplateBind);
+                int catId = Convert.ToInt32(r.Data["CategoryId"]);
+                ItrCloneCate(toSite, cate, catId, includeExtend, includeTemplateBind);
             }
         }
 
-        private int CloneCategoryDetails(int toSiteId, ICategory fromCate, int toCateLft, bool includeExtend, bool includeTemplateBind)
+        private Result CloneCategoryDetails(int toSiteId, ICategory fromCate, int toCateLft, bool includeExtend, bool includeTemplateBind)
         {
             CategoryDto dto = CategoryDto.ConvertFrom(fromCate);
             dto.Lft = 0;

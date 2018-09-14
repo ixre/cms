@@ -5,7 +5,7 @@ using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Site
 {
-    public interface ISiteRepository
+    public interface ISiteRepo
     {
         ISite CreateSite(CmsSiteEntity site);
 

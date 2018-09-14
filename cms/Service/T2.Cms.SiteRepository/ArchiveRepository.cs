@@ -18,7 +18,7 @@ namespace T2.Cms.ServiceRepository
     {
         private IExtendFieldRepository _extendRep;
         private ITemplateRepository _templateRep;
-        private ICategoryRepository _categoryRep;
+        private ICategoryRepo _categoryRep;
 
         private ArchiveDal _dal = new ArchiveDal();
         private IContentRepository _contentRep;
@@ -27,7 +27,7 @@ namespace T2.Cms.ServiceRepository
             IContentRepository contentRep,
             IExtendFieldRepository extendRep,
             ITemplateRepository templateRep,
-            ICategoryRepository categoryRep
+            ICategoryRepo categoryRep
             )
         {
             this._contentRep = contentRep;

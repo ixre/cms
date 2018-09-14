@@ -21,9 +21,9 @@ namespace T2.Cms.Domain.Implement.Site
         /// <param name="name"></param>
         /// <returns></returns>
         public ISite CreateSite(
-            ISiteRepository resp,
+            ISiteRepo resp,
             IExtendFieldRepository extendRepository,
-            ICategoryRepository categoryRep,
+            ICategoryRepo categoryRep,
             ITemplateRepository tempRep,
             IUserRepository userRep,
             CmsSiteEntity site
@@ -45,7 +45,7 @@ namespace T2.Cms.Domain.Implement.Site
         /// <param name="id"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public ISiteLink CreateLink(ISiteRepository resp, ISite site, int id, string text)
+        public ISiteLink CreateLink(ISiteRepo resp, ISite site, int id, string text)
         {
             return new Link.SiteLink(resp, site, id, text);
         }

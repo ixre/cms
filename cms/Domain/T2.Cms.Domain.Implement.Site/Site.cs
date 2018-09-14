@@ -32,9 +32,9 @@ namespace T2.Cms.Domain.Implement.Site
 {
     internal class Site : ISite
     {
-        private readonly ISiteRepository _siteRepository;
+        private readonly ISiteRepo _siteRepository;
         private readonly IExtendFieldRepository _extendRepository;
-        private readonly ICategoryRepository _categoryRep;
+        private readonly ICategoryRepo _categoryRep;
         private IExtendManager _extendManager;
         private IList<ICategory> _categories;
         private readonly ITemplateRepository _tempRep;
@@ -45,9 +45,9 @@ namespace T2.Cms.Domain.Implement.Site
         private CmsSiteEntity value;
         private SiteRunType runType = SiteRunType.Unknown;
 
-        internal Site(ISiteRepository siteRepository,
+        internal Site(ISiteRepo siteRepository,
             IExtendFieldRepository extendRepository,
-            ICategoryRepository categoryRep,
+            ICategoryRepo categoryRep,
             ITemplateRepository tempRep,
             IUserRepository userRep,
             CmsSiteEntity site)

@@ -23,8 +23,8 @@ namespace T2.Cms.UnitTest
             cat.ExtendFields.Add(new ExtendField(1, null));
             cat.ExtendFields.Add(new ExtendField(2, null));
             cat.ExtendFields.Add(new ExtendField(3, null));
-            int i = ServiceCall.Instance.SiteService.SaveCategory(1, 0, cat);
-            if(i == 0)
+            Result r = ServiceCall.Instance.SiteService.SaveCategory(1, 0, cat);
+            if(r.ErrCode > 0)
             {
                 Assert.Fail("保存不成功");
             }

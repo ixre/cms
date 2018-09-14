@@ -21,8 +21,8 @@ namespace T2.Cms.Domain.Implement.Site.Category
         /// <param name="site"></param>
         /// <returns></returns>
         public ICategory CreateCategory(
-            ICategoryRepository categoryRep,
-             ISiteRepository siteRepo,
+            ICategoryRepo categoryRep,
+             ISiteRepo siteRepo,
             IExtendFieldRepository extendRep,
             ITemplateRepository tempRep,
             CmsCategoryEntity value)

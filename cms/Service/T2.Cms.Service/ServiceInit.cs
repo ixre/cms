@@ -47,9 +47,9 @@ namespace T2.Cms.Service
                 _.For<IContentServiceContract>().Singleton().Use<ContentService>();
                 _.For<IUserServiceContract>().Singleton().Use<UserService>();
 
-                _.For<ISiteRepository>().Singleton().Use<SiteRepository>();
+                _.For<ISiteRepo>().Singleton().Use<SiteRepository>();
                 _.For<IContentRepository>().Singleton().Use<ContentRepository>();
-                _.For<ICategoryRepository>().Singleton().Use<CategoryRepository>();
+                _.For<ICategoryRepo>().Singleton().Use<CategoryRepository>();
                 _.For<IExtendFieldRepository>().Singleton().Use<ExtendFieldRepository>();
                 _.For<IArchiveRepository>().Singleton().Use<ArchiveRepository>();
                 _.For<ITemplateRepository>().Singleton().Use<TemplateRepository>();

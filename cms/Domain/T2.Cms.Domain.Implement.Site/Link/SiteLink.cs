@@ -5,10 +5,10 @@ namespace T2.Cms.Domain.Implement.Site.Link
 {
     public class SiteLink:ISiteLink
     {
-        private ISiteRepository _siteRep;
+        private ISiteRepo _siteRep;
         private ISite _site;
 
-        internal SiteLink(ISiteRepository siteRep, ISite site, int id,string text)
+        internal SiteLink(ISiteRepo siteRep, ISite site, int id,string text)
         {
             this._siteRep = siteRep;
             this._site = site;

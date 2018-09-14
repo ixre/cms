@@ -60,12 +60,11 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// </summary>
         IList<ITemplateBind> Templates { get; set; }
 
-
         /// <summary>
         /// 保存
         /// </summary>
         /// <returns></returns>
-        int Save();
+        Error Save();
 
         /// <summary>
         /// 父栏目

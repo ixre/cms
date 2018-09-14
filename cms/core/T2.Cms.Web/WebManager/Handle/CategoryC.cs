@@ -161,8 +161,9 @@ namespace T2.Cms.Web.WebManager.Handle
                 return base.ReturnError("标签已经存在");
             }
 
-            int categoryId = ServiceCall.Instance.SiteService
+            Result r = ServiceCall.Instance.SiteService
                 .SaveCategory(this.SiteId, parentCategory.Lft, category);
+            int categoryId = Convert.ToInt32(r.Data["CategoryId"]);
 
             return base.ReturnSuccess(null, categoryId.ToString());
         }

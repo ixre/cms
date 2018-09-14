@@ -141,7 +141,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="parentLft">新的父节点编号(系统默认为-1)</param>
         /// <param name="category"></param>
         /// <returns></returns>
-        int SaveCategory(int siteId, int parentLft, CategoryDto category);
+        Result SaveCategory(int siteId, int parentLft, CategoryDto category);
 
         /// <summary>
         /// 获取父栏目

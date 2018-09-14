@@ -30,7 +30,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             IContentRepository contentRep,
             IArchiveRepository archiveRep,
             IExtendFieldRepository extendRep,
-            ICategoryRepository categoryRep,
+            ICategoryRepo categoryRep,
             ITemplateRepository templateRep,
             int id,
             string strId,
