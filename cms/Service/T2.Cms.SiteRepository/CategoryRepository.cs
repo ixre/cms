@@ -139,11 +139,12 @@ namespace T2.Cms.ServiceRepository
         }
         
 
-        public int GetCategoryLftByTag(int siteId, string tag)
+        public ICategory GetCategoryByTag(int siteId, string tag)
         {
             this.ChkPreload();
             string key = this.catTagKey(siteId,tag);
-            return Kvdb.GetInt(key);
+            int catId = Kvdb.GetInt(key);
+            return this.GetCategoryById(siteId, catId);
         }
 
         private void ChkPreload()

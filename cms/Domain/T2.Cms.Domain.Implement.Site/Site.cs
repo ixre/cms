@@ -241,20 +241,7 @@ namespace T2.Cms.Domain.Implement.Site
 
         public ICategory GetCategoryByTag(string categoryTag)
         {
-            //如果包含映射，则二分查找
-            int lft = this._categoryRep.GetCategoryLftByTag(this.GetAggregaterootId(), categoryTag);
-            if (lft != -1)
-            {
-                return BinarySearch.IntSearch(this.Categories, 0, this.Categories.Count, lft, a => a.Lft);
-            }
-
-            //如果没有找到映射
-            // foreach (ICategory category in this.Categories)
-            //{
-            //   if (string.Compare(category.Tag, categoryTag, true, CultureInfo.InvariantCulture) == 0)
-            //       return category;
-            //}
-            return null;
+            return this._categoryRep.GetCategoryByTag(this.GetAggregaterootId(), categoryTag);
         }
 
 

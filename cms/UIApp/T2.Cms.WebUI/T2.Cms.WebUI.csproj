@@ -591,6 +591,14 @@
       <Project>{a925a0e7-22d6-4da7-8b75-87aa0d6d6e24}</Project>
       <Name>T2.Cms.DataTransfer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Service\T2.Cms.ServiceContract\T2.Cms.ServiceContract.csproj">
+      <Project>{f512899c-b4c9-465f-a3db-8e511c92a8a8}</Project>
+      <Name>T2.Cms.ServiceContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\T2.Cms.Service\T2.Cms.Service.csproj">
+      <Project>{477203f2-8a7f-4cea-b17e-21f8b35a8b22}</Project>
+      <Name>T2.Cms.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
