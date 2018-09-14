@@ -26,7 +26,7 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// <param name="siteId"></param>
         /// <param name="tag"></param>
         /// <returns></returns>
-        int GetCategoryLftByTag(int siteId, string tag);
+        ICategory GetCategoryByTag(int siteId, string tag);
 
         int GetCategoryLftById(int siteId, int id);
 

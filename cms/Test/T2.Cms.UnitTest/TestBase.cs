@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using T2.Cms.CacheService;
+using T2.Cms.Service;
 
 namespace T2.Cms.UnitTest
 {
-    internal class TestBase
+    public class TestBase
     {
         public DataBaseAccess GetDb()
         {
@@ -31,6 +32,11 @@ namespace T2.Cms.UnitTest
                   sql, DataUtil.ParamsToString(sqlParams), exc.Message);
             return false;
         }
+
+        public TestBase()
+        {
+            this.Boot();
+        }
         public void Boot()
         {
             // Cms.Init(BootFlag.UnitTest,"../../../../UIApp/T2.Cms.WebUI/config/cms.conf");
@@ -41,6 +47,17 @@ namespace T2.Cms.UnitTest
             {
                 Cms.RegSites(SiteCacheManager.GetAllSites().ToArray());
             }
+
+            ServiceInit.Initialize();
+        }
+
+        public String Stringfy(Object obj)
+        {
+            if(obj == null)
+            {
+                return "<null>";
+            }
+            return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
         }
     }
 }
