@@ -16,13 +16,13 @@ namespace T2.Cms.Service
     public class ArchiveService : IArchiveServiceContract
     {
         private readonly IContentRepository _contentRep;
-        private readonly ISiteRepository _siteRep;
+        private readonly ISiteRepo _siteRep;
         private readonly ArchiveQuery _archiveQuery = new ArchiveQuery();
         private readonly IExtendFieldRepository _extendRep;
 
         public ArchiveService(
             IContentRepository contentRep,
-            ISiteRepository siteRep,
+            ISiteRepo siteRep,
             IExtendFieldRepository extendRep
             )
         {

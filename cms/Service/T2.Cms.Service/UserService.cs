@@ -15,10 +15,10 @@ namespace T2.Cms.Service
     {
         private readonly IUserRepository _userRepository;
         private readonly UserQuery _userQuery;
-        private readonly ISiteRepository _siteRepository;
+        private readonly ISiteRepo _siteRepository;
         private IArchiveRepository _archiveRep;
 
-        public UserService(IUserRepository rep,ISiteRepository siteRepository,IArchiveRepository archiveRep)
+        public UserService(IUserRepository rep,ISiteRepo siteRepository,IArchiveRepository archiveRep)
         {
             this._userRepository = rep;
             this._userQuery = new UserQuery();

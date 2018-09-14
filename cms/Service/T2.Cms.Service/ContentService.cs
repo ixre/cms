@@ -11,9 +11,9 @@ namespace T2.Cms.Service
     public class ContentService : IContentServiceContract
     {
         private readonly IContentRepository _contentRep;
-        private ISiteRepository _siteRep;
+        private ISiteRepo _siteRep;
 
-        public ContentService(IContentRepository contentRep, ISiteRepository siteRep)
+        public ContentService(IContentRepository contentRep, ISiteRepo siteRep)
         {
             this._contentRep = contentRep;
             this._siteRep = siteRep;

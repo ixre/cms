@@ -12,7 +12,7 @@ namespace T2.Cms.Domain.Implement.Content
     {
         protected readonly IExtendFieldRepository _extendRep;
         private readonly ITemplateRepository _templateRep;
-        private readonly ICategoryRepository _categoryRep;
+        private readonly ICategoryRepo _categoryRep;
 
         protected IList<IExtendValue> _extendValues;
         protected  ICategory _category;
@@ -35,7 +35,7 @@ namespace T2.Cms.Domain.Implement.Content
         public BaseContent(
             IContentRepository contentRep,
             IExtendFieldRepository extendRep,
-            ICategoryRepository categoryRep,
+            ICategoryRepo categoryRep,
             ITemplateRepository templateRep,
             int id,
             int categoryId,

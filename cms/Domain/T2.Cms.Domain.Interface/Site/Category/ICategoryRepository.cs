@@ -3,7 +3,7 @@ using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Site.Category
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepo
     {
         ICategory CreateCategory(CmsCategoryEntity value);
 

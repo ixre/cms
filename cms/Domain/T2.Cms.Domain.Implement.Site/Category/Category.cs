@@ -13,7 +13,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 {
     public class Category : ICategory
     {
-        private ICategoryRepository _rep;
+        private ICategoryRepo _rep;
         private IExtendFieldRepository _extendRep;
 
         private IList<IExtendField> _extendFields;
@@ -26,10 +26,11 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private IList<ITemplateBind> _templates;
         private CmsCategoryEntity value;
         private ISite site;
-        private ISiteRepository siteRepo;
+        private ISiteRepo siteRepo;
         private readonly ITemplateRepository _tempRep;
+        private bool _parentChanged = false;
 
-        internal Category(ICategoryRepository rep, ISiteRepository siteRepo,
+        internal Category(ICategoryRepo rep, ISiteRepo siteRepo,
             IExtendFieldRepository extendRep,ITemplateRepository tmpRep,CmsCategoryEntity value)
         {
             this.value = value;
@@ -51,65 +52,72 @@ namespace T2.Cms.Domain.Implement.Site.Category
             set;
         }
 
-        public int SortNumber
+
+        public Error Set(CmsCategoryEntity src)
         {
-            get;
-            set;
+            this._parentChanged = true;
+
+            if (this.value.ID <= 0)
+            {
+                if (src.SiteId <= 0)
+                {
+                    return new Error("参数错误:SiteId");
+                }
+                this.value.SiteId = src.SiteId;
+                this.value.Code = src.Code;
+                this.value.Path = "";
+                this.value.Flag = 0; //todo: 初始化flag
+                int maxSortNumber = this._rep.GetMaxSortNumber(this.value.SiteId);
+                if (maxSortNumber == 0) maxSortNumber = 1;
+                this.value.SortNumber = maxSortNumber;
+            }
+
+            if (!this._rep.CheckTagMatch(src.Tag, this.value.SiteId, this.value.ID))
+            {
+                return new Error("分类TAG已存在");
+            }
+            this.value.Tag = src.Tag;
+            if (src.ParentId > 0)
+            {
+                ICategory ip = this._rep.GetCategoryById(src.ParentId);
+                if (ip == null || ip.Get().SiteId != this.value.SiteId)
+                {
+                    return new Error("上级分类不存在");
+                }
+                if (this.value.ParentId != src.ParentId)
+                {
+                    this.value.ParentId = src.ParentId;
+                    this._parentChanged = true;
+                }
+            }
+            this.value.Flag = src.Flag;
+            this.value.ModuleId = src.ModuleId;
+            this.value.Name = src.Name;
+            this.value.Icon = src.Icon;
+            this.value.Title = src.Title;
+            this.value.Keywords = src.Keywords;
+            this.value.Description = src.Description;
+            this.value.Location = src.Location;
+            return null;
         }
+        
 
-        public string Icon { get; set; }
-
-        public int ModuleId
-        {
-            get;
-            set;
-        }
-
-        public string Tag
-        {
-            get;
-            set;
-        }
-
-        public string Name
-        {
-            get;
-            set;
-        }
-
-        public string PageTitle
-        {
-            get;
-            set;
-        }
-
-        public string Keywords
-        {
-            get;
-            set;
-        }
-
-        public string Description
-        {
-            get;
-            set;
-        }
-
-        public string Location
-        {
-            get;
-            set;
-        }
-
-        public int Save()
+        public Error Save()
         {
             if (this.GetDomainId() <= 0)
             {
                 this.SetAutoSortNumber();
             }
+            if (this._parentChanged)
+            {
+                this.UpdateCategoryPath();
+            }
+
+            return null;
+
             int result = this._rep.SaveCategory(this);
 
-            #region 保存模板
+#region 保存模板
 
             IList<ITemplateBind> delBinds = new List<ITemplateBind>();
 
@@ -128,33 +136,45 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 delBinds[i] = null;
             }
 
-            #endregion
+#endregion
 
-            #region 保存扩展属性
+#region 保存扩展属性
 
             this._extendRep.UpdateCategoryExtends(this);
 
-            #endregion
+#endregion
 
             this.Site().ClearSelf();
             this.ClearSelf();
-            return result;
+            return null;
+        }
+
+        // 更新分类的路径
+        private void UpdateCategoryPath()
+        {
+            string path = this.value.Tag;
+            ICategory parent = this;
+            while (parent != null && (parent = parent.Parent) != null)
+            {
+                path = String.Concat(parent.Get().Tag, "/", path);
+            }
+            this.value.Path = path;
         }
 
         private void SetAutoSortNumber()
         {
             if(this.Parent == null)
             {
-                this.SortNumber = 1;
+                this.value.SortNumber = 1;
                 return;
             }
             if (this.Parent.Childs != null && this.Parent.Childs.Any())
             {
-                this.SortNumber = this.Parent.Childs.Max(a => a.Get().SortNumber) + 1;
+                this.value.SortNumber = this.Parent.Childs.Max(a => a.Get().SortNumber) + 1;
             }
             else
             {
-                this.SortNumber = 1;
+                this.value.SortNumber = 1;
             }
         }
 
@@ -176,7 +196,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
                 bool isExists;
 
-                #region 计算删除的扩展属性
+#region 计算删除的扩展属性
                 foreach (IExtendField extend in this.ExtendFields)
                 {
                     isExists = false;
@@ -224,9 +244,9 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     this.ExtendFields.Remove(extend);
                 }
 
-                #endregion
+#endregion
 
-                #region 添加新增的扩展属性
+#region 添加新增的扩展属性
                 foreach (IExtendField valueExtend in value)
                 {
                     isExists = false;
@@ -250,7 +270,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     this.ExtendFields.Add(this._extendRep.GetExtendFieldById(this.Site().GetAggregaterootId(), extendId));
                 }
 
-                #endregion
+#endregion
 
 
                 _extendFields = value;
@@ -297,7 +317,11 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             get
             {
-                return _parent ?? (_parent ?? this._rep.GetParent(this));
+                if(this._parent == null &&this.value.ParentId > 0)
+                {
+                    this._parent = this._rep.GetCategoryById(this.value.ParentId);
+                }
+                return this._parent;
             }
             set { this._parent = value; }
         }
@@ -340,7 +364,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 if (this._uriPath == null)
                 {
-                    string path = this.Tag;
+                    string path = this.value.Tag;
                     ICategory parent = this;
                     int rootLft = this.Site().RootCategory.Lft;
 
@@ -415,12 +439,12 @@ namespace T2.Cms.Domain.Implement.Site.Category
             //todo: 应该是更改
             if (c == null) return;
             int sortN = c.Get().SortNumber;
-            c.Get().SortNumber = this.SortNumber;
-            if (this.SortNumber == sortN || sortN < 0 || this.SortNumber < 0) //为了兼容旧有数据
+            c.Get().SortNumber = this.value.SortNumber;
+            if (this.value.SortNumber == sortN || sortN < 0 || this.value.SortNumber < 0) //为了兼容旧有数据
             {
                 if (sortN < 0 && !up)
                 {
-                    this.SortNumber = 0;
+                    this.value.SortNumber = 0;
                     c.Get().SortNumber += 1;
                     if (c.Get().SortNumber <= 0)
                     {
@@ -429,13 +453,13 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 }
                 else
                 {
-                    this.SortNumber = sortN + (up ? 1 : -1);
+                    this.value.SortNumber = sortN + (up ? 1 : -1);
                 }
             }
             else 
             {
                 // 以上均为兼容
-                this.SortNumber = sortN;
+                this.value.SortNumber = sortN;
             }
             c.SaveSortNumber();
             this.SaveSortNumber();
@@ -446,7 +470,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         /// </summary>
        public void SaveSortNumber()
         {
-            this._rep.SaveCategorySortNumber(this.GetDomainId(),this.SortNumber);
+            this._rep.SaveCategorySortNumber(this.GetDomainId(),this.value.SortNumber);
         }
 
         public CmsCategoryEntity Get()
@@ -455,60 +479,8 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         }
 
-        public Error Set(CmsCategoryEntity src)
-        {
+        
 
-            if(this.value.ID <= 0)
-            {
-                if(src.SiteId <= 0)
-                {
-                    return new Error("参数错误:SiteId");
-                }
-                this.value.SiteId = src.SiteId;
-                this.value.Code = src.Code;
-                this.value.Path = "";
-                this.value.Flag = 0; //todo: 初始化flag
-                int maxSortNumber = this._rep.GetMaxSortNumber(this.value.SiteId);
-                if (maxSortNumber == 0) maxSortNumber = 1;
-                this.value.SortNumber = maxSortNumber;
-            }
-
-            if (!this._rep.CheckTagMatch(src.Tag,this.value.SiteId,this.value.ID))
-            {
-                return new Error("分类TAG已存在");
-            }
-            this.value.Tag = src.Tag;
-            if (src.ParentId > 0)
-            {
-                ICategory ip = this._rep.GetCategoryById(src.ParentId);
-                if(ip == null || ip.Get().SiteId != this.value.SiteId)
-                {
-                    return new Error("上级分类不存在");
-                }
-                if (this.value.ParentId != src.ParentId)
-                {
-                    this.value.ParentId = src.ParentId;
-                    this.parentChanged(ip);
-                }
-            }
-            this.value.Flag = src.Flag;
-            this.value.ModuleId = src.ModuleId;
-            this.value.Name = src.Name;
-            this.value.Icon = src.Icon;
-            this.value.Title = src.Title;
-            this.value.Keywords = src.Keywords;
-            this.value.Description = src.Description;
-            this.value.Location = src.Location;
-            return null;
-        }
-
-        private Error parentChanged(ICategory parent)
-        {
-            this.value.Path = parent.UriPath + "/" + this.value.Tag;
-            this.value.Code = this.value.Path.GetHashCode().ToString();
-            return null;
-           // throw new NotImplementedException();
-        }
 
         public ISite Site()
         {

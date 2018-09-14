@@ -18,19 +18,19 @@ using T2.Cms.Models;
 
 namespace T2.Cms.ServiceRepository
 {
-    public class SiteRepository:BaseSiteRepository,ISiteRepository
+    public class SiteRepository:BaseSiteRepository,ISiteRepo
     {
         private static readonly SiteDal siteDal = new SiteDal();
         private static readonly LinkDal linkDal = new LinkDal();
 
         private readonly IExtendFieldRepository _extendFieldRepository;
-        private readonly ICategoryRepository _categoryRep;
+        private readonly ICategoryRepo _categoryRep;
         private readonly ITemplateRepository _tempRep;
         private readonly IUserRepository _userRep;
 
         public SiteRepository(
             IExtendFieldRepository extendFieldRepository,
-            ICategoryRepository categoryRepository,
+            ICategoryRepo categoryRepository,
             ITemplateRepository tempRep,
             IUserRepository userRep
             )
