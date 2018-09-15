@@ -231,7 +231,7 @@ namespace T2.Cms.WebManager
             {
                 //if (sameLftId < 0 || category.Lft != sameLftId)
                 //{
-                    sb.Append("<option value=\"").Append(category.Lft.ToString()).Append("\">");
+                    sb.Append("<option value=\"").Append(category.Get().Path).Append("\">");
                     for (var i = 0; i < level; i++)
                     {
                         sb.Append(CmsCharMap.Dot);

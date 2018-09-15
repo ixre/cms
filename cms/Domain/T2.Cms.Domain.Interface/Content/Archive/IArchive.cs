@@ -70,7 +70,7 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <summary>
         /// 模板绑定
         /// </summary>
-        ITemplateBind Template {get; set;}
+        TemplateBind Template {get; set;}
 
         /// <summary>
         /// 设置模板

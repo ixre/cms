@@ -18,11 +18,11 @@ namespace T2.Cms.ServiceRepository
         private IExtendFieldRepository _extendRep;
         private CategoryDal categoryDal = new CategoryDal();
         private ISiteRepo __siteRep;
-        private ITemplateRepository _tempRep;
+        private ITemplateRepo _tempRep;
 
         public CategoryRepository(
             //ISiteRepository siteRep, 
-            ITemplateRepository tempRep,
+            ITemplateRepo tempRep,
             IExtendFieldRepository extendRep)
         {
             //
@@ -214,8 +214,7 @@ namespace T2.Cms.ServiceRepository
 
         public IList<ICategory> GetCategories(int siteId)
         {
-            if (!this.Categories.ContainsKey(siteId))
-                return new List<ICategory>();
+            if (!this.Categories.ContainsKey(siteId)) return new List<ICategory>();
             return this.Categories[siteId];
         }
 

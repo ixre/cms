@@ -144,7 +144,8 @@
     <Compile Include="Site\Link\ISiteLink.cs" />
     <Compile Include="Site\Link\ISiteLinkManager.cs" />
     <Compile Include="Site\Link\SiteLinkType.cs" />
-    <Compile Include="Site\Template\ITemplateRepository.cs" />
+    <Compile Include="Site\Template\ITemplateRepo.cs" />
+    <Compile Include="Site\Template\TemplateBind.cs" />
     <Compile Include="Site\Template\TemplateBindType.cs" />
     <Compile Include="Enum\UrlRulePageKeys.cs" />
     <Compile Include="Enum\UrlRuleType.cs" />
@@ -167,7 +168,6 @@
     <Compile Include="Site\ISiteRepository.cs" />
     <Compile Include="Site\SiteRunType.cs" />
     <Compile Include="Site\SiteState.cs" />
-    <Compile Include="Site\Template\ITemplateBind.cs" />
     <Compile Include="User\AppRoleCollection.cs" />
     <Compile Include="User\AppRolePair.cs" />
     <Compile Include="Site\SiteValue.cs" />

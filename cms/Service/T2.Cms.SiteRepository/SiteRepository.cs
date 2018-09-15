@@ -25,13 +25,13 @@ namespace T2.Cms.ServiceRepository
 
         private readonly IExtendFieldRepository _extendFieldRepository;
         private readonly ICategoryRepo _categoryRep;
-        private readonly ITemplateRepository _tempRep;
+        private readonly ITemplateRepo _tempRep;
         private readonly IUserRepository _userRep;
 
         public SiteRepository(
             IExtendFieldRepository extendFieldRepository,
             ICategoryRepo categoryRepository,
-            ITemplateRepository tempRep,
+            ITemplateRepo tempRep,
             IUserRepository userRep
             )
         {

@@ -58,6 +58,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\core\T2.Cms.Infrastructure\T2.Cms.Infrastructure.csproj">
+      <Project>{28221385-8873-45F3-AFD6-611DFD041BEC}</Project>
+      <Name>T2.Cms.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\T2.Cms.Domain.Interface\T2.Cms.Domain.Interface.csproj">
       <Project>{db45ca62-9b89-4abe-9ed2-54b45175d37b}</Project>
       <Name>T2.Cms.Domain.Interface</Name>

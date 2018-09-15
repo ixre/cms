@@ -17,7 +17,7 @@ namespace T2.Cms.ServiceRepository
     public class ArchiveRepository : BaseArchiveRepository, IArchiveRepository
     {
         private IExtendFieldRepository _extendRep;
-        private ITemplateRepository _templateRep;
+        private ITemplateRepo _templateRep;
         private ICategoryRepo _categoryRep;
 
         private ArchiveDal _dal = new ArchiveDal();
@@ -26,7 +26,7 @@ namespace T2.Cms.ServiceRepository
         public ArchiveRepository(
             IContentRepository contentRep,
             IExtendFieldRepository extendRep,
-            ITemplateRepository templateRep,
+            ITemplateRepo templateRep,
             ICategoryRepo categoryRep
             )
         {

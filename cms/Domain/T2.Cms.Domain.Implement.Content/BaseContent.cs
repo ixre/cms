@@ -11,12 +11,12 @@ namespace T2.Cms.Domain.Implement.Content
     public abstract class BaseContent : IBaseContent
     {
         protected readonly IExtendFieldRepository _extendRep;
-        private readonly ITemplateRepository _templateRep;
+        private readonly ITemplateRepo _templateRep;
         private readonly ICategoryRepo _categoryRep;
 
         protected IList<IExtendValue> _extendValues;
         protected  ICategory _category;
-        private readonly ITemplateBind _templateBind;
+        private readonly TemplateBind _templateBind;
         private readonly IContentRepository _contentRep;
         private  IContentLinkManager _linkManager;
         protected int _categoryId;
@@ -36,7 +36,7 @@ namespace T2.Cms.Domain.Implement.Content
             IContentRepository contentRep,
             IExtendFieldRepository extendRep,
             ICategoryRepo categoryRep,
-            ITemplateRepository templateRep,
+            ITemplateRepo templateRep,
             int id,
             int categoryId,
             string title)

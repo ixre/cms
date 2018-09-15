@@ -14,7 +14,7 @@ namespace T2.Cms.ServiceRepository
         public static IDictionary<int, IList<ICategory>> _categories;
 
 
-        public static IList<ITemplateBind> _tplbind;
+        public static IList<TemplateBind> _tplbind;
 
         /// <summary>
         /// 

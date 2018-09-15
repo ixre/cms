@@ -36,7 +36,7 @@ namespace T2.Cms.DataTransfer
 
 
 
-            foreach (ITemplateBind tplBind in ic.Templates)
+            foreach (TemplateBind tplBind in ic.GetTemplates())
             {
                 switch (tplBind.BindType)
                 {
