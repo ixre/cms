@@ -248,7 +248,7 @@ namespace T2.Cms.WebManager
         {
             StringBuilder sb = new StringBuilder();
             //加载栏目
-            ServiceCall.Instance.SiteService.HandleCategoryTree(siteId, 1, (category, level, isLast) =>
+            ServiceCall.Instance.SiteService.HandleCategoryTree(siteId, 0, (category, level, isLast) =>
             {
                 sb.Append("<option class=\"").Append("level level_").Append(level.ToString());
                 if (isLast)
@@ -265,7 +265,7 @@ namespace T2.Cms.WebManager
                 sb.Append(">");//.Append(isLast ? "└" : "├");
 
 
-                for (int i = 0; i < level; i++)
+                for (int i = 0; i < level-1; i++)
                 {
                     sb.Append(CmsCharMap.Connect);
 //                    if (i == 0 || i == level - 1)

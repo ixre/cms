@@ -175,7 +175,10 @@ namespace T2.Cms.Domain.Implement.Content.Archive
 
         public override int Save()
         {
-
+            if(this.SiteId <= 0)
+            {
+                this.SiteId = this.Category.Get().SiteId;
+            }
             //初始化
             if (this.Id <= 0)
             {
@@ -195,6 +198,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             {
                 this._archiveRep.SaveArchive(this);
             }
+
 
 
             //保存文档绑定的模板
@@ -310,7 +314,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
                     else
                     {
                             this._uri = String.Concat(
-                                this.Category.UriPath,
+                                this.Category.Get().Path,
                                 "/", String.IsNullOrEmpty(this.Alias) ? this.StrId : this.Alias
                                 , ".html");
                     }
@@ -320,6 +324,10 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             set { this._uri = value; }
         }
 
+        public int SiteId
+        {
+            get;set;
+        }
 
         public void SaveSortNumber()
         {

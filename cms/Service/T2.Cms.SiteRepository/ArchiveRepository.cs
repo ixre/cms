@@ -131,7 +131,7 @@ namespace T2.Cms.ServiceRepository
 
 
 
-                _dal.Add(strId, archive.Alias, categoryId, archive.PublisherId, archive.Title,
+                _dal.Add(archive.SiteId,strId, archive.Alias, categoryId, archive.PublisherId, archive.Title,
                     archive.SmallTitle, archive.Source, archive.Thumbnail, archive.Outline, archive.Content,
                     archive.Tags, archive.Flags, archive.Location, archive.SortNumber);
 

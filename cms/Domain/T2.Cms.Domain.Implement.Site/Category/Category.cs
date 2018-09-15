@@ -22,7 +22,6 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private ICategory _next;
         private ICategory _previous;
         private IEnumerable<ICategory> _nextLevelChilds;
-        private string _uriPath;
         private IList<TemplateBind> _templates;
         private CmsCategoryEntity value;
         private ISite site;
@@ -336,27 +335,6 @@ namespace T2.Cms.Domain.Implement.Site.Category
         }
 
 
-        public string UriPath
-        {
-            get
-            {
-                if (this._uriPath == null)
-                {
-                    string path = this.value.Tag;
-                    ICategory parent = this;
-                    int rootLft = this.Site().RootCategory.Lft;
-
-                    while ((parent = parent.Parent) != null && parent.Lft != rootLft)
-                    {
-                        path = String.Concat(parent.Get().Tag, "/", path);
-                    }
-                    this._uriPath = path;
-                }
-                return this._uriPath;
-            }
-        }
-
-
         public void ClearSelf()
         {
             foreach (ICategory category in this.Childs)
@@ -370,7 +348,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             this._previous = null;
             this._extendFields = null;
             this._nextLevelChilds = null;
-            this._uriPath = null;
+            this._templates = null;
 
         }
 

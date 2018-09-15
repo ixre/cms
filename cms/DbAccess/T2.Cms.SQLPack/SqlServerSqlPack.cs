@@ -387,10 +387,10 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"INSERT INTO $PREFIX_archive(str_id,alias,cid,publisher_id,title,small_title,[flags],location,sort_number,
+                return @"INSERT INTO $PREFIX_archive(site_id,str_id,alias,cat_id,publisher_id,title,small_title,[flags],location,sort_number,
                                     [Source],thumbnail,[Outline],[Content],[Tags],[Agree],[Disagree],view_count,
                                     [CreateDate],[LastModifyDate])
-                                    VALUES(@strId,@alias,@CategoryId,@publisherId,@Title,@smallTitle,@Flags,@location,@sortNumber,
+                                    VALUES(@siteId,@strId,@alias,@catId,@publisherId,@Title,@smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail ,@Outline,@Content,@Tags,0,0,0,@CreateDate,
                                     @LastModifyDate)";
             }
@@ -410,7 +410,7 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"UPDATE $PREFIX_archive SET [cid]=@CategoryId,[Title]=@Title,small_title=@smallTitle,sort_number=@sortNumber,flags=@flags,
+                return @"UPDATE $PREFIX_archive SET [cat_id]=@catId,[Title]=@Title,small_title=@smallTitle,sort_number=@sortNumber,flags=@flags,
                                     [Alias]=@Alias,location=@location,[Source]=@Source,lastmodifydate=@lastmodifyDate,
                                     thumbnail=@thumbnail,[Outline]=@Outline,[Content]=@Content,[Tags]=@Tags WHERE id=@id";
             }

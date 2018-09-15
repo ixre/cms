@@ -330,7 +330,7 @@ namespace T2.Cms.Service
                 }
                 else
                 {
-                    sb.Append(String.Format(linkFormat, category.UriPath)).Append("/");
+                    sb.Append(String.Format(linkFormat, category.Get().Path)).Append("/");
                 }
                 sb.Append("\"");
 
