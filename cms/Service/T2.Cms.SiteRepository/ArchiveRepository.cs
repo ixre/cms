@@ -56,9 +56,10 @@ namespace T2.Cms.ServiceRepository
             IArchive archive;
             archive = this.CreateArchive(int.Parse(rd["id"].ToString()),
                 rd["str_id"].ToString(),
-                int.Parse(rd["cid"].ToString()),
+                int.Parse(rd["cat_id"].ToString()),
                 rd["title"].ToString());
             archive.Alias = rd["alias"].ToString();
+            if (indexOf("site_id") != -1) archive.SiteId = Convert.ToInt32(rd["site_id"]);
             if (indexOf("small_title") != -1) archive.SmallTitle = (rd["small_title"] ?? "").ToString();
             if (indexOf("flags") != -1) archive.Flags = rd["flags"].ToString();
             if (indexOf("location") != -1) archive.Location = rd["location"].ToString();
