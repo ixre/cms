@@ -42,7 +42,7 @@ namespace T2.Cms.Sql
         public readonly string ArchiveRepublish = @"UPDATE $PREFIX_archive 
                                 SET createdate=@CreateDate WHERE id IN (SELECT id FROM
                                 (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
-                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
+                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
                                 WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
 
         /// <summary>
@@ -50,14 +50,14 @@ namespace T2.Cms.Sql
         /// </summary>
         public readonly string Archive_Delete = @"DELETE FROM $PREFIX_archive
                                 WHERE id in (SELECT id FROM (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
-                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
+                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
                                 WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
 
         /// <summary>
         /// 检查别名是否存在
         /// </summary>
         public readonly string Archive_CheckAliasIsExist =@"SELECT alias FROM $PREFIX_archive INNER JOIN 
-                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
+                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
                                 WHERE site_id=@siteId AND (alias=@alias or $PREFIX_archive.str_id=@alias)";
 
 
@@ -66,7 +66,7 @@ namespace T2.Cms.Sql
         /// </summary>
         public readonly string Archive_AddViewCount = @"UPDATE $PREFIX_archive SET view_count=view_count+@count
                                 WHERE id in (select id from (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
-                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
+                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
                                 WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace T2.Cms.Sql
         /// </summary>
         public readonly string ArchiveGetPagedArchivesCountSqlPagerqurey = @"
             SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive 
-            INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id 
+            INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=$PREFIX_category.id 
             WHERE $PREFIX_category.site_id=@siteId AND " 
             + SqlConst.Archive_NotSystemAndHidden + " AND (lft>=@lft AND rgt<=@rgt)";
 
@@ -197,14 +197,14 @@ namespace T2.Cms.Sql
 
         /*
             INNER JOIN $PREFIX_category c INNER JOIN $PREFIX_modules m ON
-            a.cid=c.id AND c.moduleid=m.id
+            a.cat_id=c.id AND c.moduleid=m.id
         */
         /// <summary>
         /// 获取分页文档条数
         /// </summary>
         public readonly string Archive_GetpagedArchivesCountSql2 = @"
             SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive
-            INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
+            INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=$PREFIX_category.id
             INNER JOIN $PREFIX_modules ON $PREFIX_category.moduleid=$PREFIX_modules.id
             Where {0}";
         
@@ -213,7 +213,7 @@ namespace T2.Cms.Sql
         /// </summary>
         public readonly string Archive_GetCategoryArchivesCount =@"
             SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive 
-            INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
+            INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=$PREFIX_category.id
             WHERE site_id=@siteId AND $PREFIX_category.lft BETWEEN @lft AND @rgt";
         
         /// <summary>
@@ -227,7 +227,7 @@ namespace T2.Cms.Sql
         /// </summary>
         public readonly string Archive_GetSearchRecordCount = @"
                         SELECT COUNT(0) FROM $PREFIX_archive 
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=$PREFIX_category.id
                         WHERE {0}";
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace T2.Cms.Sql
         /// 获取最大的排序号码
         /// </summary>
         public string ArchiveGetMaxSortNumber = @"SELECT MAX($PREFIX_archive.sort_number) FROM  $PREFIX_archive 
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=$PREFIX_category.id
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=$PREFIX_category.id
                         WHERE $PREFIX_category.site_id=@siteId";
 
         /// <summary>
@@ -722,8 +722,8 @@ namespace T2.Cms.Sql
         public readonly string DataExtend_GetCategoryExtendRefrenceNum = @"
                 SELECT Count(0) FROM $PREFIX_extend_value v
                 INNER JOIN $PREFIX_archive a ON v.relation_id=a.id
-                INNER JOIN $PREFIX_category c ON c.id=a.cid
-                AND v.relation_type=1 AND c.site_id=@siteId AND a.cid=@categoryId AND v.field_id=@fieldId";
+                INNER JOIN $PREFIX_category c ON c.id=a.cat_id
+                AND v.relation_type=1 AND c.site_id=@siteId AND a.cat_id=@categoryId AND v.field_id=@fieldId";
 
 
         public readonly string DataExtend_UpdateField = @"

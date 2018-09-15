@@ -11,10 +11,10 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,
+                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
                         small_title,`flags`,`publisher_id`,`thumbnail`,view_count,`tags`,`outline`,
                         `content`,`createdate`,`lastmodifydate` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON  $PREFIX_category.`id`=$PREFIX_archive.`cid` WHERE " +
+                        INNER JOIN $PREFIX_category ON  $PREFIX_category.`id`=$PREFIX_archive.`cat_id` WHERE " +
                        SqlConst.Archive_NotSystemAndHidden + " ORDER BY $PREFIX_archive.sort_number DESC";
             }
         }
@@ -23,11 +23,11 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,
+                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
                         small_title,`flags`,`thumbnail`,`outline`,`content`,view_count,
                         lastmodifydate,publisher_id,tags,source,`createdate`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive 
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden +
                         @" AND (`lft`>=@lft AND `rgt`<=@rgt) AND $PREFIX_category.site_id=@siteId 
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
@@ -44,7 +44,7 @@
 	                    WHERE relation_type=@relationType AND relation_id IN (SELECT id FROM (
                         SELECT $PREFIX_archive.id
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON 
-                        $PREFIX_category.id=$PREFIX_archive.cid
+                        $PREFIX_category.id=$PREFIX_archive.cat_id
                         WHERE " + SqlConst.Archive_NotSystemAndHidden
                                 + @" AND (lft>=@lft AND rgt<=@rgt)   AND $PREFIX_category.site_id=@siteId 
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}
@@ -61,7 +61,7 @@
 	                    FROM $PREFIX_extend_value v INNER JOIN $PREFIX_extend_field f ON v.field_id=f.id
 	                    WHERE relation_type=@relationType AND relation_id IN (SELECT id FROM (
                         SELECT $PREFIX_archive.id FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cid
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
                         WHERE tag=@Tag AND $PREFIX_category.site_id=@siteId AND " + SqlConst.Archive_NotSystemAndHidden
                         + @" ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}
                       
@@ -73,9 +73,9 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,`thumbnail`,`flags`,`outline`,`content`,view_count,
+                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,`thumbnail`,`flags`,`outline`,`content`,view_count,
                         publisher_id,lastmodifydate,source,tags,`createdate`,$PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE site_id=@siteId AND  `tag`=@tag AND " + SqlConst.Archive_NotSystemAndHidden +
                         @" ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
@@ -85,9 +85,9 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`cid`,`flags`,`str_id`,`alias`,`title`,$PREFIX_archive.`location`,`thumbnail`,`outline`,`content`,`source`,`tags`,
+                return @"SELECT $PREFIX_archive.`id`,`cat_id`,`flags`,`str_id`,`alias`,`title`,$PREFIX_archive.`location`,`thumbnail`,`outline`,`content`,`source`,`tags`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag`,view_count,`createdate`,`lastmodifydate`
-                        FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                        FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         AND $PREFIX_category.site_id=@siteId
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `moduleid`=@ModuleID
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
@@ -98,10 +98,10 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,$PREFIX_category.`id` as 'cid',`flags`,
+                return @"SELECT $PREFIX_archive.`id`,$PREFIX_category.`id` as 'cat_id',`flags`,
                         `str_id`,`alias`,`title`,$PREFIX_archive.`location`,`outline`,`content`,`thumbnail`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND (`lft`>=@lft AND `rgt`<=@rgt)
                         ORDER BY view_count DESC LIMIT 0,{0}";
             }
@@ -113,10 +113,10 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`cid`,`flags`,`str_id`,
+                return @"SELECT $PREFIX_archive.`id`,`cat_id`,`flags`,`str_id`,
                         `alias`,`title`,$PREFIX_archive.`location`,`outline`,`content`,`thumbnail`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @"  AND site_id=@siteId AND `tag`=@tag
                         ORDER BY view_count DESC LIMIT 0,{0}";
             }
@@ -126,10 +126,10 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`cid`,`flags`,`str_id`,`alias`,`title`,$PREFIX_archive.`location`,
+                return @"SELECT $PREFIX_archive.`id`,`cat_id`,`flags`,`str_id`,`alias`,`title`,$PREFIX_archive.`location`,
                         `outline`,`content`,`thumbnail`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid` 
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id` 
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `moduleid`=@ModuleID
                         ORDER BY view_count DESC LIMIT 0,{0}";
             }
@@ -141,9 +141,9 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
+                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
                         `content`,`outline`,`tags`,`createdate`,`lastmodifydate`,view_count,`source` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_Special +
                         @" AND site_id=@siteId AND (`lft`>=@lft AND `rgt`<=@rgt)
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
@@ -153,10 +153,10 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
+                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
                         `content`,`outline`,`tags`,`createdate`,`lastmodifydate`
                         ,view_count,`source` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`tag`=@CategoryTag
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
@@ -165,10 +165,10 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`flags`,`title`,$PREFIX_archive.`location`,`content`,
+                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`flags`,`title`,$PREFIX_archive.`location`,`content`,
                         `thumbnail`,`outline`,`tags`,`createdate`,`lastmodifydate`
                         ,view_count,`source` FROM $PREFIX_archive
-                            INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                            INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                             WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`moduleid`=@moduleID
                             ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
             }
@@ -178,7 +178,7 @@
         {
             get
             {
-                return @"SELECT * FROM $PREFIX_archive WHERE `cid`=@CategoryId AND site_id=@siteId AND "
+                return @"SELECT * FROM $PREFIX_archive WHERE `cat_id`=@CategoryId AND site_id=@siteId AND "
                     + SqlConst.Archive_Special + @" ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,1";
             }
         }
@@ -188,9 +188,9 @@
         {
             get
             {
-                return @"SELECT `id`,a.`cid`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`createdate`,a.sort_number FROM $PREFIX_archive a,
-                                 (SELECT `cid`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
-                                 WHERE (@sameCategory <>1 OR a.`cid`=t.`cid`) AND a.`sort_number`>t.`sort_number` AND 
+                return @"SELECT `id`,a.`cat_id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`createdate`,a.sort_number FROM $PREFIX_archive a,
+                                 (SELECT `cat_id`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
+                                 WHERE (@sameCategory <>1 OR a.`cat_id`=t.`cat_id`) AND a.`sort_number`>t.`sort_number` AND 
                                  (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
                                  @" ORDER BY a.`sort_number` limit 0,1";
             }
@@ -200,9 +200,9 @@
         {
             get
             {
-                return @"SELECT `id`,a.`cid`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`createdate`,a.sort_number FROM $PREFIX_archive a,
-                                 (SELECT `cid`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
-                                 WHERE  (@sameCategory <>1 OR a.`cid`=t.`cid`) AND a.`sort_number`<t.`sort_number` AND
+                return @"SELECT `id`,a.`cat_id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`createdate`,a.sort_number FROM $PREFIX_archive a,
+                                 (SELECT `cat_id`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
+                                 WHERE  (@sameCategory <>1 OR a.`cat_id`=t.`cat_id`) AND a.`sort_number`<t.`sort_number` AND
                                  (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
                                  " ORDER BY a.`sort_number` DESC limit 0,1";
             }
@@ -213,10 +213,10 @@
             get
             {
                 return @"SELECT `$PREFIX_archive`.`ID` AS `id`,`$PREFIX_archive`.* FROM $PREFIX_archive
-                         INNER JOIN $PREFIX_category ON cid=$PREFIX_category.id
+                         INNER JOIN $PREFIX_category ON cat_id=$PREFIX_category.id
                           WHERE $PREFIX_archive.id IN (SELECT id FROM (
 						 SELECT $PREFIX_archive.id FROM $PREFIX_archive
-                         INNER JOIN $PREFIX_category ON cid=$PREFIX_category.id
+                         INNER JOIN $PREFIX_category ON cat_id=$PREFIX_category.id
                          WHERE $PREFIX_category.site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) 
                          AND " + SqlConst.Archive_NotSystemAndHidden + @" 
                          ORDER BY $PREFIX_archive.sort_number DESC LIMIT $[skipsize],$[pagesize]) as _t) ORDER BY $PREFIX_archive.sort_number DESC";
@@ -232,12 +232,12 @@
             {
 //                return @"SELECT COUNT(a.id) FROM $PREFIX_archive a
 //                        Left JOIN ($PREFIX_category c INNER JOIN $PREFIX_modules m) ON
-//                        a.cid=c.id AND c.moduleid=m.id
+//                        a.cat_id=c.id AND c.moduleid=m.id
 //                        Where {0}";
 
                 return @"SELECT COUNT(a.id) FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c
-                        ON a.cid=c.id Where {0}";
+                        ON a.cat_id=c.id Where {0}";
             }
         }
 
@@ -246,11 +246,11 @@
             get
             {
                 return @" SELECT a.`id` AS `id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,
-                        c.`name` as categoryName,`cid`,`flags`,`publisher_id`,`content`,`source`,
+                        c.`name` as categoryName,`cat_id`,`flags`,`publisher_id`,`content`,`source`,
                         `createDate`,view_count FROM $PREFIX_archive a
-                        INNER JOIN $PREFIX_category c ON c.id=a.cid
+                        INNER JOIN $PREFIX_category c ON c.id=a.cat_id
                         WHERE a.id IN (SELECT id FROM (SELECT a.`id` AS `id` FROM $PREFIX_archive a
-                        INNER JOIN $PREFIX_category c ON a.cid=c.ID
+                        INNER JOIN $PREFIX_category c ON a.cat_id=c.ID
                         WHERE $[condition] ORDER BY $[orderByField] $[orderASC] LIMIT $[skipsize],$[pagesize]) _t)
                          ORDER BY $[orderByField] $[orderASC]";
             }
@@ -294,7 +294,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.* FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cid=
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=
                         $PREFIX_category.id WHERE $[condition] $[orderby] LIMIT $[skipsize],$[pagesize]";
             }
         }
@@ -304,9 +304,9 @@
             get
             {
                 return @"SELECT *,$PREFIX_archive.`ID` AS `id` FROM  $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cid`=$PREFIX_category.`id`,
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`,
 						(SELECT $PREFIX_archive.`ID` AS `id` FROM  $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cid`=$PREFIX_category.`id`
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
                         WHERE $[condition] AND $PREFIX_category.moduleid=$[moduleid] AND
                         (`title` LIKE '%$[keyword]%' OR `outline` LIKE '%$[keyword]%'
                         OR `content` LIKE '%$[keyword]%' OR `tags` LIKE '%$[keyword]%')
@@ -320,10 +320,10 @@
             get
             {
                 return @"SELECT *,$PREFIX_archive.`id` AS `id` FROM  $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cid`=$PREFIX_category.`id`
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
                         WHERE $PREFIX_archive.id IN (SELECT id FROM 
 						(SELECT $PREFIX_archive.id FROM  $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cid`=$PREFIX_category.`id`
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
                         WHERE $[condition]  AND $PREFIX_category.site_id=@siteId AND ($PREFIX_category.lft>=@lft 
                         AND $PREFIX_category.rgt<=@rgt)
                         AND (`title` LIKE '%$[keyword]%' OR `outline` LIKE '%$[keyword]%'
@@ -346,10 +346,10 @@
         {
             get
             {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cid`,`title`,$PREFIX_archive.`location`,
+                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
                         small_title,sort_number,`tags`,`outline`,`thumbnail`,
                         `content`,`issystem`,`isspecial`,`visible`,`createdate` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cid`
+                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE {0} ORDER BY $PREFIX_archive.sort_number DESC";
             }
         }
@@ -393,7 +393,7 @@
         {
             get
             {
-                return @"SELECT $PREFIX_comment.`id` as cid,`IP`,`content`,`createDate`,
+                return @"SELECT $PREFIX_comment.`id` as cat_id,`IP`,`content`,`createDate`,
                        $PREFIX_member.`id` as uid,`avatar`,`nickname` FROM $PREFIX_comment 
                         INNER JOIN $PREFIX_member ON $PREFIX_comment.`memberID`=$PREFIX_member.`id`
                         WHERE `archiveid`=@archiveID ORDER BY `createdate` DESC";
@@ -416,7 +416,7 @@
             get
             {
                 return @"SELECT COUNT(0) FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cid`=$PREFIX_category.`id`
+                        INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
                         WHERE {2} AND $PREFIX_category.`moduleid`={0} AND 
                         (`title` LIKE '%{1}%' OR `outline` LIKE '%{1}%' OR `content` LIKE '%{1}%' OR `tags` LIKE '%{1}%')";
             }
@@ -427,7 +427,7 @@
             get
             {
                 return @"SELECT COUNT($PREFIX_archive.`id`) FROM $PREFIX_archive
-                         INNER JOIN $PREFIX_category ON $PREFIX_archive.`cid`=$PREFIX_category.`id`
+                         INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
                          WHERE {1} AND $PREFIX_category.site_id=@siteId AND ($PREFIX_category.lft>=@lft AND $PREFIX_category.rgt<=@rgt)
                          AND (`title` LIKE '%{0}%' OR `outline` LIKE '%{0}%' 
                          OR `content` LIKE '%{0}%' OR `tags` LIKE '%{0}%')";

@@ -61,7 +61,7 @@ namespace T2.Cms.Utility
             IList<Archive> archives = archiveBLL.GetAllArchives().ToEntityList<Archive>();
             foreach (Archive a in archives)
             {
-                Category category = categoryBLL.Get(c => c.ID == a.Cid);
+                Category category = categoryBLL.Get(c => c.ID == a.cat_id);
                 sb.Append("<item><title>").Append(a.Title).Append("</title><link>http://").Append(Settings.SYS_DOMAIN).Append(AppContext.Uri.GetArchiveUri(a)).Append("</link><description>")
                     .Append(ArchiveUtility.GetOutline(a, 500)).Append("</description><category>")
                     .Append(category == null ? "" : category.Name).Append("</category><publisher_id>").Append(a.publisher_id).Append("</publisher_id><copyright>")
