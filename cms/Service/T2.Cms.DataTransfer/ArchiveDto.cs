@@ -159,7 +159,7 @@ namespace T2.Cms.DataTransfer
             if(copyCategory)
             {
                 CategoryDto categoryDto = CategoryDto.ConvertFrom(archive.Category);
-                categoryDto.Id = archive.Category.GetDomainId();
+                categoryDto.ID = archive.Category.GetDomainId();
                 dto.Category = categoryDto;
             }
 

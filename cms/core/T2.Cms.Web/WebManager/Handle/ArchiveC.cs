@@ -216,7 +216,7 @@ namespace T2.Cms.Web.WebManager.Handle
 
             ArchiveDto archive = ServiceCall.Instance.ArchiveService.GetArchiveById(siteId, archiveId);
 
-            int categoryId = archive.Category.Id;
+            int categoryId = archive.Category.ID;
 
             //=============  拼接模块的属性值 ==============//
 
@@ -443,7 +443,7 @@ namespace T2.Cms.Web.WebManager.Handle
 
             //分类
             int categoryId = int.Parse(form["categoryid"]);
-            archive.Category = new CategoryDto { Id = categoryId };
+            archive.Category = new CategoryDto { ID = categoryId };
 
             //检测图片是否为默认图片
             if (archive.Thumbnail == CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto)

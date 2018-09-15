@@ -15,7 +15,7 @@ namespace T2.Cms.DataTransfer
             //int moduleId = category.ModuleId;
             CategoryDto dto = new CategoryDto
             {
-                Id = category.ID,
+                ID = category.ID,
                 Keywords = category.Keywords,
                 Description = category.Description,
                 Tag = category.Tag,
@@ -28,6 +28,7 @@ namespace T2.Cms.DataTransfer
                 ExtendFields = ic.ExtendFields,
                 SiteId = ic.Site().GetAggregaterootId(),
                 UriPath = ic.UriPath,
+                ParentId= category.ParentId,
                 //Lft = category.Lft,
                 //Rgt = category.Rgt
                 //ModuleID = moduleId
@@ -52,7 +53,7 @@ namespace T2.Cms.DataTransfer
             return dto;
         }
 
-        public int Id
+        public int ID
         {
             get;
             set;

@@ -166,7 +166,7 @@ namespace T2.Cms.Web
 
                 CategoryDto category = archive.Category;
 
-                if (!(category.Id > 0))
+                if (!(category.ID > 0))
                 {
                     RenderNotFound(context);
                     return;
@@ -258,7 +258,7 @@ namespace T2.Cms.Web
             category = ServiceCall.Instance.SiteService.GetCategory(siteId, tag);
 
 
-            if (!(category.Id>0)) { RenderNotFound(context); return; }
+            if (!(category.ID>0)) { RenderNotFound(context); return; }
 
             //获取路径
             string categoryPath = category.UriPath;

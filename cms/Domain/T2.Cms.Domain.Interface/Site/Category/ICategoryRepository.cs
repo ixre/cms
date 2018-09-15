@@ -66,6 +66,11 @@ namespace T2.Cms.Domain.Interface.Site.Category
 
         void SaveCategorySortNumber(int id, int sortNumber);
         int GetMaxSortNumber(int siteId);
-        bool CheckTagMatch(string tag, int siteId, int iD);
+
+        /// <summary>
+        /// 检查tag是否存在
+        /// </summary>
+        /// <returns></returns>
+        bool CheckTagMatch(int siteId, int parentCatId,string tag,int catId);
     }
 }

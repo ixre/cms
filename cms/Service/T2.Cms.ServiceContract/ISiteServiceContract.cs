@@ -138,10 +138,10 @@ namespace T2.Cms.ServiceContract
         /// 保存分类，并返回分类的编号
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="parentLft">新的父节点编号(系统默认为-1)</param>
+        /// <param name="parentId">父节点编号</param>
         /// <param name="category"></param>
         /// <returns></returns>
-        Result SaveCategory(int siteId, int parentLft, CategoryDto category);
+        Result SaveCategory(int siteId, int parentId, CategoryDto category);
 
         /// <summary>
         /// 获取父栏目

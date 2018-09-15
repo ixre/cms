@@ -208,19 +208,19 @@ namespace T2.Cms.Service
         }
 
 
-        public Result SaveCategory(int siteId, int parentLft, CategoryDto category)
+        public Result SaveCategory(int siteId, int parentId, CategoryDto category)
         {
             ISite site = this._resp.GetSiteById(siteId);
             ICategory ic = null;
-            if (category.Id > 0)
+            if (category.ID > 0)
             {
-                ic = site.GetCategory(category.Id);
+                ic = site.GetCategory(category.ID);
             }
             if (ic == null) ic = _categoryRep.CreateCategory(new CmsCategoryEntity());
             CmsCategoryEntity cat = new CmsCategoryEntity();
             cat.Keywords = category.Keywords;
             cat.Description = category.Description;
-            cat.ParentId = category.ParentId;
+            cat.ParentId = parentId;
             cat.Tag = category.Tag;
             cat.Icon = category.Icon;
             cat.Name = category.Name;
@@ -470,7 +470,7 @@ namespace T2.Cms.Service
         {
             CategoryDto dto = CategoryDto.ConvertFrom(fromCate);
             dto.Lft = 0;
-            dto.Id = 0;
+            dto.ID = 0;
 
             // 包含扩展
             if (!includeExtend)

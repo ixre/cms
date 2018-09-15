@@ -507,7 +507,7 @@ namespace T2.Cms.Template
             int.TryParse(num, out _num);
 
             category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
-            if (!(category.Id > 0))
+            if (!(category.ID > 0))
             {
                 return String.Format("ERROR:模块或栏目不存在!参数:{0}", categoryTag);
             }

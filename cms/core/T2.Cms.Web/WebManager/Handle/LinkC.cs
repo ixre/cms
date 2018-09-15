@@ -91,7 +91,7 @@ namespace T2.Cms.Web.WebManager.Handle
                         {
 
                             cate = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, int.Parse(binds[1]));
-                            bindTitle = cate.Id > 0 ?
+                            bindTitle = cate.ID > 0 ?
                                 String.Format("绑定栏目：{0}", cate.Name) :
                                 null;
                         }
@@ -275,10 +275,10 @@ namespace T2.Cms.Web.WebManager.Handle
                 {
                     CategoryDto cate = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, bindId);
 
-                    bindTitle = cate.Id > 0 ?
+                    bindTitle = cate.ID > 0 ?
                         String.Format("栏目：{0}", cate.Name) :
                         null;
-                    categoryId = cate.Id;
+                    categoryId = cate.ID;
                 }
                 else if (binds[0] == "archive")
                 {
