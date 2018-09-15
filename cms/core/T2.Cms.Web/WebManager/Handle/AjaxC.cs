@@ -430,7 +430,7 @@ namespace T2.Cms.Web.WebManager.Handle
             if (!String.IsNullOrEmpty(categoryTag))
             {
                 CategoryDto c = ServiceCall.Instance.SiteService.GetCategory(intSiteId, categoryTag);
-                if (c.Id > 0)
+                if (c.ID > 0)
                 {
                     lft = c.Lft;
                     rgt = c.Rgt;

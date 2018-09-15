@@ -136,33 +136,13 @@ namespace T2.Cms.Web.WebManager.Handle
         {
             var form = HttpContext.Current.Request.Form;
 
-
-            string parentStrId = form["parentId"];
-
-            int parentId;//, t;
-            int.TryParse(parentStrId, out parentId);
-            //int.TryParse(moduleID, out t);
+            int parentId = 0;
+            int.TryParse(form["ParentId"], out parentId);
 
             CategoryDto category = InitCategoryDtoFromHttpPost(form, new CategoryDto());
-            CategoryDto parentCategory = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, parentId);
-            if (parentCategory.Id == 0)
-            {
-                parentCategory.Lft = 1;
-            }
-
-            //已经存在相同Tag的栏目
-            if (String.IsNullOrEmpty(category.Tag))
-            {
-                return base.ReturnError("标签不能为空");
-            }
-            if (!ServiceCall.Instance.SiteService
-                .CheckCategoryTagAvailable(this.SiteId, -1, category.Tag))
-            {
-                return base.ReturnError("标签已经存在");
-            }
 
             Result r = ServiceCall.Instance.SiteService
-                .SaveCategory(this.SiteId, parentCategory.Lft, category);
+                .SaveCategory(this.SiteId, parentId, category);
             int categoryId = Convert.ToInt32(r.Data["CategoryId"]);
 
             return base.ReturnSuccess(null, categoryId.ToString());
@@ -238,12 +218,12 @@ namespace T2.Cms.Web.WebManager.Handle
 
 
             //检验站点
-            if (!(category.Id > 0)) return;
+            if (!(category.ID > 0)) return;
 
             //获取父栏目pleft
             int pId = 0;
             CategoryDto pc = ServiceCall.Instance.SiteService.GetParentCategory(this.SiteId, category.Lft);
-            if (pc.Id > 0) pId = pc.Id;
+            if (pc.ID > 0) pId = pc.ID;
 
             /*
             //加载模块
@@ -259,21 +239,8 @@ namespace T2.Cms.Web.WebManager.Handle
 
             */
 
-            //加载栏目(排除当前栏目)
-            ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, 1, (c, level, isLast) =>
-            {
-                if (c.Lft != categoryId)
-                {
-                    sb.Append("<option value=\"").Append(c.GetDomainId().ToString()).Append("\">");
-                    for (var i = 0; i < level; i++)
-                    {
-                        sb.Append(CmsCharMap.Dot);
-                    }
-                    sb.Append(c.Get().Name).Append("</option>");
-                }
-            });
+            categoryOptions = Helper.GetCategoryIdSelector(this.SiteId, 0);
 
-            categoryOptions = sb.ToString();
 
 
 
@@ -318,42 +285,20 @@ namespace T2.Cms.Web.WebManager.Handle
         public string Update_POST()
         {
             var form = HttpContext.Current.Request.Form;
-            string categoryTag;
-            CategoryDto category = ServiceCall.Instance.SiteService.GetCategoryByLft(
-                this.SiteId,
-                int.Parse(form["lft"].ToString()));
-
-            if (!(category.Id > 0)) return base.ReturnError("分类不存在!");
-            categoryTag = category.Tag;
+            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(
+                this.SiteId,int.Parse(form["ID"].ToString()));
+            if (!(category.ID > 0)) return base.ReturnError("分类不存在!");
 
             //获取新的栏目信息
             category = InitCategoryDtoFromHttpPost(form, category);
 
-            //更改了categoryTag则检验,区分大小写
-            if (String.IsNullOrEmpty(category.Tag))
-            {
-                return base.ReturnError("标签不能为空");
-            }
-
-            if (String.Compare(categoryTag, category.Tag, false, CultureInfo.InvariantCulture) != 0)
-            {
-                if (!ServiceCall.Instance.SiteService.CheckCategoryTagAvailable(
-                    this.SiteId,
-                    category.Id,
-                    category.Tag))
-                {
-                    return base.ReturnError("标签已经存在！");
-                }
-            }
-
-            //string moduleID = form["moduleId"];
-            //category.ModuleID = int.Parse(moduleID);
-
-            int plft = -1;// int.Parse(form["plft"].ToString());
-
+            int parentId = Convert.ToInt32(form["ParentId"]);
             //设置并保存
-            ServiceCall.Instance.SiteService.SaveCategory(this.SiteId, plft, category);
-
+           Result r =  ServiceCall.Instance.SiteService.SaveCategory(this.SiteId, parentId, category);
+            if(r.ErrCode > 0)
+            {
+                return base.ReturnError(r.ErrMsg);
+            }
             return base.ReturnSuccess("保存成功!");
         }
 
@@ -366,7 +311,7 @@ namespace T2.Cms.Web.WebManager.Handle
             int categoryId = int.Parse(base.Request.Form["category_id"]);
             CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
 
-            if (!(category.Id > 0))return base.ReturnError("栏目不存在");
+            if (!(category.ID > 0))return base.ReturnError("栏目不存在");
 
             try
             {

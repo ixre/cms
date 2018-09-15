@@ -428,6 +428,7 @@ namespace T2.Cms.Domain.Implement.Site
         {
             IList<int> arr = new List<int>();
            
+
             //获取root节点的所有子节点
             IEnumerable <ICategory> childNodes = this.GetCategories(parentId, CategoryContainerOption.Childs);
             /* SELECT * FROM tree WHERE lft BETWEEN @rootLft AND @rootRgt ORDER BY lft ASC'); */
@@ -502,7 +503,7 @@ namespace T2.Cms.Domain.Implement.Site
             IEnumerable<ICategory> list = root.NextLevelChilds.OrderBy(a => a.Get().SortNumber);
             foreach (ICategory c in list)
             {
-                String nodeValue = this.GetCategoryNodeValue(root);
+                String nodeValue = this.GetCategoryNodeValue(c);
                 var tNode = new TreeNode(c.Get().Name,nodeValue, "javascript:void(0);", true,"");
                 node.childs.Add(tNode);
                 ItrNodeTree(tNode, c);

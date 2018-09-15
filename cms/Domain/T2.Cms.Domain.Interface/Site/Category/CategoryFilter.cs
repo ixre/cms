@@ -182,8 +182,15 @@ namespace T2.Cms.Domain.Interface.Site.Category
             }
         }
 
-        public static IEnumerable<ICategory> GetCategories(int catId, IList<ICategory> list, CategoryContainerOption option)
+        public static IEnumerable<ICategory> GetCategories(ICategory parent, IList<ICategory> list, CategoryContainerOption option)
         {
+            int siteId = parent.Get().SiteId;
+            String path = parent.Get().Path;
+            switch (option)
+            {
+                case CategoryContainerOption.Childs:
+                    return list.Where(a => a.Get().SiteId == siteId && a.Get().Path.StartsWith(path)).OrderBy(a => a.Get().SortNumber);
+            }
             return list;
             /*
             //如果在初始化,则直接用静态变量

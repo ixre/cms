@@ -189,14 +189,16 @@ namespace T2.Cms.Dal
             base.ExecuteNonQuery(base.NewQuery(sql,null));
         }
 
-        public bool CheckTagMatch(string tag, int siteId, int catId)
+        public bool CheckTagMatch(int siteId, int parentCatId, string tag, int catId)
         {
-            const string sql = "SELECT id FROM $PREFIX_category WHERE site_id=@site_id AND tag=@tag AND id<>@id";
+            const string sql = @"SELECT id FROM $PREFIX_category WHERE site_id=@siteId 
+                    AND parent_id=@parentId AND tag=@tag AND id<>@id";
             IDictionary<String, Object> data = new Dictionary<String, Object>();
-            data.Add("@site_id", siteId);
+            data.Add("@siteId", siteId);
+            data.Add("@parentId", parentCatId);
             data.Add("@tag", tag);
             data.Add("@id",catId);
-            SqlQuery query = base.CreateQuery(String.Format(sql, siteId.ToString()),data);
+            SqlQuery query = base.CreateQuery(sql,data);
             object obj = base.ExecuteScalar(query);
             return obj == null || obj == DBNull.Value;
         }

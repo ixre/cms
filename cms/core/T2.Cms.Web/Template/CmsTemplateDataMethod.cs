@@ -50,7 +50,7 @@ namespace T2.Cms.Template
         protected string GetCategory(string name)
         {
           CategoryDto c = ServiceCall.Instance.SiteService.GetCategoryByName(this.SiteId, name);
-           return c.Id<=0 ? "" : c.Tag;
+           return c.ID<=0 ? "" : c.Tag;
         }
     }
 }

@@ -57,17 +57,17 @@ namespace T2.Cms.Service
 
             if (archiveDto.Id <= 0)
             {
-                archive = ic.CreateArchive(-1, archiveDto.StrId, archiveDto.Category.Id, archiveDto.Title);
+                archive = ic.CreateArchive(-1, archiveDto.StrId, archiveDto.Category.ID, archiveDto.Title);
             }
             else
             {
                 archive = ic.GetArchiveById(archiveDto.Id);
 
                 //修改栏目
-                if (archiveDto.Category.Id != archive.Category.GetDomainId())
+                if (archiveDto.Category.ID != archive.Category.GetDomainId())
                 {
                     ISite site = this._siteRep.GetSiteById(siteId);
-                    archive.Category = site.GetCategory(archiveDto.Category.Id);
+                    archive.Category = site.GetCategory(archiveDto.Category.ID);
                 }
             }
 

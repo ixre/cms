@@ -284,7 +284,7 @@ namespace T2.Cms.Template
                 if (binds[0] == "category")
                 {
                     CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this._site.SiteId, int.Parse(binds[1]));
-                    if (category.Id > 0)
+                    if (category.ID > 0)
                     {
                         return this.GetCategoryUrl(category, 1);
                     }
@@ -408,9 +408,9 @@ namespace T2.Cms.Template
                 else
                 {
                     CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, param);
-                    if (category.Id > 0)
+                    if (category.ID > 0)
                     {
-                        categories1 = ServiceCall.Instance.SiteService.GetCategories(this.SiteId, category.Id, CategoryContainerOption.NextLevel);
+                        categories1 = ServiceCall.Instance.SiteService.GetCategories(this.SiteId, category.ID, CategoryContainerOption.NextLevel);
                     }
                     else
                     {
@@ -1304,13 +1304,13 @@ namespace T2.Cms.Template
             {
                 CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, param);
 
-                if (!(category.Id > 0) || (category.SiteId != this._site.SiteId && category.Lft != 1))
+                if (!(category.ID > 0) || (category.SiteId != this._site.SiteId && category.Lft != 1))
                 {
                     return TplMessage("不存在栏目!标识:" + param);
                 }
 
                 categories = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(this.SiteId,
-                    category.Id, CategoryContainerOption.NextLevel));
+                    category.ID, CategoryContainerOption.NextLevel));
 
                 //如果没有下级了,则获取当前级
                 //if (categories.Count == 0)
@@ -1344,7 +1344,7 @@ namespace T2.Cms.Template
                             case "tag": return c.Tag;
                             case "thumbnail":
                             case "icon": return this.GetThumbnailUrl(c.Icon);
-                            case "id": return c.Id.ToString();
+                            case "id": return c.ID.ToString();
 
                             //case "pid":  return c.PID.ToString();
 
@@ -1576,7 +1576,7 @@ namespace T2.Cms.Template
 
 
             CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
-            if (!(category.Id > 0))
+            if (!(category.ID > 0))
             {
                 return TplMessage("Error:栏目不存在!");
             }
@@ -1630,10 +1630,10 @@ namespace T2.Cms.Template
                 {
                     continue;
                 }
-                if (categoryId != archiveCategory.Id)
+                if (categoryId != archiveCategory.ID)
                 {
                     archiveCategory = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
-                    if (!(archiveCategory.Id > 0)) continue;
+                    if (!(archiveCategory.ID > 0)) continue;
                 }
 
 
@@ -1668,7 +1668,7 @@ namespace T2.Cms.Template
                             case "create_date": return String.Format("{0:yyyy-MM-dd}", dr["createdate"]);
 
                             //栏目
-                            case "category_id": return archiveCategory.Id.ToString();
+                            case "category_id": return archiveCategory.ID.ToString();
 
                             case "category_name": return archiveCategory.Name;
 
@@ -1768,7 +1768,7 @@ namespace T2.Cms.Template
             //获取栏目
             var category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, tag);
 
-            if (!(category.Id > 0))
+            if (!(category.ID > 0))
             {
                 return String.Format("ERROR:模块或栏目不存在!参数:{0}", tag);
             }
@@ -1788,7 +1788,7 @@ namespace T2.Cms.Template
             //栏目
             var category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, tag);
 
-            if (!(category.Id > 0))
+            if (!(category.ID > 0))
             {
                 return String.Format("ERROR:模块或栏目不存在!参数:{0}", tag);
             }
@@ -1870,7 +1870,7 @@ namespace T2.Cms.Template
                 if (searchArchives == null)
                 {
                     category = ServiceCall.Instance.SiteService.GetCategory(siteId, categoryTagOrModuleId);
-                    if (category.Id > 0)
+                    if (category.ID > 0)
                     {
                         hasSetCategory = true;
                         searchArchives = ServiceCall.Instance.ArchiveService.SearchArchivesByCategory(siteId,
@@ -2440,7 +2440,7 @@ namespace T2.Cms.Template
             }
 
             IList<CategoryDto> childs = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(
-                this.SiteId,category.Id,CategoryContainerOption.NextLevel));
+                this.SiteId,category.ID,CategoryContainerOption.NextLevel));
 
 
             if (childs.Count != 0)
@@ -2487,7 +2487,7 @@ namespace T2.Cms.Template
                 StringBuilder sb = new StringBuilder(400);
 
                 CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
-                if (!(category.Id > 0))
+                if (!(category.ID > 0))
                 {
                     return TplMessage("不存在栏目!标识:" + categoryTag);
                 }
@@ -2585,7 +2585,7 @@ namespace T2.Cms.Template
             {
 
                 CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
-                if (!(category.Id > 0))
+                if (!(category.ID > 0))
                 {
                     return TplMessage("不存在栏目!标识:" + categoryTag);
                 }

@@ -13,7 +13,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 {
     public class Category : ICategory
     {
-        private ICategoryRepo _rep;
+        private ICategoryRepo _repo;
         private IExtendFieldRepository _extendRep;
 
         private IList<IExtendField> _extendFields;
@@ -34,7 +34,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             IExtendFieldRepository extendRep, ITemplateRepo tmpRep, CmsCategoryEntity value)
         {
             this.value = value;
-            this._rep = rep;
+            this._repo = rep;
             this._extendRep = extendRep;
             this._tempRep = tmpRep;
             this.siteRepo = siteRepo;
@@ -55,8 +55,6 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         public Error Set(CmsCategoryEntity src)
         {
-            this._parentChanged = true;
-
             if (src.ParentId != 0 && src.ParentId == this.value.ID)
             {
                 return new Error("父级栏目有误:与子栏目相同");
@@ -81,7 +79,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 this.value.Icon = "";
                 this.value.Path = "";
                 this.value.Flag = 0; //todo: 初始化flag
-                int maxSortNumber = this._rep.GetMaxSortNumber(this.value.SiteId);
+                int maxSortNumber = this._repo.GetMaxSortNumber(this.value.SiteId);
                 if (maxSortNumber == 0) maxSortNumber = 1;
                 this.value.SortNumber = maxSortNumber;
                 this._parentChanged = true;
@@ -90,15 +88,12 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 return new Error("不允许使用栏目保留Tag");
             }
-            if (!this._rep.CheckTagMatch(src.Tag, this.value.SiteId, this.value.ID))
-            {
-                return new Error("分类TAG已存在");
-            }
+            
             if (this.value.ParentId != src.ParentId)
             {
                 if (src.ParentId > 0)
                 {
-                    ICategory ip = this._rep.GetCategory(this.value.SiteId, src.ParentId);
+                    ICategory ip = this._repo.GetCategory(this.value.SiteId, src.ParentId);
                     if (ip == null || ip.Get().SiteId != this.value.SiteId)
                     {
                         return new Error("上级分类不存在");
@@ -106,6 +101,10 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 }
                 this.value.ParentId = src.ParentId;
                 this._parentChanged = true;
+            }
+            if (!this._repo.CheckTagMatch(this.value.SiteId, this.value.ParentId,src.Tag, this.value.ID))
+            {
+                return new Error("分类TAG已存在");
             }
             this.value.Flag = src.Flag;
             this.value.ModuleId = src.ModuleId;
@@ -135,16 +134,19 @@ namespace T2.Cms.Domain.Implement.Site.Category
             }
             if (this._parentChanged)
             {
+                this._parent = null;
                 this.UpdateCategoryPath();
+                this._parentChanged = false;
             }
 
 
-            Error err = this._rep.SaveCategory(this.value);
+            Error err = this._repo.SaveCategory(this.value);
             if (err == null)
             {
                 if (this._templateChanged)
                 {
                     err = this.SaveTemplateBinds();
+                    this._templateChanged = false;
                 }
 
 
@@ -295,7 +297,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 if (this._parent == null && this.value.ParentId > 0)
                 {
-                    this._parent = this._rep.GetCategory(this.value.SiteId, this.value.ParentId);
+                    this._parent = this._repo.GetCategory(this.value.SiteId, this.value.ParentId);
                 }
                 return this._parent;
             }
@@ -306,7 +308,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             get
             {
-                return _childs ?? (_childs ?? this._rep.GetChilds(this));
+                return _childs ?? (_childs ?? this._repo.GetChilds(this));
             }
         }
 
@@ -316,7 +318,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 if (this._nextLevelChilds == null)
                 {
-                    this._nextLevelChilds = this._rep.GetNextLevelChilds(this).OrderBy(a => a.Get().SortNumber);
+                    this._nextLevelChilds = this._repo.GetNextLevelChilds(this).OrderBy(a => a.Get().SortNumber);
                 }
                 return this._nextLevelChilds;
             }
@@ -325,12 +327,12 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         public ICategory Next
         {
-            get { return this._next ?? (this._next = this._rep.GetNext(this)); }
+            get { return this._next ?? (this._next = this._repo.GetNext(this)); }
         }
 
         public ICategory Previous
         {
-            get { return this._previous ?? (this._previous = this._rep.GetPrevious(this)); }
+            get { return this._previous ?? (this._previous = this._repo.GetPrevious(this)); }
         }
 
 
@@ -446,7 +448,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         /// </summary>
         public void SaveSortNumber()
         {
-            this._rep.SaveCategorySortNumber(this.GetDomainId(), this.value.SortNumber);
+            this._repo.SaveCategorySortNumber(this.GetDomainId(), this.value.SortNumber);
         }
 
         public CmsCategoryEntity Get()

@@ -221,10 +221,12 @@ namespace T2.Cms.ServiceRepository
 
         public IEnumerable<ICategory> GetCategories(int siteId, int catId, CategoryContainerOption option)
         {
+            this.ChkPreload();
             if (!this.Categories.ContainsKey(siteId))
                 throw new Exception("站点无栏目!");
             // return CategoryFilter.GetCategories(lft, rgt, this.Categories[siteId], option);
-            return CategoryFilter.GetCategories(catId, this.Categories[siteId], option);
+            ICategory parent = this.GetCategory(siteId, catId);
+            return CategoryFilter.GetCategories(parent, this.Categories[siteId], option);
         }
 
 
@@ -351,9 +353,9 @@ namespace T2.Cms.ServiceRepository
             return categoryDal.GetMaxCategoryId(siteId);
         }
 
-        public bool CheckTagMatch(string tag, int siteId, int catId)
+        public bool CheckTagMatch(int siteId, int parentCatId, string tag, int catId)
         {
-            return categoryDal.CheckTagMatch(tag, siteId, catId);
+            return categoryDal.CheckTagMatch(siteId, parentCatId, tag, catId);
         }
     }
 }
