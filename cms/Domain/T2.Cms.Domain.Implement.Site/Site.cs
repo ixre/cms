@@ -37,7 +37,7 @@ namespace T2.Cms.Domain.Implement.Site
         private readonly ICategoryRepo _categoryRep;
         private IExtendManager _extendManager;
         private IList<ICategory> _categories;
-        private readonly ITemplateRepository _tempRep;
+        private readonly ITemplateRepo _tempRep;
         private ISiteLinkManager _linkManager;
         private string _fullDomain;
         private IAppUserManager _appUserManager;
@@ -48,7 +48,7 @@ namespace T2.Cms.Domain.Implement.Site
         internal Site(ISiteRepo siteRepository,
             IExtendFieldRepository extendRepository,
             ICategoryRepo categoryRep,
-            ITemplateRepository tempRep,
+            ITemplateRepo tempRep,
             IUserRepository userRep,
             CmsSiteEntity site)
         {
@@ -276,9 +276,9 @@ namespace T2.Cms.Domain.Implement.Site
 
             this._categoryRep.DeleteCategory(this.GetAggregaterootId(), lft, category.Rgt);
 
-            foreach (ITemplateBind bind in category.Templates)
+            foreach (TemplateBind bind in category.GetTemplates())
             {
-                this._tempRep.RemoveBind(bind.BindType, category.GetDomainId());
+                this._tempRep.RemoveBind( category.GetDomainId(),bind.BindType);
             }
             this._categories = null;
 

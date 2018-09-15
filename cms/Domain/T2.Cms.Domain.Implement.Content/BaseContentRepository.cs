@@ -8,7 +8,7 @@ namespace T2.Cms.Domain.Implement.Content
     {
         public IContentContainer CreateSiteContent(
             IArchiveRepository archiveRep,
-            ITemplateRepository tempRep,
+            ITemplateRepo tempRep,
             int siteId)
         {
             return new ContentContainer(archiveRep,tempRep,siteId);

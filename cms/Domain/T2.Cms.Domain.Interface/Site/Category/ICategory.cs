@@ -54,11 +54,20 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// 扩展属性
         /// </summary>
         IList<IExtendField> ExtendFields { get; set; }
+        
+        /// <summary>
+        /// 设置模板
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        Error SetTemplates(TemplateBind[] arr);
 
         /// <summary>
-        /// 模板绑定
+        /// 获取模板
         /// </summary>
-        IList<ITemplateBind> Templates { get; set; }
+        /// <param name="path"></param>
+        /// <returns></returns>
+        IList<TemplateBind> GetTemplates();
 
         /// <summary>
         /// 保存

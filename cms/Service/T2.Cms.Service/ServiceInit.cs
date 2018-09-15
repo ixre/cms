@@ -52,7 +52,7 @@ namespace T2.Cms.Service
                 _.For<ICategoryRepo>().Singleton().Use<CategoryRepository>();
                 _.For<IExtendFieldRepository>().Singleton().Use<ExtendFieldRepository>();
                 _.For<IArchiveRepository>().Singleton().Use<ArchiveRepository>();
-                _.For<ITemplateRepository>().Singleton().Use<TemplateRepository>();
+                _.For<ITemplateRepo>().Singleton().Use<TemplateRepoImpl>();
 
                 _.For<IUserRepository>().Singleton().Use<UserRepository>();
 
@@ -64,7 +64,7 @@ namespace T2.Cms.Service
                 _.For<Imessage>().Singleton().Use<MessageBll>();
                 _.For<Imodule>().Singleton().Use<ModuleBLL>();
                 //x.For<ISite>().Singleton().Use<SiteBLL>();
-                // x.For<ITemplateBind>().Singleton().Use<TemplateBindBLL>();
+                // x.For<TemplateBind>().Singleton().Use<TemplateBindBLL>();
                 _.For<IUserBll>().Singleton().Use<UserBllBll>();
                 _.For<ITable>().Singleton().Use<TableBll>();
 

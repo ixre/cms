@@ -7,6 +7,7 @@ using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site;
 using T2.Cms.Models;
 using T2.Cms.Infrastructure;
+using T2.Cms.Domain.Interface.Site.Template;
 
 namespace T2.Cms.UnitTest
 {
@@ -48,7 +49,7 @@ namespace T2.Cms.UnitTest
             {
                 SiteId = siteId,
                 Name = "一级分类",
-                ParentId = 1,
+                ParentId = 3,
                 Tag = "cat1",
                 Location= "http://baidu.com",
             };
@@ -60,7 +61,14 @@ namespace T2.Cms.UnitTest
             Error err = ic.Set(cat);
             if(err == null)
             {
-                err = ic.Save();
+                TemplateBind[] arr = new TemplateBind[2];
+                arr[0] = new TemplateBind(0, TemplateBindType.CategoryArchiveTemplate, "default/archive_1");
+                arr[1] = new TemplateBind(0, TemplateBindType.CategoryTemplate, "default/category_1");
+                err = ic.SetTemplates(arr);
+                if (err == null)
+                {
+                    err = ic.Save();
+                }
             }
             if(err != null)
             {

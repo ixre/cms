@@ -24,7 +24,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             ICategoryRepo categoryRep,
              ISiteRepo siteRepo,
             IExtendFieldRepository extendRep,
-            ITemplateRepository tempRep,
+            ITemplateRepo tempRep,
             CmsCategoryEntity value)
         {
             return new Category(categoryRep,siteRepo, extendRep, tempRep,value);

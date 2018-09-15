@@ -13,10 +13,10 @@ namespace T2.Cms.ServiceRepository
     {
         private IArchiveRepository _archiveRep;
         private IDictionary<int, IContentContainer> siteContents;
-        private ITemplateRepository _tempRep;
+        private ITemplateRepo _tempRep;
 
         public ContentRepository(
-            ITemplateRepository tempRep)
+            ITemplateRepo tempRep)
         {
 
             this._tempRep = tempRep;

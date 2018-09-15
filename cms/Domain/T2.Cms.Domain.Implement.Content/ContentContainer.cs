@@ -9,10 +9,10 @@ namespace T2.Cms.Domain.Implement.Content
     public class ContentContainer : IContentContainer
     {
         private IArchiveRepository _archiveRep;
-        private ITemplateRepository _tempRep;
+        private ITemplateRepo _tempRep;
         internal ContentContainer(
             IArchiveRepository archiveRep,
-            ITemplateRepository tempRep,
+            ITemplateRepo tempRep,
             int siteId)
         {
 
@@ -131,7 +131,7 @@ namespace T2.Cms.Domain.Implement.Content
             if (result)
             {
                 //删除模板绑定
-                this._tempRep.RemoveBind(TemplateBindType.ArchiveTemplate, archive.GetAggregaterootId());
+                this._tempRep.RemoveBind(archive.GetAggregaterootId(),TemplateBindType.ArchiveTemplate);
 
 
                 //

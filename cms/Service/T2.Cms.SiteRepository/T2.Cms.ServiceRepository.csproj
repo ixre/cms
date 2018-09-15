@@ -60,7 +60,7 @@
     <Compile Include="Query\UserQuery.cs" />
     <Compile Include="RepositoryDataCache.cs" />
     <Compile Include="SiteRepository.cs" />
-    <Compile Include="TemplateRepository.cs" />
+    <Compile Include="TemplateRepoImpl.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

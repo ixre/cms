@@ -23,15 +23,15 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private ICategory _previous;
         private IEnumerable<ICategory> _nextLevelChilds;
         private string _uriPath;
-        private IList<ITemplateBind> _templates;
+        private IList<TemplateBind> _templates;
         private CmsCategoryEntity value;
         private ISite site;
         private ISiteRepo siteRepo;
-        private readonly ITemplateRepository _tempRep;
+        private readonly ITemplateRepo _tempRep;
         private bool _parentChanged = false;
 
         internal Category(ICategoryRepo rep, ISiteRepo siteRepo,
-            IExtendFieldRepository extendRep,ITemplateRepository tmpRep,CmsCategoryEntity value)
+            IExtendFieldRepository extendRep, ITemplateRepo tmpRep, CmsCategoryEntity value)
         {
             this.value = value;
             this._rep = rep;
@@ -39,7 +39,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             this._tempRep = tmpRep;
             this.siteRepo = siteRepo;
         }
-        
+
         public int Lft
         {
             get;
@@ -57,7 +57,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             this._parentChanged = true;
 
-            if(src.ParentId != 0 &&src.ParentId == this.value.ID)
+            if (src.ParentId != 0 && src.ParentId == this.value.ID)
             {
                 return new Error("父级栏目有误:与子栏目相同");
             }
@@ -77,7 +77,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     return new Error("栏目名称不能为空");
                 }
                 this.value.SiteId = src.SiteId;
-                this.value.Code = src.Code??"";
+                this.value.Code = src.Code ?? "";
                 this.value.Icon = "";
                 this.value.Path = "";
                 this.value.Flag = 0; //todo: 初始化flag
@@ -90,9 +90,9 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 return new Error("分类TAG已存在");
             }
-            if(this.value.ParentId != src.ParentId)
+            if (this.value.ParentId != src.ParentId)
             {
-                if(src.ParentId > 0)
+                if (src.ParentId > 0)
                 {
                     ICategory ip = this._rep.GetCategory(this.value.SiteId, src.ParentId);
                     if (ip == null || ip.Get().SiteId != this.value.SiteId)
@@ -105,11 +105,11 @@ namespace T2.Cms.Domain.Implement.Site.Category
             }
             this.value.Flag = src.Flag;
             this.value.ModuleId = src.ModuleId;
-            this.value.Name = src.Name??"";
-            this.value.Icon = src.Icon??"";
-            this.value.Title = src.Title??"";
-            this.value.Keywords = src.Keywords??"";
-            this.value.Description = src.Description??"";
+            this.value.Name = src.Name ?? "";
+            this.value.Icon = src.Icon ?? "";
+            this.value.Title = src.Title ?? "";
+            this.value.Keywords = src.Keywords ?? "";
+            this.value.Description = src.Description ?? "";
             this.value.Location = src.Location ?? "";
             if (String.IsNullOrEmpty(src.Location))
             {
@@ -117,11 +117,11 @@ namespace T2.Cms.Domain.Implement.Site.Category
             }
             else
             {
-                this.value.Flag |= (int) CategoryFlag.Redirect;
+                this.value.Flag |= (int)CategoryFlag.Redirect;
             }
             return null;
         }
-        
+
 
         public Error Save()
         {
@@ -133,31 +133,16 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 this.UpdateCategoryPath();
             }
-            
+
 
             Error err = this._rep.SaveCategory(this.value);
             if (err == null)
             {
-                #region 保存模板
-
-                IList<ITemplateBind> delBinds = new List<ITemplateBind>();
-
-                foreach (ITemplateBind templateBind in this.Templates)
+                if (this._templateChanged)
                 {
-                    this._tempRep.SaveTemplateBind(templateBind, this.GetDomainId());
-                    if (String.IsNullOrEmpty(templateBind.TplPath))
-                    {
-                        delBinds.Add(templateBind);
-                    }
+                    err = this.SaveTemplateBinds();
                 }
 
-                for (int i = 0; i < delBinds.Count; i++)
-                {
-                    this.Templates.Remove(delBinds[i]);
-                    delBinds[i] = null;
-                }
-
-                #endregion
 
                 #region 保存扩展属性
 
@@ -170,6 +155,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             }
             return err;
         }
+
 
         // 更新分类的路径
         private void UpdateCategoryPath()
@@ -185,7 +171,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         private void SetAutoSortNumber()
         {
-            if(this.Parent == null)
+            if (this.Parent == null)
             {
                 this.value.SortNumber = 1;
                 return;
@@ -218,7 +204,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
                 bool isExists;
 
-#region 计算删除的扩展属性
+                #region 计算删除的扩展属性
                 foreach (IExtendField extend in this.ExtendFields)
                 {
                     isExists = false;
@@ -266,9 +252,9 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     this.ExtendFields.Remove(extend);
                 }
 
-#endregion
+                #endregion
 
-#region 添加新增的扩展属性
+                #region 添加新增的扩展属性
                 foreach (IExtendField valueExtend in value)
                 {
                     isExists = false;
@@ -292,56 +278,20 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     this.ExtendFields.Add(this._extendRep.GetExtendFieldById(this.Site().GetAggregaterootId(), extendId));
                 }
 
-#endregion
+                #endregion
 
 
                 _extendFields = value;
             }
         }
 
-
-
-        public IList<ITemplateBind> Templates
-        {
-            get
-            {
-                return this._templates ?? (this._templates = new List<ITemplateBind>(this._tempRep.GetTemplateBindsForCategory(this)));
-            }
-            set
-            {
-                this._templates = value;
-            }
-        }
-
-
-        //public IEnumerable<ICategory> NextLevelCategories
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public bool IsSign
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public int Level
-        //{
-        //    get;
-        //    set;
-        //}
-
-
-
-
         public ICategory Parent
         {
             get
             {
-                if(this._parent == null && this.value.ParentId > 0)
+                if (this._parent == null && this.value.ParentId > 0)
                 {
-                    this._parent = this._rep.GetCategory(this.value.SiteId,this.value.ParentId);
+                    this._parent = this._rep.GetCategory(this.value.SiteId, this.value.ParentId);
                 }
                 return this._parent;
             }
@@ -425,12 +375,12 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             if (this.Parent != null)
             {
-                ICategory[] list = this.Parent.Childs.OrderBy(a=>a.Get().SortNumber).ToArray();
+                ICategory[] list = this.Parent.Childs.OrderBy(a => a.Get().SortNumber).ToArray();
                 for (int i = 0; i < list.Length; i++)
                 {
-                    if (list[i].GetDomainId() == this.GetDomainId() && i !=0)
+                    if (list[i].GetDomainId() == this.GetDomainId() && i != 0)
                     {
-                        this.SwapSortNumber(list[i - 1],true);
+                        this.SwapSortNumber(list[i - 1], true);
                         break;
                     }
                 }
@@ -449,14 +399,14 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 {
                     if (list[i].GetDomainId() == this.GetDomainId() && i < list.Length - 1)
                     {
-                        this.SwapSortNumber(list[i + 1],false);
+                        this.SwapSortNumber(list[i + 1], false);
                         break;
                     }
                 }
             }
         }
 
-        private void SwapSortNumber(ICategory c,bool up)
+        private void SwapSortNumber(ICategory c, bool up)
         {
             //todo: 应该是更改
             if (c == null) return;
@@ -478,7 +428,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     this.value.SortNumber = sortN + (up ? 1 : -1);
                 }
             }
-            else 
+            else
             {
                 // 以上均为兼容
                 this.value.SortNumber = sortN;
@@ -490,9 +440,9 @@ namespace T2.Cms.Domain.Implement.Site.Category
         /// <summary>
         /// 保存排序号码
         /// </summary>
-       public void SaveSortNumber()
+        public void SaveSortNumber()
         {
-            this._rep.SaveCategorySortNumber(this.GetDomainId(),this.value.SortNumber);
+            this._rep.SaveCategorySortNumber(this.GetDomainId(), this.value.SortNumber);
         }
 
         public CmsCategoryEntity Get()
@@ -501,7 +451,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
         }
 
-        
+
 
 
         public ISite Site()
@@ -516,6 +466,63 @@ namespace T2.Cms.Domain.Implement.Site.Category
         public int GetDomainId()
         {
             return this.value.ID;
+        }
+
+        private bool _templateChanged = false;
+        private TemplateBind[] _newTemplates;
+
+        public Error SetTemplates(TemplateBind[] arr)
+        {
+            this._templateChanged = true;
+            this._newTemplates = arr;
+            return null;
+        }
+
+        public IList<TemplateBind> GetTemplates()
+        {
+            if (this._templates == null)
+            {
+                IEnumerable<TemplateBind> ie = this._tempRep.GetTemplateBindsForCategory(this);
+                this._templates = new List<TemplateBind>(ie);
+            }
+            return this._templates;
+        }
+
+
+        private Error SaveTemplateBinds()
+        {
+            IList<TemplateBind> delList = new List<TemplateBind>();
+            IList<TemplateBind> origin = this.GetTemplates();
+            this._newTemplates = this._newTemplates ?? new TemplateBind[0];
+            IDictionary<TemplateBindType, TemplateBind> tplMap = new Dictionary<TemplateBindType, TemplateBind>();
+            foreach(TemplateBind b in this._newTemplates)
+            {
+                if (b == null) return new Error("参数包含空的模板");
+                tplMap.Add(b.BindType, b);
+            }
+            foreach (TemplateBind templateBind in origin)
+            {
+                TemplateBind b;
+                tplMap.TryGetValue(templateBind.BindType,out b);
+                if(b == null || String.IsNullOrEmpty(b.TplPath))
+                {
+                    delList.Add(templateBind);
+                }
+                else if(b.ID <= 0)
+                {
+                    b.ID = templateBind.ID;
+                }
+            }
+            Error err = this._tempRep.RemoveBinds(this.GetDomainId(), delList.ToArray());
+            if(err == null)
+            {
+                err = this._tempRep.SaveTemplateBinds(this.GetDomainId(), this._newTemplates);
+                if(err == null)
+                {
+                    this._templates = null;
+                }
+            }
+            return err;
         }
     }
 }

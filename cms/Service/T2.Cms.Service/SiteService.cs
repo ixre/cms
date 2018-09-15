@@ -25,7 +25,7 @@ namespace T2.Cms.Service
         private readonly ISiteRepo _resp;
         private readonly IExtendFieldRepository _extendRep;
         private readonly ICategoryRepo _categoryRep;
-        private readonly ITemplateRepository _tempRep;
+        private readonly ITemplateRepo _tempRep;
         private readonly IArchiveRepository _archiveRep;
         private readonly IContentRepository _contentRep;
 
@@ -34,7 +34,7 @@ namespace T2.Cms.Service
             IArchiveRepository archiveRep,
             IExtendFieldRepository extendFieldPository,
             IContentRepository contentRep,
-            ITemplateRepository tempRep)
+            ITemplateRepo tempRep)
         {
             this._resp = resp;
             this._extendRep = extendFieldPository;
@@ -229,71 +229,50 @@ namespace T2.Cms.Service
             cat.ModuleId = category.ModuleId;
             cat.Location = category.Location;
             Error err = ic.Set(cat);
-            bool isExistCategoryBind = false;
-            bool isExistArchiveBind = false;
-
-            #region 模板绑定
-
-            foreach (ITemplateBind tempBind in ic.Templates)
+            if(err == null)
             {
-                if (tempBind.BindType == TemplateBindType.CategoryTemplate)
+                // 保存模板
+                List<TemplateBind> binds = new List<TemplateBind>();
+                if (!String.IsNullOrEmpty(category.CategoryTemplate))
                 {
-                    isExistCategoryBind = true;
-                    tempBind.TplPath = category.CategoryTemplate;
+                    binds.Add(new TemplateBind(0, TemplateBindType.CategoryTemplate, category.CategoryTemplate));
                 }
-                else if (tempBind.BindType == TemplateBindType.CategoryArchiveTemplate)
+                if (!String.IsNullOrEmpty(category.CategoryArchiveTemplate))
                 {
-                    isExistArchiveBind = true;
-                    tempBind.TplPath = category.CategoryArchiveTemplate;
+                    binds.Add(new TemplateBind(0, TemplateBindType.CategoryArchiveTemplate, category.CategoryArchiveTemplate));
+                }
+                err = ic.SetTemplates(binds.ToArray());
+                if(err == null)
+                {
+                    // 扩展属性
+                    if (category.ExtendFields != null)
+                    {
+                        ic.ExtendFields = category.ExtendFields;
+                    }
+                    if(err == null)
+                    {
+                        err = ic.Save();
+                    }
                 }
             }
-
-            //栏目模板
-            if (!isExistCategoryBind && !String.IsNullOrEmpty(category.CategoryTemplate))
-            {
-                ITemplateBind bind = this._tempRep.CreateTemplateBind(-1,
-                        TemplateBindType.CategoryTemplate,
-                        category.CategoryTemplate);
-
-                bind.BindRefrenceId = ic.GetDomainId();
-                ic.Templates.Add(bind);
-            }
-
-            //栏目文档模板
-            if (!isExistArchiveBind && !String.IsNullOrEmpty(category.CategoryArchiveTemplate))
-            {
-                ITemplateBind bind = this._tempRep.CreateTemplateBind(-1,
-                        TemplateBindType.CategoryArchiveTemplate,
-                        category.CategoryArchiveTemplate);
-
-                bind.BindRefrenceId = ic.GetDomainId();
-
-                ic.Templates.Add(bind);
-            }
-            #endregion
 
             #region 扩展属性
 
-            if (category.ExtendFields != null)
-            {
-                ic.ExtendFields = category.ExtendFields;
-            }
+            
 
             #endregion
 
-            if (parentLft >= 0) ic.Parent = site.GetCategoryByLft(parentLft);
             Result r = new Result();
             if (err == null)
             {
-                err = ic.Save();
-                if (err == null)
-                {
-                    r.Data = new Dictionary<String, String>();
-                    r.Data["CategoryId"] = ic.GetDomainId().ToString();
-                }
+                r.Data = new Dictionary<String, String>();
+                r.Data["CategoryId"] = ic.GetDomainId().ToString();
             }
-            r.ErrCode = 1;
-            r.ErrMsg = err.Message;
+            else
+            {
+                r.ErrCode = 1;
+                r.ErrMsg = err.Message;
+            }
             return r;
         }
 

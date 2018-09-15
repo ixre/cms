@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using T2.Cms.Domain.Interface.Common;
 using T2.Cms.Domain.Interface.Content;
 using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site.Category;
@@ -21,8 +20,8 @@ namespace T2.Cms.Domain.Implement.Content.Archive
     /// </summary>
     public sealed class Archive : BaseContent, IArchive
     {
-        private ITemplateRepository _templateRep;
-        private ITemplateBind _templateBind;
+        private ITemplateRepo _templateRep;
+        private TemplateBind _templateBind;
         private string _firstImageUrl;
         private IArchiveRepository _archiveRep;
         private string _uri;
@@ -32,7 +31,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             IArchiveRepository archiveRep,
             IExtendFieldRepository extendRep,
             ICategoryRepo categoryRep,
-            ITemplateRepository templateRep,
+            ITemplateRepo templateRep,
             int id,
             string strId,
             int categoryId,
@@ -95,7 +94,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
         public int Disagree { get; set; }
 
 
-        public ITemplateBind Template
+        public TemplateBind Template
         {
             get
             {
@@ -110,7 +109,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
                     //如果没有的话，则获取分类的模板
                     if (this._templateBind == null)
                     {
-                        foreach (ITemplateBind tplBind in this.Category.Templates)
+                        foreach (TemplateBind tplBind in this.Category.GetTemplates())
                         {
                             if (tplBind.BindType == TemplateBindType.CategoryArchiveTemplate)
                             {
@@ -203,8 +202,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             {
                 if (this._templateBind.BindRefrenceId == this.Id)
                 {
-                    this._templateRep.SaveTemplateBind(this._templateBind, this.Id);
-
+                    this._templateRep.SaveTemplateBind(this.Id,this._templateBind);
                     if (this._templateBind.TplPath == null)
                     {
                         this._templateBind = null;

@@ -24,7 +24,7 @@ namespace T2.Cms.Domain.Implement.Site
             ISiteRepo resp,
             IExtendFieldRepository extendRepository,
             ICategoryRepo categoryRep,
-            ITemplateRepository tempRep,
+            ITemplateRepo tempRep,
             IUserRepository userRep,
             CmsSiteEntity site
             )
