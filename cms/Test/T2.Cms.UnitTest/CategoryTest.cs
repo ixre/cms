@@ -30,10 +30,8 @@ namespace T2.Cms.UnitTest
         [TestMethod]
         public void TestGetCategory()
         {
-            ICategory ic = this.repo.GetCategory(siteId, 1);
-            Console.WriteLine(this.Stringfy(ic.Get()));
             ISite ist = this.siteRepo.GetSiteById(siteId);
-            ic = ist.GetCategoryByPath("root/cat1");
+           ICategory ic = ist.GetCategoryByPath("root/cat1");
             if (ic == null)
             {
                 Assert.Fail("no such category");
@@ -41,6 +39,17 @@ namespace T2.Cms.UnitTest
             Console.WriteLine(this.Stringfy(ic.Get()));
         }
 
+        [TestMethod]
+        public void TestGetCategoryById()
+        {
+            ICategory ic = this.repo.GetCategory(siteId, 2);
+            Console.WriteLine(this.Stringfy(ic.Get()));
+
+        }
+
+        /// <summary>
+        /// 测试保存栏目
+        /// </summary>
         [TestMethod]
         public void SaveCategory()
         {
@@ -80,5 +89,14 @@ namespace T2.Cms.UnitTest
             }
         }
 
+        /// <summary>
+        /// 测试获取站点的栏目树形
+        /// </summary>
+        [TestMethod]
+        public void TestGetCategoryTreeNode()
+        {
+            ISite ist = this.siteRepo.GetSiteById(siteId);
+            this.Println(this.Stringfy(ist.GetCategoryTreeWithRootNode()));
+        }
     }
 }

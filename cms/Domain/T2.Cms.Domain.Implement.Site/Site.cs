@@ -44,6 +44,7 @@ namespace T2.Cms.Domain.Implement.Site
         private IUserRepository _userRep;
         private CmsSiteEntity value;
         private SiteRunType runType = SiteRunType.Unknown;
+        private ICategory _rootCategory;
 
         internal Site(ISiteRepo siteRepository,
             IExtendFieldRepository extendRepository,
@@ -206,13 +207,16 @@ namespace T2.Cms.Domain.Implement.Site
         {
             get
             {
-                //NOTO:应为Lft最小的一个，但分类已按Lft排序，所以获取第一个
-                ICategory category = this.Categories.FirstOrDefault();
-                if (category == null)
+                if(this._rootCategory == null)
                 {
-                    throw new Exception("站点栏目信息异常!");
+                    this._rootCategory = this._categoryRep.CreateCategory(new CmsCategoryEntity
+                    {
+                        SiteId = this.GetAggregaterootId(),
+                        Tag = "-",
+                        Name = "根栏目",
+                    });
                 }
-                return category;
+                return this._rootCategory;
             }
         }
         
@@ -477,13 +481,20 @@ namespace T2.Cms.Domain.Implement.Site
         public TreeNode GetCategoryTreeWithRootNode()
         {
             ICategory root = this.RootCategory;
-            var node = new TreeNode(this.value.Name, "0", "javascript:;", true, "");
-            var rootNode = new TreeNode(root.Get().Name,
-                String.Format("{0}cid:{1},lft:{2}{3}", "{", root.GetDomainId().ToString(), root.Lft.ToString(), "}"),
-                "javascript:;", true, "");
+            var node = new TreeNode(this.value.Name, "0", "javascript:void(0);", true, "");
+            String nodeValue = this.GetCategoryNodeValue(root);
+            var rootNode = new TreeNode(root.Get().Name,nodeValue  ,"javascript:void(0);", true, "");
             node.childs.Add(rootNode);
             ItrNodeTree(rootNode, root);
             return node;
+        }
+
+        private String GetCategoryNodeValue(ICategory cat)
+        {
+            int catId = cat.GetDomainId();
+            String path = cat.Get().Path;
+            return String.Format("{0}'cid':{1},'path':'{2}'{3}", "{",
+                catId.ToString(),path, "}");
         }
 
         private void ItrNodeTree(TreeNode node, ICategory root)
@@ -491,10 +502,8 @@ namespace T2.Cms.Domain.Implement.Site
             IEnumerable<ICategory> list = root.NextLevelChilds.OrderBy(a => a.Get().SortNumber);
             foreach (ICategory c in list)
             {
-                var tNode = new TreeNode(c.Get().Name,
-                    String.Format("{0}cid:{1},lft:{2}{3}", "{", c.GetDomainId().ToString(), c.Lft.ToString(), "}"),
-                    "javascript:;", true,
-                    "");
+                String nodeValue = this.GetCategoryNodeValue(root);
+                var tNode = new TreeNode(c.Get().Name,nodeValue, "javascript:void(0);", true,"");
                 node.childs.Add(tNode);
                 ItrNodeTree(tNode, c);
             }

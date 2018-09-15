@@ -241,13 +241,12 @@ namespace T2.Cms.ServiceRepository
 
         public IEnumerable<ICategory> GetNextLevelChilds(ICategory category)
         {
-            return CategoryFilter.GetCategories(category.Lft,
-                category.Rgt,
-                this.Categories[category.Site().GetAggregaterootId()],
-                CategoryContainerOption.NextLevel
-                );
+            this.ChkPreload();
+            int catId = category.GetDomainId();
+            IList<ICategory> catgories = this.Categories[category.Get().SiteId];
+            return catgories.Where(a => a.Get().ParentId == catId);
         }
-
+        
         public void SaveCategorySortNumber(int id, int sortNumber)
         {
             this.categoryDal.SaveSortNumber(id, sortNumber);
