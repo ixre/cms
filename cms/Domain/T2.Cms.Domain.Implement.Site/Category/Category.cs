@@ -86,6 +86,10 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 this.value.SortNumber = maxSortNumber;
                 this._parentChanged = true;
             }
+            if(src.Tag == "-")
+            {
+                return new Error("不允许使用栏目保留Tag");
+            }
             if (!this._rep.CheckTagMatch(src.Tag, this.value.SiteId, this.value.ID))
             {
                 return new Error("分类TAG已存在");

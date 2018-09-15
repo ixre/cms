@@ -57,7 +57,13 @@ namespace T2.Cms.Domain.Interface.Site.Category
         void DeleteCategory(int siteId, int lft,int rgt);
 
 
+        /// <summary>
+        /// 获取子栏目
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         IEnumerable<ICategory> GetNextLevelChilds(ICategory category);
+
         void SaveCategorySortNumber(int id, int sortNumber);
         int GetMaxSortNumber(int siteId);
         bool CheckTagMatch(string tag, int siteId, int iD);
