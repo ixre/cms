@@ -73,15 +73,14 @@ namespace T2.Cms.Sql
         /// 根据站点编号获取文档
         /// </summary>
         public readonly string Archive_GetArchiveByStrIDOrAlias = @"
-                    SELECT * FROM $PREFIX_archive INNER JOIN $PREFIX_category
-                    ON $PREFIX_category.id=$PREFIX_archive.cid  WHERE site_id=@siteId 
+                    SELECT * FROM $PREFIX_archive WHERE site_id=@siteId 
                     AND (alias=@strid OR $PREFIX_archive.str_id=@strid)";
 
         /// <summary>
         /// 根据文档编号获取文档
         /// </summary>
-        public readonly string Archive_GetArchiveById = @"SELECT * FROM $PREFIX_archive INNER JOIN $PREFIX_category
-                    ON $PREFIX_category.id=$PREFIX_archive.cid  WHERE site_id=@siteId AND $PREFIX_archive.id=@id";
+        public readonly string Archive_GetArchiveById = @"SELECT * FROM $PREFIX_archive WHERE 
+                site_id=@siteId AND id=@id";
 
 
         /// <summary>

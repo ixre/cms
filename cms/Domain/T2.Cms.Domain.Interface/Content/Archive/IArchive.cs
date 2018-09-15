@@ -23,6 +23,11 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         String StrId {get;}
 
         /// <summary>
+        /// 站点编号
+        /// </summary>
+        int SiteId { get; set; }
+
+        /// <summary>
         /// 文章别名
         /// </summary>
         string Alias { get; set; }

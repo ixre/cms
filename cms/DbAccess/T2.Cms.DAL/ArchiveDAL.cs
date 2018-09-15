@@ -22,15 +22,16 @@ namespace T2.Cms.Dal
         /// 插入文章并返回ID
         /// </summary>
         /// <returns></returns>
-        public bool Add(string strId, string alias, int categoryId,
+        public bool Add(int siteId,string strId, string alias, int categoryId,
             int publisherId, string title, string smallTitle, string source, string thumbnail,
             string outline, string content, string tags, string flags, string location, int sortNumber)
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
             var pa = new object[,]{
+                {"@siteId",siteId },
                 {"@strId", strId},
                 {"@alias", alias},
-                {"@CategoryId", categoryId},
+                {"@catId", categoryId},
                 {"@publisherId", publisherId},
                 {"@Title", title},
                 {"@smallTitle", smallTitle??""},
@@ -60,7 +61,7 @@ namespace T2.Cms.Dal
         {
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
             var pa = new object[,]{
-                                {"@CategoryId", categoryID},
+                                {"@catId", categoryID},
                                 {"@Title", title},
                                 {"@smallTitle", smallTitle??""},
                                 {"@Flags", flags},

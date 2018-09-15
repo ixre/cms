@@ -100,10 +100,6 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// </summary>
         IEnumerable<ICategory> NextLevelChilds { get;}
 
-        /// <summary>
-        /// 定位路径
-        /// </summary>
-        string UriPath { get; }
 
         /// <summary>
         /// 清理

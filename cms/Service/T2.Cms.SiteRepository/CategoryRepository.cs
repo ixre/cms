@@ -198,11 +198,23 @@ namespace T2.Cms.ServiceRepository
         public ICategory GetCategory(int siteId, int catId)
         {
             this.ChkPreload();
-            IList<ICategory> list;
-            if (this.Categories.ContainsKey(siteId))
+            if (siteId > 0)
             {
-                list = this.Categories[siteId];
-                return list.FirstOrDefault(a => a.GetDomainId() == catId);
+                IList<ICategory> list;
+                if (this.Categories.ContainsKey(siteId))
+                {
+                    list = this.Categories[siteId];
+                    return list.FirstOrDefault(a => a.GetDomainId() == catId);
+                }
+            }
+            else
+            {
+                // todo; 兼容旧版本
+                foreach(KeyValuePair<int,IList<ICategory>> p in this.Categories)
+                {
+                    ICategory b = p.Value.FirstOrDefault(a => a.GetDomainId() == catId);
+                    if (b != null) return b;
+                }
             }
             return null;
         }
