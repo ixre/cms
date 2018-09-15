@@ -422,41 +422,7 @@ namespace T2.Cms.Domain.Implement.Site
             }
             */
         }
-
-
-        public void HandleCategoryTree(int parentId, CategoryTreeHandler treeHandler)
-        {
-            IList<int> arr = new List<int>();
-           
-
-            //获取root节点的所有子节点
-            IEnumerable <ICategory> childNodes = this.GetCategories(parentId, CategoryContainerOption.Childs);
-            /* SELECT * FROM tree WHERE lft BETWEEN @rootLft AND @rootRgt ORDER BY lft ASC'); */
-            int tmpInt = 0;
-            var categories = childNodes as ICategory[] ?? childNodes.ToArray();
-            int totalInt = categories.Count();
-
-            foreach (ICategory c in categories)
-            {
-                if (arr.Count > 0)
-                {
-                    //判断最后一个值是否小于
-                    int i;
-                    while ((i = arr[arr.Count - 1]) < c.Rgt)
-                    {
-                        arr.Remove(i);
-                        if (arr.Count == 0) break;
-                    }
-                }
-                //树的层级= 列表arr的数量
-                treeHandler(c, arr.Count,++tmpInt ==totalInt );
-
-                //把所有栏目的右值,再加入到列表中
-                arr.Add(c.Rgt);
-            }
-            
-        }
-
+        
         /// <summary>
         /// 获取栏目树Json格式
         /// </summary>
@@ -507,6 +473,33 @@ namespace T2.Cms.Domain.Implement.Site
                 var tNode = new TreeNode(c.Get().Name,nodeValue, "javascript:void(0);", true,"");
                 node.childs.Add(tNode);
                 ItrNodeTree(tNode, c);
+            }
+        }
+
+        /// <summary>
+        /// 处理站点栏目树形
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <param name="treeHandler"></param>
+        public void HandleCategoryTree(int parentId, CategoryTreeHandler treeHandler)
+        {
+            ICategory root = this.RootCategory;
+            int level = 0;
+            ItrCategoryTree(root,level,true,treeHandler);
+        }
+
+        private void ItrCategoryTree(ICategory root, int level,bool isLast, CategoryTreeHandler handler)
+        {
+            if (root.GetDomainId() != 0) handler(root, level,isLast);
+            IEnumerable<ICategory> list = root.NextLevelChilds.OrderBy(a => a.Get().SortNumber);
+            int len = list.Count();
+            if (len > 0)
+            {
+                int i = 0;
+                foreach (ICategory c in list)
+                {
+                    this.ItrCategoryTree(c, level + 1, i++ == len, handler);
+                }
             }
         }
 
