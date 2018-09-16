@@ -45,27 +45,16 @@ namespace T2.Cms.ServiceContract
         /// <param name="archiveId"></param>
         /// <returns></returns>
         ArchiveDto GetSameCategoryNextArchive(int siteId, int archiveId);
-
+        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
+        /// <param name="catPath"></param>
         /// <param name="number"></param>
         /// <param name="skipSize"></param>
         /// <returns></returns>
-        ArchiveDto[] GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number, int skipSize);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="categoryTag"></param>
-        /// <param name="number"></param>
-        /// <param name="skipSize"></param>
-        /// <returns></returns>
-        ArchiveDto[] GetArchivesByCategoryTag(int siteId, string categoryTag, int number, int skipSize);
+        ArchiveDto[] GetArchivesByCategoryPath(int siteId, string catPath,bool includeChild, int number, int skipSize);
 
         /// <summary>
         /// 

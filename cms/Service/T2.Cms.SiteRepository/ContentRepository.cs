@@ -4,6 +4,7 @@ using T2.Cms.Dal;
 using T2.Cms.Domain.Implement.Content;
 using T2.Cms.Domain.Interface.Content;
 using T2.Cms.Domain.Interface.Content.Archive;
+using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Template;
 using T2.Cms.Infrastructure.Ioc;
 
@@ -13,12 +14,14 @@ namespace T2.Cms.ServiceRepository
     {
         private IArchiveRepository _archiveRep;
         private IDictionary<int, IContentContainer> siteContents;
+        private ICategoryRepo _catRepo;
         private ITemplateRepo _tempRep;
 
         public ContentRepository(
+            ICategoryRepo catRepo,
             ITemplateRepo tempRep)
         {
-
+            this._catRepo = catRepo;
             this._tempRep = tempRep;
             siteContents = new Dictionary<int, IContentContainer>();
         }
@@ -28,6 +31,7 @@ namespace T2.Cms.ServiceRepository
             if (siteId == 0)
             {
                 return base.CreateSiteContent(
+                    this._catRepo,
                     this._archiveRep ?? (this._archiveRep = Ioc.GetInstance<IArchiveRepository>()),
                     this._tempRep,
                     siteId);
@@ -38,6 +42,7 @@ namespace T2.Cms.ServiceRepository
 
                 siteContents.Add(siteId,
                     base.CreateSiteContent(
+                        this._catRepo,
                         this._archiveRep ?? (this._archiveRep = Ioc.GetInstance<IArchiveRepository>()),
                         this._tempRep,
                         siteId)

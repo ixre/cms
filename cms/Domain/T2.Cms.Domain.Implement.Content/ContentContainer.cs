@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using T2.Cms.Domain.Interface.Content;
 using T2.Cms.Domain.Interface.Content.Archive;
+using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Template;
 
 namespace T2.Cms.Domain.Implement.Content
 {
     public class ContentContainer : IContentContainer
     {
+        private ICategoryRepo _catRepo;
         private IArchiveRepository _archiveRep;
         private ITemplateRepo _tempRep;
         internal ContentContainer(
+            ICategoryRepo catRepo,
             IArchiveRepository archiveRep,
             ITemplateRepo tempRep,
             int siteId)
         {
-
+            this._catRepo = catRepo;
             this._archiveRep = archiveRep;
             this._tempRep = tempRep;
             this.SiteId = siteId;
@@ -56,14 +60,33 @@ namespace T2.Cms.Domain.Implement.Content
         }
 
 
-        public IEnumerable<IArchive> GetArchivesByCategoryTag(string categoryTag, int number, int skipSize)
+        public IEnumerable<IArchive> GetArchivesByCategoryPath(string catPath,bool includeChild, int number, int skipSize)
         {
-            return this._archiveRep.GetArchivesByCategoryTag(this.SiteId, categoryTag, number, skipSize);
+            ICategory ic = this._catRepo.GetCategoryByPath(this.SiteId, catPath);
+            int[] catIdArray;
+            if (includeChild)
+            {
+                catIdArray = this.GetCatArrayByPath(ic);
+            }
+            else
+            {
+                catIdArray = new int[] { ic.GetDomainId() };
+            }
+            return this._archiveRep.GetArchivesContainChildCategories(this.SiteId, catIdArray, number, skipSize);
         }
 
-        public IEnumerable<IArchive> GetArchivesContainChildCategories(int lft, int rgt, int number, int skipSize)
+        /// <summary>
+        /// 获取分类下的编号数组
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
+        /// <returns></returns>
+        private int[] GetCatArrayByPath(ICategory ic)
         {
-            return this._archiveRep.GetArchivesContainChildCategories(this.SiteId, lft, rgt, number, skipSize);
+            if (ic == null) return new int[] { };
+            IList<int> list = ic.Childs.Select(a => a.GetDomainId()).ToList();
+            list.Insert(0, ic.GetDomainId());
+            return list.ToArray();
         }
 
         public IEnumerable<IArchive> GetArchivesByModuleId(int moduleId, int number)

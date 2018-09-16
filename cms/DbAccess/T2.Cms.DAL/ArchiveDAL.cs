@@ -14,6 +14,7 @@ using System.Text;
 using T2.Cms.Domain.Interface.Content.Archive;
 using JR.DevFw.Data;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace T2.Cms.Dal
 {
@@ -213,16 +214,23 @@ namespace T2.Cms.Dal
         /// <param name="skipSize"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public void GetSelftAndChildArchives(int siteId, int lft, int rgt, int number, int skipSize, DataReaderFunc func)
+        public void GetSelftAndChildArchives(int siteId, int[] catIdArray, int number, int skipSize, DataReaderFunc func)
         {
-            base.ExecuteReader(
-                    new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSelfAndChildArchives), skipSize, number),
-                     new object[,]{
-                    {"@siteId", siteId},
-                    {"@lft", lft},
-                    {"@rgt", rgt}
-                     }), func
-                );
+            String sql = DbSql.Archive_GetSelfAndChildArchives;
+            sql = SQLRegex.Replace(sql, m =>
+             {
+                 switch (m.Groups[1].Value)
+                 {
+                     case "catIdArray":
+                         return this.IntArrayToString(catIdArray);
+                 }
+                 return null;
+             });
+
+            IDictionary<String, object> paramters = new Dictionary<string, object>();
+            paramters.Add("@siteId", siteId);
+            SqlQuery query = new SqlQuery(String.Format(base.OptimizeSql(sql), skipSize, number), paramters);
+            base.ExecuteReader(query, func);
         }
 
         /// <summary>
@@ -918,27 +926,24 @@ namespace T2.Cms.Dal
 
 
 
-        public void GetSelftAndChildArchiveExtendValues(int siteId, int relationType, int lft, int rgt, int number, int skipSize, DataReaderFunc func)
+        public void GetSelftAndChildArchiveExtendValues(int siteId, int relationType,int[] catIdArray, int number, int skipSize, DataReaderFunc func)
         {
-            /*
-            base.ExecuteReader(
-                   new SqlQuery(String.Format(base.OptimizeSQL(SP.Archive_GetSelfAndChildArchives), number),
-                    new object[,]{
-                     }), func
-               );
-            */
+            String sql = DbSql.Archive_GetSelfAndChildArchiveExtendValues;
+            sql = SQLRegex.Replace(sql, m =>
+            {
+                switch (m.Groups[1].Value)
+                {
+                    case "catIdArray":
+                        return this.IntArrayToString(catIdArray);
+                }
+                return null;
+            });
 
-            // throw new Exception( String.Format(DbSql.Archive_GetSelfAndChildArchiveExtendValues,skipSize.ToString(),number.ToString()));
-            base.ExecuteReader(
-                SqlQueryHelper.Format(DbSql.Archive_GetSelfAndChildArchiveExtendValues,
-                 new object[,]{
-                    {"@siteId", siteId},
-                    {"@lft", lft},
-                    {"@rgt", rgt},
-                     {"@relationType",relationType}
-                 }, skipSize.ToString(),
-                 number.ToString()
-                ), func);
+            IDictionary<String, object> paramters = new Dictionary<string, object>();
+            paramters.Add("@siteId", siteId);
+            paramters.Add("@relationType", relationType);
+            SqlQuery query = new SqlQuery(String.Format(base.OptimizeSql(sql), skipSize, number), paramters);
+            base.ExecuteReader(query, func);
         }
 
         public void GetArchivesExtendValues(int siteId, int relationType, string categoryTag, int number, int skipSize,

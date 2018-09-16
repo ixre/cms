@@ -462,7 +462,7 @@ namespace T2.Cms.Template
         [TemplateMethod]
         protected string EachCategory(string dataNum, string refTag, string refName, string refUri, string format)
         {
-            string id = HttpContext.Current.Items["category.tag"] as string;
+            string id = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(id))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
@@ -1778,20 +1778,20 @@ namespace T2.Cms.Template
             return this.ArchiveList(dt, splitSize, format);
         }
 
-        protected string Archives(string tag, string num, int skipSize, int splitSize, bool container, string format)
+        protected string Archives(string catPath, string num, int skipSize, int splitSize, bool container, string format)
         {
             int intNum;
             int.TryParse(num, out intNum);
 
             //栏目
-            var category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, tag);
+            var category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, catPath);
 
             if (!(category.ID > 0))
             {
-                return String.Format("ERROR:模块或栏目不存在!参数:{0}", tag);
+                return String.Format("ERROR:模块或栏目不存在!参数:{0}", catPath);
             }
-            ArchiveDto[] archives = container ? ServiceCall.Instance.ArchiveService.GetArchivesContainChildCategories(this.SiteId, category.Lft, category.Rgt, intNum, skipSize) :
-                ServiceCall.Instance.ArchiveService.GetArchivesByCategoryTag(this.SiteId, category.Tag, intNum, skipSize);
+            ArchiveDto[] archives =  ServiceCall.Instance.ArchiveService
+                .GetArchivesByCategoryPath(this.SiteId, catPath,container, intNum, skipSize);
 
             return this.ArchiveList(archives, splitSize, format);
         }

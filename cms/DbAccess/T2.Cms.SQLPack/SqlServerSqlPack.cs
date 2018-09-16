@@ -28,8 +28,8 @@ namespace T2.Cms.Sql
                     $PREFIX_archive.id,str_id,[alias],cat_id,title,$PREFIX_archive.location,[flags],[Outline],publisher_id,tags,source,
                         thumbnail,[Content],lastmodifydate,[CreateDate],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cat_id]
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND (lft>=@lft AND rgt<=@rgt) 
-                         AND $PREFIX_category.site_id=@siteId) t  WHERE rowNum BETWEEN {0} AND {0}+{1}";
+                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND $PREFIX_archve.cat_id IN($[catIdArray]) 
+                         AND $PREFIX_arhive.site_id=@siteId) t  WHERE rowNum BETWEEN {0} AND {0}+{1}";
             }
         }
         public override string Archive_GetSelfAndChildArchiveExtendValues
@@ -42,7 +42,7 @@ namespace T2.Cms.Sql
 	                    WHERE relation_type=@relationType AND relation_id IN (
                         SELECT id FROM (SELECT $PREFIX_archive.id, ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
-                        WHERE  (lft>=@lft AND rgt<=@rgt)  AND $PREFIX_category.site_id=@siteId  AND " + SqlConst.Archive_NotSystemAndHidden
+                        WHERE $PREFIX_archve.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId  AND " + SqlConst.Archive_NotSystemAndHidden
                         + @") t  WHERE rowNum BETWEEN {0} AND {1}+{0})";
             }
         }
