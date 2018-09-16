@@ -169,13 +169,12 @@ namespace T2.Cms.Service
         }
 
         public IEnumerable<CategoryDto> GetCategories(
-            int siteId, int catId,
-            CategoryContainerOption categoryContainerOption)
+            int siteId,String catPath)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            IEnumerable<ICategory> categories =
-                site.GetCategories(catId, categoryContainerOption);
-            foreach (ICategory category in categories)
+            ICategory ic = this._categoryRep.GetCategoryByPath(siteId, catPath);
+            if (ic == null) yield break;
+            foreach (ICategory category in ic.NextLevelChilds)
             {
                 yield return CategoryDto.ConvertFrom(category);
             }
