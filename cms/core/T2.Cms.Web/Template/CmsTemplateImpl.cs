@@ -513,11 +513,8 @@ namespace T2.Cms.Template
                 return String.Format("ERROR:模块或栏目不存在!参数:{0}", categoryTag);
             }
 
-            dt = container ?
-                ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(this.SiteId, category.Lft, category.Rgt, _num) :
-                ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(this.SiteId, category.Tag, _num);
-
-
+            dt = ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(
+                this.SiteId, category.Path,container, _num);
             return this.ArchiveList(dt,0, format);
         }
 

@@ -53,23 +53,14 @@ namespace T2.Cms.Domain.Interface.Content
         /// <param name="number"></param>
         /// <returns></returns>
         IEnumerable<IArchive> GetArchivesByModuleId(int moduleId, int number);
-
+        
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesByViewCount(int lft,int rgt, int number);
-
-        /// <summary>
-        /// 
+        /// 根据点击量获取文档
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesByViewCount(string categoryTag, int number);
+        IEnumerable<IArchive> GetArchivesByViewCount(string catPath, bool includeChild, int number);
 
         /// <summary>
         /// 
@@ -79,16 +70,7 @@ namespace T2.Cms.Domain.Interface.Content
         /// <returns></returns>
         IEnumerable<IArchive> GetSpecialArchivesByModuleId(int moduleId, int number);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
-        /// <param name="skipSize"></param>
-        /// <returns></returns>
-        IEnumerable<IArchive> GetSpecialArchives(int lft, int rgt, int number, int skipSize);
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -96,7 +78,7 @@ namespace T2.Cms.Domain.Interface.Content
         /// <param name="number"></param>
         /// <param name="skipSize"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetSpecialArchives(string categoryTag, int number, int skipSize);
+        IEnumerable<IArchive> GetSpecialArchives(string catPath, bool includeChild, int number, int skipSize);
 
         /// <summary>
         /// 

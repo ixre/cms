@@ -183,19 +183,10 @@ namespace T2.Cms.Service
             return this.GetArchiveEnumertor(archives).ToArray();
         }
 
-
-        public ArchiveDto[] GetArchivesByViewCount(int siteId, int lft, int rgt, int number)
+        public ArchiveDto[] GetArchivesByViewCount(int siteId, string catPath,bool includeChild, int number)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetArchivesByViewCount(lft, rgt, number);
-
-            return this.GetArchiveEnumertor(archives).ToArray();
-        }
-
-        public ArchiveDto[] GetArchivesByViewCount(int siteId, string categoryTag, int number)
-        {
-            IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetArchivesByViewCount(categoryTag, number);
+            IEnumerable<IArchive> archives = content.GetArchivesByViewCount(catPath,includeChild, number);
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }
@@ -207,19 +198,12 @@ namespace T2.Cms.Service
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }
+        
 
-        public ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number, int skipSize)
+        public ArchiveDto[] GetSpecialArchives(int siteId, string catPath, bool includeChild, int number, int skipSize)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetSpecialArchives(lft, rgt, number, skipSize);
-
-            return this.GetArchiveEnumertor(archives).ToArray();
-        }
-
-        public ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize)
-        {
-            IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.GetSpecialArchives(categoryTag, number, skipSize);
+            IEnumerable<IArchive> archives = content.GetSpecialArchives(catPath,includeChild, number, skipSize);
 
             return this.GetArchiveEnumertor(archives).ToArray();
         }

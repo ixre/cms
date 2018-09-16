@@ -69,20 +69,10 @@ namespace T2.Cms.ServiceContract
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        ArchiveDto[] GetArchivesByViewCount(int siteId, int lft, int rgt, int number);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="siteId"></param>
         /// <param name="categoryTag"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        ArchiveDto[] GetArchivesByViewCount(int siteId, string categoryTag, int number);
+        ArchiveDto[] GetArchivesByViewCount(int siteId, string catPath, bool includeChild, int number);
 
         /// <summary>
         /// 
@@ -92,17 +82,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="number"></param>
         /// <returns></returns>
         ArchiveDto[] GetSpecialArchivesByModuleId(int siteId, int moduleId, int number);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
-        /// <param name="skipSize">跳过的条数</param>
-        /// <returns></returns>
-        ArchiveDto[] GetSpecialArchives(int siteId, int lft, int rgt, int number,int skipSize);
+        
 
         /// <summary>
         /// 
@@ -112,7 +92,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="number"></param>
         /// <param name="skipSize">跳过的条数</param>
         /// <returns></returns>
-        ArchiveDto[] GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize);
+        ArchiveDto[] GetSpecialArchives(int siteId, string catPath, bool includeChild, int number, int skipSize);
 
         /// <summary>
         /// 

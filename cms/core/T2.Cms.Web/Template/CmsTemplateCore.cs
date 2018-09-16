@@ -1771,9 +1771,7 @@ namespace T2.Cms.Template
                 return String.Format("ERROR:模块或栏目不存在!参数:{0}", tag);
             }
 
-            ArchiveDto[] dt = container
-                ? ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.SiteId, category.Lft, category.Rgt, intNum, skipSize)
-                : ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.SiteId, category.Tag, intNum, skipSize);
+            ArchiveDto[] dt = ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.SiteId,category.Path,container, intNum, skipSize);
 
             return this.ArchiveList(dt, splitSize, format);
         }

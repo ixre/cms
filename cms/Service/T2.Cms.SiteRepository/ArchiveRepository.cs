@@ -236,7 +236,7 @@ namespace T2.Cms.ServiceRepository
             if (extendValues == null) extendValues = new Dictionary<int, IList<IExtendValue>>();
 
             IArchive archive;
-            _dal.GetSelftAndChildArchives(siteId, catIdArray, number, skipSize, rd =>
+            _dal.GetArchiveList(siteId, catIdArray, number, skipSize, rd =>
             {
                 //DateTime dt = DateTime.Now;
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
@@ -290,12 +290,12 @@ namespace T2.Cms.ServiceRepository
             return this.GetContainExtendValueArchiveList(siteId, archives);
         }
 
-        public IEnumerable<IArchive> GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize)
+        public IEnumerable<IArchive> GetSpecialArchives(int siteId, int[] catIdArray, int number, int skipSize)
         {
             IList<IArchive> archives = new List<IArchive>();
 
             IArchive archive;
-            _dal.GetSpecialArchives(siteId, categoryTag, number, skipSize, rd =>
+            _dal.GetSpecialArchives(siteId, catIdArray, number, skipSize, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 while (rd.Read())
@@ -306,24 +306,7 @@ namespace T2.Cms.ServiceRepository
             });
             return this.GetContainExtendValueArchiveList(siteId, archives);
         }
-
-        public IEnumerable<IArchive> GetSpecialArchives(int siteId, int lft, int rgt, int number, int skipSize)
-        {
-            IList<IArchive> archives = new List<IArchive>();
-
-            IArchive archive;
-            _dal.GetSpecialArchives(siteId, lft, rgt, number, skipSize, rd =>
-            {
-                IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
-                while (rd.Read())
-                {
-                    archive = this.CreateArchiveFromDataReader(rd, dg);
-                    archives.Add(archive);
-                }
-            });
-            return this.GetContainExtendValueArchiveList(siteId, archives);
-        }
-
+        
         public IEnumerable<IArchive> GetSpecialArchivesByModuleId(int siteId, int moduleId, int number)
         {
             IList<IArchive> archives = new List<IArchive>();
@@ -341,12 +324,12 @@ namespace T2.Cms.ServiceRepository
             return this.GetContainExtendValueArchiveList(siteId, archives);
         }
 
-        public IEnumerable<IArchive> GetArchivesByViewCount(int siteId, string categoryTag, int number)
+        public IEnumerable<IArchive> GetArchivesByViewCount(int siteId, int[] catIdArray, int number)
         {
             IList<IArchive> archives = new List<IArchive>();
 
             IArchive archive;
-            _dal.GetArchivesByViewCount(siteId, categoryTag, number, rd =>
+            _dal.GetArchivesByViewCount(siteId, catIdArray, number, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 while (rd.Read())
@@ -358,24 +341,7 @@ namespace T2.Cms.ServiceRepository
             return this.GetContainExtendValueArchiveList(siteId, archives);
         }
 
-        public IEnumerable<IArchive> GetArchivesByViewCount(int siteId, int lft, int rgt, int number)
-        {
-            IList<IArchive> archives = new List<IArchive>();
-
-            IArchive archive;
-            _dal.GetArchivesByViewCount(siteId, lft, rgt, number, rd =>
-            {
-                IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
-                while (rd.Read())
-                {
-                    archive = this.CreateArchiveFromDataReader(rd, dg);
-                    archives.Add(archive);
-                }
-            });
-            return this.GetContainExtendValueArchiveList(siteId, archives);
-        }
-
-
+       
         public bool DeleteArchive(int siteId, int archiveId)
         {
 

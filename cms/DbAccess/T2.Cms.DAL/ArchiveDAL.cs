@@ -214,9 +214,9 @@ namespace T2.Cms.Dal
         /// <param name="skipSize"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public void GetSelftAndChildArchives(int siteId, int[] catIdArray, int number, int skipSize, DataReaderFunc func)
+        public void GetArchiveList(int siteId, int[] catIdArray, int number, int skipSize, DataReaderFunc func)
         {
-            String sql = DbSql.Archive_GetSelfAndChildArchives;
+            String sql = DbSql.Archive_GetArchiveList;
             sql = SQLRegex.Replace(sql, m =>
              {
                  switch (m.Groups[1].Value)
@@ -266,29 +266,25 @@ namespace T2.Cms.Dal
         /// 获取指定栏目浏览次数最多的档案
         /// </summary>
         /// <returns></returns>
-        public void GetArchivesByViewCount(int siteId, int lft, int rgt, int number, DataReaderFunc func)
+        public void GetArchivesByViewCount(int siteId, int[] catIdArray, int number, DataReaderFunc func)
         {
-            base.ExecuteReader(
-               new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetArchivesByViewCountDesc), number),
-                new object[,]{
-                    {"@siteId", siteId},
-                    {"@lft", lft},
-                    {"@rgt", rgt}
-                 }), func);
+            String sql = DbSql.Archive_GetArchivesByViewCountDesc;
+            sql = SQLRegex.Replace(sql, m =>
+            {
+                switch (m.Groups[1].Value)
+                {
+                    case "catIdArray":
+                        return this.IntArrayToString(catIdArray);
+                }
+                return null;
+            });
+
+            IDictionary<String, object> paramters = new Dictionary<string, object>();
+            paramters.Add("@siteId", siteId);
+            SqlQuery query = new SqlQuery(String.Format(base.OptimizeSql(sql), number), paramters);
+            base.ExecuteReader(query, func);
         }
 
-
-
-        public void GetArchivesByViewCount(int siteId, string categoryTag, int number, DataReaderFunc func)
-        {
-            base.ExecuteReader(
-              new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetArchivesByViewCountDesc_Tag), number),
-                   new object[,]{
-                {"@siteId",siteId},
-                {"@tag", categoryTag}
-                })
-               , func);
-        }
 
         /// <summary>
         /// 获取指定模块浏览次数最多的档案
@@ -309,31 +305,27 @@ namespace T2.Cms.Dal
         /// 获取指定数量和栏目的特殊文档
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
+        /// <param name="catIdArray"></param>
         /// <param name="number"></param>
         /// <param name="skipSize"></param>
         /// <param name="func"></param>
-        public void GetSpecialArchives(int siteId, int lft, int rgt, int number, int skipSize, DataReaderFunc func)
+        public void GetSpecialArchives(int siteId, int[] catIdArray, int number, int skipSize, DataReaderFunc func)
         {
-            base.ExecuteReader(
-                   new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSpecialArchivesByCategoryId), skipSize, number),
-                        new object[,]{
-                    {"@siteId", siteId},
-                    {"@lft", lft},
-                    {"@rgt", rgt}
-                         }), func);
-        }
+            String sql = DbSql.Archive_GetSpecialArchiveList;
+            sql = SQLRegex.Replace(sql, m =>
+            {
+                switch (m.Groups[1].Value)
+                {
+                    case "catIdArray":
+                        return this.IntArrayToString(catIdArray);
+                }
+                return null;
+            });
 
-
-        public void GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize, DataReaderFunc func)
-        {
-            base.ExecuteReader(
-                   new SqlQuery(String.Format(base.OptimizeSql(DbSql.Archive_GetSpecialArchivesByCategoryTag), skipSize, number),
-                        new object[,]{
-                    {"@siteId",siteId},
-                    {"@categoryTag", categoryTag}
-                         }), func);
+            IDictionary<String, object> paramters = new Dictionary<string, object>();
+            paramters.Add("@siteId", siteId);
+            SqlQuery query = new SqlQuery(String.Format(base.OptimizeSql(sql), skipSize, number), paramters);
+            base.ExecuteReader(query, func);
         }
 
         /// <summary>
