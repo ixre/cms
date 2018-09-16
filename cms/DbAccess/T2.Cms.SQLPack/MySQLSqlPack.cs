@@ -19,7 +19,7 @@
             }
         }
 
-        public override string Archive_GetSelfAndChildArchives
+        public override string Archive_GetArchiveList
         {
             get
             {
@@ -29,7 +29,7 @@
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden +
-                        @" AND $PREFIX_archve.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId 
+                        @" AND $PREFIX_archive.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId 
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
         }
@@ -46,7 +46,7 @@
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON 
                         $PREFIX_category.id=$PREFIX_archive.cat_id
                         WHERE " + SqlConst.Archive_NotSystemAndHidden
-                                + @" AND $PREFIX_archve.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId 
+                                + @" AND $PREFIX_archive.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId 
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}
                          ) as t)";
             }
@@ -102,25 +102,13 @@
                         `str_id`,`alias`,`title`,$PREFIX_archive.`location`,`outline`,`content`,`thumbnail`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND (`lft`>=@lft AND `rgt`<=@rgt)
+                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray])
                         ORDER BY view_count DESC LIMIT 0,{0}";
             }
         }
 
 
 
-        public override string Archive_GetArchivesByViewCountDesc_Tag
-        {
-            get
-            {
-                return @"SELECT $PREFIX_archive.`id`,`cat_id`,`flags`,`str_id`,
-                        `alias`,`title`,$PREFIX_archive.`location`,`outline`,`content`,`thumbnail`,
-                        $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @"  AND site_id=@siteId AND `tag`=@tag
-                        ORDER BY view_count DESC LIMIT 0,{0}";
-            }
-        }
 
         public override string Archive_GetArchivesByModuleIDAndViewCountDesc
         {
@@ -137,7 +125,7 @@
 
 
 
-        public override string Archive_GetSpecialArchivesByCategoryId
+        public override string Archive_GetSpecialArchiveList
         {
             get
             {
@@ -145,19 +133,7 @@
                         `content`,`outline`,`tags`,`createdate`,`lastmodifydate`,view_count,`source` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_Special +
-                        @" AND site_id=@siteId AND (`lft`>=@lft AND `rgt`<=@rgt)
-                        ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
-            }
-        }
-        public override string Archive_GetSpecialArchivesByCategoryTag
-        {
-            get
-            {
-                return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
-                        `content`,`outline`,`tags`,`createdate`,`lastmodifydate`
-                        ,view_count,`source` FROM $PREFIX_archive
-                        INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
-                        WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`tag`=@CategoryTag
+                        @" AND $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray])
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
         }

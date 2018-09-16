@@ -18,14 +18,14 @@
             }
         }
 
-        public override string Archive_GetSelfAndChildArchives
+        public override string Archive_GetArchiveList
         {
             get
             {
                 return @"SELECT $PREFIX_archive.id,str_id,[alias],cat_id,title,$PREFIX_archive.location,[flags],[outline],thumbnail,publisher_id,source,tags,
                         [content],lastmodifydate,[createDate],view_count,$PREFIX_category.[name],$PREFIX_category.[tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cat_id]
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND $PREFIX_archve.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId 
+                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND $PREFIX_archive.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId 
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
         }
@@ -43,7 +43,7 @@
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON 
                         $PREFIX_category.id=$PREFIX_archive.cat_id
                         WHERE " + SqlConst.Archive_NotSystemAndHidden
-                                + @" AND $PREFIX_archve.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId 
+                                + @" AND $PREFIX_archive.cat_id IN($[catIdArray]) AND $PREFIX_archive.site_id=@siteId 
                         ORDER BY $PREFIX_archive.sort_number DESC,createdate DESC LIMIT {0},{1}
                         
                         )";
@@ -98,21 +98,11 @@
             {
                 return @"SELECT $PREFIX_archive.id,$PREFIX_category.id as cat_id,flags,str_id,[alias],title,$PREFIX_archive.location,[Outline],thumbnail,[Content],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                     FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cat_id]
-                    WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND  (lft>=@lft AND rgt<=@rgt)
+                    WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray])
                     ORDER BY view_count DESC LIMIT 0,{0}";
             }
         }
-
-        public override string Archive_GetArchivesByViewCountDesc_Tag
-        {
-            get
-            {
-                return @"SELECT $PREFIX_archive.id,$PREFIX_category.id as cat_id,flags,str_id,[alias],title,$PREFIX_archive.location,[Outline],thumbnail,[Content],$PREFIX_category.[Name],$PREFIX_category.[Tag]
-                    FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cat_id]
-                    WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND tag=@tag
-                    ORDER BY view_count DESC LIMIT 0,{0}";
-            }
-        }
+        
 
         public override string Archive_GetArchivesByModuleIDAndViewCountDesc
         {
@@ -129,7 +119,7 @@
 
 
 
-        public override string Archive_GetSpecialArchivesByCategoryId
+        public override string Archive_GetSpecialArchiveList
         {
             get
             {
@@ -137,20 +127,10 @@
                         title,$PREFIX_archive.location,[content],[outline],[tags],[createdate],[lastmodifydate]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE " + SqlConst.Archive_Special
-                        + @" AND site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
+                        + @" AND  $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray]) ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
             }
         }
-          public override string Archive_GetSpecialArchivesByCategoryTag
-        {
-            get
-            {
-                return @"SELECT $PREFIX_archive.id,str_id,[alias],[cat_id],[flags],title,$PREFIX_archive.location,
-                        [content],[outline],thumbnail,[tags],[createdate],[lastmodifydate]
-                        ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
-                        $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE " + SqlConst.Archive_Special
-                        + @" AND site_id=@siteId AND $PREFIX_category.[tag]=@CategoryTag ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
-            }
-        }
+        
         
         public override string Archive_GetSpecialArchivesByModuleID
         {

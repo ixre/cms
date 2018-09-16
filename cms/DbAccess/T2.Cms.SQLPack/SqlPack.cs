@@ -92,7 +92,7 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 根据栏目左右值获取获取指定数量的文档,包括子栏目的文档
         /// </summary>
-        public abstract string Archive_GetSelfAndChildArchives { get; }
+        public abstract string Archive_GetArchiveList { get; }
 
         /// <summary>
         /// 获取自己包含子栏目的文档扩展信息
@@ -119,10 +119,6 @@ namespace T2.Cms.Sql
         /// </summary>
         public abstract string Archive_GetArchivesByViewCountDesc { get; }
 
-        /// <summary>
-        /// 获取指定栏目浏览最多的文档(使用栏目别名)
-        /// </summary>
-        public abstract string Archive_GetArchivesByViewCountDesc_Tag { get; }
 
         /// <summary>
         /// 获取指定模块浏览最多的文档
@@ -133,12 +129,8 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 根据栏目获取特殊文档(包括子类)
         /// </summary>
-        public abstract string Archive_GetSpecialArchivesByCategoryId { get; }
+        public abstract string Archive_GetSpecialArchiveList { get; }
 
-        /// <summary>
-        /// 根据栏目获取特殊文档（不包括子类)
-        /// </summary>
-        public abstract string Archive_GetSpecialArchivesByCategoryTag { get; }
 
         /// <summary>
         /// 获取指定模块的特殊文档

@@ -63,22 +63,10 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="categoryTag"></param>
         /// <param name="number"></param>
         /// <param name="skipSize"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetSpecialArchives(int siteId, string categoryTag, int number, int skipSize);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
-        /// <param name="skipSize"></param>
-        /// <returns></returns>
-        IEnumerable<IArchive> GetSpecialArchives(int siteId, int lft, int rgt, int number, int skipSize);
+        IEnumerable<IArchive> GetSpecialArchives(int siteId, int[] catIdArray, int number, int skipSize);
 
         /// <summary>
         /// 
@@ -90,24 +78,14 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         IEnumerable<IArchive> GetSpecialArchivesByModuleId(int siteId, int moduleId, int number);
 
         /// <summary>
-        /// 
+        /// 根据点击量获取文档
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="categoryTag"></param>
+        /// <param name="catIdArray"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesByViewCount(int siteId, string categoryTag, int number);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesByViewCount(int siteId, int lft,int rgt, int number);
-
+        IEnumerable<IArchive> GetArchivesByViewCount(int siteId, int[] catIdArray, int number);
+        
         /// <summary>
         /// 
         /// </summary>

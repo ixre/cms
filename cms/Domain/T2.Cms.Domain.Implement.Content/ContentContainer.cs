@@ -93,30 +93,42 @@ namespace T2.Cms.Domain.Implement.Content
         {
             return this._archiveRep.GetArchivesByModuleId(this.SiteId, moduleId, number);
         }
-
-        public IEnumerable<IArchive> GetArchivesByViewCount(int lft, int rgt, int number)
+        
+        public IEnumerable<IArchive> GetArchivesByViewCount(string catPath, bool includeChild, int number)
         {
-            return this._archiveRep.GetArchivesByViewCount(this.SiteId, lft, rgt, number);
-        }
-
-        public IEnumerable<IArchive> GetArchivesByViewCount(string categoryTag, int number)
-        {
-            return this._archiveRep.GetArchivesByViewCount(this.SiteId, categoryTag, number);
+            ICategory ic = this._catRepo.GetCategoryByPath(this.SiteId, catPath);
+            int[] catIdArray;
+            if (includeChild)
+            {
+                catIdArray = this.GetCatArrayByPath(ic);
+            }
+            else
+            {
+                catIdArray = new int[] { ic.GetDomainId() };
+            }
+            return this._archiveRep.GetArchivesByViewCount(this.SiteId, catIdArray, number);
         }
 
         public IEnumerable<IArchive> GetSpecialArchivesByModuleId(int moduleId, int number)
         {
             return this._archiveRep.GetSpecialArchivesByModuleId(this.SiteId, moduleId, number);
         }
+        
 
-        public IEnumerable<IArchive> GetSpecialArchives(int lft, int rgt, int number, int skipSize)
+        public IEnumerable<IArchive> GetSpecialArchives(string catPath,bool includeChild, int number, int skipSize)
         {
-            return this._archiveRep.GetSpecialArchives(this.SiteId, lft, rgt, number, skipSize);
-        }
+            ICategory ic = this._catRepo.GetCategoryByPath(this.SiteId, catPath);
 
-        public IEnumerable<IArchive> GetSpecialArchives(string categoryTag, int number, int skipSize)
-        {
-            return this._archiveRep.GetSpecialArchives(this.SiteId, categoryTag, number, skipSize);
+            int[] catIdArray;
+            if (includeChild)
+            {
+                catIdArray = this.GetCatArrayByPath(ic);
+            }
+            else
+            {
+                catIdArray = new int[] {ic.GetDomainId() };
+            }
+            return this._archiveRep.GetSpecialArchives(this.SiteId, catIdArray, number, skipSize);
         }
 
         public IEnumerable<IArchive> GetArchivesByViewCountByModuleId(int moduleId, int number)
