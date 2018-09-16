@@ -13,6 +13,7 @@ using System.Data;
 using System.Text;
 using T2.Cms.Domain.Interface.Content.Archive;
 using JR.DevFw.Data;
+using System.Text.RegularExpressions;
 
 namespace T2.Cms.Dal
 {
@@ -474,18 +475,25 @@ namespace T2.Cms.Dal
         /// <param name="pages"></param>
         /// <returns></returns>
         public DataTable GetPagedArchives(
-            int siteId, int lft, int rgt,
+            int siteId, int[] catIdArray,
             int pageSize, int skipSize, ref int currentPageIndex,
             out int recordCount, out int pages)
         {
             object[,] data = new object[,]{
                 {"@siteId",siteId},
-                {"@lft",lft},
-                {"@rgt",rgt}
             };
+            String catIdArrayString = this.IntArrayToString(catIdArray);
 
+            String sql = SQLRegex.Replace(DbSql.ArchiveGetPagedArchivesCountSqlPagerqurey, m =>
+            {
+                switch (m.Groups[1].Value)
+                {
+                    case "catIdArray": return catIdArrayString;
+                }
+                return String.Empty;
+            });
             //获取记录条数
-            recordCount = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(DbSql.ArchiveGetPagedArchivesCountSqlPagerqurey, data)).ToString());
+            recordCount = int.Parse(base.ExecuteScalar(SqlQueryHelper.Format(sql, data)).ToString());
 
             pages = recordCount / pageSize;
             if (recordCount % pageSize != 0) pages++;
@@ -498,18 +506,18 @@ namespace T2.Cms.Dal
             int skipCount = pageSize * (currentPageIndex - 1);
 
             //如果调过记录为0条，且为OLEDB时候，则用sql1
-            string sql = DbSql.ArchiveGetPagedArchivesByCategoryIdPagerquery;
+            sql = DbSql.ArchiveGetPagedArchivesByCategoryIdPagerquery;
 
             sql = SQLRegex.Replace(sql, m =>
             {
                 switch (m.Groups[1].Value)
                 {
+                    case "catIdArray": return catIdArrayString;
                     case "skipsize": return (skipCount + skipSize).ToString();
                     case "pagesize": return pageSize.ToString();
                 }
                 return null;
             });
-
             return base.GetDataSet(SqlQueryHelper.Format(sql, data)).Tables[0];
         }
 
@@ -532,7 +540,7 @@ namespace T2.Cms.Dal
         /// <param name="pages"></param>
         /// <returns></returns>
         public DataTable GetPagedArchives(int siteId, int moduleId,
-            int lft, int rgt, int publisherId, bool includeChild,
+            int[] catIdArray, int publisherId, bool includeChild,
             string[,] flags, string keyword, string orderByField, bool orderAsc,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
@@ -554,17 +562,15 @@ namespace T2.Cms.Dal
                     case "siteid": return String.Format(" c.site_id={0}", siteId.ToString());
 
                     case "category":
-                        if (lft <= 0 || rgt <= 0)
+                        if (catIdArray.Length > 0)
                         {
-                            return "";
+                            if (includeChild &&catIdArray.Length > 1)
+                            {
+                                return String.Format(" AND cat_id IN({0})", this.IntArrayToString(catIdArray));
+                            }
+                            return String.Format(" AND cat_id = {0}", catIdArray[0]);
                         }
-                        else if (includeChild)
-                        {
-                            return String.Format(" AND lft>={0} AND rgt<={1}", lft.ToString(), rgt.ToString());
-                        }
-                        return String.Format(" AND lft={0} AND rgt={1}", lft.ToString(), rgt.ToString());
-
-
+                        return String.Empty;
                     case "module":
                         return moduleId <= 0 ? ""
              : String.Format(" AND m.id={0}", moduleId.ToString());
@@ -618,6 +624,18 @@ namespace T2.Cms.Dal
             //System.Web.HttpContext.Current.Response.Write(sql);
             //throw new Exception(sql);
             return base.GetDataSet(base.NewQuery(sql,null)).Tables[0];
+        }
+
+        private String IntArrayToString(int[] catIdArray)
+        {
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
+            foreach(int catId in catIdArray)
+            {
+                if (i++ > 0) sb.Append(",");
+                sb.Append(catId.ToString());
+            }
+            return sb.ToString();
         }
 
 

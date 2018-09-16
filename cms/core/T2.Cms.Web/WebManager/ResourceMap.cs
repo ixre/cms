@@ -162,11 +162,11 @@ namespace T2.Cms.WebManager
                     {
                         try
                         {
-                            pageSrcs.Add(
-                                (ManagementPage) Enum.Parse(type, _for),
-                                String.Concat(baseDir,
-                                    node.Attributes["to"].Value)
-                                );
+                            ManagementPage pg = (ManagementPage)Enum.Parse(type, _for);
+                            if (!pageSrcs.ContainsKey(pg))
+                            {
+                                pageSrcs.Add(pg, String.Concat(baseDir,node.Attributes["to"].Value));
+                            }
                         }
                         catch (ArgumentException exc)
                         {

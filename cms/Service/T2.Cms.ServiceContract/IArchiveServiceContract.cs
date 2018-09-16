@@ -160,8 +160,7 @@ namespace T2.Cms.ServiceContract
         /// 获取分页文档
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="categoryLft"></param>
-        /// <param name="categoryRgt"></param>
+        /// <param name="catPath"></param>
         /// <param name="pageSize"></param>
         /// <param name="skipSize"></param>
         /// <param name="pageIndex"></param>
@@ -170,8 +169,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="extendValues"></param>
         /// <returns></returns>
         DataTable GetPagedArchives(int siteId,
-            int categoryLft, int categoryRgt,
-            int pageSize, int skipSize,ref int pageIndex,
+            string catPath,int pageSize, int skipSize,ref int pageIndex,
             out int records, out int pages,
             out IDictionary<int, IDictionary<string, string>> extendValues);
 

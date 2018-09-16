@@ -11,6 +11,7 @@
 //  2013-06-08  10:02 newmin [!]:CategoryTree_Iterator 加入TreeResultHandle,并加入isRoot,判断root类是否模块相同
 //  2013-06-08  10:22 newmin [-]:删除MCategoryTree
 //  2013-09-05  07:14 newmin [+]:添加region
+//  2018-09-16  14:14 newmin [+]: 调整分类path
 //
 
 using T2.Cms.BLL;
@@ -230,12 +231,12 @@ namespace T2.Cms.Template
 		")]
         public string Archives(string num, string format)
         {
-            string tag = HttpContext.Current.Items["category.tag"] as string;
-            if (String.IsNullOrEmpty(tag))
+            string catPath = HttpContext.Current.Items["category.path"] as string;
+            if (String.IsNullOrEmpty(catPath))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return Archives(tag, num,0,0,true, format);
+            return Archives(catPath, num,0,0,true, format);
         }
 
 
@@ -291,12 +292,12 @@ namespace T2.Cms.Template
 		")]
         public string Self_Archives(string num, string format)
         {
-            string tag = HttpContext.Current.Items["category.tag"] as string;
-            if (String.IsNullOrEmpty(tag))
+            string catPath = HttpContext.Current.Items["category.path"] as string;
+            if (String.IsNullOrEmpty(catPath))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return Self_Archives(tag, num, format);
+            return Self_Archives(catPath, num, format);
         }
 
         /// <summary>
@@ -572,12 +573,12 @@ namespace T2.Cms.Template
 		")]
         public string Hot_Archives(string num, string format)
         {
-            string tag = HttpContext.Current.Items["category.tag"] as string;
-            if (String.IsNullOrEmpty(tag))
+            string catPath = HttpContext.Current.Items["category.path"] as string;
+            if (String.IsNullOrEmpty(catPath))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return Hot_Archives(tag, num, format, true);
+            return Hot_Archives(catPath, num, format, true);
         }
 
         /// <summary>
@@ -634,12 +635,12 @@ namespace T2.Cms.Template
 		")]
         public string Self_Hot_Archives(string num, string format)
         {
-            string tag = HttpContext.Current.Items["category.tag"] as string;
-            if (String.IsNullOrEmpty(tag))
+            string catPath = HttpContext.Current.Items["category.path"] as string;
+            if (String.IsNullOrEmpty(catPath))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return Hot_Archives(tag, num, format, false);
+            return Hot_Archives(catPath, num, format, false);
         }
 
         /// <summary>
@@ -852,15 +853,15 @@ namespace T2.Cms.Template
 		")]
         public string Paging_Archives(string pageSize, string format)
         {
-            string tag = HttpContext.Current.Items["category.tag"] as string;
+            string catPath = HttpContext.Current.Items["category.path"] as string;
             object pageindex = HttpContext.Current.Items["page.index"];
 
 
-            if (String.IsNullOrEmpty(tag) || pageindex == null)
+            if (String.IsNullOrEmpty(catPath) || pageindex == null)
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return base.Paging_Archives(tag, pageindex.ToString(), pageSize,0,0,format);
+            return base.Paging_Archives(catPath, pageindex.ToString(), pageSize,0,0,format);
         }
 
         [TemplateTag]
@@ -874,10 +875,10 @@ namespace T2.Cms.Template
 		")]
         public string Paging_Archives(string pageSize,string splitSize,string format)
         {
-            string tag = HttpContext.Current.Items["category.tag"] as string;
+            string catPath = HttpContext.Current.Items["category.path"] as string;
             object pageindex = HttpContext.Current.Items["page.index"];
             
-            if (String.IsNullOrEmpty(tag) || pageindex == null)
+            if (String.IsNullOrEmpty(catPath) || pageindex == null)
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
@@ -885,7 +886,7 @@ namespace T2.Cms.Template
             int intSplitSize;
             int.TryParse(splitSize, out intSplitSize);
 
-            return base.Paging_Archives(tag, pageindex.ToString(), pageSize, 0, intSplitSize, format);
+            return base.Paging_Archives(catPath, pageindex.ToString(), pageSize, 0, intSplitSize, format);
         }
 
         [TemplateTag]

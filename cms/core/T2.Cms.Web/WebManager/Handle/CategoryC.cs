@@ -143,8 +143,11 @@ namespace T2.Cms.Web.WebManager.Handle
 
             Result r = ServiceCall.Instance.SiteService
                 .SaveCategory(this.SiteId, parentId, category);
+            if(r.ErrCode > 0)
+            {
+                return base.ReturnError(r.ErrMsg);
+            }
             int categoryId = Convert.ToInt32(r.Data["CategoryId"]);
-
             return base.ReturnSuccess(null, categoryId.ToString());
         }
 

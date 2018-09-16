@@ -195,7 +195,7 @@ namespace T2.Cms.Web
                     else
                     {
                         //校验栏目是否正确
-                        string categoryPath = category.UriPath;
+                        string categoryPath = category.Path;
                         string path = appPath != "/" ? allhtml.Substring(appPath.Length - 1) : allhtml;
 
                         if (!path.StartsWith(categoryPath + "/"))
@@ -240,32 +240,28 @@ namespace T2.Cms.Web
         /// <param name="context"></param>
         /// <param name="tag"></param>
         /// <param name="page"></param>
-        public static void RenderCategory(CmsContext context, string tag, int page)
+        public static void RenderCategory(CmsContext context, string catPath, int page)
         {
-
             //检查缓存
             if (!context.CheckAndSetClientCache()) return;
 
             int siteId = context.CurrentSite.SiteId;
             string html = String.Empty;
             CategoryDto category;
-            string allcate = context.Request.Path.Substring(1);
-
-
-
             ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
-
-            category = ServiceCall.Instance.SiteService.GetCategory(siteId, tag);
-
-
+            category = ServiceCall.Instance.SiteService.GetCategory(siteId, catPath);
             if (!(category.ID>0)) { RenderNotFound(context); return; }
 
             //获取路径
-            string categoryPath = category.UriPath;
+            string categoryPath = category.Path;
             string appPath = Cms.Context.SiteAppPath;
-            string path = appPath != "/" ? allcate.Substring(appPath.Length) : allcate;
-
-            if (!path.StartsWith(categoryPath))
+            string reqPath = context.Request.Path.Substring(1);
+            if(appPath.Length > 1)
+            {
+                reqPath = reqPath.Substring(appPath.Length);
+            }
+           
+            if (!reqPath.StartsWith(categoryPath))
             {
                 RenderNotFound(context);
                 return;
@@ -283,11 +279,11 @@ namespace T2.Cms.Web
             }
             else
             {
-                string url;
-
-                if (Regex.IsMatch(category.Location, "^http://", RegexOptions.IgnoreCase))
+                string url = category.Location;
+                if (category.Location.IndexOf("://") != -1)
                 {
                     url = category.Location;
+
                 }
                 else
                 {
@@ -295,18 +291,8 @@ namespace T2.Cms.Web
                     {
                         url = String.Concat(appPath,appPath.Length == 1?String.Empty:"/", category.Location);
                     }
-                    else
-                    {
-                        url = category.Location;
-                    }
                 }
-
-
                 context.Response.Redirect(url,true);  //302
-
-                //context.Response.StatusCode = 301;
-                //context.Render(@"<html><head><meta name=""robots"" content=""noindex""><script>location.href='" +
-                 //                  url + "';</script></head><body></body></html>");
             }
         }
 

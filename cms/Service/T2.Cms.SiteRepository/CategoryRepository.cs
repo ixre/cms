@@ -241,15 +241,18 @@ namespace T2.Cms.ServiceRepository
             return CategoryFilter.GetCategories(parent, this.Categories[siteId], option);
         }
 
-
-        public IEnumerable<ICategory> GetChilds(ICategory category)
+        /// <summary>
+        /// 获取栏目下所有子栏目
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
+        /// <returns></returns>
+        public IEnumerable<ICategory> GetChilds(int siteId, string catPath)
         {
-            //获取所有子类
-            /* SELECT * FROM tree WHERE lft BETWEEN @rootLft AND @rootRgt ORDER BY lft ASC'); */
-            //return this.Categories[category.Site.ID].Where(a => a.Lft > category.Lft && a.Rgt < category.Lft);
-
-            //获取第一级子类
-            return this.Categories[category.Site().GetAggregaterootId()].Where(a => a.Lft > category.Lft && a.Rgt < category.Rgt);
+            this.ChkPreload();
+            if (!this.Categories.ContainsKey(siteId)) return new List<ICategory>();
+            String path = catPath + "/";
+            return this.Categories[siteId].Where(a => a.Get().Path.StartsWith(path));
         }
 
 

@@ -55,7 +55,7 @@ namespace T2.Cms.UnitTest
                 {
                     while (rd.Read())
                     {
-                        cid = int.Parse(rd["cid"].ToString());
+                        cid = int.Parse(rd["cat_id"].ToString());
                     }
                 });
             return cid;

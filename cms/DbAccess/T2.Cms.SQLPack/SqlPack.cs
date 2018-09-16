@@ -56,18 +56,14 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 检查别名是否存在
         /// </summary>
-        public readonly string Archive_CheckAliasIsExist =@"SELECT alias FROM $PREFIX_archive INNER JOIN 
-                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
+        public readonly string Archive_CheckAliasIsExist =@"SELECT alias FROM $PREFIX_archive
                                 WHERE site_id=@siteId AND (alias=@alias or $PREFIX_archive.str_id=@alias)";
 
 
         /// <summary>
         /// 增加浏览数量
         /// </summary>
-        public readonly string Archive_AddViewCount = @"UPDATE $PREFIX_archive SET view_count=view_count+@count
-                                WHERE id in (select id from (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
-                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
-                                WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
+        public readonly string Archive_AddViewCount = @"UPDATE $PREFIX_archive SET view_count=view_count+@count WHERE site_id=@siteId AND $PREFIX_archive.id=@id";
 
         /// <summary>
         /// 根据站点编号获取文档
@@ -182,7 +178,7 @@ namespace T2.Cms.Sql
             SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive 
             INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=$PREFIX_category.id 
             WHERE $PREFIX_category.site_id=@siteId AND " 
-            + SqlConst.Archive_NotSystemAndHidden + " AND (lft>=@lft AND rgt<=@rgt)";
+            + SqlConst.Archive_NotSystemAndHidden + " AND $PREFIX_archive.cat_id IN ($[catIdArray])";
 
         /// <summary>
         /// 根据栏目获取分页文档
