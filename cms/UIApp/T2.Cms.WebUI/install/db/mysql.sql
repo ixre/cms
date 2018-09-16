@@ -70,7 +70,7 @@ DROP TABLE IF EXISTS `cms_category`;
 CREATE TABLE `cms_category` (
   `id` int(11) NOT NULL,
   `site_id` int(11) DEFAULT '1',
-  `moduleid` int(11) NOT NULL,
+  `module_id` int(11) NOT NULL,
   `tag` varchar(100) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `icon` varchar(150) DEFAULT NULL,

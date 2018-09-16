@@ -276,7 +276,7 @@ namespace T2.Cms.Web.WebManager.Handle
                                 .Append(m.ID.ToString()).Append("'},");
 
                             sb.Append("{text:'").Append("信息列表").Append("',uri:'")
-                                .Append("?module=archive&action=list&moduleid=")
+                                .Append("?module=archive&action=list&module_id=")
                                 .Append(m.ID.ToString()).Append("'}");
 
 

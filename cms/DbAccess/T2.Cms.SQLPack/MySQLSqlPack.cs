@@ -89,7 +89,7 @@
                         $PREFIX_category.`name`,$PREFIX_category.`tag`,view_count,`createdate`,`lastmodifydate`
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         AND $PREFIX_category.site_id=@siteId
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `moduleid`=@ModuleID
+                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `module_id`=@ModuleID
                         ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
             }
         }
@@ -130,7 +130,7 @@
                         `outline`,`content`,`thumbnail`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id` 
-                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `moduleid`=@ModuleID
+                        WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `module_id`=@ModuleID
                         ORDER BY view_count DESC LIMIT 0,{0}";
             }
         }
@@ -169,7 +169,7 @@
                         `thumbnail`,`outline`,`tags`,`createdate`,`lastmodifydate`
                         ,view_count,`source` FROM $PREFIX_archive
                             INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
-                            WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`moduleid`=@moduleID
+                            WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`module_id`=@moduleID
                             ORDER BY $PREFIX_archive.sort_number DESC LIMIT 0,{0}";
             }
         }
@@ -221,7 +221,7 @@
                          AND " + SqlConst.Archive_NotSystemAndHidden + @" 
                          ORDER BY $PREFIX_archive.sort_number DESC LIMIT $[skipsize],$[pagesize]) as _t) ORDER BY $PREFIX_archive.sort_number DESC";
 
-                //INNER JOIN $PREFIX_modules ON $PREFIX_category.`moduleid`=$PREFIX_modules.`id`
+                //INNER JOIN $PREFIX_modules ON $PREFIX_category.`module_id`=$PREFIX_modules.`id`
             }
         }
 
@@ -232,7 +232,7 @@
             {
 //                return @"SELECT COUNT(a.id) FROM $PREFIX_archive a
 //                        Left JOIN ($PREFIX_category c INNER JOIN $PREFIX_modules m) ON
-//                        a.cat_id=c.id AND c.moduleid=m.id
+//                        a.cat_id=c.id AND c.module_id=m.id
 //                        Where {0}";
 
                 return @"SELECT COUNT(a.id) FROM $PREFIX_archive a
@@ -307,7 +307,7 @@
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`,
 						(SELECT $PREFIX_archive.`ID` AS `id` FROM  $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
-                        WHERE $[condition] AND $PREFIX_category.moduleid=$[moduleid] AND
+                        WHERE $[condition] AND $PREFIX_category.module_id=$[module_id] AND
                         (`title` LIKE '%$[keyword]%' OR `outline` LIKE '%$[keyword]%'
                         OR `content` LIKE '%$[keyword]%' OR `tags` LIKE '%$[keyword]%')
                         $[orderby] LIMIT $[skipsize],$[pagesize]) _t
@@ -417,7 +417,7 @@
             {
                 return @"SELECT COUNT(0) FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
-                        WHERE {2} AND $PREFIX_category.`moduleid`={0} AND 
+                        WHERE {2} AND $PREFIX_category.`module_id`={0} AND 
                         (`title` LIKE '%{1}%' OR `outline` LIKE '%{1}%' OR `content` LIKE '%{1}%' OR `tags` LIKE '%{1}%')";
             }
         }

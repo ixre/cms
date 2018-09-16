@@ -235,11 +235,11 @@ namespace T2.Cms.Sql
                 /*return @"SELECT TOP $[pagesize] a.[ID] AS [ID],str_id,[alias],title,$PREFIX_archive.location,thumbnail,
                         c.[Name] as [CategoryName],[cat_id],[flags],publisher_id,[Content],[Source],
                         [CreateDate],view_count FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
-                        ON a.cat_id=c.ID INNER JOIN $PREFIX_modules m ON c.[moduleid]=m.[id]
+                        ON a.cat_id=c.ID INNER JOIN $PREFIX_modules m ON c.[module_id]=m.[id]
                         WHERE $[condition] AND a.[ID] NOT IN 
                         (SELECT TOP $[skipsize] a1.[ID] FROM $PREFIX_archive a1
                          LEFT JOIN $PREFIX_category c1 ON a1.cat_id=c1.ID
-                        INNER JOIN $PREFIX_modules ON c1.[moduleid]=m1.[id]
+                        INNER JOIN $PREFIX_modules ON c1.[module_id]=m1.[id]
                         WHERE $[condition] ORDER BY [$[orderByField]] $[orderASC]) ORDER BY [$[orderByField]] $[orderASC]";*/
 
                 return @"SELECT * FROM (SELECT a.id AS id,str_id,alias,title,
@@ -310,14 +310,14 @@ namespace T2.Cms.Sql
             {
                 /*
                 return @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* FROM  $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[cat_id]=$PREFIX_category.id
-                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') AND
+                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[module_id] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') AND
                     $PREFIX_archive.id NOT IN (SELECT TOP $[skipsize] $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[cat_id]=$PREFIX_category.id
-                   WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby]) $[orderby]";
+                   WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[module_id] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby]) $[orderby]";
                 */
                 return @"SELECT * FROM (SELECT $PREFIX_archive.*,
                      ROW_NUMBER()OVER($[orderby]) as rowNum
 					 FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[cat_id]=$PREFIX_category.id
-                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby]) _t
+                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[module_id] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby]) _t
 					WHERE rowNum BETWEEN $[skipsize]+1 AND ($[skipsize]+$[pagesize])";
             }
         }
@@ -422,7 +422,7 @@ namespace T2.Cms.Sql
             {
                 return @"SELECT COUNT(0) FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.[cat_id]=$PREFIX_category.id
-                        WHERE {2} AND $PREFIX_category.moduleid={0} AND ([Title] LIKE '%{1}%'
+                        WHERE {2} AND $PREFIX_category.module_id={0} AND ([Title] LIKE '%{1}%'
                         OR [Outline] LIKE '%{1}%' OR [Content] LIKE '%{1}%' OR [Tags] LIKE '%{1}%')";
             }
         }
