@@ -818,7 +818,7 @@ namespace T2.Cms.Dal
 
             //为第一页时
             const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* FROM  $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_archive.[CID]=$PREFIX_category.id
-                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[moduleid] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby],$PREFIX_archive.id";
+                    WHERE $[condition] AND $PREFIX_category.[ModuleID]=$[module_id] AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%') $[orderby],$PREFIX_archive.id";
 
             //记录数
             recordCount = int.Parse(base.ExecuteScalar(
@@ -849,7 +849,7 @@ namespace T2.Cms.Dal
                     case "pagesize": return pageSize.ToString();
                     case "skipsize": return skipCount.ToString();
                     case "keyword": return keyword;
-                    case "moduleid": return moduleId.ToString();
+                    case "module_id": return moduleId.ToString();
                     case "orderby": return orderby;
                 }
                 return null;

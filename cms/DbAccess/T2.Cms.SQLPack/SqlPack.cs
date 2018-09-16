@@ -197,7 +197,7 @@ namespace T2.Cms.Sql
 
         /*
             INNER JOIN $PREFIX_category c INNER JOIN $PREFIX_modules m ON
-            a.cat_id=c.id AND c.moduleid=m.id
+            a.cat_id=c.id AND c.module_id=m.id
         */
         /// <summary>
         /// 获取分页文档条数
@@ -205,7 +205,7 @@ namespace T2.Cms.Sql
         public readonly string Archive_GetpagedArchivesCountSql2 = @"
             SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive
             INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=$PREFIX_category.id
-            INNER JOIN $PREFIX_modules ON $PREFIX_category.moduleid=$PREFIX_modules.id
+            INNER JOIN $PREFIX_modules ON $PREFIX_category.module_id=$PREFIX_modules.id
             Where {0}";
         
         /// <summary>

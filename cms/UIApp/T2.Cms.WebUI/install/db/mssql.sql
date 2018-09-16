@@ -34,7 +34,7 @@ DROP TABLE [cms_category]
 CREATE TABLE [cms_category] (
 [id] [int]  IDENTITY (1, 1)  NOT NULL,
 [siteid] [int]  NULL DEFAULT (1),
-[moduleid] [int]  NOT NULL,
+[module_id] [int]  NOT NULL,
 [tag] [nvarchar]  (300) NULL,
 [name] [nvarchar]  (300) NULL,
 [lft] [int]  NULL,
@@ -47,8 +47,8 @@ CREATE TABLE [cms_category] (
 ALTER TABLE [cms_category] WITH NOCHECK ADD  CONSTRAINT [PK_cms_category] PRIMARY KEY  NONCLUSTERED ( [id] )
 SET IDENTITY_INSERT [cms_category] ON
 
-INSERT [cms_category] ([id],[siteid],[moduleid],[tag],[name],[lft],[rgt],[orderindex]) VALUES ( 1,0,1,N'root',N'根栏目',1,4,0)
-INSERT [cms_category] ([id],[siteid],[moduleid],[tag],[name],[lft],[rgt],[orderindex]) VALUES ( 2,1,1,N'cms',N'欢迎使用',2,3,0)
+INSERT [cms_category] ([id],[siteid],[module_id],[tag],[name],[lft],[rgt],[orderindex]) VALUES ( 1,0,1,N'root',N'根栏目',1,4,0)
+INSERT [cms_category] ([id],[siteid],[module_id],[tag],[name],[lft],[rgt],[orderindex]) VALUES ( 2,1,1,N'cms',N'欢迎使用',2,3,0)
 
 SET IDENTITY_INSERT [cms_category] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_comment]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 

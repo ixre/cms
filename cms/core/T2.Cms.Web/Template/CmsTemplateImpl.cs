@@ -1418,7 +1418,7 @@ namespace T2.Cms.Template
             object id = Cms.Context.Items["module.id"];
             if (id == null)
             {
-                return this.TplMessage("此标签不允许在当前页面中调用!请使用$MCategoryList(moduleid,isRoot,format)标签代替");
+                return this.TplMessage("此标签不允许在当前页面中调用!请使用$MCategoryList(module_id,isRoot,format)标签代替");
             }
 
             return this.MCategoryList(id.ToString(), "true", format);
