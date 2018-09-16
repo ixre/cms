@@ -220,50 +220,15 @@ namespace T2.Cms.ServiceRepository
         }
 
 
-
-        public IEnumerable<IArchive> GetArchivesByCategoryTag(int siteId, string categoryTag, int number, int skipSize)
-        {
-
-            IArchive archive;
-            IList<IArchive> archives = new List<IArchive>();
-            IList<IExtendValue> defaultValues = new List<IExtendValue>();
-
-            IDictionary<int, IList<IExtendValue>> extendValues = null;
-
-            _dal.GetArchivesExtendValues(siteId, (int)ExtendRelationType.Archive, categoryTag, number, skipSize, rd =>
-            {
-                extendValues = this._extendRep._GetExtendValuesFromDataReader(siteId, rd);
-            });
-
-            if (extendValues == null) extendValues = new Dictionary<int, IList<IExtendValue>>();
-
-
-            _dal.GetArchives(siteId, categoryTag, number, skipSize, rd =>
-            {
-
-                IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
-                while (rd.Read())
-                {
-                    archive = this.CreateArchiveFromDataReader(rd, dg);
-                    archive.ExtendValues = extendValues.ContainsKey(archive.GetAggregaterootId()) ?
-                        extendValues[archive.GetAggregaterootId()] :
-                        defaultValues;
-
-                    archives.Add(archive);
-                }
-            });
-            return archives;
-        }
-
-
-        public IEnumerable<IArchive> GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number, int skipSize)
+        
+        public IEnumerable<IArchive> GetArchivesContainChildCategories(int siteId, int[] catIdArray, int number, int skipSize)
         {
             IList<IArchive> archives = new List<IArchive>();
             IList<IExtendValue> defaultValues = new List<IExtendValue>();
 
             IDictionary<int, IList<IExtendValue>> extendValues = null;
 
-            _dal.GetSelftAndChildArchiveExtendValues(siteId, (int)ExtendRelationType.Archive, lft, rgt, number, skipSize, rd =>
+            _dal.GetSelftAndChildArchiveExtendValues(siteId, (int)ExtendRelationType.Archive, catIdArray, number, skipSize, rd =>
             {
                 extendValues = this._extendRep._GetExtendValuesFromDataReader(siteId, rd);
             });
@@ -271,7 +236,7 @@ namespace T2.Cms.ServiceRepository
             if (extendValues == null) extendValues = new Dictionary<int, IList<IExtendValue>>();
 
             IArchive archive;
-            _dal.GetSelftAndChildArchives(siteId, lft, rgt, number, skipSize, rd =>
+            _dal.GetSelftAndChildArchives(siteId, catIdArray, number, skipSize, rd =>
             {
                 //DateTime dt = DateTime.Now;
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));

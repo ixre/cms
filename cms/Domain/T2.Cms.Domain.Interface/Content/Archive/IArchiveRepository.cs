@@ -29,15 +29,6 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <returns></returns>
         int SaveArchive(IArchive archive);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="categoryTag"></param>
-        /// <param name="number"></param>
-        /// <param name="skipSize"></param>
-        /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesByCategoryTag(int siteId, string categoryTag, int number, int skipSize);
 
         /// <summary>
         /// 
@@ -48,7 +39,7 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <param name="number"></param>
         /// <param name="skipSize"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesContainChildCategories(int siteId, int lft, int rgt, int number, int skipSize);
+        IEnumerable<IArchive> GetArchivesContainChildCategories(int siteId,int[] catIdArray, int number, int skipSize);
 
         /// <summary>
         /// 

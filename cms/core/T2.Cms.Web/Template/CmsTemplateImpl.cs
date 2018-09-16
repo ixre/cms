@@ -391,7 +391,7 @@ namespace T2.Cms.Template
 		")]
         public string Special_Archives(string num, string format)
         {
-            string id = HttpContext.Current.Items["category.tag"] as string;
+            string id = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(id))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
@@ -455,7 +455,7 @@ namespace T2.Cms.Template
 		")]
         public string Self_Special_Archives(string num, string format)
         {
-            string id = HttpContext.Current.Items["category.tag"] as string;
+            string id = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(id))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
@@ -790,7 +790,7 @@ namespace T2.Cms.Template
 		")]
         public string Categories(string format)
         {
-            string id = HttpContext.Current.Items["category.tag"] as string;
+            string id = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(id))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
@@ -825,7 +825,7 @@ namespace T2.Cms.Template
         //		")]
         //        public string Categories2(string format)
         //        {
-        //            string id = HttpContext.Current.Items["category.tag"] as string;
+        //            string id = HttpContext.Current.Items["category.path"] as string;
         //            if (String.IsNullOrEmpty(id))
         //            {
         //                return this.TplMessage("Error: 此标签不允许在当前页面中调用!");

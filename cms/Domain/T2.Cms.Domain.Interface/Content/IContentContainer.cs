@@ -36,24 +36,16 @@ namespace T2.Cms.Domain.Interface.Content
         IArchive GetArchiveById(int archiveId);
 
         /// <summary>
-        /// 
+        /// 获取栏目下的文档
         /// </summary>
-        /// <param name="categoryTag"></param>
+        /// <param name="catPath"></param>
+        /// <param name="includeChild">是否包括子栏目</param>
         /// <param name="number"></param>
         /// <param name="skipSize"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesByCategoryTag(string categoryTag, int number, int skipSize);
+        IEnumerable<IArchive> GetArchivesByCategoryPath(string catPath, bool includeChild, int number, int skipSize);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
-        /// <param name="number"></param>
-        /// <param name="skipSize"></param>
-        /// <returns></returns>
-        IEnumerable<IArchive> GetArchivesContainChildCategories(int lft, int rgt, int number, int skipSize);
-
+      
         /// <summary>
         /// 
         /// </summary>
