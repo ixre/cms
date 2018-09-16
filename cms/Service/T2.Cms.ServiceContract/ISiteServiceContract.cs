@@ -88,19 +88,17 @@ namespace T2.Cms.ServiceContract
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="catId"></param>
-        /// <param name="categoryContainerOption"></param>
+        /// <param name="catPath"></param>
         /// <returns></returns>
-        IEnumerable<CategoryDto> GetCategories(int siteId,int catId, 
-            CategoryContainerOption categoryContainerOption);
+        IEnumerable<CategoryDto> GetCategories(int siteId,String catPath);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="tag"></param>
+        /// <param name="catPath"></param>
         /// <returns></returns>
-        CategoryDto GetCategory(int siteId, string tag);
+        CategoryDto GetCategory(int siteId, string catPath);
 
         /// <summary>
         /// 

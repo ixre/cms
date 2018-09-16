@@ -410,7 +410,7 @@ namespace T2.Cms.Template
                     CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, param);
                     if (category.ID > 0)
                     {
-                        categories1 = ServiceCall.Instance.SiteService.GetCategories(this.SiteId, category.ID, CategoryContainerOption.NextLevel);
+                        categories1 = ServiceCall.Instance.SiteService.GetCategories(this.SiteId, category.Path);
                     }
                     else
                     {
@@ -1267,11 +1267,11 @@ namespace T2.Cms.Template
         /// </summary>
         /// <param name="format"></param>
         /// <returns></returns>
-        protected string CategoryList(string param, string format)
+        protected string CategoryList(string catPath, string format)
         {
             IList<CategoryDto> categories = new List<CategoryDto>();
 
-            if (String.IsNullOrEmpty(param))
+            if (String.IsNullOrEmpty(catPath))
             {
                 return TplMessage("请指定参数:param的值");
             }
@@ -1301,15 +1301,8 @@ namespace T2.Cms.Template
             bool isModule = false;
             if (!isModule)
             {
-                CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, param);
-
-                if (!(category.ID > 0) || (category.SiteId != this._site.SiteId && category.Lft != 1))
-                {
-                    return TplMessage("不存在栏目!标识:" + param);
-                }
-
-                categories = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(this.SiteId,
-                    category.ID, CategoryContainerOption.NextLevel));
+                categories = new List<CategoryDto>(ServiceCall.Instance.SiteService
+                    .GetCategories(this.SiteId,catPath));
 
                 //如果没有下级了,则获取当前级
                 //if (categories.Count == 0)
@@ -2436,7 +2429,7 @@ namespace T2.Cms.Template
             }
 
             IList<CategoryDto> childs = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(
-                this.SiteId,category.ID,CategoryContainerOption.NextLevel));
+                this.SiteId,category.Path));
 
 
             if (childs.Count != 0)

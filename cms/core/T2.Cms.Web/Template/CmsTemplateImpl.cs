@@ -774,9 +774,9 @@ namespace T2.Cms.Template
         	参数1：栏目Tag<br />
         	参数2：显示格式
 		")]
-        public string Categories(string categoryTag, string format)
+        public string Categories(string catPath, string format)
         {
-            return base.CategoryList(categoryTag, format);
+            return base.CategoryList(catPath, format);
         }
 
         [TemplateTag]
@@ -787,12 +787,12 @@ namespace T2.Cms.Template
 		")]
         public string Categories(string format)
         {
-            string id = HttpContext.Current.Items["category.path"] as string;
-            if (String.IsNullOrEmpty(id))
+            string catPath = HttpContext.Current.Items["category.path"] as string;
+            if (String.IsNullOrEmpty(catPath))
             {
                 return this.TplMessage("Error: 此标签不允许在当前页面中调用!");
             }
-            return Categories(id, format);
+            return Categories(catPath, format);
         }
 
         [TemplateTag]
