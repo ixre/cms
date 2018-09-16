@@ -1015,18 +1015,17 @@ namespace T2.Cms.Template
         /// <summary>
         /// 根据栏目Tag产生站点地图
         /// </summary>
-        /// <param name="categoryTag"></param>
+        /// <param name="catPath"></param>
         /// <returns></returns>
         [TemplateTag]
         [ContainSetting]
-        protected string Sitemap(string categoryTag)
+        protected string Sitemap(string catPath)
         {
-            string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category, SiteId.ToString(), categoryTag);
+            string cacheKey = String.Format("{0}_site{1}_sitemap_{2}", CacheSign.Category, SiteId.ToString(), catPath);
             return Cms.Cache.GetCachedResult(cacheKey, () =>
             {
                 return CategoryCacheManager.GetSitemapHtml(this.SiteId,
-                    categoryTag,
-                    this.GetSetting().CFG_SitemapSplit,
+                    catPath,this.GetSetting().CFG_SitemapSplit,
                 this.FormatPageUrl(UrlRulePageKeys.Category, null));
             }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }

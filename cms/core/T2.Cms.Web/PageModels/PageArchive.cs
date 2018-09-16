@@ -22,6 +22,8 @@ namespace T2.Cms.Web
         private string _properies;
         private IDictionary<String, String> _dict;
         private string _tagsHtml;
+        private String _url;
+
         public PageArchive(ArchiveDto archive)
         {
             this.Archive = archive;
@@ -79,7 +81,12 @@ namespace T2.Cms.Web
         public String Url
         {
             get{
-                return this.Archive.Url;
+                if (this._url == null)
+                {
+                    String prefix = (Settings.TPL_UseFullPath ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath);
+                    this._url = prefix + "/" + this.Archive.Url;
+                }
+                return this._url;
             }
         }
 

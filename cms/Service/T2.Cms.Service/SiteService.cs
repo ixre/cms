@@ -300,21 +300,18 @@ namespace T2.Cms.Service
         }
 
 
-        public string GetCategorySitemapHtml(int siteId, string categoryTag, string split, string linkFormat)
+        public string GetCategorySitemapHtml(int siteId, string catPath, string split, string linkFormat)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            int rootLft = site.RootCategory.Lft;
-            ICategory category = site.GetCategoryByPath(categoryTag);
+            ICategory category = site.GetCategoryByPath(catPath);
 
             if (linkFormat.EndsWith("/")) linkFormat = linkFormat.Substring(0, linkFormat.Length - 1);
             StringBuilder sb = new StringBuilder();
             int tmpInt = 0;
             String html = "";
 
-            while (category != null && category.Lft != rootLft)
+            while (category != null)
             {
-              
-
                 sb.Append("<a class=\"l").Append((tmpInt+1).ToString()).Append("\" href=\"");
                 if (!String.IsNullOrEmpty(category.Get().Location))
                 {
@@ -324,7 +321,10 @@ namespace T2.Cms.Service
                     }
                     else
                     {
-                        if (category.Get().Location.StartsWith("/")) category.Get().Location = category.Get().Location.Substring(1);
+                        if (category.Get().Location.StartsWith("/"))
+                        {
+                            category.Get().Location = category.Get().Location.Substring(1);
+                        }
                         string path = String.Format(linkFormat, category.Get().Location);
                         sb.Append(path);
                     }

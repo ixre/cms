@@ -221,7 +221,7 @@ namespace T2.Cms.Web
 
             //用于当前的模板共享数据
             Cms.Context.Items["archive.id"] = archive.Id;
-            Cms.Context.Items["category.tag"] = category.Tag;
+            Cms.Context.Items["category.path"] = category.Path;
             Cms.Context.Items["module.id"] = category.ModuleId;
 
             //解析模板
@@ -249,29 +249,6 @@ namespace T2.Cms.Web
                                                   });
 
                                               });
-
-            /*
-            HttpRequest request = HttpContext.Current.Request;
-
-            //如果包含查询，则加入标签
-            if (!String.IsNullOrEmpty(request.Url.Query))
-            {
-                //将查询参数作为标签
-                html = global::JR.DevFw.Template.TemplateRegexUtility.Replace(html, a =>
-                {
-                    if (request[a.Groups[1].Value] != null)
-                    {
-                        return request[a.Groups[1].Value];
-                    }
-                    return a.Value;
-                });
-            }
-
-            //
-            //TODO:模板被替换成空白
-            //
-             */
-
             return html;
         }
 

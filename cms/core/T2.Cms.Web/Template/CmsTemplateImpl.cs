@@ -1137,12 +1137,12 @@ namespace T2.Cms.Template
 		")]
         public string Sitemap()
         {
-            string tag = Cms.Context.Items["category.tag"] as string;
-            if (string.IsNullOrEmpty(tag))
+            string path = Cms.Context.Items["category.path"] as string;
+            if (string.IsNullOrEmpty(path))
             {
-                return this.TplMessage("无法在当前页面调用此标签!\r\n解决方法:使用标签$sitemap('栏目标签')或设置Cms.Context.Items[\"category.tag\"]");
+                return this.TplMessage("无法在当前页面调用此标签!\r\n解决方法:使用标签$sitemap('栏目标签')或设置Cms.Context.Items[\"category.path\"]");
             }
-            return Sitemap(tag);
+            return Sitemap(path);
         }
 
 
