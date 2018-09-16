@@ -217,8 +217,7 @@
                           WHERE $PREFIX_archive.id IN (SELECT id FROM (
 						 SELECT $PREFIX_archive.id FROM $PREFIX_archive
                          INNER JOIN $PREFIX_category ON cat_id=$PREFIX_category.id
-                         WHERE $PREFIX_category.site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) 
-                         AND " + SqlConst.Archive_NotSystemAndHidden + @" 
+                         WHERE $PREFIX_category.site_id=@siteId AND $PREFIX_archive.cat_id IN ($[catIdArray])  AND " + SqlConst.Archive_NotSystemAndHidden + @" 
                          ORDER BY $PREFIX_archive.sort_number DESC LIMIT $[skipsize],$[pagesize]) as _t) ORDER BY $PREFIX_archive.sort_number DESC";
 
                 //INNER JOIN $PREFIX_modules ON $PREFIX_category.`module_id`=$PREFIX_modules.`id`

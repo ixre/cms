@@ -139,7 +139,8 @@ namespace T2.Cms.Web
             //
 
             //用于当前的模板共享数据
-            Cms.Context.Items["category.tag"] = category.Tag;
+            //Cms.Context.Items["category.tag"] = category.Tag;
+            Cms.Context.Items["category.path"] = category.Path;
             Cms.Context.Items["module.id"] = category.ModuleId;
             Cms.Context.Items["page.index"] = pageIndex;
 

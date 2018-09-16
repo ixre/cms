@@ -150,10 +150,10 @@ namespace T2.Cms.Service
             return CategoryDto.ConvertFrom(site.GetCategoryByName(categoryName));
         }
 
-        public CategoryDto GetCategory(int siteId, string categoryTag)
+        public CategoryDto GetCategory(int siteId, string catPath)
         {
             ISite site = this._resp.GetSiteById(siteId);
-            return CategoryDto.ConvertFrom(site.GetCategoryByPath(categoryTag));
+            return CategoryDto.ConvertFrom(site.GetCategoryByPath(catPath));
         }
 
 
@@ -218,6 +218,7 @@ namespace T2.Cms.Service
             }
             if (ic == null) ic = _categoryRep.CreateCategory(new CmsCategoryEntity());
             CmsCategoryEntity cat = new CmsCategoryEntity();
+            cat.SiteId = siteId;
             cat.Keywords = category.Keywords;
             cat.Description = category.Description;
             cat.ParentId = parentId;

@@ -135,7 +135,7 @@ namespace T2.Cms.Template
             if (!string.IsNullOrEmpty(location)) return this.ConcatUrl(location);
             if (String.IsNullOrEmpty(flags) || (flags.IndexOf("p:'1'", StringComparison.Ordinal) == -1))
             {
-                return this.FormatPageUrl(UrlRulePageKeys.Archive, category.UriPath, id);
+                return this.FormatPageUrl(UrlRulePageKeys.Archive, category.Path, id);
             }
             return this.FormatPageUrl(UrlRulePageKeys.SinglePage, id);
         }
@@ -162,11 +162,11 @@ namespace T2.Cms.Template
             if (!String.IsNullOrEmpty(category.Location)) return ConcatUrl(category.Location);
             if (pageIndex < 2)
             {
-                return this.FormatPageUrl(UrlRulePageKeys.Category, category.UriPath);
+                return this.FormatPageUrl(UrlRulePageKeys.Category, category.Path);
             }
             else
             {
-                return this.FormatPageUrl(UrlRulePageKeys.CategoryPager, category.UriPath, pageIndex.ToString());
+                return this.FormatPageUrl(UrlRulePageKeys.CategoryPager, category.Path, pageIndex.ToString());
             }
         }
 
@@ -627,7 +627,7 @@ namespace T2.Cms.Template
                 response.StatusCode = 301;
                 response.RedirectLocation = String.Format("{0}{1}/{2}.html",
                     appPath,
-                    a.Category.UriPath,
+                    a.Category.Path,
                     String.IsNullOrEmpty(a.Alias) ? a.StrId : a.Alias
                     );
                 response.End();
@@ -1563,7 +1563,7 @@ namespace T2.Cms.Template
         /// <param name="format">格式</param>
         /// <param name="skipSize">跳过的页码</param>
         /// <returns></returns>
-        protected string Paging_Archives(string categoryTag, string pageIndex, string pageSize, int skipSize, int splitSize, string format)
+        protected string Paging_Archives(string categoryPath, string pageIndex, string pageSize, int skipSize, int splitSize, string format)
         {
             int _pageIndex,
                  _pageSize,
@@ -1575,7 +1575,7 @@ namespace T2.Cms.Template
 
 
 
-            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
+            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryPath);
             if (!(category.ID > 0))
             {
                 return TplMessage("Error:栏目不存在!");
@@ -1601,8 +1601,7 @@ namespace T2.Cms.Template
 
             drs = ServiceCall.Instance.ArchiveService.GetPagedArchives(
                 this.SiteId,
-                category.Lft,
-                category.Rgt,
+                categoryPath,
                 _pageSize,
                 skipSize,
                 ref _pageIndex,
@@ -1619,7 +1618,7 @@ namespace T2.Cms.Template
                 ++archiveIndex;
 
                 //获取栏目，如果栏目关联不起来则调到下一次
-                categoryId = int.Parse(dr["cid"].ToString());
+                categoryId = int.Parse(dr["cat_id"].ToString());
                 archiveId = int.Parse(dr["id"].ToString());
                 var o = string.IsNullOrEmpty((dr["alias"] ?? "").ToString()) ? dr["str_id"] : dr["alias"];
                 if (o != null)
@@ -1671,8 +1670,8 @@ namespace T2.Cms.Template
                             case "category_id": return archiveCategory.ID.ToString();
 
                             case "category_name": return archiveCategory.Name;
-
-                            case "category_tag": return archiveCategory.Tag;
+                                 
+                            case "category_path": return archiveCategory.Path;
 
                             case "category_url": return this.GetCategoryUrl(archiveCategory, 1);
 
@@ -1983,7 +1982,7 @@ namespace T2.Cms.Template
 
                             //栏目
                             case "category_name": return category.Name;
-                            case "category_tag": return category.Tag;
+                            case "category_path": return category.Path;
                             case "category_url": return this.GetCategoryUrl(category, 1);
                             //链接
                             case "url":

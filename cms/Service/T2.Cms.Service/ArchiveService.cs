@@ -19,16 +19,19 @@ namespace T2.Cms.Service
         private readonly ISiteRepo _siteRep;
         private readonly ArchiveQuery _archiveQuery = new ArchiveQuery();
         private readonly IExtendFieldRepository _extendRep;
+        private readonly ICategoryRepo _catRepo;
 
         public ArchiveService(
             IContentRepository contentRep,
             ISiteRepo siteRep,
+            ICategoryRepo catRepo,
             IExtendFieldRepository extendRep
             )
         {
             this._contentRep = contentRep;
             this._siteRep = siteRep;
             this._extendRep = extendRep;
+            this._catRepo = catRepo;
         }
 
         public ArchiveDto GetArchiveByIdOrAlias(int siteId, string id)
@@ -239,25 +242,20 @@ namespace T2.Cms.Service
             string[,] flags, string keyword,
             string orderByField, bool orderAsc, int pageSize, int currentPageIndex, out int recordCount, out int pages)
         {
-            //
-            //TODO:moduleId暂时去掉
-            //
-            int lft = -1, rgt = -1;
-            if (categoryId.HasValue)
+
+            ICategory ic = this._catRepo.GetCategory(siteId, categoryId??0);
+
+            int[] catIdArray;
+            if (includeChild)
             {
-                ISite site = this._siteRep.GetSiteById(siteId);
-                if (site != null)
-                {
-                    ICategory category = site.GetCategory(categoryId.Value);
-                    if (category != null)
-                    {
-                        lft = category.Lft;
-                        rgt = category.Rgt;
-                    }
-                }
+               catIdArray =  this.GetCatArrayByPath(ic);
+            }
+            else
+            {
+                catIdArray = new int[] { categoryId ?? 0 };
             }
 
-            return this._archiveQuery.GetPagedArchives(siteId, lft, rgt, publisherId,
+            return this._archiveQuery.GetPagedArchives(siteId,catIdArray, publisherId,
                 includeChild, flags,keyword, orderByField, orderAsc, pageSize, currentPageIndex,
                 out recordCount, out pages);
         }
@@ -265,8 +263,7 @@ namespace T2.Cms.Service
 
         public DataTable GetPagedArchives(
             int siteId,
-            int categoryLft,
-            int categoryRgt,
+            String catPath,
             int pageSize,
             int skipSize,
             ref int pageIndex,
@@ -274,8 +271,10 @@ namespace T2.Cms.Service
             out int pages,
             out IDictionary<int, IDictionary<string, string>> extendValues)
         {
+            ICategory ic = this._catRepo.GetCategoryByPath(siteId, catPath);
+            int[] catIdArray = this.GetCatArrayByPath(ic);
             //获取数据
-            DataTable dt = this._archiveQuery.GetPagedArchives(siteId, categoryLft, categoryRgt,
+            DataTable dt = this._archiveQuery.GetPagedArchives(siteId, catIdArray,
                  pageSize, skipSize, ref pageIndex, out records, out pages);
 
             IList<int> archiveIds = new List<int>();
@@ -313,6 +312,19 @@ namespace T2.Cms.Service
             return dt;
         }
 
+        /// <summary>
+        /// 获取分类下的编号数组
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
+        /// <returns></returns>
+        private int[] GetCatArrayByPath(ICategory ic)
+        {
+            if (ic == null) return new int[] { };
+            IList<int> list = ic.Childs.Select(a => a.GetDomainId()).ToList();
+            list.Insert(0, ic.GetDomainId());
+            return list.ToArray();
+        }
 
         public void DeleteArchive(int siteId, int archiveId)
         {

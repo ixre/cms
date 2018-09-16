@@ -204,40 +204,42 @@ namespace T2.Cms.Web.Mvc
         /// <returns></returns>
         public void Category(string allCate)
         {
-            int page = 1;
-
             //验证是否为当前站点的首页
-            if (this.OutputCntext.SiteAppPath != "/" && Regex.IsMatch(allCate, "^[^/]+/{0,1}$"))
+            if (this.OutputCntext.SiteAppPath != "/" && allCate.LastIndexOf("/") == 0)
             {
                 this.Index();
                 return;
             }
-
-            //获取页码和tag
-            Regex paramRegex = new Regex("/*(([^/]+)/(p(\\d+)\\.html)?|([^/]+))$", RegexOptions.IgnoreCase);
-
-            Match mc = paramRegex.Match(allCate);
-
-            var tag = mc.Groups[mc.Groups[2].Value != "" ? 2 : 5].Value;
-
-            //计算页吗:页码如:p3
-            if (mc.Groups[4].Value != "")
+            int page = 1;
+            String path = allCate;
+            if (allCate.IndexOf(".")!= -1)
             {
-                page = int.Parse(mc.Groups[4].Value);
+                //获取页码和tag
+                Regex paramRegex = new Regex("/*((.+)/(p(\\d+)\\.html)?|(.+))$", RegexOptions.IgnoreCase);
+                Match mc = paramRegex.Match(allCate);
+                if (mc.Groups[4].Value != "")
+                {
+                    page = int.Parse(mc.Groups[4].Value);
+                }
+                path = mc.Groups[mc.Groups[2].Value != "" ? 2 : 5].Value;
             }
-
-
+            // 去掉末尾的"/"
+            if (path.EndsWith("/"))
+            {
+                path = path.Substring(0,path.Length - 1);
+            }
+            
             //执行
             bool eventResult = false;
             if (OnCategoryRequest != null)
             {
-                OnCategoryRequest(base.OutputCntext, tag, page, ref eventResult);
+                OnCategoryRequest(base.OutputCntext, path, page, ref eventResult);
             }
 
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.RenderCategory(base.OutputCntext, tag, page);
+                DefaultWebOuput.RenderCategory(base.OutputCntext, path, page);
             }
         }
 

@@ -27,7 +27,7 @@ namespace T2.Cms.DataTransfer
                 Location = category.Location,
                 ExtendFields = ic.ExtendFields,
                 SiteId = ic.Site().GetAggregaterootId(),
-                UriPath = category.Path,
+                Path = category.Path,
                 ParentId= category.ParentId,
                 //Lft = category.Lft,
                 //Rgt = category.Rgt
@@ -122,7 +122,7 @@ namespace T2.Cms.DataTransfer
 
         public string Location { get; set; }
 
-        public string UriPath { get; set; }
+        public string Path { get; set; }
 
         public IList<IExtendField> ExtendFields { get; set; }
 

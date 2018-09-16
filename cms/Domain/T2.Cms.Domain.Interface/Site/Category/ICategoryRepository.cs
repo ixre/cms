@@ -35,7 +35,13 @@ namespace T2.Cms.Domain.Interface.Site.Category
 
         IEnumerable<ICategory> GetCategories(int siteId, int catId, CategoryContainerOption option);
 
-        IEnumerable<ICategory> GetChilds(ICategory category);
+        /// <summary>
+        /// 获取栏目下所有子栏目
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
+        /// <returns></returns>
+        IEnumerable<ICategory> GetChilds(int siteId, string catPath);
 
         ICategory GetParent(ICategory category);
 

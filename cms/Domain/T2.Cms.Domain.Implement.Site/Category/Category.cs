@@ -101,10 +101,15 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 this.value.ParentId = src.ParentId;
                 this._parentChanged = true;
             }
+            if (String.IsNullOrEmpty(src.Tag))
+            {
+                return new Error("栏目tag不能为空");
+            }
             if (!this._repo.CheckTagMatch(this.value.SiteId, this.value.ParentId,src.Tag, this.value.ID))
             {
                 return new Error("分类TAG已存在");
             }
+            this.value.Tag = src.Tag;
             this.value.Flag = src.Flag;
             this.value.ModuleId = src.ModuleId;
             this.value.Name = src.Name ?? "";
@@ -131,7 +136,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 this.SetAutoSortNumber();
             }
-            if (this._parentChanged)
+            if (this._parentChanged || String.IsNullOrEmpty(this.value.Path))
             {
                 this._parent = null;
                 this.UpdateCategoryPath();
@@ -307,7 +312,11 @@ namespace T2.Cms.Domain.Implement.Site.Category
         {
             get
             {
-                return _childs ?? (_childs ?? this._repo.GetChilds(this));
+                if(this._childs == null)
+                {
+                    return this._repo.GetChilds(this.value.SiteId, this.value.Path);
+                }
+                return this._childs;
             }
         }
 

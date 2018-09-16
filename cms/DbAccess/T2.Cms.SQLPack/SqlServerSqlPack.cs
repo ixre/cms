@@ -211,7 +211,7 @@ namespace T2.Cms.Sql
                         ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum
                         FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.[cat_id]=$PREFIX_category.id
-                        WHERE $PREFIX_category.site_id=@siteId AND (lft>=@lft AND rgt<=@rgt) 
+                        WHERE $PREFIX_category.site_id=@siteId AND $PREFIX_archive.cat_id IN ($[catIdArray]) 
                          AND " + SqlConst.Archive_NotSystemAndHidden + @") _t 
 						WHERE rowNum BETWEEN $[skipsize]+1 AND ($[skipsize]+$[pagesize])";
             }
