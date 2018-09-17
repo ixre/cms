@@ -94,6 +94,14 @@ namespace T2.Cms
         /// </summary>
         internal static bool IsInitFinish { get; set; }
 
+
+        public static bool IsStaticRequest(HttpContext ctx)
+        {
+            String path = ctx.Request.Path;
+           return path.StartsWith("/public/") || path.StartsWith("/resources/") ||
+                path.StartsWith("/plugins/") || path.StartsWith("/templates/");
+        }
+
         /// <summary>
         /// Cms上下文对象
         /// </summary>
@@ -101,11 +109,16 @@ namespace T2.Cms
         {
             get
             {
-                CmsContext context = HttpContext.Current.Items["cms.context"] as CmsContext;
+                HttpContext httpCtx = HttpContext.Current;
+                if (IsStaticRequest(httpCtx))
+                {
+                    return null;
+                }
+                CmsContext context = httpCtx.Items["cms.context"] as CmsContext;
                 if (context == null)
                 {
                     context = new CmsContext();
-                    HttpContext.Current.Items["cms.context"] = context;
+                    httpCtx.Items["cms.context"] = context;
                 }
                 return context;
             }

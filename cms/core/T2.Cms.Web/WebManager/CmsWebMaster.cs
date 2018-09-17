@@ -31,7 +31,7 @@ namespace T2.Cms.Web.WebManager
                 if (site.SiteId == 0)
                 {
                     // get site by host name
-                    site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(context.Request.Url);
+                    site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(context.Request.Url.ToString());
 
                     // get the first site for user
                     if (!usr.IsMaster && usr.Roles.GetRole(site.SiteId) == null)

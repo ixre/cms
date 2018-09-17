@@ -35,16 +35,16 @@ namespace T2.Cms.ServiceContract
         /// <summary>
         /// 根据Uri获取站点
         /// </summary>
-        /// <param name="uri"></param>
+        /// <param name="url"></param>
         /// <returns></returns>
-        SiteDto GetSiteByUri(Uri uri);
+        SiteDto GetSiteByUri(String url);
 
         /// <summary>
         /// 获取单个或默认站点
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        SiteDto GetSingleOrDefaultSite(Uri uri);
+        SiteDto GetSingleOrDefaultSite(String url);
 
         /// <summary>
         /// 获取站点的扩展字段

@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="CategoryTest.cs" />
     <Compile Include="ExtendTest.cs" />
+    <Compile Include="SiteTest.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +74,9 @@
     </Content>
     <None Include="config\install.lock">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GenericTest1.GenericTest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

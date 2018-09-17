@@ -126,10 +126,10 @@ namespace T2.Cms.ServiceRepository
         }
 
 
-        public ISite GetSiteByUri(Uri uri)
+        public ISite GetSiteByUri(String url)
         {
             ISite site = null;
-            GetSiteByUri(uri, ref site);
+            GetSiteByUri(url, ref site);
             return site;
         }
 
@@ -140,10 +140,10 @@ namespace T2.Cms.ServiceRepository
             return BinarySearch.IntSearch(sites, 0, sites.Count, siteId, a => a.GetAggregaterootId());
         }
 
-        public ISite GetSingleOrDefaultSite(Uri uri)
+        public ISite GetSingleOrDefaultSite(String url)
         {
             ISite site = null;
-            IList<ISite> sites = GetSiteByUri(uri, ref site);
+            IList<ISite> sites = GetSiteByUri(url, ref site);
             if (site != null)
             {
                 return site;
@@ -167,9 +167,9 @@ namespace T2.Cms.ServiceRepository
             return sites[0];
         }
 
-        private IList<ISite> GetSiteByUri(Uri uri, ref ISite site)
+        private IList<ISite> GetSiteByUri(String url, ref ISite site)
         {
-
+            Uri uri = new Uri(url);
             string hostName = uri.Host;
             IList<ISite> sites = this.GetSites();
 

@@ -78,9 +78,9 @@ namespace T2.Cms.Service
 
 
 
-        public SiteDto GetSiteByUri(Uri uri)
+        public SiteDto GetSiteByUri(String url)
         {
-            return GetSiteDtoFromISite(_resp.GetSiteByUri(uri));
+            return GetSiteDtoFromISite(_resp.GetSiteByUri(url));
         }
 
         private static SiteDto GetSiteDtoFromISite(ISite site)
@@ -94,12 +94,10 @@ namespace T2.Cms.Service
 
 
 
-        public SiteDto GetSingleOrDefaultSite(Uri uri)
+        public SiteDto GetSingleOrDefaultSite(String url)
         {
-            return GetSiteDtoFromISite(
-                _resp.GetSingleOrDefaultSite(uri)
-                );
-
+            ISite ist = _resp.GetSingleOrDefaultSite(url);
+            return GetSiteDtoFromISite(ist);
         }
 
 

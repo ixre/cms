@@ -26,7 +26,7 @@ namespace T2.Cms.Domain.Interface.Site
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        ISite GetSiteByUri(Uri uri);
+        ISite GetSiteByUri(String url);
 
         /// <summary>
         /// 根据编号获取网站
@@ -38,9 +38,9 @@ namespace T2.Cms.Domain.Interface.Site
         /// <summary>
         /// 根据Uri获取站点，如果不存在则返回默认站点
         /// </summary>
-        /// <param name="uri"></param>
+        /// <param name="url"></param>
         /// <returns></returns>
-        ISite GetSingleOrDefaultSite(Uri uri);
+        ISite GetSingleOrDefaultSite(String url);
 
         /// <summary>
         /// 保存链接
