@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Infrastructure;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Content.Archive
 {
@@ -19,6 +21,19 @@ namespace T2.Cms.Domain.Interface.Content.Archive
 	/// </summary>
 	public interface IArchive:IBaseContent
 	{
+        /// <summary>
+        /// 获取文档
+        /// </summary>
+        /// <returns></returns>
+        CmsArchiveEntity Get();
+
+        /// <summary>
+        /// 设置文档值
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        Error Set(CmsArchiveEntity src);
+
 
         String StrId {get;}
 

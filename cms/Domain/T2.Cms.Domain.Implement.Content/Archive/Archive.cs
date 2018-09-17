@@ -6,6 +6,8 @@ using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Infrastructure;
+using T2.Cms.Models;
 
 //
 // 2012-10-01 添加文档扩展属性
@@ -25,6 +27,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
         private string _firstImageUrl;
         private IArchiveRepository _archiveRep;
         private string _uri;
+        private CmsArchiveEntity _value;
 
         internal Archive(
             IContentRepository contentRep,
@@ -333,6 +336,39 @@ namespace T2.Cms.Domain.Implement.Content.Archive
         {
             //UPDATE cms_archive SET sort_number = id
             this._archiveRep.SaveSortNumber(this.Id, this.SortNumber);
+        }
+
+        public CmsArchiveEntity Get()
+        {
+            return this._value;
+        }
+
+        public Error Set(CmsArchiveEntity src)
+        {
+            this._value.ID = src.ID;
+            this._value.StrId = src.StrId;
+            this._value.SiteId = src.SiteId;
+            this._value.Alias = src.Alias;
+            this._value.CatId = src.CatId;
+            this._value.Path = src.Path;
+            this._value.Flag = src.Flag;
+            this._value.PublisherId = src.PublisherId;
+            this._value.Title = src.Title;
+            this._value.SmallTitle = src.SmallTitle;
+            this._value.Location = src.Location;
+            this._value.SortNumber = src.SortNumber;
+            this._value.Source = src.Source;
+            this._value.Tags = src.Tags;
+            this._value.Outline = src.Outline;
+            this._value.Content = src.Content;
+            this._value.ViewCount = src.ViewCount;
+            this._value.Agree = src.Agree;
+            this._value.Disagree = src.Disagree;
+            this._value.Createdate = src.Createdate;
+            this._value.Lastmodifydate = src.Lastmodifydate;
+            this._value.Flags = src.Flags;
+            this._value.Thumbnail = src.Thumbnail;
+            return null;
         }
     }
 }

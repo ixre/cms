@@ -138,5 +138,10 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// 保存排序号码
         /// </summary>
         void SaveSortNumber();
+
+        /// <summary>
+        /// 强制更新栏目路径
+        /// </summary>
+        void ForceUpdatePath();
     }
 }
