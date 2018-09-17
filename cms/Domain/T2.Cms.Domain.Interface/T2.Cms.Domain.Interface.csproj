@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Language\LangKvPair.cs" />
+    <Compile Include="Content\Archive\CmsArchiveEntity.cs" />
     <Compile Include="Content\ContentUtil.cs" />
     <Compile Include="Content\IContentLinkManager.cs" />
     <Compile Include="Content\RelateIndent.cs" />

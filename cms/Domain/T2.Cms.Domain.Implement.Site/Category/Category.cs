@@ -27,7 +27,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private ISite site;
         private ISiteRepo siteRepo;
         private readonly ITemplateRepo _tempRep;
-        private bool _parentChanged = false;
+        private bool _pathChanged = false;
         private String[] errTags = new String[] {"public","resouces","config","plugins","bin","data","tmp","install"};
 
         internal Category(ICategoryRepo rep, ISiteRepo siteRepo,
@@ -76,13 +76,14 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 }
                 this.value.SiteId = src.SiteId;
                 this.value.Code = src.Code ?? "";
+                this.value.Tag = src.Tag ?? "";
                 this.value.Icon = "";
                 this.value.Path = "";
                 this.value.Flag = 0; //todo: 初始化flag
                 int maxSortNumber = this._repo.GetMaxSortNumber(this.value.SiteId);
                 if (maxSortNumber == 0) maxSortNumber = 1;
                 this.value.SortNumber = maxSortNumber;
-                this._parentChanged = true;
+                this._pathChanged = true;
             }
             if(src.Tag == "-")
             {
@@ -104,7 +105,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     }
                 }
                 this.value.ParentId = src.ParentId;
-                this._parentChanged = true;
+                this._pathChanged = true;
             }
             if (String.IsNullOrEmpty(src.Tag))
             {
@@ -113,6 +114,10 @@ namespace T2.Cms.Domain.Implement.Site.Category
             if (!this._repo.CheckTagMatch(this.value.SiteId, this.value.ParentId,src.Tag, this.value.ID))
             {
                 return new Error("分类TAG已存在");
+            }
+            if(this.value.Tag != src.Tag)
+            {
+                this._pathChanged = true;
             }
             this.value.Tag = src.Tag;
             this.value.Flag = src.Flag;
@@ -141,17 +146,29 @@ namespace T2.Cms.Domain.Implement.Site.Category
             {
                 this.SetAutoSortNumber();
             }
-            if (this._parentChanged || String.IsNullOrEmpty(this.value.Path))
+
+            // 更新栏目路径
+            bool pathRenew = this._pathChanged;
+            if (pathRenew)
             {
                 this._parent = null;
                 this.UpdateCategoryPath();
-                this._parentChanged = false;
+                this._pathChanged = false;
             }
 
 
             Error err = this._repo.SaveCategory(this.value);
             if (err == null)
             {
+                // 更新子栏目的Tag
+                if (pathRenew)
+                {
+                    foreach (ICategory ic in this.NextLevelChilds)
+                    {
+                        ic.ForceUpdatePath();
+                    }
+                }
+                // 保存模板
                 if (this._templateChanged)
                 {
                     err = this.SaveTemplateBinds();
@@ -521,6 +538,19 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 }
             }
             return err;
+        }
+
+        public void ForceUpdatePath()
+        {
+            this.UpdateCategoryPath();
+            Error err = this.Save();
+            if(err == null)
+            {
+                foreach(ICategory ic in this.NextLevelChilds)
+                {
+                    ic.ForceUpdatePath();
+                }
+            }
         }
     }
 }
