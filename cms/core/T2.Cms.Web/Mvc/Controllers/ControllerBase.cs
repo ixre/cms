@@ -37,8 +37,9 @@ namespace T2.Cms.Web.Mvc
         //private static readonly bool _showDebugInformation;
         private  bool _showDebugInformation;
 
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        protected override void Initialize(RequestContext requestContext)
         {
+            if (Cms.IsStaticRequest(requestContext.HttpContext.ApplicationInstance.Context))return;
             //if (!Cms.Installed) HttpRuntime.UnloadAppDomain();
 
             this.OutputCntext = Cms.Context;

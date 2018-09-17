@@ -28,6 +28,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private ISiteRepo siteRepo;
         private readonly ITemplateRepo _tempRep;
         private bool _parentChanged = false;
+        private String[] errTags = new String[] {"public","resouces","config","plugins","bin","data","tmp","install"};
 
         internal Category(ICategoryRepo rep, ISiteRepo siteRepo,
             IExtendFieldRepository extendRep, ITemplateRepo tmpRep, CmsCategoryEntity value)
@@ -86,6 +87,10 @@ namespace T2.Cms.Domain.Implement.Site.Category
             if(src.Tag == "-")
             {
                 return new Error("不允许使用栏目保留Tag");
+            }
+            if(src.ParentId == 0 && this.errTags.Contains(src.Tag))
+            {
+                return new Error("不允许使用保留栏目Tag");
             }
             
             if (this.value.ParentId != src.ParentId)

@@ -43,7 +43,7 @@ namespace T2.Cms.CacheService
             siteCacheKey = String.Concat(CacheSign.Site.ToString(), "_host_", hostName, "_" + appDirName);
             int siteId = CacheFactory.Sington.GetCachedResult<int>(siteCacheKey, () =>
             {
-                dto = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(uri);
+                dto = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(uri.ToString());
                 return dto.SiteId;
             },DateTime.Now.AddHours(24));
 
