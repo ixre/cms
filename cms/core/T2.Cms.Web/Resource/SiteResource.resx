@@ -166,4 +166,10 @@
   <data name="site_template" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SiteResouce\site-template.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="animate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SiteResouce\assets\animate.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="wow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SiteResouce\assets\wow.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

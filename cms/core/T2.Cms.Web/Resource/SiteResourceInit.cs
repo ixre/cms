@@ -68,6 +68,13 @@ namespace T2.Cms.Resource
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/animation.js",
                 comment + SiteResource.js_lib_animation, false);
+
+            // animate.css
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "animate.css", comment + SiteResource.animate, false);
+
+            // wow.js
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/wow.js", comment + SiteResource.wow, false);
+
         }
 
         private static void Reset(string filePath, string content,bool keepBak)
