@@ -268,6 +268,8 @@
     <None Include="Resource\SiteResouce\cms.core_min.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resource\SiteResouce\assets\animate.css" />
+    <Content Include="Resource\SiteResouce\assets\wow.js" />
     <Content Include="Resource\SiteResouce\base.min.js" />
     <Content Include="Resource\SiteResouce\cms.core.js" />
     <Content Include="Resource\SiteResouce\jslib\js_lib_animation.js" />

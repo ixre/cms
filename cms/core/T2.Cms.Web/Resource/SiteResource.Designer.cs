@@ -19,7 +19,7 @@ namespace T2.Cms.Web.Resource {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SiteResource {
@@ -61,8 +61,27 @@ namespace T2.Cms.Web.Resource {
         }
         
         /// <summary>
+        ///   查找类似 @charset &quot;UTF-8&quot;;
+        ///
+        ////*!
+        /// * animate.css -http://daneden.me/animate
+        /// * Version - 3.7.0
+        /// * Licensed under the MIT license - http://opensource.org/licenses/MIT
+        /// *
+        /// * Copyright (c) 2018 Daniel Eden
+        /// */
+        ///
+        ///@-webkit-keyframes bounce{0%,20%,53%,80%,to{-webkit-animation-timing-function:cubic-bezier(.215,.61,.355,1);-webkit-transform:translateZ(0);animation-timing-function:cubic-bezier(.215,.61,.355,1);transform:translateZ(0)}40%,43%{-webkit-animation-timing-function:cubic-bezier(.755,.05,.855,.06);-webkit-transform:tra [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string animate {
+            get {
+                return ResourceManager.GetString("animate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 
-        ///function JR() { this.VERSION = &apos;3.2&apos;; this.WORKPATH = &apos;&apos;; this._Extend_PROTOTYPE = true; this._eventArray = [&quot;abort&quot;, &quot;blur&quot;, &quot;change&quot;, &quot;click&quot;, &quot;dblclick&quot;, &quot;error&quot;, &quot;focus&quot;, &quot;keydown&quot;, &quot;keypress&quot;, &quot;keyup&quot;, &quot;load&quot;, &quot;mousedown&quot;, &quot;mousemove&quot;, &quot;mouseout&quot;, &quot;mouseover&quot;, &quot;mouseup&quot;, &quot;reset&quot;, &quot;resize&quot;, &quot;select&quot;, &quot;submit&quot;, &quot;unload&quot;]; this.__init__ = function () { var a = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = a[a.length - 1]; var b = s.src; this.WORKPATH = b.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (this._Extend_ [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function JR() { this.VERSION = &apos;3.2&apos;; this.WORKPATH = &apos;&apos;; this._Extend_PROTOTYPE = true; this._eventArray = [&quot;abort&quot;, &quot;blur&quot;, &quot;change&quot;, &quot;click&quot;, &quot;dblclick&quot;, &quot;error&quot;, &quot;focus&quot;, &quot;keydown&quot;, &quot;keypress&quot;, &quot;keyup&quot;, &quot;load&quot;, &quot;mousedown&quot;, &quot;mousemove&quot;, &quot;mouseout&quot;, &quot;mouseover&quot;, &quot;mouseup&quot;, &quot;reset&quot;, &quot;resize&quot;, &quot;select&quot;, &quot;submit&quot;, &quot;unload&quot;]; this.__init__ = function () { var a = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = a[a.length - 1]; var b = s.src; this.WORKPATH = b.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (this._Extend_P [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string base_min {
             get {
@@ -79,7 +98,7 @@ namespace T2.Cms.Web.Resource {
         /////    global.js?hover=navi,clist,alist&amp;ld=：
         /////    对导航,栏目导航和文档导航设置样式为&quot;current&quot;
         /////
-        ///function JR() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } JR.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function JR() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } JR.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string cms_core_min {
             get {
@@ -104,7 +123,8 @@ namespace T2.Cms.Web.Resource {
         ///        },
         ///        request: function (apiName, params, call, errCall) {
         ///            var uri = this.path + &apos;/webapi?key=11857832134&amp;name=&apos; + apiName;
-        ///            for (var key in param [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///            for (var key in params) {
+        ///            [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_cms_api {
             get {
@@ -118,7 +138,7 @@ namespace T2.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2014-11-06
         /////
-        ///jr.extend({ animation: { timer: function (a, b, c, d, e) { if (!a) return; var f = c != null ? c : 0; var g = d != null ? d : 100; var h = 0; var i = 0; if (e &lt; 1 || e &gt; 5) { h = (d - c) &lt; 0 ? -e : e; i = 20 } else { h = (g - f) / (4 * (6 - e)); h *= (Math.abs(g - f) / 100); i = 1000 / h; i = i &lt; 0 ? -Math.ceil(i) : Math.floor(i); if (i &lt; 30) i = 30 } var t = setInterval(function () { f = f + h; if (Math.abs(f) &gt;= Math.abs(g)) { f = g; if (b instanceof Function [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///jr.extend({ animation: { timer: function (a, b, c, d, e) { if (!a) return; var f = c != null ? c : 0; var g = d != null ? d : 100; var h = 0; var i = 0; if (e &lt; 1 || e &gt; 5) { h = (d - c) &lt; 0 ? -e : e; i = 20 } else { h = (g - f) / (4 * (6 - e)); h *= (Math.abs(g - f) / 100); i = 1000 / h; i = i &lt; 0 ? -Math.ceil(i) : Math.floor(i); if (i &lt; 30) i = 30 } var t = setInterval(function () { f = f + h; if (Math.abs(f) &gt;= Math.abs(g)) { f = g; if (b instanceof Function) b() [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_animation {
             get {
@@ -132,7 +152,7 @@ namespace T2.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2011-10-01
         /////
-        ///function datagrid(h, k) { this.panel = h.nodeName ? h : jr.$(h); this.columns = k.columns; this.idField = k.idField || &quot;id&quot;; this.data_url = k.url; this.data = k.data; this.onLoaded = k.loaded; this.loadbox = null; this.gridView = null; this.loading = function () { if (this.gridView.offsetHeight == 0) { var a = this.gridView.previousSibling.offsetHeight; var b = this.panel.offsetHeight - this.gridView.previousSibling.offsetHeight; this.gridView.style.cssText  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function datagrid(h, k) { this.panel = h.nodeName ? h : jr.$(h); this.columns = k.columns; this.idField = k.idField || &quot;id&quot;; this.data_url = k.url; this.data = k.data; this.onLoaded = k.loaded; this.loadbox = null; this.gridView = null; this.loading = function () { if (this.gridView.offsetHeight == 0) { var a = this.gridView.previousSibling.offsetHeight; var b = this.panel.offsetHeight - this.gridView.previousSibling.offsetHeight; this.gridView.style.cssText = thi [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_datagrid {
             get {
@@ -146,7 +166,7 @@ namespace T2.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2011-10-01
         /////
-        ///function simpleDialog(e) { this._simgpleDialog = true; this.window = window; this.win = window; this.doc = null; this.id = new Date().getMilliseconds() + parseInt(Math.random() * 100); this.title = e.title; this.usedrag = e.drag; this.style = e.style || &apos;ui-dialog&apos;; this.setupFade = !e.setupFade ? e.setupFade : true; this.onclose = e.onclose; this.canNotClose = e.canClose == false; if (e.cross != false) { while (this.win.parent != this.win) { this.win = this.w [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function simpleDialog(e) { this._simgpleDialog = true; this.window = window; this.win = window; this.doc = null; this.id = new Date().getMilliseconds() + parseInt(Math.random() * 100); this.title = e.title; this.usedrag = e.drag; this.style = e.style || &apos;ui-dialog&apos;; this.setupFade = !e.setupFade ? e.setupFade : true; this.onclose = e.onclose; this.canNotClose = e.canClose == false; if (e.cross != false) { while (this.win.parent != this.win) { this.win = this.win.pa [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_dialog {
             get {
@@ -162,7 +182,7 @@ namespace T2.Cms.Web.Resource {
         ///* history :
         ///*  2014-12-07 18:57 [!] : 修改验证器
         ///*/
-        ///jr.extend({ form: { getData: function (a) { var b = &apos;&apos;; var c = document.forms[a || 0]; return jr.json.toQueryString(c) }, asyncSubmit: function (a, b) { var c = document.forms[a || 0]; var d = document.getElementById(&apos;$async_ifr&apos;); if (!d) { try { d = document.createElement(&apos;&lt;iframe name=&quot;$async_ifr&quot;&gt;&apos;) } catch (ex) { d = document.createElement(&apos;iframe&apos;); d.setAttribute(&apos;name&apos;, &apos;$async_ifr&apos;) } d.setAtt [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///jr.extend({ form: { getData: function (a) { var b = &apos;&apos;; var c = document.forms[a || 0]; return jr.json.toQueryString(c) }, asyncSubmit: function (a, b) { var c = document.forms[a || 0]; var d = document.getElementById(&apos;$async_ifr&apos;); if (!d) { try { d = document.createElement(&apos;&lt;iframe name=&quot;$async_ifr&quot;&gt;&apos;) } catch (ex) { d = document.createElement(&apos;iframe&apos;); d.setAttribute(&apos;name&apos;, &apos;$async_ifr&apos;) } d.setAttribute( [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_form {
             get {
@@ -177,7 +197,7 @@ namespace T2.Cms.Web.Resource {
         /////时间：2011-10-01
         /////
         ///
-        ///jr.extend({ roller: { init: function (a) { this.elem = a.elem; this.direction = a.direction; this.pix = a.pix; this.elem.style.cssText += &apos;overflow:hidden;&apos; }, start: function (a, b) { var c = this.elem, _pix = this.pix, a = a | 1; var i, j; var d; var e = function () { if (b != null) b() }; switch (this.direction) { case &quot;up&quot;: i = _pix; j = 0; d = setInterval(function () { i -= a; if (i &lt; 0) { i = 0; clearInterval(d); e() } c.style.height = i.toString() + &quot;p [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///jr.extend({ roller: { init: function (a) { this.elem = a.elem; this.direction = a.direction; this.pix = a.pix; this.elem.style.cssText += &apos;overflow:hidden;&apos; }, start: function (a, b) { var c = this.elem, _pix = this.pix, a = a | 1; var i, j; var d; var e = function () { if (b != null) b() }; switch (this.direction) { case &quot;up&quot;: i = _pix; j = 0; d = setInterval(function () { i -= a; if (i &lt; 0) { i = 0; clearInterval(d); e() } c.style.height = i.toString() + &quot;px&quot; },  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_roller {
             get {
@@ -191,7 +211,7 @@ namespace T2.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2011-10-01
         /////
-        ///var JS_scrollbar = { $: window.j6, pnode: null, ele: null, startP: { x: 0, y: 0 }, moveP: { x: 0, y: 0, z: -1 }, slideBar: null, init: function (e) { this.ele = e.nodeName ? e : document.getElementById(e); this.pnode = document.createElement(&apos;DIV&apos;); this.slideBar = null; this.timer = null; var a = this.ele.parentNode; a.insertBefore(this.pnode, this.ele); this.pnode.appendChild(this.ele); this.pnode.className = &apos;scrollbar&apos;; this.pnode.style.cssText += &apos;height: [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///var JS_scrollbar = { $: window.j6, pnode: null, ele: null, startP: { x: 0, y: 0 }, moveP: { x: 0, y: 0, z: -1 }, slideBar: null, init: function (e) { this.ele = e.nodeName ? e : document.getElementById(e); this.pnode = document.createElement(&apos;DIV&apos;); this.slideBar = null; this.timer = null; var a = this.ele.parentNode; a.insertBefore(this.pnode, this.ele); this.pnode.appendChild(this.ele); this.pnode.className = &apos;scrollbar&apos;; this.pnode.style.cssText += &apos;height:&apos; + t [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_scrollbar {
             get {
@@ -206,7 +226,7 @@ namespace T2.Cms.Web.Resource {
         /////时间：2011-10-01
         /////
         ///
-        ///function scroller(b, c, d) { this.$P = null; this.$C = null; this.$L = null; this.pagePanel = null; this.index = 0; this.offset = 0; this.scroll = 0; this.scrollUnit = c.unit || 5; this.lock = false; this.direction = c.direction || &apos;left&apos;; this.interval = d; this.timer = null; this.taskTimer = null; this.$P = document.getElementById(b); this.$P.style.cssText += &apos;overflow:hidden;position:relative;&apos;; var f = this.$P.getElementsByTagName(&apos;UL&apos;); if (f.length == [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function scroller(b, c, d) { this.$P = null; this.$C = null; this.$L = null; this.pagePanel = null; this.index = 0; this.offset = 0; this.scroll = 0; this.scrollUnit = c.unit || 5; this.lock = false; this.direction = c.direction || &apos;left&apos;; this.interval = d; this.timer = null; this.taskTimer = null; this.$P = document.getElementById(b); this.$P.style.cssText += &apos;overflow:hidden;position:relative;&apos;; var f = this.$P.getElementsByTagName(&apos;UL&apos;); if (f.length == 0) {  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_scroller {
             get {
@@ -220,7 +240,7 @@ namespace T2.Cms.Web.Resource {
         /////版本:1.0
         /////时间：2012-09-22
         /////
-        ///jr.extend({ table: { dynamic: function (f, g, h) { if (f &amp;&amp; f.nodeName === &quot;TABLE&quot;) { f.className += &apos; ui-table&apos;; var j = f.getElementsByTagName(&apos;TH&apos;); window.jr.each(j, function (i, e) { if (i != j.length - 1) { if ((e.getElementsByClassName ? e.getElementsByClassName(&apos;th-split&apos;) : document.getElementsByClassName(&apos;th-split&apos;, e)).length == 0) { var a = document.createElement(&quot;SPAN&quot;); a.className = &apos;th-split&apos;; e.appendChild(a) } } }); var k = f.getElementsByT [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///jr.extend({ table: { dynamic: function (f, g, h) { if (f &amp;&amp; f.nodeName === &quot;TABLE&quot;) { f.className += &apos; ui-table&apos;; var j = f.getElementsByTagName(&apos;TH&apos;); window.jr.each(j, function (i, e) { if (i != j.length - 1) { if ((e.getElementsByClassName ? e.getElementsByClassName(&apos;th-split&apos;) : document.getElementsByClassName(&apos;th-split&apos;, e)).length == 0) { var a = document.createElement(&quot;SPAN&quot;); a.className = &apos;th-split&apos;; e.appendChild(a) } } }); var k = f.getElementsByTagNam [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_table {
             get {
@@ -235,7 +255,7 @@ namespace T2.Cms.Web.Resource {
         /////时间：2011-10-01
         /////
         ///
-        ///function HS_DateAdd(a, b, c) { b = parseInt(b); if (typeof (c) == &quot;string&quot;) { var c = new Date(c.split(&quot;-&quot;)[0], c.split(&quot;-&quot;)[1], c.split(&quot;-&quot;)[2]) } if (typeof (c) == &quot;object&quot;) { var c = c } switch (a) { case &quot;y&quot;: return new Date(c.getFullYear() + b, c.getMonth(), c.getDate()); break; case &quot;m&quot;: return new Date(c.getFullYear(), c.getMonth() + b, checkDate(c.getFullYear(), c.getMonth() + b, c.getDate())); break; case &quot;d&quot;:  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function HS_DateAdd(a, b, c) { b = parseInt(b); if (typeof (c) == &quot;string&quot;) { var c = new Date(c.split(&quot;-&quot;)[0], c.split(&quot;-&quot;)[1], c.split(&quot;-&quot;)[2]) } if (typeof (c) == &quot;object&quot;) { var c = c } switch (a) { case &quot;y&quot;: return new Date(c.getFullYear() + b, c.getMonth(), c.getDate()); break; case &quot;m&quot;: return new Date(c.getFullYear(), c.getMonth() + b, checkDate(c.getFullYear(), c.getMonth() + b, c.getDate())); break; case &quot;d&quot;: return [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_ui {
             get {
@@ -249,7 +269,7 @@ namespace T2.Cms.Web.Resource {
         /////版本: 1.0
         /////时间：2013-10-01
         /////
-        ///function fileUpload(h, i) { this.id = h.id; this.infopanel = h.info ? document.getElementById(h.info) : null; this.processID = Math.random() * 100 + 100; this.debug = h.debug || false; this.uploadurl = h.url, this.processurl = h.processurl, this.filename = null; this.file = null; this.repeatSelect = h.repeatSelect == undefined ? false : h.repeatSelect; this.btnText = &apos;&apos;; this.btnClicked = false; this.repeatSelect = false; var j = document.getElementById(this.id [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function fileUpload(h, i) { this.id = h.id; this.infopanel = h.info ? document.getElementById(h.info) : null; this.processID = Math.random() * 100 + 100; this.debug = h.debug || false; this.uploadurl = h.url, this.processurl = h.processurl, this.filename = null; this.file = null; this.repeatSelect = h.repeatSelect == undefined ? false : h.repeatSelect; this.btnText = &apos;&apos;; this.btnClicked = false; this.repeatSelect = false; var j = document.getElementById(this.id); th [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string js_lib_upload {
             get {
@@ -288,7 +308,7 @@ namespace T2.Cms.Web.Resource {
         }
         
         /// <summary>
-        ///   查找类似 
+        ///   查找类似 *{box-sizing:border-box}
         ///
         ///
         ////* ---------- 页面元素定义样式 --------- */
@@ -299,12 +319,20 @@ namespace T2.Cms.Web.Resource {
         ///th,thead,tr,tt,ul,var{  margin:0;padding:0;border:0;outline:0;
         ///    font-weight:inherit;font-style:normal;font-family:inherit;
         ///    text-decoration:none;-webkit-text-size-adjust:none;
-        ///    -ms-interpolation-mode:bicubic;}
-        ///str [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///    -ms-interpola [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string site_template {
             get {
                 return ResourceManager.GetString("site_template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string wow {
+            get {
+                return ResourceManager.GetString("wow", resourceCulture);
             }
         }
     }
