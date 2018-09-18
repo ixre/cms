@@ -14,7 +14,7 @@ using JR.DevFw.Data.Orm.Mapping;
      dst.CatId = src.CatId;
      dst.Path = src.Path;
      dst.Flag = src.Flag;
-     dst.PublisherId = src.PublisherId;
+     dst.AuthorId = src.AuthorId;
      dst.Title = src.Title;
      dst.SmallTitle = src.SmallTitle;
      dst.Location = src.Location;
@@ -30,6 +30,8 @@ using JR.DevFw.Data.Orm.Mapping;
      dst.Lastmodifydate = src.Lastmodifydate;
      dst.Flags = src.Flags;
      dst.Thumbnail = src.Thumbnail;
+     dst.CreateTime = src.CreateTime;
+     dst.UpdateTime = src.UpdateTime;
 
  */
 
@@ -79,10 +81,10 @@ namespace T2.Cms.Models{
         [Alias("flag")]
         public int Flag { get; set; }
         /// <summary>
-        /// 
+        /// 作者编号
         /// </summary>
-        [Alias("publisher_id")]
-        public string PublisherId { get; set; }
+        [Alias("author_id")]
+        public int AuthorId { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -138,16 +140,7 @@ namespace T2.Cms.Models{
         /// </summary>
         [Alias("disagree")]
         public int Disagree { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [Alias("createdate")]
-        public int Createdate { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [Alias("lastmodifydate")]
-        public int Lastmodifydate { get; set; }
+   
         /// <summary>
         /// 
         /// </summary>
@@ -158,5 +151,15 @@ namespace T2.Cms.Models{
         /// </summary>
         [Alias("thumbnail")]
         public string Thumbnail { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Alias("create_time")]
+        public int CreateTime { get; set; }
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        [Alias("update_time")]
+        public int UpdateTime { get; set; }
     }
 }

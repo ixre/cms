@@ -1,7 +1,9 @@
-﻿using System;
+﻿using JR.DevFw.Framework;
+using System;
 using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site.Extend;
+using T2.Cms.Models;
 
 namespace T2.Cms.DataTransfer
 {
@@ -133,27 +135,28 @@ namespace T2.Cms.DataTransfer
         /// <returns></returns>
         public static ArchiveDto ConvertFrom(IArchive archive,bool copyCategory,bool copyTemplate,bool copyExtend)
         {
+            CmsArchiveEntity a = archive.Get();
             ArchiveDto dto = new ArchiveDto
             {
                 Id = archive.GetAggregaterootId(),
                 StrId = archive.StrId,
                 Disagree = archive.Disagree,
                 Agree = archive.Agree,
-                LastModifyDate = archive.LastModifyDate,
-                CreateDate = archive.CreateDate,
-                Content = archive.Content,
+                LastModifyDate = TimeUtils.UnixTime(a.UpdateTime),
+                CreateDate = TimeUtils.UnixTime(a.CreateTime),
+                Content = a.Content,
                 Alias = archive.Alias,
-                PublisherId = archive.PublisherId,
+                PublisherId = a.AuthorId,
                 Flags = archive.Flags,
                 Outline = archive.Outline,
                 Source = archive.Source,
-                Tags = archive.Tags,
-                Url = archive.Uri,
-                Location = archive.Location,
+                Tags = a.Tags,
+                Url = a.Path,
+                Location = a.Location,
                 Thumbnail = archive.Thumbnail,
-                Title = archive.Title,
-                SmallTitle = archive.SmallTitle,
-                ViewCount = archive.ViewCount
+                Title = a.Title,
+                SmallTitle = a.SmallTitle,
+                ViewCount = a.ViewCount
             };
 
             if(copyCategory)
