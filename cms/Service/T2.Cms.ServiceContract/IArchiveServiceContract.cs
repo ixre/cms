@@ -25,10 +25,11 @@ namespace T2.Cms.ServiceContract
         /// <summary>
         /// 保存文档
         /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="archive"></param>
+        /// <param name="siteId">站点编号</param>
+        /// <param name="catId">栏目编号</param>
+        /// <param name="archive">文档</param>
         /// <returns></returns>
-        int SaveArchive(int siteId, ArchiveDto archive);
+        Result SaveArchive(int siteId,int catId, ArchiveDto archive);
 
         /// <summary>
         /// 

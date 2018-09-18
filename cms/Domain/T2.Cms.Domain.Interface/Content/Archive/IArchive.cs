@@ -49,7 +49,15 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <summary>
         /// 扩展数据
         /// </summary>
-        IList<IExtendValue> ExtendValues { get; set; }
+        IList<IExtendValue> GetExtendValues();
+
+
+        /// <summary>
+        /// 设置扩展数据
+        /// </summary>
+        /// <param name="extendValues"></param>
+        /// <returns></returns>
+        Error SetExtendValue(IList<IExtendValue> extendValues);
 
         /// <summary>
         /// 获取关联的分类
