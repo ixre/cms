@@ -190,12 +190,17 @@ namespace T2.Cms.Web.WebManager.Handle
             archive.PublisherId = UserState.Administrator.Current.Id;
 
             archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
-            int resultId = ServiceCall.Instance.ArchiveService.SaveArchive(this.SiteId, archive);
-            //调用监视操作
-            // WatchService.PublishArchive(archive);
-
-            //返回文章ID
-            base.RenderSuccess(resultId.ToString());
+            Result r = ServiceCall.Instance.ArchiveService.SaveArchive(
+                this.SiteId,archive.Category.ID, archive);
+            if (r.ErrCode > 0)
+            {
+                base.RenderError(r.ErrMsg);
+            }
+            else
+            {
+                //返回文章ID
+                base.RenderSuccess(r.Data["ArchiveId"].ToString());
+            }
         }
 
         /// <summary>
@@ -393,20 +398,19 @@ namespace T2.Cms.Web.WebManager.Handle
             }
 
             archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
-            ServiceCall.Instance.ArchiveService.SaveArchive(this.SiteId, archive);
-            /*
-            try
-            {
-                //调用监视操作
-                //WatchService.UpdateArchive(CmsLogic.Archive.GetArchiveByID(archiveID));
-            }
-            catch
-            {
-            }
-             */
 
-            base.RenderSuccess("保存成功!");
-
+            archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
+            Result r = ServiceCall.Instance.ArchiveService.SaveArchive(
+                this.SiteId, archive.Category.ID, archive);
+            if (r.ErrCode > 0)
+            {
+                base.RenderError(r.ErrMsg);
+            }
+            else
+            {
+                //返回文章ID
+                base.RenderSuccess("保存成功");
+            }
         }
 
         private ArchiveDto GetFormCopyedArchive(int siteId, NameValueCollection form, ArchiveDto archive, string alias)

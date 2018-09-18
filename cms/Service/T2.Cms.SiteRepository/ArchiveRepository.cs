@@ -105,7 +105,9 @@ namespace T2.Cms.ServiceRepository
             foreach (IArchive a in archives)
             {
                 if (extendValues.ContainsKey(a.GetAggregaterootId()))
-                    a.GetExtendValues = extendValues[a.GetAggregaterootId()];
+                {
+                    a.SetExtendValue(extendValues[a.GetAggregaterootId()]);
+                }
                 yield return a;
             }
 
@@ -228,10 +230,14 @@ namespace T2.Cms.ServiceRepository
                 while (rd.Read())
                 {
                     archive = this.CreateArchiveFromDataReader(rd, dg);
-                    archive.GetExtendValues = extendValues.ContainsKey(archive.GetAggregaterootId()) ?
-                        extendValues[archive.GetAggregaterootId()] :
-                        defaultValues;
-
+                    if (extendValues.ContainsKey(archive.GetAggregaterootId()))
+                    {
+                        archive.SetExtendValue(extendValues[archive.GetAggregaterootId()]);
+                    }
+                    else
+                    {
+                        archive.SetExtendValue(defaultValues);
+                    }
                     archives.Add(archive);
                 }
                 //throw new Exception((DateTime.Now - dt).TotalMilliseconds.ToString());
