@@ -70,7 +70,7 @@ namespace T2.Cms.Service
             IArchive archive = content as IArchive;
             if (archive != null)
             {
-                thumbnail = archive.Thumbnail;
+                thumbnail = archive.Get().Thumbnail;
             }
 
             return new RelatedLinkDto
@@ -83,8 +83,8 @@ namespace T2.Cms.Service
                 RelatedSiteName = site.Get().Name,
                 RelatedContentId = link.RelatedContentId,
                 RelatedIndent = link.RelatedIndent,
-                Title = content.Title,
-                Url = site.FullDomain + content.Uri,
+                Title = archive.Get().Title,
+                Url = site.FullDomain + archive.Get().Path,
                 Thumbnail = thumbnail,
                 IndentName = ContentUtil.GetRelatedIndentName(link.RelatedIndent).Name,
             };

@@ -179,7 +179,7 @@ namespace T2.Cms.DataTransfer
 
             if(copyExtend)
             {
-                dto.ExtendValues = archive.GetExtendValues;
+                dto.ExtendValues = archive.GetExtendValues();
             }
 
             if (copyTemplate)

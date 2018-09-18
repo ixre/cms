@@ -532,71 +532,51 @@ namespace T2.Cms.Service
             IContentContainer tarContent = this._contentRep.GetContent(targetSiteId);
             foreach (int archiveId in archiveIdArray)
             {
-                var srcArchive = srcContent.GetArchiveById(archiveId);
-
-                var tarArchive = tarContent.CreateArchive(0, IdGenerator.GetNext(5), toCid, srcArchive.Title);
-
-                tarArchive.CreateDate = DateTime.Now;
-                tarArchive.LastModifyDate = tarArchive.CreateDate;
-                tarArchive.Content = srcArchive.Content;
-                tarArchive.Alias = srcArchive.Alias;
-                tarArchive.PublisherId = srcArchive.PublisherId;
-                tarArchive.Flags = srcArchive.Flags;
-                tarArchive.Outline = srcArchive.Outline;
-                tarArchive.Source = srcArchive.Source;
-                tarArchive.Tags = srcArchive.Tags;
-                tarArchive.Location = srcArchive.Location;
-                tarArchive.Thumbnail = srcArchive.Thumbnail;
-                tarArchive.SmallTitle = srcArchive.SmallTitle;
-                tarArchive.ViewCount = srcArchive.ViewCount;
+                IArchive srcArchive = srcContent.GetArchiveById(archiveId);
+                IArchive tarArchive = this.CopyArchive(targetSiteId, toCid, srcArchive);
 
                 isFailed = false;
                 shouldReSave = false;
-                if (tarArchive.Save() > 0)
+
+                if (includeTempateBind && srcArchive.Template != null &&
+                    srcArchive.Template.BindType == TemplateBindType.ArchiveTemplate &&
+                    !string.IsNullOrEmpty(srcArchive.Template.TplPath))
                 {
-                    if (includeTempateBind && srcArchive.Template != null &&
-                        srcArchive.Template.BindType == TemplateBindType.ArchiveTemplate &&
-                        !string.IsNullOrEmpty(srcArchive.Template.TplPath))
-                    {
-                        tarArchive.SetTemplatePath(srcArchive.Template.TplPath);
-                        shouldReSave = true;
-                    }
+                    tarArchive.SetTemplatePath(srcArchive.Template.TplPath);
+                    shouldReSave = true;
+                }
 
-                    //克隆扩展
-                    if (includeExtend)
-                    {
-                        this.CloneArchiveExtendValue(srcArchive, tarArchive, errDict, ref isFailed,
-                            ref shouldReSave);
-                    }
-
-                    //包含关联链接
-                    if (includeRelatedLink)
-                    {
-                        this.CloneArchiveRelatedLink(srcArchive, tarArchive);
-                    }
-
-                    if (isFailed)
-                    {
-                        this._archiveRep.DeleteArchive(targetSiteId, tarArchive.GetAggregaterootId());
-                    }
-                    else if (shouldReSave)
-                    {
-                        tarArchive.Save();
-                    }
+                //克隆扩展
+                if (includeExtend)
+                {
+                    this.CloneArchiveExtendValue(srcArchive, tarArchive, errDict, ref isFailed,
+                        ref shouldReSave);
+                }
+                //包含关联链接
+                if (includeRelatedLink)
+                {
+                    this.CloneArchiveRelatedLink(srcArchive, tarArchive);
                 }
 
                 if (isFailed)
                 {
+                    this._archiveRep.DeleteArchive(targetSiteId, tarArchive.GetAggregaterootId());
                     totalFailed += 1;
                 }
-                else
+                else if (shouldReSave)
                 {
+                    tarArchive.Save();
                     totalSuccess += 1;
                 }
             }
 
             return errDict;
 
+        }
+
+        private IArchive CopyArchive(int targetSiteId, int toCid, IArchive srcArchive)
+        {
+            throw new NotImplementedException();
         }
 
         public bool CheckSiteExists(int siteId)
@@ -629,7 +609,7 @@ namespace T2.Cms.Service
         private void CloneArchiveExtendValue(IArchive srcArchive, IArchive tarArchive,
             IDictionary<int, string> errDict, ref bool isFailed, ref bool shouldReSave)
         {
-            IList<IExtendValue> extends = srcArchive.GetExtendValues;
+            IList<IExtendValue> extends = srcArchive.GetExtendValues();
             // category extend
             IList<IExtendField> cflist = tarArchive.Category.ExtendFields;
             IDictionary<string, IExtendField> cateFields = new Dictionary<string, IExtendField>();
@@ -642,7 +622,8 @@ namespace T2.Cms.Service
             {
                 IExtendField field;
                 IExtendField tarField;
-                tarArchive.GetExtendValues = new List<IExtendValue>(extends.Count);
+
+                IList<IExtendValue> list = new List<IExtendValue>(extends.Count);
 
                 foreach (IExtendValue extendValue in extends)
                 {
@@ -652,7 +633,7 @@ namespace T2.Cms.Service
                     {
                         // tarField = this._extendRep.GetExtendByName(targetSiteId, field.Name, field.Type);
                         tarField = cateFields[field.Name];
-                        tarArchive.GetExtendValues.Add(this._extendRep.CreateExtendValue(tarField, -1, extendValue.Value));
+                        list.Add(this._extendRep.CreateExtendValue(tarField, -1, extendValue.Value));
                         shouldReSave = true;
                     }
                     else
@@ -664,11 +645,12 @@ namespace T2.Cms.Service
                         }
                         else
                         {
-                            errDict[tarArchive.GetAggregaterootId()] = "发布文档\"" + tarArchive.Title + "\"不成功！原因：" + message;
+                            errDict[tarArchive.GetAggregaterootId()] = "发布文档\"" + tarArchive.Get().Title + "\"不成功！原因：" + message;
                         }
                         isFailed = true;
                     }
                 }
+                Error err = tarArchive.SetExtendValue(list);
             }
         }
 

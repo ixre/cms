@@ -165,7 +165,7 @@ namespace T2.Cms.ServiceRepository
             //============ 更新 ============
             IDictionary<int, string> extendValues = new Dictionary<int, string>();
             IExtendField field;
-            foreach (IExtendValue value in archive.GetExtendValues)
+            foreach (IExtendValue value in archive.GetExtendValues())
             {
                 field = this.GetExtendFieldById(siteId, value.Field.GetDomainId());
 

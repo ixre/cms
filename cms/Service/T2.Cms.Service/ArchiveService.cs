@@ -1,4 +1,5 @@
-﻿using JR.DevFw.Framework;
+﻿
+using JR.DevFw.Framework;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -56,7 +57,7 @@ namespace T2.Cms.Service
         }
 
 
-        public Result SaveArchive(int siteId,int catId, ArchiveDto archiveDto)
+        public DataTransfer.Result SaveArchive(int siteId,int catId, ArchiveDto archiveDto)
         {
             CmsArchiveEntity value = archiveDto.ToArchiveEntity();
             value.CatId = catId;
@@ -88,7 +89,7 @@ namespace T2.Cms.Service
                     err = ia.Save();
                 }
             }
-            Result r = new Result();
+            DataTransfer.Result r = new DataTransfer.Result();
             if(err == null)
             {
                 r.Data = new Dictionary<String, String>();
@@ -126,31 +127,31 @@ namespace T2.Cms.Service
             ArchiveDto archive;
             CategoryDto cateDto;
             int categoryId;
-            foreach (IArchive i in archives)
+            foreach (IArchive ia in archives)
             {
-                CmsArchiveEntity ia = i.Get();
+                CmsArchiveEntity av = ia.Get();
                 archive = new ArchiveDto
                 {
-                    StrId = ia.StrId,
-                    Id = i.GetAggregaterootId(),
-                    PublisherId = ia.AuthorId,
-                    Alias = ia.Alias,
-                    Agree = ia.Agree,
-                    Disagree = ia.Disagree,
-                    Content = ia.Content,
-                    CreateTime =TimeUtils.UnixTime(ia.CreateTime),
-                    Flags = ia.Flags,
-                    Tags = ia.Tags,
-                    UpdateTime = TimeUtils.UnixTime(ia.UpdateTime),
-                    Source = ia.Source,
-                    Thumbnail = ia.Thumbnail,
-                    Title = ia.Title,
-                    SmallTitle = ia.SmallTitle,
-                    Location = ia.Location,
-                    ViewCount = ia.ViewCount,
-                    Outline = ia.Outline,
+                    StrId = av.StrId,
+                    Id = ia.GetAggregaterootId(),
+                    PublisherId = av.AuthorId,
+                    Alias = av.Alias,
+                    Agree = av.Agree,
+                    Disagree = av.Disagree,
+                    Content = av.Content,
+                    CreateTime =TimeUtils.UnixTime(av.CreateTime),
+                    Flags = av.Flags,
+                    Tags = av.Tags,
+                    UpdateTime = TimeUtils.UnixTime(av.UpdateTime),
+                    Source = av.Source,
+                    Thumbnail = av.Thumbnail,
+                    Title = av.Title,
+                    SmallTitle = av.SmallTitle,
+                    Location = av.Location,
+                    ViewCount = av.ViewCount,
+                    Outline = av.Outline,
                     //TemplateBind=null,
-                    ExtendValues = i.GetExtendValues()
+                    ExtendValues = ia.GetExtendValues()
                 };
 
                 //archive = new ArchiveDto().CloneData(ia);
