@@ -34,59 +34,6 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <returns></returns>
         Error Set(CmsArchiveEntity src);
 
-
-        String StrId {get;}
-
-        /// <summary>
-        /// 站点编号
-        /// </summary>
-        int SiteId { get; set; }
-
-        /// <summary>
-        /// 文章别名
-        /// </summary>
-        string Alias { get; set; }
-
-        /// <summary>
-        /// 标签
-        /// </summary>
-        string Flags { get; set; }
-
-
-        /// <summary>
-        /// 来源
-        /// </summary>
-        string Source { get; set; }
-
-        /// <summary>
-        /// 大纲,导读
-        /// </summary>
-        string Outline { get; set; }
-
-
-        /// <summary>
-        /// 缩略图
-        /// </summary>
-        string Thumbnail { get; set; }
-
-        /// <summary>
-        /// 获取文章中的第一张图片,如果没有则返回NULL
-        /// </summary>
-        //[Obsolete]
-        //string FirstImageUrl { get;}
-
-
-        /// <summary>
-        /// 支持数
-        /// </summary>
-        int Agree { get; set; }
-
-        /// <summary>
-        /// 反对数
-        /// </summary>
-        int Disagree { get; set; }
-
-
         /// <summary>
         /// 模板绑定
         /// </summary>
@@ -103,7 +50,11 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// </summary>
         IList<IExtendValue> ExtendValues { get; set; }
 
-        int Save();
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <returns></returns>
+        Error Save();
 
         /// <summary>
         /// 保存排序号码

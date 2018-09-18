@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using T2.Cms.Domain.Interface.Common;
+﻿using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Content;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Infrastructure;
 
 namespace T2.Cms.Domain.Implement.Content
 {
@@ -16,16 +15,12 @@ namespace T2.Cms.Domain.Implement.Content
 
         protected IList<IExtendValue> _extendValues;
         protected  ICategory _category;
-        private readonly TemplateBind _templateBind;
         private readonly IContentRepository _contentRep;
         private  IContentLinkManager _linkManager;
         protected int _categoryId;
 
 
-        public int GetAggregaterootId()
-        {
-            return this.Id;
-        }
+        public abstract int GetAggregaterootId();
 
         /// <summary>
         /// 内容模型标识
@@ -36,32 +31,13 @@ namespace T2.Cms.Domain.Implement.Content
             IContentRepository contentRep,
             IExtendFieldRepository extendRep,
             ICategoryRepo categoryRep,
-            ITemplateRepo templateRep,
-            int id,
-            int categoryId,
-            string title)
+            ITemplateRepo templateRep)
         {
             this._contentRep = contentRep;
             this._extendRep = extendRep;
             this._categoryRep = categoryRep;
             this._templateRep = templateRep;
-
-            this.Id = id;
-            this.Title = title;
-            this._categoryId = categoryId;
-            this.Id = id;
         }
-
-        /// <summary>
-        /// 标题
-        /// </summary>
-        public string Title { get; set; }
-
-        /// <summary>
-        /// 小标题
-        /// </summary>
-        public String SmallTitle { get; set; }
-
         /// <summary>
         /// 栏目编号
         /// </summary>
@@ -81,56 +57,16 @@ namespace T2.Cms.Domain.Implement.Content
                 this._category = value;
             }
         }
-
-        /// <summary>
-        /// 标签（关键词）
-        /// </summary>
-        public string Tags { get; set; }
-
-        /// <summary>
-        /// 文档内容
-        /// </summary>
-        public string Content { get; set; }
-
-        /// <summary>
-        /// 显示次数
-        /// </summary>
-        public int ViewCount { get; set; }
-
-        /// <summary>
-        /// 排序序号
-        /// </summary>
-        public int SortNumber { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime LastModifyDate { get; set; }
-
-
-        public abstract string Uri { get; set; }
-
-        public string Location { get; set; }
-
-        public int PublisherId
-        {
-            get;
-            set;
-        }
-
-        public int Id
-        {
-            get;
-            protected set;
-        }
+        
 
         /// <summary>
         /// 保存内容，继承类应重写该类
         /// </summary>
         /// <returns></returns>
-        public virtual int Save()
+        public virtual Error Save()
         {
             this.LinkManager.SaveRelatedLinks();
-            return -1;
+            return null;
         }
 
         public IContentLinkManager LinkManager
@@ -139,7 +75,7 @@ namespace T2.Cms.Domain.Implement.Content
             {
                 return this._linkManager
                     ?? (this._linkManager =
-                    new ContentLinkManager(this._contentRep,((ContentTypeIndent) this.ContentModelIndent).ToString().ToLower(), this.Id));
+                    new ContentLinkManager(this._contentRep,((ContentTypeIndent) this.ContentModelIndent).ToString().ToLower(), this.GetAggregaterootId()));
             }
         }
 

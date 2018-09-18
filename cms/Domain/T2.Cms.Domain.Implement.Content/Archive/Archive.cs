@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JR.DevFw.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using T2.Cms.Domain.Interface.Content;
@@ -242,15 +243,21 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             this.SwapSortNumber(next);
         }
 
-        private void SwapSortNumber(IArchive archive)
+        private void SwapSortNumber(IArchive src)
         {
-            if (archive == null) return;
-            int sortN = archive.SortNumber;
-            archive.SortNumber = this.SortNumber;
+            if (src == null) return;
+            CmsArchiveEntity sv = src.Get();
+            int sortN = sv.SortNumber;
+            sv.SortNumber = this.SortNumber;
+            Error err = src.Set(sv);
+            if(err == null)
+            {
+               src.Save();
+            }
             this.SortNumber = sortN;
-
-            archive.SaveSortNumber();
-            this.SaveSortNumber();
+            this.Save();
+           //src.SaveSortNumber();
+            //this.SaveSortNumber();
         }
 
         public string FirstImageUrl
@@ -352,7 +359,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             this._value.CatId = src.CatId;
             this._value.Path = src.Path;
             this._value.Flag = src.Flag;
-            this._value.PublisherId = src.PublisherId;
+            this._value.AuthorId = src.AuthorId;
             this._value.Title = src.Title;
             this._value.SmallTitle = src.SmallTitle;
             this._value.Location = src.Location;
@@ -364,10 +371,16 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             this._value.ViewCount = src.ViewCount;
             this._value.Agree = src.Agree;
             this._value.Disagree = src.Disagree;
-            this._value.Createdate = src.Createdate;
-            this._value.Lastmodifydate = src.Lastmodifydate;
+            this._value.UpdateTime = src.UpdateTime;
+            this._value.CreateTime = src.CreateTime;
             this._value.Flags = src.Flags;
             this._value.Thumbnail = src.Thumbnail;
+            int unix = TimeUtils.Unix(DateTime.Now);
+            this._value.UpdateTime = unix;
+            if (this.GetAggregaterootId() <= 0)
+            {
+                this._value.CreateTime = unix;
+            }
             return null;
         }
     }
