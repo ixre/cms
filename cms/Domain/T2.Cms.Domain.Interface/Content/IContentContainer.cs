@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Content.Archive;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Content
 {
@@ -18,7 +19,7 @@ namespace T2.Cms.Domain.Interface.Content
         /// </summary>
         int SiteId { get; }
 
-        IArchive CreateArchive(int id, string strId, int categoryId, string title);
+        IArchive CreateArchive(CmsArchiveEntity value);
 
         /// <summary>
         /// 获取文档

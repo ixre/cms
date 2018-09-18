@@ -152,6 +152,11 @@ namespace T2.Cms.Dal
                 );
         }
 
+        public int GetMaxArchiveId(int siteId)
+        {
+            throw new NotImplementedException();
+        }
+
         #region 获取文档
 
 
@@ -546,7 +551,7 @@ namespace T2.Cms.Dal
             out int recordCount, out int pages)
         {
             //SQL Condition Template
-            const string conditionTpl = "$[siteid]$[module]$[category]$[publisher_id]$[flags]$[keyword]";
+            const string conditionTpl = "$[siteid]$[module]$[category]$[author_id]$[flags]$[keyword]";
 
             string condition,                                                             //SQL where condition
                     order = String.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
@@ -575,9 +580,9 @@ namespace T2.Cms.Dal
                         return moduleId <= 0 ? ""
              : String.Format(" AND m.id={0}", moduleId.ToString());
 
-                    case "publisher_id":
+                    case "author_id":
                         return publisherId == 0 ? null
-       : String.Format(" AND publisher_id='{0}'", publisherId);
+       : String.Format(" AND author_id='{0}'", publisherId);
 
                     case "flags": return String.IsNullOrEmpty(flag) ? "" : " AND " + flag;
                     case "keyword":

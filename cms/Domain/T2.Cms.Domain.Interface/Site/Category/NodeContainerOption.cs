@@ -2,7 +2,7 @@
  * Copyright 2010 OPS,All rights reseved!
  * 
  * name     : ModuleType enum
- * publisher_id   : newmin
+ * author_id   : newmin
  * date     : 2013/05/16 11:12
  */
 

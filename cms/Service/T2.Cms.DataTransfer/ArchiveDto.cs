@@ -104,10 +104,20 @@ namespace T2.Cms.DataTransfer
 
 
         //创建时间
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateTime { get; set; }
 
         //最后修改时间
-        public DateTime LastModifyDate { get; set; }
+        public DateTime UpdateTime { get; set; }
+
+        /// <summary>
+        /// 文档路径
+        /// </summary>
+        public String Path { get; set; }
+
+        /// <summary>
+        /// 标志
+        /// </summary>
+        public int Flag { get; set; }
 
 
         /// <summary>
@@ -139,24 +149,25 @@ namespace T2.Cms.DataTransfer
             ArchiveDto dto = new ArchiveDto
             {
                 Id = archive.GetAggregaterootId(),
-                StrId = archive.StrId,
-                Disagree = archive.Disagree,
-                Agree = archive.Agree,
-                LastModifyDate = TimeUtils.UnixTime(a.UpdateTime),
-                CreateDate = TimeUtils.UnixTime(a.CreateTime),
+                StrId = a.StrId,
+                Disagree = a.Disagree,
+                Agree = a.Agree,
+                UpdateTime = TimeUtils.UnixTime(a.UpdateTime),
+                CreateTime = TimeUtils.UnixTime(a.CreateTime),
                 Content = a.Content,
-                Alias = archive.Alias,
+                Alias = a.Alias,
                 PublisherId = a.AuthorId,
-                Flags = archive.Flags,
-                Outline = archive.Outline,
-                Source = archive.Source,
+                Flags = a.Flags,
+                Outline = a.Outline,
+                Source = a.Source,
                 Tags = a.Tags,
                 Url = a.Path,
                 Location = a.Location,
-                Thumbnail = archive.Thumbnail,
+                Thumbnail = a.Thumbnail,
                 Title = a.Title,
                 SmallTitle = a.SmallTitle,
-                ViewCount = a.ViewCount
+                ViewCount = a.ViewCount,
+               
             };
 
             if(copyCategory)

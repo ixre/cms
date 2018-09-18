@@ -1,7 +1,7 @@
 ﻿//
 // Copyright 2011 @ TO2.NET,All rights reseved.
 // Name: RegexHelper.cs
-// publisher_id: newmin
+// author_id: newmin
 //
 
 using System;

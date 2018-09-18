@@ -6,7 +6,7 @@ CREATE TABLE [cms_archive] (
 [id] [nvarchar]  (48) NOT NULL,
 [alias] [nvarchar]  (150) NULL,
 [cid] [int]  NOT NULL,
-[publisher_id] [nvarchar]  (150) NULL,
+[author_id] [nvarchar]  (150) NULL,
 [title] [nvarchar]  (300) NULL,
 [small_title] [nvarchar]  (300) NULL,
 [source] [nvarchar]  (150) NULL,
@@ -18,14 +18,14 @@ view_count [int]  NULL DEFAULT (0),
 [agree] [int]  NULL,
 [disagree] [int]  NULL,
 [createdate] [datetime]  NULL,
-[lastmodifydate] [datetime]  NULL,
+[update_time] [datetime]  NULL,
 [flags] [nvarchar]  (300) NULL DEFAULT ('{st:''0'',sc:''0'',v:''1'',p:''0''}'),
 [thumbnail] [nvarchar]  (450) NULL)
 
 ALTER TABLE [cms_archive] WITH NOCHECK ADD  CONSTRAINT [PK_cms_archive] PRIMARY KEY  NONCLUSTERED ( [aid],[id],[alias],[cid] )
 SET IDENTITY_INSERT [cms_archive] ON
 
-INSERT [cms_archive] ([aid],[id],[alias],[cid],[publisher_id],[title],[content],[properties],view_count,[agree],[disagree],[createdate],[lastmodifydate],[flags]) VALUES ( 1,N'spcnet',N'welcome',2,N'admin',N'欢迎使用Special Cms .NET',N'<div style="text-align:center;font-size:30px"><h2>??￠è??????”¨Special Cms .NET!</h2></div>',N'{}',1,0,0,N'2013/1/1 1:01:01',N'2013/1/1 1:01:01',N'{st:''0'',sc:''0'',v:''1'',p:''0''}')
+INSERT [cms_archive] ([aid],[id],[alias],[cid],[author_id],[title],[content],[properties],view_count,[agree],[disagree],[createdate],[update_time],[flags]) VALUES ( 1,N'spcnet',N'welcome',2,N'admin',N'欢迎使用Special Cms .NET',N'<div style="text-align:center;font-size:30px"><h2>??￠è??????”¨Special Cms .NET!</h2></div>',N'{}',1,0,0,N'2013/1/1 1:01:01',N'2013/1/1 1:01:01',N'{st:''0'',sc:''0'',v:''1'',p:''0''}')
 
 SET IDENTITY_INSERT [cms_archive] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_category]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 

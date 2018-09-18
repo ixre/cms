@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2013 TO2.NET
 * 
 * File Name	: ICmsPageGenerator
-* publisher_id	: Newmin (new.min@msn.com)
+* author_id	: Newmin (new.min@msn.com)
 * Create	: 2013/04/10 05:51:54
 * Description	:
 *

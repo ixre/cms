@@ -5,6 +5,7 @@ using T2.Cms.Domain.Interface.Content;
 using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Implement.Content
 {
@@ -42,9 +43,9 @@ namespace T2.Cms.Domain.Implement.Content
             private set;
         }
 
-        public IArchive CreateArchive(int id, string strId, int categoryId, string title)
+        public IArchive CreateArchive(CmsArchiveEntity value)
         {
-            return _archiveRep.CreateArchive(id, strId, categoryId, title);
+            return _archiveRep.CreateArchive(value);
         }
 
 
@@ -157,7 +158,7 @@ namespace T2.Cms.Domain.Implement.Content
             IArchive archive = this.GetArchiveById(archiveId);
             if (archive == null)
                 return false;
-            if (ArchiveFlag.GetFlag(archive.Flags, BuiltInArchiveFlags.IsSystem))
+            if (ArchiveFlag.GetFlag(archive.Get().Flags, BuiltInArchiveFlags.IsSystem))
             {
                 throw new NotSupportedException("系统文档，不允许删除,请先取消系统设置后再进行删除！");
             }

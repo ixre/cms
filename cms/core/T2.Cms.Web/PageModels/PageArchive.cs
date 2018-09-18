@@ -253,7 +253,7 @@ namespace T2.Cms.Web
         {
             get
             {
-                return String.Format("{0:yyyy-MM-dd HH:mm}", this.Archive.CreateDate);
+                return String.Format("{0:yyyy-MM-dd HH:mm}", this.Archive.CreateTime);
             }
         }
 
@@ -265,7 +265,7 @@ namespace T2.Cms.Web
         {
             get
             {
-                return String.Format("{0:yyyy-MM-dd HH:mm}", this.Archive.LastModifyDate);
+                return String.Format("{0:yyyy-MM-dd HH:mm}", this.Archive.UpdateTime);
             }
         }
 

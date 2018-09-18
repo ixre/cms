@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2012 TO2.NET
 * 
 * File Name	: TplBindType
-* publisher_id	: Newmin (new.min@msn.com)
+* author_id	: Newmin (new.min@msn.com)
 * Create	: 2012/10/28 7:15:54
 * Description	:
 *

@@ -11,6 +11,7 @@ using T2.Cms.Domain.Interface.Site.Template;
 using T2.Cms.Infrastructure;
 using JR.DevFw.Data.Extensions;
 using JR.DevFw.Framework;
+using T2.Cms.Models;
 
 namespace T2.Cms.ServiceRepository
 {
@@ -37,10 +38,9 @@ namespace T2.Cms.ServiceRepository
         }
 
 
-        public IArchive CreateArchive(int id, string strId, int categoryId, string title)
+        public IArchive CreateArchive(CmsArchiveEntity value)
         {
-            return base.CreateArchive(this._contentRep, this, this._extendRep, this._categoryRep, this._templateRep, id,
-                strId, categoryId, title);
+            return base.CreateArchive(this._contentRep, this, this._extendRep, this._categoryRep, this._templateRep,value);
         }
 
         #region helper
@@ -53,32 +53,34 @@ namespace T2.Cms.ServiceRepository
 
         private IArchive CreateArchiveFromDataReader(DbDataReader rd, IndexOfHandler<String> indexOf)
         {
-            IArchive archive;
-            archive = this.CreateArchive(int.Parse(rd["id"].ToString()),
-                rd["str_id"].ToString(),
-                int.Parse(rd["cat_id"].ToString()),
-                rd["title"].ToString());
-            archive.Alias = rd["alias"].ToString();
+            CmsArchiveEntity archive = new CmsArchiveEntity();
+            if (indexOf("id") != -1) archive.CatId = Convert.ToInt32(rd["id"]??"0");
+            if (indexOf("cat_id") != -1) archive.CatId = Convert.ToInt32(rd["cat_id"]);
+            if (indexOf("title") != -1) archive.Title = (rd["title"]??"").ToString();
+            if (indexOf("flag") != -1) archive.Flag = Convert.ToInt32(rd["flag"] ?? "0");
+            if (indexOf("path") != -1) archive.Path = (rd["path"] ?? "").ToString();
+            if (indexOf("alias") != -1) archive.Path = (rd["alias"] ?? "").ToString();
+            if (indexOf("str_id") != -1) archive.Path = (rd["str_id"] ?? "").ToString();
             if (indexOf("site_id") != -1) archive.SiteId = Convert.ToInt32(rd["site_id"]);
             if (indexOf("small_title") != -1) archive.SmallTitle = (rd["small_title"] ?? "").ToString();
             if (indexOf("flags") != -1) archive.Flags = rd["flags"].ToString();
             if (indexOf("location") != -1) archive.Location = rd["location"].ToString();
             if (indexOf("sort_number") != -1) archive.SortNumber = int.Parse(rd["sort_number"].ToString());
             if (indexOf("outline") != -1) archive.Outline = (rd["outline"] ?? "").ToString();
-            if (indexOf("publisher_id") != -1)
-                archive.PublisherId = rd["publisher_id"] == DBNull.Value ? 0 : Convert.ToInt32(rd["publisher_id"]);
+            if (indexOf("author_id") != -1)
+                archive.AuthorId = rd["author_id"] == DBNull.Value ? 0 : Convert.ToInt32(rd["author_id"]);
             if (indexOf("content") != -1) archive.Content = rd["content"].ToString();
             if (indexOf("source") != -1) archive.Source = (rd["source"] ?? "").ToString();
             if (indexOf("tags") != -1) archive.Tags = (rd["tags"] ?? "").ToString();
             if (indexOf("thumbnail") != -1) archive.Thumbnail = (rd["thumbnail"] ?? "").ToString();
-            if (indexOf("createdate") != -1) archive.CreateDate = Convert.ToDateTime(rd["createdate"]);
-            if (indexOf("lastmodifydate") != -1) archive.LastModifyDate = Convert.ToDateTime(rd["lastmodifydate"]);
+            if (indexOf("create_time") != -1) archive.CreateTime = Convert.ToInt32(rd["create_time"]);
+            if (indexOf("update_time") != -1) archive.UpdateTime = Convert.ToInt32(rd["update_time"]);
             if (indexOf("view_count") != -1) archive.ViewCount = int.Parse((rd["view_count"] ?? "0").ToString());
             //archive.Agree = int.Parse((rd["agree"] ?? "0").ToString());
             //archive.Disagree = int.Parse((rd["disagree"] ?? "0").ToString());
 
             //rd.CopyToEntity(archive);
-            return archive;
+            return this.CreateArchive(archive);
 
         }
 
@@ -112,43 +114,26 @@ namespace T2.Cms.ServiceRepository
         #endregion
 
 
-        public int SaveArchive(IArchive archive)
+        public Error SaveArchive(CmsArchiveEntity a)
         {
-            int siteId = archive.Category.Site().GetAggregaterootId();
-            int categoryId = archive.Category.GetDomainId();
-
-            if (archive.Thumbnail == null)
+            if (a.ID <= 0)
             {
-                archive.Thumbnail = "";
-            }
-
-            if (archive.GetAggregaterootId() <= 0)
-            {
-                string strId;
-                do
-                {
-                    strId = IdGenerator.GetNext(5);              //创建5位ID
-                } while (_dal.CheckAliasIsExist(siteId, strId));
-
-
-
-                _dal.Add(archive.SiteId,strId, archive.Alias, categoryId, archive.PublisherId, archive.Title,
-                    archive.SmallTitle, archive.Source, archive.Thumbnail, archive.Outline, archive.Content,
-                    archive.Tags, archive.Flags, archive.Location, archive.SortNumber);
-
-                return this.GetArchive(siteId, strId).GetAggregaterootId();
+                _dal.Add(a.SiteId,a.StrId, a.Alias, a.CatId, a.AuthorId, a.Title,
+                    a.SmallTitle, a.Source, a.Thumbnail, a.Outline, a.Content,
+                    a.Tags, a.Flags, a.Location, a.SortNumber);
+                a.ID = _dal.GetMaxArchiveId(a.SiteId);
             }
             else
             {
                 //Update
                 //archive.Thumbnail.IndexOf(CmsVariables.Archive_NoPhoto) != -1) 
 
-                _dal.Update(archive.GetAggregaterootId(), categoryId, archive.Title, archive.SmallTitle, archive.Alias,
-                    archive.Source, archive.Thumbnail, archive.Outline, archive.Content ?? "",
-                    archive.Tags, archive.Flags, archive.Location, archive.SortNumber);
+                _dal.Update(a.ID, a.CatId, a.Title, a.SmallTitle, a.Alias,
+                    a.Source, a.Thumbnail, a.Outline, a.Content ?? "",
+                    a.Tags, a.Flags, a.Location, a.SortNumber);
             }
 
-            return archive.GetAggregaterootId();
+            return null;
         }
 
 
@@ -419,6 +404,17 @@ namespace T2.Cms.ServiceRepository
         public int TransferArchives(int userId, int toUserId)
         {
             return this._dal.TransferPublisher(userId, toUserId);
+        }
+        
+
+        public bool CheckSidIsExist(int siteId, string strId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CheckPathMatch(int siteId, string path, int archiveId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

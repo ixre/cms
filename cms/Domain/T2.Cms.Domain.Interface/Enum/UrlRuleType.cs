@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2013 TO2.NET
 * 
 * File Name	: UrlRuleType
-* publisher_id	: Newmin (new.min@msn.com)
+* author_id	: Newmin (new.min@msn.com)
 * Create	: 2013/04/04 15:59:54
 * Description	:
 *

@@ -1,12 +1,12 @@
 ﻿//
 // Copyright 2011 @ TO2.NET,All right reseved.
 // Name: ArchiveUtility.cs
-// publisher_id: newmin
+// author_id: newmin
 // Comments:
 // -------------------------------------------
 // Modify:
 //  2011-06-04  newmin  [+]:添加查找栏目的方法
-//  2013-03-11  newmin  [+]:Getpublisher_idName方法
+//  2013-03-11  newmin  [+]:Getauthor_idName方法
 //
 
 using System;
@@ -56,15 +56,15 @@ namespace T2.Cms.Utility
             throw new NotImplementedException();
 
             return "";
-//            if (Regex.IsMatch(publisher_id, "^[a-z0-9_]+$"))
+//            if (Regex.IsMatch(author_id, "^[a-z0-9_]+$"))
 //            {
-//                UserBll u = ubll.GetUser(publisher_id);
+//                UserBll u = ubll.GetUser(author_id);
 //                if (u != null)
 //                {
 //                    return u.Name;
 //                }
 //            }
-//            return publisher_id;
+//            return author_id;
         }
 
         public static string GetFormatedOutline(string outline, string content, int contentLenLimit)

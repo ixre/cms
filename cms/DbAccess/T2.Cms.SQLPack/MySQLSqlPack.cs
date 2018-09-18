@@ -12,8 +12,8 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
-                        small_title,`flags`,`publisher_id`,`thumbnail`,view_count,`tags`,`outline`,
-                        `content`,`createdate`,`lastmodifydate` FROM $PREFIX_archive
+                        small_title,`flags`,`author_id`,`thumbnail`,view_count,`tags`,`outline`,
+                        `content`,`createdate`,`update_time` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON  $PREFIX_category.`id`=$PREFIX_archive.`cat_id` WHERE " +
                        SqlConst.Archive_NotSystemAndHidden + " ORDER BY $PREFIX_archive.sort_number DESC";
             }
@@ -25,7 +25,7 @@
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
                         small_title,`flags`,`thumbnail`,`outline`,`content`,view_count,
-                        lastmodifydate,publisher_id,tags,source,`createdate`,
+                        update_time,author_id,tags,source,`createdate`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden +
@@ -74,7 +74,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,`thumbnail`,`flags`,`outline`,`content`,view_count,
-                        publisher_id,lastmodifydate,source,tags,`createdate`,$PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
+                        author_id,update_time,source,tags,`createdate`,$PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE site_id=@siteId AND  `tag`=@tag AND " + SqlConst.Archive_NotSystemAndHidden +
                         @" ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
@@ -86,7 +86,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`cat_id`,`flags`,`str_id`,`alias`,`title`,$PREFIX_archive.`location`,`thumbnail`,`outline`,`content`,`source`,`tags`,
-                        $PREFIX_category.`name`,$PREFIX_category.`tag`,view_count,`createdate`,`lastmodifydate`
+                        $PREFIX_category.`name`,$PREFIX_category.`tag`,view_count,`createdate`,`update_time`
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         AND $PREFIX_category.site_id=@siteId
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `module_id`=@ModuleID
@@ -130,7 +130,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
-                        `content`,`outline`,`tags`,`createdate`,`lastmodifydate`,view_count,`source` FROM $PREFIX_archive
+                        `content`,`outline`,`tags`,`createdate`,`update_time`,view_count,`source` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_Special +
                         @" AND $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray])
@@ -142,7 +142,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`flags`,`title`,$PREFIX_archive.`location`,`content`,
-                        `thumbnail`,`outline`,`tags`,`createdate`,`lastmodifydate`
+                        `thumbnail`,`outline`,`tags`,`createdate`,`update_time`
                         ,view_count,`source` FROM $PREFIX_archive
                             INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                             WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`module_id`=@moduleID
@@ -221,7 +221,7 @@
             get
             {
                 return @" SELECT a.`id` AS `id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,
-                        c.`name` as categoryName,`cat_id`,`flags`,`publisher_id`,`content`,`source`,
+                        c.`name` as categoryName,`cat_id`,`flags`,`author_id`,`content`,`source`,
                         `createDate`,view_count FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON c.id=a.cat_id
                         WHERE a.id IN (SELECT id FROM (SELECT a.`id` AS `id` FROM $PREFIX_archive a
@@ -355,9 +355,9 @@
         {
             get
             {
-                return @"INSERT INTO $PREFIX_archive(site_id,str_id,`alias`,`cat_id`,`publisher_id`,`title`,small_title,`flags`,`location`,sort_number,
+                return @"INSERT INTO $PREFIX_archive(site_id,str_id,`alias`,`cat_id`,`author_id`,`title`,small_title,`flags`,`location`,sort_number,
                                     `source`,`thumbnail`,`outline`,`content`,`tags`,`agree`,`disagree`,view_count,
-                                     `createdate`,`lastmodifydate`)VALUES(@siteId,@strId,@alias,@catId,@publisherId,@Title,
+                                     `createdate`,`update_time`)VALUES(@siteId,@strId,@alias,@catId,@publisherId,@Title,
                                     @smallTitle,@Flags,@location,@sortNumber,
                                     @Source,@thumbnail,@Outline, @Content,@Tags,0,0,1,@CreateDate,
                                     @LastModifyDate)";
@@ -380,7 +380,7 @@
             get
             {
                 return @"UPDATE $PREFIX_archive SET `cat_id`=@catId,`title`=@Title,small_title=@smallTitle,sort_number=@sortNumber,`flags`=@flags,
-                        `alias`=@Alias,`location`=@location,`source`=@Source,`thumbnail`=@thumbnail,lastmodifydate=@lastmodifyDate,
+                        `alias`=@Alias,`location`=@location,`source`=@Source,`thumbnail`=@thumbnail,update_time=@lastmodifyDate,
                         `outline`=@Outline,`content`=@Content,`tags`=@Tags WHERE $PREFIX_archive.id=@id";
             }
         }

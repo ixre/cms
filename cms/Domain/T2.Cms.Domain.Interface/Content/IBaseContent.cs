@@ -6,11 +6,6 @@ namespace T2.Cms.Domain.Interface.Content
     public interface IBaseContent:IAggregateroot
     {
         /// <summary>
-        /// 栏目分类
-        /// </summary>
-        ICategory Category { get; set; }
-
-        /// <summary>
         /// 链接管理
         /// </summary>
         IContentLinkManager LinkManager {get;}

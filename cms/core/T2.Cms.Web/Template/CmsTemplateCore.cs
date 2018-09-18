@@ -1395,7 +1395,7 @@ namespace T2.Cms.Template
                         case "special_title": return !ArchiveFlag.GetFlag(archiveDto.Flags, BuiltInArchiveFlags.IsSpecial) ?
                              archiveDto.Title : "<span class=\"special\">" + archiveDto.Title + "</span>";
 
-                        case "publisher_id": return archiveDto.PublisherId.ToString();
+                        case "author_id": return archiveDto.PublisherId.ToString();
 
                         //
                         //TODO:Archive应持有一个author
@@ -1412,11 +1412,11 @@ namespace T2.Cms.Template
                         case "count": return archiveDto.ViewCount.ToString();
 
                         //时间
-                        case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.LastModifyDate);
-                        case "modify_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.LastModifyDate);
-                        case "modify_sdate": return String.Format("{0:MM-dd}", archiveDto.LastModifyDate);
-                        case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.CreateDate);
-                        case "create_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.CreateDate);
+                        case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.UpdateTime);
+                        case "modify_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.UpdateTime);
+                        case "modify_sdate": return String.Format("{0:MM-dd}", archiveDto.UpdateTime);
+                        case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.CreateTime);
+                        case "create_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.CreateTime);
 
                         //栏目
                         // case "categoryid":
@@ -1636,8 +1636,8 @@ namespace T2.Cms.Template
                             case "special_title": return !ArchiveFlag.GetFlag(dr["flags"].ToString(), BuiltInArchiveFlags.IsSpecial) ? dr["title"].ToString() : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
                             case "title": return dr["title"].ToString();
                             case "small_title": return (dr["small_title"] ?? "").ToString();
-                            case "publisher_id": return dr["publisher_id"].ToString();
-                            case "author_name": return ArchiveUtility.GetPublisherName(Convert.ToInt32(dr["publisher_id"] ?? 0));
+                            case "author_id": return dr["author_id"].ToString();
+                            case "author_name": return ArchiveUtility.GetPublisherName(Convert.ToInt32(dr["author_id"] ?? 0));
                             case "source": return dr["source"].ToString();
                             case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
                                  (dr["outline"] ?? "").ToString(),
@@ -1652,9 +1652,9 @@ namespace T2.Cms.Template
                             case "count": return dr["view_count"].ToString();
 
                             //时间
-                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["lastmodifydate"]);
-                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", dr["lastmodifydate"]);
-                            case "modify_sdate": return String.Format("{0:MM-dd}", dr["lastmodifydate"]);
+                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["update_time"]);
+                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", dr["update_time"]);
+                            case "modify_sdate": return String.Format("{0:MM-dd}", dr["update_time"]);
                             case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["createdate"]);
                             case "create_date": return String.Format("{0:yyyy-MM-dd}", dr["createdate"]);
 
@@ -1955,7 +1955,7 @@ namespace T2.Cms.Template
                             case "str_id": return alias;
                             case "small_title": return archive.SmallTitle;
                             case "title": return title_hightlight;
-                            case "publisher_id": return archive.PublisherId.ToString();
+                            case "author_id": return archive.PublisherId.ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
@@ -1964,11 +1964,11 @@ namespace T2.Cms.Template
                             case "count": return archive.ViewCount.ToString();
 
                             //时间
-                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
-                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
-                            case "modify_sdate": return String.Format("{0:MM-dd}", archive.LastModifyDate);
-                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
-                            case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
+                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.UpdateTime);
+                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.UpdateTime);
+                            case "modify_sdate": return String.Format("{0:MM-dd}", archive.UpdateTime);
+                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime);
+                            case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateTime);
 
                             //栏目
                             case "category_name": return category.Name;
@@ -2316,7 +2316,7 @@ namespace T2.Cms.Template
                             case "special_title": return title_hightlight;
                             case "title": return archive.Title;
                             case "small_title": return archive.SmallTitle;
-                            case "publisher_id": return archive.PublisherId.ToString();
+                            case "author_id": return archive.PublisherId.ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
                             case "outline": return content;
@@ -2325,11 +2325,11 @@ namespace T2.Cms.Template
                             case "count": return archive.ViewCount.ToString();
 
                             //时间
-                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.LastModifyDate);
-                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.LastModifyDate);
-                            case "modify_sdate": return String.Format("{0:MM-dd}", archive.LastModifyDate);
-                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate);
-                            case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateDate);
+                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.UpdateTime);
+                            case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.UpdateTime);
+                            case "modify_sdate": return String.Format("{0:MM-dd}", archive.UpdateTime);
+                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime);
+                            case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateTime);
 
                             //栏目
                             //case "categoryid":

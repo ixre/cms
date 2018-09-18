@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
+using T2.Cms.Infrastructure;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Interface.Content.Archive
 {
     public interface IArchiveRepository
     {
-        IArchive CreateArchive(int id,string strId,int categoryId,string title);
+        /// <summary>
+        /// 创建文档
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        IArchive CreateArchive(CmsArchiveEntity value);
 
         /// <summary>
         /// 根据文档编号获取文档
@@ -23,11 +30,11 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         IArchive GetArchive(int siteId, string alias);
 
         /// <summary>
-        /// 
+        /// 保存文档
         /// </summary>
         /// <param name="archive"></param>
         /// <returns></returns>
-        int SaveArchive(IArchive archive);
+        Error SaveArchive(CmsArchiveEntity archive);
 
 
         /// <summary>
@@ -178,5 +185,22 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         void SaveSortNumber(int archiveId, int sortNumber);
 
         int TransferArchives(int userId, int toUserId);
+
+        /// <summary>
+        /// 检查文档字符ID是否存在
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="strId"></param>
+        /// <returns></returns>
+        bool CheckSidIsExist(int siteId, string strId);
+
+        /// <summary>
+        /// 检查文档路径是否存在
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="path"></param>
+        /// <param name="archiveId"></param>
+        /// <returns></returns>
+        bool CheckPathMatch(int siteId, string path, int archiveId);
     }
 }
