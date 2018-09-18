@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2012 TO2.NET
 * 
 * File Name	: PropertyUI
-* publisher_id	: Newmin (new.min@msn.com)
+* author_id	: Newmin (new.min@msn.com)
 * Create	: 2012/9/30 9:45:29
 * Description	:
 *

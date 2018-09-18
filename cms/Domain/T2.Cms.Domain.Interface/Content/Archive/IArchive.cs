@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
 using T2.Cms.Infrastructure;
@@ -51,14 +52,14 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         IList<IExtendValue> ExtendValues { get; set; }
 
         /// <summary>
+        /// 获取关联的分类
+        /// </summary>
+        ICategory Category { get; }
+
+        /// <summary>
         /// 保存
         /// </summary>
         /// <returns></returns>
         Error Save();
-
-        /// <summary>
-        /// 保存排序号码
-        /// </summary>
-        void SaveSortNumber();
     }
 }

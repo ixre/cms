@@ -1,7 +1,7 @@
 ﻿//
 // Copyright 2011 @ TO2.NET.
 // Permission.cs
-// publisher_id:
+// author_id:
 //      newmin(new.min@msn.com)
 // 
 

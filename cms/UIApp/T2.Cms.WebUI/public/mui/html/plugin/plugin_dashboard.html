@@ -175,7 +175,7 @@
             var indent = p.key,
 				icon = p.properties[3].descript,
 				version = p.properties[0].descript,
-				publisher_id = p.properties[2].descript,
+				author_id = p.properties[2].descript,
 				state = p.properties[1].descript,
 				webpage = p.properties[4].descript,
 				portalUrl = p.properties[5].descript,
@@ -183,7 +183,7 @@
 				descript= p.descript==''?'无说明': p.descript;
 
             var html = '<img src="'+ appPath +'module=plugin&action=geticon&worker_indent=' + p.key + '" class="icon" alt=""/><h3 class="name">' + p.name + '</h3>' +
-						'<p class="descript">' + descript + '</p><div class="meta">作者：<span class="publisher_id">' + publisher_id + '</span>&nbsp;&nbsp;版本：<span class="version">' +
+						'<p class="descript">' + descript + '</p><div class="meta">作者：<span class="author_id">' + author_id + '</span>&nbsp;&nbsp;版本：<span class="version">' +
  						version + '</span></div><span class="btns">' +
 						'<a class="handler enable" href="plugin:chstat(\'' + indent + '\')" stat="'+state+'">' + (state == '1' ? '停用' : '启用') + '</a>';
 

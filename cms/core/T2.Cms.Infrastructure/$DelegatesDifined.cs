@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2012 TO2.NET
 * 
 * File Name	: DelegatesDifined
-* publisher_id	: Newmin (new.min@msn.com)
+* author_id	: Newmin (new.min@msn.com)
 * Create	: 2013/0/05 9:26:29
 * Description	:
 *

@@ -4,6 +4,7 @@ using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;
+using T2.Cms.Models;
 
 namespace T2.Cms.Domain.Implement.Content.Archive
 {
@@ -32,13 +33,10 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             IExtendFieldRepository extendRep,
             ICategoryRepo categoryRep,
             ITemplateRepo templateRep,
-            int id,
-            string strId,
-            int categoryId,
-            string title)
+            CmsArchiveEntity value)
         {
             return new Archive(contentRep, archiveRep, extendRep,
-                categoryRep, templateRep, id, strId, categoryId, title);
+                categoryRep, templateRep,value);
         }
     }
 }

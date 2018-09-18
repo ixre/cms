@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2013 TO2.NET
 * 
 * File Name	: OperateResult
-* publisher_id	: Newmin (new.min@msn.com)
+* author_id	: Newmin (new.min@msn.com)
 * Create	: 2012-01-06 16:35:33
 * Description	:
 *

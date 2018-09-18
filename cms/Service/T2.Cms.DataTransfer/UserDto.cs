@@ -2,7 +2,7 @@
 * Copyright(C) 2010-2013 TO2.NET
 * 
 * File Name	: Site.cs
-* publisher_id	: Newmin (new.min@msn.com)
+* author_id	: Newmin (new.min@msn.com)
 * Create	: 2011/05/25 19:59:54
 * Description	:
 *

@@ -429,7 +429,7 @@ namespace T2.Cms.Web.WebManager.Handle
                 content = _tags.Tags.ReplaceSingleTag(content);
             }
 
-            archive.LastModifyDate = DateTime.Now;
+            archive.UpdateTime = DateTime.Now;
             archive.Title = form["Title"].Trim();
             archive.SmallTitle = form["SmallTitle"].Trim();
             archive.Location = form["location"].Trim();
@@ -484,10 +484,10 @@ namespace T2.Cms.Web.WebManager.Handle
             //const int __pageSize = 10;
 
             string categoryId = Request["category.id"];
-            int publisherId = int.Parse(Request["publisher_id"] ?? "0");
+            int publisherId = int.Parse(Request["author_id"] ?? "0");
 
             ViewData["category_id"] = categoryId ?? String.Empty;
-            ViewData["publisher_id"] = publisherId;
+            ViewData["author_id"] = publisherId;
             ViewData["site_id"] = this.CurrentSite.SiteId;
 
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_List));
@@ -518,7 +518,7 @@ namespace T2.Cms.Web.WebManager.Handle
                    _aspage = request["lb_page"] ?? "-1";
 
             int publisherId;
-            int.TryParse(request["publisher_id"], out publisherId);
+            int.TryParse(request["author_id"], out publisherId);
 
             bool includeChild = request["include_child"] == "true";
             String keyword = Request.Form["keyword"];
@@ -572,9 +572,9 @@ namespace T2.Cms.Web.WebManager.Handle
                 dr["content"] = "";
             }
 
-            //  CmsLogic.Archive.GetPagedArchives(this.SiteId, moduleID, categoryID, _publisher_id, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
-            //moduleID == null ? CmsLogic.Archive.GetPagedArchives(categoryID, _publisher_id,flags, null, false, pageSize, pageIndex, out recordCount, out pages)
-            //: CmsLogic.Archive.GetPagedArchives((SysModuleType)(moduleID ?? 1), _publisher_id, flags,null, false, pageSize, pageIndex, out recordCount, out pages);
+            //  CmsLogic.Archive.GetPagedArchives(this.SiteId, moduleID, categoryID, _author_id, flags, null, false, pageSize, pageIndex, out recordCount, out pages);
+            //moduleID == null ? CmsLogic.Archive.GetPagedArchives(categoryID, _author_id,flags, null, false, pageSize, pageIndex, out recordCount, out pages)
+            //: CmsLogic.Archive.GetPagedArchives((SysModuleType)(moduleID ?? 1), _author_id, flags,null, false, pageSize, pageIndex, out recordCount, out pages);
 
 
             string pagerHtml = Helper.BuildJsonPagerInfo("javascript:window.toPage(1);", "javascript:window.toPage({0});", pageIndex, recordCount, pages);
@@ -598,7 +598,7 @@ namespace T2.Cms.Web.WebManager.Handle
             {
                 title = archive.Title,
                 publisherName = user == null ? "" : user.Name,
-                publishdate = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate),
+                publishdate = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime),
                 content = archive.Content,
                 thumbnail = archive.Thumbnail,
                 count = archive.ViewCount
@@ -706,7 +706,7 @@ namespace T2.Cms.Web.WebManager.Handle
                     //管理员可以查看发布人
                     if (isMaster)
                     {
-                        sb.Append("<td><a href=\"?module=archive&amp;action=list&amp;moduleID=&amp;publisher_id=")
+                        sb.Append("<td><a href=\"?module=archive&amp;action=list&amp;moduleID=&amp;author_id=")
                             .Append(dr["author"].ToString()).Append("\" title=\"查看该用户发布的文档\">").Append(dr["Author"].ToString()).Append("</a></td>");
                     }
 
@@ -802,7 +802,7 @@ namespace T2.Cms.Web.WebManager.Handle
                 archive_id = archive.StrId,
                 archive_title = archive.Title,
                 publisher_name = archive.PublisherId,
-                publish_date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateDate),
+                publish_date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime),
                 commentListHtml = commentListHtml
             };
 

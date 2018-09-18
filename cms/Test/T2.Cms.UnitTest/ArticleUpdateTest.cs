@@ -72,7 +72,7 @@ namespace T2.Cms.UnitTest
             string tags, string flags, string location, int sortNumber)
         {
             string sql = @"UPDATE cms_archive SET[cid] = @CategoryId,[Title] = @Title, small_title = @smallTitle, sort_number = @sortNumber, flags = @flags,
-                                    [Alias] = @Alias, location = @location,[Source] = @Source, thumbnail = @thumbnail, lastmodifydate = @lastmodifyDate,
+                                    [Alias] = @Alias, location = @location,[Source] = @Source, thumbnail = @thumbnail, update_time = @lastmodifyDate,
                                     [Outline] = @Outline,[Content] = @Content,[Tags] = @Tags WHERE id = @id";
             string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
             db.ExecuteNonQuery(new SqlQuery(sql,new object[,]{

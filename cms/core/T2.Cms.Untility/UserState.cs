@@ -2,7 +2,7 @@
  * Copyright 2010 OPS,All rights reseved.
  * 
  * name     : account state
- * publisher_id   : newmin
+ * author_id   : newmin
  * date     : 2010/11/06 23:29
  * 
  * Modify:

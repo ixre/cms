@@ -38,25 +38,7 @@ namespace T2.Cms.Domain.Implement.Content
             this._categoryRep = categoryRep;
             this._templateRep = templateRep;
         }
-        /// <summary>
-        /// 栏目编号
-        /// </summary>
-        public ICategory Category
-        {
-            get
-            {
-                if (this._category == null)
-                {
-                    //todo: 获取站点
-                    this._category = this._categoryRep.GetCategory(0,this._categoryId);
-                }
-                return this._category;
-            }
-            set
-            {
-                this._category = value;
-            }
-        }
+       
         
 
         /// <summary>
