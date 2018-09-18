@@ -123,54 +123,48 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             }
         }
 
-        public IList<IExtendValue> ExtendValues
+        public IList<IExtendValue> GetExtendValues()
         {
-            get
+            if (this._extendValues == null)
             {
-                return this._extendValues ?? (_extendValues = new List<IExtendValue>(this._extendRep.GetExtendFieldValues(this)));
+                this._extendValues = new List<IExtendValue>(this._extendRep.GetExtendFieldValues(this));
             }
-            set
-            {
-              this. _extendValues = value;
-            }
+            return this._extendValues;
+        }
+
+
+        public Error SetExtendValue(IList<IExtendValue> extendValues)
+        {
+            this._extendValues = extendValues;
+            return null;
         }
 
         public override Error Save()
         {
-
-            //初始化
-            if (this.GetAggregaterootId() <= 0)
+            this._value.SiteId = this.Category.Get().SiteId;
+            this.UpdateArchivePath();
+            if (this._value.SortNumber <= 0)
             {
-                this._value.SiteId = this.Category.Get().SiteId;
-                this.UpdateArchivePath();
-                if (this._value.SortNumber <= 0)
-                {
-                    int sortNum = this._archiveRep.GetMaxSortNumber(this.Category.Site().GetAggregaterootId());
-                    this._value.SortNumber = sortNum + 1;
-                }
-                this._archiveRep.SaveArchive(this.Get());
+                int sortNum = this._archiveRep.GetMaxSortNumber(this.Category.Site().GetAggregaterootId());
+                this._value.SortNumber = sortNum + 1;
+            }
+            this._archiveRep.SaveArchive(this.Get());
+
+
+            if (this._templateBind != null)
+            {
+            }
+            //保存文档绑定的模板
+            if (this._templateBind != null)
+            {
                 if (this._templateBind != null)
                 {
                     this._templateBind.BindRefrenceId = this.GetAggregaterootId();
                 }
-            }
-            else
-            {
-                this._archiveRep.SaveArchive(this.Get());
-            }
-
-
-
-            //保存文档绑定的模板
-            if (this._templateBind != null)
-            {
-                if (this._templateBind.BindRefrenceId == this.GetAggregaterootId())
+                this._templateRep.SaveTemplateBind(this.GetAggregaterootId(), this._templateBind);
+                if (this._templateBind.TplPath == null)
                 {
-                    this._templateRep.SaveTemplateBind(this.GetAggregaterootId(),this._templateBind);
-                    if (this._templateBind.TplPath == null)
-                    {
-                        this._templateBind = null;
-                    }
+                    this._templateBind = null;
                 }
             }
 
@@ -178,7 +172,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             this._extendRep.UpdateArchiveRelationExtendValues(this);
 
             //保存其他
-           return base.Save();
+            return base.Save();
 
         }
 
@@ -299,7 +293,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             this._value.Title = src.Title;
             this._value.SmallTitle = src.SmallTitle;
             this._value.Location = src.Location;
-            this._value.SortNumber = src.SortNumber;
+          
             this._value.Source = src.Source;
             this._value.Tags = src.Tags;
             this._value.Outline = src.Outline;
@@ -348,6 +342,10 @@ namespace T2.Cms.Domain.Implement.Content.Archive
                     return new Error("文档路径已存在");
                 }
             }
+            if (src.SortNumber > 0)
+            {
+                this._value.SortNumber = src.SortNumber;
+            }
             return null;
         }
 
@@ -355,6 +353,7 @@ namespace T2.Cms.Domain.Implement.Content.Archive
         {
             return this._value.ID;
         }
+
 
         /// <summary>
         /// 栏目编号

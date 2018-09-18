@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JR.DevFw.Framework;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,6 +9,8 @@ using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
+using T2.Cms.Infrastructure;
+using T2.Cms.Models;
 using T2.Cms.ServiceContract;
 using T2.Cms.ServiceRepository.Query;
 
@@ -53,50 +56,50 @@ namespace T2.Cms.Service
         }
 
 
-        public int SaveArchive(int siteId, ArchiveDto archiveDto)
+        public Result SaveArchive(int siteId,int catId, ArchiveDto archiveDto)
         {
+            CmsArchiveEntity value = archiveDto.ToArchiveEntity();
+            value.CatId = catId;
+            value.SiteId = siteId;
             IContentContainer ic = this._contentRep.GetContent(siteId);
-            IArchive archive;
-
+            IArchive ia;
             if (archiveDto.Id <= 0)
             {
-                archive = ic.CreateArchive(-1, archiveDto.StrId, archiveDto.Category.ID, archiveDto.Title);
+                ia = ic.CreateArchive(new CmsArchiveEntity());
             }
             else
             {
-                archive = ic.GetArchiveById(archiveDto.Id);
+                ia = ic.GetArchiveById(archiveDto.Id);
+            }
 
-                //修改栏目
-                if (archiveDto.Category.ID != archive.Category.GetDomainId())
+            Error err = ia.Set(value);
+            if(err == null)
+            {
+                // 更新模板
+                if (!String.IsNullOrEmpty(archiveDto.TemplatePath))
                 {
-                    ISite site = this._siteRep.GetSiteById(siteId);
-                    archive.Category = site.GetCategory(archiveDto.Category.ID);
+                    ia.SetTemplatePath(archiveDto.TemplatePath);
+                }
+                // 设置扩展属性
+                err = ia.SetExtendValue(archiveDto.ExtendValues);
+                // 保存文档
+                if(err == null)
+                {
+                    err = ia.Save();
                 }
             }
-
-
-            archive.LastModifyDate = DateTime.Now;
-            archive.Content = archiveDto.Content;
-            archive.Alias = archiveDto.Alias;
-            archive.PublisherId = archiveDto.PublisherId;
-            archive.Flags = archiveDto.Flags;
-            archive.Outline = archiveDto.Outline;
-            archive.Source = archiveDto.Source;
-            archive.Tags = archiveDto.Tags;
-            archive.Thumbnail = archiveDto.Thumbnail;
-            archive.Title = archiveDto.Title;
-            archive.SmallTitle = archiveDto.SmallTitle;
-            archive.Location = archiveDto.Location;
-            archive.ExtendValues = archiveDto.ExtendValues;
-
-            //只更新自己的模板
-            if (archiveDto.IsSelfTemplate
-                || (archive.GetAggregaterootId() == -1 && !String.IsNullOrEmpty(archiveDto.TemplatePath))
-                ){
-                archive.SetTemplatePath(archiveDto.TemplatePath);
+            Result r = new Result();
+            if(err == null)
+            {
+                r.Data = new Dictionary<String, String>();
+                r.Data.Add("ArchiveId",ia.GetAggregaterootId().ToString());
             }
-
-            return archive.Save();
+            else
+            {
+                r.ErrCode = 1;
+                r.ErrMsg = err.Message;
+            }
+            return r;
         }
 
 
@@ -123,22 +126,22 @@ namespace T2.Cms.Service
             ArchiveDto archive;
             CategoryDto cateDto;
             int categoryId;
-            foreach (IArchive ia in archives)
+            foreach (IArchive i in archives)
             {
+                CmsArchiveEntity ia = i.Get();
                 archive = new ArchiveDto
                 {
                     StrId = ia.StrId,
-                    Id = ia.GetAggregaterootId(),
-                    PublisherId = ia.PublisherId,
+                    Id = i.GetAggregaterootId(),
+                    PublisherId = ia.AuthorId,
                     Alias = ia.Alias,
                     Agree = ia.Agree,
                     Disagree = ia.Disagree,
                     Content = ia.Content,
-                    CreateTime = ia.CreateDate,
-                    // FirstImageUrl=ia.FirstImageUrl,
+                    CreateTime =TimeUtils.UnixTime(ia.CreateTime),
                     Flags = ia.Flags,
                     Tags = ia.Tags,
-                    UpdateTime = ia.LastModifyDate,
+                    UpdateTime = TimeUtils.UnixTime(ia.UpdateTime),
                     Source = ia.Source,
                     Thumbnail = ia.Thumbnail,
                     Title = ia.Title,
@@ -147,7 +150,7 @@ namespace T2.Cms.Service
                     ViewCount = ia.ViewCount,
                     Outline = ia.Outline,
                     //TemplateBind=null,
-                    ExtendValues = ia.ExtendValues
+                    ExtendValues = i.GetExtendValues()
                 };
 
                 //archive = new ArchiveDto().CloneData(ia);

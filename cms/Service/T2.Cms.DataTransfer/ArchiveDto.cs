@@ -179,7 +179,7 @@ namespace T2.Cms.DataTransfer
 
             if(copyExtend)
             {
-                dto.ExtendValues = archive.ExtendValues;
+                dto.ExtendValues = archive.GetExtendValues;
             }
 
             if (copyTemplate)
@@ -201,5 +201,30 @@ namespace T2.Cms.DataTransfer
         /// </summary>
         public string Location { get; set; }
 
+
+        public CmsArchiveEntity ToArchiveEntity()
+        {
+            CmsArchiveEntity dst = new CmsArchiveEntity();
+            dst.ID = this.Id;
+            dst.StrId = this.StrId;
+            dst.Alias = this.Alias;
+            dst.Path = this.Path;
+            dst.CatId = this.Category.ID;
+            dst.Flag = this.Flag;
+            dst.AuthorId = this.PublisherId;
+            dst.Title = this.Title;
+            dst.SmallTitle = this.SmallTitle;
+            dst.Location = this.Location;
+            dst.Source = this.Source;
+            dst.Tags = this.Tags;
+            dst.Outline = this.Outline;
+            dst.Content = this.Content;
+            dst.ViewCount = this.ViewCount;
+            dst.Agree = this.Agree;
+            dst.Disagree = this.Disagree;
+            dst.Flags = this.Flags;
+            dst.Thumbnail = this.Thumbnail;
+            return dst;
+        }
     }
 }

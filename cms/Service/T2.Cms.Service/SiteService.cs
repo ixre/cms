@@ -629,7 +629,7 @@ namespace T2.Cms.Service
         private void CloneArchiveExtendValue(IArchive srcArchive, IArchive tarArchive,
             IDictionary<int, string> errDict, ref bool isFailed, ref bool shouldReSave)
         {
-            IList<IExtendValue> extends = srcArchive.ExtendValues;
+            IList<IExtendValue> extends = srcArchive.GetExtendValues;
             // category extend
             IList<IExtendField> cflist = tarArchive.Category.ExtendFields;
             IDictionary<string, IExtendField> cateFields = new Dictionary<string, IExtendField>();
@@ -642,7 +642,7 @@ namespace T2.Cms.Service
             {
                 IExtendField field;
                 IExtendField tarField;
-                tarArchive.ExtendValues = new List<IExtendValue>(extends.Count);
+                tarArchive.GetExtendValues = new List<IExtendValue>(extends.Count);
 
                 foreach (IExtendValue extendValue in extends)
                 {
@@ -652,7 +652,7 @@ namespace T2.Cms.Service
                     {
                         // tarField = this._extendRep.GetExtendByName(targetSiteId, field.Name, field.Type);
                         tarField = cateFields[field.Name];
-                        tarArchive.ExtendValues.Add(this._extendRep.CreateExtendValue(tarField, -1, extendValue.Value));
+                        tarArchive.GetExtendValues.Add(this._extendRep.CreateExtendValue(tarField, -1, extendValue.Value));
                         shouldReSave = true;
                     }
                     else
