@@ -351,7 +351,7 @@ namespace T2.Cms.Service
         public bool CheckArchiveAliasAvailable(int siteId, int archiveId, string alias)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IArchive archive = content.GetArchive(alias);
+            IArchive archive = content.GetArchiveByTag(alias);
             bool archiveIsNull = archive == null;
 
             if (archiveIsNull)
