@@ -161,7 +161,7 @@ namespace T2.Cms.Web.WebManager.Handle
             {
                 fullDomain = Request.Url.Scheme + ":" + fullDomain.Replace("#", WebCtx.Current.Host);
             }
-            string url = fullDomain + archive.Url;
+            string url = fullDomain + archive.Url+".html";
             return "<html><head><title>" + archive.Title + "</title></head><body style='margin:0'><iframe src='" + url +
                    "' frameBorder='0' width='100%' height='100%'></iframe></body></html>";
         }
@@ -824,7 +824,7 @@ namespace T2.Cms.Web.WebManager.Handle
             {
                 fullDomain =  fullDomain.Replace("#", WebCtx.Current.Host);
             }
-            string url = Request.Url.Scheme + ":" + fullDomain + archive.Url;
+            string url = Request.Url.Scheme + ":" + fullDomain + archive.Url+".html";
 
 
             if (String.IsNullOrEmpty(archive.Outline))

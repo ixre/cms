@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArchiveTest.cs" />
     <Compile Include="CategoryTest.cs" />
     <Compile Include="ExtendTest.cs" />
     <Compile Include="SiteTest.cs" />

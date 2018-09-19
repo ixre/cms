@@ -78,5 +78,13 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// </summary>
         /// <returns></returns>
         bool CheckTagMatch(int siteId, int parentCatId,string tag,int catId);
+
+        /// <summary>
+        /// 更新文档路径前缀
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="oldPath"></param>
+        /// <param name="path"></param>
+        void ReplaceArchivePath(int siteId, string oldPath, string path);
     }
 }

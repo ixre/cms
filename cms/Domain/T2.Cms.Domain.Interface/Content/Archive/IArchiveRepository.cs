@@ -170,6 +170,7 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <param name="count"></param>
         void AddArchiveViewCount(int siteId, int id, int count);
 
+    
         /// <summary>
         /// 获取最大的排序号码
         /// </summary>

@@ -62,16 +62,20 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 检查文档路径是否存在
         /// </summary>
-        public readonly string Archive_CheckArchivePathMatch = @"SELECT id FROM $PREFIX_archive\n
+        public readonly string Archive_CheckArchivePathMatch = @"SELECT id FROM $PREFIX_archive
                                WHERE site_id=@siteId AND path=@path AND id <> @id";
 
         /// <summary>
         /// 获取最新的文档编号
         /// </summary>
-        public readonly string Archive_GetMaxArchiveId = @"SELECT MAX(id) FROM $PREFIX_archive \n
+        public readonly string Archive_GetMaxArchiveId = @"SELECT MAX(id) FROM $PREFIX_archive 
                                WHERE site_id=@siteId ";
 
-      
+        /// <summary>
+        /// 更新文档路径前缀
+        /// </summary>
+        public readonly string Archive_ReplaceArchivePath = @"UPDATE $PREFIX_archive SET path=REPLACE       (path,@old,@new) WHERE site_id=@siteId AND path LIKE @keyword";
+
 
         /// <summary>
         /// 增加浏览数量
@@ -94,7 +98,7 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 根据路径获取文档
         /// </summary>
-        public readonly string Archive_GetArchiveByPath = @"SELECT * FROM $PREFIX_archive \n
+        public readonly string Archive_GetArchiveByPath = @"SELECT * FROM $PREFIX_archive
                                WHERE site_id=@siteId AND path=@path";
 
 

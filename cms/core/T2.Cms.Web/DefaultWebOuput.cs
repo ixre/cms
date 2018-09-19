@@ -101,7 +101,6 @@ namespace T2.Cms.Web
         /// <param name="allhtml"></param>
         public static void RenderArchive(CmsContext context, string allhtml)
         {
-            string id = null;
             string html;
             ArchiveDto archive = default(ArchiveDto);
 
@@ -113,121 +112,107 @@ namespace T2.Cms.Web
 
 
             var siteId = context.CurrentSite.SiteId;
-
-            ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
-
-
-            Regex paramRegex = new Regex("/*([^/]+).html$", RegexOptions.IgnoreCase);
-            if (paramRegex.IsMatch(allhtml))
+            String archivePath = allhtml.Substring(0, allhtml.Length - ".html".Length);
+            archive = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(siteId, archivePath);
+            if (archive.Id <= 0)
             {
-                id = paramRegex.Match(allhtml).Groups[1].Value;
-                archive = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(siteId, id);
+                RenderNotFound(context);
+                return;
             }
 
-            if (archive.Id <= 0)
+            // 如果设置了302跳转
+            if (!String.IsNullOrEmpty(archive.Location))
+            {
+                string url;
+                if (Regex.IsMatch(archive.Location, "^http://", RegexOptions.IgnoreCase))
+                {
+                    url = archive.Location;
+
+                }
+                else
+                {
+                    if (archive.Location.StartsWith("/")) throw new Exception("URL不能以\"/\"开头!");
+                    url = String.Concat(context.SiteDomain, "/", archive.Location);
+                }
+                context.Response.Redirect(url, true); //302
+                return;
+            }
+
+            ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
+            BuiltInArchiveFlags flag = ArchiveFlag.GetBuiltInFlags(archive.Flags);
+
+            if ((flag & BuiltInArchiveFlags.Visible) != BuiltInArchiveFlags.Visible)
+            //|| (flag & BuiltInArchiveFlags.IsSystem)== BuiltInArchiveFlags.IsSystem)   //系统文档可以单独显示
+            {
+                RenderNotFound(context);
+                return;
+            }
+
+            CategoryDto category = archive.Category;
+
+            if (!(category.ID > 0))
             {
                 RenderNotFound(context);
                 return;
             }
             else
             {
-                //跳转
-                if (!String.IsNullOrEmpty(archive.Location))
+                string appPath = Cms.Context.SiteAppPath;
+                if (appPath != "/") appPath += "/";
+
+                if ((flag & BuiltInArchiveFlags.AsPage) == BuiltInArchiveFlags.AsPage)
                 {
-                    string url;
-                    if (Regex.IsMatch(archive.Location, "^http://", RegexOptions.IgnoreCase))
+                    string pattern = "^" + appPath + "[0-9a-zA-Z]+/[\\.0-9A-Za-z_-]+\\.html$";
+                    string pagePattern = "^" + appPath + "[\\.0-9A-Za-z_-]+\\.html$";
+
+                    if (!Regex.IsMatch(context.Request.Path, pagePattern))
                     {
-                        url = archive.Location;
-
+                        context.Response.StatusCode = 301;
+                        context.Response.RedirectLocation = String.Format("{0}{1}.html",
+                            appPath,
+                            String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
+                            );
+                        context.Response.End();
+                        return;
                     }
-                    else
-                    {
-                        if (archive.Location.StartsWith("/")) throw new Exception("URL不能以\"/\"开头!");
-                        url = String.Concat(context.SiteDomain, "/", archive.Location);
-                    }
-
-                    context.Response.Redirect(url, true); //302
-
-                    //context.Response.StatusCode = 301;
-                    //context.Render(@"<html><head><meta name=""robots"" content=""noindex""><script>location.href='" +
-                    //                   url + "';</script></head><body></body></html>");
-
-                    return;
-                }
-
-                BuiltInArchiveFlags flag = ArchiveFlag.GetBuiltInFlags(archive.Flags);
-
-                if ((flag & BuiltInArchiveFlags.Visible) != BuiltInArchiveFlags.Visible)
-                    //|| (flag & BuiltInArchiveFlags.IsSystem)== BuiltInArchiveFlags.IsSystem)   //系统文档可以单独显示
-                {
-                    RenderNotFound(context);
-                    return;
-                }
-
-                CategoryDto category = archive.Category;
-
-                if (!(category.ID > 0))
-                {
-                    RenderNotFound(context);
-                    return;
                 }
                 else
                 {
-                    string appPath = Cms.Context.SiteAppPath;
-                    if (appPath != "/") appPath += "/";
+                    //校验栏目是否正确
+                    string categoryPath = category.Path;
+                    string path = appPath != "/" ? allhtml.Substring(appPath.Length - 1) : allhtml;
 
-                    if ((flag & BuiltInArchiveFlags.AsPage) == BuiltInArchiveFlags.AsPage)
+                    if (!path.StartsWith(categoryPath + "/"))
                     {
-                        string pattern = "^" + appPath + "[0-9a-zA-Z]+/[\\.0-9A-Za-z_-]+\\.html$";
-                        string pagePattern = "^" + appPath + "[\\.0-9A-Za-z_-]+\\.html$";
-
-                        if (!Regex.IsMatch(context.Request.Path, pagePattern))
-                        {
-                            context.Response.StatusCode = 301;
-                            context.Response.RedirectLocation = String.Format("{0}{1}.html",
-                                appPath,
-                                String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
-                                );
-                            context.Response.End();
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        //校验栏目是否正确
-                        string categoryPath = category.Path;
-                        string path = appPath != "/" ? allhtml.Substring(appPath.Length - 1) : allhtml;
-
-                        if (!path.StartsWith(categoryPath + "/"))
-                        {
-                            RenderNotFound(context);
-                            return;
-                        }
-
-                        //设置了别名,则跳转
-                        if (!String.IsNullOrEmpty(archive.Alias) && String.Compare(id, archive.Alias,
-                            StringComparison.OrdinalIgnoreCase) != 0)
-                        {
-                            context.Response.StatusCode = 301;
-                            context.Response.RedirectLocation = String.Format("{0}{1}/{2}.html",
-                                appPath,
-                                categoryPath,
-                                String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
-                                );
-                            context.Response.End();
-                            return;
-                        }
+                        RenderNotFound(context);
+                        return;
                     }
 
-                    //增加浏览次数
-                    ++archive.ViewCount;
-                    ServiceCall.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);
-                    //显示页面
-                    html = cmsPage.GetArchive(archive);
-
-                    //再次处理模板
-                    //html = PageUtility.Render(html, new { }, false); 
+                    /*
+                    //设置了别名,则跳转
+                    if (!String.IsNullOrEmpty(archive.Alias) && String.Compare(id, archive.Alias,
+                        StringComparison.OrdinalIgnoreCase) != 0)
+                    {
+                        context.Response.StatusCode = 301;
+                        context.Response.RedirectLocation = String.Format("{0}{1}/{2}.html",
+                            appPath,
+                            categoryPath,
+                            String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
+                            );
+                        context.Response.End();
+                        return;
+                    }
+                    */
                 }
+
+                //增加浏览次数
+                ++archive.ViewCount;
+                ServiceCall.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);
+                //显示页面
+                html = cmsPage.GetArchive(archive);
+
+                //再次处理模板
+                //html = PageUtility.Render(html, new { }, false); 
             }
 
             // return html;
