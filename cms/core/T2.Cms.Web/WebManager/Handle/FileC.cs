@@ -132,8 +132,8 @@ namespace T2.Cms.Web.WebManager.Handle
             if (path.ToLower().IndexOf("config/cms.conf", StringComparison.Ordinal) != -1)
                 throw new ArgumentException();
 
-            string mode = "html";
-            string dependJs = String.Empty;
+            string mode = "htmlmixed";
+            string dependJs = "/public/assets/code_editor/mode/htmlmixed/htmlmixed.js";
 
             FileInfo file, bakfile;
 
@@ -142,11 +142,11 @@ namespace T2.Cms.Web.WebManager.Handle
 
             switch (file.Extension.ToLower())
             {
-                case ".css": dependJs = "/public/assets/coder/mode/css.js"; mode = "css"; break;
+                case ".css": dependJs = "/public/assets/code_editor/mode/css/css.js"; mode = "css"; break;
                 case ".conf":
                 case ".config":
                 case ".xml":
-                    dependJs = "/public/assets/coder/mode/xml.js"; mode = "xml"; break;
+                    dependJs = "/public/assets/code_editor/mode/xml/xml.js"; mode = "xml"; break;
             }
 
             if (!file.Exists)
