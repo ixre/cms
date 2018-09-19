@@ -154,7 +154,10 @@ namespace T2.Cms.Dal
 
         public int GetMaxArchiveId(int siteId)
         {
-            throw new NotImplementedException();
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", siteId);
+            SqlQuery query = new SqlQuery(DbSql.Archive_GetMaxArchiveId, data);
+            return Convert.ToInt32(base.ExecuteScalar(query));
         }
 
         #region 获取文档
@@ -165,18 +168,13 @@ namespace T2.Cms.Dal
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public void GetArchive(int siteId, string archiveIdOrAlias, DataReaderFunc func)
+        public void GetArchiveByPath(int siteId, string path, DataReaderFunc func)
         {
-            var pa = new object[,]{
-                        {"@siteId",siteId},
-                        {"@strid", archiveIdOrAlias}
-                     };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-            base.ExecuteReader(
-                   base.NewQuery(DbSql.Archive_GetArchiveByStrIDOrAlias, parameters)
-                     ,
-                   func
-                   );
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", siteId);
+            data.Add("@path", path);
+            SqlQuery query = new SqlQuery(DbSql.Archive_GetArchiveByPath, data);
+             base.ExecuteReader(query,func);
         }
 
 
@@ -462,6 +460,17 @@ namespace T2.Cms.Dal
             //                                 (select top 1 CID from $PREFIX_archive where ID=@id) as t
             //                                 where $PREFIX_archive.CID=t.CID and ID>@id",
             //                                 {"@id", id}).Tables[0];
+        }
+
+        public bool CheckArchivePathMatch(int siteId, string path, int archiveId)
+        {
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", siteId);
+            data.Add("@path", path);
+            data.Add("@id", archiveId);
+            SqlQuery query = new SqlQuery(DbSql.Archive_CheckArchivePathMatch, data);
+            object obj = base.ExecuteScalar(query);
+            return obj == null || obj == DBNull.Value;
         }
 
 

@@ -159,7 +159,7 @@ namespace T2.Cms.ServiceRepository
         {
             IArchive archive = null;
 
-            _dal.GetArchive(siteId, alias, rd =>
+            _dal.GetArchiveByPath(siteId, alias, rd =>
             {
                 IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
                 if (rd.Read())
@@ -415,12 +415,26 @@ namespace T2.Cms.ServiceRepository
 
         public bool CheckSidIsExist(int siteId, string strId)
         {
-            throw new NotImplementedException();
+            return this._dal.CheckAliasIsExist(siteId, strId);
         }
 
         public bool CheckPathMatch(int siteId, string path, int archiveId)
         {
-            throw new NotImplementedException();
+            return this._dal.CheckArchivePathMatch(siteId, path,archiveId);
+        }
+
+        public IArchive GetArchiveByPath(int siteId, string path)
+        {
+            IArchive archive = null;
+            this._dal.GetArchiveByPath(siteId, path, rd =>
+            {
+                IndexOfHandler<String> dg = this.GetIndexOfDataReaderColumnNameDelegate(rd.GetColumns(true));
+                if (rd.Read())
+                {
+                    archive = this.CreateArchiveFromDataReader(rd, dg);
+                }
+            });
+            return archive;
         }
     }
 }

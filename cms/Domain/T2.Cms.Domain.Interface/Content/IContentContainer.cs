@@ -26,7 +26,7 @@ namespace T2.Cms.Domain.Interface.Content
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        IArchive GetArchive(string id);
+        IArchive GetArchiveByTag(string id);
 
 
         /// <summary>
@@ -46,7 +46,14 @@ namespace T2.Cms.Domain.Interface.Content
         /// <returns></returns>
         IEnumerable<IArchive> GetArchivesByCategoryPath(string catPath, bool includeChild, int number, int skipSize);
 
-      
+        /// <summary>
+        /// 根据路径获取文档
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <returns></returns>
+        IArchive GetArchive(string path);
+
+
         /// <summary>
         /// 
         /// </summary>

@@ -49,7 +49,7 @@ namespace T2.Cms.Domain.Implement.Content
         }
 
 
-        public IArchive GetArchive(string id)
+        public IArchive GetArchiveByTag(string id)
         {
             return this._archiveRep.GetArchive(this.SiteId, id);
         }
@@ -238,6 +238,11 @@ namespace T2.Cms.Domain.Implement.Content
                 throw new Exception("内容不存在");
             }
             return content;
+        }
+
+        public IArchive GetArchive(string path)
+        {
+            return this._archiveRep.GetArchiveByPath(this.SiteId, path);
         }
     }
 }

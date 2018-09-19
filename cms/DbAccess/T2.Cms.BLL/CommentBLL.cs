@@ -85,7 +85,7 @@ namespace T2.Cms.BLL
         public void InsertComment(string archiveId, int memberId,string ip, string content)
         {
             bool isExists=false;
-            archiveDal.GetArchive(-1,archiveId,rd=>{
+            archiveDal.GetArchiveByPath(-1,archiveId,rd=>{
                 if(rd.HasRows)isExists=true;
             });
 

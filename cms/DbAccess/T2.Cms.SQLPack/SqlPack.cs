@@ -59,6 +59,19 @@ namespace T2.Cms.Sql
         public readonly string Archive_CheckAliasIsExist =@"SELECT alias FROM $PREFIX_archive
                                 WHERE site_id=@siteId AND (alias=@alias or $PREFIX_archive.str_id=@alias)";
 
+        /// <summary>
+        /// 检查文档路径是否存在
+        /// </summary>
+        public readonly string Archive_CheckArchivePathMatch = @"SELECT id FROM $PREFIX_archive\n
+                               WHERE site_id=@siteId AND path=@path AND id <> @id";
+
+        /// <summary>
+        /// 获取最新的文档编号
+        /// </summary>
+        public readonly string Archive_GetMaxArchiveId = @"SELECT MAX(id) FROM $PREFIX_archive \n
+                               WHERE site_id=@siteId ";
+
+      
 
         /// <summary>
         /// 增加浏览数量
@@ -77,6 +90,12 @@ namespace T2.Cms.Sql
         /// </summary>
         public readonly string Archive_GetArchiveById = @"SELECT * FROM $PREFIX_archive WHERE 
                 site_id=@siteId AND id=@id";
+
+        /// <summary>
+        /// 根据路径获取文档
+        /// </summary>
+        public readonly string Archive_GetArchiveByPath = @"SELECT * FROM $PREFIX_archive \n
+                               WHERE site_id=@siteId AND path=@path";
 
 
         /// <summary>

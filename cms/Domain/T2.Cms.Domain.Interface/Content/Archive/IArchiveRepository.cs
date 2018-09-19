@@ -202,5 +202,13 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <param name="archiveId"></param>
         /// <returns></returns>
         bool CheckPathMatch(int siteId, string path, int archiveId);
+
+        /// <summary>
+        /// 根据路径获取文档
+        /// </summary>
+        /// <param name="siteId">站点编号</param>
+        /// <param name="path">路径</param>
+        /// <returns></returns>
+        IArchive GetArchiveByPath(int siteId, string path);
     }
 }
