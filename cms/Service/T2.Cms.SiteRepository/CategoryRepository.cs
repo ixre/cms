@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using T2.Cms.Dal;
 using T2.Cms.Domain.Implement.Site.Category;
+using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
@@ -17,6 +18,7 @@ namespace T2.Cms.ServiceRepository
     {
         private IExtendFieldRepository _extendRep;
         private CategoryDal categoryDal = new CategoryDal();
+        private ArchiveDal _dal = new ArchiveDal();
         private ISiteRepo __siteRep;
         private ITemplateRepo _tempRep;
 
@@ -371,6 +373,11 @@ namespace T2.Cms.ServiceRepository
         public bool CheckTagMatch(int siteId, int parentCatId, string tag, int catId)
         {
             return categoryDal.CheckTagMatch(siteId, parentCatId, tag, catId);
+        }
+
+        public void ReplaceArchivePath(int siteId, string oldPath, string path)
+        {
+            this._dal.ReplaceArchivePath(siteId, oldPath, path);
         }
     }
 }

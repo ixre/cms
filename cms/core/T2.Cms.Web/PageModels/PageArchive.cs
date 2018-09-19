@@ -28,8 +28,7 @@ namespace T2.Cms.Web
         {
             this.Archive = archive;
         }
-
-
+        
         private static string FormatUrl(UrlRulePageKeys key, params string[] datas)
         {
             string urlFormat = (Settings.TPL_UseFullPath ?
@@ -84,7 +83,7 @@ namespace T2.Cms.Web
                 if (this._url == null)
                 {
                     String prefix = (Settings.TPL_UseFullPath ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath);
-                    this._url = prefix + "/" + this.Archive.Url;
+                    this._url = prefix + "/" + this.Archive.Url+".html";
                 }
                 return this._url;
             }

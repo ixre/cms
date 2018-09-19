@@ -54,13 +54,13 @@ namespace T2.Cms.ServiceRepository
         private IArchive CreateArchiveFromDataReader(DbDataReader rd, IndexOfHandler<String> indexOf)
         {
             CmsArchiveEntity archive = new CmsArchiveEntity();
-            if (indexOf("id") != -1) archive.CatId = Convert.ToInt32(rd["id"]??"0");
+            if (indexOf("id") != -1) archive.ID = Convert.ToInt32(rd["id"]??"0");
             if (indexOf("cat_id") != -1) archive.CatId = Convert.ToInt32(rd["cat_id"]);
             if (indexOf("title") != -1) archive.Title = (rd["title"]??"").ToString();
             if (indexOf("flag") != -1) archive.Flag = Convert.ToInt32(rd["flag"] ?? "0");
             if (indexOf("path") != -1) archive.Path = (rd["path"] ?? "").ToString();
-            if (indexOf("alias") != -1) archive.Path = (rd["alias"] ?? "").ToString();
-            if (indexOf("str_id") != -1) archive.Path = (rd["str_id"] ?? "").ToString();
+            if (indexOf("alias") != -1) archive.Alias = (rd["alias"] ?? "").ToString();
+            if (indexOf("str_id") != -1) archive.StrId = (rd["str_id"] ?? "").ToString();
             if (indexOf("site_id") != -1) archive.SiteId = Convert.ToInt32(rd["site_id"]);
             if (indexOf("small_title") != -1) archive.SmallTitle = (rd["small_title"] ?? "").ToString();
             if (indexOf("flags") != -1) archive.Flags = rd["flags"].ToString();
@@ -120,21 +120,13 @@ namespace T2.Cms.ServiceRepository
         {
             if (a.ID <= 0)
             {
-                _dal.Add(a.SiteId,a.StrId, a.Alias, a.CatId, a.AuthorId, a.Title,
-                    a.SmallTitle, a.Source, a.Thumbnail, a.Outline, a.Content,
-                    a.Tags, a.Flags, a.Location, a.SortNumber);
+                _dal.Add(a);
                 a.ID = _dal.GetMaxArchiveId(a.SiteId);
             }
             else
             {
-                //Update
-                //archive.Thumbnail.IndexOf(CmsVariables.Archive_NoPhoto) != -1) 
-
-                _dal.Update(a.ID, a.CatId, a.Title, a.SmallTitle, a.Alias,
-                    a.Source, a.Thumbnail, a.Outline, a.Content ?? "",
-                    a.Tags, a.Flags, a.Location, a.SortNumber);
+                _dal.Update(a);
             }
-
             return null;
         }
 
@@ -436,5 +428,6 @@ namespace T2.Cms.ServiceRepository
             });
             return archive;
         }
+
     }
 }

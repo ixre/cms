@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
@@ -28,10 +29,12 @@ namespace T2.Cms.Domain.Implement.Site.Category
         private ISiteRepo siteRepo;
         private readonly ITemplateRepo _tempRep;
         private bool _pathChanged = false;
+        private string _oldPath;
         private String[] errTags = new String[] {"public","resouces","config","plugins","bin","data","tmp","install"};
 
         internal Category(ICategoryRepo rep, ISiteRepo siteRepo,
-            IExtendFieldRepository extendRep, ITemplateRepo tmpRep, CmsCategoryEntity value)
+            IExtendFieldRepository extendRep, ITemplateRepo tmpRep, 
+            CmsCategoryEntity value)
         {
             this.value = value;
             this._repo = rep;
@@ -155,8 +158,6 @@ namespace T2.Cms.Domain.Implement.Site.Category
                 this.UpdateCategoryPath();
                 this._pathChanged = false;
             }
-
-
             Error err = this._repo.SaveCategory(this.value);
             if (err == null)
             {
@@ -167,6 +168,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
                     {
                         ic.ForceUpdatePath();
                     }
+                    this._repo.ReplaceArchivePath(this.value.SiteId, this._oldPath, this.value.Path);
                 }
                 // 保存模板
                 if (this._templateChanged)
@@ -192,6 +194,9 @@ namespace T2.Cms.Domain.Implement.Site.Category
         // 更新分类的路径
         private void UpdateCategoryPath()
         {
+            // 旧的路径
+            this._oldPath = this.value.Path;
+            // 计算新的路径
             string path = this.value.Tag;
             ICategory parent = this;
             while (parent != null && (parent = parent.Parent) != null)

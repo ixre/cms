@@ -355,12 +355,12 @@
         {
             get
             {
-                return @"INSERT INTO $PREFIX_archive(site_id,str_id,`alias`,`cat_id`,`author_id`,`title`,small_title,`flags`,`location`,sort_number,
-                                    `source`,`thumbnail`,`outline`,`content`,`tags`,`agree`,`disagree`,view_count,
-                                     `createdate`,`update_time`)VALUES(@siteId,@strId,@alias,@catId,@publisherId,@Title,
-                                    @smallTitle,@Flags,@location,@sortNumber,
-                                    @Source,@thumbnail,@Outline, @Content,@Tags,0,0,1,@CreateDate,
-                                    @LastModifyDate)";
+                return @"INSERT INTO $PREFIX_archive(site_id,str_id,`alias`,`cat_id`,`author_id`,`path`,`flag`,`title`,small_title,`flags`,
+           `location`,sort_number,`source`,`thumbnail`,`outline`,`content`,`tags`,
+            `agree`,`disagree`,view_count,`create_time`,`update_time`)VALUES(@siteId,@strId,@alias,@catId,@authorId,@path,@flag,@title,
+                                    @smallTitle,@flags,@location,@sortNumber,
+                                    @source,@thumbnail,@outline, @content,@tags,0,0,1,@createTime,
+                                    @updateTime)";
             }
         }
 
@@ -379,8 +379,9 @@
         {
             get
             {
-                return @"UPDATE $PREFIX_archive SET `cat_id`=@catId,`title`=@Title,small_title=@smallTitle,sort_number=@sortNumber,`flags`=@flags,
-                        `alias`=@Alias,`location`=@location,`source`=@Source,`thumbnail`=@thumbnail,update_time=@lastmodifyDate,
+                return @"UPDATE $PREFIX_archive SET `cat_id`=@catId,path=@path,flag=@flag,`title`=@Title,small_title=@smallTitle,sort_number=@sortNumber,`flags`=@flags,
+                   `alias`=@Alias,`location`=@location,`source`=@Source,
+`thumbnail`=@thumbnail,update_time=@updateTime,
                         `outline`=@Outline,`content`=@Content,`tags`=@Tags WHERE $PREFIX_archive.id=@id";
             }
         }

@@ -1,4 +1,5 @@
-﻿using T2.Cms.Domain.Interface.Site;
+﻿using T2.Cms.Domain.Interface.Content.Archive;
+using T2.Cms.Domain.Interface.Site;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
 using T2.Cms.Domain.Interface.Site.Template;

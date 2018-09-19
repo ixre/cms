@@ -15,6 +15,7 @@ using T2.Cms.Domain.Interface.Content.Archive;
 using JR.DevFw.Data;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using T2.Cms.Models;
 
 namespace T2.Cms.Dal
 {
@@ -24,32 +25,29 @@ namespace T2.Cms.Dal
         /// 插入文章并返回ID
         /// </summary>
         /// <returns></returns>
-        public bool Add(int siteId,string strId, string alias, int categoryId,
-            int publisherId, string title, string smallTitle, string source, string thumbnail,
-            string outline, string content, string tags, string flags, string location, int sortNumber)
+        public bool Add(CmsArchiveEntity e)
         {
-            string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
-            var pa = new object[,]{
-                {"@siteId",siteId },
-                {"@strId", strId},
-                {"@alias", alias},
-                {"@catId", categoryId},
-                {"@publisherId", publisherId},
-                {"@Title", title},
-                {"@smallTitle", smallTitle??""},
-                {"@Flags",flags},
-                {"@location", location},
-                {"@sortNumber",sortNumber},
-                {"@Source", source??""},
-                {"@thumbnail",thumbnail??""},
-                {"@Outline", outline??""},
-                {"@Content", content},
-                {"@Tags", tags??""},
-                {"@CreateDate",date},
-                {"@LastModifyDate",date}
-                     };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-            int rowcount = base.ExecuteNonQuery(base.NewQuery(DbSql.ArchiveAdd, parameters));
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", e.SiteId);
+            data.Add("@strId", e.StrId);
+            data.Add("@alias", e.Alias);
+            data.Add("@catId", e.CatId);
+            data.Add("@flag", e.Flag);
+            data.Add("@path", e.Path);
+            data.Add("@authorId", e.AuthorId);
+            data.Add("@title", e.Title);
+            data.Add("@smallTitle", e.SmallTitle ?? "");
+            data.Add("@flags", e.Flags);
+            data.Add("@location", e.Location);
+            data.Add("@sortNumber", e.SortNumber);
+            data.Add("@source", e.Source ?? "");
+            data.Add("@thumbnail", e.Thumbnail ?? "");
+            data.Add("@outline", e.Outline ?? "");
+            data.Add("@content", e.Content);
+            data.Add("@tags", e.Tags ?? "");
+            data.Add("@createTime", e.CreateTime);
+            data.Add("@updateTime", e.UpdateTime);
+            int rowcount = base.ExecuteNonQuery(base.CreateQuery(DbSql.ArchiveAdd, data));
             return rowcount == 1;
         }
 
@@ -57,29 +55,29 @@ namespace T2.Cms.Dal
         /// 更新
         /// </summary>
         /// <param name="a"></param>
-        public void Update(int id, int categoryID, string title, string smallTitle, string alias,
-            string source, string thumbnail, string outline, string content,
-            string tags, string flags, string location, int sortNumber)
+        public void Update(CmsArchiveEntity e)
         {
-            string date = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
-            var pa = new object[,]{
-                                {"@catId", categoryID},
-                                {"@Title", title},
-                                {"@smallTitle", smallTitle??""},
-                                {"@Flags", flags},
-                                {"@Alias", alias??""},
-                                {"@location", location},
-                                {"@sortNumber",sortNumber},
-                                {"@Source", source??""},
-                                {"@thumbnail",thumbnail??""},
-                                {"@Outline", outline??""},
-                                {"@Content", content},
-                                {"@Tags", tags??""},
-                                {"@lastModifyDate",date},
-                                {"@id", id}
-                 };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-            base.ExecuteNonQuery(base.NewQuery(DbSql.ArchiveUpdate, parameters));
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", e.SiteId);
+            data.Add("@strId", e.StrId);
+            data.Add("@alias", e.Alias);
+            data.Add("@catId", e.CatId);
+            data.Add("@flag", e.Flag);
+            data.Add("@path", e.Path);
+            data.Add("@authorId", e.AuthorId);
+            data.Add("@title", e.Title);
+            data.Add("@smallTitle", e.SmallTitle ?? "");
+            data.Add("@flags", e.Flags);
+            data.Add("@location", e.Location);
+            data.Add("@sortNumber", e.SortNumber);
+            data.Add("@source", e.Source ?? "");
+            data.Add("@thumbnail", e.Thumbnail ?? "");
+            data.Add("@outline", e.Outline ?? "");
+            data.Add("@content", e.Content);
+            data.Add("@tags", e.Tags ?? "");
+            data.Add("@updateTime", e.UpdateTime);
+            data.Add("@id", e.ID);
+            base.ExecuteNonQuery(base.CreateQuery(DbSql.ArchiveUpdate, data));
         }
 
         /// <summary>
@@ -156,7 +154,7 @@ namespace T2.Cms.Dal
         {
             IDictionary<String, Object> data = new Dictionary<String, Object>();
             data.Add("@siteId", siteId);
-            SqlQuery query = new SqlQuery(DbSql.Archive_GetMaxArchiveId, data);
+            SqlQuery query = base.CreateQuery(DbSql.Archive_GetMaxArchiveId, data);
             return Convert.ToInt32(base.ExecuteScalar(query));
         }
 
@@ -173,7 +171,7 @@ namespace T2.Cms.Dal
             IDictionary<String, Object> data = new Dictionary<String, Object>();
             data.Add("@siteId", siteId);
             data.Add("@path", path);
-            SqlQuery query = new SqlQuery(DbSql.Archive_GetArchiveByPath, data);
+            SqlQuery query = base.CreateQuery(DbSql.Archive_GetArchiveByPath, data);
              base.ExecuteReader(query,func);
         }
 
@@ -468,9 +466,20 @@ namespace T2.Cms.Dal
             data.Add("@siteId", siteId);
             data.Add("@path", path);
             data.Add("@id", archiveId);
-            SqlQuery query = new SqlQuery(DbSql.Archive_CheckArchivePathMatch, data);
+            SqlQuery query = base.CreateQuery(DbSql.Archive_CheckArchivePathMatch, data);
             object obj = base.ExecuteScalar(query);
             return obj == null || obj == DBNull.Value;
+        }
+
+        public void ReplaceArchivePath(int siteId, string oldPath, string path)
+        {
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", siteId);
+            data.Add("@old", oldPath + "/");
+            data.Add("@new", path + "/");
+            data.Add("@keyword", oldPath + "/%");
+            SqlQuery query = base.CreateQuery(DbSql.Archive_ReplaceArchivePath, data);
+            base.ExecuteNonQuery(query);
         }
 
 
