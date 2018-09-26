@@ -9,6 +9,7 @@ using T2.Cms.Infrastructure.Domain;
 using JR.DevFw.Data;
 using JR.DevFw.Framework;
 using JR.DevFw.Framework.Extensions;
+using System.Collections.Generic;
 
 namespace T2.Cms.Web
 {
@@ -59,6 +60,8 @@ namespace T2.Cms.Web
 
         public const string INSTALL_LOCK = "config/install.lock";
 
+
+
         public enum InstallCode
         {
             /// <summary>
@@ -66,6 +69,9 @@ namespace T2.Cms.Web
             /// </summary>
             INSTALLED = 0,
 
+            /// <summary>
+            /// 成功
+            /// </summary>
             SUCCESS = 1,
 
             /// <summary>
@@ -135,7 +141,7 @@ namespace T2.Cms.Web
             string dbStr = "";
 
             #region 检测数据
-            if(String.IsNullOrEmpty(licenceName) || String.IsNullOrEmpty(licenceKey))
+            if (String.IsNullOrEmpty(licenceName) || String.IsNullOrEmpty(licenceKey))
             {
                 return InstallCode.NO_LICENCE;
             }
@@ -163,7 +169,7 @@ namespace T2.Cms.Web
             {
                 if (dbFile == "")
                 {
-                    dbFile ="rd_"+string.Empty.RandomLetters(5)+".db";
+                    dbFile = "rd_" + string.Empty.RandomLetters(5) + ".db";
                 }
                 else if (dbFile.IndexOf(".", StringComparison.Ordinal) == -1)
                 {
@@ -173,7 +179,7 @@ namespace T2.Cms.Web
                 {
                     Directory.CreateDirectory(physical + dbDirName).Create();
                 }
-                dbStr = "Data Source=$ROOT/"+dbDirName+"/" + dbFile;
+                dbStr = "Data Source=$ROOT/" + dbDirName + "/" + dbFile;
             }
             else if (dbType == "oledb")
             {
@@ -186,11 +192,11 @@ namespace T2.Cms.Web
                     dbFile += ".mdb";
                 }
 
-                if (!Directory.Exists(physical +dbDirName))
+                if (!Directory.Exists(physical + dbDirName))
                 {
                     Directory.CreateDirectory(physical + dbDirName).Create();
                 }
-                File.Copy(physical + FILE_DB_OLEDB, physical + dbDirName+"/" + dbFile, true);
+                File.Copy(physical + FILE_DB_OLEDB, physical + dbDirName + "/" + dbFile, true);
                 dbStr = "Data Source=$ROOT/" + dbDirName + "/" + dbFile;
             }
             else
@@ -248,22 +254,92 @@ namespace T2.Cms.Web
             #endregion
 
             #region 初始化数据
+            int siteId = this.InitSite(dbPrefix,siteName, siteDomain,int.Parse(siteLanguage));
+            this.InitUserAndCredential(dbPrefix, userName, userPwd);
 
-            //默认数据为:
-            // cms_sites        siteid为1的站点
-            // cms_category   默认的about分类
-            // cms_usergroup
+            #endregion
 
 
+            //创建安装文件
+            File.Create(String.Concat(physical, INSTALL_LOCK));
+
+            Settings.TurnOffDebug();
+
+            Cms.Init(BootFlag.Normal, null);
+
+            // 重启
+            HttpRuntime.UnloadAppDomain();
+            //AppDomain.Unload(AppDomain.CurrentDomain);
+
+            return InstallCode.SUCCESS;
+        }
+
+        /// <summary>
+        /// 初始化站点
+        /// </summary>
+        /// <param name="dbPrefix"></param>
+        /// <param name="siteName"></param>
+        /// <param name="siteDomain"></param>
+        /// <param name="langugage"></param>
+        /// <returns></returns>
+        private int InitSite(String dbPrefix,string siteName, string siteDomain,int langugage)
+        {
+            IDictionary<String, object> data = new Dictionary<String, Object>();
+            data.Add("@site_id", 1);
+            data.Add("@name", siteName);
+            data.Add("@app_name", "");
+            data.Add("@domain", siteDomain);
+            data.Add("@location", "");
+            data.Add("@language", langugage);
+            data.Add("@tpl", "default");
+            data.Add("@note", "");
+            data.Add("@seo_title", "");
+            data.Add("@seo_keywords", "");
+            data.Add("@seo_description", "");
+            data.Add("@state", 1);
+            data.Add("@pro_tel", "021-88888888");
+            data.Add("@pro_phone", "");
+            data.Add("@pro_fax", "");
+            data.Add("pro_address", "");
+            data.Add("pro_email", "");
+            data.Add("pro_im", "");
+            data.Add("pro_post", "000000");
+            data.Add("pro_notice", "");
+            data.Add("@pro_slogan", "");
             //更新默认站点
             this.db.ExecuteNonQuery(new SqlQuery(
-                String.Format("UPDATE {0}site SET domain=@domain,name=@name,tpl=@tpl,language=@language,seo_title=@name where site_id=1", dbPrefix),
-                new object[,]{
-                    {"@domain",siteDomain},
-                    {"@name",siteName},
-                    {"@tpl","default"},
-                    {"@language",siteLanguage},
-                }));
+                String.Format(@"
+                INSERT INTO {0}site(site_id,name,app_name,domain,location,language,tpl,note,
+                seo_title,seo_keywords,seo_description,state,pro_tel,pro_phone,pro_fax,
+                pro_address,pro_email,pro_im,pro_post,pro_notice,pro_slogan)VALUES(
+                @site_id,@name,@app_name,@domain,@location,@language,@tpl,note,
+                @seo_title,@seo_keywords,@seo_description,@state,@pro_tel,@pro_phone,
+                @pro_fax,@pro_address,@pro_email,@pro_im,@pro_post,@pro_notice,@pro_slogan", dbPrefix), data));
+            object maxId = this.db.ExecuteScalar(new SqlQuery(String.Format("SELECT MAX(id) FROM {0}site", dbPrefix)));
+            return Convert.ToInt32(maxId);
+        }
+
+        /// <summary>
+        /// 初始化用户信息
+        /// </summary>
+        /// <param name="dbPrefix"></param>
+        /// <param name="userName"></param>
+        /// <param name="userPwd"></param>
+        private void InitUserAndCredential(string dbPrefix,string userName, string userPwd)
+        {
+            // 创建用户组
+            String sql = String.Format("INSERT INTO {0}usergroup (id,name,permissions) VALUES (@id,@name,@permissions)", dbPrefix);
+            SqlQuery[] queries = new SqlQuery[5] {
+                new SqlQuery(sql,CreateUserGroupParameters(1, "超级管理员", "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,"+
+                "22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42")),
+                new SqlQuery(sql,this.CreateUserGroupParameters(2,"管理员",
+                "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,40,41,42")),
+                new SqlQuery(sql,this.CreateUserGroupParameters(3,"编辑","1,2,3,4,5,6,10,11,12,13,14,15")),
+                new SqlQuery(sql,this.CreateUserGroupParameters(4,"会员","1,2,3,4,5,6")),
+                new SqlQuery(sql,this.CreateUserGroupParameters(5,"游客","3,4"))
+            };
+            this.db.ExecuteNonQuery(queries);
+
 
             //创建管理用户
             DateTime dt = DateTime.Now;
@@ -287,24 +363,23 @@ namespace T2.Cms.Web
                     {"@userName",userName},
                     {"@password",Generator.Sha1Pwd(userPwd, Generator.Offset)},
                 }));
-
-            #endregion
-
-
-            //创建安装文件
-            File.Create(String.Concat(physical, INSTALL_LOCK));
-
-            Settings.TurnOffDebug();
-
-            Cms.Init(BootFlag.Normal,null);
-
-            // 重启
-            HttpRuntime.UnloadAppDomain();
-            //AppDomain.Unload(AppDomain.CurrentDomain);
-
-            return InstallCode.SUCCESS;
         }
 
+        /// <summary>
+        /// 创建用户组SQL参数
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="permissions"></param>
+        /// <returns></returns>
+        private IDictionary<string, object> CreateUserGroupParameters(int id, string name, string permissions)
+        {
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@id", 1);
+            data.Add("@name", name);
+            data.Add("@permissions", permissions);
+            return data;
+        }
 
         private DataBaseAccess db;
 
