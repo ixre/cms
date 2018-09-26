@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.22, for osx10.8 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
--- Host: 192.168.31.129    Database: cms
+-- Host: 127.0.0.1    Database: cms
 -- ------------------------------------------------------
--- Server version	5.5.41-MariaDB
+-- Server version	5.5.5-10.2.15-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,29 +25,34 @@ DROP TABLE IF EXISTS `cms_archive`;
 CREATE TABLE `cms_archive` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `str_id` varchar(16) NOT NULL,
-  `alias` varchar(50) DEFAULT NULL,
-  `cid` int(11) NOT NULL,
-  `author_id` varchar(50) DEFAULT NULL,
+  `site_id` int(11) NOT NULL COMMENT '站点编号',
+  `alias` varchar(50) DEFAULT NULL COMMENT ' 别名',
+  `cat_id` int(11) NOT NULL COMMENT '栏目编号',
+  `path` varchar(180) NOT NULL COMMENT '文档路径',
+  `flag` int(8) NOT NULL COMMENT '文档标志',
+  `author_id` int(11) NOT NULL COMMENT '作者编号',
   `title` varchar(100) DEFAULT NULL,
   `small_title` varchar(100) DEFAULT NULL,
   `location` varchar(150) DEFAULT NULL,
-  `sort_number` int(50) DEFAULT '0',
+  `sort_number` int(50) DEFAULT 0,
   `source` varchar(50) DEFAULT NULL,
   `tags` varchar(100) DEFAULT NULL,
   `outline` varchar(255) DEFAULT NULL,
-  `content` text,
-  `view_count` int(11) DEFAULT '0',
+  `content` text DEFAULT NULL,
+  `view_count` int(11) DEFAULT 0,
   `agree` int(11) DEFAULT NULL,
   `disagree` int(11) DEFAULT NULL,
   `createdate` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
+  `lastmodifydate` datetime DEFAULT NULL,
   `flags` varchar(100) DEFAULT '{st:''''0'''',sc:''''0'''',v:''''1'''',p:''''0''''}',
   `thumbnail` varchar(150) DEFAULT NULL,
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  `update_time` int(11) NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `id_index` (`id`,`alias`),
-  KEY `cid_index` (`cid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  KEY `cid_index` (`cat_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +61,6 @@ CREATE TABLE `cms_archive` (
 
 LOCK TABLES `cms_archive` WRITE;
 /*!40000 ALTER TABLE `cms_archive` DISABLE KEYS */;
-INSERT INTO `cms_archive` VALUES (2,'cms','welcome',2,'1','欢迎使用JRCms .NET',NULL,NULL,0,NULL,NULL,NULL,'<div style=\\\"text-align:center;font-size:30px\\\"><h2>欢迎使用JRCms .NET!</h2></div>',0,NULL,NULL,'2015-08-01 00:00:00','2015-08-01 00:00:00','{st:\'0\',sc:\'0\',v:\'1\',p:\'0\'}',NULL);
 /*!40000 ALTER TABLE `cms_archive` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,9 +72,13 @@ DROP TABLE IF EXISTS `cms_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_category` (
-  `id` int(11) NOT NULL,
-  `site_id` int(11) DEFAULT '1',
-  `module_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `site_id` int(11) NOT NULL DEFAULT 1 COMMENT '站点编号',
+  `parent_id` int(11) NOT NULL COMMENT '上级编号',
+  `code` varchar(40) NOT NULL COMMENT '代码',
+  `path` varchar(180) NOT NULL COMMENT '路径',
+  `flag` int(8) NOT NULL COMMENT '标记',
+  `module_id` int(11) NOT NULL COMMENT '模块编号',
   `tag` varchar(100) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `icon` varchar(150) DEFAULT NULL,
@@ -80,9 +88,9 @@ CREATE TABLE `cms_category` (
   `page_keywords` varchar(200) DEFAULT NULL,
   `page_description` varchar(250) DEFAULT NULL,
   `location` varchar(150) DEFAULT NULL COMMENT '跳转到的地址',
-  `sort_number` int(11) NOT NULL DEFAULT '0',
+  `sort_number` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +99,6 @@ CREATE TABLE `cms_category` (
 
 LOCK TABLES `cms_category` WRITE;
 /*!40000 ALTER TABLE `cms_category` DISABLE KEYS */;
-INSERT INTO `cms_category` VALUES (1,1,1,'root','根栏目','',1,4,'','','','',0),(2,1,1,'cms','欢迎使用','',2,3,'','','','',0);
 /*!40000 ALTER TABLE `cms_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +139,7 @@ CREATE TABLE `cms_comment` (
   `archiveid` varchar(16) DEFAULT NULL,
   `memberid` int(11) DEFAULT NULL,
   `ip` varchar(20) DEFAULT NULL,
-  `content` text,
+  `content` text DEFAULT NULL,
   `recycle` tinyint(1) DEFAULT NULL,
   `createdate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -162,7 +169,7 @@ CREATE TABLE `cms_credential` (
   `password` varchar(50) DEFAULT NULL,
   `enabled` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +245,7 @@ DROP TABLE IF EXISTS `cms_link`;
 CREATE TABLE `cms_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pid` int(11) DEFAULT NULL,
-  `site_id` int(11) DEFAULT '1',
+  `site_id` int(11) DEFAULT 1,
   `type` int(11) NOT NULL,
   `text` varchar(100) NOT NULL,
   `uri` varchar(255) NOT NULL,
@@ -248,7 +255,7 @@ CREATE TABLE `cms_link` (
   `sort_number` int(11) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +264,6 @@ CREATE TABLE `cms_link` (
 
 LOCK TABLES `cms_link` WRITE;
 /*!40000 ALTER TABLE `cms_link` DISABLE KEYS */;
-INSERT INTO `cms_link` VALUES (1,0,1,2,'JR-CMS.NET','http://to2.net/cms/cms/','_blank',NULL,NULL,2,1),(2,0,1,1,'首页','/',NULL,NULL,NULL,1,1),(3,0,1,1,'欢迎使用','/cms/welcome.html',NULL,NULL,NULL,2,1);
 /*!40000 ALTER TABLE `cms_link` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +278,7 @@ CREATE TABLE `cms_log` (
   `id` varchar(30) NOT NULL,
   `typeid` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `content` text,
+  `content` text DEFAULT NULL,
   `helplink` varchar(255) DEFAULT NULL,
   `recorddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -384,16 +390,16 @@ DROP TABLE IF EXISTS `cms_modules`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cms_modules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `siteid` int(1) DEFAULT '1',
+  `siteid` int(1) DEFAULT 1,
   `name` varchar(50) NOT NULL,
   `issystem` tinyint(1) DEFAULT NULL,
   `isdelete` tinyint(1) DEFAULT NULL,
-  `extid1` int(11) DEFAULT '0',
-  `extid2` int(11) DEFAULT '0',
-  `extid3` int(11) DEFAULT '0',
-  `extid4` int(11) DEFAULT '0',
+  `extid1` int(11) DEFAULT 0,
+  `extid2` int(11) DEFAULT 0,
+  `extid3` int(11) DEFAULT 0,
+  `extid4` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -402,7 +408,6 @@ CREATE TABLE `cms_modules` (
 
 LOCK TABLES `cms_modules` WRITE;
 /*!40000 ALTER TABLE `cms_modules` DISABLE KEYS */;
-INSERT INTO `cms_modules` VALUES (1,0,'自定义页面',1,0,0,0,0,0),(2,0,'文档',1,0,0,0,0,0);
 /*!40000 ALTER TABLE `cms_modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,7 +422,7 @@ CREATE TABLE `cms_operation` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL,
-  `available` tinyint(1) DEFAULT '0',
+  `available` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -445,7 +450,7 @@ CREATE TABLE `cms_related_link` (
   `content_id` int(11) DEFAULT NULL,
   `related_site_id` int(11) DEFAULT NULL,
   `related_indent` int(5) DEFAULT NULL,
-  `related_content_id`  int(11) DEFAULT NULL,
+  `related_content_id` int(11) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -490,8 +495,30 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `cms_site`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE cms_site (site_id int(11) NOT NULL AUTO_INCREMENT comment '站点编号', name varchar(50) NOT NULL comment '名称', domain varchar(50) NOT NULL comment '域名', app_name varchar(50) NOT NULL comment '应用名称', location varchar(100) NOT NULL comment '重定向URL', language int(1) NOT NULL comment '语言', tpl varchar(100) NOT NULL comment '模板', note varchar(200) NOT NULL comment '备注', seo_title varchar(200) NOT NULL comment 'SEO标题', seo_keywords varchar(250) NOT NULL comment 'SEO关键词', seo_description varchar(250) NOT NULL comment 'SEO描述', state int(1) NOT NULL comment '站点状态', pro_tel varchar(50) NOT NULL comment '电话', pro_phone varchar(11) NOT NULL comment '移动电话', pro_fax varchar(50) NOT NULL comment '传真', pro_address varchar(100) NOT NULL comment '地址', pro_email varchar(100) NOT NULL comment '邮箱', pro_im varchar(100) NOT NULL comment '即时通讯', pro_post varchar(100) NOT NULL comment '邮编', pro_notice varchar(250) NOT NULL comment '公告', pro_slogan varchar(250) NOT NULL comment '标语', PRIMARY KEY (site_id)) comment='站点';
-
+CREATE TABLE `cms_site` (
+  `site_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL COMMENT '站点名称',
+  `app_name` varchar(50) NOT NULL COMMENT '应用名称',
+  `domain` varchar(50) NOT NULL COMMENT '域名',
+  `location` varchar(100) NOT NULL COMMENT '重定向URL',
+  `language` int(1) NOT NULL,
+  `tpl` varchar(100) DEFAULT NULL,
+  `note` varchar(200) DEFAULT NULL,
+  `seo_title` varchar(200) DEFAULT NULL,
+  `seo_keywords` varchar(250) DEFAULT NULL,
+  `seo_description` varchar(250) DEFAULT NULL,
+  `state` int(1) NOT NULL,
+  `pro_tel` varchar(50) DEFAULT NULL,
+  `pro_phone` varchar(11) DEFAULT NULL,
+  `pro_fax` varchar(50) DEFAULT NULL,
+  `pro_address` varchar(100) DEFAULT NULL,
+  `pro_email` varchar(100) DEFAULT NULL,
+  `pro_im` varchar(100) DEFAULT NULL,
+  `pro_post` varchar(100) DEFAULT NULL,
+  `pro_notice` varchar(250) DEFAULT NULL,
+  `pro_slogan` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`site_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -500,10 +527,6 @@ CREATE TABLE cms_site (site_id int(11) NOT NULL AUTO_INCREMENT comment '站点�
 
 LOCK TABLES `cms_site` WRITE;
 /*!40000 ALTER TABLE `cms_site` DISABLE KEYS */;
-INSERT INTO `cms_site`
-(site_id, name, domain, app_name, location, language, tpl, note, seo_title, seo_keywords, seo_description, state, pro_tel, pro_phone, pro_fax, pro_address, pro_email, pro_im, pro_post, pro_notice, pro_slogan)
- VALUES (1,'默认站点','','','',1,'default','','默认站点-Speicial Cms .NET!',
-'','',1,'','','','','','','','JR-CMS.NET是一款跨平台支持多站点基于ASP.NET MVC技术架构的内容管理系统!','');
 /*!40000 ALTER TABLE `cms_site` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -623,7 +646,7 @@ CREATE TABLE `cms_tpl_bind` (
   `bind_type` int(2) NOT NULL,
   `tpl_path` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -632,6 +655,7 @@ CREATE TABLE `cms_tpl_bind` (
 
 LOCK TABLES `cms_tpl_bind` WRITE;
 /*!40000 ALTER TABLE `cms_tpl_bind` DISABLE KEYS */;
+INSERT INTO `cms_tpl_bind` VALUES (1,4,3,'category.case.html'),(2,4,4,'archive.case.html'),(3,2,4,'archive.about.html'),(4,7,3,'category.news.html'),(5,5,3,'category.partner.html'),(6,23,5,'archive.agent-dm.html'),(19,3,3,'category.product.html'),(8,24,5,'product-wechat-card.html'),(9,25,5,'product-wechat-employee.html'),(10,27,5,'product-cashier-demo.html'),(11,31,5,'product-finance-demo.html'),(12,30,5,'product-marketing-demo.html'),(13,29,5,'product-customer-demo.html'),(14,28,5,'product-order-demo.html'),(15,26,5,'product-set-up-demo.html'),(17,42,5,'product-cashier-demo_new.html'),(18,43,5,'product-warehouse-demo.html'),(20,50,5,'archive'),(21,3,5,'archive');
 /*!40000 ALTER TABLE `cms_tpl_bind` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -678,7 +702,7 @@ CREATE TABLE `cms_user_role` (
   `app_id` int(11) NOT NULL,
   `flag` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -711,7 +735,6 @@ CREATE TABLE `cms_usergroup` (
 
 LOCK TABLES `cms_usergroup` WRITE;
 /*!40000 ALTER TABLE `cms_usergroup` DISABLE KEYS */;
-INSERT INTO `cms_usergroup` VALUES (1,'超级管理员','1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42'),(2,'管理员','1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,40,41,42'),(3,'编辑','1,2,3,4,5,6,10,11,12,13,14,15'),(4,'会员','1,2,3,4,5,6'),(5,'游客','3,4'),(0,NULL,NULL);
 /*!40000 ALTER TABLE `cms_usergroup` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -724,4 +747,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-23 15:45:16
+-- Dump completed on 2018-09-25 19:38:44

@@ -132,7 +132,7 @@ namespace T2.Cms.Web.WebManager.Handle
             if (path.ToLower().IndexOf("config/cms.conf", StringComparison.Ordinal) != -1)
                 throw new ArgumentException();
 
-            string mode = "htmlmixed";
+            string mode = "html";
             string dependJs = "/public/assets/code_editor/mode/htmlmixed/htmlmixed.js";
 
             FileInfo file, bakfile;
