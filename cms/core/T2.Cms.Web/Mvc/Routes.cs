@@ -225,7 +225,7 @@ namespace T2.Cms.Web.Mvc
         /// </summary>
         public static void RegisterCmsRoutes(RouteCollection routes, Type cmsHandleType)
         {
-            if (!Cms.Installed)
+            if (!Cms.IsInstalled())
             {
                 //安装路由
                 routes.Add("install_route", new Route("install/process", new CmsInstallHandler()));

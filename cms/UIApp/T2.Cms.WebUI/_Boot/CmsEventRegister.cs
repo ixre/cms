@@ -25,7 +25,7 @@ namespace T2.Cms
         public static void Init()
         {
             //读取站点
-            if (Cms.Installed)
+            if (Cms.IsInstalled())
             {
                 Cms.RegSites(SiteCacheManager.GetAllSites().ToArray());
             }

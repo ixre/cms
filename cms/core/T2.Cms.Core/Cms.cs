@@ -51,7 +51,11 @@ namespace T2.Cms
         /// <summary>
         /// 是否已经安装
         /// </summary>
-        public static readonly Boolean Installed;
+        public static Boolean IsInstalled()
+        {
+            FileInfo insLockFile = new FileInfo(String.Format("{0}/config/install.lock", PyhicPath));
+            return insLockFile.Exists;
+        }
 
         /// <summary>
         /// 是否为正式环境
@@ -192,9 +196,6 @@ namespace T2.Cms
             }
 
 
-            //判断是否已经安装
-            FileInfo insLockFile = new FileInfo(String.Format("{0}/config/install.lock", Cms.PyhicPath));
-            Installed = insLockFile.Exists;
 
             //初始化
             Plugins = new CmsPluginContext();
@@ -232,6 +233,7 @@ namespace T2.Cms
              */
             #endregion
         }
+        
 
 
         /// <summary>
@@ -240,7 +242,7 @@ namespace T2.Cms
         public static void Init(BootFlag flag,String confPath)
         {
             BeforeInit();
-            if (!Installed) return;
+            if (!IsInstalled()) return;
             //初始化目录
             ChkCreate(CmsVariables.TEMP_PATH);
             // 加载配置
