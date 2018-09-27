@@ -122,10 +122,6 @@ namespace T2.Cms.Domain.Implement.Site
             bool create = this.GetAggregaterootId() <= 0;
             int siteId = _siteRepository.SaveSite(this);
             this.value.SiteId = siteId;
-            if (create)
-            {
-                this.initSiteCategories();
-            }
             return this.GetAggregaterootId();
         }
 
@@ -173,34 +169,10 @@ namespace T2.Cms.Domain.Implement.Site
             {
                 if (this._categories == null)
                 {
-                    reload:
-                    var categories =  this._categoryRep.GetCategories(this.GetAggregaterootId());
-                    if (categories == null || categories.Count == 0)
-                    {
-                        this.initSiteCategories();
-                        goto reload;
-                    }
-                    this._categories = categories;
+                    this._categories =  this._categoryRep.GetCategories(this.GetAggregaterootId());
                 }
                 return this._categories;
             }
-        }
-
-        private void initSiteCategories()
-        {
-            ICategory ic = this._categoryRep.CreateCategory(new CmsCategoryEntity());
-            CmsCategoryEntity cat = new CmsCategoryEntity();
-            cat.Name = "根栏目";
-            cat.Tag = "root";
-            cat.SortNumber = 1;
-            cat.ParentId = 0;
-            cat.Description = "";
-            cat.Icon = "";
-            cat.Keywords = "";
-            cat.Location = "";
-            cat.Title = "";
-            Error err = ic.Set(cat);
-            ic.Save();
         }
 
         public ICategory RootCategory

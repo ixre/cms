@@ -179,8 +179,19 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
 
                 #region 保存扩展属性
+                if (this.ExtendFields != null)
+                {
+                    IList<int> extendIds = new List<int>();
+                    foreach (IExtendField field in this.ExtendFields)
+                    {
+                        if (!extendIds.Contains(field.GetDomainId()))
+                        {
+                            extendIds.Add(field.GetDomainId());
+                        }
+                    }
+                    this._extendRep.UpdateCategoryExtends(this.GetDomainId(), extendIds.ToArray());
+                }
 
-                this._extendRep.UpdateCategoryExtends(this);
 
                 #endregion
 

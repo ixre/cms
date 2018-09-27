@@ -149,9 +149,9 @@ namespace T2.Cms.Web.WebManager.Handle
             }
             catch (Exception exc)
             {
-               return base.ReturnError(exc.Message);
+               return base.ReturnError(exc.Message+"<br />"+exc.StackTrace);
             }
-            return base.ReturnSuccess(siteIsExist ? "站点保存成功!" : "站点创建成功!");
+            return base.ReturnSuccess(siteIsExist ? "站点保存成功" : "站点创建成功");
         }
     }
 }

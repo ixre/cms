@@ -130,7 +130,7 @@ namespace T2.Cms.DataTransfer
         /// 站点使用语言
         /// </summary>
         [FormField("language", Group = "basic", Text = "国际化/语言",IsRequired = true)]
-        [SelectField(UseDrop = true, Data = "英语(Unit States)=1;中文简体(Chinese Simplified)=2;中文繁体(Chinese Traditional)=3;西班牙语(Spanish)=4;法语(French)=5;泰语(Thai)=6;俄语(Russian)=7;阿拉伯语(Arabic)=8")]
+        [SelectField(UseDrop = true, Data = "中文简体(Chinese Simplified)=2;中文繁体(Chinese Traditional)=3;英语(Unit States)=1;西班牙语(Spanish)=4;法语(French)=5;泰语(Thai)=6;俄语(Russian)=7;阿拉伯语(Arabic)=8")]
         public Languages Language { get; set; }
 
 

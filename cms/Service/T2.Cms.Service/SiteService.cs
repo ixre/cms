@@ -123,7 +123,7 @@ namespace T2.Cms.Service
         }
 
 
-        public int SaveExtendField(int siteId, ExtendFieldDto dto)
+        public Result SaveExtendField(int siteId, ExtendFieldDto dto)
         {
             ISite site = this._resp.GetSiteById(siteId);
             if (site == null)
@@ -131,7 +131,14 @@ namespace T2.Cms.Service
 
             IExtendField field = this._extendRep.CreateExtendField(dto.Id, dto.Name);
             field.CloneData(dto);
-            return site.GetExtendManager().SaveExtendField(field);
+            Error err =  site.GetExtendManager().SaveExtendField(field);
+            Result r = new Result();
+            if(err != null)
+            {
+                r.ErrCode = 1;
+                r.ErrMsg = err.Message;
+            }
+            return r;
         }
 
 
@@ -494,7 +501,7 @@ namespace T2.Cms.Service
             IExtendField toField = this.GetExtendFieldByName(toSiteId, extendField.Name, extendField.Type);
             if (toField == null)
             {
-                int id = this.SaveExtendField(toSiteId, new ExtendFieldDto
+                Result r = this.SaveExtendField(toSiteId, new ExtendFieldDto
                 {
                     DefaultValue = extendField.DefaultValue,
                     Message = extendField.Message,
@@ -502,7 +509,10 @@ namespace T2.Cms.Service
                     Name = extendField.Name,
                     Type = extendField.Type,
                 });
-                toField = new ExtendField(id, extendField.Name);
+                if (r.ErrCode <= 0)
+                {
+                    toField = new ExtendField(0, extendField.Name);
+                }
             }
             return toField;
         }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Site.Extend;
+using T2.Cms.Infrastructure;
 
 namespace T2.Cms.Domain.Implement.Site.Extend
 {
@@ -33,8 +35,15 @@ namespace T2.Cms.Domain.Implement.Site.Extend
             }
         }*/
 
-        public int SaveExtendField(IExtendField extendField)
+        public Error SaveExtendField(IExtendField extendField)
         {
+            if (String.IsNullOrEmpty(extendField.Name))
+            {
+                return new Error("请输入属性名称");
+            }
+            if (String.IsNullOrEmpty(extendField.Type)) {
+                return new Error("请选择属性类型");
+            }
             return _rep.SaveExtendField(this.SiteId, extendField);
         }
 

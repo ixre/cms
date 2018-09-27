@@ -133,9 +133,8 @@ namespace T2.Cms.WebManager
         //初始化资源
         private static void initialize()
         {
-            if (pageSrcs == null || pageSrcs.Count == 0)
+            if (pageSrcs == null)
             {
-
                 //IsOuterLink=System.IO.File.Exists(String.Concat(Cms.PyhicPath,"//frameworkadmin/lock"));
 
                 pageSrcs = new Dictionary<ManagementPage, String>();
