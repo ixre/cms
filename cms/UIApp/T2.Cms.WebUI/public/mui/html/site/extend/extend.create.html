@@ -30,7 +30,7 @@
         <script type="text/javascript">
             jr.$('btn').onclick = function () {
                 if (jr.validator.validate('extend_form')) {
-                    jr.xhr.jsonPost('?module=extend&action=save',
+                    jr.xhr.jsonPost('?xhr=1&module=extend&action=save',
                         jr.json.toObject('extend_form'),
                         function (json) {
                             if (json.result) {

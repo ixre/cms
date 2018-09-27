@@ -298,7 +298,7 @@
                    showMsg2('请填写内容！');
                     return false;
                 }*/
-
+                data["xhr"] = 1;
                 jr.xhr.jsonPost('${url}', data, function (json) {
                     if (json.result) {
                         jr.dialog.alert('文档保存成功！', function() {

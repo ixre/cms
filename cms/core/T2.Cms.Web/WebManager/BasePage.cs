@@ -246,14 +246,14 @@ namespace T2.Cms.WebManager
         internal string ReturnSuccess(string message,string data)
         {
             StringBuilder sb = new StringBuilder();
-            if (this.Request["json"] == "1")
+            if (this.Request["json"] == "1" || this.Request["xhr"] != null)
             {
-                sb.Append("{'result':true,'message':'");
+                sb.Append("{\"result\":true,\"message\":\"");
                 if (message != null)
                 {
-                    sb.Append(message.Replace("'", "\\'"));
+                    sb.Append(message.Replace("\"", "\\\""));
                 }
-                sb.Append("',data:'").Append(data).Append("'}");
+                sb.Append("\",\"data\":\"").Append(data).Append("\"}");
                 this.Response.ContentType = "application/json";
             }
             else
@@ -282,14 +282,14 @@ namespace T2.Cms.WebManager
         internal string ReturnError(string message)
         {
             StringBuilder sb = new StringBuilder();
-            if (this.Request["json"] == "1")
+            if (this.Request["json"] == "1" || this.Request["xhr"] != null)
             {
-                sb.Append("{'result':false,'message':'");
+                sb.Append("{\"result\":false,\"message\":\"");
                 if (message != null)
                 {
-                    sb.Append(message.Replace("'", "\\'").Replace("\\n",""));
+                    sb.Append(message.Replace("\"", "\\\"").Replace("\\n",""));
                 }
-                sb.Append("'}");
+                sb.Append("\"}");
                 this.Response.ContentType = "application/json";
             }
             else

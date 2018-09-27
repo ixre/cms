@@ -82,7 +82,7 @@ $js()
         add: Fn.create,
         setavailable: function(id) {
             (function(_this) {
-                jr.xhr.jsonPost('?', 'module=user&action=setuserstate&username=' + id,
+                jr.xhr.jsonPost('?', 'xhr=1&module=user&action=setuserstate&username=' + id,
                     function(json) {
                         if (json.result) {
                             showMsg2('操作成功！');
@@ -106,7 +106,7 @@ $js()
     }
     function delRec(id) {
         if (confirm('确定删除吗?删除后将不可恢复!')) {
-            jr.xhr.jsonPost('?module=user&action=DeleteUser','id=' + id,
+            jr.xhr.jsonPost('?xhr=1&module=user&action=DeleteUser','id=' + id,
                 function (json) {
                     if (json.result) {
                         _dg.reload();

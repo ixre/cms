@@ -178,7 +178,7 @@ $js()
                 }
 
 
-                jr.xhr.jsonPost('?module=link&action=save_related_link', data, function (json) {
+                jr.xhr.jsonPost('?xhr=1&module=link&action=save_related_link', data, function (json) {
                     if (json.result) {
                         showMsg2(json.message, function() { _dg.reload(); });
                     } else {
@@ -258,7 +258,7 @@ $js()
                     contentId:linkData.ContentId,
                     contentType: linkData.ContentType
                 };
-                jr.xhr.jsonPost('?module=link&action=delete_related_link', d,
+                jr.xhr.jsonPost('?xhr=1&module=link&action=delete_related_link', d,
                     function(json) {
                         if (json.result) {
                             _dg.reload();

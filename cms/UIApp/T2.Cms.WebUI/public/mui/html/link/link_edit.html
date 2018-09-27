@@ -204,7 +204,7 @@
 
         var currentGuess = null;
         jr.each(jr.dom.getsByClass(jr.$('dataPanel'), 'archiveGuess'), function (i, e) {
-            jr.autoCompletion(e, '?module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true&site_id=${site_id}', function (data) {
+            jr.autoCompletion(e, '?xhr=1&module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true&site_id=${site_id}', function (data) {
                 currentGuess = null;
                 for (var j = 0; j < data.length; j++) {
                     data[j].text =data[j].title;
@@ -262,7 +262,7 @@
 
             if (jr.validator.validate()) {
                 jr.xhr.jsonPost(
-                       '?module=link&action=save'
+                       '?xhr=1&module=link&action=save'
                        , jr.json.toObject('dataPanel')
                        , function (json) {
                            if (json.result) {

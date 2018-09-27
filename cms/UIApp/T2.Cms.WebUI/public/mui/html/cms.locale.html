@@ -186,14 +186,14 @@ $js()
     }
 
     function loadKeys(type) {
-        jr.xhr.jsonPost('?module=system&action=GetLocaleJson', { type: type }, function(d) {
+        jr.xhr.jsonPost('?xhr=1&module=system&action=GetLocaleJson', { type: type }, function(d) {
             writeToBody(d);
         });
     }
     loadKeys(currentType);
     jr.$('btn_create').onclick = function() {
         var key = jr.$('keyName').value;
-        jr.xhr.jsonPost("?module=system&action=CreateNewLocaleKey", { key: key }, function(r) {
+        jr.xhr.jsonPost("?xhr=1&module=system&action=CreateNewLocaleKey", { key: key }, function(r) {
             if (r.result) {
                 showMsg2('创建成功');
                 loadKeys(currentType);
@@ -213,7 +213,7 @@ $js()
         var data = jr.json.toObject('locale-data');
         var t = this;
         t.disabled = true;
-        jr.xhr.jsonPost('?module=system&action=SaveLocale', data, function (r) {
+        jr.xhr.jsonPost('?xhr=1&module=system&action=SaveLocale', data, function (r) {
             t.disabled = false;
             if (r.result) {
                 jr.dialog.alert('保存成功', function () { loadKeys(currentType); });
@@ -226,7 +226,7 @@ $js()
     function delKey(k) {
         jr.dialog.confirm('请在删除之前，确定是否保存更改？', function(b) {
             if (b) {
-                jr.xhr.jsonPost("?module=system&action=DelLocaleKey", { key: k }, function (r) {
+                jr.xhr.jsonPost("?xhr=1&module=system&action=DelLocaleKey", { key: k }, function (r) {
                     if (r.result) {
                         jr.dialog.alert('删除成功', function () { loadKeys(currentType); });
                     } else {

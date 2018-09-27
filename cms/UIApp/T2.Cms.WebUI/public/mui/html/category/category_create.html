@@ -208,7 +208,9 @@
         window.saveData = function () {
             if (jr.validator.validate('form1')) {
                 var data = jr.json.toObject('form1');
+                data["xhr"] = 1;
                 if(data.IsRedirect=='0')data.Location='';
+
                 jr.xhr.jsonPost(
                      '${url}',
                      data,

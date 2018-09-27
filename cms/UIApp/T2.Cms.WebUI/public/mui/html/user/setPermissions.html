@@ -74,7 +74,7 @@ $js()
     }
     if(permisstionStr.length>0)permisstionStr=permisstionStr.replace(/\|$/,'');
 
-    jr.xhr.post('?','module=user&action=updatepermission&groupid=${groupID}&permissions='+permisstionStr,
+    jr.xhr.post('?','xhr=1&module=user&action=updatepermission&groupid=${groupID}&permissions='+permisstionStr,
       function(x){ showMsg2('更新权限成功！');},function(x){alert(x);});
   };
 </script>
