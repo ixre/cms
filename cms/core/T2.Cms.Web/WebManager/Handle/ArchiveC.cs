@@ -793,7 +793,7 @@ namespace T2.Cms.Web.WebManager.Handle
 
 
                 sb.Append("<p class=\"comment\"><img src=\"").Append(avatar).Append("\" /><span class=\"time\">")
-                .Append(String.Format("{0:yyyy-MM-dd HH:mm:ss}", dr["createdate"])).Append("</span><span class=\"details\"><a href=\"#\">")
+                .Append(String.Format("{0:yyyy-MM-dd HH:mm:ss}", dr["create_time"])).Append("</span><span class=\"details\"><a href=\"#\">")
                 .Append(nickName).Append("</a><br />").Append(content).Append("</span><span class=\"floor\">")
                 .Append(i.ToString()).Append("楼</span><span class=\"control\"><a href=\"javascript:;\" onclick=\"remove(this,'").Append(dr["id"].ToString()).Append("')\">删除</a></span></p>");
                 ++i;

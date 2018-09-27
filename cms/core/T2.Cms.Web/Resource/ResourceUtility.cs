@@ -25,7 +25,7 @@ namespace T2.Cms.Resource
     {
         public static string CompressHtml(string html)
         {
-
+            //return html;
             html = Regex.Replace(html, ">(\\s)+<", "><");
 
             //替换 //单行注释

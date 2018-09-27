@@ -219,7 +219,7 @@ namespace T2.Cms.Sql
 
                 return @"SELECT * FROM (SELECT a.id AS id,str_id,alias,title,
                         a.location,thumbnail,c.name as categoryName,[cat_id],[flags],author_id,[content],
-                        [source],[createDate],view_count,
+                        [source],[create_time],view_count,
 						ROW_NUMBER()OVER(ORDER BY $[orderByField] $[orderASC]) as rowNum
 						FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
                         ON a.cat_id=c.ID WHERE $[condition]) _t
@@ -377,9 +377,9 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"SELECT $PREFIX_comment.ID as cat_id,[IP],[content],[createDate],
+                return @"SELECT $PREFIX_comment.ID as cat_id,[IP],[content],[create_time],
                        $PREFIX_member.ID as uid,[Avatar],[NickName] FROM $PREFIX_comment INNER JOIN $PREFIX_member ON
-                       $PREFIX_comment.[memberID]=$PREFIX_member.[ID] WHERE [archiveID]=@archiveID ORDER BY [createDate] DESC";
+                       $PREFIX_comment.[memberID]=$PREFIX_member.[ID] WHERE [archiveID]=@archiveID ORDER BY [create_time] DESC";
             }
         }
 

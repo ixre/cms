@@ -222,7 +222,7 @@
             {
                 return @" SELECT a.`id` AS `id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,
                         c.`name` as categoryName,`cat_id`,`flags`,`author_id`,`content`,`source`,
-                        `createDate`,view_count FROM $PREFIX_archive a
+                        `create_time`,view_count FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON c.id=a.cat_id
                         WHERE a.id IN (SELECT id FROM (SELECT a.`id` AS `id` FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON a.cat_id=c.ID
@@ -368,7 +368,7 @@
         {
             get
             {
-                return @"SELECT $PREFIX_comment.`id` as cat_id,`IP`,`content`,`createDate`,
+                return @"SELECT $PREFIX_comment.`id` as cat_id,`IP`,`content`,`create_time`,
                        $PREFIX_member.`id` as uid,`avatar`,`nickname` FROM $PREFIX_comment 
                         INNER JOIN $PREFIX_member ON $PREFIX_comment.`memberID`=$PREFIX_member.`id`
                         WHERE `archiveid`=@archiveID ORDER BY `createdate` DESC";

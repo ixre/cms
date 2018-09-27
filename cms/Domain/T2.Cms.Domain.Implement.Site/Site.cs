@@ -422,28 +422,7 @@ namespace T2.Cms.Domain.Implement.Site
             }
             */
         }
-        
-        /// <summary>
-        /// 获取栏目树Json格式
-        /// </summary>
-        /// <returns></returns>
-        public TreeNode GetCategoryTree(int lft)
-        {
-            ICategory root = lft == 1 ?
-                this.RootCategory :
-                this.GetCategoryByLft(lft);
-
-            var node = lft == 1 ?
-                new TreeNode(this.value.Name, "1", "javascript:;", true, "") :
-                new TreeNode(root.Get().Name, String.Format("{0}cid:{1},lft:1{2}", "{", root.GetDomainId().ToString(), "}"),
-                    "javascript:;", true, "");
-
-            ItrNodeTree(node, root);
-
-            return node;
-        }
-
-
+       
 
         public TreeNode GetCategoryTreeWithRootNode()
         {
@@ -460,7 +439,7 @@ namespace T2.Cms.Domain.Implement.Site
         {
             int catId = cat.GetDomainId();
             String path = cat.Get().Path;
-            return String.Format("{0}'cid':{1},'path':'{2}'{3}", "{",
+            return String.Format("{0}\"cid\":{1},\"path\":\"{2}\"{3}", "{",
                 catId.ToString(),path, "}");
         }
 

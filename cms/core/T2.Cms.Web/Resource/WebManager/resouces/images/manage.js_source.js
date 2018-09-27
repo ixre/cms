@@ -21,6 +21,19 @@ var cms = j6;
 //库目录
 jr.libpath = '/public/assets/';
 
+function unix2str(unix) {
+    var dt = new Date(unix);
+    var y = dt.getFullYear();
+    var m = dt.getMonth() + 1;
+    var d = dt.getDay();
+    var h = dt.getHours();
+    var mn = dt.getMinutes();
+    var s = dt.getSeconds();
+    return y.concat("-").concat(m > 10 ? m : "0" + m).concat("-").concat(d > 10 ? d : "0" + d).concat(" ")
+        .concat(h > 10 ? h : "0" + h).concat(":").concat(mn > 10 ? mn : "0" + mn).concat(":")
+        .concat(s > 10 ? s : "0" + s);
+}
+
 /***  AJAX ***/
 function showMsg(msg, callback, second, notMask) {
     var win = window.parent || window;
