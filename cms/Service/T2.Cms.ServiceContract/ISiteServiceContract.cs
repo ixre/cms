@@ -59,7 +59,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="siteId"></param>
         /// <param name="dto"></param>
         /// <returns></returns>
-        int SaveExtendField(int siteId,ExtendFieldDto dto);
+        Result SaveExtendField(int siteId,ExtendFieldDto dto);
 
         /// <summary>
         /// 

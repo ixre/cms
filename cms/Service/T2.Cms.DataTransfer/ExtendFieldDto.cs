@@ -28,7 +28,7 @@ namespace T2.Cms.DataTransfer
         /// <summary>
         /// 属性名称
         /// </summary>
-        [FormField("Name", Text = "属性名称", IsRequired = true, Length = "[0,30]", Descript = "属性的唯一标识")]
+        [FormField("Name", Text = "属性名称", IsRequired = true, Length = "[1,30]", Descript = "属性的唯一标识")]
         public string Name { get; set; }
 
         /// <summary>

@@ -22,7 +22,6 @@ namespace T2.Cms.Web.WebManager.Handle
 
         public string Fields_GET()
         {
-
             string form = EntityForm.Build<ExtendFieldDto>(new ExtendFieldDto());
             ViewData["form"] = form;
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Extend_List));
@@ -113,16 +112,13 @@ namespace T2.Cms.Web.WebManager.Handle
 
         public string SaveExtendField_POST()
         {
-            try
+            ExtendFieldDto extend = this.Request.Form.ConvertToEntity<ExtendFieldDto>();
+            Result r = ServiceCall.Instance.SiteService.SaveExtendField(this.SiteId, extend);
+            if (r.ErrCode > 0)
             {
-                ExtendFieldDto extend = this.Request.Form.ConvertToEntity<ExtendFieldDto>();
-                int result = ServiceCall.Instance.SiteService.SaveExtendField(this.SiteId, extend);
-                return base.ReturnSuccess();
+                return base.ReturnError(r.ErrMsg);
             }
-            catch (Exception exc)
-            {
-                return base.ReturnError(exc.Message);
-            }
+            return base.ReturnSuccess();
         }
     }
 }

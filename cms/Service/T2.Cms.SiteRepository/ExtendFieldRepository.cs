@@ -7,6 +7,7 @@ using T2.Cms.Domain.Implement.Site.Extend;
 using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Extend;
+using T2.Cms.Infrastructure;
 
 namespace T2.Cms.ServiceRepository
 {
@@ -51,23 +52,25 @@ namespace T2.Cms.ServiceRepository
             return dicts.ContainsKey(siteId) ? dicts[siteId] : new List<IExtendField>();
         }
 
-        public int SaveExtendField(int siteId, IExtendField extendField)
+        public Error SaveExtendField(int siteId, IExtendField extendField)
         {
-
-            if (extendField.GetDomainId() > 0)
+            try
             {
-                _extendDal.UpdateExtendField(siteId, extendField);
+                if (extendField.GetDomainId() > 0)
+                {
+                    _extendDal.UpdateExtendField(siteId, extendField);
+                }
+                else
+                {
+                    _extendDal.AddExtendField(siteId, extendField);
+                }
+                this.dicts = null;
             }
-            else
+            catch(Exception ex)
             {
-                //todo: fix
-               // extendField.GetDomainId() = _extendDal.AddExtendField(siteId, extendField);
+                return new Error(ex.Message);
             }
-
-            //清理
-            this.dicts = null;
-
-            return extendField.GetDomainId();
+            return null;
         }
 
         public IExtendField GetExtendFieldById(int siteId, int extendId)
@@ -229,17 +232,9 @@ namespace T2.Cms.ServiceRepository
         }
 
 
-        public void UpdateCategoryExtends(ICategory category)
+        public void UpdateCategoryExtends(int catId, int[] extendIdArray)
         {
-            IList<int> extendIds = new List<int>();
-            foreach (IExtendField field in category.ExtendFields)
-            {
-                if (!extendIds.Contains(field.GetDomainId()))
-                {
-                    extendIds.Add(field.GetDomainId());
-                }
-            }
-            this._extendDal.UpdateCategoryExtendsBind(category.GetDomainId(), extendIds.ToArray());
+            this._extendDal.UpdateCategoryExtendsBind(catId, extendIdArray);
         }
 
 

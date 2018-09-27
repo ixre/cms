@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using T2.Cms.Infrastructure;
 
 namespace T2.Cms.Domain.Interface.Site.Extend
 {
@@ -7,7 +8,7 @@ namespace T2.Cms.Domain.Interface.Site.Extend
         int SiteId { get; }
         IList<IExtendField> GetAllExtends();
         //<IExtendField> GetExtends(bool enabled);
-        int SaveExtendField(IExtendField extendField);
+        Error SaveExtendField(IExtendField extendField);
         bool DeleteExtendAttr(int extendFieldId);
         IExtendField GetExtendField(int extendId);
         IExtendField GetExtendFieldByName(string extendName);

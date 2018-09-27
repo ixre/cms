@@ -2,6 +2,7 @@
 using System.Data.Common;
 using T2.Cms.Domain.Interface.Content.Archive;
 using T2.Cms.Domain.Interface.Site.Category;
+using T2.Cms.Infrastructure;
 
 namespace T2.Cms.Domain.Interface.Site.Extend
 {
@@ -17,7 +18,7 @@ namespace T2.Cms.Domain.Interface.Site.Extend
 
         IEnumerable<IExtendField> GetExtendFields(int siteId, int categoryId);
 
-        int SaveExtendField(int siteId, IExtendField extendField);
+        Error SaveExtendField(int siteId, IExtendField extendField);
 
         bool DeleteExtendField(int fieldId,int extendFieldId);
 
@@ -35,7 +36,7 @@ namespace T2.Cms.Domain.Interface.Site.Extend
         /// 更新栏目的扩展属性
         /// </summary>
         /// <param name="category"></param>
-        void UpdateCategoryExtends(ICategory category);
+        void UpdateCategoryExtends(int catId,int[] extendIdArray);
 
         IExtendField GetExtendByName(int siteId, string name, string type);
     }
