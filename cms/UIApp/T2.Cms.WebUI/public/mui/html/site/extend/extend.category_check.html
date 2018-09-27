@@ -77,7 +77,7 @@
 
 
             jr.xhr.jsonPost('${url}',
-                'extendIds='+extendIdStr,
+                'xhr=1&extendIds='+extendIdStr,
                 function (json) { 
                     if (json.result) {
                         jr.dialog.close();

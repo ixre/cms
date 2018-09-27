@@ -177,6 +177,7 @@ $js()
                 includeExtend: jr.$('ck_with_extend').checked,
                 includeTemplateBind: jr.$('ck_with_templateBind').checked,
                 includeRelatedLink: jr.$('ck_with_relatedLink').checked,
+                xhr:1
         };
             jr.xhr.jsonPost('${post_url}', data,function(j) {
                 if (j.result) {

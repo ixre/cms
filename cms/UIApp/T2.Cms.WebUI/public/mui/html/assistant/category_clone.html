@@ -168,7 +168,8 @@ $js()
                 toCid: toNode.id,
                 includeChild: jr.$('ck_with_child').checked,
                 includeExtend: jr.$('ck_with_extend').checked,
-                includeTemplateBind: jr.$('ck_with_templateBind').checked
+                includeTemplateBind: jr.$('ck_with_templateBind').checked,
+                xhr:1
             };
             jr.xhr.jsonPost(location.href, data,function(j) {
                 if (j.result) {

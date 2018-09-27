@@ -94,7 +94,7 @@
 
     window.saveData = function () {
         if (jr.validator.validate()) {
-            jr.xhr.jsonPost('?module=user&action=SaveUser', jr.json.toObject(document), function (json) {
+            jr.xhr.jsonPost('?xhr=1&module=user&action=SaveUser', jr.json.toObject(document), function (json) {
                 if (json.result) {
                     var dialog = jr.dialog.getDialog();
                     dialog.window._dg.reload();

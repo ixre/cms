@@ -191,7 +191,7 @@ $js()
         }
 
         function loadTemplateList() {
-            jr.xhr.jsonPost('?module=template&action=getListJson', { tpl: '${tpl}' }, function(d) {
+            jr.xhr.jsonPost('?xhr=1&module=template&action=getListJson', { tpl: '${tpl}' }, function(d) {
                 writeToBody(d);
             });
         }
@@ -201,7 +201,7 @@ $js()
             var data = jr.json.toObject('data-list');
             var t = this;
             t.disabled = true;
-            jr.xhr.jsonPost('?module=template&action=SaveNames&tpl=${tpl}', data, function (r) {
+            jr.xhr.jsonPost('?xhr=1&module=template&action=SaveNames&tpl=${tpl}', data, function (r) {
                 t.disabled = false;
                 if (r.result) {
                     jr.dialog.alert('保存成功', function () { loadTemplateList(); });

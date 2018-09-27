@@ -233,7 +233,7 @@ $js()
             if (ckList.length === 0) {
                 alert('请先选择文档');
             } else if (confirm('确定删除吗?删除后将不可恢复!')) {
-                jr.xhr.jsonPost('?', 'module=archive&action=batch_delete&id_array=' + ckList.join(','),
+                jr.xhr.jsonPost('?', 'xhr=1&module=archive&action=batch_delete&id_array=' + ckList.join(','),
                     function(json) {
                         if (!json.result) {
                             showErr('部分文档删除失败！原因：'+json.message);
@@ -304,7 +304,7 @@ $js()
             //删除文档
             del: function (id) {
                 if (confirm('确定删除吗?删除后将不可恢复!')) {
-                    jr.xhr.jsonPost('?', 'module=archive&action=delete&archive.id=' + id,
+                    jr.xhr.jsonPost('?', 'xhr=1&module=archive&action=delete&archive.id=' + id,
                     function (json) {
                         if (json.result) {
                             jr.$('pl').innerHTML = '';
@@ -326,7 +326,7 @@ $js()
                 jr.load2('pl', 'archive', 'comment', 'desc=true&archive.id=' + id);
             },
             moveSortNumber: function (id,val) {
-                jr.xhr.jsonPost('?', 'module=archive&action=moveSortNumber&archive.id=' + id+'&direction='+val,
+                jr.xhr.jsonPost('?', 'xhr=1&module=archive&action=moveSortNumber&archive.id=' + id+'&direction='+val,
                   function (json) {
                       if (json.result) {
                           _dg.reload();
@@ -337,7 +337,7 @@ $js()
             },
             //重新发布
             republish: function (id) {
-                jr.xhr.jsonPost('?', 'module=archive&action=republish&archive.id=' + id,
+                jr.xhr.jsonPost('?', 'xhr=1&module=archive&action=republish&archive.id=' + id,
                   function (json) {
                       if (json.result) {
                           showMsg2('已经刷新最后更新时间！');

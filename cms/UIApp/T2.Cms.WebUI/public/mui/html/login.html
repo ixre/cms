@@ -86,6 +86,7 @@
                 }
                 jr.json.bind('loginForm', formData);
                 formData.pwd_join = '';
+                formData["xhr"] = 1;
 
                 jr.xhr.jsonPost(location.href, formData, function (json) {
                     if (json.result) {

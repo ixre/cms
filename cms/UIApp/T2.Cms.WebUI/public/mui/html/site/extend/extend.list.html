@@ -63,7 +63,7 @@
                 var data = jr.json.toObject('pl');
                 data.contentId = jr.request('contentId');
                 data.typeIndent = jr.request('type');
-                jr.xhr.jsonPost('?module=extend&action=SaveExtendField', data, function (json) {
+                jr.xhr.jsonPost('?xhr=1&module=extend&action=SaveExtendField', data, function (json) {
                     if (json.result) {
                         _dg.reload();
                     }
@@ -133,7 +133,7 @@
                         contentId: jr.request('contentId'),
                         typeIndent: jr.request('type')
                     };
-                    jr.xhr.jsonPost('?module=extend&action=save', data,
+                    jr.xhr.jsonPost('?xhr=1&module=extend&action=save', data,
                         function (json) {
                             if (json.result) {
                                 _dg.reload();
