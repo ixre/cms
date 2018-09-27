@@ -363,7 +363,7 @@ function initSites() {
 
 //加载用户状态
 jr.$('custom_menu').innerHTML = jr.$('headerOper').innerHTML;
-jr.hover(document.getElementsByClassName('ribbon-menu')[0]);
+//jr.hover(document.getElementsByClassName('ribbon-menu')[0]);
 
 window.M = {
     dialog: function (id, title, url, isAjax, width, height, closeCall) {

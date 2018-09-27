@@ -30,7 +30,7 @@ public class FileJsonExplor
 	/// <returns></returns>
 	private static string ReturnError(string message)
 	{
-		return "{error:'"+message.Replace("'","\\'")+"'}";
+		return "{\"error\":\""+message.Replace("'","\\'")+"\"}";
 	}
 
 	public static string GetJson(string dir_abs_path)
@@ -71,11 +71,11 @@ public class FileJsonExplor
 		};
 
 		//父目录
-		sb.Append("{parent:'").Append(isRoot ? "/" : dir.Parent.Name).Append("',");
+		sb.Append("{\"parent\":\"").Append(isRoot ? "/" : dir.Parent.Name).Append("\",");
 
 		//获取目录下的文件夹
 		int i = 0;
-		sb.Append("dirs:[");
+		sb.Append("\"dirs\":[");
 		DirectoryInfo[] dirs = dir.GetDirectories();
 
 		foreach (DirectoryInfo d in dirs)
@@ -83,29 +83,29 @@ public class FileJsonExplor
 			if((d.Attributes & FileAttributes.Hidden)!=FileAttributes.Hidden)
 			{
 				sb.Append(i++==0?"":",");
-				sb.Append("{name:'").Append(d.Name).Append("',dirnum:")
-					.Append(d.GetDirectories().Length).Append(",filenum:")
-					.Append(d.GetFiles().Length).Append(",system:0}");
+				sb.Append("{\"name\":\"").Append(d.Name).Append("\",\"dirnum\":")
+					.Append(d.GetDirectories().Length).Append(",\"filenum\":")
+					.Append(d.GetFiles().Length).Append(",\"system\":0}");
 			}
 		}
 		sb.Append("],");
 
 		//获取目录下的文件
 		i = 0;
-		sb.Append("files:[");
+		sb.Append("\"files\":[");
 		FileInfo[] files = dir.GetFiles();
 		foreach (FileInfo f in files)
 		{
 			if((f.Attributes & FileAttributes.Hidden)!=FileAttributes.Hidden)
 			{
 				sb.Append(i++==0?"":",");
-				sb.Append("{name:'").Append(f.Name).Append("',len:")
-					.Append(f.Length.ToString()).Append(",date:'")
+				sb.Append("{\"name\":\"").Append(f.Name).Append("\",\"len\":")
+					.Append(f.Length.ToString()).Append(",\"date\":\"")
 					.Append(String.Format("{0:yyyy-MM-dd HH:mm:ss}",f.CreationTime))
-					.Append("',mdate:'").Append(String.Format("{0:yyyy-MM-dd HH:mm:ss}",f.LastWriteTime))
-					.Append("',readonly:").Append(
+					.Append("\",\"mdate\":\"").Append(String.Format("{0:yyyy-MM-dd HH:mm:ss}",f.LastWriteTime))
+					.Append("\",\"readonly\":").Append(
 						(Array.Find(readOnlyFiles,str=>String.Compare(str,f.Name,true)==0)!=null || (f.Attributes|FileAttributes.ReadOnly)==FileAttributes.ReadOnly?1:0).ToString())
-					.Append(",system:0}");
+					.Append(",\"system\":0}");
 			}
 		}
 		sb.Append("]}");
@@ -128,8 +128,8 @@ public class FileJsonExplor
 			              	}
 			              });
 
-			Regex reg = new Regex("\\{name:'(" + sysPat + ")'([^(sys)]+)system:0\\}", RegexOptions.IgnoreCase);
-			result = reg.Replace(result, "{name:'$1'$2system:1}");
+			Regex reg = new Regex("\\{\"name\":\"(" + sysPat + ")\"([^(sys)]+)system\":0\\}", RegexOptions.IgnoreCase);
+			result = reg.Replace(result, "{\"name\":\"$1\"$2system\":1}");
 		}
 		return result;
 	}
