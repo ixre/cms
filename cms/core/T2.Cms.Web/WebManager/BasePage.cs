@@ -340,9 +340,9 @@ namespace T2.Cms.WebManager
         /// <param name="pager"></param>
         internal void PagerJson(object rows, string pager)
         {
-            const string fmt = "{'pager':'%pager%','rows':%html%}";
+            const string fmt = "{\"pager\":\"%pager%\",\"rows\":%html%}";
             this.Response.Write(fmt.Template(
-               pager.Replace("'", "\\'"),
+               pager.Replace("\"", "\\\""),
                JsonSerializer.Serialize(rows)
                ));
             this.Response.ContentType = "application/json";

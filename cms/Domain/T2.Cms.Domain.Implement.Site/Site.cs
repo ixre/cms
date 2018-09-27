@@ -439,7 +439,7 @@ namespace T2.Cms.Domain.Implement.Site
         {
             int catId = cat.GetDomainId();
             String path = cat.Get().Path;
-            return String.Format("{0}\"cid\":{1},\"path\":\"{2}\"{3}", "{",
+            return String.Format("{0}'cid':{1},'path':'{2}'{3}", "{",
                 catId.ToString(),path, "}");
         }
 

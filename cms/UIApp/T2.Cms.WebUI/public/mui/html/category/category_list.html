@@ -81,7 +81,7 @@
             <a href="javascript:;"><span>$icon(refresh)</span>向下移动</a>
         </div>
         <div class="line"></div>
-         <div class="item" onclick="window.menu.add('%id%')">
+         <div class="item" onclick="window.menu.edit('%id%')">
             <a href="javascript:;"><span>$icon(edit)</span>编辑</a>
         </div>
         <div class="line"></div>
@@ -100,20 +100,17 @@
     jr.dom.fitHeight(jr.$('main'));
     jr.dom.fitHeight(jr.$('pl'));
     var siteId = ${site_id};
-    var treePanel = jr.$('dg');
     var treeObj = null;
+    var treePannel = $b.$fn("#dg");
     var tmpTpl = jr.$('tpl').innerHTML;
     function _showCategory(src, d, t) {
+        d = d.replace(/'/g, "\"");
         var id = JSON.parse(d).cid;
-        jr.load2('pl', 'category', 'update', 'category_id=' + id);
-        // 设置选择背景
-        var nodeLinks = jr.dom.getsByClass(treePanel, 'node');
-        jr.each(nodeLinks, function(i, e) {
-            if (e.nodeName === 'DIV') {
-                e.style.backgroundColor='';
-            }
-        });
-        src.parentNode.style.backgroundColor="#FBEC88";
+        if (id > 0) {
+            jr.load2('pl', 'category', 'update', 'category_id=' + id);
+            treePannel.find("DIV.node").css({ "background": "none" });
+            src.parent().css({ background: "#FBEC88" });
+        }
     }
 
     //加载栏目树
@@ -123,25 +120,25 @@
             method: 'GET',
             data: 'json'
         }, {
-             success: function (json) {
-                treeObj = jr.tree.load(treePanel, json, '/public/assets/tree/', _showCategory);
-                var nodeLinks;
-                jr.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
-                    if (e.className == 'node') {
-                        nodeLinks = e.getElementsByClassName
-                            ? e.getElementsByClassName('node')
-                            : document.getElementsByClassName('node', e);
-                        if (nodeLinks.length != 0) {
-                            var id = JSON.parse(nodeLinks[0].getAttribute('node-value')).cid;
-                            e.title = '鼠标右键更多功能';
-                            jr.contextmenu.bind(e, null, function (menu) {
-                                menu.innerHTML = jr.template(tmpTpl, { id: id });
-                            });
+                success: function (json) {
+                treeObj = jr.tree.load("dg", json, '/public/assets/tree/', _showCategory);
+                    $b.$fn("#dg DIV").each(function (i, e) {
+                        if (e.hasClass("node")) {
+                            var nodeLinks = e.find(".node");
+                            if (nodeLinks.len() > 0) {
+                                var nv = nodeLinks.get(0).attr('node-value').replace(/'/g,"\"");
+                                var id = JSON.parse(nv)["cid"];
+                                if (id > 0) {
+                                    e.title = '鼠标右键更多功能';
+                                    jr.contextmenu.bind(e.elem(), null, function (menu) {
+                                        menu.innerHTML = jr.template(tmpTpl, { id: id });
+                                    });
+                                }
+                            }
                         }
-                    }
-                });
+                    });
             }, error: function () {
-                treePanel.innerHTML = '<span class="error">栏目加载失败! </span>';
+                treePanel.html('<span class="error">栏目加载失败! </span>');
             }
         });
     }
@@ -169,7 +166,7 @@ window.menu = {
         d.open('?module=extend&action=category_check&category_id=' + id, 500, 300);
 
     },
-    edit:function(id) {
+    edit: function (id) {
         jr.load2('pl', 'category', 'update', 'category_id=' + id);
     },  
     moveSortNumber: function (id,val) {
