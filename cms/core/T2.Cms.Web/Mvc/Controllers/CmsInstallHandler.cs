@@ -10,6 +10,7 @@ using JR.DevFw.Data;
 using JR.DevFw.Framework;
 using JR.DevFw.Framework.Extensions;
 using System.Collections.Generic;
+using T2.Cms.Domain.Interface.Site.Category;
 
 namespace T2.Cms.Web
 {
@@ -256,6 +257,8 @@ namespace T2.Cms.Web
             #region 初始化数据
             int siteId = this.InitSite(dbPrefix,siteName, siteDomain,int.Parse(siteLanguage));
             this.InitUserAndCredential(dbPrefix, userName, userPwd);
+            int catId = this.InitCategory(dbPrefix, siteId);
+            this.InitArchive(dbPrefix, siteId, catId);
 
             #endregion
 
@@ -272,6 +275,67 @@ namespace T2.Cms.Web
             //AppDomain.Unload(AppDomain.CurrentDomain);
 
             return InstallCode.SUCCESS;
+        }
+
+        private void InitArchive(string dbPrefix, int siteId, int catId)
+        {
+            int unix = TimeUtils.Unix(DateTime.Now);
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId",siteId);
+            data.Add("@strId", "welcome");
+            data.Add("@alias", "welcome");
+            data.Add("@catId", catId);
+            data.Add("@flag",1);
+            data.Add("@path", "cms/welcome");
+            data.Add("@authorId",1);
+            data.Add("@title", "欢迎使用JRCms.NET");
+            data.Add("@smallTitle", "");
+            data.Add("@flags","");
+            data.Add("@location", "");
+            data.Add("@sortNumber", 1);
+            data.Add("@source","");
+            data.Add("@thumbnail", "");
+            data.Add("@outline",  "");
+            data.Add("@content", "<div style=\\\"text-align:center;font-size:30px\\\"><h2>欢迎使用JRCms.NET!</h2></div>");
+            data.Add("@tags", "{st:\'0\',sc:\'0\',v:\'1\',p:\'0\'}");
+            data.Add("@createTime", unix);
+            data.Add("@updateTime", unix);
+            String sql = String.Format(@"INSERT INTO {0}archive(
+              site_id,str_id,alias,cat_id,author_id,path,flag,title,small_title,flags,
+              location,sort_number,source,thumbnail,outline,content,tags,
+              agree,disagree,view_count,create_time,update_time)VALUES(
+              @siteId,@strId,@alias,@catId,@authorId,@path,@flag,@title, @smallTitle,@flags,
+              @location,@sortNumber, @source,@thumbnail,@outline, @content,
+              @tags,0,0,1,@createTime, @updateTime)", dbPrefix);
+            this.db.ExecuteNonQuery(new SqlQuery(sql, data));
+        }
+
+        private int InitCategory(string dbPrefix, int siteId)
+        {
+            String tag = "cms";
+            IDictionary<String, object> data = new Dictionary<string, object>();
+            data.Add("@tag",tag);
+            data.Add("@site_id", siteId);
+            data.Add("@parent_id", 0);
+            data.Add("@code", "");
+            data.Add("@path",tag);
+            data.Add("@flag", CategoryFlag.Enabled);
+            data.Add("@module_id",0);
+            data.Add("@name", "cms");
+            data.Add("@icon", "");
+            data.Add("@page_title", "JRCMS");
+            data.Add("@page_keywords", "");
+            data.Add("@page_description", "");
+            data.Add("@location", "");
+            data.Add("@sort_number",1);
+            String sql = String.Format(@"INSERT INTO {0}category (tag, site_id, parent_id, code, path, flag, 
+                    module_id, name, icon, page_title, page_keywords, page_description, 
+                    location, sort_number) VALUES(@tag,@site_id,@parent_id,@code,@path,@flag,@module_id,@name,
+                    @icon,@page_title,@page_keywords,@page_description,@location,@sort_number)",dbPrefix);
+
+            this.db.ExecuteNonQuery(new SqlQuery(sql, data));
+            object maxId = this.db.ExecuteScalar(new SqlQuery(String.Format("SELECT MAX(id) FROM {0}category", dbPrefix)));
+            return Convert.ToInt32(maxId);
         }
 
         /// <summary>
@@ -314,8 +378,8 @@ namespace T2.Cms.Web
                 pro_address,pro_email,pro_im,pro_post,pro_notice,pro_slogan)VALUES(
                 @site_id,@name,@app_name,@domain,@location,@language,@tpl,note,
                 @seo_title,@seo_keywords,@seo_description,@state,@pro_tel,@pro_phone,
-                @pro_fax,@pro_address,@pro_email,@pro_im,@pro_post,@pro_notice,@pro_slogan", dbPrefix), data));
-            object maxId = this.db.ExecuteScalar(new SqlQuery(String.Format("SELECT MAX(id) FROM {0}site", dbPrefix)));
+                @pro_fax,@pro_address,@pro_email,@pro_im,@pro_post,@pro_notice,@pro_slogan)", dbPrefix), data));
+            object maxId = this.db.ExecuteScalar(new SqlQuery(String.Format("SELECT MAX(site_id) FROM {0}site", dbPrefix)));
             return Convert.ToInt32(maxId);
         }
 
@@ -375,7 +439,7 @@ namespace T2.Cms.Web
         private IDictionary<string, object> CreateUserGroupParameters(int id, string name, string permissions)
         {
             IDictionary<String, Object> data = new Dictionary<String, Object>();
-            data.Add("@id", 1);
+            data.Add("@id", id);
             data.Add("@name", name);
             data.Add("@permissions", permissions);
             return data;
@@ -383,6 +447,13 @@ namespace T2.Cms.Web
 
         private DataBaseAccess db;
 
+        /// <summary>
+        /// 释放数据库
+        /// </summary>
+        /// <param name="dbType"></param>
+        /// <param name="connStr"></param>
+        /// <param name="dbPrefix"></param>
+        /// <returns></returns>
         private bool ExtraDB(string dbType, string connStr, string dbPrefix)
         {
             DataBaseType type = DataBaseType.MySQL;
@@ -416,10 +487,6 @@ namespace T2.Cms.Web
                 return execDbScript(dbPrefix, ref sql, sqlScript);
             }
             return true;
-            //else if (type == DataBaseType.SQLServer)
-            //{
-            //    sqlScript = String.Concat(Cms.PyhicPath, MSSQL_INSTALL_SCRIPT);
-            //}
         }
 
         /// <summary>
@@ -457,10 +524,5 @@ namespace T2.Cms.Web
 
             return true;
         }
-
-        //public void InitDB()
-        //{
-        //   ExtraDB("mysql", "server=0345cc.gotoftp3.com;database=0345cc;uid=0345cc;pwd=tangweibing", "t_");
-        //}
     }
 }

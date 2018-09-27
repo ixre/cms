@@ -98,7 +98,11 @@ namespace T2.Cms
         /// </summary>
         internal static bool IsInitFinish { get; set; }
 
-
+        /// <summary>
+        /// 请求是否为静态资源
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
         public static bool IsStaticRequest(HttpContext ctx)
         {
             String path = ctx.Request.Path;
