@@ -335,7 +335,7 @@ namespace T2.Cms.Web.WebManager.Handle
         public void Tree_GET()
         {
 
-            TreeNode node = ServiceCall.Instance.SiteService.GetCategoryTreeNode(this.SiteId, 1);
+            TreeNode node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(this.SiteId);
 
             BuiltCacheResultHandler<String> bh = () =>
             {

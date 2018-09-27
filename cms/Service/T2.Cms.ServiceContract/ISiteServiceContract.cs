@@ -149,14 +149,7 @@ namespace T2.Cms.ServiceContract
         /// <returns></returns>
         CategoryDto GetParentCategory(int siteId, int lft);
 
-        /// <summary>
-        /// 获取栏目树
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <returns></returns>
-        TreeNode GetCategoryTreeNode(int siteId, int lft);
-
+     
         /// <summary>
         /// 获取栏目树，包含根节点
         /// </summary>

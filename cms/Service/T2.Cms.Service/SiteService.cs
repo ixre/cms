@@ -284,12 +284,6 @@ namespace T2.Cms.Service
         }
 
 
-        public TreeNode GetCategoryTreeNode(int siteId, int lft)
-        {
-            ISite site = this._resp.GetSiteById(siteId);
-            return site.GetCategoryTree(lft);
-        }
-
         public TreeNode GetCategoryTreeWithRootNode(int siteId)
         {
             ISite site = this._resp.GetSiteById(siteId);

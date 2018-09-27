@@ -140,7 +140,7 @@ $js()
 
     function treeChecked(from,a, d) {
         a.className = 'node node-selelected';
-        var json = jr.toJson(d);
+        var json = JSON.parse(d);
         toNode = { id: json.cid, name: a.innerHTML };
         absMsg();
     }

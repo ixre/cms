@@ -104,7 +104,7 @@
     var treeObj = null;
     var tmpTpl = jr.$('tpl').innerHTML;
     function _showCategory(src, d, t) {
-        var id = jr.toJson(d).cid;
+        var id = JSON.parse(d).cid;
         jr.load2('pl', 'category', 'update', 'category_id=' + id);
         // 设置选择背景
         var nodeLinks = jr.dom.getsByClass(treePanel, 'node');
@@ -123,7 +123,7 @@
             method: 'GET',
             data: 'json'
         }, {
-            success: function (json) {
+             success: function (json) {
                 treeObj = jr.tree.load(treePanel, json, '/public/assets/tree/', _showCategory);
                 var nodeLinks;
                 jr.each(treePanel.getElementsByTagName('DIV'), function (i, e) {
@@ -132,7 +132,7 @@
                             ? e.getElementsByClassName('node')
                             : document.getElementsByClassName('node', e);
                         if (nodeLinks.length != 0) {
-                            var id = jr.toJson(nodeLinks[0].getAttribute('node-value')).cid;
+                            var id = JSON.parse(nodeLinks[0].getAttribute('node-value')).cid;
                             e.title = '鼠标右键更多功能';
                             jr.contextmenu.bind(e, null, function (menu) {
                                 menu.innerHTML = jr.template(tmpTpl, { id: id });

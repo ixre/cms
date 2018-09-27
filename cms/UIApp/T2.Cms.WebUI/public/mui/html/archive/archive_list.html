@@ -140,6 +140,7 @@ $js()
             include_child:false
         };
 
+        
         pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 50);
         pagerPram.include_child = jr.$('ck_child').checked;
         var _dg = jr.datagrid('dg', {
@@ -153,7 +154,7 @@ $js()
                             id:row.id,
                             index: (index + 1),
                             title: val.length > 25 ? val.substring(0, 25) + '...' : val,
-                            publish: row.createDate.replace('T', ' '),
+                            publish: unix2str(row["create_time"]).substring(0,16),
                             viewCount:row.view_count
                         });
                     }

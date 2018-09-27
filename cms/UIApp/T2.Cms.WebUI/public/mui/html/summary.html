@@ -110,7 +110,7 @@ $js()
 		    e.innerHTML = '正在从服务器获取版本...';
 		    e.className = '';
 		    jr.xhr.get('?module=ajax&action=checkupgrade', function (rsp) {
-		        var ver = jr.toJson(rsp);
+		        var ver = JSON.parse(rsp);
                 if (ver.result === 1) {
                     e.className = 'new-version';
                     e.innerHTML = '新版本可升级：v' + ver.version + '&nbsp;<a class="button" href="javascript:;" onclick="confirmUpgrade(false)">点击升级</a>';

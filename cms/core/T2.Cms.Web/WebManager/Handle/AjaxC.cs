@@ -313,7 +313,7 @@ namespace T2.Cms.Web.WebManager.Handle
         /// </summary>
         public void CheckUpgrade_GET()
         {
-            const string upgradeTpl = "{result:%result%,message:'%msg%',version:'%ver%',log:'%log%'}";
+            const string upgradeTpl = "{\"result\":%result%,\"message\":\"%msg%\",\"version\":\"%ver%\",\"log\":\"%log%\"}";
 
             string message = "未知异常";
             string changeLog = String.Empty;
@@ -339,8 +339,8 @@ namespace T2.Cms.Web.WebManager.Handle
 
             base.Response.Write(
                 upgradeTpl.Replace("%result%", result.ToString())
-                .Replace("%msg%", message.Replace("'", "\\'")).Replace("%ver%", verResult[0])
-                .Replace("%log%", changeLog.TrimStart().Replace("'", "\\'").Replace("\n", "<br />").Replace("\r", ""))
+                .Replace("%msg%", message.Replace("\"", "\\\"")).Replace("%ver%", verResult[0])
+                .Replace("%log%", changeLog.TrimStart().Replace("\"", "\\\"").Replace("\n", "<br />").Replace("\r", ""))
             );
         }
 
@@ -514,7 +514,7 @@ namespace T2.Cms.Web.WebManager.Handle
             }
             else
             {
-                node = ServiceCall.Instance.SiteService.GetCategoryTreeNode(siteId, 1);
+                node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
             }
             try
             {

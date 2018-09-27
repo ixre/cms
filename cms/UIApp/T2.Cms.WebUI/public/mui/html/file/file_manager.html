@@ -412,7 +412,7 @@ $js()
                 jr.xhr.post(fm_handler, 'act=create&dir=' + encodeURIComponent(curdir) + '&is_dir='
                     + (isDir ? "true" : "false") + '&file=' + encodeURIComponent(fileName),
                     function(result) {
-                        var json = jr.toJson(result);
+                        var json = JSON.parse(result);
                         if (json.error) {
                             _this.tip(json.error, true);
                         } else {
@@ -438,7 +438,7 @@ $js()
         // ctobj.tip('加载中...', 0);
         ctobj.resetTable();
         jr.xhr.post(fm_handler, 'act=list&dir=' + dir, function (result) {
-            var json = jr.toJson(result);
+            var json = JSON.parse(result);
             if (json.error) {
                 ctobj.tip(json.error, true);
             } else {

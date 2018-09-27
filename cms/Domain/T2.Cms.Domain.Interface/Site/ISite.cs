@@ -133,12 +133,7 @@ namespace T2.Cms.Domain.Interface.Site
         /// <param name="treeHandler"></param>
         void HandleCategoryTree(int parentId, CategoryTreeHandler treeHandler);
 
-        /// <summary>
-        /// 获取栏目树
-        /// </summary>
-        /// <returns></returns>
-        TreeNode GetCategoryTree(int lft);
-
+        
         /// <summary>
         /// 获取栏目树，包含根节点
         /// </summary>
