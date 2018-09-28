@@ -407,9 +407,9 @@ $js()
         },
         newFile: function (id,isDir) {
             var _this = this;
-            var fileName = jr.val(id);
+            var fileName = jr.$fn("#"+id).val();
             if (fileName.length > 0) {
-                jr.xhr.post(fm_handler, 'act=create&dir=' + encodeURIComponent(curdir) + '&is_dir='
+                jr.xhr.post(fm_handler, 'xhr=1&act=create&dir=' + encodeURIComponent(curdir) + '&is_dir='
                     + (isDir ? "true" : "false") + '&file=' + encodeURIComponent(fileName),
                     function(result) {
                         var json = JSON.parse(result);

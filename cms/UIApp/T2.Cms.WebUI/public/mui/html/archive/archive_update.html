@@ -327,11 +327,11 @@
         jr.$('alias').nextSibling.onclick = function () {
 
             var e = this.previousSibling;
-            var _title = jr.val('title');
+            var _title = jr.$fn('#title').val();
             if (_title == '') {
                 jr.validator.setTip(e, false, null, '请先填写标题!');
             } else {
-                jr.xhr.post('?', 'module=ajax&action=getspellword&word=' + encodeURIComponent(_title), function (result) {
+                jr.xhr.post('?', 'xhr=1&module=ajax&action=getspellword&word=' + encodeURIComponent(_title), function (result) {
                     e.value = result.toLowerCase();
                     e.onblur();
                 }, function () {
