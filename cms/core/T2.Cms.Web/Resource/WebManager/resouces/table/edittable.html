@@ -82,8 +82,9 @@
 
         function submitForm() {
             if (jr.validator.validate()) {
-                jr.val('editor', editor.html());
-                if (jr.val('editor').length > 500) {
+                var e = jr.$fn('#editor');
+                e.val(editor.html());
+                if (e.val().length > 500) {
                     showMsg2('备注内容不能超过500字！');
                     return false;
                 }

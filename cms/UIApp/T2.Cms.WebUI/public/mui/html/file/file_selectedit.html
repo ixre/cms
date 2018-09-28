@@ -50,10 +50,10 @@ $js()
 
         jr.$('createview').onclick = (function (t) {
             return function () {
-                var tplname = jr.val('tplname');
-                var tpltype = jr.val('tpltype');
+                var tplname = jr.$fn('#tplname').val();
+                var tpltype = jr.$fn('#tpltype').val();
                 if (tplname != '') {
-                    jr.xhr.post('?', 'module=file&action=createstylesheet&name=' + tplname + '&type=' + tpltype, function (x) {
+                    jr.xhr.post('?', 'xhr=1&module=file&action=createstylesheet&name=' + tplname + '&type=' + tpltype, function (x) {
                         if (x.indexOf('.') == -1) {
                            showMsg2(x);
                         } else {

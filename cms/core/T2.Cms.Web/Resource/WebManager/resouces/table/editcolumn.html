@@ -56,8 +56,9 @@ $js()
                         default: msg = location.href.indexOf('edit') != -1 ? '保存成功!' : '添加成功!'; break;
                     }
 
-                   showMsg2msg,function () {
-                        location.replace('?module=table&action=columns&tableid=' + jr.val('tableid'));
+                    showMsg2(msg,function () {
+                        var tableId = jr.$fn('#tableid').val();
+                        location.replace('?xhr=1&module=table&action=columns&tableid=' + tableId);
                     });
                 });
             }

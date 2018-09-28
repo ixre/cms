@@ -72,7 +72,7 @@
       if(confirm('确定删除吗?删除后将不可恢复!')){
         var td = this.parentNode.parentNode;
         var id=getId(this);
-        jr.xhr.post('?', "module=ajax&action=deleteArchive&archiveID=" + id,
+        jr.xhr.post('?', "xhr=1&module=ajax&action=deleteArchive&archiveID=" + id,
         function (x) { eval(x); /* td.style.display = 'none';*/ },
         function (x) { showMsg2(x);
       }
@@ -80,9 +80,10 @@
     function getId(s) {
       return s.parentNode.parentNode.childNodes[0].innerHTML;
     }
-    function search() {
-      location.href = '?module=archive&action=search&keyword='+escape(jr.val("keyword"));
-    }
+        function search() {
+            val keyword = jr.$fn("#keyword").val();
+            location.href = '?module=archive&action=search&keyword=' + escape(keyword);
+        }
     
     function showComments(){
         location.href = '?module=archive&action=comment&desc=true&archiveID=' + getId(this);
