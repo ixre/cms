@@ -40,7 +40,7 @@ namespace T2.Cms.Sql
         /// 重新发布文档
         /// </summary>
         public readonly string ArchiveRepublish = @"UPDATE $PREFIX_archive 
-                                SET createdate=@CreateDate WHERE id IN (SELECT id FROM
+                                SET create_time=@CreateDate WHERE id IN (SELECT id FROM
                                 (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
                                 $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
                                 WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
@@ -374,7 +374,7 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 获取所有用户
         /// </summary>
-        public readonly string UserGetAllUsers = "SELECT * FROM $PREFIX_user ORDER BY createdate DESC";
+        public readonly string UserGetAllUsers = "SELECT * FROM $PREFIX_user ORDER BY create_time DESC";
 
       
         public readonly string UserGetUserIdByUserName = "SELECT user_id FROM $PREFIX_credential WHERE user_name=@userName";

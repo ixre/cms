@@ -911,8 +911,10 @@ namespace T2.Cms.Template
 
                         //评论时间
                         case "date":
-                        case "createdate":
-                            return String.Format("{0:yyyy-MM-dd HH:mm:ss}", dt.Rows[i]["createDate"]);
+                        case "create_time":
+                        case "publish_time":
+                        case "create_date":
+                            return String.Format("{0:yyyy-MM-dd HH:mm:ss}", dt.Rows[i]["create_time"]);
 
                         //评论内容
                         case "content":
@@ -1412,10 +1414,15 @@ namespace T2.Cms.Template
                         case "count": return archiveDto.ViewCount.ToString();
 
                         //时间
+                        case "edit_time":
                         case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.UpdateTime);
+                        case "edit_date":
                         case "modify_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.UpdateTime);
+                        case "edit_short_date":
                         case "modify_sdate": return String.Format("{0:MM-dd}", archiveDto.UpdateTime);
+                        case "publish_time":
                         case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.CreateTime);
+                        case "publish_date":
                         case "create_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.CreateTime);
 
                         //栏目

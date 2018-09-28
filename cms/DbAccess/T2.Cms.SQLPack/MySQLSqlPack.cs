@@ -13,7 +13,7 @@
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
                         small_title,`flags`,`author_id`,`thumbnail`,view_count,`tags`,`outline`,
-                        `content`,`createdate`,`update_time` FROM $PREFIX_archive
+                        `content`,`create_time`,`update_time` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON  $PREFIX_category.`id`=$PREFIX_archive.`cat_id` WHERE " +
                        SqlConst.Archive_NotSystemAndHidden + " ORDER BY $PREFIX_archive.sort_number DESC";
             }
@@ -25,7 +25,7 @@
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
                         small_title,`flags`,`thumbnail`,`outline`,`content`,view_count,
-                        update_time,author_id,tags,source,`createdate`,
+                        update_time,author_id,tags,source,`create_time`,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive 
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_NotSystemAndHidden +
@@ -74,7 +74,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,`thumbnail`,`flags`,`outline`,`content`,view_count,
-                        author_id,update_time,source,tags,`createdate`,$PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
+                        author_id,update_time,source,tags,`create_time`,$PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE site_id=@siteId AND  `tag`=@tag AND " + SqlConst.Archive_NotSystemAndHidden +
                         @" ORDER BY $PREFIX_archive.sort_number DESC LIMIT {0},{1}";
@@ -86,7 +86,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`cat_id`,`flags`,`str_id`,`alias`,`title`,$PREFIX_archive.`location`,`thumbnail`,`outline`,`content`,`source`,`tags`,
-                        $PREFIX_category.`name`,$PREFIX_category.`tag`,view_count,`createdate`,`update_time`
+                        $PREFIX_category.`name`,$PREFIX_category.`tag`,view_count,`create_time`,`update_time`
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         AND $PREFIX_category.site_id=@siteId
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND `module_id`=@ModuleID
@@ -130,7 +130,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`flags`,`title`,$PREFIX_archive.`location`,`thumbnail`,
-                        `content`,`outline`,`tags`,`createdate`,`update_time`,view_count,`source` FROM $PREFIX_archive
+                        `content`,`outline`,`tags`,`create_time`,`update_time`,view_count,`source` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_Special +
                         @" AND $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray])
@@ -142,7 +142,7 @@
             get
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`flags`,`title`,$PREFIX_archive.`location`,`content`,
-                        `thumbnail`,`outline`,`tags`,`createdate`,`update_time`
+                        `thumbnail`,`outline`,`tags`,`create_time`,`update_time`
                         ,view_count,`source` FROM $PREFIX_archive
                             INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                             WHERE " + SqlConst.Archive_Special + @" AND site_id=@siteId AND $PREFIX_category.`module_id`=@moduleID
@@ -164,7 +164,7 @@
         {
             get
             {
-                return @"SELECT `id`,a.`cat_id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`createdate`,a.sort_number FROM $PREFIX_archive a,
+                return @"SELECT `id`,a.`cat_id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`create_time`,a.sort_number FROM $PREFIX_archive a,
                                  (SELECT `cat_id`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
                                  WHERE (@sameCategory <>1 OR a.`cat_id`=t.`cat_id`) AND a.`sort_number`>t.`sort_number` AND 
                                  (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
@@ -176,7 +176,7 @@
         {
             get
             {
-                return @"SELECT `id`,a.`cat_id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`createdate`,a.sort_number FROM $PREFIX_archive a,
+                return @"SELECT `id`,a.`cat_id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`create_time`,a.sort_number FROM $PREFIX_archive a,
                                  (SELECT `cat_id`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
                                  WHERE  (@sameCategory <>1 OR a.`cat_id`=t.`cat_id`) AND a.`sort_number`<t.`sort_number` AND
                                  (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
@@ -323,7 +323,7 @@
             {
                 return @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
                         small_title,sort_number,`tags`,`outline`,`thumbnail`,
-                        `content`,`issystem`,`isspecial`,`visible`,`createdate` FROM $PREFIX_archive
+                        `content`,`issystem`,`isspecial`,`visible`,`create_time` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE {0} ORDER BY $PREFIX_archive.sort_number DESC";
             }
@@ -371,7 +371,7 @@
                 return @"SELECT $PREFIX_comment.`id` as cat_id,`IP`,`content`,`create_time`,
                        $PREFIX_member.`id` as uid,`avatar`,`nickname` FROM $PREFIX_comment 
                         INNER JOIN $PREFIX_member ON $PREFIX_comment.`memberID`=$PREFIX_member.`id`
-                        WHERE `archiveid`=@archiveID ORDER BY `createdate` DESC";
+                        WHERE `archiveid`=@archiveID ORDER BY `create_time` DESC";
             }
         }
 
@@ -412,7 +412,7 @@
 
         public override string Comment_AddComment
         {
-            get { return "INSERT INTO $PREFIX_comment (`archiveid`,`memberid`,`ip`,`content`,`recycle`,`createdate`)VALUES(@ArchiveId,@MemberID,@IP,@Content,@Recycle,@CreateDate)"; }
+            get { return "INSERT INTO $PREFIX_comment (`archiveid`,`memberid`,`ip`,`content`,`recycle`,`create_time`)VALUES(@ArchiveId,@MemberID,@IP,@Content,@Recycle,@CreateDate)"; }
         }
 
         public override string Member_RegisterMember
