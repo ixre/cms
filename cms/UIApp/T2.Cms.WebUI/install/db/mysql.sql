@@ -42,8 +42,6 @@ CREATE TABLE `cms_archive` (
   `view_count` int(11) DEFAULT 0,
   `agree` int(11) DEFAULT NULL,
   `disagree` int(11) DEFAULT NULL,
-  `createdate` datetime DEFAULT NULL,
-  `lastmodifydate` datetime DEFAULT NULL,
   `flags` varchar(100) DEFAULT '{st:''''0'''',sc:''''0'''',v:''''1'''',p:''''0''''}',
   `thumbnail` varchar(150) DEFAULT NULL,
   `create_time` int(11) NOT NULL COMMENT '创建时间',
@@ -82,8 +80,6 @@ CREATE TABLE `cms_category` (
   `tag` varchar(100) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `icon` varchar(150) DEFAULT NULL,
-  `lft` int(11) DEFAULT NULL,
-  `rgt` int(11) DEFAULT NULL,
   `page_title` varchar(200) DEFAULT NULL,
   `page_keywords` varchar(200) DEFAULT NULL,
   `page_description` varchar(250) DEFAULT NULL,
@@ -747,4 +743,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-25 19:38:44
+-- Dump completed on 2018-09-27 14:19:37

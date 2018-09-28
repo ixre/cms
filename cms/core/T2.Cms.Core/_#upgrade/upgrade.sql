@@ -38,3 +38,34 @@ CHANGE COLUMN `domain` `domain` VARCHAR(50) NOT NULL COMMENT '域名' ,
 CHANGE COLUMN `location` `location` VARCHAR(100) NOT NULL COMMENT '重定向URL' ;
 
 
+
+------------------------------------------
+
+ALTER TABLE `cms_archive` 
+ADD COLUMN `path` VARCHAR(180) NOT NULL COMMENT '文档路径' AFTER `cat_id`,
+ADD COLUMN `flag` INT(8) NOT NULL COMMENT '文档标志' AFTER `path`;
+
+
+ALTER TABLE `cms_archive` 
+CHANGE COLUMN `publisher_id` `author_id` INT NOT NULL COMMENT '作者编号' ,
+ADD COLUMN `create_time` INT NOT NULL COMMENT '创建时间' AFTER `thumbnail`,
+ADD COLUMN `update_time` INT NOT NULL COMMENT '修改时间' AFTER `create_time`;
+
+
+UPDATE cms_archive set alias=str_id WHERE alias='';
+update cms_archive set path=CONCAT((SELECT distinct(path) FROM cms_category where id=cat_id),"/",alias) WHERE path = '';
+
+-------------------------------------------
+
+update cms_archive set create_time=UNIX_TIMESTAMP(createdate),update_time=UNIX_TIMESTAMP(lastmodifydate)
+where create_time <= 0;
+
+ALTER TABLE `cms_archive` 
+DROP COLUMN `lastmodifydate`,
+DROP COLUMN `createdate`;
+
+ALTER TABLE `cms_category` 
+DROP COLUMN `rgt`,
+DROP COLUMN `lft`;
+
+

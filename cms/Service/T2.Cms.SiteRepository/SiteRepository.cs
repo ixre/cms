@@ -124,14 +124,7 @@ namespace T2.Cms.ServiceRepository
             }
             return RepositoryDataCache._siteDict.Values.ToList();
         }
-
-
-        public ISite GetSiteByUri(String url)
-        {
-            ISite site = null;
-            GetSiteByUri(url, ref site);
-            return site;
-        }
+        
 
         public ISite GetSiteById(int siteId)
         {
@@ -142,13 +135,13 @@ namespace T2.Cms.ServiceRepository
 
         public ISite GetSingleOrDefaultSite(String url)
         {
-            ISite site = null;
-            IList<ISite> sites = GetSiteByUri(url, ref site);
+            ISite site = this.GetSiteByUri(url);
             if (site != null)
             {
                 return site;
             }
 
+            IList<ISite> sites = this.GetSites();
             if (sites.Count == 0) throw new Exception("Missing site");
 
             //获取host和dir均为空的站点
@@ -167,59 +160,60 @@ namespace T2.Cms.ServiceRepository
             return sites[0];
         }
 
-        private IList<ISite> GetSiteByUri(String url, ref ISite site)
+        public ISite GetSiteByUri(String url)
         {
             Uri uri = new Uri(url);
             string hostName = uri.Host;
+            string appName = String.Empty;
             IList<ISite> sites = this.GetSites();
 
+            string[] segments = uri.Segments;
+            if (segments.Length >= 2)
+            {
+                appName = segments[1].Replace("/", "");
+            }
             //todo:
-           // site = sites[0];
+            // site = sites[0];
             //return sites;
 
             //获取使用域名标识的网站
             string _hostName = String.Concat(
-                "^",
-                hostName.Replace(".", "\\."),
-                "$|\\s+",
-                hostName.Replace(".", "\\."),
-                "\\s*|\\s*",
-                hostName.Replace(".", "\\."),
-                "\\s+");
+            "^", hostName.Replace(".", "\\."),
+            "$|\\s+", hostName.Replace(".", "\\."),
+            "\\s*|\\s*", hostName.Replace(".", "\\."), "\\s+");
 
+            ISite curr = null;
             foreach (ISite s in sites)
             {
-                if (!String.IsNullOrEmpty(s.Get().Domain))
+                if (String.IsNullOrEmpty(s.Get().Domain)) continue;
+                // 判断域名相同
+                if (Regex.IsMatch(s.Get().Domain, _hostName, RegexOptions.IgnoreCase))
                 {
-                    if (Regex.IsMatch(s.Get().Domain, _hostName, RegexOptions.IgnoreCase))
+                    s.SetRunType(SiteRunType.Stand);
+                    if (String.IsNullOrEmpty(appName)) return s;
+                    // 判断应用名称相同
+                    if (String.Compare(s.Get().AppName, appName, true) == 0)
                     {
-                        site = s;
-                        site.SetRunType(SiteRunType.Stand);
-                        break;
+                        s.SetRunType(SiteRunType.VirtualDirectory);
+                        return s;
                     }
+                    curr = s;
                 }
-
             }
-
+            if (curr != null) return curr;
             //获取使用目录绑定的网站
-            if (site == null)
+            if (!String.IsNullOrEmpty(appName))
             {
-                string[] segments = uri.Segments;
-                if (segments.Length >= 2)
+                foreach (ISite s in sites)
                 {
-                    string dirName = segments[1].Replace("/", "");
-                    foreach (ISite s in sites)
+                    if (String.Compare(s.Get().AppName, appName, true) == 0)
                     {
-                        if (String.Compare(s.Get().AppName, dirName,true,CultureInfo.InvariantCulture) == 0)
-                        {
-                            site = s;
-                            site.SetRunType(SiteRunType.VirtualDirectory);
-                            break;
-                        }
+                        s.SetRunType(SiteRunType.VirtualDirectory);
+                        return s;
                     }
                 }
             }
-            return sites;
+            return null;
         }
 
 
@@ -292,5 +286,6 @@ namespace T2.Cms.ServiceRepository
             });
             return links;
         }
+        
     }
 }

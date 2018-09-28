@@ -22,7 +22,7 @@ namespace T2.Cms.Service
 {
     public class SiteService : ISiteServiceContract
     {
-        private readonly ISiteRepo _resp;
+        private readonly ISiteRepo repo;
         private readonly IExtendFieldRepository _extendRep;
         private readonly ICategoryRepo _categoryRep;
         private readonly ITemplateRepo _tempRep;
@@ -36,7 +36,7 @@ namespace T2.Cms.Service
             IContentRepository contentRep,
             ITemplateRepo tempRep)
         {
-            this._resp = resp;
+            this.repo = resp;
             this._extendRep = extendFieldPository;
             this._categoryRep = categoryRep;
             this._archiveRep = archiveRep;
@@ -49,7 +49,7 @@ namespace T2.Cms.Service
             ISite site;
             if (siteDto.SiteId != 0)
             {
-                site = _resp.GetSiteById(siteDto.SiteId);
+                site = repo.GetSiteById(siteDto.SiteId);
                 if (site == null)
                 {
                     throw new ArgumentException("No such site");
@@ -57,7 +57,7 @@ namespace T2.Cms.Service
             }
             else
             {
-                site = _resp.CreateSite(new Models.CmsSiteEntity());
+                site = repo.CreateSite(new Models.CmsSiteEntity());
             }
 
             SiteDto.CopyTo(siteDto, site);
@@ -68,7 +68,7 @@ namespace T2.Cms.Service
         public IList<SiteDto> GetSites()
         {
             IList<SiteDto> siteDtos = new List<SiteDto>();
-            IList<ISite> sites = _resp.GetSites();
+            IList<ISite> sites = repo.GetSites();
             foreach (ISite site in sites)
             {
                 siteDtos.Add(SiteDto.ConvertFromSite(site));
@@ -80,7 +80,7 @@ namespace T2.Cms.Service
 
         public SiteDto GetSiteByUri(String url)
         {
-            return GetSiteDtoFromISite(_resp.GetSiteByUri(url));
+            return GetSiteDtoFromISite(repo.GetSiteByUri(url));
         }
 
         private static SiteDto GetSiteDtoFromISite(ISite site)
@@ -96,7 +96,7 @@ namespace T2.Cms.Service
 
         public SiteDto GetSingleOrDefaultSite(String url)
         {
-            ISite ist = _resp.GetSingleOrDefaultSite(url);
+            ISite ist = this.repo.GetSingleOrDefaultSite(url);
             return GetSiteDtoFromISite(ist);
         }
 
@@ -104,14 +104,14 @@ namespace T2.Cms.Service
         public SiteDto GetSiteById(int siteId)
         {
             return GetSiteDtoFromISite(
-                    this._resp.GetSiteById(siteId)
+                    this.repo.GetSiteById(siteId)
                 );
         }
 
 
         public IEnumerable<ExtendFieldDto> GetExtendFields(int siteId)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             ExtendFieldDto dto;
             IEnumerable<IExtendField> extends = site.GetExtendManager().GetAllExtends();
             foreach (IExtendField extend in extends)
@@ -125,7 +125,7 @@ namespace T2.Cms.Service
 
         public Result SaveExtendField(int siteId, ExtendFieldDto dto)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             if (site == null)
                 throw new Exception("站点不存在");
 
@@ -144,20 +144,20 @@ namespace T2.Cms.Service
 
         public CategoryDto GetCategory(int siteId, int categoryId)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             return CategoryDto.ConvertFrom(site.GetCategory(categoryId));
         }
 
 
         public CategoryDto GetCategoryByName(int siteId, string categoryName)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             return CategoryDto.ConvertFrom(site.GetCategoryByName(categoryName));
         }
 
         public CategoryDto GetCategory(int siteId, string catPath)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             return CategoryDto.ConvertFrom(site.GetCategoryByPath(catPath));
         }
 
@@ -165,7 +165,7 @@ namespace T2.Cms.Service
 
         public IEnumerable<CategoryDto> GetCategories(int siteId)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             IList<ICategory> categories = site.Categories;
             foreach (ICategory category in categories)
             {
@@ -176,7 +176,7 @@ namespace T2.Cms.Service
         public IEnumerable<CategoryDto> GetCategories(
             int siteId,String catPath)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             ICategory ic = this._categoryRep.GetCategoryByPath(siteId, catPath);
             if (ic == null) yield break;
             foreach (ICategory category in ic.NextLevelChilds)
@@ -187,19 +187,19 @@ namespace T2.Cms.Service
 
         public CategoryDto GetCategoryByLft(int siteId, int lft)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             return CategoryDto.ConvertFrom(site.GetCategoryByLft(lft));
         }
 
         public bool DeleteCategoryByLft(int siteId, int lft)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             return site.DeleteCategory(lft);
         }
 
         public void ItrCategoryTree(StringBuilder sb, int siteId, int categoryLft)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             site.ItreCategoryTree(sb, categoryLft);
         }
 
@@ -207,14 +207,14 @@ namespace T2.Cms.Service
 
         public void HandleCategoryTree(int siteId, int parentId, CategoryTreeHandler treeHandler)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             site.HandleCategoryTree(parentId, treeHandler);
         }
 
 
         public Result SaveCategory(int siteId, int parentId, CategoryDto category)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             ICategory ic = null;
             if (category.ID > 0)
             {
@@ -284,7 +284,7 @@ namespace T2.Cms.Service
 
         public CategoryDto GetParentCategory(int siteId, int lft)
         {
-            ICategory category = this._resp.GetSiteById(siteId).GetCategoryByLft(lft);
+            ICategory category = this.repo.GetSiteById(siteId).GetCategoryByLft(lft);
             if (category == null || category.Parent == null)
                 return default(CategoryDto);
             return CategoryDto.ConvertFrom(category.Parent);
@@ -293,14 +293,14 @@ namespace T2.Cms.Service
 
         public TreeNode GetCategoryTreeWithRootNode(int siteId)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             return site.GetCategoryTreeWithRootNode();
         }
 
 
         public string GetCategorySitemapHtml(int siteId, string catPath, string split, string linkFormat)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             ICategory category = site.GetCategoryByPath(catPath);
 
             if (linkFormat.EndsWith("/")) linkFormat = linkFormat.Substring(0, linkFormat.Length - 1);
@@ -357,7 +357,7 @@ namespace T2.Cms.Service
 
         public bool CheckCategoryTagAvailable(int siteId, int categoryId, string categoryTag)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             ICategory category = site.GetCategoryByPath(categoryTag);
 
             if (category == null)
@@ -374,7 +374,7 @@ namespace T2.Cms.Service
 
         public IEnumerable<SiteLinkDto> GetLinksByType(int siteId, SiteLinkType type, bool ignoreDisabled)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             IEnumerable<ISiteLink> links = site.GetLinkManager().GetLinks(type);
             foreach (ISiteLink link in links)
             {
@@ -387,7 +387,7 @@ namespace T2.Cms.Service
 
         public void DeleteLink(int siteId, int linkId)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
 
             site.GetLinkManager().DeleteLink(linkId);
         }
@@ -395,11 +395,11 @@ namespace T2.Cms.Service
 
         public int SaveLink(int siteId, SiteLinkDto dto)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             ISiteLink link = null;
             if (dto.Id <= 0)
             {
-                link = this._resp.CreateLink(site, 0, dto.Text);
+                link = this.repo.CreateLink(site, 0, dto.Text);
             }
             else
             {
@@ -421,7 +421,7 @@ namespace T2.Cms.Service
 
         public SiteLinkDto GetLinkById(int siteId, int linkId)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             ISiteLink link = site.GetLinkManager().GetLinkById(linkId);
             if (link == null) return default(SiteLinkDto);
 
@@ -430,7 +430,7 @@ namespace T2.Cms.Service
 
         public IList<RoleValue> GetAppRoles(int siteId)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             return site.GetUserManager().GetAppRoles();
         }
 
@@ -438,8 +438,8 @@ namespace T2.Cms.Service
         public void CloneCategory(int sourceSiteId, int targetSiteId, int fromCid, int toCid,
             bool includeChild, bool includeExtend, bool includeTemplateBind)
         {
-            ISite fromSite = this._resp.GetSiteById(sourceSiteId);
-            ISite toSite = this._resp.GetSiteById(targetSiteId);
+            ISite fromSite = this.repo.GetSiteById(sourceSiteId);
+            ISite toSite = this.repo.GetSiteById(targetSiteId);
             if (fromSite == null || toSite == null)
             {
                 throw new ArgumentException("no such site");
@@ -585,7 +585,7 @@ namespace T2.Cms.Service
 
         public bool CheckSiteExists(int siteId)
         {
-            IList<ISite> sites = this._resp.GetSites();
+            IList<ISite> sites = this.repo.GetSites();
             foreach (ISite site in sites)
             {
                 if (site.GetAggregaterootId() == siteId)
@@ -667,7 +667,7 @@ namespace T2.Cms.Service
         /// <param name="direction"></param>
         public void MoveCategorySortNumber(int siteId, int id, int direction)
         {
-            ISite site = this._resp.GetSiteById(siteId);
+            ISite site = this.repo.GetSiteById(siteId);
             if(site == null)throw  new ArgumentException("no such site");
             ICategory c = site.GetCategory(id);
             if (c == null) throw new ArgumentException("no such category");
