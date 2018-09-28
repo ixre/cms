@@ -81,15 +81,11 @@ namespace T2.Cms.Web.Mvc
         public void Index()
         {
             bool eventResult = false;
-
             if (OnIndexRequest != null)
             {
                 OnIndexRequest(base.OutputCntext, ref eventResult);
             }
-             
             if (!this.CheckSiteUrl()) return;
-
-            
             SiteDto site = Cms.Context.CurrentSite;
 
             //跳转
@@ -204,9 +200,10 @@ namespace T2.Cms.Web.Mvc
         /// <returns></returns>
         public void Category(string allCate)
         {
+            String appPath = this.OutputCntext.SiteAppPath;
             //验证是否为当前站点的首页
-            if (this.OutputCntext.SiteAppPath != "/" && allCate.LastIndexOf("/") == 0)
-            {
+            if (appPath != "/" || allCate.LastIndexOf("/") == 0 || 
+                allCate == appPath.Substring(1)){ 
                 this.Index();
                 return;
             }

@@ -103,9 +103,9 @@
     <Content Include="data\db.db" />
     <Content Include="config\cms.conf" />
     <Content Include="install\db\access.mdb" />
+    <Content Include="install\db\mysql.sql" />
     <Content Include="install\db\mssql.sql" />
     <Content Include="install\db\mysql - 复制.sql" />
-    <Content Include="install\db\mysql.sql" />
     <Content Include="install\db\sqlite.sql" />
     <Content Include="install\install.html" />
     <Content Include="public\assemblies\IronPython.dll" />
@@ -576,7 +576,6 @@
     </Content>
     <Content Include="public\assets\editor\handler\file_manager_json.ashx" />
     <Content Include="public\assets\editor\handler\upload_json.ashx" />
-    <Content Include="packages.config" />
     <Content Include="templates\default\include\flash_banner.phtml" />
     <Content Include="templates\default\include\footer.backup.phtml" />
     <Content Include="templates\default\include\footer.phtml" />
