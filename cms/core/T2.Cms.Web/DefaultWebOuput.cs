@@ -139,10 +139,8 @@ namespace T2.Cms.Web
             }
 
             ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
-            BuiltInArchiveFlags flag = ArchiveFlag.GetBuiltInFlags(archive.Flags);
 
-            if ((flag & BuiltInArchiveFlags.Visible) != BuiltInArchiveFlags.Visible)
-            //|| (flag & BuiltInArchiveFlags.IsSystem)== BuiltInArchiveFlags.IsSystem)   //系统文档可以单独显示
+            if(!FlagAnd(archive.Flag, BuiltInArchiveFlags.Visible))
             {
                 RenderNotFound(context);
                 return;
@@ -160,7 +158,7 @@ namespace T2.Cms.Web
                 string appPath = Cms.Context.SiteAppPath;
                 if (appPath != "/") appPath += "/";
 
-                if ((flag & BuiltInArchiveFlags.AsPage) == BuiltInArchiveFlags.AsPage)
+                if (FlagAnd(archive.Flag, BuiltInArchiveFlags.AsPage))
                 {
                     string pattern = "^" + appPath + "[0-9a-zA-Z]+/[\\.0-9A-Za-z_-]+\\.html$";
                     string pagePattern = "^" + appPath + "[\\.0-9A-Za-z_-]+\\.html$";
@@ -217,6 +215,12 @@ namespace T2.Cms.Web
 
             // return html;
             context.Render(html);
+        }
+
+        private static bool FlagAnd(int flag, BuiltInArchiveFlags b)
+        {
+            int x = (int)b;
+            return (flag & x) == x;
         }
 
         /// <summary>

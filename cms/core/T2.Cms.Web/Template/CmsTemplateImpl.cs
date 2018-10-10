@@ -183,7 +183,7 @@ namespace T2.Cms.Template
         /// <summary>
         /// 文档列表(包含子类)
         /// </summary>
-        /// <param name="tag"></param>
+        /// <param name="catPath"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -191,20 +191,20 @@ namespace T2.Cms.Template
         [XmlObjectProperty("获取栏目（包含子栏目）下的文档列表。", @"
         	<b>参数：</b><br />
         	==========================<br />
-        	1：栏目Tag<br />
+        	1：栏目路径<br />
         	2：数目<br />
 			3：HTML格式
 		")]
-        public string Archives(string tag, string num, string format)
+        public string Archives(string catPath, string num, string format)
         {
-            if (Regex.IsMatch(tag, "^\\d+$"))
+            if (Regex.IsMatch(catPath, "^\\d+$"))
             {
                 int _num;
                 ArchiveDto[] dt = null;
                 Module module = null;
                 int.TryParse(num, out _num);
 
-                module = CmsLogic.Module.GetModule(int.Parse(tag));
+                module = CmsLogic.Module.GetModule(int.Parse(catPath));
                 if (module != null)
                 {
                     dt = ServiceCall.Instance.ArchiveService.GetArchivesByModuleId(this.SiteId, module.ID, _num);
@@ -212,7 +212,7 @@ namespace T2.Cms.Template
                 }
             }
 
-            return this.Archives(tag, num, 0,0,true,format);
+            return this.Archives(catPath, num, 0,0,true,format);
         }
 
 

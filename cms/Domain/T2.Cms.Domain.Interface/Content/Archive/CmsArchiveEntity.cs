@@ -144,11 +144,6 @@ namespace T2.Cms.Models{
         /// <summary>
         /// 
         /// </summary>
-        [Alias("flags")]
-        public string Flags { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
         [Alias("thumbnail")]
         public string Thumbnail { get; set; }
         /// <summary>

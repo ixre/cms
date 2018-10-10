@@ -69,3 +69,6 @@ DROP COLUMN `rgt`,
 DROP COLUMN `lft`;
 
 
+update cms_archive set flag = 1 where flag= 0;
+
+ALTER TABLE `cms_archive` DROP COLUMN `flags`;

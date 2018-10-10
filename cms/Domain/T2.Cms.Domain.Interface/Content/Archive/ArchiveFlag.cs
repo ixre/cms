@@ -22,22 +22,18 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// 未指定
         /// </summary>
         None=0,
-
         /// <summary>
-        /// 是否系统
+        /// 是否可见
         /// </summary>
-        IsSystem=1,
-
+        Visible = 1,
         /// <summary>
         /// 是否特殊
         /// </summary>
         IsSpecial=2,
-
         /// <summary>
-        /// 是否可见
+        /// 是否系统
         /// </summary>
-        Visible=4,
-
+        IsSystem =4,
         /// <summary>
         /// 是否作为单页
         /// </summary>
@@ -149,7 +145,6 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// </summary>
         public static bool GetFlag(string flags, BuiltInArchiveFlags flag)
         {
-
             return GetFlag(flags, internalFlagTexts[(int)flag]);
         }
 

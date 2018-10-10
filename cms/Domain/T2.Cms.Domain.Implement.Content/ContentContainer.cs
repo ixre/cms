@@ -68,6 +68,7 @@ namespace T2.Cms.Domain.Implement.Content
             if (includeChild)
             {
                 catIdArray = this.GetCatArrayByPath(ic);
+                if (catIdArray.Length == 0) return new List<IArchive>();
             }
             else
             {
@@ -158,8 +159,7 @@ namespace T2.Cms.Domain.Implement.Content
             IArchive archive = this.GetArchiveById(archiveId);
             if (archive == null)
                 return false;
-            if (ArchiveFlag.GetFlag(archive.Get().Flags, BuiltInArchiveFlags.IsSystem))
-            {
+            if (this.FlagAnd(archive.Get().Flag, BuiltInArchiveFlags.IsSystem)) {
                 throw new NotSupportedException("系统文档，不允许删除,请先取消系统设置后再进行删除！");
             }
             bool result = this._archiveRep.DeleteArchive(this.SiteId, archive.GetAggregaterootId());
@@ -187,8 +187,11 @@ namespace T2.Cms.Domain.Implement.Content
             return result;
         }
 
-
-
+        private bool FlagAnd(int flag, BuiltInArchiveFlags b)
+        {
+            int x = (int)b;
+            return (flag & x) == x;
+        }
 
         public IEnumerable<IArchive> SearchArchivesByCategory(
             int categoryLft, int categoryRgt,

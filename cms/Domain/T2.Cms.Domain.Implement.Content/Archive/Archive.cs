@@ -293,7 +293,6 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             this._value.Title = src.Title;
             this._value.SmallTitle = src.SmallTitle;
             this._value.Location = src.Location;
-          
             this._value.Source = src.Source;
             this._value.Tags = src.Tags;
             this._value.Outline = src.Outline;
@@ -303,7 +302,6 @@ namespace T2.Cms.Domain.Implement.Content.Archive
             this._value.Disagree = src.Disagree;
             this._value.UpdateTime = src.UpdateTime;
             this._value.CreateTime = src.CreateTime;
-            this._value.Flags = src.Flags;
             this._value.Thumbnail = src.Thumbnail;
             int unix = TimeUtils.Unix(DateTime.Now);
             this._value.UpdateTime = unix;

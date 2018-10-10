@@ -140,7 +140,6 @@ namespace T2.Cms.Service
                     Disagree = av.Disagree,
                     Content = av.Content,
                     CreateTime =TimeUtils.UnixTime(av.CreateTime),
-                    Flags = av.Flags,
                     Tags = av.Tags,
                     UpdateTime = TimeUtils.UnixTime(av.UpdateTime),
                     Source = av.Source,
@@ -222,7 +221,7 @@ namespace T2.Cms.Service
 
 
         public DataTable GetPagedArchives(int siteId, int? categoryId, int publisherId, bool includeChild,
-            string[,] flags, string keyword,
+            int flag, string keyword,
             string orderByField, bool orderAsc, int pageSize, int currentPageIndex, out int recordCount, out int pages)
         {
 
@@ -239,7 +238,7 @@ namespace T2.Cms.Service
             }
 
             return this._archiveQuery.GetPagedArchives(siteId,catIdArray, publisherId,
-                includeChild, flags,keyword, orderByField, orderAsc, pageSize, currentPageIndex,
+                includeChild, flag,keyword, orderByField, orderAsc, pageSize, currentPageIndex,
                 out recordCount, out pages);
         }
 

@@ -16,6 +16,7 @@ using JR.DevFw.Data;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using T2.Cms.Models;
+using T2.Cms.Sql;
 
 namespace T2.Cms.Dal
 {
@@ -37,7 +38,6 @@ namespace T2.Cms.Dal
             data.Add("@authorId", e.AuthorId);
             data.Add("@title", e.Title);
             data.Add("@smallTitle", e.SmallTitle ?? "");
-            data.Add("@flags", e.Flags);
             data.Add("@location", e.Location);
             data.Add("@sortNumber", e.SortNumber);
             data.Add("@source", e.Source ?? "");
@@ -67,7 +67,6 @@ namespace T2.Cms.Dal
             data.Add("@authorId", e.AuthorId);
             data.Add("@title", e.Title);
             data.Add("@smallTitle", e.SmallTitle ?? "");
-            data.Add("@flags", e.Flags);
             data.Add("@location", e.Location);
             data.Add("@sortNumber", e.SortNumber);
             data.Add("@source", e.Source ?? "");
@@ -553,7 +552,7 @@ namespace T2.Cms.Dal
         /// <param name="moduleId">参数暂时不使用为-1</param>
         /// <param name="publisherId"></param>
         /// <param name="includeChild"></param>
-        /// <param name="flags"></param>
+        /// <param name="flag"></param>
         /// <param name="keyword"></param>
         /// <param name="orderByField"></param>
         /// <param name="orderAsc"></param>
@@ -564,20 +563,18 @@ namespace T2.Cms.Dal
         /// <returns></returns>
         public DataTable GetPagedArchives(int siteId, int moduleId,
             int[] catIdArray, int publisherId, bool includeChild,
-            string[,] flags, string keyword, string orderByField, bool orderAsc,
+            int flag, string keyword, string orderByField, bool orderAsc,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
         {
             //SQL Condition Template
-            const string conditionTpl = "$[siteid]$[module]$[category]$[author_id]$[flags]$[keyword]";
+            const string conditionTpl = "$[siteid]$[module]$[category]$[author_id]$[flag]$[keyword]";
 
             string condition,                                                             //SQL where condition
                     order = String.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
                     orderType = orderAsc ? "ASC" : "DESC";                                      //ASC or DESC
-
-            string flag = ArchiveFlag.GetSQLString(flags);
-
-
+            
+            
             condition = SQLRegex.Replace(conditionTpl, match =>
             {
                 switch (match.Groups[1].Value)
@@ -602,7 +599,7 @@ namespace T2.Cms.Dal
                         return publisherId == 0 ? null
        : String.Format(" AND author_id='{0}'", publisherId);
 
-                    case "flags": return String.IsNullOrEmpty(flag) ? "" : " AND " + flag;
+                    case "flag": return flag > 0? "$PREFIX_archive.flag & " + flag:"";
                     case "keyword":
                         if (String.IsNullOrEmpty(keyword)) return "";
                         return String.Format(" AND (title LIKE '%{0}%' OR Content LIKE '%{0}%')", keyword);
@@ -686,16 +683,8 @@ namespace T2.Cms.Dal
             string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount,
             string orderby, DataReaderFunc func)
         {
-            /*
-            string condition = ArchiveFlag.GetSQLString(new string[,]{
-                    {"st","0"},
-                    {"v","1"}
-                });
-             */
-
             base.CheckSqlInject(keyword, orderby);
-
-            StringBuilder sb = new StringBuilder(" flags LIKE '%st:''0''%' AND flags LIKE '%v:''1''%' ");
+            StringBuilder sb = new StringBuilder(SqlConst.Archive_NotSystemAndHidden);
             if (siteId > 0)
             {
                 sb.Append(" AND $PREFIX_category.site_id=").Append(siteId.ToString());
@@ -775,7 +764,7 @@ namespace T2.Cms.Dal
             string orderby, DataReaderFunc func)
         {
 
-            const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
+             string condition = SqlConst.Archive_NotSystemAndHidden;
 
 
             if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY $PREFIX_archive.sort_number DESC");
@@ -853,7 +842,7 @@ namespace T2.Cms.Dal
         public DataTable SearchByModule(int moduleId, string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount, string orderby)
         {
 
-            const string condition = " flags LIKE '%st:''0''%'AND flags LIKE '%v:''1''%' ";
+            string condition = SqlConst.Archive_NotSystemAndHidden;
 
             if (String.IsNullOrEmpty(orderby)) orderby = String.Intern("ORDER BY $PREFIX_archive.sort_number DESC");
 

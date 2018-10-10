@@ -8,12 +8,12 @@ namespace T2.Cms.ServiceRepository.Query
         private readonly ArchiveDal _dal = new ArchiveDal();
 
         public DataTable GetPagedArchives(int siteId,int[] catIdArray, int publisherId, bool includeChild,
-            string[,] flags, string keyword, string orderByField, bool orderAsc, int pageSize, int currentPageIndex,
+            int flag, string keyword, string orderByField, bool orderAsc, int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
         {
             return _dal.GetPagedArchives(siteId, -1,
                 catIdArray, publisherId, includeChild,
-                flags, keyword,orderByField,
+                flag, keyword,orderByField,
                 orderAsc, pageSize,
                 currentPageIndex,
                 out recordCount,
