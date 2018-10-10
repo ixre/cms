@@ -11,6 +11,7 @@ using JR.DevFw.Framework;
 using JR.DevFw.Framework.Extensions;
 using System.Collections.Generic;
 using T2.Cms.Domain.Interface.Site.Category;
+using T2.Cms.Domain.Interface.Content.Archive;
 
 namespace T2.Cms.Web
 {
@@ -285,12 +286,11 @@ namespace T2.Cms.Web
             data.Add("@strId", "welcome");
             data.Add("@alias", "welcome");
             data.Add("@catId", catId);
-            data.Add("@flag",1);
+            data.Add("@flag",BuiltInArchiveFlags.Visible);
             data.Add("@path", "cms/welcome");
             data.Add("@authorId",1);
             data.Add("@title", "欢迎使用JRCms.NET");
             data.Add("@smallTitle", "");
-            data.Add("@flags","");
             data.Add("@location", "");
             data.Add("@sortNumber", 1);
             data.Add("@source","");
@@ -301,10 +301,10 @@ namespace T2.Cms.Web
             data.Add("@createTime", unix);
             data.Add("@updateTime", unix);
             String sql = String.Format(@"INSERT INTO {0}archive(
-              site_id,str_id,alias,cat_id,author_id,path,flag,title,small_title,flags,
+              site_id,str_id,alias,cat_id,author_id,path,flag,title,small_title,
               location,sort_number,source,thumbnail,outline,content,tags,
               agree,disagree,view_count,create_time,update_time)VALUES(
-              @siteId,@strId,@alias,@catId,@authorId,@path,@flag,@title, @smallTitle,@flags,
+              @siteId,@strId,@alias,@catId,@authorId,@path,@flag,@title, @smallTitle,
               @location,@sortNumber, @source,@thumbnail,@outline, @content,
               @tags,0,0,1,@createTime, @updateTime)", dbPrefix);
             this.db.ExecuteNonQuery(new SqlQuery(sql, data));

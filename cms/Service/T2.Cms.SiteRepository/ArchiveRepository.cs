@@ -63,7 +63,6 @@ namespace T2.Cms.ServiceRepository
             if (indexOf("str_id") != -1) archive.StrId = (rd["str_id"] ?? "").ToString();
             if (indexOf("site_id") != -1) archive.SiteId = Convert.ToInt32(rd["site_id"]);
             if (indexOf("small_title") != -1) archive.SmallTitle = (rd["small_title"] ?? "").ToString();
-            if (indexOf("flags") != -1) archive.Flags = rd["flags"].ToString();
             if (indexOf("location") != -1) archive.Location = rd["location"].ToString();
             if (indexOf("sort_number") != -1) archive.SortNumber = int.Parse(rd["sort_number"].ToString());
             if (indexOf("outline") != -1) archive.Outline = (rd["outline"] ?? "").ToString();

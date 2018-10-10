@@ -111,7 +111,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="categoryId"></param>
         /// <param name="publisherId"></param>
         /// <param name="includeChild"></param>
-        /// <param name="flags"></param>
+        /// <param name="flag"></param>
         /// <param name="keyword"></param>
         /// <param name="orderByField"></param>
         /// <param name="orderAsc"></param>
@@ -121,7 +121,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="pages"></param>
         /// <returns></returns>
         DataTable GetPagedArchives(int siteId, int? categoryId,
-            int publisherId, bool includeChild, string[,] flags, string keyword,
+            int publisherId, bool includeChild, int flag, string keyword,
             string orderByField, bool orderAsc, int pageSize, 
             int currentPageIndex, out int recordCount, out int pages);
 

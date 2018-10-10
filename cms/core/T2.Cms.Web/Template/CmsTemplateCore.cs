@@ -121,6 +121,11 @@ namespace T2.Cms.Template
             return url;
         }
 
+        private  bool FlagAnd(int flag, BuiltInArchiveFlags b)
+        {
+            int x = (int)b;
+            return (flag & x) == x;
+        }
 
         /// <summary>
         /// 获取文档的地址
@@ -130,11 +135,10 @@ namespace T2.Cms.Template
         /// <param name="category"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual string GetArchiveUrl(string location, string flags, CategoryDto category, string id)
+        public virtual string GetArchiveUrl(string location, int flag, CategoryDto category, string id)
         {
             if (!string.IsNullOrEmpty(location)) return this.ConcatUrl(location);
-            if (String.IsNullOrEmpty(flags) || (flags.IndexOf("p:'1'", StringComparison.Ordinal) == -1))
-            {
+            if(!this.FlagAnd(flag, BuiltInArchiveFlags.AsPage)) {
                 return this.FormatPageUrl(UrlRulePageKeys.Archive, category.Path, id);
             }
             return this.FormatPageUrl(UrlRulePageKeys.SinglePage, id);
@@ -301,7 +305,7 @@ namespace T2.Cms.Template
                     {
                         return this.GetArchiveUrl(
                             archiveDto.Location,
-                            archiveDto.Flags,
+                            archiveDto.Flag,
                             archiveDto.Category,
                             String.IsNullOrEmpty(archiveDto.Alias)
                                 ? archiveDto.StrId
@@ -1394,7 +1398,7 @@ namespace T2.Cms.Template
                         case "str_id": return id;      //用于链接的ID标识
                         case "title": return archiveDto.Title;
                         case "small_title": return archiveDto.SmallTitle;
-                        case "special_title": return !ArchiveFlag.GetFlag(archiveDto.Flags, BuiltInArchiveFlags.IsSpecial) ?
+                        case "special_title": return !this.FlagAnd(archiveDto.Flag, BuiltInArchiveFlags.IsSpecial) ?
                              archiveDto.Title : "<span class=\"special\">" + archiveDto.Title + "</span>";
 
                         case "author_id": return archiveDto.PublisherId.ToString();
@@ -1438,7 +1442,7 @@ namespace T2.Cms.Template
                         //
                         //链接
                         case "url":
-                            return GetArchiveUrl(archiveDto.Location, archiveDto.Flags, archiveDto.Category, id);
+                            return GetArchiveUrl(archiveDto.Location, archiveDto.Flag, archiveDto.Category, id);
 
                         //内容
                         case "content": return archiveDto.Content;
@@ -1640,7 +1644,7 @@ namespace T2.Cms.Template
                     {
                         switch (field)
                         {
-                            case "special_title": return !ArchiveFlag.GetFlag(dr["flags"].ToString(), BuiltInArchiveFlags.IsSpecial) ? dr["title"].ToString() : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
+                            case "special_title": return !this.FlagAnd(Convert.ToInt32(dr["flag"]), BuiltInArchiveFlags.IsSpecial) ? dr["title"].ToString() : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
                             case "title": return dr["title"].ToString();
                             case "small_title": return (dr["small_title"] ?? "").ToString();
                             case "author_id": return dr["author_id"].ToString();
@@ -1662,8 +1666,10 @@ namespace T2.Cms.Template
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["update_time"]);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", dr["update_time"]);
                             case "modify_sdate": return String.Format("{0:MM-dd}", dr["update_time"]);
-                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["createdate"]);
-                            case "create_date": return String.Format("{0:yyyy-MM-dd}", dr["createdate"]);
+                            case "publish_time":
+                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["create_time"]);
+                            case "publish_date":
+                                case "create_date": return String.Format("{0:yyyy-MM-dd}", dr["create_time"]);
 
                             //栏目
                             case "category_id": return archiveCategory.ID.ToString();
@@ -1676,7 +1682,7 @@ namespace T2.Cms.Template
 
                             //链接
                             case "url":
-                                return GetArchiveUrl(dr["location"].ToString(), dr["flags"].ToString(), archiveCategory, id);
+                                return GetArchiveUrl(dr["location"].ToString(),Convert.ToInt32(dr["flag"]), archiveCategory, id);
 
                             //内容
                             case "content": return dr["content"].ToString();
@@ -1983,7 +1989,7 @@ namespace T2.Cms.Template
                             case "category_url": return this.GetCategoryUrl(category, 1);
                             //链接
                             case "url":
-                                return GetArchiveUrl(archive.Location, archive.Flags, category, alias);
+                                return GetArchiveUrl(archive.Location, archive.Flag, category, alias);
 
                             //内容
                             case "content": return archive.Content;
@@ -2244,7 +2250,7 @@ namespace T2.Cms.Template
             IEnumerable<ArchiveDto> searchArchives = ServiceCall.Instance.ArchiveService
                 .SearchArchives(this.SiteId, 0, 0, false, tag,
                 _pageSize, _pageIndex,
-                out _records, out _pages, "ORDER BY CreateDate DESC");
+                out _records, out _pages, "ORDER BY create_time DESC");
 
 
             IDictionary<string, string> extendFields = null;
@@ -2346,14 +2352,14 @@ namespace T2.Cms.Template
                             case "category_url": return this.GetCategoryUrl(category, 1);
                             //链接
                             case "url":
-                                return GetArchiveUrl(archive.Location, archive.Flags, category, alias);
+                                return GetArchiveUrl(archive.Location, archive.Flag, category, alias);
 
                             //内容
                             case "content": return archive.Content;
 
                             //图片元素
                             case "img":
-                                return ThumbnailTag(archive.Thumbnail,archive.Title, true);
+                                return ThumbnailTag(archive.Thumbnail, archive.Title, true);
                             case "img2":
                                 return this.ThumbnailTag(archive.Thumbnail, archive.Title, false);
 
@@ -2362,7 +2368,7 @@ namespace T2.Cms.Template
 
                             // 项目顺序类
                             case "class":
-                                return GetCssClass(total, i, "a",archive.Thumbnail);
+                                return GetCssClass(total, i, "a", archive.Thumbnail);
 
                             default:
                                 //读取自定义属性
@@ -2379,11 +2385,6 @@ namespace T2.Cms.Template
                                 return "";
                         }
                     }));
-
-
-
-
-
                 ++i;
             }
 

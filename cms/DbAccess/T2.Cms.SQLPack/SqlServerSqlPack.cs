@@ -12,7 +12,7 @@ namespace T2.Cms.Sql
             get
             {
                 return @"SELECT $PREFIX_archive.id,str_id,[alias],[cat_id],title,$PREFIX_archive.location,
-                        small_title,[flags],thumbnail,author_id,
+                        small_title,$PREFIX_archive.flag,thumbnail,author_id,
                         author_id,view_count,[update_time],[Tags],[Outline],[Content],[CreateDate] FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE "
@@ -25,8 +25,9 @@ namespace T2.Cms.Sql
             get
             {
                 return @"SELECT * FROM (SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
-                    $PREFIX_archive.id,str_id,[alias],cat_id,title,$PREFIX_archive.location,[flags],[Outline],author_id,tags,source,
-                        thumbnail,[Content],update_time,[CreateDate],$PREFIX_category.[Name],$PREFIX_category.[Tag]
+                    $PREFIX_archive.id,str_id,[alias],cat_id,title,$PREFIX_archive.location,$PREFIX_archive.flag,
+                        [Outline],author_id,tags,source,
+                        thumbnail,[Content],update_time,[create_time],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cat_id]
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND $PREFIX_archive.cat_id IN($[catIdArray]) 
                          AND $PREFIX_arhive.site_id=@siteId) t  WHERE rowNum BETWEEN {0} AND {0}+{1}";
@@ -67,7 +68,7 @@ namespace T2.Cms.Sql
             get
             {
                 return @"SELECT * FROM (SELECT  ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
-                        $PREFIX_archive.id,str_id,[alias],cat_id,flags,title,$PREFIX_archive.location,
+                        $PREFIX_archive.id,str_id,[alias],cat_id,$PREFIX_archive.flag,title,$PREFIX_archive.location,
                         outline,thumbnail,author_id,update_time,source,tags,
                         [content],view_count,[create_time] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.cat_id WHERE site_id=@siteId AND  tag=@tag AND " +
@@ -79,8 +80,8 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.id,str_id,[alias],[flags],title,$PREFIX_archive.location,[Outline],
-                        thumbnail,[Content],view_count,[CreateDate]
+                return @"SELECT TOP {0} $PREFIX_archive.id,str_id,[alias],$PREFIX_archive.flag,title,$PREFIX_archive.location,[Outline],
+                        thumbnail,[Content],view_count,[create_time]
                         $PREFIX_category.[Name],$PREFIX_category.[Tag],view_count,[create_time],[update_time]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.ID=$PREFIX_archive.cat_id
                         AND $PREFIX_category.site_id=@siteId
@@ -93,8 +94,8 @@ namespace T2.Cms.Sql
             get
             {
                 return @"SELECT TOP {0} $PREFIX_archive.id,$PREFIX_category.id as cat_id,
-                        flags,str_id,[alias],title,$PREFIX_archive.location,[Outline],[Content],thumbnail,
-                        $PREFIX_category.[Name],$PREFIX_category.[Tag]
+                        $PREFIX_archive.flag,str_id,[alias],title,$PREFIX_archive.location,[Outline],[Content],thumbnail,
+                        $PREFIX_category.[name],$PREFIX_category.[tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cat_id]
                         WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray])
                         ORDER BY view_count DESC";
@@ -106,7 +107,7 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.id,[cat_id],flags,str_id,[alias],title,$PREFIX_archive.location,[Outline],thumbnail,[Content],
+                return @"SELECT TOP {0} $PREFIX_archive.id,[cat_id],$PREFIX_archive.flag,str_id,[alias],title,$PREFIX_archive.location,[Outline],thumbnail,[Content],
                     $PREFIX_category.[Name],$PREFIX_category.[Tag] FROM $PREFIX_archive
 				    INNER JOIN $PREFIX_category ON $PREFIX_category.ID=$PREFIX_archive.cat_id
                     WHERE " + SqlConst.Archive_NotSystemAndHidden + @" AND site_id=@siteId AND ModuleID=@ModuleID ORDER BY view_count DESC";
@@ -119,7 +120,7 @@ namespace T2.Cms.Sql
             get
             {
                 return @"SELECT * FROM (SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
-                            $PREFIX_archive.id,flags,str_id,[alias],[cat_id],title,
+                            $PREFIX_archive.id,$PREFIX_archive.flag,str_id,[alias],[cat_id],title,
                         $PREFIX_archive.location,[content],[outline],thumbnail,[tags],[create_time],[update_time]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray]) AND "
@@ -131,7 +132,8 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"SELECT TOP {0} $PREFIX_archive.id,str_id,[alias],[cat_id],[flags],title,$PREFIX_archive.location,[content],[outline],thumbnail,[tags],[create_time],[update_time]
+                return @"SELECT TOP {0} $PREFIX_archive.id,str_id,[alias],[cat_id],$PREFIX_archive.flag,
+                    title,$PREFIX_archive.location,[content],[outline],thumbnail,[tags],[create_time],[update_time]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE $PREFIX_category.[ModuleID]=@moduleID AND site_id=@siteId AND "
                     + SqlConst.Archive_Special + @" ORDER BY $PREFIX_archive.sort_number DESC";
@@ -151,10 +153,10 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"SELECT TOP 1 [ID],str_id,[alias],a.[cat_id],title,a.location,thumbnail,a.[create_time],a.sort_number FROM $PREFIX_archive a,
+                return @"SELECT TOP 1 [ID],str_id,[alias],a.[cat_id],title,a.flag,a.location,thumbnail,a.[create_time],a.sort_number FROM $PREFIX_archive a,
                                  (SELECT TOP 1 [cat_id],sort_number FROM $PREFIX_archive WHERE ID=@id) as t
                                  WHERE  (@sameCategory <>1 OR a.[cat_id]=t.[cat_id]) AND a.sort_number>t.sort_number AND 
-                                 (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
+                                 (@special = 1 OR " + SqlConst.Archive_NotSystemAndHiddenAlias + ")" +
                                  " ORDER BY a.sort_number";
             }
         }
@@ -163,10 +165,10 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"SELECT TOP 1 [ID],str_id,[alias],a.[cat_id],title,a.location,thumbnail,a.[create_time],a.sort_number FROM $PREFIX_archive a,
+                return @"SELECT TOP 1 [ID],str_id,[alias],a.[cat_id],title,a.flag,a.location,thumbnail,a.[create_time],a.sort_number FROM $PREFIX_archive a,
                                  (SELECT TOP 1 [cat_id],sort_number FROM $PREFIX_archive WHERE [ID]=@id) as t
                                  WHERE (@sameCategory <>1 OR a.[cat_id]=t.[cat_id]) AND a.sort_number<t.sort_number AND
-                                 (@special = 1 OR " + SqlConst.Archive_NotSystemAndHidden + ")" +
+                                 (@special = 1 OR " + SqlConst.Archive_NotSystemAndHiddenAlias + ")" +
                                  " ORDER BY a.sort_number DESC";
             }
         }
@@ -208,7 +210,7 @@ namespace T2.Cms.Sql
             get
             {
                 /*return @"SELECT TOP $[pagesize] a.[ID] AS [ID],str_id,[alias],title,$PREFIX_archive.location,thumbnail,
-                        c.[Name] as [CategoryName],[cat_id],[flags],author_id,[Content],[Source],
+                        c.[Name] as [CategoryName],[cat_id],author_id,[Content],[Source],
                         [CreateDate],view_count FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
                         ON a.cat_id=c.ID INNER JOIN $PREFIX_modules m ON c.[module_id]=m.[id]
                         WHERE $[condition] AND a.[ID] NOT IN 
@@ -218,7 +220,7 @@ namespace T2.Cms.Sql
                         WHERE $[condition] ORDER BY [$[orderByField]] $[orderASC]) ORDER BY [$[orderByField]] $[orderASC]";*/
 
                 return @"SELECT * FROM (SELECT a.id AS id,str_id,alias,title,
-                        a.location,thumbnail,c.name as categoryName,[cat_id],[flags],author_id,[content],
+                        a.location,thumbnail,c.name as categoryName,[cat_id],a.flag,author_id,[content],
                         [source],[create_time],view_count,
 						ROW_NUMBER()OVER(ORDER BY $[orderByField] $[orderASC]) as rowNum
 						FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
@@ -363,11 +365,11 @@ namespace T2.Cms.Sql
             get
             {
                 return @"INSERT INTO $PREFIX_archive(site_id,str_id,alias,cat_id,author_id,path,flag,
-                                    title,small_title,[flags],location,sort_number,
+                                    title,small_title,location,sort_number,
                                     [source],thumbnail,[Outline],[Content],[Tags],[Agree],[Disagree],view_count,
                                     create_time,update_time)
                                     VALUES(@siteId,@strId,@alias,@catId,@authorId,@path,@flag,@title,
-                                    @smallTitle,@flags,@location,@sortNumber,
+                                    @smallTitle,@location,@sortNumber,
                                     @source,@thumbnail,@outline, @content,@tags,0,0,1,@createTime,
                                     @updateTime)";
             }
@@ -387,7 +389,7 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"UPDATE $PREFIX_archive SET [cat_id]=@catId,path=@path,flag=@flag,[Title]=@Title,small_title=@smallTitle,sort_number=@sortNumber,flags=@flags,
+                return @"UPDATE $PREFIX_archive SET [cat_id]=@catId,path=@path,flag=@flag,[Title]=@Title,small_title=@smallTitle,sort_number=@sortNumber,
                                     [Alias]=@Alias,location=@location,[Source]=@Source,update_time=@updateTime,
                                     thumbnail=@thumbnail,[Outline]=@Outline,[Content]=@Content,[Tags]=@Tags WHERE id=@id";
             }

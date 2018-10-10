@@ -47,11 +47,6 @@ namespace T2.Cms.DataTransfer
         public string SmallTitle { get; set; }
 
         /// <summary>
-        /// 标签
-        /// </summary>
-        public string Flags { get; set; }
-
-        /// <summary>
         /// 作者
         /// </summary>
         public int PublisherId { get; set; }
@@ -157,7 +152,7 @@ namespace T2.Cms.DataTransfer
                 Content = a.Content,
                 Alias = a.Alias,
                 PublisherId = a.AuthorId,
-                Flags = a.Flags,
+                Flag = a.Flag,
                 Outline = a.Outline,
                 Source = a.Source,
                 Tags = a.Tags,
@@ -216,13 +211,13 @@ namespace T2.Cms.DataTransfer
             dst.SmallTitle = this.SmallTitle;
             dst.Location = this.Location;
             dst.Source = this.Source;
+            dst.Flag = this.Flag;
             dst.Tags = this.Tags;
             dst.Outline = this.Outline;
             dst.Content = this.Content;
             dst.ViewCount = this.ViewCount;
             dst.Agree = this.Agree;
             dst.Disagree = this.Disagree;
-            dst.Flags = this.Flags;
             dst.Thumbnail = this.Thumbnail;
             return dst;
         }

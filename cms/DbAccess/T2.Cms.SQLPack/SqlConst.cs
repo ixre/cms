@@ -11,13 +11,15 @@ namespace T2.Cms.Sql
     /// <summary>
     /// SQL语句常量
     /// </summary>
-    internal class SqlConst
+    public class SqlConst
     {
-        public const string Archive_NotSystemAndHidden = " flags LIKE '%st:''0''%' AND flags LIKE '%v:''1''%'";
-        
+        public static string Archive_NotSystemAndHiddenAlias = " (a.flag & 1 AND a.flag ^ 4)";
+
+        public static string Archive_NotSystemAndHidden = " ($PREFIX_archive.flag & 1 AND $PREFIX_archive.flag ^ 4)";
+
         /// <summary>
         /// 特殊文档
         /// </summary>
-        public const string Archive_Special = " flags LIKE '%st:''0''%' AND flags LIKE '%v:''1''%' AND flags LIKE '%sc:''1''%'";
+        public const string Archive_Special = "($PREFIX_archive.flag & 1 AND $PREFIX_archive.flag ^ 2)";
     }
 }

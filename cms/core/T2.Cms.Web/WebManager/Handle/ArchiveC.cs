@@ -134,6 +134,7 @@ namespace T2.Cms.Web.WebManager.Handle
 
             object json = new
             {
+                IsVisible=true,
                 Thumbnail = CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto,
                 Location = String.Empty
             };
@@ -268,9 +269,7 @@ namespace T2.Cms.Web.WebManager.Handle
             tpls = sb2.ToString();
 
             nodesHtml = Helper.GetCategoryIdSelector(this.SiteId, categoryId);
-
-            //标签
-            Dictionary<string, bool> flags = ArchiveFlag.GetFlagsDict(archive.Flags);
+            
 
             string thumbnail = !String.IsNullOrEmpty(archive.Thumbnail)
                     ? archive.Thumbnail
@@ -279,18 +278,21 @@ namespace T2.Cms.Web.WebManager.Handle
             object json = new
             {
 
-                IsSpecial = flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial))
-                                            && flags[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial)],
+                //IsSpecial = flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial))
+                //                            && flags[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial)],
 
-                IsSystem = flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem))
-                                            && flags[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem)],
+                //IsSystem = flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem))
+                //                            && flags[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem)],
 
-                IsNotVisible = !(flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible))
-                                            && flags[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible)]),
+                //IsNotVisible = !(flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible))
+                //                            && flags[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible)]),
 
-                AsPage = flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage))
-                                            && flags[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage)],
-
+                //AsPage = flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage))
+                //                            && flags[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage)],
+                IsSpecial =  this.FlagAnd(archive.Flag,BuiltInArchiveFlags.IsSpecial),
+                IsSystem = this.FlagAnd(archive.Flag, BuiltInArchiveFlags.IsSystem),
+                IsVisible = this.FlagAnd(archive.Flag, BuiltInArchiveFlags.Visible),
+                AsPage = this.FlagAnd(archive.Flag, BuiltInArchiveFlags.AsPage),
                 Id = archive.Id,
                 Title = archive.Title,
                 SmallTitle = archive.SmallTitle,
@@ -322,6 +324,12 @@ namespace T2.Cms.Web.WebManager.Handle
             base.RenderTemplate(
               BasePage.CompressHtml(ResourceMap.GetPageContent(ManagementPage.Archive_Update)),
                 data);
+        }
+
+        private bool FlagAnd(int flag, BuiltInArchiveFlags b)
+        {
+            int v = (int)b;
+            return (flag & v) == v;
         }
 
         /// <summary>
@@ -397,9 +405,7 @@ namespace T2.Cms.Web.WebManager.Handle
                 }
             }
 
-            archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
-
-            archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
+            archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);       
             Result r = ServiceCall.Instance.ArchiveService.SaveArchive(
                 this.SiteId, archive.Category.ID, archive);
             if (r.ErrCode > 0)
@@ -415,12 +421,6 @@ namespace T2.Cms.Web.WebManager.Handle
 
         private ArchiveDto GetFormCopyedArchive(int siteId, NameValueCollection form, ArchiveDto archive, string alias)
         {
-            string flag = ArchiveFlag.GetFlagString(
-                form["IsSystem"] == "on",   //系统
-                form["IsSpecial"] == "on",  //特殊
-                form["IsNotVisible"] != "on",    //隐藏
-                form["AsPage"] == "on",     //作为单页
-                null);
 
             string content = form["Content"];
 
@@ -432,7 +432,23 @@ namespace T2.Cms.Web.WebManager.Handle
                 content = _tags.Tags.RemoveAutoTags(content);
                 content = _tags.Tags.ReplaceSingleTag(content);
             }
-
+            archive.Flag = 0;
+            if(form["IsVisible"] == "on")
+            {
+                archive.Flag |= (int)BuiltInArchiveFlags.Visible;
+            }
+            if(form["AsPage"] == "on")
+            {
+                archive.Flag |= (int)BuiltInArchiveFlags.AsPage;
+            }
+            if(form["IsSpecial"] == "on")
+            {
+                archive.Flag |= (int)BuiltInArchiveFlags.IsSpecial;
+            }
+            if (form["IsSystem"] == "on")
+            {
+                archive.Flag |= (int)BuiltInArchiveFlags.IsSystem;
+            }
             archive.UpdateTime = DateTime.Now;
             archive.Title = form["Title"].Trim();
             archive.SmallTitle = form["SmallTitle"].Trim();
@@ -440,7 +456,6 @@ namespace T2.Cms.Web.WebManager.Handle
             archive.Source = form["Source"];
             archive.Outline = form["Outline"];
             archive.Alias = alias;
-            archive.Flags = flag;
             archive.Tags = form["Tags"].Replace("，", ",");
             archive.Content = content;
             archive.Thumbnail = form["Thumbnail"];
@@ -466,7 +481,6 @@ namespace T2.Cms.Web.WebManager.Handle
                     extendValue = form[key];
                     field = new ExtendField(int.Parse(key.Substring(7)), null);
                     archive.ExtendValues.Add(new ExtendValue(-1, field, extendValue));
-
                 }
             }
 
@@ -529,7 +543,7 @@ namespace T2.Cms.Web.WebManager.Handle
 
             if (!String.IsNullOrEmpty(keyword) && DataChecker.SqlIsInject(keyword))
             {
-                throw new ArgumentException("Sql  inject?", keyword);
+                throw new ArgumentException("Sql inject?", keyword);
             }
 
             if (_categoryId != null)
@@ -557,19 +571,12 @@ namespace T2.Cms.Web.WebManager.Handle
             //分页尺寸
             int.TryParse(_pageSize, out pageSize);
 
-
-            string[,] flags = new string[,]{
-                {ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem),_system},
-                {ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial),_special},
-                {ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible),_visible},
-                {ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage),_aspage}
-            };
-
+            
 
 
             //文档数据表,并生成Html
             DataTable dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(this.SiteId, categoryId,
-                publisherId, includeChild, flags, keyword, null, false, pageSize, pageIndex, out recordCount, out pages);
+                publisherId, includeChild, 0, keyword, null, false, pageSize, pageIndex, out recordCount, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -679,8 +686,7 @@ namespace T2.Cms.Web.WebManager.Handle
                 //文档数据表,并生成Html
                 DataTable dt = null;// CmsLogic.Archive.Search(this.CurrentSite.SiteId, _keyword, pageSize, pageIndex, out recordCount, out pages, null);
 
-
-                IDictionary<string, bool> flagsDict;
+                
 
                 bool isSpecial,
                     isSystem,
@@ -689,18 +695,11 @@ namespace T2.Cms.Web.WebManager.Handle
 
                 foreach (DataRow dr in dt.Rows)
                 {
-                    flagsDict = ArchiveFlag.GetFlagsDict(dr["flags"].ToString());
-                    isSpecial = flagsDict.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial))
-                        && flagsDict[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial)];
-
-                    isSystem = flagsDict.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem))
-                        && flagsDict[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSystem)];
-
-                    isVisible = flagsDict.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible))
-                                        && flagsDict[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.Visible)];
-
-                    isPage = flagsDict.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage))
-                                        && flagsDict[ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.AsPage)];
+                    int flag = Convert.ToInt32(dr["flag"]);
+                    isSpecial = this.FlagAnd(flag, BuiltInArchiveFlags.IsSpecial);
+                    isSystem = this.FlagAnd(flag,BuiltInArchiveFlags.IsSystem);
+                    isVisible =this.FlagAnd(flag,BuiltInArchiveFlags.Visible);
+                    isPage = this.FlagAnd(flag,BuiltInArchiveFlags.AsPage);
 
                     //编号
                     sb.Append("<tr><td align=\"center\">").Append(dr["id"].ToString()).Append("</td>");
