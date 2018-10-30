@@ -16,7 +16,7 @@ a{text-decoration:none;outline:none;color:#006699;}
   
 .login-panel{margin:0 auto;opacity:0;filter:alpha(opacity=0);width:360px;}
 .login-panel p{margin:0;padding:6px 0;}
-.login-panel .panel{border:solid 1px #D5D5D5;background:#E5E5E5;padding:0;box-shadow: 0 0 5px #DDD;}
+.login-panel .panel{border:solid 1px #D5D5D5;background:#E5E5E5;padding:0;box-shadow: 0 0 10px #BBB;}
 .login-panel .panel .panel_con{background:#FFF;padding:20px 40px;box-shadow:0 0px 0 #EEE inset}
 .login-panel #tip{padding-left:15px;border-bottom:dashed 1px #ddd;padding-bottom:10px;line-height:30px;font-size:12px;margin-bottom:20px;}
 
@@ -48,12 +48,12 @@ div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
 .ui-box:focus{border:solid 1px #A4CFE3;margin:1px;background:#F6F9FC;}
 input.ui-box,select.ui-box{ height: auto;height:1.8em;line-height: 1.8em;}
 
-
-.verify-panel{position: relative;}
-.verify-panel .verify{width:90px;padding:2px 0 1.5px 0;top:7px;left:160px;
-    border:solid 1px #888;border-radius:0 2px 2px 0;cursor:pointer;position:absolute;
-    background-color: #FFF;}
-.verify-panel input.box{border-radius:2px 0 0 2px;width:60px;}
+.mod-login-code{position:relative;display:inline-block;}
+.mod-login-code input.box{border-radius:2px 0 0 2px;width:60px;}
+.mod-login-code .mod-login-code-img{position: absolute;right:2px;top:0;bottom:0;display:block;
+    margin:auto 0;width:70px;border-left:solid 1px #CCC;cursor:pointer; background-color: #FFF;
+    height:24px;border-radius:0 2px 0 0;
+}
 
 span.txt{width:80px;display:inline-block;text-align:center;font-size:12px;color:#333;}
 div#bottom{text-align:center;color:#666;font-size:12px;line-height:40px;}
