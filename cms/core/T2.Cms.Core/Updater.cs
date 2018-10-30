@@ -276,11 +276,8 @@ namespace T2.Cms
                 new Thread(() =>
                 {
                     OnUpgrade();
-
                     //完成100%
                     UpgradePercent = 1F;
-                    Thread.CurrentThread.Abort();
-
                 }).Start();
             }
         }
@@ -330,7 +327,13 @@ namespace T2.Cms
                 {
                     if (!entry.IsDirectory)
                     {
-                        entry.WriteToDirectory(dir.FullName, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                        try
+                        {
+                            entry.WriteToDirectory(dir.FullName, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                        }catch(Exception exc)
+                        {
+                            Console.WriteLine("[ Upgrade][ Err]:" + exc.Message);
+                        }
                     }
                 }
                 archive.Dispose();
@@ -416,8 +419,9 @@ namespace T2.Cms
                 return streamArray;
 
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine("[ Upgrade][ DownFile]: " + fileName + "-" + ex.Message);
                 // ignored
             }
             return null;
