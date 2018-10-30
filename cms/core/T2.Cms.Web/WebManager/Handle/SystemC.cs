@@ -381,65 +381,6 @@ namespace T2.Cms.Web.WebManager.Handle
 
         #endregion
 
-        /// <summary>
-        /// 快捷工具
-        /// </summary>
-        ///
-        /*
-        public void Quick_GET()
-        {
-            string moduleOpts,
-            categoryOpts,
-            authorOpts;
-
-            StringBuilder sb = new StringBuilder();
-
-            foreach (var m in CmsLogic.Module.GetSiteModules(base.CurrentSite.SiteId))
-            {
-                if (!m.IsDelete)
-                {
-                    sb.Append("<option value=\"").Append(m.ID.ToString()).Append("\">")
-                        .Append(m.Name).Append("</option>");
-                }
-            }
-            moduleOpts = sb.ToString();
-            sb.Remove(0, sb.Length);
-
-
-            //计算栏目
-            CmsLogic.Category.HandleCategoryTree(CmsLogic.Category.Get(a => a.Lft == 1).Name, (category, level) =>
-                                                 {
-                                                    sb.Append("<option value=\"").Append(category.Lft.ToString()).Append("\">");
-                                                    for (var i = 0; i < level; i++)
-                                                    {
-                                                        sb.Append("一");
-                                                    }
-                                                    sb.Append(category.Name).Append("</option>");
-
-                                                 });
-
-
-            categoryOpts = sb.ToString();
-            sb.Remove(0, sb.Length);
-
-
-            //作者
-            foreach (UserBll u in  CmsLogic.UserBll.GetAllUser())
-            {
-                sb.Append("<option value=\"").Append(u.UserName).Append("\">")
-                    .Append(u.Name).Append("(").Append(u.UserName).Append(")</option>");
-            }
-            authorOpts = sb.ToString();
-
-
-            base.RenderTemplate(WebManagerResource.quick, new
-                                {
-                                    module_opts = moduleOpts,
-                                    category_opts = categoryOpts,
-                                    author_opts = authorOpts
-                                });
-        }
-         */
 
         /// <summary>
         /// 退出登录
