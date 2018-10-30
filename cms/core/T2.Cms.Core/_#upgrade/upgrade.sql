@@ -30,6 +30,8 @@ ADD COLUMN `module_id` INT NULL COMMENT '模块编号' AFTER `icon`;
 ALTER TABLE `cms_category` 
 CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
 
+update `cms_category` set path = tag WHERE path='' AND site_id=1;
+
 
 ALTER TABLE `cms_site` 
 CHANGE COLUMN `name` `name` VARCHAR(50) NOT NULL COMMENT '站点名称' ,
