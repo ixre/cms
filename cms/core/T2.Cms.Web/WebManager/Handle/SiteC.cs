@@ -98,7 +98,7 @@ namespace T2.Cms.Web.WebManager.Handle
         private SiteDto CheckSiteEntity(bool siteIsExist, SiteDto entity)
         {
             string bindedDomains;
-            if (entity.DirName.IndexOf("/", StringComparison.Ordinal) != -1)
+            if (entity.AppPath.IndexOf("/", StringComparison.Ordinal) != -1)
             {
                 throw new ArgumentException("目录名不能包含\"/\"");
             }

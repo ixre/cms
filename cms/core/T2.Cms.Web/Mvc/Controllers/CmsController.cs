@@ -25,6 +25,7 @@ namespace T2.Cms.Web.Mvc
     using System;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
+    using T2.Cms.Core;
 
 
 
@@ -83,7 +84,7 @@ namespace T2.Cms.Web.Mvc
             bool eventResult = false;
             if (OnIndexRequest != null)
             {
-                OnIndexRequest(base.OutputCntext, ref eventResult);
+                OnIndexRequest(base.OutputContext, ref eventResult);
             }
             if (!this.CheckSiteUrl()) return;
             SiteDto site = Cms.Context.CurrentSite;
@@ -99,16 +100,16 @@ namespace T2.Cms.Web.Mvc
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.RenderIndex(base.OutputCntext);
+                DefaultWebOuput.RenderIndex(base.OutputContext);
             }
         }
 
         private bool CheckSiteUrl()
         {
             SiteDto site = Cms.Context.CurrentSite;
-            if (!String.IsNullOrEmpty(site.DirName))
+            if (!String.IsNullOrEmpty(site.AppPath))
             {
-                String targetUrl = "/" + site.DirName;
+                String targetUrl = "/" + site.AppPath;
                 if (!Request.Path.StartsWith(targetUrl))
                 {
                     Response.Redirect(targetUrl);
@@ -186,12 +187,30 @@ namespace T2.Cms.Web.Mvc
             v.RenderGraphicImage(_length, _opt, true, out verifycode, "Image/Jpeg");
 
             //保存验证码
-            Session[String.Format("$jr.site_{0}_verifycode", this.OutputCntext.CurrentSite.SiteId.ToString())] = verifycode;
+            Session[String.Format("$jr.site_{0}_verifycode", this.OutputContext.CurrentSite.SiteId.ToString())] = verifycode;
         }
 
         #endregion
 
         #region 文档
+
+
+        /// <summary>
+        /// 获取真实的请求地址
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="appPath"></param>
+        /// <returns></returns>
+        public string SubPath(String path,string appPath)
+        {
+            int len = appPath.Length;
+            if (len > 2)
+            {
+                if (path.Length < len) return "";
+                return path.Substring(len);
+            }
+            return path;
+        }
 
         /// <summary>
         /// 栏目页面
@@ -200,43 +219,47 @@ namespace T2.Cms.Web.Mvc
         /// <returns></returns>
         public void Category(string allCate)
         {
-            String appPath = this.OutputCntext.SiteAppPath;
+            CmsContext ctx = base.OutputContext;
+            //检测网站状态
+            if (!ctx.CheckSiteState()) return;
+            //检查缓存
+            if (!ctx.CheckAndSetClientCache()) return;
+            String catPath = this.SubPath(allCate, ctx.SiteAppPath);
             //验证是否为当前站点的首页
-            if (appPath != "/" || allCate.LastIndexOf("/") == 0 || 
-                allCate == appPath.Substring(1)){ 
+            if (catPath.Length == 0)
+            {
                 this.Index();
                 return;
             }
             int page = 1;
-            String path = allCate;
-            if (allCate.IndexOf(".")!= -1)
+            if (catPath.IndexOf(".") != -1)
             {
                 //获取页码和tag
                 Regex paramRegex = new Regex("/*((.+)/(p(\\d+)\\.html)?|(.+))$", RegexOptions.IgnoreCase);
-                Match mc = paramRegex.Match(allCate);
+                Match mc = paramRegex.Match(catPath);
                 if (mc.Groups[4].Value != "")
                 {
                     page = int.Parse(mc.Groups[4].Value);
                 }
-                path = mc.Groups[mc.Groups[2].Value != "" ? 2 : 5].Value;
+                catPath = mc.Groups[mc.Groups[2].Value != "" ? 2 : 5].Value;
             }
             // 去掉末尾的"/"
-            if (path.EndsWith("/"))
+            if (catPath.EndsWith("/"))
             {
-                path = path.Substring(0,path.Length - 1);
+                catPath = catPath.Substring(0, catPath.Length - 1);
             }
-            
+
             //执行
             bool eventResult = false;
             if (OnCategoryRequest != null)
             {
-                OnCategoryRequest(base.OutputCntext, path, page, ref eventResult);
+                OnCategoryRequest(ctx, catPath, page, ref eventResult);
             }
 
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.RenderCategory(base.OutputCntext, path, page);
+                DefaultWebOuput.RenderCategory(ctx, catPath, page);
             }
         }
 
@@ -246,16 +269,24 @@ namespace T2.Cms.Web.Mvc
         /// <returns></returns>
         public void Archive(string allHtml)
         {
+            CmsContext ctx = base.OutputContext;
+            //检测网站状态
+            if (!ctx.CheckSiteState()) return;
+            //检查缓存
+            if (!ctx.CheckAndSetClientCache()) return;
+            String archivePath = this.SubPath(allHtml, ctx.SiteAppPath);
+
+
             bool eventResult = false;
             if (OnArchiveRequest != null)
             {
-                OnArchiveRequest(base.OutputCntext, allHtml, ref eventResult);
+                OnArchiveRequest(ctx, archivePath, ref eventResult);
             }
 
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.RenderArchive(base.OutputCntext, allHtml);
+                DefaultWebOuput.RenderArchive(ctx, archivePath);
             }
         }
 
@@ -271,7 +302,7 @@ namespace T2.Cms.Web.Mvc
             bool eventResult = false;
             if (OnSearchRequest != null)
             {
-                OnSearchRequest(base.OutputCntext, c, w, ref eventResult);
+                OnSearchRequest(base.OutputContext, c, w, ref eventResult);
             }
 
             //如果返回false,则执行默认输出
@@ -279,7 +310,7 @@ namespace T2.Cms.Web.Mvc
             {
                 if (c != null) c = c.Trim();
                 if (w != null) w = w.Trim();
-                DefaultWebOuput.RenderSearch(base.OutputCntext, c,w);
+                DefaultWebOuput.RenderSearch(base.OutputContext, c,w);
             }
         }
 
@@ -293,13 +324,13 @@ namespace T2.Cms.Web.Mvc
             bool eventResult = false;
             if (OnTagRequest != null)
             {
-                OnTagRequest(base.OutputCntext, t, ref eventResult);
+                OnTagRequest(base.OutputContext, t, ref eventResult);
             }
 
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.RenderTag(base.OutputCntext, t);
+                DefaultWebOuput.RenderTag(base.OutputContext, t);
             }
         }
 
@@ -309,13 +340,13 @@ namespace T2.Cms.Web.Mvc
             bool eventResult = false;
             if (OnArchivePost != null)
             {
-                OnArchivePost(base.OutputCntext, allhtml, ref eventResult);
+                OnArchivePost(base.OutputContext, allhtml, ref eventResult);
             }
 
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.PostArchive(base.OutputCntext, allhtml);
+                DefaultWebOuput.PostArchive(base.OutputContext, allhtml);
             }
         }
 
@@ -327,7 +358,7 @@ namespace T2.Cms.Web.Mvc
         public string SubmitForm(FormCollection form)
         {
             //检测网站状态
-            if (!base.OutputCntext.CheckSiteState()) return String.Empty;
+            if (!base.OutputContext.CheckSiteState()) return String.Empty;
 
             int tableID;
 

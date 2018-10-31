@@ -93,7 +93,7 @@ namespace T2.Cms.ServiceRepository
                        //ISite site = this.CreateSite(Convert.ToInt32(rd["site_id"]), );
 
                        //rd.CopyToEntity<ISite>(site);
-                       site.AppName = rd["app_name"].ToString();
+                       site.AppPath = rd["app_name"].ToString();
                        site.Tpl = rd["tpl"].ToString();
                        site.State =int.Parse(rd["state"].ToString());
                        site.Location = rd["location"].ToString();
@@ -151,7 +151,7 @@ namespace T2.Cms.ServiceRepository
                 //{
                 //   return _site;
                 //}
-                if (_site.Get().Domain == "" && _site.Get().AppName == "")
+                if (_site.Get().Domain == "" && _site.Get().AppPath == "")
                 {
                     return _site;
                 }
@@ -192,7 +192,7 @@ namespace T2.Cms.ServiceRepository
                     s.SetRunType(SiteRunType.Stand);
                     if (String.IsNullOrEmpty(appName)) return s;
                     // 判断应用名称相同
-                    if (String.Compare(s.Get().AppName, appName, true) == 0)
+                    if (String.Compare(s.Get().AppPath, appName, true) == 0)
                     {
                         s.SetRunType(SiteRunType.VirtualDirectory);
                         return s;
@@ -206,7 +206,7 @@ namespace T2.Cms.ServiceRepository
             {
                 foreach (ISite s in sites)
                 {
-                    if (String.Compare(s.Get().AppName, appName, true) == 0)
+                    if (String.Compare(s.Get().AppPath, appName, true) == 0)
                     {
                         s.SetRunType(SiteRunType.VirtualDirectory);
                         return s;

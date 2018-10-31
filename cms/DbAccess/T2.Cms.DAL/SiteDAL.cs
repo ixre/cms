@@ -13,7 +13,7 @@ namespace T2.Cms.Dal
             CmsSiteEntity site = ist.Get();
             IDictionary<string, Object> data = new Dictionary<string, Object>();
             data.Add("@name", site.Name);
-            data.Add("@appName", site.AppName);
+            data.Add("@appName", site.AppPath);
             data.Add("@domain", site.Domain);
             data.Add("@location", site.Location);
             data.Add("@tpl", site.Tpl);
@@ -48,7 +48,7 @@ namespace T2.Cms.Dal
             CmsSiteEntity site = ist.Get();
             IDictionary<string, Object> data = new Dictionary<string, Object>();
             data.Add("@name", site.Name);
-            data.Add("@appName", site.AppName);
+            data.Add("@appName", site.AppPath);
             data.Add("@domain", site.Domain);
             data.Add("@location", site.Location);
             data.Add("@tpl", site.Tpl);
