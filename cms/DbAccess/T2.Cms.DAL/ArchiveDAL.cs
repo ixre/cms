@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using T2.Cms.Models;
 using T2.Cms.Sql;
+using JR.DevFw.Framework;
 
 namespace T2.Cms.Dal
 {
@@ -86,7 +87,7 @@ namespace T2.Cms.Dal
         public void RePublish(int siteId, int archiveId)
         {
             var pa = new object[,]{
-                {"@CreateDate",String.Format("{0:yyyy-MM-dd HH:mm:ss}",DateTime.Now)},
+                {"@create_time",TimeUtils.Unix()},
                 {"@id", archiveId},
                 {"@siteId",siteId}
         };
@@ -571,7 +572,7 @@ namespace T2.Cms.Dal
             const string conditionTpl = "$[siteid]$[module]$[category]$[author_id]$[flag]$[keyword]";
 
             string condition,                                                             //SQL where condition
-                    order = String.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,   //Order filed ( CreateDate | ViewCount | Agree | Disagree )
+                    order = String.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,   
                     orderType = orderAsc ? "ASC" : "DESC";                                      //ASC or DESC
             
             

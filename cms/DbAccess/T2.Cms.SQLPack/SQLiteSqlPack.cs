@@ -289,7 +289,7 @@ $PREFIX_archive.flag,outline,
             get
             {
                 return @"SELECT $PREFIX_archive.id,str_id,[alias],[cat_id],title,$PREFIX_archive.location,[Tags],
-                        [Outline],thumbnail,[Content],[IsSystem],[IsSpecial],[Visible],[CreateDate]
+                        [Outline],thumbnail,[Content],[IsSystem],[IsSpecial],[Visible],create_time
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE {0} ORDER BY $PREFIX_archive.sort_number DESC";
             }
@@ -375,7 +375,7 @@ $PREFIX_archive.flag,outline,
 
         public override string Comment_AddComment
         {
-            get { return "INSERT INTO $PREFIX_comment ([ArchiveID],[MemberID],[IP],[Content],[Recycle],[CreateDate])VALUES(@ArchiveId,@MemberID,@IP,@Content,@Recycle,@CreateDate)"; }
+            get { return "INSERT INTO $PREFIX_comment ([ArchiveID],[MemberID],[IP],[Content],[Recycle],create_time)VALUES(@ArchiveId,@MemberID,@IP,@Content,@Recycle,@create_time)"; }
         }
 
         public override string Member_RegisterMember

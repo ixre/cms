@@ -152,7 +152,7 @@ namespace T2.Cms.Domain.Implement.Site.Category
 
             // 更新栏目路径
             bool pathRenew = this._pathChanged;
-            if (pathRenew)
+            if (pathRenew || String.IsNullOrEmpty(this.value.Path))
             {
                 this._parent = null;
                 this.UpdateCategoryPath();

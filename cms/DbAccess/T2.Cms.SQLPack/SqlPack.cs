@@ -40,7 +40,7 @@ namespace T2.Cms.Sql
         /// 重新发布文档
         /// </summary>
         public readonly string ArchiveRepublish = @"UPDATE $PREFIX_archive 
-                                SET create_time=@CreateDate WHERE id IN (SELECT id FROM
+                                SET create_time=@create_time WHERE id IN (SELECT id FROM
                                 (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
                                 $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
                                 WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
@@ -311,7 +311,7 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 删除栏目
         /// </summary>
-        public readonly string Category_DeleteById = "DELETE FROM $PREFIX_category WHERE site_id=@siteId AND id>=@catId";
+        public readonly string Category_DeleteById = "DELETE FROM $PREFIX_category WHERE site_id=@siteId AND id=@catId";
         
 
         #endregion

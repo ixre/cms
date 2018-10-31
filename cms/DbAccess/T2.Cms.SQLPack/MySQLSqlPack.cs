@@ -413,7 +413,7 @@
 
         public override string Comment_AddComment
         {
-            get { return "INSERT INTO $PREFIX_comment (`archiveid`,`memberid`,`ip`,`content`,`recycle`,`create_time`)VALUES(@ArchiveId,@MemberID,@IP,@Content,@Recycle,@CreateDate)"; }
+            get { return "INSERT INTO $PREFIX_comment (`archiveid`,`memberid`,`ip`,`content`,`recycle`,`create_time`)VALUES(@ArchiveId,@MemberID,@IP,@Content,@Recycle,@create_time)"; }
         }
 
         public override string Member_RegisterMember
