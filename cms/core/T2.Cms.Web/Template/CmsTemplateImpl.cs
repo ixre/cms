@@ -1418,7 +1418,6 @@ namespace T2.Cms.Template
             {
                 return this.TplMessage("此标签不允许在当前页面中调用!请使用$MCategoryList(module_id,isRoot,format)标签代替");
             }
-
             return this.MCategoryList(id.ToString(), "true", format);
         }
 
@@ -1428,31 +1427,22 @@ namespace T2.Cms.Template
         {
             //读取缓存
             string cacheKey = String.Format("{0}_site{1}_mtree_{2}", CacheSign.Category.ToString(), this.SiteId.ToString(), moduleID);
-
             BuiltCacheResultHandler<String> bh = () =>
             {
                 //无缓存,则继续执行
                 StringBuilder sb = new StringBuilder(400);
-
                 int _moduleID = int.Parse(moduleID);
-
                 //从模块加载
                 if (CmsLogic.Module.GetModule(_moduleID) == null)
                 {
                     return TplMessage("不存在模块!ID:" + moduleID);
                 }
                 sb.Append("<div class=\"category_tree mtree\">");
-
-                CategoryDto dto = ServiceCall.Instance.SiteService.GetCategoryByLft(this.SiteId, 1);
-
+                CategoryDto dto = new CategoryDto { ID = 0 };
                 this.CategoryTree_Iterator(dto, sb, a => { return a.ModuleId == _moduleID; }, true);
-
                 sb.Append("</div>");
-
                 return sb.ToString();
             };
-
-
             return Cms.Cache.GetCachedResult(cacheKey, bh, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
         }
 

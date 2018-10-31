@@ -272,8 +272,8 @@ $PREFIX_archive.flag,outline,
                          WHERE $PREFIX_archive.id IN (SELECT $PREFIX_archive.id
                          FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                          $PREFIX_archive.[cat_id]=$PREFIX_category.id
-                         WHERE $[condition] AND $PREFIX_category.site_id=@siteId AND ($PREFIX_category.lft>=@lft AND
-                         $PREFIX_category.rgt<=@rgt) AND ([Title] LIKE '%$[keyword]%' OR 
+                         WHERE $[condition] AND $PREFIX_archive.path LIKE @catPath AND $PREFIX_archive.site_id=@siteId
+                         AND ([Title] LIKE '%$[keyword]%' OR 
                          [Outline] LIKE '%$[keyword]%' OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')
 				         $[orderby] LIMIT $[skipsize],$[pagesize])";
             }
@@ -366,9 +366,7 @@ $PREFIX_archive.flag,outline,
             get
             {
                 return @"SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive
-                         INNER JOIN $PREFIX_category ON $PREFIX_archive.[cat_id]=
-                        $PREFIX_category.id WHERE {1} AND $PREFIX_category.site_id=@siteId
-                        AND ($PREFIX_category.lft>=@lft AND 
+                        WHERE {1} AND $PREFIX_archive.path LIKE @catPath AND $PREFIX_archive.site_id=@siteId
                         $PREFIX_category.rgt<=@rgt) AND ([Title] LIKE '%{0}%' 
                         OR [Outline] LIKE '%{0}%' OR [Content] LIKE '%{0}%' 
                         OR [Tags] LIKE '%{0}%')";

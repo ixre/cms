@@ -195,12 +195,6 @@ namespace T2.Cms.Domain.Implement.Site
 
         public ICategory GetCategory(int categoryId)
         {
-            int lft = this._categoryRep.GetCategoryLftById(this.GetAggregaterootId(), categoryId);
-            if (lft > 0)
-            {
-                return BinarySearch.IntSearch(this.Categories, 0, this.Categories.Count, lft, a => a.Lft);
-            }
-
             foreach (ICategory c in this.Categories)
             {
                 if (c.GetDomainId() == categoryId) return c;
@@ -209,12 +203,7 @@ namespace T2.Cms.Domain.Implement.Site
         }
 
 
-
-        public IEnumerable<ICategory> GetCategories(int catId, CategoryContainerOption option)
-        {
-            return this._categoryRep.GetCategories(this.GetAggregaterootId(),catId, option);
-        }
-
+        
         public ICategory GetCategoryByPath(string path)
         {
             return this._categoryRep.GetCategoryByPath(this.GetAggregaterootId(), path);
@@ -231,34 +220,25 @@ namespace T2.Cms.Domain.Implement.Site
             }
             return null;
         }
-        public ICategory GetCategoryByLft(int lft)
-        {
-            return BinarySearch.IntSearch(this.Categories, 0, this.Categories.Count, lft, a => a.Lft);
-        }
 
-        public bool DeleteCategory(int lft)
+        public Error DeleteCategory(int catId)
         {
-            ICategory category = this.GetCategoryByLft(lft);
-
+            ICategory category = this.GetCategory(catId);
             if (category.Childs.Count() != 0)
             {
-                throw new Exception("栏目包含子栏目!");
+                return new Error("栏目包含子栏目!");
             }
-
-            if (this._categoryRep.GetArchiveCount(this.GetAggregaterootId(), lft, category.Rgt) != 0)
+            if (this._categoryRep.GetArchiveCount(this.GetAggregaterootId(),category.Get().Path) != 0)
             {
-                throw new Exception("栏目包含文档!");
+                return new Error("栏目包含文档!");
             }
-
-            this._categoryRep.DeleteCategory(this.GetAggregaterootId(), lft, category.Rgt);
-
             foreach (TemplateBind bind in category.GetTemplates())
             {
                 this._tempRep.RemoveBind( category.GetDomainId(),bind.BindType);
             }
+            this._categoryRep.DeleteCategory(this.GetAggregaterootId(), catId);
             this._categories = null;
-
-            return true;
+            return null;
         }
 
 
@@ -479,5 +459,6 @@ namespace T2.Cms.Domain.Implement.Site
         {
             return this.value.SiteId;
         }
+        
     }
 }

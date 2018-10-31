@@ -112,12 +112,13 @@ namespace T2.Cms.Domain.Interface.Site
         /// <param name="categoryName"></param>
         /// <returns></returns>
         ICategory GetCategoryByName(string categoryName);
-
-        IEnumerable<ICategory> GetCategories(int catId, CategoryContainerOption option);
-
-        ICategory GetCategoryByLft(int lft);
-
-        bool DeleteCategory(int lft);
+        
+        /// <summary>
+        /// 删除栏目
+        /// </summary>
+        /// <param name="catId"></param>
+        /// <returns></returns>
+        Error DeleteCategory(int catId);
 
         /// <summary>
         /// 迭代栏目树

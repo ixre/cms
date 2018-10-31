@@ -340,11 +340,11 @@ namespace T2.Cms.ServiceRepository
         }
 
 
-        public IEnumerable<IArchive> SearchArchivesByCategory(int siteId, int categoryLft, int categoryRgt, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy)
+        public IEnumerable<IArchive> SearchArchivesByCategory(int siteId,String catPath, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy)
         {
             IArchive archive;
             IList<IArchive> archives = new List<IArchive>();
-            _dal.SearchArchivesByCategory(siteId, categoryLft, categoryRgt, keyword,
+            _dal.SearchArchivesByCategory(siteId,catPath, keyword,
                 pageSize, pageIndex, out records, out pages
                 , orderBy, rd =>
             {
@@ -359,11 +359,11 @@ namespace T2.Cms.ServiceRepository
             return archives;
         }
 
-        public IEnumerable<IArchive> SearchArchives(int siteId, int categoryLft, int categoryRgt, bool onlyMatchTitle, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy)
+        public IEnumerable<IArchive> SearchArchives(int siteId, String catPath, bool onlyMatchTitle, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy)
         {
             IArchive archive;
             IList<IArchive> archives = new List<IArchive>();
-            _dal.SearchArchives(siteId, categoryLft, categoryRgt, onlyMatchTitle, keyword,
+            _dal.SearchArchives(siteId, catPath, onlyMatchTitle, keyword,
                 pageSize, pageIndex, out records, out pages
                 , orderBy, rd =>
                 {

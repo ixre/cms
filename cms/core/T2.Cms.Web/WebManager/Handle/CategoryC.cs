@@ -224,9 +224,7 @@ namespace T2.Cms.Web.WebManager.Handle
             if (!(category.ID > 0)) return;
 
             //获取父栏目pleft
-            int pId = 0;
-            CategoryDto pc = ServiceCall.Instance.SiteService.GetParentCategory(this.SiteId, category.Lft);
-            if (pc.ID > 0) pId = pc.ID;
+            int pId = category.ParentId;
 
             /*
             //加载模块
@@ -312,20 +310,12 @@ namespace T2.Cms.Web.WebManager.Handle
         public string Delete_POST()
         {
             int categoryId = int.Parse(base.Request.Form["category_id"]);
-            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
-
-            if (!(category.ID > 0))return base.ReturnError("栏目不存在");
-
-            try
+            T2.Cms.Infrastructure.Error err = ServiceCall.Instance.SiteService.DeleteCategory(this.SiteId, categoryId);
+            if (err == null)
             {
-                //bool result =
-                ServiceCall.Instance.SiteService.DeleteCategoryByLft(this.SiteId, category.Lft);
                 return base.ReturnSuccess();
             }
-            catch (Exception exc)
-            {
-                return base.ReturnError(exc.Message);
-            }
+            return base.ReturnError(err.Message);
 
         }
 

@@ -323,25 +323,24 @@ namespace T2.Cms.Service
         }
 
 
-        public IEnumerable<ArchiveDto> SearchArchivesByCategory(int siteId, int categoryLft,
-            int categoryRgt, string keyword, int pageSize,
+        public IEnumerable<ArchiveDto> SearchArchivesByCategory(int siteId, String catPath, string keyword, int pageSize,
             int pageIndex, out int records, out int pages,
             string orderBy)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
             IEnumerable<IArchive> archives = content.SearchArchivesByCategory(
-                categoryLft, categoryRgt, keyword, pageSize,
+               catPath, keyword, pageSize,
                 pageIndex, out records, out  pages, orderBy);
             return this.GetArchiveEnumertor(archives);
         }
 
         
-        public IEnumerable<ArchiveDto> SearchArchives(int siteId, int categoryLft, int categoryRgt,
+        public IEnumerable<ArchiveDto> SearchArchives(int siteId,String catPath,
             bool onlyMatchTitle, string keyword, int pageSize, int pageIndex,out int records, 
             out int pages, string orderBy)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            IEnumerable<IArchive> archives = content.SearchArchives(categoryLft,categoryRgt,
+            IEnumerable<IArchive> archives = content.SearchArchives(catPath,
                 onlyMatchTitle, keyword, pageSize, pageIndex, out records, out pages, orderBy);
             return this.GetArchiveEnumertor(archives);
         }

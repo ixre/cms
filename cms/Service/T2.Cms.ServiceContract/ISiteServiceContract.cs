@@ -7,6 +7,7 @@ using T2.Cms.Domain.Interface.Site.Category;
 using T2.Cms.Domain.Interface.Site.Link;
 using T2.Cms.Domain.Interface.User;
 using T2.Cms.Infrastructure.Tree;
+using T2.Cms.Infrastructure;
 
 namespace T2.Cms.ServiceContract
 {
@@ -100,21 +101,15 @@ namespace T2.Cms.ServiceContract
         /// <returns></returns>
         CategoryDto GetCategory(int siteId, string catPath);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <returns></returns>
-        CategoryDto GetCategoryByLft(int siteId, int lft);
+        
 
         /// <summary>
-        /// 
+        /// 删除栏目
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="lft"></param>
+        /// <param name="catId"></param>
         /// <returns></returns>
-        bool DeleteCategoryByLft(int siteId,int lft);
+        Error DeleteCategory(int siteId,int catId);
 
         /// <summary>
         /// 迭代栏目树
@@ -140,15 +135,6 @@ namespace T2.Cms.ServiceContract
         /// <param name="category"></param>
         /// <returns></returns>
         Result SaveCategory(int siteId, int parentId, CategoryDto category);
-
-        /// <summary>
-        /// 获取父栏目
-        /// </summary>
-        /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <returns></returns>
-        CategoryDto GetParentCategory(int siteId, int lft);
-
      
         /// <summary>
         /// 获取栏目树，包含根节点

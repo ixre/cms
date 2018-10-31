@@ -417,28 +417,20 @@ namespace T2.Cms.Web.WebManager.Handle
             string key = base.Request["key"].Trim();
             string size = base.Request["size"] ?? "20";
             bool onlyTitle = Request["only_title"] == "true";
-            string categoryTag = Request["category"];
+            int catId = 0;
+            int.TryParse(Request["category_id"], out catId);
             int count, pages;
             int intSiteId = 0;
             int.TryParse(Request["site_id"], out intSiteId);
-
-            StringBuilder strBuilder = new StringBuilder(500);
-
-            int lft = 0;
-            int rgt = 0;
-
-            if (!String.IsNullOrEmpty(categoryTag))
+            String catPath = null;
+            if(catId > 0)
             {
-                CategoryDto c = ServiceCall.Instance.SiteService.GetCategory(intSiteId, categoryTag);
-                if (c.ID > 0)
-                {
-                    lft = c.Lft;
-                    rgt = c.Rgt;
-                }
+                CategoryDto c = ServiceCall.Instance.SiteService.GetCategory(intSiteId, catId);
+                catPath = c.Path;
             }
-
+            StringBuilder strBuilder = new StringBuilder(500);
             IEnumerable<ArchiveDto> list = ServiceCall.Instance.ArchiveService
-                .SearchArchives(intSiteId, lft,rgt,onlyTitle, key,
+                .SearchArchives(intSiteId,catPath,onlyTitle, key,
                 int.Parse(size),
                 1,
                  out count,

@@ -54,7 +54,7 @@ namespace T2.Cms.Web.WebManager.Handle
             string categoryJson = JsonSerializer.Serialize(new
             {
                 ID = category.ID,
-                Lft = category.Lft,
+                Path = category.Path,
                 Name = category.Name,
                 ExtendIds = extendIds
             });

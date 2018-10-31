@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using T2.Cms.Infrastructure;
 using T2.Cms.Models;
 
@@ -141,9 +142,8 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <param name="pages"></param>
         /// <param name="orderBy"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> SearchArchivesByCategory(
-            int siteId, int categoryLft,
-            int categoryRgt, string keyword, int pageSize, 
+        IEnumerable<IArchive> SearchArchivesByCategory(int siteId,
+            String catPath, string keyword, int pageSize, 
             int pageIndex, out int records, out int pages, string orderBy);
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace T2.Cms.Domain.Interface.Content.Archive
         /// <param name="categoryRgt"></param>
         /// <param name="onlyMatchTitle"></param>
         /// <returns></returns>
-        IEnumerable<IArchive> SearchArchives(int siteId, int categoryLft, int categoryRgt, bool onlyMatchTitle, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy);
+        IEnumerable<IArchive> SearchArchives(int siteId, String catPath,bool onlyMatchTitle, string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy);
 
         /// <summary>
         /// 

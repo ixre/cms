@@ -40,15 +40,6 @@ namespace T2.Cms.Domain.Interface.Site.Category
         //int SiteId { get; set; }
         ISite Site();
 
-        /// <summary>
-        /// 左ID,在管理的时坐为主键
-        /// </summary>
-        int Lft { get; set; }
-
-        //右ID
-        int Rgt { get; set; }
-
-
 
         /// <summary>
         /// 扩展属性

@@ -86,7 +86,7 @@ namespace T2.Cms.ServiceRepository
                     category.Flag = Convert.ToInt32(rd["flag"]);
                     category.Path = Convert.ToString(rd["path"]);
                     category.SortNumber = Convert.ToInt32(rd["sort_number"]);
-                
+
                     ic = this.CreateCategory(category);
                     if (ic.Site() != null)
                     {
@@ -94,9 +94,6 @@ namespace T2.Cms.ServiceRepository
                     }
                 }
             });
-
-            //排序
-            // IOrderedEnumerable<ICategory> categories2 = categories.OrderBy(a => a.ID);
 
             foreach (ICategory _category in categories)
             {
@@ -106,25 +103,10 @@ namespace T2.Cms.ServiceRepository
                 }
                 RepositoryDataCache._categories[_category.Site().GetAggregaterootId()].Add(_category);
 
-                //添加Tag映射
-                String key = this.catPathKey(_category.Site().GetAggregaterootId(), _category.Get().Path);
-                Kvdb.PutInt(key,_category.Lft);
-
-                /*
-                if (_category.Site.Id == 1 && _category.Tag.IndexOf("duct") != -1)
-                {
-                    var x = "1:cache:t:lft:duct-machine" == String.Format("{0}:cache:t:lft:{1}",
-                    _category.Site.Id.ToString(),
-                    _category.Tag);
-                }
-                */
-
-                //添加Id映射
-                key = this.catIdKey(_category.Site().GetAggregaterootId(), _category.GetDomainId());
-                Kvdb.PutInt(key,_category.Lft);
-
+                //添加Id->Path映射
+                String key = this.catIdKey(_category.Site().GetAggregaterootId(), _category.GetDomainId());
+                Kvdb.Put(key, _category.Get().Path);
             }
-            //categories2 = null;
             categories = null;
         }
 
@@ -232,17 +214,7 @@ namespace T2.Cms.ServiceRepository
             return this.Categories[siteId];
         }
 
-
-        public IEnumerable<ICategory> GetCategories(int siteId, int catId, CategoryContainerOption option)
-        {
-            this.ChkPreload();
-            if (!this.Categories.ContainsKey(siteId))
-                throw new Exception("站点无栏目!");
-            // return CategoryFilter.GetCategories(lft, rgt, this.Categories[siteId], option);
-            ICategory parent = this.GetCategory(siteId, catId);
-            return CategoryFilter.GetCategories(parent, this.Categories[siteId], option);
-        }
-
+        
         /// <summary>
         /// 获取栏目下所有子栏目
         /// </summary>
@@ -270,81 +242,20 @@ namespace T2.Cms.ServiceRepository
         {
             this.categoryDal.SaveSortNumber(id, sortNumber);
         }
-
-
-        public ICategory GetParent(ICategory category)
+        
+        
+        public int GetArchiveCount(int siteId,String catPath)
         {
-            if (category == null) return null;
-            if (!this.Categories.ContainsKey(category.Site().GetAggregaterootId()))
-            {
-                return null;
-            }
-            try
-            {
-                //获取父类
-                /* SELECT TOP 1 * FROM 'tree' WHERE lft<@lft AND rgt>@rgt ORDER BY lft DESC  */
-                IEnumerable<ICategory> list =
-                    this.Categories[category.Site().GetAggregaterootId()].Where(a => a.Lft < category.Lft && a.Rgt > category.Rgt);
-
-
-                /*
-            ICategory _category = list.LastOrDefault();
-            foreach (ICategory c in list)
-            {
-                if (_category == null || c.Lft > _category.Lft) { _category = c; }
-            }
-            */
-
-                return list.LastOrDefault();
-            }
-            catch (NullReferenceException exc)
-            {
-
-            }
-            return null;
+            return this.categoryDal.GetCategoryArchivesCount(siteId,catPath);
         }
 
-
-        public ICategory GetCategoryByLft(int siteId, int lft)
+        public void DeleteCategory(int siteId, int catId)
         {
-            return this.Categories[siteId].SingleOrDefault(a => a.Lft == lft);
-        }
-
-
-        public int GetArchiveCount(int siteId, int lft, int rgt)
-        {
-            return this.categoryDal.GetCategoryArchivesCount(siteId, lft, rgt);
-        }
-
-        public void DeleteCategory(int siteId, int lft, int rgt)
-        {
-
-            /*
-                 * 删除所有子节点？
-                 * DELETE FROM `tree` WHERE `left_node`>父节点的左值 AND `right_node`>父节点的右值
-                 * 9、删除一个节点及其子节点？
-                 * 在上例中的<号>号后面各加一个=号
-                 */
-
-            bool result = this.categoryDal.DeleteSelfAndChildCategoy(siteId, lft, rgt);
-
+            bool result = this.categoryDal.DeleteSelfAndChildCategoy(siteId,catId);
             if (result)
             {
-                //更新删除的左右值
-                this.categoryDal.UpdateDeleteLftRgt(siteId, lft, rgt);
-
-                //删除视图设置
-                // this.tplDal.RemoveErrorCategoryBind(); 
-
-                //tb.RemoveBind(TemplateBindType.CategoryTemplate, lft.ToString());
-                //tb.RemoveBind(TemplateBindType.CategoryArchiveTemplate, lft.ToString());
-
-
-
+                RepositoryDataCache._categories = null;
             }
-            //return result;
-
-            RepositoryDataCache._categories = null;
         }
 
 

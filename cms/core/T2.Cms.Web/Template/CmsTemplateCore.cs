@@ -446,7 +446,7 @@ namespace T2.Cms.Template
                             {
                                 default:
                                     if (field == refName) return c.Name;
-                                    if (field == refTag) return c.Tag;
+                                    if (field == refTag) return c.Path;
                                     if (field == refUri) return this.GetCategoryUrl(c, 1);
                                     return "{" + field + "}";
 
@@ -1340,6 +1340,7 @@ namespace T2.Cms.Template
                             case "name": return c.Name;
                             case "url": return this.GetCategoryUrl(c, 1);
                             case "tag": return c.Tag;
+                            case "path":return c.Path;
                             case "thumbnail":
                             case "icon": return this.GetThumbnailUrl(c.Icon);
                             case "id": return c.ID.ToString();
@@ -1433,6 +1434,7 @@ namespace T2.Cms.Template
                         // case "categoryid":
                         // case "cid": return archive.Category.ID.ToString();
                         case "category_name": return archiveDto.Category.Name;
+                        case "category_path":return archiveDto.Path;
                         case "category_tag": return archiveDto.Category.Tag;
                         case "category_url": return this.GetCategoryUrl(archiveDto.Category, 1);
 
@@ -1876,7 +1878,7 @@ namespace T2.Cms.Template
                     {
                         hasSetCategory = true;
                         searchArchives = ServiceCall.Instance.ArchiveService.SearchArchivesByCategory(siteId,
-                            category.Lft, category.Rgt, keyword, intPageSize, intPageIndex, out total, out pages,
+                            category.Path, keyword, intPageSize, intPageIndex, out total, out pages,
                             "ORDER BY CreateDate DESC");
                     }
                     else
@@ -1892,7 +1894,7 @@ namespace T2.Cms.Template
             //如果未设置模块或栏目参数
             if (searchArchives == null)
             {
-                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, 0, 0, false, 
+                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId,"", false, 
                     keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
             }
 
@@ -2248,7 +2250,7 @@ namespace T2.Cms.Template
 
             int C_LENGTH = this.GetSetting().CfgOutlineLength;
             IEnumerable<ArchiveDto> searchArchives = ServiceCall.Instance.ArchiveService
-                .SearchArchives(this.SiteId, 0, 0, false, tag,
+                .SearchArchives(this.SiteId, "", false, tag,
                 _pageSize, _pageIndex,
                 out _records, out _pages, "ORDER BY create_time DESC");
 
@@ -2349,6 +2351,7 @@ namespace T2.Cms.Template
                             //case "cid": return category.ID.ToString();
                             case "category_name": return category.Name;
                             case "category_tag": return category.Tag;
+                            case "category_path":return category.Path;
                             case "category_url": return this.GetCategoryUrl(category, 1);
                             //链接
                             case "url":
@@ -2432,7 +2435,7 @@ namespace T2.Cms.Template
                     //TODO:
                     //
                     //.Append(this.GetCategoryUrl(category, 1)).Append("\" tag=\"")
-                    .Append(category.Tag).Append("\" lft=\"").Append(category.Lft.ToString()).Append("\">")
+                    .Append(category.Path).Append("\" path=\"").Append(category.Path).Append("\">")
                     .Append(category.Name).Append("</a>");
             }
 
@@ -2547,13 +2550,8 @@ namespace T2.Cms.Template
 
                 if (_category.Site().GetAggregaterootId() != SiteId) return;
 
-                sb.Append("<option value=\"").Append(_category.Get().Tag)
-                    .Append("\" path=\"")
-
-                    //
-                    //TODO:
-                    //
-                    //.Append(ArchiveUtility.GetCategoryUrlPath(_category))
+                sb.Append("<option value=\"").Append(_category.Get().Path)
+                    .Append("\" path=\"").Append(_category.Get().Path)
                     .Append("\">");
                 for (int i = 0; i < _level; i++)
                 {
@@ -2587,7 +2585,7 @@ namespace T2.Cms.Template
                     return TplMessage("不存在栏目!标识:" + categoryTag);
                 }
 
-                ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, category.Lft, treeHandler);
+                ServiceCall.Instance.SiteService.HandleCategoryTree(this.SiteId, category.ID, treeHandler);
             }
 
 

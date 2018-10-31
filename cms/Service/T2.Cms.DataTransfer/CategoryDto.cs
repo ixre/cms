@@ -64,18 +64,7 @@ namespace T2.Cms.DataTransfer
             get;
             set;
         }
-
-        public int Lft
-        {
-            get;
-            set;
-        }
-
-        public int Rgt
-        {
-            get;
-            set;
-        }
+        
 
         public int SortNumber
         {

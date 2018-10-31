@@ -307,8 +307,7 @@ namespace T2.Cms.Sql
                          ROW_NUMBER()OVER($[orderby]) as rowNum
 					     FROM  $PREFIX_archive INNER JOIN $PREFIX_category 
                          ON $PREFIX_archive.cat_id=$PREFIX_category.id
-                        WHERE $[condition] AND $PREFIX_category.site_id=@siteId AND
-                        ($PREFIX_category.lft>=@lft AND $PREFIX_category.rgt<=@rgt) 
+                        WHERE $[condition] AND $PREFIX_archive.path LIKE @catPath AND $PREFIX_archive.site_id=@siteId
                         AND (title LIKE '%$[keyword]%' OR Outline LIKE '%$[keyword]%'
                         OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')
 					) _t WHERE rowNum BETWEEN $[skipsize]+1 AND ($[skipsize]+$[pagesize]) ORDER BY rowNum";
@@ -411,9 +410,7 @@ namespace T2.Cms.Sql
             get
             {
                 return @"SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive
-                         INNER JOIN $PREFIX_category ON $PREFIX_archive.[cat_id]=$PREFIX_category.id
-                         WHERE {1} AND $PREFIX_category.site_id=@siteId 
-                            AND ($PREFIX_category.lft>=@lft AND $PREFIX_category.rgt<=@rgt)
+                         WHERE {1} AND $PREFIX_archive.path LIKE @catPath AND $PREFIX_archive.site_id=@siteId
                          AND ([Title] LIKE '%{0}%' OR [Outline] LIKE '%{0}%' OR [Content] LIKE '%{0}%' OR [Tags] LIKE '%{0}%')";
             }
         }
