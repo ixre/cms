@@ -83,7 +83,7 @@ namespace T2.Cms.Domain.Implement.Site
                             break;
 
                         case SiteRunType.VirtualDirectory:
-                            siteAppPath = "/" + this.value.AppName + "/";
+                            siteAppPath = "/" + this.value.AppPath + "/";
                             break;
                     }
 
@@ -130,7 +130,7 @@ namespace T2.Cms.Domain.Implement.Site
         {
             if (this.runType == SiteRunType.Unknown)
             {
-                if (String.IsNullOrEmpty(this.value.AppName))
+                if (String.IsNullOrEmpty(this.value.AppPath))
                 {
                     this.runType = SiteRunType.Stand;
                 }
@@ -466,7 +466,7 @@ namespace T2.Cms.Domain.Implement.Site
 
         public Error Set(CmsSiteEntity value)
         {
-            this.value.AppName = value.AppName;
+            this.value.AppPath = value.AppPath;
             return null;
         }
 

@@ -32,7 +32,7 @@ namespace T2.Cms.Web.Mvc
     
     public abstract class ControllerBase :Controller
     {
-        protected CmsContext OutputCntext;
+        protected CmsContext OutputContext;
         private TimeSpan _startTime;
         //private static readonly bool _showDebugInformation;
         private  bool _showDebugInformation;
@@ -42,8 +42,8 @@ namespace T2.Cms.Web.Mvc
             if (Cms.IsStaticRequest(requestContext.HttpContext.ApplicationInstance.Context))return;
             //if (!Cms.Installed) HttpRuntime.UnloadAppDomain();
 
-            this.OutputCntext = Cms.Context;
-            this.OutputCntext.Source = this;
+            this.OutputContext = Cms.Context;
+            this.OutputContext.Source = this;
 
 
             // ==========================================//
@@ -105,7 +105,7 @@ namespace T2.Cms.Web.Mvc
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             //检测网站状态
-            if (!this.OutputCntext.CheckSiteState())
+            if (!this.OutputContext.CheckSiteState())
             {
                 filterContext.HttpContext.Response.End();
                 throw new Exception("站点被停用！");
@@ -142,7 +142,7 @@ namespace T2.Cms.Web.Mvc
 
         public void NotFound()
         {
-            DefaultWebOuput.RenderNotFound(this.OutputCntext);
+            DefaultWebOuput.RenderNotFound(this.OutputContext);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace T2.Cms.Web.Mvc
         /// </summary>
         public void Disallow()
         {
-            this.OutputCntext.Response.Write("Access denied!");
+            this.OutputContext.Response.Write("Access denied!");
         }
     }
 }

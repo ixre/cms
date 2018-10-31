@@ -310,7 +310,7 @@ namespace T2.Cms.Core
             get
             {
                 return this._siteAppPath ??
-                    (this._siteAppPath = this.IsVirtualDirectoryRunning ? "/" + this.CurrentSite.DirName : "/");
+                    (this._siteAppPath = this.IsVirtualDirectoryRunning ? "/" + this.CurrentSite.AppPath : "/");
             }
         }
 

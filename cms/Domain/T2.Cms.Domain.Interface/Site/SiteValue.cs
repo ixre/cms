@@ -30,7 +30,7 @@ namespace T2.Cms.Models{
         /// 应用名称
         /// </summary>
         [Alias("app_name")]
-        public string AppName { get; set; }
+        public string AppPath { get; set; }
         /// <summary>
         /// 重定向URL
         /// </summary>

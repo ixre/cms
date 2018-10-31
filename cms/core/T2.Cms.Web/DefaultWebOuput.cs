@@ -104,13 +104,6 @@ namespace T2.Cms.Web
             string html;
             ArchiveDto archive = default(ArchiveDto);
 
-            //检测网站状态
-            if (!context.CheckSiteState()) return;
-
-            //检查缓存
-            if (!context.CheckAndSetClientCache()) return;
-
-
             var siteId = context.CurrentSite.SiteId;
             String archivePath = allhtml.Substring(0, allhtml.Length - ".html".Length);
             archive = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(siteId, archivePath);
@@ -140,7 +133,7 @@ namespace T2.Cms.Web
 
             ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
 
-            if(!FlagAnd(archive.Flag, BuiltInArchiveFlags.Visible))
+            if (!FlagAnd(archive.Flag, BuiltInArchiveFlags.Visible))
             {
                 RenderNotFound(context);
                 return;
@@ -153,66 +146,37 @@ namespace T2.Cms.Web
                 RenderNotFound(context);
                 return;
             }
+            if (FlagAnd(archive.Flag, BuiltInArchiveFlags.AsPage))
+            {
+                string pagePattern = "^[\\.0-9A-Za-z_-]+\\.html$";
+
+                if (!Regex.IsMatch(context.Request.Path, pagePattern))
+                {
+                    context.Response.StatusCode = 301;
+                    context.Response.RedirectLocation = String.Format("{0}.html",
+                        String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
+                        );
+                    context.Response.End();
+                    return;
+                }
+            }
             else
             {
-                string appPath = Cms.Context.SiteAppPath;
-                if (appPath != "/") appPath += "/";
-
-                if (FlagAnd(archive.Flag, BuiltInArchiveFlags.AsPage))
+                //校验栏目是否正确
+                string categoryPath = category.Path;
+                if (!archivePath.StartsWith(categoryPath + "/"))
                 {
-                    string pattern = "^" + appPath + "[0-9a-zA-Z]+/[\\.0-9A-Za-z_-]+\\.html$";
-                    string pagePattern = "^" + appPath + "[\\.0-9A-Za-z_-]+\\.html$";
-
-                    if (!Regex.IsMatch(context.Request.Path, pagePattern))
-                    {
-                        context.Response.StatusCode = 301;
-                        context.Response.RedirectLocation = String.Format("{0}{1}.html",
-                            appPath,
-                            String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
-                            );
-                        context.Response.End();
-                        return;
-                    }
+                    RenderNotFound(context);
+                    return;
                 }
-                else
-                {
-                    //校验栏目是否正确
-                    string categoryPath = category.Path;
-                    string path = appPath != "/" ? allhtml.Substring(appPath.Length - 1) : allhtml;
-
-                    if (!path.StartsWith(categoryPath + "/"))
-                    {
-                        RenderNotFound(context);
-                        return;
-                    }
-
-                    /*
-                    //设置了别名,则跳转
-                    if (!String.IsNullOrEmpty(archive.Alias) && String.Compare(id, archive.Alias,
-                        StringComparison.OrdinalIgnoreCase) != 0)
-                    {
-                        context.Response.StatusCode = 301;
-                        context.Response.RedirectLocation = String.Format("{0}{1}/{2}.html",
-                            appPath,
-                            categoryPath,
-                            String.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias
-                            );
-                        context.Response.End();
-                        return;
-                    }
-                    */
-                }
-
-                //增加浏览次数
-                ++archive.ViewCount;
-                ServiceCall.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);
-                //显示页面
-                html = cmsPage.GetArchive(archive);
-
-                //再次处理模板
-                //html = PageUtility.Render(html, new { }, false); 
             }
 
+            //增加浏览次数
+            ++archive.ViewCount;
+            ServiceCall.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);
+            //显示页面
+            html = cmsPage.GetArchive(archive);
+            
             // return html;
             context.Render(html);
         }
@@ -226,35 +190,24 @@ namespace T2.Cms.Web
         /// <summary>
         /// 呈现分类页
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="ctx"></param>
         /// <param name="tag"></param>
         /// <param name="page"></param>
-        public static void RenderCategory(CmsContext context, string catPath, int page)
+        public static void RenderCategory(CmsContext ctx, string catPath, int page)
         {
-            //检查缓存
-            if (!context.CheckAndSetClientCache()) return;
 
-            int siteId = context.CurrentSite.SiteId;
+            int siteId = ctx.CurrentSite.SiteId;
             string html = String.Empty;
-            CategoryDto category;
-            ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
-            category = ServiceCall.Instance.SiteService.GetCategory(siteId, catPath);
-            if (!(category.ID>0)) { RenderNotFound(context); return; }
+            CategoryDto category = ServiceCall.Instance.SiteService.GetCategory(siteId, catPath);
+            if (!(category.ID>0)) { RenderNotFound(ctx); return; }
 
-            //获取路径
-            string categoryPath = category.Path;
-            string appPath = Cms.Context.SiteAppPath;
-            string reqPath = context.Request.Path.Substring(1);
-            if(appPath.Length > 1)
+            if (!catPath.StartsWith(category.Path))
             {
-                reqPath = reqPath.Substring(appPath.Length);
-            }
-           
-            if (!reqPath.StartsWith(categoryPath))
-            {
-                RenderNotFound(context);
+                RenderNotFound(ctx);
                 return;
             }
+
+            ICmsPageGenerator cmsPage = new PageGeneratorObject(ctx);
 
             /*********************************
              *  @ 单页，跳到第一个特殊文档，
@@ -264,7 +217,7 @@ namespace T2.Cms.Web
             if (String.IsNullOrEmpty(category.Location))
             {
                 html = cmsPage.GetCategory(category, page);
-                context.Render(html);
+                ctx.Render(html);
             }
             else
             {
@@ -278,10 +231,10 @@ namespace T2.Cms.Web
                 {
                     if (!category.Location.StartsWith("/"))
                     {
-                        url = String.Concat(appPath,appPath.Length == 1?String.Empty:"/", category.Location);
+                        url = String.Concat(ctx.SiteAppPath, category.Location);
                     }
                 }
-                context.Response.Redirect(url,true);  //302
+                ctx.Response.Redirect(url,true);  //302
             }
         }
 

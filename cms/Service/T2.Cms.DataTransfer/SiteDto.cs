@@ -33,7 +33,7 @@ namespace T2.Cms.DataTransfer
             return new SiteDto
             {
                 ProAddress = site.ProAddress,
-                DirName = site.AppName,
+                AppPath = site.AppPath,
                 Domain = site.Domain,
                 FullDomain =  ist.FullDomain,
                 Location = site.Location,
@@ -65,7 +65,7 @@ namespace T2.Cms.DataTransfer
             CmsSiteEntity site = ist.Get();
             site.Name = dto.Name;
             site.ProAddress = dto.ProAddress;
-            site.AppName = dto.DirName.Trim();
+            site.AppPath = dto.AppPath.Trim();
             site.Domain = dto.Domain.Trim();
             site.Location = dto.Location.Trim();
             site.ProEmail = dto.ProEmail;
@@ -114,8 +114,8 @@ namespace T2.Cms.DataTransfer
         /// <summary>
         /// 目录名称
         /// </summary>
-        [FormField("DirName", Group = "basic", Text = "虚拟目录", Descript = "可指定虚拟目录名称,以\"http://abc.com/目录名称/\"访问站点", Regex = "[A-Za-z0-9_]{0,10}")]
-        public string DirName { get; set; }
+        [FormField("AppPath", Group = "basic", Text = "虚拟目录", Descript = "可指定虚拟目录名称,以\"http://abc.com/目录名称/\"访问站点", Regex = "[A-Za-z0-9_]{0,10}")]
+        public string AppPath { get; set; }
 
         /// <summary>
         /// 重定向地址
