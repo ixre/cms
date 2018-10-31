@@ -117,66 +117,30 @@ namespace T2.Cms.Dal
         /// 删除栏目包含子栏目
         /// </summary>
         /// <returns></returns>
-        public bool DeleteSelfAndChildCategoy(int siteId, int lft, int rgt)
+        public bool DeleteSelfAndChildCategoy(int siteId, int catId)
         {
-            return base.ExecuteNonQuery(
-                 SqlQueryHelper.Create(DbSql.Category_DeleteByLft,
-                     new object[,]
-                     {
-                        {"@siteId", siteId},
-                        {"@lft", lft},
-                        {"@rgt", rgt}
-                     })) >= 1;
+            IDictionary<String, object> data = new Dictionary<string, object>();
+            data.Add("@siteId", siteId);
+            data.Add("@catId", catId);
+            return base.ExecuteNonQuery(base.CreateQuery(DbSql.Category_DeleteById, data)) >= 1;
         }
 
-
-
-        public int GetMaxRight(int siteId)
-        {
-            object obj = base.ExecuteScalar(
-                SqlQueryHelper.Create(DbSql.Category_GetMaxRight,
-                new object[,] {
-                    {"@siteId", siteId} }
-                ));
-            if (obj == null) return 1;
-            return int.Parse(obj.ToString());
-        }
+        
       
-
-        public void UpdateDeleteLftRgt(int siteId, int lft, int rgt)
+        public int GetCategoryArchivesCount(int siteId, String catPath)
         {
-            int val = rgt - lft + 1;
-
-            object[,] pa = new object[,]{
-                {"@siteId", siteId},
-                {"@lft",lft},
-                {"@rgt",rgt},
-                {"@val",val}
-            };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-
-            base.ExecuteNonQuery(
-                base.NewQuery(DbSql.Category_UpdateDeleteLft, parameters),
-                base.NewQuery(DbSql.Category_UpdateDeleteRgt, parameters)
-               );
-        }
-        public int GetCategoryArchivesCount(int siteId, int lft, int rgt)
-        {
-            var parameters = base.Db.CreateParametersFromArray(new object[,]{
-                       {"@siteId",siteId},
-                       {"@lft",lft},
-                       {"@rgt",rgt}
-                    });
-
+            IDictionary<String, Object> data = new Dictionary<String,Object>();
+            data.Add("@siteId", siteId);
+            data.Add("@path", catPath+"/%");
             return int.Parse(base.ExecuteScalar(
-                base.NewQuery(DbSql.Archive_GetCategoryArchivesCount,parameters)).ToString());
+                base.CreateQuery(DbSql.Archive_GetArchivesCountByPath,data)).ToString());
 
         }
 
         public int GetMaxCategoryId(int siteId)
         {
             const string sql = "SELECT MAX(id) FROM $PREFIX_category WHERE site_id={0}";
-            SqlQuery query = base.NewQuery(String.Format(sql, siteId.ToString()),null);
+            SqlQuery query = base.NewQuery(String.Format(sql, siteId.ToString()), null);
             object obj = base.ExecuteScalar(query);
             if (obj == DBNull.Value) return 0;
             return int.Parse(obj.ToString());

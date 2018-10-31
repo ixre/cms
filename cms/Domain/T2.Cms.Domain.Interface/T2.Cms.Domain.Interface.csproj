@@ -140,7 +140,6 @@
     <Compile Include="Enum\PropertyUI.cs" />
     <Compile Include="Enum\sys\PageSign.cs" />
     <Compile Include="Enum\SpecialEnum.cs" />
-    <Compile Include="Site\Category\CategoryFilter.cs" />
     <Compile Include="Site\Extend\ExtendRelationType.cs" />
     <Compile Include="Site\Link\ISiteLink.cs" />
     <Compile Include="Site\Link\ISiteLinkManager.cs" />

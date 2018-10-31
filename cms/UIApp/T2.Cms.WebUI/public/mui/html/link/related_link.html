@@ -218,7 +218,7 @@ $js()
         var com;
         function initFormEvents(siteId,categoryId) {
             jr.each(jr.dom.getsByClass(jr.$('pl'), 'archiveGuess'), function (i, e) {
-                var url = '?module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true&site_id=' + siteId + '&category=' + categoryId;
+                var url = '?module=ajax&action=GetSearchArchivesJsonResult&size=10&only_title=true&site_id=' + siteId + '&category_id=' + categoryId;
                 if (e.getAttribute('inited') == undefined) {
                   com =  jr.autoCompletion(e, url, function(data) {
 

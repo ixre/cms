@@ -301,8 +301,7 @@
                         WHERE $PREFIX_archive.id IN (SELECT id FROM 
 						(SELECT $PREFIX_archive.id FROM  $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
-                        WHERE $[condition]  AND $PREFIX_category.site_id=@siteId AND ($PREFIX_category.lft>=@lft 
-                        AND $PREFIX_category.rgt<=@rgt)
+                        WHERE $[condition]  AND $PREFIX_archive.path LIKE @catPath AND $PREFIX_archive.site_id=@siteId
                         AND (`title` LIKE '%$[keyword]%' OR `outline` LIKE '%$[keyword]%'
                         OR `content` LIKE '%$[keyword]%' OR `tags` LIKE '%$[keyword]%')
                         $[orderby] LIMIT $[skipsize],$[pagesize]) _t)";
@@ -406,8 +405,7 @@
             get
             {
                 return @"SELECT COUNT($PREFIX_archive.`id`) FROM $PREFIX_archive
-                         INNER JOIN $PREFIX_category ON $PREFIX_archive.`cat_id`=$PREFIX_category.`id`
-                         WHERE {1} AND $PREFIX_category.site_id=@siteId AND ($PREFIX_category.lft>=@lft AND $PREFIX_category.rgt<=@rgt)
+                         WHERE {1} AND $PREFIX_archive.path LIKE @catPath AND $PREFIX_archive.site_id=@siteId
                          AND (`title` LIKE '%{0}%' OR `outline` LIKE '%{0}%' 
                          OR `content` LIKE '%{0}%' OR `tags` LIKE '%{0}%')";
             }

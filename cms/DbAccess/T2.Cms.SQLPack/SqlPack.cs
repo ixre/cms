@@ -222,10 +222,8 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 获取栏目下的文档数量
         /// </summary>
-        public readonly string Archive_GetCategoryArchivesCount =@"
-            SELECT COUNT($PREFIX_archive.id) FROM $PREFIX_archive 
-            INNER JOIN $PREFIX_category ON $PREFIX_archive.cat_id=$PREFIX_category.id
-            WHERE site_id=@siteId AND $PREFIX_category.lft BETWEEN @lft AND @rgt";
+        public readonly string Archive_GetArchivesCountByPath =@"
+            SELECT COUNT(0) FROM $PREFIX_archive WHERE site_id=@siteId AND path LIKE @path";
         
         /// <summary>
         /// 获取分页文档
@@ -313,44 +311,7 @@ namespace T2.Cms.Sql
         /// <summary>
         /// 删除栏目
         /// </summary>
-        public readonly string Category_DeleteByLft = "DELETE FROM $PREFIX_category WHERE site_id=@siteId AND lft>=@lft AND rgt<=@rgt";
-
-        public readonly string Category_UpdateInsertLeft = "UPDATE $PREFIX_category SET lft=lft+2 WHERE lft>@lft AND site_id=@siteId";
-        public readonly string Category_UpdateInsertRight = "UPDATE $PREFIX_category SET rgt=rgt+2 WHERE rgt>@lft AND site_id=@siteId";
-
-        public readonly string Category_UpdateDeleteLft = "UPDATE $PREFIX_category SET lft=lft-@val WHERE lft>@lft AND site_id=@siteId";
-        public readonly string Category_UpdateDeleteRgt = "UPDATE $PREFIX_category SET rgt=rgt-@val WHERE rgt>@rgt AND site_id=@siteId";
-
-        public string Category_GetMaxRight = "SELECT max(rgt) FROM $PREFIX_category WHERE site_id=@siteId";
-
-
-        /*
-        /// <summary>
-        /// 更新左值比当前节点右值大,且小于新的父节点的左值的节点左值
-        /// </summary>
-        public string Category_ChangeUpdateTreeLeft = "UPDATE $PREFIX_category SET lft=lft-@rgt-@lft-1 WHERE lft>@rgt AND lft<=@tolft AND site_id=@siteId";
-
-        /// <summary>
-        /// 更新右值比当前节点右值大,且小于新的父节点的右值的节点右值
-        /// </summary>
-        public string Category_ChangeUpdateTreeRight="UPDATE $PREFIX_category SET rgt=rgt-@rgt-@lft-1 WHERE rgt>@rgt AND rgt<@tolft AND site_id=@siteId";
-        
-        /// <summary>
-        /// 移动子类
-        /// </summary>
-        public string Category_ChangeUpdateTreeChildNodes = "UPDATE $PREFIX_category SET lft=lft+@tolft-@rgt,rgt=rgt+@tolft-@rgt WHERE lft>=@lft AND rgt<=@rgt AND site_id=@siteId";
-        */
-
-
-        public string Category_ChangeUpdateTreeLeft = "UPDATE $PREFIX_category SET lft=lft-(@rgt-@lft)-1 WHERE lft>@rgt AND rgt<=@torgt AND site_id=@siteId";
-        public string Category_ChangeUpdateTreeRight = "UPDATE $PREFIX_category SET rgt=rgt-(@rgt-@lft)-1 WHERE rgt>@rgt AND rgt<@torgt AND site_id=@siteId";
-        public string Category_ChangeUpdateTreeChildNodes = @"UPDATE $PREFIX_category SET lft=lft+(@torgt-@rgt-1),rgt=rgt+(@torgt-@rgt-1)
-                                                           WHERE lft>=@lft AND rgt<=@rgt AND site_id=@siteId";
-
-        public string Category_ChangeUpdateTreeLeft2 = "UPDATE $PREFIX_category SET lft=lft-(@rgt-@lft)+1 WHERE lft>@torgt AND lft<@lft AND site_id=@siteId";
-        public string Category_ChangeUpdateTreeRight2 = "UPDATE $PREFIX_category SET rgt=rgt-(@rgt-@lft)+1 WHERE rgt>=@torgt AND rgt<@lft AND site_id=@siteId";
-        public string Category_ChangeUpdateTreeBettown2 = @"UPDATE $PREFIX_category SET lft=lft-(@lft-@torgt),rgt=rgt-(@lft-@torgt)
-                                                          WHERE lft>=@lft AND rgt<=@rgt AND site_id=@siteId";
+        public readonly string Category_DeleteById = "DELETE FROM $PREFIX_category WHERE site_id=@siteId AND id>=@catId";
         
 
         #endregion

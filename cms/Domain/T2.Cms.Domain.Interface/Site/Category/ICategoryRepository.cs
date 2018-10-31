@@ -29,11 +29,7 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// <returns></returns>
         ICategory GetCategoryByPath(int siteId, string path);
 
-        int GetCategoryLftById(int siteId, int id);
-
         IList<ICategory> GetCategories(int siteId);
-
-        IEnumerable<ICategory> GetCategories(int siteId, int catId, CategoryContainerOption option);
 
         /// <summary>
         /// 获取栏目下所有子栏目
@@ -43,24 +39,26 @@ namespace T2.Cms.Domain.Interface.Site.Category
         /// <returns></returns>
         IEnumerable<ICategory> GetChilds(int siteId, string catPath);
 
-        ICategory GetParent(ICategory category);
-
         ICategory GetNext(ICategory category);
 
         ICategory GetPrevious(ICategory category);
-
-        ICategory GetCategoryByLft(int siteId, int lft);
+        
 
         /// <summary>
         /// 获取分类的文档数量
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
+        /// <param name="catPath"></param>
         /// <returns></returns>
-        int GetArchiveCount(int siteId, int lft, int rgt);
+        int GetArchiveCount(int siteId,string catPath);
 
-        void DeleteCategory(int siteId, int lft,int rgt);
+        /// <summary>
+        /// 删除栏目
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catId"></param>
+        /// <param name=""></param>
+        void DeleteCategory(int siteId,int catId);
 
 
         /// <summary>

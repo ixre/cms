@@ -231,7 +231,7 @@ namespace T2.Cms.Web
                 {
                     if (!category.Location.StartsWith("/"))
                     {
-                        url = String.Concat(ctx.SiteAppPath, category.Location);
+                        url = String.Concat(ctx.SiteAppPath,ctx.SiteAppPath =="/"?"":"/", category.Location);
                     }
                 }
                 ctx.Response.Redirect(url,true);  //302

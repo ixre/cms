@@ -184,23 +184,17 @@ namespace T2.Cms.Service
                 yield return CategoryDto.ConvertFrom(category);
             }
         }
-
-        public CategoryDto GetCategoryByLft(int siteId, int lft)
+        
+        public Error DeleteCategory(int siteId, int catId)
         {
             ISite site = this.repo.GetSiteById(siteId);
-            return CategoryDto.ConvertFrom(site.GetCategoryByLft(lft));
+            return site.DeleteCategory(catId);
         }
 
-        public bool DeleteCategoryByLft(int siteId, int lft)
+        public void ItrCategoryTree(StringBuilder sb, int siteId, int categoryId)
         {
             ISite site = this.repo.GetSiteById(siteId);
-            return site.DeleteCategory(lft);
-        }
-
-        public void ItrCategoryTree(StringBuilder sb, int siteId, int categoryLft)
-        {
-            ISite site = this.repo.GetSiteById(siteId);
-            site.ItreCategoryTree(sb, categoryLft);
+            site.ItreCategoryTree(sb, categoryId);
         }
 
 
@@ -281,16 +275,7 @@ namespace T2.Cms.Service
             return r;
         }
 
-
-        public CategoryDto GetParentCategory(int siteId, int lft)
-        {
-            ICategory category = this.repo.GetSiteById(siteId).GetCategoryByLft(lft);
-            if (category == null || category.Parent == null)
-                return default(CategoryDto);
-            return CategoryDto.ConvertFrom(category.Parent);
-        }
-
-
+        
         public TreeNode GetCategoryTreeWithRootNode(int siteId)
         {
             ISite site = this.repo.GetSiteById(siteId);
@@ -446,7 +431,7 @@ namespace T2.Cms.Service
             }
             ICategory toCate = toSite.GetCategory(toCid);
             ICategory fromCate = fromSite.GetCategory(fromCid);
-            Result r = CloneCategoryDetails(targetSiteId, fromCate, toCate.Lft, includeExtend, includeTemplateBind);
+            Result r = CloneCategoryDetails(targetSiteId, fromCate, toCate.GetDomainId(), includeExtend, includeTemplateBind);
             int newCateId = Convert.ToInt32(r.Data["CategoryId"]);
             if (includeChild)
             {
@@ -459,16 +444,15 @@ namespace T2.Cms.Service
             ICategory newCategory = toSite.GetCategory(parentCateId);
             foreach (var cate in fromCate.NextLevelChilds)
             {
-                Result r = CloneCategoryDetails(toSite.GetAggregaterootId(), cate, newCategory.Lft, includeExtend, includeTemplateBind);
+                Result r = CloneCategoryDetails(toSite.GetAggregaterootId(), cate, newCategory.GetDomainId(), includeExtend, includeTemplateBind);
                 int catId = Convert.ToInt32(r.Data["CategoryId"]);
                 ItrCloneCate(toSite, cate, catId, includeExtend, includeTemplateBind);
             }
         }
 
-        private Result CloneCategoryDetails(int toSiteId, ICategory fromCate, int toCateLft, bool includeExtend, bool includeTemplateBind)
+        private Result CloneCategoryDetails(int toSiteId, ICategory fromCate, int toCateId, bool includeExtend, bool includeTemplateBind)
         {
             CategoryDto dto = CategoryDto.ConvertFrom(fromCate);
-            dto.Lft = 0;
             dto.ID = 0;
 
             // 包含扩展
@@ -493,7 +477,7 @@ namespace T2.Cms.Service
                 dto.CategoryArchiveTemplate = null;
             }
 
-            return this.SaveCategory(toSiteId, toCateLft, dto);
+            return this.SaveCategory(toSiteId, toCateId, dto);
         }
 
         private IExtendField GetCloneNewExtendField(int toSiteId, IExtendField extendField)

@@ -171,7 +171,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="orderBy"></param>
         /// <returns></returns>
         IEnumerable<ArchiveDto> SearchArchivesByCategory(int siteId,
-                int categoryLft, int categoryRgt,
+                string catPath,
             string keyword, int pageSize,
             int pageIndex, out int records,
             out int pages, string orderBy);
@@ -190,7 +190,7 @@ namespace T2.Cms.ServiceContract
         /// <param name="orderBy"></param>
         /// <param name="categoryLft"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> SearchArchives(int siteId,int categoryLft,int categoryRgt, bool onlyMatchTitle,
+        IEnumerable<ArchiveDto> SearchArchives(int siteId,string catPath, bool onlyMatchTitle,
             string keyword, int pageSize, int pageIndex, out int records, out int pages, string orderBy);
 
         /// <summary>

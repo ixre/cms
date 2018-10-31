@@ -194,25 +194,25 @@ namespace T2.Cms.Domain.Implement.Content
         }
 
         public IEnumerable<IArchive> SearchArchivesByCategory(
-            int categoryLft, int categoryRgt,
+            String catPath,
             string keyword, int pageSize,
             int pageIndex, out int records,
             out int pages, string orderBy)
         {
             return this._archiveRep.SearchArchivesByCategory(
-                this.SiteId, categoryLft, categoryRgt, keyword, pageSize,
+                this.SiteId, catPath, keyword, pageSize,
             pageIndex, out  records, out pages, orderBy);
         }
 
         public IEnumerable<IArchive> SearchArchives(
-            int categoryLft, int categoryRgt,
+            String catPath,
             bool onlyMatchTitle,
             string keyword, int pageSize,
             int pageIndex, out int records,
             out int pages, string orderBy)
         {
             return this._archiveRep.SearchArchives(
-                this.SiteId, categoryLft, categoryRgt, onlyMatchTitle, keyword, pageSize, pageIndex,
+                this.SiteId, catPath, onlyMatchTitle, keyword, pageSize, pageIndex,
                  out  records, out pages, orderBy);
         }
 

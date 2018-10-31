@@ -679,7 +679,7 @@ namespace T2.Cms.Dal
         /// <param name="func"></param>
         /// <param name="categoryLft"></param>
         /// <returns></returns>
-        public void SearchArchives(int siteId, int categoryLft, int categoryRgt, bool onlyMatchTitle,
+        public void SearchArchives(int siteId,String catPath, bool onlyMatchTitle,
             string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount,
             string orderby, DataReaderFunc func)
         {
@@ -690,10 +690,9 @@ namespace T2.Cms.Dal
                 sb.Append(" AND $PREFIX_category.site_id=").Append(siteId.ToString());
             }
 
-            if (categoryLft > 0 && categoryRgt > 0)
+            if (!String.IsNullOrEmpty(catPath))
             {
-                sb.Append(" AND ($PREFIX_category.lft>=").Append(categoryLft.ToString())
-                    .Append(" AND $PREFIX_category.rgt<=").Append(categoryRgt).Append(")");
+                sb.Append(" AND $PREFIX_archive.path LIKE '").Append(catPath).Append("/%'");
             }
 
             if (onlyMatchTitle)
@@ -758,7 +757,7 @@ namespace T2.Cms.Dal
         /// <param name="func"></param>
         /// <returns></returns>
         public void SearchArchivesByCategory(int siteId,
-            int categoryLft, int categoryRgt, string keyword,
+            String catPath, string keyword,
             int pageSize, int currentPageIndex,
             out int recordCount, out int pageCount,
             string orderby, DataReaderFunc func)
@@ -772,17 +771,15 @@ namespace T2.Cms.Dal
             object[,] data = new object[,]
             {
                 {"@siteId",siteId},
-                {"@lft",categoryLft},
-                {"@rgt",categoryRgt}
+                {"@catPath",catPath+"/%"},
             };
 
             //为第一页时
             const string sql1 = @"SELECT TOP $[pagesize] $PREFIX_archive.id AS ID,* 
                                   FROM $PREFIX_archive INNER JOIN $PREFIX_category 
                                   ON $PREFIX_archive.[CgID]=$PREFIX_category.id
-                                  WHERE $[condition] AND $PREFIX_category.site_id=@siteId AND ($PREFIX_category.lft>=@lft
-                                   AND $PREFIX_category.rgt<=@rgt) AND ([Title] LIKE 
-                                  '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' 
+                                  WHERE $[condition] AND $PREFIX_archive.path LIKE @catPath AND $PREFIX_archive.site_id=@siteId
+                                    AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' 
                                    OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')
                                    $[orderby],$PREFIX_archive.id";
 
@@ -924,7 +921,7 @@ namespace T2.Cms.Dal
         public int GetCategoryArchivesCount(string id)
         {
             return int.Parse(base.ExecuteScalar(
-                base.NewQuery(SQLRegex.Replace(DbSql.Archive_GetCategoryArchivesCount, (c) => { return id; }),null)).ToString());
+                base.NewQuery(SQLRegex.Replace(DbSql.Archive_GetArchivesCountByPath, (c) => { return id; }),null)).ToString());
 
         }
 
