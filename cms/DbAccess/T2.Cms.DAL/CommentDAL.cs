@@ -8,6 +8,7 @@ using System;
 using System.Data;
 using T2.Cms.IDAL;
 using JR.DevFw.Data;
+using JR.DevFw.Framework;
 
 namespace T2.Cms.Dal
 {
@@ -24,7 +25,7 @@ namespace T2.Cms.Dal
                 {"@IP",ip},
                 {"@Content", content},
                 {"@Recycle", recycle},
-                {"@CreateDate",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}
+                {"@create_time",TimeUtils.Unix()}
                 };
             var parameters = base.Db.CreateParametersFromArray(pa);
 

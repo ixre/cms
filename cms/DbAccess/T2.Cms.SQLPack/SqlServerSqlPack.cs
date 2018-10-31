@@ -13,7 +13,7 @@ namespace T2.Cms.Sql
             {
                 return @"SELECT $PREFIX_archive.id,str_id,[alias],[cat_id],title,$PREFIX_archive.location,
                         small_title,$PREFIX_archive.flag,thumbnail,author_id,
-                        author_id,view_count,[update_time],[Tags],[Outline],[Content],[CreateDate] FROM $PREFIX_archive
+                        author_id,view_count,[update_time],[Tags],[Outline],[Content],create_time FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON
                         $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE "
                     + SqlConst.Archive_NotSystemAndHidden + "  ORDER BY $PREFIX_archive.sort_number DESC";
@@ -211,7 +211,7 @@ namespace T2.Cms.Sql
             {
                 /*return @"SELECT TOP $[pagesize] a.[ID] AS [ID],str_id,[alias],title,$PREFIX_archive.location,thumbnail,
                         c.[Name] as [CategoryName],[cat_id],author_id,[Content],[Source],
-                        [CreateDate],view_count FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
+                        create_time,view_count FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
                         ON a.cat_id=c.ID INNER JOIN $PREFIX_modules m ON c.[module_id]=m.[id]
                         WHERE $[condition] AND a.[ID] NOT IN 
                         (SELECT TOP $[skipsize] a1.[ID] FROM $PREFIX_archive a1
@@ -221,7 +221,7 @@ namespace T2.Cms.Sql
 
                 return @"SELECT * FROM (SELECT a.id AS id,str_id,alias,title,
                         a.location,thumbnail,c.name as categoryName,[cat_id],a.flag,author_id,[content],
-                        [source],[create_time],view_count,
+                        [source],create_time,view_count,
 						ROW_NUMBER()OVER(ORDER BY $[orderByField] $[orderASC]) as rowNum
 						FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
                         ON a.cat_id=c.ID WHERE $[condition]) _t
@@ -323,7 +323,7 @@ namespace T2.Cms.Sql
         {
             get
             {
-                return @"SELECT $PREFIX_archive.id,str_id,[alias],[cat_id],title,$PREFIX_archive.location,[Tags],[Outline],thumbnail,[Content],[IsSystem],[IsSpecial],[Visible],[CreateDate] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
+                return @"SELECT $PREFIX_archive.id,str_id,[alias],[cat_id],title,$PREFIX_archive.location,[Tags],[Outline],thumbnail,[Content],[IsSystem],[IsSpecial],[Visible],create_time FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE {0} ORDER BY $PREFIX_archive.sort_number DESC";
             }
         }
@@ -417,7 +417,7 @@ namespace T2.Cms.Sql
 
         public override string Comment_AddComment
         {
-            get { return "INSERT INTO $PREFIX_comment ([ArchiveID],[MemberID],[IP],[Content],[Recycle],[CreateDate])VALUES(@ArchiveId,@MemberID,@IP,@Content,@Recycle,@CreateDate)"; }
+            get { return "INSERT INTO $PREFIX_comment ([ArchiveID],[MemberID],[IP],[Content],[Recycle],create_time)VALUES(@ArchiveId,@MemberID,@IP,@Content,@Recycle,@create_time)"; }
         }
 
         public override string Member_RegisterMember

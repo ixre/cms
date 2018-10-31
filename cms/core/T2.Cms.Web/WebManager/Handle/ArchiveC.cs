@@ -36,6 +36,7 @@ using JR.DevFw.Web;
 using ResourceMap = T2.Cms.WebManager.ResourceMap;
 using JR.DevFw.Data;
 using T2.Cms.DB;
+using JR.DevFw.Framework;
 
 namespace T2.Cms.Web.WebManager.Handle
 {
@@ -191,7 +192,7 @@ namespace T2.Cms.Web.WebManager.Handle
             archive.PublisherId = UserState.Administrator.Current.Id;
 
             archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);
-            Result r = ServiceCall.Instance.ArchiveService.SaveArchive(
+            T2.Cms.DataTransfer.Result r = ServiceCall.Instance.ArchiveService.SaveArchive(
                 this.SiteId,archive.Category.ID, archive);
             if (r.ErrCode > 0)
             {
@@ -406,7 +407,7 @@ namespace T2.Cms.Web.WebManager.Handle
             }
 
             archive = GetFormCopyedArchive(this.SiteId, form, archive, alias);       
-            Result r = ServiceCall.Instance.ArchiveService.SaveArchive(
+            T2.Cms.DataTransfer.Result r = ServiceCall.Instance.ArchiveService.SaveArchive(
                 this.SiteId, archive.Category.ID, archive);
             if (r.ErrCode > 0)
             {
@@ -713,7 +714,8 @@ namespace T2.Cms.Web.WebManager.Handle
                             .Append(dr["author"].ToString()).Append("\" title=\"查看该用户发布的文档\">").Append(dr["Author"].ToString()).Append("</a></td>");
                     }
 
-                    sb.Append("<td>").Append(String.Format("{0:yyyy/MM/dd HH:mm}", Convert.ToDateTime(dr["CreateDate"]))).Append("</td><td align=\"center\">")
+                    sb.Append("<td>").Append(String.Format("{0:yyyy/MM/dd HH:mm}",TimeUtils.UnixTime(Convert.ToInt32(dr["create_time"]),TimeZone.CurrentTimeZone)))
+                        .Append("</td><td align=\"center\">")
                         .Append(dr["view_count"].ToString()).Append("</td><td><button class=\"refresh\" /></td><td><button class=\"file\" /></td><td><button class=\"edit\" /></td><td><button class=\"delete\" /></td></tr>");
 
                 }

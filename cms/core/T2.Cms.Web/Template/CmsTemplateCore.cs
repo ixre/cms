@@ -1866,7 +1866,7 @@ namespace T2.Cms.Template
                 //    module = CmsLogic.Module.GetModule(int.Parse(categoryTagOrModuleID));
                 //    if (module != null)
                 //    {
-                //        searchArchives = CmsLogic.Archive.SearchByModule(keyword, int.Parse(categoryTagOrModuleID), _pageSize, _pageIndex, out _records, out _pages, "ORDER BY CreateDate DESC").Rows;
+                //        searchArchives = CmsLogic.Archive.SearchByModule(keyword, int.Parse(categoryTagOrModuleID), _pageSize, _pageIndex, out _records, out _pages, "ORDER BY create_time DESC").Rows;
                 //    }
                 //}
 
@@ -1879,7 +1879,7 @@ namespace T2.Cms.Template
                         hasSetCategory = true;
                         searchArchives = ServiceCall.Instance.ArchiveService.SearchArchivesByCategory(siteId,
                             category.Path, keyword, intPageSize, intPageIndex, out total, out pages,
-                            "ORDER BY CreateDate DESC");
+                            "ORDER BY create_time DESC");
                     }
                     else
                     {
@@ -1895,7 +1895,7 @@ namespace T2.Cms.Template
             if (searchArchives == null)
             {
                 searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId,"", false, 
-                    keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY CreateDate DESC");
+                    keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY create_time DESC");
             }
 
             IDictionary<string, string> extendFields = null;
