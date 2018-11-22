@@ -261,10 +261,10 @@ public class FileJsonExplor
         String filePath = dirPath + file.FileName;
         if (File.Exists(filePath))
         {
-            return "{error:\"文件已经存在\"}";
+            return "{\"error\":\"文件已经存在\"}";
         }
 
         file.SaveAs(filePath);
-        return "{url:\""+dir+fileName+"\"}";
+        return "{\"url\":\""+dir+fileName+"\"}";
     }
 }

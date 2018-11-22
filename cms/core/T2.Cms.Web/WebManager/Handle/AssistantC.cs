@@ -140,7 +140,7 @@ namespace T2.Cms.Web.WebManager.Handle
                     {
                         sb.Append(err.Value.Replace("<break>", "\\n")).Append("\\n");
                     }
-                    return "{result:false,message:'" + sb.ToString() + "'}";
+                    return "{\"result\":false,\"message\":\"" + sb.ToString() + "\"}";
                 }
                 return base.ReturnSuccess();
             }
