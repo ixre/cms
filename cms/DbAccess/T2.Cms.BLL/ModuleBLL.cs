@@ -127,7 +127,7 @@ namespace T2.Cms.BLL
             {
                 if (!m.IsDelete)
                 {
-                    sb.Append("{id:").Append(m.ID.ToString()).Append(",name:'").Append(m.Name).Append("'},");
+                    sb.Append("{\"id\":\"").Append(m.ID.ToString()).Append("\",\"name\":\"").Append(m.Name).Append("\"},");
                 }
             }
             if (sb.Length > 1) sb.Remove(sb.Length - 1, 1);

@@ -24,7 +24,7 @@ namespace T2.Cms.Utility
     /// </summary>
     public class TrafficCounter
     {
-        private const string defaultJson = "{ip:0,pv:0}";
+        private const string defaultJson = "{\"ip\":0,\"pv\":0}";
         private static SettingFile trafficFile = new SettingFile(AppDomain.CurrentDomain.BaseDirectory + "data/traffic.xml");
 
         /// <summary>

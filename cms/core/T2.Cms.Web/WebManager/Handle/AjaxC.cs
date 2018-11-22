@@ -133,9 +133,8 @@ namespace T2.Cms.Web.WebManager.Handle
                 {
                     sb.Append(",");
                 }
-                sb.Append("{id:'").Append(s.SiteId.ToString())
-                    .Append("',name:'").Append(s.Name.Replace("'", "\\'"));
-                sb.Append("'}");
+                sb.Append("{\"id\":\"").Append(s.SiteId.ToString())
+                    .Append("\",\"name\":\"").Append(s.Name).Append("\"}");
             }
 
             sites = sb.ToString();
@@ -208,16 +207,16 @@ namespace T2.Cms.Web.WebManager.Handle
 
             foreach (XmlNode pn in pl)
             {
-                sb.Append("{id:'").Append(pn.Attributes["id"].Value).Append("',text:'").Append(pn.Attributes["name"].Value).Append("',uri:'")
-                    .Append("#").Append(pn.Attributes["id"].Value).Append("',childs:[");
+                sb.Append("{\"id\":\"").Append(pn.Attributes["id"].Value).Append("\",\"text\":\"").Append(pn.Attributes["name"].Value).Append("\",\"uri\":\"")
+                    .Append("#").Append(pn.Attributes["id"].Value).Append("\",\"childs\":[");
 
                 sl = xd.SelectNodes("/config/menu/bar[@id='" + pn.Attributes["id"].Value + "']/links");
                 foreach (XmlNode sn in sl)
                 {
-                    sb.Append("{text:'").Append(sn.Attributes["title"].Value).Append("',uri:'").Append("',")
-                        .Append("toggle:").Append(sn.Attributes["toggle"].Value == "true" ? "true" : "false").Append(",")
-                        .Append("iconPos:'").Append(sn.Attributes["iconPos"].Value).Append("',")
-                        .Append("childs:[");
+                    sb.Append("{\"text\":\"").Append(sn.Attributes["title"].Value).Append("\",\"uri\":\"").Append("\",")
+                        .Append("\"toggle\":").Append(sn.Attributes["toggle"].Value == "true" ? "true" : "false").Append(",")
+                        .Append("\"iconPos\":\"").Append(sn.Attributes["iconPos"].Value).Append("\",")
+                        .Append("\"childs\":[");
 
                     tl = sn.ChildNodes;
 
@@ -236,9 +235,9 @@ namespace T2.Cms.Web.WebManager.Handle
                                 sb.Append(",");
                             }
 
-                            sb.Append("{text:'").Append(tn.Attributes["text"].Value)
-                                .Append("',uri:'").Append(tn.Attributes["href"].Value.Replace("$prefix", Settings.SYS_ADMIN_TAG))
-                                .Append("'}");
+                            sb.Append("{\"text\":\"").Append(tn.Attributes["text"].Value)
+                                .Append("\",\"uri\":\"").Append(tn.Attributes["href"].Value.Replace("$prefix", Settings.SYS_ADMIN_TAG))
+                                .Append("\"}");
                         }
                     }
 
@@ -268,7 +267,7 @@ namespace T2.Cms.Web.WebManager.Handle
                     {
                         if (!m.IsDelete)
                         {
-                            sb.Append("{text:'").Append(m.Name).Append("',uri:'").Append("',toggle:").Append(modules.Count > 4 && j < modules.Count - 1 ? "true" : "false")
+                            sb.Append("{\"text\":'").Append(m.Name).Append("',uri:'").Append("',toggle:").Append(modules.Count > 4 && j < modules.Count - 1 ? "true" : "false")
                                 .Append(",childs:[");
 
                             sb.Append("{text:'").Append("发布信息").Append("',uri:'")
@@ -514,7 +513,7 @@ namespace T2.Cms.Web.WebManager.Handle
             }
             catch (Exception exc)
             {
-                return "{result:false,error:'" + exc.Message + "'}";
+                return "{\"result\":false,\"error\":\"" + exc.Message + "\"}";
             }
         }
     }

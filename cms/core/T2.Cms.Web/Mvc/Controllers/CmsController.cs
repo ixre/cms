@@ -364,7 +364,7 @@ namespace T2.Cms.Web.Mvc
 
             if (String.IsNullOrEmpty(Request["tableid"]))
             {
-                return "{tag:-1,message:'表单出错！'}";
+                return "{\"tag\":-1,\"message\":\"表单出错！\"}";
             }
             else
             {
@@ -375,7 +375,7 @@ namespace T2.Cms.Web.Mvc
                 string token = global::System.Web.HttpContext.Current.Session[sessName] as string;
                 if (String.Compare(token, base.Request["token"], true) != 0)
                 {
-                    return "{tag:-1,message:'请勿重复提交！'}";
+                    return "{\"tag\":-1,\"message\":\"请勿重复提交！\"}";
                 }
 
                 //提交
@@ -387,7 +387,7 @@ namespace T2.Cms.Web.Mvc
                     global::System.Web.HttpContext.Current.Session.Remove(sessName);
                 }
 
-                return "{tag:" + result.ToString() + ",message:'提交成功！'}";
+                return "{\"tag\":" + result.ToString() + ",\"message\":\"提交成功！\"}";
             }
         }
 

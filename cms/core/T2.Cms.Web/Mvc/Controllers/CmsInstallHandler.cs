@@ -297,7 +297,7 @@ namespace T2.Cms.Web
             data.Add("@thumbnail", "");
             data.Add("@outline",  "");
             data.Add("@content", "<div style=\\\"text-align:center;font-size:30px\\\"><h2>欢迎使用JRCms.NET!</h2></div>");
-            data.Add("@tags", "{st:\'0\',sc:\'0\',v:\'1\',p:\'0\'}");
+            data.Add("@tags", "JRCms,内容管理系统");
             data.Add("@createTime", unix);
             data.Add("@updateTime", unix);
             String sql = String.Format(@"INSERT INTO {0}archive(

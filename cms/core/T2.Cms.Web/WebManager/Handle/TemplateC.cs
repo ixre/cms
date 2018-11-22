@@ -461,7 +461,7 @@ namespace T2.Cms.Web.WebManager.Handle
         {
             string tplRootPath =String.Format("{0}templates/",AppDomain.CurrentDomain.BaseDirectory);
             string tempTplPath = tplRootPath + "~.tpl";
-            const string jsTip = "{msg:'{0}'}";
+            const string jsTip = "{\"msg\":\"{0}\"}";
             string resultMessage;
 
             /*
