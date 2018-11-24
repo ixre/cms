@@ -30,7 +30,6 @@ img{max-width:100%;}
 
 /** Response Layout */
 .container{padding-right:15px;padding-left:15px;margin:0 auto}
-.row{margin-right:-15px;margin-bottom:10px;margin-right:-15px;}
 .container [class*="col-"],.row [class*="col-"]{float:left;padding-left:15px;padding-right:15px;position:relative;min-height:1px;}
 .col-1{width:8.333333%}
 .col-2{width:16.666666%}
@@ -47,13 +46,17 @@ img{max-width:100%;}
 
 @media (min-width:768px){
     .container{width:750px}
-    .hidden-sm{display:none !important}
     .col-sm-1{width:8.333333%}.col-sm-2{width:16.666666%}.col-sm-3{width:25%}.col-sm-4{width:33.333333%} .col-sm-5{width:41.666666%} .col-sm-6{width:50%}.col-sm-7{width:58.333333%}.col-sm-8{width:66.666666%} .col-sm-9{width:75%} .col-sm-10{width:83.333333%} .col-sm-11{width:91.666666%} .col-sm-12{width:100%}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .hidden-sm {display: none !important}
 }
 @media (min-width:992px){
     .container{width:970px}
-    .hidden-md{display:none !important}
     .col-md-1{width:8.333333%}.col-md-2{width:16.666666%}.col-md-3{width:25%}.col-md-4{width:33.333333%} .col-md-5{width:41.666666%} .col-md-6{width:50%}.col-md-7{width:58.333333%}.col-md-8{width:66.666666%} .col-md-9{width:75%} .col-md-10{width:83.333333%} .col-md-11{width:91.666666%} .col-md-12{width:100%}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .hidden-md {display: none !important}
 }
 @media (min-width:1200px){
     .container{width:1170px}
@@ -64,28 +67,12 @@ img{max-width:100%;}
     .hidden-xs{display:none !important;}
     .col-xs-1{width:8.333333%}.col-xs-2{width:16.666666%}.col-xs-3{width:25%}.col-xs-4{width:33.333333%} .col-xs-5{width:41.666666%} .col-xs-6{width:50%}.col-xs-7{width:58.333333%}.col-xs-8{width:66.666666%} .col-xs-9{width:75%} .col-xs-10{width:83.333333%} .col-xs-11{width:91.666666%} .col-xs-12{width:100%}
 }
- 
-
-
-
-
-/* ---------- 公共样式 -------- */
-.fix:after{clear:both;display:table;content:" ";visibility:hidden;height:0;overflow:hidden;font-size:0}
 
 
 /* clearfix 清除浮动 */
+.container:after,.row:after,.clearfix:after{content:".";display:block;visibility:hidden;height:0;clear:both;}
 .clearfix{zoom:1;}
-.clearfix:after{content:".";display:block;visibility:hidden;height:0;clear:both;}
 
-/* cols 列 */
-.two .col,.three .col,.four .col,.five .col,.six .col,.seven .col,.eight .col{display:inline-block;float:left;}
-.two .col{width:50%;}
-.three .col{width:33.3333%;}
-.four .col{width:25%;}
-.five .col{width:20%;}
-.six .col{width:16.6666%;}
-.seven .col{width:14.2857%;}
-.eight .col{width:12.5%;}
 
 
 
@@ -95,8 +82,8 @@ img{max-width:100%;}
 .block{display:block;}
 
 
-body{font-size:13px;background:#FAFBFC;}
-p,div{margin:0 0 10px 0;}
+body{font-size:14px;background:#FAFBFC;}
+
 
 .container,.wrapper{min-width:320px;margin:0 auto}
 .container-top,.wrapper-top{padding-top:41px;}

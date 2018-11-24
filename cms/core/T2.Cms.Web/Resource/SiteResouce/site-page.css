@@ -4,7 +4,6 @@ h1,h2,h3{margin:0;padding:0;}
 h1{font-size:1.25em;line-height: 2em;}
 a:link,a:visited{color:#333;}
 a:hover{color:#D50000;}
-.wrapper,.container{width:1019px;margin:0 auto;}
 .relative{position: relative;}
 .pull{float:left;}
 .push{margin-right:3%;float:left;}
@@ -12,6 +11,19 @@ a:hover{color:#D50000;}
 .panel{width:1019px;margin:0 auto;font-size:1.2em;}
 table{border:solid 1px #333;}
 table td{border:solid 1px #333;padding:0 10px;}
+
+
+/* will be deleting */
+
+/* cols 列 */
+.two .col,.three .col,.four .col,.five .col,.six .col,.seven .col,.eight .col{display:inline-block;float:left;}
+.two .col{width:50%;}
+.three .col{width:33.3333%;}
+.four .col{width:25%;}
+.five .col{width:20%;}
+.six .col{width:16.6666%;}
+.seven .col{width:14.2857%;}
+.eight .col{width:12.5%;}
 
 
 /* 全局元素样式 */

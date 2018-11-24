@@ -20,8 +20,8 @@ namespace T2.Cms.Resource
             const string cssComment = " /* 此文件由系统自动生成,所有样式表请引用此文件!*/\r\n";
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "template.css",
-                cssComment + ResourceUtility.CompressHtml(SiteResource.site_template+
-                "\r\n /* page.css */\r\n"+SiteResource.site_page), !true);
+                cssComment + ResourceUtility.CompressHtml(SiteResource.site_template)+
+                "\n /* merge page.css */\n"+ ResourceUtility.CompressHtml(SiteResource.site_page), !true);
 
             //Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "cms.js", 
             //    comment + SiteResource.cms_core_min, !true);
