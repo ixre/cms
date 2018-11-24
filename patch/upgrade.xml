@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<upgrade version="3.1.103" patch="cms.patch.zip">
+<upgrade version="3.1.104" patch="cms.patch.zip">
 <![CDATA[
 
-JRCMS 版本:v3.1.100  build20181101
+JRCMS 版本:v3.1.104  build20181124
 =============================================
 1.系统栏目重构，支持同名的栏目
 2.修改已知的问题
