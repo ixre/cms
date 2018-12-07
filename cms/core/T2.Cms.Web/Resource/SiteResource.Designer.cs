@@ -81,7 +81,7 @@ namespace T2.Cms.Web.Resource {
         
         /// <summary>
         ///   查找类似 
-        ///function JR() { this.VERSION = &apos;3.2&apos;; this.WORKPATH = &apos;&apos;; this._Extend_PROTOTYPE = true; this._eventArray = [&quot;abort&quot;, &quot;blur&quot;, &quot;change&quot;, &quot;click&quot;, &quot;dblclick&quot;, &quot;error&quot;, &quot;focus&quot;, &quot;keydown&quot;, &quot;keypress&quot;, &quot;keyup&quot;, &quot;load&quot;, &quot;mousedown&quot;, &quot;mousemove&quot;, &quot;mouseout&quot;, &quot;mouseover&quot;, &quot;mouseup&quot;, &quot;reset&quot;, &quot;resize&quot;, &quot;select&quot;, &quot;submit&quot;, &quot;unload&quot;]; this.__init__ = function () { var a = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = a[a.length - 1]; var b = s.src; this.WORKPATH = b.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (this._Extend_P [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function JR() { this.VERSION = &apos;3.2&apos;; this.WORKPATH = &apos;&apos;; this._Extend_PROTOTYPE = true; this._eventArray = [&quot;abort&quot;, &quot;blur&quot;, &quot;change&quot;, &quot;click&quot;, &quot;dblclick&quot;, &quot;error&quot;, &quot;focus&quot;, &quot;keydown&quot;, &quot;keypress&quot;, &quot;keyup&quot;, &quot;load&quot;, &quot;mousedown&quot;, &quot;mousemove&quot;, &quot;mouseout&quot;, &quot;mouseover&quot;, &quot;mouseup&quot;, &quot;reset&quot;, &quot;resize&quot;, &quot;select&quot;, &quot;submit&quot;, &quot;unload&quot;]; this.__init__ = function () { var a = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = a[a.length - 1]; var b = s.src; this.WORKPATH = b.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (this._Extend_ [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string base_min {
             get {
@@ -278,28 +278,19 @@ namespace T2.Cms.Web.Resource {
         }
         
         /// <summary>
-        ///   查找类似 eval(function (p, a, c, k, e, r) { e = function (c) { return (c &lt; a ? &apos;&apos; : e(parseInt(c / a))) + ((c = c % a) &gt; 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!&apos;&apos;.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return &apos;\\w+&apos; }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp(&apos;\\b&apos; + e(c) + &apos;\\b&apos;, &apos;g&apos;), k[c]); return p }(&apos;u 3c(a,b,c){b=1C(b);r(2J(c)==&quot;4z&quot;){8 c=19 1Q(c.22(&quot;-&quot;)[0],c.22(&quot;-&quot;)[1],c.22(&quot;-&quot;)[2])}r(2J(c)==&quot;4A&quot;){8 c= [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        internal static string js_ui_min {
-            get {
-                return ResourceManager.GetString("js_ui_min", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 body{color:#333;font-family:Arial &apos;MiCROSOFT YAHEI&apos;;/*background:#F0F0F0;*/}
         ///
         ///h1,h2,h3{margin:0;padding:0;}
         ///h1{font-size:1.25em;line-height: 2em;}
         ///a:link,a:visited{color:#333;}
         ///a:hover{color:#D50000;}
-        ///.wrapper,.container{width:1019px;margin:0 auto;}
         ///.relative{position: relative;}
         ///.pull{float:left;}
         ///.push{margin-right:3%;float:left;}
         ///.arrow{background:url(img/arrow.gif) no-repeat;width:10px;height:10px;display:inline-block;margin-right:3px;}
         ///.panel{width:1019px;margin:0 auto;font-size:1.2em;}
-        ///table{border:so [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///table{border:solid 1px #333;}
+        ///table td{border:solid 1px #333;pad [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string site_page {
             get {
@@ -319,7 +310,7 @@ namespace T2.Cms.Web.Resource {
         ///th,thead,tr,tt,ul,var{  margin:0;padding:0;border:0;outline:0;
         ///    font-weight:inherit;font-style:normal;font-family:inherit;
         ///    text-decoration:none;-webkit-text-size-adjust:none;
-        ///    -ms-interpola [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///    -ms-interpolation-mode:b [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string site_template {
             get {
@@ -328,7 +319,9 @@ namespace T2.Cms.Web.Resource {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 /*! WOW wow.js - v1.2.1 - 2016-09-05
+        ///* https://wowjs.uk
+        ///* Copyright (c) 2016 Thomas Grainger; Licensed MIT */!function (a, b) { if (&quot;function&quot; == typeof define &amp;&amp; define.amd) define([&quot;module&quot;, &quot;exports&quot;], b); else if (&quot;undefined&quot; != typeof exports) b(module, exports); else { var c = { exports: {} }; b(c, c.exports), a.WOW = c.exports } }(this, function (a, b) { &quot;use strict&quot;; function c(a, b) { if (!(a instanceof b)) throw new TypeError(&quot;Cannot call a class as a function&quot;) } function d(a, b) { return b.ind [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string wow {
             get {
