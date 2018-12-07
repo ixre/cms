@@ -2132,7 +2132,7 @@ namespace T2.Cms.Template
                         case "imgurl": return link.ImgUrl;
                         case "img": return ThumbnailTag(link.ImgUrl,link.Text, true);
                         case "url": return String.IsNullOrEmpty(link.Bind) ? link.Uri : this.GetBingLinkUrl(link.Bind);
-                        case "target": return String.IsNullOrEmpty(link.Target) || String.Compare(link.Target, "_self", true) == 0 ? String.Empty : " target=\"_blank\"";
+                        case "target": return String.IsNullOrEmpty(link.Target)? "_self" : link.Target;
                         case "id": return link.Id.ToString();
                         case "class":
                             if (navIndex == i)

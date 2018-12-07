@@ -154,9 +154,6 @@
   <data name="js_lib_upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SiteResouce\jslib\js_lib_upload.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="js_ui_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>SiteResouce\js_ui-min.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="base_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SiteResouce\base.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

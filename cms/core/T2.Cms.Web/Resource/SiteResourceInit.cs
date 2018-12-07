@@ -31,9 +31,7 @@ namespace T2.Cms.Resource
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "api.js",
                comment + SiteResource.js_cms_api, !true);
-
-            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "ui-min.js",
-                comment + SiteResource.js_ui_min, !true);
+            
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/ui.js",
                 comment + SiteResource.js_lib_ui, false);

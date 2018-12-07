@@ -48,7 +48,7 @@ namespace T2.Cms.Web.WebManager.Handle
                 dt, String.Empty.RandomLetters(4));
 
             string file = new FileUpload(dir, name).Upload();
-            Response.Write("{" + String.Format("url:'{0}'", file) + "}");
+            Response.Write("{" + String.Format("\"url\":\"{0}\"", file) + "}");
         }
         
         #region 文件上传至远程服务器
@@ -138,7 +138,7 @@ namespace T2.Cms.Web.WebManager.Handle
                 base.CurrentSite.SiteId.ToString(), dt);
             string name = String.Format("{0:ddHHss}{1}", dt, String.Empty.RandomLetters(4));
             string file = new FileUpload(dir, name).Upload();
-            Response.Write("{"+String.Format("url:'{0}'",file)+"}");
+            Response.Write("{"+String.Format("\"url\":\"{0}\"",file)+"}");
         }
     }
 }
