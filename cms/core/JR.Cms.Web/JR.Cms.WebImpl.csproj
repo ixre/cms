@@ -201,13 +201,17 @@
       <Project>{d40b1fb7-00f9-4d07-b034-eb51ab99e447}</Project>
       <Name>JR.Cms.CacheService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DbAccess\JR.Cms.DB\JR.Cms.DB.csproj">
+    <ProjectReference Include="..\..\dba\JR.Cms.DB\JR.Cms.DB.csproj">
       <Project>{79258ec8-3cf2-496c-b81b-08b8392fd46a}</Project>
       <Name>JR.Cms.DB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Domain\JR.Cms.Domain.Interface\JR.Cms.Domain.Interface.csproj">
       <Project>{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}</Project>
       <Name>JR.Cms.Domain.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\JR.Cms.DataTransfer\JR.Cms.DataTransfer.csproj">
+      <Project>{A925A0E7-22D6-4DA7-8B75-87AA0D6D6E24}</Project>
+      <Name>JR.Cms.DataTransfer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\JR.Cms.ServiceUtil\JR.Cms.ServiceUtil.csproj">
       <Project>{1b43fbd5-8e31-4688-9b25-a63378d375f2}</Project>
@@ -233,7 +237,7 @@
       <Project>{f512899c-b4c9-465f-a3db-8e511c92a8a8}</Project>
       <Name>JR.Cms.ServiceContract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DbAccess\JR.Cms.BLL\JR.Cms.BLL.csproj">
+    <ProjectReference Include="..\..\dba\JR.Cms.BLL\JR.Cms.BLL.csproj">
       <Project>{39BCB411-39CA-4635-9C9B-F9FBAE40058E}</Project>
       <Name>JR.Cms.BLL</Name>
     </ProjectReference>

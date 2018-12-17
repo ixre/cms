@@ -1,8 +1,0 @@
-E:\git\cms\bin\x86\leveldb.dll
-E:\git\cms\bin\JR.Cms.Service.dll
-E:\git\cms\bin\JR.Cms.Service.pdb
-E:\git\cms\cms\Service\JR.Cms.Service\obj\Debug\JR.Cms.Service.csprojAssemblyReference.cache
-E:\git\cms\cms\Service\JR.Cms.Service\obj\Debug\JR.Cms.Service.csproj.CoreCompileInputs.cache
-E:\git\cms\cms\Service\JR.Cms.Service\obj\Debug\JR.Cms.Service.csproj.CopyComplete
-E:\git\cms\cms\Service\JR.Cms.Service\obj\Debug\JR.Cms.Service.dll
-E:\git\cms\cms\Service\JR.Cms.Service\obj\Debug\JR.Cms.Service.pdb

@@ -1,8 +1,0 @@
-E:\git\cms\bin\JR.Cms.DataTransfer.dll
-E:\git\cms\bin\JR.Cms.DataTransfer.pdb
-E:\git\cms\cms\Service\JR.Cms.DataTransfer\obj\Debug\JR.Cms.DataTransfer.csproj.CoreCompileInputs.cache
-E:\git\cms\cms\Service\JR.Cms.DataTransfer\obj\Debug\JR.Cms.DataTransfer.csproj.CopyComplete
-E:\git\cms\cms\Service\JR.Cms.DataTransfer\obj\Debug\JR.Cms.DataTransfer.dll
-E:\git\cms\cms\Service\JR.Cms.DataTransfer\obj\Debug\JR.Cms.DataTransfer.pdb
-E:\git\cms\bin\x86\leveldb.dll
-E:\git\cms\cms\Service\JR.Cms.DataTransfer\obj\Debug\JR.Cms.DataTransfer.csprojAssemblyReference.cache

@@ -1,7 +1,5 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Security;
 
 //公匙:15b089995eecb56b
 
@@ -10,13 +8,13 @@ using System.Security;
 // 与程序集关联的信息。
 
 //[assembly: AllowPartiallyTrustedCallers]
-[assembly: AssemblyTitle("J6 Cms .NET")]
+[assembly: AssemblyTitle("JRCms.NET")]
 [assembly: AssemblyDescription("The cross platform .NET content manage system.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("plese visit http://s.z3q.net/cms known more.")]
-[assembly: AssemblyProduct("J6 Cms .NET !")]
-[assembly: AssemblyCopyright("Copyright 2008-2016 © z3q.net")]
-[assembly: AssemblyTrademark("jr.Cms")]
+[assembly: AssemblyCompany("plese visit http://s.to2.net/cms known more.")]
+[assembly: AssemblyProduct("JR Cms .NET")]
+[assembly: AssemblyCopyright("Copyright 2008-2019 © to2.net")]
+[assembly: AssemblyTrademark("jr.cms")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 使此程序集中的类型
