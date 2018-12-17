@@ -1,8 +1,0 @@
-E:\git\cms\bin\x86\leveldb.dll
-E:\git\cms\bin\JR.Cms.DAL.dll
-E:\git\cms\bin\JR.Cms.DAL.pdb
-E:\git\cms\cms\DbAccess\JR.Cms.DAL\obj\Debug\JR.Cms.DAL.csprojAssemblyReference.cache
-E:\git\cms\cms\DbAccess\JR.Cms.DAL\obj\Debug\JR.Cms.DAL.csproj.CoreCompileInputs.cache
-E:\git\cms\cms\DbAccess\JR.Cms.DAL\obj\Debug\JR.Cms.DAL.csproj.CopyComplete
-E:\git\cms\cms\DbAccess\JR.Cms.DAL\obj\Debug\JR.Cms.DAL.dll
-E:\git\cms\cms\DbAccess\JR.Cms.DAL\obj\Debug\JR.Cms.DAL.pdb

@@ -18,11 +18,10 @@ using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Core.Plugins;
 using JR.Cms.Infrastructure;
-using JR.DevFw.Framework;
 using JR.Cms.DataTransfer;
-using JR.Cms.DB;
 using JR.DevFw.PluginKernel;
 using JR.DevFw.Framework.Web.UI;
+using JR.Cms.DB;
 
 namespace JR.Cms
 {
@@ -106,6 +105,7 @@ namespace JR.Cms
         public static bool IsStaticRequest(HttpContext ctx)
         {
             String path = ctx.Request.Path;
+            if (path.EndsWith(".ashx") || path.EndsWith(".aspx")) return false;
            return path.StartsWith("/public/") || path.StartsWith("/resources/") ||
                 path.StartsWith("/plugins/") || path.StartsWith("/templates/");
         }

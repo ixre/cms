@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UIApp", "app", "{2EA5E627-2486-4013-ABE8-0CC136D1BAEB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UIApp", "UIApp", "{2EA5E627-2486-4013-ABE8-0CC136D1BAEB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "domain", "{DA6E29CD-269C-4877-90FC-D39E4A215EED}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{DA6E29CD-269C-4877-90FC-D39E4A215EED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "core", "{E17B08BD-867A-41F2-A9DD-79E8633AA61E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E17B08BD-867A-41F2-A9DD-79E8633AA61E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "service", "{B9E78DB4-334A-4AD7-8EA9-671B2BBBCD3F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{B9E78DB4-334A-4AD7-8EA9-671B2BBBCD3F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbAccess", "dba", "{82B408A9-94BF-48D0-926D-F8CF28D60D71}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbAccess", "DbAccess", "{82B408A9-94BF-48D0-926D-F8CF28D60D71}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "cache", "{D594E550-2775-47F9-B03F-A420A070F5EA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{D594E550-2775-47F9-B03F-A420A070F5EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.Infrastructure", "core\JR.Cms.Infrastructure\JR.Cms.Infrastructure.csproj", "{28221385-8873-45F3-AFD6-611DFD041BEC}"
 EndProject
@@ -61,7 +61,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.Domain.Implement.Use
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.Domain.Interface", "Domain\JR.Cms.Domain.Interface\JR.Cms.Domain.Interface.csproj", "{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.UnitTest", "Test\JR.Cms.UnitTest\JR.Cms.UnitTest.csproj", "{BAE8F9FA-7B63-4CBF-807C-275C11F8B4B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.UnitTest", "unit_test\JR.Cms.UnitTest\JR.Cms.UnitTest.csproj", "{BAE8F9FA-7B63-4CBF-807C-275C11F8B4B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

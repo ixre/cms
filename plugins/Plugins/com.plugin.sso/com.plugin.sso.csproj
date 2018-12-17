@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="jrcms">
-      <HintPath>..\..\..\..\dist\jrcms.dll</HintPath>
-    </Reference>
     <Reference Include="jrdev">
       <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
@@ -92,12 +89,6 @@
     <Content Include="Demo\default.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Extend\J6.Cms.Extend\JR.Cms.Extend.csproj">
-      <Project>{a05fea7b-9bf8-4265-95e5-1b9d6aeca379}</Project>
-      <Name>JR.Cms.Extend</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
