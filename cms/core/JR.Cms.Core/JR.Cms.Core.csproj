@@ -147,10 +147,6 @@
       <Project>{1b43fbd5-8e31-4688-9b25-a63378d375f2}</Project>
       <Name>JR.Cms.ServiceUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Service\JR.Cms.DataTransfer\JR.Cms.DataTransfer.csproj">
-      <Project>{a925a0e7-22d6-4da7-8b75-87aa0d6d6e24}</Project>
-      <Name>JR.Cms.DataTransfer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\JR.Cms.Cache\JR.Cms.Cache.csproj">
       <Project>{f8362c26-b7f2-4a9c-aa1c-d2c943ea8621}</Project>
       <Name>JR.Cms.Cache</Name>
