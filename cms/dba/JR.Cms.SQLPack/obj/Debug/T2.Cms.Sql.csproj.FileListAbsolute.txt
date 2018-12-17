@@ -1,0 +1,6 @@
+E:\git\cms\bin\JR.Cms.Sql.dll
+E:\git\cms\bin\JR.Cms.Sql.pdb
+E:\git\cms\cms\DbAccess\JR.Cms.SQLPack\obj\Debug\JR.Cms.Sql.csproj.CoreCompileInputs.cache
+E:\git\cms\cms\DbAccess\JR.Cms.SQLPack\obj\Debug\JR.Cms.Sql.csproj.CopyComplete
+E:\git\cms\cms\DbAccess\JR.Cms.SQLPack\obj\Debug\JR.Cms.Sql.dll
+E:\git\cms\cms\DbAccess\JR.Cms.SQLPack\obj\Debug\JR.Cms.Sql.pdb

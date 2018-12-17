@@ -10,11 +10,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("T2.Cms .NET! Bootstrap")]
+[assembly: AssemblyTitle("JR.Cms .NET! Bootstrap")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("T2.Cms .NET！The cross platform content manage system.")]
+[assembly: AssemblyProduct("JR.Cms .NET！The cross platform content manage system.")]
 [assembly: AssemblyCopyright("Copyright To2.Net 2008-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -5,8 +5,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>T2.Cms</RootNamespace>
-    <AssemblyName>t2c</AssemblyName>
+    <RootNamespace>JR.Cms</RootNamespace>
+    <AssemblyName>JRc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -91,7 +91,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)\bin\debug\t2c.dll ..\..\..\..\dist\</PostBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)\bin\debug\JRc.dll ..\..\..\..\dist\</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

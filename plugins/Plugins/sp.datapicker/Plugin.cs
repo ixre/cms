@@ -1,5 +1,5 @@
 ﻿using JR.DevFw.PluginKernel;
-using T2.Cms.Web.WebManager;
+using JR.Cms.Web.WebManager;
 using System;
 using System.Web;
 using JR.DevFw.Toolkit.NetCrawl;

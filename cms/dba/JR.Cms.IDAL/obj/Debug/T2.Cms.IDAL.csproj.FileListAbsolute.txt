@@ -1,0 +1,8 @@
+E:\git\cms\bin\x86\leveldb.dll
+E:\git\cms\bin\JR.Cms.IDAL.dll
+E:\git\cms\bin\JR.Cms.IDAL.pdb
+E:\git\cms\cms\DbAccess\JR.Cms.IDAL\obj\Debug\JR.Cms.IDAL.csprojAssemblyReference.cache
+E:\git\cms\cms\DbAccess\JR.Cms.IDAL\obj\Debug\JR.Cms.IDAL.csproj.CoreCompileInputs.cache
+E:\git\cms\cms\DbAccess\JR.Cms.IDAL\obj\Debug\JR.Cms.IDAL.csproj.CopyComplete
+E:\git\cms\cms\DbAccess\JR.Cms.IDAL\obj\Debug\JR.Cms.IDAL.dll
+E:\git\cms\cms\DbAccess\JR.Cms.IDAL\obj\Debug\JR.Cms.IDAL.pdb

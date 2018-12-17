@@ -1,5 +1,5 @@
 ﻿
-namespace T2.Cms.Extend.SSO
+namespace JR.Cms.Extend.SSO
 {
     public struct SsoResult
     {

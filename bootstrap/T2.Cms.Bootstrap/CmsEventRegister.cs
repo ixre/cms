@@ -9,15 +9,15 @@
 */
 
 using System.Linq;
-using T2.Cms;
-using T2.Cms.BLL;
-using T2.Cms.CacheService;
-using T2.Cms.Conf;
-using T2.Cms.Domain.Interface.User;
-using T2.Cms.Domain.Interface._old;
-using T2.Cms.Resource;
+using JR.Cms;
+using JR.Cms.BLL;
+using JR.Cms.CacheService;
+using JR.Cms.Conf;
+using JR.Cms.Domain.Interface.User;
+using JR.Cms.Domain.Interface._old;
+using JR.Cms.Resource;
 
-namespace T2.Cms
+namespace JR.Cms
 {
     public class CmsEventRegister
     {

@@ -1,4 +1,4 @@
-﻿namespace T2.Cms.Extend.SSO
+﻿namespace JR.Cms.Extend.SSO
 {
     /// <summary>
     /// 人员获取处理事件

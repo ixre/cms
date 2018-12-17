@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 
-namespace T2.Cms.Extend.SSO.Client
+namespace JR.Cms.Extend.SSO.Client
 {
     /// <summary>
     /// 会话客户端

@@ -11,7 +11,7 @@ using JR.DevFw.Data.Orm.Mapping;
 
  */
 
-namespace T2.Cms.Models{
+namespace JR.Cms.Models{
 
     /// <summary>
     /// {{.T.Comment}}

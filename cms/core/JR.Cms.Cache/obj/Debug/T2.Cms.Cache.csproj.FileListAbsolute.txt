@@ -1,0 +1,7 @@
+E:\git\cms\bin\x86\leveldb.dll
+E:\git\cms\bin\JR.Cms.Cache.dll
+E:\git\cms\bin\JR.Cms.Cache.pdb
+E:\git\cms\cms\core\JR.Cms.Cache\obj\Debug\JR.Cms.Cache.csproj.CoreCompileInputs.cache
+E:\git\cms\cms\core\JR.Cms.Cache\obj\Debug\JR.Cms.Cache.csproj.CopyComplete
+E:\git\cms\cms\core\JR.Cms.Cache\obj\Debug\JR.Cms.Cache.dll
+E:\git\cms\cms\core\JR.Cms.Cache\obj\Debug\JR.Cms.Cache.pdb

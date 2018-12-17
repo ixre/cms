@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<title>${page.title}</title>
+    <link rel="Stylesheet" type="text/css" href="${page.fpath}/template.css?v=${page.built}" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc?wsd" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="${page.tpath}/js/jquery.min.js"></script>
+<script src="${page.tpath}/js/jquery-migrate.min.js"></script>
+<script src="${page.tpath}/js/bootstrap.min.js"></script>
+<script src="${page.tpath}/js/suopu2017.min.js"></script>
+<link rel="stylesheet" href="${page.tpath}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${page.tpath}/css/font-awesome.min.css">
+<link rel="stylesheet" href="${page.tpath}/css/animate.css">
+<link rel="stylesheet" href="${page.tpath}/css/global.css">
+<link rel="stylesheet" href="${page.tpath}/css/style.css">
+</head>
+
+<body>
+${partial:"include/header.phtml"}
+
+    ${partial:"include/prod/show_top_bar.phtml"}
+<div class="product-wrap-detail grey-bg clearfix">
+	<div class="col-md-2 col-sm-3 col-xs-12">
+    	<ul class="product-left-nav mod-prod-d mod-prod-dl">
+        	<li><a class="active mod-prod-vl" video-file="库存-进货管理.mp4" href="javascript:void(0)">进货管理</a></li>
+            <li><a class="mod-prod-vl" video-file="库存-进销报表.mp4" href="javascript:void(0)">进销报表</a></li>
+            <li><a class="mod-prod-vl" video-file="库存-院品管理.mp4" href="javascript:void(0)">院品管理</a></li>
+            <li><a class="mod-prod-vl" video-file="库存-库存盘点.mp4" href="javascript:void(0)">库存盘点</a></li>
+            <li><a class="mod-prod-vl" video-file="库存-过期提醒.mp4" href="javascript:void(0)">过期提醒</a></li>
+            <li><a class="mod-prod-vl" video-file="库存-库存预警.mp4" href="javascript:void(0)">库存预警</a></li>
+            <li><a class="mod-prod-vl" video-file="库存-供应商管理.mp4" href="javascript:void(0)">供应商管理</a></li>
+        </ul>
+    </div>
+    <div class="col-md-10 col-sm-9 col-xs-12">
+        <div class="product-video mod-prod-d mod-prod-dr" style="background:url(${page.rpath}/mzl/demo/image/演示_播放视频背景图片.jpg);background-size:100%;">
+            <div class="fadeIn wow watch-video" data-wow-duration="1.5s" data-wow-delay="0.3s">
+                <a href="#">观看影片</a></div>
+        </div>
+  	</div>
+</div>
+    ${partial:"include/prod/module-items.phtml"}
+
+   ${partial:"include/footer.phtml"}
+      <script type="text/javascript" src="${page.fpath}/base.min.js?v=${page.built}&amp;hover=navi"></script>
+   <script type="text/javascript" src="${page.tpath}/js/prod-demo.js"></script>
+    <script type="text/javascript">setHeaderNav("库存");</script>
+</body>
+</html>
