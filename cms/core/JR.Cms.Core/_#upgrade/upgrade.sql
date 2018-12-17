@@ -74,3 +74,10 @@ DROP COLUMN `lft`;
 update cms_archive set flag = 1 where flag= 0;
 
 ALTER TABLE `cms_archive` DROP COLUMN `flags`;
+
+
+-- 2018-12-20 --
+ALTER TABLE `cms_site` 
+CHANGE COLUMN `domain` `domain` VARCHAR(120) NOT NULL COMMENT '域名' ,
+CHANGE COLUMN `location` `location` VARCHAR(120) NOT NULL COMMENT '重定向URL' ;
+
