@@ -60,10 +60,6 @@
       <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
       <Name>JR.Cms.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Service\JR.Cms.DataTransfer\JR.Cms.DataTransfer.csproj">
-      <Project>{a925a0e7-22d6-4da7-8b75-87aa0d6d6e24}</Project>
-      <Name>JR.Cms.DataTransfer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Service\JR.Cms.ServiceContract\JR.Cms.ServiceContract.csproj">
       <Project>{f512899c-b4c9-465f-a3db-8e511c92a8a8}</Project>
       <Name>JR.Cms.ServiceContract</Name>
