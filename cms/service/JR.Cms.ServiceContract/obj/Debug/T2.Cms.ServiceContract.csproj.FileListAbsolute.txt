@@ -1,0 +1,8 @@
+E:\git\cms\bin\x86\leveldb.dll
+E:\git\cms\bin\JR.Cms.ServiceContract.dll
+E:\git\cms\bin\JR.Cms.ServiceContract.pdb
+E:\git\cms\cms\Service\JR.Cms.ServiceContract\obj\Debug\JR.Cms.ServiceContract.csprojAssemblyReference.cache
+E:\git\cms\cms\Service\JR.Cms.ServiceContract\obj\Debug\JR.Cms.ServiceContract.csproj.CoreCompileInputs.cache
+E:\git\cms\cms\Service\JR.Cms.ServiceContract\obj\Debug\JR.Cms.ServiceContract.csproj.CopyComplete
+E:\git\cms\cms\Service\JR.Cms.ServiceContract\obj\Debug\JR.Cms.ServiceContract.dll
+E:\git\cms\cms\Service\JR.Cms.ServiceContract\obj\Debug\JR.Cms.ServiceContract.pdb

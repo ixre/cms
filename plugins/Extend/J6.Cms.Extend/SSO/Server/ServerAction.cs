@@ -1,4 +1,4 @@
-﻿namespace T2.Cms.Extend.SSO.Server
+﻿namespace JR.Cms.Extend.SSO.Server
 {
     /// <summary>
     /// 会话服务动作

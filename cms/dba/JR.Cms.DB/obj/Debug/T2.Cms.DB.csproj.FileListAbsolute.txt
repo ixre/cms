@@ -1,0 +1,7 @@
+E:\git\cms\bin\JR.Cms.DB.dll
+E:\git\cms\bin\JR.Cms.DB.pdb
+E:\git\cms\cms\DbAccess\JR.Cms.DB\obj\Debug\JR.Cms.DB.csproj.CoreCompileInputs.cache
+E:\git\cms\cms\DbAccess\JR.Cms.DB\obj\Debug\JR.Cms.DB.csproj.CopyComplete
+E:\git\cms\cms\DbAccess\JR.Cms.DB\obj\Debug\JR.Cms.DB.dll
+E:\git\cms\cms\DbAccess\JR.Cms.DB\obj\Debug\JR.Cms.DB.pdb
+E:\git\cms\cms\DbAccess\JR.Cms.DB\obj\Debug\JR.Cms.DB.csprojAssemblyReference.cache

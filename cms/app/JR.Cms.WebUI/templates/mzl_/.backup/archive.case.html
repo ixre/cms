@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+   <title>${page.title}</title>
+    <link rel="Stylesheet" type="text/css" href="${page.fpath}/template.css?v=${page.built}" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc?wsd" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="${page.tpath}/js/jquery.min.js"></script>
+<script src="${page.tpath}/js/jquery-migrate.min.js"></script>
+<script src="${page.tpath}/js/bootstrap.min.js"></script>
+<script src="${page.tpath}/js/suopu2017.min.js"></script>
+<link rel="stylesheet" href="${page.tpath}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${page.tpath}/css/font-awesome.min.css">
+<link rel="stylesheet" href="${page.tpath}/css/animate.css">
+<link rel="stylesheet" href="${page.tpath}/css/global.css">
+<link rel="stylesheet" href="${page.tpath}/css/style.css">
+</head>
+
+<body>
+    ${partial:"include/header.phtml"}
+
+    
+<div class="sub-block case-wrap">
+  <div class="container">
+    <div class="row">
+        <div class="breadcrumb"> $lang(sitemap_location)：$sitemap() > <a href="${archive.url}">${archive.title}</a></div>
+      <div class="case-post">
+        <div class="case-post-header text-center">
+            <h2 class="case-title">${archive.title}</h2>
+          <div class="date-share-info clearfix">
+              <div class="date-share">${archive.publish} <span class="mar-20">阅读：${archive.count}</span>
+              <div class="bdsharebuttonbox pull-right"><span class="share pull-left">分享到：</span><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a></div>
+            </div>
+            <script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script> 
+          </div>
+        </div>
+        <div class="content">
+          <p>东东美发沙龙创办于02年，本着给顾客如入天之府的感受，兼具经典品位与时尚元素的设计理念，让您体会中西结合之美，简约，干净和舒适的环境，让每一位客人都会在这里享受到华贵与婉约。</p>
+          <p> 天都美发中心在这几年里不断致力于美发事业的发展，并吸取各界人士的宝贵意见和结合多年的经验，从而为了能更好地服务于大家。天都美发中心将细节打造为上品，力求体贴与舒适，经典与时尚。您的秀发将在这里得到个性的张扬，以更加自我的方式追寻生活的美和真谛。您的美丽人生，将在这里从“头”开始。专业和完善的美发设备，将尽显您的身份与尊贵。专业的美发产品和精湛的技术，体贴入微的全程服务，天都造型标志性的创新和雅致将带您走入不一样的美丽人生。
+            完美是您的追求，专业是我的宗旨。</p>
+          <div class="text-center"><img src="images/case-img001.jpg"></div>
+          <div class="text-center"><img src="images/case-img002.jpg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    ${partial:"include/footer.phtml"}
+      <script type="text/javascript" src="${page.fpath}/base.min.js?v=${page.built}&amp;hover=navi"></script>
+
+</body>
+</html>

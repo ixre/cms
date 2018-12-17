@@ -1,0 +1,10 @@
+E:\git\cms\bin\x86\leveldb.dll
+E:\git\cms\bin\JR.Cms.Infrastructure.dll
+E:\git\cms\bin\JR.Cms.Infrastructure.pdb
+E:\git\cms\cms\core\JR.Cms.Infrastructure\obj\Debug\JR.Cms.Infrastructure.Resources.CmsResource.resources
+E:\git\cms\cms\core\JR.Cms.Infrastructure\obj\Debug\JR.Cms.Infrastructure.csproj.GenerateResource.cache
+E:\git\cms\cms\core\JR.Cms.Infrastructure\obj\Debug\JR.Cms.Infrastructure.csproj.CoreCompileInputs.cache
+E:\git\cms\cms\core\JR.Cms.Infrastructure\obj\Debug\JR.Cms.Infrastructure.csproj.CopyComplete
+E:\git\cms\cms\core\JR.Cms.Infrastructure\obj\Debug\JR.Cms.Infrastructure.dll
+E:\git\cms\cms\core\JR.Cms.Infrastructure\obj\Debug\JR.Cms.Infrastructure.pdb
+E:\git\cms\cms\core\JR.Cms.Infrastructure\obj\Debug\JR.Cms.Infrastructure.csprojAssemblyReference.cache

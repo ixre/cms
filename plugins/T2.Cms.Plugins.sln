@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extend", "Extend", "{1BFD9EBA-861C-4E65-A03F-86548438AD4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T2.Cms.Extend", "Extend\J6.Cms.Extend\T2.Cms.Extend.csproj", "{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.Extend", "Extend\J6.Cms.Extend\JR.Cms.Extend.csproj", "{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{219E7230-F005-4671-8825-B4D995EF5872}"
 EndProject

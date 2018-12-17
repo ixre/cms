@@ -1,0 +1,7 @@
+E:\git\cms\bin\JR.Cms.Domain.Implement.Content.dll
+E:\git\cms\bin\JR.Cms.Domain.Implement.Content.pdb
+E:\git\cms\cms\Domain\JR.Cms.Domain.Implement.Content\obj\Debug\JR.Cms.Domain.Implement.Content.csproj.CoreCompileInputs.cache
+E:\git\cms\cms\Domain\JR.Cms.Domain.Implement.Content\obj\Debug\JR.Cms.Domain.Implement.Content.csproj.CopyComplete
+E:\git\cms\cms\Domain\JR.Cms.Domain.Implement.Content\obj\Debug\JR.Cms.Domain.Implement.Content.dll
+E:\git\cms\cms\Domain\JR.Cms.Domain.Implement.Content\obj\Debug\JR.Cms.Domain.Implement.Content.pdb
+E:\git\cms\bin\x86\leveldb.dll

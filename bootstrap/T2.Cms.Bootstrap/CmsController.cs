@@ -4,12 +4,12 @@
 // 创建时间：2012-10-01
 // 修改说明：
 
-namespace T2.Cms
+namespace JR.Cms
 {
     /// <summary>
     /// 
     /// </summary>
-    public class CmsController : T2.Cms.Web.Mvc.CmsController
+    public class CmsController : JR.Cms.Web.Mvc.CmsController
     {
     }
 }

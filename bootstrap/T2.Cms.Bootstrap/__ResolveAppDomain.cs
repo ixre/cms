@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using T2.Cms.Conf;
+using JR.Cms.Conf;
 
-namespace T2.Cms
+namespace JR.Cms
 {
     internal class __ResolveAppDomain
     {

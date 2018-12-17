@@ -7,7 +7,7 @@
     <ProjectGuid>{A05FEA7B-9BF8-4265-95E5-1B9D6AECA379}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>T2.Cms.Extend</RootNamespace>
+    <RootNamespace>JR.Cms.Extend</RootNamespace>
     <AssemblyName>jrcms.extend</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace T2.Cms.Extend.SSO
+namespace JR.Cms.Extend.SSO
 {
     /// <summary>
     /// 会话管理器

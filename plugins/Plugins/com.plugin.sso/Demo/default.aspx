@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="T2.Cms.Extend.SSO.Demo.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="JR.Cms.Extend.SSO.Demo.WebForm1" %>
 
 <!DOCTYPE html>
 

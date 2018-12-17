@@ -19,12 +19,12 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
-using T2.Cms;
-using T2.Cms.Conf;
-using T2.Cms.WebManager;
+using JR.Cms;
+using JR.Cms.Conf;
+using JR.Cms.WebManager;
 using JR.DevFw.Utils;
 
-namespace T2.Cms.Handler
+namespace JR.Cms.Handler
 {
     public class EditorUploadHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
     {

@@ -1,0 +1,50 @@
+<div class="mod-guest">
+    <div class="container row" style="margin:0 auto">
+    <div class="col-sm-4 col-xs-2"></div>
+  <div class="mod-guest-form col-sm-4 col-xs-8">
+      
+      <p style="text-align: center;color: #ffffff;font-size: 1em;padding-top: 1.5em;font-size:1.2em;"><br />
+          亲，申请后免费领取体验账号！</p>
+      <br /><br />      
+      <iframe src="about:blank" name="_iframe" class="hidden"></iframe>
+      <form name="guestForm" target="_iframe" action="http://www.seafatman.top/plus/diy.php" enctype="multipart/form-data" method="post">
+      	<input type="hidden" name="action" value="post" />
+      	<input type="hidden" name="diyid" value="1" />
+      	<input type="hidden" name="do" value="2" /> 
+        <input type="hidden" name="dede_fields" value="name,text;contact_number,text" />
+        <input type="hidden" name="dede_fieldshash" value="e9b087276ce80a24e73056430d08f3c9" />
+        
+        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="请您输入姓名" name="name" id="name"/>
+        <br />
+        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="请您输入您的电话" name="contact_number" id="contact_number"/>
+        <br /> 
+        <div class="form-actions login-btn text-center btn-login" onclick="return check();">
+            <a href="javascript:void(0)">立即申请</a>
+          </div>
+          <br /><br />
+    </form>
+    <script type="text/javascript">function check() {
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (document.getElementById('name').value == '') {
+          alert('请您输入姓名！');
+          document.getElementById('name').focus();
+          return false;
+        }
+        if (document.getElementById('contact_number').value == '') {
+          alert('请您输入您的手机号码');
+          document.getElementById('contact_number').focus();
+          return false;
+        }
+        if (!myreg.test(document.getElementById('contact_number').value)) {
+          document.getElementById('contact_number').focus();
+          alert('请您输入正确的手机号码');
+          return false;
+        }
+        document.forms["guestForm"].submit();
+    	document.forms["guestForm"].reset();
+        alert("提交成功");
+      }</script>
+  </div>
+    <div class="col-sm-4 col-xs-2"></div>
+    </div>
+</div>

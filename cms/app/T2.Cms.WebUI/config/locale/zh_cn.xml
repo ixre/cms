@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lang>
+  <item key="space">
+  </item>
+  <item key="home"><![CDATA[首页]]></item>
+  <item key="aboutus"><![CDATA[关于我们]]></item>
+  <item key="contactus"><![CDATA[联系我们]]></item>
+  <item key="product"><![CDATA[产品]]></item>
+  <item key="news"><![CDATA[新闻]]></item>
+  <item key="galleries"><![CDATA[相册]]></item>
+  <item key="gallery"><![CDATA[相册]]></item>
+  <item key="video"><![CDATA[视频]]></item>
+  <item key="feedback"><![CDATA[反馈]]></item>
+  <item key="machines"><![CDATA[机器]]></item>
+  <item key="sitemap"><![CDATA[站点地图]]></item>
+  <item key="welcome"><![CDATA[欢迎]]></item>
+  <item key="professional"><![CDATA[专业]]></item>
+  <item key="choice"><![CDATA[选择]]></item>
+  <item key="service"><![CDATA[服务]]></item>
+  <item key="products"><![CDATA[产品]]></item>
+  <item key="catalogues"><![CDATA[分类]]></item>
+  <item key="projects"><![CDATA[项目]]></item>
+  <item key="download"><![CDATA[下载]]></item>
+  <item key="e-catalogues"><![CDATA[电子文档]]></item>
+  <item key="category"><![CDATA[分类]]></item>
+  <item key="update"><![CDATA[更新]]></item>
+  <item key="at"><![CDATA[于]]></item>
+  <item key="more"><![CDATA[更多]]></item>
+  <item key="information"><![CDATA[信息]]></item>
+  <item key="profile"><![CDATA[资料]]></item>
+  <item key="company"><![CDATA[公司]]></item>
+  <item key="all"><![CDATA[所有]]></item>
+  <item key="detail"><![CDATA[详情]]></item>
+  <item key="tag"><![CDATA[标签]]></item>
+  <item key="related"><![CDATA[相关]]></item>
+  <item key="name"><![CDATA[名称]]></item>
+  <item key="title"><![CDATA[标题]]></item>
+  <item key="address"><![CDATA[地址]]></item>
+  <item key="email"><![CDATA[邮箱]]></item>
+  <item key="fax"><![CDATA[传真]]></item>
+  <item key="phone"><![CDATA[电话]]></item>
+  <item key="contents"><![CDATA[内容]]></item>
+  <item key="list"><![CDATA[列表]]></item>
+</lang>

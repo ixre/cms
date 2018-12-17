@@ -1,0 +1,7 @@
+E:\git\cms\cms\UIApp\AppConsole\bin\Debug\AppConsole.exe.config
+E:\git\cms\cms\UIApp\AppConsole\bin\Debug\AppConsole.exe
+E:\git\cms\cms\UIApp\AppConsole\bin\Debug\AppConsole.pdb
+E:\git\cms\cms\UIApp\AppConsole\obj\Debug\AppConsole.csprojAssemblyReference.cache
+E:\git\cms\cms\UIApp\AppConsole\obj\Debug\AppConsole.csproj.CoreCompileInputs.cache
+E:\git\cms\cms\UIApp\AppConsole\obj\Debug\AppConsole.exe
+E:\git\cms\cms\UIApp\AppConsole\obj\Debug\AppConsole.pdb

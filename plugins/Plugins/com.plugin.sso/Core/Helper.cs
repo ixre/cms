@@ -13,7 +13,7 @@ using System.Data;
 using System.Web;
 using JR.DevFw.Framework.Extensions;
 using Newtonsoft.Json;
-using T2.Cms;
+using JR.Cms;
 
 namespace com.plugin.sso.Core
 {
