@@ -27,23 +27,28 @@ ${cur}/merge.exe -closed -ndebug \
  	JR.Cms.Domain.Implement.User.dll JR.Cms.Infrastructure.dll \
  	JR.Cms.Service.dll JR.Cms.ServiceContract.dll \
  	JR.Cms.ServiceUtil.dll JR.Cms.ServiceRepository.dll JR.Cms.IDAL.dll \
- 	JR.Cms.Sql.dll JR.Cms.Utility.dll JR.Cms.WebImpl.dll
-echo output target: /dist/jrcms.dll
+ 	JR.Cms.Sql.dll JR.Cms.Utility.dll JR.Cms.WebImpl.dll \
+	&& cd ..
 
 echo "2. prepare files"
-tmp_dir=$(pwd)'/dist/tmp'
-mkdir -p $tmp_dir/templates && mkdir -p $tmp_dir/bin
+tmp_dir=$(pwd)/dist/tmp
+dll_dir=$(pwd)/refrence.dll
+rm -rf $tmp_dir && mkdir -p $tmp_dir/templates \
+	&& mkdir -p $tmp_dir/bin
 
 cd $(find . -path "*/JR.Cms.WebUI") && \
-	cp -r install $tmp_dir &&\
-	cp -r plugins $tmp_dir &&\
-	cp -r public $tmp_dir &&\
+	cp -r \$server install plugins public \
+	Global.asax Web.config $tmp_dir &&\
 	cp -r templates/default $tmp_dir/templates/ &&\
-	cp Global.asax $tmp_dir &&\
-	cp Web.config $tmp_dir &&\
-        cd - 
+        cd - > /dev/null
 
+cp LICENSE README.md $tmp_dir && cp dist/boot.dll \
+	$dll_dir/StructureMap.dll \
+	$dll_dir/System.Data.SQLite.dll $tmp_dir/bin
 
+cp dist/jrcms.dll $dll_dir/jrdev* $tmp_dir/public/assemblies 
 
 echo "2. package upgrade zip"
 
+
+sleep 2 && echo "build success!"
