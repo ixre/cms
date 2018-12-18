@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("JR.Cms .NET！The cross platform content manage system.")]
-[assembly: AssemblyCopyright("Copyright To2.Net 2008-2019")]
+[assembly: AssemblyCopyright("Copyright to2.net 2008-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

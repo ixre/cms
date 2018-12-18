@@ -68,7 +68,7 @@ namespace JR.Cms
                     if (UpgradePercent < 0.3F) UpgradePercent = 0.3F;
 
                     //最后更新dll
-                    UpgradeFile("bin.zip", UpgradeFileType.Zip,UpgadeDir, false);
+                    UpgradeFile("boot.zip", UpgradeFileType.Zip,UpgadeDir, false);
 
                     //v2.1 版本切换至于sponet.dll
                 }

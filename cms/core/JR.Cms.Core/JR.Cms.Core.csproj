@@ -124,7 +124,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="_#upgrade\upgrade.sql" />
-    <Content Include="_#upgrade\upgrade.xml" />
+    <Content Include="Conf\upgrade.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Cache\JR.Cms.CacheService\JR.Cms.CacheService.csproj">
