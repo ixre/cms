@@ -582,6 +582,7 @@
     <Content Include="templates\default\include\header.phtml" />
     <Content Include="templates\default\include\share_control.phtml" />
     <Content Include="templates\default\include\side_bar.phtml" />
+    <Content Include="%24server\server.bat" />
     <None Include="config\cms.conf.bak" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
