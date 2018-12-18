@@ -3,6 +3,7 @@
 *.suo
 .vs
 Debug
+dist
 obj
 bin/*
 .backup
