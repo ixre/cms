@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<upgrade version="1.9.0" patch="j6.cms.libs.zip">
+<upgrade version="3.2.001" patch="cms.patch.zip">
 <![CDATA[
 
-版本:v2.0 (beta) build20130904
-1.更新后台操作UI
-2.后台AJAX操作<br />
-<span style="color:red">本版本为测试版，请谨慎选择升级！</span>
+JRCMS 版本:v3.2.001  build20181220
+=============================================
+1.系统栏目重构，支持同名的栏目
+2.修改已知的问题
+
+<span style="color:red">
+本版本请在技术人员指导下进行操作升级，请用户勿擅自升级！ 
+</span>
 
 ]]>
 </upgrade>

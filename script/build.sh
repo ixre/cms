@@ -33,8 +33,11 @@ ${cur}/merge.exe -closed -ndebug \
 echo "2. prepare files"
 tmp_dir=$(pwd)/dist/tmp
 dll_dir=$(pwd)/refrence.dll
+exe_dir=$(pwd)/script
+
 rm -rf $tmp_dir && mkdir -p $tmp_dir/templates \
-	&& mkdir -p $tmp_dir/bin
+	&& mkdir -p $tmp_dir/bin \
+	&& mkdir -p $tmp_dir/../patch
 
 cd $(find . -path "*/JR.Cms.WebUI") && \
 	cp -r \$server install plugins public \
@@ -48,7 +51,14 @@ cp LICENSE README.md $tmp_dir && cp dist/boot.dll \
 
 cp dist/jrcms.dll $dll_dir/jrdev* $tmp_dir/public/assemblies 
 
-echo "2. package upgrade zip"
+echo "3. package upgrade zip"
+cd $tmp_dir && cp -r $(find $exe_dir/../cms -name "upgrade.xml") ../patch \
+	&& $exe_dir/7z.exe a -tzip ../patch/boot.zip bin >/dev/null \
+	&& $exe_dir/7z.exe a -tzip ../patch/cms-patch.zip >/dev/null
 
+echo "4. package all" 
+$exe_dir/7z.exe a -tzip ../jrcms-dist-1.0.zip * >/dev/null
+
+echo "5. clean" && rm -rf $tmp_dir
 
 sleep 2 && echo "build success!"
