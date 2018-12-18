@@ -25,3 +25,4 @@ packages
 /script/generator/generated_code
 output
 
+/cms/core/JR.Cms.Core/*.user
