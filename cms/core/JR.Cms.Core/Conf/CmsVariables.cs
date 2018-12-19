@@ -6,7 +6,7 @@ namespace JR.Cms.Conf
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="3.2.004";
+        public const string VERSION="3.2.005";
 
         /// <summary>
         /// 框架目录
@@ -37,7 +37,7 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 资源目录
         /// </summary>
-        public const string RESOURCE_PATH = "resources/";
+        public const string RESOURCE_PATH = "uploads/";
 
 
         /// <summary>
