@@ -27,6 +27,6 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 更新服务器
         /// </summary>
-        public static string DefaultUpgradeServer = "http://to2.net/cms/patch/latest/";
+        public static string DefaultUpgradeServer = "http://s.to2.net/jr-cms/update/v3.0";
     }
 }
