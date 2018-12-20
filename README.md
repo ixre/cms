@@ -42,12 +42,15 @@ fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
 *在Linux及MacOSX上运行，需先安装mono
 
 ## Docker ##
-创建存放CMS模板、数据、插件、文件的目录:
+
+[Docker镜像帮助](https://hub.docker.com/r/jarry6/jrcms)
+
+1. 创建存放CMS模板、数据、插件、文件的目录:
 ```
 mkdir /data/cms && cd /data/cms
 ```
 
-运行容器：
+2. 运行容器：
 ```
 docker run -d -p 80:80 --volume=$(pwd)/config:/cms/config \
     --volume=$(pwd)/data:/cms/data \
