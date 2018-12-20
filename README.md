@@ -13,12 +13,19 @@
 - **多站点支持**：支持后台创建站点、域名绑定、虚拟目录等，站点相互隔离，大大节省服务器空间开支和维护成本。
 
 ## 部署 ##
+安装包下提供一个简易的Server, 在Windows下进入目录【$server】，运行【server.bat】,
+
+通过浏览器访问：http://localhost:8000
 
 ### 虚拟主机 ###
-需准备一台支持ASP.NET 4.0的虚拟主机一台，使用FTP上传完成部署。
+1. 需准备一台支持ASP.NET 4.0的虚拟主机
+
+2. 使用FTP上传完成部署。
 
 ### Windows ###
-点击[下载](http://s.to2.net/jrcms_latest)安装包，并解压，使用IIS添加站点，IIS需开启ASP.NET 4.0及以上功能。
+1. 点击[下载](http://s.to2.net/jrcms_latest)安装包，并解压；
+
+2. 使用IIS添加站点，IIS需开启ASP.NET 4.0及以上功能。
 
 ### LINUX、MacOSX ###
 ```
@@ -30,12 +37,22 @@ fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
 *在Linux及MacOSX上运行，需先安装mono
 
 ## Docker ##
+创建存放CMS模板、数据、插件、文件的目录:
+```
+mkdir /data/cms && cd /data/cms
+```
 
+运行容器：
+```
+docker run -d -p 80:80 --volume=$(pwd)/config:/cms/config \
+    --volume=$(pwd)/data:/cms/data \
+    --volume=$(pwd)/templates:/cms/templates \
+    --volume=$(pwd)/plugins:/cms/plugins \
+    --volume=$(pwd)/uploads:/cms/uploads \
+    --restart always jarry6/jrcms
+```
 
-
-### WINDOWS平台 ###
-测试环境下，可直接运行$tools/server.bat
-正式环境请配置IIS
+# 二次开发
 
 ### 打包发布核心类库 ###
 在项目生成事件-》后期生成事件命令行中输入：
@@ -51,4 +68,4 @@ fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
 ## 如何加入开发 ##
 
 请先在github上fork代码,克隆到本地修改后直接提交。
-交流QQ群：306064037
+交流QQ群：306064037 , QQ:959398298
