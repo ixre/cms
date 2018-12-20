@@ -89,8 +89,8 @@ namespace JR.Cms
             {
                 return -5;
             }
-            string remoteVersionDescript = Settings.SERVER_UPGRADE + "upgrade.xml";
-            WebRequest   wr = WebRequest.Create(remoteVersionDescript);
+            string updateMetaFile = GetUpdateUrl("upgrade.xml");
+            WebRequest   wr = WebRequest.Create(updateMetaFile);
             
             HttpWebResponse rsp;
             try
@@ -143,7 +143,7 @@ namespace JR.Cms
             data[1] = xn.Attributes["patch"].Value;
             if (!data[1].ToUpper().StartsWith("HTTP://"))
             {
-                data[1] = Settings.SERVER_UPGRADE + data[1];
+                data[1] = GetUpdateUrl(data[1]);
             }
             data[2] = xn.InnerText;
 
@@ -154,6 +154,20 @@ namespace JR.Cms
             }
 
             return 1;
+        }
+
+        /// <summary>
+        /// 获取更新路径
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        private static string GetUpdateUrl(string fileName)
+        {
+            if (Settings.SERVER_UPGRADE.EndsWith("/"))
+            {
+                return Settings.SERVER_UPGRADE + fileName;
+            }
+            return Settings.SERVER_UPGRADE + "/" + fileName;
         }
 
 
@@ -390,7 +404,7 @@ namespace JR.Cms
                 ? new MemoryStream()
                 : new MemoryStream(fileBytes);
 
-            string remoteAddr = fileName.IndexOf("http://", StringComparison.Ordinal) == 0 ? fileName : string.Format("{0}/{1}", Settings.SERVER_UPGRADE, fileName);
+            string remoteAddr = fileName.IndexOf("http://", StringComparison.Ordinal) == 0 ? fileName : GetUpdateUrl(fileName);
 
             int fileLength = (int)ms.Length;
 

@@ -4,18 +4,18 @@ echo "======================================="
 echo "= JR Cms .NET ! assembly ="
 echo "======================================="
 
-echo scanning assemblies... && cd ..
+echo scanning assemblies...
 
 dist_dir=$(pwd)/dist
 tmp_dir=$(pwd)/dist/tmp
 dll_dir=$(pwd)/refrence.dll
 exe_dir=$(pwd)/script
 
-rm -rf $dist_dir/patch && rm -rf $dist_dir/*.zip
+rm -rf $dist_dir/update && rm -rf $dist_dir/*.zip
 
 mkdir -p $tmp_dir/templates \
         && mkdir -p $tmp_dir/bin \
-        && mkdir -p $tmp_dir/../patch
+        && mkdir -p $tmp_dir/../update
 
 
 echo "1. build dll "
@@ -54,13 +54,13 @@ cp dist/jrcms.dll $dll_dir/jrdev* $tmp_dir/public/assemblies
 
 echo "3. package upgrade zip"
 # copy upgrade.xml
-cd $tmp_dir && cp -r $(find $exe_dir/../cms -name "upgrade.xml") ../patch
+cd $tmp_dir && cp -r $(find $exe_dir/../cms -name "upgrade.xml") ../update
 # copy bin folder
 mv bin/System.Data.SQLite.dll bin/System.Data.SQLite.dll.bak \
-	&& $exe_dir/7z.exe a -tzip ../patch/boot.zip bin/*.dll >/dev/null \
+	&& $exe_dir/7z.exe a -tzip ../update/boot.zip bin/*.dll >/dev/null \
 	&& mv  bin/System.Data.SQLite.dll.bak  bin/System.Data.SQLite.dll
-# copy patch folders
-$exe_dir/7z.exe a -tzip ../patch/cms-patch.zip public \
+# copy update folders
+$exe_dir/7z.exe a -tzip ../update/update.zip public \
 	plugins README.md LICENSE >/dev/null
 
 echo "4. package all" 
