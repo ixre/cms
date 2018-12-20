@@ -60,16 +60,8 @@ docker run -d -p 80:80 --volume=$(pwd)/config:/cms/config \
     --restart always jarry6/jrcms
 ```
 
-# 二次开发
-
-### 打包发布核心类库 ###
-在项目生成事件-》后期生成事件命令行中输入：
-
-	cd $(SolutionDir)../../cmd/
-	./build_win32.bat
-
-## 插件开发 ##
-详见：github.com/newmin/cms/tree/master/plugin
+# 插件开发 #
+详见：github.com/jsix/cms/tree/master/plugin
 
 
 
