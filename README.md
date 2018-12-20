@@ -61,9 +61,7 @@ docker run -d -p 80:80 --volume=$(pwd)/config:/cms/config \
 ```
 
 # 插件开发 #
-详见：github.com/jsix/cms/tree/master/plugin
-
-
+详见：[https://github.com/jsix/cms/tree/master/plugins](https://github.com/jsix/cms/tree/master/plugins)
 
 ## 如何加入开发 ##
 
