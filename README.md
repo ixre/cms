@@ -2,6 +2,8 @@
 
 基于Asp.net mvc + DDD 构架的开源.net cms系统， 支持Windows,Linux,MacOSX等操作系统；支持Docker容器。
 
+感谢您看到这个页面，如果对您有帮助，或您对此感兴趣，请star或fork支持一下作者吧！
+
 ## 特性：
 
 - **跨平台**：支持Windows、Linux、MacOSX运行。
@@ -12,10 +14,12 @@
 - **支持插件**：支持网络安装插件，卸载插件等。利用插件可开发自定义功能。比如内嵌的采集系统。
 - **多站点支持**：支持后台创建站点、域名绑定、虚拟目录等，站点相互隔离，大大节省服务器空间开支和维护成本。
 
-## 部署 ##
-安装包下提供一个简易的Server, 在Windows下进入目录【$server】，运行【server.bat】,
+## 快速开始
+Windows平台下，下载安装包[链接](http://s.to2.net/jrcms_latest), 解压后，进入目录【$server】，运行【server.bat】,
 
 通过浏览器访问：http://localhost:8000
+
+## 部署 ##
 
 ### 虚拟主机 ###
 1. 需准备一台支持ASP.NET 4.0的虚拟主机
