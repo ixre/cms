@@ -364,7 +364,7 @@ namespace JR.Cms.Web.WebManager.Handle
 
             if (f == 1F)
             {
-                Updater.ApplyCoreLib();
+                Updater.ApplyBinFolder();
             }
             else if (f < 1F)
             {
