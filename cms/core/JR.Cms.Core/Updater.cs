@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Net.Configuration;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
@@ -16,7 +14,8 @@ namespace JR.Cms
     /// <summary>
     /// 更新文件类型
     /// </summary>
-    public enum UpgradeFileType{
+    public enum UpgradeFileType
+    {
 
         /// <summary>
         /// 普通文件
@@ -53,26 +52,27 @@ namespace JR.Cms
                 UpgradePercent = 0.01F;
 
                 if (UpgradePercent < 0.1F) UpgradePercent = 0.1F;
-
                 //升级默认的模版
                 InstallTemplate("default", "tpl_default.zip");
                 if (UpgradePercent < 0.12F) UpgradePercent = 0.12F;
-
-
                 string[] verData;
                 int result = Updater.CheckUpgrade(out verData);
                 if (result == 1)
                 {
                     //更新压缩包文件
+                    Console.WriteLine("[ CMS][ Update]: extras update.zip ..");
                     UpgradeFile(verData[1], UpgradeFileType.Zip, "/", false);
                     if (UpgradePercent < 0.3F) UpgradePercent = 0.3F;
 
                     //最后更新dll
-                    UpgradeFile("boot.zip", UpgradeFileType.Zip,UpgadeDir, false);
-
-                    //v2.1 版本切换至于sponet.dll
+                    Console.WriteLine("[ CMS][ Update]: extras boot.zip ..");
+                    UpgradeFile("boot.zip", UpgradeFileType.Zip, UpgadeDir, false);
+                    Console.WriteLine("[ CMS][ Update]: cms update to v" + verData[0]);
                 }
-
+                else
+                {
+                    Console.WriteLine("[ CMS][ Update]: fetch version error code" + result.ToString());
+                }
                 if (UpgradePercent < 0.97F) UpgradePercent = 0.97F;
             };
         }
@@ -90,15 +90,16 @@ namespace JR.Cms
                 return -5;
             }
             string updateMetaFile = GetUpdateUrl("upgrade.xml");
-            WebRequest   wr = WebRequest.Create(updateMetaFile);
-            
+            WebRequest wr = WebRequest.Create(updateMetaFile);
+
             HttpWebResponse rsp;
             try
             {
-            	rsp = wr.GetResponse() as HttpWebResponse;
+                rsp = wr.GetResponse() as HttpWebResponse;
             }
-            catch{
-            	return -3;
+            catch
+            {
+                return -3;
             }
 
             Stream rspStream;
@@ -133,7 +134,8 @@ namespace JR.Cms
             try
             {
                 xd.LoadXml(result);
-            }catch(XmlException exc)
+            }
+            catch (XmlException exc)
             {
                 throw new Exception("更新描述文件错误：" + result);
             }
@@ -148,7 +150,7 @@ namespace JR.Cms
             data[2] = xn.InnerText;
 
             //版本一致
-            if (int.Parse(Cms.Version.Replace(".",""))>=int.Parse(data[0].Replace(".","")))
+            if (int.Parse(Cms.Version.Replace(".", "")) >= int.Parse(data[0].Replace(".", "")))
             {
                 return -1;
             }
@@ -344,7 +346,8 @@ namespace JR.Cms
                         try
                         {
                             entry.WriteToDirectory(dir.FullName, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
-                        }catch(Exception exc)
+                        }
+                        catch (Exception exc)
                         {
                             Console.WriteLine("[ Upgrade][ Err]:" + exc.Message);
                         }
@@ -358,7 +361,7 @@ namespace JR.Cms
                 string dirName = dir.FullName;
                 if (type == UpgradeFileType.Lib)
                 {
-                   // fileName = fileName + ".lib";
+                    // fileName = fileName + ".lib";
                     dirName = Cms.PyhicPath;
                 }
 
@@ -433,7 +436,7 @@ namespace JR.Cms
                 return streamArray;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("[ Upgrade][ DownFile]: " + fileName + "-" + ex.Message);
                 // ignored
@@ -452,7 +455,8 @@ namespace JR.Cms
             DirectoryInfo dir;
             byte[] zipData = DownloadFile(url, null);
 
-            if (zipData == null){
+            if (zipData == null)
+            {
                 return -1;
             }
 
@@ -494,7 +498,7 @@ namespace JR.Cms
             get
             {
                 return upgradePercent;
-             
+
             }
             set
             {
@@ -506,23 +510,28 @@ namespace JR.Cms
         /// <summary>
         /// 应用更新核心库
         /// </summary>
-        public static void ApplyCoreLib()
+        public static void ApplyBinFolder()
         {
             if (upgradePercent == 1F)
             {
                 //线程沉睡并更新dll
-                FileInfo[] files = new DirectoryInfo(Cms.PyhicPath+UpgadeDir).GetFiles();
-
+                FileInfo[] files = new DirectoryInfo(Cms.PyhicPath + UpgadeDir+"/bin").GetFiles();
+                Console.WriteLine("[ CMS][ Update]: apply " + files.Length.ToString() + " files in bin.zip");
                 foreach (FileInfo file in files)
                 {
                     FileInfo to = new FileInfo(String.Format("{0}bin/{1}", Cms.PyhicPath, file.Name));
                     try
                     {
-                        to.Delete();
+                        if (to.Exists)
+                        {
+                            to.Delete();
+                        }
                         file.MoveTo(to.FullName);
+                        Console.WriteLine("[ CMS][ Update]: update file " + file.Name + " success");
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Console.WriteLine("[ CMS][ Update]: update file " + file.Name + " failed!"+ex.Message);
                         file.Delete();
                     }
                 }
