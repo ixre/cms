@@ -66,4 +66,4 @@ docker run -d -p 80:80 --volume=$(pwd)/config:/cms/config \
 ## 如何加入开发 ##
 
 请先在github上fork代码,克隆到本地修改后直接提交。
-交流QQ群：306064037 , QQ:959398298
+交流QQ群：737378973 , QQ:959398298
