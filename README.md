@@ -1,6 +1,6 @@
 ﻿# JR.CMS #
 
-基于Asp.net mvc + DDD 构架的开源.net cms系统， 支持Windows,Linux,MacOSX等操作系统；支持Docker容器。
+基于Asp.net mvc + DDD 构建的跨平台开源内容管理系统， 可以运行在Windows,Linux,MacOSX等操作系统；支持Docker容器。
 
 ------------------------------------------------------------------------
 *感谢您看到这个页面，如果对您有帮助，或您对此感兴趣，请star或fork支持一下作者吧！*
@@ -66,4 +66,4 @@ docker run -d -p 80:80 --volume=$(pwd)/config:/cms/config \
 ## 如何加入开发 ##
 
 请先在github上fork代码,克隆到本地修改后直接提交。
-交流QQ群：306064037 , QQ:959398298
+交流QQ群：737378973 , QQ:959398298
