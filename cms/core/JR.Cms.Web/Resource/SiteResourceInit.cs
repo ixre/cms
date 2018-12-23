@@ -19,10 +19,10 @@ namespace JR.Cms.Resource
             const string comment="/* 此文件由系统自动生成! */\r\n";
             const string cssComment = " /* 此文件由系统自动生成,所有样式表请引用此文件!*/\r\n";
 
-            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "template.css",
-                cssComment + ResourceUtility.CompressHtml(SiteResource.site_template)+
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.css",
+                cssComment + ResourceUtility.CompressHtml(SiteResource.site_base)+
                 "\n /* merge page.css */\n"+ ResourceUtility.CompressHtml(SiteResource.site_page), !true);
-
+            
             //Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "cms.js", 
             //    comment + SiteResource.cms_core_min, !true);
 

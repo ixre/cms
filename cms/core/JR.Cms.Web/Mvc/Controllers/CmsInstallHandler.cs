@@ -12,6 +12,7 @@ using JR.DevFw.Framework.Extensions;
 using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Content.Archive;
+using System.Text.RegularExpressions;
 
 namespace JR.Cms.Web
 {
@@ -104,8 +105,11 @@ namespace JR.Cms.Web
             /// <summary>
             /// 数据库初始化错误
             /// </summary>
-            DB_INIT_ERROR = -13
-
+            DB_INIT_ERROR = -13,
+            /// <summary>
+            /// 数据库端口未设置
+            /// </summary>
+            DB_ERROR_PORT = -14
         }
 
         public InstallCode Process(HttpContext context)
@@ -133,6 +137,7 @@ namespace JR.Cms.Web
                    userPwd = form["user_pwd"].Trim(),
                    dbType = form["db_type"].Trim(),
                    dbServer = form["db_server"].Trim(),
+                   dbPort = form["db_port"].Trim(),
                    dbPrefix = form["db_prefix"].Trim(),
                    dbPrefix1 = form["db_prefix1"].Trim(),
                    dbName = form["db_name"].Trim(),
@@ -208,14 +213,17 @@ namespace JR.Cms.Web
                 {
                     return InstallCode.DB_ERROR;
                 }
-
+                if (!Regex.IsMatch(dbPort,"^\\d+$"))
+                {
+                    return InstallCode.DB_ERROR_PORT;
+                }
                 if (dbType == "mysql")
                 {
-                    dbStr = String.Format("server={0};database={1};uid={2};pwd={3};charset=utf8", dbServer, dbName, dbUsr, dbPwd);
+                    dbStr = String.Format("server={0};database={2};uid={3};pwd={4};port={1};charset=utf8", dbServer,dbPort, dbName, dbUsr, dbPwd);
                 }
                 else if (dbType == "mssql")
                 {
-                    dbStr = String.Format("server={0};database={1};uid={2};pwd={3}", dbServer, dbName, dbUsr, dbPwd);
+                    dbStr = String.Format("server={0},{1};database={2};uid={3};pwd={4}", dbServer,dbPort, dbName, dbUsr, dbPwd);
                 }
                 else
                 {

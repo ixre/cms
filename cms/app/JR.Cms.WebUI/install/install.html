@@ -2,36 +2,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>JRCms.NET! 安装向导</title>
+    <link rel="stylesheet" href="../../public/assets/base.css" />
     <script type="text/javascript" src="/public/assets/base.min.js"></script>
     <style type="text/css">
-        * {
-            font-size: 14px;
-        }
-        .setup .box{
-            background: #FFF;
-            margin: 10px 0;
-            padding: 10px;
-            border:solid 1px #CCC;
-        }
-        dl dt {
-            float: left;
-            padding:0 20px;
-            width:80px;
-        }
+        * {font-size: 14px;}
+        body { background: #f8f8f8; }
+        .setup .box { background: #FFF; margin: 10px 0; border: solid 1px #CCC; }
 
-        input, select {
-            width: 200px;border: solid 1px #CCC;line-height: 25px;padding: 0 5px;
-        }
-
-        body {
-            background: #f8f8f8;
-        }
-
+.mod-ins-group{padding:10px 30px 20px 30px;}
+.mod-ins-field{margin:15px 0 0 0;padding:0 5px;}
+.mod-ins-field label{display:inline-block;width:80px;}
+.mod-ins-group .line{margin:30px 0 20px 0;border-top:solid 1px #E0E0E0;}            
+.mod-ins-field i.req{width:8px;color:red;display:inline-block;font-size:12px;}
+.mod-ins-field input,.mod-ins-field select {
+            width: 200px; border: solid 1px #CCC;
+            line-height: 25px; padding: 0 5px;
+}
+.mod-ins-field input.tb-db-port{width:50px;text-align:center;}
         #setupPanel {
             width: 600px;
-            margin: 50px auto;
+            margin: 60px auto;
             background: #f0f0f0;
-            padding: 10px 10px 50px 10px;
+            padding: 15px 15px 50px 15px;
             border: solid 1px #e5e5e5;
         }
 
@@ -42,14 +34,14 @@
             text-decoration: none;
             float: right;
             width: 100px;
-            line-height: 22px;
+            line-height: 24px;
             text-align: center;
             margin: 10px 5px 0 0;
+            color: #FFF;
         }
 
-        .hidden {
-            display: none;
-        }
+.install-btn:hover, .install-btn:visited, .install-btn:link { color: #FFF;}
+.hidden { display: none; }
 
         h2 {
             background: #ff6600;
@@ -59,7 +51,7 @@
         }
 
         textarea {
-            width: 575px;
+            width: 548px;
             height: 300px;
             border: solid 0px #e0e0e0;
         }
@@ -70,6 +62,10 @@
             font-size: 18px;
             color: #ff6600;
         }
+    
+    
+    
+    
     </style>
 </head>
 <body>
@@ -80,10 +76,10 @@
             <div class="box">
                 <textarea>
 
-                              欢迎您使用本软件产品！
+                         欢迎您使用本软件产品！
 		
 		
-        ==========================  安装条款  ==============================
+  ==========================  安装条款  ==============================
 
         本《JR软件最终用户许可协议》（以下简称《协议》）是您与TO2.NET之间关于下载、安装、使用、复制《JR》软件（以下简称“软件”—该软件的国家版本局的著作权登记号：2005SR04603）的法律协议。
     本《协议》描述JR与您之间关于“软件”许可使用及相关方面的权利义务。“用户”或“您”是指通过JR提供的获取软件授权的途径而获得软件授权许可和软件产品的个人或单位。请您仔细阅读本《协议》中的各项条款，包括免除或者限制JR责任的免责条款及对用户的权利限制。请您审阅并接受或不接受本《协议》（未成年人应在法定监护人陪同下审阅）。
@@ -144,60 +140,99 @@ JR保留对本协议的最终解释权。
         </textarea>
             </div>
         </div>
-        <div id="setupForm">
+        <div id="setupForm" class="mod-ins">
 
             <div class="setup hidden" setup-tag="site">
                 <h2>1/3：配置站点</h2>
-                <div class="box">
-                    <dl><dt>授权给:</dt><dd><input type="text" name="licence_name" field="licence_name" class="ui-validate ui-box" value="免费用户" /></dd></dl>
-                    <dl><dt>授权码:</dt><dd><input type="text" name="licence_key" field="licence_key" class="ui-validate ui-box" value="YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI=" style="font-size:10px;" /></dd></dl>
-                    <dl><dt>站点名称:</dt><dd><input type="text" name="site_name" field="site_name" class="ui-validate ui-box"/></dd></dl>
-                    <dl><dt>站点域名:</dt><dd><input type="text" name="site_domain" field="site_domain" class="ui-validate ui-box" value="" placeholder="如：www.to2.net" /></dd></dl>
-                    <dl>
-                        <dt>站点语言:</dt>
-                        <dd>
-                            <select class="ui-validate ui-box" field="site_language">
-                                <option value="1">英语(英国,美国)</option>
-                                <option value="2" selected="selected">中文(简体)</option>
-                                <option value="3">中文(繁体)</option>
-                                <option value="4">西班牙语</option>
-                                <option value="5">法语France</option>
-                                <option value="6">泰语(ภาษาไทย)</option>
-                                <option value="7">俄语</option>
-                                <option value="8">阿拉伯语</option>
-                            </select>
-                        </dd>
-                    </dl>
-                    <dl><dt>管理账号:</dt><dd><input type="text" name="user_name" field="user_name" class="ui-validate ui-box" required="true" value="master" /></dd></dl>
-                    <dl><dt>管理密码:</dt><dd><input type="password" name="user_pwd" field="user_pwd" class="ui-validate ui-box" required="true" value="" /></dd></dl>
+                <div class="box mod-ins-group">
+                    <div class="mod-ins-field hidden">
+                        <label><i class="req">*</i>授权给:</label>
+                        <input type="text" name="licence_name" field="licence_name" class="ui-validate ui-box" value="免费用户" />
+                    </div>
+                    <div class="mod-ins-field hidden">
+                        <label><i class="req">*</i>授权码:</label><input type="text" name="licence_key" field="licence_key" class="ui-validate ui-box" value="YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI=" style="font-size:10px;" />
+                    </div>
+                    <div class="mod-ins-field">
+                        <label><i class="req">*</i>站点名称:</label>
+                        <input type="text" name="site_name" field="site_name" value="默认站点" />
+                    </div>
+                    <div class="mod-ins-field">
+                        <label><i class="req"></i>语言:</label>
+                        <select class="ui-validate ui-box" field="site_language">
+                            <option value="1">英语(英国,美国)</option>
+                            <option value="2" selected="selected">中文(简体)</option>
+                            <option value="3">中文(繁体)</option>
+                            <option value="4">西班牙语</option>
+                            <option value="5">法语France</option>
+                            <option value="6">泰语(ภาษาไทย)</option>
+                            <option value="7">俄语</option>
+                            <option value="8">阿拉伯语</option>
+                        </select>
+                    </div>
+                    <div class="mod-ins-field">
+                        <label><i class="req"></i>域名:</label>
+                        <input type="text" name="site_domain" field="site_domain" class="ui-validate ui-box" value="" placeholder="如：www.to2.net" />
+                    </div>
+
+                    <div class="line"></div>
+
+                    <div class="mod-ins-field">
+                        <label><i class="req">*</i>管理员:</label>
+                        <input type="text" name="user_name" field="user_name" class="ui-validate ui-box" required="true" value="master" />
+                    </div>
+                    <div class="mod-ins-field">
+                        <label><i class="req">*</i>登录密码:</label>
+                        <input type="password" name="user_pwd" field="user_pwd" class="ui-validate ui-box" required="true" value="" />
+                    </div>
                 </div>
                 </div>
             <div class="setup hidden" setup-tag="database">
                 <h2>2/3：配置数据库</h2>
-                <div class="box">
-                    <dl>
-                        <dt>数据环境:</dt>
-                        <dd>
-                            <select name="db_type" field="db_type">
-                                <option value="sqlite">SQLite(小型站选用)</option>
-                                <option value="mysql" selected="selected">MySQL(推荐)</option>
-                                <option value="mssql" disabled="disabled">SQLServer(请手工生成数据库)</option>
-                                <option value="oledb">Access(虚拟主机适用)</option>
-                            </select>
-                        </dd>
-                    </dl>
-
-                    <div id="db_credential">
-                        <dl><dt>服务器:</dt><dd><input type="text" name="db_server" field="db_server" /></dd></dl>
-                        <dl><dt>数据库:</dt><dd><input type="text" name="db_name" field="db_name" /></dd></dl>
-                        <dl><dt>表前缀:</dt><dd><input type="text" name="db_prefix" field="db_prefix" value="cms_" /></dd></dl>
-                        <dl><dt>用户名:</dt><dd><input type="text" name="db_usr" field="db_usr" /></dd></dl>
-                        <dl><dt>密码:</dt><dd><input type="password" name="db_pwd" field="db_pwd" /></dd></dl>
+                <div class="box mod-ins-group">
+                    <div class="mod-ins-field">
+                        <label><i class="req">*</i>数据库:</label>
+                        <select name="db_type" field="db_type">
+                            <option value="sqlite" disabled="disabled">SQLite(小型站选用)</option>
+                            <option value="mysql" selected="selected">MySQL(推荐)</option>
+                            <option value="mssql">SQLServer(请手工生成数据库)</option>
+                            <option value="oledb" disabled="disabled">Access(虚拟主机适用)</option>
+                        </select>
                     </div>
 
-                    <div id="db_file" class="hidden">
-                        <dl><dt>文件名:</dt><dd><input type="text" name="db_file" field="db_file" />*默认随机名称,建议不填写</dd></dl>
-                        <dl class="hidden"><dt>表前缀:</dt><dd><input type="text" name="db_prefix1" field="db_prefix1" value="cms_" /></dd></dl>
+                    <div class="db-opt-1" id="db_credential">
+                        <div class="mod-ins-field">
+                            <label><i class="req">*</i>服务器:</label>
+                            <input type="text" name="db_server" field="db_server" placeholder="填写地址：如127.0.0.1" />&nbsp;:
+                            <input class="tb-db-port" type="text" name="db_port" field="db_port" value="3306" placeholder="默认3306" />
+                        </div>
+                        <div class="mod-ins-field">
+                            <label><i class="req">*</i>数据库:</label>
+                            <input type="text" class="tb-db-name" name="db_name" field="db_name" />
+                        </div>
+                        <div class="line"></div>
+
+                        <div class="mod-ins-field">
+                            <label><i class="req">*</i>表前缀:</label>
+                            <input type="text" class="tb-db-prefix" name="db_prefix" field="db_prefix" value="cms_" />
+                        </div>
+                        <div class="mod-ins-field">
+                            <label><i class="req">*</i>用户名:</label>
+                            <input type="text" name="db_usr" field="db_usr" />
+                        </div>
+                        <div class="mod-ins-field">
+                            <label><i class="req">*</i>密码:</label>
+                            <input type="password" name="db_pwd" field="db_pwd" />
+                        </div>
+                    </div>
+                    <div id="db_file" class="db-opt-2 hidden">
+                        <div class="mod-ins-field">
+                            <label><i class="req">*</i>文件名:</label>
+                            <input type="text" name="db_file" field="db_file" />*默认随机名称,建议不填写
+                        </div>
+                        <div class="mod-ins-field">
+                            <label><i class="req">*</i>表前缀:</label>
+                            <input type="text" name="db_prefix1" field="db_prefix1" value="cms_" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -301,13 +336,21 @@ JR保留对本协议的最终解释权。
         var dbtype = document.getElementsByTagName('SELECT')[1];
         dbtype.onchange = function () {
             var idx = this.selectedIndex;
-            var divs = this.parentNode.parentNode.parentNode.getElementsByTagName('DIV');
-            if (idx == 1 || idx == 2) {
-                divs[0].className = '';
-                divs[1].className = 'hidden';
+            var dbType = this.value;
+            var dbPort = $b.$fn(".tb-db-port");
+            var dbOpt1 = $b.$fn(".db-opt-1");
+            var dbOpt2 = $b.$fn(".db-opt-2");
+            if (dbType === "mysql") {
+                dbOpt1.removeClass("hidden");
+                dbOpt2.addClass("hidden");
+                dbPort.val("3306").attr("placeholder","默认3306");
+            } else if (dbType === "mssql") {
+                dbOpt1.removeClass("hidden");
+                dbOpt2.addClass("hidden");
+                dbPort.val("1443").attr("placeholder", "默认1443");
             } else {
-                divs[1].className = '';
-                divs[0].className = 'hidden';
+                dbOpt1.addClass("hidden");
+                dbOpt2.removeClass("hidden");
             }
         };
     </script>

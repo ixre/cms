@@ -125,6 +125,8 @@
     <Content Include="public\assemblies\System.Web.Mvc.dll" />
     <Content Include="public\assemblies\System.Web.Routing.dll" />
     <Content Include="public\assets\api.js" />
+    <Content Include="public\assets\base.css" />
+    <Content Include="public\assets\base.min.js" />
     <Content Include="public\assets\code_editor\lib\codemirror.css" />
     <Content Include="public\assets\code_editor\lib\codemirror.js" />
     <Content Include="public\assets\code_editor\mode\css\css.js" />
@@ -412,7 +414,6 @@
     <Content Include="public\assets\js\ui.js" />
     <Content Include="public\assets\js\upload.js" />
     <Content Include="public\assets\js\require.js" />
-    <Content Include="public\assets\template.css" />
     <Content Include="public\assets\tree\img\base.gif" />
     <Content Include="public\assets\tree\img\cd.gif" />
     <Content Include="public\assets\tree\img\empty.gif" />
