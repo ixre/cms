@@ -1,27 +1,3 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <objects>
-  <object key="sp.datapicker" name="内容采集插件">
-    <descript><![CDATA[内容采集插件]]></descript>
-    <properties>
-      <property key="version" name="版本"><![CDATA[1.0.0]]></property>
-      <property key="state" name="状态"><![CDATA[1]]></property>
-      <property key="author" name="作者"><![CDATA[官方]]></property>
-      <property key="icon" name="图标"><![CDATA[icon.png]]></property>
-      <property key="webpage" name="官网" />
-      <property key="portalUrl" name="入口地址"><![CDATA[sp.datapicker.sh.aspx]]></property>
-      <property key="configUrl" name="设置地址" />
-    </properties>
-  </object>
-  <object key="sp.xmlrpc" name="WeblogRPC">
-    <descript><![CDATA[XML-RPC离线内容发布支持插件]]></descript>
-    <properties>
-      <property key="version" name="版本"><![CDATA[1.0.0]]></property>
-      <property key="state" name="状态"><![CDATA[1]]></property>
-      <property key="author" name="作者"><![CDATA[官方]]></property>
-      <property key="icon" name="图标"><![CDATA[icon.png]]></property>
-      <property key="webpage" name="官网" />
-      <property key="portalUrl" name="入口地址"><![CDATA[sp.xmlrpc.sh.aspx?wsd]]></property>
-      <property key="configUrl" name="设置地址" />
-    </properties>
-  </object>
 </objects>

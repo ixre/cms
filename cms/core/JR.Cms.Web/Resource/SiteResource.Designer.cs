@@ -81,7 +81,7 @@ namespace JR.Cms.Web.Resource {
         
         /// <summary>
         ///   查找类似 
-        ///function JR() { this.VERSION = &apos;3.2&apos;; this.WORKPATH = &apos;&apos;; this._Extend_PROTOTYPE = true; this._eventArray = [&quot;abort&quot;, &quot;blur&quot;, &quot;change&quot;, &quot;click&quot;, &quot;dblclick&quot;, &quot;error&quot;, &quot;focus&quot;, &quot;keydown&quot;, &quot;keypress&quot;, &quot;keyup&quot;, &quot;load&quot;, &quot;mousedown&quot;, &quot;mousemove&quot;, &quot;mouseout&quot;, &quot;mouseover&quot;, &quot;mouseup&quot;, &quot;reset&quot;, &quot;resize&quot;, &quot;select&quot;, &quot;submit&quot;, &quot;unload&quot;]; this.__init__ = function () { var a = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = a[a.length - 1]; var b = s.src; this.WORKPATH = b.replace(/(\/)[^/]+$/, &apos;$1&apos;); if (this._Extend_ [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///function JR(){this.VERSION=&apos;3.2&apos;;this.WORKPATH=&apos;&apos;;this._Extend_PROTOTYPE=true;this._eventArray=[&quot;abort&quot;,&quot;blur&quot;,&quot;change&quot;,&quot;click&quot;,&quot;dblclick&quot;,&quot;error&quot;,&quot;focus&quot;,&quot;keydown&quot;,&quot;keypress&quot;,&quot;keyup&quot;,&quot;load&quot;,&quot;mousedown&quot;,&quot;mousemove&quot;,&quot;mouseout&quot;,&quot;mouseover&quot;,&quot;mouseup&quot;,&quot;reset&quot;,&quot;resize&quot;,&quot;select&quot;,&quot;submit&quot;,&quot;unload&quot;];this.__init__=function(){var a=document.getElementsByTagName(&apos;SCRIPT&apos;);var s=a[a.length-1];var b=s.src;this.WORKPATH=b.replace(/(\/)[^/]+$/,&apos;$1&apos;);if(this._Extend_PROTOTYPE){this.__extendingJsPrototype__()}this.dom.set [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string base_min {
             get {
@@ -278,6 +278,26 @@ namespace JR.Cms.Web.Resource {
         }
         
         /// <summary>
+        ///   查找类似 *{box-sizing:border-box}
+        ///
+        ///
+        ////* ---------- 页面元素定义样式 --------- */
+        ///a,abbr,acronym,address,applet,big,blockquote,body,caption,
+        ///cite,code,dd,del,dfn,div,dl,dt,em,font,form,h1,h2,h3,h4,h5,
+        ///h6,html,i,iframe,img,ins,kbd,label,legend, li,object,ol,p,
+        ///pre,q,s,samp,small,span,strike,strong,table, tbody,td,tfoot,
+        ///th,thead,tr,tt,ul,var{  margin:0;padding:0;border:0;outline:0;
+        ///    font-weight:inherit;font-style:normal;font-family:inherit;
+        ///    text-decoration:none;-webkit-text-size-adjust:none;
+        ///    -ms-interpola [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string site_base {
+            get {
+                return ResourceManager.GetString("site_base", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 body{color:#333;font-family:Arial &apos;MiCROSOFT YAHEI&apos;;/*background:#F0F0F0;*/}
         ///
         ///h1,h2,h3{margin:0;padding:0;}
@@ -295,26 +315,6 @@ namespace JR.Cms.Web.Resource {
         internal static string site_page {
             get {
                 return ResourceManager.GetString("site_page", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 *{box-sizing:border-box}
-        ///
-        ///
-        ////* ---------- 页面元素定义样式 --------- */
-        ///a,abbr,acronym,address,applet,big,blockquote,body,caption,
-        ///cite,code,dd,del,dfn,div,dl,dt,em,font,form,h1,h2,h3,h4,h5,
-        ///h6,html,i,iframe,img,ins,kbd,label,legend, li,object,ol,p,
-        ///pre,q,s,samp,small,span,strike,strong,table, tbody,td,tfoot,
-        ///th,thead,tr,tt,ul,var{  margin:0;padding:0;border:0;outline:0;
-        ///    font-weight:inherit;font-style:normal;font-family:inherit;
-        ///    text-decoration:none;-webkit-text-size-adjust:none;
-        ///    -ms-interpolation-mode:b [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        internal static string site_template {
-            get {
-                return ResourceManager.GetString("site_template", resourceCulture);
             }
         }
         

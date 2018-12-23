@@ -1,11 +1,9 @@
-2018-12-17 15:14:29   [+]Plugin Loading
+2018-12-23 17:08:26   [+]Plugin Loading
 ========================================
-Directory:E:/git/cms/cms/app/JR.Cms.WebUI/plugins/ 	 Total DLL:2
+Directory:E:/git/cms/cms/app/JR.Cms.WebUI/plugins/ 	 Total DLL:0
 
-内容采集插件(sp.datapicker) be found ; version is 1.0.0.
-WeblogRPC(sp.xmlrpc) be found ; version is 1.0.0.
 load complete!result:Ok
-2018-12-17 15:14:29   [+]Plugin Loading From Bin
+2018-12-23 17:08:26   [+]Plugin Loading From Bin
 ========================================
 Total .so file : 0
 
