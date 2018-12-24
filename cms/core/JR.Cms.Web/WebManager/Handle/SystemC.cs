@@ -435,7 +435,7 @@ namespace JR.Cms.Web.WebManager.Handle
                 case "1":
                     Settings.License_KEY = req["license_key"];
                     Settings.License_NAME = req["license_name"];
-                    Settings.SYS_AUTOWWW = req["sys_autowww"] == "on";
+                    Settings.SYS_AUTOWWW = req["sys_autowww"] == "1";
                     Settings.SYS_ENCODE_CONF_FILE = req["sys_encode_conf"] == "on";
                     Settings.SQL_PROFILE_TRACE = req["sql_profile_trace"] == "on";
                     Settings.DB_PREFIX = req["db_prefix"];
@@ -493,6 +493,20 @@ namespace JR.Cms.Web.WebManager.Handle
         public string Clear_GET()
         {
             return base.RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Clear_Page));
+        }
+
+        public string Reset_POST()
+        {
+            switch (base.Request["cmd"])
+            {
+                case "restart":
+                    HttpRuntime.UnloadAppDomain();
+                    return base.ReturnSuccess("网站正在重启...");
+                case "cache":
+                    PageVariable.ResetBuilt();
+                    return base.ReturnSuccess("缓存清理成功");
+            }
+            return base.ReturnSuccess();
         }
 
         public string Clear_POST()

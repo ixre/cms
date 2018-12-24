@@ -150,7 +150,7 @@ namespace JR.Cms
                             //返回字符串
                             if (result == "end")
                             {
-                                HttpRuntime.UnloadAppDomain();
+                                //HttpRuntime.UnloadAppDomain();
                                 HttpContext.Current.Response.End();
                                 return;
                             }

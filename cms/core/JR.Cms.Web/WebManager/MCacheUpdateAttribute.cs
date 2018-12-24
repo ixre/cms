@@ -49,10 +49,6 @@ namespace JR.Cms.WebManager
                 {
                     SiteLinkCache.ClearForSite(siteId);
                 }
-                if ((this.sign & CacheSign.Site) != 0) 
-                {
-                    HttpRuntime.UnloadAppDomain();
-                }
             }
             CacheFactory.Sington.Clear(this.Key);
 		}

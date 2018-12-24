@@ -68,7 +68,6 @@ namespace JR.Cms.Core
     /// </summary>
     public class CmsTemplate
     {
-
         /// <summary>
         /// 模板
         /// </summary>
@@ -121,32 +120,12 @@ namespace JR.Cms.Core
                 {
                     //初始化模板
                     global::JR.DevFw.Template.Config.EnabledCache = true;
-
                     //模板设置是否缓存
                     global::JR.DevFw.Template.Config.EnabledCompress = Settings.TPL_UseCompress;
-
-                    tpl = new TemplateRegister(tplPath,
-                                                tplNameAsTemplateId ? TemplateNames.FileName : TemplateNames.ID
-                                                );
-
+                    tpl = new TemplateRegister(tplPath,  tplNameAsTemplateId ?
+                        TemplateNames.FileName : TemplateNames.ID);
                     //将配置写入模板缓存
                     RegisterTemplate();
-
-
-                    //重置栏目
-
-                    //
-                    //UNDONE : INIT
-                    //
-
-
-                    /*
-                     new CategoryBLL().RebuildCache();
-
-                     //重建模块缓存
-                     WeakRefCache.RebuiltModule();
-                     */
-
                 }
                 catch (Exception ex)
                 {
@@ -171,7 +150,7 @@ namespace JR.Cms.Core
             //  Configuration.Configure();
 
             //模板设置是否缓存
-            global::JR.DevFw.Template.Config.EnabledCompress = Settings.TPL_UseCompress;
+            Config.EnabledCompress = Settings.TPL_UseCompress;
           
 
             //将配置写入模板缓存

@@ -40,7 +40,6 @@ namespace JR.Cms.Web.Mvc
         protected override void Initialize(RequestContext requestContext)
         {
             if (Cms.IsStaticRequest(requestContext.HttpContext.ApplicationInstance.Context))return;
-            //if (!Cms.Installed) HttpRuntime.UnloadAppDomain();
 
             this.OutputContext = Cms.Context;
             this.OutputContext.Source = this;
