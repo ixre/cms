@@ -50,6 +50,8 @@
         if (jr.validator.validate()) {
             jr.xhr.jsonPost('?module=site&action=save&xhr=1', jr.json.toObject(document), function (json) {
                 if (json.result) {
+                    // 重启网站
+                    jr.xhr.jsonPost("?module=system&action=reset&cmd=restart", {});
                     showMsg2(json.message, function() { location.reload(); });
                 } else {
                     showErr(json.message);

@@ -1,0 +1,119 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <title>${page.title}</title>
+<link href="${page.tpath}/css/main.css" rel="stylesheet" type="text/css" />
+<link href="${page.tpath}/css/style3.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" src="${page.tpath}/js/jquery-1.4.3.min.js" >
+</script>
+<script type="text/javascript" language="javascript" src="${page.tpath}/js/droppy.js" ></script>
+<script type="text/javascript" language="javascript" src="${page.tpath}/js/thickbox.js" ></script>
+<script type="text/javascript" language="javascript" src="${page.tpath}/js/helper.js" ></script>
+<script type="text/javascript" language="javascript" src="${page.tpath}/js/png.js" ></script>
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+</head>
+<body>
+${partial:"inc/header.phtml"}
+
+<div id="n_main">
+     <div class="n_left">
+
+
+<div class="pro_list">
+              <div class="pro_listt">产品列表</div>
+              <div class="pro_listm">
+                   
+
+                 <div class="por_list">
+                 
+
+	<div class="prod_type">
+	<div id="pro_type_g48mKn">
+<ul>
+
+  $categories('chanpinliebiao','                          
+<li>
+<a href="{url}"> {name}</a>
+     <ul>
+         
+     </ul>
+</li>
+') 
+
+</ul>		
+	</div>
+	</div>
+	<div class="list_bot"></div>
+<script type="text/javascript" language="javascript">
+/**
+ * for menu-drop type
+ */
+var type = "";
+if (type == 'click') {
+	$(function(){
+		$('#pro_type_g48mKn li:has(ul)').click(function(event){
+	    	if (this == event.target) {
+	        	if ($(this).children().is(':hidden')) {
+	                $(this).css({background:'url(${page.tpath}/images/minus.gif) no-repeat left 13px','text-indent':'16px','padding-top':'3px'})
+	                .children().show();
+	                
+	              	$(this).siblings().each(function (){
+	              		$(this).find("ul").hide();
+	              		if ($(this).children().is("ul")){
+	              			$(this).css({background:'url(${page.tpath}/images/plus.gif) no-repeat left 13px','text-indent':'16px','padding-top':'3px'});
+	              	    }
+	              	});
+	            } else {
+	                $(this).css({background:'url(${page.tpath}/images/plus.gif) no-repeat left 13px','text-indent':'16px','padding-top':'3px'})
+	                .find("ul").hide();
+	            }  
+	        }
+		}).css('cursor','pointer');
+	          
+	    $('#pro_type_g48mKn li:has(ul)').css({background:'url(${page.tpath}/images/plus.gif) no-repeat left 13px','text-indent':'16px','padding-top':'3px'});
+	        	
+	    $('#pro_type_g48mKn li:not(:has(ul))').css({cursor: 'pointer','list-style-image':'none'});
+	});
+} else {
+ 	$("#pro_type_g48mKn > ul").droppy();
+	$("#pro_type_g48mKn ul ul li:last-child").css("border","0px");
+}
+</script>
+</div>                
+
+
+              </div>
+         </div>
+  
+  <div class="contact_n">
+              <div class="contactt"><img src="${page.tpath}/images/contactt.jpg" border="0" usemap="#Map3">
+                <map name="Map3" id="Map3">
+                  <area shape="rect" coords="187,8,236,28" href="/page/lianxiwomen.html" />
+                </map>
+              </div>
+              <div class="contactb_n"><span id="ctl00_ContentPlaceHolder1_neiycontact1_Label2">青岛鑫汇达消毒净化设备有限公司&nbsp;<br />
+联系人：王经理<br />
+座　机：0532-82292723&nbsp;<br />
+传　真：0532-82293923&nbsp;<br />
+手　机：13658666833<br />
+邮　箱：xinhda@126.com<br />
+网　址：<a href="default.htm">www.qdxhdjh.com</a>&nbsp;<br />
+地　址：青岛胶州市高州北路88号</span></div>
+</div>
+
+     </div>
+     <div class="n_right">
+       <div class="n_rightt">您当前的位置是：首页>><span id="ctl00_ContentPlaceHolder1_Label1">${archive.title}</span></div>
+          <div class="n_rightb">
+            ${archive.content}
+          </div>
+     </div>
+</div>
+
+${partial:"inc/footer.phtml"}
+</body>
+</html>

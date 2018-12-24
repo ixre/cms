@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8" />
+	<title>${page.title},西安网站建设公司,西安网站制作,西安网站设计,029-88188180</title>
+<meta name="keywords" content="西安网站建设,西安网站制作,西安网站设计,西安网站建设" />
+<meta name="description" content="西安易淘电子商务有限公司成立于2016年，自公司成立以来，始终坚持以人才为本、诚信立业的经营原则，致力于互联网、电子商务、网站开发为主的一家专业电子商务有限公司。029-88188180" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta name="copyright" content="Copyright xayitao.com 西安易淘电子商务有限公司 版权所有" />
+    <link href="${page.tpath}/templets/Content/bootstrap.min.css"  rel="stylesheet" />
+    <link href="${page.tpath}/templets/Content/inner.min.css"  rel="stylesheet" />
+    <!--[if lt IE 9]>
+    <script src="${page.tpath}/templets/Scripts/html5shiv.min.js" ></script>
+    <![endif]-->
+    <script src="${page.tpath}/templets/Scripts/jquery.min.js" ></script>
+    <script src="${page.tpath}/templets/Scripts/bootstrap.min.js" ></script>
+    <script src="${page.tpath}/templets/Scripts/inner.min.js" ></script>
+</head>
+<body>
+<header>
+    <div class="box">
+	    <a href="/"  title="企业电子商务一站式服务"><img src="${page.tpath}/templets/Picture/logo_cases.png"  alt="西安易淘" /></a>
+        <div class="wechat">
+    	    <img src="${page.tpath}/templets/Picture/wechat_code.jpg"  alt="扫描关注西安网站建设微信公众账号" class="wechat" /><p>扫一扫微信二维码<i></i></p>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/" >返回首页</a></li>
+            <li><a href="/case" >设计案例</a></li>
+            <li class='active'><a href="/news"  style='color:white;'>新闻中心</a></li>
+          </ul>
+        </nav>
+    </div>
+    <footer>
+	    高端定制，品牌设计<br /><u>2016-2017</u>作品集<br /><a href="/"  target="_blank">西安网站建设与制作公司</a>
+    </footer>
+</header>
+    <section class="toolbar">
+    	<a href="/"  title="返回首页" class="homelink"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    	<span class="switch glyphicon glyphicon-th-list"></span>
+        <div class="btnList">
+            <div class="link btn-group">
+        	    <a href="${category.uripath}"  class="btn btn-default">${category.Name}</a>
+            </div>
+            <div class="link btn-group">$prev_archive('
+        	    <a href="{url}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>上一篇</a>')
+            </div>
+            <div class="link btn-group">$next_archive('
+        	    <a href="{url}" class="btn btn-default">下一篇<span class="glyphicon glyphicon-arrow-right"></span></a>')
+            </div>
+        </div>
+    </section>
+    
+    <section class="artshow content">
+        <div class="box">
+        	<h1>${archive.title}</h1>
+            <span class="rel">
+            	西安易淘<u>•</u>${archive.publish}<u>•</u><a href="${category.uripath}"  target="_blank">${category.Name}</a><u>•</u><span class="glyphicon glyphicon-eye-open" title="浏览次数"></span> ${archive.count}
+            </span>
+            <div class="words">
+${archive.content}
+            </div>
+            <dl class="tags">
+              <dt>文章关键词<span class="glyphicon glyphicon-tag"></span></dt>
+              
+              <dd><a href="###"  target="_blank">${archive.tags}</a></dd>
+
+            </dl>
+            <div class="bdsharebuttonbox">
+            	<a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+            </div>
+        </div>
+        <aside>
+        	<div class="ad"><a href="http://wpa.qq.com/msgrd?v=3&uin=79289908&site=qq&menu=yes"  title="西安易淘，网站建设品牌设计企业" target="_blank"><img src="${page.tpath}/templets/Picture/ad.jpg"  alt="西安易淘，网站建设品牌设计企业" /></a></div>
+            <div class="caption"><h3>推荐阅读</h3></div>
+            <ul class="items">
+            $archives('news',4,'<li>
+                  <a href="{url}"  target="_blank" class="thumb"><img src="{thumbnail}"  /></a>
+                  <span class="title"><a href="{url}"  target="_blank" title="{title}">{title}...</a></span>
+                  <span class="rel">浏览次数<span class="glyphicon glyphicon-eye-open" title="浏览次数"></span>{count}</span>
+                </li>')
+            </ul>
+        </aside>
+    </section>
+    
+    <div class="dock">
+        <ul class="icons">
+        	<li class="up"><i></i></li>
+            <li class="tel">
+            	<i></i><p>建站咨询热线<br />${site.tel}</p>
+            </li>
+            <li class="im">
+            	<i></i><p><a href="http://wpa.qq.com/msgrd?v=3&uin=79289908&site=qq&menu=yes"  target="_blank">点我，建站咨询</a></p>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

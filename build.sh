@@ -43,8 +43,9 @@ echo "2. prepare files"
 cd $(find . -path "*/JR.Cms.WebUI") && \
 	cp -r \$server install plugins public \
 	Global.asax Web.config $tmp_dir &&\
-	cp -r templates/default $tmp_dir/templates/ &&\
-        cd - > /dev/null
+	cp -r templates/default templates/tpl-* $tmp_dir/templates/ &&\
+	sed -i 's/compilation debug="true"/compilation debug="false"/g' $tmp_dir/Web.config &&\
+    cd - > /dev/null
 
 cp LICENSE README.md $tmp_dir && cp dist/boot.dll \
 	$dll_dir/StructureMap.dll \

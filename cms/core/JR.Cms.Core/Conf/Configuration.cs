@@ -243,9 +243,8 @@ namespace JR.Cms.Conf
                     sf["sys_admin_tag"] = Settings.SYS_ADMIN_TAG;
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
                     sf["sql_profile_trace"] = Settings.SQL_PROFILE_TRACE ? "true" : "false";
-
                     //301跳转
-                    
+
                     sf["sys_autowww"] = Settings.SYS_AUTOWWW ? "true" : "false";
 
                     //虚拟路径
@@ -264,30 +263,27 @@ namespace JR.Cms.Conf
                     break;
 
                 case "tpl":
-
                     //压缩代码
-                        sf.Set("tpl_usecompress", Settings.TPL_UseCompress ? "true" : "false");
+                    sf.Set("tpl_usecompress", Settings.TPL_UseCompress ? "true" : "false");
                     //使用完整路径
-                        sf.Set("tpl_usefullpath", Settings.TPL_UseFullPath ? "true" : "false");
-               
-
+                    sf.Set("tpl_usefullpath", Settings.TPL_UseFullPath ? "true" : "false");
                     Cms.Template.Register();
-
                     break;
 
                 //优化
                 case "opti":
-
-                    WebConfig.SetDebug(Settings.Opti_Debug);
-
                     //缓存项
-                        sf.Set("opti_IndexCacheSeconds", Settings.Opti_IndexCacheSeconds.ToString());
-                        sf.Set("Opti_GC_Collect_Interval", Settings.Opti_GC_Collect_Interval.ToString());
-                        sf.Set("opti_ClientCacheSeconds", Settings.Opti_ClientCacheSeconds.ToString());
+                    sf.Set("opti_IndexCacheSeconds", Settings.Opti_IndexCacheSeconds.ToString());
+                    sf.Set("Opti_GC_Collect_Interval", Settings.Opti_GC_Collect_Interval.ToString());
+                    sf.Set("opti_ClientCacheSeconds", Settings.Opti_ClientCacheSeconds.ToString());
                     break;
             }
-
             sf.Flush();
+            if (prefix == "opti")
+            {
+                WebConfig.SetDebug(Settings.Opti_Debug);
+            }
+
         }
 
         /// <summary>

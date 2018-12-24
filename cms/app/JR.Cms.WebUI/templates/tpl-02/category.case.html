@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8" />
+	<title>${page.title},西安网站建设公司,西安网站制作,西安网站设计,029-88188180</title>
+<meta name="keywords" content="西安网站建设,西安网站制作,西安网站设计,西安网站建设" />
+<meta name="description" content="西安易淘电子商务有限公司成立于2016年，自公司成立以来，始终坚持以人才为本、诚信立业的经营原则，致力于互联网、电子商务、网站开发为主的一家专业电子商务有限公司。029-88188180" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta name="copyright" content="Copyright xayitao.com 西安易淘电子商务有限公司 版权所有" />
+    <link href="${page.tpath}/templets/Content/bootstrap.min.css"  rel="stylesheet" />
+    <link href="${page.tpath}/templets/Content/inner.min.css"  rel="stylesheet" />
+    <!--[if lt IE 9]>
+    <script src="${page.tpath}/templets/Scripts/html5shiv.min.js" ></script>
+    <![endif]-->
+    <script src="${page.tpath}/templets/Scripts/jquery.min.js" ></script>
+    <script src="${page.tpath}/templets/Scripts/bootstrap.min.js" ></script>
+    <script src="${page.tpath}/templets/Scripts/inner.min.js" ></script>
+</head>
+<body>
+<header>
+<div class="box">
+	    <a href="/"  title="企业电子商务一站式服务"><img src="${page.tpath}/templets/Picture/logo_cases.png"  alt="西安易淘" /></a>
+        <div class="wechat">
+    	    <img src="${page.tpath}/templets/Picture/wechat_code.jpg"  alt="扫描关注西安网站建设微信公众账号" class="wechat" /><p>扫一扫微信二维码<i></i></p>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/" >返回首页</a></li>
+            <li class='active'><a href="/case" style='color:white;'>设计案例</a></li>
+            <li><a href="/news">新闻中心</a></li>
+          </ul>
+        </nav>
+    </div>
+    <footer>
+	    高端定制，品牌设计<br /><u>2016-2017</u>作品集<br /><a href="/"  target="_blank">西安网站建设与制作公司</a>
+    </footer>
+</header>
+    
+    <section class="toolbar">
+    	<a href="/"  title="返回首页" class="homelink"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    	<span class="switch glyphicon glyphicon-th-list"></span>
+        <div class="category btn-group">
+             <a href="/case"  class="btn btn-default btn-primary">全部</a>
+             
+        	 $categories(${category.tag},'<a href="{url}"  class="btn btn-default">{name}</a>')
+              
+        </div>	
+    </section>
+    <section class="caselist content">
+        <ul class="items list-inline">        
+        $paging_archives(15,'<li>
+              <a href="{url}"  target="_blank">
+              <img src="{thumbnail}" style="widht:300px !important;height:176px !important;" alt="{title}" />
+              <p>${category.Name}<br /><strong>{title}</strong><br /></p></a>
+            </li>')
+        </ul>
+        <div id="Paging" class="paging" style="float:left;">
+$pager()
+        </div>
+    </section>
+    <div class="dock">
+        <ul class="icons">
+        	<li class="up"><i></i></li>
+            <li class="tel">
+            	<i></i><p>建站咨询热线<br />${site.tel}</p>
+            </li>
+            <li class="im">
+            	<i></i><p><a href="http://wpa.qq.com/msgrd?v=3&uin=79289908&site=qq&menu=yes"  target="_blank">点我，建站咨询</a></p>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
