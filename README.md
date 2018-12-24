@@ -20,6 +20,18 @@ Windows平台下，下载安装包[链接](http://s.to2.net/jrcms_latest), 解�
 
 通过浏览器访问：http://localhost:8000
 
+## 发布项目
+打包发布需要环境如下：
+- Visual Studio 2013 及以上
+- .NET Framework 3.5
+- Git 2.20及以上
+```   
+a. 进入cms打开解决方案并编译
+b. 进入bootstrap 打开解决方案并编译
+c. 运行build.sh 进行打包。
+```
+_打包后的完整包存放于dist目录, 更新包存放于dist/update目录_
+
 ## 部署 ##
 
 ### 虚拟主机 ###
