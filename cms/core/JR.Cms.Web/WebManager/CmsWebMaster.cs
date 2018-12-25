@@ -4,6 +4,7 @@ using System.Web;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
 using JR.Cms.Utility;
+using JR.DevFw.Web;
 
 namespace JR.Cms.Web.WebManager
 {
@@ -30,8 +31,10 @@ namespace JR.Cms.Web.WebManager
                 UserDto usr = UserState.Administrator.Current;
                 if (site.SiteId == 0)
                 {
+                    Uri uri = context.Request.Url;
+                    string appPath = uri.Segments.Length == 1 ? null : uri.Segments[1].Replace("/", "");
                     // get site by host name
-                    site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(context.Request.Url.ToString());
+                    site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(WebCtx.Current.Host,appPath);
 
                     // get the first site for user
                     if (!usr.IsMaster && usr.Roles.GetRole(site.SiteId) == null)

@@ -21,8 +21,9 @@ namespace JR.Cms.UnitTest
         [TestMethod]
         public void TestGetSiteByUrl()
         {
-            String uri = "http://www.meizhuli.cn/product";
-            SiteDto site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(uri);
+            String host = "www.meizhuli.cn";
+            String appPath = "/product";
+            SiteDto site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(host,appPath);
             this.Println(this.Stringfy(site));
         }
     }

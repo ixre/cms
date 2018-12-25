@@ -133,9 +133,9 @@ namespace JR.Cms.ServiceRepository
             return BinarySearch.IntSearch(sites, 0, sites.Count, siteId, a => a.GetAggregaterootId());
         }
 
-        public ISite GetSingleOrDefaultSite(String url)
+        public ISite GetSingleOrDefaultSite(String host, String appPath)
         {
-            ISite site = this.GetSiteByUri(url);
+            ISite site = this.GetSiteByUri(host,appPath);
             if (site != null)
             {
                 return site;
@@ -160,27 +160,21 @@ namespace JR.Cms.ServiceRepository
             return sites[0];
         }
 
-        public ISite GetSiteByUri(String url)
+        public ISite GetSiteByUri(String host,String appPath)
         {
-            Uri uri = new Uri(url);
-            string hostName = uri.Host;
-            string appName = String.Empty;
             IList<ISite> sites = this.GetSites();
-
-            string[] segments = uri.Segments;
-            if (segments.Length >= 2)
-            {
-                appName = segments[1].Replace("/", "");
-            }
+            int i = host.IndexOf(":");
+            if(i != -1) host = host.Substring(0, i);
+            String appName = appPath != null && appPath.StartsWith("/") ? appPath.Substring(1) : appPath;
             //todo:
             // site = sites[0];
             //return sites;
 
             //获取使用域名标识的网站
             string _hostName = String.Concat(
-            "^", hostName.Replace(".", "\\."),
-            "$|\\s+", hostName.Replace(".", "\\."),
-            "\\s*|\\s*", hostName.Replace(".", "\\."), "\\s+");
+            "^", host.Replace(".", "\\."),
+            "$|\\s+", host.Replace(".", "\\."),
+            "\\s*|\\s*", host.Replace(".", "\\."), "\\s+");
 
             ISite curr = null;
             foreach (ISite s in sites)
