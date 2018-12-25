@@ -75,14 +75,7 @@ namespace JR.Cms.Service
             }
             return siteDtos;
         }
-
-
-
-        public SiteDto GetSiteByUri(String url)
-        {
-            return GetSiteDtoFromISite(repo.GetSiteByUri(url));
-        }
-
+        
         private static SiteDto GetSiteDtoFromISite(ISite site)
         {
             if (site != null)
@@ -94,9 +87,9 @@ namespace JR.Cms.Service
 
 
 
-        public SiteDto GetSingleOrDefaultSite(String url)
+        public SiteDto GetSingleOrDefaultSite(String host, String appPath)
         {
-            ISite ist = this.repo.GetSingleOrDefaultSite(url);
+            ISite ist = this.repo.GetSingleOrDefaultSite(host,appPath);
             return GetSiteDtoFromISite(ist);
         }
 

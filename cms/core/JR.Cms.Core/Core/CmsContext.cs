@@ -103,10 +103,14 @@ namespace JR.Cms.Core
 
             if (!Cms.IsInitFinish) return;
             //设置当前站点
-            this.CurrentSite = SiteCacheManager.GetSingleOrDefaultSite(this._context.Request.Url); ;
+            Uri uri = this._context.Request.Url;
+            string appPath = uri.Segments.Length == 1 ? null : uri.Segments[1].Replace("/", "");
+            this.CurrentSite = SiteCacheManager.GetSingleOrDefaultSite(WebCtx.Current.Host,appPath); ;
             //是否为虚拟目录运行
             if ((SiteRunType)this.CurrentSite.RunType == SiteRunType.VirtualDirectory)
+            {
                 this.IsVirtualDirectoryRunning = true;
+            }
             this._userLanguage = this.CurrentSite.Language;
             LoadByCookie();
         }

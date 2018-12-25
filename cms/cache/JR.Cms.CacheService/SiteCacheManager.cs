@@ -31,19 +31,14 @@ namespace JR.Cms.CacheService
             return ServiceCall.Instance.SiteService.GetSiteById(siteId);
         }
 
-        public static SiteDto GetSingleOrDefaultSite(Uri uri)
+        public static SiteDto GetSingleOrDefaultSite(String host,String appPath)
         {
-            string siteCacheKey = null;
-            string hostName = uri.Host;
-            string appDirName = uri.Segments.Length == 1
-                ? null
-                : uri.Segments[1].Replace("/", "");
-
+            string siteCacheKey = null;            
             SiteDto dto = default(SiteDto);
-            siteCacheKey = String.Concat(CacheSign.Site.ToString(), "_host_", hostName, "_" + appDirName);
+            siteCacheKey = String.Concat(CacheSign.Site.ToString(), "_host_", host, "_" + appPath);
             int siteId = CacheFactory.Sington.GetCachedResult<int>(siteCacheKey, () =>
             {
-                dto = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(uri.ToString());
+                dto = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(host,appPath);
                 return dto.SiteId;
             },DateTime.Now.AddHours(24));
 

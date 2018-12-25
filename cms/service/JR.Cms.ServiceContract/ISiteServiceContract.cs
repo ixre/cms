@@ -32,20 +32,13 @@ namespace JR.Cms.ServiceContract
         /// <param name="siteId"></param>
         /// <returns></returns>
         SiteDto GetSiteById(int siteId);
-
-        /// <summary>
-        /// 根据Uri获取站点
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        SiteDto GetSiteByUri(String url);
-
+        
         /// <summary>
         /// 获取单个或默认站点
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        SiteDto GetSingleOrDefaultSite(String url);
+        SiteDto GetSingleOrDefaultSite(String host, String appPath);
 
         /// <summary>
         /// 获取站点的扩展字段

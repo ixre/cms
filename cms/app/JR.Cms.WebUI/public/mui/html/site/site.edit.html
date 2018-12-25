@@ -52,7 +52,9 @@
                 if (json.result) {
                     // 重启网站
                     jr.xhr.jsonPost("?module=system&action=reset&cmd=restart", {});
-                    showMsg2(json.message, function() { location.reload(); });
+                    showMsg2(json.message, function () {
+                        setTimeout(location.reload, 2000);
+                    });
                 } else {
                     showErr(json.message);
                 }

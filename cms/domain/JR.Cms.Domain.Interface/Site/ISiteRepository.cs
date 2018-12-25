@@ -26,7 +26,7 @@ namespace JR.Cms.Domain.Interface.Site
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        ISite GetSiteByUri(String url);
+        ISite GetSiteByUri(String host, String appPath);
 
         /// <summary>
         /// 根据编号获取网站
@@ -40,7 +40,7 @@ namespace JR.Cms.Domain.Interface.Site
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        ISite GetSingleOrDefaultSite(String url);
+        ISite GetSingleOrDefaultSite(String host, String appPath);
 
         /// <summary>
         /// 保存链接
