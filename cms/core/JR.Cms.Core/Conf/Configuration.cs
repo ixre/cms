@@ -51,7 +51,7 @@ namespace JR.Cms.Conf
                 {
                     HttpContext.Current.Server.ClearError();
                     HttpContext.Current.Response.Write("<div style=\"margin:50px auto;width:600px;font-size:14px;color:red;line-height:50px;\"><b style=\"font-size:25px\">500&nbsp;Server Error!</b> <br />" +
-                                                       (ex ?? ex.InnerException).Message + "<br />问题出现的详细原因，请见：http://s.z3q.net/cms</div>");
+                                                       (ex ?? ex.InnerException).Message + "<br />问题出现的详细原因，请见：http://s.to2.net/cms</div>");
                     HttpRuntime.UnloadAppDomain();
 
                 }

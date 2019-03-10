@@ -22,11 +22,11 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 短域名服务器
         /// </summary>
-        public static String ShortUrlServer = "to2.net/cms_go";
+        public static String ShortUrlServer = "to2.net/cms/pages";
 
         /// <summary>
         /// 更新服务器
         /// </summary>
-        public static string DefaultUpgradeServer = "http://s.to2.net/jr-cms/update/v3.0";
+        public static string DefaultUpgradeServer = "http://to2.net/cms/update/latest";
     }
 }
