@@ -184,7 +184,7 @@ namespace JR.Cms.Domain.Implement.Site
                     this._rootCategory = this._categoryRep.CreateCategory(new CmsCategoryEntity
                     {
                         SiteId = this.GetAggregaterootId(),
-                        Tag = "-",
+                        Tag = "root",
                         Name = "根栏目",
                     });
                 }
@@ -437,6 +437,7 @@ namespace JR.Cms.Domain.Implement.Site
         public void ClearSelf()
         {
             this._categories = null;
+            this._rootCategory = null;
         }
 
         public CmsSiteEntity Get()

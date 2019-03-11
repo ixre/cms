@@ -488,33 +488,39 @@ namespace JR.Cms.Web.WebManager.Handle
         /// <returns></returns>
         public string CategoryNodes_GET()
         {
-            TreeNode node;
-            int siteId;
-            if (Request["site_id"] != null)
+            String nodeJson = Kvdb.Gca.Get(Consts.NODE_TREE_JSON_KEY);
+            if (String.IsNullOrEmpty(nodeJson))
             {
-                int.TryParse(Request["site_id"], out siteId);
-            }
-            else
-            {
-                siteId = this.SiteId;
-            }
+                TreeNode node;
+                int siteId;
+                if (Request["site_id"] != null)
+                {
+                    int.TryParse(Request["site_id"], out siteId);
+                }
+                else
+                {
+                    siteId = this.SiteId;
+                }
 
-            if (Request["root"] == "true")
-            {
-                node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
+                if (Request["root"] == "true")
+                {
+                    node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
+                }
+                else
+                {
+                    node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
+                }
+                try
+                {
+                    nodeJson = JsonSerializer.Serialize(node);
+                    Kvdb.Gca.Put(Consts.NODE_TREE_JSON_KEY, nodeJson);
+                }
+                catch (Exception exc)
+                {
+                    return "{\"result\":false,\"error\":\"" + exc.Message + "\"}";
+                }
             }
-            else
-            {
-                node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
-            }
-            try
-            {
-                return JsonSerializer.Serialize(node);
-            }
-            catch (Exception exc)
-            {
-                return "{\"result\":false,\"error\":\"" + exc.Message + "\"}";
-            }
+            return nodeJson;
         }
     }
 }

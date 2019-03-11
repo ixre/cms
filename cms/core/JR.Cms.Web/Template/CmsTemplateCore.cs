@@ -23,7 +23,6 @@ namespace JR.Cms.Template
     using JR.Cms.Domain.Interface.Content.Archive;
     using JR.Cms.Domain.Interface.Enum;
     using JR.Cms.Domain.Interface.Models;
-    using JR.Cms.Domain.Interface.Site.Category;
     using JR.Cms.Domain.Interface.Site.Extend;
     using JR.Cms.Domain.Interface.Site.Link;
     using JR.Cms.Utility;

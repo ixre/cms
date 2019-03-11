@@ -2,6 +2,7 @@
 *.txt
 *.suo
 .vs
+*.pid
 Debug
 dist
 obj
@@ -26,3 +27,4 @@ packages
 output
 /cms/core/JR.Cms.Core/*.user
 .DS_Store
+
