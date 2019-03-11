@@ -43,19 +43,6 @@ namespace JR.Cms.Domain.Implement.Site.Category
             this.siteRepo = siteRepo;
         }
 
-        public int Lft
-        {
-            get;
-            set;
-        }
-
-        public int Rgt
-        {
-            get;
-            set;
-        }
-
-
         public Error Set(CmsCategoryEntity src)
         {
             if (src.ParentId != 0 && src.ParentId == this.value.ID)
@@ -195,8 +182,9 @@ namespace JR.Cms.Domain.Implement.Site.Category
 
                 #endregion
 
-                this.Site().ClearSelf();
+
                 this.ClearSelf();
+                this.Site().ClearSelf();
             }
             return err;
         }

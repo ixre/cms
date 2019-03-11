@@ -169,6 +169,7 @@
     <Compile Include="Template\PageGenerator.cs" />
     <Compile Include="WebManager\BasePage.cs" />
     <Compile Include="WebManager\CmsWebMaster.cs" />
+    <Compile Include="WebManager\Consts.cs" />
     <Compile Include="WebManager\EachClass.cs" />
     <Compile Include="WebManager\Handle\AjaxC.cs" />
     <Compile Include="WebManager\Handle\ArchiveC.cs">

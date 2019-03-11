@@ -47,10 +47,11 @@
         function clearFor(f) {
             var t = this;
             t.disabled = true;
-            jr.xhr.jsonPost(location.href, {'for':f,"xhr":1}, function (json) {
+            jr.xhr.filter = null;
+            jr.xhr.jsonPost(location.href, { 'for': f, "xhr": 1 }, function (json) {
                 if (json.result) {
                     if (f == "reboot") {
-                        showMsg2(json.message,null,20000);
+                        showMsg2(json.message, null, 20000);
                         jr.xhr.get(location.href, function () {
                             showMsg2('网站已重启');
                             t.disabled = false;
@@ -66,6 +67,8 @@
                     showErr(json.message, 2000);
                     t.disabled = false;
                 }
+            }, function () {
+                showErr("操作失败", 1000);
             });
         }
     </script>

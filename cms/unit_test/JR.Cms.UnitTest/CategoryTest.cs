@@ -58,11 +58,11 @@ namespace JR.Cms.UnitTest
             {
                 SiteId = siteId,
                 Name = "一级分类",
-                ParentId = 3,
+                ParentId = 0,
                 Tag = "cat1",
                 Location= "http://baidu.com",
             };
-            ICategory ic = ist.GetCategoryByPath("root/cat1");
+            ICategory ic = ist.GetCategoryByPath("cat1");
             if (ic == null)
             {
                 ic = this.repo.CreateCategory(cat);
@@ -86,6 +86,11 @@ namespace JR.Cms.UnitTest
             else
             {
                 this.Println(this.Stringfy(ic.Get()));
+                this.Println(this.Stringfy(ist.GetCategoryTreeWithRootNode()));
+                cat.Name += "*";
+                ic.Set(cat);
+                ic.Save();
+                this.Println(this.Stringfy(ist.GetCategoryTreeWithRootNode()));
             }
         }
 

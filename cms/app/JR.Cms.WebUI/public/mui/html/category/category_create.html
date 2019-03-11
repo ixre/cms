@@ -215,7 +215,7 @@
                      data,
                      function (json) {
                          if (json.result) {
-                             if (window._reloadTree) window._reloadTree(0);
+                             if (window._reloadTree) window._reloadTree(1);
                              jr.dialog.alert(json.message || '栏目创建成功',function (){
                                  jr.load2('pl', 'category', 'update', 'category_id=' + json.data);
                              });

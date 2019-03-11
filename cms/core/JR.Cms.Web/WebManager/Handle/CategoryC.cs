@@ -32,7 +32,7 @@ namespace JR.Cms.Web.WebManager.Handle
     public class CategoryC : BasePage
     {
 
-        public void Data_POST()
+        public void Data1_POST()
         {
             IList<CategoryDto> categories = new List<CategoryDto>();
 
@@ -147,6 +147,7 @@ namespace JR.Cms.Web.WebManager.Handle
             {
                 return base.ReturnError(r.ErrMsg);
             }
+            Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
             int categoryId = Convert.ToInt32(r.Data["CategoryId"]);
             return base.ReturnSuccess(null, categoryId.ToString());
         }
@@ -162,6 +163,7 @@ namespace JR.Cms.Web.WebManager.Handle
             try
             {
                 ServiceCall.Instance.SiteService.MoveCategorySortNumber(this.SiteId, id, di);
+                Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
                 base.RenderSuccess();
             }
             catch (Exception exc)
@@ -300,6 +302,7 @@ namespace JR.Cms.Web.WebManager.Handle
             {
                 return base.ReturnError(r.ErrMsg);
             }
+            Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
             return base.ReturnSuccess("保存成功!");
         }
 
@@ -313,6 +316,7 @@ namespace JR.Cms.Web.WebManager.Handle
             JR.Cms.Infrastructure.Error err = ServiceCall.Instance.SiteService.DeleteCategory(this.SiteId, categoryId);
             if (err == null)
             {
+                Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
                 return base.ReturnSuccess();
             }
             return base.ReturnError(err.Message);

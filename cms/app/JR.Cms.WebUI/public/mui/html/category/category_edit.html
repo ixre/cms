@@ -220,7 +220,7 @@
                      data,
                      function (json) {
                          if (json.result) {
-                             if (window._reloadTree) window._reloadTree(0);
+                             if (window._reloadTree) window._reloadTree(1);
                              jr.dialog.alert(json.message || '栏目保存成功');
                          } else {
                              jr.dialog.alert(json.message);
