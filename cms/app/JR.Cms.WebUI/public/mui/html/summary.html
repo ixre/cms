@@ -101,6 +101,7 @@ $js()
 
         var dia;
         var versionInfo;
+        var ver;
         window.autoCheck = true;
         var install_finish=false;
 
@@ -110,11 +111,10 @@ $js()
 		    e.innerHTML = '正在从服务器获取版本...';
 		    e.className = '';
 		    jr.xhr.get('?module=ajax&action=checkupgrade', function (rsp) {
-		        var ver = JSON.parse(rsp);
+		        ver = JSON.parse(rsp);
                 if (ver.result === 1) {
                     e.className = 'new-version';
                     e.innerHTML = '新版本可升级：v' + ver.version + '&nbsp;<a class="button" href="javascript:;" onclick="confirmUpgrade(false)">点击升级</a>';
-                	versionInfo=ver.log;
                 } else {
                     if (ver.result === -1) {
                         e.className = 'curr-version';
@@ -129,12 +129,14 @@ $js()
 		
         function confirmUpgrade(noVersionShow) {
             dia = jr.dialog.create2('系统升级', true, true);
-            var html = '<strong>更新日志:</strong><hr class="upline"/><p>' + versionInfo + '</p>';
-           dia.write('<div style="color:#666;font-size:14px;line-height:25px;padding:20px 40px;">' + html
-               + '<div style="color:#666;font-size:12px;margin:10px 0 0 0"><span style="color:#FF0000">重要：</span><span>'
-                +'由于系统各异,无法保证均能升级成功！如升级失败，请联系管理员解决！</span></div>'
-               + '<div style="margin-bottom:15px;"><br /><button id="btn_install" style="padding:0 2em">开始升级</button></div></div>');
-           (window.parent||window).document.getElementById('btn_install').onclick = upgrade;
+            var changeLog = "JRCMS &nbsp;&nbsp;版本：" + ver.version + "&nbsp;build:"
+                + ver.build + "<br />===========================================<br />" + ver.change_log;
+            var html = '<strong>更新日志:</strong><hr class="upline"/><p>' + changeLog + '</p>';
+            dia.write('<div style="color:#666;font-size:14px;line-height:25px;padding:20px 40px;">' + html
+                + '<div style="color:#666;font-size:12px;margin:10px 0 0 0"><span style="color:#FF0000">重要：</span><span>'
+                + '由于系统各异,无法保证均能升级成功！如升级失败，请联系管理员解决！</span></div>'
+                + '<div style="margin-bottom:15px;"><br /><button id="btn_install" class="gra-btn" style="padding:0 2em">开始升级</button></div></div>');
+            (window.parent || window).document.getElementById('btn_install').onclick = upgrade;
         }
 
 

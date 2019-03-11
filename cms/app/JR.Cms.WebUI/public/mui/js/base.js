@@ -20,24 +20,54 @@ function autoCompletion(v, w, x, y, z, A) { var B; var C; this.charMinLen = A ||
 jr.extend({ animation: { timer: function (a, b, c, d, e) { if (!a) return; var f = c != null ? c : 0; var g = d != null ? d : 100; var h = 0; var i = 0; if (e < 1 || e > 5) { h = (d - c) < 0 ? -e : e; i = 20 } else { h = (g - f) / (4 * (6 - e)); h *= (Math.abs(g - f) / 100); i = 1000 / h; i = i < 0 ? -Math.ceil(i) : Math.floor(i); if (i < 30) i = 30 } var t = setInterval(function () { f = f + h; if (Math.abs(f) >= Math.abs(g)) { f = g; if (b instanceof Function) b(); clearInterval(t) } a(f, h) }, i) }, opacity: function (e, d, f, g) { var h = jr.$(e); var s = jr.style(h); var i = s["opacity"]; if (i == undefined) { if (h.filters.alpha) { i = h.filters.alpha.opacity / 100 } else { i = 0 } } this.timer((function (e) { return function (t, a) { var b = a < 0; var c = b ? (100 + t) / 100 : t / 100; e.style.opacity = c; e.style.filter = 'alpha(opacity=' + (c * 100) + ')'; if (t == -100 && b) { e.style.display = 'none' } else if (!b && t == a) { e.style.display = '' } } })(h), d, parseInt(i), f, g) }, fade: function (e, a, b) { var c = b != null ? b : 3; var d = -100; this.opacity(e, a, d, c) }, show: function (e, a, b) { var c = b != null ? b : 3; var d = 100; this.opacity(e, a, d, c) }, toggle: function (e, a, b) { this._toggle(e, 'wh', a, b) }, toggleWidth: function (e, a, b) { this._toggle(e, 'w', a, b) }, toggleHeight: function (e, a, b) { this._toggle(e, 'h', a, b) }, _toggle: function (e, a, b, c) { e = jr.$(e); var d = jr.style(e); var w = e.offsetWidth; var h = e.offsetHeight; var f = parseInt(e.getAttribute("toggle-w") || 0); var g = parseInt(e.getAttribute("toggle-h") || 0); if (f == 0 || g == 0) { if (w == 0 || h == 0) { w = f = jr.clientWidth(e); h = g = jr.clientHeight(e) } e.setAttribute('toggle-w', w); e.setAttribute('toggle-h', h) } var i = c == null ? 2 : c; var j = i * (g / f); if (d["display"] == 'none') { var k = { overflow: 'hidden', display: 'inherit' }; if (a.indexOf('w') != -1) { k.width = '0px' } if (a.indexOf('h') != -1) { k.height = '0px' } jr.style(e, k); this._toggleShow(e, a, b, w, f, h, g, i, j) } else { e.style.overflow = 'hidden'; this._toggleClose(e, a, b, w, f, h, g, i, j) } }, _toggleShow: function (e, b, c, w, d, h, f, g, i) { if (b.indexOf('w') != -1) { this.timer((function (e, w) { return function (t, a) { e.style.width = (a > 0 ? t : (w + t)) + 'px' } })(e, w), c, 0, d, g) } if (b.indexOf('h') != -1) { this.timer((function (e, h) { return function (t, a) { e.style.height = (a > 0 ? t : (h + t)) + 'px' } })(e, h), c, 0, f, i) } }, _toggleClose: function (e, c, d, w, f, h, f, g, i) { if (c.indexOf('w') != -1) { this.timer((function (e, w) { return function (t, a) { var b = (a > 0 ? t : (w + t)); if (b < 0) b = 0; e.style.width = b + 'px'; if (b == 0) { e.style.display = 'none' } } })(e, w), d, 0, -w, g) } if (c.indexOf('h') != -1) { this.timer((function (e, h) { return function (t, a) { var b = a > 0 ? t : h + t; if (b < 0) b = 0; e.style.height = b + 'px'; if (b == 0) { e.style.display = 'none' } } })(e, h), d, 0, -h, i) } } } });
 jr.event.add(window, 'load', function () { jr.each(document.getElementsByClassName('ui-exchange'), function (i, e) { var v = null; var d = null; var f = null; var g = 'exchange'; switch (e.nodeName) { case 'IMG': f = 'src'; break; default: f = 'innerHTML'; break } if (f == null) return; v = e[f]; d = e.getAttribute(g); if (d) { jr.event.add(e, 'mouseover', (function (a, b, c) { return function () { a[b] = c } })(e, f, d)); jr.event.add(e, 'mouseout', (function (a, b, c) { return function () { a[b] = c } })(e, f, v)) } }) });
 
+// 日期扩展函数
+Date.prototype.format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours() % 12 == 0 ? 12 : this.getHours() % 12, //小时
+        "H+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    var week = {
+        "0": "/u65e5",
+        "1": "/u4e00",
+        "2": "/u4e8c",
+        "3": "/u4e09",
+        "4": "/u56db",
+        "5": "/u4e94",
+        "6": "/u516d"
+    };
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    if (/(E+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay() + ""]);
+    }
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        }
+    }
+    return fmt;
+};
+
+
+
+// 自定义代码开始
 var cms = $b;
-
-
 //库目录
 jr.libpath = '/public/assets/';
 
 
 function unix2str(unix) {
-    var dt = new Date(unix);
-    var y = dt.getFullYear();
-    var m = dt.getMonth() + 1;
-    var d = dt.getDay();
-    var h = dt.getHours();
-    var mn = dt.getMinutes();
-    var s = dt.getSeconds();
-    return "".concat(y).concat("-").concat(m > 10 ? m : "0" + m).concat("-").concat(d > 10 ? d : "0" + d).concat(" ")
-        .concat(h > 10 ? h : "0" + h).concat(":").concat(mn > 10 ? mn : "0" + mn).concat(":")
-        .concat(s > 10 ? s : "0" + s);
+    if (typeof (unix) == 'string') {
+        unix = parseInt(unix);
+    }
+    return new Date(unix * 1000).format("yyyy-MM-dd HH:mm");
 }
 
 jr.extend({

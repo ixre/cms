@@ -64,7 +64,7 @@
                         <dt>重定向：</dt>
                         <dd>
                             <input type="radio" class="radio" field="IsRedirect" name="IsRedirect" id="IsRedirect1" value="0" checked="checked" /><label for="IsRedirect1">否</label>
-                            <input type="radio" class="radio" field="IsRedirect" name="IsRedirect" id="IsRedirecJR" value="1" /><label for="IsRedirect1">是</label>
+                            <input type="radio" class="radio" field="IsRedirect" name="IsRedirect" id="IsRedirect2" value="1" /><label for="IsRedirect1">是</label>
 
                             <span id="redirectPanel" class="hidden" style="padding-left:20px">
                                 网址(URL)：<input class="tb_normal ui-box ui-validate" length="[0,150]" name="location" field="Location" />
@@ -79,10 +79,10 @@
                         <dd>
                             <input class="tb_normal ui-box ui-validate" length="[0,10]" type="text" field="Source" style="width: 100px" />
                             &nbsp;&nbsp;&nbsp;<strong>设置：</strong>
-                            <input type="checkbox" style="border: none" field="IsSpecial" title="以特殊的形式显示" id="ck_special" /><label for="ck_special">推荐</label>
+                            <input type="checkbox" style="border: none" field="IsVisible" id="ck_visible" title="取消勾选将不会显示此文档"/><label for="ck_visible">显示</label>
+                            &nbsp;<input type="checkbox" style="border: none" field="IsSpecial" title="以特殊的形式显示" id="ck_special" /><label for="ck_special">推荐</label>
                             &nbsp;<input type="checkbox" style="border: none" field="IsSystem" title="用于系统使用的文档(系统页面不会在搜索和列表中出现)" id="ck_system" /><label for="ck_system">系统</label>
                             &nbsp;<input type="checkbox" style="border: none" field="AsPage" title="单页，会以单页的URL地址显示" id="ck_single" /><label for="ck_single">页面</label>
-                            &nbsp;<input type="checkbox" style="border: none" field="IsVisible" id="ck_visible" /><label for="ck_visible">是否显示</label>
                         </dd>
                     </dl>
 
@@ -199,7 +199,7 @@
 
         //设置是否跳转显示
         var redirectPanel = jr.$('redirectPanel');
-        jr.$('IsRedirect1').onchange = jr.$('IsRedirecJR').onchange = function(){
+        jr.$('IsRedirect1').onchange = jr.$('IsRedirect2').onchange = function(){
             if(this.checked){
                 if(this.value == '1'){
                     redirectPanel.className = '';

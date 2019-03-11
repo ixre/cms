@@ -105,7 +105,6 @@
     <Content Include="install\db\access.mdb" />
     <Content Include="install\db\mysql.sql" />
     <Content Include="install\db\mssql.sql" />
-    <Content Include="install\db\mysql - 复制.sql" />
     <Content Include="install\db\sqlite.sql" />
     <Content Include="install\install.html" />
     <Content Include="public\assemblies\IronPython.dll" />
