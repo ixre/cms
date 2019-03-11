@@ -224,6 +224,10 @@ namespace JR.Cms.Domain.Implement.Site
         public Error DeleteCategory(int catId)
         {
             ICategory category = this.GetCategory(catId);
+            if(category == null)
+            {
+                return new Error("栏目不存在!");
+            }
             if (category.Childs.Count() != 0)
             {
                 return new Error("栏目包含子栏目!");
@@ -237,7 +241,7 @@ namespace JR.Cms.Domain.Implement.Site
                 this._tempRep.RemoveBind( category.GetDomainId(),bind.BindType);
             }
             this._categoryRep.DeleteCategory(this.GetAggregaterootId(), catId);
-            this._categories = null;
+            this.ClearSelf();
             return null;
         }
 

@@ -147,7 +147,7 @@ namespace JR.Cms.Web.WebManager.Handle
                 thumbPrefix = CmsVariables.Archive_ThumbPrefix,
                 nodes = nodesHtml,
                 url = Request.Url.PathAndQuery,
-                tpls = tpls,
+                tpls,
                 json = JsonSerializer.Serialize(json)
             };
 

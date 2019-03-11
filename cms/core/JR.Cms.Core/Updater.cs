@@ -45,6 +45,37 @@ namespace JR.Cms
         /// </summary>
         public static event CmsConfigureHandler OnUpgrade;
 
+        /// <summary>
+        /// 版本信息
+        /// </summary>
+        public class VersionInfo
+        {
+            /// <summary>
+            /// 获取版本代码
+            /// </summary>
+            public int FetchCode { get; set; }
+            /// <summary>
+            /// 获取版本消息
+            /// </summary>
+            public string FetchMsg { get; set; }
+            /// <summary>
+            /// 产品版本号
+            /// </summary>
+            public string Version { get; set; }
+            /// <summary>
+            /// 生成版本号
+            /// </summary>
+            public string Build { get; set; }
+            /// <summary>
+            /// 发布描述
+            /// </summary>
+            public string ChangeLog { get; set; }
+            /// <summary>
+            /// 更新包地址
+            /// </summary>
+            public string PatchPackUrl { get; internal set; }
+        }
+
         static Updater()
         {
             Updater.OnUpgrade += () =>
@@ -53,21 +84,20 @@ namespace JR.Cms
 
                 if (UpgradePercent < 0.1F) UpgradePercent = 0.1F;
                 //升级默认的模版
-                InstallTemplate("default", "tpl_default.zip");
+                InstallTemplate("examples", "tpl_default.zip");
                 if (UpgradePercent < 0.12F) UpgradePercent = 0.12F;
-                string[] verData;
-                int result = Updater.CheckUpgrade(out verData);
-                if (result == 1)
+                VersionInfo result = Updater.CheckUpgrade();
+                if (result.FetchCode == 1)
                 {
                     //更新压缩包文件
                     Console.WriteLine("[ CMS][ Update]: extras update.zip ..");
-                    UpgradeFile(verData[1], UpgradeFileType.Zip, "/", false);
+                    UpgradeFile(result.PatchPackUrl, UpgradeFileType.Zip, "/", false);
                     if (UpgradePercent < 0.3F) UpgradePercent = 0.3F;
 
                     //最后更新dll
                     Console.WriteLine("[ CMS][ Update]: extras boot.zip ..");
                     UpgradeFile("boot.zip", UpgradeFileType.Zip, UpgadeDir, false);
-                    Console.WriteLine("[ CMS][ Update]: cms update to v" + verData[0]);
+                    Console.WriteLine("[ CMS][ Update]: cms update to v" + result.Version);
                 }
                 else
                 {
@@ -82,12 +112,11 @@ namespace JR.Cms
         /// 获取新版本更新日志
         /// </summary>
         /// <returns></returns>
-        public static int CheckUpgrade(out string[] data)
+        public static VersionInfo CheckUpgrade()
         {
-            data = new string[3];
             if (!Cms.OfficialEnvironment)
             {
-                return -5;
+                return new VersionInfo { FetchCode = -5, FetchMsg = "程序当前运行在生产环境下，无法升级" };
             }
             string updateMetaFile = GetUpdateUrl("upgrade.xml");
             WebRequest wr = WebRequest.Create(updateMetaFile);
@@ -99,28 +128,25 @@ namespace JR.Cms
             }
             catch
             {
-                return -3;
+                return new VersionInfo { FetchCode = -3, FetchMsg = "无法连接到更新服务器" };
             }
 
             Stream rspStream;
             if (rsp == null || rsp.ContentLength <= 0 || (rspStream = rsp.GetResponseStream()) == null)
             {
-                return -3;
+                return new VersionInfo { FetchCode = -3, FetchMsg = "无法连接到更新服务器" };
             }
 
             switch (rsp.StatusCode)
             {
                 //更新服务器发生内部错误
                 case HttpStatusCode.InternalServerError:
-                    data = null;
-                    return -4;
+                    return new VersionInfo { FetchCode = -4, FetchMsg = "更新服务器未返回正确的版本信息" };
 
                 //message = "未发现更新版本!";
                 default:
                 case HttpStatusCode.NotFound:
-                    data = null;
-                    return -2;
-
+                    return new VersionInfo { FetchCode = -2, FetchMsg = "无法获取版本信息" };
                 //有新版本
                 case HttpStatusCode.OK: break;// return 1;
             }
@@ -139,23 +165,24 @@ namespace JR.Cms
             {
                 throw new Exception("更新描述文件错误：" + result);
             }
+            VersionInfo vi = new VersionInfo();
+            vi.FetchCode = 1;
+            vi.FetchMsg = "发现新版本";
             XmlNode xn = xd.SelectSingleNode("/upgrade");
-
-            data[0] = xn.Attributes["version"].Value;
-            data[1] = xn.Attributes["patch"].Value;
-            if (!data[1].ToUpper().StartsWith("HTTP://"))
-            {
-                data[1] = GetUpdateUrl(data[1]);
-            }
-            data[2] = xn.InnerText;
-
+            vi.Version = xn.Attributes["version"].Value;
             //版本一致
-            if (int.Parse(Cms.Version.Replace(".", "")) >= int.Parse(data[0].Replace(".", "")))
+            if (int.Parse(Cms.Version.Replace(".", "")) >= int.Parse(vi.Version.Replace(".", "")))
             {
-                return -1;
+                return new VersionInfo { FetchCode = -1, FetchMsg = "已经是最新版本" };
             }
-
-            return 1;
+            vi.Build = xn.Attributes["build"].Value;
+            vi.PatchPackUrl = xn.Attributes["patch"].Value;
+            if (!vi.PatchPackUrl.ToUpper().StartsWith("HTTP://"))
+            {
+                vi.PatchPackUrl = GetUpdateUrl(vi.PatchPackUrl);
+            }
+            vi.ChangeLog = xn.InnerText;
+            return vi;
         }
 
         /// <summary>
@@ -203,82 +230,7 @@ namespace JR.Cms
             return 1;
         }
 
-
-        /// <summary>
-        /// 升级更新
-        /// </summary>
-        [Obsolete]
-        private static int ApplyUpgrade()
-        {
-
-            string[] verData;
-
-            if (CheckUpgrade(out verData) != 1)
-            {
-                return -2;
-            }
-
-            string remoteLib = verData[1];
-
-            DirectoryInfo libDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "bin\\");
-            FileInfo libFile = new FileInfo(libDir.FullName + "jrcms.dll");
-            FileInfo tempLibFile = new FileInfo(libDir.FullName + "temp.lib");
-
-
-            //初始化设置权限
-
-            // message = "bin目录无法写入更新文件,请修改权限!";  
-            //return -1;
-            if ((libDir.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-            {
-                libDir.Attributes = libDir.Attributes & ~FileAttributes.ReadOnly;
-
-            }
-
-            if ((libFile.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-            {
-                libFile.Attributes = libFile.Attributes & ~FileAttributes.ReadOnly;
-            }
-
-            //创建临时文件
-            if (!tempLibFile.Exists)
-            {
-                tempLibFile.Create().Dispose();
-            }
-
-            const int buffer = 32768;  //100k
-            byte[] data = new byte[buffer];
-            int cread;
-            int cTotal;
-
-            using (FileStream fs = tempLibFile.OpenWrite())
-            {
-                int fileLength = (int)fs.Length;
-                HttpWebRequest wr = WebRequest.Create(remoteLib) as HttpWebRequest;
-                if (fileLength != 0)
-                {
-                    wr.AddRange(fileLength);
-                }
-                WebResponse rsp = wr.GetResponse();
-                Stream st = rsp.GetResponseStream();
-
-                cTotal = (int)rsp.ContentLength;
-
-                while ((cread = st.Read(data, 0, buffer)) != 0)
-                {
-                    //wr.AddRange(upgrade_process_length,upgrade_process_length+buffer-1);
-                    fs.Write(data, 0, cread);
-                }
-            }
-
-            if (OnUpgrade != null)
-            {
-                OnUpgrade();
-            }
-
-            return 1;
-        }
-
+        
 
         /// <summary>
         /// 更新

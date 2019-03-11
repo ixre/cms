@@ -34,6 +34,7 @@ using JR.Cms.Infrastructure.Tree;
 using JR.Cms.Utility;
 using JR.Cms.WebManager;
 using JR.DevFw.Framework.Text;
+using static JR.Cms.Updater;
 
 namespace JR.Cms.Web.WebManager.Handle
 {
@@ -312,15 +313,13 @@ namespace JR.Cms.Web.WebManager.Handle
         /// </summary>
         public void CheckUpgrade_GET()
         {
-            const string upgradeTpl = "{\"result\":%result%,\"message\":\"%msg%\",\"version\":\"%ver%\",\"log\":\"%log%\"}";
+            const string upgradeTpl = "{\"result\":%result%,\"message\":\"%msg%\",\"version\":\"%ver%\",\"build\":\"%build%\",\"change_log\":\"%log%\"}";
 
             string message = "未知异常";
-            string changeLog = String.Empty;
-            string[] verResult;
 
-            int result = Updater.CheckUpgrade(out verResult);
+            VersionInfo result = Updater.CheckUpgrade();
 
-            switch (result)
+            switch (result.FetchCode)
             {
                 case -1: message = "已经是最新版本"; break;
                 // case -1: message = "bin目录无法写入更新文件,请修改权限!"; break;
@@ -331,15 +330,14 @@ namespace JR.Cms.Web.WebManager.Handle
                 case 1: message = "有新版本可以更新!"; break;
             }
 
-            if (result == 1)
-            {
-                changeLog = verResult[2];
-            }
-
             base.Response.Write(
-                upgradeTpl.Replace("%result%", result.ToString())
-                .Replace("%msg%", message.Replace("\"", "\\\"")).Replace("%ver%", verResult[0])
-                .Replace("%log%", changeLog.TrimStart().Replace("\"", "\\\"").Replace("\n", "<br />").Replace("\r", ""))
+                upgradeTpl.Replace("%result%", result.FetchCode.ToString())
+                .Replace("%msg%", message.Replace("\"", "\\\""))
+                .Replace("%ver%", result.Version??"")
+                .Replace("%build%",result.Build??"")
+                .Replace("%log%", (result.ChangeLog??"").TrimStart()
+                .Replace("\"", "\\\"")
+                .Replace("\n", "<br />").Replace("\r", ""))
             );
         }
 
@@ -451,13 +449,14 @@ namespace JR.Cms.Web.WebManager.Handle
                     site = ServiceCall.Instance.SiteService.GetSiteById(a.Category.SiteId);
                 }
 
-                strBuilder.Append("{'id':'").Append(a.Id)
-                    .Append("','alias':'").Append(String.IsNullOrEmpty(a.Alias) ? a.StrId : a.Alias)
-                    .Append("',title:'").Append(a.Title)
-                    .Append("',siteId:").Append(site.SiteId)
-                    .Append(",siteName:'").Append(site.Name)
-                    .Append("',category:'").Append(a.Category.Name).Append("(").Append(a.Category.Tag).Append(")")
-                    .Append("'}");
+                strBuilder.Append("{\"id\":").Append(a.Id)
+                    .Append(",\"path\":\"").Append(a.Path)
+                    .Append("\",\"alias\":\"").Append(String.IsNullOrEmpty(a.Alias) ? a.StrId : a.Alias)
+                    .Append("\",\"title\":\"").Append(a.Title)
+                    .Append("\",\"siteId\":").Append(site.SiteId)
+                    .Append(",\"siteName\":\"").Append(site.Name)
+                    .Append("\",\"category\":\"").Append(a.Category.Name).Append("(").Append(a.Category.Tag).Append(")")
+                    .Append("\"}");
             }
             strBuilder.Append("]");
 
