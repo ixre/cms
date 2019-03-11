@@ -425,22 +425,22 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 /* 导航栏 */
 .mod-navigator{height:35px;z-index:200;}
 .mod-navigator div,.mod-navigator p{margin:0;}
-.mod-navigator-navs,.mod-navigator-left,.mod-navigator-right{padding-bottom:0px;margin-bottom:-0px;}
+.mod-navigator-nav,.mod-navigator-left,.mod-navigator-right{padding-bottom:0px;margin-bottom:-0px;}
 .mod-navigator-left{float:left;width:10px;margin-right:-10px;}
 .mod-navigator-right{float:right;width:10px;margin-left:-10px;}
-.mod-navigator-navs{width:auto;margin:0 10px;}
-.mod-navigator-navs ul{margin:0;padding:0;list-style:none;}
-.mod-navigator-navs li.l1{float:left;position:relative;z-index: 200;}/*ie7bug*/
+.mod-navigator-nav{width:auto;margin:0 10px;}
+.mod-navigator-nav ul{margin:0;padding:0;list-style:none;}
+.mod-navigator-nav li.l1{float:left;position:relative;z-index: 200;}/*ie7bug*/
 .mod-navigator-child{left:0;right: 0;margin: 0 auto;top:35px;position:absolute;display:none;z-index:201}
 .mod-navigator-child .box {}
-.mod-navigator-navs li.drop .mod-navigator-child,.mod-navigator-navs li:hover .mod-navigator-child{display:block;}
+.mod-navigator-nav li.drop .mod-navigator-child,.mod-navigator-nav li:hover .mod-navigator-child{display:block;}
 .mod-navigator-child .menu li.l2{padding:0;float:none;background:none;}
 .mod-navigator-child .menu li.first{border-top:none;}
 .mod-navigator-child .menu li.last{border-bottom:none;}
-.mod-navigator-navs li.parent:hover{ background: transparent;}
-.mod-navigator-navs li.parent a.l1:hover{color:#333;}
-.mod-navigator-navs li.parent .mod-navigator-child a.l2{color:#333;}
-.mod-navigator-navs li.parent .mod-navigator-child a.l2:hover{color:#FF0000;}
+.mod-navigator-nav li.parent:hover{ background: transparent;}
+.mod-navigator-nav li.parent a.l1:hover{color:#333;}
+.mod-navigator-nav li.parent .mod-navigator-child a.l2{color:#333;}
+.mod-navigator-nav li.parent .mod-navigator-child a.l2:hover{color:#FF0000;}
 
 /* mod-flash-p */
 .mod-flash-p{margin: 0;}

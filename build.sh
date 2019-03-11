@@ -43,7 +43,7 @@ echo "2. prepare files"
 cd $(find . -path "*/JR.Cms.WebUI") && \
 	cp -r \$server install plugins public \
 	Global.asax Web.config $tmp_dir &&\
-	cp -r templates/default templates/tpl-* $tmp_dir/templates/ &&\
+	cp -r templates/default $tmp_dir/templates/ &&\
 	sed -i 's/compilation debug="true"/compilation debug="false"/g' $tmp_dir/Web.config &&\
     cd - > /dev/null
 
@@ -65,7 +65,7 @@ $exe_dir/7z.exe a -tzip ../update/update.zip public \
 	plugins README.md LICENSE >/dev/null
 
 echo "4. package all" 
-$exe_dir/7z.exe a -tzip ../jrcms-dist-1.0.zip * >/dev/null
+$exe_dir/7z.exe a -tzip ../jrcms-dist-latest.zip * >/dev/null
 
 echo "5. clean" && rm -rf $tmp_dir
 

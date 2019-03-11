@@ -237,7 +237,7 @@ namespace JR.Cms
         /// </summary>
         public static void StartUpgrade()
         {
-            upgradePercent = 0f;
+            UpgradePercent = 0f;
 
             if (OnUpgrade != null)
             {
@@ -405,6 +405,10 @@ namespace JR.Cms
             MemoryStream ms;
             IArchive archive;
             DirectoryInfo dir;
+            if (!url.ToUpper().StartsWith("HTTP://"))
+            {
+                url = GetUpdateUrl(url);
+            }
             byte[] zipData = DownloadFile(url, null);
 
             if (zipData == null)
@@ -440,31 +444,17 @@ namespace JR.Cms
             return 1;
         }
 
-        private static float upgradePercent = 0f;
-
         /// <summary>
         /// 更新进度
         /// </summary>
-        public static float UpgradePercent
-        {
-            get
-            {
-                return upgradePercent;
-
-            }
-            set
-            {
-                upgradePercent = value;
-
-            }
-        }
+        public static float UpgradePercent { get; set; } = 0f;
 
         /// <summary>
         /// 应用更新核心库
         /// </summary>
         public static void ApplyBinFolder()
         {
-            if (upgradePercent == 1F)
+            if (UpgradePercent == 1F)
             {
                 //线程沉睡并更新dll
                 FileInfo[] files = new DirectoryInfo(Cms.PyhicPath + UpgadeDir+"/bin").GetFiles();
