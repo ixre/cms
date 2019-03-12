@@ -35,8 +35,8 @@ namespace JR.Cms.Web
             //<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
             IeHtml5ShivTag = @"
     <!--[if lt IE 9]>
-        <script src=""//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js""></script>
-        <script src=""//cdn.bootcss.com/respond.js/1.4.2/respond.min.js""></script>
+        <script src=""https://cdn.bootcss.com/html5shiv/r29/html5.min.js""></script>
+        <script src=""https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js""></script>
     <![endif]-->";
         }
 
