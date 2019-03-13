@@ -79,7 +79,7 @@ img{max-width:100%;}
 
 .gra-circle-fill-button{background:#2699FB;color:#FFF;}
 .gra-circle-fill-button:visited{color:#FFF;}
-.gra-circle-fill-button:hover{color:#FFF;background:#FFF;color:#2699FB}
+.gra-circle-fill-button:hover{color:#2699FB;background:#FFF;color:#2699FB}
 
 /** 气泡 */
 .gra-pop{position:relative;background:#FFF;border-radius:8px;
@@ -88,6 +88,9 @@ img{max-width:100%;}
     border-left: 10px solid transparent;border-right: 10px solid transparent;border-top: 10px solid #F00;}
 .gra-pop-dark{background:#333;}
 .gra-pop-dark i{border-top-color:#333}
+
+
+
 
 /* 字体大小 */
 .f1{font-size:1em;}.f075{font-size:0.75em;}.f08{font-size:0.8em;}.f085{font-size:0.85em;}.f09{font-size:0.9em;}

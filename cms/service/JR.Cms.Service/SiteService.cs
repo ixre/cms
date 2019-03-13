@@ -150,6 +150,11 @@ namespace JR.Cms.Service
 
         public CategoryDto GetCategory(int siteId, string catPath)
         {
+            // 如果以"/"开头，则去掉
+            if (!String.IsNullOrEmpty(catPath) && catPath[0] == '/')
+            {
+                catPath = catPath.Substring(1);
+            }
             ISite site = this.repo.GetSiteById(siteId);
             return CategoryDto.ConvertFrom(site.GetCategoryByPath(catPath));
         }
