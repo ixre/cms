@@ -1422,8 +1422,8 @@ namespace JR.Cms.Template
                         case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.UpdateTime);
                         case "edit_date":
                         case "modify_date": return String.Format("{0:yyyy-MM-dd}", archiveDto.UpdateTime);
-                        case "edit_short_date":
-                        case "modify_sdate": return String.Format("{0:MM-dd}", archiveDto.UpdateTime);
+                        case "publish_short_date":
+                        case "publish_day": return String.Format("{0:MM-dd}", archiveDto.CreateTime);
                         case "publish_time":
                         case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.CreateTime);
                         case "publish_date":
@@ -1666,7 +1666,7 @@ namespace JR.Cms.Template
                             //时间
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["update_time"]);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", dr["update_time"]);
-                            case "modify_sdate": return String.Format("{0:MM-dd}", dr["update_time"]);
+                            case "publish_day": return String.Format("{0:MM-dd}", dr["create_time"]);
                             case "publish_time":
                             case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["create_time"]);
                             case "publish_date":
@@ -1980,7 +1980,7 @@ namespace JR.Cms.Template
                             //时间
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.UpdateTime);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.UpdateTime);
-                            case "modify_sdate": return String.Format("{0:MM-dd}", archive.UpdateTime);
+                            case "publish_day": return String.Format("{0:MM-dd}", archive.CreateTime);
                             case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime);
                             case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateTime);
 
@@ -2341,7 +2341,7 @@ namespace JR.Cms.Template
                             //时间
                             case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.UpdateTime);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", archive.UpdateTime);
-                            case "modify_sdate": return String.Format("{0:MM-dd}", archive.UpdateTime);
+                            case "publish_day": return String.Format("{0:MM-dd}", archive.CreateTime);
                             case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime);
                             case "create_date": return String.Format("{0:yyyy-MM-dd}", archive.CreateTime);
 

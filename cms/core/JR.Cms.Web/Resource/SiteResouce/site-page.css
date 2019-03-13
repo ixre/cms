@@ -192,6 +192,27 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 
 
 
+/** 反馈 */
+.mod-feedback{}
+.mod-feedback .container{background-size:cover;padding:30px;}
+.mod-feedback-tit,.mod-feedback-sub-tit{color:#FFF;padding-left:15px;}
+.mod-feedback-tit{font-size:18px;font-weight: bold;}
+.mod-feedback-sub-tit{margin-bottom:30px;}
+.mod-feedback-form{padding:15px;box-shadow:0 0 15px rgba(0,0,0,0.1);border-radius:3px;}
+.mod-feedback .wx{text-align:center;color:#FFF;font-weight:bold;}
+.mod-feedback .wx img{background:#FFF;width:80%;padding:15px;}
+.mod-feedback-form label{padding-top:15px;display:block;}
+.mod-feedback-button{text-align:right;padding-top:15px;padding-bottom:15px;}
+
+/** 即时聊天 */
+.mod-instant-chat{position:fixed;top:70%;right:30px;border:solid 3px #707070;border-radius:50px;
+    display:block;width:60px;height:60px;background:#FFF;background-size:50%;cursor:pointer;}
+.mod-instant-chat .gra-pop{position:absolute;top:-60px;left:-20px;right:-20px;text-align:center;display:none}
+.mod-instant-chat:hover .gra-pop{display:inherit;}
+
+
+
+
 
 /* UNSORTED */
 

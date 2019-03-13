@@ -197,9 +197,9 @@ $b.event.add(window, 'load', function () {
             if (scrollTop > top) {
                 var left = e.attr("offsetLeft");
                 var width = e.attr("offsetWidth");
-                e.css({ position: "fixed", left: left + "px", width: width + "px" });
+                e.css({ position: "fixed", top:"0",left: left + "px", width: width + "px" });
             } else {
-                e.css({ position: "inherit", left: 0, width: "inherit" });
+                e.css({ position: "inherit", top: "inherit", left:"inherit", width: "inherit" });
             }
         });
     });
