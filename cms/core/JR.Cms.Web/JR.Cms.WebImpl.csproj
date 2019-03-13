@@ -266,7 +266,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resource\SiteResouce\cms.core_min.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\SiteResouce\assets\animate.css" />

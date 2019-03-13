@@ -90,19 +90,25 @@ namespace JR.Cms.Web.Resource {
         }
         
         /// <summary>
-        ///   查找类似 // ***********************************************
-        ///// jr.Cms.NET Js Libaray  v4.5
-        ///// 发布日期：2014-06-01 18:20
-        ///// ***********************************************
-        ///// 加载示例
-        /////    global.js?hover=navi,clist,alist&amp;ld=：
-        /////    对导航,栏目导航和文档导航设置样式为&quot;current&quot;
-        /////
-        ///function JR() { this.__VERSION__ = &apos;3.1&apos;; this.__WORKPATH__ = &apos;&apos;; this.__Extend_PROTOTYPE__ = true } JR.prototype = { __init__: function () { if (this.__Extend_PROTOTYPE__) { this.__extendingJsPrototype__() } var f = document.getElementsByTagName(&apos;SCRIPT&apos;); var s = [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 if (!window.$b) var $b = $jr;
+        ///
+        ///
+        ///
+        /////设置工作路径
+        ///jr.__WORKPATH__ = &apos;/public/assets/js/&apos;;
+        ///window.j6 = window.jr;
+        ///window.cms = window.j6;
+        ///
+        ///
+        ////****************  页面处理事件 **************/
+        ///var _scripts = document.getElementsByTagName(&apos;SCRIPT&apos;);
+        ///var _sloc = _scripts[_scripts.length - 1].src;                                  //Script Location
+        ///var _hp = {                                                                //Script Handle Params
+        ///    loadUI: jr.request(&apos;ui&apos;, _sloc) == &apos;1&apos;,                               [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string cms_core_min {
+        internal static string cms_core {
             get {
-                return ResourceManager.GetString("cms_core_min", resourceCulture);
+                return ResourceManager.GetString("cms_core", resourceCulture);
             }
         }
         

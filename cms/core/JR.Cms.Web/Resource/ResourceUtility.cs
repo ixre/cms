@@ -29,7 +29,7 @@ namespace JR.Cms.Resource
             html = Regex.Replace(html, ">(\\s)+<", "><");
 
             //替换 //单行注释
-            html = Regex.Replace(html, "[\\s|\\t]*\\/\\/[^\\n]*(?=\\n)", String.Empty);
+            html = Regex.Replace(html, "[^\"|\\s|\\t]*\\/\\/[^\\n]*(?=\\n)", String.Empty);
 
             //替换多行注释
             //const string multCommentPattern = "";
