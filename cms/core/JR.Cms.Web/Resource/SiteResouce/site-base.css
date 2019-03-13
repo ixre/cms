@@ -71,7 +71,23 @@ img{max-width:100%;}
 
 .gra-body-wrap{padding-left:100px;padding-right:100px;}
 
+/** 圆角按钮 */
+.gra-circle-button,.gra-circle-fill-button{border:solid 2px #2699FB;line-height:30px;display:inline-block;
+    font-size:14px;font-weight:bold;padding:0 15px;border-radius:30px;background:#FFF;}
+.gra-circle-button:hover,.gra-circle-button-on,.gra-circle-button-on:hover{background:#2699FB;color:#FFF;}
+.gra-circle-button-small{line-height:24px;font-size:12px;}
 
+.gra-circle-fill-button{background:#2699FB;color:#FFF;}
+.gra-circle-fill-button:visited{color:#FFF;}
+.gra-circle-fill-button:hover{color:#FFF;background:#FFF;color:#2699FB}
+
+/** 气泡 */
+.gra-pop{position:relative;background:#FFF;border-radius:8px;
+    background:#F00;color:#FFF;padding:10px;}
+.gra-pop i{position:absolute;bottom:-10px;left:0;right:0;margin:0 auto; width: 0;height: 0;
+    border-left: 10px solid transparent;border-right: 10px solid transparent;border-top: 10px solid #F00;}
+.gra-pop-dark{background:#333;}
+.gra-pop-dark i{border-top-color:#333}
 
 /* 字体大小 */
 .f1{font-size:1em;}.f075{font-size:0.75em;}.f08{font-size:0.8em;}.f085{font-size:0.85em;}.f09{font-size:0.9em;}

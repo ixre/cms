@@ -32,6 +32,7 @@ namespace JR.Cms
     }
     public static class Cms
     {
+
         /// <summary>
         /// 版本
         /// </summary>

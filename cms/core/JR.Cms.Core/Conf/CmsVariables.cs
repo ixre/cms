@@ -2,7 +2,12 @@
 namespace JR.Cms.Conf
 {
     public class CmsVariables
-    { 
+    {
+        /// <summary>
+        /// 产品
+        /// </summary>
+        public const string PROD = "JRCMS";
+
         /// <summary>
     	/// 版本号
     	/// </summary>
