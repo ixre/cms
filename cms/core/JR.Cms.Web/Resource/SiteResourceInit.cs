@@ -27,7 +27,7 @@ namespace JR.Cms.Resource
             //    comment + SiteResource.cms_core_min, !true);
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.js",
-            comment + SiteResource.base_min, !true);
+            comment + ResourceUtility.CompressHtml(SiteResource.base_min), !true);
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "api.js",
                comment + SiteResource.js_cms_api, !true);

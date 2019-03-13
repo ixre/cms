@@ -51,7 +51,8 @@ namespace JR.Cms.Web
         {
             get
             {
-                return Cms.Version;
+                int i = CmsVariables.VERSION.LastIndexOf(".");
+                return CmsVariables.PROD + " " + CmsVariables.VERSION.Substring(0, i);
             }
         }
 
