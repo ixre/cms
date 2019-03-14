@@ -12,7 +12,6 @@ th,thead,tr,tt,ul,var{  margin:0;padding:0;border:0;outline:0;
     -ms-interpolation-mode:bicubic;}
 strong{font-weight:700}
 html{font-size:62.5%}
-body{font-size:1em}
 body,html{height:100%}:focus{outline:0}
 ol,ul{list-style:none}textarea{resize:none}
 table{border-collapse:collapse;border-spacing:0;empty-cells:show}
@@ -25,10 +24,13 @@ pre{white-space: pre-wrap;}
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}
 input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
-img{max-width:100%;}
+img{max-width:100%;border:0;}
 
+@media only screen and (min-width: 481px) {html {font-size: 94% !important; /* 15.04÷16=94% */ }}
+@media only screen and (min-width: 561px) {html {font-size: 109% !important; /* 17.44÷16=109% */ }}
+@media only screen and (min-width: 641px) {html {font-size: 125% !important; /* 20÷16=125% */}}
 
-/** Response Layout */
+/* Response Layout */
 .container,.container-fluid{padding-right:15px;padding-left:15px;margin:0 auto}
 .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12,
 .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,
@@ -68,10 +70,10 @@ img{max-width:100%;}
 /* clearfix 清除浮动 */
 .container:after,.row:after,.container-fluid:after,.clearfix:after{content:".";display:block;visibility:hidden;height:0;clear:both;}
 .clearfix{zoom:1;}
+.wrapper{padding-left:100px;padding-right:100px;}
+@media(max-width:768px){.wrapper{padding-left:0;padding-right:0}}
 
-.gra-body-wrap{padding-left:100px;padding-right:100px;}
-
-/** 圆角按钮 */
+/* 圆角按钮 */
 .gra-circle-button,.gra-circle-fill-button{border:solid 2px #2699FB;line-height:30px;display:inline-block;
     font-size:14px;font-weight:bold;padding:0 15px;border-radius:30px;background:#FFF;}
 .gra-circle-button:hover,.gra-circle-button-on,.gra-circle-button-on:hover{background:#2699FB;color:#FFF;}
@@ -81,7 +83,7 @@ img{max-width:100%;}
 .gra-circle-fill-button:visited{color:#FFF;}
 .gra-circle-fill-button:hover{color:#2699FB;background:#FFF;color:#2699FB}
 
-/** 气泡 */
+/* 气泡 */
 .gra-pop{position:relative;background:#FFF;border-radius:8px;
     background:#F00;color:#FFF;padding:10px;}
 .gra-pop i{position:absolute;bottom:-10px;left:0;right:0;margin:0 auto; width: 0;height: 0;
@@ -89,16 +91,15 @@ img{max-width:100%;}
 .gra-pop-dark{background:#333;}
 .gra-pop-dark i{border-top-color:#333}
 
-
+/* big-title */
+.gra-big-tit{font-size:1.6em;margin:30px 0;font-weight:400;text-align:center;}
+.gra-big-tit .sub{font-size:0.6em;color:#333;margin:15px 0;color:#666;}
 
 
 /* 字体大小 */
 .f1{font-size:1em;}.f075{font-size:0.75em;}.f08{font-size:0.8em;}.f085{font-size:0.85em;}.f09{font-size:0.9em;}
 .f12{font-size:12px;}.f14{font-size:14px;}.f16{font-size:16px;}
 .block{display:block;}
-
-
-body{font-size:14px;background:#FAFBFC;}
 
 
 .col-1{width:8.333333%}
@@ -114,9 +115,11 @@ body{font-size:14px;background:#FAFBFC;}
 .col-11{width:91.666666%}
 .col-12{width:100%}
 
+/*
 .wrapper{min-width:320px;margin:0 auto}
 .container-top,.wrapper-top{padding-top:41px;}
 .container-btm,.wrapper-btm{padding-bottom:40px;}
+*/
 .typead,.typead div{margin-bottom:0;}
 .typead img{max-width:100%;height:auto;}
 
@@ -424,8 +427,8 @@ a.f{color:#6E6E6E;}
 
 /************  CMS 样式  ****************/
 
-body{font:62.5%/1.5 Sans-Serif,Arial;margin:0;}
-img{border:none;}
+body{font-family:Sans-Serif,Arial;margin:0;}
+
 a{outline:none;}
 table{border-collapse:collapse;border:none;}
 a:link,a:visited{color:#0066ff;}

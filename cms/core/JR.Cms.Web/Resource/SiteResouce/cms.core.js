@@ -188,6 +188,31 @@ $b.event.add(window, 'load', function () {
         });
     });
 
+    // 滚动到目标
+    var scrollLock = 0;
+    $b.$fn(".scoll-to").click(function () {
+        if (scrollLock == 1) return;
+        scrollLock = 1;
+        var target = this.attr("target");
+        if (!target) throw ".scoll-top missing attribute \"target\"";
+        var ele = this;
+        var target = $b.$fn(target);
+        var offset = parseInt(this.attr("offset") || 0);
+        var y = target.attr("offsetTop") + offset;
+        var doc = document.documentElement;
+        var timer = setInterval(function () {
+            var setup = (y - doc.scrollTop) / 5;
+            setup = setup > 0 ? Math.floor(setup) : Math.ceil(setup);
+            if (Math.abs(setup) == 0) {
+                doc.scrollTop = y;
+                clearInterval(timer);
+                scrollLock = 0;
+            } else {
+                doc.scrollTop += setup;
+            }
+        }, 10);
+    });
+
     // 将元素绝对定位
     $b.event.add(document, "scroll", function () {
         var fixedArr = $b.$fn(".dyn-fixed");

@@ -188,7 +188,6 @@ namespace JR.Cms.Domain.Implement.Content.Archive
         {
             int siteId = this.Category.Site().GetAggregaterootId();
             IArchive next = this._archiveRep.GetPreviousArchive(siteId, this.GetAggregaterootId(), true, true);
-
             this.SwapSortNumber(next);
         }
 
@@ -205,8 +204,6 @@ namespace JR.Cms.Domain.Implement.Content.Archive
             }
             this._value.SortNumber = sortN;
             return this.Save();
-           //src.SaveSortNumber();
-            //this.SaveSortNumber();
         }
 
         public string FirstImageUrl
