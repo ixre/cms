@@ -45,6 +45,15 @@ namespace JR.Cms.UnitTest
         }
 
         [TestMethod]
+        public void TestSwapArchiveSortNumber()
+        {
+            IArchive src = this.archiveRepo.GetArchiveById(1, 4);
+            //src.MoveSortUp();
+            src.MoveSortDown();
+            Console.WriteLine("--flag=" + src.Get().Flag);
+        }
+
+        [TestMethod]
         public void TestGetArchive()
         {
             String path = "video_res/SP-001";

@@ -178,7 +178,7 @@
         {
             get
             {
-                return @"SELECT `id`,a.`cat_id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,a.`create_time`,a.sort_number FROM $PREFIX_archive a,
+                return @"SELECT `id`,a.`cat_id`,`str_id`,`alias`,`title`,a.flag,a.`location`,`thumbnail`,a.`create_time`,a.sort_number FROM $PREFIX_archive a,
                                  (SELECT `cat_id`,`sort_number` FROM $PREFIX_archive WHERE `id`=@id LIMIT 0,1) as t
                                  WHERE  (@sameCategory <>1 OR a.`cat_id`=t.`cat_id`) AND a.`sort_number`<t.`sort_number` AND
                                  (@special = 1 OR " + SqlConst.Archive_NotSystemAndHiddenAlias + ")" +

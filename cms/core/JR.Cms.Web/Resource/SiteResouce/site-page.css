@@ -13,17 +13,7 @@ table{border:solid 1px #333;}
 table td{border:solid 1px #333;padding:0 10px;}
 
 
-/* will be deleting */
 
-/* cols 列 */
-.two .col,.three .col,.four .col,.five .col,.six .col,.seven .col,.eight .col{display:inline-block;float:left;}
-.two .col{width:50%;}
-.three .col{width:33.3333%;}
-.four .col{width:25%;}
-.five .col{width:20%;}
-.six .col{width:16.6666%;}
-.seven .col{width:14.2857%;}
-.eight .col{width:12.5%;}
 
 
 /* 全局元素样式 */
