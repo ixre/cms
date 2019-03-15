@@ -84,12 +84,19 @@ img{max-width:100%;border:0;}
 .gra-circle-fill-button:hover{color:#2699FB;background:#FFF;color:#2699FB}
 
 /* 气泡 */
-.gra-pop{position:relative;background:#FFF;border-radius:8px;
-    background:#F00;color:#FFF;padding:10px;}
-.gra-pop i{position:absolute;bottom:-10px;left:0;right:0;margin:0 auto; width: 0;height: 0;
-    border-left: 10px solid transparent;border-right: 10px solid transparent;border-top: 10px solid #F00;}
-.gra-pop-dark{background:#333;}
-.gra-pop-dark i{border-top-color:#333}
+.gra-pop{position:relative;background:#FFE;border-radius:10px;color:#000;padding:10px;}
+.gra-pop-left,.gra-pop-right,.gra-pop-top,.gra-pop-bottom{position:absolute;top:0;bottom:0;
+    left:0;right:0;margin:0 auto;width: 0;height: 0;border:solid 10px transparent;}
+.gra-pop .gra-pop-left,.gra-pop .gra-pop-right{top:calc(50% - 10px);}
+.gra-pop .gra-pop-top{top:-10px;bottom:inherit;border-bottom-color:#FFE;border-top:0;}
+.gra-pop .gra-pop-bottom{bottom:-10px;top:inherit;border-top-color:#FFE;border-bottom:0;}
+.gra-pop .gra-pop-left{left:-10px;right:inherit;border-right-color: #FFE;border-left:0;}
+.gra-pop .gra-pop-right{right:-10px;left:inherit;border-left-color:#FFE;border-right:0;}
+.gra-pop-dark{background:#333;color:#FFF;}
+.gra-pop-dark .gra-pop-left{border-right-color:#333;}
+.gra-pop-dark .gra-pop-right{border-left-color:#333;}
+.gra-pop-dark .gra-pop-top{border-bottom-color:#333;}
+.gra-pop-dark .gra-pop-bottom{border-top-color:#333;}
 
 /* big-title */
 .gra-big-tit{font-size:1.6em;margin:30px 0;font-weight:400;text-align:center;}

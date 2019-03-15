@@ -190,7 +190,7 @@ $b.event.add(window, 'load', function () {
 
     // 滚动到目标
     var scrollLock = 0;
-    $b.$fn(".scoll-to").click(function () {
+    $b.$fn(".scroll-to").click(function () {
         if (scrollLock == 1) return;
         scrollLock = 1;
         var target = this.attr("target");
@@ -210,7 +210,7 @@ $b.event.add(window, 'load', function () {
             } else {
                 doc.scrollTop += setup;
             }
-        }, 10);
+        },10);
     });
 
     // 将元素绝对定位
