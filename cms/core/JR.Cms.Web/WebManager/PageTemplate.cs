@@ -30,7 +30,8 @@ namespace JR.Cms.WebManager
         static ManagerTemplate()
         {
             js = String.Format("<script type=\"text/javascript\" charset=\"utf-8\" src=\"/{0}mui/js/base.js?{1}\"></script>",CmsVariables.FRAMEWORK_PATH,CmsVariables.VERSION);
-            css = "<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + Cms.Version + ".css\"/>";
+            css = "<link src=\"Stylesheet\" type=\"text/css\" href=\"public/mui/css/base.css\"/>\n"
+                +"<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + Cms.Version + ".css\"/>";
             iconTreeCss="<link rel=\"Stylesheet\" type=\"text/css\" href=\"public/mui/css/old/sys_themes/default/btn_spirites.css?v=" + Cms.Version + "\"/>";
         }
 

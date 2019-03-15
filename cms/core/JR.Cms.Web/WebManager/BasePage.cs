@@ -71,7 +71,7 @@ namespace JR.Cms.WebManager
 
         internal static string CompressHtml(string html)
         {
-            //return html;
+            return html;
             html = Regex.Replace(html, ">(\\s)+<", "><");
 
             //替换 //单行注释

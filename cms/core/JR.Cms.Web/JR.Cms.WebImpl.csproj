@@ -195,7 +195,7 @@
     <Compile Include="WebManager\TreeItem.cs" />
     <Compile Include="WebManager\VerifyCodeManager.cs" />
     <Compile Include="WebManager\PermissionAttribute.cs" />
-    <Compile Include="WebManager\ManagerTemplate.cs" />
+    <Compile Include="WebManager\PageTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Cache\JR.Cms.CacheService\JR.Cms.CacheService.csproj">
