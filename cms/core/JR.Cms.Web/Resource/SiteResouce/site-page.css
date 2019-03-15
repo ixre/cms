@@ -8,7 +8,7 @@ a:hover{color:#D50000;}
 .pull{float:left;}
 .push{margin-right:3%;float:left;}
 .arrow{background:url(img/arrow.gif) no-repeat;width:10px;height:10px;display:inline-block;margin-right:3px;}
-.panel{width:1019px;margin:0 auto;font-size:1.2em;}
+/*.panel{width:1019px;margin:0 auto;font-size:1.2em;}*/
 table{border:solid 1px #333;}
 table td{border:solid 1px #333;padding:0 10px;}
 

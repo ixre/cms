@@ -400,6 +400,7 @@
     <Content Include="public\assets\icons\admin\warn.gif" />
     <Content Include="public\assets\images\app_icon.png" />
     <Content Include="public\assets\images\background.gif" />
+    <Content Include="public\assets\images\close.png" />
     <Content Include="public\assets\images\mask.gif" />
     <Content Include="public\assets\images\no_photo.gif" />
     <Content Include="public\assets\js\animation.js" />
@@ -439,6 +440,7 @@
     <Content Include="public\maps.xml" />
     <Content Include="public\maps\custom_build_set.xml" />
     <Content Include="public\maps\management.xml" />
+    <Content Include="public\mui\css\base.css" />
     <Content Include="public\mui\css\index.css" />
     <Content Include="public\mui\css\latest\ajax-loader.gif" />
     <Content Include="public\mui\css\latest\avatar.gif" />
