@@ -28,3 +28,4 @@ output
 /cms/core/JR.Cms.Core/*.user
 .DS_Store
 
+/src/TestResults

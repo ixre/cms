@@ -1,3 +1,0 @@
-﻿User-agent:*
-Disallow:
-Sitemap:http://www.meizhuli.cn/templates/mzl/sitemap.xml
