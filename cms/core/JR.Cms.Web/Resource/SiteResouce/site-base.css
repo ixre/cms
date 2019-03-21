@@ -1,23 +1,26 @@
 ﻿*{box-sizing:border-box}
-
-
 /* ---------- 页面元素定义样式 --------- */
 a,abbr,acronym,address,applet,big,blockquote,body,caption,
 cite,code,dd,del,dfn,div,dl,dt,em,font,form,h1,h2,h3,h4,h5,
 h6,html,i,iframe,img,ins,kbd,label,legend, li,object,ol,p,
 pre,q,s,samp,small,span,strike,strong,table, tbody,td,tfoot,
-th,thead,tr,tt,ul,var{  margin:0;padding:0;border:0;outline:0;
+th,thead,tr,tt,ul,var{margin:0;padding:0;border:0;outline:0;
     font-weight:inherit;font-style:normal;font-family:inherit;
     text-decoration:none;-webkit-text-size-adjust:none;
     -ms-interpolation-mode:bicubic;}
 strong{font-weight:700}
-html{font-size:62.5%}
-body,html{height:100%}:focus{outline:0}
+html{font-size:62.5%;}
+@media only screen and (min-width:361px){html{font-size:70.31%!important}}
+@media only screen and (min-width:376px){html{font-size:73.24%!important;}}
+@media only screen and (min-width: 481px) {html {font-size: 94% !important; /* 15.04÷16=94% */ }}
+@media only screen and (min-width: 561px) {html {font-size: 109% !important; /* 17.44÷16=109% */ }}
+@media only screen and (min-width: 641px) {html {font-size: 125% !important; /* 20÷16=125% */}}
+body,html{height:100%;height:100%;}:focus{outline:0}
 ol,ul{list-style:none}textarea{resize:none}
 table{border-collapse:collapse;border-spacing:0;empty-cells:show}
 template{display:none;visibility:hidden;}
 caption,td,th{font-weight:400}
-h1,h2,h3,h4,h5,h6{font-weight:700}
+h1,h2,h3,h4,h5,h6{font-weight:500;line-height:1.1em;}
 blockquote:after,blockquote:before,q:after,q:before{content:""}
 blockquote,q{quotes:"" ""}
 pre{white-space: pre-wrap;}
@@ -26,9 +29,6 @@ input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}
 input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
 img{max-width:100%;border:0;}
 
-@media only screen and (min-width: 481px) {html {font-size: 94% !important; /* 15.04÷16=94% */ }}
-@media only screen and (min-width: 561px) {html {font-size: 109% !important; /* 17.44÷16=109% */ }}
-@media only screen and (min-width: 641px) {html {font-size: 125% !important; /* 20÷16=125% */}}
 
 /* Response Layout */
 .container,.container-fluid{padding-right:15px;padding-left:15px;margin:0 auto}
@@ -99,8 +99,8 @@ img{max-width:100%;border:0;}
 .gra-pop-dark .gra-pop-bottom{border-top-color:#333;}
 
 /* big-title */
-.gra-big-tit{font-size:1.6em;margin:30px 0;font-weight:400;text-align:center;}
-.gra-big-tit .sub{font-size:0.6em;color:#333;margin:15px 0;color:#666;}
+.gra-big-tit{font-size:1.6em;margin:30px 0;font-weight:500;text-align:center;letter-spacing:1px;}
+.gra-big-tit .sub{font-size:0.65em;color:#333;margin:15px 0;color:#666;line-height:1.5em;}
 
 
 /* 字体大小 */
@@ -191,17 +191,18 @@ a.f{color:#6E6E6E;}
 }
 
 
-/* 对话框 */
-.ui-dialog div{margin-bottom:0;}
-.ui-dialog .dialog-mask{background:#333;opacity:0.5;filter:alpha(opacity=50);}
-.ui-dialog .box {max-width:80%;}
-.ui-dialog .box .con{margin:0;background:#FFF;border-radius:5px;}
-.ui-dialog .box .bottom{display:none;}
-.ui-dialog .ui-alert-message{padding:1.5em 1.5em 0 1.5em;font-size:1em;min-width:200px;color:#666;color:#F00;}
-.ui-dialog .ui-alert-control{text-align:right;padding:0 1em 1em 0;border-radius: 0 0 10px 10px;}
-.ui-dialog .ui-alert-control input{display: inline-block;vertical-align:middle;
-    padding:5px 15px;color:#666;background:none;
-}
+/* 模态框 */
+.gra-modal div{margin-bottom:0;}
+.gra-modal .dialog-mask{background:#333;opacity:0.5;filter:alpha(opacity=50);}
+.gra-modal .title{border-radius:5px 5px 0 0;}
+.gra-modal .box {max-width:80%;border-radius:5px;}
+.gra-modal .box .con{margin:0;background:#FFF;}
+.gra-modal .box .bottom{display:none;}
+.gra-modal .ui-alert-message{padding:1.5em 1.5em 0 1.5em;font-size:1em;min-width:200px;color:#666;color:#F00;}
+.gra-modal .ui-alert-control{text-align:right;padding:0 1em 1em 0;border-radius: 0 0 10px 10px;}
+.gra-modal .ui-alert-control input{display: inline-block;vertical-align:middle;
+    padding:5px 15px;color:#666;background:none;}
+
 @media(max-width:600px){
     .ui-dialog .title{display:none;}
 }
@@ -224,7 +225,7 @@ a.f{color:#6E6E6E;}
 /* gra-btn */
 .gra-btn{color:#FFF;background:#06C;text-align:center;display:block;padding:0 1.5em;border-radius:3px;
     cursor:default;line-height:32px;opacity:0.85;filter:alpha(opacity=85);
-    user-select:none;-moz-user-select:none;-webkit-user-select:none; }
+    user-select:none;-moz-user-select:none;-webkit-user-select:none;border:0; }
 .gra-btn:hover{opacity:1;filter:alpha(opacity=100)}
 .gra-btn a:link,.gra-btn a:visited,.gra-btn button,.gra-btn input{display:block;color:#FFF;}
 .gra-btn a:hover{color:#FFF;}
