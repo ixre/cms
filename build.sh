@@ -26,7 +26,7 @@ echo "1. build dll "
 #echo  /keyfile:%dir%\src\JR.cms.snk>nul
 
 cd ./bin && $exe_dir/merge.exe -closed -ndebug \
-	/keyfile:../cms/jr.cms.snk \
+	/keyfile:../src/jr.cms.snk \
 	/targetplatform:v4 /target:dll /out:../dist/jrcms.dll \
  	JR.Cms.Core.dll JR.Cms.BLL.dll JR.Cms.DAL.dll \
 	JR.Cms.Domain.Interface.dll JR.Cms.CacheService.dll \
@@ -55,7 +55,7 @@ cp dist/jrcms.dll $dll_dir/jrdev* $tmp_dir/public/assemblies
 
 echo "3. package upgrade zip"
 # copy upgrade.xml
-cd $tmp_dir && cp -r $(find $exe_dir/../cms -name "upgrade.xml") ../update
+cd $tmp_dir && cp -r $(find $exe_dir/../src -name "upgrade.xml") ../update
 # copy bin folder
 mv bin/System.Data.SQLite.dll bin/System.Data.SQLite.dll.bak \
 	&& $exe_dir/7z.exe a -tzip ../update/boot.zip bin/*.dll >/dev/null \
