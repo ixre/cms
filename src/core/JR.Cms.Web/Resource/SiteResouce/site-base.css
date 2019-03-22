@@ -317,7 +317,7 @@ a.f{color:#6E6E6E;}
 
 
 /* gra-tab-card / 选项卡 */
-.gra-tab-card{position:relative;height:100%;}
+.gra-tab-card{position:relative;}
 .gra-tab-card ul{list-style:none;padding:0;margin:0;}
 .gra-tab-card .tab{float:left;position:relative;text-align:center;}
 .gra-tab-card .frame{clear: both;display:none;}
