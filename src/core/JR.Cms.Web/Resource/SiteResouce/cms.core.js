@@ -170,22 +170,33 @@ $b.event.add(window, 'load', function () {
     }
 
     // 选项卡
-    $b.$fn(".tab").mouseover(function () {
-        var t = this;
-        var parent = this.parent();
-        var active_i = -1;
-        var active = function (e, b) {
-            if (b) e.addClass("actived");
-            else e.removeClass("actived");
+   
+    $b.$fn(".tab").each(function (i, e) {
+        var tabFN = function () {
+            var t = this;
+            var parent = this.parent();
+            var active_i = -1;
+            var active = function (e, b) {
+                if (b) e.addClass("actived");
+                else e.removeClass("actived");
+            };
+            parent.find(".tab").each(function (i, e) {
+                var same = e.raw() == t.raw();
+                if (same) active_i = i;
+                active(e, same);
+            });
+            while (parent && parent.find(".frame").len() == 0) {
+                parent = parent.parent();
+            }
+            parent.find(".frame").each(function (i, e) {
+                active(e, active_i == i);
+            });
         };
-        parent.find(".tab").each(function (i, e) {
-            var same = e.raw() == t.raw();
-            if (same) active_i = i;
-            active(e, same);
-        });
-        parent.parent().find(".frame").each(function (i, e) {
-            active(e, active_i == i);
-        });
+        if (e.hasClass("tab-hover") && document.documentElement.offsetWidth > 991) {
+            e.mouseover(tabFN);
+        } else {
+            e.click(tabFN);
+        }
     });
 
     // 滚动到目标
