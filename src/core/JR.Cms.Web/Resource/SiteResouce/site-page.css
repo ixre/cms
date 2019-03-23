@@ -1,6 +1,7 @@
 ﻿body{color:#333;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;}
 
 
+/*
 h1{font-size:1.25em;padding:0;padding-bottom:30px;}
 a:link,a:visited{color:#333;}
 a:hover{color:#D50000;}
@@ -8,11 +9,18 @@ a:hover{color:#D50000;}
 .pull{float:left;}
 .push{margin-right:3%;float:left;}
 .arrow{background:url(img/arrow.gif) no-repeat;width:10px;height:10px;display:inline-block;margin-right:3px;}
-/*.panel{width:1019px;margin:0 auto;font-size:1.2em;}*/
 table{border:solid 1px #333;}
 table td{border:solid 1px #333;padding:0 10px;}
+*/
 
-
+/* 混合图文列表 */
+.mod-mix-archive-lists li{position: relative;padding-left:90px;margin-top:15px;border-bottom:dashed 1px #CCC;padding-bottom:15px;}
+.mod-mix-archive-lists li:last-child{border:0;}
+.mod-mix-archive-lists img.thumbnail{width:75px;position: absolute;left:0;top:0;}
+.mod-mix-archive-lists .title{font-weight:400;font-size:1.2em;line-height:1em;display:block;
+    padding-bottom:15px;letter-spacing:.5px;}
+.mod-mix-archive-lists .dt{position: absolute;right:0;top:0;line-height:1em;}
+.mod-mix-archive-lists p{height:3.6em;overflow:hidden;line-height:1.2em;color:#666;font-size:0.9em;}
 
 
 
