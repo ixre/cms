@@ -32,14 +32,12 @@
             </span>&nbsp;&nbsp;${bakinfo}
             &nbsp;<!--<span class="txt">【当前修改文件】:&nbsp;&nbsp;</span>/${file}-->
         </div>
-
         <input type="hidden" id="action" field="action" value="save" />
         <input type="hidden" id="path" field="path" value="${path}" />
         <textarea rows="100" field="content" class="contentarea code" id="ctarea">${raw_content}</textarea>
         <!--
         <div class="bottom"></div>-->
     </div>
-
     $js()
     <script type="text/javascript">
         var editor = document.getElementById('ctarea');
@@ -47,12 +45,12 @@
         editor.style.height = height + "px";
         editor.style.width = (document.documentElement.clientWidth - 14 - 2) + "px";
     </script>
-
     <script src="/public/assets/code_editor/lib/codemirror.js"></script>
     <script src="/public/assets/code_editor/mode/xml/xml.js"></script>
     <script src="/public/assets/code_editor/mode/javascript/javascript.js"></script>
     <script src="/public/assets/code_editor/mode/css/css.js"></script>
     <script src="/public/assets/code_editor/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="/public/assets/emmet/emmet-codemirror-plugin.js"></script>
 
     <script type="text/javascript">
 
@@ -62,7 +60,7 @@
             document.getElementById('action').value = action;
             var data = jr.json.toObject('form1');
             if (coder) {
-               data.content = coder.getValue();
+                data.content = coder.getValue();
             }
 
             jr.xhr.post(location.href, data, function (result) {
@@ -74,15 +72,15 @@
             process('save');
         };
 
-        /*
-        jr.event.add(document, 'keydown', function (event) {
-            var e = window.event || event;
-            //CTRL+S保存
-            if (e.ctrlKey && e.keyCode == 83) {
-                process('save');
-                return jr.event.preventDefault(e);
-            }
-        });*/
+            /*
+            jr.event.add(document, 'keydown', function (event) {
+                var e = window.event || event;
+                //CTRL+S保存
+                if (e.ctrlKey && e.keyCode == 83) {
+                    process('save');
+                    return jr.event.preventDefault(e);
+                }
+            });*/
     </script>
 </body>
 </html>

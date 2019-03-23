@@ -311,7 +311,11 @@ jr.coder = function (id, arg) {
              lineNumbers: _showLineNumber,
              mode: mixedMode,
              tabMode: "indent",
-             indentUnit: 4
+             indentUnit: 4,
+             extraKeys: {
+                 'Tab': 'emmetExpandAbbreviation',
+                 'Enter': 'emmetInsertLineBreak'
+             }
          });
 
     } else if (mode == 'css') {

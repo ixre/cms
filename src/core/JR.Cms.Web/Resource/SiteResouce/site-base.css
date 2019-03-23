@@ -102,6 +102,8 @@ img{max-width:100%;border:0;}
 .gra-big-tit{font-size:1.6em;margin:30px 0;font-weight:500;text-align:center;letter-spacing:1px;}
 .gra-big-tit .sub{font-size:0.65em;color:#333;margin:15px 0;color:#666;line-height:1.5em;}
 
+/* 项目符号 */
+.gra-item-dot{width:3px;height:3px;margin:10px 5px 0 0;background:#000;display:inline-block;float:left;}
 
 /* 字体大小 */
 .f1{font-size:1em;}.f075{font-size:0.75em;}.f08{font-size:0.8em;}.f085{font-size:0.85em;}.f09{font-size:0.9em;}
