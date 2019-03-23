@@ -20,6 +20,6 @@ namespace JR.Cms.Sql
         /// <summary>
         /// 特殊文档
         /// </summary>
-        public const string Archive_Special = "($PREFIX_archive.flag & 1 AND $PREFIX_archive.flag ^ 2)";
+        public const string Archive_Special = "($PREFIX_archive.flag & 1 AND $PREFIX_archive.flag & 2)";
     }
 }

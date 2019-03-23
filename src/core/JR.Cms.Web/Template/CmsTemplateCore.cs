@@ -1179,8 +1179,7 @@ namespace JR.Cms.Template
                     if ((cTotal = childs.Count) != 0)
                     {
                         phtml = phtml.Replace("</li>",
-                            String.Format("<div id=\"{0}_child{1}\" class=\"mod-navigator-child child child{1}\"><div class=\"top\"></div><div class=\"box\">" +
-                                          "<ul class=\"menu\">",
+                            String.Format("<i class=\"nav-arrow\"></i><div id=\"{0}_child{1}\" class=\"mod-navigator-child child child{1}\"><div class=\"top\"></div><div class=\"box\">" +"<ul class=\"menu\">",
                             links[i].Type.ToString().ToLower(),
                             links[i].Id.ToString())
                             );
@@ -1765,17 +1764,17 @@ namespace JR.Cms.Template
         }
 
 
-        protected string Special_Archives(string tag, string num, int skipSize, int splitSize, bool container, string format)
+        protected string Special_Archives(string catPath, string num, int skipSize, int splitSize, bool container, string format)
         {
             int intNum;
             int.TryParse(num, out intNum);
 
             //获取栏目
-            var category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, tag);
+            var category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, catPath);
 
             if (!(category.ID > 0))
             {
-                return String.Format("ERROR:模块或栏目不存在!参数:{0}", tag);
+                return String.Format("ERROR:模块或栏目不存在!参数:{0}", catPath);
             }
 
             ArchiveDto[] dt = ServiceCall.Instance.ArchiveService.GetSpecialArchives(this.SiteId,category.Path,container, intNum, skipSize);
@@ -1796,7 +1795,7 @@ namespace JR.Cms.Template
                 return String.Format("ERROR:模块或栏目不存在!参数:{0}", catPath);
             }
             ArchiveDto[] archives =  ServiceCall.Instance.ArchiveService
-                .GetArchivesByCategoryPath(this.SiteId, catPath,container, intNum, skipSize);
+                .GetArchivesByCategoryPath(this.SiteId, category.Path,container, intNum, skipSize);
 
             return this.ArchiveList(archives, splitSize, format);
         }
