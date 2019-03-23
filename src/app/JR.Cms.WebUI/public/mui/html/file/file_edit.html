@@ -32,7 +32,6 @@
             </span>&nbsp;&nbsp;${bakinfo}
             &nbsp;<!--<span class="txt">【当前修改文件】:&nbsp;&nbsp;</span>/${file}-->
         </div>
-
         <input type="hidden" id="action" field="action" value="save" />
         <input type="hidden" id="path" field="path" value="${path}" />
         <textarea field="content" class="contentarea code" id="ctarea">${raw_content}</textarea>
@@ -48,6 +47,8 @@
     </script>
     <script src="/public/assets/code_editor/lib/codemirror.js"></script>
     <script src="${dependJs}"></script>
+    <script src="/public/assets/emmet/emmet-codemirror-plugin.js"></script>
+
     <script type="text/javascript">
         /*
         var mode='html';

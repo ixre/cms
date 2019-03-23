@@ -366,6 +366,7 @@
     <Content Include="public\assets\editor\themes\qq\editor.gif" />
     <Content Include="public\assets\editor\themes\qq\qq.css" />
     <Content Include="public\assets\editor\themes\simple\simple.css" />
+    <Content Include="public\assets\emmet\emmet-codemirror-plugin.js" />
     <Content Include="public\assets\html5\html5.js" />
     <Content Include="public\assets\html5\html5shiv.min.js" />
     <Content Include="public\assets\html5\PIE.htc" />
