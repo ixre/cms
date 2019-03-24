@@ -557,7 +557,7 @@ window.onload = function () {
     FwTab.initialize();
 
     //添加左右栏改变大小功能
-    new drag(splitDiv, window).custom(null, 'w-resize', (function (ld, rd, sd, minWidth, maxWidth) {
+    new dragObject(splitDiv, window).custom(null, 'w-resize', (function (ld, rd, sd, minWidth, maxWidth) {
         return function (event) {
             //显示遮罩层以支持drag
             frameShadowDiv.className = frameShadowDiv.className.replace(' hidden', '');
