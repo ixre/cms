@@ -226,16 +226,20 @@ $b.event.add(window, 'load', function () {
 
     // 将元素绝对定位
     $b.event.add(document, "scroll", function () {
-        var fixedArr = $b.$fn(".dyn-fixed");
+        var fixedArr = $b.$fn(".scroll-link");
         var scrollTop = document.documentElement.scrollTop;
         fixedArr.each(function (i, e) {
             var top = e.attr("offsetTop") + e.parent().attr("offsetTop");
             if (scrollTop > top) {
-                var left = e.attr("offsetLeft");
-                var width = e.attr("offsetWidth");
-                e.css({ position: "fixed", top:"0",left: left + "px", width: width + "px" });
+                if (e.css().position != "fixed") {
+                    var left = e.attr("offsetLeft");
+                    var width = e.attr("offsetWidth");
+                    e.css({ position: "fixed", top: "0", left: left + "px", width: width + "px" });
+                    e.addClass("scroll-linked");
+                }
             } else {
-                e.css({ position: "inherit", top: "inherit", left:"inherit", width: "inherit" });
+                e.css({ position: "inherit", top: "inherit", left: "inherit", width: "inherit" });
+                e.removeClass("scroll-linked");
             }
         });
     });

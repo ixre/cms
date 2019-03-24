@@ -367,9 +367,12 @@
     <Content Include="public\assets\editor\themes\qq\qq.css" />
     <Content Include="public\assets\editor\themes\simple\simple.css" />
     <Content Include="public\assets\emmet\emmet-codemirror-plugin.js" />
+    <Content Include="public\assets\fonts\font-awesome.min.css" />
+    <Content Include="public\assets\fonts\fontawesome-webfont.svg" />
     <Content Include="public\assets\html5\html5.js" />
     <Content Include="public\assets\html5\html5shiv.min.js" />
     <Content Include="public\assets\html5\PIE.htc" />
+    <Content Include="public\assets\icon-font.css" />
     <Content Include="public\assets\icons\admin\add.gif" />
     <Content Include="public\assets\icons\admin\back_1.gif" />
     <Content Include="public\assets\icons\admin\book.gif" />
@@ -441,7 +444,6 @@
     <Content Include="public\maps.xml" />
     <Content Include="public\maps\custom_build_set.xml" />
     <Content Include="public\maps\management.xml" />
-    <Content Include="public\mui\css\base.css" />
     <Content Include="public\mui\css\index.css" />
     <Content Include="public\mui\css\latest\ajax-loader.gif" />
     <Content Include="public\mui\css\latest\avatar.gif" />
@@ -587,6 +589,13 @@
     <Content Include="templates\default\include\side_bar.phtml" />
     <Content Include="%24server\server.bat" />
     <None Include="config\cms.conf.bak" />
+    <Content Include="public\assets\fonts\comic.ttf" />
+    <Content Include="public\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="public\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="public\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="public\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="public\assets\fonts\FontAwesome.otf" />
+    <Content Include="public\assets\fonts\georgia.ttf" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
