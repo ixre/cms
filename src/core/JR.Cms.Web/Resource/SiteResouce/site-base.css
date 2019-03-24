@@ -101,9 +101,59 @@ img{max-width:100%;border:0;}
 /* big-title */
 .gra-big-tit{font-size:1.6em;margin:30px 0;font-weight:500;text-align:center;letter-spacing:1px;}
 .gra-big-tit .sub{font-size:0.65em;color:#333;margin:15px 0;color:#666;line-height:1.5em;}
+/* 输入框 */
+.gra-text-box{border:solid 1px #C0C0C0;line-height:24px;padding:0 5px;}
+.gra-text-box:focus{outline:solid 2px #2699FB;outline-offset:-2px;box-shadow:0 0 3px rgba(0,0,0,0.3);background:#FFE;}
+
+/* gra-btn */
+.gra-btn{color:#FFF;background:#06C;text-align:center;display:block;padding:0 1.5em;border-radius:3px;
+    cursor:default;line-height:32px;opacity:0.85;filter:alpha(opacity=85);
+    user-select:none;-moz-user-select:none;-webkit-user-select:none;border:0; }
+.gra-btn:hover{opacity:1;filter:alpha(opacity=100)}
+.gra-btn a:link,.gra-btn a:visited,.gra-btn button,.gra-btn input{display:block;color:#FFF;}
+.gra-btn a:hover{color:#FFF;text-decoration:none;}
+/* gra-btn-inline */
+.gra-btn-inline{display:inline-block;padding:0 12px;}
+/* gra-btn-a */
+.gra-btn-a{display:inline-block;line-height:2em;padding:0 25px;color:#FFF;background:#2D83DA;margin-right: 5px;}
+.gra-btn-a:hover{color:#FFF;background:#06C;}
+/* gra-btn-div */
+.gra-btn-div{cursor:default;display:inline-block;line-height:2em;padding:0 25px;
+    color:#FFF;background:#2D83DA;margin-right: 5px;margin-bottom:0;}
+.gra-btn-div:hover{color:#FFF;background:#06C}
+.gra-btn-div a{display:block;}
+.gra-btn-div:hover,.gra-btn-a:hover,.gra-btn a:hover{text-decoration:none;}
 
 /* 项目符号 */
 .gra-item-dot{width:3px;height:3px;margin:10px 5px 0 0;background:#000;display:inline-block;float:left;}
+
+/* mod-n-form 表单 */
+/*.mod-form>(.field>label.label{label$}+(.col>input.text.gra-text-box+br+i.desc{请填写内容}))*3*/
+.mod-form *{vertical-align:middle;}
+.mod-form .group{margin-bottom:2em;border:solid 0px #ddd;background:#FFF;}
+.mod-form .title{line-height:2em;padding:1em;font-size:1.2em;color:#888;}
+.mod-form .field{padding:0 0 15px 0;}
+.mod-form .field div,.mod-form .field p{display:inline-block;}
+.mod-form .label{margin-right: 15px;}
+
+/* 模态框 */
+.gra-modal .mask,.gra-modal .modal{position:fixed;top:0;left:0;right:0;bottom:0;margin:auto;z-index:99999;}
+.gra-modal .mask{background:#000;z-index:99998;opacity:0.5;filter:alpha(opacity=50)}
+.gra-modal .modal{background:#FFF;padding:0;box-shadow:0 0 30px rgba(0,0,0,0.3);}
+.gra-modal .close{position:absolute;right:0;top:0;width:45px;padding:10px 12.5px;}
+.gra-modal .close i{width:20px;}
+.gra-modal .title{text-align:center;line-height:45px;font-size:16px;letter-spacing:.5px;font-weight:400;border-bottom:solid 1px #EAEAEA;color:#AAA}
+.gra-modal .content{padding:15px;}
+.gra-modal .bottom{display:none;}
+.gra-modal .ui-alert-message{padding:1.5em 1.5em 0 1.5em;font-size:1em;min-width:200px;color:#666;color:#F00;}
+.gra-modal .ui-alert-control{text-align:right;padding:0 1em 1em 0;border-radius: 0 0 10px 10px;}
+.gra-modal .ui-alert-control input{display: inline-block;vertical-align:middle;
+    padding:5px 15px;color:#666;background:none;}
+@media(max-width:600px){
+    .gra-modal .title{display:none;}
+}
+
+
 
 /* 字体大小 */
 .f1{font-size:1em;}.f075{font-size:0.75em;}.f08{font-size:0.8em;}.f085{font-size:0.85em;}.f09{font-size:0.9em;}
@@ -193,24 +243,6 @@ a.f{color:#6E6E6E;}
 }
 
 
-/* 模态框 */
-.gra-modal .mask,.gra-modal .modal{position:fixed;top:0;left:0;right:0;bottom:0;margin:auto;z-index:99999;}
-.gra-modal .mask{background:#FFF;z-index:99998;opacity:0.5;filter:alpha(opacity=50)}
-.gra-modal .modal{background:#FFF;padding:0;box-shadow:0 0 30px rgba(0,0,0,0.3);}
-.gra-modal .close{position:absolute;right:0;top:0;width:45px;padding:10px 12.5px;}
-.gra-modal .close i{width:20px;}
-.gra-modal .title{text-align:center;line-height:45px;font-size:16px;letter-spacing:.5px;font-weight:400;border-bottom:solid 1px #EAEAEA;color:#AAA}
-.gra-modal .content{padding:15px;}
-.gra-modal .bottom{display:none;}
-.gra-modal .ui-alert-message{padding:1.5em 1.5em 0 1.5em;font-size:1em;min-width:200px;color:#666;color:#F00;}
-.gra-modal .ui-alert-control{text-align:right;padding:0 1em 1em 0;border-radius: 0 0 10px 10px;}
-.gra-modal .ui-alert-control input{display: inline-block;vertical-align:middle;
-    padding:5px 15px;color:#666;background:none;}
-@media(max-width:600px){
-    .gra-modal .title{display:none;}
-}
-
-
 /* ---------- 公共元素 ---------- */
 
 /* gb-label-text */
@@ -225,26 +257,6 @@ a.f{color:#6E6E6E;}
 .gra-float-l{float:left;}
 .gra-float-r{float:right;}
 
-/* gra-btn */
-.gra-btn{color:#FFF;background:#06C;text-align:center;display:block;padding:0 1.5em;border-radius:3px;
-    cursor:default;line-height:32px;opacity:0.85;filter:alpha(opacity=85);
-    user-select:none;-moz-user-select:none;-webkit-user-select:none;border:0; }
-.gra-btn:hover{opacity:1;filter:alpha(opacity=100)}
-.gra-btn a:link,.gra-btn a:visited,.gra-btn button,.gra-btn input{display:block;color:#FFF;}
-.gra-btn a:hover{color:#FFF;}
-
-/* gra-btn-inline */
-.gra-btn-inline{display:inline-block;padding:0 12px;}
-
-/* gra-btn-a */
-.gra-btn-a{display:inline-block;line-height:2em;padding:0 25px;color:#FFF;background:#2D83DA;margin-right: 5px;}
-.gra-btn-a:hover{color:#FFF;background:#06C}
-
-/* gra-btn-div */
-.gra-btn-div{cursor:default;display:inline-block;line-height:2em;padding:0 25px;
-    color:#FFF;background:#2D83DA;margin-right: 5px;margin-bottom:0;}
-.gra-btn-div:hover{color:#FFF;background:#06C}
-.gra-btn-div a{display:block;}
 
 /* gra-btn-upload */
 .gra-btn-upload{position:relative;background:#F0F0F0;border:solid 1px #CCC;display:inline-block;line-height:25px;}
@@ -302,13 +314,14 @@ a.f{color:#6E6E6E;}
 .gra-hr{border-top:solid 1px #ddd;}
 
 /* gra-form / 表单 */
+
+/*
 .gra-form-field{position:relative;vertical-align: middle;margin-bottom:1em;line-height:30px;}
 .gra-form-field .gra-form-label{font-weight:400;}
 @media(min-width:600px){
-    .gra-form-field *{/*! width:inherit; */}
     .gra-form-field .gra-form-label{width:90px;text-align:right;float:left;}
     .gra-form-field .gra-form-col{margin-left:100px;}
-}
+}*/
 
 /* gra-toolbar / 工具条 */
 .gra-toolbar{line-height: 30px;margin-bottom:1em;}

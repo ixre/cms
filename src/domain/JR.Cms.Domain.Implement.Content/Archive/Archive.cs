@@ -250,11 +250,16 @@ namespace JR.Cms.Domain.Implement.Content.Archive
             }
         }
 
+       
 
-        public string StrId
+        /// <summary>
+        /// 组合文档路径
+        /// </summary>
+        /// <returns></returns>
+        private String CombineArchivePath()
         {
-            get;
-            private set;
+            String alias = String.IsNullOrEmpty(this._value.Alias) ? this._value.StrId : this._value.Alias;
+            return String.Concat(this.Category.Get().Path, "/", alias);
         }
 
         /// <summary>
@@ -268,8 +273,7 @@ namespace JR.Cms.Domain.Implement.Content.Archive
                 this._value.Path = this._value.Location;
                 return;
             }
-            String alias = String.IsNullOrEmpty(this._value.Alias) ? this.StrId : this._value.Alias;
-            this._value.Path = String.Concat(this.Category.Get().Path,"/", alias);
+            this._value.Path = this.CombineArchivePath();
         }
 
         public CmsArchiveEntity Get()
@@ -316,11 +320,14 @@ namespace JR.Cms.Domain.Implement.Content.Archive
                 this._value.SiteId = src.SiteId;
                 this._value.CatId = src.CatId;
                 this._value.CreateTime = unix;
+                // 生成5位随机ID
                 string strId;
                 do
                 {
                     strId = IdGenerator.GetNext(5);              //创建5位ID
                 } while (this._archiveRep.CheckSidIsExist(this._value.SiteId, strId));
+                this._value.StrId = strId;
+
             }
             ICategory ic = this.Category;
             if (ic == null)
@@ -330,8 +337,8 @@ namespace JR.Cms.Domain.Implement.Content.Archive
             // 如果设置了别名，检测路径是缶匹配
             if (!String.IsNullOrEmpty(src.Alias))
             {
-                bool isMatch = this._archiveRep.CheckPathMatch(this._value.SiteId,
-                    ic.Get().Path+"/"+src.Alias, this.GetAggregaterootId());
+                String path = this.CombineArchivePath();
+                bool isMatch = this._archiveRep.CheckPathMatch(this._value.SiteId,path, this.GetAggregaterootId());
                 if (!isMatch)
                 {
                     return new Error("文档路径已存在");

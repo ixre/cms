@@ -144,10 +144,10 @@ opacity:0.1;filter:alpha(opacity=10);}
 .ui-dialog .box .title .txt{padding-left:25px;background:url(blocks.gif) left center no-repeat;}
 .ui-dialog .box .close{cursor:pointer;position:absolute;right:0;top:0;font-family:Arial;color:#000;padding:0 12px;font-size:16px;
                             background:url(tab_close.gif) center center no-repeat;text-indent:-99em}
-.ui-dialog .box .content{margin:0 5px 5px 5px;background:#fff;border:solid 1px #d0d0d0}
+.ui-dialog .box .content{margin:0 5px 5px 5px;padding:0;background:#fff;border:solid 1px #d0d0d0}
 .ui-dialog .box .bottom{display:none;}
 .ui-dialog .ui-alert-message{padding:1em;font-size:1em;min-width:200px;font-weight: bold;color:#F00}
-.ui-dialog .ui-alert-control{background:#EEE;text-align:right;padding:5px;border-top:solid 1px #ddd;}
+.ui-dialog .ui-alert-control{background:#EEE;text-align:right;padding:0 5px;line-height:30px;border-top:solid 1px #ddd;}
 .ui-dialog .ui-alert-control input{border:solid 1px #FFF;border-color: #ADB1B8 #A2A6AC #8D9096;
     border-radius:3px;display: inline-block;vertical-align:middle;
     background:transparent linear-gradient(to bottom, #F7F8FA, #E7E9EC);height:100%;
