@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<upgrade version="3.2.019" build="20190310" patch="update5.zip">
+<upgrade version="3.2.020" build="20190310" patch="update9.zip">
 <![CDATA[
 
 1.修改栏目树无法重新加载的BUG
