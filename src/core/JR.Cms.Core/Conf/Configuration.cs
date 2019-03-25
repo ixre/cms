@@ -66,8 +66,6 @@ namespace JR.Cms.Conf
         internal static string Load(string filePath)
         {
             CmsConfigFile = filePath;
-
-
             //从配置文件中加载
             SettingFile sf = new SettingFile(CmsConfigFile);
             Settings.loaded = true;
@@ -191,22 +189,7 @@ namespace JR.Cms.Conf
             }
 
             if (settingChanged) sf.Flush();
-
-
             return String.Empty;
-
-            /*
-        }
-        catch (Exception ex)
-        {
-            const string strtpl = "配置文件不正确，请检查！位置:{0}。{1}";
-            string _file = filePath.Replace("/", "\\").Replace("\\\\", "\\");
-
-            return string.Format(strtpl, _file,
-               ex.GetType() == typeof(ArgumentOutOfRangeException) ? "此错误可能因为缺少系统所需的配置而引发。" :
-               string.Empty
-               );
-        }*/
         }
 
 
@@ -383,9 +366,7 @@ namespace JR.Cms.Conf
                     FileEncoder.DecodeFile(confPath, confPath, CmsVariables.FileEncodeHeader,
                         CmsVariables.FileEncodeToken);
                 }
-
                 Configuration.Load(confPath);
-
                 if (isEncoded || Settings.SYS_ENCODE_CONF_FILE)
                 {
                     FileEncoder.EncodeFile(confPath, confPath, CmsVariables.FileEncodeHeader,
