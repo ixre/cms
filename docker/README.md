@@ -15,3 +15,18 @@ docker run -d -p 80:80 --volume=$(pwd)/config:/cms/config \
   --volume=$(pwd)/plugins:/cms/plugins --volume=$(pwd)/uploads:/cms/uploads \
   --restart always jarry6/jrcms
 ```
+
+# Add nginx proxy
+```
+server {
+    listen                80;
+    server_name           localhost;
+    client_max_body_size  1024m;
+    location / {
+        proxy_pass   http://host:8081;
+        proxy_set_header Host $host;
+        proxy_set_header   X-Real-IP        $remote_addr;
+        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+    }
+}
+```
