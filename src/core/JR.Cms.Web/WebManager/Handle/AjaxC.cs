@@ -291,7 +291,7 @@ namespace JR.Cms.Web.WebManager.Handle
                 #endregion
 
 
-            netx:
+                netx:
                 j = 0;
 
                 sb.Append("]}");
@@ -333,9 +333,9 @@ namespace JR.Cms.Web.WebManager.Handle
             base.Response.Write(
                 upgradeTpl.Replace("%result%", result.FetchCode.ToString())
                 .Replace("%msg%", message.Replace("\"", "\\\""))
-                .Replace("%ver%", result.Version??"")
-                .Replace("%build%",result.Build??"")
-                .Replace("%log%", (result.ChangeLog??"").TrimStart()
+                .Replace("%ver%", result.Version ?? "")
+                .Replace("%build%", result.Build ?? "")
+                .Replace("%log%", (result.ChangeLog ?? "").TrimStart()
                 .Replace("\"", "\\\"")
                 .Replace("\n", "<br />").Replace("\r", ""))
             );
@@ -420,14 +420,14 @@ namespace JR.Cms.Web.WebManager.Handle
             int intSiteId = 0;
             int.TryParse(Request["site_id"], out intSiteId);
             String catPath = null;
-            if(catId > 0)
+            if (catId > 0)
             {
                 CategoryDto c = ServiceCall.Instance.SiteService.GetCategory(intSiteId, catId);
                 catPath = c.Path;
             }
             StringBuilder strBuilder = new StringBuilder(500);
             IEnumerable<ArchiveDto> list = ServiceCall.Instance.ArchiveService
-                .SearchArchives(intSiteId,catPath,onlyTitle, key,
+                .SearchArchives(intSiteId, catPath, onlyTitle, key,
                 int.Parse(size),
                 1,
                  out count,
@@ -487,20 +487,20 @@ namespace JR.Cms.Web.WebManager.Handle
         /// <returns></returns>
         public string CategoryNodes_GET()
         {
-            String nodeJson = Kvdb.Gca.Get(Consts.NODE_TREE_JSON_KEY);
+            int siteId;
+            if (Request["site_id"] != null)
+            {
+                int.TryParse(Request["site_id"], out siteId);
+            }
+            else
+            {
+                siteId = this.SiteId;
+            }
+            String key = Consts.NODE_TREE_JSON_KEY + ":" + siteId.ToString();
+            String nodeJson = Kvdb.Gca.Get(key);
             if (String.IsNullOrEmpty(nodeJson))
             {
                 TreeNode node;
-                int siteId;
-                if (Request["site_id"] != null)
-                {
-                    int.TryParse(Request["site_id"], out siteId);
-                }
-                else
-                {
-                    siteId = this.SiteId;
-                }
-
                 if (Request["root"] == "true")
                 {
                     node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
@@ -512,7 +512,7 @@ namespace JR.Cms.Web.WebManager.Handle
                 try
                 {
                     nodeJson = JsonSerializer.Serialize(node);
-                    Kvdb.Gca.Put(Consts.NODE_TREE_JSON_KEY, nodeJson);
+                    Kvdb.Gca.Put(key, nodeJson);
                 }
                 catch (Exception exc)
                 {
