@@ -55,7 +55,7 @@ ADD COLUMN `update_time` INT NOT NULL COMMENT '修改时间' AFTER `create_time`
 
 
 UPDATE cms_archive set alias=str_id WHERE alias='';
-update cms_archive set path=CONCAT((SELECT distinct(path) FROM cms_category where id=cat_id),"/",alias) WHERE path = '';
+update cms_archive set path=CONCAT((SELECT distinct(path) FROM cms_category where id=cat_id),"/",IFNULL(alias,str_id)) WHERE path = '';
 
 -------------------------------------------
 

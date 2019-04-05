@@ -149,6 +149,8 @@ namespace JR.Cms.Web.WebManager.Handle
             }
             Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
             int categoryId = Convert.ToInt32(r.Data["CategoryId"]);
+            String key = Consts.NODE_TREE_JSON_KEY + ":" + this.SiteId.ToString();
+            Kvdb.Gca.Delete(key);
             return base.ReturnSuccess(null, categoryId.ToString());
         }
 
@@ -163,7 +165,8 @@ namespace JR.Cms.Web.WebManager.Handle
             try
             {
                 ServiceCall.Instance.SiteService.MoveCategorySortNumber(this.SiteId, id, di);
-                Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
+                String key = Consts.NODE_TREE_JSON_KEY + ":" + this.SiteId.ToString();
+                Kvdb.Gca.Delete(key);
                 base.RenderSuccess();
             }
             catch (Exception exc)
@@ -302,7 +305,8 @@ namespace JR.Cms.Web.WebManager.Handle
             {
                 return base.ReturnError(r.ErrMsg);
             }
-            Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
+            String key = Consts.NODE_TREE_JSON_KEY + ":" + this.SiteId.ToString();
+            Kvdb.Gca.Delete(key);
             return base.ReturnSuccess("保存成功!");
         }
 
@@ -316,7 +320,8 @@ namespace JR.Cms.Web.WebManager.Handle
             JR.Cms.Infrastructure.Error err = ServiceCall.Instance.SiteService.DeleteCategory(this.SiteId, categoryId);
             if (err == null)
             {
-                Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
+                String key = Consts.NODE_TREE_JSON_KEY + ":" + this.SiteId.ToString();
+                Kvdb.Gca.Delete(key);
                 return base.ReturnSuccess();
             }
             return base.ReturnError(err.Message);
