@@ -29,7 +29,7 @@ RUN apt-get update -y && apt-get install -y --fix-missing wget unzip mono-fastcg
 				&& make install && cd .. && rm -rf nginx-* 
 				
 RUN echo "3. Install cms program" \
-	&& wget -O cms.zip http://s.to2.net/jrcms_latest?date=20190324 \
+	&& wget -O cms.zip http://s.to2.net/jrcms_latest?date=20190403 \
 	&& unzip cms.zip && rm -f cms.zip \
 	&& mkdir -p /var/cms && cp -r templates plugins /var/cms \
 	&& rm -rf *server \
