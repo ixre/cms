@@ -26,10 +26,11 @@ namespace JR.Cms.Core
             _lang = new LanguagePackage();
             _lang.LoadFromXml(ResourceMap.XmlLangPackage);
             // 加载系统内置的
-            //LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
             // 加载自定义的配置
-           // LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale");
+            this.LoadSiteLocaleXml();
 
+            //todo: 为何这里要加载JSON格式
             //加载JSON格式语言
             LoadFromFile(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH+"locale/locale.db");
             LoadFromFile( Cms.PyhicPath + CmsVariables.SITE_LOCALE_PATH);
@@ -55,6 +56,21 @@ namespace JR.Cms.Core
            */
         }
 
+        private void LoadSiteLocaleXml()
+        {
+            String dir = Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir).Create();
+                DirectoryInfo target = new DirectoryInfo(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
+                foreach (FileInfo fi in target.GetFiles())
+                {
+                    File.Copy(fi.FullName, dir+"/" + fi.Name, true); 
+                }
+            }
+            this.LoadLocaleXml(dir);
+        }
+
         private void LoadFromFile(string file)
         {
             if (File.Exists(file))
@@ -70,7 +86,6 @@ namespace JR.Cms.Core
         /// <summary>
         /// 加载系统内置的语言配置文件
         /// </summary>
-        [Obsolete]
         private void LoadLocaleXml(string dirPath)
         {
             DirectoryInfo dir = new DirectoryInfo(dirPath);

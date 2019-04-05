@@ -441,6 +441,14 @@
     <Content Include="public\assets\tree\img\trash.gif" />
     <Content Include="public\assets\ui-min.js" />
     <Content Include="public\demo\mui_override.js" />
+    <Content Include="public\locale\ar.xml" />
+    <Content Include="public\locale\en.xml" />
+    <Content Include="public\locale\es.xml" />
+    <Content Include="public\locale\fr.xml" />
+    <Content Include="public\locale\ru.xml" />
+    <Content Include="public\locale\th.xml" />
+    <Content Include="public\locale\zh_cn.xml" />
+    <Content Include="public\locale\zh_tw.xml" />
     <Content Include="public\maps.xml" />
     <Content Include="public\maps\custom_build_set.xml" />
     <Content Include="public\maps\management.xml" />
