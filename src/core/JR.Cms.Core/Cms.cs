@@ -199,9 +199,6 @@ namespace JR.Cms
             {
                 RunAtMono = true;
             }
-
-
-
             //初始化
             Plugins = new CmsPluginContext();
             Template = new CmsTemplate();

@@ -49,7 +49,6 @@ namespace JR.Cms.Domain.Interface.Common.Language
                 foreach (XmlNode node in nodes)
                 {
                     dict.Clear();
-
                     if (node.Attributes != null)
                     {
                         foreach (XmlAttribute xa in node.Attributes)
@@ -60,12 +59,9 @@ namespace JR.Cms.Domain.Interface.Common.Language
                                 dict.Add(lang, xa.Value);
                             }
                         }
-
                         strKey = node.Attributes["key"].Value;
-
                         if (System.Enum.IsDefined(langKeyType, strKey))
                         {
-
                             langKey = (LanguagePackageKey)System.Enum.Parse(langKeyType, strKey, true);
                             this.Add(langKey, dict);
                         }
