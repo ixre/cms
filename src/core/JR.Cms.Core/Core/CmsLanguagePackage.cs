@@ -25,14 +25,14 @@ namespace JR.Cms.Core
         {
             _lang = new LanguagePackage();
             _lang.LoadFromXml(ResourceMap.XmlLangPackage);
-            // 加载系统内置的
-            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
-            // 加载自定义的配置
-            this.LoadSiteLocaleXml();
-
-            //todo: 为何这里要加载JSON格式
+            //todo: 加载自定义的配置,已经过时为了兼容以前数据
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale");
+            
             //加载JSON格式语言
             LoadFromFile(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH+"locale/locale.db");
+            // 加载系统内置的
+            LoadLocaleXml(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
+            // 加载用户通过界面添加的本地化资源
             LoadFromFile( Cms.PyhicPath + CmsVariables.SITE_LOCALE_PATH);
 
 
@@ -54,21 +54,6 @@ namespace JR.Cms.Core
 
            dict.Add(Languages.Zh_CN, "上一页");
            */
-        }
-
-        private void LoadSiteLocaleXml()
-        {
-            String dir = Cms.PyhicPath + CmsVariables.SITE_CONF_PATH + "locale";
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir).Create();
-                DirectoryInfo target = new DirectoryInfo(Cms.PyhicPath + CmsVariables.FRAMEWORK_PATH + "locale");
-                foreach (FileInfo fi in target.GetFiles())
-                {
-                    File.Copy(fi.FullName, dir+"/" + fi.Name, true); 
-                }
-            }
-            this.LoadLocaleXml(dir);
         }
 
         private void LoadFromFile(string file)
