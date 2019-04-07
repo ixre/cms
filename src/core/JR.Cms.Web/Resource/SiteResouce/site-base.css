@@ -153,6 +153,14 @@ img{max-width:100%;border:0;}
     .gra-modal .title{display:none;}
 }
 
+/* 播放器，配合video.js使用*/
+.mod-player{position:relative;}
+.mod-player-mark,.mod-player-mask{position: absolute;top:0;right:0;z-index:1;}
+.mod-player-mask{left:0;bottom:30px;background:#FFF;filter:alpha(opacity=0);opacity:0;z-index:1;}
+.mod-player-mark{color:#FFF;font-size:10px;right:1em;height:1em;}
+.mod-player .vjs-big-play-button{z-index:2;border-radius:0 !important;left:0 !important;right:0 !important;
+    top:0 !important;bottom:0 !important;margin:auto;}
+
 
 
 /* 字体大小 */
