@@ -49,9 +49,7 @@ namespace JR.Cms.Sql
         /// 删除文档
         /// </summary>
         public readonly string Archive_Delete = @"DELETE FROM $PREFIX_archive
-                                WHERE id in (SELECT id FROM (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
-                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
-                                WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
+                                WHERE $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.id=@id";
 
         /// <summary>
         /// 检查别名是否存在

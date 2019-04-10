@@ -229,20 +229,23 @@ $js()
             }
         };
 
-        Fn.batchDel = function() {
-            if (ckList.length === 0) {
-                alert('请先选择文档');
-            } else if (confirm('确定删除吗?删除后将不可恢复!')) {
-                jr.xhr.jsonPost('?', 'xhr=1&module=archive&action=batch_delete&id_array=' + ckList.join(','),
-                    function(json) {
-                        if (!json.result) {
-                            showErr('部分文档删除失败！原因：'+json.message);
-                        }
-                        _dg.reload();
+    Fn.batchDel = function () {
+        if (ckList.length === 0) {
+            $b.dialog.alert("请先选择文档");
+            return false;
+        }
+        $b.dialog.confirm("确定删除吗?删除后将不可恢复!", function (r) {
+            if (!r) return;
+            jr.xhr.jsonPost('?', 'xhr=1&module=archive&action=batch_delete&id_array=' + ckList.join(','),
+                function (json) {
+                    if (!json.result) {
+                        showErr('部分文档删除失败！原因：' + json.message);
                     }
-                );
-            }
-        };
+                    _dg.reload();
+                }
+            );
+        });
+    };
 
         var fullCk = jr.$('ck_full_select');
         fullCk.checked = false;
@@ -303,19 +306,20 @@ $js()
 
             //删除文档
             del: function (id) {
-                if (confirm('确定删除吗?删除后将不可恢复!')) {
+                $b.dialog.confirm("确定删除吗?删除后将不可恢复!", function (r) {
+                    if (!r) return;
                     jr.xhr.jsonPost('?', 'xhr=1&module=archive&action=delete&archive.id=' + id,
-                    function (json) {
-                        if (json.result) {
-                            jr.$('pl').innerHTML = '';
-                            _dg.reload();
+                        function (json) {
+                            if (json.result) {
+                                jr.$('pl').innerHTML = '';
+                                _dg.reload();
+                            }
+                            else {
+                                showErr(json.message);
+                            }
                         }
-                        else {
-                            showErr(json.message);
-                        }
-                    }
                     );
-                }
+                });
             },
             forword:function(id){
                 var d = jr.dialog.create2("文档转发", true, true);

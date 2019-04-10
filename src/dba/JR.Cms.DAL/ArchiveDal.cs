@@ -86,15 +86,11 @@ namespace JR.Cms.Dal
         /// <param name="archiveId"></param>
         public void RePublish(int siteId, int archiveId)
         {
-            var pa = new object[,]{
-                {"@create_time",TimeUtils.Unix()},
-                {"@id", archiveId},
-                {"@siteId",siteId}
-        };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-
-            base.ExecuteNonQuery(
-                base.NewQuery(DbSql.ArchiveRepublish, parameters));
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@create_time", TimeUtils.Unix());
+            data.Add("@id", archiveId);
+            data.Add("@siteId", siteId);
+            base.ExecuteNonQuery(base.CreateQuery(DbSql.ArchiveRepublish, data));
         }
 
 
@@ -104,13 +100,10 @@ namespace JR.Cms.Dal
         /// <param name="id"></param>
         public void Delete(int siteId, int id)
         {
-            base.ExecuteNonQuery(
-                base.NewQuery(DbSql.Archive_Delete,
-                base.Db.CreateParametersFromArray(
-                     new object[,]{
-                        {"@siteId",siteId},
-                        {"@id", id}
-                     })));
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", siteId);
+            data.Add("@id", id);
+            base.ExecuteNonQuery(base.CreateQuery(DbSql.Archive_Delete, data));
         }
 
         /// <summary>
@@ -118,17 +111,12 @@ namespace JR.Cms.Dal
         /// </summary>
         /// <param name="alias"></param>
         /// <returns></returns>
-        public bool CheckAliasIsExist(int siteID, string alias)
+        public bool CheckAliasIsExist(int siteId, string alias)
         {
-            var pa = new object[,]{
-                        {"@siteId",siteID},
-                        {"@alias", alias}
-                     };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-
-            return base.ExecuteScalar(
-                base.NewQuery(DbSql.Archive_CheckAliasIsExist, parameters)
-                ) != null;
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", siteId);
+            data.Add("@alias", alias);
+            return base.ExecuteScalar(base.CreateQuery(DbSql.Archive_CheckAliasIsExist, data)) != null;
         }
 
 
@@ -139,15 +127,11 @@ namespace JR.Cms.Dal
         /// <param name="number"></param>
         public void AddViewCount(int siteId, int id, int count)
         {
-            var pa = new object[,]{
-                     {"@siteId",siteId},
-                {"@Count", count},
-                {"@id", id}
-                 };
-            var parameters = base.Db.CreateParametersFromArray(pa);
-
-            base.ExecuteNonQuery(base.NewQuery(DbSql.Archive_AddViewCount, parameters)
-                );
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", siteId);
+            data.Add("@count", count);
+            data.Add("@id", id);
+            base.ExecuteNonQuery(base.CreateQuery(DbSql.Archive_AddViewCount, data));
         }
 
         public int GetMaxArchiveId(int siteId)
@@ -179,18 +163,11 @@ namespace JR.Cms.Dal
 
         public void GetArchiveById(int siteId, int archiveId, DataReaderFunc func)
         {
-            var pa = new object[,]{
-                        {"@siteId",siteId},
-                        {"@id", archiveId}
-            };
-
-            var parameters = base.Db.CreateParametersFromArray(pa);
-
-            base.ExecuteReader(
-                   base.NewQuery(DbSql.Archive_GetArchiveById, parameters)
-                       ,
-                   func
-                   );
+            IDictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("@siteId", siteId);
+            data.Add("@id", archiveId);
+            SqlQuery query = base.CreateQuery(DbSql.Archive_GetArchiveById, data);
+            base.ExecuteReader(query, func);
         }
 
         public DataTable GetAllArchives()
