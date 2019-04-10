@@ -322,7 +322,8 @@ $js()
 
             var file = tr.getElementsByTagName('TD')[0].childNodes[0].getAttribute('file');
 
-            if (confirm('删除后无法恢复,确定要删除 "' + file + '" 吗,?')) {
+            $b.dialog.confirm("删除后无法恢复,确定要删除 \"" + file + "\" 吗?", function (r) {
+                if (!r) return;
                 var isDir = type == 'dir' ? 1 : 0;
                 jr.xhr.post(fm_handler, 'act=del&dir='
                     + encodeURIComponent(curdir) + '&isdir=' + isDir + '&file='
@@ -338,7 +339,7 @@ $js()
                     }, function () {
                         _this.tip('删除失败' + (isDir == 1 ? ',目录不为空或' : '') + '无权限删除!', true);
                     });
-            }
+            });
         },
         rename: function (t, type) {
             var _this = this;

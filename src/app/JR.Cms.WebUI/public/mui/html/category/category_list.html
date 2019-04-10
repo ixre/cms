@@ -179,17 +179,18 @@ window.menu = {
               }
           });
     },
-    del: function(id) {
-        if (confirm('确定删除吗?删除后将不可恢复!')) {
+    del: function (id) {
+        $b.dialog.confirm("确定删除吗?删除后将不可恢复!", function (r) {
+            if (!r) return;
             jr.xhr.jsonPost('?', 'xhr=1&module=category&action=delete&category_id=' + id,
-                function(json) {
+                function (json) {
                     if (json.result) {
                         _reloadTree();
                     } else {
                         showErr(json.message);
                     }
                 });
-        }
+        });
     }
 };
 

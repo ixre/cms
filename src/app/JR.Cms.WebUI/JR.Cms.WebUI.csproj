@@ -96,14 +96,6 @@
     <Compile Include="_Boot\__ResolveAppDomain.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\locale\ar.xml" />
-    <Content Include="config\locale\en.xml" />
-    <Content Include="config\locale\es.xml" />
-    <Content Include="config\locale\fr.xml" />
-    <Content Include="config\locale\ru.xml" />
-    <Content Include="config\locale\th.xml" />
-    <Content Include="config\locale\zh_cn.xml" />
-    <Content Include="config\locale\zh_tw.xml" />
     <Content Include="config\s1\tags.conf" />
     <Content Include="config\s2\tags.conf" />
     <Content Include="config\site_1\mui_override.js" />
