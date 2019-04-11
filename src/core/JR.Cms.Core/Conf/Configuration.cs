@@ -230,7 +230,7 @@ namespace JR.Cms.Conf
                     sf["sys_admin_tag"] = Settings.SYS_ADMIN_TAG;
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
                     sf["sql_profile_trace"] = Settings.SQL_PROFILE_TRACE ? "true" : "false";
-                    sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME.ToString());
+                    sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME?"true":"false");
                     sf["sys_autowww"] = Settings.SYS_AUTOWWW ? "true" : "false";
 
                     //虚拟路径

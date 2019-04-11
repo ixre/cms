@@ -24,7 +24,7 @@ using JR.Cms.WebManager;
 using JR.DevFw.Utils;
 using JR.Cms.Web.Util;
 
-namespace JR.Cms.Handler
+namespace JR.Cms.Handler_
 {
 
     public class EditorUploadHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
@@ -109,11 +109,20 @@ namespace JR.Cms.Handler
 			if (!Directory.Exists(dirPath)) {
 				Directory.CreateDirectory(dirPath);
 			}
-            String newFileName = UploadUtils.GetUploadFileName(context.Request);
-			//String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
-			String filePath = dirPath + newFileName;
+            String originName = UploadUtils.GetUploadFileName(context.Request);
+            String newFileName = originName + fileExt;
+            //String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
 
-			imgFile.SaveAs(filePath);
+            // 自动将重复的名称命名
+            String targetPath = dirPath + newFileName;
+            int i = 0;
+            while (File.Exists(targetPath))
+            {
+                i++;
+                newFileName =  String.Format("{0}_{1}{2}",originName, i.ToString(), fileExt);
+                targetPath = dirPath + newFileName;
+            }
+            imgFile.SaveAs(targetPath);
 
 			String fileUrl = saveUrl + newFileName;
 
@@ -267,6 +276,7 @@ namespace JR.Cms.Handler
 			for (int i = 0; i < fileList.Length; i++)
 			{
 				FileInfo file = new FileInfo(fileList[i]);
+                if (file.Extension.Equals(""))continue;
 				Hashtable hash = new Hashtable();
 				hash["is_dir"] = false;
 				hash["has_file"] = false;

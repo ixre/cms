@@ -58,9 +58,9 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="jrcms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="jrcms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=15b089995eecb56b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dist\jrcms.dll</HintPath>
+      <HintPath>..\dist\jrcms.dll</HintPath>
     </Reference>
     <Reference Include="jrdev">
       <HintPath>..\..\refrence.dll\jrdev.dll</HintPath>
@@ -88,7 +88,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)\bin\debug\boot.dll ..\..\..\..\dist\</PostBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)\bin\debug\boot.dll ..\..\..\dist\</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
