@@ -22,11 +22,12 @@ using System.Collections.Generic;
 using JR.Cms.Conf;
 using JR.Cms.WebManager;
 using JR.DevFw.Utils;
+using JR.Cms.Web.Util;
 
 namespace JR.Cms.Handler
 {
 
-    public class EditorUploadHandler2 : IHttpHandler, System.Web.SessionState.IRequiresSessionState
+    public class EditorUploadHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
 	{
 		private HttpContext context;
 
@@ -36,14 +37,11 @@ namespace JR.Cms.Handler
 			
 			string siteId=Logic.CurrentSite.SiteId.ToString();
 			//文件保存目录路径
-			String savePath =String.Format("/{0}s{1}/",CmsVariables.RESOURCE_PATH, siteId);
+			String savePath =String.Format("/{0}{1}/",CmsVariables.RESOURCE_PATH, siteId);
 
 			//文件保存目录URL
 			string appPath=Cms.Context.ApplicationPath;
-			String saveUrl = String.Format("{0}/{1}s{2}/",
-                appPath=="/"?"":appPath,
-                CmsVariables.RESOURCE_PATH,
-                siteId);
+			String saveUrl = String.Format("{0}/{1}{2}/",appPath=="/"?"":appPath, CmsVariables.RESOURCE_PATH,siteId);
 
 			//定义允许上传的文件扩展名
 			Hashtable extTable = new Hashtable();
@@ -111,8 +109,8 @@ namespace JR.Cms.Handler
 			if (!Directory.Exists(dirPath)) {
 				Directory.CreateDirectory(dirPath);
 			}
-
-			String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
+            String newFileName = UploadUtils.GetUploadFileName(context.Request);
+			//String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
 			String filePath = dirPath + newFileName;
 
 			imgFile.SaveAs(filePath);
@@ -148,7 +146,7 @@ namespace JR.Cms.Handler
 		}
 	}
 	
-	public class EditorFileManager2 : IHttpHandler,System.Web.SessionState.IRequiresSessionState
+	public class EditorFileManager : IHttpHandler,System.Web.SessionState.IRequiresSessionState
 	{
 		public void ProcessRequest(HttpContext context)
 		{
@@ -157,12 +155,11 @@ namespace JR.Cms.Handler
 			string siteId = Logic.CurrentSite.SiteId.ToString();
 			
 			//根目录路径，相对路径
-			String rootPath = String.Format("{0}s{1}/", CmsVariables.RESOURCE_PATH,siteId);
+			String rootPath = String.Format("{0}{1}/", CmsVariables.RESOURCE_PATH,siteId);
 			//根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
 			string appPath=Cms.Context.ApplicationPath;
-			String rootUrl =String.Format("{0}/{1}s{2}/",appPath=="/"?"":appPath,
-                CmsVariables.RESOURCE_PATH,
-                siteId);
+			String rootUrl =String.Format("{0}/{1}{2}/",appPath=="/"?"":appPath,
+                CmsVariables.RESOURCE_PATH, siteId);
 			
 			//图片扩展名
 			String fileTypes = "gif,jpg,jpeg,png,bmp";

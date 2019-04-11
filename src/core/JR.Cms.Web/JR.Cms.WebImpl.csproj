@@ -135,6 +135,7 @@
     <Compile Include="Export\ExportHandle.cs" />
     <Compile Include="FileExplor.cs" />
     <Compile Include="Json\JsonSerializer.cs" />
+    <Compile Include="WebManager\KingEditor.cs" />
     <Compile Include="Locale.cs" />
     <Compile Include="Mvc\Controllers\CmsController.cs" />
     <Compile Include="Mvc\Controllers\CmsInstallHandler.cs" />

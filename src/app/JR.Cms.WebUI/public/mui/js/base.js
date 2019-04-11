@@ -256,7 +256,7 @@ jr.propertyUpload = function (id, id2) {
     window['pro_upload_' + id] = jr.upload({
         id: id,
         debug: !true,
-        url: '?module=upload&action=uploadfile&for=pro&upload.id=pro_upload_' + id,
+        url: '?module=upload&action=uploadPropertyFile&upload.id=pro_upload_' + id,
         exts: '*.jpg;*.gif;*.png;*.jpeg;*.7z;*.rar;*.zip;*.pdf;*.xls;*.doc;*.docx;*.ppt;*.flv;*.wmv;*.mp3;*.mp4'
     }, function (result, data) {
         if (result) {
