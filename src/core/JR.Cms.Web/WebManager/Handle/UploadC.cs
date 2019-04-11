@@ -36,7 +36,7 @@ namespace JR.Cms.Web.WebManager.Handle
         {
             string uploadfor = base.Request["for"];
             //string id = base.Request["upload.id"];
-            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "image");
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "image",true);
             string name = UploadUtils.GetUploadFileName(base.Request, uploadfor);
             UploadResultResponse(dir, name,false); 
         }
@@ -62,7 +62,7 @@ namespace JR.Cms.Web.WebManager.Handle
         {
             string uploadfor = base.Request["for"];
             //string id = base.Request["upload.id"];
-            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "thumb_cat");
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "thumb_cat",false);
             string name = UploadUtils.GetUploadFileRawName(base.Request);
             UploadResultResponse(dir, name, true);
 
@@ -74,7 +74,7 @@ namespace JR.Cms.Web.WebManager.Handle
         /// </summary>
         public void UploadArchiveThumb_POST()
         {
-            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "thumb_ar");
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "thumb_ar",true);
             string name = UploadUtils.GetUploadFileName(base.Request, "");
             UploadResultResponse(dir, name, true);
         }
@@ -86,7 +86,7 @@ namespace JR.Cms.Web.WebManager.Handle
         public void UploadPropertyFile_POST()
         {
             DateTime dt = DateTime.Now;
-            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "prop");
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "prop",true);
             string name = UploadUtils.GetUploadFileName(base.Request, "");
             UploadResultResponse(dir, name, true);
         }
@@ -99,7 +99,7 @@ namespace JR.Cms.Web.WebManager.Handle
             string uploadfor = base.Request["for"];
             string id = base.Request["upload.id"];
             DateTime dt = DateTime.Now;
-            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "file");
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "file",true);
             string name = UploadUtils.GetUploadFileName(base.Request, "");
             UploadResultResponse(dir, name, false);
         }

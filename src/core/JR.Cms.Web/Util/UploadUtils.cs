@@ -16,8 +16,13 @@ namespace JR.Cms.Web.Util
         /// <param name="siteId"></param>
         /// <param name="fileType"></param>
         /// <returns></returns>
-        public static string GetUploadDirPath(int siteId, string fileType)
+        public static string GetUploadDirPath(int siteId, string fileType,bool joinDate)
         {
+            if (!joinDate)
+            {
+                return String.Format("/{0}{1}/{2}/", CmsVariables.RESOURCE_PATH,
+                  siteId.ToString(), fileType);
+            }
             return string.Format("/{0}{1}/{2}/{3:yyyyMM}/", CmsVariables.RESOURCE_PATH,
                 siteId.ToString(), fileType, DateTime.Now);
         }
