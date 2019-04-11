@@ -73,8 +73,8 @@ namespace JR.Cms.Web.WebManager.Handle
             }
 
             ViewData["version"] = Cms.Version;
-            ViewData["logo"] = Cms.BuildSet.Get(BuildSet.SystemLogo);
-            ViewData["entryFrameUrl"] = Cms.BuildSet.Get(BuildSet.EntryFrameUrl);
+            ViewData["logo"] = Cms.BuildOEM.Get(BuildSet.SystemLogo);
+            ViewData["entryFrameUrl"] = Cms.BuildOEM.Get(BuildSet.EntryFrameUrl);
             ViewData["path"] = GetPath();
             ViewData["admin_path"] = Settings.SYS_ADMIN_TAG;
             ViewData["site_id"] = currentSite.SiteId;

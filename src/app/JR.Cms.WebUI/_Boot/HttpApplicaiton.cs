@@ -94,7 +94,7 @@ namespace JR.Cms
                 }
                 catch (Exception ex)
                 {
-                    throw exc;
+                    throw ex;
                 }
                 finally
                 {

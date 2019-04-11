@@ -41,7 +41,7 @@ cd ./bin && $exe_dir/merge.exe -closed -ndebug \
 echo "2. prepare files"
 
 cd $(find . -path "*/JR.Cms.WebUI") && \
-	cp -r \$server install plugins public \
+	cp -r \$server install plugins public oem \
 	Global.asax Web.config $tmp_dir &&\
 	cp -r templates/default $tmp_dir/templates/ &&\
 	sed -i 's/compilation debug="true"/compilation debug="false"/g' $tmp_dir/Web.config &&\
@@ -62,7 +62,7 @@ mv bin/System.Data.SQLite.dll bin/System.Data.SQLite.dll.bak \
 	&& mv  bin/System.Data.SQLite.dll.bak  bin/System.Data.SQLite.dll
 # copy update folders
 $exe_dir/7z.exe a -tzip ../update/update.zip public \
-	plugins README.md LICENSE >/dev/null
+	plugins oem README.md LICENSE >/dev/null
 
 echo "4. package all" 
 $exe_dir/7z.exe a -tzip ../jrcms-dist-latest.zip * >/dev/null

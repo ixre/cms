@@ -80,7 +80,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CmsMapping.cs" />
     <Compile Include="Conf\CmsVariables.cs" />
     <Compile Include="Conf\Configuration.cs" />
     <Compile Include="Conf\LangReader.cs" />
@@ -89,7 +88,7 @@
     <Compile Include="Conf\WebConfig.cs" />
     <Compile Include="Core\CmsException.cs" />
     <Compile Include="Core\CmsLanguagePackage.cs" />
-    <Compile Include="Core\CustomBuildSet.cs" />
+    <Compile Include="Core\BuildOEMConfig.cs" />
     <Compile Include="Core\Plugins\CmsPlugin.cs" />
     <Compile Include="Core\Plugins\CmsPluginContext.cs" />
     <Compile Include="Core\Plugins\PortalPlugin.cs" />

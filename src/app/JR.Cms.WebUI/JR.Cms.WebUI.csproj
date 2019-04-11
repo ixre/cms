@@ -448,9 +448,10 @@
     <Content Include="public\locale\th.xml" />
     <Content Include="public\locale\zh_cn.xml" />
     <Content Include="public\locale\zh_tw.xml" />
-    <Content Include="public\maps.xml" />
-    <Content Include="public\maps\custom_build_set.xml" />
-    <Content Include="public\maps\management.xml" />
+    <Content Include="oem\meta.xml" />
+    <Content Include="oem\registry\build_set.xml" />
+    <Content Include="public\registry\build_set.xml" />
+    <Content Include="public\registry_meta.xml" />
     <Content Include="public\mui\css\index.css" />
     <Content Include="public\mui\css\latest\ajax-loader.gif" />
     <Content Include="public\mui\css\latest\avatar.gif" />
@@ -550,6 +551,7 @@
     <Content Include="public\mui\html\user\user_save_profile.html" />
     <Content Include="public\mui\js\base.js" />
     <Content Include="public\mui\js\base_new.js" />
+    <Content Include="public\registry\manager_set.xml" />
     <Content Include="templates\default\archive.html" />
     <Content Include="templates\default\category.html" />
     <Content Include="templates\default\css\default\bg_ver-line-01.png" />
@@ -603,6 +605,7 @@
     <Content Include="public\assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="public\assets\fonts\FontAwesome.otf" />
     <Content Include="public\assets\fonts\georgia.ttf" />
+    <Content Include="oem\OEM_README.md" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -648,7 +651,9 @@
       <Name>JR.Cms.Service</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="oem\root\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

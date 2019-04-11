@@ -43,7 +43,7 @@ COPY nginx.conf /usr/local/nginx/conf
 
 # 创建一个本地主机或其他容器的挂载点。
 VOLUME ["/cms/config","/cms/templates","/cms/plugins",\
-	"/cms/uploads","/cms/data"]
+	"/cms/oem","/cms/uploads","/cms/data"]
 
 # 暴露端口
 EXPOSE 80
@@ -64,6 +64,7 @@ CMD ["sh","/docker-boot.sh"]
 # 	--volume=$(pwd)/config:/cms/config \
 # 	--volume=$(pwd)/data:/cms/data \
 # 	--volume=$(pwd)/templates:/cms/templates \
+#       --volume=$(pwd)/oem:/cms/oem \
 # 	--volume=$(pwd)/plugins:/cms/plugins \
 # 	--volume=$(pwd)/uploads:/cms/uploads \
 # 	jarry6/jrcms
