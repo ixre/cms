@@ -26,12 +26,13 @@ using JR.Cms.DataTransfer;
 using JR.Cms.Utility;
 using JR.Cms.WebManager;
 using JR.DevFw.Framework.Web.UI;
+using JR.DevFw.Utils;
 
 namespace JR.Cms.Web.WebManager.Handle
 {
     public class SystemC : BasePage
     {
-
+        private static FontFamily font = null;
         internal string GetPath()
         {
             //如请求路径为/opsite/admin
@@ -275,7 +276,7 @@ namespace JR.Cms.Web.WebManager.Handle
             VerifyCodeGenerator v = new VerifyCodeGenerator();
             try
             {
-                FontFamily f = VerifyCodeGenerator.GetFontFamily();
+                FontFamily f = this.GetCodeFontFamily();
                 Font font = new Font(f, 16);
                 v.AllowRepeat = false;
                 Response.BinaryWrite(v.GraphicDrawImage(4,
@@ -291,6 +292,15 @@ namespace JR.Cms.Web.WebManager.Handle
             {
                 throw exc;
             }
+        }
+
+        private FontFamily GetCodeFontFamily()
+        {
+            if(font == null)
+            {
+                font = DevFw.Utils.Util.LoadFontFamily(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/georgia.ttf");
+            }
+            return font;
         }
 
         /// <summary>
