@@ -456,7 +456,6 @@ namespace JR.Cms.Web.WebManager.Handle
                     //是否调试
                     Settings.OPTI_DEBUG_MODE = req["opti_debug"] == "on";
                     Settings.SYS_USE_UPLOAD_RAW_NAME = req["sys_use_upload_raw_path"] == "on";
-
                     Settings.SERVER_STATIC_ENABLED = req["server_static_enabled"] == "on";
 
                     if (!String.IsNullOrEmpty(req["server_static"]))

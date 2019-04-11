@@ -34,7 +34,7 @@ namespace JR.Cms.Web.Util
             if (Settings.SYS_USE_UPLOAD_RAW_NAME) return GetUploadFileRawName(request);
             // 使用自动化名称
             DateTime dt = DateTime.Now;
-            return String.Format("{0}{1:ddHHffff}{2}",
+            return String.Format("{0}{1:ddHHss}_{2}",
             String.IsNullOrEmpty(uploadfor) ? "" : uploadfor + "_",
             dt, String.Empty.RandomLetters(4));
         }
@@ -50,7 +50,7 @@ namespace JR.Cms.Web.Util
             // 使用原始名称
             if (Settings.SYS_USE_UPLOAD_RAW_NAME) return GetUploadFileRawName(request);
             // 使用自动化名称
-            return String.Format("{0:ddHHffff}{1}", DateTime.Now, String.Empty.RandomLetters(4));
+            return String.Format("{0:ddHHss}_{1}", DateTime.Now, String.Empty.RandomLetters(4));
         }
 
         /// <summary>

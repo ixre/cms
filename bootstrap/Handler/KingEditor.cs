@@ -1,6 +1,6 @@
 ﻿/*
  * Created by SharpDevelop.
- * User: newmin
+ * UserBll: newmin
  * Date: 2013/12/14
  * Time: 10:33
  * 
@@ -14,18 +14,19 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Text.RegularExpressions;
 using System.Web;
-using JR.Cms;
+using System.IO;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using JR.Cms.Conf;
 using JR.Cms.WebManager;
 using JR.DevFw.Utils;
+using JR.Cms.Web.Util;
 
 namespace JR.Cms.Handler
 {
+
     public class EditorUploadHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
     {
         private HttpContext context;
@@ -36,12 +37,11 @@ namespace JR.Cms.Handler
 
             string siteId = Logic.CurrentSite.SiteId.ToString();
             //文件保存目录路径
-            String savePath = String.Format("/{0}s{1}/", CmsVariables.RESOURCE_PATH,siteId);
+            String savePath = String.Format("/{0}{1}/", CmsVariables.RESOURCE_PATH, siteId);
 
             //文件保存目录URL
             string appPath = Cms.Context.ApplicationPath;
-            String saveUrl = String.Format("{0}/{1}s{2}/", appPath == "/" ? "" : appPath, 
-                CmsVariables.RESOURCE_PATH,siteId);
+            String saveUrl = String.Format("{0}/{1}{2}/", appPath == "/" ? "" : appPath, CmsVariables.RESOURCE_PATH, siteId);
 
             //定义允许上传的文件扩展名
             Hashtable extTable = new Hashtable();
@@ -89,15 +89,14 @@ namespace JR.Cms.Handler
             String fileName = imgFile.FileName;
             String fileExt = Path.GetExtension(fileName).ToLower();
 
-            if (imgFile.InputStream.Length > maxSize)
+            if (imgFile.InputStream == null || imgFile.InputStream.Length > maxSize)
             {
                 showError("上传文件大小超过限制。");
             }
 
-            if (String.IsNullOrEmpty(fileExt) ||
-                Array.IndexOf(((String) extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
+            if (String.IsNullOrEmpty(fileExt) || Array.IndexOf(((String)extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
             {
-                showError("上传文件扩展名是不允许的扩展名。\n只允许" + ((String) extTable[dirName]) + "格式。");
+                showError("上传文件扩展名是不允许的扩展名。\n只允许" + ((String)extTable[dirName]) + "格式。");
             }
 
             //创建文件夹
@@ -114,12 +113,20 @@ namespace JR.Cms.Handler
             {
                 Directory.CreateDirectory(dirPath);
             }
+            String originName = UploadUtils.GetUploadFileName(context.Request);
+            String newFileName = originName + fileExt;
+            //String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
 
-            String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) +
-                                 fileExt;
-            String filePath = dirPath + newFileName;
-
-            imgFile.SaveAs(filePath);
+            // 自动将重复的名称命名
+            String targetPath = dirPath + newFileName;
+            int i = 0;
+            while (File.Exists(targetPath))
+            {
+                i++;
+                newFileName = String.Format("{0}_{1}{2}", originName, i.ToString(), fileExt);
+                targetPath = dirPath + newFileName;
+            }
+            imgFile.SaveAs(targetPath);
 
             String fileUrl = saveUrl + newFileName;
 
@@ -145,7 +152,10 @@ namespace JR.Cms.Handler
 
         public bool IsReusable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
     }
 
@@ -155,14 +165,14 @@ namespace JR.Cms.Handler
         {
             String aspxUrl = context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
 
-            string siteID = Logic.CurrentSite.SiteId.ToString();
+            string siteId = Logic.CurrentSite.SiteId.ToString();
 
             //根目录路径，相对路径
-            String rootPath = String.Format("{0}s{1}/", CmsVariables.RESOURCE_PATH,siteID);
+            String rootPath = String.Format("{0}{1}/", CmsVariables.RESOURCE_PATH, siteId);
             //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
             string appPath = Cms.Context.ApplicationPath;
-            String rootUrl = String.Format("{0}/{1}s{2}/", appPath == "/" ? "" : appPath, 
-                CmsVariables.RESOURCE_PATH, siteID);
+            String rootUrl = String.Format("{0}/{1}{2}/", appPath == "/" ? "" : appPath,
+                CmsVariables.RESOURCE_PATH, siteId);
 
             //图片扩展名
             String fileTypes = "gif,jpg,jpeg,png,bmp";
@@ -273,6 +283,7 @@ namespace JR.Cms.Handler
             for (int i = 0; i < fileList.Length; i++)
             {
                 FileInfo file = new FileInfo(fileList[i]);
+                if (file.Extension.Equals("")) continue;
                 Hashtable hash = new Hashtable();
                 hash["is_dir"] = false;
                 hash["has_file"] = false;
@@ -371,7 +382,15 @@ namespace JR.Cms.Handler
 
         public bool IsReusable
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
     }
+
 }
+
+
+
+
