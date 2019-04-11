@@ -50,7 +50,7 @@ namespace JR.Cms.Web.Task
 
         private static void RegistDropMemoryTask()
         {
-            if (Settings.Opti_GC_Collect_Interval <= 0) 
+            if (Settings.opti_gc_collect_interval <= 0) 
                 return;
 
             service.Sington.RegistContinuTasks(() =>
@@ -61,7 +61,7 @@ namespace JR.Cms.Web.Task
             }, (client, task, message) =>
             {
 
-            },Settings.Opti_GC_Collect_Interval);   //2小时
+            },Settings.opti_gc_collect_interval);   //2小时
         }
 
         static void box_OnNotifing(object data, string message)

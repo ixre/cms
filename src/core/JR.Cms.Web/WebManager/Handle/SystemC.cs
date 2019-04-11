@@ -129,7 +129,7 @@ namespace JR.Cms.Web.WebManager.Handle
                 path = GetPath(),
                 shortServer = "//" + Server.ShortUrlServer,
                 soft_ver = Cms.Version,
-                sys_alias = Settings.License_NAME, // + "(KEY:" + Settings.SYS_KEY + ")",
+                sys_alias = Settings.LICENSE_NAME, // + "(KEY:" + Settings.SYS_KEY + ")",
                 server_name = HttpContext.Current.Server.MachineName,
                 server_os = Environment.OSVersion.VersionString,
                 server_local = CultureInfo.InstalledUICulture.EnglishName,
@@ -401,22 +401,23 @@ namespace JR.Cms.Web.WebManager.Handle
         {
             object data = new
             {
-                license_name = Settings.License_NAME,
-                license_key = Settings.License_KEY,
+                license_name = Settings.LICENSE_NAME,
+                license_key = Settings.LICENSE_KEY,
                 site_domain = Request.Url.Host,
                 sys_autowww = Settings.SYS_AUTOWWW,
                 sys_admin_tag = Settings.SYS_ADMIN_TAG,
                 sys_encode_conf = Settings.SYS_ENCODE_CONF_FILE,
                 db_prefix = Settings.DB_PREFIX,
-                opti_IndexCacheSeconds = (Settings.Opti_IndexCacheSeconds / 60).ToString(),
-                opti_ClientCacheSeconds = (Settings.Opti_ClientCacheSeconds / 60).ToString(),
-                Opti_GC_Collect_Interval = (Settings.Opti_GC_Collect_Interval / 3600000),
-                opti_debug = Settings.Opti_Debug,
+                opti_index_cache_seconds = (Settings.Opti_IndexCacheSeconds / 60).ToString(),
+                opti_client_cache_seconds = (Settings.Opti_ClientCacheSeconds / 60).ToString(),
+                opti_gc_collect_interval = (Settings.opti_gc_collect_interval / 3600000),
+                opti_debug = Settings.OPTI_DEBUG_MODE,
+                sys_use_upload_raw_path = Settings.SYS_USE_UPLOAD_RAW_NAME,
                 server_static = Settings.SERVER_STATIC,
                 server_upgrade = Settings.SERVER_UPGRADE,
                 server_static_enabled = Settings.SERVER_STATIC_ENABLED,
-                tpl_usefullpath = Settings.TPL_UseFullPath,
-                tpl_usecompress = Settings.TPL_UseCompress
+                tpl_full_url_path = Settings.TPL_FULL_URL_PATH,
+                tpl_use_compress = Settings.TPL_USE_COMPRESS
 
             };
             base.RenderTemplate(ResourceMap.GetPageContent(ManagementPage.App_Config), new
@@ -433,14 +434,14 @@ namespace JR.Cms.Web.WebManager.Handle
             switch (item)
             {
                 case "1":
-                    Settings.License_KEY = req["license_key"];
-                    Settings.License_NAME = req["license_name"];
+                    Settings.LICENSE_KEY = req["license_key"];
+                    Settings.LICENSE_NAME = req["license_name"];
                     Settings.SYS_AUTOWWW = req["sys_autowww"] == "1";
                     Settings.SYS_ENCODE_CONF_FILE = req["sys_encode_conf"] == "on";
                     Settings.SQL_PROFILE_TRACE = req["sql_profile_trace"] == "on";
                     Settings.DB_PREFIX = req["db_prefix"];
-                    Settings.TPL_UseCompress = req["tpl_usecompress"] == "on";
-                    Settings.TPL_UseFullPath = req["tpl_usefullpath"] == "on";
+                    Settings.TPL_USE_COMPRESS = req["tpl_use_compress"] == "on";
+                    Settings.TPL_FULL_URL_PATH = req["tpl_full_url_path"] == "on";
 
                     if (!String.IsNullOrEmpty(req["sys_admin_tag"]))
                     {
@@ -448,12 +449,13 @@ namespace JR.Cms.Web.WebManager.Handle
                     }
 
                     //缓存
-                    Settings.Opti_IndexCacheSeconds = int.Parse(req["opti_IndexCacheSeconds"]) * 60;
-                    Settings.Opti_ClientCacheSeconds = int.Parse(req["opti_ClientCacheSeconds"]) * 60;
-                    Settings.Opti_GC_Collect_Interval = int.Parse(req["Opti_GC_Collect_Interval"]) * 3600000;
+                    Settings.Opti_IndexCacheSeconds = int.Parse(req["opti_index_cache_seconds"]) * 60;
+                    Settings.Opti_ClientCacheSeconds = int.Parse(req["opti_client_cache_seconds"]) * 60;
+                    Settings.opti_gc_collect_interval = int.Parse(req["opti_gc_collect_interval"]) * 3600000;
 
                     //是否调试
-                    Settings.Opti_Debug = req["opti_debug"] == "on";
+                    Settings.OPTI_DEBUG_MODE = req["opti_debug"] == "on";
+                    Settings.SYS_USE_UPLOAD_RAW_NAME = req["sys_use_upload_raw_path"] == "on";
 
                     Settings.SERVER_STATIC_ENABLED = req["server_static_enabled"] == "on";
 

@@ -31,7 +31,7 @@ namespace JR.Cms.Web
         
         private static string FormatUrl(UrlRulePageKeys key, params string[] datas)
         {
-            string urlFormat = (Settings.TPL_UseFullPath ?
+            string urlFormat = (Settings.TPL_FULL_URL_PATH ?
                 Cms.Context.SiteDomain+"/" : Cms.Context.SiteAppPath)
                 + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)key];
             return datas == null ? urlFormat : String.Format(urlFormat, datas);
@@ -82,7 +82,7 @@ namespace JR.Cms.Web
             get{
                 if (this._url == null)
                 {
-                    String prefix = (Settings.TPL_UseFullPath ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath);
+                    String prefix = (Settings.TPL_FULL_URL_PATH ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath);
                     this._url = prefix + "/" + this.Archive.Url+".html";
                 }
                 return this._url;

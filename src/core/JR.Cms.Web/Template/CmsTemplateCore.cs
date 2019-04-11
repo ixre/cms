@@ -112,7 +112,7 @@ namespace JR.Cms.Template
                 url = String.Concat("/", url);
             }
 
-            if (Settings.TPL_UseFullPath)
+            if (Settings.TPL_FULL_URL_PATH)
             {
                 return String.Concat(Cms.Context.SiteDomain, url);
             }
@@ -340,7 +340,7 @@ namespace JR.Cms.Template
                 return String.Concat("/", CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto);
             }
 
-            if (!Settings.TPL_UseFullPath           //不使用完整路径
+            if (!Settings.TPL_FULL_URL_PATH           //不使用完整路径
                 || thumbnail.IndexOf("://", StringComparison.Ordinal) != -1)    //如果是包含协议的地址
             {
                 return thumbnail;
@@ -799,7 +799,7 @@ namespace JR.Cms.Template
                 return String.Empty;
             });
 
-            if (Settings.TPL_UseCompress)
+            if (Settings.TPL_USE_COMPRESS)
             {
                 return PageUtility.CompressHtml(content);
             }
@@ -930,7 +930,7 @@ namespace JR.Cms.Template
                 }));
             }
 
-            if (Settings.TPL_UseCompress)
+            if (Settings.TPL_USE_COMPRESS)
             {
                 return PageUtility.CompressHtml(sb.ToString());
             }

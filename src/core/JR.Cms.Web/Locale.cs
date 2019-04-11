@@ -10,7 +10,9 @@ using Newtonsoft.Json;
 
 namespace JR.Cms.Web
 {
-
+    /// <summary>
+    /// 本地化(管理后台)
+    /// </summary>
     public static class Locale
     {  
         public static void AddKey(string key)

@@ -190,12 +190,12 @@ namespace JR.Cms
                 try
                 {
                     //如果Key为空则Key为temp.Cms.cc产生的Key
-                    string key = Settings.License_KEY 
+                    string key = Settings.LICENSE_KEY 
                           ?? "YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI=";
 
                     string responseText = HttpClient.Post("http://ct.Cms.cc/ct/license",
                         "token=YmIyNDAwMGI3YmEyZGMwZTgxZWI2OGQxYzk3MWU4NWI&license_key="
-                        + key + "&license_name=" + Settings.License_NAME,null);
+                        + key + "&license_name=" + Settings.LICENSE_NAME,null);
 
                     activeInfo = responseText;
                 }

@@ -74,6 +74,14 @@
         </div>
     </div>
 
+      <div class="fl">
+        <div class="label">原始名称上传：</div>
+        <div class="in">
+            <input type="checkbox" class="tb_normal ui-box" style="width: auto" field="sys_use_upload_raw_path"/>
+            上传文件使用本地文件的名称，不勾选将自动生成文件名
+        </div>
+    </div>
+
     <div class="fl">
         <div class="label">SQL跟踪：</div>
         <div class="in">
@@ -113,7 +121,7 @@
             <div class="label"><span class="red">*</span>内存回收：
             </div>
             <div class="in">
-                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="Opti_GC_Collect_Interval" style="width: 40px"/>分钟/次&nbsp;&nbsp;
+                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_gc_collect_interval" style="width: 40px"/>分钟/次&nbsp;&nbsp;
                 <div>(设置为0则不回收，修改重启网站后生效!)</div>
             </div>
         </div>
@@ -122,7 +130,7 @@
             <div class="label"><span class="red">*</span>首页缓存：
             </div>
             <div class="in">
-                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_IndexCacheSeconds" style="width: 40px"/>
+                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_index_cache_seconds" style="width: 40px"/>
                 分钟(0表示不缓存)
             </div>
         </div>
@@ -130,7 +138,7 @@
             <div class="label"><span class="red">*</span>客户端缓存：
             </div>
             <div class="in">
-                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_ClientCacheSeconds" style="width: 40px"/>
+                <input type="text" class="tb_normal ui-box ui-validate" required="true" isnumber="true" field="opti_client_cache_seconds" style="width: 40px"/>
                 分钟(0表示不缓存)
             </div>
         </div>
@@ -141,9 +149,9 @@
         <div class="fl">
             <div class="label">选项：</div>
             <div class="in">
-                <input type="checkbox" id="ckitem1_1" class="tb_normal ui-box" style="width: auto" field="tpl_usecompress"/>
+                <input type="checkbox" id="ckitem1_1" class="tb_normal ui-box" style="width: auto" field="tpl_use_compress"/>
                 <label for="ckitem1_1">代码压缩</label>&nbsp;
-                <input type="checkbox" id="ckitem1_2" class="tb_normal ui-box" style="width: auto" field="tpl_usefullpath"/>
+                <input type="checkbox" id="ckitem1_2" class="tb_normal ui-box" style="width: auto" field="tpl_full_url_path"/>
                 <label for="ckitem1_2">完整路径(Full URL)</label>
             </div>
         </div>

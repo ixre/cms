@@ -167,6 +167,7 @@
     <Compile Include="Template\CmsTemplateImpl.cs" />
     <Compile Include="Template\CmsTemplateDataMethod.cs" />
     <Compile Include="Template\PageGenerator.cs" />
+    <Compile Include="Util\UploadUtils.cs" />
     <Compile Include="WebManager\BasePage.cs" />
     <Compile Include="WebManager\CmsWebMaster.cs" />
     <Compile Include="WebManager\Consts.cs" />
