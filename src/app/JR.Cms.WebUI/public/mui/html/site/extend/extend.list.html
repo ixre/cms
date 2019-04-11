@@ -127,7 +127,8 @@
                 jr.json.bind('pl', { Enabled: 'True' });
             },
             del: function (id) {
-                if (confirm('确定删除吗?删除后将不可恢复!')) {
+                jr.dialog.confirm('确定删除吗?删除后将不可恢复!', function (r) {
+                    if (!r) return;
                     var data = {
                         id: id,
                         contentId: jr.request('contentId'),
@@ -137,9 +138,9 @@
                         function (json) {
                             if (json.result) {
                                 _dg.reload();
-                            } else {showErr(json.message); }
+                            } else { showErr(json.message); }
                         });
-                }
+                });
             },
             refresh: function () {
                 _dg.reload();

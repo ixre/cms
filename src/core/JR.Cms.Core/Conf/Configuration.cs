@@ -25,15 +25,11 @@ namespace JR.Cms.Conf
 {
     public class Configuration
     {
-
         /// <summary>
         /// 配置文件路径
         /// </summary>
-        public static string CmsConfigFile;
-
-
+        public static string cmsConfFile;
         public static event CmsConfigureHandler OnCmsConfigure;
-
 
         /// <summary>
         /// 设置应用程序，如在过程中发生异常则重启并提醒！
@@ -65,22 +61,23 @@ namespace JR.Cms.Conf
         /// <returns>返回加载消息，如成功返回空</returns>
         internal static string Load(string filePath)
         {
-            CmsConfigFile = filePath;
+            cmsConfFile = filePath;
             //从配置文件中加载
-            SettingFile sf = new SettingFile(CmsConfigFile);
+            SettingFile sf = new SettingFile(cmsConfFile);
             Settings.loaded = true;
             bool settingChanged = false;
 
             //try
             // {
-            Settings.License_NAME = sf.Contains("license_name") ? sf["license_name"] : "评估用户";
-            Settings.License_KEY = sf.Contains("license_key") ? sf["license_key"] : String.Empty;
-            Settings.SYS_AUTOWWW = sf.Contains("sys_autowww") && sf["sys_autowww"] == "true";         //自动WWW
+            Settings.LICENSE_NAME = sf.Contains("license_name") ? sf["license_name"] : "评估用户";
+            Settings.LICENSE_KEY = sf.Contains("license_key") ? sf["license_key"] : String.Empty;
+            Settings.SYS_AUTOWWW = CheckTrueValue(sf,"sys_autowww");         //自动WWW
+            Settings.SYS_USE_UPLOAD_RAW_NAME = CheckTrueValue(sf, "sys_use_upload_raw_path");
 
             #region 读取模板选项
 
-            Settings.TPL_UseFullPath = sf.Contains("tpl_usefullpath") ? sf["tpl_usefullpath"] == "true" : true;
-            Settings.TPL_UseCompress = sf.Contains("tpl_usecompress") ? sf["tpl_usecompress"] == "true" : false;
+            Settings.TPL_FULL_URL_PATH = sf.Contains("tpl_full_url_path") ? sf["tpl_full_url_path"] == "true" : true;
+            Settings.TPL_USE_COMPRESS = sf.Contains("tpl_use_compress") ? sf["tpl_use_compress"] == "true" : false;
 
 
             #endregion
@@ -93,22 +90,22 @@ namespace JR.Cms.Conf
 
 
             /**************** 优化项 ******************/
-            Settings.Opti_Debug = WebConfig.IsDebug();
+            Settings.OPTI_DEBUG_MODE = WebConfig.IsDebug();
 
             //缓存项
-            if (sf.Contains("opti_IndexCacheSeconds"))
+            if (sf.Contains("opti_index_cache_seconds"))
             {
-                Int32.TryParse(sf["opti_IndexCacheSeconds"], out Settings.Opti_IndexCacheSeconds);
+                Int32.TryParse(sf["opti_index_cache_seconds"], out Settings.Opti_IndexCacheSeconds);
             }
 
-            if (sf.Contains("opti_ClientCacheSeconds"))
+            if (sf.Contains("opti_client_cache_seconds"))
             {
-                Int32.TryParse(sf["opti_ClientCacheSeconds"], out  Settings.Opti_ClientCacheSeconds);
+                Int32.TryParse(sf["opti_client_cache_seconds"], out Settings.Opti_ClientCacheSeconds);
             }
 
-            if (sf.Contains("Opti_GC_Collect_Interval"))
+            if (sf.Contains("opti_gc_collect_interval"))
             {
-                Int32.TryParse(sf["Opti_GC_Collect_Interval"], out  Settings.Opti_GC_Collect_Interval);
+                Int32.TryParse(sf["opti_gc_collect_interval"], out Settings.opti_gc_collect_interval);
             }
 
 
@@ -176,8 +173,6 @@ namespace JR.Cms.Conf
                 sf.Set("sql_profile_trace", Settings.SQL_PROFILE_TRACE ? "true" : "false");
                 settingChanged = true;
             }
-
-
             if (sf.Contains("sys_admin_tag"))
             {
                 Settings.SYS_ADMIN_TAG = sf["sys_admin_tag"];
@@ -192,7 +187,16 @@ namespace JR.Cms.Conf
             return String.Empty;
         }
 
-
+        /// <summary>
+        /// 判断设置项的值是否为真
+        /// </summary>
+        /// <param name="sf"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private static bool CheckTrueValue(SettingFile sf, string key)
+        {
+            return sf.Contains(key) && sf.Get(key) == "true";
+        }
 
         private static SettingFile sf = null;
 
@@ -218,16 +222,15 @@ namespace JR.Cms.Conf
             switch (prefix)
             {
                 case "sys":
-                    sf["license_name"] = Settings.License_NAME;
-                    sf["license_key"] = Settings.License_KEY;
+                    sf["license_name"] = Settings.LICENSE_NAME;
+                    sf["license_key"] = Settings.LICENSE_KEY;
                     sf["server_static_enabled"] = Settings.SERVER_STATIC_ENABLED ? "true" : "false";
                     sf["server_static"] = Settings.SERVER_STATIC;
                     sf["server_upgrade"] = Settings.SERVER_UPGRADE;
                     sf["sys_admin_tag"] = Settings.SYS_ADMIN_TAG;
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
                     sf["sql_profile_trace"] = Settings.SQL_PROFILE_TRACE ? "true" : "false";
-                    //301跳转
-
+                    sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME.ToString());
                     sf["sys_autowww"] = Settings.SYS_AUTOWWW ? "true" : "false";
 
                     //虚拟路径
@@ -247,24 +250,24 @@ namespace JR.Cms.Conf
 
                 case "tpl":
                     //压缩代码
-                    sf.Set("tpl_usecompress", Settings.TPL_UseCompress ? "true" : "false");
+                    sf.Set("tpl_use_compress", Settings.TPL_USE_COMPRESS ? "true" : "false");
                     //使用完整路径
-                    sf.Set("tpl_usefullpath", Settings.TPL_UseFullPath ? "true" : "false");
+                    sf.Set("tpl_full_url_path", Settings.TPL_FULL_URL_PATH ? "true" : "false");
                     Cms.Template.Register();
                     break;
 
                 //优化
                 case "opti":
                     //缓存项
-                    sf.Set("opti_IndexCacheSeconds", Settings.Opti_IndexCacheSeconds.ToString());
-                    sf.Set("Opti_GC_Collect_Interval", Settings.Opti_GC_Collect_Interval.ToString());
-                    sf.Set("opti_ClientCacheSeconds", Settings.Opti_ClientCacheSeconds.ToString());
+                    sf.Set("opti_index_cache_seconds", Settings.Opti_IndexCacheSeconds.ToString());
+                    sf.Set("opti_gc_collect_interval", Settings.opti_gc_collect_interval.ToString());
+                    sf.Set("opti_client_cache_seconds", Settings.Opti_ClientCacheSeconds.ToString());
                     break;
             }
             sf.Flush();
             if (prefix == "opti")
             {
-                WebConfig.SetDebug(Settings.Opti_Debug);
+                WebConfig.SetDebug(Settings.OPTI_DEBUG_MODE);
             }
 
         }
@@ -279,18 +282,18 @@ namespace JR.Cms.Conf
 
         public static void BeginWrite()
         {
-            bool isEncoded = FileEncoder.IsEncoded(CmsConfigFile, CmsVariables.FileEncodeHeader);
+            bool isEncoded = FileEncoder.IsEncoded(cmsConfFile, CmsVariables.FileEncodeHeader);
             if (isEncoded)
             {
-                FileEncoder.DecodeFile(CmsConfigFile, CmsConfigFile, CmsVariables.FileEncodeHeader,
+                FileEncoder.DecodeFile(cmsConfFile, cmsConfFile, CmsVariables.FileEncodeHeader,
                     CmsVariables.FileEncodeToken);
             }
 
-            sf = new SettingFile(CmsConfigFile);
+            sf = new SettingFile(cmsConfFile);
 
             if (isEncoded)
             {
-                FileEncoder.EncodeFile(CmsConfigFile, CmsConfigFile, CmsVariables.FileEncodeHeader,
+                FileEncoder.EncodeFile(cmsConfFile, cmsConfFile, CmsVariables.FileEncodeHeader,
                     CmsVariables.FileEncodeToken);
             }
         }
@@ -301,13 +304,16 @@ namespace JR.Cms.Conf
 
             if (Settings.SYS_ENCODE_CONF_FILE)
             {
-                FileEncoder.EncodeFile(CmsConfigFile, CmsConfigFile, CmsVariables.FileEncodeHeader,
+                FileEncoder.EncodeFile(cmsConfFile, cmsConfFile, CmsVariables.FileEncodeHeader,
                     CmsVariables.FileEncodeToken);
             }
 
             sf = null;
         }
 
+        /// <summary>
+        /// 加载关联标识
+        /// </summary>
         internal static void LoadRelatedIndent()
         {
             string relatedConf = String.Format("{0}{1}related_indent.conf", Cms.PyhicPath, CmsVariables.SITE_CONF_PATH);

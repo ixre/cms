@@ -19,38 +19,59 @@ using JR.DevFw.Framework.Web.UI;
 using System.Net;
 using System.Collections.Generic;
 using System.IO;
+using JR.Cms.Web.Util;
 
 namespace JR.Cms.Web.WebManager.Handle
 {
+    /// <summary>
+    /// 上传
+    /// </summary>
     public class UploadC:BasePage
     {
 
         /// <summary>
-        /// 清除缓存
+        /// 上传图片
         /// </summary>
         public void UploadImage_POST()
         {
-            //远程上传
-            //System.Web.HttpPostedFile postfile = Request.Files[0];
-            //string strOutput = string.Empty;
-            //System.Net.CookieContainer cookie = new System.Net.CookieContainer();
-            //HttpPostFile("http://img.0xa.com/upload/index", postfile, null, null, ref strOutput);
-
-            //JsonData JD = JsonMapper.ToObject(strOutput);
-            //Response.Write("{" + String.Format("url:'{0}'", "http://img.0xa.com"+JD["raw"]) + "}");
-            
-           string uploadfor = base.Request["for"];
+            string uploadfor = base.Request["for"];
             string id = base.Request["upload.id"];
             DateTime dt = DateTime.Now;
-            string dir = string.Format("/{0}s{1}/image/{2:yyyyMM}/", CmsVariables.RESOURCE_PATH, base.CurrentSite.SiteId.ToString(), dt);
-            string name = String.Format("{0}{1:ddHHss}{2}",
-                String.IsNullOrEmpty(uploadfor) ? "" : uploadfor + "_",
-                dt, String.Empty.RandomLetters(4));
-
-            string file = new FileUpload(dir, name).Upload();
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId,"image");
+            string name = UploadUtils.GetUploadFileName(base.Request, uploadfor);
+            string file = new FileUpload(dir, name,false).Upload();
             Response.Write("{" + String.Format("\"url\":\"{0}\"", file) + "}");
         }
-        
+
+
+        /// <summary>
+        /// 上传分类缩略图
+        /// </summary>
+        public void UploadCatThumb_POST()
+        {
+            string uploadfor = base.Request["for"];
+            string id = base.Request["upload.id"];
+            DateTime dt = DateTime.Now;
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "cat");
+            string name = UploadUtils.GetUploadFileRawName(base.Request);
+            string file = new FileUpload(dir, name,true).Upload();
+            Response.Write("{" + String.Format("\"url\":\"{0}\"", file) + "}");
+        }
+
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        public void UploadFile_POST()
+        {
+            string uploadfor = base.Request["for"];
+            string id = base.Request["upload.id"];
+            DateTime dt = DateTime.Now;
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "file");
+            string name = UploadUtils.GetUploadFileName(base.Request, "");
+            string file = new FileUpload(dir, name,false).Upload();
+            Response.Write("{" + String.Format("\"url\":\"{0}\"", file) + "}");
+        }
+
         #region 文件上传至远程服务器
         /// <summary>
         /// 文件上传至远程服务器
@@ -68,7 +89,7 @@ namespace JR.Cms.Web.WebManager.Handle
             request.CookieContainer = cookieContainer;
             request.Method = "POST";
             request.Timeout = 20000;
-            request.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            request.Credentials = CredentialCache.DefaultCredentials;
             request.KeepAlive = true;
 
             string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");//分界线
@@ -128,17 +149,5 @@ namespace JR.Cms.Web.WebManager.Handle
         }
         #endregion
         
-        public void UploadFile_POST()
-        {
-            string uploadfor = base.Request["for"];
-            string id = base.Request["upload.id"];
-            DateTime dt = DateTime.Now;
-            string dir = string.Format("/{0}s{1}/attachment/{2:yyyyMM}/",
-                CmsVariables.RESOURCE_PATH,
-                base.CurrentSite.SiteId.ToString(), dt);
-            string name = String.Format("{0:ddHHss}{1}", dt, String.Empty.RandomLetters(4));
-            string file = new FileUpload(dir, name).Upload();
-            Response.Write("{"+String.Format("\"url\":\"{0}\"",file)+"}");
-        }
     }
 }

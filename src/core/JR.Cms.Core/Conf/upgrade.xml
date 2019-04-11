@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<upgrade version="3.2.021" build="20190310" patch="update10.zip">
+<upgrade version="3.2.022" build="20190410" patch="update.zip">
 <![CDATA[
 
-1.修改栏目树无法重新加载的BUG
+1.新增上传使用原始文件名的功能
 2.修改已知的问题
 
 ]]>

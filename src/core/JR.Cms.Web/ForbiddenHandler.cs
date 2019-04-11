@@ -18,12 +18,12 @@ namespace JR.Cms.Web
         {
             public bool IsReusable
             {
-                get { throw new NotImplementedException(); }
+                get { return false; }
             }
 
             public void ProcessRequest(HttpContext context)
             {
-                context.Response.Write("<div style=\"margin:50px auto;width:400px;font-size:14px;color:red;line-height:50px;\"><b style=\"font-size:25px\">403&nbsp;Forbidden!</b> <br />问题出现的原因，请见：http://to2.net/cms/cms/</div>");
+                context.Response.Write("<div style=\"margin:50px auto;width:400px;font-size:14px;color:red;line-height:50px;\"><b style=\"font-size:25px\">403&nbsp;Forbidden!</b> <br />问题出现的原因，请见：http://to2.net/cms</div>");
                 context.Response.End();
             }
         }

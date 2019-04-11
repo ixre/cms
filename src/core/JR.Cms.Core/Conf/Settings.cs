@@ -47,12 +47,12 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 授权用户名称
         /// </summary>
-        public static string License_NAME;
+        public static string LICENSE_NAME;
 
         /// <summary>
         /// 系统激活码
         /// </summary>
-        public static string License_KEY;
+        public static string LICENSE_KEY;
 
         
         /// <summary>
@@ -85,6 +85,12 @@ namespace JR.Cms.Conf
         /// </summary>
         public static bool SYS_AUTOWWW;
 
+
+        /// <summary>
+        /// 是否使用原始上传文件名称
+        /// </summary>
+        public static bool SYS_USE_UPLOAD_RAW_NAME = false;
+
         /// <summary>
         /// 是否开启SQL跟踪
         /// </summary>
@@ -100,12 +106,12 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 是否使用完整路径
         /// </summary>
-        public static bool TPL_UseFullPath;
+        public static bool TPL_FULL_URL_PATH;
 
         /// <summary>
         /// 是否使用压缩
         /// </summary>
-        public static bool TPL_UseCompress;
+        public static bool TPL_USE_COMPRESS;
 
         /// <summary>
         /// 多模板公享模式
@@ -150,12 +156,12 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 是否支持GZip压缩
         /// </summary>
-        public static bool Opti_SupportGZip = false;
+        public static bool Opti_SupportGZip = true;
 
         /// <summary>
         /// 调试模式
         /// </summary>
-        public static bool Opti_Debug = false;
+        public static bool OPTI_DEBUG_MODE = false;
 
         /// <summary>
         /// 客户端缓存
@@ -180,18 +186,18 @@ namespace JR.Cms.Conf
         /// <summary>
         /// GC回收间隔(默认30分钟回收一次)
         /// </summary>
-        public static int Opti_GC_Collect_Interval = 3600000 * 30;
+        public static int opti_gc_collect_interval = 3600000 * 30;
 
 
         public static void TurnOnDebug()
         {
-            Opti_Debug = true;
+            OPTI_DEBUG_MODE = true;
             WebConfig.SetDebug(true);
         }
 
         public static void TurnOffDebug()
         {
-            Opti_Debug = !true;
+            OPTI_DEBUG_MODE = !true;
             WebConfig.SetDebug(!true);
         }
     }

@@ -48,7 +48,7 @@ namespace JR.Cms.Web.Mvc
             // ==========================================//
 
             _startTime = new TimeSpan(DateTime.Now.Ticks);
-            _showDebugInformation = Settings.Opti_Debug;
+            _showDebugInformation = Settings.OPTI_DEBUG_MODE;
             //如果自动301
             if (Settings.SYS_AUTOWWW)
             {

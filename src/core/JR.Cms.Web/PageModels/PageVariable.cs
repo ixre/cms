@@ -248,7 +248,7 @@ namespace JR.Cms.Web
                         _sitemap = Cms.Cache.GetCachedResult(cacheKey, () =>
                         {
                             TemplateSetting tSetting = Cms.TemplateManager.Get(tpl);
-                            string urlFormat = (Settings.TPL_UseFullPath ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath)
+                            string urlFormat = (Settings.TPL_FULL_URL_PATH ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath)
                                 + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)UrlRulePageKeys.Category];
                             return CategoryCacheManager.GetSitemapHtml(siteId, tag, tSetting.CFG_SitemapSplit, urlFormat);
                         }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
