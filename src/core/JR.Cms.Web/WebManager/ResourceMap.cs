@@ -139,7 +139,8 @@ namespace JR.Cms.WebManager
 
                 pageSrcs = new Dictionary<ManagementPage, String>();
 
-                String xmlPath = CmsMapping.GetManagementMappingXml();
+                String xmlPath = Cms.BuildOEM.SelectNodeValuePath("/keys/item[@key='manager_set']");
+
                 if (xmlPath == null) return;
 
                 XmlDocument xd = new XmlDocument();
@@ -149,14 +150,14 @@ namespace JR.Cms.WebManager
                 string _for;
                 string baseDir;
 
-                baseDir = xd.SelectSingleNode("/maps/direction").Attributes["path"].Value;
+                baseDir = xd.SelectSingleNode("/keys/direction").Attributes["path"].Value;
                 BasePath = baseDir.StartsWith("/") ? baseDir : "/" + baseDir;
                 if (BasePath.EndsWith("/")) BasePath = BasePath.Substring(0, BasePath.Length - 1);
 
-                XmlNodeList nodes = xd.SelectNodes("/maps/group[@name='pages']/map");
+                XmlNodeList nodes = xd.SelectNodes("/keys/group[@name='pages']/item");
                 foreach (XmlNode node in nodes)
                 {
-                    _for = node.Attributes["for"].Value;
+                    _for = node.Attributes["key"].Value;
                     if (Enum.IsDefined(type, _for))
                     {
                         try
@@ -164,7 +165,7 @@ namespace JR.Cms.WebManager
                             ManagementPage pg = (ManagementPage)Enum.Parse(type, _for);
                             if (!pageSrcs.ContainsKey(pg))
                             {
-                                pageSrcs.Add(pg, String.Concat(baseDir,node.Attributes["to"].Value));
+                                pageSrcs.Add(pg, String.Concat(baseDir,node.Attributes["value"].Value));
                             }
                         }
                         catch (ArgumentException exc)
@@ -190,7 +191,6 @@ namespace JR.Cms.WebManager
         public static string GetPageUrl(ManagementPage page)
         {
             initialize();
-
             string pagePath = null;
             pageSrcs.TryGetValue(page, out pagePath);
             return pagePath;

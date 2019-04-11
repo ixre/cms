@@ -22,6 +22,7 @@ using JR.Cms.DataTransfer;
 using JR.DevFw.PluginKernel;
 using JR.DevFw.Framework.Web.UI;
 using JR.Cms.DB;
+using JR.DevFw.Framework.IO;
 
 namespace JR.Cms
 {
@@ -89,7 +90,6 @@ namespace JR.Cms
         public static readonly CmsCache Cache;
 
         private static TemplateManager _templateManager;
-        private static CustomBuildSet _buildSet;
 
 
 
@@ -107,8 +107,8 @@ namespace JR.Cms
         {
             String path = ctx.Request.Path;
             if (path.EndsWith(".ashx") || path.EndsWith(".aspx")) return false;
-           return path.StartsWith("/public/") || path.StartsWith("/resources/") ||
-                path.StartsWith("/plugins/") || path.StartsWith("/templates/");
+            return path.StartsWith("/public/") || path.StartsWith("/resources/") ||
+                 path.StartsWith("/plugins/") || path.StartsWith("/templates/");
         }
 
         /// <summary>
@@ -162,14 +162,11 @@ namespace JR.Cms
         /// <summary>
         /// 定制设置
         /// </summary>
-        public static  CustomBuildSet BuildSet
+        public static BuildOEM BuildOEM
         {
-            get
-            {
-                return _buildSet;
-            }
+            get; private set;
         }
-        
+
 
         /// <summary>
         /// 开始初始化
@@ -185,7 +182,7 @@ namespace JR.Cms
 
             //获取编译生成的时间
             //DateTime builtDate = new DateTime(2000, 1, 1).AddDays(ver.Build).AddSeconds(ver.Revision*2);
-            string filePath = typeof (Cms).Assembly.Location;
+            string filePath = typeof(Cms).Assembly.Location;
             if (String.IsNullOrEmpty(filePath))
             {
                 filePath = PyhicPath + CmsVariables.FRAMEWORK_ASSEMBLY_PATH + "jrcms.dll";
@@ -235,23 +232,25 @@ namespace JR.Cms
              */
             #endregion
         }
-        
+
 
 
         /// <summary>
         /// 设置应用程序，如在过程中发生异常则重启并提醒！
         /// </summary>
-        public static void Init(BootFlag flag,String confPath)
+        public static void Init(BootFlag flag, String confPath)
         {
             BeforeInit();
             if (!IsInstalled()) return;
             //初始化目录
             ChkCreate(CmsVariables.TEMP_PATH);
+            // 拷贝OEM文件到根目录
+            CopyOEMToRoot("root");
             // 加载配置
             Configuration.LoadCmsConfig(confPath);
             //设置数据库
             CmsDataBase.Initialize(String.Format("{0}://{1}", Settings.DB_TYPE.ToString(),
-                Settings.DB_CONN.ToString()), Settings.DB_PREFIX,Settings.SQL_PROFILE_TRACE);
+                Settings.DB_CONN.ToString()), Settings.DB_PREFIX, Settings.SQL_PROFILE_TRACE);
             //清空临时文件
             //resetTempFiles();
             // 初始化键值存储
@@ -264,7 +263,7 @@ namespace JR.Cms
             // 正常模式启动
             if ((flag & BootFlag.Normal) != 0)
             {
-                _buildSet = new CustomBuildSet();
+                BuildOEM = new BuildOEM();
 
                 //
                 //TODO:
@@ -305,6 +304,22 @@ namespace JR.Cms
             }
 
             IsInitFinish = true;
+        }
+
+        /// <summary>
+        /// 拷贝OEM文件到根目录
+        /// </summary>
+        /// <param name="v"></param>
+        private static void CopyOEMToRoot(string dir)
+        {
+            try
+            {
+                IOUtils.CopyFolder(Cms.PyhicPath + "/" + CmsVariables.OEM_PATH + dir, Cms.PyhicPath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[ CMS][ OEM]: 拷贝OEM文件失败:" + ex.Message);
+            }
         }
 
         private static void InitKvDb()
