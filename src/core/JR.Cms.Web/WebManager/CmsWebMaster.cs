@@ -29,6 +29,7 @@ namespace JR.Cms.Web.WebManager
                site = GetSiteFromCookie(context, site);
 
                 UserDto usr = UserState.Administrator.Current;
+                if(usr == null) throw new Exception("access denied");
                 if (site.SiteId == 0)
                 {
                     Uri uri = context.Request.Url;

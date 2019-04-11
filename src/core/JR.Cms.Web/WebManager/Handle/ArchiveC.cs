@@ -315,7 +315,6 @@ namespace JR.Cms.Web.WebManager.Handle
             {
                 extendFieldsHtml = extendFieldsHtml,
                 extend_cls = archive.ExtendValues.Count == 0 ? "hidden" : "",
-                thumbPrefix = CmsVariables.Archive_ThumbPrefix,
                 nodes = nodesHtml,
                 url = Request.Url.PathAndQuery,
                 tpls = tpls,

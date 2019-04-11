@@ -34,9 +34,23 @@ namespace JR.Cms.Web.Util
             if (Settings.SYS_USE_UPLOAD_RAW_NAME) return GetUploadFileRawName(request);
             // 使用自动化名称
             DateTime dt = DateTime.Now;
-            return String.Format("{0}{1:ddHHss}{2}",
+            return String.Format("{0}{1:ddHHffff}{2}",
             String.IsNullOrEmpty(uploadfor) ? "" : uploadfor + "_",
             dt, String.Empty.RandomLetters(4));
+        }
+
+        /// <summary>
+        /// 获取上传文件名称
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="uploadfor"></param>
+        /// <returns></returns>
+        public static string GetUploadFileName(HttpRequest request)
+        {
+            // 使用原始名称
+            if (Settings.SYS_USE_UPLOAD_RAW_NAME) return GetUploadFileRawName(request);
+            // 使用自动化名称
+            return String.Format("{0:ddHHffff}{1}", DateTime.Now, String.Empty.RandomLetters(4));
         }
 
         /// <summary>

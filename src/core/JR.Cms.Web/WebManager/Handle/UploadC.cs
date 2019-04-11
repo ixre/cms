@@ -35,12 +35,23 @@ namespace JR.Cms.Web.WebManager.Handle
         public void UploadImage_POST()
         {
             string uploadfor = base.Request["for"];
-            string id = base.Request["upload.id"];
-            DateTime dt = DateTime.Now;
-            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId,"image");
+            //string id = base.Request["upload.id"];
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "image");
             string name = UploadUtils.GetUploadFileName(base.Request, uploadfor);
-            string file = new FileUpload(dir, name,false).Upload();
-            Response.Write("{" + String.Format("\"url\":\"{0}\"", file) + "}");
+            UploadResultResponse(dir, name,false); 
+        }
+
+        private void UploadResultResponse(string dir, string name,bool autoName)
+        {
+            try
+            {
+                string file = new FileUpload(dir, name, autoName).Upload();
+                Response.Write("{" + String.Format("\"url\":\"{0}\"", file) + "}");
+            }
+            catch (Exception ex)
+            {
+                Response.Write("{" + String.Format("\"error\":\"{0}\"", ex.Message) + "}");
+            }
         }
 
 
@@ -50,12 +61,34 @@ namespace JR.Cms.Web.WebManager.Handle
         public void UploadCatThumb_POST()
         {
             string uploadfor = base.Request["for"];
-            string id = base.Request["upload.id"];
-            DateTime dt = DateTime.Now;
-            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "cat");
+            //string id = base.Request["upload.id"];
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "thumb_cat");
             string name = UploadUtils.GetUploadFileRawName(base.Request);
-            string file = new FileUpload(dir, name,true).Upload();
-            Response.Write("{" + String.Format("\"url\":\"{0}\"", file) + "}");
+            UploadResultResponse(dir, name, true);
+
+        }
+
+
+        /// <summary>
+        /// 上传文档缩略图
+        /// </summary>
+        public void UploadArchiveThumb_POST()
+        {
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "thumb_ar");
+            string name = UploadUtils.GetUploadFileName(base.Request, "");
+            UploadResultResponse(dir, name, true);
+        }
+
+
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        public void UploadPropertyFile_POST()
+        {
+            DateTime dt = DateTime.Now;
+            String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "prop");
+            string name = UploadUtils.GetUploadFileName(base.Request, "");
+            UploadResultResponse(dir, name, true);
         }
 
         /// <summary>
@@ -68,8 +101,7 @@ namespace JR.Cms.Web.WebManager.Handle
             DateTime dt = DateTime.Now;
             String dir = UploadUtils.GetUploadDirPath(base.CurrentSite.SiteId, "file");
             string name = UploadUtils.GetUploadFileName(base.Request, "");
-            string file = new FileUpload(dir, name,false).Upload();
-            Response.Write("{" + String.Format("\"url\":\"{0}\"", file) + "}");
+            UploadResultResponse(dir, name, false);
         }
 
         #region 文件上传至远程服务器

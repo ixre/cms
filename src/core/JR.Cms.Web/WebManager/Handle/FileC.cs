@@ -270,9 +270,11 @@ namespace JR.Cms.Web.WebManager.Handle
             }
         }
 
+        /*
+
         public void CreateStyleSheet_POST()
         {
-            string tplname = String.Format("style/{1}.css", Request.Form["name"]);
+            string tplname = String.Format("style/{0}.css", Request.Form["name"]);
 
             string tplPath = String.Format("{0}{1}",
                 AppDomain.CurrentDomain.BaseDirectory,
@@ -296,7 +298,7 @@ namespace JR.Cms.Web.WebManager.Handle
                     Response.Write("无权限创建文件，请设置样式目录(style)可写权限！");
                 }
             }
-        }
+        }*/
 
     }
 }
