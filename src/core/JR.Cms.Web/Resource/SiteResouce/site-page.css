@@ -80,8 +80,9 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-navigator-nav li.last,.mod-navigator-nav li.last a{border:none;}
 .mod-navigator-nav li a.l1{color:#FFF;text-decoration:none;text-align:center;display:block;}
 .mod-navigator-nav li.current a.l1{color:#FFF;border-bottom-color:transparent;}
-.mod-navigator-nav li.parent:hover{background:#333 url(nav-curr-up.png) center 40px no-repeat;}
-.mod-navigator-nav li.parent a.l1:hover{color:#FFF;}
+.mod-navigator-nav li.parent:hover{background:#FFF;}/* 鼠标在一级菜单活动时 */
+.mod-navigator-nav li.parent:hover a.l1{color:#000;}/* 鼠标在一级菜单活动时设置链接术式 */
+.mod-navigator-nav li.parent a.l1:hover{color:#FFF;}/* 在下级菜单活动时一级菜单设置一级菜单样式 */
 .mod-navigator-nav li.parent .child a.l2{color:#333;}
 .mod-navigator-nav li.parent .child a.l2:hover{color:#FF0000;}
 
