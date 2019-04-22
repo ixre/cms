@@ -491,6 +491,7 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 .mod-navigator-nav{width:auto;margin:0 10px;}
 .mod-navigator-nav ul{margin:0;padding:0;list-style:none;}
 .mod-navigator-nav li.l1{float:left;position:relative;z-index: 200;}/*ie7bug*/
+.mod-navigator-nav li.l1 a.l1{text-transform: uppercase;} /* 一级菜单文本大写 */
 .mod-navigator-child{left:0;right: 0;margin: 0 auto;top:35px;position:absolute;display:none;z-index:201}
 .mod-navigator-child .box {}
 .mod-navigator-nav li.drop .mod-navigator-child,.mod-navigator-nav li:hover .mod-navigator-child{display:block;}
