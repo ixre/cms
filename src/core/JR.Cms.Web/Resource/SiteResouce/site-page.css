@@ -39,7 +39,8 @@ table td{border:solid 1px #333;padding:0 10px;}
 
 /* mod-header 头部 */
 .mod-header{background:#FFF;box-shadow:0 2px 6px #EEE;position:relative;z-index:1000;}
-.mod-header-logo{position:relative;width:160px;float:left;margin:0;}
+.mod-header-logo,.mod-header .logo,header .logo{position:relative;float:left;vertical-align: middle;}
+.mod-header-logo a,.mod-header .logo a,header .logo a{position:absolute;top:0;bottom:0;margin:auto;display:block;width:100%;height: 100%;}
 .mod-header-logo .mask{position:absolute;left:0;top:0;margin:auto;display:block;background:none;width:100%;height: 100%;}
 .mod-header-search{padding:30px 0 0 60px;float:left;}
 .search-input{border:solid 1px #CCC;height:28px;line-height:28px;float:left;
@@ -72,21 +73,19 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-navigator .mod-navigator-nav{background: url(navigator_navs_bg.gif) 120px top no-repeat;}*/
 .mod-navigator-nav ul{}
 .mod-navigator-nav li.l1{text-align:center;font-weight:bold;
-    border-left: solid 1px #EF4B4B;border-right: solid 1px #B90202;width:12%;text-align:center;}
+    border-left: solid 1px #EF4B4B;border-right: solid 1px #B90202;padding:0 15px}
 .mod-navigator-nav li.first{border-left:none;}
 .mod-navigator-nav li.last{background-image:none;}
 .mod-navigator-nav li.current{background-color:#bc0000;margin:0;}
 .mod-navigator-nav li.last,.mod-navigator-nav li.last a{border:none;}
 .mod-navigator-nav li a.l1{color:#FFF;text-decoration:none;text-align:center;display:block;}
 .mod-navigator-nav li.current a.l1{color:#FFF;border-bottom-color:transparent;}
-.mod-navigator-nav li.parent:hover{background:#333 url(nav-curr-up.png) center 40px no-repeat;}
-.mod-navigator-nav li.parent a.l1:hover{color:#FFF;}
 .mod-navigator-nav li.parent .child a.l2{color:#333;}
 .mod-navigator-nav li.parent .child a.l2:hover{color:#FF0000;}
 
 /* 子菜单 */
-.mod-navigator-child{top:35px;left:0px;right:0;margin:0 auto;min-width:300px;z-index;600;
-    background:#F0F0F0;border:solid 1px #aaa;border-top:5px;text-align:left;;}
+.mod-navigator-child{top:35px;min-width:300px;left:0px;right:0;margin:auto;z-index;600;
+    background:#FFF;border:0;box-shadow:3px 3px 10px rgba(0,0,0,0.2)}
 .mod-navigator-child .box{border-top:0;padding:3em;}
 .mod-navigator-child .menu li{border-bottom:dashed 1px #ddd;margin:0;font-size:80%;width:auto;}
 .mod-navigator-child .menu li a.l2{padding:0;line-height:2em;color:#666;border:none;}
