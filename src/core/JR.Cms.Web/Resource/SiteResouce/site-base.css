@@ -53,7 +53,7 @@ img{max-width:100%;border:0;}
 }
 @media (min-width: 992px) and (max-width: 1199px) {
     .hidden-md {display: none !important}
-}
+}p
 @media (min-width:1200px){
     .container{width:1170px}
     .hidden-lg{display:none !important}
@@ -504,10 +504,6 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 .mod-navigator-child .menu li.l2{padding:0;float:none;background:none;}
 .mod-navigator-child .menu li.first{border-top:none;}
 .mod-navigator-child .menu li.last{border-bottom:none;}
-.mod-navigator-nav li.parent:hover{ background: transparent;}
-.mod-navigator-nav li.parent a.l1:hover{color:#333;}
-.mod-navigator-nav li.parent .mod-navigator-child a.l2{color:#333;}
-.mod-navigator-nav li.parent .mod-navigator-child a.l2:hover{color:#FF0000;}
 
 /* mod-flash-p */
 .mod-flash-p{margin: 0;}
