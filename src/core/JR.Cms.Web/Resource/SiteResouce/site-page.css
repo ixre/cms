@@ -72,8 +72,8 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-navigator .mod-navigator-right{background:url(navigator_rgt.gif) right top no-repeat;}
 .mod-navigator .mod-navigator-nav{background: url(navigator_navs_bg.gif) 120px top no-repeat;}*/
 .mod-navigator-nav ul{}
-.mod-navigator-nav li.l1{text-align:center;font-weight:bold;
-    border-left: solid 1px #EF4B4B;border-right: solid 1px #B90202;width:12%;text-align:center;}
+.mod-navigator-nav li.l1{text-align:center;font-weight:bold;text-transform: uppercase;
+    border-left: solid 1px #EF4B4B;border-right: solid 1px #B90202;padding:0 15px}
 .mod-navigator-nav li.first{border-left:none;}
 .mod-navigator-nav li.last{background-image:none;}
 .mod-navigator-nav li.current{background-color:#bc0000;margin:0;}
@@ -87,8 +87,8 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-navigator-nav li.parent .child a.l2:hover{color:#FF0000;}
 
 /* 子菜单 */
-.mod-navigator-child{top:35px;left:0px;right:0;margin:0 auto;min-width:300px;z-index;600;
-    background:#F0F0F0;border:solid 1px #aaa;border-top:5px;text-align:left;;}
+.mod-navigator-child{top:35px;min-width:300px;left:0px;right:0;margin:auto;z-index;600;
+    background:#FFF;border:0;box-shadow:3px 3px 10px rgba(0,0,0,0.2)}
 .mod-navigator-child .box{border-top:0;padding:3em;}
 .mod-navigator-child .menu li{border-bottom:dashed 1px #ddd;margin:0;font-size:80%;width:auto;}
 .mod-navigator-child .menu li a.l2{padding:0;line-height:2em;color:#666;border:none;}
