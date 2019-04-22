@@ -79,11 +79,13 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-navigator-nav li.last,.mod-navigator-nav li.last a{border:none;}
 .mod-navigator-nav li a.l1{color:#FFF;text-decoration:none;text-align:center;display:block;}
 .mod-navigator-nav li.current a.l1{color:#FFF;border-bottom-color:transparent;}
+.mod-navigator-nav li.parent:hover{background:#FFF;padding:10px 15px;margin-top:-10px;margin-right:-1px;padding-right:16x;}
 .mod-navigator-nav li.parent .child a.l2{color:#333;}
 .mod-navigator-nav li.parent .child a.l2:hover{color:#FF0000;}
 
 /* 子菜单 */
-.mod-navigator-child{top:35px;min-width:300px;left:0px;right:0;margin:auto;z-index;600; background:#FFF;border:0;}
+.mod-navigator-child{top:40px;min-width:300px;left:0px;right:0;margin:auto;z-index;600; background:#FFF;border:0;}
+
 .mod-navigator-child .menu li{border-bottom:dashed 1px #ddd;margin:0;font-size:80%;width:auto;}
 .mod-navigator-child .menu li a.l2{padding:0;color:#666;border:none;}
 .mod-navigator-child .menu li a.l2:hover{color:#000;text-decoration: none;}
