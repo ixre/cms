@@ -1092,7 +1092,6 @@ namespace JR.Cms.Template
             int total = links.Count;
             IList<SiteLinkDto> childs;
 
-            bool isLast;
             int navIndex;
             if (index == "")
             {
@@ -1110,34 +1109,27 @@ namespace JR.Cms.Template
             LinkGenerateGBehavior bh = (int genTotal, ref int current,String levelCls, int selected, bool child, SiteLinkDto link, int childCount) =>
             {
                 StringBuilder sb2 = new StringBuilder();
-
                 /* *********************
                  *  辨别选中的导航
                  * *********************/
                 String clsName = levelCls;
-
                 if (childCount != 0)
                 {
                     clsName = String.Concat(clsName," parent ");
                 }
-
                 if (selected == current)
                 {
                     clsName = String.Concat(clsName, " current");
                 }
-
                 if (current == 0)
                 {
                     clsName = String.Concat(clsName," first");
                 }
-
                 if (current == genTotal - 1)
                 {
                     clsName = String.Concat(clsName, " last");
                 }
-
                 sb2.Append("<li class=\"" + clsName + "\">");
-
                 //解析格式
                 tempLinkStr = TplEngine.FieldTemplate(child ? childFormat : format, a =>
                 {
@@ -1149,47 +1141,36 @@ namespace JR.Cms.Template
                     }
                     return "{" + a + "}";
                 });
-
                 //添加链接目标
                 if (!String.IsNullOrEmpty(link.Target))
                 {
                     tempLinkStr = tempLinkStr.Replace("<a ", "<a target=\"" + link.Target + "\" ");
                 }
-
-
                 sb2.Append(tempLinkStr).Append("</li>");
-
-
                 return sb2.ToString();
             };
 
             string phtml;
-            int cTotal;
-            int cCurrent;
-
+            int secondTotal;
+            int secondCurrent;
             for (int i = 0; i < links.Count; i++)
             {
                 if (links[i].Pid == 0)
                 {
                     j = i;
-
                     childs = new List<SiteLinkDto>(links.Where(a => a.Pid == links[i].Id));
                     phtml = bh(total, ref j, "l1",navIndex, false, links[i], childs.Count);
-
-                    if ((cTotal = childs.Count) != 0)
+                    if ((secondTotal = childs.Count) != 0)
                     {
-                        phtml = phtml.Replace("</li>",
-                            String.Format("<i class=\"nav-arrow\"></i><div id=\"{0}_child{1}\" class=\"mod-navigator-child child child{1}\"><div class=\"top\"></div><div class=\"box\">" +"<ul class=\"menu\">",
+                        phtml = phtml.Replace("</a></li>",
+                            String.Format("<i class=\"nav-arrow\"></i></a><div id=\"{0}_child{1}\" class=\"mod-navigator-child child child{1}\"><div class=\"top\"></div><div class=\"box\">" +"<ul class=\"menu\">",
                             links[i].Type.ToString().ToLower(),
-                            links[i].Id.ToString())
-                            );
-
-                        cCurrent = 0;
+                            links[i].Id.ToString()));
+                        secondCurrent = 0;
                         for (int k = 0; k < childs.Count; k++)
                         {
-                            phtml += bh(cTotal, ref cCurrent,"l2",-1, true, childs[k], 0);
-                            cCurrent++;
-                            //links.Remove(childs[k]);
+                            phtml += bh(secondTotal, ref secondCurrent,"l2",-1, true, childs[k], 0);
+                            secondCurrent++;
                         }
                         phtml += "</ul></div></div></li>";
                     }
