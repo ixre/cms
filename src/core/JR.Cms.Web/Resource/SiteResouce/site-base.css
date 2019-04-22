@@ -492,10 +492,11 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 .mod-navigator-nav ul{margin:0;padding:0;list-style:none;}
 .mod-navigator-nav li.l1{float:left;position:relative;z-index: 200;}/*ie7bug*/
 .mod-navigator-nav li.l1 a.l1{text-transform: uppercase;} /* 一级菜单文本大写 */
-.mod-navigator-nav li.parent .nav-arrow{border-left:solid 5px transparent;border-right:solid 5px transparent;border-top:solid 5px #FFF;}
 .mod-navigator-nav li.parent:hover{background:#FAFAFA;padding:10px 16px;margin:-10px -1px;}/* 鼠标在一级菜单活动时 */
 .mod-navigator-nav li.parent:hover a.l1{color:#000;}/* 鼠标在一级菜单活动时设置链接术式 */
 .mod-navigator-nav li.parent a.l1:hover{color:#FFF;}/* 在下级菜单活动时一级菜单设置一级菜单样式 */
+.mod-navigator-nav li.parent .nav-arrow{border-left:solid 5px transparent;border-right:solid 5px transparent;border-top:solid 5px #FFF;}
+.mod-navigator-nav li.parent:hover .nav-arrow{border-top-color:#000} /* 下拉箭头 */
 
 .mod-navigator-child{background:#FAFAFA;left:0;right:0;margin:auto;top:30px;position:absolute;display:none;z-index:201;
 	box-shadow:3px 4px 6px rgba(0,0,0,0.2);}
