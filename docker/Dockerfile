@@ -31,7 +31,7 @@ RUN apt-get update -y && apt-get install -y --fix-missing wget unzip mono-fastcg
 RUN echo "3. Install cms program" \
 	&& wget -O cms.zip http://s.to2.net/jrcms_latest?date=20190412 \
 	&& unzip cms.zip && rm -f cms.zip \
-	&& mkdir -p /var/cms && cp -r templates plugins /var/cms \
+	&& mkdir -p /var/cms && cp -r templates plugins oem /var/cms \
 	&& rm -rf *server \
 	&& echo "4. Clean" \
 	&& apt-get remove -y gcc wget unzip libpcre3-dev libssl-dev zlib1g.dev make \
