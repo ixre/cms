@@ -85,7 +85,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 
 /* 子菜单 */
 .mod-navigator-child{top:35px;min-width:300px;left:0px;right:0;margin:auto;z-index;600; background:#FFF;border:0;}
-.mod-navigator-child .box{border-top:0;padding:3em;}
 .mod-navigator-child .menu li{border-bottom:dashed 1px #ddd;margin:0;font-size:80%;width:auto;}
 .mod-navigator-child .menu li a.l2{padding:0;line-height:2em;color:#666;border:none;}
 .mod-navigator-child .menu li a.l2:hover{color:#000;text-decoration: none;}
