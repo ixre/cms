@@ -35,8 +35,7 @@ namespace JR.Cms.Template
     public abstract class CmsTemplateCore : IDisposable
     {
         private static PropertyInfo[] archivePros = typeof(ArchiveDto).GetProperties(BindingFlags.Instance | BindingFlags.Public); //文档的属性
-        protected static MicroTemplateEngine TplEngine =
-                            new MicroTemplateEngine(null); //模板引擎
+        protected static MicroTemplateEngine TplEngine = new MicroTemplateEngine(null); //模板引擎
 
         protected ArchiveDto archive;           //当前读取的文档,使用require(archiveID)获取的文档
         private SettingFile _settingsFile;      //设置文件，用于保存当前实例的状态
@@ -1525,7 +1524,11 @@ namespace JR.Cms.Template
         /// <returns></returns>
         private string GetArchiveHolderTagParam(string field, string prefix)
         {
-            if (field.StartsWith(prefix))return field.Substring(prefix.Length, field.Length - 1);
+            if (field.StartsWith(prefix))
+            {
+                int len = prefix.Length;
+                return field.Substring(len, field.Length - len - 1);
+            }
             return null;
         }
 

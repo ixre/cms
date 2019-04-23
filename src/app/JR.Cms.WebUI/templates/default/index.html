@@ -16,6 +16,10 @@
     <div class="mod-flash-p mod-flash-banner gra-mg5 flash-row container" style="margin:5px auto">
         ${partial:"include/flash_banner.phtml"}
     </div>
+    <ul>
+        $archives('news',4,'
+        <li>sss{time_fmt[yyyy-MM-dd]}</li>')
+    </ul>
     <div class="row row-news">
         <div class="container">
             <span class="icon icon-sound">
