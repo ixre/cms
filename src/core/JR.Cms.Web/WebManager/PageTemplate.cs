@@ -12,7 +12,6 @@
 //
 
 using System;
-using System.Runtime.CompilerServices;
 using JR.Cms.Conf;
 using JR.DevFw;
 
@@ -21,7 +20,7 @@ namespace JR.Cms.WebManager
     using JR.Cms;
     using JR.DevFw.Template;
 
-    public class ManagerTemplate
+    public class ManagerTemplate:ReflectTemplateClass
     {
         private static readonly string js;
         private static readonly string css;
@@ -36,7 +35,7 @@ namespace JR.Cms.WebManager
         }
 
       
-        public static JR.DevFw.Template.TemplateHandler<object> TemplateExc = (object obj, ref string content) =>
+        public static JR.DevFw.Template.TemplateHandler<ITemplateClass> TemplateExc = (ITemplateClass obj, ref string content) =>
         {
             MicroTemplateEngine tpl = new MicroTemplateEngine(obj);
             content=tpl.Execute(content);
