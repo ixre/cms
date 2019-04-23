@@ -1204,7 +1204,7 @@ namespace JR.Cms.Template
 
 
             StringBuilder sb = new StringBuilder(500);
-            this.FormatArchive(sb, archiveDto, ref format, null, -1);
+            this.ResolveArchivePlaceHolder(sb, archiveDto, ref format, null, -1);
             return sb.ToString();
         }
 
@@ -1222,7 +1222,7 @@ namespace JR.Cms.Template
             if (!(archiveDto.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoPrevious);
 
             StringBuilder sb = new StringBuilder(500);
-            this.FormatArchive(sb, archiveDto, ref format, null, -1);
+            this.ResolveArchivePlaceHolder(sb, archiveDto, ref format, null, -1);
             return sb.ToString();
         }
 
@@ -1242,7 +1242,7 @@ namespace JR.Cms.Template
             if (!(archiveDto.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoNext);
 
             StringBuilder sb = new StringBuilder(500);
-            this.FormatArchive(sb, archiveDto, ref format, null, -1);
+            this.ResolveArchivePlaceHolder(sb, archiveDto, ref format, null, -1);
             return sb.ToString();
 
         }
@@ -1356,13 +1356,25 @@ namespace JR.Cms.Template
             int intTotal = archives.Length;
             foreach (ArchiveDto archiveDto in archives)
             {
-                this.FormatArchive(sb, archiveDto, ref format, archives, tmpInt++);
+                this.ResolveArchivePlaceHolder(sb, archiveDto, ref format, archives, tmpInt++);
                 this.AppendSplitHtm(sb, intTotal, tmpInt, splitSize, listContainer);
             }
             return sb.ToString();
         }
 
-        protected void FormatArchive(StringBuilder sb, ArchiveDto archiveDto, ref string format, IEnumerable<ArchiveDto> dt, int index)
+        /// <summary>
+        /// 格式化文档占位符
+        /// 
+        /// 时间：time_fmt[YYYY-MM]
+        /// 大纲：outline[300]
+        /// 语言: lang[contact]
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="archiveDto"></param>
+        /// <param name="format"></param>
+        /// <param name="dt"></param>
+        /// <param name="index"></param>
+        protected void ResolveArchivePlaceHolder(StringBuilder sb, ArchiveDto archiveDto, ref string format, IEnumerable<ArchiveDto> dt, int index)
         {
             string id = string.IsNullOrEmpty(archiveDto.Alias) ? archiveDto.StrId : archiveDto.Alias;
 
@@ -1470,37 +1482,51 @@ namespace JR.Cms.Template
                             return sb2.ToString();
 
                         default:
-
-                            //读取自定义长度大纲
-                            const string matchPattern = "outline\\[(\\d+)\\]";
-                            if (Regex.IsMatch(field, matchPattern))
+                            if (field.IndexOf("[") != -1)
                             {
-                                int length = int.Parse(Regex.Match(field, matchPattern).Groups[1].Value);
-                                return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline, length);
+                                // 格式化时间
+                                String p = this.GetArchiveHolderTagParam(field, "time_fmt[");
+                                if (p != null) return String.Format("{0:" + p + "}", archiveDto.CreateTime);
+
+                                //读取自定义长度大纲
+                                p = this.GetArchiveHolderTagParam(field, "outline[");
+                                if(p != null) return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline,int.Parse(p));
+
+                                // 返回语言项
+                                p = this.GetArchiveHolderTagParam(field, "lang[");
+                                if(p!= null) Cms.Language.Get(this._ctx.UserLanguage,p);
                             }
+                            //用语言代替
+                            //if (field.StartsWith("lang_"))
+                            //{
+                            //    return Cms.Language.Get(this._ctx.UserLanguage, field.Substring(5)); //查找语言项
+                            //}
 
                             //读取自定义属性
                             if (extendFields == null)
                             {
                                 extendFields = new Dictionary<string, string>();
-                                foreach (IExtendValue value in archiveDto.ExtendValues)
-                                {
-                                    extendFields.Add(value.Field.Name, value.Value);
-                                }
+                                foreach (IExtendValue value in archiveDto.ExtendValues)extendFields.Add(value.Field.Name, value.Value);
                             }
-
-                            if (extendFields.ContainsKey(field))  // 查找自定义属性
-                                return extendFields[field];
+                            // 查找自定义属性
+                            if (extendFields.ContainsKey(field)) return extendFields[field];
                             
-                            //用语言代替
-                            if (field.StartsWith("lang_"))
-                            {
-                                return Cms.Language.Get(this._ctx.UserLanguage, field.Substring(5)); //查找语言项
-                            }
                             return String.Empty;
                     }
                 }));
 
+        }
+
+        /// <summary>
+        /// 获取文档占位标签参数
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        private string GetArchiveHolderTagParam(string field, string prefix)
+        {
+            if (field.StartsWith(prefix))return field.Substring(prefix.Length, field.Length - 1);
+            return null;
         }
 
         /// <summary>
