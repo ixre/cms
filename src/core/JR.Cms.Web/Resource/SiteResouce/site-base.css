@@ -27,7 +27,7 @@ pre{white-space: pre-wrap;}
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}
 input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
-img{max-width:100%;border:0;background:#FAFAFA;}
+img{max-width:100%;border:0}
 
 
 /* Response Layout */
@@ -410,7 +410,7 @@ a.f{color:#6E6E6E;}
 /* ---------- 基础模块 --------- */
 
 /* mod-block-list */
-.mod-block-list{border:solid 1px #CCC;padding:10px 30px 20px 30px;margin-bottom:20px;background:#FFFF;}
+.mod-block-list{border:solid 1px #CCC;padding:10px 30px 20px 30px;margin-bottom:20px;background:#FFF;}
 .mod-block-list .mod-block-list-title{font-weight: bold;font-size:1.2em;padding-bottom:0.5em;}
 
 
@@ -473,7 +473,7 @@ a{outline:none;}
 table{border-collapse:collapse;border:none;}
 a:link,a:visited{color:#0066ff;}
 a:hover{color:#0000cc;}
-.mask{background:url(/public/assets/images/mask.gif);opacity:0.2;alpha(opacity=20);position:absolute;top:0;left:0;bottom: 0;right: 0;}
+.mask{background:url(/public/assets/images/mask.gif);opacity:0.2;filter:alpha(opacity=20);position:absolute;top:0;left:0;bottom: 0;right: 0;}
 p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
 
 
