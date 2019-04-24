@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace JR.Cms.Infrastructure.KV
 {
@@ -62,12 +60,11 @@ namespace JR.Cms.Infrastructure.KV
     internal class KvStorageBlock
     {
         private string prefix;
-        private Dictionary<string, Pair> data;
+        private Dictionary<string, Pair> data = new Dictionary<string, Pair>();
 
         public KvStorageBlock(string prefix)
         {
             this.prefix = prefix;
-            this.data = new Dictionary<string, Pair>();
         }
         public Dictionary<string,Pair> Pairs()
         {
@@ -77,14 +74,8 @@ namespace JR.Cms.Infrastructure.KV
         internal void Set(string key, TypeFlag flag, object value)
         {
             var p = new Pair(flag, value);
-            if (this.data.ContainsKey(key))
-            {
-                this.data[key] = p;
-            }
-            else
-            {
-                this.data.Add(key, p);
-            }
+            if (this.data.ContainsKey(key))this.data[key] = p;
+            else this.data.Add(key, p);
         }
 
         internal void Delete(string key)
@@ -130,8 +121,7 @@ namespace JR.Cms.Infrastructure.KV
            
         public KvStorageBlock GetBlock(string prefix)
         {
-            var contain = this.data.Keys.Contains(prefix);
-            if (!contain)
+            if (!this.data.ContainsKey(prefix))
             {
                 this.data[prefix] = new KvStorageBlock(prefix);
             }
