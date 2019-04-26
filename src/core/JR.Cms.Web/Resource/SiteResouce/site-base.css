@@ -98,7 +98,7 @@ img{max-width:100%;border:0}
 /* 圆角按钮 */
 .gra-circle-button,.gra-circle-fill-button{border:solid 2px #2699FB;line-height:30px;display:inline-block;
     font-size:14px;font-weight:bold;padding:0 15px;border-radius:30px;background:#FFF;}
-.gra-circle-button:hover,.gra-circle-button-on,.gra-circle-button-on:hover{background:#2699FB;color:#FFF;}
+.gra-circle-button:hover,.gra-circle-button-on,.gra-circle-button-on:hover{background:#2699FB;color:#FFF;transition:all 0.3s ease 0s;}
 .gra-circle-button-small{line-height:24px;font-size:12px;}
 
 .gra-circle-fill-button{background:#2699FB;color:#FFF;}
@@ -129,7 +129,7 @@ img{max-width:100%;border:0}
 
 /* gra-btn */
 .gra-btn{color:#FFF;background:#06C;text-align:center;display:block;padding:0 1.5em;border-radius:3px;
-    cursor:default;line-height:32px;opacity:0.85;filter:alpha(opacity=85);
+    cursor:default;line-height:30px;opacity:0.85;filter:alpha(opacity=85);
     user-select:none;-moz-user-select:none;-webkit-user-select:none;border:0; }
 .gra-btn:hover{opacity:1;filter:alpha(opacity=100)}
 .gra-btn a:link,.gra-btn a:visited,.gra-btn button,.gra-btn input{display:block;color:#FFF;}
@@ -151,6 +151,7 @@ img{max-width:100%;border:0}
 
 /* mod-n-form 表单 */
 /*.mod-form>(.field>label.label{label$}+(.col>input.text.gra-text-box+br+i.desc{请填写内容}))*3*/
+.gra-form-i{border:solid 1px #DADADA;padding:0px 5px;font-size:1em;overflow:hidden;line-height:30px;height:30px;border-radius:5px;}
 .mod-form *{vertical-align:middle;}
 .mod-form .group{margin-bottom:2em;border:solid 0px #ddd;background:#FFF;}
 .mod-form .title{line-height:2em;padding:1em;font-size:1.2em;color:#888;}
@@ -223,7 +224,6 @@ a.f{color:#6E6E6E;}
     /* css3 animation */
     -webkit-animation: anim_loading 1s linear infinite;
     -moz-animation: anim_loading 2s linear infinite;
-    -ms-animation: anim_loading 1s linear infinite;
     -o-animation: anim_loading 1s linear infinite;
     animation: anim_loading 1s linear infinite;
 }
