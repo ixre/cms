@@ -119,6 +119,7 @@
     <Content Include="public\assemblies\SharpCompress.3.5.dll" />
     <Content Include="public\assemblies\System.Web.Mvc.dll" />
     <Content Include="public\assemblies\System.Web.Routing.dll" />
+    <Content Include="public\assets\animate.css" />
     <Content Include="public\assets\api.js" />
     <Content Include="public\assets\base.css" />
     <Content Include="public\assets\base.min.js" />

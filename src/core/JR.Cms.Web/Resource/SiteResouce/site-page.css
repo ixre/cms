@@ -204,13 +204,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-instant-chat:hover .gra-pop{display:inherit;}
 
 
-/* player button  */
-.mod-play-box{position:relative;}
-.mod-play-box .mask{z-index:2;}
-.mod-play-box .play{position: absolute;left:0;right:0;top:0;bottom:0;margin:auto;width:60px;
-                    height:60px;border:solid 5px #EEE;border-radius:99em;z-index:3;}
-.mod-play-box .play i{width:0;height:0;display:inline-block;border-top:solid 12px transparent;
-	border-bottom:solid 12px transparent; border-left:solid 16px #EEE;margin:auto;margin:12px 0 0 8px}
 
 
 /* UNSORTED */

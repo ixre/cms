@@ -120,6 +120,23 @@ img{max-width:100%;border:0}
 .gra-pop-dark .gra-pop-top{border-bottom-color:#333;}
 .gra-pop-dark .gra-pop-bottom{border-top-color:#333;}
 
+
+/* 播放器，配合video.js使用*/
+.mod-player{position:relative;}
+.mod-player-mark,.mod-player-mask{position: absolute;top:0;right:0;z-index:1;}
+.mod-player-mask{left:0;bottom:30px;background:#FFF;filter:alpha(opacity=0);opacity:0;z-index:1;}
+.mod-player-mark{color:#FFF;font-size:10px;right:1em;height:1em;}
+.mod-player .vjs-big-play-button{z-index:2;border-radius:0 !important;left:0 !important;right:0 !important;
+    top:0 !important;bottom:0 !important;margin:auto;}
+
+/* player button  */
+.mod-play-box{position:relative;}
+.mod-play-box .mask,.mod-play-box .play{position: absolute;left:0;right:0;top:0;bottom:0;margin:auto;}
+.mod-play-box .mask{background:#000;opacity:.05;}
+.mod-play-box .play{width:60px; height:60px;border:solid 5px #EEE;border-radius:99em;z-index:3;}
+.mod-play-box .play i{width:0;height:0;display:inline-block;border-top:solid 12px transparent;border-bottom:solid 12px transparent; border-left:solid 16px #EEE;margin:auto;margin:12px 0 0 8px}
+
+
 /* big-title */
 .gra-big-tit{font-size:1.6em;margin:30px 0;font-weight:500;text-align:center;letter-spacing:1px;}
 .gra-big-tit .sub{font-size:0.65em;color:#333;margin:15px 0;color:#666;line-height:1.5em;}
@@ -175,14 +192,6 @@ img{max-width:100%;border:0}
 @media(max-width:600px){
     .gra-modal .title{display:none;}
 }
-
-/* 播放器，配合video.js使用*/
-.mod-player{position:relative;}
-.mod-player-mark,.mod-player-mask{position: absolute;top:0;right:0;z-index:1;}
-.mod-player-mask{left:0;bottom:30px;background:#FFF;filter:alpha(opacity=0);opacity:0;z-index:1;}
-.mod-player-mark{color:#FFF;font-size:10px;right:1em;height:1em;}
-.mod-player .vjs-big-play-button{z-index:2;border-radius:0 !important;left:0 !important;right:0 !important;
-    top:0 !important;bottom:0 !important;margin:auto;}
 
 
 

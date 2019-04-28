@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>JRCms.NET! 安装向导</title>
-    <link rel="stylesheet" href="../../public/assets/base.css" />
-    <script type="text/javascript" src="/public/assets/base.min.js"></script>
+    <link rel="stylesheet" href="../public/assets/base.css" />
+    <script type="text/javascript" src="../public/assets/base.min.js"></script>
     <style type="text/css">
         * {font-size: 14px;}
         body { background: #f8f8f8; }
@@ -176,11 +176,11 @@ JR保留对本协议的最终解释权。
 
                     <div class="mod-ins-field">
                         <label><i class="req">*</i>管理员:</label>
-                        <input type="text" name="user_name" field="user_name" class="ui-validate ui-box" required="true" value="master" />
+                        <input type="text" name="user_name" field="user_name" class="ui-validate ui-box" value="master" />
                     </div>
                     <div class="mod-ins-field">
                         <label><i class="req">*</i>登录密码:</label>
-                        <input type="password" name="user_pwd" field="user_pwd" class="ui-validate ui-box" required="true" value="" />
+                        <input type="password" name="user_pwd" field="user_pwd" class="ui-validate ui-box" value="" />
                     </div>
                 </div>
                 </div>
@@ -200,7 +200,7 @@ JR保留对本协议的最终解释权。
                     <div class="db-opt-1" id="db_credential">
                         <div class="mod-ins-field">
                             <label><i class="req">*</i>服务器:</label>
-                            <input type="text" name="db_server" field="db_server" placeholder="填写地址：如127.0.0.1" />&nbsp;:
+                            <input type="text" name="db_server" field="db_server" value="localhost" placeholder="填写地址：如127.0.0.1" />&nbsp;:
                             <input class="tb-db-port" type="text" name="db_port" field="db_port" value="3306" placeholder="默认3306" />
                         </div>
                         <div class="mod-ins-field">
