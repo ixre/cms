@@ -3,9 +3,10 @@
 
 
 //设置工作路径
-jr.__WORKPATH__ = '/public/assets/js/';
-window.j6 = window.jr;
-window.cms = window.j6;
+$jr.__WORKPATH__ = '/public/assets/js/';
+window.jr = $jr;
+window.j6 = $jr;
+window.cms = $jr;
 
 
 /****************  页面处理事件 **************/
