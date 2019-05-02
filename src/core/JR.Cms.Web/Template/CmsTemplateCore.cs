@@ -546,32 +546,9 @@ namespace JR.Cms.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang(string key)
         {
-            return Cms.Language.Get(this._ctx.UserLanguage, key);
+            return Cms.Language.Get(this._ctx.UserLanguage, key)??"{"+key+"}";
         }
 
-        /// <summary>
-        /// 语言标签
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        [TemplateTag]
-        [XmlObjectProperty("获取字典数据", @"")]
-        public string Lang_Upper(string key)
-        {
-            return Cms.Language.Get(this._ctx.UserLanguage, key).ToUpper();
-        }
-
-        /// <summary>
-        /// 语言标签
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        [TemplateTag]
-        [XmlObjectProperty("获取字典数据", @"")]
-        public string Lang_Lower(string key)
-        {
-            return Cms.Language.Get(this._ctx.UserLanguage, key).ToLower();
-        }
 
         /// <summary>
         /// 获取网站的资料
@@ -1493,7 +1470,7 @@ namespace JR.Cms.Template
 
                                 // 返回语言项
                                 p = this.GetArchiveHolderTagParam(field, "lang[");
-                                if(p!= null) Cms.Language.Get(this._ctx.UserLanguage,p);
+                                if(p!= null)return Cms.Language.Get(this._ctx.UserLanguage,p) ?? "{" + p + "}";
                             }
                             //用语言代替
                             //if (field.StartsWith("lang_"))
@@ -1712,12 +1689,22 @@ namespace JR.Cms.Template
                                 return archiveIndex.ToString();
 
                             default:
-                                if (extendValues.ContainsKey(archiveId) &&
-                                    extendValues[archiveId].ContainsKey(field))
+                                if (field.IndexOf("[") != -1)
                                 {
-                                    return extendValues[archiveId][field];
+                                    // 格式化时间
+                                    String p = this.GetArchiveHolderTagParam(field, "time_fmt[");
+                                    if (p != null) return String.Format("{0:" + p + "}", dr["create_time"]);
+
+                                    //读取自定义长度大纲
+                                    p = this.GetArchiveHolderTagParam(field, "outline[");
+                                    if (p != null) return ArchiveUtility.GetOutline(String.IsNullOrEmpty(dr["outline"].ToString()) ?
+                                        dr["content"].ToString() : dr["outline"].ToString(), int.Parse(p));
+                                    // 返回语言项
+                                    p = this.GetArchiveHolderTagParam(field, "lang[");
+                                    if (p != null) return Cms.Language.Get(this._ctx.UserLanguage, p) ?? "{" + p + "}";
                                 }
-                                return "";
+                                if (extendValues.ContainsKey(archiveId) && extendValues[archiveId].ContainsKey(field)) return extendValues[archiveId][field];
+                                return "{"+field+"}";
                         }
                     }));
 
@@ -2018,6 +2005,20 @@ namespace JR.Cms.Template
                                 return GetCssClass(total, i,"a",archive.Thumbnail);
 
                             default:
+                                if (field.IndexOf("[") != -1)
+                                {
+                                    // 格式化时间
+                                    String p = this.GetArchiveHolderTagParam(field, "time_fmt[");
+                                    if (p != null) return String.Format("{0:" + p + "}", archive.CreateTime);
+
+                                    //读取自定义长度大纲
+                                    p = this.GetArchiveHolderTagParam(field, "outline[");
+                                    if (p != null) return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archive.Outline) ? archive.Content : archive.Outline, int.Parse(p));
+
+                                    // 返回语言项
+                                    p = this.GetArchiveHolderTagParam(field, "lang[");
+                                    if (p != null) return Cms.Language.Get(this._ctx.UserLanguage, p) ?? "{" + p + "}";
+                                }
                                 //读取自定义属性
                                 if (extendFields == null)
                                 {
@@ -2027,24 +2028,14 @@ namespace JR.Cms.Template
                                         extendFields.Add(value.Field.Name, value.Value);
                                     }
                                 }
-                                if (extendFields.ContainsKey(field))
-                                    return extendFields[field];
-
-                                //查找语言项
-                                if (field.StartsWith("lang_"))
-                                {
-                                    return Cms.Language.Get(this._ctx.UserLanguage, field.Substring(5)); 
-                                }
-                                return String.Empty;
+                                if (extendFields.ContainsKey(field)) return extendFields[field];
+                                return "{" + field + "}";
                         }
                     }));
 
 
                 // 添加分割栏
                 this.AppendSplitHtm(sb, total, i++, intSplitSize, listContainer);
-
-
-
                 ++i;
             }
 

@@ -204,7 +204,7 @@ namespace JR.Cms.Domain.Interface.Common.Language
             {
                 return outStr;
             }
-            return String.Empty;
+            return null;
         }
 
         public void LoadFromJson(string json)
