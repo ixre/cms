@@ -12,5 +12,5 @@
 ```
 图片自动适应宽高
 ```
-.gra-suited-img.gra-suited-img-34>div.mask+img
+.gra-suited-img.gra-suited-img-34>.mask+img
 ```
