@@ -10,3 +10,7 @@
 ```
 .mod-search-b>form>ul>(li>i+label[for="keyword"]{keywords:}+input.gra-text-box[id="keyword" value="" name="keyword" field="keyword"])+(li>i+label[for="option"]{options:}+(select.gra-text-box[id="option" name="option" field="option"]>option[value=""]{--ALL--}))+(li>i+label+input.gra-btn.gra-btn-primary.gra-btn-search{search}[type="button"])
 ```
+图片自动适应宽高
+```
+.gra-suited-img.gra-suited-img-34>.mask+img
+```
