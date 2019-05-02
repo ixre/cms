@@ -1364,9 +1364,9 @@ namespace JR.Cms.Template
                     {
                         case "id": return archiveDto.Id.ToString();
                         case "str_id": return id;      //用于链接的ID标识
-                        case "title": return archiveDto.Title;
+                        case "raw_title": return archiveDto.Title; //原标题
                         case "small_title": return archiveDto.SmallTitle;
-                        case "special_title": return !this.FlagAnd(archiveDto.Flag, BuiltInArchiveFlags.IsSpecial) ?
+                        case "title": return !this.FlagAnd(archiveDto.Flag, BuiltInArchiveFlags.IsSpecial) ?
                              archiveDto.Title : "<span class=\"special\">" + archiveDto.Title + "</span>";
 
                         case "author_id": return archiveDto.PublisherId.ToString();
@@ -1631,8 +1631,8 @@ namespace JR.Cms.Template
                     {
                         switch (field)
                         {
-                            case "special_title": return !this.FlagAnd(Convert.ToInt32(dr["flag"]), BuiltInArchiveFlags.IsSpecial) ? dr["title"].ToString() : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
-                            case "title": return dr["title"].ToString();
+                            case "title": return !this.FlagAnd(Convert.ToInt32(dr["flag"]), BuiltInArchiveFlags.IsSpecial) ? dr["title"].ToString() : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
+                            case "raw_title": return dr["title"].ToString();
                             case "small_title": return (dr["small_title"] ?? "").ToString();
                             case "author_id": return dr["author_id"].ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(Convert.ToInt32(dr["author_id"] ?? 0));
@@ -1964,6 +1964,7 @@ namespace JR.Cms.Template
                             case "id":return archive.Id.ToString();
                             case "str_id": return alias;
                             case "small_title": return archive.SmallTitle;
+                            case "raw_title":return archive.Title;
                             case "title": return title_hightlight;
                             case "author_id": return archive.PublisherId.ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
@@ -2327,8 +2328,8 @@ namespace JR.Cms.Template
                             case "id":
                                 return archive.Id.ToString();
                             case "str_id": return alias;
-                            case "special_title": return title_hightlight;
-                            case "title": return archive.Title;
+                            case "title": return title_hightlight;
+                            case "raw_title": return archive.Title;
                             case "small_title": return archive.SmallTitle;
                             case "author_id": return archive.PublisherId.ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
