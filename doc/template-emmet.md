@@ -6,3 +6,7 @@
 ```
 (.it.col-md-4.col-sm-4.col-xs-12>.tit{Title$}+ul>(li>.b>a[href=""]{Item$})*5)*3
 ```
+搜索表单
+```
+.mod-search-b>form>ul>(li>i+label[for="keyword"]{keywords:}+input.gra-text-box[id="keyword" value="" name="keyword" field="keyword"])+(li>i+label[for="option"]{options:}+(select.gra-text-box[id="option" name="option" field="option"]>option[value=""]{--ALL--}))+(li>i+label+input.gra-btn.gra-btn-primary.gra-btn-search{search}[type="button"])
+```
