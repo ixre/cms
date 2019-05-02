@@ -1826,14 +1826,17 @@ namespace JR.Cms.Template
 
             CategoryDto category = default(CategoryDto);
             JR.Cms.Domain.Interface.Models.Module module = null;
-            Regex keyRegex;
+            Regex keyRegex = null;
 
             int.TryParse(pageIndex, out intPageIndex);
             int.TryParse(pageSize, out intPageSize);
             int.TryParse(splitSize, out intSplitSize);
 
-            keyword = keyword.Replace("+", String.Empty);                  //删除+号连接符
-            keyRegex = new Regex(keyword, RegexOptions.IgnoreCase);
+            if (!String.IsNullOrEmpty(keyword))
+            {
+                keyword = keyword.Replace("+", String.Empty);                  //删除+号连接符
+                keyRegex = new Regex(keyword, RegexOptions.IgnoreCase);
+            }
 
 
 
@@ -1912,7 +1915,7 @@ namespace JR.Cms.Template
                 title = title_hightlight = archive.Title;
                 content = RegexHelper.FilterHtml(archive.Content);
 
-                if (keyRegex.IsMatch(title_hightlight))
+                if (keyRegex != null && keyRegex.IsMatch(title_hightlight))
                 {
                     title_hightlight = keyRegex.Replace(title_hightlight, "<span class=\"high-light\">$0</span>");
                 }

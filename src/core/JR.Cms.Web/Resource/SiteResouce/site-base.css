@@ -136,6 +136,13 @@ img{max-width:100%;border:0}
 .mod-play-box .play{width:60px; height:60px;border:solid 5px #EEE;border-radius:99em;z-index:3;text-align:center}
 .mod-play-box .play i{width:0;height:0;display:inline-block;border-top:solid 12px transparent;border-bottom:solid 12px transparent; border-left:solid 16px #EEE;margin:12px 0 0 4px}
 
+/* 图片自动适应宽高，padding高度100%以宽度为准计算的 */
+/* .gra-suited-img.gra-suited-img-34>.mask+img */
+.gra-suited-img{height:0;padding-left:100%;padding-bottom:calc(100% * 1);position:relative;overflow:hidden;}
+.gra-suited-img-34{padding-bottom:calc(100% * 0.75);}
+.gra-suited-img .mask,.gra-suited-img img{position: absolute;left:0;right:0;bottom:0;top:0;margin:auto;background:transparent;}
+.gra-suited-img img{width:100%;height:auto;}
+.gra-suited-img .mask{z-index:1;}
 
 /* big-title */
 .gra-big-tit{font-size:1.6em;margin:30px 0;font-weight:500;text-align:center;letter-spacing:1px;}
@@ -267,19 +274,12 @@ a.f{color:#6E6E6E;}
 
 
 /** 分页 **/
-.ui-pagination{text-align:center;padding:0 2em;}
-.ui-pagination a{cursor:pointer;
-    vertical-align:middle; padding:0 5px;
-    background:#1b91e7;color:#FFF;
-    -ms-user-select:none;
-    -moz-user-select:none;
-    -webkit-user-select:none;
-    margin:0 5px;padding:5px 10px;
-}
-.ui-pagination .current{color:#fff;background:#ff6600;}
-@media(min-width:320px){
-    .ui-pagination .info{display:none;}
-}
+.mod-pagination{line-height:1.6em;text-align:center;}
+.mod-pagination .it{margin-left:5px;vertical-align:middle;user-select:none;display:inline-block;padding:0 5px;}
+.mod-pagination .page{padding-left:0 !important;padding-right:0 !important;}
+.mod-pagination .page a{display:inline-block;padding:0 5px;}
+@media(min-width:320px){.ui-pagination .info{display:none;}}
+
 
 
 /* ---------- 公共元素 ---------- */
@@ -559,12 +559,14 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 footer,.mod-footer{width:auto;}
 
 /* 分页 */
+/*
 .mod-pagination{text-align:right;margin:10px auto;line-height:40px;}
 .mod-pagination .disabled,.mod-pagination .current{padding:2px 5px;color:#666;margin:0 2px}
 .mod-pagination a{background:#f0f0f0;padding:0 10px;margin:0 2px;text-decoration:none;outline:none;}
 .mod-pagination .disabled a{background:#EEE;}
 .mod-pagination input{width:30px;line-height:15px;}
 .mod-pagination select{height:18px;overflow:hidden;line-height:12px;border:solid 1px #aaa;padding:1px;}
+*/
 
 /* 文档列表 */
 .panel-archives ul{margin:0;padding:0;}
