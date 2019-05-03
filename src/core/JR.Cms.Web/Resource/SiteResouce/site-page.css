@@ -206,6 +206,11 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-instant-chat:hover .gra-pop{display:inherit;}
 
 
+/* 轮播图 */
+.mod-gallery-play .slick-prev,.mod-gallery-play .slick-next{left:0;z-index:10;width:60px;height:60px;}
+.mod-gallery-play .slick-prev,.mod-gallery-play .slick-next,.mod-gallery-play .slick-prev:hover,.mod-gallery-play .slick-next:hover{background:#AAA !important;}
+.mod-gallery-play .slick-next{right:0;left:auto;}
+.mod-gallery-play .slick-prev:before,.mod-gallery-play .slick-next:before{font-size:40px;}
 
 
 /* UNSORTED */

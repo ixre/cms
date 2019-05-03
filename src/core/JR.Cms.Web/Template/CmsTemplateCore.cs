@@ -1601,7 +1601,6 @@ namespace JR.Cms.Template
 
             totalNum = drs.Count;
 
-
             string id = null;
             foreach (DataRow dr in drs)
             {
@@ -1624,8 +1623,7 @@ namespace JR.Cms.Template
                     archiveCategory = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryId);
                     if (!(archiveCategory.ID > 0)) continue;
                 }
-
-
+                DateTime createTime = TimeUtils.UnixTime(Convert.ToInt32(dr["create_time"]), TimeZone.CurrentTimeZone);
                 sb.Append(TplEngine.FieldTemplate(format,
                     field =>
                     {
@@ -1650,13 +1648,13 @@ namespace JR.Cms.Template
                             case "count": return dr["view_count"].ToString();
 
                             //时间
-                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["update_time"]);
+                            case "modify_time": return String.Format("{0:yyyy-MM-dd HH:mm}",createTime);
                             case "modify_date": return String.Format("{0:yyyy-MM-dd}", dr["update_time"]);
-                            case "publish_day": return String.Format("{0:MM-dd}", dr["create_time"]);
+                            case "publish_day": return String.Format("{0:MM-dd}", createTime);
                             case "publish_time":
-                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", dr["create_time"]);
+                            case "create_time": return String.Format("{0:yyyy-MM-dd HH:mm}", createTime);
                             case "publish_date":
-                                case "create_date": return String.Format("{0:yyyy-MM-dd}", dr["create_time"]);
+                                case "create_date": return String.Format("{0:yyyy-MM-dd}", createTime);
 
                             //栏目
                             case "category_id": return archiveCategory.ID.ToString();
@@ -1693,7 +1691,7 @@ namespace JR.Cms.Template
                                 {
                                     // 格式化时间
                                     String p = this.GetArchiveHolderTagParam(field, "time_fmt[");
-                                    if (p != null) return String.Format("{0:" + p + "}", dr["create_time"]);
+                                    if (p != null) return String.Format("{0:" + p + "}", createTime);
 
                                     //读取自定义长度大纲
                                     p = this.GetArchiveHolderTagParam(field, "outline[");
@@ -1838,8 +1836,6 @@ namespace JR.Cms.Template
                 keyRegex = new Regex(keyword, RegexOptions.IgnoreCase);
             }
 
-
-
             bool listContainer = format.EndsWith("</li>");
 
             /**** 显示列表 ****/
@@ -1924,7 +1920,7 @@ namespace JR.Cms.Template
                 int contentLength = content.Length;
                 int firstSplitIndex = contentLength % 11; ;
 
-                if (keyRegex.IsMatch(content))
+                if (keyRegex != null && keyRegex.IsMatch(content))
                 {
                     Match match = keyRegex.Match(content);
                     if (contentLength > C_LENGTH)
