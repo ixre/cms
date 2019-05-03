@@ -275,7 +275,7 @@ a.f{color:#6E6E6E;}
 
 /** 分页 **/
 .mod-pagination{line-height:1.6em;text-align:center;}
-.mod-pagination .it{margin-left:5px;vertical-align:middle;user-select:none;display:inline-block;padding:0 5px;}
+.mod-pagination .it{margin:5px 0 5px 5px;vertical-align:middle;user-select:none;display:inline-block;padding:0 5px;}
 .mod-pagination .page{padding-left:0 !important;padding-right:0 !important;}
 .mod-pagination .page a{display:inline-block;padding:0 5px;}
 @media(min-width:320px){.ui-pagination .info{display:none;}}
