@@ -19,7 +19,7 @@ WORKDIR /cms
 RUN apt-get update -y && apt-get install -y --fix-missing wget unzip mono-fastcgi-server4  \
 	   gcc libpcre3-dev libssl-dev zlib1g.dev make &&\
 	echo "2.Install nginx" &&\
-	wget -O - "https://nginx.org/download/nginx-1.15.7.tar.gz" | tar xzf - &&\
+	wget -O - "https://nginx.org/download/nginx-1.16.0.tar.gz" | tar xzf - &&\
 	cd nginx* && ./configure --prefix=/usr/local/nginx \
 				--with-http_stub_status_module \
 				--with-http_ssl_module \
@@ -29,7 +29,7 @@ RUN apt-get update -y && apt-get install -y --fix-missing wget unzip mono-fastcg
 				&& make install && cd .. && rm -rf nginx-* 
 				
 RUN echo "3. Install cms program" \
-	&& wget -O cms.zip http://s.to2.net/jrcms_latest?date=20190502 \
+	&& wget -O cms.zip http://s.to2.net/jrcms_latest?date=20190504 \
 	&& unzip cms.zip && rm -f cms.zip \
 	&& mkdir -p /var/cms && cp -r templates plugins oem /var/cms \
 	&& rm -rf *server \
