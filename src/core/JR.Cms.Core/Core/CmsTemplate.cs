@@ -71,7 +71,7 @@ namespace JR.Cms.Core
         /// <summary>
         /// 模板
         /// </summary>
-        private static TemplateRegister tpl;
+        private static TemplateRegistry tpl;
 
         /// <summary>
         /// 模板页描述
@@ -122,7 +122,7 @@ namespace JR.Cms.Core
                     global::JR.DevFw.Template.Config.EnabledCache = true;
                     //模板设置是否缓存
                     global::JR.DevFw.Template.Config.EnabledCompress = Settings.TPL_USE_COMPRESS;
-                    tpl = new TemplateRegister(tplPath,  tplNameAsTemplateId ?
+                    tpl = new TemplateRegistry(tplPath,  tplNameAsTemplateId ?
                         TemplateNames.FileName : TemplateNames.ID);
                     //将配置写入模板缓存
                     RegisterTemplate();
@@ -194,31 +194,31 @@ namespace JR.Cms.Core
         {
             RegexOptions regopt = RegexOptions.IgnoreCase;
 
-            if (Regex.IsMatch(templatePath, "(^category|/category)\\.[^\\.]*\\.*(html|tml)$", regopt))
+            if (Regex.IsMatch(templatePath, "(^category|/category)\\.[^\\.]*\\.*html$", regopt))
             {
                 return TemplatePageType.Category;
             }
-            else if (Regex.IsMatch(templatePath, "[^\\.]+\\.(phtml|ptml)$", regopt))
+            else if (Regex.IsMatch(templatePath, "[^\\.]+\\.(part\\.html||phtml)$", regopt))
             {
                 return TemplatePageType.Partial;
             }
-            else if (Regex.IsMatch(templatePath, "(^archive|/archive)\\.[^\\.]*\\.*(html|tml)$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^archive|/archive)\\.[^\\.]*\\.*html$", regopt))
             {
                 return TemplatePageType.Archive;
             }
-            else if (Regex.IsMatch(templatePath, "(^index|/index)\\.[^\\.]*\\.*(html|tml)$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^index|/index)\\.[^\\.]*\\.*html$", regopt))
             {
                 return TemplatePageType.Index;
             }
-            else if (Regex.IsMatch(templatePath, "(^search|/search)\\.[^\\.]*\\.*(html|tml)$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^search|/search)\\.[^\\.]*\\.*html$", regopt))
             {
                 return TemplatePageType.Search;
             }
-            else if (Regex.IsMatch(templatePath, "(^tag|/tag)\\.[^\\.]*\\.*(html|tml)$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^tag|/tag)\\.[^\\.]*\\.*html$", regopt))
             {
                 return TemplatePageType.Tag;
             }
-            else if (Regex.IsMatch(templatePath, "(^notfound|/notfound)\\.[^\\.]*\\.*(html|tml)$", regopt))
+            else if (Regex.IsMatch(templatePath, "(^notfound|/notfound)\\.[^\\.]*\\.*html$", regopt))
             {
                 return TemplatePageType.Notfound;
             }
@@ -247,6 +247,16 @@ namespace JR.Cms.Core
         public bool IsSystemTemplate(string templateFileName)
         {
             return Array.Exists(systemTemplatePages, a => String.Compare(a, templateFileName, true) == 0);
+        }
+
+        /// <summary>
+        /// 模板是否存在
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public bool Exists(string path)
+        {
+            return TemplateRegistry.Exists(path);
         }
     }
 }

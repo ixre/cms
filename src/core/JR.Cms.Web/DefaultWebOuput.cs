@@ -52,22 +52,14 @@ namespace JR.Cms.Web
         {
             //检测网站状态
             if (!context.CheckSiteState()) return;
-
             //检查缓存
             if (!context.CheckAndSetClientCache()) return;
 
             SiteDto site = context.CurrentSite;
         	int siteId=site.SiteId;
-        	string cacheId=String.Concat("cms_s",siteId.ToString(),"_index_page");
-        	
+        	string cacheId=String.Format("cms_s{0}_{1}_index_page",siteId,(int)Cms.Context.DeviceType);
         	ICmsPageGenerator cmsPage=new PageGeneratorObject(context);
-        	
-            if (context.Request["cache"] == "0")
-            {
-                Cms.Cache.Rebuilt();
-            }
-
-
+            if (context.Request["cache"] == "0") Cms.Cache.Rebuilt();
             string html;
             if (Settings.Opti_IndexCacheSeconds > 0)
             {
@@ -85,12 +77,8 @@ namespace JR.Cms.Web
             }
             else
             {
-                //DateTime dt = DateTime.Now;
                 html = cmsPage.GetIndex(null);
-                //context.Render("<br />"+(DateTime.Now - dt).TotalMilliseconds.ToString() + "<br />");
             }
-
-            //response.AddHeader("Cache-Control", "max-age=" + maxAge.ToString());
             context.Render(html);
         }
 

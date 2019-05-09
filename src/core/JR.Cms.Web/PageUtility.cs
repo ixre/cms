@@ -32,10 +32,9 @@ namespace JR.Cms
         /// </summary>
         public static TemplateHandler<object> OnPreRender;
 
-        const string CopyStr = "<!-- power by JRCMS v {0} , known more visit http://to2.net/cms -->";
+        const string CopyStr = "<!-- Power By JR-CMS v {0}, please visit website \"http://to2.net/cms\" known more. -->";
 
-        private static string version;
-        private static string copyStr2012;
+        private static string copyStr2019;
 
         /// <summary>
         /// 编译模板
@@ -44,34 +43,17 @@ namespace JR.Cms
         {
             SimpleTplEngine mctpl = new SimpleTplEngine(classInstance,!true);
             html = mctpl.Execute(html);
-
-            return;
-
-            if (mctpl.Count != null)
-            {
-                foreach (string method in mctpl.Count)
-                {
-                    HttpContext.Current.Response.Write("<br />" + method);
-                }
-            }
         };
 
 
         static PageUtility()
         {
-            /*
-            AssemblyFileVersionAttribute ver = (AssemblyFileVersionAttribute)typeof(Cms).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
-            string[] verarr = ver.Version.Split('.');
-            //version = String.Format("{0}.{1}.{2}", verarr[0], verarr[1], verarr[2]);
-            version = String.Format("{0}.{1}.{2}", verarr[0], verarr[1],verarr[2]);
-            */
-
-            copyStr2012 = String.Format(CopyStr, Cms.Version);
+            copyStr2019 = String.Format(CopyStr, Cms.Version);
         }
 
         private static TemplateHandler<object> PreHandler = (object obj,ref string html) =>
         {
-           //throw new Exception(html);
+            //throw new Exception(html);
 
             /*
             const string pattern = "</body>\\s*</html>";
@@ -83,27 +65,8 @@ namespace JR.Cms
 
 * 【承接】定制网站,营销型网站,WAP手机网站开发。联系电话：13162222872  QQ:188867734
 *************************************************************************************
--->";
-           // html = Regex.Replace(html, pattern, String.Format("{0}</body></html>", copyStr2012), RegexOptions.IgnoreCase);
-            */
-
-            /*
-
-            //替换标签为页面URL参数
-            html = TemplateRegexUtility.Replace(html, m =>
-            {
-                string paramName = m.Groups[1].Value;
-
-                if (!String.IsNullOrEmpty(HttpContext.Current.Request[paramName]))
-                {
-                    return HttpContext.Current.Request[paramName];
-                }
-                return m.Value;
-            });
-
-             */
-            
-            html += copyStr2012;
+-->";*/
+            html = html.Insert(Math.Max(html.LastIndexOf("<"),0), copyStr2019);
         };
 
 
@@ -117,19 +80,12 @@ namespace JR.Cms
             TemplatePage page = new TemplatePage(templateId);
             using (CmsTemplateImpl tpl = new CmsTemplateImpl())
             {
-                //if (data != null)
-                //{
-                //   page.AddDataObject(data);
-                //}
                 page.TemplateHandleObject = tpl;
                 page.OnPreInit += PreHandler;
                 page.OnPreRender += CompliedTemplate;
-
                 //注册扩展的模板解析事件
                 if (OnPreRender != null) page.OnPreRender += OnPreRender;
-
                 if (pageFunc != null) pageFunc(page);
-
                 return page.ToString();
             }
         }

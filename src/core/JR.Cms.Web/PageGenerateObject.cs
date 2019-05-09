@@ -36,10 +36,11 @@ namespace JR.Cms.Web
 
         public virtual string FormatTemplatePath(string tplPath)
         {
-            if (Cms.Context.DeviceType == DeviceType.Mobi &&
-                Cms.TemplateManager.Get(this._site.Tpl).CfgEnabledMobiPage)
+            TemplateSetting ts = Cms.TemplateManager.Get(this._site.Tpl);
+            if (ts.CfgEnabledMobiPage && Cms.Context.DeviceType == DeviceType.Mobile)
             {
-                return String.Format("/{0}/mobi/{1}", _site.Tpl, tplPath);
+                String path =  String.Format("/{0}/_mobile_/{1}", _site.Tpl, tplPath);
+                if(Cms.Template.Exists(path)) return path;
             }
             return String.Format("/{0}/{1}", _site.Tpl, tplPath);
         }

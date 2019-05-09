@@ -118,7 +118,7 @@
         <div style="padding:2em">
             <b>名称：</b>&nbsp;&nbsp;
             <input type="text" class="ui-box" name="filename" id="tb_fileName" />
-            <span class="ui-button w100 middle-button" onclick="ctobj.newFile('tb_fileName',{isDir})">
+            <span class="ui-button w100 middle-button" onclick="$jr.dialog.getDialog().window.ctobj.newFile('tb_fileName',{isDir})">
                 <span class="button-inner">
                     <span class="button-txt">创建</span>
                     <a href="javascript:;"></a>
@@ -408,7 +408,7 @@ $js()
         },
         newFile: function (id,isDir) {
             var _this = this;
-            var fileName = jr.$fn("#"+id).val();
+            var fileName = $jr.$fn("#"+id).val();
             if (fileName.length > 0) {
                 jr.xhr.post(fm_handler, 'xhr=1&act=create&dir=' + encodeURIComponent(curdir) + '&is_dir='
                     + (isDir ? "true" : "false") + '&file=' + encodeURIComponent(fileName),

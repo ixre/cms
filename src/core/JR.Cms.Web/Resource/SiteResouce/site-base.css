@@ -26,6 +26,7 @@ blockquote,q{quotes:"" ""}
 pre{white-space: pre-wrap;}
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}
+input[type="password"]{font-family:inherit}
 input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
 img{max-width:100%;border:0}
 
