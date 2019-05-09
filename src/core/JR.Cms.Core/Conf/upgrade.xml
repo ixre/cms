@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<upgrade version="3.2.032" build="20190410" patch="update.zip">
+<upgrade version="3.2.033" build="20190410" patch="update.zip">
 <![CDATA[
-
-1.新增上传使用原始文件名的功能
-2.新增OEM配置文件
-3.模板引擎新增文档标签:time_fmt和lang
-4.修改已知的问题
+1.模板引擎性能优化
+2.新增上传使用原始文件名的功能
+3.新增OEM配置文件
+4.模板引擎新增文档标签:time_fmt和lang
+5.修改已知的问题
 
 ]]>
 </upgrade>

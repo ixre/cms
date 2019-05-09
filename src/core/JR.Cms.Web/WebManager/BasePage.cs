@@ -172,7 +172,7 @@ namespace JR.Cms.WebManager
                 response.AddHeader("Content-Encoding", "gzip");
             }
 
-            if (this.Request["ajax"] == "1" || HttpContext.Current.Items["ajax"] == "1")
+            if (Request["ajax"] == "1" || HttpContext.Current.Items["ajax"] == "1")
             {
                 const string ajaxPartern = "<body([^>]*)>([\\s\\S]+)</body>";
                 if (Regex.IsMatch(html, ajaxPartern))

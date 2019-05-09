@@ -27,10 +27,7 @@ namespace JR.Cms.Core
             DirectoryInfo dir = new DirectoryInfo(rootDirPath);
             DirectoryInfo[] dirs = dir.GetDirectories();
             dict = new Dictionary<string, TemplateSetting>(dirs.Length);
-
             if (!dir.Exists) return dict;
-
-            int i = -1;
             foreach (DirectoryInfo d in dirs)
             {
                 if ((d.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
@@ -39,10 +36,12 @@ namespace JR.Cms.Core
                     if (!File.Exists(tplConfigFile))
                     {
                         SettingFile sf = new SettingFile(tplConfigFile);
-                        sf.Set("name",d.Name);
+                        sf.Set("name", d.Name);
                         sf.Flush();
                     }
-                    dict.Add(d.Name, new TemplateSetting(d.Name, tplConfigFile));
+                    TemplateSetting ts = new TemplateSetting(d.Name, tplConfigFile);
+                    ts.CfgEnabledMobiPage = Directory.Exists(String.Format("{0}{1}/_mobile_", rootDirPath, d.Name));
+                    dict.Add(d.Name, ts);
                 }
             }
             return dict;

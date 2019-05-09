@@ -16,6 +16,6 @@
         /// <summary>
         /// 移动设备
         /// </summary>
-        Mobi  = 3,
+        Mobile  = 3,
     }
 }

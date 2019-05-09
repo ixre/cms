@@ -683,6 +683,7 @@
     <Content Include="public\assets\widget\video-js\lang\vi.json" />
     <Content Include="public\assets\widget\video-js\lang\zh-CN.json" />
     <Content Include="public\assets\widget\video-js\lang\zh-TW.json" />
+    <Content Include="plugins\README.md" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

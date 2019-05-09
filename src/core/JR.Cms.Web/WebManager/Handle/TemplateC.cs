@@ -239,7 +239,7 @@ namespace JR.Cms.Web.WebManager.Handle
             string tplname = String.Format("templates/{0}/{1}.{2}",
                 base.CurrentSite.Tpl,
                 Request.Form["name"],
-                Request.Form["type"] == "1" ? "phtml" : "html");
+                Request.Form["type"] == "1" ? "part.html" : "html");
 
             string tplPath = String.Format("{0}{1}",
                 AppDomain.CurrentDomain.BaseDirectory,
