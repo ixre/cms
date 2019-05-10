@@ -54,13 +54,17 @@ table td{border:solid 1px #333;padding:0 10px;}
 /* mod-header-riod-header-right */
 .mod-header-right{float:right;}
 
-.page-header .ch-lang{position: absolute;right:0;top:0em;/*! background:#575757; */}
+/*
+.page-header .ch-lang{position: absolute;right:0;top:0em;}
 .page-header .ch-lang img{width:15px;height:10px;margin:8px;vertical-align: middle;}
 .page-header .ch-lang .drop:hover,.page-header .ch-lang .hover{}
 .page-header .ch-lang .drop{line-height: 30px;display:inline-block;cursor:pointer;}
 .page-header .ch-lang .drop div.menu{top:30px;background:#F0F0F0;padding:10px;min-width:100px;
 right:0;left:auto;border:solid 1px #D5D5D5;}
-.page-header .ch-lang  a{text-decoration: none;color:#726C6C;/*! padding-left: 15px; */}
+.page-header .ch-lang  a{text-decoration: none;color:#726C6C;}
+*/
+
+
 
 .page-header .panel{position:relative}
 .page-header .contact{position: absolute;right:0;top:2.2em;font-size:1.4em;/*! width:250px; */}
@@ -137,6 +141,13 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-flash-banner li div.p h2{font-size:1.2em;border-left:solid 8px #D50000;color:#FFF;padding-left:0.5em;margin:0;line-height:2em;
     background:#333;}
 .mod-flash-banner li div.p p{margin:1em 20px 1em 0;text-indent:1em;line-height:1.7em;color:#000;}
+
+/* 语言 */
+.mod-lang-drop{padding-bottom:30px;}
+.mod-lang-drop .list{position:absolute;right:0;left:0;background:#FFF;box-shadow:0 0 5px rgba(0,0,0,0.3);padding:15px;display:none;}
+.mod-lang-drop .arrow-t{position:absolute;border-width:10px;top:-10px;left:0;right:0;margin:0 auto;}
+.mod-lang-drop:hover .mod-lang-drop-list{display:inherit;}
+
 
 /* mod-crumb 面包屑 */
 .mod-crumb{line-height:3em;background:#F5F5F5;color:#333;padding-left:1em;
