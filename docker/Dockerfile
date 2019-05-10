@@ -35,7 +35,8 @@ RUN echo "3. Install cms program" \
 	&& rm -rf *server \
 	&& echo "4. Clean" \
 	&& apt-get remove -y gcc wget unzip libpcre3-dev libssl-dev zlib1g.dev make \
-	&& apt-get autoremove -y
+	&& apt-get autoremove -y \
+	&& echo fs.inotify.max_user_instances=1024 > /etc/sysctl.conf
 
 # 复制本地文件到docker
 COPY docker-boot.sh /
