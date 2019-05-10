@@ -66,7 +66,7 @@ namespace JR.Cms
 * 【承接】定制网站,营销型网站,WAP手机网站开发。联系电话：13162222872  QQ:188867734
 *************************************************************************************
 -->";*/
-            html = html.Insert(Math.Max(html.LastIndexOf("<"),0), copyStr2019);
+           html = html.Insert(Math.Max(html.LastIndexOf("<"),0), copyStr2019);
         };
 
 

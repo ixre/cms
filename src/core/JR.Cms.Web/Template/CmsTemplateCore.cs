@@ -1368,7 +1368,6 @@ namespace JR.Cms.Template
                         case "small_title": return archiveDto.SmallTitle;
                         case "title": return !this.FlagAnd(archiveDto.Flag, BuiltInArchiveFlags.IsSpecial) ?
                              archiveDto.Title : "<span class=\"special\">" + archiveDto.Title + "</span>";
-
                         case "author_id": return archiveDto.PublisherId.ToString();
 
                         //
@@ -1376,10 +1375,6 @@ namespace JR.Cms.Template
                         //
                         //case "authorname": return ArchiveUtility.GetAuthorName(dr["author"].ToString());
                         case "source": return archiveDto.Source == "" ? "原创" : archiveDto.Source;
-                        case "fmt_outline": return ArchiveUtility.GetFormatedOutline(
-                             archiveDto.Outline,
-                             archiveDto.Content,
-                             this.GetSetting().CfgOutlineLength);
                         case "outline": return ArchiveUtility.GetOutline(String.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline, this.GetSetting().CfgOutlineLength);
                         case "tags": return archiveDto.Tags;
                         case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archiveDto.StrId).ToString();
@@ -1402,7 +1397,6 @@ namespace JR.Cms.Template
                         // case "cid": return archive.Category.ID.ToString();
                         case "category_name": return archiveDto.Category.Name;
                         case "category_path":return archiveDto.Path;
-                        case "category_tag": return archiveDto.Category.Tag;
                         case "category_url": return this.GetCategoryUrl(archiveDto.Category, 1);
 
 
@@ -1417,7 +1411,7 @@ namespace JR.Cms.Template
                         case "content": return archiveDto.Content;
 
                         //压缩过的内容
-                        case "contenJR":
+                        case "conten2":
                             return Regex.Replace(archiveDto.Content, "\\r|\\t|\\s\\s", String.Empty);
 
                         //图片元素
@@ -1426,8 +1420,6 @@ namespace JR.Cms.Template
                         case "img2":
                             return this.ThumbnailTag(archiveDto.Thumbnail, archiveDto.Title, false);
                             //缩略图
-                        case "thumb": return this.GetThumbnailUrl(archiveDto.FirstImageUrl);
-
                         case "thumbnail": return this.GetThumbnailUrl(archiveDto.Thumbnail);
 
                         case "index":  return (index+1).ToString();
@@ -1438,11 +1430,9 @@ namespace JR.Cms.Template
                             return GetCssClass(dt.Count(), index, "a",archiveDto.Thumbnail);
 
                             //特性列表
-                        case "prolist":
-                        case "property_list":
+                        case "properties":
                             StringBuilder sb2 = new StringBuilder();
-                            sb.Append("<ul class=\"extend_field_list\">");
-
+                            sb.Append("<ul class=\"extend_field_list mod-archive-extends\">");
                             foreach (IExtendValue f in archiveDto.ExtendValues)
                             {
                                 if (!String.IsNullOrEmpty(f.Value))
@@ -1453,10 +1443,8 @@ namespace JR.Cms.Template
                                         .Append(f.Value).Append("</span></li>");
                                 }
                             }
-
                             sb2.Append("</ul>");
                             return sb2.ToString();
-
                         default:
                             if (field.IndexOf("[") != -1)
                             {
@@ -1472,12 +1460,6 @@ namespace JR.Cms.Template
                                 p = this.GetArchiveHolderTagParam(field, "lang[");
                                 if(p!= null)return Cms.Language.Get(this._ctx.UserLanguage,p) ?? "{" + p + "}";
                             }
-                            //用语言代替
-                            //if (field.StartsWith("lang_"))
-                            //{
-                            //    return Cms.Language.Get(this._ctx.UserLanguage, field.Substring(5)); //查找语言项
-                            //}
-
                             //读取自定义属性
                             if (extendFields == null)
                             {
@@ -1486,7 +1468,6 @@ namespace JR.Cms.Template
                             }
                             // 查找自定义属性
                             if (extendFields.ContainsKey(field)) return extendFields[field];
-                            
                             return String.Empty;
                     }
                 }));
