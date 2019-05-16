@@ -52,14 +52,11 @@ namespace JR.Cms.ServiceRepository
         }
         public int SaveSite(ISite site)
         {
-            if (site.GetAggregaterootId() == 0)
+            int siteId = site.GetAggregaterootId();
+            if (site.GetAggregaterootId() <= 0)
             {
-                int siteId=siteDal.CreateSite(site);
-               int  rootCategoryId = this._categoryRep.GetNewCategoryId(siteId);
-                if (siteId <= 0)
-                {
-                    throw new ArgumentException("创建站点失败");
-                }
+                siteId=siteDal.CreateSite(site);
+                if (siteId <= 0) throw new ArgumentException("创建站点失败");
             }
             else
             {
@@ -68,13 +65,11 @@ namespace JR.Cms.ServiceRepository
                     throw new ArgumentException("站点不存在，保存失败");
                 }
             }
-
-
             //清理缓存
             RepositoryDataCache._siteDict = null;
             RepositoryDataCache._categories = null;
 
-            return site.GetAggregaterootId();
+            return siteId;
         }
 
         public IList<ISite> GetSites()
