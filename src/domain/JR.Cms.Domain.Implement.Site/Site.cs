@@ -122,6 +122,29 @@ namespace JR.Cms.Domain.Implement.Site
             bool create = this.GetAggregaterootId() <= 0;
             int siteId = _siteRepository.SaveSite(this);
             this.value.SiteId = siteId;
+            if (create)
+            {
+                CmsCategoryEntity cat = new CmsCategoryEntity
+                {
+                    Code = "",
+                    Tag = "default",
+                    ParentId = 0,
+                    SiteId = this.GetAggregaterootId(),
+                    Flag = (int)CategoryFlag.Enabled,
+                    Name = "默认栏目",
+                    Path = "default",
+                    Description = "",
+                    Icon = "",
+                    Keywords = "",
+                    Location = "",
+                    SortNumber = 0,
+                    Title = ""
+                };
+                ICategory ic = this._categoryRep.CreateCategory(cat);
+                Error err = ic.Set(cat);
+                if(err == null)err = ic.Save();
+                if (err != null) throw new Exception("初始化站点目录失败:" + err.Message);
+            }
             return this.GetAggregaterootId();
         }
 

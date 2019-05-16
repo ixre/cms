@@ -141,16 +141,16 @@ namespace JR.Cms.Web.WebManager.Handle
                 return this.ReturnError("不允许新增站点");
             }
             bool siteIsExist = ServiceCall.Instance.SiteService.CheckSiteExists(entity.SiteId);
-            try
-            {
+          //  try
+          //  {
                 entity = CheckSiteEntity(siteIsExist,entity);
                 if (!siteIsExist)entity.SiteId = 0;
                 ServiceCall.Instance.SiteService.SaveSite(entity);
-            }
-            catch (Exception exc)
-            {
-               return base.ReturnError(exc.Message);
-            }
+           // }
+           // catch (Exception exc)
+           // {
+            //   return base.ReturnError(exc.Message);
+          //  }
             return base.ReturnSuccess(siteIsExist ? "站点保存成功" : "站点创建成功");
         }
     }

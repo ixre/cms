@@ -235,46 +235,26 @@
 
         function getImg() {
             var content = editor.html();
-            var str_img = [];
-            var match = null; //三个是都要验证的。因为情况不同
-            var reg_html1 = /(?:]*src[\ ]*=[\ ]*(?:['"]?)(\S[^'"\ ]+)(?:['"]?\s[^>]*[>]{1}))/gi;
-            var reg_html2 = /(?:]*\s*o\:href=(?:['"]?)(\S[^'"\ ]+)(?:['"]?[^>]+>{1})(?:<\/v\:imagedata>))/gi;
-            var reg_html3 = /(?:]*src=(?:['"]?)(\S[^'"\ ]+)(?:['"]?[^>]+)(?:(?:(?:\/>){1})|(?:[>]{1})))/gi;
-            while ((match = reg_html1.exec(content)) != null) { //找到每个匹配进行操作。
-                str_img.push(match[1]);
-            }
-            while ((match = reg_html2.exec(content)) != null) { //找到每个匹配进行操作。
-                str_img.push(match[1]);
-            }
-            //这个循环验证会导致多余图片出现
-            //while ((match = reg_html3.exec(content)) != null) {//找到每个匹配进行操作。
-            //str_img.push(match[1]);
-            //}
-
-
+            var reg_html1 = /<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*([^\t\r\n\"'<>]*)/ig;
             //多张图片赋值给下拉框
             var dpimg = document.getElementById('upimg');
-            if (str_img.length > 0) {
+            dpimg.innerHTML = '<option>一请选择图片一</option>';
+            var match;
+            var i = 0;
+            while ((match = reg_html1.exec(content)) !== null) {
+                var option = document.createElement("OPTION");
+                option.innerHTML = "Image" + (++i);
+                option.value = match[1];
+                dpimg.options.add(option);
+            }
+            if (dpimg.options.length > 1) {
                 dpimg.style.display = '';
             }
-
-            var seindex = dpimg.selectedIndex;
-            dpimg.innerHTML = '<option>一请选择图片一</option>';
-
-
-            var strs = str_img.toString().split(','); //图片分割
-            for (i = 0; i < strs.length; i++) {
-                var oOption = document.createElement("OPTION");
-                oOption.innerHTML = "Image" + (i + 1);
-                oOption.value = strs[i];
-                dpimg.options.add(oOption);
-            }
-
             dpimg.onchange = function () {
                 var imgurl = this.options[this.selectedIndex].value;
                 if (imgurl != "") {
-                    jr.$(thumbId).value = imgurl;
-                    jr.$(thumbImg).src = imgurl;
+                    $jr.$fn("#" + thumbId).val(imgurl);
+                    $jr.$fn("#" + thumbImg).attr("src", imgurl);
                 }
             };
         }

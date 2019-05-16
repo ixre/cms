@@ -129,7 +129,7 @@ namespace JR.Cms.ServiceRepository
             IList<ICategory> list;
             if (this.Categories.ContainsKey(siteId))
             {
-                list = this.Categories[siteId];
+                list = this.GetCategories(siteId);
                 return list.FirstOrDefault(a => String.Compare(a.Get().Path, path) == 0);
             }
             return null;
@@ -187,7 +187,7 @@ namespace JR.Cms.ServiceRepository
                 IList<ICategory> list;
                 if (this.Categories.ContainsKey(siteId))
                 {
-                    list = this.Categories[siteId];
+                    list = this.GetCategories(siteId);
                     return list.FirstOrDefault(a => a.GetDomainId() == catId);
                 }
             }
@@ -226,7 +226,7 @@ namespace JR.Cms.ServiceRepository
             this.ChkPreload();
             if (!this.Categories.ContainsKey(siteId)) return new List<ICategory>();
             String path = catPath + "/";
-            return this.Categories[siteId].Where(a => a.Get().Path.StartsWith(path));
+            return this.GetCategories(siteId).Where(a => a.Get().Path.StartsWith(path));
         }
 
 
@@ -234,10 +234,10 @@ namespace JR.Cms.ServiceRepository
         {
             this.ChkPreload();
             int catId = category.GetDomainId();
-            IList<ICategory> catgories = this.Categories[category.Get().SiteId];
+            IList<ICategory> catgories = this.GetCategories(category.Get().SiteId);
             return catgories.Where(a => a.Get().ParentId == catId);
         }
-        
+
         public void SaveCategorySortNumber(int id, int sortNumber)
         {
             this.categoryDal.SaveSortNumber(id, sortNumber);
