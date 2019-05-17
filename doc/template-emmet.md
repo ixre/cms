@@ -14,3 +14,7 @@
 ```
 .gra-suited-img.gra-suited-img-34>.mask+img
 ```
+气泡
+```
+.gra-pop>i.gra-pop-top+.gra-pop-box{气泡内容}
+```
