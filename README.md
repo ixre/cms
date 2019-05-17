@@ -56,6 +56,10 @@ fastcgi-mono-server4 /applications=/:cms /socket=tcp:127.0.0.1:8080
 
 *在Linux及MacOSX上运行，需先安装mono
 
+### 反向代理 ###
+- [通过Nginx反向代理](doc/nginx-proxy.md)
+- [通过Apache反向代理](doc/apache-proxy.md)
+
 ## Docker ##
 
 [Docker镜像帮助](https://hub.docker.com/r/jarry6/jrcms)
