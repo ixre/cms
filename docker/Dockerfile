@@ -3,6 +3,9 @@
 # Author : jarrysix(jarrysix@gmail.com)
 # Date : 2018-12-22 08:02
 
+# About setting inotify params see below: 
+# https://github.com/mono/mono/issues/12535
+
 # 引入基础镜像
 FROM mono:slim
 # 设置开发者
@@ -19,7 +22,7 @@ WORKDIR /cms
 RUN apt-get update -y && apt-get install -y --fix-missing wget unzip mono-fastcgi-server4  \
 	   gcc libpcre3-dev libssl-dev zlib1g.dev make &&\
 	echo "2.Install nginx" &&\
-	wget -O - "https://nginx.org/download/nginx-1.16.0.tar.gz" | tar xzf - &&\
+	wget -O - "https://nginx.org/download/nginx-1.17.0.tar.gz" | tar xzf - &&\
 	cd nginx* && ./configure --prefix=/usr/local/nginx \
 				--with-http_stub_status_module \
 				--with-http_ssl_module \
@@ -27,7 +30,7 @@ RUN apt-get update -y && apt-get install -y --fix-missing wget unzip mono-fastcg
 				--with-http_gzip_static_module \
 				--with-http_realip_module \
 				&& make install && cd .. && rm -rf nginx-* 
-				
+		
 RUN echo "3. Install cms program" \
 	&& wget -O cms.zip http://s.to2.net/jrcms_latest?date=20190520 \
 	&& unzip cms.zip && rm -f cms.zip \
@@ -36,7 +39,8 @@ RUN echo "3. Install cms program" \
 	&& echo "4. Clean" \
 	&& apt-get remove -y gcc wget unzip libpcre3-dev libssl-dev zlib1g.dev make \
 	&& apt-get autoremove -y \
-	&& echo fs.inotify.max_user_instances=1024 > /etc/sysctl.conf
+	&& echo "5. Setting Envirment" \
+	&& echo "fs.inotify.max_user_instances = 1638400\nfs.inotify.max_user_watches = 1638400" > /etc/sysctl.conf
 
 # 复制本地文件到docker
 COPY docker-boot.sh /
@@ -63,11 +67,11 @@ CMD ["sh","/docker-boot.sh"]
 # ```
 # docker run --rm -p 8080:80 \
 # 	--volume=$(pwd)/config:/cms/config \
-# 	--volume=$(pwd)/data:/cms/data \
-# 	--volume=$(pwd)/templates:/cms/templates \
 #       --volume=$(pwd)/oem:/cms/oem \
+# 	--volume=$(pwd)/templates:/cms/templates \
 # 	--volume=$(pwd)/plugins:/cms/plugins \
 # 	--volume=$(pwd)/uploads:/cms/uploads \
+# 	--volume=$(pwd)/data:/cms/data \
 # 	jarry6/jrcms
 # ```
 
