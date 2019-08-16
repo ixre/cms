@@ -163,7 +163,8 @@ window.menu = {
     refresh: _reloadTree,
     extend: function(id) {
         var d = jr.dialog.create2('扩展属性', true, true);
-        d.open('?module=extend&action=category_check&category_id=' + id, 500, 300);
+        var path = window.parent._path || "";
+        d.open(path+'?module=extend&action=category_check&category_id=' + id, 500, 300);
 
     },
     edit: function (id) {
