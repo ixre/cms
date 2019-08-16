@@ -53,8 +53,7 @@
         var _extendPanel = jr.$('extendPanel');
         jr.json.bind(_extendForm,_category);
 
-
-        for(var i in _extends){
+        for (var i = 0; i < _extends.length;i++) {
             _extendPanel.innerHTML+='<input type="checkbox" field="ExtendIds['+i+']" id="ck'+i
                 +'" value="'+_extends[i].Id+'"/><label for="ck'
                 +i+'">'+_extends[i].Name+'</label>&nbsp;&nbsp;';
