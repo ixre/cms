@@ -112,7 +112,7 @@ internal static class WebApiProcess
             {
                 if (link.Enabled)
                 {
-                    url = appPath + link.Url;
+                    url = appPath + link.Url+".html";
                     rlinks.Add(new ApiTypes.RLink
                     {
                         name = link.Title,
@@ -145,6 +145,7 @@ internal static class WebApiProcess
             if (archives[i].Enabled)
             {
                 archives[i].Url = archives[i].Url.Replace("#", host);
+                if (!archives[i].Url.EndsWith(".html")) archives[i].Url += ".html";
                 if (archives[i].Thumbnail.Length == 0)
                 {
                     archives[i].Thumbnail = defaultThumb;

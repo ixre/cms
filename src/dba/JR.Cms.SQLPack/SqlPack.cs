@@ -39,11 +39,7 @@ namespace JR.Cms.Sql
         /// <summary>
         /// 重新发布文档
         /// </summary>
-        public readonly string ArchiveRepublish = @"UPDATE $PREFIX_archive 
-                                SET create_time=@create_time WHERE id IN (SELECT id FROM
-                                (SELECT $PREFIX_archive.id FROM $PREFIX_archive INNER JOIN 
-                                $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.cat_id
-                                WHERE site_id=@siteId AND $PREFIX_archive.id=@id) t)";
+        public readonly string ArchiveRepublish = @"UPDATE $PREFIX_archive SET create_time=@create_time WHERE id =@id AND site_id=@siteId";
 
         /// <summary>
         /// 删除文档

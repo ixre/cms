@@ -315,11 +315,10 @@ namespace JR.Cms.Service
         }
 
 
-        public void RefreshArchive(int siteId, int archiveId)
+        public void RepublishArchive(int siteId, int archiveId)
         {
             IContentContainer content = this._contentRep.GetContent(siteId);
-            content.RefreshArchive(archiveId);
-
+            content.RepublishArchive(archiveId);
         }
 
 

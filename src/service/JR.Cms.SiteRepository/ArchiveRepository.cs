@@ -334,7 +334,7 @@ namespace JR.Cms.ServiceRepository
         }
 
 
-        public void RefreshArchive(int siteId, int archiveId)
+        public void RepublishArchive(int siteId, int archiveId)
         {
             this._dal.RePublish(siteId, archiveId);
         }

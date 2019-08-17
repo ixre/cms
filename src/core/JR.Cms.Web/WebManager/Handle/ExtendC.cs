@@ -98,7 +98,7 @@ namespace JR.Cms.Web.WebManager.Handle
             //设置并保存
             try
             {
-                ServiceCall.Instance.SiteService.SaveCategory(this.SiteId, -1, category);
+                ServiceCall.Instance.SiteService.SaveCategory(this.SiteId, category.ParentId, category);
             }
             catch (Exception exc)
             {

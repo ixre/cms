@@ -155,7 +155,7 @@ namespace JR.Cms.ServiceContract
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="archiveId"></param>
-        void RefreshArchive(int siteId, int archiveId);
+        void RepublishArchive(int siteId, int archiveId);
 
         /// <summary>
         /// 根据分类搜索文章

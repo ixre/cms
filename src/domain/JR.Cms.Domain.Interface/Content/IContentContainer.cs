@@ -122,7 +122,7 @@ namespace JR.Cms.Domain.Interface.Content
         /// 
         /// </summary>
         /// <param name="archiveId"></param>
-        void RefreshArchive(int archiveId);
+        void RepublishArchive(int archiveId);
 
         /// <summary>
         /// 根据分类搜索文章

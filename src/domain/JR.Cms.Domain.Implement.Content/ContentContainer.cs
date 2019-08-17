@@ -149,9 +149,9 @@ namespace JR.Cms.Domain.Implement.Content
             return this._archiveRep.GetNextArchive(this.SiteId, id, true, false);
         }
 
-        public void RefreshArchive(int archiveId)
+        public void RepublishArchive(int archiveId)
         {
-            this._archiveRep.RefreshArchive(this.SiteId, archiveId);
+            this._archiveRep.RepublishArchive(this.SiteId, archiveId);
         }
 
         public bool DeleteArchive(int archiveId)
