@@ -127,7 +127,7 @@ namespace JR.Cms.Domain.Interface.Content.Archive
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="archiveId"></param>
-        void RefreshArchive(int siteId, int archiveId);
+        void RepublishArchive(int siteId, int archiveId);
 
         /// <summary>
         /// 

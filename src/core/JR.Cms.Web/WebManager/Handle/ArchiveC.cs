@@ -899,7 +899,7 @@ namespace JR.Cms.Web.WebManager.Handle
         public void Republish_POST()
         {
             int id = int.Parse(base.Request["archive.id"]);
-            ServiceCall.Instance.ArchiveService.RefreshArchive(this.SiteId, id);
+            ServiceCall.Instance.ArchiveService.RepublishArchive(this.SiteId, id);
             base.RenderSuccess();
         }
 
