@@ -68,9 +68,8 @@
         window.save= function () {
             var settedExtend=jr.json.toObject(_extendForm).ExtendIds;
             var extendIdStr='';
-            var j=0;
-            for(var i in settedExtend){
-                if(j++!=0) extendIdStr+=',';
+            for (var i = 0; i< settedExtend.length;i++){
+                if(i!=0) extendIdStr+=',';
                 extendIdStr+=settedExtend[i];
             }
 

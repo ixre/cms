@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<upgrade version="3.2.033" build="20190410" patch="update.zip">
+<upgrade version="3.2.039" build="20190610" patch="update.zip">
 <![CDATA[
 1.模板引擎性能优化
 2.新增上传使用原始文件名的功能
