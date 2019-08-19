@@ -7,7 +7,7 @@
 # https://github.com/mono/mono/issues/12535
 
 # 引入基础镜像
-FROM mono:slim
+FROM mono:6-slim
 # 设置开发者
 MAINTAINER jarrysix
 # 设置标签
