@@ -17,6 +17,7 @@ LABEL Version=3.2
 
 # 设置最大缓存数量
 ENV MONO_ASPNET_WEBCONFIG_CACHESIZE 4096
+ENV DOTNET_USE_POLLING_FILE_WATCHER 1
 
 WORKDIR /cms
 RUN apt-get update -y && apt-get install -y --fix-missing wget unzip mono-fastcgi-server4  \
