@@ -15,15 +15,14 @@ using System.Web;
 using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Core.Plugins;
-using JR.Cms.Infrastructure;
-using JR.Cms.DataTransfer;
-using JR.DevFw.PluginKernel;
-using JR.DevFw.Framework.Web.UI;
 using JR.Cms.DB;
+using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.ServiceDto;
 using JR.DevFw.Framework.IO;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
+using JR.DevFw.Framework.Web.UI;
+using JR.DevFw.PluginKernel;
 
 namespace JR.Cms
 {
@@ -272,13 +271,13 @@ namespace JR.Cms
                 //检查网站激活状态
                 //SoftwareActivator.VerifyActivation();
                 //如果不存在模板文件夹，则创建目录
-                if (!Directory.Exists(Cms.PyhicPath + "templates/"))
+                if (!Directory.Exists(PyhicPath + "templates/"))
                 {
-                    Directory.CreateDirectory(Cms.PyhicPath + "templates/").Create();
+                    Directory.CreateDirectory(PyhicPath + "templates/").Create();
                     //暂时网络安装默认模板(后可使用资源代替)
                     Updater.InstallTemplate("default", "tpl_default.zip");
                 }
-                _templateManager = new TemplateManager(Cms.PyhicPath + CmsVariables.TEMPLATE_PATH);
+                _templateManager = new TemplateManager(PyhicPath + CmsVariables.TEMPLATE_PATH);
 
                 // 注册模板
                 Template.Register("/" + CmsVariables.TEMPLATE_PATH, true);
@@ -288,7 +287,7 @@ namespace JR.Cms
                 PluginConfig.PLUGIN_TMP_DIRECTORY = CmsVariables.TEMP_PATH + "plugin/";
                 PluginConfig.PLUGIN_LOG_OPENED = true;
                 PluginConfig.PLUGIN_LOG_EXCEPT_FORMAT = "** {time} **:{message}\r\nSource:{source}\r\nAddress:{addr}\r\nStack:{stack}\r\n\r\n";
-                string pluginPhysicPath = Cms.PyhicPath + PluginConfig.PLUGIN_TMP_DIRECTORY;
+                string pluginPhysicPath = PyhicPath + PluginConfig.PLUGIN_TMP_DIRECTORY;
                 if (!Directory.Exists(pluginPhysicPath))
                 {
                     Directory.CreateDirectory(pluginPhysicPath).Create();
@@ -297,11 +296,11 @@ namespace JR.Cms
                 CmsPluginContext.Connect();
 
                 // 设置验证码字体
-                VerifyCodeGenerator.SetFontFamily(Cms.PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
+                VerifyCodeGenerator.SetFontFamily(PyhicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
             }
             if (OnInit != null)
             {
-                Cms.OnInit();
+                OnInit();
             }
 
             IsInitFinish = true;
@@ -315,7 +314,7 @@ namespace JR.Cms
         {
             try
             {
-                IOUtils.CopyFolder(Cms.PyhicPath + "/" + CmsVariables.OEM_PATH + dir, Cms.PyhicPath);
+                IOUtils.CopyFolder(PyhicPath + "/" + CmsVariables.OEM_PATH + dir, PyhicPath);
             }
             catch (Exception ex)
             {
@@ -326,7 +325,7 @@ namespace JR.Cms
         private static void InitKvDb()
         {
             //注册KvDB
-            string kvDir = Cms.PyhicPath + CmsVariables.TEMP_PATH + "data/gcp";
+            string kvDir = PyhicPath + CmsVariables.TEMP_PATH + "data/gcp";
             if (Directory.Exists(kvDir))
             {
                 try
@@ -386,7 +385,7 @@ namespace JR.Cms
         /// <param name="sites"></param>
         public static void RegSites(SiteDto[] sites)
         {
-            Cms._sites = sites;
+            _sites = sites;
         }
 
 
@@ -410,7 +409,7 @@ namespace JR.Cms
 
         private static void resetTempFiles()
         {
-            DirectoryInfo dir = new DirectoryInfo(Cms.PyhicPath + CmsVariables.TEMP_PATH);
+            DirectoryInfo dir = new DirectoryInfo(PyhicPath + CmsVariables.TEMP_PATH);
             if (dir.Exists)
             {
                 foreach (FileInfo file in dir.GetFiles())

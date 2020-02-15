@@ -16,7 +16,6 @@ using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web;
-using JR.Cms.DataTransfer;
 using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.Utility;
 using JR.Cms.old;

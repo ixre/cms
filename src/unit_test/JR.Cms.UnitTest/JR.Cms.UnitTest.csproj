@@ -78,41 +78,9 @@
     <Content Include="files\sqlite.sql" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Cache\JR.Cms.CacheService\JR.Cms.CacheService.csproj">
-      <Project>{d40b1fb7-00f9-4d07-b034-eb51ab99e447}</Project>
-      <Name>JR.Cms.CacheService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\core\JR.Cms.Cache\JR.Cms.Cache.csproj">
-      <Project>{f8362c26-b7f2-4a9c-aa1c-d2c943ea8621}</Project>
-      <Name>JR.Cms.Cache</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\core\JR.Cms.Core\JR.Cms.Core.csproj">
       <Project>{c3841a42-df60-43bb-bc3c-03185cf0216d}</Project>
       <Name>JR.Cms.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\core\JR.Cms.Infrastructure\JR.Cms.Infrastructure.csproj">
-      <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
-      <Name>JR.Cms.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Domain\JR.Cms.Domain.Interface\JR.Cms.Domain.Interface.csproj">
-      <Project>{DB45CA62-9B89-4ABE-9ED2-54B45175D37B}</Project>
-      <Name>JR.Cms.Domain.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\JR.Cms.DataTransfer\JR.Cms.DataTransfer.csproj">
-      <Project>{A925A0E7-22D6-4DA7-8B75-87AA0D6D6E24}</Project>
-      <Name>JR.Cms.DataTransfer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\JR.Cms.ServiceContract\JR.Cms.ServiceContract.csproj">
-      <Project>{F512899C-B4C9-465F-A3DB-8E511C92A8A8}</Project>
-      <Name>JR.Cms.ServiceContract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\JR.Cms.ServiceUtil\JR.Cms.ServiceUtil.csproj">
-      <Project>{1B43FBD5-8E31-4688-9B25-A63378D375F2}</Project>
-      <Name>JR.Cms.ServiceUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Service\JR.Cms.Service\JR.Cms.Service.csproj">
-      <Project>{477203F2-8A7F-4CEA-B17E-21F8B35A8B22}</Project>
-      <Name>JR.Cms.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

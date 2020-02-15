@@ -22,7 +22,6 @@ using System.Web;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
 using JR.Cms.Core;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Domain.Interface.Models;
@@ -30,14 +29,12 @@ using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
+using JR.Cms.ServiceDto;
 using JR.DevFw.Framework;
 using JR.DevFw.Toolkit.Tags;
 using JR.DevFw.Web;
-using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
-using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 using JsonSerializer = JR.Cms.WebImpl.Json.JsonSerializer;
 using Result = JR.Cms.ServiceDto.Result;
-using UserDto = JR.Cms.ServiceDto.UserDto;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {
@@ -323,7 +320,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
             };
 
             base.RenderTemplate(
-              BasePage.CompressHtml(ResourceMap.GetPageContent(ManagementPage.Archive_Update)),
+              CompressHtml(ResourceMap.GetPageContent(ManagementPage.Archive_Update)),
                 data);
         }
 

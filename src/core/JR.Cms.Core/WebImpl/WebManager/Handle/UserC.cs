@@ -18,18 +18,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using JR.Cms.CacheService;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Domain.Interface.Value;
 using JR.Cms.Infrastructure.Domain;
 using JR.Cms.Library.DataAccess.BLL;
+using JR.Cms.Library.Utility;
 using JR.Cms.ServiceContract;
+using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
 using JR.DevFw.Framework.Extensions;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
-using UserDto = JR.Cms.ServiceDto.UserDto;
-using UserFormObject = JR.Cms.ServiceDto.UserFormObject;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

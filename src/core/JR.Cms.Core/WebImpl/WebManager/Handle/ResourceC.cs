@@ -205,15 +205,15 @@ namespace JR.Cms.WebImpl.WebManager.Handle
 
                     foreach (string file in files)
                     {
-                        if (System.IO.File.Exists(appDir + file))
+                        if (File.Exists(appDir + file))
                         {
                             if (compress && (type == "js" || type == "css"))
                             {
-                                context.Response.Write(BasePage.CompressHtml(System.IO.File.ReadAllText(appDir + file)));
+                                context.Response.Write(BasePage.CompressHtml(File.ReadAllText(appDir + file)));
                             }
                             else
                             {
-                                context.Response.BinaryWrite(System.IO.File.ReadAllBytes(appDir + file));
+                                context.Response.BinaryWrite(File.ReadAllBytes(appDir + file));
                             }
                         }
                     }

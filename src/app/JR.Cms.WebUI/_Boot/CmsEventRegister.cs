@@ -10,8 +10,8 @@
 */
 
 using System.Linq;
-using JR.Cms.CacheService;
 using JR.Cms.Conf;
+using JR.Cms.Library.CacheService;
 using JR.Cms.WebImpl.Resource;
 
 namespace JR.Cms

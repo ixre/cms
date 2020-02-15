@@ -18,12 +18,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using JR.Cms.CacheService;
 using JR.Cms.Core;
-using JR.Cms.DataTransfer;
+using JR.Cms.Library.Utility;
+using JR.Cms.ServiceDto;
 using JR.DevFw.Framework;
 using Newtonsoft.Json;
 using SharpCompress.Archive;
 using SharpCompress.Common;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {
@@ -144,7 +144,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
             ViewData["file"] = path;
             ViewData["path"] = path;
 
-            return base.RequireTemplate(BasePage.CompressHtml(ResourceMap.GetPageContent(ManagementPage.Template_EditFile)));
+            return base.RequireTemplate(CompressHtml(ResourceMap.GetPageContent(ManagementPage.Template_EditFile)));
         }
         public void EditFile_POST()
         {
@@ -493,7 +493,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                 {
                     dirIndex++;
                     string dirName = entry.FilePath.Split('\\', '/')[0];
-                    if (global::System.IO.Directory.Exists(tplRootPath + dirName))
+                    if (Directory.Exists(tplRootPath + dirName))
                     {
                         resultMessage = "模板已经存在!";
                         goto handleOver;
@@ -520,7 +520,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
         handleOver:
 
             archive.Dispose();
-            global::System.IO.File.Delete(tempTplPath);
+            File.Delete(tempTplPath);
 
             //重新注册模板
             Cms.Template.Register();

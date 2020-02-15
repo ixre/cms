@@ -19,16 +19,14 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Web;
-using JR.Cms.CacheService;
 using JR.Cms.Conf;
 using JR.Cms.Core;
-using JR.Cms.DataTransfer;
 using JR.Cms.Library.CacheService;
+using JR.Cms.Library.Utility;
+using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
 using JR.Cms.WebImpl.PageModels;
 using JR.DevFw.Framework.Web.UI;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
-using UserDto = JR.Cms.ServiceDto.UserDto;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

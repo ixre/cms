@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Web;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
-using JR.Cms.DataTransfer;
 using JR.Cms.Library.CacheService;
+using JR.Cms.ServiceDto;
 using SharpCompress.Archive;
 using SharpCompress.Common;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {
@@ -229,7 +229,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                 //bool result=ZipUtility.UncompressFile(@"C:\", filePath, true);
                 try
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    Thread.Sleep(1000);
 
                     #region dotnetzip
                     /*
@@ -265,7 +265,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
 
 
                 }
-                catch (System.Exception ex1)
+                catch (Exception ex1)
                 {
                     base.Response.Write(ex1.Message);
                 }

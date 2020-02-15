@@ -20,12 +20,12 @@ using System.Text.RegularExpressions;
 using System.Web;
 using JR.Cms.CacheService;
 using JR.Cms.Core;
-using JR.Cms.DataTransfer;
+using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Tree;
+using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
-using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
-using Result = JR.Cms.ServiceDto.Result;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
+using Kvdb = JR.Cms.CacheService.Kvdb;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {
@@ -317,7 +317,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
         public string Delete_POST()
         {
             int categoryId = int.Parse(base.Request.Form["category_id"]);
-            JR.Cms.Infrastructure.Error err = ServiceCall.Instance.SiteService.DeleteCategory(this.SiteId, categoryId);
+            Error err = ServiceCall.Instance.SiteService.DeleteCategory(this.SiteId, categoryId);
             if (err == null)
             {
                 String key = Consts.NODE_TREE_JSON_KEY + ":" + this.SiteId.ToString();

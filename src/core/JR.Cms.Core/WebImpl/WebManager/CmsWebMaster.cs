@@ -2,12 +2,10 @@
 using System.Web;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
-using JR.Cms.DataTransfer;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.Utility;
+using JR.Cms.ServiceDto;
 using JR.DevFw.Web;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
-using UserDto = JR.Cms.ServiceDto.UserDto;
 
 namespace JR.Cms.WebImpl.WebManager
 {
@@ -88,7 +86,7 @@ namespace JR.Cms.WebImpl.WebManager
 
         public static void SetCurrentManageSite(HttpContext context, SiteDto value)
         {
-            HttpCookie cookie = context.Request.Cookies.Get(CmsWebMaster.CookieNameKey);
+            HttpCookie cookie = context.Request.Cookies.Get(CookieNameKey);
             if (cookie != null)
             {
                 if (value.SiteId <= 0)
@@ -106,7 +104,7 @@ namespace JR.Cms.WebImpl.WebManager
             }
             else
             {
-                cookie = new HttpCookie(CmsWebMaster.CookieNameKey, value.SiteId.ToString())
+                cookie = new HttpCookie(CookieNameKey, value.SiteId.ToString())
                 {
                     Expires = DateTime.Now.AddDays(2),
                     Path = "/" + Settings.SYS_ADMIN_TAG
@@ -114,7 +112,7 @@ namespace JR.Cms.WebImpl.WebManager
                 context.Response.Cookies.Add(cookie);
             }
 
-            context.Session[CmsWebMaster.CurrentSiteSessionStr] = null;
+            context.Session[CurrentSiteSessionStr] = null;
         }
     }
 }

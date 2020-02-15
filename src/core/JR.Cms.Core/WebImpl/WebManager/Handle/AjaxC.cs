@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,19 +25,15 @@ using System.Web;
 using System.Xml;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Infrastructure.Tree;
 using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
+using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
 using JR.DevFw.Framework.Text;
 using static JR.Cms.Updater;
-using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
-using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
-using UserDto = JR.Cms.ServiceDto.UserDto;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {
@@ -180,7 +177,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
 
             //读取配置
             string setfile = String.Format("{0}config/sysset.conf", AppDomain.CurrentDomain.BaseDirectory);
-            if (global::System.IO.File.Exists(setfile))
+            if (File.Exists(setfile))
             {
                 xd.Load(setfile);
             }
@@ -319,7 +316,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
 
             string message = "未知异常";
 
-            VersionInfo result = Updater.CheckUpgrade();
+            VersionInfo result = CheckUpgrade();
 
             switch (result.FetchCode)
             {
@@ -350,7 +347,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
         {
             if (Cms.OfficialEnvironment)
             {
-                Updater.StartUpgrade();
+                StartUpgrade();
             }
         }
 
@@ -359,19 +356,19 @@ namespace JR.Cms.WebImpl.WebManager.Handle
         /// </summary>
         public void GetUpgradeStatus_GET()
         {
-            float f = Updater.UpgradePercent;
+            float f = UpgradePercent;
             base.Response.Write(f.ToString(CultureInfo.InvariantCulture));
 
             if (f == 1F)
             {
-                Updater.ApplyBinFolder();
+                ApplyBinFolder();
             }
             else if (f < 1F)
             {
-                Updater.UpgradePercent += (float)new Random().Next(1, 3) / 100;
-                if (Updater.UpgradePercent > 0.96F)
+                UpgradePercent += (float)new Random().Next(1, 3) / 100;
+                if (UpgradePercent > 0.96F)
                 {
-                    Updater.UpgradePercent = 0.96F;
+                    UpgradePercent = 0.96F;
                 }
             }
         }
