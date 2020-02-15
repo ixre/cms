@@ -15,12 +15,13 @@ using System.Text.RegularExpressions;
 using System.Web;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Domain.Interface.Value;
 using JR.Cms.Infrastructure.Domain;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.DevFw.Framework.Extensions;
+using LoginResultDto = JR.Cms.ServiceDto.LoginResultDto;
+using UserDto = JR.Cms.ServiceDto.UserDto;
 
 namespace JR.Cms.Library.Utility
 {
@@ -33,16 +34,16 @@ namespace JR.Cms.Library.Utility
     /// </summary>
     public static class UserState
     {
-        private static int[] charArray;
+        private static readonly int[] CharArray;
 
-        private const int tokenLength = 10;
+        private const int TokenLength = 10;
 
-        private const string adminSK = "$jr.ASK";
+        private const string AdminSk = "$jr.ASK";
 
         /// <summary>
         /// 管理员Cookie键匹配模式
         /// </summary>
-        private static string administatorTokenPattern;
+        private static readonly string AdministratorTokenPattern;
 
         /// <summary>
         /// 会员Cookie键匹配模式
@@ -52,13 +53,13 @@ namespace JR.Cms.Library.Utility
         static UserState()
         {
             StringBuilder sb = new StringBuilder();
-            charArray = new int[] { 98, 100, 101, 104, 108, 120, 111, 107, 113 };
-            Array.ForEach(charArray, a =>
+            CharArray = new int[] { 98, 100, 101, 104, 108, 120, 111, 107, 113 };
+            Array.ForEach(CharArray, a =>
             {
                 sb.Append((char)a);
             });
 
-            administatorTokenPattern = String.Format("^cms_sid_([{0}]+)$", sb.ToString());
+            AdministratorTokenPattern = String.Format("^cms_sid_([{0}]+)$", sb.ToString());
             memberTokenPattern = String.Format("^_token_[{0}]+_$", sb.ToString());
         }
         /// <summary>
@@ -69,15 +70,15 @@ namespace JR.Cms.Library.Utility
         {
             StringBuilder sb = new StringBuilder();
             Random rd = new Random();
-            int arrayLength = charArray.Length;
+            int arrayLength = CharArray.Length;
 
             int i = 0;
             do
             {
                 ++i;
-                sb.Append((char)charArray[rd.Next(0, arrayLength - 1)]);
+                sb.Append((char)CharArray[rd.Next(0, arrayLength - 1)]);
             }
-            while (i < tokenLength);
+            while (i < TokenLength);
 
             return sb.ToString();
         }
@@ -147,7 +148,7 @@ namespace JR.Cms.Library.Utility
             {
                 get
                 {
-                    UserDto user = HttpContext.Current.Session[adminSK] as UserDto;
+                    UserDto user = HttpContext.Current.Session[AdminSk] as UserDto;
                     if (user == null)
                     {
                         HttpCookie cookie = null;
@@ -155,15 +156,15 @@ namespace JR.Cms.Library.Utility
                         string tokenKey;
                         foreach (string key in HttpContext.Current.Request.Cookies.Keys)
                         {
-                            if (Regex.IsMatch(key, administatorTokenPattern))
+                            if (Regex.IsMatch(key, AdministratorTokenPattern))
                             {
-                                tokenKey = Regex.Match(key, administatorTokenPattern).Groups[1].Value;
+                                tokenKey = Regex.Match(key, AdministratorTokenPattern).Groups[1].Value;
 
-                                if (tokenKey.Length == tokenLength)
+                                if (tokenKey.Length == TokenLength)
                                 {
                                     foreach (char c in tokenKey)
                                     {
-                                        if (!Array.Exists<int>(charArray, a => a == c))
+                                        if (!Array.Exists<int>(CharArray, a => a == c))
                                         {
                                             cookieKeyIsRight = false;
                                             break;
@@ -198,7 +199,7 @@ namespace JR.Cms.Library.Utility
                             //密钥一致，则登录
                             if (String.Compare(token, cookieToken, StringComparison.OrdinalIgnoreCase) == 0)
                             {
-                                HttpContext.Current.Session[adminSK] = user;
+                                HttpContext.Current.Session[AdminSk] = user;
                                 return user;
                             }
                             else
@@ -235,7 +236,7 @@ namespace JR.Cms.Library.Utility
 
                     UserDto user = ServiceCall.Instance.UserService.GetUser(result.Uid);
 
-                    HttpContext.Current.Session[adminSK] = user;
+                    HttpContext.Current.Session[AdminSk] = user;
                     HttpCookie cookie = new HttpCookie(String.Format("cms_sid_{0}", GeneratorRandomStr()));
                     cookie.Expires = DateTime.Now.AddMinutes(minutes);
                     // cookie.Domain=AppContext.Config.Domain.HostName;
@@ -258,7 +259,7 @@ namespace JR.Cms.Library.Utility
             {
                 //UserBll user = Current;
                 //移除会话
-                HttpContext.Current.Session.Remove(adminSK);
+                HttpContext.Current.Session.Remove(AdminSk);
 
                 //移除Cookie
                 HttpResponse response = HttpContext.Current.Response;
@@ -267,7 +268,7 @@ namespace JR.Cms.Library.Utility
                 int keysLength = keys.Count;
                 for (int i = 0; i < keysLength; i++)
                 {
-                    if (Regex.IsMatch(keys[i].ToString(), administatorTokenPattern))
+                    if (Regex.IsMatch(keys[i].ToString(), AdministratorTokenPattern))
                     {
                         cookie = HttpContext.Current.Request.Cookies[i];
 
@@ -287,7 +288,7 @@ namespace JR.Cms.Library.Utility
             /// </summary>
             public static void Clear()
             {
-                HttpContext.Current.Session.Remove(adminSK);
+                HttpContext.Current.Session.Remove(AdminSk);
             }
         }
 

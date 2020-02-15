@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using JR.Cms.Cache;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Common.Language;
 using JR.Cms.Infrastructure;

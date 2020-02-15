@@ -10,8 +10,8 @@
 //
 
 using System;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.User;
+using JR.Cms.ServiceDto;
 
 namespace JR.Cms.Library.Utility
 {
@@ -28,7 +28,6 @@ namespace JR.Cms.Library.Utility
         /// <summary>
         /// 判断是否有权限修改文档
         /// </summary>
-        /// <param name="p"></param>
         /// <param name="siteId"></param>
         /// <param name="publisherId"></param>
         /// <returns></returns>

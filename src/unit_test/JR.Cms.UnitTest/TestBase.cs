@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JR.Cms.CacheService;
-using JR.Cms.Service;
+using JR.Cms.ServiceImpl;
 
 namespace JR.Cms.UnitTest
 {

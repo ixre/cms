@@ -128,74 +128,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultWebOuput.cs" />
-    <Compile Include="Export\ExcelExportProvider.cs" />
-    <Compile Include="Export\ExportHandle.cs" />
-    <Compile Include="FileExplor.cs" />
-    <Compile Include="Json\JsonSerializer.cs" />
-    <Compile Include="Handlers\KingEditor.cs" />
-    <Compile Include="Locale.cs" />
-    <Compile Include="Mvc\Controllers\CmsController.cs" />
-    <Compile Include="Mvc\Controllers\CmsInstallHandler.cs" />
-    <Compile Include="Mvc\Controllers\CmsManagerRouteHandler.cs" />
-    <Compile Include="Mvc\Controllers\ControllerBase.cs" />
-    <Compile Include="ForbiddenHandler.cs" />
-    <Compile Include="Mvc\Controllers\WebApiRouteHandler.cs" />
-    <Compile Include="Mvc\Routes.cs" />
-    <Compile Include="obsolute\HttpModule.cs" />
-    <Compile Include="PageGenerateObject.cs" />
-    <Compile Include="PageModels\PageArchive.cs" />
-    <Compile Include="PageModels\PageSite.cs" />
-    <Compile Include="PageUtility.cs" />
-    <Compile Include="PageModels\PageVariable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource\ResourceUtility.cs" />
-    <Compile Include="Resource\SiteResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SiteResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resource\SiteResourceInit.cs" />
-    <Compile Include="Resource\WebManager\WebManagerResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WebManagerResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Task\CmsTask.cs" />
-    <Compile Include="Template\CmsTemplateCore.cs" />
-    <Compile Include="Template\CmsTemplateImpl.cs" />
-    <Compile Include="Template\CmsTemplateDataMethod.cs" />
-    <Compile Include="Template\PageGenerator.cs" />
-    <Compile Include="Util\UploadUtils.cs" />
-    <Compile Include="WebManager\BasePage.cs" />
-    <Compile Include="WebManager\CmsWebMaster.cs" />
-    <Compile Include="WebManager\Consts.cs" />
-    <Compile Include="WebManager\EachClass.cs" />
-    <Compile Include="WebManager\Handle\AjaxC.cs" />
-    <Compile Include="WebManager\Handle\ArchiveC.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="WebManager\Handle\AssistantC.cs" />
-    <Compile Include="WebManager\Handle\CategoryC.cs" />
-    <Compile Include="WebManager\Handle\ExtendC.cs" />
-    <Compile Include="WebManager\Handle\FileC.cs" />
-    <Compile Include="WebManager\Handle\LinkC.cs" />
-    <Compile Include="WebManager\Handle\PluginC.cs" />
-    <Compile Include="WebManager\Handle\ResourceC.cs" />
-    <Compile Include="WebManager\Handle\SystemC.cs" />
-    <Compile Include="WebManager\Handle\TableC.cs" />
-    <Compile Include="WebManager\Handle\TemplateC.cs" />
-    <Compile Include="WebManager\Handle\UploadC.cs" />
-    <Compile Include="WebManager\Handle\UserC.cs" />
-    <Compile Include="WebManager\Handle\SiteC.cs" />
-    <Compile Include="WebManager\Helper.cs" />
-    <Compile Include="WebManager\ManagerLogic.cs" />
-    <Compile Include="WebManager\MCacheUpdateAttribute.cs" />
-    <Compile Include="WebManager\ResourceMap.cs" />
-    <Compile Include="WebManager\TreeItem.cs" />
-    <Compile Include="WebManager\VerifyCodeManager.cs" />
-    <Compile Include="WebManager\PermissionAttribute.cs" />
-    <Compile Include="WebManager\PageTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Cache\JR.Cms.CacheService\JR.Cms.CacheService.csproj">
@@ -263,59 +196,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resource\SiteResouce\assets\animate.css" />
-    <Content Include="Resource\SiteResouce\assets\wow.js" />
-    <Content Include="Resource\SiteResouce\base.min.js" />
-    <Content Include="Resource\SiteResouce\cms.core.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_animation.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_dialog.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_datagrid.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_form.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_roller.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_scrollbar.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_scroller.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_table.js" />
-    <Content Include="Resource\SiteResouce\js_cms_api.js" />
-    <Content Include="Resource\SiteResouce\jslib\js_lib_ui.js" />
-    <Content Include="Resource\SiteResouce\site-page.css" />
-    <Content Include="Resource\SiteResouce\site-base.css" />
-    <Content Include="Resource\WebManager\resouces\images\old\frame_index2.js" />
-    <Content Include="Resource\WebManager\resouces\images\guest-avatar.jpg" />
-    <Content Include="Resource\WebManager\resouces\images\sysset.conf.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <EmbeddedResource Include="Resource\WebManager\resouces\images\ui.component.js" />
-    <Content Include="Resource\WebManager\resouces\images\ui.component.source.js" />
-    <Content Include="Resource\WebManager\resouces\plugin\archiveTagReplace.html" />
-    <Content Include="Resource\WebManager\resouces\table\columns.html" />
-    <Content Include="Resource\WebManager\resouces\table\editcolumn.html" />
-    <Content Include="Resource\WebManager\resouces\table\edittable.html" />
-    <Content Include="Resource\WebManager\resouces\table\rows.html" />
-    <Content Include="Resource\WebManager\resouces\table\tables.html" />
-    <None Include="Resource\WebManager\resouces\images\manage.js_source.js" />
-    <EmbeddedResource Include="Resource\WebManager\resouces\images\manage.js_min.js" />
-    <None Include="Resource\WebManager\resouces\images\ajax-loader.gif" />
-    <None Include="Resource\SiteResouce\jslib\js_lib_upload.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resource\SiteResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>SiteResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resource\WebManager\WebManagerResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>WebManagerResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resource\SiteResouce\tpl_packs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

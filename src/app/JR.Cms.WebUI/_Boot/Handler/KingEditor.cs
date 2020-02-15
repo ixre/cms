@@ -20,9 +20,9 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using JR.Cms.Conf;
-using JR.Cms.WebManager;
+using JR.Cms.WebImpl.Util;
+using JR.Cms.WebImpl.WebManager;
 using JR.DevFw.Utils;
-using JR.Cms.Web.Util;
 
 namespace JR.Cms.Handler
 {

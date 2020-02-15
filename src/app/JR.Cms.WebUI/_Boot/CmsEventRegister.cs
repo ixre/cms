@@ -12,7 +12,7 @@
 using System.Linq;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
-using JR.Cms.Resource;
+using JR.Cms.WebImpl.Resource;
 
 namespace JR.Cms
 {

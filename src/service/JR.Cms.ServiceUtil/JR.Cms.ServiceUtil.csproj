@@ -50,10 +50,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="ICmsServiceProvider.cs" />
-    <Compile Include="RedirectCallService.cs" />
-    <Compile Include="ServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
