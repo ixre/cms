@@ -9,9 +9,9 @@
 */
 
 
-using JR.Cms.BLL;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
+using JR.Cms.Library.DataAccess.BLL;
 using JR.DevFw.Framework;
 using JR.DevFw.Framework.Web.UI;
 

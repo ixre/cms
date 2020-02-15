@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using JR.Cms.Dal;
 using JR.Cms.Domain.Implement.Content.Archive;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Content.Archive;

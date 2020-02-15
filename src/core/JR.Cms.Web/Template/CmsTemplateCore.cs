@@ -1,4 +1,6 @@
 ﻿
+using JR.Cms.Library.DataAccess.BLL;
+
 namespace JR.Cms.Template
 {
     using JR.Cms;
@@ -14,7 +16,6 @@ namespace JR.Cms.Template
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
-    using JR.Cms.BLL;
     using JR.Cms.Cache.CacheCompoment;
     using JR.Cms.CacheService;
     using JR.Cms.Conf;

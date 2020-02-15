@@ -19,7 +19,6 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using JR.Cms.BLL;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
 using JR.Cms.Core;
@@ -36,6 +35,7 @@ using JR.DevFw.Web;
 using ResourceMap = JR.Cms.WebManager.ResourceMap;
 using JR.DevFw.Data;
 using JR.Cms.DB;
+using JR.Cms.Library.DataAccess.BLL;
 using JR.DevFw.Framework;
 
 namespace JR.Cms.Web.WebManager.Handle

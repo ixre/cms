@@ -16,9 +16,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Web;
-using JR.Cms.BLL;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Domain.Interface._old;
+using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.WebManager;
 
 namespace JR.Cms.Web.WebManager.Handle

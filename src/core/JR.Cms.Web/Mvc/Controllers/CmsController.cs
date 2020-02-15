@@ -10,9 +10,9 @@
 //
 
 using System.Web;
-using JR.Cms.BLL;
 using JR.Cms.Conf;
 using JR.Cms.DataTransfer;
+using JR.Cms.Library.DataAccess.BLL;
 using JR.DevFw.Framework.Web.UI;
 using JR.DevFw.Framework.Xml.AutoObject;
 

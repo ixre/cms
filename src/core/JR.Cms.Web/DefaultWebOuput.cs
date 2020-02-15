@@ -1,7 +1,6 @@
 ﻿using JR.Cms.DataTransfer;
 using System;
 using System.Text.RegularExpressions;
-using JR.Cms.BLL;
 using JR.Cms.Cache.CacheCompoment;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
@@ -9,6 +8,7 @@ using JR.Cms.Core;
 using JR.Cms.Core.Interface;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Models;
+using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Utility;
 using JR.Cms.Web.PageModels;
 
