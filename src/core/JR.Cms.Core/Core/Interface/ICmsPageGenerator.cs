@@ -8,9 +8,7 @@
 *
 */
 
-using JR.Cms.DataTransfer;
-using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
-using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
+using JR.Cms.ServiceDto;
 
 namespace JR.Cms.Core.Interface
 {

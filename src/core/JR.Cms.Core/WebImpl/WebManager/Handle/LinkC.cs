@@ -18,16 +18,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using JR.Cms.CacheService;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Site.Link;
+using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
 using JR.DevFw.Web;
-using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
-using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
-using LinkBehavior = JR.Cms.ServiceDto.LinkBehavior;
-using RelatedLinkDto = JR.Cms.ServiceDto.RelatedLinkDto;
-using SiteLinkDto = JR.Cms.ServiceDto.SiteLinkDto;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

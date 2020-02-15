@@ -15,6 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
+using System.Web;
 using JR.Cms.WebImpl.Util;
 using JR.DevFw.Framework.Web.UI;
 
@@ -110,7 +112,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
         /// <param name="parameters">POST参数</param>
         /// <param name="cookieContainer">cookie</param>
         /// <param name="output">远程服务器响应字符串</param>
-        public void HttpPostFile(string url, System.Web.HttpPostedFile postedFile, Dictionary<string, object> parameters, CookieContainer cookieContainer, ref string output)
+        public void HttpPostFile(string url, HttpPostedFile postedFile, Dictionary<string, object> parameters, CookieContainer cookieContainer, ref string output)
         {
             //1>创建请求
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -122,7 +124,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
             request.KeepAlive = true;
 
             string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");//分界线
-            byte[] boundaryBytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+            byte[] boundaryBytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
 
             request.ContentType = "multipart/form-data; boundary=" + boundary; ;//内容类型
 
@@ -137,7 +139,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
             string strHeader = "Content-Disposition:application/x-www-form-urlencoded; name=\"{0}\";filename=\"{1}\"\r\nContent-Type:{2}\r\n\r\n";
             strHeader = string.Format(strHeader, "filedata", postedFile.FileName, postedFile.ContentType);
             //6>HTTP请求头
-            byte[] byteHeader = System.Text.ASCIIEncoding.ASCII.GetBytes(strHeader);
+            byte[] byteHeader = ASCIIEncoding.ASCII.GetBytes(strHeader);
             try
             {
                 using (Stream stream = request.GetRequestStream())
@@ -148,7 +150,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                         foreach (KeyValuePair<string, object> item in parameters)
                         {
                             stream.Write(boundaryBytes, 0, boundaryBytes.Length);//写入分界线
-                            byte[] formBytes = System.Text.Encoding.UTF8.GetBytes(string.Format(formdataTemplate, item.Key, item.Value));
+                            byte[] formBytes = Encoding.UTF8.GetBytes(string.Format(formdataTemplate, item.Key, item.Value));
                             stream.Write(formBytes, 0, formBytes.Length);
                         }
                     }
@@ -159,7 +161,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                     //6.2>把文件流写入请求流
                     stream.Write(buffer, 0, buffer.Length);
                     //6.3>写入分隔流
-                    byte[] trailer = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
+                    byte[] trailer = Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
                     stream.Write(trailer, 0, trailer.Length);
                     //6.4>关闭流
                     stream.Close();

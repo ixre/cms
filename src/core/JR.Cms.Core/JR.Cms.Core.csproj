@@ -237,7 +237,6 @@
     <Compile Include="Infrastructure\KV\MicroKvStorage.cs" />
     <Compile Include="Infrastructure\KV\Platform.cs" />
     <Compile Include="Infrastructure\OperateResult.cs" />
-    <Compile Include="Infrastructure\Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\ResourceMap.cs" />
     <Compile Include="Infrastructure\Resources\CmsResource.Designer.cs" />
     <Compile Include="Infrastructure\Tree\TreeNode.cs" />
@@ -430,13 +429,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Infrastructure\Kvdb_leveldb.cs.bak" />
-    <Content Include="Infrastructure\obj\Debug\JR.Cms.Infrastructure.csproj.CopyComplete" />
-    <Content Include="Infrastructure\obj\Debug\JR.Cms.Infrastructure.csproj.FileListAbsolute.txt" />
-    <Content Include="Infrastructure\obj\Debug\JR.Cms.Infrastructure.csproj.GenerateResource.cache" />
-    <Content Include="Infrastructure\obj\Debug\JR.Cms.Infrastructure.csprojAssemblyReference.cache" />
-    <Content Include="Infrastructure\obj\Debug\JR.Cms.Infrastructure.dll" />
-    <Content Include="Infrastructure\obj\Debug\JR.Cms.Infrastructure.pdb" />
-    <Content Include="Infrastructure\obj\Debug\JR.Cms.Infrastructure.Resources.CmsResource.resources" />
     <Content Include="Infrastructure\Resources\xml\lang_package.xml" />
     <Content Include="WebImpl\Export\ExcelExportProvider.cs_" />
     <Content Include="WebImpl\Resource\SiteResouce\assets\animate.css" />
@@ -484,9 +476,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\obj\Debug\TempPE" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Infrastructure\Resources\CmsResource.resx" />

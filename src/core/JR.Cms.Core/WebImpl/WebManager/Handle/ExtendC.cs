@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using JR.Cms.CacheService;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Library.CacheService;
+using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
 using JR.DevFw.Framework.Automation;
 using JR.DevFw.Framework.Extensions;
-using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
-using ExtendFieldDto = JR.Cms.ServiceDto.ExtendFieldDto;
-using Result = JR.Cms.ServiceDto.Result;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

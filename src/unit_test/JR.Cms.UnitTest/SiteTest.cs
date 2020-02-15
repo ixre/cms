@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JR.Cms.CacheService;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Site;
 using JR.Cms.Infrastructure.Ioc;
+using JR.Cms.ServiceDto;
 
 namespace JR.Cms.UnitTest
 {

@@ -1,12 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using JR.Cms.CacheService;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Site.Extend;
+using JR.Cms.ServiceDto;
 
 namespace JR.Cms.UnitTest
 {

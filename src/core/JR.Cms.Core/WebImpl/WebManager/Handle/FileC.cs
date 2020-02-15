@@ -219,13 +219,13 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                         if (!Directory.Exists(backupDir))
                         {
                             Directory.CreateDirectory(backupDir).Create();
-                            global::System.IO.File.SetAttributes(backupDir, FileAttributes.Hidden);
+                            File.SetAttributes(backupDir, FileAttributes.Hidden);
                         }
                         else
                         {
-                            if (System.IO.File.Exists(backFile))
+                            if (File.Exists(backFile))
                             {
-                                global::System.IO.File.Delete(backFile);
+                                File.Delete(backFile);
                             }
                         }
                         //生成备份文件
@@ -255,7 +255,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                             tmpfile.MoveTo(backFile);
 
                             //global::System.IO.File.SetAttributes(_fpath + ".bak",file.Attributes & FileAttributes.Hidden);
-                            global::System.IO.File.SetAttributes(_fpath, file.Attributes & FileAttributes.Normal);
+                            File.SetAttributes(_fpath, file.Attributes & FileAttributes.Normal);
                         }
                         Response.Write("还原成功!");
                     }

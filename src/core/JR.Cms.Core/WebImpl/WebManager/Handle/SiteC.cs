@@ -17,10 +17,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using JR.Cms.CacheService;
-using JR.Cms.DataTransfer;
+using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.CacheService;
+using JR.Cms.ServiceDto;
 using JR.DevFw.Framework.Automation;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

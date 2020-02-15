@@ -21,11 +21,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using JR.Cms.Conf;
-using JR.Cms.DataTransfer;
+using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
 using JR.DevFw;
 using JR.DevFw.Framework.Extensions;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
 namespace JR.Cms.WebImpl.WebManager
 {

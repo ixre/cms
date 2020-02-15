@@ -2,12 +2,12 @@
 using JR.DevFw.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JR.Cms.CacheService;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Ioc;
 using JR.Cms.Models;
+using JR.Cms.ServiceDto;
 
 namespace JR.Cms.UnitTest
 {

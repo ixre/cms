@@ -11,7 +11,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 using JR.Cms.Core;
 using JR.Cms.Core.Interface;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Common.Language;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Domain.Interface.Models;
