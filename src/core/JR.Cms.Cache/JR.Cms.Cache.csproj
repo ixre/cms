@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -50,16 +50,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheFactory.cs" />
-    <Compile Include="CacheUpdateAttribute.cs" />
-    <Compile Include="CacheCompoment\BuiltCacheResultHandler.cs" />
-    <Compile Include="CacheCompoment\CacheSign.cs" />
-    <Compile Include="CacheCompoment\CmsCache.cs" />
-    <Compile Include="CacheCompoment\CmsCacheBase.cs" />
-    <Compile Include="CacheCompoment\CmsCacheUtility.cs" />
-    <Compile Include="CacheCompoment\ICacheUpdatePolicy.cs" />
-    <Compile Include="CacheCompoment\ICmsCache.cs" />
-    <Compile Include="Variables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

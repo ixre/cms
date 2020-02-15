@@ -1,20 +1,19 @@
 //
-// HTML´´½¨
-//  ĞŞ¸ÄËµÃ÷£º
+// HTMLåˆ›å»º
+//  ä¿®æ”¹è¯´æ˜ï¼š
 //      2012-12-29  newmin  [+]:Link & SAList
-//      2013-03-05  newmin  [+]: ±êÇ©ËõĞ´
-//      2013-03-06  newmin  [+]: ÆÀÂÛÄ£¿é
-//      2013-03-07  newmin  [+]: Ìí¼ÓÊı¾İ±êÇ©²ÎÊı·û "[ ]",Ö÷ÒªÓÃÓÚoutline[200]
-//      2013-03-11  newmin  [+]: Ìí¼ÓauthornameÁĞ£¬ÓÃÓÚÏÔÊ¾×÷ÕßÃû³Æ
-//  2013-04-25  22:28 newmin [+]:PagerArchiveListÌí¼Ó
+//      2013-03-05  newmin  [+]: æ ‡ç­¾ç¼©å†™
+//      2013-03-06  newmin  [+]: è¯„è®ºæ¨¡å—
+//      2013-03-07  newmin  [+]: æ·»åŠ æ•°æ®æ ‡ç­¾å‚æ•°ç¬¦ "[ ]",ä¸»è¦ç”¨äºoutline[200]
+//      2013-03-11  newmin  [+]: æ·»åŠ authornameåˆ—ï¼Œç”¨äºæ˜¾ç¤ºä½œè€…åç§°
+//  2013-04-25  22:28 newmin [+]:PagerArchiveListæ·»åŠ 
 //  2013-06-07  22:15 newmin [+]:MCategoryTree,MCategoryList
-//  2013-06-08  10:02 newmin [!]:CategoryTree_Iterator ¼ÓÈëTreeResultHandle,²¢¼ÓÈëisRoot,ÅĞ¶ÏrootÀàÊÇ·ñÄ£¿éÏàÍ¬
-//  2013-06-08  10:22 newmin [-]:É¾³ıMCategoryTree
-//  2013-09-05  07:14 newmin [+]:Ìí¼Óregion
-//  2018-09-16  14:14 newmin [+]: µ÷Õû·ÖÀàpath
+//  2013-06-08  10:02 newmin [!]:CategoryTree_Iterator åŠ å…¥TreeResultHandle,å¹¶åŠ å…¥isRoot,åˆ¤æ–­rootç±»æ˜¯å¦æ¨¡å—ç›¸åŒ
+//  2013-06-08  10:22 newmin [-]:åˆ é™¤MCategoryTree
+//  2013-09-05  07:14 newmin [+]:æ·»åŠ region
+//  2018-09-16  14:14 newmin [+]: è°ƒæ•´åˆ†ç±»path
 //
 
-using JR.Cms.BLL;
 using JR.Cms.Cache.CacheCompoment;
 using JR.Cms.CacheService;
 using JR.Cms.Conf;
@@ -22,6 +21,7 @@ using JR.Cms.Core;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Domain.Interface.Site.Category;
+using JR.Cms.Library.DataAccess.BLL;
 using JR.DevFw.Framework.Xml.AutoObject;
 using JR.DevFw.Toolkit.Region;
 
@@ -37,34 +37,34 @@ namespace JR.Cms.Template
     using System.Text.RegularExpressions;
     using System.Web;
 
-    [XmlObject("CmsTemplateTag", "Ä£°å±êÇ©")]
+    [XmlObject("CmsTemplateTag", "æ¨¡æ¿æ ‡ç­¾")]
     public partial class CmsTemplateImpl : CmsTemplateDataMethod
     {
         private static Type __type;
 
-        //±êÇ©ÎÄ¼ş
+        //æ ‡ç­¾æ–‡ä»¶
         static CmsTemplateImpl()
         {
             __type = typeof(CmsTemplateImpl);
         }
 
 
-        #region ÎÄµµ
+        #region æ–‡æ¡£
 
-        /* ==================================== ²é¿´ÎÄµµ ====================================*/
+        /* ==================================== æŸ¥çœ‹æ–‡æ¡£ ====================================*/
 
         /// <summary>
-        /// ÎÄµµÄÚÈİ
+        /// æ–‡æ¡£å†…å®¹
         /// </summary>
         /// <param name="idOrAlias"></param>
         /// <param name="num"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÎÄµµ", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ–‡æ¡£", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-			1:ÎÄµµµÄ±àºÅ»ò±ğÃû£¨¿ÉÒÔÎÄµµÁĞ±íÖĞ²éÑ¯£©
-			2:HTML¸ñÊ½
+			1:æ–‡æ¡£çš„ç¼–å·æˆ–åˆ«åï¼ˆå¯ä»¥æ–‡æ¡£åˆ—è¡¨ä¸­æŸ¥è¯¢ï¼‰
+			2:HTMLæ ¼å¼
 		")]
         public string Archive(string idOrAlias, string format)
         {
@@ -81,50 +81,50 @@ namespace JR.Cms.Template
         }
 
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÎÄµµ", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ–‡æ¡£", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-			1:HTML¸ñÊ½
+			1:HTMLæ ¼å¼
 		")]
         public string Archive(string format)
         {
             object id = HttpContext.Current.Items["archive.id"];
             if (id == null || id == String.Empty)
             {
-                return this.TplMessage("Error: ´Ë±êÇ©Ö»ÄÜÔÚÎÄµµÒ³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾åªèƒ½åœ¨æ–‡æ¡£é¡µé¢ä¸­è°ƒç”¨!");
             }
             return base.Archive(this._site.SiteId, id, format);
         }
 
 
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÉÏÒ»ÆªÎÄµµ", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–ä¸Šä¸€ç¯‡æ–‡æ¡£", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-			1:HTML¸ñÊ½
+			1:HTMLæ ¼å¼
 		")]
         public string Prev_Archive(string format)
         {
             object id = HttpContext.Current.Items["archive.id"];
             if (id == null)
             {
-                return this.TplMessage("Error: ´Ë±êÇ©Ö»ÄÜÔÚÎÄµµÒ³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾åªèƒ½åœ¨æ–‡æ¡£é¡µé¢ä¸­è°ƒç”¨!");
             }
             return PrevArchive(id.ToString(), format);
         }
 
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÏÂÒ»ÆªÎÄµµ", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–ä¸‹ä¸€ç¯‡æ–‡æ¡£", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-			1:HTML¸ñÊ½
+			1:HTMLæ ¼å¼
 		")]
         public string Next_Archive(string format)
         {
             object id = HttpContext.Current.Items["archive.id"];
             if (id == null)
             {
-                return this.TplMessage("Error: ´Ë±êÇ©Ö»ÄÜÔÚÎÄµµÒ³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾åªèƒ½åœ¨æ–‡æ¡£é¡µé¢ä¸­è°ƒç”¨!");
             }
             return NextArchive(id.ToString(), format);
         }
@@ -132,21 +132,21 @@ namespace JR.Cms.Template
 
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("»ñÈ¡ÎÄµµ(Ä¬ÈÏ¸ñÊ½)", @"")]
+        [XmlObjectProperty("è·å–æ–‡æ¡£(é»˜è®¤æ ¼å¼)", @"")]
         public string Archive()
         {
             return this.Archive(base.GetSetting().CFG_ArchiveFormat);
         }
 
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÉÏÒ»ÆªÎÄµµ(Ä¬ÈÏ¸ñÊ½)", @"")]
+        [XmlObjectProperty("è·å–ä¸Šä¸€ç¯‡æ–‡æ¡£(é»˜è®¤æ ¼å¼)", @"")]
         public string Prev_Archive()
         {
             return Prev_Archive(base.GetSetting().CFG_PrevArchiveFormat);
         }
 
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÏÂÒ»ÆªÎÄµµ(Ä¬ÈÏ¸ñÊ½)", @"")]
+        [XmlObjectProperty("è·å–ä¸‹ä¸€ç¯‡æ–‡æ¡£(é»˜è®¤æ ¼å¼)", @"")]
         public string Next_Archive()
         {
             return Next_Archive(base.GetSetting().CFG_NextArchiveFormat);
@@ -155,22 +155,22 @@ namespace JR.Cms.Template
 
         #endregion
 
-        #region ÎÄµµÁĞ±í
+        #region æ–‡æ¡£åˆ—è¡¨
 
-        //====================== ÆÕÍ¨ÁĞ±í ==========================//
+        //====================== æ™®é€šåˆ—è¡¨ ==========================//
 
         /// <summary>
-        /// ÎÄµµÁĞ±í
+        /// æ–‡æ¡£åˆ—è¡¨
         /// </summary>
-        [XmlObjectProperty("»ñÈ¡À¸Ä¿ÏÂµÄÎÄµµÁĞ±í¡£", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ç›®ä¸‹çš„æ–‡æ¡£åˆ—è¡¨ã€‚", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿Tag<br />
-        	2£ºÊıÄ¿<br />
-            3£ºÌø¹ıµÄÊıÄ¿<br />
-            4£º·Ö¸îÊıÄ¿<br />
-            5£ºÊÇ·ñ°üº¬×Ó·ÖÀà,¿ÉÑ¡Öµ[0|1],1´ú±í°üº¬¡£<br />
-			6£ºHTML¸ñÊ½
+        	1ï¼šæ ç›®Tag<br />
+        	2ï¼šæ•°ç›®<br />
+            3ï¼šè·³è¿‡çš„æ•°ç›®<br />
+            4ï¼šåˆ†å‰²æ•°ç›®<br />
+            5ï¼šæ˜¯å¦åŒ…å«å­åˆ†ç±»,å¯é€‰å€¼[0|1],1ä»£è¡¨åŒ…å«ã€‚<br />
+			6ï¼šHTMLæ ¼å¼
 		")]
         public string Archives(string tag, string num,string skipSize,string splitSize, string container, string format)
         {
@@ -181,19 +181,19 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ÎÄµµÁĞ±í(°üº¬×ÓÀà)
+        /// æ–‡æ¡£åˆ—è¡¨(åŒ…å«å­ç±»)
         /// </summary>
         /// <param name="catPath"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡À¸Ä¿£¨°üº¬×ÓÀ¸Ä¿£©ÏÂµÄÎÄµµÁĞ±í¡£", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ç›®ï¼ˆåŒ…å«å­æ ç›®ï¼‰ä¸‹çš„æ–‡æ¡£åˆ—è¡¨ã€‚", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿Â·¾¶<br />
-        	2£ºÊıÄ¿<br />
-			3£ºHTML¸ñÊ½
+        	1ï¼šæ ç›®è·¯å¾„<br />
+        	2ï¼šæ•°ç›®<br />
+			3ï¼šHTMLæ ¼å¼
 		")]
         public string Archives(string catPath, string num, string format)
         {
@@ -217,40 +217,40 @@ namespace JR.Cms.Template
 
 
         /// <summary>
-        /// ÎÄµµÁĞ±í(°üº¬×ÓÀà)
+        /// æ–‡æ¡£åˆ—è¡¨(åŒ…å«å­ç±»)
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡À¸Ä¿£¨°üº¬×ÓÀ¸Ä¿£©ÏÂµÄÎÄµµÁĞ±í¡£", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ç›®ï¼ˆåŒ…å«å­æ ç›®ï¼‰ä¸‹çš„æ–‡æ¡£åˆ—è¡¨ã€‚", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÊıÄ¿<br />
-			2£ºHTML¸ñÊ½
+        	1ï¼šæ•°ç›®<br />
+			2ï¼šHTMLæ ¼å¼
 		")]
         public string Archives(string num, string format)
         {
             string catPath = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(catPath))
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return Archives(catPath, num,0,0,true, format);
         }
 
 
         /// <summary>
-        /// ÎÄµµÁĞ±í(°üº¬×ÓÀà)
+        /// æ–‡æ¡£åˆ—è¡¨(åŒ…å«å­ç±»)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("»ñÈ¡À¸Ä¿£¨°üº¬×ÓÀ¸Ä¿£©ÏÂµÄÎÄµµÁĞ±í¡£", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ç›®ï¼ˆåŒ…å«å­æ ç›®ï¼‰ä¸‹çš„æ–‡æ¡£åˆ—è¡¨ã€‚", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÊıÄ¿
+        	1ï¼šæ•°ç›®
 		")]
         public string Archives(string num)
         {
@@ -258,19 +258,19 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ÎÄµµÁĞ±í(²»°üº¬×ÓÀà)
+        /// æ–‡æ¡£åˆ—è¡¨(ä¸åŒ…å«å­ç±»)
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡À¸Ä¿£¨²»º¬×ÓÀ¸Ä¿£©ÏÂµÄÎÄµµÁĞ±í¡£", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ç›®ï¼ˆä¸å«å­æ ç›®ï¼‰ä¸‹çš„æ–‡æ¡£åˆ—è¡¨ã€‚", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿Tag<br />
-        	2£ºÊıÄ¿<br />
-			3£ºHTML¸ñÊ½
+        	1ï¼šæ ç›®Tag<br />
+        	2ï¼šæ•°ç›®<br />
+			3ï¼šHTMLæ ¼å¼
 		")]
         public string Self_Archives(string categoryTag, string num, string format)
         {
@@ -278,39 +278,39 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ÎÄµµÁĞ±í(²»°üº¬×ÓÀà)
+        /// æ–‡æ¡£åˆ—è¡¨(ä¸åŒ…å«å­ç±»)
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡À¸Ä¿£¨²»º¬×ÓÀ¸Ä¿£©ÏÂµÄÎÄµµÁĞ±í¡£", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ç›®ï¼ˆä¸å«å­æ ç›®ï¼‰ä¸‹çš„æ–‡æ¡£åˆ—è¡¨ã€‚", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÊıÄ¿<br />
-			2£ºHTML¸ñÊ½
+        	1ï¼šæ•°ç›®<br />
+			2ï¼šHTMLæ ¼å¼
 		")]
         public string Self_Archives(string num, string format)
         {
             string catPath = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(catPath))
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return Self_Archives(catPath, num, format);
         }
 
         /// <summary>
-        /// ÎÄµµÁĞ±í(²»°üº¬×ÓÀà)
+        /// æ–‡æ¡£åˆ—è¡¨(ä¸åŒ…å«å­ç±»)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("»ñÈ¡À¸Ä¿£¨²»º¬×ÓÀ¸Ä¿£©ÏÂµÄÎÄµµÁĞ±í¡£", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ç›®ï¼ˆä¸å«å­æ ç›®ï¼‰ä¸‹çš„æ–‡æ¡£åˆ—è¡¨ã€‚", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÊıÄ¿
+        	1ï¼šæ•°ç›®
 		")]
         public string Self_Archives(string num)
         {
@@ -319,11 +319,11 @@ namespace JR.Cms.Template
 
 
 
-        //====================== ÌØÊâÎÄµµÁĞ±í ==========================//
+        //====================== ç‰¹æ®Šæ–‡æ¡£åˆ—è¡¨ ==========================//
 
       
         /// <summary>
-        /// ÌØÊâÎÄµµ(°üº¬×ÓÀ¸Ä¿)
+        /// ç‰¹æ®Šæ–‡æ¡£(åŒ…å«å­æ ç›®)
         /// </summary>
         /// <param name="tag"></param>
         /// <param name="num"></param>
@@ -333,15 +333,15 @@ namespace JR.Cms.Template
         /// <param name="splitSize"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡±ê¼ÇÎª¡¾ÍÆ¼ö¡¿µÄÎÄµµÁĞ±í,Ä¬ÈÏ°üº¬×ÓÀ¸Ä¿", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ‡è®°ä¸ºã€æ¨èã€‘çš„æ–‡æ¡£åˆ—è¡¨,é»˜è®¤åŒ…å«å­æ ç›®", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿±àºÅ<br />
-        	2£ºÊıÄ¿<br />
-            3£ºÌø¹ıµÄÊıÄ¿<br />
-            4£º·Ö¸îÊıÄ¿<br />
-            5£ºÊÇ·ñ°üº¬×Ó·ÖÀà,¿ÉÑ¡Öµ[0|1],1´ú±í°üº¬¡£<br />
-			6£ºHTML¸ñÊ½
+        	1ï¼šæ ç›®ç¼–å·<br />
+        	2ï¼šæ•°ç›®<br />
+            3ï¼šè·³è¿‡çš„æ•°ç›®<br />
+            4ï¼šåˆ†å‰²æ•°ç›®<br />
+            5ï¼šæ˜¯å¦åŒ…å«å­åˆ†ç±»,å¯é€‰å€¼[0|1],1ä»£è¡¨åŒ…å«ã€‚<br />
+			6ï¼šHTMLæ ¼å¼
 		")]
         public string Special_Archives(string tag, string num, string skipSize, string splitSize,
             string container, string format)
@@ -353,21 +353,21 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ÌØÊâÎÄµµ(°üº¬×ÓÀ¸Ä¿)
+        /// ç‰¹æ®Šæ–‡æ¡£(åŒ…å«å­æ ç›®)
         /// </summary>
         /// <param name="tag"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡±ê¼ÇÎª¡¾ÍÆ¼ö¡¿µÄÎÄµµÁĞ±í,Ä¬ÈÏ°üº¬×ÓÀ¸Ä¿", @"
-        	<p class=""red"">½öÄÜÔÚÀ¸Ä¿Ò³ÖĞ£¨Ä¬ÈÏÎÄ¼ş£ºcategory.html) Ê¹ÓÃ´Ë±êÇ©</p>
+        [XmlObjectProperty("è·å–æ ‡è®°ä¸ºã€æ¨èã€‘çš„æ–‡æ¡£åˆ—è¡¨,é»˜è®¤åŒ…å«å­æ ç›®", @"
+        	<p class=""red"">ä»…èƒ½åœ¨æ ç›®é¡µä¸­ï¼ˆé»˜è®¤æ–‡ä»¶ï¼šcategory.html) ä½¿ç”¨æ­¤æ ‡ç­¾</p>
         	
-        	<b>²ÎÊı£º</b><br />
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿±àºÅ<br />
-        	2£ºÊıÄ¿<br />
-			3£ºHTML¸ñÊ½
+        	1ï¼šæ ç›®ç¼–å·<br />
+        	2ï¼šæ•°ç›®<br />
+			3ï¼šHTMLæ ¼å¼
 		")]
         public string Special_Archives(string tag,string num, string format)
         {
@@ -375,42 +375,42 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ÌØÊâÎÄµµ(°üº¬×ÓÀ¸Ä¿)
+        /// ç‰¹æ®Šæ–‡æ¡£(åŒ…å«å­æ ç›®)
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡±ê¼ÇÎª¡¾ÍÆ¼ö¡¿µÄÎÄµµÁĞ±í,Ä¬ÈÏ°üº¬×ÓÀ¸Ä¿", @"
-        	<p class=""red"">½öÄÜÔÚÀ¸Ä¿Ò³ÖĞ£¨Ä¬ÈÏÎÄ¼ş£ºcategory.html) Ê¹ÓÃ´Ë±êÇ©</p>
+        [XmlObjectProperty("è·å–æ ‡è®°ä¸ºã€æ¨èã€‘çš„æ–‡æ¡£åˆ—è¡¨,é»˜è®¤åŒ…å«å­æ ç›®", @"
+        	<p class=""red"">ä»…èƒ½åœ¨æ ç›®é¡µä¸­ï¼ˆé»˜è®¤æ–‡ä»¶ï¼šcategory.html) ä½¿ç”¨æ­¤æ ‡ç­¾</p>
         	
-        	<b>²ÎÊı£º</b><br />
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÊıÄ¿<br />
-			2£ºHTML¸ñÊ½
+        	1ï¼šæ•°ç›®<br />
+			2ï¼šHTMLæ ¼å¼
 		")]
         public string Special_Archives(string num, string format)
         {
             string id = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(id))
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return Special_Archives(id, num, 0, 0, true, format);
         }
 
         /// <summary>
-        /// ÌØÊâÎÄµµ(°üº¬×ÓÀ¸Ä¿)
+        /// ç‰¹æ®Šæ–‡æ¡£(åŒ…å«å­æ ç›®)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("»ñÈ¡±ê¼ÇÎª¡¾ÍÆ¼ö¡¿µÄÎÄµµÁĞ±í,Ä¬ÈÏ°üº¬×ÓÀ¸Ä¿,Html¸ñÊ½Ê¹ÓÃºóÌ¨ÉèÖÃµÄ¸ñÊ½¡£", @"
-        	<p class=""red"">½öÄÜÔÚÀ¸Ä¿Ò³ÖĞ£¨Ä¬ÈÏÎÄ¼ş£ºcategory.html) Ê¹ÓÃ´Ë±êÇ©</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ‡è®°ä¸ºã€æ¨èã€‘çš„æ–‡æ¡£åˆ—è¡¨,é»˜è®¤åŒ…å«å­æ ç›®,Htmlæ ¼å¼ä½¿ç”¨åå°è®¾ç½®çš„æ ¼å¼ã€‚", @"
+        	<p class=""red"">ä»…èƒ½åœ¨æ ç›®é¡µä¸­ï¼ˆé»˜è®¤æ–‡ä»¶ï¼šcategory.html) ä½¿ç”¨æ­¤æ ‡ç­¾</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÊıÄ¿
+        	1ï¼šæ•°ç›®
 		")]
         public string Special_Archives(string num)
         {
@@ -418,20 +418,20 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ÌØÊâÎÄµµ(°üº¬×ÓÀ¸Ä¿)
+        /// ç‰¹æ®Šæ–‡æ¡£(åŒ…å«å­æ ç›®)
         /// </summary>
         /// <param name="param"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡±ê¼ÇÎª¡¾ÍÆ¼ö¡¿µÄÎÄµµÁĞ±í,Ä¬ÈÏ°üº¬×ÓÀ¸Ä¿,Html¸ñÊ½Ê¹ÓÃºóÌ¨ÉèÖÃµÄ¸ñÊ½¡£", @"
-        	<p class=""red"">½öÄÜÔÚÀ¸Ä¿Ò³ÖĞ£¨Ä¬ÈÏÎÄ¼ş£ºcategory.html) Ê¹ÓÃ´Ë±êÇ©</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ‡è®°ä¸ºã€æ¨èã€‘çš„æ–‡æ¡£åˆ—è¡¨,é»˜è®¤åŒ…å«å­æ ç›®,Htmlæ ¼å¼ä½¿ç”¨åå°è®¾ç½®çš„æ ¼å¼ã€‚", @"
+        	<p class=""red"">ä»…èƒ½åœ¨æ ç›®é¡µä¸­ï¼ˆé»˜è®¤æ–‡ä»¶ï¼šcategory.html) ä½¿ç”¨æ­¤æ ‡ç­¾</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿Tag<br />
-        	2£ºÏÔÊ¾ÊıÁ¿<br />
-        	3£ºHTML¸ñÊ½
+        	1ï¼šæ ç›®Tag<br />
+        	2ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	3ï¼šHTMLæ ¼å¼
 		")]
         public string Self_Special_Archives(string param, string num, string format)
         {
@@ -440,40 +440,40 @@ namespace JR.Cms.Template
 
 
         /// <summary>
-        /// ÌØÊâÎÄµµ(°üº¬×ÓÀ¸Ä¿)
+        /// ç‰¹æ®Šæ–‡æ¡£(åŒ…å«å­æ ç›®)
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡±ê¼ÇÎª¡¾ÍÆ¼ö¡¿µÄÎÄµµÁĞ±í,Ä¬ÈÏ°üº¬×ÓÀ¸Ä¿,Html¸ñÊ½Ê¹ÓÃºóÌ¨ÉèÖÃµÄ¸ñÊ½¡£", @"
-        	<p class=""red"">½öÄÜÔÚÀ¸Ä¿Ò³ÖĞ£¨Ä¬ÈÏÎÄ¼ş£ºcategory.html) Ê¹ÓÃ´Ë±êÇ©</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ‡è®°ä¸ºã€æ¨èã€‘çš„æ–‡æ¡£åˆ—è¡¨,é»˜è®¤åŒ…å«å­æ ç›®,Htmlæ ¼å¼ä½¿ç”¨åå°è®¾ç½®çš„æ ¼å¼ã€‚", @"
+        	<p class=""red"">ä»…èƒ½åœ¨æ ç›®é¡µä¸­ï¼ˆé»˜è®¤æ–‡ä»¶ï¼šcategory.html) ä½¿ç”¨æ­¤æ ‡ç­¾</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿<br />
-        	2£ºHTML¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	2ï¼šHTMLæ ¼å¼
 		")]
         public string Self_Special_Archives(string num, string format)
         {
             string id = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(id))
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return Special_Archives(id, num, 0,0,false,format);
         }
 
         /// <summary>
-        /// ÌØÊâÎÄµµ(°üº¬×ÓÀ¸Ä¿)
+        /// ç‰¹æ®Šæ–‡æ¡£(åŒ…å«å­æ ç›®)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡±ê¼ÇÎª¡¾ÍÆ¼ö¡¿µÄÎÄµµÁĞ±í,Ä¬ÈÏ°üº¬×ÓÀ¸Ä¿,Html¸ñÊ½Ê¹ÓÃºóÌ¨ÉèÖÃµÄ¸ñÊ½¡£", @"
-        	<p class=""red"">½öÄÜÔÚÀ¸Ä¿Ò³ÖĞ£¨Ä¬ÈÏÎÄ¼ş£ºcategory.html) Ê¹ÓÃ´Ë±êÇ©</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–æ ‡è®°ä¸ºã€æ¨èã€‘çš„æ–‡æ¡£åˆ—è¡¨,é»˜è®¤åŒ…å«å­æ ç›®,Htmlæ ¼å¼ä½¿ç”¨åå°è®¾ç½®çš„æ ¼å¼ã€‚", @"
+        	<p class=""red"">ä»…èƒ½åœ¨æ ç›®é¡µä¸­ï¼ˆé»˜è®¤æ–‡ä»¶ï¼šcategory.html) ä½¿ç”¨æ­¤æ ‡ç­¾</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿
+        	1ï¼šæ˜¾ç¤ºæ•°é‡
 		")]
         public string Self_Special_Archives(string num)
         {
@@ -481,10 +481,10 @@ namespace JR.Cms.Template
         }
 
 
-        //====================== ä¯ÀÀÅÅĞĞÁĞ±í ==========================//
+        //====================== æµè§ˆæ’è¡Œåˆ—è¡¨ ==========================//
 
         /// <summary>
-        /// °´µã»÷ÅÅĞĞÎÄµµÁĞ±í
+        /// æŒ‰ç‚¹å‡»æ’è¡Œæ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="container"></param>
         /// <param name="categoryTag"></param>
@@ -492,13 +492,13 @@ namespace JR.Cms.Template
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÈÈÃÅÎÄµµÁĞ±í", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–çƒ­é—¨æ–‡æ¡£åˆ—è¡¨", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿Tag<br />
-        	2£ºÏÔÊ¾ÊıÁ¿<br />
-        	3£ºHTML¸ñÊ½<br />
-        	4£ºÊÇ·ñ°üº¬×ÓÀ¸Ä¿
+        	1ï¼šæ ç›®Tag<br />
+        	2ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	3ï¼šHTMLæ ¼å¼<br />
+        	4ï¼šæ˜¯å¦åŒ…å«å­æ ç›®
 		")]
         public string Hot_Archives(string categoryTag, string num, string format, bool container)
         {
@@ -510,7 +510,7 @@ namespace JR.Cms.Template
             category = ServiceCall.Instance.SiteService.GetCategory(this.SiteId, categoryTag);
             if (!(category.ID > 0))
             {
-                return String.Format("ERROR:Ä£¿é»òÀ¸Ä¿²»´æÔÚ!²ÎÊı:{0}", categoryTag);
+                return String.Format("ERROR:æ¨¡å—æˆ–æ ç›®ä¸å­˜åœ¨!å‚æ•°:{0}", categoryTag);
             }
 
             dt = ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(
@@ -519,23 +519,23 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// °´µã»÷ÅÅĞĞÎÄµµÁĞ±í
+        /// æŒ‰ç‚¹å‡»æ’è¡Œæ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="param"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÈÈÃÅÎÄµµÁĞ±í", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–çƒ­é—¨æ–‡æ¡£åˆ—è¡¨", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿Tag<br />
-        	2£ºÏÔÊ¾ÊıÁ¿<br />
-        	3£ºHTML¸ñÊ½
+        	1ï¼šæ ç›®Tag<br />
+        	2ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	3ï¼šHTMLæ ¼å¼
 		")]
         public string Hot_Archives(string param, string num, string format)
         {
-            //Èç¹û´«ÈëÎªÄ£¿é±àºÅ
+            //å¦‚æœä¼ å…¥ä¸ºæ¨¡å—ç¼–å·
             if (Regex.IsMatch(param, "^\\d+$"))
             {
                 int _num = 0;
@@ -555,40 +555,40 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// °´µã»÷ÅÅĞĞÎÄµµÁĞ±í
+        /// æŒ‰ç‚¹å‡»æ’è¡Œæ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="container"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÈÈÃÅÎÄµµÁĞ±í", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–çƒ­é—¨æ–‡æ¡£åˆ—è¡¨", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿<br />
-        	2£ºHTML¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	2ï¼šHTMLæ ¼å¼
 		")]
         public string Hot_Archives(string num, string format)
         {
             string catPath = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(catPath))
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return Hot_Archives(catPath, num, format, true);
         }
 
         /// <summary>
-        /// °´µã»÷ÅÅĞĞÎÄµµÁĞ±í
+        /// æŒ‰ç‚¹å‡»æ’è¡Œæ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÈÈÃÅÎÄµµÁĞ±í", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–çƒ­é—¨æ–‡æ¡£åˆ—è¡¨", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿
+        	1ï¼šæ˜¾ç¤ºæ•°é‡
 		")]
         public string Hot_Archives(string num)
         {
@@ -597,19 +597,19 @@ namespace JR.Cms.Template
 
 
         /// <summary>
-        /// °´µã»÷ÅÅĞĞÎÄµµÁĞ±í
+        /// æŒ‰ç‚¹å‡»æ’è¡Œæ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="param"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÈÈÃÅÎÄµµÁĞ±í(²»º¬×ÓÀ¸Ä¿)", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–çƒ­é—¨æ–‡æ¡£åˆ—è¡¨(ä¸å«å­æ ç›®)", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿Tag<br />
-        	2£ºÏÔÊ¾ÊıÁ¿<br />
-        	3£ºHTML¸ñÊ½
+        	1ï¼šæ ç›®Tag<br />
+        	2ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	3ï¼šHTMLæ ¼å¼
 		")]
         public string Self_Hot_Archives(string param, string num, string format)
         {
@@ -617,40 +617,40 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// °´µã»÷ÅÅĞĞÎÄµµÁĞ±í
+        /// æŒ‰ç‚¹å‡»æ’è¡Œæ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="container"></param>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÈÈÃÅÎÄµµÁĞ±í(²»º¬×ÓÀ¸Ä¿)", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–çƒ­é—¨æ–‡æ¡£åˆ—è¡¨(ä¸å«å­æ ç›®)", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿<br />
-        	2£ºHTML¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	2ï¼šHTMLæ ¼å¼
 		")]
         public string Self_Hot_Archives(string num, string format)
         {
             string catPath = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(catPath))
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return Hot_Archives(catPath, num, format, false);
         }
 
         /// <summary>
-        /// °´µã»÷ÅÅĞĞÎÄµµÁĞ±í
+        /// æŒ‰ç‚¹å‡»æ’è¡Œæ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("»ñÈ¡ÈÈÃÅÎÄµµÁĞ±í(²»º¬×ÓÀ¸Ä¿)", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è·å–çƒ­é—¨æ–‡æ¡£åˆ—è¡¨(ä¸å«å­æ ç›®)", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	2£ºÏÔÊ¾ÊıÁ¿
+        	2ï¼šæ˜¾ç¤ºæ•°é‡
 		")]
         public string Self_Hot_Archives(string num)
         {
@@ -658,7 +658,7 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ¸ù¾İÄ£¿ì»ñÈ¡ÎÄµµ
+        /// æ ¹æ®æ¨¡å¿«è·å–æ–‡æ¡£
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
@@ -671,22 +671,22 @@ namespace JR.Cms.Template
             object moduleID = Cms.Context.Items["module.id"];
             if (moduleID == null)
             {
-                return this.TplMessage("´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             // return HotArchives(moduleID.ToString(),"true",num, format);
         }
 
 
         //
-        //TODO:ÌØÊâÎÄµµ°´µã»÷Êı
+        //TODO:ç‰¹æ®Šæ–‡æ¡£æŒ‰ç‚¹å‡»æ•°
         //
 
         #endregion
 
-        #region À¸Ä¿
+        #region æ ç›®
 
         /// <summary>
-        /// À¸Ä¿Á´½ÓÁĞ±í
+        /// æ ç›®é“¾æ¥åˆ—è¡¨
         /// </summary>
         /// <param name="param"></param>
         /// <param name="format"></param>
@@ -696,11 +696,11 @@ namespace JR.Cms.Template
         {
             /*
             //
-            // @param : Èç¹ûÎªint,Ôò·µ»ØÄ£¿éÏÂµÄÀ¸Ä¿£¬
-            //                 Èç¹ûÎª×Ö·û´®tag£¬Ôò·µ»Ø¸Ã×ÓÀàÏÂµÄÀ¸Ä¿
+            // @param : å¦‚æœä¸ºint,åˆ™è¿”å›æ¨¡å—ä¸‹çš„æ ç›®ï¼Œ
+            //                 å¦‚æœä¸ºå­—ç¬¦ä¸²tagï¼Œåˆ™è¿”å›è¯¥å­ç±»ä¸‹çš„æ ç›®
             //
 
-            #region È¡µÃÀ¸Ä¿
+            #region å–å¾—æ ç›®
             IEnumerable<Category> categories1;
             if (param == String.Empty)
             {
@@ -770,9 +770,9 @@ namespace JR.Cms.Template
         }
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿ÁĞ±í", @"
-        	²ÎÊı1£ºÀ¸Ä¿Tag<br />
-        	²ÎÊı2£ºÏÔÊ¾¸ñÊ½
+        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®åˆ—è¡¨", @"
+        	å‚æ•°1ï¼šæ ç›®Tag<br />
+        	å‚æ•°2ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Categories(string catPath, string format)
         {
@@ -780,34 +780,34 @@ namespace JR.Cms.Template
         }
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿ÁĞ±í£¨À¸Ä¿Ò³»òÎÄµµÒ³ÖĞ£©", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®åˆ—è¡¨ï¼ˆæ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ï¼‰", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Categories(string format)
         {
             string catPath = HttpContext.Current.Items["category.path"] as string;
             if (String.IsNullOrEmpty(catPath))
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return Categories(catPath, format);
         }
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿ÁĞ±í£¨À¸Ä¿Ò³»òÎÄµµÒ³ÖĞ£©", @"")]
+        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®åˆ—è¡¨ï¼ˆæ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ï¼‰", @"")]
         public string Categories()
         {
             return Categories(base.GetSetting().CFG_CategoryLinkFormat);
         }
 
         //        [TemplateTag]
-        //        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿(²»º¬×ÓÀ¸Ä¿)ÁĞ±í", @"
-        //        	<b>²ÎÊı£º</b><br />
+        //        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®(ä¸å«å­æ ç›®)åˆ—è¡¨", @"
+        //        	<b>å‚æ•°ï¼š</b><br />
         //        	==========================<br />
-        //        	1£ºÀ¸Ä¿Tag<br />
-        //        	2£ºÏÔÊ¾¸ñÊ½
+        //        	1ï¼šæ ç›®Tag<br />
+        //        	2ï¼šæ˜¾ç¤ºæ ¼å¼
         //		")]
         //        public string Categories2(string categoryTag, string format)
         //        {
@@ -815,23 +815,23 @@ namespace JR.Cms.Template
         //        }
 
         //        [TemplateTag]
-        //        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿(²»º¬×ÓÀ¸Ä¿)ÁĞ±í£¨À¸Ä¿Ò³»òÎÄµµÒ³ÖĞ£©", @"
-        //        	<b>²ÎÊı£º</b><br />
+        //        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®(ä¸å«å­æ ç›®)åˆ—è¡¨ï¼ˆæ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ï¼‰", @"
+        //        	<b>å‚æ•°ï¼š</b><br />
         //        	==========================<br />
-        //        	1£ºÏÔÊ¾¸ñÊ½
+        //        	1ï¼šæ˜¾ç¤ºæ ¼å¼
         //		")]
         //        public string Categories2(string format)
         //        {
         //            string id = HttpContext.Current.Items["category.path"] as string;
         //            if (String.IsNullOrEmpty(id))
         //            {
-        //                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+        //                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
         //            }
         //            return Categories(id, format, !true);
         //        }
 
         //[TemplateTag]
-        //[XmlObjectProperty("ÏÔÊ¾À¸Ä¿(²»º¬×ÓÀ¸Ä¿)ÁĞ±í£¨À¸Ä¿Ò³»òÎÄµµÒ³ÖĞ£©",@"")]
+        //[XmlObjectProperty("æ˜¾ç¤ºæ ç›®(ä¸å«å­æ ç›®)åˆ—è¡¨ï¼ˆæ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ï¼‰",@"")]
         //public string Categories2()
         //{
         //    return Categories2(base.GetSetting().CFG_CategoryLinkFormat);
@@ -841,12 +841,12 @@ namespace JR.Cms.Template
 
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿·ÖÒ³ÎÄµµ½á¹û", @"
-        	<p class=""red"">Ö»ÄÜÔÚÀ¸Ä¿Ò³»òÎÄµµÒ³ÖĞÊ¹ÓÃ£¡</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®åˆ†é¡µæ–‡æ¡£ç»“æœ", @"
+        	<p class=""red"">åªèƒ½åœ¨æ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ä½¿ç”¨ï¼</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿<br />
-        	2£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	2ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Paging_Archives(string pageSize, string format)
         {
@@ -856,19 +856,19 @@ namespace JR.Cms.Template
 
             if (String.IsNullOrEmpty(catPath) || pageindex == null)
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return base.Paging_Archives(catPath, pageindex.ToString(), pageSize,0,0,format);
         }
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿·ÖÒ³ÎÄµµ½á¹û", @"
-        	<p class=""red"">Ö»ÄÜÔÚÀ¸Ä¿Ò³»òÎÄµµÒ³ÖĞÊ¹ÓÃ£¡</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®åˆ†é¡µæ–‡æ¡£ç»“æœ", @"
+        	<p class=""red"">åªèƒ½åœ¨æ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ä½¿ç”¨ï¼</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿<br />
-            2 : ·Ö¸îÌõÊı<br />
-        	3£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ•°é‡<br />
+            2 : åˆ†å‰²æ¡æ•°<br />
+        	3ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Paging_Archives(string pageSize,string splitSize,string format)
         {
@@ -877,7 +877,7 @@ namespace JR.Cms.Template
             
             if (String.IsNullOrEmpty(catPath) || pageindex == null)
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
 
             int intSplitSize;
@@ -887,15 +887,15 @@ namespace JR.Cms.Template
         }
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿·ÖÒ³ÎÄµµ½á¹û", @"
-        	<p class=""red"">Ö»ÄÜÔÚÀ¸Ä¿Ò³»òÎÄµµÒ³ÖĞÊ¹ÓÃ£¡</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®åˆ†é¡µæ–‡æ¡£ç»“æœ", @"
+        	<p class=""red"">åªèƒ½åœ¨æ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ä½¿ç”¨ï¼</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-            1 : À¸Ä¿±êÊ¶<br />
-            2 : µ±Ç°Ò³Âë<br />
-        	3£ºÏÔÊ¾ÊıÁ¿<br />
-            4 : ·Ö¸îÌõÊı<br />
-        	5£ºÏÔÊ¾¸ñÊ½
+            1 : æ ç›®æ ‡è¯†<br />
+            2 : å½“å‰é¡µç <br />
+        	3ï¼šæ˜¾ç¤ºæ•°é‡<br />
+            4 : åˆ†å‰²æ¡æ•°<br />
+        	5ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Paging_Archives(string categoryTag, string pageIndex,string pageSize, string splitSize, string format)
         {
@@ -909,12 +909,12 @@ namespace JR.Cms.Template
 
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾ÎÄµµËÑË÷½á¹û", @"
-        	<p class=""red"">Ö»ÄÜÔÚËÑË÷Ò³ÖĞÊ¹ÓÃ£¡</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ–‡æ¡£æœç´¢ç»“æœ", @"
+        	<p class=""red"">åªèƒ½åœ¨æœç´¢é¡µä¸­ä½¿ç”¨ï¼</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿<br />
-        	2£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	2ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Search_Archives(string pageSize, string format)
         {
@@ -925,19 +925,19 @@ namespace JR.Cms.Template
 
             if (String.IsNullOrEmpty(key) || pageindex == null)
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return this.Search_Archives(param, key, pageindex.ToString(), pageSize,"0", format);
         }
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾ÎÄµµËÑË÷½á¹û", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ–‡æ¡£æœç´¢ç»“æœ", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£º¹Ø¼ü´Ê<br />
-        	2£ºÏÔÊ¾ÊıÁ¿<br />
-            3 : ·Ö¸îÌõÊı<br />
-        	4£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šå…³é”®è¯<br />
+        	2ï¼šæ˜¾ç¤ºæ•°é‡<br />
+            3 : åˆ†å‰²æ¡æ•°<br />
+        	4ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Search_Archives(string keyword, string pageSize,string splitSize, string format)
         {
@@ -946,23 +946,23 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ×Ô¶¨Òå·ÖÒ³ËÑË÷
+        /// è‡ªå®šä¹‰åˆ†é¡µæœç´¢
         /// </summary>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
         /// <param name="splitSize"></param>
         /// <param name="format"></param>
-        /// <param name="pagerLinkPath">·ÖÒ³µØÖ·Â·¾¶</param>
+        /// <param name="pagerLinkPath">åˆ†é¡µåœ°å€è·¯å¾„</param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾ÎÄµµËÑË÷½á¹û", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ–‡æ¡£æœç´¢ç»“æœ", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£º¹Ø¼ü´Ê<br />
-        	2£ºÏÔÊ¾ÊıÁ¿<br />
-            3 : ·Ö¸îÌõÊı<br />
-        	4£ºÏÔÊ¾¸ñÊ½<br />
-        	5£ºÒ³ÃæÂ·¾¶(¿ÉÓÃÓÚ×Ô¶¨ÒåËÑË÷Ò³µÄURL)
+        	1ï¼šå…³é”®è¯<br />
+        	2ï¼šæ˜¾ç¤ºæ•°é‡<br />
+            3 : åˆ†å‰²æ¡æ•°<br />
+        	4ï¼šæ˜¾ç¤ºæ ¼å¼<br />
+        	5ï¼šé¡µé¢è·¯å¾„(å¯ç”¨äºè‡ªå®šä¹‰æœç´¢é¡µçš„URL)
 		")]
         public string Search_Archives(string keyword, string pageSize,string splitSize, string format, string pagerLinkPath)
         {
@@ -984,10 +984,10 @@ namespace JR.Cms.Template
                 out pageCount,
                 out recordCount);
 
-            //Ìí¼Ó²éÑ¯·û´®
+            //æ·»åŠ æŸ¥è¯¢ç¬¦ä¸²
             pagerLinkPath += pagerLinkPath.IndexOf("?") == -1 ? "?" : "&";
 
-            //Ìæ»»Á´½Ó
+            //æ›¿æ¢é“¾æ¥
             Regex reg = new Regex("([^\\?]+\\?*)(.+)", RegexOptions.IgnoreCase);
 
             string link1 = String.Format(TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)UrlRulePageKeys.Search], HttpUtility.UrlEncode(keyword), c ?? ""),
@@ -1005,7 +1005,7 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ËÑË÷ÎÄµµÁĞ±í
+        /// æœç´¢æ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="keyword"></param>
         /// <param name="pageIndex"></param>
@@ -1015,15 +1015,15 @@ namespace JR.Cms.Template
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾Ö¸¶¨À¸Ä¿ÏÂµÄÎÄµµËÑË÷½á¹û", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæŒ‡å®šæ ç›®ä¸‹çš„æ–‡æ¡£æœç´¢ç»“æœ", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÀ¸Ä¿Tag
-        	2£º¹Ø¼ü´Ê<br />
-        	3£ºµ±Ç°Ò³Âë<br />
-        	4£ºÏÔÊ¾ÊıÁ¿<br />
-            5 : ·Ö¸îÌõÊı<br />
-        	6£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šæ ç›®Tag
+        	2ï¼šå…³é”®è¯<br />
+        	3ï¼šå½“å‰é¡µç <br />
+        	4ï¼šæ˜¾ç¤ºæ•°é‡<br />
+            5 : åˆ†å‰²æ¡æ•°<br />
+        	6ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Search_Archives(string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize,string splitSize,string format)
         {
@@ -1033,19 +1033,19 @@ namespace JR.Cms.Template
 
 
         /// <summary>
-        /// Á´½Ó
+        /// é“¾æ¥
         /// </summary>
         /// <param name="type"></param>
         /// <param name="number"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("×Ô¶¨ÒåÏÔÊ¾Á´½Ó", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("è‡ªå®šä¹‰æ˜¾ç¤ºé“¾æ¥", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÁ´½ÓÀàĞÍ£¬¿ÉÑ¡[1|2|3],1:µ¼º½,2:ÓÑÇéÁ´½Ó,3:×Ô¶¨ÒåÁ´½Ó]<br />
-        	2£ºÏÔÊ¾ÊıÁ¿<br />
-        	3£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šé“¾æ¥ç±»å‹ï¼Œå¯é€‰[1|2|3],1:å¯¼èˆª,2:å‹æƒ…é“¾æ¥,3:è‡ªå®šä¹‰é“¾æ¥]<br />
+        	2ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	3ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Links(string type, string number, string format)
         {
@@ -1053,17 +1053,17 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// Á´½Ó
+        /// é“¾æ¥
         /// </summary>
         /// <param name="type"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("Ê¹ÓÃ×Ô¶¨Òå¸ñÊ½ÏÔÊ¾<b>È«²¿</b>Á´½Ó", @"
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("ä½¿ç”¨è‡ªå®šä¹‰æ ¼å¼æ˜¾ç¤º<b>å…¨éƒ¨</b>é“¾æ¥", @"
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÁ´½ÓÀàĞÍ£¬¿ÉÑ¡[1|2|3],1:µ¼º½,2:ÓÑÇéÁ´½Ó,3:×Ô¶¨ÒåÁ´½Ó]<br />
-        	2£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šé“¾æ¥ç±»å‹ï¼Œå¯é€‰[1|2|3],1:å¯¼èˆª,2:å‹æƒ…é“¾æ¥,3:è‡ªå®šä¹‰é“¾æ¥]<br />
+        	2ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Link(string type, string format)
         {
@@ -1072,11 +1072,11 @@ namespace JR.Cms.Template
 
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("ÏÔÊ¾Tags", @"
-        	<p class=""red"">½öÄÜÔÚÎÄµµÒ³ÖĞÊ¹ÓÃ´Ë±êÇ©</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºTags", @"
+        	<p class=""red"">ä»…èƒ½åœ¨æ–‡æ¡£é¡µä¸­ä½¿ç”¨æ­¤æ ‡ç­¾</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£º±êÇ©Êı¾İ£¬¶à¸ö±êÇ©ÓÃ"",""¸ô¿ª¡£Èç£ºµçÄÔ,ÊÖ»ú,Ïà»ú
+        	1ï¼šæ ‡ç­¾æ•°æ®ï¼Œå¤šä¸ªæ ‡ç­¾ç”¨"",""éš”å¼€ã€‚å¦‚ï¼šç”µè„‘,æ‰‹æœº,ç›¸æœº
 		")]
         public string Tags(string tags)
         {
@@ -1085,22 +1085,22 @@ namespace JR.Cms.Template
 
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("ÏÔÊ¾Tags", @"
-        	<p class=""red"">Ö»ÄÜÔÚÎÄµµÒ³ÖĞÊ¹ÓÃ,¸ñÊ½ÔÚ¡¾Ä£°åÉèÖÃ¡¿ÖĞ½øĞĞÉèÖÃ</p>
+        [XmlObjectProperty("æ˜¾ç¤ºTags", @"
+        	<p class=""red"">åªèƒ½åœ¨æ–‡æ¡£é¡µä¸­ä½¿ç”¨,æ ¼å¼åœ¨ã€æ¨¡æ¿è®¾ç½®ã€‘ä¸­è¿›è¡Œè®¾ç½®</p>
 		")]
         public string Tags()
         {
-            if (!(archive.Id > 0)) return this.TplMessage("ÇëÏÈÊ¹ÓÃ±êÇ©$require('id')»ñÈ¡ÎÄµµºóÔÙµ÷ÓÃÊôĞÔ");
+            if (!(archive.Id > 0)) return this.TplMessage("è¯·å…ˆä½¿ç”¨æ ‡ç­¾$require('id')è·å–æ–‡æ¡£åå†è°ƒç”¨å±æ€§");
             return Tags(archive.Tags, base.GetSetting().CFG_ArchiveTagsFormat);
         }
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾±êÇ©ÎÄµµ½á¹û", @"
-        	<p class=""red"">Ö»ÄÜÔÚ±êÇ©ËÑË÷Ò³(tags.html)ÖĞÊ¹ÓÃ£¡</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ ‡ç­¾æ–‡æ¡£ç»“æœ", @"
+        	<p class=""red"">åªèƒ½åœ¨æ ‡ç­¾æœç´¢é¡µ(tags.html)ä¸­ä½¿ç”¨ï¼</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿<br />
-        	2£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	2ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Tag_Archives(string pageSize, string format)
         {
@@ -1109,7 +1109,7 @@ namespace JR.Cms.Template
 
             if (String.IsNullOrEmpty(key) || pageindex == null)
             {
-                return this.TplMessage("Error: ´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!");
+                return this.TplMessage("Error: æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!");
             }
             return base.TagArchives(key, pageindex.ToString(), pageSize, format);
         }
@@ -1117,8 +1117,8 @@ namespace JR.Cms.Template
 
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("ÏÔÊ¾ÆÀÂÛ¿ò", @"
-        	<p class=""red"">Ö»ÄÜÔÚÎÄµµÒ³ÖĞÊ¹ÓÃ£¡</p>
+        [XmlObjectProperty("æ˜¾ç¤ºè¯„è®ºæ¡†", @"
+        	<p class=""red"">åªèƒ½åœ¨æ–‡æ¡£é¡µä¸­ä½¿ç”¨ï¼</p>
 		")]
         public string Comment_Editor()
         {
@@ -1129,28 +1129,28 @@ namespace JR.Cms.Template
 
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾Õ¾µãµØÍ¼", @"
-        	<p class=""red"">Ö»ÄÜÔÚÀ¸Ä¿Ò³»òÎÄµµÒ³ÖĞÊ¹ÓÃ£¡</p>
+        [XmlObjectProperty("æ˜¾ç¤ºç«™ç‚¹åœ°å›¾", @"
+        	<p class=""red"">åªèƒ½åœ¨æ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ä½¿ç”¨ï¼</p>
 		")]
         public string Sitemap()
         {
             string path = Cms.Context.Items["category.path"] as string;
             if (string.IsNullOrEmpty(path))
             {
-                return this.TplMessage("ÎŞ·¨ÔÚµ±Ç°Ò³Ãæµ÷ÓÃ´Ë±êÇ©!\r\n½â¾ö·½·¨:Ê¹ÓÃ±êÇ©$sitemap('À¸Ä¿±êÇ©')»òÉèÖÃCms.Context.Items[\"category.path\"]");
+                return this.TplMessage("æ— æ³•åœ¨å½“å‰é¡µé¢è°ƒç”¨æ­¤æ ‡ç­¾!\r\nè§£å†³æ–¹æ³•:ä½¿ç”¨æ ‡ç­¾$sitemap('æ ç›®æ ‡ç­¾')æˆ–è®¾ç½®Cms.Context.Items[\"category.path\"]");
             }
             return Sitemap(path);
         }
 
 
         /// <summary>
-        /// ´ø»º´æµÄµ¼º½
+        /// å¸¦ç¼“å­˜çš„å¯¼èˆª
         /// </summary>
         /// <returns></returns>
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("ÏÔÊ¾ÍøÕ¾µ¼º½", @"
-        	<p class=""red"">ÏÔÊ¾¸ñÊ½ÔÚ¡¾Ä£°åÉèÖÃ¡¿ÖĞĞŞ¸Ä.</p>
+        [XmlObjectProperty("æ˜¾ç¤ºç½‘ç«™å¯¼èˆª", @"
+        	<p class=""red"">æ˜¾ç¤ºæ ¼å¼åœ¨ã€æ¨¡æ¿è®¾ç½®ã€‘ä¸­ä¿®æ”¹.</p>
 		")]
         public string Navigator()
         {
@@ -1170,8 +1170,8 @@ namespace JR.Cms.Template
 
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("ÏÔÊ¾ÓÑÇéÁ´½Ó", @"
-        	<p class=""red"">ÏÔÊ¾ÌõÊı£¬ÒÔ¼°¸ñÊ½¾ùÔÚ¡¾Ä£°åÉèÖÃ¡¿ÖĞĞŞ¸Ä.</p>
+        [XmlObjectProperty("æ˜¾ç¤ºå‹æƒ…é“¾æ¥", @"
+        	<p class=""red"">æ˜¾ç¤ºæ¡æ•°ï¼Œä»¥åŠæ ¼å¼å‡åœ¨ã€æ¨¡æ¿è®¾ç½®ã€‘ä¸­ä¿®æ”¹.</p>
 		")]
         public string Friend_Link()
         {
@@ -1179,12 +1179,12 @@ namespace JR.Cms.Template
         }
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾ÓÑÇéÁ´½Ó", @"
-        	<p class=""red"">½öÄÜÔÚÎÄµµÒ³ÖĞÊ¹ÓÃ´Ë±êÇ©</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºå‹æƒ…é“¾æ¥", @"
+        	<p class=""red"">ä»…èƒ½åœ¨æ–‡æ¡£é¡µä¸­ä½¿ç”¨æ­¤æ ‡ç­¾</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÄ¿<br />
-			2£ºHTML¸ñÊ½,Èç:<a href=""{url}"" {target}>{text}</a>
+        	1ï¼šæ˜¾ç¤ºæ•°ç›®<br />
+			2ï¼šHTMLæ ¼å¼,å¦‚:<a href=""{url}"" {target}>{text}</a>
 		")]
         public string Friend_Link(string num, string format)
         {
@@ -1199,7 +1199,7 @@ namespace JR.Cms.Template
 
 
 
-        #region µØÇøRegion±êÇ©
+        #region åœ°åŒºRegionæ ‡ç­¾
 
         [TemplateTag]
         protected string Province(string path)
@@ -1239,7 +1239,7 @@ namespace JR.Cms.Template
 
         #endregion
 
-        #region ¼æÈİ±êÇ©
+        #region å…¼å®¹æ ‡ç­¾
 
 
         [TemplateTag]
@@ -1256,12 +1256,12 @@ namespace JR.Cms.Template
         }
 
         /// <summary>
-        /// ×Ô¶¨Òå·ÖÒ³ËÑË÷
+        /// è‡ªå®šä¹‰åˆ†é¡µæœç´¢
         /// </summary>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
         /// <param name="format"></param>
-        /// <param name="pagerLinkPath">·ÖÒ³µØÖ·Â·¾¶</param>
+        /// <param name="pagerLinkPath">åˆ†é¡µåœ°å€è·¯å¾„</param>
         /// <returns></returns>
         [TemplateTag]
         protected string SearchList(string keyword, string pageSize, string format, string pagerLinkPath)
@@ -1271,12 +1271,12 @@ namespace JR.Cms.Template
 
 
         [TemplateTag]
-        [XmlObjectProperty("ÏÔÊ¾À¸Ä¿·ÖÒ³ÎÄµµ½á¹û", @"
-        	<p class=""red"">Ö»ÄÜÔÚÀ¸Ä¿Ò³»òÎÄµµÒ³ÖĞÊ¹ÓÃ£¡</p>
-        	<b>²ÎÊı£º</b><br />
+        [XmlObjectProperty("æ˜¾ç¤ºæ ç›®åˆ†é¡µæ–‡æ¡£ç»“æœ", @"
+        	<p class=""red"">åªèƒ½åœ¨æ ç›®é¡µæˆ–æ–‡æ¡£é¡µä¸­ä½¿ç”¨ï¼</p>
+        	<b>å‚æ•°ï¼š</b><br />
         	==========================<br />
-        	1£ºÏÔÊ¾ÊıÁ¿<br />
-        	2£ºÏÔÊ¾¸ñÊ½
+        	1ï¼šæ˜¾ç¤ºæ•°é‡<br />
+        	2ï¼šæ˜¾ç¤ºæ ¼å¼
 		")]
         public string Pager_Archives(string pageSize, string format)
         {
@@ -1286,13 +1286,13 @@ namespace JR.Cms.Template
 
 
         /// <summary>
-        /// ±êÇ©ÎÄµµÁĞ±í
+        /// æ ‡ç­¾æ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <param name="flags">t,o,p</param>
-        /// <param name="url">ÊÇ·ñwebform</param>
+        /// <param name="url">æ˜¯å¦webform</param>
         /// <returns></returns>
         [TemplateTag]
         protected string TagPagerArchiveList(string tag, string pageIndex, string pageSize, string format)
@@ -1308,7 +1308,7 @@ namespace JR.Cms.Template
 
 
         /// <summary>
-        /// ÎÄµµÁĞ±í
+        /// æ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="tag"></param>
         /// <param name="container"></param>
@@ -1325,9 +1325,9 @@ namespace JR.Cms.Template
 #endregion
 
 
-        #region ¹ıÆÚ
+        #region è¿‡æœŸ
         /// <summary>
-        /// Ä£¿éÀ¸Ä¿±êÇ©
+        /// æ¨¡å—æ ç›®æ ‡ç­¾
         /// </summary>
         /// <param name="id"></param>
         /// <param name="root"></param>
@@ -1342,12 +1342,12 @@ namespace JR.Cms.Template
 
             if (String.IsNullOrEmpty(id))
             {
-                return TplMessage("ÇëÖ¸¶¨²ÎÊı:idµÄÖµ");
+                return TplMessage("è¯·æŒ‡å®šå‚æ•°:idçš„å€¼");
             }
 
             if (Regex.IsMatch(id, "^\\d+$"))
             {
-                //´ÓÄ£¿é¼ÓÔØ
+                //ä»æ¨¡å—åŠ è½½
                 int moduleID = int.Parse(id);
                 if (CmsLogic.Module.GetModule(moduleID) != null)
                 {
@@ -1416,7 +1416,7 @@ namespace JR.Cms.Template
             object id = Cms.Context.Items["module.id"];
             if (id == null)
             {
-                return this.TplMessage("´Ë±êÇ©²»ÔÊĞíÔÚµ±Ç°Ò³ÃæÖĞµ÷ÓÃ!ÇëÊ¹ÓÃ$MCategoryList(module_id,isRoot,format)±êÇ©´úÌæ");
+                return this.TplMessage("æ­¤æ ‡ç­¾ä¸å…è®¸åœ¨å½“å‰é¡µé¢ä¸­è°ƒç”¨!è¯·ä½¿ç”¨$MCategoryList(module_id,isRoot,format)æ ‡ç­¾ä»£æ›¿");
             }
             return this.MCategoryList(id.ToString(), "true", format);
         }
@@ -1425,17 +1425,17 @@ namespace JR.Cms.Template
         [Obsolete]
         protected string _MCategoryTree(string moduleID)
         {
-            //¶ÁÈ¡»º´æ
+            //è¯»å–ç¼“å­˜
             string cacheKey = String.Format("{0}_site{1}_mtree_{2}", CacheSign.Category.ToString(), this.SiteId.ToString(), moduleID);
             BuiltCacheResultHandler<String> bh = () =>
             {
-                //ÎŞ»º´æ,Ôò¼ÌĞøÖ´ĞĞ
+                //æ— ç¼“å­˜,åˆ™ç»§ç»­æ‰§è¡Œ
                 StringBuilder sb = new StringBuilder(400);
                 int _moduleID = int.Parse(moduleID);
-                //´ÓÄ£¿é¼ÓÔØ
+                //ä»æ¨¡å—åŠ è½½
                 if (CmsLogic.Module.GetModule(_moduleID) == null)
                 {
-                    return TplMessage("²»´æÔÚÄ£¿é!ID:" + moduleID);
+                    return TplMessage("ä¸å­˜åœ¨æ¨¡å—!ID:" + moduleID);
                 }
                 sb.Append("<div class=\"category_tree mtree\">");
                 CategoryDto dto = new CategoryDto { ID = 0 };

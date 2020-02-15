@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JR.Cms</RootNamespace>
     <AssemblyName>JR.Cms.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -31,6 +31,7 @@
     <NoWin32Manifest>False</NoWin32Manifest>
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -65,15 +66,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\jrdev.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\dist\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SharpCompress.3.5, Version=0.8.2.0, Culture=neutral, PublicKeyToken=beaf6f427e128133, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\refrence.dll\SharpCompress.3.5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Routing" />
@@ -98,6 +99,58 @@
     <Compile Include="Cms.cs" />
     <Compile Include="Core\TemplateManager.cs" />
     <Compile Include="Core\TemplateSettings.cs" />
+    <Compile Include="Library\CacheService\CacheFactory.cs" />
+    <Compile Include="Library\CacheService\CacheUpdateAttribute.cs" />
+    <Compile Include="Library\CacheService\Variables.cs" />
+    <Compile Include="Library\DataAccess\BLL\CmsLogic.cs" />
+    <Compile Include="Library\DataAccess\BLL\CommentBLL.cs" />
+    <Compile Include="Library\DataAccess\BLL\MemberBLL.cs" />
+    <Compile Include="Library\DataAccess\BLL\MessageBLL.cs" />
+    <Compile Include="Library\DataAccess\BLL\ModuleBLL.cs" />
+    <Compile Include="Library\DataAccess\BLL\ReviewsBLL.cs" />
+    <Compile Include="Library\DataAccess\BLL\TableBll.cs" />
+    <Compile Include="Library\DataAccess\BLL\UserBllBll.cs" />
+    <Compile Include="Library\DataAccess\BLL\WeakRefCache.cs" />
+    <Compile Include="Library\DataAccess\DAL\ArchiveDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\BaseDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\CategoryDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\CommentDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\ExtendFieldDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\LinkDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\MemberDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\MessageDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\ModuleDAL.cs" />
+    <Compile Include="Library\DataAccess\DAL\OperateResult.cs" />
+    <Compile Include="Library\DataAccess\DAL\ReviewsDAL.cs" />
+    <Compile Include="Library\DataAccess\DAL\SiteDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\SqlQueryHelper.cs" />
+    <Compile Include="Library\DataAccess\DAL\SqlRegex.cs" />
+    <Compile Include="Library\DataAccess\DAL\TableDal.cs" />
+    <Compile Include="Library\DataAccess\DAL\TemplateBindDAL.cs" />
+    <Compile Include="Library\DataAccess\DAL\update.cs" />
+    <Compile Include="Library\DataAccess\DAL\UserDal.cs" />
+    <Compile Include="Library\DataAccess\DB\CmsDataBase.cs" />
+    <Compile Include="Library\DataAccess\DB\DBAccess.cs" />
+    <Compile Include="Library\DataAccess\DB\DBAccessCreator.cs" />
+    <Compile Include="Library\DataAccess\IDAL\ICommentDAL.cs" />
+    <Compile Include="Library\DataAccess\IDAL\IDbDAL.cs" />
+    <Compile Include="Library\DataAccess\IDAL\IMemberDAL.cs" />
+    <Compile Include="Library\DataAccess\IDAL\IMessageDAL.cs" />
+    <Compile Include="Library\DataAccess\IDAL\IModuleDAL.cs" />
+    <Compile Include="Library\DataAccess\IDAL\IRenewsDAL.cs" />
+    <Compile Include="Library\DataAccess\IDAL\ITableDAL.cs" />
+    <Compile Include="Library\DataAccess\IDAL\IUserDAL.cs" />
+    <Compile Include="Library\DataAccess\SQL\MySQLSqlPack.cs" />
+    <Compile Include="Library\DataAccess\SQL\SqlConst.cs" />
+    <Compile Include="Library\DataAccess\SQL\SQLiteSqlPack.cs" />
+    <Compile Include="Library\DataAccess\SQL\SqlPack.cs" />
+    <Compile Include="Library\DataAccess\SQL\SqlServerSqlPack.cs" />
+    <Compile Include="Library\Utility\ArchiveUtility.cs" />
+    <Compile Include="Library\Utility\RegexHelper.cs" />
+    <Compile Include="Library\Utility\RSSUtility.cs" />
+    <Compile Include="Library\Utility\ScriptUtility.cs" />
+    <Compile Include="Library\Utility\TrafficCounter.cs" />
+    <Compile Include="Library\Utility\UserState.cs" />
     <Compile Include="old\HttpModuleBase.cs" />
     <Compile Include="Core\Interface\ICmsPageGenerator.cs" />
     <Compile Include="old\PermissionAttribute.cs" />
@@ -120,7 +173,6 @@
     <None Include="_#upgrade\tpl_packs\tpl_default.zip" />
     <None Include="_#upgrade\tpl_packs\tpl_diy.zip" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="_#upgrade\upgrade.sql" />
     <Content Include="Conf\upgrade.xml" />
@@ -149,10 +201,6 @@
     <ProjectReference Include="..\..\Service\JR.Cms.ServiceUtil\JR.Cms.ServiceUtil.csproj">
       <Project>{1b43fbd5-8e31-4688-9b25-a63378d375f2}</Project>
       <Name>JR.Cms.ServiceUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\JR.Cms.Cache\JR.Cms.Cache.csproj">
-      <Project>{f8362c26-b7f2-4a9c-aa1c-d2c943ea8621}</Project>
-      <Name>JR.Cms.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\JR.Cms.Infrastructure\JR.Cms.Infrastructure.csproj">
       <Project>{28221385-8873-45f3-afd6-611dfd041bec}</Project>
