@@ -27,5 +27,7 @@ packages
 output
 /cms/core/JR.Cms.Core/*.user
 .DS_Store
+.idea
 
 /src/TestResults
+*.user

@@ -8,7 +8,7 @@ namespace JR.Cms
     /// <summary>
     /// 
     /// </summary>
-    public class CmsController : JR.Cms.Web.Mvc.CmsController
+    public class CmsController : WebImpl.Mvc.Controllers.CmsController
     {
     }
 }

@@ -45,10 +45,6 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IArchiveServiceContract.cs" />
-    <Compile Include="IContentServiceContract.cs" />
-    <Compile Include="ISiteServiceContract.cs" />
-    <Compile Include="IUserServiceContract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

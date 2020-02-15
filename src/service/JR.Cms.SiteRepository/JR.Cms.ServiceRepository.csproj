@@ -49,19 +49,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveRepository.cs" />
-    <Compile Include="CategoryRepository.cs" />
-    <Compile Include="ContentRepository.cs" />
-    <Compile Include="Export\DataExport.cs" />
-    <Compile Include="Export\ExportManager.cs" />
-    <Compile Include="ExtendFieldRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\ArchiveQuery.cs" />
-    <Compile Include="Query\UserQuery.cs" />
-    <Compile Include="RepositoryDataCache.cs" />
-    <Compile Include="SiteRepository.cs" />
-    <Compile Include="TemplateRepoImpl.cs" />
-    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\dba\JR.Cms.DAL\JR.Cms.DAL.csproj">

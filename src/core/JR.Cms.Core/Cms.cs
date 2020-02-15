@@ -12,8 +12,6 @@
 using System;
 using System.IO;
 using System.Web;
-using JR.Cms.Cache;
-using JR.Cms.Cache.CacheCompoment;
 using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Core.Plugins;
@@ -22,7 +20,10 @@ using JR.Cms.DataTransfer;
 using JR.DevFw.PluginKernel;
 using JR.DevFw.Framework.Web.UI;
 using JR.Cms.DB;
+using JR.Cms.Library.CacheProvider;
+using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.DevFw.Framework.IO;
+using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
 namespace JR.Cms
 {
@@ -199,7 +200,7 @@ namespace JR.Cms
             //初始化
             Plugins = new CmsPluginContext();
             Template = new CmsTemplate();
-            Cache = CacheFactory.Sington as CmsCache;
+            Cache = CacheFactory.Singleton as CmsCache;
             Utility = new CmsUtility();
             Language = new CmsLanguagePackage();
             #region  缓存清除

@@ -19,12 +19,13 @@ using JR.Cms.CacheService;
 using JR.Cms.Conf;
 using JR.Cms.Infrastructure;
 using JR.DevFw.Framework.Web.Cache;
-using JR.Cms.DataTransfer;
 using JR.Cms.Domain.Interface.Common.Language;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Domain.Interface.Site;
+using JR.Cms.Library.CacheService;
 using JR.DevFw.Template;
 using JR.DevFw.Web;
+using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
 namespace JR.Cms.Core
 {

@@ -48,13 +48,6 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Archive\Archive.cs" />
-    <Compile Include="Archive\BaseArchiveRepository.cs" />
-    <Compile Include="BaseContent.cs" />
-    <Compile Include="BaseContentRepository.cs" />
-    <Compile Include="ContentContainer.cs" />
-    <Compile Include="Archive\LinkOfArchive.cs" />
-    <Compile Include="ContentLinkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

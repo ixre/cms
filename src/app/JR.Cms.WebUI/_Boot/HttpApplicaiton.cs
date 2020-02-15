@@ -14,8 +14,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using JR.Cms.Web.Mvc;
-using JR.Cms.Web.Task;
+using JR.Cms.WebImpl.Mvc;
+using JR.Cms.WebImpl.Task;
 using JR.DevFw.Web;
 
 namespace JR.Cms

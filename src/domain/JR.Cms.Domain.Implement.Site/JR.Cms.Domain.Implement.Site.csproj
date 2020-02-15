@@ -51,15 +51,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseSiteRepository.cs" />
-    <Compile Include="Category\BaseCategoryRepository.cs" />
-    <Compile Include="Category\Category.cs" />
-    <Compile Include="Extend\BaseExtendFieldRepository.cs" />
-    <Compile Include="Extend\ExtendManager.cs" />
-    <Compile Include="Link\SiteLink.cs" />
-    <Compile Include="Link\SiteLinkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Site.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\core\JR.Cms.Infrastructure\JR.Cms.Infrastructure.csproj">

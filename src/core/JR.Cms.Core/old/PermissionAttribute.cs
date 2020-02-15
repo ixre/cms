@@ -8,8 +8,7 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Web;
-using JR.Cms.DataTransfer;
-using JR.Cms.Domain.Interface.Models;
+using UserDto = JR.Cms.ServiceDto.UserDto;
 
 namespace JR.Cms.old
 {
@@ -83,7 +82,7 @@ namespace JR.Cms.old
 
         }
 
-        static void OutputPermissionTipHtml(string html)
+        private static void OutputPermissionTipHtml(string html)
         {
             const string tipTemplate = @" <!DOCTYPE html><html><head><title>提示</title><link rel=""StyleSheet"" type=""text/css"" href=""/style/admin/style.css""/></head>
                 <body><style type=""text/css"">body{background:#eef7fe;}</style><div class=""tipborder""><div class=""top""></div>
