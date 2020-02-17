@@ -1,0 +1,13 @@
+﻿using System.Collections.Generic;
+
+namespace JR.Cms.Domain.Interface._old
+{
+    public interface ISite
+    {
+        bool CreateSite(Site site);
+        Site DefaultSite { get; }
+        IList<Site> GetAllSites();
+        Site GetSite(int siteID);
+        bool UpdateSite(Site site);
+    }
+}

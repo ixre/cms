@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Company>56X.NET</Company>
+        <Product>JRCms.NET</Product>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>jr.cms.snk</AssemblyOriginatorKeyFile>
+        <Title>JR.Cms.NET</Title>
+        <Description>The cross platform .NET content manage system</Description>
+        <PackageProjectUrl>http://s.56x.net/cms</PackageProjectUrl>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\JR.Cms.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\JR.Cms.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Library\DataAccess\SQL\OleDbSqlPack.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+
+
+</Project>
