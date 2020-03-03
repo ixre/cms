@@ -14,12 +14,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Web;
 using JR.Cms.CacheService;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Infrastructure;
-using JR.DevFw.Framework;
-using JR.DevFw.Framework.IO;
+using JR.Stand.Core.Framework;
+using JR.Stand.Core.Framework.IO;
 
 namespace JR.Cms.Conf
 {
@@ -37,21 +36,19 @@ namespace JR.Cms.Conf
         /// <returns>返回加载消息，如成功返回空</returns>
         public static void Configure()
         {
-            if (OnCmsConfigure != null)
-            {
-                try
-                {
-                    OnCmsConfigure();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Server.ClearError();
-                    HttpContext.Current.Response.Write("<div style=\"margin:50px auto;width:600px;font-size:14px;color:red;line-height:50px;\"><b style=\"font-size:25px\">500&nbsp;Server Error!</b> <br />" +
-                                                       (ex ?? ex.InnerException).Message + "<br />问题出现的详细原因，请见：http://s.to2.net/cms</div>");
-                    HttpRuntime.UnloadAppDomain();
+            // try
+            // {
+            OnCmsConfigure?.Invoke();
+            // }
+            // catch (Exception ex)
+            // {
+            //     
+            // HttpContext.Current.Server.ClearError();
+            // HttpContext.Current.Response.Write("<div style=\"margin:50px auto;width:600px;font-size:14px;color:red;line-height:50px;\"><b style=\"font-size:25px\">500&nbsp;Server Error!</b> <br />" +
+            //                                    (ex ?? ex.InnerException).Message + "<br />问题出现的详细原因，请见：http://s.to2.net/cms</div>");
+            // HttpRuntime.UnloadAppDomain();
 
-                }
-            }
+            //}
         }
 
         /// <summary>

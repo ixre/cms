@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml;
 using JR.Cms.Conf;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 
 namespace JR.Cms.Core
 {

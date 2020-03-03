@@ -14,7 +14,7 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Tree;
 using JR.Cms.Models;
 using JR.Cms.ServiceContract;
-using JR.DevFw.Framework.Extensions;
+using JR.Stand.Core.Framework.Extensions;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 using ExtendFieldDto = JR.Cms.ServiceDto.ExtendFieldDto;
 using Result = JR.Cms.ServiceDto.Result;

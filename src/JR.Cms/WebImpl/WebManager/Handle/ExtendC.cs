@@ -6,8 +6,7 @@ using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
-using JR.DevFw.Framework.Automation;
-using JR.DevFw.Framework.Extensions;
+using JR.Stand.Core.Framework.Automation;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

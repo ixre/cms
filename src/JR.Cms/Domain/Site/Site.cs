@@ -156,7 +156,7 @@ namespace JR.Cms.Domain.Site
 
         public IExtendManager GetExtendManager()
         {
-            return _extendManager ??= new ExtendManager(this._extendRepository, this.GetAggregaterootId());
+            return _extendManager = _extendManager ?? new ExtendManager(this._extendRepository, this.GetAggregaterootId());
         }
 
         public ISiteLinkManager GetLinkManager()

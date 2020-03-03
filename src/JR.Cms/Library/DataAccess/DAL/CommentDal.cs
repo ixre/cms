@@ -8,7 +8,7 @@ using System;
 using System.Data;
 using JR.Cms.IDAL;
 using JR.DevFw.Data;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 
 namespace JR.Cms.Dal
 {

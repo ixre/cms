@@ -13,8 +13,8 @@
 
 using System;
 using JR.Cms.Conf;
-using JR.DevFw.Framework.Xml.AutoObject;
 using JR.DevFw.PluginKernel;
+using JR.Stand.Core.Framework.Xml.AutoObject;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

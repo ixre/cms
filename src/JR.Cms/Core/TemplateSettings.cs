@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 using Newtonsoft.Json;
 
 namespace JR.Cms.Core

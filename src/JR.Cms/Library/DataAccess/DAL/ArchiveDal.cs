@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using JR.Cms.Library.DataAccess.SQL;
 using JR.Cms.Models;
 using JR.Cms.Sql;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 
 namespace JR.Cms.Dal
 {

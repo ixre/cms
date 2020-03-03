@@ -11,7 +11,6 @@
 
 using System;
 using System.IO;
-using System.Web;
 using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Core.Plugins;
@@ -20,9 +19,10 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.ServiceDto;
-using JR.DevFw.Framework.IO;
-using JR.DevFw.Framework.Web.UI;
-using JR.DevFw.PluginKernel;
+using JR.Stand.Core.Framework.IO;
+using JR.Stand.Core.Framework.Web;
+using JR.Stand.Core.Framework.Web.UI;
+using JR.Stand.Core.PluginKernel;
 
 namespace JR.Cms
 {
@@ -101,14 +101,14 @@ namespace JR.Cms
         /// <summary>
         /// 请求是否为静态资源
         /// </summary>
-        /// <param name="ctx"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        public static bool IsStaticRequest(HttpContext ctx)
+        public static bool IsStaticRequest(string path)
         {
-            String path = ctx.Request.Path;
             if (path.EndsWith(".ashx") || path.EndsWith(".aspx")) return false;
             return path.StartsWith("/public/") || path.StartsWith("/resources/") ||
-                 path.StartsWith("/plugins/") || path.StartsWith("/templates/");
+                   path.StartsWith("/uploads/") || path.StartsWith("/plugins/") ||
+                   path.StartsWith("/templates/");
         }
 
         /// <summary>
@@ -118,16 +118,16 @@ namespace JR.Cms
         {
             get
             {
-                HttpContext httpCtx = HttpContext.Current;
-                if (IsStaticRequest(httpCtx))
+                HttpContextAdapter httpCtx = HttpContextAdapter.Current;
+                if (IsStaticRequest(httpCtx.RequestPath()))
                 {
                     return null;
                 }
-                CmsContext context = httpCtx.Items["cms.context"] as CmsContext;
+                CmsContext context = httpCtx.GetItem("cms.context") as CmsContext;
                 if (context == null)
                 {
                     context = new CmsContext();
-                    httpCtx.Items["cms.context"] = context;
+                    httpCtx.SaveItem("cms.context",context);
                 }
                 return context;
             }

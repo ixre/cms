@@ -32,7 +32,7 @@ using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
-using JR.DevFw.Framework.Text;
+using JR.Stand.Core.Framework.Text;
 using static JR.Cms.Updater;
 
 namespace JR.Cms.WebImpl.WebManager.Handle

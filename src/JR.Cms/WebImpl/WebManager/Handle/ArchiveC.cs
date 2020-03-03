@@ -30,9 +30,9 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
-using JR.DevFw.Framework;
 using JR.DevFw.Toolkit.Tags;
 using JR.DevFw.Web;
+using JR.Stand.Core.Framework;
 using JsonSerializer = JR.Cms.WebImpl.Json.JsonSerializer;
 using Result = JR.Cms.ServiceDto.Result;
 

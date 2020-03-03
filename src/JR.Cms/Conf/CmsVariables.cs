@@ -1,6 +1,9 @@
 ﻿
 namespace JR.Cms.Conf
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CmsVariables
     {
         /// <summary>

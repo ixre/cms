@@ -12,7 +12,7 @@
 using JR.Cms.Domain.Interface.Common.Language;
 using JR.Cms.Domain.Interface.Site;
 using JR.Cms.Models;
-using JR.DevFw.Framework.Automation;
+using JR.Stand.Core.Framework.Automation;
 
 namespace JR.Cms.ServiceDto
 {

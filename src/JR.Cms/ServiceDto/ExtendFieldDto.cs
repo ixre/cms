@@ -8,7 +8,7 @@
 *
 */
 
-using JR.DevFw.Framework.Automation;
+using JR.Stand.Core.Framework.Automation;
 
 namespace JR.Cms.ServiceDto
 {

@@ -17,8 +17,8 @@ using System.Web.Routing;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.WebImpl.Mvc.Controllers;
-using JR.DevFw;
 using JR.DevFw.Web.Plugin;
+using JR.Stand.Core;
 
 namespace JR.Cms.WebImpl.Mvc
 {

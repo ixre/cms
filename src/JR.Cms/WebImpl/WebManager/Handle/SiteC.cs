@@ -20,7 +20,7 @@ using JR.Cms.CacheService;
 using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
-using JR.DevFw.Framework.Automation;
+using JR.Stand.Core.Framework.Automation;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

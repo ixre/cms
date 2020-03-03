@@ -5,10 +5,10 @@
  * date     : 2012/12/22
  */
 
-using JR.DevFw.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Domain.Interface.Content.Archive
 {

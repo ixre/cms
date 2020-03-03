@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Models;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 
 namespace JR.Cms.ServiceDto
 {

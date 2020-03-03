@@ -15,9 +15,9 @@ using System.Text;
 using System.Web;
 using System.Web.Caching;
 using JR.Cms.Infrastructure;
-using JR.DevFw.Framework;
 using JR.DevFw.Framework.Web.Cache;
-using JR.DevFw.Utils;
+using JR.Stand.Core.Framework;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Library.CacheProvider.CacheCompoment
 {

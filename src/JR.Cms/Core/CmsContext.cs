@@ -25,6 +25,9 @@ using JR.Cms.Domain.Interface.Site;
 using JR.Cms.Library.CacheService;
 using JR.DevFw.Template;
 using JR.DevFw.Web;
+using JR.Stand.Core.Framework.Web;
+using JR.Stand.Core.Template.Impl;
+using Microsoft.AspNetCore.Http;
 using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
 namespace JR.Cms.Core
@@ -56,9 +59,9 @@ namespace JR.Cms.Core
         /// <summary>
         /// 请求上下文
         /// </summary>
-        private readonly HttpContext _context;
+        private readonly HttpContextAdapter _context;
 
-        public HttpContext HttpContext { get { return _context; } }
+        public HttpContextAdapter HttpContext { get { return _context; } }
 
 
         /// <summary>
@@ -77,10 +80,16 @@ namespace JR.Cms.Core
         /// <summary>
         /// 用户语言
         /// </summary>
-        public Languages UserLanguage { get { return this._userLanguage; } }
+        public Languages UserLanguage => this._userLanguage;
 
-        public HttpResponse Response { get { return _context.Response; } }
-        public HttpRequest Request { get { return _context.Request; } }
+        /// <summary>
+        /// 
+        /// </summary>
+        public HttpResponse Response => this._context.Raw.Response;
+        /// <summary>
+        /// 
+        /// </summary>
+        public HttpRequest Request => this._context.Raw.Request;
 
 
         static CmsContext()
@@ -94,11 +103,20 @@ namespace JR.Cms.Core
             if (!Cms.IsInitFinish) return;
             if (OnBeginRequest != null) OnBeginRequest();
             //设置当前站点
-            Uri uri = this._context.Request.Url;
-            string appPath = uri.Segments.Length == 1 ? null : uri.Segments[1].Replace("/", "");
-            this.CurrentSite = SiteCacheManager.GetSingleOrDefaultSite(WebCtx.Current.Host,appPath); ;
+            var request = this._context.Raw.Request;
+            string path = request.Path.Value;
+
+            string appPath = null;
+            if (path != "/")
+            {
+                string s = path.Substring(1);
+                appPath = s.Substring(0, s.IndexOf("/", StringComparison.Ordinal));
+            }
+
+            this.CurrentSite = SiteCacheManager.GetSingleOrDefaultSite(request.Host.Host, appPath);
             //是否为虚拟目录运行
-            if ((SiteRunType)this.CurrentSite.RunType == SiteRunType.VirtualDirectory) this.IsVirtualDirectoryRunning = true;
+            if ((SiteRunType) this.CurrentSite.RunType == SiteRunType.VirtualDirectory)
+                this.IsVirtualDirectoryRunning = true;
             this._userLanguage = this.CurrentSite.Language;
             this._userDevice = this.GetUserDeviceSet(this._context);
             LoadByCookie();
@@ -207,15 +225,17 @@ namespace JR.Cms.Core
             return mobileDevRegexp.IsMatch(u);
         }
 
-        private DeviceType GetUserDeviceSet(HttpContext ctx)
+        private DeviceType GetUserDeviceSet(HttpContextAdapter ctx)
         {
-            Object s = ctx.Session["user.device.set"];
-            if (s != null) return (DeviceType) Convert.ToInt32(s);
-            HttpCookie ck = ctx.Request.Cookies.Get(UserDeviceCookieName);
+            if (ctx.Raw.Session.TryGetValue("user.device.set", out var s))
+            {
+                return (DeviceType) Convert.ToInt32(Encoding.UTF8.GetString(s));
+            }
+            var ck = ctx.Raw.Request.Cookies[UserDeviceCookieName];
             if (ck != null)
             {
                 int i;
-                int.TryParse(ck.Value, out i);
+                int.TryParse(ck, out i);
                 if (Enum.IsDefined(typeof (DeviceType), i))
                 {
                     this.SetSessionUserDeviceSet(ctx, i);
@@ -395,7 +415,7 @@ namespace JR.Cms.Core
                         .Append("\t时间：").Append(DateTime.Now.ToString())
                         .Append("\r\n[信息]：").Append(exception.Message)
                         .Append("\r\n[路径]：").Append(req.Url.PathAndQuery)
-                        .Append("  -> 来源：").Append(req.Headers["referer"] ?? "无")
+                        .Append("  -> 来源：").Append((string) (req.Headers["referer"] ?? "无"))
                         .Append("\r\n[堆栈]：").Append(exception.StackTrace)
                         .Append("\r\n\r\n");
 

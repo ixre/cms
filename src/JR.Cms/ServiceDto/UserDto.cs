@@ -11,7 +11,7 @@
 using System;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Domain.Interface.Value;
-using JR.DevFw.Framework.Automation;
+using JR.Stand.Core.Framework.Automation;
 
 namespace JR.Cms.ServiceDto
 {

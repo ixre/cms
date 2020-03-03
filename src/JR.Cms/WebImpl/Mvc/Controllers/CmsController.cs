@@ -18,9 +18,8 @@ using JR.Cms.Core;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.WebImpl.Resource;
 using JR.Cms.WebImpl.Template;
-using JR.DevFw.Framework.Web.UI;
-using JR.DevFw.Framework.Xml.AutoObject;
 using JR.DevFw.Template;
+using JR.Stand.Core.Framework.Xml.AutoObject;
 using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
 namespace JR.Cms.WebImpl.Mvc.Controllers

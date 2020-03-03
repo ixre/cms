@@ -18,9 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using JR.Cms.Conf;
-using JR.DevFw.Framework.Extensions;
-using JR.DevFw.Framework.Net;
-using JR.DevFw.Utils;
+using JR.Stand.Core.Framework.Net;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms
 {

@@ -22,7 +22,7 @@ using System.Web;
 using JR.Cms.Conf;
 using JR.Cms.WebImpl.Util;
 using JR.Cms.WebImpl.WebManager;
-using JR.DevFw.Utils;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.WebImpl.Handlers
 {

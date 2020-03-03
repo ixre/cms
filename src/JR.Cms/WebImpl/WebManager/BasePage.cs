@@ -23,8 +23,7 @@ using System.Web;
 using JR.Cms.Conf;
 using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.Json;
-using JR.DevFw;
-using JR.DevFw.Framework.Extensions;
+using JR.Stand.Core;
 
 namespace JR.Cms.WebImpl.WebManager
 {
