@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" src="/scripts/global_2.5.js"></script>
+    <script type="text/javascript" src="/scripts/ops.fileupload.js"></script>
+    <style type="text/css">
+        #pic .upload_btn1 { width: 100px; }
+    </style>
+</head>
+<body>
+
+<div style="height: 20px">
+    <span id="pic"></span>
+</div>
+<div id="uploadinfo" style="margin-top: 30px">等待选择文件</div>
+
+
+<form action="" enctype="multipart/form-data" target="ifr">
+</form>
+
+<script type="text/javascript">
+    var _upload = new fileupload({ id: 'pic', text: '<span style="color:red">选择文件..</span>', infopanel: 'uploadinfo', debug: !true, url: '/upload/index', processurl: '/upload/process' });
+
+
+    _upload.onUploadComplete = function(json) {
+        this.printf('上传完成！<img src="' + json.path + '"/>');
+    };
+
+    _upload.onFileChanged = function(file) {
+        if (!_upload.checkFileTypes('*.jpg;*.jif;*.png;*.jpeg')) {
+            alert('文件类型不允许上传');
+        } else {
+            _upload.printf('开始上传...');
+
+            var form = document.forms[this.id + '_form'];
+            _upload.upload();
+        }
+    };
+</script>
+</body>
+</html>

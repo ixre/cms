@@ -13,8 +13,8 @@
 
 using System;
 using JR.Cms.Conf;
-using JR.DevFw;
 using JR.DevFw.Template;
+using JR.Stand.Core;
 
 namespace JR.Cms.WebImpl.WebManager
 {

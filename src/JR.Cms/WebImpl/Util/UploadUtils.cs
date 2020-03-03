@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using JR.Cms.Conf;
-using JR.DevFw.Framework.Extensions;
 
 namespace JR.Cms.WebImpl.Util
 {

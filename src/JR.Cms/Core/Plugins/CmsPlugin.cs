@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using JR.Cms.Conf;
-using JR.DevFw.Framework.Xml.AutoObject;
 using JR.DevFw.PluginKernel;
+using JR.Stand.Core.Framework.Xml.AutoObject;
 
 namespace JR.Cms.Core.Plugins
 {

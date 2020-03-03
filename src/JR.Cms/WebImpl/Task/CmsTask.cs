@@ -1,7 +1,7 @@
 ﻿using System;
 using JR.Cms.Conf;
-using JR.DevFw.Framework.TaskBox;
-using JR.DevFw.Framework.TaskBox.Toolkit;
+using JR.Stand.Core.Framework.TaskBox;
+using JR.Stand.Core.Framework.TaskBox.Toolkit;
 
 namespace JR.Cms.WebImpl.Task
 {
@@ -55,7 +55,7 @@ namespace JR.Cms.WebImpl.Task
 
             service.Sington.RegistContinuTasks(() =>
             {
-                ITask task = new JR.DevFw.Framework.TaskBox.Task();
+                ITask task = new Stand.Core.Framework.TaskBox.Task();
                 task.TaskName = "gc_collect";
                 return task;
             }, (client, task, message) =>

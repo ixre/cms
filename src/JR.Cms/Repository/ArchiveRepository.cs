@@ -11,7 +11,7 @@ using JR.Cms.Domain.Interface.Site.Template;
 using JR.Cms.Infrastructure;
 using JR.Cms.Models;
 using JR.DevFw.Data.Extensions;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 
 namespace JR.Cms.Repository
 {

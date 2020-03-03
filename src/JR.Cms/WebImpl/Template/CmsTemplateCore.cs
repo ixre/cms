@@ -20,13 +20,12 @@ using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
-using JR.DevFw;
-using JR.DevFw.Framework;
-using JR.DevFw.Framework.Extensions;
-using JR.DevFw.Framework.Web.UI;
-using JR.DevFw.Framework.Xml.AutoObject;
 using JR.DevFw.Template;
 using JR.DevFw.Web;
+using JR.Stand.Core;
+using JR.Stand.Core.Framework;
+using JR.Stand.Core.Framework.Web.UI;
+using JR.Stand.Core.Framework.Xml.AutoObject;
 using Module = JR.Cms.Domain.Interface.Models.Module;
 
 namespace JR.Cms.WebImpl.Template

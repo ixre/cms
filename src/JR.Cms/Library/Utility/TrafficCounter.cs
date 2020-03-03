@@ -14,8 +14,8 @@
 
 using System;
 using System.Threading;
-using JR.DevFw.Framework;
-using JR.DevFw.Utils;
+using JR.Stand.Core.Framework;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Library.Utility
 {

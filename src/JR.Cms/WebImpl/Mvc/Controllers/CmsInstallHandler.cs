@@ -11,8 +11,7 @@ using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Infrastructure.Domain;
 using JR.DevFw.Data;
-using JR.DevFw.Framework;
-using JR.DevFw.Framework.Extensions;
+using JR.Stand.Core.Framework;
 
 namespace JR.Cms.WebImpl.Mvc.Controllers
 {

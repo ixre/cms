@@ -9,7 +9,7 @@
 */
 
 using System;
-using JR.DevFw.Framework.Automation;
+using JR.Stand.Core.Framework.Automation;
 
 namespace JR.Cms.Domain.Interface.Models
 {

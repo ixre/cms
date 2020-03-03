@@ -12,8 +12,8 @@
 //
 
 using System;
-using JR.DevFw;
 using JR.DevFw.Data;
+using JR.Stand.Core;
 
 namespace JR.Cms.DB
 {

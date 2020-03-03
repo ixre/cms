@@ -18,7 +18,6 @@ using System.Net;
 using System.Text;
 using System.Web;
 using JR.Cms.WebImpl.Util;
-using JR.DevFw.Framework.Web.UI;
 
 namespace JR.Cms.WebImpl.WebManager.Handle
 {

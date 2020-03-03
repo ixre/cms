@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using JR.Cms.Domain.Interface.Enum;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 
 namespace JR.Cms.Core
 {

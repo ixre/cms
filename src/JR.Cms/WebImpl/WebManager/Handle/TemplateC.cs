@@ -20,7 +20,7 @@ using JR.Cms.CacheService;
 using JR.Cms.Core;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 using Newtonsoft.Json;
 using SharpCompress.Archive;
 using SharpCompress.Common;

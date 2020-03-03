@@ -12,7 +12,6 @@ using JR.Cms.Dal;
 using JR.Cms.Domain.Interface._old;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.IDAL;
-using JR.DevFw.Framework.Extensions;
 
 namespace JR.Cms.Library.DataAccess.BLL
 {

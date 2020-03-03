@@ -1,7 +1,7 @@
 // this file is auto generated!
 
-using JR.DevFw.Framework;
 using JR.DevFw.Data.Orm.Mapping;
+using JR.Stand.Core.Framework;
 
 namespace JR.Cms.Models{
 

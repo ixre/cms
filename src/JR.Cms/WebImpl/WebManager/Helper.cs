@@ -18,8 +18,8 @@ using JR.Cms.CacheService;
 using JR.Cms.Conf;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
-using JR.DevFw.Framework;
-using JR.DevFw.Framework.Web.UI;
+using JR.Stand.Core.Framework;
+using JR.Stand.Core.Framework.Web.UI;
 
 namespace JR.Cms.WebImpl.WebManager
 {

@@ -28,8 +28,8 @@ using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.DataAccess.BLL;
-using JR.DevFw.Framework.Xml.AutoObject;
 using JR.DevFw.Template;
+using JR.Stand.Core.Framework.Xml.AutoObject;
 using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 

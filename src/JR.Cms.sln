@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms.UnitTest", "unit_tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Cms", "JR.Cms\JR.Cms.csproj", "{03AB663B-644F-4892-81E7-C1714EBE3381}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JR.Stand.Core", "JR.Stand.Core\JR.Stand.Core.csproj", "{AA5E3087-1247-4039-A25F-907FBDF78343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{03AB663B-644F-4892-81E7-C1714EBE3381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03AB663B-644F-4892-81E7-C1714EBE3381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03AB663B-644F-4892-81E7-C1714EBE3381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5E3087-1247-4039-A25F-907FBDF78343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5E3087-1247-4039-A25F-907FBDF78343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5E3087-1247-4039-A25F-907FBDF78343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5E3087-1247-4039-A25F-907FBDF78343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

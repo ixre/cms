@@ -11,7 +11,7 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Models;
 using JR.Cms.ServiceContract;
 using JR.Cms.ServiceRepository.Query;
-using JR.DevFw.Framework;
+using JR.Stand.Core.Framework;
 using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 using Result = JR.Cms.ServiceDto.Result;

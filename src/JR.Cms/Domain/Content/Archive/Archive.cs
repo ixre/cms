@@ -1,5 +1,4 @@
-﻿using JR.DevFw.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using JR.Cms.Domain.Interface.Content;
@@ -9,6 +8,7 @@ using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Domain.Interface.Site.Template;
 using JR.Cms.Infrastructure;
 using JR.Cms.Models;
+using JR.Stand.Core.Framework;
 
 //
 // 2012-10-01 添加文档扩展属性
