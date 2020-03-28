@@ -1,0 +1,98 @@
+﻿<html>
+<head>
+    <title>项目列表-${subtitle}</title>
+    ${ct_css}
+</head>
+<body>
+
+<!--
+
+//
+// Copyright 2011 @ S1N1.COM,All rights reseved.
+// Project : 奥博网站管理系统
+// Name : 采集组件
+// Author : Newmin (newmin.net@gmail.com)
+// Create : 2011/08/27 15:27
+// Product Link: http://www.ops.cc
+//
+
+-->
+
+${navigator}
+
+<div id="projectlist">
+
+    <!--
+    <div class="project">
+
+        <h2>
+            <strong>项目名称：测试项目(编号：neteasy)</strong>
+        </h2>
+        <div class="details">
+            编码方式：utf-8<br/>
+            列表规则：http://news.163.com/special/00013BUR/shehuibj_0{0}.html<br/>
+            页面规则：http://news.163.com/\d+/\d+/\d+/[A-Za-z0-9]+.html<br/>
+            采集属性：[title],[content],[source]
+        </div>
+
+        <div class="project_operate">[<a href="?action=edit&id=neteasy">修改</a>]&nbsp;[<a href="?action=delete&id=neteasy">删除</a>]</div>
+
+    </div>
+    -->
+    ${listHtml}
+
+    <p class="pager">页码：<span class="pages" id="phtml"></span></p>
+
+</div>
+
+<script type="text/javascript">
+    var pageSize = 3;
+    var currentPageIndex = 1;
+    var aqs = document.getElementById('projectlist').getElementsByTagName('div');
+
+    var pages = parseInt(aqs.length / pageSize);
+    if (aqs.length % pageSize != 0)pages++;
+    var ph = document.getElementById('phtml');
+
+    /*
+    function showPage(num){
+        currentPageIndex+=num;
+
+        for(var i=0;i<aqs.length;i++){
+            aqs[i].style.display = i >= (currentPageIndex - 1) * pageSize && i < currentPageIndex * pageSize ? 'block' : 'none';
+        }
+
+        var pagedHtml;
+        if (pages == 1)
+            pagedHtml = "第一页";
+       else if(currentPageIndex<=1)
+            pagedHtml='<a href="javascript:showPage(1)">下一页</a>';
+        else if(currentPageIndex==pages)
+            pagedHtml='<a href="javascript:showPage(-1)">上一页</a>';
+       else
+            pagedHtml='<a href="javascript:showPage(-1)">上一页</a>&nbsp;|&nbsp;<a href="javascript:showPage(1)">下一页</a>';
+            
+        document.getElementById('phtml').innerHTML=pagedHtml;
+    }
+    showPage(0);
+    */
+
+    function showpage(idx) {
+        currentPageIndex = idx;
+        for (var i = 0; i < aqs.length; i++) {
+            aqs[i].style.display = i >= (currentPageIndex - 1) * pageSize && i < currentPageIndex * pageSize ? 'block' : 'none';
+        }
+
+        ph.innerHTML = '[';
+        for (var j = 0; j < pages; j++) {
+            ph.innerHTML += idx == j + 1 ? j + 1 : '<a href="javascript:showpage(\'' + (j + 1) + '\')">' + (j + 1) + '</a>';
+        }
+        ph.innerHTML += ']';
+    }
+
+    showpage(1);
+</script>
+
+
+</body>
+</html>

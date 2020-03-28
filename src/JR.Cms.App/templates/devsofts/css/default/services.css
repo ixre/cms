@@ -1,0 +1,25 @@
+.mod-custom-values .it {padding:60px 40px;color:#FFF;background-size:cover;margin-bottom:30px;}
+.mod-custom-values .it1{background-image:url(../images/soft-value.png)}
+.mod-custom-values .it2{background-image:url(../images/soft-value-1.png)}
+.mod-custom-values .it3{background-image:url(../images/soft-value-2.png)}
+.mod-custom-values .it4{background-image:url(../images/soft-value-3.png)}
+.mod-custom-values .it h2{font-size:20px;font-weight: normal;margin-bottom:30px;}
+.mod-custom-values .it p{line-height:25px;}
+
+.mod-custom-questions li .it{margin-bottom:15px;padding:30px 15px 30px 45px;
+  background:#FFF url(../images/wen@2x.png) 15px 30px no-repeat;background-size:24px;}
+.mod-custom-questions .q{font-weight: bold;}
+.mod-custom-questions p{margin:15px 0;color:#666;}
+
+.mod-deve-flow{margin:60px 0 30px 0;}
+.mod-deve-flow-img{padding:30px 30px;margin:15px;}
+.mod-deve-chat .gra-circle-button{line-height:42px;padding:0 30px;}
+@media(max-width:967px){
+  .mod-our-adv{background:#FFF;}
+  .mod-our-adv .it{background:none;box-shadow:none;}
+  .mod-custom-values .it{}
+  .mod-deve-flow .mod-deve-flow-img{padding-left:0;padding-right:0;margin:0;}
+}
+@media(max-width:767px){
+.mod-deve-flow .mod-deve-flow-img{background: #FFF;padding: 5px;
+}

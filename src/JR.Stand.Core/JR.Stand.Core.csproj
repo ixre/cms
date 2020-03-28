@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.1;net472</TargetFrameworks>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>jr.stand.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="Framework\Web\UI\FileUpload\demo\1.htm" />
+      <Content Include="Framework\Web\UI\FileUpload\fileupload.js" />
+      <Content Include="Template\embed\SysTemplatePage.html" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.2" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.2" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
+      <PackageReference Include="MySql.Data" Version="8.0.19" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="System.CodeDom" Version="4.7.0" />
+      <PackageReference Include="System.Data.OleDb" Version="4.7.0" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+      <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+      <PackageReference Include="System.IO.Packaging" Version="4.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Framework\Web\unused\**" />
+      <Compile Remove="Data\MonoSQLiteFactory.cs" />
+      <Compile Remove="Template\Compiler\**" />
+      <Compile Remove="Web\TemplatePageVariable.cs" />
+      <Compile Remove="Web\Plugin\CmsPluginContext.cs" />
+      <Compile Remove="Web\Plugin\PluginRouteHandler.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Framework\Web\unused\**" />
+      <EmbeddedResource Remove="Template\Compiler\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Framework\Web\unused\**" />
+      <None Remove="Template\Compiler\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\JR.Stand.Abstractions\JR.Stand.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

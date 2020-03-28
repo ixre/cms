@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录到管理中心-jr.Cms v${version}</title>
+    <link rel="stylesheet" href="/public/mui/css/login.css?ver=${version}"/>
+</head>
+<body>
+    <div class="extra">
+        jr.Cms .NET ! 网站管理系统
+    </div>
+
+    <div class="main">
+        <div class="container login-panel" id="login-panel">
+            <div class="panel">
+                <div class="panel_con login" id="loginForm">
+                    <p id="tip">提示：需要验证您的身份后才能进入管理！</p>
+                    <form action="" method="post" enctype="application/x-www-form-urlencoded" style="margin: 0">
+                        <p>
+                            <span class="txt"><span style="margin-right: 14px">用</span>户：</span><input field="uid" name="username" type="text" class="ui-box"/>
+                        </p>
+                        <p>
+                            <span class="txt"><span style="margin-right: 14px">密</span>码：</span><input id="tb_pwd" field="pwd" name="password" type="password" class="ui-box" onfocus="this.value = '';"/>
+                        </p>
+                        <p class="verify-panel" style="display:none" id="p-vcode">
+                            <span class="txt">验证码：</span><span class="mod-login-code">
+                                <input id="vcode" field="code" name="verifycode" class="ui-box box2 left" />
+                                <span class="verify mod-login-code-img" id="vimg" onclick="refreshImage() " title="验证码不区分大小写，点击刷新验证码">&nbsp;</span>
+                            </span>
+                        </p>
+                        <p style="margin-top: 10px">
+
+                            <span class="txt">&nbsp;</span>
+                            
+                            <span class="ui-button w100 middle-button" id="btn_login">
+                                <span class="button-inner">
+                                    <span class="button-txt">登录</span>
+                                    <a href="javascript:;"></a>
+                                </span>
+                            </span>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+            <br />
+            <div id="bottom">Powered by JR.Cms ${version}&nbsp; © 2008-${year} &nbsp;&nbsp; <a href="//to2.net/cms">to2.net</a></div>
+        </div>
+
+      </div>
+
+    $js()
+    <script src="/public/assets/js/md5.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var runLinux = "${linux}";
+        var d = jr.$fn("#login-panel");
+        var leftX = document.documentElement.offsetWidth - d.attr("offsetWidth");
+        var topY = document.documentElement.clientHeight - d.attr("offsetHeight");
+        d.css({ "position": "absolute", "left": leftX / 2 + "px", "top": topY/2 + "px" });
+        d.fadeIn();
+        function refreshImage() {
+            document.getElementById('vimg').style.background = 'url(${path}?action=verifycode&' + Math.random() + ') center -18px no-repeat';
+        }
+        if (runLinux == "false") {
+            refreshImage();
+            var pvc = document.getElementById("p-vcode");
+            pvc.style.display = 'inherit';
+        }
+        
+        window.bind_initKey = false;
+        var tip = jr.$fn("#tip");
+        jr.xhr.filter = null;
+        function login() {
+            var formData = jr.json.toObject('loginForm');
+            if (formData.uid.length===0) {
+                tip.html('<span style="color:red">请输入用户!</span>'); return false;
+            } else if (formData.pwd.length===0) {
+                tip.html('<span style="color:red">请输入密码!</span>'); return false;
+            } else if (runLinux == "false" && formData.code.length===0) {
+                tip.html('<span style="color:red">请输入验证码!</span>'); return false;
+            } else {
+                tip.html('<span style="color:green">登录中...</span>');
+                if (formData.pwd.length !== 32) {
+                    formData.pwd = hex_md5(formData.pwd);
+                }
+                jr.json.bind('loginForm', formData);
+                formData["xhr"] = 1;
+
+                jr.xhr.jsonPost(location.href, formData, function (json) {
+                    if (json.result) {
+                        tip.html('<span style="color:green">登录成功,正在进入...</span>');
+                            var returnUrl = jr.request('return_url') || '${path}?ver=${version}';
+                            location.replace(returnUrl);
+                    }
+                    else {
+                        if (json.message.indexOf('验证码') != -1) {
+                            refreshImage();
+                        }
+                        tip.html('<span style="color:red">' + json.message + '</span>');
+                    }
+                }, function (x) {
+                    tip.html('<span style="color:red">登录失败,请重试!</span>');
+                });
+            }
+            return false;
+        }
+
+        document.body.onkeydown = function (event) {
+            if ((window.event || event).keyCode == 13) {
+                login();
+            }
+        };
+        jr.$('btn_login').onclick = login;
+
+    </script>
+</body>
+</html>

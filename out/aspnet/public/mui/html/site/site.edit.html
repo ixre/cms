@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>站点管理</title>
+    $css()$js()
+</head>
+<body>
+    <div id="pl_tpl">
+        <div class="tabarea">
+            <div class="tab_mini">
+                <a class="current tabitem" href="javascript:;" group="basic">网站设置</a>
+                <a class="tabitem" href="javascript:;" group="Profile">资料修改</a>
+            </div>
+            <div class="clearfix"></div>
+
+            <select class="hidden ui-box" name="">
+                ${tpls}
+            </select>
+
+
+
+            <div class="form autostyle">
+                ${form}
+                <dl>
+                    <dt>&nbsp;</dt>
+                    <dd>
+                        <span class="ui-button w150" id="btn">
+                        <span class=" button-inner">
+                            <span class="button-txt">保存</span>
+                            <a href="javascript:;"></a>
+                        </span>
+                    </span>
+                    
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+   
+    var plTpl = jr.$('pl_tpl');
+    var tplTD = document.getElementsByName('field_tpl')[0].parentNode;
+    var selector = plTpl.getElementsByTagName('SELECT')[0];
+    tplTD.innerHTML = '';
+    selector.setAttribute('field','tpl');
+    selector.className = selector.className.replace('hidden', '');
+    tplTD.appendChild(selector);
+
+    window.saveData = function () {
+        if (jr.validator.validate()) {
+            jr.xhr.jsonPost('?module=site&action=save&xhr=1', jr.json.toObject(document), function (json) {
+                if (json.result) {
+                    // 重启网站
+                    jr.xhr.jsonPost("?module=system&action=reset&cmd=restart", {});
+                    showMsg2(json.message, function () {
+                        setTimeout(function () { location.reload(); }, 2000);
+                    });
+                } else {
+                    showErr(json.message);
+                }
+            });
+        }
+    };
+
+
+    jr.$('btn').onclick = window.saveData;
+
+    function initTab(cls) {
+        var eles = document.getElementsByClassName(cls);
+        jr.each(eles, function (i, e) {
+            e.onclick = function () {
+                var group = e.getAttribute('group');
+                jr.each(document.getElementsByTagName('DL'), function (i2, e2) {
+                    if (e2.getAttribute('group')) {
+                        e2.style.display = e2.getAttribute('group') == group ? 'block' : 'none';
+                    }
+                });
+                jr.each(eles, function (i3, e3) {
+                    e3.className = e3 === e ? cls + ' current' : cls;
+                });
+            };
+        });
+        eles[0].onclick();
+    }
+
+    initTab('tabitem');
+</script>
+</body>
+</html>

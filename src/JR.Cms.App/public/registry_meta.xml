@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<keys>
+  <!--配置管理资源-->
+  <item key="manager_set" value="registry/manager_set.xml"></item>
+  <!--定制-->
+  <item key="build_set" value="registry/build_set.xml"></item>
+</keys>
