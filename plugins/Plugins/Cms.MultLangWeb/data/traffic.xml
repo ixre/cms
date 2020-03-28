@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<settings>
-  <add key="totalIP"><![CDATA[1]]></add>
-  <add key="ips"><![CDATA[127.0.0.1|]]></add>
-  <add key="totalPV"><![CDATA[1]]></add>
-  <add key="20130322"><![CDATA[{ip:1,pv:1}]]></add>
-</settings>
