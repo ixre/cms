@@ -13,6 +13,7 @@ src/*.dll
 /chunk/Source_Code/Framework/Ops.Cms.Cache/CacheCompoment
 bin
 tmp
+out
 dist
 /chunk/dist/atnet.devfw.dll
 /chunk/dist/atnet.cms.dll
