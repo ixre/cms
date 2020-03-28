@@ -1,0 +1,19 @@
+﻿body
+{
+    font-size:12px;color:#666;
+}
+a{color:#0066cc;}
+a:hover{color:#006699;}
+h1{display:none;}
+table{background:#f0f0f0;width:100%;}
+th{border-bottom:solid 1px #e5e5e5;background:#006699;color:White;font-size:12px;line-height:23px;}
+td{background:white;font-size:12px;padding:2px;line-height:23px;}
+td.center{text-align:center;}
+input.button{border:outset 1px #f0f0f0;}
+td input{border:solid 1px #DCE5F1;padding:1px;line-height:16px;height:20px;width:100%;color:#006699}
+td input.ck{border:none;}
+div.control{border:solid 1px #f0f0f0;border-top:none;padding:5px 20px 5px 30px;position:relative;}
+div.pager{background:#f5f5f5;position:absolute;left:150px;top:8px;border:solid 1px #f0f0f0;padding:0 15px;}
+div.pager a{padding:0 5px;margin:0 5px;line-height:20px;color:#006699;text-align:center;text-decoration:none;}
+div.pager a:hover{background:#4196cf;color:White;}
+iframe{display:none}

@@ -1,0 +1,195 @@
+﻿body {
+    font-size: 12px;
+    color: #666;
+    font-family: arail, sans-serif;
+}
+
+p {
+    text-indent: 2em;
+    margin: 0;
+    padding: 5px 0;
+}
+
+a { color: #0066cc; }
+
+a:hover { color: #006699; }
+
+input, textarea, select { border: solid 1px #e5e5e5; }
+
+input.button {
+    border: outset 1px #e5e5e5;
+    margin-right: 5px;
+    color: #666;
+    padding: 0 8px;
+}
+
+span.txt {
+    float: left;
+    padding-right: 10px;
+}
+
+div.project_operate {
+    text-align: right;
+    padding-right: 10px;
+}
+
+
+/* navigator */
+
+.navigator {
+    color: white;
+    background: #006699;
+    padding: 0 10px;
+    margin: 5px 0;
+    line-height: 25px;
+}
+
+.navigator a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: White;
+}
+
+#projectlist { margin: 5px 0; }
+
+#projectlist h2 {
+    background: #068FCE;
+    color: white;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 15px;
+    margin: 0;
+}
+
+#projectlist .project {
+    line-height: 20px;
+    position: relative;
+    border: solid 1px #068FCE;
+    margin: 5px 0;
+    padding: 1px;
+}
+
+#projectlist .project p.details {
+    padding: 5px 10px;
+    text-indent: 0;
+}
+
+#projectlist .project .project_operate {
+    position: absolute;
+    right: 30px;
+    top: 85px;
+}
+
+/* STYLE */
+
+p.item { line-height: 24px; }
+
+p.item input.item {
+    height: 26px;
+    line-height: 20px;
+    padding: 2px;
+}
+
+#msg {
+    font-size: 14px;
+    color: red;
+    margin: 0 30px;
+    width: 300px;
+}
+
+p.item input { width: 300px; }
+
+span.itemdes {
+    padding-left: 120px;
+    line-height: 25px;
+    color: #0066cc;
+    font-size: 12px;
+}
+
+textarea.rulebox {
+    padding: 2px;
+    width: 600px;
+    line-height: 25px;
+    height: 60px;
+    font-size: 16px;
+    color: Red;
+}
+
+#properties { padding-left: 20px; }
+
+#properties h2 {
+    font-size: 12px;
+    background: #f0f0f0;
+    padding: 5px 12px;
+}
+
+#properties p { margin-left: 10px; }
+
+#properties input {
+    padding: 2px;
+    float: left;
+    width: 70px;
+    height: 26px;
+    line-height: 20px;
+}
+
+#properties textarea.rulebox2 {
+    padding: 2px;
+    font-size: 16px;
+    line-height: 20px;
+    height: 26px;
+    width: 600px;
+    margin-right: 10px;
+}
+
+.control {
+    padding-left: 130px;
+    margin: 10px 0;
+}
+
+.hidden { display: none; }
+
+p.pager {
+    padding: 2px;
+    text-align: center;
+    color: white;
+    background: #068FCE;
+}
+
+p.pager a {
+    text-decoration: none;
+    color: White;
+}
+
+p.pager a:hover { color: Red; }
+
+p.pager span.pages { letter-spacing: 10px; }
+
+fieldset {
+    border: solid 1px #e5e5e5;
+    padding: 10px 0 20px 20px;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+legend { line-height: 30px; }
+
+fieldset input {
+    margin: 0 10px;
+    width: 450px;
+}
+
+fieldset input.button { width: 60px; }
+
+fieldset div.tip {
+    margin: 10px;
+    color: #0066cc;
+    font-size: 12px;
+    line-height: 22px;
+}
+
+fieldset div.tip .red {
+    color: #068FCE;
+    padding-left: 10px;
+    font-weight: bold;
+}

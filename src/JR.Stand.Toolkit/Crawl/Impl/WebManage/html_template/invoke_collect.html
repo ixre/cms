@@ -1,0 +1,129 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>开始采集-${subtitle}</title>
+    ${ct_css}
+</head>
+<body>
+
+<!--
+
+//
+// Copyright 2011 @ S1N1.COM,All rights reseved.
+// Project : 奥博网站管理系统
+// Name : 采集组件
+// Author : Newmin (newmin.net@gmail.com)
+// Create : 2011/08/27 15:27
+// Product Link: http://www.ops.cc
+//
+
+-->
+
+${navigator}
+
+<br/>
+<form action="" method="post" target="ct_ifr" enctype="application/x-www-form-urlencoded">
+    <input name="ct_typeid" id="ct_typeid" type="hidden" value="1"/>
+    <div id="custom">
+        ${customHtml}
+    </div>
+    <div>
+
+        <fieldset>
+            <legend>根据单页地址采集</legend>
+            <div class="tip">页面地址规则为:<span class="red">${pageUriRule}</span></div>
+            &nbsp;&nbsp;输入地址：<input type="text" name="singlePageUri"/><input type="submit" class="button" value="采集" onclick=" return setType(this, 1) "/>
+        </fieldset>
+
+        <fieldset>
+            <legend>根据列表参数采集</legend>
+            <div class="tip">
+                列表地址规则为:<span class="red">${listUriRule}</span><br/>
+                <div style="text-indent: 8em">参数为规则{0}部分</div>
+            </div>
+            &nbsp;&nbsp;输入参数：<input type="text" name="listPageParameter"/><input type="submit" value="采集" class="button" onclick=" return setType(this, 2) "/>
+        </fieldset>
+
+        <fieldset>
+            <legend>根据列表地址采集</legend>
+            <div class="tip">
+                地址填写提示：直接输入包含采集内容链接的列表地址，可与列表规则完全匹配。<br/>
+                <div style="text-indent: 7em">
+                    也可以输入与
+                    列表块规则：<span class="red">${listBlockRule}</span>匹配的页面地址。
+                </div>
+            </div>
+
+            &nbsp;&nbsp;输入地址：<input type="text" name="listPageUri"/><input type="submit" value="采集" class="button" onclick=" return setType(this, 3) "/>
+        </fieldset>
+
+    </div>
+
+</form>
+<iframe name="ct_ifr" class="hidden"></iframe>
+<script type="text/javascript">
+    var dialog, dialog2;
+    var ct_type = document.getElementById("ct_typeid");
+
+    function setType(t, i) {
+        ct_type.value = i;
+        showDialog();
+        if (t.previousSibling.value == '') {
+            tip('请填写地址或参数再进行采集!');
+            return false;
+        }
+        document.forms[0].submit();
+        return true;
+
+    }
+
+
+    function showDialog() {
+        dialog = document.createElement("div"),
+            dialog2 = document.createElement("div");
+
+        dialog.setAttribute('id', 'dialog');
+        dialog2.setAttribute('id', 'dialog2');
+
+        var x = document.body.scrollWidth,
+            y = document.body.scrollHeight > document.body.clientHeight ? document.body.scrollHeight : document.body.clientHeight;
+
+        dialog2.innerHTML = '请耐心等待，系统正在采集中...';
+
+
+        document.body.appendChild(dialog);
+        document.body.appendChild(dialog2);
+
+        dialog.style.cssText = 'position:absolute;z-index:9;top:0;left:0;width:' + x + 'px;height:' + y + 'px;filter:alpha(opacity=20);opacity:0.2;background:black;';
+        dialog2.style.cssText = 'position:absolute;top:' + ((document.body.offsetHeight - 60) / 2) + 'px;left:' + (x - 250) / 2 + 'px;width:250px;line-height:20px;padding:20px 0;z-index:10;filter:alpha(opacity=100);opacity:1;border:solid 1px #006699;background:white;text-align:center;color:red';
+
+    }
+
+    function closeDialog() {
+        document.body.removeChild(dialog);
+        document.body.removeChild(dialog2);
+    }
+
+    /* 服务端回传消息 */
+    function tip(msg) {
+        dialog2.innerHTML = msg;
+        setTimeout(closeDialog, 2000);
+    }
+
+    function invoke_compelete(msg) {
+        if (msg.indexOf('错误') === -1) {
+            msg+='<br />恭喜采集完成!&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:closeDialog()">继续采集</a>';
+        }
+        dialog2.innerHTML = msg;
+        setTimeout(closeDialog, 2000);
+    }
+    /*
+	        window.onbeforeunload = function () {
+	            if (dialog2 & dialog2.innerHTML.indexOf('采集中') != -1) {
+	                return confirm('您确定离开页面，放弃本次采集操作吗？');
+	            }
+	            return true;
+	        };*/
+</script>
+</body>
+</html>

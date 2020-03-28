@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.1;net472</TargetFrameworks>
+        <Company>56X.NET</Company>
+        <Product>JRCms.NET</Product>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+        <AssemblyOriginatorKeyFile>jr.cms.snk</AssemblyOriginatorKeyFile>
+        <Title>JR.Cms.NET</Title>
+        <Description>The cross platform .NET content manage system</Description>
+        <PackageProjectUrl>http://s.56x.net/cms</PackageProjectUrl>
+        <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\JR.Cms.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\JR.Cms.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Library\DataAccess\SQL\OleDbSqlPack.cs" />
+      <Compile Remove="Core\Plugins\**" />
+      <Compile Remove="old\WatchService.cs" />
+      <Compile Remove="old\WatchServiceRegister.cs" />
+      <Compile Remove="Repository\Export\**" />
+      <Compile Remove="WebImpl\Resource\WebHandles\**" />
+      <Compile Remove="_old\**" />
+      <Compile Remove="Component\Crawl\PickerTestWeb\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="p3-sharpcompress" Version="0.10.5.2" />
+      <PackageReference Include="structuremap" Version="4.7.1" />
+      <PackageReference Include="System.Resources.Extensions" Version="4.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\JR.Stand.Core\JR.Stand.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Core\Plugins\**" />
+      <EmbeddedResource Remove="Repository\Export\**" />
+      <EmbeddedResource Remove="WebImpl\Resource\WebHandles\**" />
+      <EmbeddedResource Remove="_old\**" />
+      <EmbeddedResource Remove="Component\Crawl\PickerTestWeb\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Core\Plugins\**" />
+      <None Remove="Repository\Export\**" />
+      <None Remove="WebImpl\Resource\WebHandles\**" />
+      <None Remove="_old\**" />
+      <None Remove="Component\Crawl\PickerTestWeb\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="WebImpl\Plugins" />
+      <Folder Include="_old" />
+    </ItemGroup>
+
+</Project>

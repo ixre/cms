@@ -1,0 +1,25 @@
+﻿//
+// Copyright (C) 2007-2008 OPSoft INC,All rights reseved.
+// 
+// Project: OPS.OPSite.Manager
+// FileName : Ajax.cs
+// Author : PC-CWLIU (new.min@msn.com)
+// Create : 2011/10/15 21:16:56
+// Description :
+//
+// Get infromation of this software,please visit our site http://www.56x.net
+//
+//
+
+using JR.Cms.WebImpl.Resource.WebManager;
+
+namespace JR.Cms.WebImpl.WebManager.Handle
+{
+    internal class MTools:BasePage
+    {
+        public void ColorPicker()
+        {
+            base.RenderTemplate(WebManagerResource.colorpicker, null);
+        }
+    }
+}

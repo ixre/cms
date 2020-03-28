@@ -1,0 +1,143 @@
+<style type="text/css">
+.mod-contact-pop{opacity:0;filter:alpha(opacity=0);display:none;}
+.mod-contact-pop .mod-modal{margin:0;}
+.mod-contact-pop .modal{width:600px;height:400px;max-width:90%;border-radius:5px;}
+.mod-contact-pop .title{display:none;}
+.mod-contact-pop .content{padding:15px 45px;}
+.mod-contact-pop .content .gra-big-tit{padding-bottom:60px;}
+.mod-contact-pop .content h4{font-size:14px;line-height:1.5em;font-weight:500;color: #333;}
+.mod-contact-pop .field{padding-bottom:24px;}
+.mod-contact-pop .field div{position:relative;}
+.mod-contact-pop .field label{width:75px;margin-right:0;display:inline-block;color: #666;font-weight: 400;}
+.nick-name-guess{position:absolute;display:none;left:0;right:0;top:24px;border:solid 1px #CCC;
+    box-shadow:0 0 20px #EEE;padding:5px 0;background:#FFE;font-size:16px;}
+.nick-name-guess li{line-height:24px;padding:0 15px;font-size:14px;}
+.nick-name-guess b{float:left;font-weight:normal;color:#06C;font-size:16px;margin-right:5px;}
+.mod-contact-pop .contact-button{border:solid 1px #06C;font-weight: bold;color:#06C;
+    width:118px;text-align:center;line-height:24px;display:inline-block;}
+.mod-contact-pop .wx .gra-pop{top:10px;background:#333;width:120px;text-align:center;border-radius:3px;}
+.mod-contact-pop .wx .gra-pop-top{border-bottom-color:#333;left:15px;right:auto;}
+.mod-contact-pop .wx img{padding:5px;background:#FFF;}
+@media(max-width:767px){
+    .mod-contact-pop .modal{width:300px;height:240px;}
+    .mod-contact-pop .content .gra-big-tit{padding-bottom:30px;}
+    .mod-contact-pop .content{padding:0;}
+    .mod-contact-pop .wx .gra-pop{width:120px;height:80px;}
+    .mod-contact-pop .wx img{width:60px;}
+}
+</style>
+
+<div id="free-tria-form" class="gra-modal mod-contact-pop">
+    <div class="mask"></div>
+    <div class="modal">
+      <div class="title gra-big-tit">在线联系</div>
+      <span class="close">
+      	<img src="${page.fpath}/images/close.png" alt=""/>
+      </span>
+      <div class="content">
+        <h2 class="gra-big-tit">在线联系</h2>
+        
+
+
+<div class="col-md-4 col-sm-4 col-xs-12">
+  <div class="col-xs-6">
+  <div class="hidden-lg hidden-md hidden-sm" style="margin-bottom:15px">
+    <a href="tel:$site(tel)" class="contact-button">拨打电话给我</a>
+  </div>
+  <div>
+    <a class="contact-button" href="tencent://message?uin=$site(im)" rel="nofollow">QQ在线联系</a>
+  </div>
+
+    <br /><br />
+</div>
+  <div class="col-xs-6">
+
+    <div class="wx">
+      <div class="contact-button1">
+        <span class="hidden-lg hidden-md hidden-sm">或微信添加</span>
+        <span class="hidden-xs">添加微信</span>&nbsp;jarrysix
+      </div>
+      <div class="gra-pop">
+        <i class="gra-pop-top"></i>
+        <img src="${page.tpath}/images/wx-code@2x.png" width="90"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="col-md-8 col-sm-8 hidden-xs mod-form">
+      <h4>或留下您的联系方式，我们的客服人员将回电并解决您的问题。</h4><br /><br />
+        <iframe src="about:blank" name="_iframe2" class="hidden"></iframe>
+        <form name="contactForm1" id="form2" target="_iframe2" action="https://mzl-admin-api.meizhuli.net/custom/follow/officialWebsiteTrial" enctype="multipart/form-data" method="post">
+           
+
+  <div class="field">
+    <label for="" class="label">姓名：</label>
+    <div>
+      <input type="text" name="name" class="text gra-text-box nick-name-input"/>
+      <br />
+
+     <ul class="nick-name-guess">
+          <li><b class="nick-name">-</b>先生</li>
+          <li><b class="nick-name">-</b>女士</li>
+      </ul>
+    </div>
+  </div>
+  <div class="field">
+    <label for="" class="label">联系电话：</label>
+    <p>
+      <input type="text" name="phone" class="text gra-text-box"/>
+    </p>
+  </div>
+  <div class="field">
+    <label for="" class="label"></label>
+    <p>
+       <div class="btn-login gra-btn" onclick="return submitFreeTria('contactForm1')">
+              <a href="javascript:void(0)">提&nbsp;交</a>
+          </div>
+    </p>
+  </div>
+      </form>
+</div>
+
+    
+    </div>
+  </div>
+  </div>
+</div>
+<script type="text/javascript">
+   $b.$fn(".mod-contact-pop .close").click(function() {
+    this.parent().parent().fadeOut("fast",function(){this.css({"display":"none"})});
+   });
+    // 弹出框
+    function popFeedback() {
+        $b.$fn(".mod-contact-pop .close").parent().parent()
+        .css({ "display": "inherit" }).fadeIn();
+    }
+    // 姓名联想
+    var nickNameInput = $b.$fn(".mod-contact-pop .nick-name-input");
+    nickNameInput.keyup(function() {
+        var v = this.val();
+        var guess = this.parent().find(".nick-name-guess");
+        console.log(v,this.parent().html());
+        if (v.length == 1) {
+            guess.find(".nick-name").html(v);
+            guess.css({ "display": "inherit" });
+        } else {
+            guess.css({ "display": "none" });
+        }
+    });
+
+    $b.$fn(".mod-contact-pop .nick-name-guess li").click(function() {
+        this.parent().parent().find(".nick-name-input").val(this.text()); 
+        this.parent().css({ "display": "none" });
+    });
+    $b.$fn(".mod-contact-pop .mask").click(function(){
+      this.parent().fadeOut("fast",function(){this.css({"display":"none"})});
+    });
+
+  </script>
+
+

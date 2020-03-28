@@ -1,0 +1,116 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>创建项目-${subtitle}</title>
+    ${ct_css}
+</head>
+<body>
+
+<!--
+
+//
+// Copyright 2011 @ S1N1.COM,All rights reseved.
+// Project : 奥博网站管理系统
+// Name : 采集组件
+// Author : Newmin (newmin.net@gmail.com)
+// Create : 2011/08/27 15:27
+// Product Link: http://www.ops.cc
+//
+
+-->
+
+${navigator}
+
+<span id="msg"></span>
+	    
+<form action="" target="ct_ifr" method="post" enctype="application/x-www-form-urlencoded">
+    <p class="item">
+        <span class="txt">项目编号：</span><input type="text" class="item" name="id"/>&nbsp;&nbsp;&nbsp;请确保编号唯一,否则无法创建项目
+    </p>
+    <p class="item">
+        <span class="txt">项目名称：</span><input type="text" class="item" name="name"/>
+    </p>
+    <p class="item">
+        <span class="txt">编码方式：</span><select name="encoding">
+            <option value="default">默认编码</option>
+            <option value="utf-8" selected="selected">UTF-8</option>
+            <option value="gb2312">简体中文(GBK/GB2312)</option>
+            <option value="big5">繁体中文(BIG5)</option>
+        </select>
+    </p>
+    <p class="item">
+        <span class="txt">列表规则：</span><textarea name="listRule" class="rulebox"></textarea><br/>
+        <span class="itemdes">
+                    {0}表示参数，如：http://news.ifeng.com/mainland/rt-channel/rtlist_20110825/{0}.shtml
+                </span>
+    </p>
+    <p class="item">
+        <span class="txt">列表块规则：</span><textarea name="listBlockRule" class="rulebox" style="margin-left: -14px"></textarea>
+        <br/><span class="itemdes">【正则表达式】精确匹配包含页面链接的Html块,比如：&lt;ul class="list"&gt;\s*([\s\S]+?)\s*&lt;/ul&gt;</span>
+    </p>
+    <p class="item">
+        <span class="txt">页面规则：</span><textarea name="pageRule" class="rulebox"></textarea>
+        <br/><span class="itemdes">【正则表达式】精确匹配列表块中的页面链接,比如：http://news.ifeng.com/mainland/detail_\d+_\d+/\d+/\d+_\d+.shtml</span>
+    </p>
+
+    <p class="item">
+        <span class="txt">过滤规则：</span><textarea name="filterWordsRule" class="rulebox"></textarea>
+        <br/><span class="itemdes">将指定词语添加过滤标记,一般不需要填写</span>
+    </p>
+
+    <div id="properties">
+        <h2>
+            属性规则：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<a href="javascript:addProperty()">添加</a>&nbsp;]
+        </h2>
+
+        <p>
+
+            <input type="text" name="p1" value=""/>
+            <textarea name="r1" class="rulebox2"></textarea>
+            <span class="removeProperty">[&nbsp;<a href="javascript:;" onclick=" removeProperty(this) ">删除</a>&nbsp;]</span>
+        </p>
+
+
+        <p>
+
+            <input type="text" name="p2" value=""/>
+            <textarea name="r2" class="rulebox2"></textarea>
+            <span class="removeProperty">[&nbsp;<a href="javascript:;" onclick=" removeProperty(this) ">删除</a>&nbsp;]</span>
+        </p>
+
+
+    </div>
+
+    <div class="control">
+        <input type="submit" class="button" value="创建"/>
+        <input type="button" class="button" value="取消" onclick=" window.history.back() "/>
+    </div>
+</form>
+
+<iframe src="about:blank" name="ct_ifr" class="hidden" style="display: none"></iframe>
+
+<script type="text/javascript">
+    var propertiesElem = document.getElementById("properties");
+    var propertyArray;
+    var properIndex = 3;
+
+    function addProperty() {
+        ++properIndex;
+        var elem = document.createElement('p');
+        elem.innerHTML = '<input type="text" name="p' + properIndex + '" value=""/><textarea name="r' + properIndex + '" class="rulebox2"></textarea><span class="removeProperty">[&nbsp;<a href="javascript:;" onclick="removeProperty(this)">删除</a>&nbsp;]</span>';
+        propertiesElem.appendChild(elem);
+    };
+
+    function removeProperty(t) {
+        propertiesElem.removeChild(t.parentNode.parentNode);
+    }
+
+    function tip(msg) {
+        document.getElementById("msg").innerHTML = msg + "<br />";
+        document.body.scrollTop = 0;
+    };
+</script>
+
+
+</body>
+</html>

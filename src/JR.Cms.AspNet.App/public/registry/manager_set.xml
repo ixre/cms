@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<keys>
+  <direction path="public/"/>
+  <group name="pages">
+    <item key="UI_Index_Css" value="mui/css/latest/ui_style.css"/>
+    <item key="UI_Component" value="mui/js/ui.component.js"/>
+    <item key="Css_Style" value="mui/css/latest/page_style.css"/>
+    <item key="Login" value="mui/html/login.html"/>
+    <item key="Index" value="mui/html/index.html"/>
+    <item key="Locale" value="mui/html/cms.locale.html"/>
+    <item key="Server_Summary" value="mui/html/summary.html"/>
+    <item key="Clear_Page" value="mui/html/cms.control.html"/>
+    <item key="App_Config" value="mui/html/cms.config.html"/>
+    <item key="Site_Index" value="mui/html/site/site.index.html"/>
+    <item key="Site_Edit" value="mui/html/site/site.edit.html"/>
+    <item key="Site_Extend_List" value="mui/html/site/extend/extend.list.html"/>
+    <item key="Site_Extend_Create" value="mui/html/site/extend/extend.create.html"/>
+    <item key="Site_Extend_Category_Check" value="mui/html/site/extend/extend.category_check.html"/>
+    <item key="Link_List" value="mui/html/link/link_list.html"/>
+    <item key="Link_Edit" value="mui/html/link/link_edit.html"/>
+    <item key="Link_Edit_Navigator" value="mui/html/link/link_edit_navigator.html"/>
+    <item key="Link_RelatedLink" value="mui/html/link/related_link.html"/>
+    <item key="Category_LeftBar_Tree" value="mui/html/category/category_leftbar_tree.html"/>
+    <item key="Category_CreateCategory" value="mui/html/category/category_create.html"/>
+    <item key="Category_EditCategory" value="mui/html/category/category_edit.html"/>
+    <item key="Category_List" value="mui/html/category/category_list.html"/>
+    <item key="User_Index" value="mui/html/user/user_index.html"/>
+    <item key="User_Edit" value="mui/html/user/user_edit.html"/>
+    <item key="User_Role" value="mui/html/user/user_role_set.html"/>
+    <item key="User_SaveProfile" value="mui/html/user/user_save_profile.html"/>
+    <item key="Plugin_Dashboard" value="mui/html/plugin/plugin_dashboard.html"/>
+    <item key="Plugin_MiniApps" value="mui/html/plugin/plugin_miniapps.html"/>
+    <item key="Archive_Create" value="mui/html/archive/archive_create.html"/>
+    <item key="Archive_Update" value="mui/html/archive/archive_update.html"/>
+    <item key="Archive_List" value="mui/html/archive/archive_list.html"/>
+    <item key="Archive_View" value="mui/html/archive/archive_view.html"/>
+    <item key="Archive_Forword" value="mui/html/archive/archive_forword.html"/>
+    <item key="Comment_List" value="mui/html/archive/comment_list.html"/>
+    <item key="Archive_Search" value="mui/html/archive/archive_search.html"/>
+    <item key="Archive_Tags" value="mui/html/archive/archive_tags.html"/>
+    <item key="File_Manager" value="mui/html/file/file_manager.html"/>
+    <item key="File_SelectEdit" value="mui/html/file/file_selectedit.html"/>
+    <item key="File_Edit" value="mui/html/file/file_edit.html"/>
+    <item key="Template_Manager" value="mui/html/template/template_manager.html"/>
+    <item key="Template_Setting" value="mui/html/template/template_setting.html"/>
+    <item key="Template_Edit" value="mui/html/template/template_edit.html"/>
+    <item key="Template_EditFile" value="mui/html/template/template_editfile.html"/>
+    <item key="Assistant_Category_Clone" value="mui/html/assistant/category_clone.html"/>
+    <item key="Assistant_Archive_Clone_Pub" value="mui/html/assistant/archive_clone_pub.html"/>
+    <item key="Assistant_Local_Patch" value="mui/html/assistant/local_patch.html"/>
+  </group>
+</keys>
