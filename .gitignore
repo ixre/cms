@@ -31,3 +31,7 @@ output
 
 /src/TestResults
 *.user
+cms.config
+devsofts
+txxf
+*.tar.gz
