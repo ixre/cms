@@ -24,6 +24,7 @@ namespace JR.Cms.AspNet.Mvc
     /// <summary>
     /// 
     /// </summary>
+    [AspNetRequestFilter]
     public class AspNetPortalController : Controller
     {
         private static readonly PortalControllerHandler portal = new PortalControllerHandler();
@@ -87,7 +88,7 @@ namespace JR.Cms.AspNet.Mvc
 
         public void Template()
         {
-            string action = Request["action"];
+            string action = HttpHosting.Context.Request.GetParameter("action");
             if (action == "help")
             {
                 string fileName = String.Concat(Cms.PhysicPath,
@@ -97,13 +98,13 @@ namespace JR.Cms.AspNet.Mvc
                 obj.InsertFromType(typeof(CmsTemplateImpl), false);
                 obj.Flush();
 
-                var rsp = Response;
-                rsp.Write(XmlObjectDoc.DocStyleSheet);
+                var rsp = HttpHosting.Context.Response;
+                rsp.WriteAsync(XmlObjectDoc.DocStyleSheet);
 
                 int tmpInt = 0;
                 foreach (XmlObject _obj in obj.GetObjects())
                 {
-                    rsp.Write(XmlObjectDoc.GetGrid(_obj, ++tmpInt));
+                    rsp.WriteAsync(XmlObjectDoc.GetGrid(_obj, ++tmpInt));
                 }
             }
             else

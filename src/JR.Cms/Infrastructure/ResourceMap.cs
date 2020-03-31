@@ -9,10 +9,22 @@ namespace JR.Cms.Infrastructure
     /// </summary>
     public static class ResourceMap
     {
+        private static string InternalXmlLangPackage;
+
         /// <summary>
-        /// 语言包
+        /// 获取内置语言文件
         /// </summary>
-        public static string XmlLangPackage => Resources.CmsResource.lang_package;
+        /// <returns></returns>
+        public static string GetXmlLangPackage()
+        {
+            if (InternalXmlLangPackage == null)
+            {
+                InternalXmlLangPackage = ResourcesReader.Read(typeof(ResourceMap).Assembly, "Infrastructure/Resources/lang_package.xml");
+            }
+
+            return InternalXmlLangPackage;
+        }
+
 
         /// <summary>
         /// 获取自定义的语言包

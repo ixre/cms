@@ -12,6 +12,10 @@
     <ItemGroup>
       <EmbeddedResource Remove="Crawl\PickerTestApp\**" />
       <EmbeddedResource Remove="Crawl\PickerTestWeb\**" />
+      <None Remove="HttpTag\Assets\style.css" />
+      <EmbeddedResource Include="HttpTag\Assets\style.css" />
+      <None Remove="HttpTag\Assets\tags_manager.html" />
+      <EmbeddedResource Include="HttpTag\Assets\tags_manager.html" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,6 +25,7 @@
 
     <ItemGroup>
       <Folder Include="Crawl" />
+      <Folder Include="Crawl\Impl\WebManage" />
     </ItemGroup>
 
     <ItemGroup>

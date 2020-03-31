@@ -49,10 +49,6 @@ namespace JR.Cms.AspNet
 
         protected virtual void Application_Error(object sender, EventArgs e)
         {
-            // 检测Cms是否安装, 如果未安装进入安装界面
-            var context = (HttpApplication)sender;
-            if(!CmsInstallChecker.Check(context))context.Response.End();
-           
             return;
             Exception exc = Server.GetLastError();
             if (exc.InnerException != null)

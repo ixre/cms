@@ -12,9 +12,13 @@ namespace JR.Cms.Core
     /// </summary>
     public class CmsLanguagePackage
     {
-        private LanguagePackage _lang;
+        private readonly LanguagePackage _lang;
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public LanguagePackage GetPackage()
         {
             return _lang;
@@ -23,7 +27,7 @@ namespace JR.Cms.Core
         internal CmsLanguagePackage()
         {
             _lang = new LanguagePackage();
-            _lang.LoadFromXml(ResourceMap.XmlLangPackage);
+            _lang.LoadFromXml(ResourceMap.GetXmlLangPackage());
             //todo: 加载自定义的配置,已经过时为了兼容以前数据
             LoadLocaleXml(Cms.PhysicPath + CmsVariables.SITE_CONF_PATH + "locale");
 
@@ -77,12 +81,11 @@ namespace JR.Cms.Core
             {
                 var files = dir.GetFiles("*.xml");
                 // 加载
-                Languages lang;
                 foreach (var fileInfo in files)
                 {
                     var result =
                         Enum.TryParse(fileInfo.Name.Substring(0, fileInfo.Name.IndexOf(".", StringComparison.Ordinal)),
-                            true, out lang);
+                            true, out Languages lang);
                     if (result) _lang.LoadStandXml(lang, fileInfo.FullName);
                 }
             }
@@ -99,6 +102,12 @@ namespace JR.Cms.Core
             return _lang.Get(Cms.Context.UserLanguage, key);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="language"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string Get(Languages language, string key)
         {
             return _lang.GetValueByKey(language, key);

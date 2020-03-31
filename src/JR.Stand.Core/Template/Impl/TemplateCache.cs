@@ -31,7 +31,7 @@ namespace JR.Stand.Core.Template.Impl
         /// </summary>
         public class TagCollection
         {
-            private static IDictionary<string, string> tagDictionary = new Dictionary<string, string>();
+            private static readonly IDictionary<string, string> tagDictionary = new Dictionary<string, string>();
 
             public string this[string key]
             {
@@ -109,7 +109,7 @@ namespace JR.Stand.Core.Template.Impl
             {
                 return templateDictionary[templateID].Content;
             }
-            throw new ArgumentNullException("TemplateID", $"模板{templateID}不存在。");
+            throw new TemplateException(templateID+".html", "模板不存在");
         }
     }
 }

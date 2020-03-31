@@ -13,12 +13,14 @@ namespace JR.Stand.Toolkit.Crawl.Impl
     {
         private static string subtitle = "-采集管理插件 Power by z3q";
         private static string ct_css = "<link rel=\"StyleSheet\" type=\"text/css\" href=\"?action=css\"/>";
-        private static string navigator = WebManageResource.partial_navigator;
 
         protected HttpRequest request;
         protected HttpResponse response;
         private Collector director;
 
+        private static  Assembly assembly = typeof(WebManageHandler).Assembly;
+        private static string prefix = "Crawl/Impl/Assets/";
+        
         public WebManageHandler(Collector director)
         {
             this.director = director;
@@ -57,13 +59,15 @@ namespace JR.Stand.Toolkit.Crawl.Impl
         /// </summary>
         protected string Css_Get()
         {
-            return WebManageResource.style;
+            return  ResourcesReader.Read( assembly, prefix+"style.css");
         }
 
         protected Task Show_WelcomePage(HttpContext ctx)
         {
-            var html =  WebManageResource.welcome_page.Replace("${ct_css}", ct_css)
-                .Replace("${navigator}", WebManageResource.partial_navigator);
+            var welcomeHtml = ResourcesReader.Read(assembly, prefix+"welcome_page.html");
+            var navigatorHtml =  ResourcesReader.Read(assembly, prefix+"partial_navigator.html");
+            var html =  welcomeHtml.Replace("${ct_css}", ct_css)
+                .Replace("${navigator}", navigatorHtml);
             return ctx.Response.WriteAsync(html);
         }
 
@@ -127,10 +131,12 @@ namespace JR.Stand.Toolkit.Crawl.Impl
 
             prjsListHtml = sb.ToString();
 
-            return WebManageResource.project_list
-                .Replace("${ct_css}", ct_css)
+            var html =  ResourcesReader.Read(assembly, prefix+"project_list.html");
+            var html2 =  ResourcesReader.Read(assembly, prefix+"partial_navigator.html");
+
+            return html.Replace("${ct_css}", ct_css)
                 .Replace("${subtitle}", subtitle)
-                .Replace("${navigator}", WebManageResource.partial_navigator)
+                .Replace("${navigator}", html2)
                 .Replace("${listHtml}", prjsListHtml);
         }
 
@@ -138,9 +144,12 @@ namespace JR.Stand.Toolkit.Crawl.Impl
 
         protected string CreateProject_Get()
         {
-            return WebManageResource.create_project.Replace("${ct_css}", ct_css)
+            
+            var html =  ResourcesReader.Read(assembly, prefix+"project_list.html");
+            var html2 =  ResourcesReader.Read(assembly, prefix+"partial_navigator.html");
+            return html.Replace("${ct_css}", ct_css)
                 .Replace("${subtitle}", subtitle)
-                .Replace("${navigator}", WebManageResource.partial_navigator);
+                .Replace("${navigator}",html2);
         }
 
         protected string CreateProject_Post()
@@ -228,9 +237,12 @@ namespace JR.Stand.Toolkit.Crawl.Impl
             Project prj = this.director.GetProject(projectId);
             if (prj == null)
             {
-                return WebManageResource.error.Replace("${ct_css}", ct_css)
+                
+                var html_ =  ResourcesReader.Read(assembly, prefix+"error.html");
+                var html2_ =  ResourcesReader.Read(assembly, prefix+"partial_navigator.html");
+                return html_.Replace("${ct_css}", ct_css)
                     .Replace("${subtitle}", subtitle)
-                    .Replace("${navigator}", WebManageResource.partial_navigator)
+                    .Replace("${navigator}", html2_)
                     .Replace("${msg}", "项目不存在");
             }
 
@@ -247,10 +259,14 @@ namespace JR.Stand.Toolkit.Crawl.Impl
                         "<span class=\"removeProperty\">[&nbsp;<a href=\"javascript:;\" onclick=\"removeProperty(this)\">删除</a>&nbsp;]</span></p>");
             }
 
-            return WebManageResource.update_project
+            
+            var html =  ResourcesReader.Read(assembly, prefix+"update_project.html");
+            var html2 =  ResourcesReader.Read(assembly, prefix+"partial_navigator.html");
+            
+            return html
                 .Replace("${ct_css}", ct_css)
                 .Replace("${subtitle}", subtitle)
-                .Replace("${navigator}", WebManageResource.partial_navigator)
+                .Replace("${navigator}", html2)
                 .Replace("${id}", projectId)
                 .Replace("${name}", prj.Name)
                 .Replace("${encoding}", prj.RequestEncoding)
@@ -374,11 +390,14 @@ namespace JR.Stand.Toolkit.Crawl.Impl
                 this.director.ClearProjects();
             }
 
+            var html =  ResourcesReader.Read(assembly, prefix+"delete_project.html");
+            var html2 =  ResourcesReader.Read(assembly, prefix+"partial_navigator.html");
 
-            return WebManageResource.delete_project
+
+            return html
                 .Replace("${ct_css}", ct_css)
                 .Replace("${subtitle}", subtitle)
-                .Replace("${navigator}", WebManageResource.partial_navigator)
+                .Replace("${navigator}", html2)
                 .Replace("${msg}", msg);
         }
 
@@ -411,10 +430,13 @@ namespace JR.Stand.Toolkit.Crawl.Impl
                 return "<script>window.parent.tip('项目不存在!');</script>";
             }
 
-            return WebManageResource.invoke_collect
+            var html =  ResourcesReader.Read(assembly, prefix+"invoke_collect.html");
+            var html2 =  ResourcesReader.Read(assembly, prefix+"partial_navigator.html");
+
+            return html
                 .Replace("${ct_css}", ct_css)
                 .Replace("${subtitle}", subtitle)
-                .Replace("${navigator}", WebManageResource.partial_navigator)
+                .Replace("${navigator}", html2)
                 .Replace("${customHtml}", Return_InvokePageHtml())
                 .Replace("${pageUriRule}", HttpUtility.HtmlEncode(prj.PageUriRule))
                 .Replace("${listUriRule}", HttpUtility.HtmlEncode(prj.ListUriRule)
