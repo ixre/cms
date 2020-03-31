@@ -37,6 +37,7 @@ namespace JR.Cms
 
     public static class Cms
     {
+        private static bool isInstalled;
         private static  IMemoryCacheWrapper _cache;
         /// <summary>
         /// 版本
@@ -63,8 +64,13 @@ namespace JR.Cms
         /// </summary>
         public static bool IsInstalled()
         {
-            var insLockFile = new FileInfo($"{PhysicPath}/config/install.lock");
-            return insLockFile.Exists;
+            if (isInstalled == false)
+            {
+                var insLockFile = new FileInfo($"{PhysicPath}/config/install.lock");
+                isInstalled = insLockFile.Exists;
+            }
+
+            return isInstalled;
         }
 
         /// <summary>
@@ -288,7 +294,7 @@ namespace JR.Cms
                 VerifyCodeGenerator.SetFontFamily(PhysicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
             }
 
-            if (OnInit != null) OnInit();
+            OnInit?.Invoke();
 
             IsInitFinish = true;
         }

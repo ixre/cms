@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Web;
 using JR.Stand.Abstracts;
 
@@ -22,6 +23,11 @@ namespace JR.Stand.Core.AspNet
         public string BaseDirectory()
         {
             return EnvUtil.GetBaseDirectory();
+        }
+
+        public bool IsLinuxOS()
+        {
+            return EnvUtil.IsOSPlatform(OSPlatform.Linux) || EnvUtil.IsOSPlatform(OSPlatform.OSX);
         }
     }
 }

@@ -11,7 +11,7 @@
     <ItemGroup>
       <Content Include="Framework\Web\UI\FileUpload\demo\1.htm" />
       <Content Include="Framework\Web\UI\FileUpload\fileupload.js" />
-      <Content Include="Template\embed\SysTemplatePage.html" />
+      <EmbeddedResource Include="Template\Resources\SysTemplatePage.html" />
     </ItemGroup>
 
     <ItemGroup>

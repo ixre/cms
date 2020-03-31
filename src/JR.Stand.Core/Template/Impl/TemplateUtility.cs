@@ -185,7 +185,7 @@ namespace JR.Stand.Core.Template.Impl
         /// </summary>
         public static string GetTemplatePagesHTML()
         {
-            string templateContent = Embed.SysTemplatePage;
+            string templateContent = ResourcesReader.Read(typeof(TemplateUtility).Assembly,"Template/Resources/SysTemplatePage.html");
             StringBuilder sb = new StringBuilder();
 
             sb.Append(@"<style type=""text/css"">

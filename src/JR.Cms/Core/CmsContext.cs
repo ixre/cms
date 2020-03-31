@@ -394,15 +394,25 @@ namespace JR.Cms.Core
 
         public bool CheckSiteState()
         {
-            if (CurrentSite.State == SiteState.Normal)
-                return true;
-            else if (CurrentSite.State == SiteState.Closed)
+            if (CurrentSite.State == SiteState.Normal) return true;
+            if (CurrentSite.State == SiteState.Closed)
+            {
                 RenderNotfound();
-            else if (CurrentSite.State == SiteState.Paused)
-                this._context.Response.WriteAsync($"<body style=\"background:#FBFBFB\"><center><br /><br /><h2 style=\"font-weight:300\">" +
-                       $"站点维护中,如需访问请联系站点管理员</h2>" +
-                       $"<h6 style=\"color:#666;font-weight:300\">JRCms v{Cms.Version}</h6></center></body>");
-            //this.RenderNotfound("<h1 style=\"color:red\">网站维护中,暂停访问！</h1>");
+                return false;
+            }
+            if (CurrentSite.State == SiteState.Paused)
+            {
+                this._context.Response.WriteAsync(
+                    $"<body style=\"background:#FBFBFB\"><center><br /><br /><h2 style=\"font-weight:300\">" +
+                    $"站点维护中,如需访问请联系站点管理员</h2>" +
+                    $"<h6 style=\"color:#666;font-weight:300\">JRCms v{Cms.Version}</h6></center></body>");
+                return false;
+                //this.RenderNotfound("<h1 style=\"color:red\">网站维护中,暂停访问！</h1>");
+            }
+            this._context.Response.WriteAsync(
+                $"<body style=\"background:#FBFBFB\"><center><br /><br /><h2 style=\"font-weight:300\">" +
+                $"未找到站点</h2>" +
+                $"<h6 style=\"color:#666;font-weight:300\">JRCms v{Cms.Version}</h6></center></body>");
             return false;
         }
 

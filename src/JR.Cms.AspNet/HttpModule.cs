@@ -17,21 +17,11 @@ namespace JR.Cms.AspNet
 
         private void context_StartRequest(object sender, EventArgs e)
         {
-            var context = (HttpApplication)sender;
-            // 如果没有安装,则跳转到安装地址
-            if(!CmsInstallChecker.Check(context))context.Response.End();
-            // 自动跳转到www开头的域名
-            if (Settings.SYS_AUTOWWW)
-            {
-                var url = context.Request.Url.ToString() ?? throw new ArgumentNullException("context.Request.GetEncodedUrl()");
-                var host = context.Request.Url.Host;
-                if (host.Split('.').Length == 2)
-                {
-                    context.Response.Redirect(url.Replace(host, "www." + host));
-                    context.Response.End();
-                    return;
-                }
-            }
+            // var context = (HttpApplication)sender;
+            // // 如果没有安装,则跳转到安装地址
+            // if(!CmsInstallChecker.Check(context))context.Response.End();
+            // NewMethod(context);
         }
+
     }
 }

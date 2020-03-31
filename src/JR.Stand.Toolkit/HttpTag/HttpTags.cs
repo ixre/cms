@@ -58,7 +58,9 @@ namespace JR.Stand.Toolkit.HttpTag
                 string action = request.GetParameter("tag.action");
                 if (String.IsNullOrEmpty(action))
                 {
-                    Dispaly_TagsList(String.IsNullOrEmpty(pageContent)?Resource.tagsmanager:pageContent);
+                    var assembly = typeof(TagsManager).Assembly;
+                    var tagManager = ResourcesReader.Read(assembly, "HttpTag/Assets/tags_manager.html");
+                    Dispaly_TagsList(String.IsNullOrEmpty(pageContent)?tagManager:pageContent);
                 }
                 else if (action == "test")
                 {
@@ -301,7 +303,10 @@ namespace JR.Stand.Toolkit.HttpTag
         /// <returns></returns>
         public virtual string ReturnStyleLink()
         {
-            return String.Format("<style type=\"text/css\">{0}</style>", Resource.managestyle);
+            
+            var assembly = typeof(TagsManager).Assembly;
+            var style = ResourcesReader.Read(assembly, "HttpTag/Assets/style.html");
+            return $"<style type=\"text/css\">{style}</style>";
         }
 
         #region test

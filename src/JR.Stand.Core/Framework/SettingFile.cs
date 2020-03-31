@@ -55,7 +55,7 @@ namespace JR.Stand.Core.Framework
                 //读取文档
                 using (TextReader tr = new StreamReader(this._filePath))
                 {
-                    _xdoc.LoadXml(tr.ReadToEnd());
+                    _xdoc.LoadXml(tr.ReadToEnd().Trim());
                     tr.Dispose();
                     this._rootNode = _xdoc.SelectSingleNode("/settings");
                 }
@@ -73,7 +73,7 @@ namespace JR.Stand.Core.Framework
         /// <returns></returns>
         public bool Contains(string key)
         {
-            return this._rootNode.SelectSingleNode(String.Format("/settings/add[@key='{0}']", key)) != null;
+            return this._rootNode.SelectSingleNode($"/settings/add[@key='{key}']") != null;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace JR.Stand.Core.Framework
          
         public string Get(String key)
         {
-            XmlNode node = this._rootNode.SelectSingleNode(String.Format("add[@key='{0}']", key));
+            XmlNode node = this._rootNode.SelectSingleNode($"add[@key='{key}']");
             if (node == null)
             {
                 throw new ArgumentOutOfRangeException("key", "no such key named \"" + key + "\"");

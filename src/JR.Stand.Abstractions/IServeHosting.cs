@@ -19,5 +19,11 @@ namespace JR.Stand.Abstracts
         /// </summary>
         /// <returns></returns>
         string BaseDirectory();
+
+        /// <summary>
+        /// 是否为Linux系统
+        /// </summary>
+        /// <returns></returns>
+        bool IsLinuxOS();
     }
 }

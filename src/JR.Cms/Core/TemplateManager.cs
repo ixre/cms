@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Stand.Core.Framework;
+using JR.Stand.Core.Template;
 
 namespace JR.Cms.Core
 {
@@ -31,7 +32,7 @@ namespace JR.Cms.Core
             foreach (var d in dirs)
                 if ((d.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
-                    var tplConfigFile = string.Format("{0}{1}/tpl.conf", rootDirPath, d.Name);
+                    var tplConfigFile = $"{rootDirPath}{d.Name}/tpl.conf";
                     if (!File.Exists(tplConfigFile))
                     {
                         var sf = new SettingFile(tplConfigFile);
@@ -55,7 +56,7 @@ namespace JR.Cms.Core
         /// <exception cref="ArgumentException"></exception>
         public TemplateSetting Get(string tpl)
         {
-            if (!_dict.ContainsKey(tpl)) throw new ArgumentException("no such template named " + tpl);
+            if (!_dict.ContainsKey(tpl)) throw new TemplateException($"Can not find template in folder '/templates/{tpl}'");
             return _dict[tpl];
         }
     }

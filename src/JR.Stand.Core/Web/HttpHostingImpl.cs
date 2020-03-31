@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using JR.Stand.Abstracts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,11 @@ namespace JR.Stand.Core.Web
         public string BaseDirectory()
         {
             return EnvUtil.GetBaseDirectory();
+        }
+
+        public bool IsLinuxOS()
+        {
+            return EnvUtil.IsOSPlatform(OSPlatform.Linux) || EnvUtil.IsOSPlatform(OSPlatform.OSX);
         }
     }
 }

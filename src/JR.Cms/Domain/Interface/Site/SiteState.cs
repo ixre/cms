@@ -16,6 +16,10 @@ namespace JR.Cms.Domain.Interface.Site
     public enum SiteState : int
     {
         /// <summary>
+        /// 未知的状态
+        /// </summary>
+        Unknown = 0,
+        /// <summary>
         /// 正常
         /// </summary>
         Normal = 1,

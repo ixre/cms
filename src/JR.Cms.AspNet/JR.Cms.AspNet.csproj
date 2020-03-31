@@ -99,11 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspNetCmsInitializer.cs" />
-    <Compile Include="CmsInstallChecker.cs" />
+    <Compile Include="AspNetCmsChecker.cs" />
     <Compile Include="HttpApplicaiton.cs" />
     <Compile Include="HttpModule.cs" />
     <Compile Include="Mvc\AspNetWebApiHandler.cs" />
     <Compile Include="Mvc\AspNetPortalController.cs" />
+    <Compile Include="Mvc\AspNetRequestFilter.cs" />
     <Compile Include="Mvc\CmsInstallHandler.cs" />
     <Compile Include="Mvc\AspNetCmsManagerHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
