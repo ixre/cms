@@ -4,7 +4,7 @@ namespace JR.Cms.Conf
     /// <summary>
     /// 
     /// </summary>
-    public class CmsVariables
+    public static class CmsVariables
     {
         /// <summary>
         /// 产品
@@ -14,7 +14,7 @@ namespace JR.Cms.Conf
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="3.2.038";
+        public const string VERSION="4.0.0";
         /// <summary>
         /// 框架目录
         /// </summary>
