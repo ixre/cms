@@ -26,15 +26,18 @@ namespace JR.Stand.Core
         private static Stream ReadStream(Assembly assembly,string filePath)
         {
             if (assembly == null) assembly = Assembly.GetExecutingAssembly();
-            var resPath = filePath.Replace("\\", "/");
+            var ns = assembly.FullName.Split(',')[0];
+            var path = filePath.Replace("\\", "/");
+            var resPath = path.Replace("/", ".");
             // Mac和Linux下,使用mono运行. 资源不需要前缀,如存放: Static目录下的1.txt .
             // Linux下为: Namespace.1.txt  而Windows下是: Namespace.Static.1.txt
-            if (EnvUtil.IsOSPlatform(OSPlatform.Linux) || EnvUtil.IsOSPlatform(OSPlatform.OSX))
+            Stream fs = assembly.GetManifestResourceStream(ns+"."+resPath);
+            if (fs == null)
             {
-                resPath = resPath.Substring(resPath.LastIndexOf("/") + 1);
+                resPath = path.Substring(path.LastIndexOf("/") + 1);
+                fs =  assembly.GetManifestResourceStream(ns+"."+resPath);
             }
-            resPath = resPath.Replace("/", ".");
-            var resFullPath = assembly.FullName.Split(',')[0] + "." + resPath;
+
             // var str = assembly.FullName + " | ";
             // foreach (var v in  assembly.GetManifestResourceNames())
             // {
@@ -42,11 +45,9 @@ namespace JR.Stand.Core
             // }
             // throw  new Exception(str);
             //
-            
-            Stream fs = assembly.GetManifestResourceStream(resFullPath);
             if (fs == null)
             {
-                throw new Exception($"资源不存在{resFullPath}");
+                throw new Exception($"资源不存在{filePath}");
             }
             return fs;
         }
