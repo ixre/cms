@@ -1,0 +1,15 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: docker
+    image: plugins/docker
+    settings:
+      repo: jarry6/cms
+      tags: latest
+      username: jarry6                                                                                                                                                                                            
+      password:
+          from_secret: docker_password
+trigger:
+  branch:
+    - master
