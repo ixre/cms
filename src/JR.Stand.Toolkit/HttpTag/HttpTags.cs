@@ -303,7 +303,6 @@ namespace JR.Stand.Toolkit.HttpTag
         /// <returns></returns>
         public virtual string ReturnStyleLink()
         {
-            
             var assembly = typeof(TagsManager).Assembly;
             var style = ResourcesReader.Read(assembly, "HttpTag/Assets/style.html");
             return $"<style type=\"text/css\">{style}</style>";

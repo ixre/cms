@@ -1,13 +1,16 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using JR.Cms.Conf;
 using JR.Cms.WebImpl.Mvc;
 using JR.Cms.WebImpl.Mvc.Controllers;
 using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,10 +46,12 @@ namespace JR.Cms.App
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
             // 注册编码
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             // 使用Session
@@ -67,14 +72,22 @@ namespace JR.Cms.App
             {
                 FileProvider = new PhysicalFileProvider(root)
             });
+            // 处理异常
+            app.UseExceptionHandler(builder => builder.Run(async context => await ErrorEvent(context)));
             // 捕获404错误
             app.UseStatusCodePagesWithReExecute("/software/errors/{0}");
             // Cms初始化, 注册中间件，应在路由注册之前注册
-            app.UserCmsInitializer();   
+            app.UserCmsInitializer();
             app.UseCmsRoutes();
         }
 
-      
+        private static Task ErrorEvent(HttpContext context)
+        {
+            var feature = context.Features.Get<IExceptionHandlerFeature>();
+            var error = feature?.Error;
+            Console.WriteLine("Global\\Error", error.Message, error.StackTrace);
+            return context.Response.WriteAsync("系统未知异常，请联系管理员");
+        }
     }
 
 }

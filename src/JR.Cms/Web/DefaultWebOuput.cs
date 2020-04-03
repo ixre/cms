@@ -61,7 +61,7 @@ namespace JR.Cms.WebImpl
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static bool CheckVerifyCode(string code)
+        private static bool CheckVerifyCode(string code)
         {
             var ctx = HttpHosting.Context;
             var key = $"$jr.site_{Cms.Context.CurrentSite.SiteId.ToString()}_verify_code";

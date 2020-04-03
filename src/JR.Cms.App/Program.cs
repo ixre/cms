@@ -25,7 +25,6 @@ namespace JR.Cms.App
                     if (!devMode)
                     {
                         logging.ClearProviders();
-                        logging.AddConsole();
                     }
                     else
                     {
