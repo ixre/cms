@@ -1,13 +1,6 @@
 using System;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using JR.Cms.Conf;
-using JR.Cms.Core;
-using JR.Cms.ServiceDto;
-using JR.Cms.WebImpl;
 
 namespace JR.Cms.AspNet.Mvc
 {
@@ -32,9 +25,8 @@ namespace JR.Cms.AspNet.Mvc
         //private static readonly bool _showDebugInformation;
         private bool _showDebugInformation;
 
-        protected  void Initialize(RequestContext requestContext)
+        protected void Initialize(RequestContext requestContext)
         {
-
             // this.OutputContext = Cms.Context;
             // this.OutputContext.Source = this;
 
