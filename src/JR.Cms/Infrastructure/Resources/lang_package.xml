@@ -50,7 +50,8 @@
   <item key="more" zh_CN="更多" zh_TW="更多" en_US="More" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="details" zh_CN="详情" zh_TW="更多" en_US="Details" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="change" zh_CN="切换" zh_TW="Change" en_US="Change" Es="" Th="" Fr="" Ru="" Ar=""/>
-  <item key="zh_CN" zh_CN="中文(简体)" zh_TW="" en_US="" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="en_US" zh_CN="英语(美国)" zh_TW="英语(美国)" en_US="English" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="zh_CN" zh_CN="中文(简体)" zh_TW="中文(简体)" en_US="Simple chinese" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="En" zh_CN="英文" zh_TW="" en_US="English" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="zh_TW" zh_CN="中文(繁体)" zh_TW="中文(繁体)" en_US="" Es="" Th="" Fr="" Ru="" Ar=""/>
 </lang>
