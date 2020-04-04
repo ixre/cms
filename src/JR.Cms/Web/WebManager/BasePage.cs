@@ -67,8 +67,8 @@ namespace JR.Cms.WebImpl.WebManager
             ignoreURI = new string[]
             {
                 "module=archive&action=update",
-                "module=template&action=editfile",
-                "module=file&action=editfile"
+                "module=template&action=editFile",
+                "module=file&action=editFile"
             };
 
 
