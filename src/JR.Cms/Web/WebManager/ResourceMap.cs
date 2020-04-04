@@ -193,29 +193,33 @@ namespace JR.Cms.WebImpl.WebManager
         }
 
 
-        public static string SetProperties =>GetDebugContent("archive/archivelist.html");
+        public static string SetProperties =>GetDebugContent("archive/archive_list.html");
 
-        public static string ArchiveTagReplace => GetDebugContent("archive/archivelist.html");
-
-
-        public static string Edittable => GetDebugContent("archive/archivelist.html");
-
-        public static string Tables =>GetDebugContent("archive/archivelist.html");
-
-        public static string Columns =>GetDebugContent("archive/archivelist.html");
-
-        public static string Editcolumn =>GetDebugContent("archive/archivelist.html");
-
-        public static string Rows => GetDebugContent("archive/archivelist.html");
+        public static string ArchiveTagReplace => GetDebugContent("archive/archive_list.html");
 
 
-        public static string MemberList => GetDebugContent("user/memberList.html");
+        public static string Edittable => GetDebugContent("archive/archive_list.html");
+
+        public static string Tables =>GetDebugContent("archive/archive_list.html");
+
+        public static string Columns =>GetDebugContent("archive/archive_list.html");
+
+        public static string Editcolumn =>GetDebugContent("archive/archive_list.html");
+
+        public static string Rows => GetDebugContent("archive/archive_list.html");
 
 
-        public static string RightText =>GetDebugContent("archive/archivelist.html");
+        public static string MemberList => GetDebugContent("user/member_list.html");
 
-        public static string ErrorText =>GetDebugContent("archive/archivelist.html");
 
-        public static string Sysset_conf =>GetDebugContent("archive/archivelist.html");
+        public static string RightText =>GetDebugContent("archive/archive_list.html");
+
+        public static string ErrorText =>GetDebugContent("archive/archive_list.html");
+
+        public static string GetBoardMenu()
+        {
+            var path = Cms.BuildOEM.SelectNodeValuePath("/keys/item[@key='board_set']");
+            return File.ReadAllText(path);
+        }
     }
 }

@@ -28,10 +28,10 @@ namespace JR.Cms.Core
         private XmlNode SelectSingleNode(string xpath)
         {
             var xd = new XmlDocument();
-            var filePath = string.Concat(Cms.PhysicPath, CmsVariables.OEM_PATH, "meta.xml");
+            var filePath = string.Concat(Cms.PhysicPath, CmsVariables.OEM_PATH, "registry.xml");
             if (!File.Exists(filePath))
             {
-                filePath = string.Concat(Cms.PhysicPath, CmsVariables.FRAMEWORK_PATH, "registry_meta.xml");
+                filePath = string.Concat(Cms.PhysicPath, CmsVariables.FRAMEWORK_PATH, "registry_index.xml");
                 prefix = CmsVariables.FRAMEWORK_PATH;
             }
 

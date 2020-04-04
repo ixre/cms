@@ -14,7 +14,7 @@
       <Content Include="install\db\mysql.sql" />
       <Content Include="install\db\sqlite.sql" />
       <Content Include="install\install.html" />
-      <Content Include="oem\meta.xml" />
+      <Content Include="oem\registry.xml" />
       <Content Include="oem\OEM_README.md" />
       <Content Include="oem\registry\build_set.xml" />
       <Content Include="public\assets\animate.css" />
@@ -492,7 +492,7 @@
       <Content Include="public\mui\js\base.js" />
       <Content Include="public\registry\build_set.xml" />
       <Content Include="public\registry\manager_set.xml" />
-      <Content Include="public\registry_meta.xml" />
+      <Content Include="public\registry_index.xml" />
       <Content Include="templates\default\archive.html" />
       <Content Include="templates\default\category.html" />
       <Content Include="templates\default\css\default\bg_ver-line-01.png" />

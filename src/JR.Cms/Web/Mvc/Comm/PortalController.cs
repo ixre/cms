@@ -128,12 +128,19 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
             if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
             {
                 var path = context.Request.GetPath();
-                String catPath = this.SubPath(path, ctx.SiteAppPath);
-                //验证是否为当前站点的首页
-                if (catPath.Length == 0)
+                var sitePath = ctx.SiteAppPath;
+                // 验证是否为当前站点的首页
+                if (path ==sitePath )
                 {
                     return this.Index(context);
                 }
+                // 如果为"/site/",跳转到"/site"
+                if (path == sitePath+"/")
+                {
+                    context.Response.Redirect(path.Substring(0, path.Length - 1), false);
+                    return Task.CompletedTask;
+                }
+                String catPath = this.SubPath(path, sitePath);
                 int page = 1;
                 //获取页码和tag
                 if (catPath.EndsWith(".html"))
