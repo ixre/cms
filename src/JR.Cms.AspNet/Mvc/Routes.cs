@@ -30,11 +30,11 @@ namespace JR.Cms.WebImpl.Mvc
             string defaultControllerPrefix = CmsVariables.DEFAULT_CONTROLLER_NAME; //使用别名访问cms系统action
             routes.MapRoute(
                 "major_cms_controller", defaultControllerPrefix + "/{action}",
-                new {controller = "Cms", action = "Help"}
+                new {controller = "CmsPkg", action = "Help"}
             );
             routes.MapRoute(
                 "major_sub_path_controller", "{site}/" + defaultControllerPrefix + "/{action}",
-                new {controller = "Cms", action = "Help"}
+                new {controller = "CmsPkg", action = "Help"}
             );
 
             //安装路由

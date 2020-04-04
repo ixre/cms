@@ -15,6 +15,7 @@ namespace JR.Cms.App
     /// </summary>
     public static class Routes
     {
+        private static readonly CmsPkgController cmsPKG = new CmsPkgController();
         public static void UseCmsRoutes(this IApplicationBuilder app)
         {
             // https://aregcode.com/blog/2019/dotnetcore-understanding-aspnet-endpoint-routing/
@@ -34,7 +35,7 @@ namespace JR.Cms.App
         {
             string defaultControllerPrefix = CmsVariables.DEFAULT_CONTROLLER_NAME; //使用别名访问cms系统action
             // endpoints.Map(defaultControllerPrefix+"/version", cmsProcessor.Version);
-            var defaults = new {controller = "Software", action = "Version"};
+            var defaults = new {controller = "CmsPkg", action = "Version"};
             endpoints.MapControllerRoute("cms_controller", defaultControllerPrefix + "/{action}", defaults);
             endpoints.MapControllerRoute("cms_sub_path_controller",
                 "{site}/" + defaultControllerPrefix + "/{action}", defaults);

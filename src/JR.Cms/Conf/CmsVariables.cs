@@ -91,7 +91,7 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 默认的控制器前缀
         /// </summary>
-        public static string DEFAULT_CONTROLLER_NAME ="cms.do";
+        public static string DEFAULT_CONTROLLER_NAME ="_cms";
 
         /// <summary>
         /// 模板目录

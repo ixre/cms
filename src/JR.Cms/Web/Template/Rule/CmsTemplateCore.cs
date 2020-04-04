@@ -185,9 +185,9 @@ namespace JR.Cms.WebImpl.Template
             //    default:
             //    case Languages.En_US:
             //        pagerPack = en_us_pack; break;
-            //    case Languages.Zh_CN:
+            //    case Languages.zh_CN:
             //        pagerPack = zh_cn_pack; break;
-            //    case Languages.Zh_TW:
+            //    case Languages.zh_TW:
             //        pagerPack = zh_tw_pack; break;
             //}
 
@@ -1978,10 +1978,10 @@ namespace JR.Cms.WebImpl.Template
                 switch (_ctx.UserLanguage)
                 {
                     default:
-                    case Languages.En:
+                    case Languages.en_US:
                         message = "No result";
                         break;
-                    case Languages.Zh_CN:
+                    case Languages.zh_CN:
                         message = "没有相关记录";
                         break;
                 }

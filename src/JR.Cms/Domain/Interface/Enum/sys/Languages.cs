@@ -13,21 +13,21 @@ namespace JR.Cms.Domain.Interface.Enum.sys
     /// <summary>
     /// 语言
     /// </summary>
-    public enum Languages : int
+    public enum Languages_ : int
     {
         /// <summary>
         /// 中文(简体)
         /// </summary>
-        Zh_CN = 1,
+        zh_CN = 1,
 
         /// <summary>
         /// 中文(繁体)
         /// </summary>
-        Zh_TW = 2,
+        zh_TW = 2,
 
         /// <summary>
         /// 英语(英国,美国)
         /// </summary>
-        En_US = 3
+        en_US = 3
     }
 }

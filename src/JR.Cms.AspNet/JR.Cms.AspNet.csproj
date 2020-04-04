@@ -107,6 +107,7 @@
     <Compile Include="Mvc\AspNetRequestFilter.cs" />
     <Compile Include="Mvc\CmsInstallHandler.cs" />
     <Compile Include="Mvc\AspNetCmsManagerHandler.cs" />
+    <Compile Include="Mvc\CmsPkgController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
