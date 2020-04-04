@@ -172,10 +172,13 @@ namespace JR.Cms.WebImpl.WebManager.Handle
             //读取配置
             var setFile = $"{EnvUtil.GetBaseDirectory()}/config/sys_set.conf";
             if (File.Exists(setFile))
+            {
                 xd.Load(setFile);
+            }
             else
-                xd.LoadXml(ResourceMap.Sysset_conf); //系统默认的配置
-
+            {
+                xd.LoadXml(ResourceMap.GetBoardMenu()); //系统默认的配置
+            }
 
             //读取菜单
 
