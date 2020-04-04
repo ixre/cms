@@ -43,8 +43,8 @@ namespace JR.Cms.Core
            IDictionary<Languages,String> dict = new Dictionary<Languages,String>();
 
            //标签
-           dict.Add(Languages.Zh_CN,"无标签");
-           dict.Add(Languages.Zh_TW,"无标签");
+           dict.Add(Languages.zh_CN,"无标签");
+           dict.Add(Languages.zh_TW,"无标签");
            dict.Add(Languages.En_US,"no tags");
 
            lang.Add(LanguagePackageKey.PAGE_NO_TAGS, dict);
@@ -55,7 +55,7 @@ namespace JR.Cms.Core
            const string en_us_pack = "Previous|Next|{0}|Select Page：{0}";
 
 
-           dict.Add(Languages.Zh_CN, "上一页");
+           dict.Add(Languages.zh_CN, "上一页");
            */
         }
 

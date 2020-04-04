@@ -187,11 +187,11 @@ namespace JR.Cms.WebImpl
             {
                 switch (_site.Language)
                 {
-                    case Languages.Zh_CN:
+                    case Languages.zh_CN:
                         title = string.Format("- 第" + pageIndex + "页");
                         break;
                     default:
-                    case Languages.En:
+                    case Languages.en_US:
                         title = string.Format("- page " + pageIndex);
                         break;
                 }
