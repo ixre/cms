@@ -17,10 +17,21 @@ using System.Text;
 
 namespace JR.Stand.Core.Framework
 {
-    public class LogFile
+    public enum LoggerLevel
     {
-        private string filePath;
-        private bool printPrefix;
+        Normal = 1,
+        Debug = 2,
+        Error = 3,
+        Warning = 4,
+    }
+
+    /// <summary>
+    /// 以文件存储的日志记录器
+    /// </summary>
+    public class FileLogger
+    {
+        private readonly string filePath;
+        private readonly bool printPrefix;
         private Encoding _encoding;
 
         //种子，用于判断
@@ -29,15 +40,11 @@ namespace JR.Stand.Core.Framework
         //编码
         public Encoding FileEncoding
         {
-            get { return this._encoding ?? (this._encoding = Encoding.UTF8); }
-            set { this._encoding = value; }
+            get => this._encoding ?? (this._encoding = Encoding.UTF8);
+            set => this._encoding = value;
         }
 
-        public LogFile(string filePath) : this(filePath, false)
-        {
-        }
-
-        public LogFile(string filePath, bool printPrefix)
+        public FileLogger(string filePath, bool printPrefix = false)
         {
             this.printPrefix = printPrefix;
             this.filePath = filePath;
@@ -82,9 +89,23 @@ namespace JR.Stand.Core.Framework
             fs.Dispose();
         }
 
-        public void Println(string text)
+        public void Println(LoggerLevel level,string text)
         {
-            this.Print(this.FileEncoding.GetBytes(text + Environment.NewLine));
+            var prefix = this.GetPrefix(level);
+            this.Print(this.FileEncoding.GetBytes(prefix+text + Environment.NewLine));
+        }
+
+        private string GetPrefix(LoggerLevel level)
+        {
+            switch (level)
+            {
+                case LoggerLevel.Debug: return "[ Debug]";
+                case LoggerLevel.Error: return "[ Error]";
+                case LoggerLevel.Normal: return "";
+                case LoggerLevel.Warning: return "[ Warning]";
+            }
+
+            return "";
         }
 
         public void Printf(string format, params object[] data)

@@ -14,7 +14,7 @@ namespace JR.Stand.Core.PluginKernel
     {
         internal static IDictionary<IPlugin, PluginPackAttribute> plugins;
 
-        protected static LogFile Log;
+        protected static FileLogger Log;
         private PluginHostAttribute _attr = null;
 
 
@@ -34,7 +34,7 @@ namespace JR.Stand.Core.PluginKernel
             {
                 Directory.CreateDirectory(pluginTmpDirectory);
             }
-            Log = new LogFile(String.Format("{0}plugin_load.log",
+            Log = new FileLogger(String.Format("{0}plugin_load.log",
                 pluginTmpDirectory), false);
             Log.Truncate();
 
@@ -74,9 +74,9 @@ namespace JR.Stand.Core.PluginKernel
 
             if (Log != null)
             {
-                Log.Println(String.Format("{0:yyyy-MM-dd HH:mm:ss}   [+]Plugin Loading"
-                                          + "\r\n========================================\r\n"
-                                          + "Directory:{1} \t Total DLL:{2}\r\n",
+                Log.Println(LoggerLevel.Normal,String.Format("{0:yyyy-MM-dd HH:mm:ss}   [+]Plugin Loading"
+                                                             + "\r\n========================================\r\n"
+                                                             + "Directory:{1} \t Total DLL:{2}\r\n",
                     DateTime.Now, pluginDirectory.Replace("\\", "/"),
                     files.Count.ToString()));
             }
@@ -90,7 +90,7 @@ namespace JR.Stand.Core.PluginKernel
 
             if (Log != null)
             {
-                Log.Println(String.Format("load complete!result:{0}", loadResult ? "Ok" : "Error"));
+                Log.Println(LoggerLevel.Normal,String.Format("load complete!result:{0}", loadResult ? "Ok" : "Error"));
             }
         }
 
@@ -110,12 +110,12 @@ namespace JR.Stand.Core.PluginKernel
             {
                 if (Log != null)
                 {
-                    Log.Println(String.Format("Assembly {0} happend exception:{1}\r\nExceptions:\r\n",
+                    Log.Println(LoggerLevel.Error,String.Format("Assembly {0} happend exception:{1}\r\nExceptions:\r\n",
                         pluginFile.Substring(pluginFile.LastIndexOfAny(new char[] { '/', '\\' }) + 1),
                         exc.Message));
                     foreach (Exception e in exc.LoaderExceptions)
                     {
-                        Log.Println(e.Message);
+                        Log.Println(LoggerLevel.Error,e.Message);
                     }
 
                 }
@@ -125,7 +125,7 @@ namespace JR.Stand.Core.PluginKernel
             {
                 if (Log != null)
                 {
-                    Log.Println(String.Format("\r\nAssembly {0} happend exception:{1}",
+                    Log.Println(LoggerLevel.Error,String.Format("\r\nAssembly {0} happend exception:{1}",
                         pluginFile.Substring(pluginFile.LastIndexOfAny(new char[] { '/', '\\' }) + 1),
                         err.Message));
                 }
@@ -143,9 +143,9 @@ namespace JR.Stand.Core.PluginKernel
             if (!Directory.Exists(dir)) return;
             string[] dllFiles = Directory.GetFiles(dir, "*.so");
 
-            Log.Println(String.Format("{0:yyyy-MM-dd HH:mm:ss}   [+]Plugin Loading From Bin"
-                                      + "\r\n========================================\r\n"
-                                      + "Total .so file : {1}\r\n",
+            Log.Println(LoggerLevel.Normal,String.Format("{0:yyyy-MM-dd HH:mm:ss}   [+]Plugin Loading From Bin"
+                                                         + "\r\n========================================\r\n"
+                                                         + "Total .so file : {1}\r\n",
                 DateTime.Now,
                 dllFiles.Length.ToString()));
 
@@ -217,7 +217,7 @@ namespace JR.Stand.Core.PluginKernel
 
             if (Log != null)
             {
-                Log.Println(String.Format("{0}({1}) be found ; version is {2}.",
+                Log.Println(LoggerLevel.Normal,String.Format("{0}({1}) be found ; version is {2}.",
                     attribute.Name,
                     assembly.GetName().Name,
                     attribute.Version));

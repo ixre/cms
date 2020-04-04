@@ -12,9 +12,9 @@
     ${page.html5}
 </head>
 <body>
-    ${partial:"include/header.phtml"}
+    ${partial:"include/header.part.html"}
     <div class="mod-flash-p mod-flash-banner gra-mg5 flash-row container" style="margin:5px auto">
-        ${partial:"include/flash_banner.phtml"}
+        ${partial:"include/flash_banner.part.html"}
     </div>
     <ul>
         $archives('news',4,'
@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    ${partial:"include/footer.phtml"}
+    ${partial:"include/footer.part.html"}
     <script type="text/javascript" src="${page.fpath}/base.min.js?v=${page.built}&amp;hover=navi"></script>
     <script type="text/javascript" src="${page.fpath}/js/scroller.js?v=${page.built}&amp;hover=navi"></script>
     <script type="text/javascript">$jr.scroller('fla', {direction: 'left',unit:1200,pagerid:'fla_pager'},4000);

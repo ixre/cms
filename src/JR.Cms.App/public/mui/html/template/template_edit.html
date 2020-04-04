@@ -98,14 +98,14 @@ $js()
   <script type="text/javascript">
 
       /*
-        ifr.src = '?module=template&action=editfile&path=' + src;
+        ifr.src = '?module=template&action=editFile&path=' + src;
 
 
         filelist.onchange = function () {
             if (/\.css/g.test(this.value)) {
-                ifr.src = '?module=file&action=editfile&path=' + this.value;
+                ifr.src = '?module=file&action=editFile&path=' + this.value;
             } else {
-                ifr.src = '?module=template&action=editfile&path=' + this.value;
+                ifr.src = '?module=template&action=editFile&path=' + this.value;
             }
         };
         */
@@ -113,9 +113,9 @@ $js()
       function editFile(path, name) {
           var url;
           if (/\.css/g.test(path)) {
-              url = '?module=file&action=editfile&path=/templates/${tpl}/' + path;
+              url = '?module=file&action=editFile&path=/templates/${tpl}/' + path;
           } else {
-              url = '?module=template&action=editfile&path=/templates/${tpl}/' + path;
+              url = '?module=template&action=editFile&path=/templates/${tpl}/' + path;
           }
           parent.FwTab.show(name || path,url);
       }

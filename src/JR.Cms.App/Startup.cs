@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JR.Cms.Conf;
 using JR.Cms.WebImpl.Mvc;
 using JR.Cms.WebImpl.Mvc.Controllers;
+using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
@@ -86,6 +87,8 @@ namespace JR.Cms.App
             var feature = context.Features.Get<IExceptionHandlerFeature>();
             var error = feature?.Error;
             Console.WriteLine("Global\\Error", error.Message, error.StackTrace);
+            CmsLogger.Println(LoggerLevel.Error,error.Message + "; stack =" + error.StackTrace);
+            context.Response.ContentType = "text/html;charset=utf-8";
             return context.Response.WriteAsync("系统未知异常，请联系管理员");
         }
     }

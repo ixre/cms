@@ -115,8 +115,8 @@ namespace JR.Cms.WebImpl.WebManager
 
 
             //获取模块和动作参数
-            var module = request.GetParameter("module");
-            var action = request.GetParameter("action");
+            var module = request.Query("module");
+            var action = request.Query("action");
             if (string.IsNullOrEmpty(action)) action = "Index";
 
             //检测是否已经登录并检验是否有权执行此操作

@@ -12,7 +12,7 @@ namespace JR.Cms.Library.DataAccess.DB
         private readonly string _connectionString;
         private readonly bool _sqlTrace;
         private DataBaseAccess dbAccess;
-        private LogFile logFile;
+        private FileLogger _fileLogger;
 
         public DbAccess(DataBaseType dbType, string connectionString, bool sqlTrace)
         {
@@ -22,8 +22,8 @@ namespace JR.Cms.Library.DataAccess.DB
             dbAccess = new DataBaseAccess(_dbType, _connectionString);
             if (sqlTrace)
             {
-                logFile = new LogFile(EnvUtil.GetBaseDirectory() + "/tmp/sql_profile.txt");
-                logFile.Truncate();
+                _fileLogger = new FileLogger(EnvUtil.GetBaseDirectory() + "/tmp/sql_profile.txt");
+                _fileLogger.Truncate();
                 dbAccess.Use(profileTrace);
             }
         }
@@ -33,12 +33,12 @@ namespace JR.Cms.Library.DataAccess.DB
             var dt = DateTime.Now;
             if (exc == null)
             {
-                logFile.Printf(" | {0:yyyy-MM-dd HH:mm:ss}:  {1} [ OK]; SQL={2};Data={3} \r\n\r\n", dt, action,
+                _fileLogger.Printf(" | {0:yyyy-MM-dd HH:mm:ss}:  {1} [ OK]; SQL={2};Data={3} \r\n\r\n", dt, action,
                     sql, DataUtil.ParamsToString(sqlParams), Environment.NewLine);
                 return true;
             }
 
-            logFile.Printf(" | {0:yyyy-MM-dd HH:mm:ss}: {1} [ Fail]; SQL={2};Data={3}; Exception:{4} | \r\n\r\n", dt,
+            _fileLogger.Printf(" | {0:yyyy-MM-dd HH:mm:ss}: {1} [ Fail]; SQL={2};Data={3}; Exception:{4} | \r\n\r\n", dt,
                 action,
                 sql, DataUtil.ParamsToString(sqlParams), exc.Message);
             return false;

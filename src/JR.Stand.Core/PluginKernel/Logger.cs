@@ -12,14 +12,14 @@ namespace JR.Stand.Core.PluginKernel
     /// </summary>
     public static class Logger
     {
-        private static LogFile _logFile;
+        private static FileLogger fileLogger;
 
-        private static LogFile GetFile()
+        private static FileLogger GetFile()
         {
             DateTime dt = DateTime.Now;
             int unixInt = dt.Date.DayOfYear;
 
-            if (_logFile == null || unixInt != _logFile.Seed)
+            if (fileLogger == null || unixInt != fileLogger.Seed)
             {
                 string logDir = EnvUtil.GetBaseDirectory()+ PluginConfig.PLUGIN_TMP_DIRECTORY;
 
@@ -29,11 +29,11 @@ namespace JR.Stand.Core.PluginKernel
                     Directory.CreateDirectory(logDir).Create();
                 }
 
-                _logFile = new LogFile(String.Format("{0}/p{1:yyyyMMdd}.log", logDir, dt), false);
-                _logFile.Seed = unixInt;
-                _logFile.FileEncoding = Encoding.UTF8;
+                fileLogger = new FileLogger(String.Format("{0}/p{1:yyyyMMdd}.log", logDir, dt), false);
+                fileLogger.Seed = unixInt;
+                fileLogger.FileEncoding = Encoding.UTF8;
             }
-            return _logFile;
+            return fileLogger;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace JR.Stand.Core.PluginKernel
         {
             if (!PluginConfig.PLUGIN_LOG_OPENED) return;
 
-            LogFile log = GetFile();
+            FileLogger log = GetFile();
             DateTime dt = DateTime.Now;
 
             Exception exc = except;
@@ -63,7 +63,7 @@ namespace JR.Stand.Core.PluginKernel
             hash.Add("source", exc.Source);
 
             //附加记录
-            log.Println(PluginConfig.PLUGIN_LOG_EXCEPT_FORMAT.Template(hash));
+            log.Println(LoggerLevel.Normal,PluginConfig.PLUGIN_LOG_EXCEPT_FORMAT.Template(hash));
 
             throw except; //继续抛出异常
         }
@@ -76,8 +76,8 @@ namespace JR.Stand.Core.PluginKernel
         {
             if (!PluginConfig.PLUGIN_LOG_OPENED) return;
 
-            LogFile log = GetFile();
-            log.Println(String.Format("{0:yyyy-MM-dd HH:mm:ss} {1}", DateTime.Now, line));
+            FileLogger log = GetFile();
+            log.Println(LoggerLevel.Normal,String.Format("{0:yyyy-MM-dd HH:mm:ss} {1}", DateTime.Now, line));
         }
     }
 }

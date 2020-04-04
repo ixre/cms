@@ -41,11 +41,11 @@ $js()
         if (src == '') {
             src = filelist.options[0].value;
         }
-        ifr.src = '?module=file&action=editfile&path=' + src;
+        ifr.src = '?module=file&action=editFile&path=' + src;
 
 
         filelist.onchange = function () {
-            ifr.src = '?module=file&action=editfile&path=' + this.value;
+            ifr.src = '?module=file&action=editFile&path=' + this.value;
         };
 
         jr.$('createview').onclick = (function (t) {
