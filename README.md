@@ -32,6 +32,7 @@ dotnet JR.Cms.App.dll --urls http://+:8000
 ## 发布项目
 
 打包发布需要环境如下：
+
 - `.NET Core SDK 2.1`及以上 
 - `.NET Framework 4.7.2`及以上或最新版`Mono`
 
@@ -52,6 +53,8 @@ _注:在MacOSX和Fedora上成功运行,windows用户需要使用`bash`客户端�
 
 - 1. 需准备一台支持ASP.NET 4.0的虚拟主机
 - 2. FTP上传ASP.NET版的所有文件到虚拟主机, 完成部署。
+
+> 支持阿里云,西部数码等国内主流虚拟主机, 推荐使用西部数码, 九折优惠,买三年送二年(qq: 9959398298)
 
 Windows(IIS)
  
