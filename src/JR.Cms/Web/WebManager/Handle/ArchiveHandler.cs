@@ -335,7 +335,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                         .Append("\" value=\"").Append(attrValue).Append("\"/>");
                     break;
 
-                case PropertyUI.MultLine:
+                case PropertyUI.MultiLine:
                     sb.Append("<textarea class=\"w300 ui-box\" field=\"extend_").Append(field.GetDomainId().ToString())
                         .Append("\">").Append(attrValue).Append("</textarea>");
                     break;

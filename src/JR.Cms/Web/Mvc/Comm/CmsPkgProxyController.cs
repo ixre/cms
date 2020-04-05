@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Common.Language;
-using JR.Cms.Domain.Interface.Enum.sys;
 using JR.Stand.Abstracts.Web;
 
 namespace JR.Cms.WebImpl.Mvc.Controllers

@@ -524,8 +524,24 @@ namespace JR.Cms.WebImpl.Template
         [XmlObjectProperty("获取字典数据", @"")]
         public string Lang(string key)
         {
+            var sep = new[] {' ', '-', '|'};
             var lang = this._ctx.UserLanguage;
-            return Cms.Language.Get(lang, key) ?? "{" + key + "}";
+            return Cms.Language.Gets(lang, key.Split(sep))?? "# missing lang:" + key;
+        }
+        
+        /// <summary>
+        /// 语言标签
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("获取翻译数据,以小写开头", @"")]
+        public string Lang_lower(string key)
+        {
+            var lang = this._ctx.UserLanguage;
+            var s = Cms.Language.Get(lang, key);
+            if (s != null) return s.ToLower();
+            return "# missing lang:" + key;
         }
 
 

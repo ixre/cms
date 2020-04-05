@@ -112,5 +112,10 @@ namespace JR.Cms.Core
         {
             return _lang.GetValueByKey(language, key);
         }
+
+        public string Gets(Languages lang, string[] keys)
+        {
+            return this._lang.GetValues(lang, keys);
+        }
     }
 }

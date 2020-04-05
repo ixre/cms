@@ -22,7 +22,7 @@
       "code" : "override-code",
       "quote" : "override-quote",
       "list1" : "override-list1",
-      "lisJR" : "override-lisJR",
+      "list2" : "override-list2",
       "list3" : "override-list3",
       "hr" : "override-hr",
       "image" : "override-image",
@@ -45,6 +45,8 @@
       "formatting" : "override-formatting"
   }});
   function FormatTokenTypeOverrideTest(name) { test.mode(name, modeFormattingOverride, Array.prototype.slice.call(arguments, 1)); }
+  var modeET = CodeMirror.getMode(config, {name: "markdown", emoji: true});
+  function ET(name) { test.mode(name, modeET, Array.prototype.slice.call(arguments, 1)); }
 
 
   FT("formatting_emAsterisk",
@@ -284,10 +286,12 @@
      "[header&header-1 foo]",
      "[header&header-1 ===]");
 
-  // Check if single underlining - works
-  MT("setextH2",
-     "[header&header-2 foo]",
-     "[header&header-2 -]");
+  // Check if single underlining - should not be interpreted
+  // as it might lead to an empty list:
+  // https://spec.commonmark.org/0.28/#setext-heading-underline
+  MT("setextH2Single",
+     "foo",
+     "-");
 
   // Check if 3+ -'s work
   MT("setextH2",
@@ -378,10 +382,10 @@
      "[header&header-1 bar]",
      "[header&header-1 =]");
 
-  // ensure we don't regard space after dash as a list
+  // ensure we regard space after a single dash as a list
   MT("setext_emptyList",
-     "[header&header-2 foo]",
-     "[header&header-2 - ]",
+     "foo",
+     "[variable-2 - ]",
      "foo");
 
   // Single-line blockquote with trailing space
@@ -635,16 +639,16 @@
      "",
      "      [comment indented codeblock]",
      "  [variable-2 list1 after code block]",
-     "  [variable-3 * lisJR]",
+     "  [variable-3 * list2]",
      // amount of spaces on empty lines between lists doesn't matter
      "              ",
      // extra empty lines irrelevant
      "",
      "",
-     "    [variable-3 indented text part of lisJR]",
+     "    [variable-3 indented text part of list2]",
      "    [keyword * list3]",
      "",
-     "    [variable-3 text at level of lisJR]",
+     "    [variable-3 text at level of list2]",
      "",
      "  [variable-2 de-indented text part of list1 again]",
      "",
@@ -669,9 +673,9 @@
   // should consider tab as 4 spaces
   MT("listCommonMark_TabIndented",
      "[variable-2 * list]",
-     "\t[variable-3 * lisJR]",
+     "\t[variable-3 * list2]",
      "",
-     "\t\t[variable-3 part of lisJR]");
+     "\t\t[variable-3 part of list2]");
 
   MT("listAfterBlockquote",
      "[quote&quote-1 > foo]",
@@ -1107,13 +1111,13 @@
   TokenTypeOverrideTest("overrideLists",
     "[override-list1 - foo]",
     "",
-    "    [override-lisJR + bar]",
+    "    [override-list2 + bar]",
     "",
     "        [override-list3 * baz]",
     "",
     "            [override-list1 1. qux]",
     "",
-    "                [override-lisJR - quux]");
+    "                [override-list2 - quux]");
 
   TokenTypeOverrideTest("overrideHr",
     "[override-hr * * *]");
@@ -1257,10 +1261,10 @@
 
   MT("autoTerminateFencedCodeWhenLeavingList",
      "[variable-2 - list1]",
-     "  [variable-3 - lisJR]",
+     "  [variable-3 - list2]",
      "    [variable-3&comment ```]",
      "    [comment code]",
-     "  [variable-3 - lisJR]",
+     "  [variable-3 - list2]",
      "  [variable-2&comment ```]",
      "  [comment code]",
      "[quote&quote-1 > foo]");
@@ -1305,4 +1309,11 @@
   MT_noXml("xmlHighlightDisabled",
      "<div>foo</div>");
 
+  // Tests Emojis
+
+  ET("emojiDefault",
+    "[builtin :foobar:]");
+
+  ET("emojiTable",
+    " :--:");
 })();
