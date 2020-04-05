@@ -79,15 +79,6 @@ namespace JR.Cms
         public static int RuleIndex => templateUrlRuleIndex;
 
         /// <summary>
-        /// 设置模板自定义URL
-        /// </summary>
-        /// <param name="urls"></param>
-        public static void SetCustomeUrl(params string[] urls)
-        {
-            for (var i = 0; i < urls.Length; i++) TemplateUrlRule.urls[0, i] = urls[i];
-        }
-
-        /// <summary>
         /// 设置URL
         /// </summary>
         /// <param name="urlDict"></param>

@@ -70,12 +70,10 @@ namespace JR.Cms.Domain.Interface.Content.Archive
         /// <param name="isSpecial"></param>
         /// <param name="visible"></param>
         /// <param name="asSinglePage"></param>
-        /// <param name="flags">预留的</param>
         /// <returns></returns>
-        public static string GetFlagString(bool isSystem, bool isSpecial, bool visible, bool asSinglePage,
-            params bool[] flags)
+        public static string GetFlagString(bool isSystem, bool isSpecial, bool visible, bool asSinglePage)
         {
-            var flagArray = new bool[] {false, isSystem, isSpecial, false, visible, false, false, false, asSinglePage};
+            var flagArray = new[] {false, isSystem, isSpecial, false, visible, false, false, false, asSinglePage};
 
             var sb = new StringBuilder();
             sb.Append("{");

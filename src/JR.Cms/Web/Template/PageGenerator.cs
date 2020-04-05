@@ -31,7 +31,7 @@ namespace JR.Cms.WebImpl.Template
          * 
          * 
          */
-        public static void Generate(ParameterGenerateDelegate generator, params object[] parameters)
+        public static void Generate(ParameterGenerateDelegate generator, object[] parameters)
         {
             if (generator != null) generator(parameters); //注释
         }
@@ -60,7 +60,7 @@ namespace JR.Cms.WebImpl.Template
         //    return "not found!";
         //}
 
-        public static string ReturnGenerate(ParameterGenerateDelegate generator, params object[] args)
+        public static string ReturnGenerate(ParameterGenerateDelegate generator, object[] args)
         {
             if (generator != null) return generator(args);
             return "not found!";

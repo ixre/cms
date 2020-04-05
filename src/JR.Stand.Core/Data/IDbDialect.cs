@@ -31,7 +31,7 @@ namespace JR.Stand.Core.Data
     /// </summary>
     /// <param name="sql"></param>
     /// <returns></returns>
-    public delegate int RowAffer(string sql);
+    public delegate int RowAffect(string sql);
 
     /// <summary>
     /// 数据读取器函数
@@ -93,6 +93,6 @@ namespace JR.Stand.Core.Data
         /// <param name="sql">SQL语句</param>
         /// <param name="delimiter">分割符</param>
         /// <returns></returns>
-        int ExecuteScript(DbConnection conn, RowAffer r, string sql, string delimiter);
+        int ExecuteScript(DbConnection conn, RowAffect r, string sql, string delimiter);
     }
 }

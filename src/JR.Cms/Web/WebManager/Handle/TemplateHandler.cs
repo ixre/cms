@@ -47,7 +47,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                 return;
             }
 
-            EachClass.IterialTemplateFiles(dir, sb, tpl);
+            EachClass.WalkTemplateFiles(dir, sb, tpl);
 
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Template_Edit), new
             {

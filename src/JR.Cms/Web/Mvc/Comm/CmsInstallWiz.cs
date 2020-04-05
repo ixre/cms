@@ -7,6 +7,7 @@ using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Infrastructure.Domain;
+using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Data;
 using JR.Stand.Core.Framework;
@@ -486,7 +487,7 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
             if (!fi.Exists) return context.Response.WriteAsync("系统丢失文件,无法启动安装向导");
             var bytes = File.ReadAllBytes(fi.FullName);
             context.Response.WriteAsync(bytes);
-            return Task.CompletedTask;
+            return SafetyTask.CompletedTask;
         }
     }
 }

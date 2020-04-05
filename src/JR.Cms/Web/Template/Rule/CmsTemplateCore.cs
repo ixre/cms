@@ -94,7 +94,7 @@ namespace JR.Cms.WebImpl.Template
         /// <param name="key"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public virtual string FormatPageUrl(UrlRulePageKeys key, params string[] data)
+        public virtual string FormatPageUrl(UrlRulePageKeys key, string[] data)
         {
             var url = TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
             if (data != null) url = string.Format(url, data);
@@ -138,9 +138,9 @@ namespace JR.Cms.WebImpl.Template
         {
             if (!string.IsNullOrEmpty(location)) return ConcatUrl(location);
             if (!FlagAnd(flag, BuiltInArchiveFlags.AsPage))
-                return FormatPageUrl(UrlRulePageKeys.Archive, category.Path, id);
+                return FormatPageUrl(UrlRulePageKeys.Archive,new[]{ category.Path, id});
 
-            return FormatPageUrl(UrlRulePageKeys.SinglePage, id);
+            return FormatPageUrl(UrlRulePageKeys.SinglePage,new[]{ id});
         }
 
         private string GetLocationUrl(string location)
@@ -162,9 +162,9 @@ namespace JR.Cms.WebImpl.Template
         {
             if (!string.IsNullOrEmpty(category.Location)) return ConcatUrl(category.Location);
             if (pageIndex < 2)
-                return FormatPageUrl(UrlRulePageKeys.Category, category.Path);
+                return FormatPageUrl(UrlRulePageKeys.Category, new[]{category.Path});
             else
-                return FormatPageUrl(UrlRulePageKeys.CategoryPager, category.Path, pageIndex.ToString());
+                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new[]{category.Path, pageIndex.ToString()});
         }
 
         #region 分页
@@ -741,7 +741,8 @@ namespace JR.Cms.WebImpl.Template
                         return html;
                     case "img":
                         return FormatPageUrl(UrlRulePageKeys.Common,
-                            CmsVariables.DEFAULT_CONTROLLER_NAME + "/verifyimg?length=4&opt=1");
+                            new[]{
+                            CmsVariables.DEFAULT_CONTROLLER_NAME + "/verifyimg?length=4&opt=1"});
 
                     case "nickname":
                         var member = UserState.Member.Current;
@@ -755,7 +756,7 @@ namespace JR.Cms.WebImpl.Template
                         }
                         else
                         {
-                            return string.Format("昵称：{0}", member.Nickname);
+                            return $"昵称：{member.Nickname}";
                         }
                 }
 
@@ -950,7 +951,7 @@ namespace JR.Cms.WebImpl.Template
                 .Append("if(jr.validator.validate('cms_form_").Append(tableId)
                 .Append("')){cfs.innerHTML='提交中...';jr.xhr.post('")
                 .Append(FormatPageUrl(UrlRulePageKeys.Common,
-                    CmsVariables.DEFAULT_CONTROLLER_NAME + "/submitform?tableid="))
+                    new[]{CmsVariables.DEFAULT_CONTROLLER_NAME + "/submitform?tableid="}))
                 .Append(tableId).Append("&token=").Append(token).Append("',jr.json.toObject('cms_form_")
                 .Append(tableId).Append(
                     "'),function(r){var result;eval('result='+r);cfs.innerHTML=result.tag==-1?'<span style=\"color:red\">'+result.message+'</span>':result.message;},function(){cfs.innerHTML='<span style=\"color:red\">提交失败，请重试!</span>';});")
@@ -2011,10 +2012,10 @@ namespace JR.Cms.WebImpl.Template
                     intPageIndex,
                     pages,
                     total,
-                    FormatPageUrl(UrlRulePageKeys.Search, HttpUtil.UrlEncode(keyword),
-                        categoryTagOrModuleId ?? ""),
-                    FormatPageUrl(UrlRulePageKeys.SearchPager, HttpUtil.UrlEncode(keyword),
-                        categoryTagOrModuleId ?? "", "{0}")
+                    FormatPageUrl(UrlRulePageKeys.Search, new[]{HttpUtil.UrlEncode(keyword),
+                        categoryTagOrModuleId ?? ""}),
+                    FormatPageUrl(UrlRulePageKeys.SearchPager, new[]{HttpUtil.UrlEncode(keyword),
+                        categoryTagOrModuleId ?? "", "{0}"})
                 );
             }
 
@@ -2125,10 +2126,10 @@ namespace JR.Cms.WebImpl.Template
 
                         //搜索页URL
                         case "searchurl":
-                            return FormatPageUrl(UrlRulePageKeys.Search, HttpUtil.UrlEncode(tag), string.Empty);
+                            return FormatPageUrl(UrlRulePageKeys.Search, new[]{HttpUtil.UrlEncode(tag), string.Empty});
 
                         //Tag页URL
-                        case "url": return FormatPageUrl(UrlRulePageKeys.Tag, HttpUtil.UrlEncode(tag));
+                        case "url": return FormatPageUrl(UrlRulePageKeys.Tag, new[]{HttpUtil.UrlEncode(tag)});
                     }
 
                     return tag;
@@ -2324,8 +2325,8 @@ namespace JR.Cms.WebImpl.Template
                     _pageIndex,
                     _pages,
                     _records,
-                    FormatPageUrl(UrlRulePageKeys.Tag, HttpUtil.UrlEncode(tag)),
-                    FormatPageUrl(UrlRulePageKeys.TagPager, HttpUtil.UrlEncode(tag), "{0}")
+                    FormatPageUrl(UrlRulePageKeys.Tag, new[]{HttpUtil.UrlEncode(tag)}),
+                    FormatPageUrl(UrlRulePageKeys.TagPager, new[]{HttpUtil.UrlEncode(tag), "{0}"})
                 );
             //sb.Append("</div>");
 

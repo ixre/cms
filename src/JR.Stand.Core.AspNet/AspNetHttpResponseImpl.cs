@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
 using Microsoft.AspNetCore.Http;
 using HttpContext = System.Web.HttpContext;
@@ -17,7 +18,7 @@ namespace JR.Stand.Core.AspNet
         public Task WriteAsync(string content)
         {
             Context.Response.Write(content);
-            return Task.CompletedTask;
+            return SafetyTask.CompletedTask;
         }
 
         public void AddHeader(string key, string value)

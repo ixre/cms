@@ -43,7 +43,7 @@ namespace JR.Stand.Core.Data
         {
             return new SqlDataAdapter(sql, (SqlConnection) connection);
         }
-        public  int ExecuteScript(DbConnection conn, RowAffer r, string sql, string delimiter)
+        public  int ExecuteScript(DbConnection conn, RowAffect r, string sql, string delimiter)
         {
             int result = 0;
             string[] array = sql.Split(';');

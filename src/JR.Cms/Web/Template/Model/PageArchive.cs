@@ -27,11 +27,11 @@ namespace JR.Cms.WebImpl.PageModels
             Archive = archive;
         }
 
-        private static string FormatUrl(UrlRulePageKeys key, params string[] datas)
+        private static string FormatUrl(UrlRulePageKeys key, string[] dataArray)
         {
             var urlFormat = (Settings.TPL_FULL_URL_PATH ? Cms.Context.SiteDomain + "/" : Cms.Context.SiteAppPath)
                             + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
-            return datas == null ? urlFormat : string.Format(urlFormat, datas);
+            return dataArray == null ? urlFormat : string.Format(urlFormat, dataArray);
         }
 
         public IDictionary<string, string> __dict__
@@ -164,9 +164,9 @@ namespace JR.Cms.WebImpl.PageModels
                         if (j++ != 0) sb.Append(",");
 
                         sb.Append("<a href=\"")
-                            .Append(FormatUrl(UrlRulePageKeys.Tag, HttpUtil.UrlEncode(tag)))
+                            .Append(FormatUrl(UrlRulePageKeys.Tag, new[]{HttpUtil.UrlEncode(tag)}))
                             .Append("\" search-url=\"")
-                            .Append(FormatUrl(UrlRulePageKeys.Search, HttpUtil.UrlEncode(tag), string.Empty))
+                            .Append(FormatUrl(UrlRulePageKeys.Search, new[]{HttpUtil.UrlEncode(tag), string.Empty}))
                             .Append("\">")
                             .Append(tag)
                             .Append("</a>");

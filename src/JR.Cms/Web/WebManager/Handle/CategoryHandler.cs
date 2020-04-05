@@ -52,7 +52,7 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                 categories.Add(dto);
             });
 
-            PagerJson(categories, string.Format("共{0}条", categories.Count.ToString()));
+            PagerJson(categories, $"共{categories.Count.ToString()}条");
         }
 
         /// <summary>
@@ -105,12 +105,12 @@ namespace JR.Cms.WebImpl.WebManager.Handle
             //模板目录
             var dir = new DirectoryInfo(string.Format("{0}templates/{1}/", Cms.PhysicPath, CurrentSite.Tpl));
             var names = Cms.TemplateManager.Get(CurrentSite.Tpl).GetNameDictionary();
-            EachClass.EachTemplatePage(dir, dir, sb, names, TemplatePageType.Archive);
+            EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Archive});
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, dir, sb, names, TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Category});
             categoryTplOpts = sb.ToString();
 
             object entity = new
@@ -245,15 +245,15 @@ namespace JR.Cms.WebImpl.WebManager.Handle
             sb.Remove(0, sb.Length);
 
             //模板目录
-            var dir = new DirectoryInfo(string.Format("{0}templates/{1}/", Cms.PhysicPath, CurrentSite.Tpl));
+            var dir = new DirectoryInfo($"{Cms.PhysicPath}templates/{CurrentSite.Tpl}/");
 
             var names = Cms.TemplateManager.Get(CurrentSite.Tpl).GetNameDictionary();
-            EachClass.EachTemplatePage(dir, dir, sb, names, TemplatePageType.Archive);
+            EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Archive});
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, dir, sb, names, TemplatePageType.Category);
+            EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Category});
             categoryTplOpts = sb.ToString();
 
 
