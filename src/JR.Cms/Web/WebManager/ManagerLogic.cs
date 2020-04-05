@@ -21,6 +21,7 @@ using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
 using JR.Cms.WebImpl.WebManager.Handle;
+using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Utils;
@@ -139,7 +140,7 @@ namespace JR.Cms.WebImpl.WebManager
                 }
 
                 // 无权执行操作则返回
-                if (!HasPermissions()) return Task.CompletedTask;
+                if (!HasPermissions()) return  SafetyTask.CompletedTask;
             }
 
 
@@ -241,7 +242,7 @@ namespace JR.Cms.WebImpl.WebManager
                     else if (method.ReturnType == typeof(void))
                     {
                         method.Invoke(obj, null);
-                        task = Task.CompletedTask;
+                        task =  SafetyTask.CompletedTask;
                     }
                     else
                     {

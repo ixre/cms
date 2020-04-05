@@ -15,6 +15,8 @@ namespace JR.Cms.Library.DataAccess.DAL
         //private static Regex signReg=new Regex("\\$([^\\$]+)\\$");
         private static readonly Regex SignReg = new Regex("\\$([^(_|\\s)]+_)");
 
+
+        
         public static string OptimizeSql(string sql)
         {
             if (SignReg.IsMatch(sql))
@@ -30,41 +32,28 @@ namespace JR.Cms.Library.DataAccess.DAL
             return sql;
         }
 
-        public static SqlQuery FormaJR(string sql, params object[] data)
-        {
-            var objects = new object[data.Length, 2];
-            var tmpInt = 0;
-            foreach (object[] d in data)
-            {
-                objects[tmpInt, 0] = d[0];
-                objects[tmpInt, 1] = d[1];
-                tmpInt++;
-            }
-
-            return new SqlQuery(OptimizeSql(sql), objects);
-        }
-
         public static SqlQuery Create(string sql, object[,] data)
         {
             return new SqlQuery(OptimizeSql(sql), data);
         }
 
+        public static SqlQuery CreateQuery(string sql)
+        {
+            return new SqlQuery(OptimizeSql(sql));
+        }
+        
         public static SqlQuery Create(string sql, IDictionary<string, object> data)
         {
             return new SqlQuery(OptimizeSql(sql), data);
         }
 
 
-        public static SqlQuery Format(string sql, params string[] formatValues)
+        public static SqlQuery Format(string sql, object[,] data)
         {
-            return new SqlQuery(OptimizeSql(string.Format(sql, formatValues)));
+            return new SqlQuery(OptimizeSql(sql), data);
         }
-
-        public static SqlQuery Format(string sql, object[,] data, params string[] formatValues)
-        {
-            var _sql = formatValues.Length == 0 ? sql : string.Format(sql, formatValues);
-            _sql = OptimizeSql(_sql);
-            return new SqlQuery(_sql, data);
-        }
+        
+        // .net45及以下不支持,会报错: 找不到方法:“!!0[] System.Array.Empty()”。 
+        //public static SqlQuery Format(string sql, object[,] data, params string[] formatValues)
     }
 }

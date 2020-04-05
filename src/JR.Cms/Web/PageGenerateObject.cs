@@ -27,9 +27,9 @@ namespace JR.Cms.WebImpl
     /// <summary>
     /// 页面生成器对象
     /// </summary>
-    public class PageGeneratorObject : ICmsPageGenerator
+    public sealed class PageGeneratorObject : ICmsPageGenerator
     {
-        private PageSite _site;
+        private readonly PageSite _site;
 
         /// <summary>
         /// 
@@ -46,12 +46,12 @@ namespace JR.Cms.WebImpl
         /// </summary>
         /// <param name="tplPath"></param>
         /// <returns></returns>
-        public virtual string FormatTemplatePath(string tplPath)
+        public string FormatTemplatePath(string tplPath)
         {
             var ts = Cms.TemplateManager.Get(_site.Tpl);
             if (ts.CfgEnabledMobiPage && Cms.Context.DeviceType == DeviceType.Mobile)
             {
-                var path = string.Format("/{0}/_mobile_/{1}", _site.Tpl, tplPath);
+                var path = $"/{_site.Tpl}/_mobile_/{tplPath}";
                 if (Cms.Template.Exists(path)) return path;
             }
 
@@ -63,7 +63,7 @@ namespace JR.Cms.WebImpl
         /// </summary>
         /// <param name="tplPath"></param>
         /// <returns></returns>
-        public virtual string GetTemplateId(string tplPath)
+        public string GetTemplateId(string tplPath)
         {
             const string pattern = "^\\/*templates\\/(?<id>.+?)\\.h*tml$";
             var m = Regex.Match(tplPath, pattern);
@@ -75,14 +75,14 @@ namespace JR.Cms.WebImpl
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        public virtual string GetCategoryTemplateId(CategoryDto category)
+        private string GetCategoryTemplateId(CategoryDto category)
         {
             if (category.CategoryTemplate != null)
             {
                 if (category.CategoryTemplate.StartsWith("templates"))
                     return "/" + GetTemplateId(category.CategoryTemplate);
                 else
-                    return FormatTemplatePath(category.CategoryTemplate.Replace(".tml", "").Replace(".html", ""));
+                    return FormatTemplatePath(category.CategoryTemplate.Replace(".html", ""));
             }
 
             //设置默认的模板
@@ -94,7 +94,7 @@ namespace JR.Cms.WebImpl
         /// </summary>
         /// <param name="archive"></param>
         /// <returns></returns>
-        public virtual string GetArchiveTemplateId(ArchiveDto archive)
+        private string GetArchiveTemplateId(ArchiveDto archive)
         {
             ////获取模板ID
             //string tplID = null;
@@ -137,7 +137,7 @@ namespace JR.Cms.WebImpl
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        public virtual string GetIndex(params object[] args)
+        public string GetIndex()
         {
             return PageUtility.Require(FormatTemplatePath("index"), page =>
             {
@@ -158,7 +158,7 @@ namespace JR.Cms.WebImpl
         /// <param name="pageIndex"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public virtual string GetCategory(CategoryDto category, int pageIndex, params object[] args)
+        public string GetCategory(CategoryDto category, int pageIndex)
         {
             var tplId = GetCategoryTemplateId(category);
 
@@ -173,15 +173,10 @@ namespace JR.Cms.WebImpl
             Cms.Context.Items["module.id"] = category.ModuleId;
             Cms.Context.Items["page.index"] = pageIndex;
 
-            var isFirstPage = pageIndex == 1;
-
             string title;
             if (pageIndex == 1)
             {
-                if (!string.IsNullOrEmpty(category.PageTitle))
-                    title = category.PageTitle;
-                else
-                    title = $"{category.Name}_{_site.Title}";
+                title = !string.IsNullOrEmpty(category.PageTitle) ? category.PageTitle : $"{category.Name}_{_site.Title}";
             }
             else
             {
@@ -216,7 +211,7 @@ namespace JR.Cms.WebImpl
             });
         }
 
-        public virtual string GetArchive(ArchiveDto archive, params object[] args)
+        public string GetArchive(ArchiveDto archive)
         {
             #region 属性
 
@@ -251,6 +246,7 @@ namespace JR.Cms.WebImpl
             Cms.Context.Items["category.path"] = category.Path;
             Cms.Context.Items["module.id"] = category.ModuleId;
 
+            
             //解析模板
             var html = PageUtility.Require(tplId,
                 page =>
@@ -267,7 +263,7 @@ namespace JR.Cms.WebImpl
 
                     page.AddVariable("page", new PageVariable
                     {
-                        Title = string.Format("{0}_{1}_{2}", archive.Title, category.Name, _site.Title),
+                        Title = $"{archive.Title}_{category.Name}_{_site.Title}",
                         SubTitle = _site.Title,
                         Keywords = archive.Tags,
                         Description = pageArchive.Outline.Replace("\"", string.Empty)
@@ -276,10 +272,8 @@ namespace JR.Cms.WebImpl
             return html;
         }
 
-        public virtual string GetSearch(params object[] args)
+        public string GetSearch(string catPath,string key)
         {
-            var cate = args[0] as string;
-            var key = args[1] as string;
 
             var ctx = HttpHosting.Context;
             //计算页码
@@ -289,7 +283,7 @@ namespace JR.Cms.WebImpl
 
             //模板标签共享数据
             Cms.Context.Items["search.key"] = key;
-            Cms.Context.Items["search.param"] = cate; //搜索按模块或按栏目
+            Cms.Context.Items["search.param"] = catPath; //搜索按模块或按栏目
             Cms.Context.Items["page.index"] = pageIndex;
 
             //解析模板
@@ -300,13 +294,7 @@ namespace JR.Cms.WebImpl
 
                     page.AddVariable("page", new PageVariable
                     {
-                        Title = string.Format("\"{0}\"相关的信息{1}_{2}",
-                            key,
-                            pageIndex == 1
-                                ? string.Empty
-                                : string.Format(Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle),
-                                    pageIndex.ToString()),
-                            _site.Title),
+                        Title = $"\"{key}\"相关的信息{(pageIndex == 1 ? string.Empty : string.Format(Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle), pageIndex.ToString()))}_{_site.Title}",
                         SubTitle = _site.Title,
                         Keywords = key,
                         Description = string.Empty,
@@ -316,11 +304,11 @@ namespace JR.Cms.WebImpl
                     page.AddVariable("search", new
                     {
                         Key = key.Replace(",", "+"),
-                        Param = cate,
+                        Param = catPath,
                         PageIndex = pageIndex,
                         EscapeKey = HttpUtil.UrlEncode(key.ToString()),
                         Escape_Key = HttpUtil.UrlEncode(key.ToString()), //过期
-                        Cate = cate //过期
+                        Cate = catPath //过期
                     });
                 }
             );
@@ -328,9 +316,9 @@ namespace JR.Cms.WebImpl
             return html;
         }
 
-        public virtual string GetTagArchive(params object[] args)
+
+        public string GetTagArchive(string key)
         {
-            var key = args[0] as string;
             var ctx = HttpHosting.Context;
             //计算页码
             int pageIndex;

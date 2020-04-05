@@ -123,7 +123,7 @@ namespace JR.Cms.Library.DataAccess.DAL
                         {"@fieldValue", extendData[key]}
                     }));
 
-            ExecuteNonQuery(querys.ToArray());
+            ExecuteMultiNonQuery(querys.ToArray());
         }
 
 
@@ -157,12 +157,13 @@ namespace JR.Cms.Library.DataAccess.DAL
                 ids += i.ToString();
             }
 
-            ExecuteReader(SqlQueryHelper.Format(DbSql.DataExtend_GetExtendValuesList,
+            var sql = String.Format(DbSql.DataExtend_GetExtendValuesList, ids);
+            ExecuteReader(SqlQueryHelper.Format(sql,
                 new object[,]
                 {
                     {"@siteId", siteId},
                     {"@relationType", relationType}
-                }, ids
+                }
             ), func);
         }
 
@@ -208,7 +209,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             {
                 {"@categoryId", categoryId}
             }));
-            ExecuteNonQuery(querys);
+            ExecuteMultiNonQuery(querys);
         }
 
         public void GetExtendFieldByName(int siteId, string name, string type, DataReaderFunc rd)

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Common.Language;
+using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
 
 namespace JR.Cms.WebImpl.Mvc.Controllers
@@ -42,7 +43,7 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
                 }
                 context.Response.StatusCode(302);
                 context.Response.AddHeader("Location",returnUrl);
-                return Task.CompletedTask;
+                return  SafetyTask.CompletedTask;
             }
             return context.Response.WriteAsync("error params ! should be  /" + CmsVariables.DEFAULT_CONTROLLER_NAME +
                                                "/change?lang=[1-8]&device=[1-2]");

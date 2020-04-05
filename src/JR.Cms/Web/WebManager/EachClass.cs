@@ -36,7 +36,6 @@ namespace JR.Cms.WebImpl.WebManager
         public static void EachFiles(DirectoryInfo dir, StringBuilder sb, string dirName, string ext, bool isroot)
         {
             if (!dir.Exists) return;
-            string path;
             foreach (var file in dir.GetFiles())
                 if (file.Name != "cms.conf" && (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
                                             && (string.IsNullOrEmpty(ext) ||
@@ -50,7 +49,7 @@ namespace JR.Cms.WebImpl.WebManager
                     }
                     else
                     {
-                        path = dir.FullName.Substring(dir.FullName.IndexOf(dirName) + dirName.Length + 1)
+                        var path = dir.FullName.Substring(dir.FullName.IndexOf(dirName) + dirName.Length + 1)
                             .Replace("\\", "/");
                         sb.Append(path).Append("/").Append(file.Name).Append("\">").Append(path.Replace("/", "\\"))
                             .Append("\\").Append(file.Name).Append("</option>");
@@ -65,50 +64,49 @@ namespace JR.Cms.WebImpl.WebManager
         /// </summary>
         /// <param name="dir"></param>
         /// <param name="sb"></param>
-        public static void IterialTemplateFiles(DirectoryInfo dir, StringBuilder sb, string tplName)
+        public static void WalkTemplateFiles(DirectoryInfo dir, StringBuilder sb, string tplName)
         {
             if (dir.Name == ".backup") return;
 
             var path = Cms.PhysicPath + "templates/" + tplName + "/";
-            string filePath;
-            TemplatePageType pageType;
-            IList<FileInfo> filelist = new List<FileInfo>();
+            IList<FileInfo> fileList = new List<FileInfo>();
 
             foreach (var file in dir.GetFiles())
                 if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
                     && !file.Name.EndsWith(".bak")
                     && Array.Exists(allowListedExt, a => file.Name.IndexOf(a) != -1))
-                    filelist.Add(file);
+                    fileList.Add(file);
 
-            if (filelist.Count != 0)
+            if (fileList.Count != 0)
             {
+                TemplatePageType pageType;
                 if (string.Compare(dir.Name, tplName, true) == 0)
                     pageType = TemplatePageType.Index;
                 else
-                    pageType = Cms.Template.GetPageType(filelist[0].FullName.Substring(path.Length).Replace("\\", "/"));
+                    pageType = Cms.Template.GetPageType(fileList[0].FullName.Substring(path.Length).Replace("\\", "/"));
                 while (true)
                 {
                     sb.Append("<optgroup label=\"").Append(Cms.Template.GetPageDescribe(pageType)).Append("\">");
 
-                    for (var i = 0; i < filelist.Count; i++)
-                        if (Cms.Template.GetPageType(filelist[i].Name) == pageType)
+                    for (var i = 0; i < fileList.Count; i++)
+                        if (Cms.Template.GetPageType(fileList[i].Name) == pageType)
                         {
-                            filePath = filelist[i].FullName.Substring(path.Length).Replace("\\", "/");
+                            var filePath = fileList[i].FullName.Substring(path.Length).Replace("\\", "/");
 
                             sb.Append("<option value=\"templates/").Append(tplName).Append("/");
 
                             sb.Append(filePath).Append("\">/").Append(filePath).Append("</option>");
 
-                            filelist.Remove(filelist[i]);
+                            fileList.Remove(fileList[i]);
                             --i;
                         }
 
                     sb.Append("</optgroup>");
 
-                    if (filelist.Count == 0)
+                    if (fileList.Count == 0)
                         break;
                     else
-                        pageType = Cms.Template.GetPageType(filelist[0].Name);
+                        pageType = Cms.Template.GetPageType(fileList[0].Name);
                 }
             }
 
@@ -136,7 +134,7 @@ namespace JR.Cms.WebImpl.WebManager
             }
              */
 
-            foreach (var _dir in dir.GetDirectories()) IterialTemplateFiles(_dir, sb, tplName);
+            foreach (var _dir in dir.GetDirectories()) WalkTemplateFiles(_dir, sb, tplName);
         }
 
         /// <summary>
@@ -147,13 +145,12 @@ namespace JR.Cms.WebImpl.WebManager
         public static void EachTemplatePage(DirectoryInfo dir, StringBuilder sb)
         {
             var rootDirLength = (Cms.PhysicPath + "templates/").Length;
-            string path;
             foreach (var file in dir.GetFiles())
                 if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden && file.Name.EndsWith(".html"))
                 {
                     sb.Append("<option value=\"templates/");
 
-                    path = file.FullName.Substring(rootDirLength).Replace("\\", "/");
+                    var path = file.FullName.Substring(rootDirLength).Replace("\\", "/");
                     sb.Append(path).Append("\">/").Append(path).Append("</option>");
 
                     /*
@@ -181,25 +178,23 @@ namespace JR.Cms.WebImpl.WebManager
         /// <param name="pageType"></param>
         /// <param name="names"></param>
         public static void EachTemplatePage(DirectoryInfo rootDir, DirectoryInfo dir, StringBuilder sb,
-            IDictionary<string, string> names, params TemplatePageType[] pageType)
+            IDictionary<string, string> names, TemplatePageType[] pageType)
         {
             if (!dir.Exists || dir.Name == ".backup") return;
             var rootDirLength = rootDir.FullName.Length;
 
-            string path;
             foreach (var file in dir.GetFiles())
                 if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
-                    && CheckExtension(file, ".html|.tml")
+                    && CheckExtension(file, ".html")
                     && file.FullName.Replace("\\", "/").IndexOf("/mobi/", StringComparison.Ordinal) == -1 //手机模版页面排除
                     && Array.Exists(pageType, a => Cms.Template.GetPageType(file.Name) == a)
                     && !Cms.Template.IsSystemTemplate(file.Name) //独享模式不显示系统模板
                 )
                 {
                     sb.Append("<option value=\"");
-                    path = file.FullName.Substring(rootDirLength).Replace("\\", "/");
+                    var path = file.FullName.Substring(rootDirLength).Replace("\\", "/");
 
-                    string name;
-                    if (names.TryGetValue(path, out name) && name.Trim().Length > 0)
+                    if (names.TryGetValue(path, out var name) && name.Trim().Length > 0)
                         sb.Append(path).Append("\">").Append(name).Append(" - ( /").Append(path).Append(" )")
                             .Append("</option>");
                     else
@@ -218,14 +213,12 @@ namespace JR.Cms.WebImpl.WebManager
             IDictionary<string, string> nameDictionary)
         {
             if (!dir.Exists || dir.Name == ".backup") return;
-            string path;
             foreach (var file in dir.GetFiles())
                 if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
-                    && CheckExtension(file, ".html|.tml|.phtml|.ptml"))
+                    && CheckExtension(file, ".html|.part.html"))
                 {
-                    path = file.FullName.Substring(subLen).Replace("\\", "/");
-                    string value;
-                    nameDictionary.TryGetValue(path, out value);
+                    var path = file.FullName.Substring(subLen).Replace("\\", "/");
+                    nameDictionary.TryGetValue(path, out var value);
                     list.Add(new TemplateNames {path = path, name = value ?? ""});
                 }
 

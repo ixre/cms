@@ -36,9 +36,8 @@ namespace JR.Cms.Core.Interface
         /// <summary>
         /// 返回首页
         /// </summary>
-        /// <param name="args"></param>
         /// <returns></returns>
-        string GetIndex(params object[] args);
+        string GetIndex();
 
         /// <summary>
         /// 栏目页
@@ -46,7 +45,7 @@ namespace JR.Cms.Core.Interface
         /// <param name="category"></param>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
-        string GetCategory(CategoryDto category, int pageIndex, params object[] args);
+        string GetCategory(CategoryDto category, int pageIndex);
 
         /// <summary>
         /// 文档
@@ -54,22 +53,20 @@ namespace JR.Cms.Core.Interface
         /// <param name="category"></param>
         /// <param name="archive"></param>
         /// <returns></returns>
-        string GetArchive(ArchiveDto archive, params object[] args);
+        string GetArchive(ArchiveDto archive);
 
         /// <summary>
         /// 搜索
         /// </summary>
-        /// <param name="args"></param>
         /// <returns></returns>
-        string GetSearch(params object[] args);
+        string GetSearch(string catPath,string key);
 
 
         /// <summary>
         /// 标签文档页
         /// </summary>
-        /// <param name="args"></param>
         /// <returns></returns>
-        string GetTagArchive(params object[] args);
+        string GetTagArchive(string key);
 
         #endregion
     }

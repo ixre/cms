@@ -92,7 +92,7 @@ namespace JR.Cms.WebImpl
                     var obj = cache.Get(cacheId);
                     if (obj == null)
                     {
-                        html = cmsPage.GetIndex(null);
+                        html = cmsPage.GetIndex();
                         cache.Insert(cacheId, html, DateTime.Now.AddSeconds(Settings.Opti_IndexCacheSeconds));
                     }
                     else
@@ -102,7 +102,7 @@ namespace JR.Cms.WebImpl
                 }
                 else
                 {
-                    html = cmsPage.GetIndex(null);
+                    html = cmsPage.GetIndex();
                 }
 
                 context.HttpContext.Response.WriteAsync(html);

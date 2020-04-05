@@ -45,7 +45,7 @@ namespace JR.Stand.Core.Data
         }
 
 
-        public  int ExecuteScript(DbConnection conn, RowAffer r, string sql, string delimiter)
+        public  int ExecuteScript(DbConnection conn, RowAffect r, string sql, string delimiter)
         {
             MySqlScript script = new MySqlScript((MySqlConnection) conn, sql);
 

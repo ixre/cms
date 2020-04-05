@@ -104,10 +104,21 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
-        protected int ExecuteNonQuery(params SqlQuery[] sql)
+        protected int ExecuteNonQuery(SqlQuery sql)
         {
             return Db.ExecuteNonQuery(sql);
         }
+        
+        /// <summary>
+        /// 执行查询
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        protected int ExecuteMultiNonQuery(SqlQuery[] sql)
+        {
+            return Db.ExecuteNonQuery(sql);
+        }
+
 
         protected object ExecuteScalar(SqlQuery sqlEnt)
         {
@@ -125,11 +136,12 @@ namespace JR.Cms.Library.DataAccess.DAL
             return Db.GetDataSet(sqlEnt);
         }
 
-        protected void CheckSqlInject(params string[] values)
+        protected void CheckSqlInject(string[] values)
         {
             foreach (var key in values)
-                if (DataChecker.SqlIsInject(key))
-                    throw new ArgumentException("SQL INCORRENT");
+            {
+                if (DataChecker.SqlIsInject(key)) throw new ArgumentException("SQL INCORRECT");
+            }
         }
     }
 }

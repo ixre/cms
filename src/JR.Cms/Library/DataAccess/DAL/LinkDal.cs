@@ -4,6 +4,7 @@
 // Create by newmin @ 2011/03/13
 //
 
+using System;
 using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Site.Link;
@@ -22,12 +23,13 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// <returns></returns>
         public void GetAllSiteLinks(int siteId, SiteLinkType type, DataReaderFunc func)
         {
-            ExecuteReader(
-                SqlQueryHelper.Format(DbSql.Link_GetSiteLinksByLinkType, new object[,]
-                {
-                    {"@siteId", siteId},
-                    {"@linkType", (int) type}
-                }), func);
+            var data = new object[,]
+            {
+                {"@siteId", siteId},
+                {"@linkType", (int) type}
+            };
+            var query = SqlQueryHelper.Format(DbSql.Link_GetSiteLinksByLinkType, data);
+            ExecuteReader(query, func);
         }
 
         public int AddSiteLink(int siteId, ISiteLink link)
@@ -124,17 +126,17 @@ namespace JR.Cms.Library.DataAccess.DAL
                         {"@enabled", link.Enabled}
                     });
 
-            ExecuteNonQuery(querys);
+            ExecuteMultiNonQuery(querys);
         }
 
         public void RemoveRelatedLinks(string contenType, int contentId, string ids)
         {
-            ExecuteNonQuery(
-                SqlQueryHelper.Format(DbSql.Link_RemoveRelatedLinks, new object[,]
+            var sql = String.Format(DbSql.Link_RemoveRelatedLinks, ids);
+            ExecuteNonQuery(  SqlQueryHelper.Format(sql, new object[,]
                 {
                     {"@contentType", contenType},
                     {"@contentId", contentId}
-                }, ids));
+                }));
         }
     }
 }

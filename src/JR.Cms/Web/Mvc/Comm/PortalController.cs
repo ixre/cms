@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using JR.Cms.Core;
 using JR.Cms.ServiceDto;
+using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
 using Microsoft.AspNetCore.Http;
 
@@ -67,13 +68,15 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
             var ctx = Cms.Context;
             SiteDto site = ctx.CurrentSite;
             // 站点站点路径
-            if (!this.CheckSiteUrl(context,site)) return Task.CompletedTask;
+            if (!this.CheckSiteUrl(context,site)) return SafetyTask.CompletedTask;
+
             //检测网站状态及其缓存
             if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
             {          
                 DefaultWebOuput.RenderIndex(ctx);
             }
-            return Task.CompletedTask;
+            return SafetyTask.CompletedTask;
+
 
             //如果返回false,则执行默认输出
             // if (!eventResult)
@@ -99,7 +102,8 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
                 archivePath = archivePath.Substring(0, archivePath.LastIndexOf(".", StringComparison.Ordinal));
                 DefaultWebOuput.RenderArchive(ctx, archivePath);
             }
-            return Task.CompletedTask;
+            return SafetyTask.CompletedTask;
+
             /*
             bool eventResult = false;
             if (OnArchiveRequest != null)
@@ -138,7 +142,8 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
                 if (path == sitePath+"/")
                 {
                     context.Response.Redirect(path.Substring(0, path.Length - 1), false);
-                    return Task.CompletedTask;
+                    return SafetyTask.CompletedTask;
+
                 }
                 String catPath = this.SubPath(path, sitePath);
                 int page = 1;
@@ -168,7 +173,8 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
                 //     DefaultWebOuput.RenderCategory(ctx, catPath, page);
                 // }
             }
-            return Task.CompletedTask;
+            return SafetyTask.CompletedTask;
+
 
         }
     }

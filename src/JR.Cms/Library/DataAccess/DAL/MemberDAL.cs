@@ -242,9 +242,8 @@ namespace JR.Cms.Library.DataAccess.DAL
         {
             var pa = new object[,] {{"@id", memberID}};
             var parameters = Db.CreateParametersFromArray(pa);
-            ExecuteNonQuery(NewQuery(DbSql.Member_DeleteMember, parameters),
-                NewQuery(DbSql.Member_DeleteMemberDetails, parameters));
-            ;
+            ExecuteMultiNonQuery(new[]{NewQuery(DbSql.Member_DeleteMember, parameters),
+                NewQuery(DbSql.Member_DeleteMemberDetails, parameters)});
         }
 
         /// <summary>

@@ -78,8 +78,10 @@ namespace JR.Cms.WebImpl.WebManager.Handle
                 dir,
                 sb2,
                 names,
+                new[]{
                 TemplatePageType.Custom,
                 TemplatePageType.Archive
+                }
             );
 
             tpls = sb2.ToString();
@@ -245,8 +247,10 @@ namespace JR.Cms.WebImpl.WebManager.Handle
             EachClass.EachTemplatePage(dir, dir,
                 sb2,
                 names,
+                new[]{
                 TemplatePageType.Custom,
                 TemplatePageType.Archive
+                }
             );
 
             tpls = sb2.ToString();

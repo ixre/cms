@@ -673,7 +673,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount,
             string orderby, DataReaderFunc func)
         {
-            CheckSqlInject(keyword, orderby);
+            CheckSqlInject(new[]{keyword, orderby});
             var sb = new StringBuilder(SqlConst.Archive_NotSystemAndHidden);
             if (siteId > 0) sb.Append(" AND $PREFIX_category.site_id=").Append(siteId.ToString());
 
@@ -691,10 +691,9 @@ namespace JR.Cms.Library.DataAccess.DAL
             //排序规则
             if (string.IsNullOrEmpty(orderby)) orderby = string.Intern("ORDER BY $PREFIX_archive.sort_number DESC");
 
-
+            var query =SqlQueryHelper.CreateQuery(String.Format(DbSql.Archive_GetSearchRecordCount, condition));
             //记录数
-            recordCount = int.Parse(ExecuteScalar(SqlQueryHelper.Format(DbSql.Archive_GetSearchRecordCount, condition))
-                .ToString());
+            recordCount = int.Parse(ExecuteScalar(query).ToString());
 
             //页数
             pageCount = recordCount / pageSize;
@@ -765,14 +764,12 @@ namespace JR.Cms.Library.DataAccess.DAL
                                     AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' 
                                    OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')
                                    $[orderby],$PREFIX_archive.id";
-
+            
             //记录数
             recordCount = int.Parse(ExecuteScalar(
-                SqlQueryHelper.Format(DbSql.ArchiveGetSearchRecordCountByCategoryId,
-                    data,
-                    keyword,
-                    condition
-                )).ToString());
+                SqlQueryHelper.Format(
+                    String.Format(DbSql.ArchiveGetSearchRecordCountByCategoryId, keyword, condition),
+                    data)).ToString());
 
             //页数
             pageCount = recordCount / pageSize;
@@ -937,15 +934,15 @@ namespace JR.Cms.Library.DataAccess.DAL
         public void GetArchivesExtendValues(int siteId, int relationType, string categoryTag, int number, int skipSize,
             DataReaderFunc func)
         {
+            var sql = String.Format(DbSql.Archive_GetArchivesExtendValues, skipSize.ToString(),number.ToString());
             ExecuteReader(
-                SqlQueryHelper.Format(DbSql.Archive_GetArchivesExtendValues,
+                SqlQueryHelper.Format(sql,
                     new object[,]
                     {
                         {"@siteId", siteId},
                         {"@tag", categoryTag},
                         {"@relationType", relationType}
-                    }, skipSize.ToString(),
-                    number.ToString()
+                    } 
                 ), func);
         }
 
