@@ -31,7 +31,7 @@ input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
 img{max-width:100%;border:0}
 
 
-/* Response Layout */
+/* Response Layout, 12 Columns */
 .container,.container-fluid{padding-right:15px;padding-left:15px;margin:0 auto}
 .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12,
 .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,
@@ -81,7 +81,8 @@ img{max-width:100%;border:0}
 .arrow-b{border-bottom:none;border-top-color:#FFF;margin-bottom:5px;}
 /* 显示单行，超出以省略号显示 */
 .gra-single-row{text-overflow: ellipsis;white-space: nowrap;overflow:hidden;}
-
+/* 元素垂直居中 */
+.gra-content-center *{vertical-align:middle;}
 
 
 

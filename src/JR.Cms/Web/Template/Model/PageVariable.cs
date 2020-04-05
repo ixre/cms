@@ -18,7 +18,7 @@ namespace JR.Cms.WebImpl.PageModels
         private string _frameworkPath;
         private string _templatePath;
         private string _pluginRootPath;
-        private string _sitemap;
+        private string _siteMap; 
         private readonly CmsContext _context;
         private string _resDomain;
         private static readonly string IeHtml5ShivTag;
@@ -204,7 +204,7 @@ namespace JR.Cms.WebImpl.PageModels
         {
             get
             {
-                if (_sitemap == null)
+                if (_siteMap == null)
                 {
                     var tag = Cms.Context.Items["category.tag"] as string;
                     var tpl = Cms.Context.CurrentSite.Tpl;
@@ -213,7 +213,7 @@ namespace JR.Cms.WebImpl.PageModels
                     {
                         var cacheKey = string.Format("{0}_site{1}_site_map_{2}", CacheSign.Category, siteId.ToString(),
                             tag);
-                        _sitemap = Cms.Cache.GetCachedResult(cacheKey, () =>
+                        _siteMap = Cms.Cache.GetCachedResult(cacheKey, () =>
                         {
                             var tSetting = Cms.TemplateManager.Get(tpl);
                             var urlFormat = (Settings.TPL_FULL_URL_PATH
@@ -227,7 +227,7 @@ namespace JR.Cms.WebImpl.PageModels
                     }
                 }
 
-                return _sitemap;
+                return _siteMap;
             }
         }
 
