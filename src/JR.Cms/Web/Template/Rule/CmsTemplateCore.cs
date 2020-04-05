@@ -20,6 +20,7 @@ using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
+using JR.Cms.Web;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core;
 using JR.Stand.Core.Framework;

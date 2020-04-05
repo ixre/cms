@@ -9,6 +9,7 @@ using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
+using JR.Cms.Web;
 using JR.Cms.WebImpl.PageModels;
 using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Template;
@@ -32,7 +33,7 @@ namespace JR.Cms.WebImpl
             {
                 tpl.AddVariable("site", new PageSite(context.CurrentSite));
                 tpl.AddVariable("page", new PageVariable());
-                PageUtility.RegistEventHandlers(tpl);
+                PageUtility.RegisterEventHandlers(tpl);
             });
         }
 

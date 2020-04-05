@@ -28,6 +28,6 @@ namespace JR.Stand.Core.Framework.Interface
         /// <param name="method"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        Object Call(string method, params object[] parameters);
+        Object Call(string method, object[] parameters);
     }
 }
