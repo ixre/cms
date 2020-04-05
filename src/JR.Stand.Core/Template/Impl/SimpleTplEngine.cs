@@ -27,7 +27,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 包含方法的类型实例
         /// </summary>
-        private object classInstance;
+        private readonly object classInstance;
 
         /// <summary>
         /// 
@@ -58,7 +58,7 @@ namespace JR.Stand.Core.Template.Impl
         /// 编译模版方法
         /// </summary>
         /// <param name="html"></param>
-        private void ComplieTemplateMethod(ref string html)
+        private void CompileTemplateMethod(ref string html)
         {
             //返回结果
             const string methodPattern = "\\@([A-Za-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)\\s*([\\S\\s]+)@each\\s*off";
@@ -142,24 +142,20 @@ namespace JR.Stand.Core.Template.Impl
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public void ComplieTemplateTag(ref string html)
+        private void CompileTemplateTag(ref string html)
         {
             //返回结果
-
             const string tagPattern = "\\$([a-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)";
             const string paramPattern = "\\s*'([^']*)',*|\\s*(?!=')([^,]+),*";
 
-            Regex tagRegex,
-                paramRegex;
-
-            tagRegex = new Regex(tagPattern); //方法正则
+            var tagRegex = new Regex(tagPattern);
 
             if (!tagRegex.IsMatch(html))
             {
                 return;
             }
 
-            paramRegex = new Regex(paramPattern); //参数正则
+            var paramRegex = new Regex(paramPattern);
 
             Type type = this.classInstance.GetType();
             MethodInfo method;
@@ -201,23 +197,21 @@ namespace JR.Stand.Core.Template.Impl
                 else
                 {
                     //数字参数
-                    string intParamValue;
                     //则给参数数组赋值
                     for (int i = 0; i < paramMcs.Count; i++)
                     {
-                        intParamValue = paramMcs[i].Groups[2].Value;
+                        var intParamValue = paramMcs[i].Groups[2].Value;
                         if (intParamValue != String.Empty)
                         {
-                            parameters[i] = intParamValue;
+                            parameters[i] = intParamValue.Replace("\"", "").Replace("'", "");
                         }
                         else
                         {
-                            parameters[i] = paramMcs[i].Groups[1].Value;
+                            parameters[i] = paramMcs[i].Groups[1].Value.Replace("\"", "").Replace("'", "");
                         }
                     }
 
-                    if (this.Count != null)
-                        this.Count.Add(String.Format("Tag:{0},{1:mmssfff}", method.Name, DateTime.Now));
+                    Count?.Add($"Tag:{method.Name},{DateTime.Now:mmssfff}");
 
                     //执行方法并返回结果
                     return method.Invoke(this.classInstance, parameters).ToString();
@@ -233,8 +227,8 @@ namespace JR.Stand.Core.Template.Impl
         public string Execute(string html)
         {
             string resultHtml = html;
-            this.ComplieTemplateMethod(ref resultHtml);
-            this.ComplieTemplateTag(ref resultHtml);
+            this.CompileTemplateMethod(ref resultHtml);
+            this.CompileTemplateTag(ref resultHtml);
             return resultHtml;
         }
 

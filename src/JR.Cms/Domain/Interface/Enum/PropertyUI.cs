@@ -24,7 +24,7 @@ namespace JR.Cms.Domain.Interface.Enum
         /// <summary>
         /// 多行文本
         /// </summary>
-        MultLine = 2,
+        MultiLine = 2,
 
         /// <summary>
         /// 数字

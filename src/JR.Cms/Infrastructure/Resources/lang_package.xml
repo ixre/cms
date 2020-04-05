@@ -20,19 +20,31 @@
   <item key="friend-link" zh_CN="友情链接" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="previous-archive" zh_CN="上一篇" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="next-archive" zh_CN="下一篇" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="keyword" zh_CN="关键词" zh_TW="关键词" en_US="Keyword" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="hot-keyword" zh_CN="热门关键词" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
 
+  <item key="en_US" zh_CN="英语(美国)" zh_TW="英语(美国)" en_US="English" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="zh_CN" zh_CN="中文(简体)" zh_TW="中文(简体)" en_US="Simple chinese" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="En" zh_CN="英文" zh_TW="" en_US="English" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="zh_TW" zh_CN="中文(繁体)" zh_TW="中文(繁体)" en_US="" Es="" Th="" Fr="" Ru="" Ar=""/>
+  
   <!-- 模板翻译 -->
   <item key="home" zh_CN="首页" zh_TW="首頁" en_US="Home" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="site_map_location" zh_CN="你的位置" zh_TW="位置" en_US="Location" Es="Localización" Th="สถานที่" Fr="Lieu" Ru="Место нахождения" Ar="موقع"/>
   <item key="close" zh_CN="关闭" zh_TW="關閉" en_US="Close" Es="Cerca" Th="ปิด" Fr="Près" Ru="Закрыть" Ar="إغلاق"/>
   <item key="space" zh_CN="" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="and" zh_CN="和" zh_TW="和" en_US="And" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="or" zh_CN="或" zh_TW="或" en_US="Or" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="category" zh_CN="分类" zh_TW="分類" en_US="Category" Es="Categoría" Th="หมวดหมู่" Fr="Catégorie" Ru="катэгорыя" Ar="فئة"/>
   <item key="navigator" zh_CN="导航" zh_TW="導航" en_US="Navigator" Es="navegador" Th="นักเดินเรือ" Fr="Navigateur" Ru="навігатар" Ar="ملاح"/>
   <item key="product" zh_CN="产品" zh_TW="產品" en_US="Product" Es="Producto" Th="สินค้า" Fr="Produit" Ru="Продукт" Ar="المنتج"/>
   <item key="service" zh_CN="服务" zh_TW="服務" en_US="Service" Es="Servicio" Th="บริการ" Fr="Service" Ru="обслуживание" Ar="خدمة"/>
   <item key="item" zh_CN="项目" zh_TW="項目" en_US="Item" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+  <item key="project" zh_CN="项目" zh_TW="項目" en_US="Item" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+  <item key="introduce" zh_CN="介绍" zh_TW="介绍" en_US="Introduce" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+  <item key="business" zh_CN="业务" zh_TW="业务" en_US="Business" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
 
+  
   <item key="relation" zh_CN="相关" zh_TW="關聯" en_US="Relation" Es="relación" Th="ความสัมพันธ์" Fr="relation" Ru="стаўленне" Ar="علاقة"/>
   <item key="information" zh_CN="信息" zh_TW="訊息" en_US="Information" Es="información" Th="ข้อมูล" Fr="information" Ru="інфармацыя" Ar="معلومات"/>
   <item key="help" zh_CN="帮助" zh_TW="幫助" en_US="Help" Es="Ayuda" Th="ช่วยด้วย" Fr="Aidez-moi" Ru="Помогите" Ar="مساعدة"/>
@@ -43,6 +55,7 @@
   <item key="follow" zh_CN="关注" zh_TW="關注" en_US="Follow" Es="seguir" Th="ปฏิบัติตาม" Fr="suivre" Ru="прытрымлівацца" Ar="إتبع"/>
   <item key="tel" zh_CN="电话" zh_TW="電話" en_US="Tel" Es="tel" Th="โทร" Fr="tél" Ru="телефон" Ar="الهاتف"/>
   <item key="us" zh_CN="我们" zh_TW="我們" en_US="Us" Es="nos" Th="เรา" Fr="nous" Ru="нас" Ar="لنا"/>
+  <item key="name" zh_CN="名称" zh_TW="名称" en_US="Name" Es="buscar" Th="ค้นหา" Fr="chercher" Ru="поиск" Ar="البحث عن"/>
   <item key="search" zh_CN="搜索" zh_TW="搜尋" en_US="Search" Es="buscar" Th="ค้นหา" Fr="chercher" Ru="поиск" Ar="البحث عن"/>
   <item key="dot" zh_CN="▪" zh_TW="▪" en_US="▪" Es="▪" Th="▪" Fr="▪" Ru="▪" Ar="▪"/>
   <item key="all" zh_CN="全部" zh_TW="全部" en_US="All" Es="todas" Th="ทั้งหมด" Fr="tous" Ru="все" Ar="جميع"/>
@@ -50,8 +63,22 @@
   <item key="more" zh_CN="更多" zh_TW="更多" en_US="More" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="details" zh_CN="详情" zh_TW="更多" en_US="Details" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="change" zh_CN="切换" zh_TW="Change" en_US="Change" Es="" Th="" Fr="" Ru="" Ar=""/>
-  <item key="en_US" zh_CN="英语(美国)" zh_TW="英语(美国)" en_US="English" Es="" Th="" Fr="" Ru="" Ar=""/>
-  <item key="zh_CN" zh_CN="中文(简体)" zh_TW="中文(简体)" en_US="Simple chinese" Es="" Th="" Fr="" Ru="" Ar=""/>
-  <item key="En" zh_CN="英文" zh_TW="" en_US="English" Es="" Th="" Fr="" Ru="" Ar=""/>
-  <item key="zh_TW" zh_CN="中文(繁体)" zh_TW="中文(繁体)" en_US="" Es="" Th="" Fr="" Ru="" Ar=""/>
+
+  <item key="brand" zh_CN="品牌" zh_TW="品牌" en_US="Brand" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+  <item key="factory" zh_CN="工厂" zh_TW="工厂" en_US="Factory" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+  <item key="trade" zh_CN="贸易" zh_TW="贸易" en_US="Trade" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+  <item key="finance" zh_CN="金融" zh_TW="金融" en_US="Finance" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+  <item key="proxy" zh_CN="代理" zh_TW="代理" en_US="Proxy" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
+  <item key="new" zh_CN="新" zh_TW="新" en_US="New" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="news" zh_CN="新闻" zh_TW="新闻" en_US="News" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="announcement" zh_CN="公告" zh_TW="公告" en_US="Announcement" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="links" zh_CN="链接" zh_TW="连结" en_US="Links" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="friendly" zh_CN="友情" zh_TW="友情" en_US="Friendly" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="logistics" zh_CN="物流" zh_TW="物流" en_US="Logistics" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="delivery" zh_CN="配送" zh_TW="配送" en_US="Delivery" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="sales" zh_CN="销售" zh_TW="销售" en_US="Sales" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="diy" zh_CN="定制" zh_TW="定制" en_US="DIY" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="human" zh_CN="人力" zh_TW="人力" en_US="Human" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="resource" zh_CN="资源" zh_TW="资源" en_US="Resource" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+
 </lang>

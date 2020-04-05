@@ -13,7 +13,7 @@
         /// <summary>
         /// 触屏设备
         /// </summary>
-        Touchpad = 2,
+        TouchPad = 2,
 
         /// <summary>
         /// 移动设备

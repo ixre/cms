@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Text;
 using System.Xml;
 using Newtonsoft.Json;
 
@@ -39,9 +39,6 @@ namespace JR.Cms.Domain.Interface.Common.Language
 
             var langKeyType = typeof(LanguagePackageKey);
             var langType = typeof(Languages);
-            LanguagePackageKey langKey;
-            Languages lang;
-            string strKey;
 
             IDictionary<Languages, string> dict = new Dictionary<Languages, string>();
 
@@ -54,14 +51,14 @@ namespace JR.Cms.Domain.Interface.Common.Language
                         foreach (XmlAttribute xa in node.Attributes)
                             if (xa.Name != "key")
                             {
-                                lang = (Languages) System.Enum.Parse(langType, xa.Name);
+                                var lang = (Languages) System.Enum.Parse(langType, xa.Name);
                                 dict.Add(lang, xa.Value);
                             }
 
-                        strKey = node.Attributes["key"].Value;
+                        var strKey = node.Attributes["key"].Value;
                         if (System.Enum.IsDefined(langKeyType, strKey))
                         {
-                            langKey = (LanguagePackageKey) System.Enum.Parse(langKeyType, strKey, true);
+                            var langKey = (LanguagePackageKey) System.Enum.Parse(langKeyType, strKey, true);
                             Add(langKey, dict);
                         }
                         else
@@ -70,13 +67,6 @@ namespace JR.Cms.Domain.Interface.Common.Language
                         }
                     }
                 }
-        }
-
-
-        private string GetXmlString(string path)
-        {
-            if (File.Exists(path)) return File.ReadAllText(path);
-            return null;
         }
 
 
@@ -91,8 +81,6 @@ namespace JR.Cms.Domain.Interface.Common.Language
             xd.Load(xmlPath);
 
             var nodes = xd.SelectNodes("/lang/item");
-            string strKey;
-            string strVal;
 
             IDictionary<Languages, string> dict = new Dictionary<Languages, string>();
 
@@ -102,8 +90,8 @@ namespace JR.Cms.Domain.Interface.Common.Language
                 foreach (XmlNode node in nodes)
                 {
                     dict.Clear();
-                    strKey = node.Attributes["key"].Value;
-                    strVal = node.InnerText;
+                    var strKey = node.Attributes["key"].Value;
+                    var strVal = node.InnerText;
 
                     AddOne(lang, strKey, strVal);
 
@@ -132,21 +120,21 @@ namespace JR.Cms.Domain.Interface.Common.Language
         /// 添加默认语言
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="langs"></param>
-        public void Add(LanguagePackageKey key, IDictionary<Languages, string> langs)
+        /// <param name="langList"></param>
+        public void Add(LanguagePackageKey key, IDictionary<Languages, string> langList)
         {
             var keyStr = ((int) key).ToString();
-            foreach (var pair in langs) AddOne(pair.Key, keyStr, pair.Value);
+            foreach (var pair in langList) AddOne(pair.Key, keyStr, pair.Value);
         }
 
         /// <summary>
         /// 添加自定义语言项
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="langs"></param>
-        public void AddOtherLangItem(string key, IDictionary<Languages, string> langs)
+        /// <param name="langList"></param>
+        public void AddOtherLangItem(string key, IDictionary<Languages, string> langList)
         {
-            foreach (var pair in langs)
+            foreach (var pair in langList)
                 if (_languagePack[pair.Key].ContainsKey(key))
                     _languagePack[pair.Key][key] = pair.Value;
                 else
@@ -161,10 +149,9 @@ namespace JR.Cms.Domain.Interface.Common.Language
         /// <returns></returns>
         public string Get(Languages lang, LanguagePackageKey key)
         {
-            string outStr = null;
-            if (_languagePack[lang].TryGetValue(((int) key).ToString(), out outStr)) return outStr;
-            throw new ArgumentNullException("key",
-                string.Format("({0}->{1})不包含当前语言的配置项!", lang, key));
+            if (_languagePack[lang].TryGetValue(((int) key).ToString(), out var outStr)) return outStr;
+            throw new ArgumentNullException(nameof(key),
+                $"({lang}->{key})不包含当前语言的配置项!");
         }
 
         /// <summary>
@@ -175,24 +162,64 @@ namespace JR.Cms.Domain.Interface.Common.Language
         /// <returns></returns>
         public string GetValueByKey(Languages lang, string key)
         {
-            string outStr;
-            if (_languagePack[lang].TryGetValue(key, out outStr)) return outStr;
+            if (_languagePack[lang].TryGetValue(key, out var outStr)) return outStr;
             return null;
         }
+
+        /// <summary>
+        /// 获取自定义的语言项值，如果不存在此项，则返回String.Empty
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="lang"></param>
+        /// <returns></returns>
+        public string GetValues(Languages lang, string[] keys)
+        {
+            if (keys.Length == 0) return null;
+            if (keys.Length == 1) return this.GetValueByKey(lang, keys[0]);
+
+            StringBuilder sb = new StringBuilder();
+            for (var i = 0; i < keys.Length; i++)
+            {
+                if (i > 0 && this.CheckSepFlag(lang)) sb.Append(" ");
+                if (_languagePack[lang].TryGetValue(keys[i], out var outStr))
+                {
+                    sb.Append(outStr);
+                }
+                else
+                {
+                    sb.Append("#").Append(keys[i]).Append("#");
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// 检查是否用空格分割
+        /// </summary>
+        /// <param name="lang"></param>
+        /// <returns></returns>
+        private bool CheckSepFlag(Languages lang)
+        {
+            return lang == Languages.en_US || lang == Languages.Unknown;
+        }
+
 
         public void LoadFromJson(string json)
         {
             if (string.IsNullOrEmpty(json)) return;
             IList<LangKvPair> list = JsonConvert.DeserializeObject<List<LangKvPair>>(json);
-            if (list != null)
-                foreach (var l in list)
-                    if (l.value != null)
-                        foreach (var k in l.value.Keys)
-                        {
-                            var v = l.value[k];
-                            if (v == null) continue;
-                            AddOne((Languages) k, l.key, v);
-                        }
+            if (list == null) return;
+            foreach (var l in list)
+            {
+                if (l.value == null) continue;
+                foreach (var k in l.value.Keys)
+                {
+                    var v = l.value[k];
+                    if (v == null) continue;
+                    AddOne((Languages) k, l.key, v);
+                }
+            }
         }
     }
 }
