@@ -14,6 +14,7 @@ using JR.Cms.Core.Interface;
 using JR.Cms.Domain.Interface.Common.Language;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Domain.Interface.Models;
+using JR.Cms.Web;
 using JR.Cms.WebImpl.PageModels;
 using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Framework.Web.Utils;
@@ -183,11 +184,11 @@ namespace JR.Cms.WebImpl
                 switch (_site.Language)
                 {
                     case Languages.zh_CN:
-                        title = string.Format("- 第" + pageIndex + "页");
+                        title = $"- 第{pageIndex}页";
                         break;
                     default:
                     case Languages.en_US:
-                        title = string.Format("- page " + pageIndex);
+                        title = "- page " + pageIndex;
                         break;
                 }
 

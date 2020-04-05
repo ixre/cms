@@ -15,19 +15,16 @@
 
 using System;
 using System.Text.RegularExpressions;
-using System.Web;
 using JR.Cms.WebImpl.Template;
-using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
-using Microsoft.AspNetCore.Http;
 
-namespace JR.Cms.WebImpl
+namespace JR.Cms.Web
 {
     /// <summary>
     /// 页面实用工具
     /// </summary>
-    public class PageUtility
+    public static class PageUtility
     {
         /// <summary>
         /// 页面呈现之前发生
@@ -64,7 +61,7 @@ namespace JR.Cms.WebImpl
 <!--
 *************************************************************************************
 * 本站使用《JR-CMS》驱动。唯一跨平台,支持多种数据库,基于ASP.net技术构建的网站管理系统。
-* 欢迎访问 http://to2.net/cms 获取详细信息及试用版本。
+* 欢迎访问 http://56x.net/cms 获取详细信息及试用版本。
 
 * 【承接】定制网站,营销型网站,WAP手机网站开发。联系电话：13162222872  QQ:188867734
 *************************************************************************************
@@ -87,14 +84,14 @@ namespace JR.Cms.WebImpl
                 page.TemplateHandleObject = tpl;
                 page.OnPreInit += PreHandler;
                 page.OnPreRender += CompliedTemplate;
-                //注册扩展的模板解析事件
-                if (OnPreRender != null) page.OnPreRender += OnPreRender;
-                pageFunc?.Invoke(page);
-                return page.ToString();
             }
+            //注册扩展的模板解析事件
+            if (OnPreRender != null) page.OnPreRender += OnPreRender;
+            pageFunc?.Invoke(page);
+            return page.ToString();
         }
 
-        public static TemplatePage RegistEventHandlers(TemplatePage page)
+        public static TemplatePage RegisterEventHandlers(TemplatePage page)
         {
             var context = HttpHosting.Context;
             using (var tpl = new CmsTemplateImpl(context))
@@ -102,8 +99,8 @@ namespace JR.Cms.WebImpl
                 page.TemplateHandleObject = tpl;
                 page.OnPreInit += PreHandler;
                 page.OnPreRender += CompliedTemplate;
-                return page;
             }
+            return page;
         }
 
 
