@@ -18,16 +18,16 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
     public class CmsInstallWiz
     {
         public const string FILE_DB_SQLITE = "install/db/sqlite.db";
-        public const string FILE_DB_OLEDB = "install/db/access.mdb";
-        public const string FILE_SETTING = "config/cms.conf";
-        public const string MYSQL_INSTALL_SCRIPT = "install/db/mysql.sql";
-        public const string MSSQL_INSTALL_SCRIPT = "install/db/mssql.sql";
-        public const string SQLite_INSTALL_SCRIPT = "install/db/sqlite.sql";
+        private const string FILE_DB_OLEDB = "install/db/access.mdb";
+        private const string FILE_SETTING = "config/cms.conf";
+        private const string MYSQL_INSTALL_SCRIPT = "install/db/mysql.sql";
+        private const string MSSQL_INSTALL_SCRIPT = "install/db/mssql.sql";
+        private const string SQLite_INSTALL_SCRIPT = "install/db/sqlite.sql";
 
-        public const string INSTALL_LOCK = "config/install.lock";
+        private const string INSTALL_LOCK = "config/install.lock";
 
 
-        public enum InstallCode
+        private enum InstallCode
         {
             /// <summary>
             /// 已经安装成功
@@ -486,6 +486,7 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
             FileInfo fi = new FileInfo(Cms.PhysicPath + "/install/install.html");
             if (!fi.Exists) return context.Response.WriteAsync("系统丢失文件,无法启动安装向导");
             var bytes = File.ReadAllBytes(fi.FullName);
+            context.Response.ContentType("text/html;charset=utf-8");
             context.Response.WriteAsync(bytes);
             return SafetyTask.CompletedTask;
         }
