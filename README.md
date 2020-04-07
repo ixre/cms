@@ -1,6 +1,6 @@
 ﻿# JR-CMS #
 
-[![Build Status](https://cloud.drone.io/api/badges/ixre/cms/status.svg)](https://cloud.drone.io/ixre/cms)
+![Build Status](https://cloud.drone.io/api/badges/ixre/cms/status.svg)
 
 基于.Net + DDD 构建的跨平台开源内容管理系统; 同时支持`ASP.NET`和`.NET Core`; 可以运行在Windows,Linux,MacOSX等操作系统；支持Docker容器。
 此项目已维护超过十年, 不断使用最合适的技术改进. 独立服务器上建议运行`.NET Core`版, 以获得更好的性能; 如果您没有, 可以部署到更低廉的虚拟主机,

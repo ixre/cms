@@ -49,9 +49,9 @@ namespace JR.Cms.WebImpl.Resource
             // Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/datagrid.js",
             //     comment + GetResource("js_lib_datagrid.js"), false);
             //
-            // Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/scroller.js",
-            //     comment + GetResource("js_lib_scroller.js"), false);
-            //
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/scroller.js",
+                comment +GetResource("Web/Resource/SiteResources/Assets/js_lib_scroller.js"), false);
+            
             // Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/scrollbar.js",
             //     comment +GetResource("js_lib_scrollbar.js"), false);
             //

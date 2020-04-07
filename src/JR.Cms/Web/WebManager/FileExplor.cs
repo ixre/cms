@@ -137,7 +137,7 @@ namespace JR.Cms.WebImpl.WebManager
         internal static bool Delete(string dir, string file, bool isDir)
         {
             dir = Regex.Replace(dir, "^(\\/)*([\\S\\s]+)(\\/)$", "$2");
-            var path = String.Join(EnvUtil.GetBaseDirectory(), dir, file);
+            var path =EnvUtil.GetBaseDirectory()+dir+ file;
             if (isDir)
             {
                 //如果为系统文件,则返回false
