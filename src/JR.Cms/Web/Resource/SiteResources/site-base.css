@@ -229,3 +229,8 @@ img{max-width:100%;border:0}
 .gra-table .td-op{color:#CCC;}
 .gra-table .td-op a{color:#06C;}
 .gra-table .td-op a:hover{color:#000;}
+
+/* gra-ani-hover-border : 鼠标滑过底框效果 */
+.gra-ani-hover-border{position:relative;}
+.gra-ani-hover-border:after{content:" ";border-bottom:solid 2px transparent;position:absolute;bottom:-2px;left:0;right:0;margin:auto;width:0;}
+.gra-ani-hover-border:hover:after{border-bottom:solid 2px #000;transition:all .3s;width:100%;}
