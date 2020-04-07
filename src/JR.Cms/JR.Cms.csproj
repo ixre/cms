@@ -55,6 +55,7 @@
       <EmbeddedResource Remove="_old\**" />
       <EmbeddedResource Remove="Component\Crawl\PickerTestWeb\**" />
       <EmbeddedResource Include="Web\Resource\SiteResources\Assets\animate.css" />
+      <EmbeddedResource Include="Web\Resource\SiteResources\Assets\js_lib_scroller.js" />
       <EmbeddedResource Include="Web\Resource\SiteResources\Assets\wow.js" />
       <EmbeddedResource Include="Web\Resource\SiteResources\base.min.js" />
       <EmbeddedResource Include="Web\Resource\SiteResources\cms.core.js" />
@@ -74,6 +75,7 @@
       <None Remove="WebImpl\Resource\Static\SiteResouce\assets\animate.css" />
       <None Remove="WebImpl\Resource\Static\SiteResouce\assets\wow.js" />
       <None Remove="WebImpl\Resource\Static\SiteResouce\base.min.js" />
+      <None Remove="Web\Resource\SiteResources\jslib\js_lib_scroller.js" />
     </ItemGroup>
 
     <ItemGroup>
@@ -85,7 +87,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Web\Plugins" />
       <Folder Include="_old" />
     </ItemGroup>
 

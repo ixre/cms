@@ -20,7 +20,6 @@
       <Content Include="public\assets\animate.css" />
       <Content Include="public\assets\api.js" />
       <Content Include="public\assets\base.css" />
-      <Content Include="public\assets\core.js" />
       <Content Include="public\assets\editor\kindeditor-all-min.js" />
       <Content Include="public\assets\editor\kindeditor-min.js" />
       <Content Include="public\assets\editor\lang\ar.js" />

@@ -1,7 +1,5 @@
 ﻿if (!window.$b) var $b = $jr;
 
-
-
 //设置工作路径
 $jr.__WORKPATH__ = '/public/assets/js/';
 window.jr = $jr;
