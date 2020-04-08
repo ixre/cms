@@ -141,8 +141,6 @@ namespace JR.Stand.Core.Template.Impl
 
         public string Compile()
         {
-            DateTime dt = DateTime.Now;
-
             //指定了模板ID
             if (!String.IsNullOrEmpty(_templateId))
             {
@@ -170,23 +168,8 @@ namespace JR.Stand.Core.Template.Impl
             _templateHtml = Eval.Compile(dc, _templateHtml, this.TemplateHandleObject);
 
 
-            //替换自定义变量
-            IDictionary<string, object> defineVars = dc.GetDefineVariable();
-            if (defineVars != null && defineVars.Count != 0)
-            {
-                foreach (string key in defineVars.Keys)
-                {
-                    if (defineVars[key] is Variable)
-                    {
-                        _templateHtml = Eval.ResolveVariable(_templateHtml, (Variable) defineVars[key]);
-                    }
-                    else
-                    {
-                        _templateHtml = TemplateRegexUtility.ReplaceHtml(_templateHtml, key,
-                            (defineVars[key] ?? "").ToString());
-                    }
-                }
-            }
+            _templateHtml = this.ReplaceDefinedVariables(_templateHtml);
+           
 
             // HttpContext.Current.Response.Write("<br />3." + (DateTime.Now - dt).Milliseconds.ToString());
 
@@ -199,6 +182,33 @@ namespace JR.Stand.Core.Template.Impl
             // HttpContext.Current.Response.Write("<br />4."+(DateTime.Now - dt).Milliseconds.ToString());
 
             return _templateHtml;
+        }
+            
+        /// <summary>
+        /// 替换自定义变量
+        /// </summary>
+        /// <param name="templateHtml"></param>
+        /// <returns></returns>
+        private string ReplaceDefinedVariables(string templateHtml)
+        {
+            if (dc == null) return templateHtml;
+            IDictionary<string, object> defineVars = dc.GetDefineVariable();
+            if (defineVars != null && defineVars.Count != 0)
+            {
+                foreach (string key in defineVars.Keys)
+                {
+                    if (defineVars[key] is Variable)
+                    {
+                        templateHtml = Eval.ResolveVariable(templateHtml, (Variable) defineVars[key]);
+                    }
+                    else
+                    {
+                        templateHtml = TemplateRegexUtility.ReplaceHtml(templateHtml, key,
+                            (defineVars[key] ?? "").ToString());
+                    }
+                }
+            }
+            return templateHtml;
         }
 
         /// <summary>
