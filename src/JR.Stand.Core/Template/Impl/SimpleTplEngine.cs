@@ -146,7 +146,8 @@ namespace JR.Stand.Core.Template.Impl
         {
             //返回结果
             const string tagPattern = "\\$([a-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)";
-            const string paramPattern = "\\s*'([^']*)',*|\\s*(?!=')([^,]+),*";
+            const string paramPattern = "\\s*(((\\\\,)|[^,])+),*";
+            //const string paramPattern = "\\s*'([^']*)',*|\\s*(?!=')([^,]+),*";
 
             var tagRegex = new Regex(tagPattern);
 
@@ -170,6 +171,12 @@ namespace JR.Stand.Core.Template.Impl
 
                 //获得参数
                 paramMcs = paramRegex.Matches(m.Groups[2].Value);
+                //
+                // foreach (Match m3 in paramMcs)
+                // {
+                //     Console.WriteLine("-------");
+                //     Console.WriteLine(m3.Value);
+                // }
 
                 //参数
                 parameters = new object[paramMcs.Count];
@@ -194,29 +201,45 @@ namespace JR.Stand.Core.Template.Impl
                 {
                     return m.Value;
                 }
-                else
+
+                //数字参数
+                //则给参数数组赋值
+                for (int i = 0; i < paramMcs.Count; i++)
                 {
-                    //数字参数
-                    //则给参数数组赋值
-                    for (int i = 0; i < paramMcs.Count; i++)
-                    {
-                        var intParamValue = paramMcs[i].Groups[2].Value;
-                        if (intParamValue != String.Empty)
-                        {
-                            parameters[i] = intParamValue.Replace("\"", "").Replace("'", "");
-                        }
-                        else
-                        {
-                            parameters[i] = paramMcs[i].Groups[1].Value.Replace("\"", "").Replace("'", "");
-                        }
-                    }
-
-                    Count?.Add($"Tag:{method.Name},{DateTime.Now:mmssfff}");
-
-                    //执行方法并返回结果
-                    return method.Invoke(this.classInstance, parameters).ToString();
+                    var paramGroupValue = paramMcs[i].Groups[1].Value.Trim();
+                    var value = this.GetFunctionParamValue(paramGroupValue);
+                    //Console.WriteLine("---value:");
+                    //Console.WriteLine(value);
+                    parameters[i] = value;
                 }
+
+                Count?.Add($"Tag:{method.Name},{DateTime.Now:mmssfff}");
+
+                //执行方法并返回结果
+                return method.Invoke(this.classInstance, parameters).ToString();
             });
+        }
+
+        private string GetFunctionParamValue(string value)
+        {
+            var len = value.Length;
+            if (len == 0) return value;
+            if (value[0] == '\'')
+            {
+                if(len == 1 || value[len-1]!='\'')throw new TemplateException("参数末尾应包含\"'\"");
+                return value.Substring(1, len - 2);
+            }
+            if (value[0] == '\"')
+            {
+                if(len == 1 || value[len-1]!='\"')throw new TemplateException("参数末尾应包含\"");
+                return value.Substring(1, len - 2);
+            } 
+            if (value[0] == '{')
+            {
+                if(len == 1 || value[len-1]!='}')throw new TemplateException("参数末尾应包含\"}\"");
+                return value.Substring(1, len - 2);
+            }
+            return value;
         }
 
         /// <summary>
