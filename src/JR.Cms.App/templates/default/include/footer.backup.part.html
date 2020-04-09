@@ -47,14 +47,14 @@
            </div>
             <p>
               <span class="tel">
-                $site(tel)
+                ${site.tel}
               </span><br />
               周一到周六 8：00-18：00
               <br />
-              工作手机号码: $site(phone)
+              工作手机号码: ${site.phone}
             </p>
           
-            <img style="cursor: pointer" onclick="window.open('tencent://message?uin=$site(im)')" border="0" src="${page.tpath}/images/qq_online.png" title="在线咨询">
+            <img style="cursor: pointer" onclick="window.open('tencent://message?uin=${site.im}')" border="0" src="${page.tpath}/images/qq_online.png" title="在线咨询">
         </div>
       </div>
 
@@ -74,7 +74,7 @@
         <a href="${page.domain}/_cms/change?device=3">$lang(touch-version)</a>
         &nbsp; &nbsp; &nbsp;-->
 
-        Copyright&nbsp;©&nbsp;2015&nbsp;<strong>$site(name)</strong> &nbsp;All Right Reserved<br />
+        Copyright&nbsp;©&nbsp;2015&nbsp;<strong>${site.name}</strong> &nbsp;All Right Reserved<br />
 
             <div class="small">
               <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备15066003号</a>
@@ -93,7 +93,7 @@
 <link href="${page.tpath}/extra/kf/css/kf.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${page.tpath}/extra/kf/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
-  window.topHtml="<div id=\"izl_rmenu\" class=\"izl-rmenu\"><a href=\"tencent://Message/?Uin=$site(im)&Menu=yes\" class=\"btn btn-qq\"></a><div class=\"btn btn-wx\"><img class=\"pic\" src=\"${page.tpath}/images/footer_qr.png\" onclick=\"\'\"/></div><div class=\"btn btn-phone\"><div class=\"phone\">$site(tel)</div></div><div class=\"btn btn-top\"></div></div>";
+  window.topHtml="<div id=\"izl_rmenu\" class=\"izl-rmenu\"><a href=\"tencent://Message/?Uin=${site.im}&Menu=yes\" class=\"btn btn-qq\"></a><div class=\"btn btn-wx\"><img class=\"pic\" src=\"${page.tpath}/images/footer_qr.png\" onclick=\"\'\"/></div><div class=\"btn btn-phone\"><div class=\"phone\">${site.tel}</div></div><div class=\"btn btn-top\"></div></div>";
 </script>
 <script type="text/javascript" src="${page.tpath}/extra/kf/js/kf.js"></script>
 <div id="top"></div>

@@ -545,43 +545,7 @@ namespace JR.Cms.WebImpl.Template
             return "# missing lang:" + key;
         }
 
-
-        /// <summary>
-        /// 获取网站的资料
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public string Site(string key)
-        {
-            switch (key.ToLower())
-            {
-                case "name":
-                    return _site.Name;
-                case "tel":
-                    return _site.ProTel ?? "";
-                case "phone":
-                    return _site.ProPhone ?? "";
-                case "fax":
-                    return _site.ProFax ?? "";
-                case "address":
-                    return _site.ProAddress ?? "";
-                case "email":
-                    return _site.ProEmail ?? "";
-                case "im":
-                case "qq": //todo:需删除
-                    return _site.ProIm ?? "";
-                case "post":
-                    return _site.ProPost ?? "";
-                case "notice":
-                    return _site.ProNotice ?? "";
-                case "slogan":
-                    return _site.ProSlogan ?? "";
-                case "tpl":
-                    return _site.Tpl ?? "default";
-            }
-
-            return key;
-        }
+        
 
         /// <summary>
         /// 重定向文档
