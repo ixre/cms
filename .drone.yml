@@ -13,3 +13,4 @@ steps:
 trigger:
   branch:
     - master
+    - feature
