@@ -82,4 +82,6 @@
   <item key="resource" zh_CN="资源" zh_TW="资源" en_US="Resource" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="know" zh_CN="了解" zh_TW="了解" en_US="Know" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="install" zh_CN="安装" zh_TW="安装" en_US="Install" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="job" zh_CN="工作" zh_TW="工作" en_US="Job" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="chance" zh_CN="机会" zh_TW="机会" en_US="Chance" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
 </lang>
