@@ -80,5 +80,6 @@
   <item key="diy" zh_CN="定制" zh_TW="定制" en_US="DIY" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="human" zh_CN="人力" zh_TW="人力" en_US="Human" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="resource" zh_CN="资源" zh_TW="资源" en_US="Resource" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
-
+  <item key="know" zh_CN="了解" zh_TW="了解" en_US="Know" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="install" zh_CN="安装" zh_TW="安装" en_US="Install" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
 </lang>

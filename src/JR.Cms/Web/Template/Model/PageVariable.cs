@@ -44,6 +44,8 @@ namespace JR.Cms.WebImpl.PageModels
             _context = Cms.Context;
         }
 
+        [TemplateVariableField("年")]
+        public string Year => DateTime.Now.Year.ToString();
 
         [TemplateVariableField("版本")]
         public string Version

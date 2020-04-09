@@ -47,14 +47,14 @@
            </div>
             <p>
               <span class="tel">
-                $site(tel)
+                ${site.tel}
               </span><br />
               周一到周六 8：00-18：00
               <br />
-              工作手机号码: $site(phone)
+              工作手机号码: ${site.phone}
             </p>
           
-            <img style="cursor: pointer" onclick="window.open('tencent://message?uin=$site(im)')" border="0" src="${page.tpath}/images/qq_online.png" title="在线咨询">
+            <img style="cursor: pointer" onclick="window.open('tencent://message?uin=${site.im}')" border="0" src="${page.tpath}/images/qq_online.png" title="在线咨询">
         </div>
       </div>
 
@@ -74,7 +74,7 @@
         <a href="${page.domain}/_cms/change?device=3">$lang(touch-version)</a>
         &nbsp; &nbsp; &nbsp;-->
 
-        Copyright&nbsp;©&nbsp;2015&nbsp;<strong>$site(name)</strong> &nbsp;All Right Reserved<br />
+        Copyright&nbsp;©&nbsp;2015&nbsp;<strong>${site.name}</strong> &nbsp;All Right Reserved<br />
 
             <div class="small">
               <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备15066003号</a>
