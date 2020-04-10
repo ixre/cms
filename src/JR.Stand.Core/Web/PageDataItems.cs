@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (C) 2007-2015 S1N1.COM,All rights reseved.
+ * Copyright (C) 2007-2015 S1N1.COM,All rights reserved.
  * Get more infromation of this software,please visit site http://cms.ops.cc
  * 
  * name : CmsContext.cs

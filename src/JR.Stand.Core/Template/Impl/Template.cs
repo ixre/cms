@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ S1N1.COM,All right reseved.
+// Copyright 2011 @ S1N1.COM,All right reserved.
 // Name:Template.cs
 // Author:newmin
 // Create:2011/06/13
@@ -30,7 +30,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 最近修改时间
         /// </summary>
-        public  int LastModify { get;private  set; }
+        private long LastModify { get; set; }
 
         /// <summary>
         /// 模板注释(第一个html注释)
@@ -67,7 +67,7 @@ namespace JR.Stand.Core.Template.Impl
             {
                 /*
                 string content;
-                IDataContrainer dc = new HttpDataContrainer();
+                IDataContainer dc = new HttpDataContainer();
 
                 //从缓存中读取模板内容
                 if (Config.EnabledCache)
@@ -79,7 +79,7 @@ namespace JR.Stand.Core.Template.Impl
                 if (String.IsNullOrEmpty(this.FilePath)) throw new ArgumentNullException("模板文件不存在!" + this.FilePath);
                 */
                 FileInfo fi = new FileInfo(this.FilePath);
-                int lastWriteUnix = TemplateUtility.Unix(fi.LastWriteTime);
+                long lastWriteUnix = TemplateUtility.Unix(fi.LastWriteTime);
                 if (this.content == null || lastWriteUnix > this.LastModify)
                 {
                     // 读取内容并缓存
@@ -100,7 +100,7 @@ namespace JR.Stand.Core.Template.Impl
                     this.content = content;
                 }
                 // 替换系统标签
-                content = TemplateRegexUtility.Replace(content, m => { return TemplateCache.Tags[m.Groups[1].Value]; });
+                content = TemplateRegexUtility.Replace(content, m => TemplateCache.Tags[m.Groups[1].Value]);
                 //压缩模板代码
                 // if (Options.EnabledCompress) return TemplateUtility.CompressHtml(this.content);
                 //缓存模板

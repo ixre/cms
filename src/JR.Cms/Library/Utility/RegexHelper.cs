@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ TO2.NET,All rights reseved.
+// Copyright 2011 @ TO2.NET,All rights reserved.
 // Name: RegexHelper.cs
 // author_id: newmin
 //

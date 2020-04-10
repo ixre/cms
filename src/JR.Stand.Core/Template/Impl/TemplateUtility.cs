@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ S1N1.COM,All right reseved.
+// Copyright 2011 @ S1N1.COM,All right reserved.
 // Name:TemplateUtility.cs
 // Author:newmin
 // Create:2011/06/05
@@ -17,17 +17,16 @@ namespace JR.Stand.Core.Template.Impl
     /// </summary>
     public sealed class TemplateUtility
     {
-
-        private static DateTime unixVar = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        private static readonly DateTime unixVar = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 
         /// <summary>  
         /// 获取时间戳  
         /// </summary>  
         /// <returns></returns>  
-        public static int Unix(DateTime d)
+        public static long Unix(DateTime d)
         {
             TimeSpan ts = d - unixVar;
-            return Convert.ToInt32(ts.TotalSeconds);
+            return Convert.ToInt64(ts.TotalSeconds);
         }
 
         internal static string Read(string templateId)
@@ -48,6 +47,7 @@ namespace JR.Stand.Core.Template.Impl
             {
                 return TemplateCache.GetTemplateContent(templateId);
             }
+
             return null;
         }
 
@@ -70,7 +70,7 @@ namespace JR.Stand.Core.Template.Impl
             html = Regex.Replace(html, "[\\s|\\t]+\\/\\/[^\\n]*(?=\\n)", String.Empty);
 
             //替换多行注释
-            //const string multCommentPattern = "";
+            //const string multiCommentPattern = "";
             html = Regex.Replace(html, "/\\*[^\\*]+\\*/", String.Empty);
 
             //替换<!-- 注释 -->
@@ -82,22 +82,22 @@ namespace JR.Stand.Core.Template.Impl
             return html;
         }
 
-        internal static string GetTemplateId(string filePath, TemplateNames nametype)
+        internal static string GetTemplateId(string filePath, TemplateNames nameType)
         {
             Match match = Regex.Match(filePath, "templates(/|\\\\)+#*(.+?)$", RegexOptions.IgnoreCase);
             if (String.IsNullOrEmpty(match.Value)) throw new Exception("模版页文件名:" + filePath + "不合法");
             string fileName = match.Groups[2].Value;
             String lowerFileName = fileName.ToLower();
-            if (lowerFileName.EndsWith(".part.html") || lowerFileName.EndsWith(".phtml") || nametype == TemplateNames.ID)
+            if (lowerFileName.EndsWith(".part.html") || nameType == TemplateNames.ID)
             {
                 return MD5.EncodeTo16(Regex.Replace(fileName, "/|\\\\", String.Empty).ToLower());
             }
-            string id = String.Format("{0}{1}",
-                match.Groups[1].Value,
-                match.Groups[2].Value)
+
+            string id = $"{match.Groups[1].Value}{match.Groups[2].Value}"
                 .Replace('\\', '/');
             return id.Substring(0, id.LastIndexOf('.')).ToLower();
         }
+
         /// <summary>
         /// 获取部分模板的编号
         /// </summary>
@@ -107,8 +107,8 @@ namespace JR.Stand.Core.Template.Impl
         /// <returns></returns>
         internal static string GetPartialTemplateId(string partPath, string filePath, out string partialFilePath)
         {
-            string _filepath = filePath;
-            string _filename = partPath;
+            string walkFilePath = filePath;
+            string walkFileName = partPath;
 
             //
             // inc/header.html
@@ -116,68 +116,67 @@ namespace JR.Stand.Core.Template.Impl
 
             if (!partPath.StartsWith("/"))
             {
-                DirectoryInfo p_wrap = null,
-                    p_par = null,
-                    p_curr = new FileInfo(_filepath).Directory;
-
-
-                //exsample path: ../../inc/top.phtml
+                DirectoryInfo dWrap = null;
+                DirectoryInfo dPar = null;
+                DirectoryInfo dCurr = new FileInfo(walkFilePath).Directory;
+                
+                //example path: ../../inc/top.part.html
                 if (Regex.IsMatch(partPath, "^\\.\\./"))
                 {
                     Regex pathRegex = new Regex("\\.\\./");
-                    int dirlayer = pathRegex.Matches(partPath).Count;
-                    _filename = pathRegex.Replace(_filename, String.Empty);
+                    int dirLayer = pathRegex.Matches(partPath).Count;
+                    walkFileName = pathRegex.Replace(walkFileName, String.Empty);
 
                     int i = 0;
                     do
                     {
-                        if (p_par != null)
+                        if (dPar != null)
                         {
-                            p_wrap = p_par;
-                            p_par = p_par.Parent;
+                            dWrap = dPar;
+                            dPar = dPar.Parent;
                         }
                         else
                         {
-                            p_par = p_curr.Parent;
+                            dPar = dCurr?.Parent;
                         }
 
-                        if (p_wrap != null)
+                        if (dWrap != null)
                         {
-                            p_curr = p_wrap;
+                            dCurr = dWrap;
                         }
-                    } while (++i <= dirlayer);
+                    } while (++i <= dirLayer);
 
-                    _filename = String.Format("{0}/{1}", p_curr.Name, _filename);
+                    walkFileName = $"{dCurr.Name}/{walkFileName}";
                 }
                 else
                 {
                     //
-                    //exsample path: inc/top.phtml
+                    //example path: inc/top.part.html
                     //
 
                     do
                     {
-                        if (p_par != null)
+                        if (dPar != null)
                         {
-                            p_wrap = p_par;
-                            p_par = p_par.Parent;
+                            dWrap = dPar;
+                            dPar = dPar.Parent;
                         }
                         else
                         {
-                            p_par = p_curr.Parent;
+                            dPar = dCurr.Parent;
                         }
 
-                        if (p_wrap != null)
+                        if (dWrap != null)
                         {
-                            p_curr = p_wrap;
+                            dCurr = dWrap;
                         }
-
-                        _filename = String.Format("{0}/{1}", p_curr.Name, _filename);
-                    } while (String.Compare(p_par.Name, "templates", true) != 0);
+                        walkFileName = $"{dCurr.Name}/{walkFileName}";
+                    } while (String.Compare(dPar.Name, "templates", true) != 0);
                 }
             }
-            partialFilePath = _filename;
-            return MD5.EncodeTo16(Regex.Replace(_filename, "/|\\\\", String.Empty).ToLower());
+
+            partialFilePath = walkFileName;
+            return MD5.EncodeTo16(Regex.Replace(walkFileName, "/|\\\\", String.Empty).ToLower());
         }
 
         /// <summary>
@@ -185,7 +184,8 @@ namespace JR.Stand.Core.Template.Impl
         /// </summary>
         public static string GetTemplatePagesHTML()
         {
-            string templateContent = ResourcesReader.Read(typeof(TemplateUtility).Assembly,"Template/Resources/SysTemplatePage.html");
+            string templateContent = ResourcesReader.Read(typeof(TemplateUtility).Assembly,
+                "Template/Resources/SysTemplatePage.html");
             StringBuilder sb = new StringBuilder();
 
             sb.Append(@"<style type=""text/css"">
@@ -218,22 +218,19 @@ namespace JR.Stand.Core.Template.Impl
         		<tr><td colspan=""6"" align=""center"" style=""background:#c20000;color:white"">扩展名为“.phtml”表示为一个部分视图；部分视图只能使用ID命名</td></tr>
            		-->");
 
-            Template tpl;
-            string tplFileName, tplContent; //模板文件名,内容
+            string tplContent; //模板文件名,内容
             int i = 0;
 
             foreach (string key in TemplateCache.templateDictionary.Keys)
             {
-                tpl = TemplateCache.templateDictionary[key];
-                tplFileName =
-                    new Regex("templates(/|\\\\)+#*(.+?)$", RegexOptions.IgnoreCase).Match(tpl.FilePath).Groups[2].Value
-                        .Replace("\\", "/");
+                var tpl = TemplateCache.templateDictionary[key];
+                var tplFileName = new Regex("templates(/|\\\\)+#*(.+?)$", RegexOptions.IgnoreCase).Match(tpl.FilePath).Groups[2].Value
+                    .Replace("\\", "/"); //模板文件名,内容
                 tplContent = tpl.Content;
 
                 sb.Append("<tr><td class=\"center\">").Append((++i).ToString()).Append("</td><td class=\"center\">")
                     .Append(key.ToLower()).Append("</td><td class=\"center\">")
                     .Append(
-
                         //RegexUtility.partialRegex.IsMatch(tplContent) && tplContent.IndexOf("<title>") != -1 
                         !tpl.FilePath.EndsWith(".phtml")
                             ? "<span style=\"color:#333\">模板页面</span>"
@@ -263,6 +260,7 @@ namespace JR.Stand.Core.Template.Impl
                     case "year":
                         return DateTime.Now.Year.ToString();
                 }
+
                 return String.Empty;
             });
             return CompressHtml(templateContent);

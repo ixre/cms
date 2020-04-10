@@ -1,6 +1,6 @@
 ﻿/*
  * VerifyCode 验证码
- * Copyright 2010 OPSoft ,All right reseved!
+ * Copyright 2010 OPSoft ,All right reserved!
  * Newmin(ops.cc)  @  2010/11/18
  */
 

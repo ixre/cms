@@ -1,6 +1,6 @@
 ﻿//
 // ReviewsBLL   点评(赞同和反对)
-// Copryright 2011 @ TO2.NET,All rights reseved !
+// Copryright 2011 @ TO2.NET,All rights reserved !
 // Create by newmin @ 2011/03/13
 //
 

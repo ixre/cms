@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 OPS,All rights reseved!
+ * Copyright 2012 OPS,All rights reserved!
  * name     : SqlConst
  * author   : newmin
  * date     : 2012/12/22    19:56

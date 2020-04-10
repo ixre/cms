@@ -1,7 +1,7 @@
 ﻿//
 // { newmin,OPS } Server.cs     2011/03/06 00:41
 //
-// Copyright 2011 @ TO2.NET,All rights reseved!
+// Copyright 2011 @ TO2.NET,All rights reserved!
 // Note: 需做一个调用更新服务器的功能
 //
 //

@@ -1,7 +1,7 @@
 ﻿/*
  * XMLDocument
  * 
- * Copyright 2010 OPS,All rights reseved!
+ * Copyright 2010 OPS,All rights reserved!
  * date :   2010/11/22
  */
 

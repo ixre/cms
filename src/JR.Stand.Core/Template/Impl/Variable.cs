@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ S1N1.COM,All right reseved.
+// Copyright 2011 @ S1N1.COM,All right reserved.
 // Name:Variable.cs
 // Author:newmin
 // Create:2013/09/10

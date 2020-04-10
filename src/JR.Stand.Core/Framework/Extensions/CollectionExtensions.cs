@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 OPS,All rights reseved !
+ * Copyright 2010 OPS,All rights reserved !
  * name     : 集合扩展
  * author   : newmin
  * date     : 2010/11/26 07:31
