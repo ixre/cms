@@ -1,5 +1,5 @@
 using System;
-using JR.Cms.WebImpl.Resource;
+using JR.Cms.Web.Resource;
 using NUnit.Framework;
 
 namespace JR.Cms.UnitTest

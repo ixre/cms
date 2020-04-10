@@ -13,8 +13,6 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using JR.Cms.Conf;
-using JR.Cms.WebImpl.Mvc.Controllers;
-using JR.Cms.WebImpl.Template;
 using JR.Stand.Core.Framework.Xml.AutoObject;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Enum;
-using JR.Cms.WebImpl.Mvc.Controllers;
+using JR.Cms.Web.Portal.Controllers;
 using JR.Stand.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;

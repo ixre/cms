@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using JR.Cms.Conf;
 using JR.Stand.Core;
 
-namespace JR.Cms.WebImpl.Resource
+namespace JR.Cms.Web.Resource
 {
     /// <summary>
     /// 站点静态资源初始化

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
-using JR.Cms.WebImpl.Template;
 using JR.Stand.Core;
 using JR.Stand.Core.Template.Impl;
 using NUnit.Framework;

@@ -6,24 +6,19 @@
 //
 
 
-using System;
 using System.Text.RegularExpressions;
-using System.Web;
 using JR.Cms.Core;
 using JR.Cms.Core.Interface;
 using JR.Cms.Domain.Interface.Common.Language;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Domain.Interface.Models;
-using JR.Cms.Web;
-using JR.Cms.WebImpl.PageModels;
-using JR.Stand.Core.Framework.Web;
+using JR.Cms.Web.Portal.Template.Model;
 using JR.Stand.Core.Framework.Web.Utils;
 using JR.Stand.Core.Web;
-using Microsoft.AspNetCore.Http;
 using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 
-namespace JR.Cms.WebImpl
+namespace JR.Cms.Web
 {
     /// <summary>
     /// 页面生成器对象

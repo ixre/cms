@@ -2,7 +2,7 @@ html{overflow:auto;white-space: normal; /*关闭IE6的右侧*/}
 body{
    margin:0px;
    background:#eee;
-   overflow:hidden;font-size:75%;
+   overflow:hidden;font-size:1.4rem;
    font-family:Helvetica,sans-serif,arial;line-height:1.5em;
 }
 img{border:none;}

@@ -9,18 +9,11 @@ using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
-using JR.Cms.Web;
-using JR.Cms.WebImpl.PageModels;
-using JR.Stand.Core.Framework.Web;
+using JR.Cms.Web.Portal.Template.Model;
 using JR.Stand.Core.Template;
 using JR.Stand.Core.Web;
-using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
-using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
-using SiteDto = JR.Cms.ServiceDto.SiteDto;
 
-namespace JR.Cms.WebImpl
+namespace JR.Cms.Web
 {
     /// <summary>
     /// 默认网站输出
