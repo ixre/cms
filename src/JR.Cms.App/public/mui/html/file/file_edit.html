@@ -24,9 +24,15 @@
     <div class="tabarea" id="form1">
         <div class="top" style="font-size:12px">
             <span class="tab" style="margin-left: 25px">源代码</span>
-            <span class="ui-button w50 small-button" onclick="process('save')">
+            <span class="ui-button small-button" onclick="formatCode(coder)">
                 <span class=" button-inner">
-                    <span class="button-txt">保存</span>
+                    <span class="button-txt">格式化(CTRL+ALT+L)</span>
+                    <a href="javascript:;"></a>
+                </span>
+            </span>
+            <span class="ui-button small-button" onclick="process('save')">
+                <span class=" button-inner">
+                    <span class="button-txt">保存(CTRL+S)</span>
                     <a href="javascript:;"></a>
                 </span>
             </span>&nbsp;&nbsp;${bakinfo}
@@ -46,6 +52,7 @@
         editor.style.width = (document.documentElement.clientWidth - 14 - 2) + "px";
     </script>
     <script src="/public/assets/code_editor/lib/codemirror.js"></script>
+    <script src="/public/assets/code_editor/util/formatting.js"></script>
     <script src="${dependJs}"></script>
     <script src="/public/assets/emmet/emmet-codemirror-plugin.js"></script>
 

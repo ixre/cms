@@ -44,7 +44,7 @@
     <item key="Template_Manager" value="mui/html/template/template_manager.html"/>
     <item key="Template_Setting" value="mui/html/template/template_setting.html"/>
     <item key="Template_Edit" value="mui/html/template/template_edit.html"/>
-    <item key="Template_EditFile" value="mui/html/template/template_editfile.html"/>
+    <item key="Template_EditFile" value="mui/html/template/template_edit_file.html"/>
     <item key="Assistant_Category_Clone" value="mui/html/assistant/category_clone.html"/>
     <item key="Assistant_Archive_Clone_Pub" value="mui/html/assistant/archive_clone_pub.html"/>
     <item key="Assistant_Local_Patch" value="mui/html/assistant/local_patch.html"/>

@@ -436,7 +436,7 @@
       <Content Include="public\mui\html\site\site.index.html" />
       <Content Include="public\mui\html\summary.html" />
       <Content Include="public\mui\html\template\template_edit.html" />
-      <Content Include="public\mui\html\template\template_editfile.html" />
+      <Content Include="public\mui\html\template\template_edit_file.html" />
       <Content Include="public\mui\html\template\template_manager.html" />
       <Content Include="public\mui\html\template\template_setting.html" />
       <Content Include="public\mui\html\user\memberList.html" />
