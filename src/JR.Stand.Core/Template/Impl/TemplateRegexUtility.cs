@@ -15,9 +15,9 @@ namespace JR.Stand.Core.Template.Impl
         private static readonly Regex tagRegex = new Regex("\\${([a-zA-Z\u4e00-\u9fa5\\._]+)}");
 
         //部分页匹配模式
-        internal static Regex partialRegex = new Regex("\\${(partial|include):\"(.+?)\"}");
+        internal static readonly Regex IncludeFileRegex = new Regex("\\${include:\"(.+?)\"}");
         // 部分面ID匹配模式
-        private static Regex partialIdRegexp = new Regex("^[a-z0-9]+$", RegexOptions.IgnoreCase);
+        private static readonly Regex IncludeFileIdRegexp = new Regex("^[a-z0-9]+$", RegexOptions.IgnoreCase);
 
         /// <summary>
         /// 替换模板数据
@@ -28,7 +28,7 @@ namespace JR.Stand.Core.Template.Impl
         internal static string ReplaceTemplate(string templateID, MatchEvaluator eval)
         {
             string html = TemplateUtility.Read(templateID);
-            return TemplateRegexUtility.Replace(html, eval);
+            return Replace(html, eval);
         }
 
         /// <summary>
@@ -60,22 +60,22 @@ namespace JR.Stand.Core.Template.Impl
         internal static string ReplacePartial(string html)
         {
             //如果包含部分视图，则替换成部分视图的内容
-            if (partialRegex.IsMatch(html))
+            if (IncludeFileRegex.IsMatch(html))
             {
                 //替换模板里的部分视图，并将内容添加到模板内容中
-                html = partialRegex.Replace(html, match =>
+                html = IncludeFileRegex.Replace(html, match =>
                 {
                     // 匹配的部分视图编号
-                    string matchValue = match.Groups[2].Value;
+                    string matchValue = match.Groups[1].Value;
                     string[] arr = matchValue.Split('@');
                     //Console.WriteLine("---" + arr[0]);
-                    if (partialIdRegexp.IsMatch(arr[0]))
+                    if (IncludeFileIdRegexp.IsMatch(arr[0]))
                     {
                         //Console.WriteLine("---" + arr[1]);
                         string content = TemplateUtility.ReadPartial(arr[0]);
                         if (content != null) return content;
                     }
-                    return String.Format("No such partial file \"{0}\"", matchValue);
+                    return $"No such partial file \"{arr[1]}\"";
                 });
             }
             //返回替换部分视图后的内容

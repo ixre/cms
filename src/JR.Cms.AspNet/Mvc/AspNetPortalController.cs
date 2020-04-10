@@ -10,9 +10,10 @@
 //
 
 using System;
-using System.Web;
 using System.Web.Mvc;
 using JR.Cms.Conf;
+using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Template.Rule;
 using JR.Stand.Core.Framework.Xml.AutoObject;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
