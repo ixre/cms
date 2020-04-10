@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using JR.Stand.Abstracts.Web;
@@ -17,7 +18,9 @@ namespace JR.Cms.Web.Manager
         private delegate void FileHandler(FileInfo file);
 
         private static readonly string[] SysIntArray =
-            {"runtimes","install", "config","public", "templates", "libs", "global\\.asax", "web\\.config", "cms.conf"};
+        {
+            "runtimes", "install", "config", "public", "templates", "libs", "global\\.asax", "web\\.config", "cms.conf"
+        };
 
         private static readonly string[] ReadOnlyFiles;
 
@@ -38,7 +41,7 @@ namespace JR.Cms.Web.Manager
 
         public static string GetJson(string dir_abs_path)
         {
-            var dir = new DirectoryInfo(Path.Combine(EnvUtil.GetBaseDirectory() ,dir_abs_path));
+            var dir = new DirectoryInfo(Path.Combine(EnvUtil.GetBaseDirectory(), dir_abs_path));
             if (!dir.Exists) return ReturnError($"目录:{dir_abs_path}不存在!");
             return GetJson(dir, dir_abs_path == "/");
         }
@@ -136,7 +139,7 @@ namespace JR.Cms.Web.Manager
         internal static bool Delete(string dir, string file, bool isDir)
         {
             dir = Regex.Replace(dir, "^(\\/)*([\\S\\s]+)(\\/)$", "$2");
-            var path =EnvUtil.GetBaseDirectory()+dir+ file;
+            var path = EnvUtil.GetBaseDirectory() + dir + "/" + file;
             if (isDir)
             {
                 //如果为系统文件,则返回false
@@ -144,6 +147,7 @@ namespace JR.Cms.Web.Manager
                     if (string.CompareOrdinal(s, file) == 0)
                         return false;
                 Directory.Delete(path + "/"); //目录下有文件,不能删除
+                CheckReloadTemplate(path, true);
             }
             else
             {
@@ -153,6 +157,7 @@ namespace JR.Cms.Web.Manager
                         return false;
 
                 File.Delete(path);
+                CheckReloadTemplate(path, false);
             }
 
             return true;
@@ -174,9 +179,16 @@ namespace JR.Cms.Web.Manager
             var newPath = Path.Combine(EnvUtil.GetBaseDirectory(), dir, newFile);
 
             if (isDir)
+            {
                 Directory.Move(path + "/", newPath + "/");
+                CheckReloadTemplate(path, true);
+            }
             else
+            {
                 File.Move(path, newPath);
+                CheckReloadTemplate(path, false);
+            }
+
             return true;
         }
 
@@ -196,9 +208,14 @@ namespace JR.Cms.Web.Manager
 
         private static string CreateDir(string filePath)
         {
+            if (File.Exists(filePath))
+            {
+                return ReturnError("已存在相同名称的文件");
+            }
+
             if (Directory.Exists(filePath))
             {
-                return ReturnError("文件已存在!");
+                return ReturnError("目录已存在");
             }
             else
             {
@@ -213,22 +230,21 @@ namespace JR.Cms.Web.Manager
             {
                 return ReturnError("文件已存在!");
             }
-            else
-            {
-                File.Create(filePath).Dispose();
-                CheckReloadTemplate(filePath);
-                return "{}";
-            }
+
+            File.Create(filePath).Dispose();
+            CheckReloadTemplate(filePath, false);
+            return "{}";
         }
 
         /// <summary>
         /// 如果新增了模板文件,则重新加载模板
         /// </summary>
         /// <param name="filePath"></param>
-        private static void CheckReloadTemplate(string filePath)
+        /// <param name="b"></param>
+        private static void CheckReloadTemplate(string filePath, bool isDir)
         {
-            if (filePath.IndexOf("/template/") == -1) return;
-            if (filePath.EndsWith(".html") || filePath.EndsWith(".part.html"))
+            if (filePath.IndexOf("/templates/") == -1) return;
+            if (isDir || filePath.EndsWith(".html") || filePath.EndsWith(".part.html"))
             {
                 Cms.Template.Reload();
             }

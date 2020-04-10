@@ -29,7 +29,7 @@ namespace JR.Cms.Web.Manager.Handle
 {
     public class ResourceHandler:BasePage
     {
-        internal static IDictionary<string, string> fileMImE;
+        private static IDictionary<string, string> fileMImE;
 
         static ResourceHandler()
         {
