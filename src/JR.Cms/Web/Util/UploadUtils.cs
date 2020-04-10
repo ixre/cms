@@ -2,9 +2,8 @@
 using JR.Cms.Conf;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework.Extensions;
-using Microsoft.AspNetCore.Http;
 
-namespace JR.Cms.WebImpl.Util
+namespace JR.Cms.Web.Util
 {
     /// <summary>
     /// 上传文件工具类

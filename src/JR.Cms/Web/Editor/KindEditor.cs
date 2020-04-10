@@ -19,15 +19,13 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using JR.Cms.Conf;
-using JR.Cms.WebImpl.Util;
-using JR.Cms.WebImpl.WebManager;
+using JR.Cms.Web.Util;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core;
 using JR.Stand.Core.Utils;
 using Microsoft.AspNetCore.Http;
 
-namespace JR.Cms.WebImpl.Editor
+namespace JR.Cms.Web.Editor
 {
     /// <summary>
     /// 

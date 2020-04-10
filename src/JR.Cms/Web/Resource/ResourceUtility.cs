@@ -11,10 +11,9 @@
 //
 //
 
-using System;
 using System.Text.RegularExpressions;
 
-namespace JR.Cms.WebImpl.Resource
+namespace JR.Cms.Web.Resource
 {
     public class ResourceUtility
     {

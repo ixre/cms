@@ -6,10 +6,9 @@ using System.Text;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Common.Language;
 using JR.Stand.Abstracts.Web;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace JR.Cms.WebImpl
+namespace JR.Cms.Web
 {
     /// <summary>
     /// 本地化(管理后台)

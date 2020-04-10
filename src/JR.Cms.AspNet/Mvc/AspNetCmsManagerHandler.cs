@@ -2,7 +2,6 @@ using System.Web;
 using System.Web.Routing;
 using JR.Cms.AspNet;
 using JR.Cms.AspNet.Mvc;
-using JR.Cms.WebImpl.WebManager;
 using JR.Stand.Core.Web;
 
 namespace JR.Cms.WebImpl.Mvc

@@ -7,6 +7,7 @@
     <link rel="StyleSheet" href="public/assets/base.css?ver=${version}" type="text/css" />
     <link rel="StyleSheet" href="public/assets/icon-font.css?ver=${version}" type="text/css" />
     <link rel="StyleSheet" href="${ui_css_path}?ver=${version}" type="text/css" />
+    <link rel="StyleSheet" href="${page_css_path}?ver=${version}" type="text/css" />
 </head>
 <body>
     <div class="loading-gate hidden"></div>
@@ -94,7 +95,7 @@ $js()
 
 <script type="text/javascript">
     window._path = '${admin_path}';
-    window._siteId = ${site_id};
+    window._siteId = '${site_id}';
     window._localJs = '${local_js}';
 </script>
 <script type="text/javascript" src="public/mui/js/component.js?v=${version}"></script>

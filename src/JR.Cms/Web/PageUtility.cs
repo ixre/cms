@@ -15,7 +15,7 @@
 
 using System;
 using System.Text.RegularExpressions;
-using JR.Cms.WebImpl.Template;
+using JR.Cms.Web.Portal.Template.Rule;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
 

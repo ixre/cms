@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using JR.Cms.Conf;
-using JR.Cms.WebImpl.Mvc.Controllers;
 using JR.Stand.Core.Web;
 
 namespace JR.Cms.AspNet.Mvc
