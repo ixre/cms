@@ -274,30 +274,25 @@ $jr.propertyUpload = function (id, id2) {
 #964  循环有误
 */
 
-$jr.coder = function (id, arg) {
+function formatCode(editor){
+    var range = { from: editor.getCursor(true), to: editor.getCursor(false) };
+    editor.autoFormatRange(range.from, range.to);
+}
 
+$jr.coder = function (id, arg) {
     //暂不支持IE6和IE7
     if (/MSIE\s(6|7)/.test(window.navigator.userAgent)) {
         alert('您正在使用的浏览器不支持Code Editor,请升级到IE8及以上,或使用Firefox系列浏览器!');
         return null;
     }
-
-
     // var htmljs = new Array('//public/assets/coder/lib/codemirror.js', '//public/assets/coder/mode/xml/xml.js',
     //                   '//public/assets/coder/mode/javascript/javascript.js', '//public/assets/coder/mode/css/css.js',
     //                   '//public/assets/coder/mode/htmlmixed/htmlmixed.js');
-
     var editor = null;
     var mode = arg.mode || 'html';
-
     var _showLineNumber = arg.lineNumbers || true;
-
-
     var _e = document.getElementById(id);
     if (mode == 'html') {
-        //for (var i = 0; i < htmljs.length; i++) {
-        // this.ldScript(htmljs[i]);
-        //}
         var mixedMode = {
             name: "htmlmixed",
             scriptTypes: [{
@@ -312,8 +307,13 @@ $jr.coder = function (id, arg) {
                 tabMode: "indent",
                 indentUnit: 4,
                 extraKeys: {
-                    'Tab': 'emmetExpandAbbreviation',
-                    'Enter': 'emmetInsertLineBreak'
+                    "Tab": 'emmetExpandAbbreviation',
+                    "Enter": 'emmetInsertLineBreak',
+                    "Ctrl-Space": "autocomplete",
+                    //代码格式化
+                    "Ctrl-Alt-L": function(e) {
+                        formatCode(e)
+                    },
                 }
             });
 
@@ -321,7 +321,10 @@ $jr.coder = function (id, arg) {
         editor = CodeMirror.fromTextArea(_e, {
             lineNumbers: _showLineNumber,
             tabMode: "indent",
-            indentUnit: 4
+            indentUnit: 4,
+            extraKeys: {
+                "Tab": 'emmetExpandAbbreviation'
+            }
         });
     } else if (mode == 'xml') {
         editor = CodeMirror.fromTextArea(_e, {
