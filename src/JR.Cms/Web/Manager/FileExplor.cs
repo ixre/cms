@@ -216,7 +216,21 @@ namespace JR.Cms.Web.Manager
             else
             {
                 File.Create(filePath).Dispose();
+                CheckReloadTemplate(filePath);
                 return "{}";
+            }
+        }
+
+        /// <summary>
+        /// 如果新增了模板文件,则重新加载模板
+        /// </summary>
+        /// <param name="filePath"></param>
+        private static void CheckReloadTemplate(string filePath)
+        {
+            if (filePath.IndexOf("/template/") == -1) return;
+            if (filePath.EndsWith(".html") || filePath.EndsWith(".part.html"))
+            {
+                Cms.Template.Reload();
             }
         }
 
