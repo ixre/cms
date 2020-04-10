@@ -61,8 +61,8 @@ namespace JR.Stand.Core.Template.Impl
         private void CompileTemplateMethod(ref string html)
         {
             //返回结果
-            const string methodPattern = "\\@([A-Za-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)\\s*([\\S\\s]+)@each\\s*off";
-            //@each(id){ $nav() }
+            const string methodPattern = "\\#begin\\s([A-Za-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)\\s*([\\S\\s]+)#end";
+            //#begin each(id){ ${id} } #end
             const string paramPattern = "\\s*'([^']*)',*|\\s*(?!=')([^,]+),*";
 
             Regex methodRegex = new Regex(methodPattern); //方法正则

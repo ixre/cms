@@ -50,7 +50,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected CmsTemplateCore(ICompatibleHttpContext context)
         {
             this._context = context;
-            
+
             _ctx = Cms.Context;
             _site = _ctx.CurrentSite;
             SiteId = _site.SiteId;
@@ -137,7 +137,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
             {
                 return FormatPageUrl(UrlRulePageKeys.Archive, new[] {archivePath});
             }
-            return FormatPageUrl(UrlRulePageKeys.SinglePage,new[]{ archivePath});
+
+            return FormatPageUrl(UrlRulePageKeys.SinglePage, new[] {archivePath});
         }
 
         private string GetLocationUrl(string location)
@@ -159,9 +160,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
         {
             if (!string.IsNullOrEmpty(category.Location)) return ConcatUrl(category.Location);
             if (pageIndex < 2)
-                return FormatPageUrl(UrlRulePageKeys.Category, new[]{category.Path});
+                return FormatPageUrl(UrlRulePageKeys.Category, new[] {category.Path});
             else
-                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new[]{category.Path, pageIndex.ToString()});
+                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new[] {category.Path, pageIndex.ToString()});
         }
 
         #region 分页
@@ -356,7 +357,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         #region 模板方法
 
         [TemplateMethod]
-        protected string EachCategory(string param, string dataNum, string refTag, string refName, string refUri,
+        protected string Each_Category(string param, string dataNum, string refTag, string refName, string refUri,
             string format)
         {
             //
@@ -401,47 +402,44 @@ namespace JR.Cms.Web.Portal.Template.Rule
             {
                 return string.Empty;
             }
-            else
+
+            IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.SortNumber));
+            var sb = new StringBuilder(400);
+            var i = 0;
+            var total = categories.Count;
+            foreach (var c in categories)
             {
-                IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.SortNumber));
-                var sb = new StringBuilder(400);
-                var i = 0;
-                var total = categories.Count;
-
-                foreach (var c in categories)
+                if (num != 0 && ++i >= num) break;
+                if (c.SiteId == SiteId)
                 {
-                    if (num != 0 && ++i >= num) break;
-
-                    if (c.SiteId == SiteId)
-                        sb.Append(TplEngine.FieldTemplate(format, field =>
+                    sb.Append(TplEngine.ResolveFields(format, field =>
+                    {
+                        switch (field)
                         {
-                            switch (field)
-                            {
-                                default:
-                                    if (field == refName) return c.Name;
-                                    if (field == refTag) return c.Path;
-                                    if (field == refUri) return GetCategoryUrl(c, 1);
-                                    return "{" + field + "}";
-
-                                case "description": return c.Description;
-                                case "keywords": return c.Keywords;
-                                case "index": return i.ToString();
-                                case "class":
-                                    return GetCssClass(total, i, "c", c.Icon);
-                            }
-                        }));
+                            default:
+                                if (field == refName) return c.Name;
+                                if (field == refTag) return c.Path;
+                                if (field == refUri) return GetCategoryUrl(c, 1);
+                                return "${" + field + "}";
+                            case "description": return c.Description;
+                            case "keywords": return c.Keywords;
+                            case "index": return i.ToString();
+                            case "class":
+                                return GetCssClass(total, i, "c", c.Icon);
+                        }
+                    }));
                 }
-
-                return sb.ToString();
             }
+
+            return sb.ToString();
         }
 
         [TemplateMethod]
-        protected string EachCategory(string dataNum, string refTag, string refName, string refUri, string format)
+        protected string Each_Category(string dataNum, string refTag, string refName, string refUri, string format)
         {
             if (this._context.TryGetItem<string>("category.path", out var id))
             {
-                if (!string.IsNullOrEmpty(id)) return EachCategory(id, dataNum, refTag, refName, refUri, format);
+                if (!string.IsNullOrEmpty(id)) return Each_Category(id, dataNum, refTag, refName, refUri, format);
             }
 
             return TplMessage("Error: 此标签不允许在当前页面中调用!");
@@ -454,7 +452,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var id = Cms.Context.Items["module.id"];
             if (id == null) return TplMessage("此标签不允许在当前页面中调用!");
 
-            return EachCategory(id.ToString(), dataNum, refTag, refName, refUri, format);
+            return Each_Category(id.ToString(), dataNum, refTag, refName, refUri, format);
         }
 
         #endregion
@@ -520,9 +518,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
         public string Lang(string key)
         {
             var lang = this._ctx.UserLanguage;
-            return Cms.Language.Gets(lang, key.Split('-'))?? "# missing lang:" + key;
+            return Cms.Language.Gets(lang, key.Split('-')) ?? "# missing lang:" + key;
         }
-        
+
         /// <summary>
         /// 语言标签
         /// </summary>
@@ -538,7 +536,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
             return "# missing lang:" + key;
         }
 
-        
 
         /// <summary>
         /// 重定向文档
@@ -689,7 +686,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             var sb = new StringBuilder();
 
-            var content = TplEngine.FieldTemplate(cmEditorTpl, a =>
+            var content = TplEngine.ResolveHolderFields(cmEditorTpl, a =>
             {
                 switch (a)
                 {
@@ -699,8 +696,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         return html;
                     case "img":
                         return FormatPageUrl(UrlRulePageKeys.Common,
-                            new[]{
-                            CmsVariables.DEFAULT_CONTROLLER_NAME + "/verifyimg?length=4&opt=1"});
+                            new[]
+                            {
+                                CmsVariables.DEFAULT_CONTROLLER_NAME + "/verifyimg?length=4&opt=1"
+                            });
 
                     case "nickname":
                         var member = UserState.Member.Current;
@@ -789,7 +788,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     }
                 }
 
-                sb.Append(TplEngine.FieldTemplate(format, field =>
+                sb.Append(TplEngine.ResolveHolderFields(format, field =>
                 {
                     switch (field)
                     {
@@ -909,7 +908,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 .Append("if(jr.validator.validate('cms_form_").Append(tableId)
                 .Append("')){cfs.innerHTML='提交中...';jr.xhr.post('")
                 .Append(FormatPageUrl(UrlRulePageKeys.Common,
-                    new[]{CmsVariables.DEFAULT_CONTROLLER_NAME + "/submitform?tableid="}))
+                    new[] {CmsVariables.DEFAULT_CONTROLLER_NAME + "/submitform?tableid="}))
                 .Append(tableId).Append("&token=").Append(token).Append("',jr.json.toObject('cms_form_")
                 .Append(tableId).Append(
                     "'),function(r){var result;eval('result='+r);cfs.innerHTML=result.tag==-1?'<span style=\"color:red\">'+result.message+'</span>':result.message;},function(){cfs.innerHTML='<span style=\"color:red\">提交失败，请重试!</span>';});")
@@ -959,7 +958,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             var format = GetSetting().CFG_TrafficFormat;
 
-            var result = TplEngine.FieldTemplate(format, key =>
+            var result = TplEngine.ResolveHolderFields(format, key =>
             {
                 switch (key)
                 {
@@ -1024,7 +1023,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                     sb2.Append("<li class=\"" + clsName + "\">");
                     //解析格式
-                    tempLinkStr = TplEngine.FieldTemplate(child ? childFormat : format, a =>
+                    tempLinkStr = TplEngine.ResolveHolderFields(child ? childFormat : format, a =>
                     {
                         switch (a)
                         {
@@ -1199,7 +1198,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             foreach (var c in categories.OrderBy(a => a.SortNumber))
             {
                 if (c.SiteId == _site.SiteId)
-                    sb.Append(TplEngine.FieldTemplate(format, field =>
+                    sb.Append(TplEngine.ResolveHolderFields(format, field =>
                     {
                         switch (field)
                         {
@@ -1272,7 +1271,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             //读取自定义扩展数据字段
             IDictionary<string, string> extendFields = null;
 
-            sb.Append(TplEngine.FieldTemplate(format,
+            sb.Append(TplEngine.ResolveHolderFields(format,
                 field =>
                 {
                     switch (field)
@@ -1515,7 +1514,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 }
 
                 var createTime = TimeUtils.UnixTime(Convert.ToInt32(dr["create_time"]), TimeZone.CurrentTimeZone);
-                sb.Append(TplEngine.FieldTemplate(format,
+                sb.Append(TplEngine.ResolveHolderFields(format,
                     field =>
                     {
                         switch (field)
@@ -1523,7 +1522,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "title":
                                 return !FlagAnd(Convert.ToInt32(dr["flag"]), BuiltInArchiveFlags.IsSpecial)
                                     ? dr["title"].ToString()
-                                    : "<span class=\"special\">" + dr["title"].ToString() + "</span>";
+                                    : "<span class=\"special\">" + dr["title"] + "</span>";
                             case "raw_title": return dr["title"].ToString();
                             case "small_title": return (dr["small_title"] ?? "").ToString();
                             case "author_id": return dr["author_id"].ToString();
@@ -1568,7 +1567,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                             //链接
                             case "url":
-                                return GetArchiveUrl(dr["location"].ToString(), Convert.ToInt32(dr["flag"]),archivePath);
+                                return GetArchiveUrl(dr["location"].ToString(), Convert.ToInt32(dr["flag"]),
+                                    archivePath);
 
                             //内容
                             case "content": return dr["content"].ToString();
@@ -1845,7 +1845,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 #endregion
 
 
-                sb.Append(TplEngine.FieldTemplate(format,
+                sb.Append(TplEngine.ResolveHolderFields(format,
                     field =>
                     {
                         switch (field)
@@ -1960,10 +1960,16 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     intPageIndex,
                     pages,
                     total,
-                    FormatPageUrl(UrlRulePageKeys.Search, new[]{HttpUtil.UrlEncode(keyword),
-                        categoryTagOrModuleId ?? ""}),
-                    FormatPageUrl(UrlRulePageKeys.SearchPager, new[]{HttpUtil.UrlEncode(keyword),
-                        categoryTagOrModuleId ?? "", "{0}"})
+                    FormatPageUrl(UrlRulePageKeys.Search, new[]
+                    {
+                        HttpUtil.UrlEncode(keyword),
+                        categoryTagOrModuleId ?? ""
+                    }),
+                    FormatPageUrl(UrlRulePageKeys.SearchPager, new[]
+                    {
+                        HttpUtil.UrlEncode(keyword),
+                        categoryTagOrModuleId ?? "", "{0}"
+                    })
                 );
             }
 
@@ -2012,7 +2018,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                  * *********************/
                 isLast = i == links.Count - 1;
 
-                sb.Append(TplEngine.FieldTemplate(format, field =>
+                sb.Append(TplEngine.ResolveHolderFields(format, field =>
                 {
                     switch (field)
                     {
@@ -2059,7 +2065,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             foreach (var tag in tagArr)
             {
-                sb.Append(TplEngine.FieldTemplate(format, a =>
+                sb.Append(TplEngine.ResolveHolderFields(format, a =>
                 {
                     switch (a)
                     {
@@ -2074,10 +2080,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                         //搜索页URL
                         case "searchurl":
-                            return FormatPageUrl(UrlRulePageKeys.Search, new[]{HttpUtil.UrlEncode(tag), string.Empty});
+                            return FormatPageUrl(UrlRulePageKeys.Search, new[] {HttpUtil.UrlEncode(tag), string.Empty});
 
                         //Tag页URL
-                        case "url": return FormatPageUrl(UrlRulePageKeys.Tag, new[]{HttpUtil.UrlEncode(tag)});
+                        case "url": return FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtil.UrlEncode(tag)});
                     }
 
                     return tag;
@@ -2193,7 +2199,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
                 var archivesCount = searchArchives.Count();
-                sb.Append(TplEngine.FieldTemplate(format,
+                sb.Append(TplEngine.ResolveHolderFields(format,
                     field =>
                     {
                         switch (field)
@@ -2273,8 +2279,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     _pageIndex,
                     _pages,
                     _records,
-                    FormatPageUrl(UrlRulePageKeys.Tag, new[]{HttpUtil.UrlEncode(tag)}),
-                    FormatPageUrl(UrlRulePageKeys.TagPager, new[]{HttpUtil.UrlEncode(tag), "{0}"})
+                    FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtil.UrlEncode(tag)}),
+                    FormatPageUrl(UrlRulePageKeys.TagPager, new[] {HttpUtil.UrlEncode(tag), "{0}"})
                 );
             //sb.Append("</div>");
 
