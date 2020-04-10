@@ -8,13 +8,16 @@ th,thead,tr,tt,ul,var{margin:0;padding:0;border:0;outline:0;
     font-weight:inherit;font-style:normal;font-family:inherit;
     text-decoration:none;-webkit-text-size-adjust:none;
     -ms-interpolation-mode:bicubic;}
-strong{font-weight:700}
+strong{font-weight:600}
+
 html{font-size:62.5%;}
-@media only screen and (min-width:361px){html{font-size:70.31%!important}}
-@media only screen and (min-width:376px){html{font-size:73.24%!important;}}
-@media only screen and (min-width: 481px) {html {font-size: 94% !important; /* 15.04÷16=94% */ }}
-@media only screen and (min-width: 561px) {html {font-size: 109% !important; /* 17.44÷16=109% */ }}
-@media only screen and (min-width: 641px) {html {font-size: 125% !important; /* 20÷16=125% */}}
+@media only screen and (max-width: 958px) {
+    @media only screen and (min-width:361px){html{font-size:70.31%!important}}
+    @media only screen and (min-width:376px){html{font-size:73.24%!important;}}
+    @media only screen and (min-width: 481px) {html {font-size: 94% !important; /* 15.04÷16=94% */ }}
+    @media only screen and (min-width: 561px) {html {font-size: 109% !important; /* 17.44÷16=109% */ }}
+    @media only screen and (min-width: 641px) {html {font-size: 125% !important; /* 20÷16=125% */}}
+}
 body,html{height:100%;height:100%;}:focus{outline:0}
 ol,ul{list-style:none}textarea{resize:none}
 table{border-collapse:collapse;border-spacing:0;empty-cells:show}
