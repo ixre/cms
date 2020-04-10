@@ -1,11 +1,8 @@
-using System.Web.Mvc;
 using System.Web.Routing;
 using JR.Cms.Conf;
-using JR.Cms.Library.CacheProvider;
+using JR.Cms.Web.Resource;
 using JR.Cms.WebImpl.Mvc;
 using JR.Stand.Core.AspNet;
-using JR.Stand.Core.Web;
-using JR.Stand.Core.Web.Cache;
 
 namespace JR.Cms.AspNet
 {

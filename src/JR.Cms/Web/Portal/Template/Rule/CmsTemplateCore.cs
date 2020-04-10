@@ -517,12 +517,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <param name="key"></param>
         /// <returns></returns>
         [TemplateTag]
-        [XmlObjectProperty("获取字典数据", @"")]
+        [XmlObjectProperty("获取语言文本,连词用\"-\"", @"")]
         public string Lang(string key)
         {
-            var sep = new[] {' ', '-', '|'};
             var lang = this._ctx.UserLanguage;
-            return Cms.Language.Gets(lang, key.Split(sep))?? "# missing lang:" + key;
+            return Cms.Language.Gets(lang, key.Split('-'))?? "# missing lang:" + key;
         }
         
         /// <summary>

@@ -1,8 +1,7 @@
-using System;
 using System.Web;
 using System.Web.Routing;
 using System.Web.SessionState;
-using JR.Cms.ServiceDto;
+using JR.Cms.Web.Portal.Comm;
 using JR.Stand.Core.Web;
 
 namespace JR.Cms.WebImpl.Mvc

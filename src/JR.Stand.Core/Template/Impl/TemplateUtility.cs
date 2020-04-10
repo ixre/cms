@@ -244,9 +244,9 @@ namespace JR.Stand.Core.Template.Impl
 
             sb.Append(@"<tr><td colspan=""6"" align=""center"" style=""background:#f0f0f0;color:#333"">
 						部分视图扩展名为“.phtml”,可允许格式如:
-						&nbsp;&nbsp;A:${partial:""inc/header.part.html""}
-						&nbsp;&nbsp;B:${partial:""/tmpdir/inc/header.part.html""}
-						&nbsp;&nbsp;C:${partial:""../../inc/header.part.html""}
+						&nbsp;&nbsp;A:${include:""inc/header.part.html""}
+						&nbsp;&nbsp;B:${include:""/tmpdir/inc/header.part.html""}
+						&nbsp;&nbsp;C:${include:""../../inc/header.part.html""}
 						</td></tr>");
 
             sb.Append(

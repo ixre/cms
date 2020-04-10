@@ -118,7 +118,7 @@
         <div style="padding:2em">
             <b>名称：</b>&nbsp;&nbsp;
             <input type="text" class="ui-box" name="filename" id="tb_fileName" />
-            <span class="ui-button w100 middle-button" onclick="ctobj.newFile('tb_fileName',{isDir})">
+            <span class="ui-button w100 middle-button" onclick="window.ctobj.newFile('tb_fileName',{isDir})">
                 <span class="button-inner">
                     <span class="button-txt">创建</span>
                     <a href="javascript:;"></a>
@@ -169,7 +169,7 @@ $js()
 
 
     function showCreateDialog(isDir) {
-        var dg = jr.dialog.create({ title: '新建文件' + (isDir ? '夹' : ''),cross:false});
+        var dg = jr.dialog.create2('新建文件' + (isDir ? '夹' : ''),true,false);
         var htm = jr.template(createTpl, { isDir: (isDir ? 'true' : 'false') });
         dg.write(htm);
     }
@@ -265,7 +265,7 @@ $js()
 
             case 'dll': return '二进制代码文件';
             case 'html': return 'HTML文件';
-            case 'phtml': return '部分视图文件';
+            case 'part.html': return '部分视图文件';
             }
             return ext.toUpperCase() + '文件';
         },
