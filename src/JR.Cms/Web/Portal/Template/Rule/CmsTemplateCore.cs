@@ -130,13 +130,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <param name="category"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual string GetArchiveUrl(string location, int flag, CategoryDto category, string id)
+        protected string GetArchiveUrl(string location, int flag, string archivePath)
         {
             if (!string.IsNullOrEmpty(location)) return ConcatUrl(location);
             if (!FlagAnd(flag, BuiltInArchiveFlags.AsPage))
-                return FormatPageUrl(UrlRulePageKeys.Archive,new[]{ category.Path, id});
-
-            return FormatPageUrl(UrlRulePageKeys.SinglePage,new[]{ id});
+            {
+                return FormatPageUrl(UrlRulePageKeys.Archive, new[] {archivePath});
+            }
+            return FormatPageUrl(UrlRulePageKeys.SinglePage,new[]{ archivePath});
         }
 
         private string GetLocationUrl(string location)
@@ -283,20 +284,18 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 }
                 else if (binds[0] == "archive")
                 {
-                    int archiveId;
-                    int.TryParse(binds[1], out archiveId);
+                    int.TryParse(binds[1], out var archiveId);
 
                     var archiveDto = ServiceCall.Instance.ArchiveService
                         .GetArchiveById(SiteId, archiveId);
 
                     if (archiveDto.Id > 0)
+                    {
                         return GetArchiveUrl(
                             archiveDto.Location,
                             archiveDto.Flag,
-                            archiveDto.Category,
-                            string.IsNullOrEmpty(archiveDto.Alias)
-                                ? archiveDto.StrId
-                                : archiveDto.Alias);
+                            archiveDto.Path);
+                    }
                 }
             }
 
@@ -1291,7 +1290,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         //
                         //TODO:Archive应持有一个author
                         //
-                        //case "authorname": return ArchiveUtility.GetAuthorName(dr["author"].ToString());
+                        //case "author_name": return ArchiveUtility.GetAuthorName(dr["author"].ToString());
                         case "source": return archiveDto.Source == "" ? "原创" : archiveDto.Source;
                         case "outline":
                             return ArchiveUtility.GetOutline(
@@ -1303,15 +1302,15 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                         //时间
                         case "edit_time":
-                        case "modify_time": return string.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.UpdateTime);
+                        case "modify_time": return $"{archiveDto.UpdateTime:yyyy-MM-dd HH:mm}";
                         case "edit_date":
-                        case "modify_date": return string.Format("{0:yyyy-MM-dd}", archiveDto.UpdateTime);
+                        case "modify_date": return $"{archiveDto.UpdateTime:yyyy-MM-dd}";
                         case "publish_short_date":
-                        case "publish_day": return string.Format("{0:MM-dd}", archiveDto.CreateTime);
+                        case "publish_day": return $"{archiveDto.CreateTime:MM-dd}";
                         case "publish_time":
-                        case "create_time": return string.Format("{0:yyyy-MM-dd HH:mm}", archiveDto.CreateTime);
+                        case "create_time": return $"{archiveDto.CreateTime:yyyy-MM-dd HH:mm}";
                         case "publish_date":
-                        case "create_date": return string.Format("{0:yyyy-MM-dd}", archiveDto.CreateTime);
+                        case "create_date": return $"{archiveDto.CreateTime:yyyy-MM-dd}";
 
                         //栏目
                         // case "categoryid":
@@ -1326,7 +1325,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         //
                         //链接
                         case "url":
-                            return GetArchiveUrl(archiveDto.Location, archiveDto.Flag, archiveDto.Category, id);
+                            return GetArchiveUrl(archiveDto.Location, archiveDto.Flag, archiveDto.Path);
 
                         //内容
                         case "content": return archiveDto.Content;
@@ -1462,22 +1461,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected string Paging_Archives(string categoryPath, string pageIndex, string pageSize, int skipSize,
             int splitSize, string format)
         {
-            int _pageIndex,
-                _pageSize,
-                _records,
-                _pages;
-
-            int archiveId;
-            int categoryId;
-
-
             var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryPath);
             if (!(category.ID > 0)) return TplMessage("Error:栏目不存在!");
 
             var listContainer = format.EndsWith("</li>");
 
-            int.TryParse(pageIndex, out _pageIndex);
-            int.TryParse(pageSize, out _pageSize);
+            int.TryParse(pageIndex, out var _pageIndex);
+            int.TryParse(pageSize, out var _pageSize);
 
             /**** 显示列表 ****/
             var sb = new StringBuilder(1000);
@@ -1498,8 +1488,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 _pageSize,
                 skipSize,
                 ref _pageIndex,
-                out _records,
-                out _pages,
+                out var _records,
+                out var _pages,
                 out extendValues).Rows;
 
             totalNum = drs.Count;
@@ -1510,13 +1500,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 ++archiveIndex;
 
                 //获取栏目，如果栏目关联不起来则调到下一次
-                categoryId = int.Parse(dr["cat_id"].ToString());
-                archiveId = int.Parse(dr["id"].ToString());
-                var o = string.IsNullOrEmpty((dr["alias"] ?? "").ToString()) ? dr["str_id"] : dr["alias"];
-                if (o != null)
-                    id = o.ToString(); //用于链接的ID标识
-                else
+                var categoryId = int.Parse(dr["cat_id"].ToString());
+                var archiveId = int.Parse(dr["id"].ToString());
+                var archivePath = dr["path"].ToString();
+                if (string.IsNullOrEmpty(archivePath))
+                {
                     continue;
+                }
 
                 if (categoryId != archiveCategory.ID)
                 {
@@ -1550,7 +1540,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                     string.IsNullOrEmpty((dr["outline"] ?? "").ToString())
                                         ? dr["content"].ToString()
                                         : dr["outline"].ToString(), GetSetting().CfgOutlineLength);
-                            case "intid": return dr["id"].ToString();
+                            case "int_id": return dr["id"].ToString();
                             case "id": return id;
                             case "alias": return dr["alias"].ToString();
                             case "tags": return dr["tags"].ToString();
@@ -1578,8 +1568,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                             //链接
                             case "url":
-                                return GetArchiveUrl(dr["location"].ToString(), Convert.ToInt32(dr["flag"]),
-                                    archiveCategory, id);
+                                return GetArchiveUrl(dr["location"].ToString(), Convert.ToInt32(dr["flag"]),archivePath);
 
                             //内容
                             case "content": return dr["content"].ToString();
@@ -1887,7 +1876,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "category_url": return GetCategoryUrl(category, 1);
                             //链接
                             case "url":
-                                return GetArchiveUrl(archive.Location, archive.Flag, category, alias);
+                                return GetArchiveUrl(archive.Location, archive.Flag, archive.Path);
 
                             //内容
                             case "content": return archive.Content;
@@ -2239,7 +2228,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "category_url": return GetCategoryUrl(category, 1);
                             //链接
                             case "url":
-                                return GetArchiveUrl(archive.Location, archive.Flag, category, alias);
+                                return GetArchiveUrl(archive.Location, archive.Flag, archive.Path);
 
                             //内容
                             case "content": return archive.Content;

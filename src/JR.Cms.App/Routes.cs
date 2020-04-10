@@ -67,28 +67,22 @@ namespace JR.Cms.App
             var urlPrefix = String.Empty;
             var routePrefix = String.Empty;
 
-            //Cms 控制器名称,如果继承默认的Handler,则使用默认的Handler
-            var cmsControllerName =
-                Regex.Replace(portalType.Name, "controller$", String.Empty, RegexOptions.IgnoreCase);
-
             //MVC路由规则词典
-            IDictionary<UrlRulePageKeys, string[]> dict = new Dictionary<UrlRulePageKeys, string[]>();
+            IDictionary<UrlRulePageKeys, string> dict = new Dictionary<UrlRulePageKeys, string>();
 
-            dict.Add(UrlRulePageKeys.Common, new[] {"cms_common", routePrefix + "{0}", urlPrefix + "{0}"});
+            dict.Add(UrlRulePageKeys.Common, urlPrefix + "{0}");
 
-            dict.Add(UrlRulePageKeys.Search,
-                new[] {"cms_search", routePrefix + "search", urlPrefix + "search?w={0}&c={1}"});
-            dict.Add(UrlRulePageKeys.SearchPager, new[] {null, null, urlPrefix + "search?w={0}&c={1}&p={2}"});
+            dict.Add(UrlRulePageKeys.Search,urlPrefix + "search?w={0}&c={1}");
+            dict.Add(UrlRulePageKeys.SearchPager,  urlPrefix + "search?w={0}&c={1}&p={2}");
 
-            dict.Add(UrlRulePageKeys.Tag, new[] {"cms_tag", routePrefix + "tag", urlPrefix + "tag?t={0}"});
-            dict.Add(UrlRulePageKeys.TagPager, new[] {null, null, urlPrefix + "tag?t={0}&p={1}"});
+            dict.Add(UrlRulePageKeys.Tag,  urlPrefix + "tag?t={0}");
+            dict.Add(UrlRulePageKeys.TagPager, urlPrefix + "tag?t={0}&p={1}");
 
-            dict.Add(UrlRulePageKeys.Category, new[] {"cms_category", routePrefix + "{*all_cate}", urlPrefix + "{0}/"});
-            dict.Add(UrlRulePageKeys.CategoryPager, new[] {null, null, urlPrefix + "{0}/list_{1}.html"});
+            dict.Add(UrlRulePageKeys.Category, urlPrefix + "{0}/");
+            dict.Add(UrlRulePageKeys.CategoryPager, urlPrefix + "{0}/list_{1}.html");
 
-            dict.Add(UrlRulePageKeys.Archive,
-                new[] {"cms_archive", routePrefix + "{*all_html}", urlPrefix + "{0}/{1}.html"});
-            dict.Add(UrlRulePageKeys.SinglePage, new[] {null, null, urlPrefix + "{0}.html"});
+            dict.Add(UrlRulePageKeys.Archive,urlPrefix + "{0}.html");
+            dict.Add(UrlRulePageKeys.SinglePage, urlPrefix + "{0}.html");
 
             //注册插件路由
             //Cms.Plugins.Extends.MapRoutes(routes);
@@ -158,9 +152,9 @@ namespace JR.Cms.App
 
 
             IDictionary<UrlRulePageKeys, string> urlDict = new Dictionary<UrlRulePageKeys, string>();
-            foreach (KeyValuePair<UrlRulePageKeys, string[]> p in dict)
+            foreach (KeyValuePair<UrlRulePageKeys, string> p in dict)
             {
-                urlDict.Add(p.Key, p.Value[2]);
+                urlDict.Add(p.Key, p.Value);
             }
 
             //设置地址
