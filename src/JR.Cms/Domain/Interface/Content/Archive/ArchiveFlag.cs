@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 OPS,All rights reseved!
+ * Copyright 2012 OPS,All rights reserved!
  * name     : ArchiveFlag
  * author_id   : newmin
  * date     : 2012/12/22

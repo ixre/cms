@@ -1,5 +1,5 @@
 //
-//  Copyright 2011 @ S1N1.COM.all rights reseved.
+//  Copyright 2011 @ S1N1.COM.all rights reserved.
 //
 //  Project : Untitled
 //  File Name : DataPack.cs

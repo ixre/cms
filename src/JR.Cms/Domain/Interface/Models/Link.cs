@@ -1,6 +1,6 @@
 ﻿//
 // Link  链接模型
-// Copryright 2011 @ OPS Inc,All rights reseved !
+// Copryright 2011 @ OPS Inc,All rights reserved !
 // Create by newmin @ 2011/04/07
 //
 

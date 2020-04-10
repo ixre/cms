@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ TO2.NET,All right reseved.
+// Copyright 2011 @ TO2.NET,All right reserved.
 // Name: RSSUtility.cs
 // author_id: newmin
 // Comments:

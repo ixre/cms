@@ -1,6 +1,6 @@
 //
 //
-//  Copyright 2011 (C) TO2.NET.All rights reseved.
+//  Copyright 2011 (C) TO2.NET.All rights reserved.
 //
 //  @ Project : OSite
 //  @ File Name : IUserDAL.cs

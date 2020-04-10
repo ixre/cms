@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 OPS,All rights reseved !
+ * Copyright 2010 OPS,All rights reserved !
  * name     : 泛型扩展
  * author   : newmin
  * date     : 2010/11/08 07:31

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 OPS,All rights reseved!
+ * Copyright 2010 OPS,All rights reserved!
  * 
  * name     : ModuleType enum
  * author_id   : newmin

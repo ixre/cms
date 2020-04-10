@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2011 S1N1.COM,All right reseved.
+// Copyright (C) 2011 S1N1.COM,All right reserved.
 // Name:EventLog.cs
 // Author:newmin
 // Create:2011/06/13

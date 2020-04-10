@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 S1N1.COM,All rights reseved.
+// Copyright (C) 2007-2008 S1N1.COM,All rights reserved.
 // 
 // Project: OPS.Web.JSON
 // FileName : JsonDictionaryFile.cs

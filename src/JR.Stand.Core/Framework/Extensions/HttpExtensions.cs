@@ -1,5 +1,5 @@
 ﻿//
-// Copryright (C) OPS.CC 2008-2011 ,All right reseved.
+// Copryright (C) OPS.CC 2008-2011 ,All right reserved.
 // Name:HttpExtensions.cs
 // Author: Newmin
 //

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2013 TO2.NET,All rights reseved.
+// Copyright (C) 2007-2013 TO2.NET,All rights reserved.
 // 
 // Project: Cms.Core
 // FileName : Settings.cs

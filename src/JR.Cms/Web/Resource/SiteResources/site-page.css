@@ -104,9 +104,10 @@ footer,.mod-footer{width:auto;}
 .panel-archive div.relation{}
 
 /* DropDown */
-.drop{position: relative;}
-.drop div.menu{position:absolute;top:0px;left:0px;z-index:100;display:none;}
-.drop:hover div.menu,.hover div.menu{display:block;}
+.gra-dropdown{position:relative;}
+.gra-dropdown>div{position:absolute;left:0;z-index:9999;height:0px;overflow:hidden;transition:all .1s;}
+.gra-dropdown:hover>div{height:auto;transition:all .3s;}
+
 /* AUTO FIT */
 .auto-fit{position:relative;padding-top:60px;text-align:center;}
 .auto-fit img{max-width:100%;max-height:100%;position: absolute;left:0;top:0;right:0;bottom:0;margin:auto;}

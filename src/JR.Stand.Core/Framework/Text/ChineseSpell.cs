@@ -1,6 +1,6 @@
 ﻿//
 // ChineseSpell - A Chinese pinyin library
-// Copyright (C) 2011 S1N1.COM,All rights reseved.
+// Copyright (C) 2011 S1N1.COM,All rights reserved.
 //
 // Principle:http://tonyqus.cnblogs.com/archive/2005/10/22/260000.html
 //

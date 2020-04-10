@@ -1,6 +1,6 @@
 ﻿/*
  * 文件上传
- * Copyright 2012 OPS,All right reseved!
+ * Copyright 2012 OPS,All right reserved!
  * Newmin(ops.cc)  @  2012-09-29 07:09
  * 
  */

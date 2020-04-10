@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2011 OPS,All rights reseved.
+// Copyright (C) 2011 OPS,All rights reserved.
 // PageGeneratorObject.cs
 // Author: newmin
 // Date  : 2011/07/29
