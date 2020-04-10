@@ -732,7 +732,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                 foreach (Category c in categories)
                 {
-                    sb.Append(tplengine.FieldTemplate(format, field =>
+                    sb.Append(tplengine.ResolveHolderFields(format, field =>
                     {
                         switch (field)
                         {
@@ -1350,7 +1350,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             foreach (var c in categories.OrderBy(a => a.Get().SortNumber))
             {
-                sb.Append(TplEngine.FieldTemplate(format, field =>
+                sb.Append(TplEngine.ResolveHolderFields(format, field =>
                 {
                     switch (field)
                     {

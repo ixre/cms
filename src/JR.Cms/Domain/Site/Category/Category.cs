@@ -118,6 +118,7 @@ namespace JR.Cms.Domain.Site.Category
                 if (pathRenew)
                 {
                     foreach (var ic in NextLevelChilds)ic.ForceUpdatePath();
+                    // 替换文档路径
                     _repo.ReplaceArchivePath(value.SiteId, _oldPath, value.Path);
                 }
 
@@ -460,8 +461,12 @@ namespace JR.Cms.Domain.Site.Category
             UpdateCategoryPath();
             var err = Save();
             if (err == null)
+            {
                 foreach (var ic in NextLevelChilds)
+                {
                     ic.ForceUpdatePath();
+                }
+            }
         }
     }
 }

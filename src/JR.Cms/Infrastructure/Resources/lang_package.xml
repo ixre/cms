@@ -85,5 +85,7 @@
   <item key="job" zh_CN="工作" zh_TW="工作" en_US="Job" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="chance" zh_CN="机会" zh_TW="机会" en_US="Chance" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="location" zh_CN="位置" zh_TW="位置" en_US="Location" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="same" zh_CN="相同" zh_TW="相同" en_US="Same" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="similar" zh_CN="相似" zh_TW="相似" en_US="Similar" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="after sales" zh_CN="售后" zh_TW="售后" en_US="After sales" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
 </lang>

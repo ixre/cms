@@ -20,20 +20,17 @@ namespace JR.Cms.ServiceImpl
     public class ArchiveService : IArchiveServiceContract
     {
         private readonly IContentRepository _contentRep;
-        private readonly ISiteRepo _siteRep;
         private readonly ArchiveQuery _archiveQuery = new ArchiveQuery();
         private readonly IExtendFieldRepository _extendRep;
         private readonly ICategoryRepo _catRepo;
 
         public ArchiveService(
             IContentRepository contentRep,
-            ISiteRepo siteRep,
             ICategoryRepo catRepo,
             IExtendFieldRepository extendRep
         )
         {
             _contentRep = contentRep;
-            _siteRep = siteRep;
             _extendRep = extendRep;
             _catRepo = catRepo;
         }
@@ -83,8 +80,7 @@ namespace JR.Cms.ServiceImpl
             var r = new Result();
             if (err == null)
             {
-                r.Data = new Dictionary<string, string>();
-                r.Data.Add("ArchiveId", ia.GetAggregaterootId().ToString());
+                r.Data = new Dictionary<string, string> {{"ArchiveId", ia.GetAggregaterootId().ToString()}};
             }
             else
             {
@@ -116,13 +112,10 @@ namespace JR.Cms.ServiceImpl
         private IEnumerable<ArchiveDto> GetArchiveEnumertor(IEnumerable<IArchive> archives)
         {
             IDictionary<int, CategoryDto> categories = new Dictionary<int, CategoryDto>();
-            ArchiveDto archive;
-            CategoryDto cateDto;
-            int categoryId;
             foreach (var ia in archives)
             {
                 var av = ia.Get();
-                archive = new ArchiveDto
+                var archive = new ArchiveDto
                 {
                     StrId = av.StrId,
                     Id = ia.GetAggregaterootId(),
@@ -148,7 +141,8 @@ namespace JR.Cms.ServiceImpl
                 //archive = new ArchiveDto().CloneData(ia);
                 //archive.ID = ia.ID;
 
-                if (!categories.TryGetValue(categoryId = ia.Category.GetDomainId(), out cateDto))
+                int categoryId;
+                if (!categories.TryGetValue(categoryId = ia.Category.GetDomainId(), out var cateDto))
                 {
                     cateDto = CategoryDto.ConvertFrom(ia.Category);
                     categories.Add(categoryId, cateDto);
@@ -222,7 +216,7 @@ namespace JR.Cms.ServiceImpl
             if (includeChild)
                 catIdArray = GetCatArrayByPath(ic);
             else
-                catIdArray = new int[] {categoryId ?? 0};
+                catIdArray = new[] {categoryId ?? 0};
 
             return _archiveQuery.GetPagedArchives(siteId, catIdArray, publisherId,
                 includeChild, flag, keyword, orderByField, orderAsc, pageSize, currentPageIndex,
@@ -369,6 +363,16 @@ namespace JR.Cms.ServiceImpl
         {
             var content = _contentRep.GetContent(siteId);
             foreach (var id in idArray) content.DeleteArchive(id);
+        }
+
+        public Error UpdateArchivePath( int siteId,  int archiveId)
+        {
+            var content = _contentRep.GetContent(siteId);
+            var archive = content.GetArchiveById(archiveId);
+            if (archive == null) return new Error("no such archive");
+            var v = archive.Get();
+            v.Path = "";
+            return archive.Set(v) ?? archive.Save();
         }
     }
 }

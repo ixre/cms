@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using JR.Cms.Infrastructure;
 using JR.Cms.ServiceDto;
 
 
@@ -229,5 +230,13 @@ namespace JR.Cms.ServiceContract
         void MoveSortNumber(int siteId, int id, int direction);
 
         void BatchDelete(int siteId, int[] idArray);
+        
+        /// <summary>
+        /// 更新文档路径
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="archiveId"></param>
+        /// <returns></returns>
+        Error UpdateArchivePath( int siteId,  int archiveId);
     }
 }

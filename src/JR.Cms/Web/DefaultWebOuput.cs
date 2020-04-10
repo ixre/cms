@@ -173,10 +173,11 @@ namespace JR.Cms.Web
             else
             {
                 //校验栏目是否正确
-                var categoryPath = category.Path;
-                if (!archivePath.StartsWith(categoryPath + "/"))
+                if (!archivePath.StartsWith(category.Path + "/"))
                 {
-                    RenderNotFound(context);
+                    // 如果栏目和文档路径不匹配
+                    ServiceCall.Instance.ArchiveService.UpdateArchivePath(siteId,archive.Id);
+                    RenderError(context,new Exception("文档路径不匹配, 已自动纠正为正确地址, 请重新打开访问"),false);
                     return;
                 }
             }

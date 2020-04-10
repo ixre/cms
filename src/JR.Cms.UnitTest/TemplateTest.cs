@@ -64,7 +64,7 @@ namespace JR.Cms.UnitTest
 
             foreach (var c in categories.OrderBy(a => a.SortNumber))
             {
-                    sb.Append(TplEngine.FieldTemplate(format, field =>
+                    sb.Append(TplEngine.ResolveHolderFields(format, field =>
                     {
                         switch (field)
                         {

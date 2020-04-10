@@ -144,20 +144,25 @@ namespace JR.Stand.Core
         /// 数据列正则
         /// </summary>
         //private static Regex fieldRegex = new Regex("{([A-Za-z\\[\\]0-9_\u4e00-\u9fa5]+)}");
-        private static Regex fieldRegex = new Regex("{([A-Za-z\u4e00-\u9fa5]+[^}]+?)}");
-        //方法正则
-        private static Regex fnRegex = new Regex("\\$([A-Za-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)");
-        //参数正则
-        private static Regex paramRegex = new Regex("\\s*'([^']+)',*|\\s*(?!=')([^,]+),*");
+        
+        // 占位正则
+        private static readonly Regex HolderRegex = new Regex("{([A-Za-z\u4e00-\u9fa5]+[^}]+?)}");
+        // 字段正则
+        private static readonly Regex FieldRegex = new Regex("\\${([A-Za-z\u4e00-\u9fa5]+[^}]+?)}");
+
+        // 方法正则
+        private static readonly Regex FnRegex = new Regex("\\$([A-Za-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)");
+        // 参数正则
+        private static readonly Regex paramRegex = new Regex("\\s*'([^']+)',*|\\s*(?!=')([^,]+),*");
         /// <summary>
         /// 执行解析模板内容
         /// </summary>
         /// <param name="instance">包含标签方法的类的实例</param>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static string Execute(ITemplateClass instance, string html)
+        private static string Execute(ITemplateClass instance, string html)
         {
-            return fnRegex.Replace(html, m =>
+            return FnRegex.Replace(html, m =>
             {
                 // 方法名称
                 String fnName = m.Groups[1].Value;
@@ -174,21 +179,33 @@ namespace JR.Stand.Core
                 }
                 // 解析模板数据
                 var s = instance.Execute(fnName, paramArray);
-                return s == null ? m.Value : s;
+                return s ?? m.Value;
             });
         }
         
 
         /// <summary>
-        /// 替换列中的模板字符
+        /// 替换列中的模板占位字符
         /// </summary>
         /// <param name="format"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public string FieldTemplate(string format, Func<string, string> func)
+        public string ResolveHolderFields(string format, Func<string, string> func)
         {
-            return fieldRegex.Replace(format, a => { return func(a.Groups[1].Value); });
+            return HolderRegex.Replace(format, a => func(a.Groups[1].Value));
         }
+        
+        /// <summary>
+        /// 替换列中的模板数据
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public string ResolveFields(string format, Func<string, string> func)
+        {
+            return FieldRegex.Replace(format, a => func(a.Groups[1].Value));
+        }
+
 
         /// <summary>
         /// 执行解析模板内容
