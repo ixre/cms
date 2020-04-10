@@ -183,7 +183,7 @@ namespace JR.Cms.Web.Manager
 
                 //图像
                 case "file":
-                    return CallMethod(context, typeof(FileExploreHandler), action);
+                    return CallMethod(context, typeof(FileHandler), action);
 
                 //上传
                 case "upload":

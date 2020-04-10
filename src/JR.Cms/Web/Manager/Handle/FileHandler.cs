@@ -21,7 +21,7 @@ namespace JR.Cms.Web.Manager.Handle
     /// <summary>
     /// 
     /// </summary>
-    public class FileExploreHandler : BasePage
+    public class FileHandler : BasePage
     {
         /// <summary>
         /// 游客头像
@@ -40,7 +40,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var bytes = Convert.FromBase64String(base64Str);
             Response.Write(bytes, 0, bytes.Length);
-            Response.ContentType ("Image/Jpeg");
+            Response.ContentType("Image/Jpeg");
             Response.AppendHeader("Content-Disposition",
                 "attachment;filename=guest_avatar.jpg");
         }
@@ -58,7 +58,7 @@ namespace JR.Cms.Web.Manager.Handle
                 "R0lGODlhEAAQAPIAAP///wBg/8LY/kKJ/gBg/2Kc/oKw/pK6/iH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6ImKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA== ";
             var bytes = Convert.FromBase64String(loadingBase64String);
             Response.Write(bytes, 0, bytes.Length);
-            Response.ContentType ("Image/Gif");
+            Response.ContentType("Image/Gif");
             Response.AppendHeader("Content-Disposition",
                 "attachment;filename=loading.gif");
         }
@@ -73,24 +73,48 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void FileManager_POST()
         {
-            var result = string.Empty;
             string dir = Request.GetParameter("dir");
             string action = Request.GetParameter("act");
             string file = Request.GetParameter("file");
-            bool isDir = Request.GetParameter("is_dir") == "1";
+            bool isDir = Request.GetParameter("is_dir") == "1" || Request.GetParameter("is_dir") == "true";
             if (!dir.StartsWith(".")) dir = "./" + dir;
             if (action == "list")
-                result = FileJsonExplore.GetJson(dir);
-            else if (action == "del")
-                result = FileJsonExplore.Delete(dir, file, isDir) ? "1" : "0";
-            else if (action == "rename")
-                result = FileJsonExplore.Rename(dir, file, Request.Form("newfile"), isDir)
+            { 
+                Response.WriteAsync(FileJsonExplore.GetJson(dir));
+                return;
+            }
+
+            if (action == "del")
+            {
+                var result = FileJsonExplore.Delete(dir, file, isDir) ? "1" : "0";
+                Response.WriteAsync(result);
+                return;
+            }
+
+            if (action == "rename")
+            {
+                var result = FileJsonExplore.Rename(dir, file, Request.Form("newfile"), isDir)
                     ? "1"
                     : "0";
-            else if (action == "create")
-                result = FileJsonExplore.Create(dir, file, isDir);
-            else if (action == "upload") result = FileJsonExplore.Upload(dir,Request.FileIndex(0));
-            Response.WriteAsync(result);
+                Response.WriteAsync(result);
+                return;
+            }
+
+            if (action == "create")
+            {
+                var result = FileJsonExplore.Create(dir, file, isDir);
+                Response.WriteAsync(result);
+                return;
+            }
+
+            if (action == "upload")
+            {
+                var result = FileJsonExplore.Upload(dir, Request.FileIndex(0));
+                Response.WriteAsync(result);
+                return;
+            }
+
+            Response.WriteAsync("");
         }
 
         /// <summary>
