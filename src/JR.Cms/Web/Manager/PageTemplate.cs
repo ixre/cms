@@ -28,8 +28,8 @@ namespace JR.Cms.Web.Manager
             js = string.Format(
                 "<script type=\"text/javascript\" charset=\"utf-8\" src=\"/{0}mui/js/base.js?{1}\"></script>",
                 CmsVariables.FRAMEWORK_PATH, CmsVariables.VERSION);
-            css = "<link src=\"Stylesheet\" type=\"text/css\" href=\"public/assets/base.css\"/>"
-                  + "<link src=\"Stylesheet\" type=\"text/css\" href=\"public/assets/icon-font.css\"/>"
+            css = "<link rel=\"Stylesheet\" type=\"text/css\" href=\"public/assets/base.css\"/>"
+                  + "<link rel=\"Stylesheet\" type=\"text/css\" href=\"public/assets/icon-font.css\"/>"
                   + "<link rel=\"Stylesheet\" type=\"text/css\" href=\"?res=c3R5bGU=&amp;" + Cms.Version + ".css\"/>";
             iconTreeCss =
                 "<link rel=\"Stylesheet\" type=\"text/css\" href=\"public/mui/css/old/sys_themes/default/btn_spirites.css?v=" +
