@@ -871,9 +871,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 	        {
 		        if (this._context.TryGetItem<int>("page.index", out var pageIndex))
 		        {
-			        int intSplitSize;
-			        int.TryParse(splitSize, out intSplitSize);
-
+			        int.TryParse(splitSize, out var intSplitSize);
 			        return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, intSplitSize, format);		        }
 	        }
 	        return TplMessage("Error: 此标签不允许在当前页面中调用!");

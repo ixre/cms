@@ -12,8 +12,8 @@ namespace JR.Cms.Domain.Site.Category
 {
     public class Category : ICategory
     {
-        private ICategoryRepo _repo;
-        private IExtendFieldRepository _extendRep;
+        private readonly ICategoryRepo _repo;
+        private readonly IExtendFieldRepository _extendRep;
 
         private IList<IExtendField> _extendFields;
         private ICategory _parent;
@@ -22,15 +22,14 @@ namespace JR.Cms.Domain.Site.Category
         private ICategory _previous;
         private IEnumerable<ICategory> _nextLevelChilds;
         private IList<TemplateBind> _templates;
-        private CmsCategoryEntity value;
+        private readonly CmsCategoryEntity value;
         private ISite site;
-        private ISiteRepo siteRepo;
+        private readonly ISiteRepo siteRepo;
         private readonly ITemplateRepo _tempRep;
-        private bool _pathChanged = false;
+        private bool _pathChanged;
         private string _oldPath;
 
-        private string[] errTags = new string[]
-            {"public", "resouces", "config", "plugins", "bin", "data", "tmp", "install"};
+        private readonly string[] errTags = {"public", "uploads", "config", "plugins", "bin", "data", "tmp", "install"};
 
         internal Category(ICategoryRepo rep, ISiteRepo siteRepo,
             IExtendFieldRepository extendRep, ITemplateRepo tmpRep,
@@ -58,7 +57,7 @@ namespace JR.Cms.Domain.Site.Category
                 value.Icon = "";
                 value.Path = "";
                 value.Flag = 0; //todo: 初始化flag
-                var maxSortNumber = _repo.GetMaxSortNumber(value.SiteId);
+                var maxSortNumber = this._repo.GetMaxSortNumber(value.SiteId);
                 if (maxSortNumber == 0) maxSortNumber = 1;
                 value.SortNumber = maxSortNumber;
                 _pathChanged = true;
@@ -118,7 +117,7 @@ namespace JR.Cms.Domain.Site.Category
                 // 更新子栏目的Tag
                 if (pathRenew)
                 {
-                    foreach (var ic in NextLevelChilds) ic.ForceUpdatePath();
+                    foreach (var ic in NextLevelChilds)ic.ForceUpdatePath();
                     _repo.ReplaceArchivePath(value.SiteId, _oldPath, value.Path);
                 }
 
@@ -161,7 +160,9 @@ namespace JR.Cms.Domain.Site.Category
             var path = value.Tag;
             ICategory parent = this;
             while (parent != null && (parent = parent.Parent) != null)
+            {
                 path = string.Concat(parent.Get().Tag, "/", path);
+            }
             value.Path = path;
         }
 

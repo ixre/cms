@@ -81,7 +81,7 @@ namespace JR.Cms.WebImpl.Mvc
             dict.Add(UrlRulePageKeys.CategoryPager, new[] {null, null, urlPrefix + "{0}/list_{1}.html"});
 
             dict.Add(UrlRulePageKeys.Archive,
-                new[] {"cms_archive", routePrefix + "{*all_html}", urlPrefix + "{0}/{1}.html"});
+                new[] {"cms_archive", routePrefix + "{*all_html}", urlPrefix + "{0}.html"});
             dict.Add(UrlRulePageKeys.SinglePage, new[] {null, null, urlPrefix + "{0}.html"});
 
             //注册插件路由
