@@ -152,7 +152,7 @@ $js()
             setUpgradeStatus(e, 0);
 
             //开始更新
-            jr.xhr.post('?', 'module=ajax&action=getupgrade', function (x) {});
+            jr.xhr.post('?module=ajax&action=getupgrade', '', function (x) {});
         }
 
         function setUpgradeStatus(e, percent) {

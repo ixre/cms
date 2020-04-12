@@ -53,7 +53,7 @@ $js()
         if (confirm('确定删除吗?删除后将不可恢复!')) {
             var td = this.parentNode.parentNode;
             var id = getId(this);
-            jr.xhr.post('?', "module=table&action=deletetable&tableid=" + id,
+            jr.xhr.post('?module=table&action=deletetable', "tableid=" + id,
                 function (x) {
                     var msg = '';
                     var resultTag; eval('resultTag=' + x);

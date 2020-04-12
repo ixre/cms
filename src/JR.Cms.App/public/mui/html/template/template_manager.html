@@ -255,7 +255,7 @@
            e.onclick = function () {
                if (confirm('确定切换模板吗?')) {
                    var tpl = e.className.split(' ')[1];
-                   jr.xhr.jsonPost('?', 'xhr=1&module=template&action=templateAsDefault&tpl=' + encodeURIComponent(tpl), function (json) {
+                   jr.xhr.jsonPost('?module=template&action=templateAsDefault', 'xhr=1&tpl=' + encodeURIComponent(tpl), function (json) {
                        if (json.result) {
                           showMsg2('切换成功!');
                            location.reload();
@@ -272,7 +272,7 @@
                if (!/\.zip$/.test(url)) {
                    alert('不是有效的模板压缩包(*.zip)文件');
                } else {
-                   jr.xhr.jsonPost('?', 'xhr=1&module=template&action=netinstall&url=' + encodeURIComponent(url), function (json) {
+                   jr.xhr.jsonPost('?module=template&action=netinstall', 'xhr=1&url=' + encodeURIComponent(url), function (json) {
                        if (json.result) {
                            showMsg2('安装完成!', function () {
                                location.replace(location.href);

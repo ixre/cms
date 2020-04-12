@@ -194,7 +194,7 @@
                 $jr.validator.setTip(e, false, null, '请先输入栏目名称!');
             } else {
                 this.innerHTML = '获取中...';
-                $jr.xhr.post('?', 'module=ajax&action=getSpellWord&word=' + encodeURIComponent(_title), function (result) {
+                $jr.xhr.post('?module=ajax&action=getSpellWord', 'word=' + encodeURIComponent(_title), function (result) {
                     e.previousSibling.value = result.toLowerCase();
                     e.previousSibling.onblur();
                     e.innerHTML = txt;

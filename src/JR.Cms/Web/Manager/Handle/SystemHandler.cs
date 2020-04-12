@@ -121,7 +121,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void Summary()
         {
-            var env = HttpHosting.Context.Hosting.GetService<IHostingEnvironment>();
+            //var env = HttpHosting.Context.Hosting.GetService<IHostingEnvironment>();
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Server_Summary), new
             {
                 path = GetPath(),

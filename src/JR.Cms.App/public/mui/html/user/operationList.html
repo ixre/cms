@@ -53,7 +53,7 @@ $js()
     if (name == '') showMsg2('请输入操作名称！');
     else if (path == '')showMsg2('请输入操作路径！');
     else {
-      jr.xhr.post('?', 'module=user&action=createoperation&name=' + escape(name) + '&path=' + escape(path),
+      jr.xhr.post('?module=user&action=createoperation', 'name=' + escape(name) + '&path=' + escape(path),
         function (x) {
           location.reload();
         }, function (x) { alert(x); });
@@ -70,7 +70,7 @@ $js()
             path = escape(tds[2].childNodes[0].value),
             available = tds[3].childNodes[0].checked;
 
-        jr.xhr.post('?', 'module=user&action=updateoperation&id=' + id + '&name=' + name + '&path=' + path + '&available=' + available,
+        jr.xhr.post('?module=user&action=updateoperation', 'id=' + id + '&name=' + name + '&path=' + path + '&available=' + available,
         function (x) { showMsg2('修改成功！'); }, function (x) { alert(x); });
 
       };
