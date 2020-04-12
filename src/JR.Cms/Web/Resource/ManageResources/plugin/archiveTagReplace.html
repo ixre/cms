@@ -27,7 +27,7 @@
        function batReplace(t) {
          if (confirm('需要较长时间，确定继续吗？')) {
            msg.innerHTML = '更新中....';
-           jr.xhr.post('?', 'module=plugin&action=replacetags', function (x) { msg.innerHTML = '操作完成'; }, function (x) { alert(x); });
+           jr.xhr.post('?module=plugin&action=replacetags', '', function (x) { msg.innerHTML = '操作完成'; }, function (x) { alert(x); });
          }
        }
       

@@ -82,7 +82,7 @@ $js()
         add: Fn.create,
         setavailable: function(id) {
             (function(_this) {
-                jr.xhr.jsonPost('?', 'xhr=1&module=user&action=setuserstate&username=' + id,
+                jr.xhr.jsonPost('?module=user&action=setuserstate', 'xhr=1&username=' + id,
                     function(json) {
                         if (json.result) {
                             showMsg2('操作成功！');

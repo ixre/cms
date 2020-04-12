@@ -125,7 +125,7 @@ $js()
                 var tplname = jr.$fn('#tplname').val();
                 var tpltype = jr.$fn('#tpltype').val();
                 if (tplname != '') {
-                    jr.xhr.post('?', 'xhr=1&module=template&action=createview&name=' + tplname + '&type=' + tpltype, function (x) {
+                    jr.xhr.post('?module=template&action=createview', 'xhr=1&name=' + tplname + '&type=' + tpltype, function (x) {
                         if (x.indexOf('.') == -1) {
                            showMsg2(x);
                         } else {

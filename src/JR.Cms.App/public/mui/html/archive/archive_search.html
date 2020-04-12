@@ -63,7 +63,7 @@
      }
     function refresh() {
       var id = getId(this);
-      jr.xhr.post('?', 'module=ajax&action=refreshArchive&archiveID=' + id,
+      jr.xhr.post('?module=ajax&action=refreshArchive', 'archiveID=' + id,
       function (x) { tip('已经刷新最后更新时间！'); },
       function (x) { alert(x); }
       );
@@ -72,7 +72,7 @@
       if(confirm('确定删除吗?删除后将不可恢复!')){
         var td = this.parentNode.parentNode;
         var id=getId(this);
-        jr.xhr.post('?', "xhr=1&module=ajax&action=deleteArchive&archiveID=" + id,
+        jr.xhr.post('?module=ajax&action=deleteArchive', "xhr=1&archiveID=" + id,
         function (x) { eval(x); /* td.style.display = 'none';*/ },
         function (x) { showMsg2(x);
       }

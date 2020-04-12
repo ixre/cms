@@ -34,7 +34,7 @@ $js()
     <script type="text/javascript">
       function remove(t, id) {
         if (confirm('确定删除吗?')) {
-          jr.xhr.post('?', 'module=archive&action=deletecomment&commentID=' + id,
+          jr.xhr.post('?module=archive&action=deletecomment', 'commentID=' + id,
           function (x) { t.parentNode.parentNode.style.display = 'none'; },
           function (x) { alert(x); });
         }

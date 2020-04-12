@@ -305,7 +305,7 @@
             if (_title == '') {
                 jr.validator.setTip(e, false, null, '请先填写标题!');
             } else {
-                jr.xhr.post('?', 'xhr=1&module=ajax&action=getspellword&word=' + encodeURIComponent(_title), function (result) {
+                jr.xhr.post('?module=ajax&action=getspellword', 'xhr=1&word=' + encodeURIComponent(_title), function (result) {
                     e.value = result.toLowerCase();
                     e.onblur();
                 }, function () {
