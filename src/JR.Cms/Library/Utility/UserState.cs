@@ -14,16 +14,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Models;
-using JR.Cms.Domain.Interface.Value;
-using JR.Cms.Extensions;
 using JR.Cms.Infrastructure.Domain;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.ServiceDto;
+using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework.Extensions;
-using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Web;
-using Microsoft.AspNetCore.Http;
 
 namespace JR.Cms.Library.Utility
 {
@@ -110,7 +107,7 @@ namespace JR.Cms.Library.Utility
                     if (value != null)
                     {
                         ctx.Session.SetObjectAsJson("member", value);
-                        var opt = new CookieOptions
+                        var opt = new HttpCookieOptions
                         {
                             Expires = DateTime.Now.AddDays(2),
                             MaxAge = new TimeSpan(2, 0, 0, 0, 0),
@@ -121,7 +118,7 @@ namespace JR.Cms.Library.Utility
                     }
                     else
                     {
-                        var opt = new CookieOptions
+                        var opt = new HttpCookieOptions
                         {
                             Expires = DateTime.Now.AddDays(-2),
                             MaxAge = new TimeSpan(-2, 0, 0, 0, 0),
@@ -211,15 +208,13 @@ namespace JR.Cms.Library.Utility
             {
                 var sha1Pwd = Generator.CreateUserPwd(password);
                 var result = ServiceCall.Instance.UserService.TryLogin(username, sha1Pwd);
-
                 if (result.Tag == 1)
                 {
                     Exit();
                     var ctx = HttpHosting.Context;
-
                     var user = ServiceCall.Instance.UserService.GetUser(result.Uid);
                     ctx.Session.SetObjectAsJson(AdminSk, user);
-                    var opt = new CookieOptions();
+                    var opt = new HttpCookieOptions();
                     opt.Expires = DateTime.Now.AddMinutes(minutes);
                     // cookie.Domain=AppContext.Config.Domain.HostName;
                     opt.Path = "/" + Settings.SYS_ADMIN_TAG;
@@ -227,6 +222,7 @@ namespace JR.Cms.Library.Utility
                     var token = (username + Generator.Salt + sha1Pwd).Md5();
                     var encodeBytes = Encoding.UTF8.GetBytes(username + "&" + token);
                     var encodedTokenStr = Convert.ToBase64String(encodeBytes);
+
                     ctx.Response.AppendCookie($"cms_sid_{GeneratorRandomStr()}", encodedTokenStr,opt);
                 }
 
@@ -243,7 +239,7 @@ namespace JR.Cms.Library.Utility
                 foreach (var key in ctx.Request.CookiesKeys())
                     if (Regex.IsMatch(key.ToString(), AdministratorTokenPattern))
                     {
-                        var opt = new CookieOptions();
+                        var opt = new HttpCookieOptions();
                         opt.Expires = DateTime.Now.AddYears(-1);
                         opt.Path = "/" + Settings.SYS_ADMIN_TAG;
                         ctx.Response.DeleteCookie(key, opt);

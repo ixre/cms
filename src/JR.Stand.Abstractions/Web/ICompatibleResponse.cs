@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
 namespace JR.Stand.Abstracts.Web
 {
@@ -8,8 +7,8 @@ namespace JR.Stand.Abstracts.Web
         Task WriteAsync(string content);
         void AddHeader(string key, string value);
         void StatusCode(int status);
-        void AppendCookie(string key, string value, CookieOptions opt);
-        void DeleteCookie(string key, CookieOptions opt);
+        void AppendCookie(string key, string value, HttpCookieOptions opt);
+        void DeleteCookie(string key, HttpCookieOptions opt);
         void Redirect(string url, bool permanent);
         void AppendHeader(string key, string value);
         void ContentType(string contentType);

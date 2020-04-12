@@ -76,7 +76,7 @@ namespace JR.Cms.Web.Manager
         /// <param name="value"></param>
         public static void SetCurrentManageSite(ICompatibleHttpContext context, SiteDto value)
         {
-            var opt = new CookieOptions();
+            var opt = new HttpCookieOptions();
             opt.Expires = DateTime.Now.AddDays(2);
             opt.Path = "/" + Settings.SYS_ADMIN_TAG;
             context.Response.AppendCookie(CookieNameKey, value.SiteId.ToString(), opt);
