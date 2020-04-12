@@ -31,14 +31,14 @@ namespace JR.Stand.Core.AspNet
             Context.Response.StatusCode = status;
         }
 
-        public void AppendCookie(string key, string value, CookieOptions opt)
+        public void AppendCookie(string key, string value, HttpCookieOptions opt)
         {
             HttpCookie cookie = new HttpCookie(key,value);
             CopyCookieOptions( cookie,opt);
             Context.Response.AppendCookie(cookie);
         }
 
-        private static void CopyCookieOptions(HttpCookie cookie,CookieOptions opt)
+        private static void CopyCookieOptions(HttpCookie cookie,HttpCookieOptions opt)
         {
             if (opt != null)
             {
@@ -66,7 +66,7 @@ namespace JR.Stand.Core.AspNet
             }
         }
 
-        public void DeleteCookie(string key, CookieOptions opt)
+        public void DeleteCookie(string key, HttpCookieOptions opt)
         {
             HttpCookie cookie = new HttpCookie(key);
             cookie.Expires = DateTime.Now.AddSeconds(-1*10E9);

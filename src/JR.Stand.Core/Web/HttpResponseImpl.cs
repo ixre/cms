@@ -28,14 +28,28 @@ namespace JR.Stand.Core.Web
             this._accessor.HttpContext.Response.StatusCode = status;
         }
 
-        public void AppendCookie(string key, string value, CookieOptions opt)
+        public void AppendCookie(string key, string value, HttpCookieOptions opt)
         {
-            this._accessor.HttpContext.Response.Cookies.Append(key,value,opt);
+            this._accessor.HttpContext.Response.Cookies.Append(key,value,this.ParseOptions(opt));
         }
 
-        public void DeleteCookie(string key, CookieOptions opt)
+        public void DeleteCookie(string key, HttpCookieOptions opt)
         {
-            this._accessor.HttpContext.Response.Cookies.Delete(key,opt);
+            this._accessor.HttpContext.Response.Cookies.Delete(key,this.ParseOptions(opt));
+        }
+
+        private CookieOptions ParseOptions(HttpCookieOptions opt)
+        {
+            return new CookieOptions
+            {
+                Domain = opt.Domain,
+                Expires = opt.Expires,
+                HttpOnly = opt.HttpOnly,
+                IsEssential = opt.IsEssential,
+                MaxAge = opt.MaxAge,
+                Path = opt.Path,
+                Secure = opt.Secure,
+            };
         }
 
         public void Redirect(string url, bool permanent)

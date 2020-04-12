@@ -148,7 +148,7 @@ namespace JR.Cms.Core
             if (Enum.IsDefined(typeof(Languages), lang))
             {
                 _userLanguage = (Languages) lang; //保存
-                var opt = new CookieOptions
+                var opt = new HttpCookieOptions
                 {
                     Expires = DateTime.Now.AddHours(24),
                     Path = SiteAppPath,
@@ -167,7 +167,7 @@ namespace JR.Cms.Core
             if (Enum.IsDefined(typeof(DeviceType), device))
             {
                 _userDevice = (DeviceType) device; //保存
-                var opt = new CookieOptions
+                var opt = new HttpCookieOptions
                 {
                     Expires = DateTime.Now.AddHours(24),
                     Path = SiteAppPath,
