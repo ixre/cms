@@ -88,4 +88,7 @@
   <item key="same" zh_CN="相同" zh_TW="相同" en_US="Same" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="similar" zh_CN="相似" zh_TW="相似" en_US="Similar" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="after sales" zh_CN="售后" zh_TW="售后" en_US="After sales" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="date" zh_CN="日期" zh_TW="日期" en_US="Date" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="click" zh_CN="点击" zh_TW="点击" en_US="Click" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+
 </lang>
