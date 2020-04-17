@@ -91,9 +91,9 @@ namespace JR.Stand.Core.Template.Impl
                     // 读取模板里的部分视图
                     content = TemplateRegexUtility.IncludeFileRegex.Replace(content, m =>
                     {
-                        string _path = m.Groups[1].Value;
-                        string tplId = TemplateUtility.GetPartialTemplateId(_path, this.FilePath, out var partialFilePath);
-                        return m.Value.Replace(_path, tplId + "@" + partialFilePath);
+                        string path = m.Groups[1].Value;
+                        string tplId = TemplateUtility.GetPartialTemplateId(path, this.FilePath, out var partialFilePath);
+                        return m.Value.Replace(path, tplId + "@" + partialFilePath);
                     });
                     // 缓存内容
                     this.LastModify = lastWriteUnix;
