@@ -10,9 +10,9 @@ using System.Text.RegularExpressions;
 
 namespace JR.Stand.Core.Template.Impl
 {
-    public sealed class TemplateRegexUtility
+    public static class TemplateRegexUtility
     {
-        private static readonly Regex tagRegex = new Regex("\\${([a-zA-Z\u4e00-\u9fa5\\._]+)}");
+        private static readonly Regex TagRegex = new Regex("\\${([a-zA-Z\u4e00-\u9fa5\\._]+)}");
 
         //部分页匹配模式
         internal static readonly Regex IncludeFileRegex = new Regex("\\${include:\"(.+?)\"}");
@@ -22,12 +22,12 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 替换模板数据
         /// </summary>
-        /// <param name="templateID"></param>
+        /// <param name="templateId"></param>
         /// <param name="eval"></param>
         /// <returns></returns>
-        internal static string ReplaceTemplate(string templateID, MatchEvaluator eval)
+        internal static string ReplaceTemplate(string templateId, MatchEvaluator eval)
         {
-            string html = TemplateUtility.Read(templateID);
+            string html = TemplateUtility.Read(templateId);
             return Replace(html, eval);
         }
 
@@ -43,7 +43,7 @@ namespace JR.Stand.Core.Template.Impl
             //ReplacePartial(html);
 
             //替换匹配
-            return tagRegex.Replace(html, eval);
+            return TagRegex.Replace(html, eval);
         }
 
         internal static string ReplaceHtml(string html, string tagKey, string tagValue)
