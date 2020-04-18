@@ -272,15 +272,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// </summary>
         /// <param name="bindStr"></param>
         /// <returns></returns>
-        protected string GetBingLinkUrl(string bindStr)
+        private string GetBingLinkUrl(string bindStr)
         {
             var binds = (bindStr ?? "").Split(':');
             if (binds.Length == 2 && binds[1] != string.Empty)
             {
                 if (binds[0] == "category")
                 {
-                    var category =
-                        ServiceCall.Instance.SiteService.GetCategory(_site.SiteId, int.Parse(binds[1]));
+                    var category = ServiceCall.Instance.SiteService.GetCategory(_site.SiteId, int.Parse(binds[1]));
                     if (category.ID > 0) return GetCategoryUrl(category, 1);
                 }
                 else if (binds[0] == "archive")
@@ -292,10 +291,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                     if (archiveDto.Id > 0)
                     {
-                        return GetArchiveUrl(
-                            archiveDto.Location,
-                            archiveDto.Flag,
-                            archiveDto.Path);
+                        return GetArchiveUrl(archiveDto.Location, archiveDto.Flag, archiveDto.Path);
                     }
                 }
             }
@@ -992,7 +988,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
                 ServiceCall.Instance.SiteService.GetLinksByType(SiteId, SiteLinkType.Navigation, false));
             var total = links.Count;
-            IList<SiteLinkDto> childs;
 
             int navIndex;
             if (index == "")
@@ -1004,8 +999,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             string tempLinkStr;
 
 
-            LinkGenerateGBehavior bh =
-                (int genTotal, ref int current, string levelCls, int selected, bool child, SiteLinkDto link,
+            LinkGenerateGBehavior bh = (int genTotal, ref int current, string levelCls, int selected, bool child, SiteLinkDto link,
                     int childCount) =>
                 {
                     var sb2 = new StringBuilder();
@@ -1014,13 +1008,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
                      * *********************/
                     var clsName = levelCls;
                     if (childCount != 0) clsName = string.Concat(clsName, " parent ");
-
                     if (selected == current) clsName = string.Concat(clsName, " current");
-
                     if (current == 0) clsName = string.Concat(clsName, " first");
-
                     if (current == genTotal - 1) clsName = string.Concat(clsName, " last");
-
                     sb2.Append("<li class=\"" + clsName + "\">");
                     //解析格式
                     tempLinkStr = TplEngine.ResolveHolderFields(child ? childFormat : format, a =>
@@ -1028,11 +1018,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         switch (a)
                         {
                             case "url":
-                                return ConcatUrl(string.IsNullOrEmpty(link.Bind)
-                                    ? link.Uri
-                                    : GetBingLinkUrl(link.Bind));
+                                return this.ConcatUrl(string.IsNullOrEmpty(link.Bind) 
+                                    ? link.Uri : GetBingLinkUrl(link.Bind));
                             case "text": return link.Text;
-                            case "imgurl": return link.ImgUrl;
+                            case "img_url": return link.ImgUrl;
                         }
 
                         return "{" + a + "}";
@@ -1045,37 +1034,36 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     return sb2.ToString();
                 };
 
-            string phtml;
-            int secondTotal;
-            int secondCurrent;
             for (var i = 0; i < links.Count; i++)
+            {
                 if (links[i].Pid == 0)
                 {
                     j = i;
-                    childs = new List<SiteLinkDto>(links.Where(a => a.Pid == links[i].Id));
-                    phtml = bh(total, ref j, "l1", navIndex, false, links[i], childs.Count);
-                    if ((secondTotal = childs.Count) != 0)
+                    IList<SiteLinkDto> children = new List<SiteLinkDto>(links.Where(a => a.Pid == links[i].Id));
+                    var parentHtml = bh(total, ref j, "l1", navIndex, false, links[i], children.Count);
+                    var secondTotal = 0;
+                    if ((secondTotal = children.Count) != 0)
                     {
-                        phtml = phtml.Replace("</a></li>",
+                        parentHtml = parentHtml.Replace("</a></li>",
                             string.Format(
                                 "<i class=\"nav-arrow\"></i></a><div id=\"{0}_child{1}\" class=\"mod-navigator-child child child{1}\"><div class=\"top\"></div><div class=\"box\">" +
                                 "<ul class=\"menu\">",
                                 links[i].Type.ToString().ToLower(),
                                 links[i].Id.ToString()));
-                        secondCurrent = 0;
-                        for (var k = 0; k < childs.Count; k++)
+                        var secondCurrent = 0;
+                        foreach (var t in children)
                         {
-                            phtml += bh(secondTotal, ref secondCurrent, "l2", -1, true, childs[k], 0);
+                            parentHtml += bh(secondTotal, ref secondCurrent, "l2", -1, true, t, 0);
                             secondCurrent++;
                         }
 
-                        phtml += "</ul></div></div></li>";
+                        parentHtml += "</ul></div></div></li>";
                     }
 
-                    sb.Append(phtml);
+                    sb.Append(parentHtml);
                 }
-
-            return string.Format(tpl, sb.ToString());
+            }
+            return string.Format(tpl, sb);
         }
 
 
@@ -2024,7 +2012,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     {
                         default: return string.Empty;
                         case "text": return link.Text;
-                        case "imgurl": return link.ImgUrl;
+                        case "img_url": return link.ImgUrl;
                         case "img": return ThumbnailTag(link.ImgUrl, link.Text, true);
                         case "url": return string.IsNullOrEmpty(link.Bind) ? link.Uri : GetBingLinkUrl(link.Bind);
                         case "target": return string.IsNullOrEmpty(link.Target) ? "_self" : link.Target;

@@ -152,7 +152,7 @@ namespace JR.Cms.ServiceDto
                 Outline = a.Outline,
                 Source = a.Source,
                 Tags = a.Tags,
-                Url = a.Path,
+                Path = a.Path,
                 Location = a.Location,
                 Thumbnail = a.Thumbnail,
                 Title = a.Title,
@@ -180,7 +180,6 @@ namespace JR.Cms.ServiceDto
         }
 
 
-        public string Url { get; set; }
 
         /// <summary>
         /// 重定向URL

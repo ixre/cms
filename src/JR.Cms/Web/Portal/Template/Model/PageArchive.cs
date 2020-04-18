@@ -67,7 +67,7 @@ namespace JR.Cms.Web.Portal.Template.Model
                 if (_url == null)
                 {
                     var prefix = Settings.TPL_FULL_URL_PATH ? Cms.Context.SiteDomain : Cms.Context.SiteAppPath;
-                    _url = prefix + "/" + Archive.Url + ".html";
+                    _url = prefix + "/" + Archive.Path + ".html";
                 }
 
                 return _url;
