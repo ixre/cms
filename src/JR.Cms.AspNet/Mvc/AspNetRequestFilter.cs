@@ -23,7 +23,7 @@ namespace JR.Cms.AspNet.Mvc
         private TimeSpan _startTime;
 
         //private static readonly bool _showDebugInformation;
-        private bool _showDebugInformation;
+        private bool _showDebugInformation = false;
 
         protected void Initialize(RequestContext requestContext)
         {
