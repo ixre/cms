@@ -32,8 +32,8 @@
                         <input type="hidden" field="Type" />
                         <input type="hidden" field="Id" />
 
-                        <input type="hidden" field="BindId" id="bindid" />
-                        <input type="hidden" field="BindType" id="bindtype" />
+                        <input type="hidden" field="BindId" id="bindId" />
+                        <input type="hidden" field="BindType" id="bindType" />
 
                         <span id="bindtip" field="BindTitle"></span>&nbsp;&nbsp;
 
@@ -170,10 +170,12 @@
 
     $js()
     <script type="text/javascript">
+        console.log("----",'${entity}');
+
         jr.json.bind('dataPanel',${entity});
 
-        var bindid = jr.$('bindid'),
-              bindtype = jr.$('bindtype'),
+        var bindId = jr.$('bindId'),
+              bindType = jr.$('bindType'),
               bindtip = jr.$('bindtip'),
               cancelbind = jr.$('cancelbind'),
               linkurl = jr.$('urlpanel');
@@ -229,8 +231,8 @@
                     case 'category': typeStr = '栏目'; break;
                 }
 
-                bindid.value = id;
-                bindtype.value = type;
+                bindId.value = id;
+                bindType.value = type;
                 bindtip.innerHTML = typeStr + ':' + text;
                 jr.$('cancelbind').style.display = '';
                 if (jr.$('tb_txt').value === '') {
@@ -247,8 +249,8 @@
         }
 
         function cancelBind() {
-            bindid.value = '';
-            bindtype = '';
+            bindId.value = '';
+            bindType = '';
             bindtip.innerHTML = '未绑定';
             jr.$('cancelbind').style.display = 'none';
             linkurl.style.display = '';
