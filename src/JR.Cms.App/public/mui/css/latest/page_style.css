@@ -273,7 +273,7 @@ ul.centform{margin:100px auto;}
 .ui-dialog .box .title .txt{padding-left:25px;background:url(/public/mui/css/latest/blocks.gif) left center no-repeat;}
 .ui-dialog .box .close{cursor:pointer;position:absolute;right:0;top:0;font-family:Arial;color:#000;padding:0 12px;font-size:16px;
                             background:url(/public/mui/css/latest/tab_close.gif) center center no-repeat;text-indent:-99em}
-.ui-dialog .box .boxcontent,.gra-modal .content{margin:0 5px 5px 5px;background:#fff;border:solid 1px #d0d0d0}
+.ui-dialog .box .boxcontent,.g-modal .content{margin:0 5px 5px 5px;background:#fff;border:solid 1px #d0d0d0}
 .ui-dialog .box .bottom{display:none;}
 
 /* ui-tree */
