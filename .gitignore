@@ -39,7 +39,8 @@ txxf
 src/JR.Cms.AspNet.App/config/
 src/JR.Cms.AspNet.App/public
 src/JR.Cms.AspNet.App/templates
-src/JR.Cms.App/templates/devsofts
+src/JR.Cms.App/templates/fze
+src/JR.Cms.App/config
 src/JR.Cms.AspNet.App/public
 src/JR.Cms.AspNet.App/oem
 src/JR.Cms.AspNet.App/install
