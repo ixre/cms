@@ -38,7 +38,6 @@ namespace JR.Cms.Web.Manager.Handle
             var type = (SiteLinkType) Enum.Parse(typeof(SiteLinkType),
                 Request.Query("type"), true);
 
-            string linkRowsHtml;
             //链接列表
             var sb = new StringBuilder();
             var i = 0;
@@ -112,27 +111,28 @@ namespace JR.Cms.Web.Manager.Handle
 
             #endregion
 
-            IList<SiteLinkDto> links2;
-            for (var j = 0; j < links.Count; j++)
-                if (links[j].Pid == 0)
+            foreach (var t1 in links)
+            {
+                if (t1.Pid == 0)
                 {
-                    bh(links[j]);
-
+                    bh(t1);
                     //设置子类
-                    links2 = new List<SiteLinkDto>(links.Where(a => a.Pid == links[j].Id));
-                    for (var k = 0; k < links2.Count; k++)
-                        bh(links2[k]);
-                    //links.Remove(links2[k]);
+                    IList<SiteLinkDto> links2 = new List<SiteLinkDto>(links.Where(a => a.Pid == t1.Id));
+                    foreach (var t in links2)
+                    {
+                        bh(t);
+                        //links.Remove(links2[k]);
+                    }
                 }
+            }
 
-
-            linkRowsHtml = sb.Length != 0
+            var linkRowsHtml = sb.Length != 0
                 ? string.Concat("<table cellspacing=\"0\" class=\"ui-table\">", sb.ToString(), "</table>")
                 : "<div style=\"text-align:center\">暂无链接，请点击右键添加！</div>";
 
             //输出分页数据
             PagerJson2("<div style=\"display:none\">for ie6</div>" + linkRowsHtml,
-                string.Format("共{0}条", i.ToString()));
+                $"共{i.ToString()}条");
         }
 
         /// <summary>
@@ -168,33 +168,28 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public string Create()
         {
-            object data;
-            var plinks = "";
-
-
-            var type = (SiteLinkType) Enum.Parse(typeof(SiteLinkType), Request.Query("type"), true);
-            string linkTypeName,
-                resouce;
-
+            var parentOptions = "";
+            string linkType = Request.Query("type");
+            var type = (SiteLinkType) Enum.Parse(typeof(SiteLinkType), linkType, true);
+            string linkTypeName;
+            string resource;
             switch (type)
             {
                 case SiteLinkType.FriendLink:
                     linkTypeName = "友情链接";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
+                    resource = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
                     break;
                 default:
                 case SiteLinkType.CustomLink:
                     linkTypeName = "自定义链接";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
+                    resource = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
                     break;
                 case SiteLinkType.Navigation:
                     linkTypeName = "网站导航";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit_Navigator);
+                    resource = ResourceMap.GetPageContent(ManagementPage.Link_Edit_Navigator);
                     break;
             }
-
-
-            //plinks
+            // ParentOptions
             var sb = new StringBuilder();
             var siteId = CurrentSite.SiteId;
 
@@ -205,8 +200,7 @@ namespace JR.Cms.Web.Manager.Handle
                 if (_link.Pid == 0)
                     sb.Append("<option value=\"").Append(_link.Id.ToString())
                         .Append("\">").Append(_link.Text).Append("</option>");
-            plinks = sb.ToString();
-
+            parentOptions = sb.ToString();
             var json = JsonSerializer.Serialize(
                 new
                 {
@@ -219,9 +213,9 @@ namespace JR.Cms.Web.Manager.Handle
                     BindType = string.Empty,
                     BindTitle = "未绑定",
                     Target = string.Empty,
-                    Type = Request.Query("type"),
+                    Type = int.Parse(linkType),
                     ImgUrl = string.Empty,
-                    pid = '0',
+                    Pid = 0,
                     Visible = "True"
                 });
 
@@ -229,10 +223,10 @@ namespace JR.Cms.Web.Manager.Handle
             ViewData["link_type"] = (int) type;
             ViewData["form_title"] = "创建" + linkTypeName;
             ViewData["category_opts"] = Helper.GetCategoryIdSelector(SiteId, -1);
-            ViewData["parent_opts"] = plinks;
+            ViewData["parent_opts"] = parentOptions;
             ViewData["site_id"] = siteId;
 
-            return RequireTemplate(resouce);
+            return RequireTemplate(resource);
         }
 
 
@@ -245,7 +239,7 @@ namespace JR.Cms.Web.Manager.Handle
             var bindId = 0;
             var siteId = SiteId;
             var categoryId = 0;
-            var plinks = "";
+            var parentOptions = "";
 
             var link = ServiceCall.Instance.SiteService.GetLinkById(SiteId, linkId);
 
@@ -263,7 +257,7 @@ namespace JR.Cms.Web.Manager.Handle
                 {
                     var cate = ServiceCall.Instance.SiteService.GetCategory(SiteId, bindId);
 
-                    bindTitle = cate.ID > 0 ? string.Format("栏目：{0}", cate.Name) : null;
+                    bindTitle = cate.ID > 0 ? $"栏目：{cate.Name}" : null;
                     categoryId = cate.ID;
                 }
                 else if (binds[0] == "archive")
@@ -274,40 +268,42 @@ namespace JR.Cms.Web.Manager.Handle
                     if (archive.Id <= 0)
                         binds = null;
                     else
-                        bindTitle = string.Format("文档：{0}", archive.Title);
+                        bindTitle = $"文档：{archive.Title}";
                 }
             }
 
-            string linkTypeName,
-                resouce;
+            string linkTypeName;
+             string   resource;
 
-            switch ((SiteLinkType) link.Type)
+            switch (link.Type)
             {
                 case SiteLinkType.FriendLink:
                     linkTypeName = "友情链接";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
+                    resource = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
                     break;
                 default:
                 case SiteLinkType.CustomLink:
                     linkTypeName = "自定义链接";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
+                    resource = ResourceMap.GetPageContent(ManagementPage.Link_Edit);
                     break;
                 case SiteLinkType.Navigation:
                     linkTypeName = "网站导航";
-                    resouce = ResourceMap.GetPageContent(ManagementPage.Link_Edit_Navigator);
+                    resource = ResourceMap.GetPageContent(ManagementPage.Link_Edit_Navigator);
                     break;
             }
 
-            //plinks
+            // ParentOptions
             var sb = new StringBuilder();
             var parentLinks = ServiceCall.Instance.SiteService
                 .GetLinksByType(SiteId, link.Type, true);
 
             foreach (var _link in parentLinks)
+            {
                 if (_link.Pid == 0)
                     sb.Append("<option value=\"").Append(_link.Id.ToString())
                         .Append("\">").Append(_link.Text).Append("</option>");
-            plinks = sb.ToString();
+                parentOptions = sb.ToString();
+            }
 
             var json = JsonSerializer.Serialize(
                 new
@@ -332,10 +328,10 @@ namespace JR.Cms.Web.Manager.Handle
             ViewData["link_type"] = (int) link.Type;
             ViewData["form_title"] = "修改" + linkTypeName;
             ViewData["category_opts"] = Helper.GetCategoryIdSelector(SiteId, -1);
-            ViewData["parent_opts"] = plinks;
+            ViewData["parent_opts"] = parentOptions;
             ViewData["site_id"] = siteId;
 
-            return RequireTemplate(resouce);
+            return RequireTemplate(resource);
         }
 
         [MCacheUpdate(CacheSign.Link)]
@@ -343,11 +339,10 @@ namespace JR.Cms.Web.Manager.Handle
         {
             var link = default(SiteLinkDto);
 
-            var linkId = 0;
-            int.TryParse(Request.Form("Id").ToString() ?? "0", out linkId);
+            int.TryParse(Request.Form("Id").ToString() ?? "0", out var linkId);
 
-            string bindtype = Request.Form("bindtype"),
-                bindId = Request.Form("bindid");
+            string bindType = Request.Form("bindType"),
+                bindId = Request.Form("bindId");
 
             if (linkId > 0) link = ServiceCall.Instance.SiteService.GetLinkById(SiteId, linkId);
 
@@ -361,11 +356,14 @@ namespace JR.Cms.Web.Manager.Handle
             link.Visible = Request.Form("visible") == "True";
 
 
-            if (!string.IsNullOrEmpty(bindtype)
-                && Regex.IsMatch(bindId, "^\\d+$"))
-                link.Bind = string.Format("{0}:{1}", bindtype, bindId);
+            if (!string.IsNullOrEmpty(bindType) && Regex.IsMatch(bindId, "^\\d+$"))
+            {
+                link.Bind = $"{bindType}:{bindId}";
+            }
             else
+            {
                 link.Bind = string.Empty;
+            }
 
             var id = ServiceCall.Instance.SiteService.SaveLink(SiteId, link);
 
