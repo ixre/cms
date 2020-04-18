@@ -18,9 +18,9 @@ namespace JR.Cms.Web
     /// <summary>
     /// 默认网站输出
     /// </summary>
-    public class DefaultWebOuput
+    public static class DefaultWebOutput
     {
-        internal static void RenderNotFound(CmsContext context)
+        private static void RenderNotFound(CmsContext context)
         {
             context.RenderNotfound("No such file", tpl =>
             {

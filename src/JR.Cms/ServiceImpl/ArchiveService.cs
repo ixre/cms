@@ -49,7 +49,7 @@ namespace JR.Cms.ServiceImpl
         {
             var ic = _contentRep.GetContent(siteId);
             var archive = ic.GetArchiveById(archiveId);
-            if (archive == null) return default(ArchiveDto);
+            if (archive == null) return default;
             return ArchiveDto.ConvertFrom(archive, true, true, true);
         }
 

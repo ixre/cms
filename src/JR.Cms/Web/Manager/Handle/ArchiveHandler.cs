@@ -155,7 +155,7 @@ namespace JR.Cms.Web.Manager.Handle
             var fullDomain = CurrentSite.FullDomain;
             if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
                 fullDomain = Request.GetScheme() + ":" + fullDomain.Replace("#", WebCtx.Current.Host);
-            var url = fullDomain + archive.Url + ".html";
+            var url = fullDomain + archive.Path + ".html";
             return "<html><head><title>" + archive.Title + "</title></head><body style='margin:0'><iframe src='" + url +
                    "' frameBorder='0' width='100%' height='100%'></iframe></body></html>";
         }
@@ -771,7 +771,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
                 fullDomain = fullDomain.Replace("#", WebCtx.Current.Host);
-            var url = Request.GetScheme() + ":" + fullDomain + archive.Url + ".html";
+            var url = Request.GetScheme() + ":" + fullDomain + archive.Path + ".html";
 
 
             if (string.IsNullOrEmpty(archive.Outline))

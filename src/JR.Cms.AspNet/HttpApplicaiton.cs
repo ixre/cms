@@ -18,7 +18,7 @@ using System.Web.Routing;
 namespace JR.Cms.AspNet
 {
     /// <summary>
-    /// Description of HttpApplicaiton.
+    /// Description of HttpApplication.
     /// </summary>
     public partial class Application : HttpApplication
     {

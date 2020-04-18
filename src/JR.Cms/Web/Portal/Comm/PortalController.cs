@@ -72,7 +72,7 @@ namespace JR.Cms.Web.Portal.Comm
             //检测网站状态及其缓存
             if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
             {          
-                DefaultWebOuput.RenderIndex(ctx);
+                DefaultWebOutput.RenderIndex(ctx);
             }
             return SafetyTask.CompletedTask;
 
@@ -80,7 +80,7 @@ namespace JR.Cms.Web.Portal.Comm
             //如果返回false,则执行默认输出
             // if (!eventResult)
             // {
-            //     DefaultWebOuput.RenderIndex(base.OutputContext);
+            //     DefaultWebOutput.RenderIndex(base.OutputContext);
             // }
         }
         
@@ -99,7 +99,7 @@ namespace JR.Cms.Web.Portal.Comm
                 var path = context.Request.GetPath();
                 String archivePath = this.SubPath(path, ctx.SiteAppPath);
                 archivePath = archivePath.Substring(0, archivePath.LastIndexOf(".", StringComparison.Ordinal));
-                DefaultWebOuput.RenderArchive(ctx, archivePath);
+                DefaultWebOutput.RenderArchive(ctx, archivePath);
             }
             return SafetyTask.CompletedTask;
 
@@ -113,7 +113,7 @@ namespace JR.Cms.Web.Portal.Comm
             //如果返回false,则执行默认输出
             if (!eventResult)
             {
-                DefaultWebOuput.RenderArchive(ctx, archivePath);
+                DefaultWebOutput.RenderArchive(ctx, archivePath);
             }
             */
         }
@@ -158,7 +158,7 @@ namespace JR.Cms.Web.Portal.Comm
                 }
          
            
-                DefaultWebOuput.RenderCategory(ctx, catPath, page);
+                DefaultWebOutput.RenderCategory(ctx, catPath, page);
                 // //执行
                 // bool eventResult = false;
                 // if (OnCategoryRequest != null)
@@ -169,7 +169,7 @@ namespace JR.Cms.Web.Portal.Comm
                 // //如果返回false,则执行默认输出
                 // if (!eventResult)
                 // {
-                //     DefaultWebOuput.RenderCategory(ctx, catPath, page);
+                //     DefaultWebOutput.RenderCategory(ctx, catPath, page);
                 // }
             }
             return SafetyTask.CompletedTask;

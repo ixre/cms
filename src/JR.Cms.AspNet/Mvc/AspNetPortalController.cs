@@ -195,7 +195,7 @@ namespace JR.Cms.AspNet.Mvc
         //     {
         //         if (c != null) c = c.Trim();
         //         if (w != null) w = w.Trim();
-        //         DefaultWebOuput.RenderSearch(base.OutputContext, c,w);
+        //         DefaultWebOutput.RenderSearch(base.OutputContext, c,w);
         //     }
         // }
         //
@@ -215,7 +215,7 @@ namespace JR.Cms.AspNet.Mvc
         //     //如果返回false,则执行默认输出
         //     if (!eventResult)
         //     {
-        //         DefaultWebOuput.RenderTag(base.OutputContext, t);
+        //         DefaultWebOutput.RenderTag(base.OutputContext, t);
         //     }
         // }
         //
@@ -231,7 +231,7 @@ namespace JR.Cms.AspNet.Mvc
         //     //如果返回false,则执行默认输出
         //     if (!eventResult)
         //     {
-        //         DefaultWebOuput.PostArchive(base.OutputContext, allhtml);
+        //         DefaultWebOutput.PostArchive(base.OutputContext, allhtml);
         //     }
         // }
         //
