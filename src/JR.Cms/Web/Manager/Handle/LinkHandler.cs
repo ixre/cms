@@ -429,22 +429,32 @@ namespace JR.Cms.Web.Manager.Handle
             var sb = new StringBuilder();
             var indents = ServiceCall.Instance.ContentService.GetRelatedIndents();
 
-            string siteLimit;
-            string cateLimit;
             foreach (var indent in indents)
                 if (indent.Value.Enabled)
                 {
+                    string siteLimit;
                     if (indent.Value.SiteLimit == "-")
+                    {
                         siteLimit = CurrentSite.SiteId.ToString();
+                    }
                     else if (indent.Value.SiteLimit == "*")
+                    {
                         siteLimit = "";
+                    }
                     else
+                    {
                         siteLimit = indent.Value.SiteLimit;
+                    }
 
+                    string cateLimit;
                     if (indent.Value.CategoryLimit == "*")
+                    {
                         cateLimit = "";
+                    }
                     else
+                    {
                         cateLimit = indent.Value.CategoryLimit;
+                    }
 
                     sb.Append("<option site-lmt=\"").Append(siteLimit).Append("\" cate-lmt=\"")
                         .Append(cateLimit).Append("\" value=\"").Append(indent.Key.ToString())
