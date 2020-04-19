@@ -6,8 +6,8 @@
 // Note : 请调用API前，先调用jr.spi.setPath('${page.domain}');这样才能请求到指定站点的接口。
 // Modify :  2015-09-18 19:37  [jsix] [!] : 重构
 //
-if (!window.j6) alert('未加载core.js！');
-jr.extend({
+if (!window.$jr) alert('未加载core.js！');
+$jr.extend({
     api: {
         path: '',
         setPath:function(p) {
