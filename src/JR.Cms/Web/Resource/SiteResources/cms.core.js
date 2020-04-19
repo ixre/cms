@@ -176,8 +176,8 @@ $b.event.add(window, 'load', function () {
             var parent = this.parent();
             var active_i = -1;
             var active = function (e, b) {
-                if (b) e.addClass("actived");
-                else e.removeClass("actived");
+                if (b) e.addClass("active");
+                else e.removeClass("active");
             };
             parent.find(".tab").each(function (i, e) {
                 var same = e.raw() == t.raw();
