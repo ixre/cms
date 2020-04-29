@@ -5,3 +5,13 @@
 ```
 $archives('cms/release','2')
 ```
+
+```
+#begin each_category(product,100,path,name,url)
+    <div class="mod-prod-cats hidden-xs">
+            <span class="mod-prod-cats-circle">
+                <h3><a href="${url}" title="More ${name} product">${name}</a></h3>
+            </span>
+    </div>
+#end
+```

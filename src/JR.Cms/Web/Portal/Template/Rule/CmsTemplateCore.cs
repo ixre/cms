@@ -353,9 +353,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         #region 模板方法
 
         [TemplateMethod]
-        protected string Each_Category(string param, string dataNum, string refTag, string refName, string refUri,
-            string format)
-        {
+        protected string Each_Category(string param, string dataNum, string refTag, string refName, string refUri, string format) {
             //
             // @param : 如果为int,则返回模块下的栏目，
             //                 如果为字符串tag，则返回该子类下的栏目
