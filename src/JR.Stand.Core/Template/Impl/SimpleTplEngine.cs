@@ -27,7 +27,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 包含方法的类型实例
         /// </summary>
-        private readonly object classInstance;
+        private readonly object _classInstance;
 
         /// <summary>
         /// 
@@ -36,17 +36,17 @@ namespace JR.Stand.Core.Template.Impl
         /// <param name="counter"></param>
         public SimpleTplEngine(object classInstance, bool counter)
         {
-            this.classInstance = classInstance;
+            this._classInstance = classInstance;
             if (counter)
             {
-                this.Count = new List<String>();
+                this._count = new List<String>();
             }
         }
 
         /// <summary>
         /// 计数
         /// </summary>
-        public IList<String> Count;
+        private readonly IList<String> _count;
 
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace JR.Stand.Core.Template.Impl
             if (!methodRegex.IsMatch(html))return;
             Regex paramRegex = new Regex(paramPattern); //参数正则
 
-            Type type = this.classInstance.GetType();
+            Type type = this._classInstance.GetType();
             MethodInfo method;
             string tagName;
             string tagFormat;
@@ -129,11 +129,11 @@ namespace JR.Stand.Core.Template.Impl
 
                 parameters[parameters.Length - 1] = tagFormat;
 
-                if (this.Count != null)
-                    this.Count.Add(String.Format("Method:{0},{1:mmssfff}", method.Name, DateTime.Now));
+                if (this._count != null)
+                    this._count.Add(String.Format("Method:{0},{1:mmssfff}", method.Name, DateTime.Now));
 
                 //执行方法并返回结果
-                return method.Invoke(this.classInstance, parameters).ToString();
+                return method.Invoke(this._classInstance, parameters).ToString();
             });
         }
 
@@ -158,7 +158,7 @@ namespace JR.Stand.Core.Template.Impl
 
             var paramRegex = new Regex(paramPattern);
 
-            Type type = this.classInstance.GetType();
+            Type type = this._classInstance.GetType();
             MethodInfo method;
             string tagName;
             object[] parameters;
@@ -213,10 +213,10 @@ namespace JR.Stand.Core.Template.Impl
                     parameters[i] = value;
                 }
 
-                Count?.Add($"Tag:{method.Name},{DateTime.Now:mmssfff}");
+                _count?.Add($"Tag:{method.Name},{DateTime.Now:mmssfff}");
 
                 //执行方法并返回结果
-                return method.Invoke(this.classInstance, parameters).ToString();
+                return method.Invoke(this._classInstance, parameters).ToString();
             });
         }
 
