@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Framework.Security;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace JR.Cms.Infrastructure.Domain
 {
@@ -48,8 +49,7 @@ namespace JR.Cms.Infrastructure.Domain
         /// <returns></returns>
         public static bool CompareUserPwd(string password, string encodedPassword)
         {
-            if (Md5Pwd(password, null) == encodedPassword) return true;
-            return Sha1Pwd(password, Salt) == encodedPassword;
+            return CreateUserPwd(password) == encodedPassword;
         }
     }
 }

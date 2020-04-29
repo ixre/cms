@@ -10,7 +10,7 @@ window.username = null;
 window.groupname = null;
 
 
-jr.xhr.get(window._path + '?module=ajax&action=appinit', function (x) {
+jr.xhr.get(window._path + '?module=ajax&action=init', function (x) {
     var ip, address;
     eval(x);
 });
@@ -448,7 +448,7 @@ function setSite(id) {
         {
             success: function (html) {
                 window.M.loadCatTree();
-                jr.xhr.get(window._path + '?module=ajax&action=appinit&onlysite=true', function (x) {
+                jr.xhr.get(window._path + '?module=ajax&action=init&onlysite=true', function (x) {
                     var ip, address;
                     eval(x);
                     initSites();

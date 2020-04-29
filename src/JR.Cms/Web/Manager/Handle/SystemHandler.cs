@@ -265,15 +265,13 @@ namespace JR.Cms.Web.Manager.Handle
         {
             string username = Request.Form("uid")[0].Trim(),
                 password = Request.Form("pwd")[0].Trim(),
-                verifycode = Request.Form("code")[0].Trim();
+                verifyCode = Request.Form("code")[0].Trim();
 
-            if (!Cms.RunAtMono)
-                if (verifycode == "" || !VerifyCodeManager.Compare(verifycode))
-                {
-                    RenderError("验证码不正确");
-                    return;
-                }
-
+            if (verifyCode != "" || !VerifyCodeManager.Compare(verifyCode))
+            {
+                RenderError("验证码不正确");
+                return;
+            }
             if (password.Length != 32) password = password.Md5();
             var tag = UserState.Administrator.Login(username, password, 3600 * 120);
             if (tag == -1)

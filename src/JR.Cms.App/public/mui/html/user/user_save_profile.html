@@ -54,7 +54,7 @@
                     <div class="fl">
                         <div class="label">原密码：</div>
                         <div class="in">
-                            <input class="ui-validate ui-box" type="password" field="opwd" length="[,20]" />
+                            <input class="ui-validate ui-box" type="password" field="old_pwd" length="[,20]" />
                             <div class="tip">输入原密码</div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
             return false;
         }
         if (json.pwd != '') {
-            if (json.opwd == '') {
+            if (json.old_pwd == '') {
                 jr.validator.setTip(inputs[1], false, null, '请输入密码!'); return false;
             }
             else if (json.pwd != json.repwd) {

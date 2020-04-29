@@ -25,6 +25,7 @@ using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
 using JR.Cms.Web.Util;
+using JR.Stand.Core.Framework.Extensions;
 
 namespace JR.Cms.Web.Manager.Handle
 {
@@ -52,9 +53,12 @@ namespace JR.Cms.Web.Manager.Handle
                 });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void SaveProfile_POST()
         {
-            string oldPassword = Request.Form("opwd"),
+            string oldPassword = Request.Form("old_pwd"),
                 newPassword = Request.Form("pwd"),
                 name = Request.Form("name");
 
@@ -65,13 +69,12 @@ namespace JR.Cms.Web.Manager.Handle
             user.Email = Request.Query("Email");
             if (!string.IsNullOrEmpty(newPassword))
             {
-                if (!Generator.CompareUserPwd(oldPassword, user.Credential.Password))
+                if (!Generator.CompareUserPwd(oldPassword.Md5(), user.Credential.Password))
                 {
                     RenderError("原密码不正确!");
                     return;
                 }
-
-                user.Credential.Password = Generator.Sha1Pwd(newPassword, Generator.Salt);
+                user.Credential.Password = Generator.CreateUserPwd(newPassword.Md5());
             }
 
             ServiceCall.Instance.UserService.SaveUser(user);
@@ -133,7 +136,11 @@ namespace JR.Cms.Web.Manager.Handle
             });
         }
 
-        public delegate void SiteRoleAppend(SiteDto site);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="site"></param>
+        private delegate void SiteRoleAppend(SiteDto site);
 
         private string GetRoleOptions(RoleValue[] roles1)
         {

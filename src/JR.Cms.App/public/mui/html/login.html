@@ -21,7 +21,7 @@
                         <p>
                             <span class="txt"><span style="margin-right: 14px">密</span>码：</span><input id="tb_pwd" field="pwd" name="password" type="password" class="ui-box" onfocus="this.value = '';"/>
                         </p>
-                        <p class="verify-panel" style="display:none" id="p-vcode">
+                        <p class="verify-panel hidden" style="display:none" id="p-vcode">
                             <span class="txt">验证码：</span><span class="mod-login-code">
                                 <input id="vcode" field="code" name="verifycode" class="ui-box box2 left" />
                                 <span class="verify mod-login-code-img" id="vimg" onclick="refreshImage() " title="验证码不区分大小写，点击刷新验证码">&nbsp;</span>
@@ -63,7 +63,7 @@
         if (runLinux == "false") {
             refreshImage();
             var pvc = document.getElementById("p-vcode");
-            pvc.style.display = 'inherit';
+            //pvc.style.display = 'inherit';
         }
         
         window.bind_initKey = false;
@@ -75,8 +75,8 @@
                 tip.html('<span style="color:red">请输入用户!</span>'); return false;
             } else if (formData.pwd.length===0) {
                 tip.html('<span style="color:red">请输入密码!</span>'); return false;
-            } else if (runLinux == "false" && formData.code.length===0) {
-                tip.html('<span style="color:red">请输入验证码!</span>'); return false;
+            //} else if (runLinux == "false" && formData.code.length===0) {
+            //    tip.html('<span style="color:red">请输入验证码!</span>'); return false;
             } else {
                 tip.html('<span style="color:green">登录中...</span>');
                 if (formData.pwd.length !== 32) {

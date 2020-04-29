@@ -312,7 +312,6 @@ namespace JR.Stand.Core.Framework.Web.UI
                 g.DrawLine(new Pen(Color.FromArgb(200, 200, 200)), x1, y1, x2, y2);
             }
 
-            FontFamily ffamily = font.FontFamily;
             //try
             //{
             //    ffamily = FontFamily.GenericSerif;
@@ -344,10 +343,9 @@ namespace JR.Stand.Core.Framework.Web.UI
 
             if (!simpleMode)
             {
-                //弯曲图片
+                // 弯曲图片
                 img = TwistImage(img, true, 2, 1);
-
-                //画图片的前景干扰点   
+                // 画图片的前景干扰点   
                 for (int i = 0; i < 100; i++)
                 {
                     int x = rd.Next(img.Width);
@@ -360,12 +358,11 @@ namespace JR.Stand.Core.Framework.Web.UI
             MemoryStream stream = new MemoryStream();
             img.Save(stream, ImageFormat.Jpeg);
             font.Dispose();
+            g.Flush();
             g.Dispose();
             img.Dispose();
-
             byte[] data = stream.ToArray();
             stream.Dispose();
-
             return data;
         }
 
@@ -374,7 +371,7 @@ namespace JR.Stand.Core.Framework.Web.UI
         /// </summary>
         /// <param name="srcBmp">图片路径</param>
         /// <param name="bXDir">如果扭曲则选择为True</param>
-        /// <param name="nMultValue">波形的幅度倍数，越大扭曲的程度越高，一般为3</param>
+        
         /// <param name="dPhase">波形的起始相位，取值区间[0-2*PI)</param>
         /// <returns></returns>
         private Bitmap TwistImage(Bitmap srcBmp, bool bXDir, double dMultValue, double dPhase)
