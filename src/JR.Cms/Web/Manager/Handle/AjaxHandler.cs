@@ -151,7 +151,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// <summary>
         /// 获取滚动公告
         /// </summary>
-        public void AppInit()
+        public void Init()
         {
             Response.WriteAsync(GetAppInit());
         }

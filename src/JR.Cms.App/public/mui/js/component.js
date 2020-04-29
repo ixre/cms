@@ -6,7 +6,7 @@ window.sites = [];
 window.groupname = null;
 
 if (window.menuData == undefined) {
-    jr.xhr.get(window._path + '?module=ajax&action=appinit', function (x) {
+    jr.xhr.get(window._path + '?module=ajax&action=init', function (x) {
         var ip, address, md, username;
         eval(x);
         window.menuData = md;

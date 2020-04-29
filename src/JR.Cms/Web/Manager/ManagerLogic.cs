@@ -37,14 +37,17 @@ namespace JR.Cms.Web.Manager
     /// </summary>
     public class Logic
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static SiteDto CurrentSite => new BasePage().CurrentSite;
 
         /// <summary>
         /// 程序集
         /// </summary>
-        private static readonly Assembly assembly = Assembly.GetAssembly(typeof(Logic));
+        private static readonly Assembly Assembly = Assembly.GetAssembly(typeof(Logic));
 
-        private static readonly string nameSpace = typeof(SystemHandler).Namespace;
+        private static readonly string NameSpace = typeof(SystemHandler).Namespace;
 
         /// <summary>
         /// 进行管理请求时候发生
@@ -139,13 +142,16 @@ namespace JR.Cms.Web.Manager
                 if (!HasPermissions()) return  SafetyTask.CompletedTask;
             }
 
+            // 默认返回system的界面
+            if (String.IsNullOrEmpty(module))
+            {
+                return CallMethod(context, typeof(SystemHandler), action);
+            }
 
-            //检验参数的合法性
+            //　检验参数的合法性
             switch (module)
             {
                 //主页
-                case "":
-                case null:
                 case "system":
                     return CallMethod(context, typeof(SystemHandler), action);
 
@@ -215,10 +221,10 @@ namespace JR.Cms.Web.Manager
             return context.Response.WriteAsync("模块错误,请检查！");
         }
 
-        internal static Task CallMethod(ICompatibleHttpContext context, Type typeName, string methodName)
+        private static Task CallMethod(ICompatibleHttpContext context, Type typeName, string methodName)
         {
             var requestMethod = context.Request.Method();
-            var obj = assembly.CreateInstance($"{typeName.FullName}");
+            var obj = Assembly.CreateInstance($"{typeName.FullName}");
             if (obj != null)
             {
                 if (requestMethod != "GET") methodName += "_" + requestMethod;
