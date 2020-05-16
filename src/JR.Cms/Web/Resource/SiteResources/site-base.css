@@ -1,4 +1,4 @@
-﻿*{box-sizing:border-box}
+﻿*,::after, ::before{}{box-sizing:border-box}
 /* ---------- 页面元素定义样式 --------- */
 a,abbr,acronym,address,applet,big,blockquote,body,caption,
 cite,code,dd,del,dfn,div,dl,dt,em,font,form,h1,h2,h3,h4,h5,
@@ -18,7 +18,7 @@ html{font-size:62.5%;}
     @media only screen and (min-width: 561px) {html {font-size: 109% !important; /* 17.44÷16=109% */ }}
     @media only screen and (min-width: 641px) {html {font-size: 125% !important; /* 20÷16=125% */}}
 }
-body,html{height:100%;height:100%;}:focus{outline:0}
+body,html{height:100%;}:focus{outline:0}
 ol,ul{list-style:none}textarea{resize:none}
 table{border-collapse:collapse;border-spacing:0;empty-cells:show}
 template{display:none;visibility:hidden;}
@@ -36,6 +36,7 @@ img{max-width:100%;border:0}
 
 /* Response Layout, 12 Columns */
 .container,.container-fluid{padding-right:15px;padding-left:15px;margin:0 auto}
+.row{display:flex;margin-left:-15px;margin-right:-15px;}
 .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12,
 .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,
 .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12,
@@ -72,7 +73,7 @@ img{max-width:100%;border:0}
 .pull{float:left;}.push{float:right;}
 
 /* clearfix 清除浮动 */
-.container:after,.row:after,.container-fluid:after,.clearfix:after{content:".";display:block;visibility:hidden;height:0;line-height:0;clear:both;}
+.container:after,.container-fluid:after,.clearfix:after{content:".";display:block;visibility:hidden;height:0;line-height:0;clear:both;}
 .clearfix{zoom:1;}
 /* 大写 */
 .uppercase{text-transform:uppercase;}
@@ -85,7 +86,7 @@ img{max-width:100%;border:0}
 /* 显示单行，超出以省略号显示 */
 .g-single-row{text-overflow: ellipsis;white-space: nowrap;overflow:hidden;}
 /* 元素垂直居中 */
-.g-align-content *{vertical-align:middle;}
+.g-align-center{align-content:center !important;align-items: center !important;}
 /* g-flex-boxes div垂直水平居中 */
 .g-flex-boxes>div{display:flex;justify-content:center;align-items:center}
 
@@ -106,13 +107,13 @@ img{max-width:100%;border:0}
 
 /* 圆角按钮 */
 .g-circle-button,.g-circle-fill-button{border:solid 2px #2699FB;line-height:30px;display:inline-block;
-    font-size:14px;font-weight:bold;padding:0 15px;border-radius:30px;background:#FFF;}
-.g-circle-button:hover,.g-circle-button-on,.g-circle-button-on:hover{background:#2699FB;color:#FFF;transition:all 0.3s ease 0s;}
+    font-size:14px;font-weight:bold;padding:0 15px;border-radius:30px;user-select:none;}
+.g-circle-button:hover,.g-circle-button-on,.g-circle-button-on:hover{background:#FFF;color:#2699FB !important;}
 .g-circle-button-small{line-height:24px;font-size:12px;}
 
-.g-circle-fill-button{background:#2699FB;color:#FFF;}
-.g-circle-fill-button:visited{color:#FFF;}
-.g-circle-fill-button:hover{color:#2699FB;background:#FFF;color:#2699FB}
+.g-circle-fill-button{background:#2699FB;color:#FFF !important;}
+.g-circle-fill-button:hover{background:#FFF;color:#2699FBf8 !important;transition:all .3s}
+.g-circle-button:hover,.g-circle-fill-button:hover{text-decoration:none !important;}
 
 /* 气泡 */
 .g-pop{position:relative;background:#FFE;border-radius:10px;color:#000;padding:10px;}
