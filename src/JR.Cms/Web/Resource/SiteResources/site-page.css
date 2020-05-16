@@ -271,8 +271,7 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 */
 
 /* 导航栏 */
-.mod-navigator{height:35px;z-index:200;}
-.mod-navigator div,.mod-navigator p{margin:0;}
+.mod-navigator{z-index:200;}
 .mod-navigator-nav,.mod-navigator-left,.mod-navigator-right{padding-bottom:0px;margin-bottom:-0px;}
 .mod-navigator-left{float:left;width:10px;margin-right:-10px;}
 .mod-navigator-right{float:right;width:10px;margin-left:-10px;}
@@ -300,7 +299,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 .mod-navigator .mod-navigator-right{}
 .mod-navigator .mod-navigator-nav{}*/
 .mod-navigator-nav ul{}
-.mod-navigator-nav li.l1{text-align:center;padding:0 15px}
 .mod-navigator-nav li.first{border-left:none;}
 .mod-navigator-nav li.last{background-image:none;}
 .mod-navigator-nav li.current{background-color:#EEE;margin:0;}

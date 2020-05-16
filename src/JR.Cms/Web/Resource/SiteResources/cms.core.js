@@ -230,14 +230,14 @@ $b.event.add(window, 'load', function () {
         fixedArr.each(function (i, e) {
             var top = e.attr("offsetTop") + e.parent().attr("offsetTop");
             if (scrollTop > top) {
-                if (e.css().position != "fixed") {
+                if (e.css().position !== "fixed") {
                     var left = e.attr("offsetLeft");
                     var width = e.attr("offsetWidth");
                     e.css({ position: "fixed", top: "0", left: left + "px", width: width + "px" });
                     e.addClass("scroll-linked");
                 }
             } else {
-                e.css({ position: "inherit", top: "inherit", left: "inherit", width: "inherit" });
+                e.css({ position: "unset", top: "inherit", left: "inherit", width: "inherit" });
                 e.removeClass("scroll-linked");
             }
         });
