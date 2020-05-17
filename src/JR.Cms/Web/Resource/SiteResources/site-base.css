@@ -184,12 +184,28 @@ img{max-width:100%;border:0}
 .g-arrow-l{border-left:none;border-right-color:#FFF;margin-right:5px;}
 .g-arrow-t{border-top:none;border-bottom-color:#FFF;margin-top:5px;}
 .g-arrow-b{border-bottom:none;border-top-color:#FFF;margin-bottom:5px;}
+/* 空心箭头： 向下的三角线：<span class="g-arrow-slot g-arrow-slot-b"><span></span><span></span></span> */
+.g-arrow-slot{position: relative;}
+.g-arrow-slot span{position: absolute;border-style: solid dashed dashed;top:0;border-width: 10px;}
+.g-arrow-slot span:first-child{border-color: #666 transparent transparent;top:1px;}
+.g-arrow-slot span:last-child{border-color: #FFF transparent transparent;border-style: solid dashed dashed;}
+.g-arrow-slot-r span:first-child{margin-left:1px;top:1px;border-style: dashed dashed dashed solid;border-color: transparent transparent transparent #666;}
+.g-arrow-slot-r span:last-child{top:1px;border-style: dashed dashed dashed solid;border-color:transparent transparent transparent #fff;}
+.g-arrow-slot-l span:first-child{top:1px;border-style: dashed solid dashed dashed;border-color: transparent #666 transparent transparent;}
+.g-arrow-slot-l span:last-child{margin-left:1px;top:1px;border-style: dashed solid dashed dashed;border-color: transparent #fff transparent transparent;}
+/* 水平箭头折线,如：<div class="g-arrow-hr"><span class="g-arrow-slot g-arrow-slot-b"><span></span><span></span></span> </div>*/
+.g-arrow-hr{border-bottom:solid 1px #999;height:1px;position:relative;margin-bottom:15px;}
+.g-arrow-hr .g-arrow-slot{position: absolute;margin-left:-5px;}
+.g-arrow-hr .g-arrow-slot span{border-width:7px;}
 /* 显示单行，超出以省略号显示 */
 .g-single-row{text-overflow: ellipsis;white-space: nowrap;overflow:hidden;}
+/** 文字居中 */
+.g-text-center{text-align:center;}.g-text-right{text-align:right;}
 /* 元素垂直居中 */
 .g-align-center{align-content:center !important;align-items: center !important;}
 /* g-flex-boxes div垂直水平居中 */
-.g-flex-boxes>div{display:flex;justify-content:center;align-items:center}
+.g-flex{display:flex;}
+.g-flex-boxes>*{display:flex;justify-content:center;align-items:center}
 /** 背景覆盖 */
 .g-bg-cover{background-size:cover !important;}
 
