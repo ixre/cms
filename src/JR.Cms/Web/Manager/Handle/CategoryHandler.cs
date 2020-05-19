@@ -22,7 +22,6 @@ using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Cms.Web.Util;
 using JR.Stand.Abstracts.Web;
-using Kvdb = JR.Cms.Library.CacheService.Kvdb;
 
 namespace JR.Cms.Web.Manager.Handle
 {
@@ -86,8 +85,7 @@ namespace JR.Cms.Web.Manager.Handle
             categoryTypeOptions = sb.ToString();
             sb.Remove(0, sb.Length);
             */
-            int parentId;
-            int.TryParse(Request.Query("parent_id"), out parentId);
+            int.TryParse(Request.Query("parent_id"), out var parentId);
 
             categoryOptions = Helper.GetCategoryIdSelector(SiteId, parentId);
 
@@ -106,19 +104,13 @@ namespace JR.Cms.Web.Manager.Handle
             EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Category});
             categoryTplOpts = sb.ToString();
 
-            object entity = new
-            {
-                ParentId = Request.Query("parent_id")
-            };
-
             object data = new
             {
                 url = Request.GetEncodedUrl(),
                 categories = categoryOptions,
-                tpls = sb.ToString(),
                 category_tpls = categoryTplOpts,
                 archive_tpls = archiveTplOpts,
-                entity = JsonSerializer.Serialize(entity)
+                parentId = parentId
             };
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Category_CreateCategory), data);
         }
