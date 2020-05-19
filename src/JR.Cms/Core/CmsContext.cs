@@ -189,7 +189,7 @@ namespace JR.Cms.Core
         /// <summary>
         /// 当前站点
         /// </summary>
-        public SiteDto CurrentSite { get; private set; }
+        public SiteDto CurrentSite { get; }
 
         private bool IsMobileAgent()
         {
