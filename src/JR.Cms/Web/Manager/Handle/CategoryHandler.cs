@@ -139,13 +139,13 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void MoveSortNumber_post()
         {
-            var id = int.Parse(Request.Query("category.id"));
-            var di = int.Parse(Request.Query("direction"));
+            var id = int.Parse(Request.Form("category.id"));
+            var di = int.Parse(Request.Form("direction"));
 
             try
             {
                 ServiceCall.Instance.SiteService.MoveCategorySortNumber(SiteId, id, di);
-                var key = Consts.NODE_TREE_JSON_KEY + ":" + SiteId.ToString();
+                var key = Consts.NODE_TREE_JSON_KEY + ":" + SiteId;
                 Kvdb.Gca.Delete(key);
                 RenderSuccess();
             }
