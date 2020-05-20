@@ -198,6 +198,7 @@ namespace JR.Cms.Web.Manager
         /// <returns></returns>
         public static string GetBackupFilePath(string filePath)
         {
+            return CmsVariables.TEMP_PATH + "/.files/" + filePath;
             const string pattern = "^(.+)(/|\\\\)([^/\\\\]+)$";
             if (Regex.IsMatch(filePath, pattern))
             {

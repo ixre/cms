@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using JR.Stand.Core;
+using JR.Stand.Core.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 
 namespace JR.Stand.Toolkit.Crawl.Impl

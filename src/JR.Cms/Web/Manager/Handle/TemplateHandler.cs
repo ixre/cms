@@ -96,43 +96,42 @@ namespace JR.Cms.Web.Manager.Handle
         public string EditFile()
         {
             string path = Request.Query("path");
-            string content,
-                bakinfo;
-
-            FileInfo file, bakfile;
-
-            file = new FileInfo(EnvUtil.GetBaseDirectory()+ path);
-            bakfile = new FileInfo(EnvUtil.GetBaseDirectory() + Helper.GetBackupFilePath(path));
-
-
+            string bakInfo;
+            var file = new FileInfo(EnvUtil.GetBaseDirectory()+ path);
+            var bakFile = new FileInfo(EnvUtil.GetBaseDirectory() + Helper.GetBackupFilePath(path));
             if (!file.Exists)
             {
                 return "文件不存在!";
             }
             else
             {
-                if (bakfile.Exists)
-                    bakinfo = string.Format(@"上次修改时间日期：{0:yyyy-MM-dd HH:mm:ss}&nbsp;
-                                <a style=""margin-right:20px"" href=""javascript:;"" onclick=""process('restore')"">还原</a>",
-                        bakfile.LastWriteTime);
+                if (bakFile.Exists)
+                {
+                    bakInfo = $@"上次修改时间日期：{bakFile.LastWriteTime:yyyy-MM-dd HH:mm:ss}&nbsp;
+                                <a style=""margin-right:20px"" href=""javascript:;"" onclick=""process('restore')"">还原</a>";
+                }
                 else
-                    bakinfo = "";
+                {
+                    bakInfo = "";
+                }
             }
 
             var sr = new StreamReader(file.FullName);
-            content = sr.ReadToEnd();
+            var content = sr.ReadToEnd();
             sr.Dispose();
-
-
+            
             content = content.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
             ViewData["raw_content"] = content;
-            ViewData["bakinfo"] = bakinfo;
+            ViewData["bakInfo"] = bakInfo;
             ViewData["file"] = path;
             ViewData["path"] = path;
 
             return RequireTemplate(CompressHtml(ResourceMap.GetPageContent(ManagementPage.Template_EditFile)));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void EditFile_POST()
         {
             //修改系统文件
@@ -174,32 +173,27 @@ namespace JR.Cms.Web.Manager.Handle
 
                         //生成备份文件
                         file.CopyTo(backFile, true);
-                        //global::System.IO.File.SetAttributes(backFile,file.Attributes&FileAttributes.Hidden);
-
                         //重写现有文件
                         var fs = new FileStream(file.FullName, FileMode.Truncate, FileAccess.Write, FileShare.Read);
                         var data = Encoding.UTF8.GetBytes(content);
                         fs.Write(data, 0, data.Length);
                         fs.Flush();
                         fs.Dispose();
-
                         Response.WriteAsync("保存成功!");
                     }
                     else if (action == "restore")
                     {
-                        FileInfo bakfile = new FileInfo(backFile),
-                            tmpfile = new FileInfo(backFile + ".tmp");
+                        FileInfo bakFile = new FileInfo(backFile),
+                            tmpFile = new FileInfo(backFile + ".tmp");
 
-                        var _fpath = file.FullName;
+                        var filePath = file.FullName;
 
-                        if (bakfile.Exists)
+                        if (bakFile.Exists)
                         {
                             file.MoveTo(backFile + ".tmp");
-                            bakfile.MoveTo(_fpath);
-                            tmpfile.MoveTo(backFile);
-
-                            //global::System.IO.File.SetAttributes(_fpath + ".bak",file.Attributes & FileAttributes.Hidden);
-                            File.SetAttributes(_fpath, file.Attributes & FileAttributes.Normal);
+                            bakFile.MoveTo(filePath);
+                            tmpFile.MoveTo(backFile);
+                            File.SetAttributes(filePath, file.Attributes & FileAttributes.Normal);
                         }
 
                         Response.WriteAsync("还原成功!");

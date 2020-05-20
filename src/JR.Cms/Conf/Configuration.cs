@@ -56,7 +56,7 @@ namespace JR.Cms.Conf
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <returns>返回加载消息，如成功返回空</returns>
-        internal static string Load(string filePath)
+        private static string Load(string filePath)
         {
             cmsConfFile = filePath;
             //从配置文件中加载
@@ -68,13 +68,14 @@ namespace JR.Cms.Conf
             // {
             Settings.LICENSE_NAME = sf.Contains("license_name") ? sf["license_name"] : "评估用户";
             Settings.LICENSE_KEY = sf.Contains("license_key") ? sf["license_key"] : String.Empty;
-            Settings.SYS_WWW_RD = CheckTrueValue(sf,"sys_www_rd");         //自动WWW
+            Settings.SYS_WWW_RD = GetInt(sf,"sys_www_rd");       
+            Settings.SYS_FORCE_HTTPS = CheckTrueValue(sf,"sys_force_https"); 
             Settings.SYS_USE_UPLOAD_RAW_NAME = CheckTrueValue(sf, "sys_use_upload_raw_path");
 
             #region 读取模板选项
 
-            Settings.TPL_FULL_URL_PATH = sf.Contains("tpl_full_url_path") ? sf["tpl_full_url_path"] == "true" : true;
-            Settings.TPL_USE_COMPRESS = sf.Contains("tpl_use_compress") ? sf["tpl_use_compress"] == "true" : false;
+            Settings.TPL_FULL_URL_PATH = !sf.Contains("tpl_full_url_path") || sf["tpl_full_url_path"] == "true";
+            Settings.TPL_USE_COMPRESS = sf.Contains("tpl_use_compress") && sf["tpl_use_compress"] == "true";
 
 
             #endregion
@@ -184,6 +185,13 @@ namespace JR.Cms.Conf
             return String.Empty;
         }
 
+        private static int GetInt(SettingFile s, string key)
+        {
+            if (!s.Contains(key)) return 0;
+            int.TryParse(s[key], out var value);
+            return value;
+        }
+
         /// <summary>
         /// 判断设置项的值是否为真
         /// </summary>
@@ -198,6 +206,11 @@ namespace JR.Cms.Conf
         private static SettingFile sf = null;
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <exception cref="Exception"></exception>
         public static void UpdateByPrefix(string prefix)
         {
             if (sf == null)
@@ -228,8 +241,8 @@ namespace JR.Cms.Conf
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
                     sf["sql_profile_trace"] = Settings.SQL_PROFILE_TRACE ? "true" : "false";
                     sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME?"true":"false");
-                    sf["sys_www_rd"] = Settings.SYS_WWW_RD ? "true" : "false";
-
+                    sf["sys_www_rd"] = Settings.SYS_WWW_RD.ToString();
+                    sf.Set("sys_force_https", Settings.SYS_FORCE_HTTPS?"true":"false");
                     //虚拟路径
                     //if (!sf.Contains("sys_virthpath"))
                     //{

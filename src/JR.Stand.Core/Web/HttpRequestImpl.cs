@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using JR.Stand.Abstracts.Web;
+using JR.Stand.Core.Extensions.Http;
 using JR.Stand.Core.Framework.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
