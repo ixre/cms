@@ -1,6 +1,8 @@
 using System;
 using JR.Cms.Conf;
+using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 
 namespace JR.Cms.Web.Portal
@@ -20,20 +22,20 @@ namespace JR.Cms.Web.Portal
                     await next();
                     return;
                 }
+
                 context.Response.Redirect("/install");
             });
             // 自动跳转到www开头的域名
             app.Use(async (context, next) =>
             {
                 var redirect = false;
-                if (Settings.SYS_WWW_RD)
+                if (Settings.SYS_FORCE_HTTPS || Settings.SYS_WWW_RD > 0)
                 {
-                    var url = context.Request.GetEncodedUrl() ??
-                              throw new ArgumentNullException("context.Request.GetEncodedUrl()");
-                    var host = context.Request.Host.Host;
-                    if (host.Split('.').Length == 2)
+                    var target = Utils.GetRdUrl(HttpHosting.Context.Request);
+                    if (target != null)
                     {
-                        context.Response.Redirect(url.Replace(host, "www." + host));
+                        context.Response.StatusCode = 301;
+                        context.Response.Headers.Add("Location", target);
                         redirect = true;
                     }
                 }

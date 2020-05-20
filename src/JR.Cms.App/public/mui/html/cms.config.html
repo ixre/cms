@@ -47,16 +47,7 @@
                 <input type="text" class="tb_normal ui-box" field="license_key" style="width: 400px" />
             </div>
         </div>
-        <div class="fl">
-            <div class="label">自动重定向：</div>
-            <div class="in">
-                <input type="radio" value="1" field="sys_www_rd" name="www_rd" id="www_rd_1" checked="checked" />
-                <label for="www_rd_1">是</label>
-                <input type="radio" value="0" field="sys_www_rd" name="www_rd" id="www_rd_2" />
-                <label for="www_rd_2">否</label>
-                <div>(自动将主域名(如:xxx.com)重定向到www前缀的域名)</div>
-            </div>
-        </div>
+       
         <div class="fl">
             <div class="label">调试模式：</div>
             <div class="in">
@@ -78,7 +69,32 @@
                 <label for="sys_encode_conf">加密CMS配置文件</label>
             </div>
         </div>
+        
+        <div class="title" style="margin-top: 0">
+            <span class="icon icon1"></span>SEO设置
+        </div>
+        <div class="fl">
+            <div class="label">自动重定向：</div>
+            <div class="in">
+                <input type="radio" value="0" field="sys_www_rd" name="www_rd" id="www_rd_0" checked="checked" />
+                <label for="www_rd_0">关闭</label>
+                <input type="radio" value="1" field="sys_www_rd" name="www_rd" id="www_rd_1" />
+                <label for="www_rd_1">定向到二级域名(www)</label>
+                <input type="radio" value="2" field="sys_www_rd" name="www_rd" id="www_rd_2" />
+                <label for="www_rd_2">二级(www)定向到顶级域名</label>
+            </div>
+        </div>
 
+        <div class="fl">
+            <div class="label">强制HTTPS：</div>
+            <div class="in">
+                <input type="radio" value="1" field="sys_force_https" name="force_https" id="force_https_1"/>
+                <label for="force_https_1">开启</label>
+                <input type="radio" value="0" field="sys_force_https" name="force_https" id="force_https_2" checked="checked"/>
+                <label for="force_https_2">关闭</label>
+            </div>
+        </div>
+        
         <div class="title" style="margin-top: 0">
             <span class="icon icon1"></span>性能
         </div>

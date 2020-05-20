@@ -81,11 +81,16 @@ namespace JR.Cms.Conf
         //public static string SYS_VIRTHPATH;
 
         /// <summary>
-        /// 自动301跳转到www
+        /// 0：关闭 1：自动301跳转到www 2：自动跳转到顶级域名
         /// </summary>
-        public static bool SYS_WWW_RD;
+        public static int SYS_WWW_RD;
 
 
+        /// <summary>
+        /// 强制跳转到HTTPS
+        /// </summary>
+        public static bool SYS_FORCE_HTTPS;
+        
         /// <summary>
         /// 是否使用原始上传文件名称
         /// </summary>

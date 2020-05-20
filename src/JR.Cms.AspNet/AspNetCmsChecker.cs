@@ -1,6 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 using System.Web;
 using JR.Cms.Conf;
+using JR.Cms.Web.Portal;
+using JR.Stand.Abstracts.Web;
+using JR.Stand.Core.Web;
 
 namespace JR.Cms.AspNet
 {
@@ -15,16 +21,17 @@ namespace JR.Cms.AspNet
             if (!Cms.IsInstalled())
             {
                 var path = context.Request.Path;
-                if (path == "/favicon.ico")return true;
+                if (path == "/favicon.ico") return true;
                 if (path.StartsWith("/install/cms")) return true;
                 if (path.IndexOf(".", StringComparison.Ordinal) != -1) return true;
-                context.Response.Redirect("/install/cms",true);
+                context.Response.Redirect("/install/cms", true);
                 return false;
             }
+
             return true;
         }
-        
-        
+
+
         /// <summary>
         /// 自动跳转到www开头的域名
         /// </summary>
@@ -33,19 +40,23 @@ namespace JR.Cms.AspNet
         public static bool Check301Redirect(HttpContextBase context)
         {
             // 自动跳转到www开头的域名
-            if (Settings.SYS_WWW_RD)
+            if (Settings.SYS_FORCE_HTTPS || Settings.SYS_WWW_RD > 0)
             {
-                var url = context.Request.Url ?? throw new ArgumentNullException("context.Request.GetEncodedUrl()");
-                var host = context.Request.Url.Host;
-                if (host.Split('.').Length == 2)
+                var target = Utils.GetRdUrl(HttpHosting.Context.Request);
+                if (target != null)
                 {
-                    context.Response.Redirect(url.ToString().Replace(host, "www." + host));
+                    throw new Exception(Settings.SYS_FORCE_HTTPS + "/" + target);
+                }
+                if (target != null)
+                {
+                    context.Response.AddHeader("Location", target);
+                    context.Response.StatusCode = 301;
                     context.Response.End();
                     return false;
                 }
             }
-
             return true;
         }
+
     }
 }

@@ -14,6 +14,7 @@
 using System;
 using System.IO;
 using System.Text;
+using JR.Cms.Conf;
 using JR.Stand.Core;
 
 namespace JR.Cms.Web.Manager.Handle
@@ -145,8 +146,7 @@ namespace JR.Cms.Web.Manager.Handle
         public string EditFile()
         {
             string path = Request.Query("path");
-            string content,
-                bakinfo;
+            string bakInfo;
 
             if (path.ToLower().IndexOf("config/cms.conf", StringComparison.Ordinal) != -1)
                 throw new ArgumentException();
@@ -154,10 +154,8 @@ namespace JR.Cms.Web.Manager.Handle
             var mode = "html";
             var dependJs = "/public/assets/code_editor/mode/htmlmixed/htmlmixed.js";
 
-            FileInfo file, bakfile;
-
-            file = new FileInfo(EnvUtil.GetBaseDirectory() + "/" + path);
-            bakfile = new FileInfo(EnvUtil.GetBaseDirectory() + "/" + path + ".bak");
+            var file = new FileInfo(EnvUtil.GetBaseDirectory() + "/" + path);
+            var bakFile = new FileInfo(Cms.PhysicPath+Helper.GetBackupFilePath(path));
 
             switch (file.Extension.ToLower())
             {
@@ -179,20 +177,20 @@ namespace JR.Cms.Web.Manager.Handle
             }
             else
             {
-                if (bakfile.Exists)
-                    bakinfo = string.Format(@"上次修改时间日期：{0:yyyy-MM-dd HH:mm:ss}&nbsp;
+                if (bakFile.Exists)
+                    bakInfo = string.Format(@"上次修改时间日期：{0:yyyy-MM-dd HH:mm:ss}&nbsp;
                                 <a style=""margin-right:20px"" href=""javascript:;"" onclick=""process('restore')"">还原</a>",
-                        bakfile.LastWriteTime, path);
+                        bakFile.LastWriteTime);
                 else
-                    bakinfo = "";
+                    bakInfo = "";
             }
 
             var sr = new StreamReader(file.FullName);
-            content = sr.ReadToEnd();
+            var content = sr.ReadToEnd();
             sr.Dispose();
             content = content.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
 
-            ViewData["bakinfo"] = bakinfo;
+            ViewData["bakInfo"] = bakInfo;
             ViewData["file"] = path;
             ViewData["mode"] = mode;
             ViewData["dependJs"] = dependJs;
@@ -216,8 +214,10 @@ namespace JR.Cms.Web.Manager.Handle
             string content = Request.Form("content");
 
 
-            if (path.ToLower().IndexOf("config/cms.conf") != -1 && Request.Query("pwd") != "$Newmin888")
+            if (path.ToLower().IndexOf("config/cms.conf", StringComparison.Ordinal) != -1)
+            {
                 throw new ArgumentException();
+            }
 
             var file = new FileInfo(EnvUtil.GetBaseDirectory() + path);
 
@@ -246,10 +246,8 @@ namespace JR.Cms.Web.Manager.Handle
                         {
                             if (File.Exists(backFile)) File.Delete(backFile);
                         }
-
                         //生成备份文件
                         file.CopyTo(backFile, true);
-                        //global::System.IO.File.SetAttributes(backFile,file.Attributes&FileAttributes.Hidden);
 
                         //重写现有文件
                         var fs = new FileStream(file.FullName, FileMode.Truncate, FileAccess.Write, FileShare.Read);
@@ -262,19 +260,17 @@ namespace JR.Cms.Web.Manager.Handle
                     }
                     else if (action == "restore")
                     {
-                        FileInfo bakfile = new FileInfo(backFile),
-                            tmpfile = new FileInfo(backFile + ".tmp");
+                        FileInfo bakFile = new FileInfo(backFile),
+                            tmpFile = new FileInfo(backFile + ".tmp");
 
-                        var _fpath = file.FullName;
+                        var filePath = file.FullName;
 
-                        if (bakfile.Exists)
+                        if (bakFile.Exists)
                         {
                             file.MoveTo(backFile + ".tmp");
-                            bakfile.MoveTo(_fpath);
-                            tmpfile.MoveTo(backFile);
-
-                            //global::System.IO.File.SetAttributes(_fpath + ".bak",file.Attributes & FileAttributes.Hidden);
-                            File.SetAttributes(_fpath, file.Attributes & FileAttributes.Normal);
+                            bakFile.MoveTo(filePath);
+                            tmpFile.MoveTo(backFile);
+                            File.SetAttributes(filePath, file.Attributes & FileAttributes.Normal);
                         }
 
                         Response.WriteAsync("还原成功!");
@@ -286,35 +282,5 @@ namespace JR.Cms.Web.Manager.Handle
                 Response.WriteAsync("文件不存在,请检查!");
             }
         }
-
-        /*
-
-        public void CreateStyleSheet_POST()
-        {
-            string tplname = String.Format("style/{0}.css", Request.Form("name"));
-
-            string tplPath = String.Format("{0}{1}",
-                EnvUtil.GetBaseDirectory(),
-                tplname);
-
-            if (global::System.IO.File.Exists(tplPath))
-            {
-                Response.Write("文件已经存在!");
-            }
-            else
-            {
-                try
-                {
-                    //global::System.IO.Directory.CreateDirectory(tplPath).Create();   //创建目录
-                    global::System.IO.File.Create(tplPath).Dispose();                           //创建文件
-                    Response.Write(tplname);
-                }
-                catch (Exception e)
-                {
-                    // Response.Write(e.Message);
-                    Response.Write("无权限创建文件，请设置样式目录(style)可写权限！");
-                }
-            }
-        }*/
     }
 }
