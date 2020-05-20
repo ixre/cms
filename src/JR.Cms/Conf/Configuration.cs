@@ -68,7 +68,7 @@ namespace JR.Cms.Conf
             // {
             Settings.LICENSE_NAME = sf.Contains("license_name") ? sf["license_name"] : "评估用户";
             Settings.LICENSE_KEY = sf.Contains("license_key") ? sf["license_key"] : String.Empty;
-            Settings.SYS_AUTOWWW = CheckTrueValue(sf,"sys_autowww");         //自动WWW
+            Settings.SYS_WWW_RD = CheckTrueValue(sf,"sys_www_rd");         //自动WWW
             Settings.SYS_USE_UPLOAD_RAW_NAME = CheckTrueValue(sf, "sys_use_upload_raw_path");
 
             #region 读取模板选项
@@ -228,7 +228,7 @@ namespace JR.Cms.Conf
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
                     sf["sql_profile_trace"] = Settings.SQL_PROFILE_TRACE ? "true" : "false";
                     sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME?"true":"false");
-                    sf["sys_autowww"] = Settings.SYS_AUTOWWW ? "true" : "false";
+                    sf["sys_www_rd"] = Settings.SYS_WWW_RD ? "true" : "false";
 
                     //虚拟路径
                     //if (!sf.Contains("sys_virthpath"))

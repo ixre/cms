@@ -343,7 +343,7 @@ namespace JR.Cms.Web.Manager.Handle
                 license_name = Settings.LICENSE_NAME,
                 license_key = Settings.LICENSE_KEY,
                 site_domain = Request.GetHost(),
-                sys_autowww = Settings.SYS_AUTOWWW,
+                sys_www_rd = Settings.SYS_WWW_RD,
                 sys_admin_tag = Settings.SYS_ADMIN_TAG,
                 sys_encode_conf = Settings.SYS_ENCODE_CONF_FILE,
                 db_prefix = Settings.DB_PREFIX,
@@ -366,7 +366,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void AppConfig_POST()
         {
-            string item = Request.Form("item");
+            string item = Request.Query("item");
 
             var req = Request;
 
@@ -375,7 +375,7 @@ namespace JR.Cms.Web.Manager.Handle
                 case "1":
                     Settings.LICENSE_KEY = req.Form("license_key");
                     Settings.LICENSE_NAME = req.Form("license_name");
-                    Settings.SYS_AUTOWWW = req.Form("sys_autowww") == "1";
+                    Settings.SYS_WWW_RD = req.Form("sys_www_rd") == "1";
                     Settings.SYS_ENCODE_CONF_FILE = req.Form("sys_encode_conf") == "on";
                     Settings.SQL_PROFILE_TRACE = req.Form("sql_profile_trace") == "on";
                     Settings.DB_PREFIX = req.Form("db_prefix");

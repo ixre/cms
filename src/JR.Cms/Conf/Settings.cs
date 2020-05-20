@@ -83,7 +83,7 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 自动301跳转到www
         /// </summary>
-        public static bool SYS_AUTOWWW;
+        public static bool SYS_WWW_RD;
 
 
         /// <summary>

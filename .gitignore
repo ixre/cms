@@ -44,5 +44,6 @@ src/JR.Cms.App/config
 src/JR.Cms.AspNet.App/public
 src/JR.Cms.AspNet.App/oem
 src/JR.Cms.AspNet.App/install
+src/JR.Cms.AspNet.App/uploads
 *.blob
 
