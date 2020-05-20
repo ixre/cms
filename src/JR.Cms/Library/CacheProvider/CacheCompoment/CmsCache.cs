@@ -16,7 +16,6 @@ using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Web.Cache;
 using JR.Stand.Core.Utils;
-using Microsoft.AspNetCore.Http;
 
 namespace JR.Cms.Library.CacheProvider.CacheCompoment
 {
@@ -150,7 +149,7 @@ namespace JR.Cms.Library.CacheProvider.CacheCompoment
             CacheUtil.SetClientCache(response, _cacheSha1ETag);
         }
 
-        public void ETagOutput(HttpResponse response, StringCreatorHandler handler)
+        public void ETagOutput(ICompatibleResponse response, StringCreatorHandler handler)
         {
             CacheUtil.Output(response, _cacheSha1ETag, handler);
         }

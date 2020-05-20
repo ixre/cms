@@ -10,14 +10,13 @@
 using System;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Web;
-using Microsoft.AspNetCore.Http;
 
 namespace JR.Stand.Core.Framework.Web.Cache
 {
     /// <summary>
     /// Description of CacheUtil.
     /// </summary>
-    public sealed class CacheUtil
+    public static class CacheUtil
     {
         /// <summary>
         /// 检查客户端缓存是否过期,如果未过期，则直接输出http 304
@@ -128,7 +127,7 @@ namespace JR.Stand.Core.Framework.Web.Cache
         /// <param name="maxage"></param>
         /// <param name="handler"></param>
         /// <returns>是否缓存在客户端</returns>
-        public static bool Output(ICompatibleResponse response, int maxage, StringCreatorHandler handler)
+        public static void Output(ICompatibleResponse response, int maxage, StringCreatorHandler handler)
         {
             /*
                    Public  指示响应可被任何缓存区缓存。
@@ -157,15 +156,14 @@ namespace JR.Stand.Core.Framework.Web.Cache
            if (b)
             {
                 //最后修改时间
-                DateTime sinceTime;
-                DateTime.TryParse(sinceModified, out sinceTime);
+                DateTime.TryParse(sinceModified, out var sinceTime);
                 sinceTime = sinceTime.ToUniversalTime();
 
                 if ((nowTime - sinceTime).TotalSeconds < maxage)
                 {
                     response.StatusCode(304);
                    // response.Status = "304 Not Modified";
-                    return true;
+                   return;
                 }
             }
 
@@ -179,8 +177,6 @@ namespace JR.Stand.Core.Framework.Web.Cache
             response.AddHeader("Last-Modified", nowTime.ToString("r"));
 
             #endregion
-
-            return false;
         }
 
         /// <summary>
@@ -190,18 +186,17 @@ namespace JR.Stand.Core.Framework.Web.Cache
         /// <param name="etag"></param>
         /// <param name="handler"></param>
         /// <returns>是否缓存在客户端</returns>
-        public static bool Output(HttpResponse response, string etag, StringCreatorHandler handler)
+        public static void Output(ICompatibleResponse response, string etag, StringCreatorHandler handler)
         {
             HttpHosting.Context.Request.TryGetHeader("If-None-Match",out var clientEtag);
             if (String.Compare(clientEtag, String.Concat("\"", etag, "\""), false) == 0)
             {
-                response.StatusCode = 304;
+                response.StatusCode(304);
                 //response.Status = "304 Not Modified";
-                return true;
+                return;
             }
-            response.Headers.Add("ETag", "\"" + etag + "\"");
+            response.AddHeader("ETag", "\"" + etag + "\"");
             response.WriteAsync(handler());
-            return false;
         }
     }
 }

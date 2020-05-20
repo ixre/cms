@@ -29,12 +29,25 @@ using JR.Stand.Core.Web.Cache;
 
 namespace JR.Cms
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [Flags]
     public enum BootFlag
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Normal = 1,
+        /// <summary>
+        /// 
+        /// </summary>
         UnitTest = 2
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Cms
     {
         private static bool isInstalled;
@@ -289,13 +302,10 @@ namespace JR.Cms
                 // 连接插件
                 //todo: plugin
                 //CmsPluginContext.Connect();
-
                 // 设置验证码字体
                 VerifyCodeGenerator.SetFontFamily(PhysicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
             }
-
             OnInit?.Invoke();
-
             IsInitFinish = true;
         }
 

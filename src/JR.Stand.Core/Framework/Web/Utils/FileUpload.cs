@@ -7,6 +7,7 @@
 
 using System;
 using System.IO;
+using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Http;
 
@@ -46,25 +47,25 @@ namespace JR.Stand.Core.Framework.Web.UI
         /// 上传
         /// </summary>
         /// <returns>异步则返回进程ID，同步返回上传文件的路径</returns>
-        public string Upload()
+        public string Upload(ICompatiblePostedFile postedFile)
         {
-            HttpRequest request = (HttpHosting.Context.RawContext() as HttpContext).Request;
+            ICompatibleRequest request = HttpHosting.Context.Request;
             String baseDir = EnvUtil.GetBaseDirectory();
-            string[] process = request.Form["upload_process"][0].Split('|');
-            string processID = process[1], field = process[0];
+            string[] process = request.Form("upload_process")[0].Split('|');
+            string processId = process[1];
 
-            var postedFile = request.Form.Files[field];
             if (postedFile == null)
             {
                 return null;
             }
-            string fileExt = postedFile.FileName.Substring(postedFile.
-                FileName.LastIndexOf('.') + 1); //扩展名
+
+            string fileName = postedFile.GetFileName();
+            string fileExt =fileName.Substring(fileName.LastIndexOf('.') + 1); //扩展名
             InitUplDirectory(baseDir, this._saveAbsoluteDir);
             this._fileInfo = new UploadFileInfo
             {
-                Id = processID,
-                ContentLength = postedFile.Length,
+                Id = processId,
+                ContentLength = postedFile.GetLength(),
                 FilePath = $"{this._saveAbsoluteDir}{this._fileName}.{fileExt}"
             };
             String targetPath = baseDir + this._fileInfo.FilePath;
@@ -99,12 +100,11 @@ namespace JR.Stand.Core.Framework.Web.UI
             const int bufferSize = 100; //缓冲区大小
             byte[] buffer = new byte[bufferSize]; //缓冲区
 
-            int bytes; //从流中读取的值
             using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 while (true)
                 {
-                    bytes =stream.Read(buffer, 0, bufferSize);
+                    var bytes = stream.Read(buffer, 0, bufferSize); //从流中读取的值
                     if (bytes == 0)
                     {
                         break;

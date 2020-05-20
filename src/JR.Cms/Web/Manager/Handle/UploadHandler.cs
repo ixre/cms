@@ -37,19 +37,21 @@ namespace JR.Cms.Web.Manager.Handle
             //string id = base.Request.Query("upload.id");
             var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "image", true);
             var name = UploadUtils.GetUploadFileName(file, uploadFor);
-            UploadResultResponse(dir, name, false);
+            UploadResultResponse(file,dir, name, false);
         }
 
-        private void UploadResultResponse(string dir, string name, bool autoName)
+        private void UploadResultResponse(ICompatiblePostedFile file, string dir, string name,
+            bool autoName)
         {
             try
             {
-                var file = new FileUpload(dir, name, autoName).Upload();
-                Response.WriteAsync("{" + string.Format("\"url\":\"{0}\"", file) + "}");
+                var filePath = new FileUpload(dir, name, autoName).Upload(file);
+                Response.WriteAsync("{" + $"\"url\":\"{filePath}\"" + "}");
             }
             catch (Exception ex)
             {
-                Response.WriteAsync("{" + string.Format("\"error\":\"{0}\"", ex.Message) + "}");
+                Console.WriteLine(ex.StackTrace);
+                Response.WriteAsync("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
         }
 
@@ -61,9 +63,9 @@ namespace JR.Cms.Web.Manager.Handle
         {
             var file = Request.FileIndex(0);
             //string id = base.Request.Query("upload.id");
-            var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "thumb_cat", false);
+            var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "image/cat", false);
             var name = UploadUtils.GetUploadFileRawName(file);
-            UploadResultResponse(dir, name, true);
+            UploadResultResponse(file,dir, name, true);
         }
 
 
@@ -72,10 +74,10 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void UploadArchiveThumb_POST()
         {
-            var file = Request.FileIndex(0);
-            var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "thumb_ar", true);
+            var file = Request.File("upload_thumbnail");
+            var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "image/art", true);
             var name = UploadUtils.GetUploadFileName(file, "");
-            UploadResultResponse(dir, name, true);
+            UploadResultResponse(file,dir, name, true);
         }
 
 
@@ -88,7 +90,7 @@ namespace JR.Cms.Web.Manager.Handle
             var dt = DateTime.Now;
             var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "prop", true);
             var name = UploadUtils.GetUploadFileName(file, "");
-            UploadResultResponse(dir, name, true);
+            UploadResultResponse(file,dir, name, true);
         }
 
         /// <summary>
@@ -99,10 +101,9 @@ namespace JR.Cms.Web.Manager.Handle
            // string uploadfor = Request.Query("for");
            // string id = Request.Query("upload.id");
             var file = Request.FileIndex(0);
-            var dt = DateTime.Now;
             var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "file", true);
             var name = UploadUtils.GetUploadFileName(file, "");
-            UploadResultResponse(dir, name, false);
+            UploadResultResponse(file,dir, name, false);
         }
 
         #region 文件上传至远程服务器
@@ -129,12 +130,12 @@ namespace JR.Cms.Web.Manager.Handle
 
             var boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x"); //分界线
             var boundaryBytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
-
+            
+            //内容类型
             request.ContentType = "multipart/form-data; boundary=" + boundary;
-            ; //内容类型
-
+            
             //3>表单数据模板
-            var formdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}";
+            var formDataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}";
 
             //4>读取流
             var buffer = new byte[postedFile.GetLength()];
@@ -156,7 +157,7 @@ namespace JR.Cms.Web.Manager.Handle
                         {
                             stream.Write(boundaryBytes, 0, boundaryBytes.Length); //写入分界线
                             var formBytes =
-                                Encoding.UTF8.GetBytes(string.Format(formdataTemplate, item.Key, item.Value));
+                                Encoding.UTF8.GetBytes(string.Format(formDataTemplate, item.Key, item.Value));
                             stream.Write(formBytes, 0, formBytes.Length);
                         }
 
