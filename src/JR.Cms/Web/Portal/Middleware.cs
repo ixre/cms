@@ -26,7 +26,7 @@ namespace JR.Cms.Web.Portal
             app.Use(async (context, next) =>
             {
                 var redirect = false;
-                if (Settings.SYS_AUTOWWW)
+                if (Settings.SYS_WWW_RD)
                 {
                     var url = context.Request.GetEncodedUrl() ??
                               throw new ArgumentNullException("context.Request.GetEncodedUrl()");

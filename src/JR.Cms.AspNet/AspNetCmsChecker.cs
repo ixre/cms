@@ -17,7 +17,7 @@ namespace JR.Cms.AspNet
                 var path = context.Request.Path;
                 if (path == "/favicon.ico")return true;
                 if (path.StartsWith("/install/cms")) return true;
-                if (path.IndexOf(".") != -1) return true;
+                if (path.IndexOf(".", StringComparison.Ordinal) != -1) return true;
                 context.Response.Redirect("/install/cms",true);
                 return false;
             }
@@ -33,13 +33,13 @@ namespace JR.Cms.AspNet
         public static bool Check301Redirect(HttpContextBase context)
         {
             // 自动跳转到www开头的域名
-            if (Settings.SYS_AUTOWWW)
+            if (Settings.SYS_WWW_RD)
             {
-                var url = context.Request.Url.ToString() ?? throw new ArgumentNullException("context.Request.GetEncodedUrl()");
+                var url = context.Request.Url ?? throw new ArgumentNullException("context.Request.GetEncodedUrl()");
                 var host = context.Request.Url.Host;
                 if (host.Split('.').Length == 2)
                 {
-                    context.Response.Redirect(url.Replace(host, "www." + host));
+                    context.Response.Redirect(url.ToString().Replace(host, "www." + host));
                     context.Response.End();
                     return false;
                 }
