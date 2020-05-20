@@ -221,7 +221,7 @@
             id: 'upload_thumbnail',
             debug: !true,
             url: '?module=upload&action=uploadArchiveThumb&upload.id=thumb_upload',
-            exts: '*.gif;*.jpg;*.png;*.bmp'
+            exts: '*.gif;*.jpg;*.png;*.bmp;*.jpeg'
         },function (result, data) {
             if (result) {
                 jr.$(thumbId).value = data.url;

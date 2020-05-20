@@ -184,7 +184,7 @@
         var upload = jr.upload({
             id: 'upload',
             url: '?module=upload&action=uploadimage&for=link&upload.id=upload',
-            exts: '*.gif;*.jpg;*.png;*.bmp'
+            exts: '*.gif;*.jpg;*.png;*.bmp;*.jpeg'
         },function (result, data) {
             if (result) {
                 jr.$('imgurl').value = data.url;
