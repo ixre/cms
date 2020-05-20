@@ -25,7 +25,6 @@ using JR.Stand.Core;
 using JR.Stand.Core.Framework.Web.Cache;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
-using Microsoft.AspNetCore.Http;
 
 namespace JR.Cms.Core
 {

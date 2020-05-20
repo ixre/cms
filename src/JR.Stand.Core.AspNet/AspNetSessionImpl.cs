@@ -49,7 +49,6 @@ namespace JR.Stand.Core.AspNet
                 var o = Context.Session[key];
                 if (o != null) return (string) o;
             }
-
             return "";
         }
 

@@ -11,6 +11,6 @@ namespace JR.Cms.Library.CacheService
 
         public static ICmsServiceProvider Instance => _cmsServiceProvider ??
                                                       (_cmsServiceProvider =
-                                                          ServiceFactory.GetService(ServiceCallMethod.Redirect));
+                                                          ServiceFactory.GetService(ServiceCallMethod.Local));
     }
 }

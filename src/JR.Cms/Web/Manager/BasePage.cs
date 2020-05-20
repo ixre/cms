@@ -41,35 +41,33 @@ namespace JR.Cms.Web.Manager
         /// </summary>
         protected ICompatibleRequest Request => HttpHosting.Context.Request;
 
-        private static readonly string[] ignoreURI;
-        protected SiteDto _site;
+        private static readonly string[] IgnoreUri;
+        private SiteDto _site;
         private Hashtable _viewData;
 
         /// <summary>
         /// 
         /// </summary>
-        public Hashtable ViewData => _viewData ?? (_viewData = new Hashtable());
+        protected Hashtable ViewData => _viewData ?? (_viewData = new Hashtable());
 
 
         /// <summary>
         /// 管理后台模板标签
         /// </summary>
-        private static readonly ManagerTemplate tpl;
+        private static readonly ManagerTemplate Tpl;
 
         static BasePage()
         {
-            ignoreURI = new string[]
+            IgnoreUri = new string[]
             {
                 "module=archive&action=update",
                 "module=template&action=editFile",
                 "module=file&action=editFile"
             };
-
-
-            tpl = new ManagerTemplate();
+            Tpl = new ManagerTemplate();
         }
 
-        internal static string ReplaceHtml(string html, string tagKey, string tagValue)
+        private static string ReplaceHtml(string html, string tagKey, string tagValue)
         {
             return html.Replace("${" + tagKey + "}", tagValue);
         }
@@ -95,53 +93,11 @@ namespace JR.Cms.Web.Manager
             return html;
         }
 
-        protected void RenderTemplateUseCache(string content, object dataObj)
-        {
-            if (!Cms.Cache.CheckClientCacheExpiresByEtag()) return;
 
-            string html = null;
-            var response = Response;
-
-            var _tpl = new MicroTemplateEngine(tpl);
-            html = _tpl.Execute(content);
-
-            if (dataObj != null)
-            {
-                //替换传入的标签参数
-                var properties = dataObj.GetType().GetProperties();
-                object dataValue;
-                foreach (var p in properties)
-                {
-                    dataValue = p.GetValue(dataObj, null);
-                    if (dataValue != null) html = ReplaceHtml(html, p.Name, dataValue.ToString());
-                }
-            }
-
-            var query = HttpHosting.Context.Request.GetQueryString();
-            if (!Array.Exists(ignoreURI, a => query.IndexOf(a) != -1)) html = CompressHtml(html);
-
-
-            setHeader:
-
-            //设置缓存
-            Cms.Cache.SetClientCacheByEtag(Response);
-            response.ContentType("text/html;charset=utf-8");
-
-            //输出内容
-            Response.WriteAsync(html);
-
-            //todo: gzip
-            // if (Settings.Opti_SupportGZip)
-            // {
-            //     response.Filter = new GZipStream(response.Filter, CompressionMode.Compress);
-            //     response.AddHeader("Content-Encoding", "gzip");
-            // }
-            //
-            // response.AddHeader("X-AspNet-Version", String.Format("jr.Cms v{0}", Cms.Version));
-            // response.AddHeader("Support-URL", "cms.to2.net/cms/");
-        }
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
         protected void RenderTemplate(string content)
         {
             var response = Response;
@@ -149,13 +105,15 @@ namespace JR.Cms.Web.Manager
             response.WriteAsync(RequireTemplate(content));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         protected string RequireTemplate(string content)
         {
-            string html = null;
-            var response = Response;
-
-            var _tpl = new MicroTemplateEngine(tpl);
-            html = _tpl.Execute(content);
+            var tpl = new MicroTemplateEngine(Tpl);
+            string html = tpl.Execute(content);
 
             object value;
             foreach (var p in ViewData.Keys)
@@ -164,7 +122,7 @@ namespace JR.Cms.Web.Manager
 
             var query = Request.GetQueryString();
 
-            if (!Array.Exists(ignoreURI, a => query.IndexOf(a, StringComparison.Ordinal) != -1))
+            if (!Array.Exists(IgnoreUri, a => query.IndexOf(a, StringComparison.Ordinal) != -1))
                 html = CompressHtml(html);
 
             // if (Settings.Opti_SupportGZip)
@@ -189,29 +147,31 @@ namespace JR.Cms.Web.Manager
             return html;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="dataObj"></param>
         protected void RenderTemplate(string content, object dataObj)
         {
-            string html = null;
             var response = Response;
-
-            var _tpl = new MicroTemplateEngine(tpl);
-            html = _tpl.Execute(content);
+            var tpl = new MicroTemplateEngine(Tpl);
+            string html = tpl.Execute(content);
 
             if (dataObj != null)
             {
                 //替换传入的标签参数
                 var properties = dataObj.GetType().GetProperties();
-                object dataValue;
                 foreach (var p in properties)
                 {
-                    dataValue = p.GetValue(dataObj, null);
+                    var dataValue = p.GetValue(dataObj, null);
                     if (dataValue != null) html = ReplaceHtml(html, p.Name, dataValue.ToString());
                 }
             }
 
             var query = Request.GetQueryString();
 
-            if (!Array.Exists(ignoreURI, a => query.IndexOf(a, StringComparison.Ordinal) != -1))
+            if (!Array.Exists(IgnoreUri, a => query.IndexOf(a, StringComparison.Ordinal) != -1))
                 html = CompressHtml(html);
             HttpHosting.Context.TryGetItem<string>("ajax", out var isAjax);
 
@@ -360,6 +320,9 @@ namespace JR.Cms.Web.Manager
             set => CmsWebMaster.SetCurrentManageSite(HttpHosting.Context, value);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected int SiteId => CurrentSite.SiteId;
 
         /// <summary>

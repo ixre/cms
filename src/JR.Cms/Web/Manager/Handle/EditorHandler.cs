@@ -2,8 +2,8 @@ using System;
 using System.Threading.Tasks;
 using JR.Cms.Conf;
 using JR.Cms.Web.Editor;
+using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Web;
-using Microsoft.AspNetCore.Http;
 
 namespace JR.Cms.Web.Manager.Handle
 {
@@ -18,7 +18,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public Task KindEditorFileUpload_POST(HttpContext context)
+        public Task KindEditorFileUpload_POST(ICompatibleHttpContext context)
         {
             string siteId = Logic.CurrentSite.SiteId.ToString();
             //根目录路径，相对路径
@@ -34,7 +34,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public Task KindEditorFileManager(HttpContext context)
+        public Task KindEditorFileManager(ICompatibleHttpContext context)
         {
             string siteId = Logic.CurrentSite.SiteId.ToString();
             //根目录路径，相对路径
@@ -42,7 +42,7 @@ namespace JR.Cms.Web.Manager.Handle
             //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
             string appPath = Cms.Context.ApplicationPath;
             var u = new KindEditor(appPath,rootPath);
-            return u.FileManagerRequest(context);
+            return u.FileManagerRequest(Cms.Context.HttpContext);
         }
     }
 }

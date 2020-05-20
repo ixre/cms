@@ -15,30 +15,28 @@ namespace JR.Cms.Web.Util
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="fileType"></param>
+        /// <param name="joinDate"></param>
         /// <returns></returns>
         public static string GetUploadDirPath(int siteId, string fileType, bool joinDate)
         {
             if (!joinDate)
-                return string.Format("/{0}{1}/{2}/", CmsVariables.RESOURCE_PATH,
-                    siteId.ToString(), fileType);
-            return string.Format("/{0}{1}/{2}/{3:yyyyMM}/", CmsVariables.RESOURCE_PATH,
-                siteId.ToString(), fileType, DateTime.Now);
+                return $"/{CmsVariables.RESOURCE_PATH}{siteId.ToString()}/{fileType}/";
+            return $"/{CmsVariables.RESOURCE_PATH}{siteId.ToString()}/{fileType}/{DateTime.Now:yyyyMM}/";
         }
 
         /// <summary>
         /// 获取上传文件名称
         /// </summary>
-        /// <param name="request"></param>
-        /// <param name="uploadfor"></param>
+        /// <param name="file"></param>
+        /// <param name="uploadFor"></param>
         /// <returns></returns>
-        public static string GetUploadFileName(ICompatiblePostedFile file, string uploadfor)
+        public static string GetUploadFileName(ICompatiblePostedFile file, string uploadFor)
         {
             // 使用原始名称
             if (Settings.SYS_USE_UPLOAD_RAW_NAME) return GetUploadFileRawName(file);
             // 使用自动化名称
             var dt = DateTime.Now;
-            return
-                $"{(string.IsNullOrEmpty(uploadfor) ? "" : uploadfor + "_")}{dt:ddHHss}_{string.Empty.RandomLetters(4)}";
+            return $"{(string.IsNullOrEmpty(uploadFor) ? "" : uploadFor + "_")}{dt:ddHHss}{string.Empty.RandomLetters(4)}";
         }
 
         /// <summary>

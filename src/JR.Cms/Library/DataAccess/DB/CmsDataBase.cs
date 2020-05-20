@@ -72,15 +72,17 @@ namespace JR.Cms.Library.DataAccess.DB
             var db = DbAccessCreator.GetDbAccess(connectionString, ref dbType);
 
 
-            _instance = new DbAccess(dbType, db.GetDialect().GetConnectionString(), sqlTrace);
-            _instance.TablePrefix = dataTablePrefix;
+            _instance = new DbAccess(dbType, db.GetDialect().GetConnectionString(), sqlTrace)
+            {
+                TablePrefix = dataTablePrefix
+            };
             //测试数据库连接
-            testDbConnection(_instance);
+            TestDbConnection(_instance);
         }
 
-        private static void testDbConnection(DbAccess _instance)
+        private static void TestDbConnection(DbAccess instance)
         {
-            var dba = _instance.CreateInstance();
+            var dba = instance.CreateInstance();
             try
             {
                 dba.ExecuteScalar("SELECT 1");

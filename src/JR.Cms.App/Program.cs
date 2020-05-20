@@ -1,19 +1,16 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Globalization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace JR.Cms.App
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine($"{DateTime.Now.ToString()} - [ JRCms][ Log]: cms is starting..");
+            Console.WriteLine($"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} - [ JRCms][ Log]: cms is starting..");
             CreateHostBuilder(args).Build().Run();
         }
 

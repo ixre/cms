@@ -115,7 +115,7 @@ namespace JR.Cms.Web.Manager.Handle
                 //获取文件MImE类型
                 var mime = fileMImE.ContainsKey(filename) ? fileMImE[filename] : "text/plain";
 
-                if (Regex.IsMatch(mime, "^image\\/(jpg|png|gif)$", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(mime, "^image\\/(jpg|jpeg|png|gif)$", RegexOptions.IgnoreCase))
                 {
                     Response.ContentType( mime);
 
@@ -209,7 +209,7 @@ namespace JR.Cms.Web.Manager.Handle
                     {
                         if (compress && (type == "js" || type == "css"))
                         {
-                           Response.WriteAsync(CompressHtml(File.ReadAllText(appDir + file)));
+                            Response.WriteAsync(CompressHtml(File.ReadAllText(appDir + file)));
                         }
                         else
                         {
@@ -230,7 +230,7 @@ namespace JR.Cms.Web.Manager.Handle
                         Response.ContentType (  "image/jpeg");
                         break;
                     default:
-                          Response.ContentType ( "application/oct-stream");
+                        Response.ContentType ( "application/oct-stream");
                         break;
                 }
 

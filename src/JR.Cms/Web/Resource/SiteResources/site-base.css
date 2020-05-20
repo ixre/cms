@@ -266,12 +266,12 @@ img{max-width:100%;border:0}
 .mod-play-box .play i{width:0;height:0;display:inline-block;border-top:solid 12px transparent;border-bottom:solid 12px transparent; border-left:solid 16px #EEE;margin:12px 0 0 4px}
 
 /* 图片自动适应宽高，padding高度100%以宽度为准计算的 */
-/* .g-suited-img.g-suited-img-34>.mask+img */
-.g-suited-img{height:0;padding-left:100%;padding-bottom:calc(100% * 1);position:relative;overflow:hidden;}
-.g-suited-img-34{padding-bottom:calc(100% * 0.75);}
-.g-suited-img .mask,.g-suited-img img{position: absolute;left:0;right:0;bottom:0;top:0;margin:auto;background:transparent;}
-.g-suited-img img{width:100%;height:auto;}
+/* .g-suited-img.g-suited-img-75>.mask+img */
+.g-suited-img{padding-bottom:65%;position:relative;overflow:hidden;}
+.g-suited-img>img,.g-suited-img .mask{position: absolute;left:0;top:0;bottom:0;width:100%;margin:auto;}
 .g-suited-img .mask{z-index:1;}
+
+.g-article-thumb>img{}
 
 /* big-title */
 .g-big-tit{font-size:1.6em;margin:30px 0;font-weight:500;text-align:center;letter-spacing:1px;}

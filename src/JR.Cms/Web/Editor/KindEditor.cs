@@ -23,7 +23,6 @@ using JR.Cms.Web.Util;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core;
 using JR.Stand.Core.Utils;
-using Microsoft.AspNetCore.Http;
 
 namespace JR.Cms.Web.Editor
 {
@@ -35,6 +34,11 @@ namespace JR.Cms.Web.Editor
         private readonly string _appPath;
         private readonly string _rootPath;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appPath"></param>
+        /// <param name="rootPath"></param>
         public KindEditor(string appPath, string rootPath)
         {
             this._appPath = appPath;
@@ -46,9 +50,9 @@ namespace JR.Cms.Web.Editor
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public Task FileManagerRequest(HttpContext context)
+        public Task FileManagerRequest(ICompatibleHttpContext context)
         {
-            context.Response.ContentType = "application/json; charset=utf-8";
+            context.Response.ContentType("application/json; charset=utf-8");
 
             //根目录路径，相对路径
             //String rootPath = $"{CmsVariables.RESOURCE_PATH}{siteId}/";
@@ -66,7 +70,7 @@ namespace JR.Cms.Web.Editor
             String moveUpDirPath = "";
 
             String dirPath = EnvUtil.GetBaseDirectory()+this._rootPath;
-            String dirName = context.Request.Query["dir"];
+            String dirName = context.Request.Query("dir");
             if (!String.IsNullOrEmpty(dirName))
             {
                 if (Array.IndexOf("image,flash,media,file".Split(','), dirName) == -1)
@@ -83,7 +87,7 @@ namespace JR.Cms.Web.Editor
             }
 
             //根据path参数，设置各路径和URL
-            String path = context.Request.Query["path"];
+            String path = context.Request.Query("path");
             path = String.IsNullOrEmpty(path) ? "" : path;
             if (path == "")
             {
@@ -101,7 +105,7 @@ namespace JR.Cms.Web.Editor
             }
 
             //排序形式，name or size or type
-            String order = context.Request.Query["order"];
+            String order = context.Request.Query("order");
             order = String.IsNullOrEmpty(order) ? "" : order.ToLower();
 
             //不允许使用..移动到上一级目录
@@ -190,7 +194,7 @@ namespace JR.Cms.Web.Editor
             }
 
             result["file_list"] = "[" + files + "]";
-            context.Response.ContentType = "application/json; charset=utf-8";
+            context.Response.ContentType("application/json; charset=utf-8");
             return context.Response.WriteAsync(JsonAnalyzer.ToJson(result));
         }
 
@@ -225,18 +229,10 @@ namespace JR.Cms.Web.Editor
             }
 
             String dirPath = EnvUtil.GetBaseDirectory()+ this._rootPath;
-
-            checkDir:
-            bool isCreate = false;
             if (!Directory.Exists(dirPath))
             {
                 Directory.CreateDirectory(dirPath).Create();
-                if (!isCreate)
-                {
-                    isCreate = true;
-                    goto checkDir;
-                }
-                return showError(context,"上传目录不存在。");
+                //return showError(context,"上传目录不存在。");
             }
 
             String dirName = context.Request.Query("dir");
@@ -253,7 +249,7 @@ namespace JR.Cms.Web.Editor
             String fileName = imgFile.GetFileName();
             String fileExt = Path.GetExtension(fileName).ToLower();
 
-            if (imgFile == null || imgFile.GetLength() > maxSize)
+            if (imgFile.GetLength() > maxSize)
             {
                 return this.showError(context,"上传文件大小超过限制。");
             }
@@ -261,7 +257,7 @@ namespace JR.Cms.Web.Editor
             if (String.IsNullOrEmpty(fileExt) ||
                 Array.IndexOf(((String) extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
             {
-                return this. showError(context,"上传文件扩展名是不允许的扩展名。\n只允许" + ((String) extTable[dirName]) + "格式。");
+                return this.showError(context,"上传文件扩展名是不允许的扩展名。\n只允许" + ((String) extTable[dirName]) + "格式。");
             }
 
             //创建文件夹

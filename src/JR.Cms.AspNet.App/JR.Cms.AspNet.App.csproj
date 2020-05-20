@@ -654,6 +654,10 @@
     <Content Include="public\assets\widget\video-js\lang\zh-CN.json" />
     <Content Include="public\assets\widget\video-js\lang\zh-TW.json" />
     <Content Include="plugins\README.md" />
+    <None Include="config\cms.conf" />
+    <None Include="config\install.lock" />
+    <None Include="config\locale.db" />
+    <None Include="config\related_indent.conf" />
     <None Include="packages.config" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -28,7 +28,7 @@ namespace JR.Cms.ServiceUtil
         /// <returns></returns>
         public static ICmsServiceProvider GetService(ServiceCallMethod method)
         {
-            if (method == ServiceCallMethod.Redirect)
+            if (method == ServiceCallMethod.Local)
                 return _redirect ?? (_redirect = new RedirectCallService());
             throw new NotSupportedException("目前仅支持直接调用接口");
         }
