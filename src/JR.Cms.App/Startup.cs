@@ -31,6 +31,7 @@ namespace JR.Cms.App
             {
                 options.Cookie.Name = "_cms_session";
                 options.IdleTimeout = TimeSpan.FromSeconds(1200);
+                //options.Cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });

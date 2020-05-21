@@ -125,7 +125,7 @@ namespace JR.Cms.Web.Manager.Handle
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Server_Summary), new
             {
                 path = GetPath(),
-                shortServer = "//" + Server.ShortUrlServer,
+                shortServer = Server.ShortUrlServer,
                 soft_ver = Cms.Version,
                 sys_alias = Settings.LICENSE_NAME, // + "(KEY:" + Settings.SYS_KEY + ")",
                 //server_name = env.EnvironmentName,

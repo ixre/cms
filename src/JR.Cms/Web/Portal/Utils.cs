@@ -31,7 +31,7 @@ namespace JR.Cms.Web.Portal
             // string proto = request.GetHeader("X-Forwarded-Proto") ?? "+";
             //
             // throw new Exception(sb.ToString() + "/" + Settings.SYS_FORCE_HTTPS + "/" + target);
-            if (Settings.SYS_FORCE_HTTPS && !HttpUtils.IsHttpsRequest(request))
+            if (Settings.SYS_FORCE_HTTPS && request.GetProto()!="https")
             {
                 target = target.Replace("http://", "https://");
                 forceHttps = true;

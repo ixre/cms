@@ -33,26 +33,21 @@ namespace JR.Cms.Core
     /// </summary>
     public class CmsContext
     {
-        private static readonly Regex mobileDevRegexp = new Regex("android|iPhone|blackberry|nokia|MicroMessager|WindowsPhone",
+        private static readonly Regex MobileDevRegexp = new Regex("android|iPhone|blackberry|nokia|MicroMessager|WindowsPhone",
             RegexOptions.IgnoreCase);
-
-        /// <summary>
-        /// 运行时发生
-        /// </summary>
-        public static event CmsHandler OnBeginRequest;
 
         /// <summary>
         /// 错误日志文件
         /// </summary>
         private static readonly string ErrorFilePath;
 
-        private const string UserLanguageCookieName = "cms_lang";
-        private const string UserDeviceCookieName = "cms_device";
+        private const string UserLanguageCookieName = "_cms_lang";
+        private const string UserDeviceCookieName = "_cms_device";
 
         /// <summary>
         /// 是否作为虚拟目录运行
         /// </summary>
-        private readonly bool _isVirtualDirectoryRunning = false;
+        private readonly bool _isVirtualDirectoryRunning;
 
         /// <summary>
         /// 请求上下文
@@ -64,11 +59,14 @@ namespace JR.Cms.Core
             ErrorFilePath = EnvUtil.GetBaseDirectory()+ "/tmp/logs/error.log";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="httpCtx"></param>
         public CmsContext(ICompatibleHttpContext httpCtx)
         {
             _context = httpCtx;
             if (!Cms.IsInitFinish) return;
-            OnBeginRequest?.Invoke();
             //设置当前站点
             var request = _context.Request;
             var path = request.GetPath();
@@ -83,9 +81,11 @@ namespace JR.Cms.Core
             //是否为虚拟目录运行
             if ((SiteRunType) CurrentSite.RunType == SiteRunType.VirtualDirectory)
                 _isVirtualDirectoryRunning = true;
-            _userDevice = GetUserDeviceSet(_context);
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
         public ICompatibleHttpContext HttpContext => _context;
 
 
@@ -97,7 +97,17 @@ namespace JR.Cms.Core
         /// <summary>
         /// 用户请求使用的设备类型
         /// </summary>
-        public DeviceType DeviceType => _userDevice;
+        public DeviceType DeviceType
+        {
+            get
+            {
+                if (this._userDevice == null)
+                {
+                    this._userDevice = GetUserDeviceSet();
+                }
+                return this._userDevice?? DeviceType.Standard;
+            }
+        }
 
         /// <summary>
         /// 用户语言
@@ -113,7 +123,7 @@ namespace JR.Cms.Core
                     if (this._userLanguage == Languages.Unknown)
                     {
                         this._userLanguage = CurrentSite.Language;
-                        SetSessionLangSet((int)this._userLanguage);
+                        //SetSessionLangSet((int)this._userLanguage);
                     }
                 }
                 return this._userLanguage;
@@ -123,67 +133,77 @@ namespace JR.Cms.Core
         /// <summary>
         /// 从cookie中获取语言
         /// </summary>
-        /// <param name="ctx"></param>
         /// <returns></returns>
         private Languages GetUserLangSetFromCookie()
         {
-            var s = _context.Session.GetInt32("user.lang.set");
-            if (s > 0) return (Languages)s;
+            // var s = _context.Session.GetInt32("user.lang.set");
+            // if (s > 0) return (Languages)s;
+            
             // Cookie中存在key, 且是语言枚举的成员.　反之lang = -1
             _context.Request.TryGetCookie(UserLanguageCookieName,out var ck);
-            if (ck == null || !int.TryParse(ck, out var lang) || !Enum.IsDefined(typeof(Languages), lang)) lang = -1;
-            SetSessionLangSet(lang);
+            if (!String.IsNullOrEmpty(ck))
+            {
+                if (Enum.TryParse<Languages>(ck, out var lang))return lang;
+            }
+            //SetSessionLangSet(lang);
             return Languages.Unknown;
         }
 
         /// <summary>
         /// 设置用户的语言
         /// </summary>
-        /// <param name="ctx"></param>
         /// <param name="lang"></param>
         /// <returns></returns>
         public bool SetUserLanguage(int lang)
         {
             if (Enum.IsDefined(typeof(Languages), lang))
             {
+                var sameLang = lang == (int) this.CurrentSite.Language;
                 _userLanguage = (Languages) lang; //保存
                 var opt = new HttpCookieOptions
                 {
-                    Expires = DateTime.Now.AddHours(24),
+                    Expires = DateTime.Now.AddHours((sameLang ? -24 : 24) * 365),
                     Path = SiteAppPath,
                     HttpOnly = true
                 };
                 _context.Response.AppendCookie(UserLanguageCookieName, lang.ToString(), opt);
-                SetSessionLangSet(lang);
+
+                //SetSessionLangSet(lang);
                 return true;
             }
 
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns></returns>
         public bool SetUserDevice(int device)
         {
             if (Enum.IsDefined(typeof(DeviceType), device))
             {
-                _userDevice = (DeviceType) device; //保存
+                var same = device == (int) this._userDevice;
+                // _userDevice = (DeviceType) device; //保存
                 var opt = new HttpCookieOptions
                 {
-                    Expires = DateTime.Now.AddHours(24),
+                    Expires = DateTime.Now.AddHours((same?-24:24)*365),
                     Path = SiteAppPath,
                     HttpOnly = true
                 };
                 _context.Response.AppendCookie(UserDeviceCookieName, device.ToString(), opt);
-                SetSessionUserDeviceSet(device);
+                //SetSessionUserDeviceSet(device);
                 return true;
             }
 
             return false;
         }
 
-        private void SetSessionLangSet(int lang)
-        {
-            _context.Session.SetInt32("user.lang.set", lang);
-        }
+        // private void SetSessionLangSet(int lang)
+        // {
+        //     _context.Session.SetInt32("user.lang.set", lang);
+        // }
 
         /// <summary>
         /// 当前站点
@@ -194,31 +214,27 @@ namespace JR.Cms.Core
         {
             if (_context.Request.TryGetHeader("HTTP_USER_AGENT", out var u))
             {
-                return mobileDevRegexp.IsMatch(u);
+                return MobileDevRegexp.IsMatch(u);
             }
             return false;
         }
 
-        private DeviceType GetUserDeviceSet(ICompatibleHttpContext ctx)
+        private DeviceType GetUserDeviceSet()
         {
-            var s = ctx.Session.GetString("user.device.set");
-            if (!String.IsNullOrEmpty(s))
+            
+            // var s = ctx.Session.GetString("user.device.set");
+            // if (!String.IsNullOrEmpty(s))
+            // {
+            //     return (DeviceType) Convert.ToInt32(s);
+            // }
+            this._context.Request.TryGetCookie(UserDeviceCookieName,out var ck);
+            if (!String.IsNullOrEmpty(ck))
             {
-                return (DeviceType) Convert.ToInt32(s);
+                if (Enum.TryParse<DeviceType>(ck, out var device)) return device;
             }
-            ctx.Request.TryGetCookie(UserDeviceCookieName,out var ck);
-            if (ck != null)
-            {
-                int.TryParse(ck, out var i);
-                if (Enum.IsDefined(typeof(DeviceType), i))
-                {
-                    SetSessionUserDeviceSet(i);
-                    return (DeviceType) i;
-                }
-            }
-
             //如果包含手机的域名或agent
-            if (Host.StartsWith("m.") || Host.StartsWith("wap.") || IsMobileAgent()) return DeviceType.Mobile;
+            var host = this._context.Request.GetHost();
+            if (host.StartsWith("m.") || host.StartsWith("wap.") || IsMobileAgent()) return DeviceType.Mobile;
             return DeviceType.Standard;
         }
 
@@ -247,29 +263,12 @@ namespace JR.Cms.Core
 
         private PageDataItems _dataItems;
         private string _staticDomain;
-        private string _resouceDomain;
-        private string _host;
+        private string _resourceDomain;
         private string _siteAppPath;
         private Languages _userLanguage;
-        private DeviceType _userDevice;
-
-
-        /// <summary>
-        /// 当前的Host,包含端口，如：z3q.net:8080
-        /// </summary>
-        public string Host
-        {
-            get
-            {
-                if (this._host == null)
-                {
-                    this._host =_context.Request.GetHost();
-                }
-
-                return this._host;
-            }
-        }
-
+        private DeviceType? _userDevice;
+        private string _proto;
+        
         /// <summary>
         /// 系统应用程序目录
         /// </summary>
@@ -314,7 +313,7 @@ namespace JR.Cms.Core
         /// <summary>
         /// 资源域
         /// </summary>
-        public string ResourceDomain => _resouceDomain ?? (_resouceDomain = WebCtx.Current.Domain);
+        public string ResourceDomain => _resourceDomain ?? (_resourceDomain = WebCtx.Current.Domain);
 
         /// <summary>
         /// 静态资源域
@@ -326,14 +325,29 @@ namespace JR.Cms.Core
                 if (_staticDomain == null)
                 {
                     if (Settings.SERVER_STATIC_ENABLED && Settings.SERVER_STATIC.Length != 0)
+                    {
+                        var proto = this.GetProto();
                         // this._staticDomain = String.Concat("http://", Settings.SERVER_STATIC);
-                        _staticDomain = string.Concat("//", Settings.SERVER_STATIC);
+                        _staticDomain = string.Concat(proto,"://", Settings.SERVER_STATIC);
+                    }
                     else
+                    {
                         _staticDomain = ResourceDomain;
+                    }
                 }
 
                 return _staticDomain;
             }
+        }
+
+        private object GetProto()
+        {
+            if (this._proto == null)
+            {
+                this._proto = this._context.Request.GetProto();
+            }
+
+            return this._proto;
         }
 
         /// <summary>
@@ -349,6 +363,10 @@ namespace JR.Cms.Core
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exception"></param>
         public static void SaveErrorLog(Exception exception)
         {
             lock (ErrorFilePath)
@@ -356,7 +374,7 @@ namespace JR.Cms.Core
                 var req = HttpHosting.Context.Request;
                 var path = req.GetPath();
                 var query = req.GetQueryString();
-                var PathAndQuery = path + query;
+                var pathAndQuery = path + query;
                  req.TryGetHeader("Referer",out var referer);
                  if (!File.Exists(ErrorFilePath))
                 {
@@ -376,7 +394,7 @@ namespace JR.Cms.Core
                         .Append(HttpHosting.Context.RemoteAddress())
                         .Append("\t时间：").Append(DateTime.Now.ToString())
                         .Append("\r\n[信息]：").Append(exception.Message)
-                        .Append("\r\n[路径]：").Append(PathAndQuery)
+                        .Append("\r\n[路径]：").Append(pathAndQuery)
                         .Append("  -> 来源：").Append(referer)
                         .Append("\r\n[堆栈]：").Append(exception.StackTrace)
                         .Append("\r\n\r\n");

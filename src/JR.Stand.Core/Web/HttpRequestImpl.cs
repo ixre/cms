@@ -41,16 +41,17 @@ namespace JR.Stand.Core.Web
             return port == 80 ? host : $"{host}:{port}";
         }
 
+        public string GetProto()
+        {
+            if (this.Context().Request.Scheme == "https") return "https";
+            return HttpUtils.IsProxyHttpsRequest(this) ? "https" : "http";
+        }
+
         public string GetApplicationPath()
         {
             return  this.Context().Request.PathBase.Value;
         }
-
-        public string GetScheme()
-        {
-            return this.Context().Request.Scheme;
-        }
-
+        
         public string GetPath()
         {
             return this.Context().Request.Path.Value;

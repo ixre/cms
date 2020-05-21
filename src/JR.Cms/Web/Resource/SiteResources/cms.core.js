@@ -1,6 +1,7 @@
 ﻿if (!window.$b) var $b = $jr;
 
 //设置工作路径
+var ASSETS_PATH = "/public/assets";
 $jr.__WORKPATH__ = '/public/assets/js/';
 window.jr = $jr;
 window.j6 = $jr;
@@ -114,6 +115,36 @@ function setIE6Drop(lis) {
     }
 }
 
+/** 加载图标字体 */
+function loadIconFont() {
+    var c = document.createElement('link');
+    c.rel = "stylesheet";
+    c.href = ASSETS_PATH+"/icon-font.css";
+    document.head.appendChild(c);
+}
+/** 延迟加载图片 */
+var observer = new IntersectionObserver(
+    function(changes) {
+        changes.forEach(function(it) {
+            if(it.isIntersecting) {
+                var container = it.target;
+                container.setAttribute("src", container.getAttribute("data-src"));
+                observer.unobserve(container);
+            }
+        });
+    }
+);
+
+/**                      
+ <img class="lazy" src="${page.fpath}/images/lazy_holder.gif" 
+ data-src="${page.tpath}/images/map-address.png" alt="">
+*/
+ function lazyObserve() {
+    var arr = Array.from(document.querySelectorAll(".lazy"));
+    arr.forEach(function (item) {
+        observer.observe(item);
+    });
+}
 
 $b.event.add(window, 'load', function () {
     if (_hp.hoverNavi && _auto_navigator_ele) {
@@ -122,6 +153,8 @@ $b.event.add(window, 'load', function () {
 
     var loc = window.location.pathname;
 
+    loadIconFont();
+    lazyObserve();
 
     /****************** 设置分类菜单 *******************/
 
