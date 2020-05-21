@@ -47,7 +47,7 @@ namespace JR.Stand.Core.Template.Impl
 
         public string GetTemplatePageCacheContent(string templateId)
         {
-            if (TemplateCache.templateDictionary.ContainsKey(templateId))
+            if (TemplateCache.TemplateDictionary.ContainsKey(templateId))
             {
                 return this._adapter.GetCache("__tpl_cache_" + templateId) as string;
             }

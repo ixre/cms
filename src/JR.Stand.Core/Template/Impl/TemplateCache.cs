@@ -18,7 +18,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 模板编号列表
         /// </summary>
-        internal static readonly IDictionary<string, Template> templateDictionary = new Dictionary<string, Template>();
+        internal static readonly IDictionary<string, Template> TemplateDictionary = new Dictionary<string, Template>();
 
         /// <summary>
         /// 标签词典
@@ -31,45 +31,42 @@ namespace JR.Stand.Core.Template.Impl
         /// </summary>
         public class TagCollection
         {
-            private static readonly IDictionary<string, string> tagDictionary = new Dictionary<string, string>();
+            private static readonly IDictionary<string, string> TagDictionary = new Dictionary<string, string>();
 
             public string this[string key]
             {
                 get
                 {
-                    if (!tagDictionary.ContainsKey(key)) return "${" + key + "}";
-                    return tagDictionary[key];
+                    if (!TagDictionary.ContainsKey(key)) return "${" + key + "}";
+                    return TagDictionary[key];
                 }
                 set
                 {
-                    if (tagDictionary.ContainsKey(key)) tagDictionary[key] = value;
-                    else tagDictionary.Add(key, value);
+                    if (TagDictionary.ContainsKey(key)) TagDictionary[key] = value;
+                    else TagDictionary.Add(key, value);
                 }
             }
 
             public void Add(string key, string value)
             {
-                if (tagDictionary.ContainsKey(key))
+                if (TagDictionary.ContainsKey(key))
                     throw new ArgumentException("键:" + key + "已经存在!");
-                else tagDictionary.Add(key, value);
+                else TagDictionary.Add(key, value);
             }
         }
 
         /// <summary>
         /// 注册模板
         /// </summary>
-        /// <param name="templateID"></param>
+        /// <param name="templateId"></param>
         /// <param name="filePath"></param>
-        internal static void RegisterTemplate(string templateID, string filePath)
+        /// <param name="options"></param>
+        internal static void RegisterTemplate(string templateId, string filePath, Options options)
         {
-            templateID = templateID.ToLower();
-            if (!templateDictionary.ContainsKey(templateID))
+            templateId = templateId.ToLower();
+            if (!TemplateDictionary.ContainsKey(templateId))
             {
-                templateDictionary.Add(templateID, new Template
-                {
-                    Id = templateID,
-                    FilePath = filePath
-                });
+                TemplateDictionary.Add(templateId, new Template(filePath, options));
             }
         }
 
@@ -80,7 +77,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <returns></returns>
         internal static bool Exists(String templatePath)
         {
-            return templateDictionary.ContainsKey(templatePath);
+            return TemplateDictionary.ContainsKey(templatePath);
         }
 
         /// <summary>
@@ -92,7 +89,7 @@ namespace JR.Stand.Core.Template.Impl
         {
             if (Exists(templatePath))
             {
-                Template t = templateDictionary[templatePath];
+                Template t = TemplateDictionary[templatePath];
                 return t.FilePath;
             }
             return null;
@@ -101,15 +98,15 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 如果模板字典包含改模板则获取缓存
         /// </summary>
-        /// <param name="templateID"></param>
+        /// <param name="templateId"></param>
         /// <returns></returns>
-        internal static string GetTemplateContent(string templateID)
+        internal static string GetTemplateContent(string templateId)
         {
-            if (templateDictionary.ContainsKey(templateID))
+            if (TemplateDictionary.ContainsKey(templateId))
             {
-                return templateDictionary[templateID].Content;
+                return TemplateDictionary[templateId].GetContent();
             }
-            throw new TemplateException(templateID+".html", "模板不存在");
+            throw new TemplateException(templateId+".html", "模板不存在");
         }
     }
 }

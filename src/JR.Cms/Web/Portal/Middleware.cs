@@ -1,9 +1,6 @@
-using System;
 using JR.Cms.Conf;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 
 namespace JR.Cms.Web.Portal
 {
@@ -17,17 +14,18 @@ namespace JR.Cms.Web.Portal
             // 如果没有安装,则跳转到安装地址
             app.Use(async (context, next) =>
             {
+                if (Cms.IsStaticRequest(context.Request.Path)) await next(); // 如果静态资源直接输出
                 if (Cms.IsInstalled() || context.Request.Path == "/install")
                 {
                     await next();
                     return;
                 }
-
                 context.Response.Redirect("/install");
             });
             // 自动跳转到www开头的域名
             app.Use(async (context, next) =>
             {
+                if (Cms.IsStaticRequest(context.Request.Path)) await next();
                 var redirect = false;
                 if (Settings.SYS_FORCE_HTTPS || Settings.SYS_WWW_RD > 0)
                 {

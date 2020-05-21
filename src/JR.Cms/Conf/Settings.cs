@@ -193,6 +193,8 @@ namespace JR.Cms.Conf
         /// </summary>
         public static int opti_gc_collect_interval = 3600000 * 30;
 
+        public static bool TPL_USE_CACHE = true;
+
 
         public static void TurnOnDebug()
         {

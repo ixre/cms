@@ -22,12 +22,12 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 是否启用Html压缩
         /// </summary>
-        public bool EnabledCompress = true;
+        public bool EnabledCompress = false;
 
         /// <summary>
         /// 是否将模板缓存
         /// </summary>
-        public  bool EnabledCache = true;
+        public bool EnabledCache = true;
 
         /// <summary>
         /// 是否共享URL参数值

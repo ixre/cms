@@ -63,22 +63,16 @@ namespace JR.Stand.Core.Template.Impl
             ////html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|(^?!=http:|https:)//(.+?)\r\n|\r|\n|\t|(\\s\\s)", String.Empty);
             //html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|\r|\n|\t|(\\s\\s)", String.Empty);
             //return html;
-
             html = Regex.Replace(html, ">(\\s)+<", "><");
-
             //替换 //单行注释
             html = Regex.Replace(html, "[\\s|\\t]+\\/\\/[^\\n]*(?=\\n)", String.Empty);
-
             //替换多行注释
             //const string multiCommentPattern = "";
             html = Regex.Replace(html, "/\\*[^\\*]+\\*/", String.Empty);
-
             //替换<!-- 注释 -->
             html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->", String.Empty);
-
             //html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|(^?!=http:|https:)//(.+?)\r\n|\r|\n|\t|(\\s\\s)", String.Empty);
             html = Regex.Replace(html, "\r|\n|\t|(\\s\\s)", String.Empty);
-
             return html;
         }
 
@@ -221,12 +215,12 @@ namespace JR.Stand.Core.Template.Impl
             string tplContent; //模板文件名,内容
             int i = 0;
 
-            foreach (string key in TemplateCache.templateDictionary.Keys)
+            foreach (string key in TemplateCache.TemplateDictionary.Keys)
             {
-                var tpl = TemplateCache.templateDictionary[key];
+                var tpl = TemplateCache.TemplateDictionary[key];
                 var tplFileName = new Regex("templates(/|\\\\)+#*(.+?)$", RegexOptions.IgnoreCase).Match(tpl.FilePath).Groups[2].Value
                     .Replace("\\", "/"); //模板文件名,内容
-                tplContent = tpl.Content;
+                tplContent = tpl.GetContent();
 
                 sb.Append("<tr><td class=\"center\">").Append((++i).ToString()).Append("</td><td class=\"center\">")
                     .Append(key.ToLower()).Append("</td><td class=\"center\">")

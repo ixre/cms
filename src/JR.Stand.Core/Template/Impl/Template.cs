@@ -16,15 +16,15 @@ namespace JR.Stand.Core.Template.Impl
     /// </summary>
     public sealed class Template
     {
-        /// <summary>
-        /// 模板ID
-        /// </summary>
-        public string Id { get; set; }
-
+        public Template(string filePath, Options opt)
+        {
+            this.FilePath = filePath;
+            this.Options = opt ?? new Options();
+        }
         /// <summary>
         /// 模板路径
         /// </summary>
-        public string FilePath { get; set; }
+        public string FilePath { get;}
 
         
         /// <summary>
@@ -43,27 +43,30 @@ namespace JR.Stand.Core.Template.Impl
                 Regex reg = new Regex("<!--(.+?)-->", RegexOptions.Multiline);
 
                 //保存内容到变量，避免重复读取
-                string content = null;
+                string content;
 
                 using (StreamReader sr = new StreamReader(FilePath))
                 {
                     content = sr.ReadToEnd();
                 }
-                Match match = reg.Match(content);
 
+                if (reg.IsMatch(content))
+                {
+                    return reg.Match(content).Groups[1].Value;
+                }
 
-                return match == null ? String.Empty : match.Groups[1].Value;
+                return String.Empty;
             }
         }
 
-        private String content;
+        private String _content;
 
         /// <summary>
         /// 模板内容
         /// </summary>
-        public string Content
+        public string GetContent()
         {
-            get
+            if (this._content == null)
             {
                 /*
                 string content;
@@ -80,7 +83,7 @@ namespace JR.Stand.Core.Template.Impl
                 */
                 FileInfo fi = new FileInfo(this.FilePath);
                 long lastWriteUnix = TemplateUtility.Unix(fi.LastWriteTime);
-                if (this.content == null || lastWriteUnix > this.LastModify)
+                if (this._content == null || lastWriteUnix > this.LastModify)
                 {
                     // 读取内容并缓存
                     StreamReader sr = new StreamReader(this.FilePath);
@@ -92,21 +95,33 @@ namespace JR.Stand.Core.Template.Impl
                     content = TemplateRegexUtility.IncludeFileRegex.Replace(content, m =>
                     {
                         string path = m.Groups[1].Value;
-                        string tplId = TemplateUtility.GetPartialTemplateId(path, this.FilePath, out var partialFilePath);
+                        string tplId =
+                            TemplateUtility.GetPartialTemplateId(path, this.FilePath, out var partialFilePath);
                         return m.Value.Replace(path, tplId + "@" + partialFilePath);
                     });
                     // 缓存内容
                     this.LastModify = lastWriteUnix;
-                    this.content = content;
+                    this._content = content;
                 }
+
                 // 替换系统标签
-                content = TemplateRegexUtility.Replace(content, m => TemplateCache.Tags[m.Groups[1].Value]);
+                this._content = TemplateRegexUtility.Replace(_content, m => TemplateCache.Tags[m.Groups[1].Value]);
                 //压缩模板代码
-                // if (Options.EnabledCompress) return TemplateUtility.CompressHtml(this.content);
-                //缓存模板
-                //if (Config.EnabledCache) dc.SetTemplatePageCacheContent(this.Id, content, this.FilePath);
-                return this.content;
+                if (this.Options.EnabledCompress)
+                {
+                    this._content = TemplateUtility.CompressHtml(_content);
+                }
+
+                if (!this.Options.EnabledCache)
+                {
+                    var swp = this._content;
+                    this._content = null;
+                    return swp;
+                }
             }
+            return this._content;
         }
+
+        private Options Options { get;}
     }
 }

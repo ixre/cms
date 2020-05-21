@@ -357,7 +357,8 @@ namespace JR.Cms.Web.Manager.Handle
                 server_upgrade = Settings.SERVER_UPGRADE,
                 server_static_enabled = Settings.SERVER_STATIC_ENABLED,
                 tpl_full_url_path = Settings.TPL_FULL_URL_PATH,
-                tpl_use_compress = Settings.TPL_USE_COMPRESS
+                tpl_use_compress = Settings.TPL_USE_COMPRESS,
+                tpl_use_cache = Settings.TPL_USE_CACHE,
             };
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.App_Config), new
             {
@@ -381,6 +382,7 @@ namespace JR.Cms.Web.Manager.Handle
                     Settings.SYS_ENCODE_CONF_FILE = req.Form("sys_encode_conf") == "on";
                     Settings.SQL_PROFILE_TRACE = req.Form("sql_profile_trace") == "on";
                     Settings.DB_PREFIX = req.Form("db_prefix");
+                    Settings.TPL_USE_CACHE = req.Form("tpl_use_cache") == "on";
                     Settings.TPL_USE_COMPRESS = req.Form("tpl_use_compress") == "on";
                     Settings.TPL_FULL_URL_PATH = req.Form("tpl_full_url_path") == "on";
 

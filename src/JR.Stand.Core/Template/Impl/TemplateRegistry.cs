@@ -19,18 +19,13 @@ namespace JR.Stand.Core.Template.Impl
     {
         private readonly Options _options;
         private readonly IDataContainer _container;
-        private readonly IList<string> directories = new List<string>();
+        private readonly IList<string> _directories = new List<string>();
 
         public TemplateRegistry(IDataContainer container,Options options)
         {
             this._options = options ?? new Options();
             this._container = container;
         }
-
-        public TemplateRegistry(IDataContainer container) : this(container,new Options())
-        {
-        }
-
 
         /// <summary>
         /// 注册模板
@@ -40,9 +35,9 @@ namespace JR.Stand.Core.Template.Impl
             var dir = new DirectoryInfo(EnvUtil.GetBaseDirectory()+"/" + directory);
             if (!dir.Exists) throw new DirectoryNotFoundException("模版文件夹不存在!");
             // 添加到目录数组,用于重新加载模板
-            if(!this.directories.Contains(directory))this.directories.Add(directory);
+            if(!this._directories.Contains(directory))this._directories.Add(directory);
             //注册模板
-            RegisterTemplates(dir, this._options.Names);
+            RegisterTemplates(dir, this._options);
         }
 
         /// <summary>
@@ -56,7 +51,7 @@ namespace JR.Stand.Core.Template.Impl
         }
 
         //递归方式注册模板
-        private static void RegisterTemplates(DirectoryInfo dir, TemplateNames nameType)
+        private static void RegisterTemplates(DirectoryInfo dir, Options options)
         {
             // tml 为模板文件，防止可以被直接浏览
             Regex allowExt = new Regex("(.html|.part.html|.phtml)$", RegexOptions.IgnoreCase);
@@ -65,22 +60,23 @@ namespace JR.Stand.Core.Template.Impl
                 if (allowExt.IsMatch(file.Extension))
                 {
                    // Console.WriteLine("---" + file.FullName);
-                    TemplateCache.RegisterTemplate(TemplateUtility.GetTemplateId(file.FullName, nameType), file.FullName);
+                    TemplateCache.RegisterTemplate(TemplateUtility.GetTemplateId(
+                        file.FullName, options.Names), file.FullName,options);
                 }
             }
-            foreach (DirectoryInfo _dir in dir.GetDirectories())
+            foreach (DirectoryInfo dst in dir.GetDirectories())
             {
                 //如果文件夹是可见的
-                if ((_dir.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+                if ((dst.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
-                    RegisterTemplates(_dir, nameType);
+                    RegisterTemplates(dst, options);
                 }
             }
         }
 
         public void Reload()
         {
-            foreach (var s in this.directories)
+            foreach (var s in this._directories)
             {
                 this.Register(s);
             }

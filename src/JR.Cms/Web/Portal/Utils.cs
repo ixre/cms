@@ -21,16 +21,6 @@ namespace JR.Cms.Web.Portal
             var target = request.GetEncodedUrl();
             if (target == null) return null;
             var forceHttps = false;
-            //StringBuilder sb = new StringBuilder();
-            // var headers = request.Headers();
-            // foreach (string key in headers.Keys)
-            // {
-            //     sb.Append(key).Append("=").Append(headers[key]).Append("|");
-            // }
-            //
-            // string proto = request.GetHeader("X-Forwarded-Proto") ?? "+";
-            //
-            // throw new Exception(sb.ToString() + "/" + Settings.SYS_FORCE_HTTPS + "/" + target);
             if (Settings.SYS_FORCE_HTTPS && request.GetProto()!="https")
             {
                 target = target.Replace("http://", "https://");

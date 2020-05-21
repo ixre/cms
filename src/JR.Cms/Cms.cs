@@ -203,11 +203,9 @@ namespace JR.Cms
             //todo: plugin
             //Plugins = new CmsPluginContext();
             
-            // 初始化缓存工厂
+            // 初始化缓存
             CmsCacheFactory.Configure(_cache);
             CacheFactory.Configure(_cache);
-            //　初始化模板
-            Template = new CmsTemplate(_cache, TemplateNames.FileName);
             Cache = new CmsCache(CmsCacheFactory.Singleton);
             // 初始化内存缓存
             Utility = new CmsUtility();
@@ -278,6 +276,7 @@ namespace JR.Cms
                 //
                 //检查网站激活状态
                 //SoftwareActivator.VerifyActivation();
+                
                 //如果不存在模板文件夹，则创建目录
                 if (!Directory.Exists(PhysicPath + "templates/"))
                 {
@@ -286,10 +285,13 @@ namespace JR.Cms
                     Updater.InstallTemplate("default", "tpl_default.zip");
                 }
 
-                _templateManager = new TemplateManager(PhysicPath + CmsVariables.TEMPLATE_PATH);
-
+                //　初始化模板
+                Template = new CmsTemplate(_cache, TemplateNames.FileName);
                 // 注册模板
                 Template.Register("/" + CmsVariables.TEMPLATE_PATH, true);
+                // 模板管理器
+                _templateManager = new TemplateManager(PhysicPath + CmsVariables.TEMPLATE_PATH);
+                
                 // 注册插件
                 //PluginConfig.PLUGIN_FILE_PARTTERN = "*.dll,*.so";
                 PluginConfig.PLUGIN_DIRECTORY = CmsVariables.PLUGIN_PATH;

@@ -714,10 +714,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 return string.Empty;
             });
 
-            if (Settings.TPL_USE_COMPRESS)
-                return PageUtility.CompressHtml(content);
-            else
-                return content;
+            if (Settings.TPL_USE_COMPRESS)return PageUtility.CompressHtml(content);
+            return content;
         }
 
         /// <summary>
@@ -836,10 +834,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 }));
             }
 
-            if (Settings.TPL_USE_COMPRESS)
-                return PageUtility.CompressHtml(sb.ToString());
-            else
-                return sb.ToString();
+            if (Settings.TPL_USE_COMPRESS)return PageUtility.CompressHtml(sb.ToString());
+            return sb.ToString();
         }
 
         /// <summary>
