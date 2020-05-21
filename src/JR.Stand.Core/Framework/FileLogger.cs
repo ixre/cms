@@ -30,8 +30,8 @@ namespace JR.Stand.Core.Framework
     /// </summary>
     public class FileLogger
     {
-        private readonly string filePath;
-        private readonly bool printPrefix;
+        private readonly string _filePath;
+        private readonly bool _printPrefix;
         private Encoding _encoding;
 
         //种子，用于判断
@@ -46,8 +46,8 @@ namespace JR.Stand.Core.Framework
 
         public FileLogger(string filePath, bool printPrefix = false)
         {
-            this.printPrefix = printPrefix;
-            this.filePath = filePath;
+            this._printPrefix = printPrefix;
+            this._filePath = filePath;
             if (!File.Exists(filePath))
             {
                 File.Create(filePath).Dispose();
@@ -57,7 +57,7 @@ namespace JR.Stand.Core.Framework
         /// <summary>
         /// 填充内容
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="bytes"></param>
         /* [Obsolete]
         public void Append(string text)
         {
@@ -73,13 +73,13 @@ namespace JR.Stand.Core.Framework
 
         }
         */
-        public void Print(Byte[] bytes)
+        private void Print(Byte[] bytes)
         {
-            FileStream fs = new FileStream(filePath, FileMode.Append, FileAccess.Write, FileShare.Read);
+            FileStream fs = new FileStream(_filePath, FileMode.Append, FileAccess.Write, FileShare.Read);
 
             if (fs.CanWrite)
             {
-                if (this.printPrefix)
+                if (this._printPrefix)
                 {
                     byte[] data = this.FileEncoding.GetBytes(string.Format("{0:yyyy-MM-dd HH:mm:ss ", DateTime.Now));
                     fs.Write(data, 0, data.Length);
@@ -119,7 +119,7 @@ namespace JR.Stand.Core.Framework
         /// <param name="text"></param>
         public void Truncate()
         {
-            FileStream fs = new FileStream(filePath, FileMode.Truncate, FileAccess.Write);
+            FileStream fs = new FileStream(_filePath, FileMode.Truncate, FileAccess.Write);
             fs.Dispose();
         }
     }
