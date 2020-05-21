@@ -76,7 +76,7 @@ namespace JR.Cms.Conf
 
             Settings.TPL_FULL_URL_PATH = !sf.Contains("tpl_full_url_path") || sf["tpl_full_url_path"] == "true";
             Settings.TPL_USE_COMPRESS = sf.Contains("tpl_use_compress") && sf["tpl_use_compress"] == "true";
-
+            Settings.TPL_USE_CACHE = sf.Contains("tpl_use_cache") && sf["tpl_use_cache"] == "true";
 
             #endregion
 
@@ -259,6 +259,7 @@ namespace JR.Cms.Conf
                     break;
 
                 case "tpl":
+                    sf.Set("tpl_use_cache",Settings.TPL_USE_CACHE?"true":"false");
                     //压缩代码
                     sf.Set("tpl_use_compress", Settings.TPL_USE_COMPRESS ? "true" : "false");
                     //使用完整路径
@@ -371,7 +372,7 @@ namespace JR.Cms.Conf
             //初始化设置
             if (String.IsNullOrEmpty(confPath))
             {
-                confPath = String.Format("{0}{1}cms.conf", Cms.PhysicPath, CmsVariables.SITE_CONF_PATH);
+                confPath = $"{Cms.PhysicPath}{CmsVariables.SITE_CONF_PATH}cms.conf";
             }
             FileInfo cfgFile = new FileInfo(confPath);
             if (cfgFile.Exists)

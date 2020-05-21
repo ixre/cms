@@ -112,13 +112,19 @@ namespace JR.Cms.Core
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cache"></param>
+        /// <param name="names"></param>
         public CmsTemplate(IMemoryCacheWrapper cache, TemplateNames names)
         {
             this.cache = cache;
             var opt = new Options
             {
                 EnabledCompress = Settings.TPL_USE_COMPRESS,
-                EnabledCache = true,
+                // 非正式环境关闭模板缓存
+                EnabledCache = !Cms.OfficialEnvironment && Settings.TPL_USE_CACHE,
                 UrlQueryShared = true,
                 HttpItemShared = true,
                 Names = names,
