@@ -336,7 +336,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// <summary>
         /// 系统设置
         /// </summary>
-        public void AppConfig()
+        public void Config()
         {
             object data = new
             {
@@ -366,7 +366,7 @@ namespace JR.Cms.Web.Manager.Handle
             });
         }
 
-        public void AppConfig_POST()
+        public void Config_POST()
         {
             string item = Request.Query("item");
 
