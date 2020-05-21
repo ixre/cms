@@ -41,18 +41,18 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     echo "if [ \`ls /cms/templates|wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/templates/* /cms/templates;fi;" \
          "if [ \`ls /cms/plugins|wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/plugins/* /cms/plugins;fi;"\
          "if [ \`ls /cms/oem|wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/oem/* /cms/oem;fi;"\
-         "dotnet JR.Cms.App.dll --urls http://+:8080" > ../entrypoint.sh && chmod u+x ../entrypoint.sh
+         "dotnet JR.Cms.App.dll --urls http://+:80" > ../entrypoint.sh && chmod u+x ../entrypoint.sh
 
 VOLUME ["/cms/config","/cms/templates","/cms/plugins",\
         "/cms/uploads","/cms/data","/cms/root","/cms/oem"]
         
-EXPOSE 8080
+EXPOSE 80
 
 ENTRYPOINT ["sh","../entrypoint.sh"]
 
 # # Quick Start
 # # ```
-# # docker run --rm -it -p 8080:8080 jarry6/jrcms
+# # docker run --rm -it -p 8080:80 jarry6/jrcms
 # # ```
 # # open http://localhost:8080 in your brower.
 

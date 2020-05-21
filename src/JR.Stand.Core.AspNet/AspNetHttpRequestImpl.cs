@@ -104,7 +104,7 @@ namespace JR.Stand.Core.AspNet
 
         public string GetEncodedUrl()
         {
-            return this.Context.Request.RawUrl;
+            return this.Context.Request.Url.ToString();
         }
 
         public IEnumerable<string> FormKeys()

@@ -13,6 +13,8 @@ services:
 
     www:
         image: jarry6/jrcms:latest
+        depends_on: 
+            - "dev"
         ports: 
             - "8001:80"
         volumes:
@@ -25,6 +27,8 @@ services:
 
     demo:
         image: jarry6/jrcms:latest
+        depends_on: 
+            - "dev"
         ports: 
             - "8002:80"
         volumes:

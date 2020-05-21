@@ -60,7 +60,7 @@ _注:在MacOSX和Fedora上成功运行,windows用户需要使用`bash`客户端�
 
 Windows(IIS)
  
-- 1. 点击[下载](http://s.to2.net/jrcms_latest)安装包，并解压；
+- 1. 点击[下载](http://s.56x.net/jrcms_latest)安装包，并解压；
 - 2. 使用IIS添加站点，选择无托管代码, 完成部署。
 
 LINUX、MacOSX
@@ -86,7 +86,7 @@ mkdir /data/cms && cd /data/cms
 
 2. 运行容器：
 ```
-docker run -d  --name jrcms -p 8080:8080 \
+docker run -d  --name jrcms -p 8080:80 \
     --volume=$(pwd)/config:/cms/config \
     --volume=$(pwd)/data:/cms/data \
     --volume=$(pwd)/templates:/cms/templates \
