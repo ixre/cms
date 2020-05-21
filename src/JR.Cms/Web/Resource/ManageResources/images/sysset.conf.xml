@@ -73,7 +73,7 @@
      </links>
 
       <links title="系统设置" toggle="true" iconPos="-432|0">
-        <link href="?module=system&amp;action=appconfig&amp;item=1" text="系统设置" title="" siteid="0"/>
+        <link href="?module=system&amp;action=config&amp;item=1" text="系统设置" title="" siteid="0"/>
         <link href="?module=system&amp;action=clear" text="缓存重启" title="" siteid="0"/>
       </links>
 
