@@ -45,10 +45,6 @@ namespace JR.Cms.AspNet
                 var target = Utils.GetRdUrl(HttpHosting.Context.Request);
                 if (target != null)
                 {
-                    throw new Exception(Settings.SYS_FORCE_HTTPS + "/" + target);
-                }
-                if (target != null)
-                {
                     context.Response.AddHeader("Location", target);
                     context.Response.StatusCode = 301;
                     context.Response.End();
