@@ -4,6 +4,7 @@ using System.Web;
 using JR.Stand.Abstracts.Web;
 using Microsoft.Extensions.Primitives;
 using JR.Stand.Core.Framework.Extensions;
+using JR.Stand.Core.Web;
 
 namespace JR.Stand.Core.AspNet
 {
@@ -30,6 +31,12 @@ namespace JR.Stand.Core.AspNet
             return port == 80 ? host : $"{host}:{port}";
         }
 
+        public string GetProto()
+        {
+            if (this.GetScheme() == "https") return "https";
+            return HttpUtils.IsProxyHttpsRequest(this) ? "https" : "http";
+        }
+
 
         public string GetApplicationPath()
         {
@@ -37,7 +44,7 @@ namespace JR.Stand.Core.AspNet
         }
 
 
-        public string GetScheme()
+        private string GetScheme()
         {
             return this.Context.Request.Url.Scheme;
         }

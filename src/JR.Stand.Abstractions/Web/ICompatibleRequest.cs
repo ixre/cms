@@ -7,49 +7,55 @@ namespace JR.Stand.Abstracts.Web
     public interface ICompatibleRequest
     {
         string Method();
-       string GetHeader(string key);
-       string GetHost();
+        string GetHeader(string key);
+        string GetHost();
 
-       string GetApplicationPath();
-       string GetScheme();
-       string GetPath();
-       string GetQueryString();
-       bool TryGetHeader(string key, out StringValues value);
-       string UrlEncode(string url);
-       string UrlDecode(string url);
+        /// <summary>
+        /// 获取Http协议, http或https, 等同于Scheme
+        /// </summary>
+        /// <returns></returns>
+        string GetProto();
 
-       /// <summary>
-       /// 获取查询参数
-       /// </summary>
-       /// <returns></returns>
-       StringValues Query(string key);
+        string GetApplicationPath();
+        string GetPath();
+        string GetQueryString();
+        bool TryGetHeader(string key, out StringValues value);
+        string UrlEncode(string url);
+        string UrlDecode(string url);
 
-       /// <summary>
-       ///  获取表单参数
-       /// </summary>
-       /// <returns></returns>
-       StringValues Form(string key);
+        /// <summary>
+        /// 获取查询参数
+        /// </summary>
+        /// <returns></returns>
+        StringValues Query(string key);
 
-       bool TryGetCookie(string member, out string o);
-       IEnumerable<string> CookiesKeys();
-       string GetEncodedUrl();
-       IEnumerable<string> FormKeys();
-       T ParseFormToEntity<T>();
-       string GetParameter(string key);
+        /// <summary>
+        ///  获取表单参数
+        /// </summary>
+        /// <returns></returns>
+        StringValues Form(string key);
 
-       /// <summary>
-       /// 获取上传的文件
-       /// </summary>
-       /// <param name="key"></param>
-       /// <returns></returns>
-       ICompatiblePostedFile File(string key);
-       /// <summary>
-       /// 按序号获取上传的文件
-       /// </summary>
-       /// <param name="i"></param>
-       /// <returns></returns>
-       ICompatiblePostedFile FileIndex(int i);
+        bool TryGetCookie(string member, out string o);
+        IEnumerable<string> CookiesKeys();
+        string GetEncodedUrl();
+        IEnumerable<string> FormKeys();
+        T ParseFormToEntity<T>();
+        string GetParameter(string key);
 
-       IDictionary<String,StringValues> Headers();
+        /// <summary>
+        /// 获取上传的文件
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        ICompatiblePostedFile File(string key);
+
+        /// <summary>
+        /// 按序号获取上传的文件
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        ICompatiblePostedFile FileIndex(int i);
+
+        IDictionary<String, StringValues> Headers();
     }
 }

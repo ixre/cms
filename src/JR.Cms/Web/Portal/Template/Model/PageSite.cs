@@ -3,8 +3,15 @@ using JR.Cms.ServiceDto;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PageSite
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
         public PageSite(SiteDto dto)
         {
             Name = dto.Name;
@@ -26,14 +33,29 @@ namespace JR.Cms.Web.Portal.Template.Model
             Language = dto.Language;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Title { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Notice { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Post { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Keywords { get; set; }
 
         public string Phone { get; set; }

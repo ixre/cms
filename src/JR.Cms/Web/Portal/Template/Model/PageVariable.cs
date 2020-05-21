@@ -75,8 +75,10 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
-        [TemplateVariableField("当前地址")] public string Url => _context.HttpContext.Request.GetEncodedUrl();
+        [TemplateVariableField("当前地址")]
+        public string Url => _context.HttpContext.Request.GetEncodedUrl();
 
+        [TemplateVariableField("随机变亮")]
         public string Spam
         {
             get
@@ -124,17 +126,16 @@ namespace JR.Cms.Web.Portal.Template.Model
                 {
                     var site = _context.CurrentSite;
 
-                    _templatePath = string.Format(
-                        "{0}/templates/{1}",
-                        ResDomain,
-                        site.Tpl
-                    );
+                    _templatePath = $"{ResDomain}/templates/{site.Tpl}";
                 }
 
                 return _templatePath;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [TemplateVariableField("插件根路径")]
         public string PluginPath
         {

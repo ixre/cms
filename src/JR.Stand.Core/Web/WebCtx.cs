@@ -144,13 +144,12 @@ namespace JR.Stand.Core.Web
         {
             get
             {
-
                 if (this._domain == null)
                 {
                     String appPath = this.ApplicationPath;
-                    var schema = this._context.Request.GetScheme();
+                    var schema = this._context.Request.GetProto();
                     var host = this._context.Request.GetHost();
-                    this._domain = $"{(schema == "http" ? "" : schema + ":")}//{host}{(appPath == "/" ? "" : appPath)}";
+                    this._domain = $"{schema}://{host}{(appPath == "/" ? "" : appPath)}";
                 }
 
                 return this._domain;

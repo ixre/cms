@@ -11,28 +11,32 @@ namespace JR.Cms.Web.Resource
     /// </summary>
     public class SiteResourceInit
     {
-        const string comment = "/* 警告:此文件由系统自动生成,请勿修改,因为可能导致您的更改丢失! */\r\n";
-        const string cssComment = " /* 此文件由系统自动生成,所有样式表请引用此文件!*/\r\n";
+        const string Comment = "/* 警告:此文件由系统自动生成,请勿修改,因为可能导致您的更改丢失! */\r\n";
+        const string CssComment = " /* 此文件由系统自动生成,所有样式表请引用此文件!*/\r\n";
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
         public static void Init()
         {
             ExtraMasterAssets();
             
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.css",
-                cssComment + "@import url(\"icon-font.css\");\r\n"
-                           + ResourceUtility.CompressHtml(GetResource("Web/Resource/SiteResources/site-base.css"))
-                                                          + "\n /* merge page.css */\n"
-                                                          + ResourceUtility.CompressHtml(GetResource("Web/Resource/SiteResources/site-page.css")), false);
+                CssComment + ResourceUtility.CompressHtml(
+                               GetResource("Web/Resource/SiteResources/site-base.css"))
+                               + "\n /* merge page.css */\n"
+                               + ResourceUtility.CompressHtml(
+                                   GetResource("Web/Resource/SiteResources/site-page.css")), false);
 
             //Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "cms.js", 
             //    comment + SiteResource.cms_core_min, !true);
             
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.js",
-                comment + GetResource("Web/Resource/SiteResources/base.min.js") +
-                "\n" + ResourceUtility.CompressHtml(GetResource("Web/Resource/SiteResources/cms.core.js")), false);
+                Comment + GetResource("Web/Resource/SiteResources/base.min.js") 
+                    +ResourceUtility.CompressHtml(GetResource("Web/Resource/SiteResources/cms.core.js")), false);
             
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "api.js",
-                comment + GetResource("Web/Resource/SiteResources/js_cms_api.js"), false);
+                Comment + GetResource("Web/Resource/SiteResources/js_cms_api.js"), false);
             
             //
             // Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/ui.js",
@@ -49,7 +53,7 @@ namespace JR.Cms.Web.Resource
             //     comment + GetResource("js_lib_datagrid.js"), false);
             //
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/scroller.js",
-                comment +GetResource("Web/Resource/SiteResources/Assets/js_lib_scroller.js"), false);
+                Comment +GetResource("Web/Resource/SiteResources/Assets/js_lib_scroller.js"), false);
             
             // Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/scrollbar.js",
             //     comment +GetResource("js_lib_scrollbar.js"), false);
@@ -70,18 +74,18 @@ namespace JR.Cms.Web.Resource
             //     comment + GetResource("js_lib_animation.js"), false);
             
             // animate.css
-            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "animate.css", comment + 
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "animate.css", Comment + 
                                                                       GetResource("Web/Resource/SiteResources/Assets/animate.css"), false);
             // wow.js
-            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/wow.js", comment +GetResource("Web/Resource/SiteResources/Assets/wow.js"), false);
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/wow.js", Comment +GetResource("Web/Resource/SiteResources/Assets/wow.js"), false);
         }
 
         private static void ExtraMasterAssets()
         {
              Reset(CmsVariables.FRAMEWORK_PATH + "mui/js/base.js",
-                 comment + GetResource("Web/Resource/ManageResources/manage_js.js"), false);
+                 Comment + GetResource("Web/Resource/ManageResources/manage_js.js"), false);
              Reset(CmsVariables.FRAMEWORK_PATH + "mui/js/component.js",
-                 comment +GetResource("Web/Resource/ManageResources/ui_component.source.js"), false);
+                 Comment +GetResource("Web/Resource/ManageResources/ui_component.source.js"), false);
         }
 
         private static string GetResource(string fileName)

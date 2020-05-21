@@ -417,7 +417,7 @@ namespace JR.Cms.Web.Manager.Handle
             ViewData["indent_opts"] = GetContentRelatedIndentOptions();
             ViewData["content_type"] = Request.Query("content_type");
             ViewData["content_id"] = Request.Query("content_id");
-            ViewData["scheme"] = Request.GetScheme() + ":";
+            ViewData["scheme"] = Request.GetProto() + ":";
             ViewData["host"] = WebCtx.Current.Host;
             ViewData["site_id"] = SiteId.ToString();
 
