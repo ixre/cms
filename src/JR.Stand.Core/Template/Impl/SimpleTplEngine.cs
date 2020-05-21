@@ -30,6 +30,18 @@ namespace JR.Stand.Core.Template.Impl
         private readonly object _classInstance;
 
         /// <summary>
+        /// 数据列正则
+        /// </summary>
+        private static readonly Regex FieldRegex = new Regex("{([a-z0-9_\\]\\[\u4e00-\u9fa5]+)}");
+
+        // 方法正则: #begin each(id){ ${id} } #end
+        private static readonly Regex MethodRegex = new Regex("\\#begin\\s([A-Za-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)\\s*([\\S\\s]+)#end");
+        // 参数正则
+        private static readonly  Regex ParamRegex = new Regex("\\s*'([^']*)',*|\\s*(?!=')([^,]+),*");
+        private static readonly  Regex TagRegex = new Regex("\\$([a-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)");
+        private static readonly  Regex TagParamRegex = new Regex("\\s*(((\\\\,)|[^,])+),*");
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="classInstance"></param>
@@ -50,27 +62,13 @@ namespace JR.Stand.Core.Template.Impl
 
 
         /// <summary>
-        /// 数据列正则
-        /// </summary>
-        private static readonly Regex FieldRegex = new Regex("{([a-z0-9_\\]\\[\u4e00-\u9fa5]+)}");
-
-        /// <summary>
         /// 编译模版方法
         /// </summary>
         /// <param name="html"></param>
         private void CompileTemplateMethod(ref string html)
         {
-            //返回结果
-            const string methodPattern = "\\#begin\\s([A-Za-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)\\s*([\\S\\s]+)#end";
-            //#begin each(id){ ${id} } #end
-            const string paramPattern = "\\s*'([^']*)',*|\\s*(?!=')([^,]+),*";
-
-            Regex methodRegex = new Regex(methodPattern); //方法正则
-
             //如果不包括方法,则直接返回
-            if (!methodRegex.IsMatch(html))return;
-            Regex paramRegex = new Regex(paramPattern); //参数正则
-
+            if (!MethodRegex.IsMatch(html))return;
             Type type = this._classInstance.GetType();
             MethodInfo method;
             string tagName;
@@ -78,15 +76,14 @@ namespace JR.Stand.Core.Template.Impl
             object[] parameters;
             Type[] parameterTypes; //参数类型数组
             MatchCollection paramMcs;
-
-
-            html = methodRegex.Replace(html, m =>
+            
+            html = MethodRegex.Replace(html, m =>
             {
                 tagName = m.Groups[1].Value;
                 tagFormat = m.Groups[3].Value;
 
                 //获得参数
-                paramMcs = paramRegex.Matches(m.Groups[2].Value);
+                paramMcs = ParamRegex.Matches(m.Groups[2].Value);
 
                 //参数,多添加一个tagFormat参数
                 parameters = new object[paramMcs.Count + 1];
@@ -112,11 +109,10 @@ namespace JR.Stand.Core.Template.Impl
                     return m.Value;
                 }
                 //数字参数
-                string intParamValue;
                 //则给参数数组赋值
                 for (int i = 0; i < paramMcs.Count; i++)
                 {
-                    intParamValue = paramMcs[i].Groups[2].Value;
+                    var intParamValue = paramMcs[i].Groups[2].Value;
                     if (intParamValue != String.Empty)
                     {
                         parameters[i] = intParamValue;
@@ -126,12 +122,8 @@ namespace JR.Stand.Core.Template.Impl
                         parameters[i] = paramMcs[i].Groups[1].Value;
                     }
                 }
-
                 parameters[parameters.Length - 1] = tagFormat;
-
-                if (this._count != null)
-                    this._count.Add(String.Format("Method:{0},{1:mmssfff}", method.Name, DateTime.Now));
-
+                _count?.Add($"Method:{method.Name},{DateTime.Now:mmssfff}");
                 //执行方法并返回结果
                 return method.Invoke(this._classInstance, parameters).ToString();
             });
@@ -145,19 +137,9 @@ namespace JR.Stand.Core.Template.Impl
         private void CompileTemplateTag(ref string html)
         {
             //返回结果
-            const string tagPattern = "\\$([a-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)";
-            const string paramPattern = "\\s*(((\\\\,)|[^,])+),*";
             //const string paramPattern = "\\s*'([^']*)',*|\\s*(?!=')([^,]+),*";
 
-            var tagRegex = new Regex(tagPattern);
-
-            if (!tagRegex.IsMatch(html))
-            {
-                return;
-            }
-
-            var paramRegex = new Regex(paramPattern);
-
+            if (!TagRegex.IsMatch(html)) return;
             Type type = this._classInstance.GetType();
             MethodInfo method;
             string tagName;
@@ -165,12 +147,12 @@ namespace JR.Stand.Core.Template.Impl
             Type[] parameterTypes; //参数类型数组
             MatchCollection paramMcs;
 
-            html = tagRegex.Replace(html, m =>
+            html = TagRegex.Replace(html, m =>
             {
                 tagName = m.Groups[1].Value;
 
                 //获得参数
-                paramMcs = paramRegex.Matches(m.Groups[2].Value);
+                paramMcs = TagParamRegex.Matches(m.Groups[2].Value);
                 //
                 // foreach (Match m3 in paramMcs)
                 // {
