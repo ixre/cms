@@ -49,5 +49,7 @@ namespace JR.Stand.Abstracts.Web
        /// <param name="i"></param>
        /// <returns></returns>
        ICompatiblePostedFile FileIndex(int i);
+
+       IDictionary<String,StringValues> Headers();
     }
 }

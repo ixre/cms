@@ -61,7 +61,7 @@ namespace JR.Stand.Toolkit.HttpTag
                 {
                     var assembly = typeof(TagsManager).Assembly;
                     var tagManager = ResourcesReader.Read(assembly, "HttpTag/Assets/tags_manager.html");
-                    Dispaly_TagsList(String.IsNullOrEmpty(pageContent)?tagManager:pageContent);
+                    Display_TagsList(String.IsNullOrEmpty(pageContent)?tagManager:pageContent);
                 }
                 else if (action == "test")
                 {
@@ -196,7 +196,7 @@ namespace JR.Stand.Toolkit.HttpTag
         /// <summary>
         /// 显示标签列表
         /// </summary>
-        private void Dispaly_TagsList(string pageContent)
+        private void Display_TagsList(string pageContent)
         {
             string tagsHtml;
 

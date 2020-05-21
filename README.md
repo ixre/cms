@@ -77,7 +77,7 @@ cd cms && dotnet JR.Cms.App.dll --urls http://+:8080
 
 ## Docker ##
 
-[Docker镜像帮助](https://hub.docker.com/r/jarry6/jrcms)
+[Docker镜像帮助](https://hub.docker.com/r/jarry6/cms)
 
 1. 创建存放CMS模板、数据、插件、文件的目录:
 ```
@@ -86,7 +86,7 @@ mkdir /data/cms && cd /data/cms
 
 2. 运行容器：
 ```
-docker run -d  --name jrcms -p 8080:80 \
+docker run -d  --name cms -p 8080:80 \
     --volume=$(pwd)/config:/cms/config \
     --volume=$(pwd)/data:/cms/data \
     --volume=$(pwd)/templates:/cms/templates \
@@ -94,7 +94,7 @@ docker run -d  --name jrcms -p 8080:80 \
     --volume=$(pwd)/uploads:/cms/uploads \
     --volume=$(pwd)/oem:/cms/oem \
     --volume=$(pwd)/root:/cms/root \
-    --restart always jarry6/jrcms
+    --restart always jarry6/cms
 ```
 
 # 插件开发 #
