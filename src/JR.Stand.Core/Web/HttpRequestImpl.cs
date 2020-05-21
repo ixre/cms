@@ -129,6 +129,11 @@ namespace JR.Stand.Core.Web
             return this.ParsePostedFile(file);
         }
 
+        public IDictionary<string, StringValues> Headers()
+        {
+            return this.Context().Request.Headers;
+        }
+
         private ICompatiblePostedFile ParsePostedFile(IFormFile file)
         {
             if (file != null) return new PostedFileImpl(file);

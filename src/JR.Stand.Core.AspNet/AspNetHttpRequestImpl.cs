@@ -134,6 +134,17 @@ namespace JR.Stand.Core.AspNet
             return this.ParsePostedFile(file);
         }
 
+        public IDictionary<string, StringValues> Headers()
+        {
+            var headers = new Dictionary<String, StringValues>();
+            var h = this.Context.Request.Headers;
+            foreach (String key in h.Keys)
+            {
+                headers.Add(key, h.Get(key));
+            }
+            return headers;
+        }
+
         private ICompatiblePostedFile ParsePostedFile(HttpPostedFile file)
         {
             if (file != null) return new AspNetPostedFileImpl(file);

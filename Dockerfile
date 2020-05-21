@@ -53,7 +53,7 @@ ENTRYPOINT ["sh","../entrypoint.sh"]
 
 # # Quick Start
 # # ```
-# # docker run --rm -it -p 8080:80 jarry6/jrcms
+# # docker run --rm -it -p 8080:80 jarry6/cms
 # # ```
 # # open http://localhost:8080 in your brower.
 
@@ -67,6 +67,6 @@ ENTRYPOINT ["sh","../entrypoint.sh"]
 # 	--volume=$(pwd)/uploads:/cms/uploads \
 # 	--volume=$(pwd)/data:/cms/data \
 #   --volume=$(pwd)/root:/cms/root \
-# 	jarry6/jrcms
+# 	jarry6/cms
 # ```
 
