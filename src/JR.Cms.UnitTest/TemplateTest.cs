@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using JR.Cms.Library.CacheService;
@@ -22,7 +23,8 @@ namespace JR.Cms.UnitTest
                     <div class=""col-md-3 col-lg-2 col-sm-4"">
                         {name}
                     </div>
-               }) </div>
+                    <div style=""background-image:url('{name}')""></div>
+        }) </div>
 ";
             
             TemplatePage tp = new TemplatePage(null);
@@ -41,11 +43,11 @@ namespace JR.Cms.UnitTest
         /// </summary>
         public static readonly TemplateHandler<object> CompliedTemplate = (object classInstance, ref string html) =>
         {
-            var mctpl = new SimpleTplEngine(classInstance, !true);
-            html = mctpl.Execute(html);
+            var microTpl = new SimpleTplEngine(classInstance, !true);
+            html = microTpl.Execute(html);
         };
-        
-        protected static MicroTemplateEngine TplEngine = new MicroTemplateEngine(null); //模板引擎
+
+        private static readonly MicroTemplateEngine TplEngine = new MicroTemplateEngine(null); //模板引擎
 
         [TemplateTag]
         public string Categories(string catPath,string format)
