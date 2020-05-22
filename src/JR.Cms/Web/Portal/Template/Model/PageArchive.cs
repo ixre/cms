@@ -21,6 +21,10 @@ namespace JR.Cms.Web.Portal.Template.Model
         private string _tagsHtml;
         private string _url;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="archive"></param>
         public PageArchive(ArchiveDto archive)
         {
             Archive = archive;

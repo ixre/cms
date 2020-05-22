@@ -10,6 +10,9 @@ using JR.Stand.Core.Template.Impl;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PageVariable
     {
         private string _domain;
@@ -37,6 +40,9 @@ namespace JR.Cms.Web.Portal.Template.Model
     <![endif]-->";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PageVariable()
         {
             _context = Cms.Context;
