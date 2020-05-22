@@ -90,5 +90,9 @@
   <item key="after sales" zh_CN="售后" zh_TW="售后" en_US="After sales" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="date" zh_CN="日期" zh_TW="日期" en_US="Date" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="click" zh_CN="点击" zh_TW="点击" en_US="Click" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="read" zh_CN="阅读" zh_TW="阅读" en_US="Read" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="submit" zh_CN="提交" zh_TW="提交" en_US="Submit" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="rewrite" zh_CN="重写" zh_TW="重写" en_US="Rewrite" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="reset" zh_CN="重置" zh_TW="重置" en_US="Reset" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="special offer" zh_CN="促销活动" zh_TW="促销活动" en_US="Special Offer" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
 </lang>

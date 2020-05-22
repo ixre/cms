@@ -63,7 +63,7 @@ namespace JR.Cms.ServiceImpl
         private RelatedLinkDto ConvertToLinkDto(int siteId, IContentLink link)
         {
             var site = _siteRep.GetSiteById(link.RelatedSiteId);
-            var content = GetContent(site.GetAggregaterootId(), ContentTypeIndent.Archive.ToString().ToLower(),
+            var content = GetContent(site.GetAggregateRootId(), ContentTypeIndent.Archive.ToString().ToLower(),
                 link.RelatedContentId);
             string thumbnail = null;
             var archive = content as IArchive;

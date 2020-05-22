@@ -7,13 +7,34 @@ a:hover{color:#0000cc;}
 .mask{background:url(/public/assets/images/mask.gif);opacity:0.2;filter:alpha(opacity=20);position:absolute;top:0;left:0;bottom: 0;right: 0;}
 p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
 
+/** 作废,使用col-*代替 */
+@media(max-width:575px){
+    .hidden-xs{display:none !important;}
+    .col-xs-1{flex:0 0 8.333333%;max-width:8.333333%}
+    .col-xs-2{flex:0 0 16.666666%;max-width:16.666666%}
+    .col-xs-3{flex:0 0 25%;max-width:25%}
+    .col-xs-4{flex:0 0 33.333333%;max-width:33.333333%}
+    .col-xs-5{flex:0 0 41.666666%;max-width:41.666666%}
+    .col-xs-6{flex:0 0 50%;max-width:50%}
+    .col-xs-7{flex:0 0 58.333333%;max-width:58.333333%}
+    .col-xs-8{flex:0 0 66.666666%;max-width:66.666666%}
+    .col-xs-9{flex:0 0 75%;max-width:75%}
+    .col-xs-10{flex:0 0 83.333333%;max-width:83.333333%}
+    .col-xs-11{flex:0 0 91.666666%;max-width:91.666666%}
+    .col-xs-12{flex:0 0 100%;max-width:100%}
+    /*.col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-10,.col-xs-11,.col-xs-12{float:left}*/
+}
+/** 作废 */
+
+
+
 
 
 /* +++++++++++++ Classes ++++++++++++++ */
 .center{text-align:center;}
 .clear,.clear-fix,.clearfix{clear:both;margin-bottom:0;}
 .overflow{overflow:hidden;}
-.hidden{display:none;}
+
 .clearfix{clear:both;}
 .nom{margin:auto;}
 div.line{border-top:solid 1px #ddd;border-bottom:solid 1px #fff;height:0px;overflow:hidden;}

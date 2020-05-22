@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using JR.Cms.Domain.Interface;
-using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Link;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Infrastructure.Tree;
 using JR.Cms.Infrastructure;
+using JR.Stand.Abstracts;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 using ExtendFieldDto = JR.Cms.ServiceDto.ExtendFieldDto;
-using Result = JR.Cms.ServiceDto.Result;
 using SiteDto = JR.Cms.ServiceDto.SiteDto;
 using SiteLinkDto = JR.Cms.ServiceDto.SiteLinkDto;
 
 namespace JR.Cms.ServiceContract
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ISiteServiceContract
     {
         /// <summary>

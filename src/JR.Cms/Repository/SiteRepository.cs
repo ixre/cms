@@ -50,8 +50,8 @@ namespace JR.Cms.Repository
 
         public int SaveSite(ISite site)
         {
-            var siteId = site.GetAggregaterootId();
-            if (site.GetAggregaterootId() <= 0)
+            var siteId = site.GetAggregateRootId();
+            if (site.GetAggregateRootId() <= 0)
             {
                 siteId = siteDal.CreateSite(site);
                 if (siteId <= 0) throw new ArgumentException("创建站点失败");
@@ -118,7 +118,7 @@ namespace JR.Cms.Repository
         {
             var sites = GetSites();
             if (sites.Count == 0) throw new Exception("Missing site");
-            return BinarySearch.IntSearch(sites, 0, sites.Count, siteId, a => a.GetAggregaterootId());
+            return BinarySearch.IntSearch(sites, 0, sites.Count, siteId, a => a.GetAggregateRootId());
         }
 
         public ISite GetSingleOrDefaultSite(string host, string appPath)

@@ -126,7 +126,7 @@ namespace JR.Cms.ServiceImpl
                 if (usr.GetCredential().UserName != user.Credential.UserName)
                     if (_userRepository.GetUserIdByUserName(user.Credential.UserName) > 0)
                         throw new ArgumentException("用户名已经使用!");
-                user.Credential.UserId = usr.GetAggregaterootId();
+                user.Credential.UserId = usr.GetAggregateRootId();
                 usr.SaveCredential(user.Credential);
             }
 
@@ -188,7 +188,7 @@ namespace JR.Cms.ServiceImpl
 
             var total = _archiveRep.TransferArchives(userId, firstUserId);
 
-            return _userRepository.DeleteUser(user.GetAggregaterootId());
+            return _userRepository.DeleteUser(user.GetAggregateRootId());
         }
     }
 }

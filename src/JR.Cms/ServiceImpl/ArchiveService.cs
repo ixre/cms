@@ -4,16 +4,14 @@ using System.Data;
 using System.Linq;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Content.Archive;
-using JR.Cms.Domain.Interface.Site;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Infrastructure;
 using JR.Cms.Repository.Query;
 using JR.Cms.ServiceContract;
+using JR.Cms.ServiceDto;
+using JR.Stand.Abstracts;
 using JR.Stand.Core.Framework;
-using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
-using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
-using Result = JR.Cms.ServiceDto.Result;
 
 namespace JR.Cms.ServiceImpl
 {
@@ -62,9 +60,13 @@ namespace JR.Cms.ServiceImpl
             var ic = _contentRep.GetContent(siteId);
             IArchive ia;
             if (archiveDto.Id <= 0)
+            {
                 ia = ic.CreateArchive(new CmsArchiveEntity());
+            }
             else
+            {
                 ia = ic.GetArchiveById(archiveDto.Id);
+            }
 
             var err = ia.Set(value);
             if (err == null)
@@ -80,7 +82,11 @@ namespace JR.Cms.ServiceImpl
             var r = new Result();
             if (err == null)
             {
-                r.Data = new Dictionary<string, string> {{"ArchiveId", ia.GetAggregaterootId().ToString()}};
+                r.Data = new Dictionary<string, string>
+                {
+                    {"ArchiveId", ia.GetAggregateRootId().ToString()},
+                    {"Alias",ia.Get().Alias}
+                };
             }
             else
             {
@@ -92,6 +98,12 @@ namespace JR.Cms.ServiceImpl
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="archiveId"></param>
+        /// <returns></returns>
         public ArchiveDto GetSameCategoryPreviousArchive(int siteId, int archiveId)
         {
             var ic = _contentRep.GetContent(siteId);
@@ -101,6 +113,12 @@ namespace JR.Cms.ServiceImpl
             return ArchiveDto.ConvertFrom(archive, true, false, false);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="archiveId"></param>
+        /// <returns></returns>
         public ArchiveDto GetSameCategoryNextArchive(int siteId, int archiveId)
         {
             var ic = _contentRep.GetContent(siteId);
@@ -109,7 +127,7 @@ namespace JR.Cms.ServiceImpl
             return ArchiveDto.ConvertFrom(archive, true, false, false);
         }
 
-        private IEnumerable<ArchiveDto> GetArchiveEnumertor(IEnumerable<IArchive> archives)
+        private IEnumerable<ArchiveDto> GetArchiveEnumerator(IEnumerable<IArchive> archives)
         {
             IDictionary<int, CategoryDto> categories = new Dictionary<int, CategoryDto>();
             foreach (var ia in archives)
@@ -118,11 +136,12 @@ namespace JR.Cms.ServiceImpl
                 var archive = new ArchiveDto
                 {
                     StrId = av.StrId,
-                    Id = ia.GetAggregaterootId(),
+                    Id = ia.GetAggregateRootId(),
                     PublisherId = av.AuthorId,
                     Alias = av.Alias,
                     Agree = av.Agree,
                     Disagree = av.Disagree,
+                    Path = av.Path,
                     Content = av.Content,
                     CreateTime = TimeUtils.UnixTime(av.CreateTime),
                     Tags = av.Tags,
@@ -154,55 +173,103 @@ namespace JR.Cms.ServiceImpl
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
+        /// <param name="includeChild"></param>
+        /// <param name="number"></param>
+        /// <param name="skipSize"></param>
+        /// <returns></returns>
         public ArchiveDto[] GetArchivesByCategoryPath(int siteId, string catPath,
             bool includeChild, int number, int skipSize)
         {
             var content = _contentRep.GetContent(siteId);
             var archives = content.GetArchivesByCategoryPath(catPath,
                 includeChild, number, skipSize);
-            return GetArchiveEnumertor(archives).ToArray();
+            return GetArchiveEnumerator(archives).ToArray();
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="moduleId"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public ArchiveDto[] GetArchivesByModuleId(int siteId, int moduleId, int number)
         {
             var content = _contentRep.GetContent(siteId);
             var archives = content.GetArchivesByModuleId(moduleId, number);
 
-            return GetArchiveEnumertor(archives).ToArray();
+            return GetArchiveEnumerator(archives).ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
+        /// <param name="includeChild"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public ArchiveDto[] GetArchivesByViewCount(int siteId, string catPath, bool includeChild, int number)
         {
             var content = _contentRep.GetContent(siteId);
             var archives = content.GetArchivesByViewCount(catPath, includeChild, number);
 
-            return GetArchiveEnumertor(archives).ToArray();
+            return GetArchiveEnumerator(archives).ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="moduleId"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public ArchiveDto[] GetSpecialArchivesByModuleId(int siteId, int moduleId, int number)
         {
             var content = _contentRep.GetContent(siteId);
             var archives = content.GetSpecialArchivesByModuleId(moduleId, number);
 
-            return GetArchiveEnumertor(archives).ToArray();
+            return GetArchiveEnumerator(archives).ToArray();
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
+        /// <param name="includeChild"></param>
+        /// <param name="number"></param>
+        /// <param name="skipSize"></param>
+        /// <returns></returns>
         public ArchiveDto[] GetSpecialArchives(int siteId, string catPath, bool includeChild, int number, int skipSize)
         {
             var content = _contentRep.GetContent(siteId);
-            var archives = content.GetSpecialArchives(catPath, includeChild, number, skipSize);
+            var archives = content.GetSpecialArchives(
+                catPath, includeChild, number, skipSize);
 
-            return GetArchiveEnumertor(archives).ToArray();
+            return GetArchiveEnumerator(archives).ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="moduleId"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public ArchiveDto[] GetArchivesByViewCountByModuleId(int siteId, int moduleId, int number)
         {
             var content = _contentRep.GetContent(siteId);
             var archives = content.GetArchivesByViewCountByModuleId(moduleId, number);
 
-            return GetArchiveEnumertor(archives).ToArray();
+            return GetArchiveEnumerator(archives).ToArray();
         }
 
 
@@ -303,7 +370,7 @@ namespace JR.Cms.ServiceImpl
             var archives = content.SearchArchivesByCategory(
                 catPath, keyword, pageSize,
                 pageIndex, out records, out pages, orderBy);
-            return GetArchiveEnumertor(archives);
+            return GetArchiveEnumerator(archives);
         }
 
 
@@ -314,7 +381,7 @@ namespace JR.Cms.ServiceImpl
             var content = _contentRep.GetContent(siteId);
             var archives = content.SearchArchives(catPath,
                 onlyMatchTitle, keyword, pageSize, pageIndex, out records, out pages, orderBy);
-            return GetArchiveEnumertor(archives);
+            return GetArchiveEnumerator(archives);
         }
 
 
@@ -330,7 +397,7 @@ namespace JR.Cms.ServiceImpl
             if (archiveId <= 0) return archiveIsNull;
 
 
-            return archive.GetAggregaterootId() == archiveId;
+            return archive.GetAggregateRootId() == archiveId;
         }
 
 

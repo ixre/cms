@@ -93,7 +93,7 @@ namespace JR.Cms.Library.DataAccess.DAL
                 {"@roleFlag", user.Flag},
                 {"@createTime", user.CreateTime},
                 {"@loginTime", user.LastLoginTime},
-                {"@id", user.GetAggregaterootId()},
+                {"@id", user.GetAggregateRootId()},
             };
             var parameters = Db.CreateParametersFromArray(data);
             if (isNew)
@@ -112,7 +112,7 @@ namespace JR.Cms.Library.DataAccess.DAL
                 ExecuteNonQuery(NewQuery(DbSql.UserUpdateUser, parameters));
             }
 
-            return user.GetAggregaterootId();
+            return user.GetAggregateRootId();
         }
 
         public int DeleteUser(int userId)

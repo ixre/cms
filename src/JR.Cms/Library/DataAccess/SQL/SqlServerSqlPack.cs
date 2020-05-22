@@ -16,7 +16,7 @@
 
         public override string Archive_GetArchiveList =>
             @"SELECT * FROM (SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
-                    $PREFIX_archive.id,str_id,[alias],cat_id,title,$PREFIX_archive.location,$PREFIX_archive.flag,
+                    $PREFIX_archive.id,str_id,$PREFIX_archive.path,[alias],cat_id,title,$PREFIX_archive.location,$PREFIX_archive.flag,
                         [Outline],author_id,tags,source,
                         thumbnail,[Content],update_time,[create_time],$PREFIX_category.[Name],$PREFIX_category.[Tag]
                         FROM $PREFIX_archive INNER JOIN $PREFIX_category ON $PREFIX_category.id=$PREFIX_archive.[cat_id]
@@ -82,7 +82,7 @@
 
         public override string Archive_GetSpecialArchiveList =>
             @"SELECT * FROM (SELECT ROW_NUMBER()OVER(ORDER BY $PREFIX_archive.sort_number DESC) as rowNum,
-                            $PREFIX_archive.id,$PREFIX_archive.flag,str_id,[alias],[cat_id],title,
+                            $PREFIX_archive.id,$PREFIX_archive.path,$PREFIX_archive.flag,str_id,[alias],[cat_id],title,
                         $PREFIX_archive.location,[content],[outline],thumbnail,[tags],[create_time],[update_time]
                         ,view_count,[source] FROM $PREFIX_archive INNER JOIN $PREFIX_category ON
                     $PREFIX_category.id=$PREFIX_archive.[cat_id] WHERE $PREFIX_archive.site_id=@siteId AND $PREFIX_archive.cat_id IN($[catIdArray]) AND "

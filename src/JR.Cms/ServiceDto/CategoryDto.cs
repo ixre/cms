@@ -25,7 +25,7 @@ namespace JR.Cms.ServiceDto
                 ModuleId = category.ModuleId,
                 Location = category.Location,
                 ExtendFields = ic.ExtendFields,
-                SiteId = ic.Site().GetAggregaterootId(),
+                SiteId = ic.Site().GetAggregateRootId(),
                 Path = category.Path,
                 ParentId = category.ParentId,
                 //Lft = category.Lft,

@@ -85,7 +85,7 @@ namespace JR.Cms.Domain.User
             _userRepository.SaveRoleFlags(Id, appId, flags);
         }
 
-        public int GetAggregaterootId()
+        public int GetAggregateRootId()
         {
             return Id;
         }

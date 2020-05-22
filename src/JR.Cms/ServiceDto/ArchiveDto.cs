@@ -139,7 +139,7 @@ namespace JR.Cms.ServiceDto
             var a = archive.Get();
             var dto = new ArchiveDto
             {
-                Id = archive.GetAggregaterootId(),
+                Id = archive.GetAggregateRootId(),
                 StrId = a.StrId,
                 Disagree = a.Disagree,
                 Agree = a.Agree,
@@ -173,7 +173,7 @@ namespace JR.Cms.ServiceDto
                 if (archive.Template != null) // && archive.Template.BindRefrenceId == archive.ID)
                 {
                     dto.TemplatePath = archive.Template.TplPath;
-                    dto.IsSelfTemplate = archive.Template.BindRefrenceId == archive.GetAggregaterootId();
+                    dto.IsSelfTemplate = archive.Template.BindRefrenceId == archive.GetAggregateRootId();
                 }
 
             return dto;

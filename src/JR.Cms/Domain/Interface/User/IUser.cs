@@ -3,7 +3,7 @@ using JR.Cms.Domain.Interface.Value;
 
 namespace JR.Cms.Domain.Interface.User
 {
-    public interface IUser : IAggregateroot
+    public interface IUser : IAggregateRoot
     {
         /// <summary>
         /// 用户凭据

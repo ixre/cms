@@ -242,7 +242,14 @@ namespace JR.Cms.Web.Manager
             Response.WriteAsync(ReturnSuccess(message));
         }
 
-        internal string ReturnError(string message)
+        internal void RenderJson(object data)
+        {
+            Response.ContentType("application/json;charset=utf-8");
+            var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data));
+            Response.Write(bytes,0,bytes.Length);
+        }
+
+        internal string ReturnError(string message = "对不起，操作失败！")
         {
             var sb = new StringBuilder();
             if (Request.Query("json") == "1" || Request.Query("xhr") != "")
@@ -260,11 +267,6 @@ namespace JR.Cms.Web.Manager
             }
 
             return sb.ToString();
-        }
-
-        internal string ReturnError()
-        {
-            return ReturnError("对不起，操作失败！");
         }
 
         internal void RenderError(string message)

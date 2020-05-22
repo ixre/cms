@@ -49,11 +49,8 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void Create()
         {
-            object data;
-            string tpls,
-                nodesHtml,
-                //栏目JSON
-                extendFieldsHtml = ""; //属性Html
+            //栏目JSON
+            string extendFieldsHtml = ""; //属性Html
 
             Module module;
 
@@ -66,10 +63,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             //模板目录
             var dir = new DirectoryInfo(
-                string.Format("{0}/templates/{1}",
-                    EnvUtil.GetBaseDirectory(),
-                    CurrentSite.Tpl + "/"
-                ));
+                $"{EnvUtil.GetBaseDirectory()}/templates/{CurrentSite.Tpl + "/"}");
 
             var names = Cms.TemplateManager.Get(CurrentSite.Tpl).GetNameDictionary();
             EachClass.EachTemplatePage(
@@ -83,13 +77,13 @@ namespace JR.Cms.Web.Manager.Handle
                 }
             );
 
-            tpls = sb2.ToString();
+            var tplList = sb2.ToString();
             sb2.Remove(0, sb2.Length);
 
             //获取该模块栏目JSON数据
             //categoryJSON = CmsLogic.Category.GetJson(m.ID);
 
-            nodesHtml = Helper.GetCategoryIdSelector(SiteId, categoryId);
+            var nodesHtml = Helper.GetCategoryIdSelector(SiteId, categoryId);
 
 
             //=============  拼接模块的属性值 ==============//
@@ -114,7 +108,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var sb = new StringBuilder(500);
 
-            sb.Append("<div class=\"dataextend_item\">");
+            sb.Append("<div class=\"data-extend-item\">");
             PropertyUI uiType;
             foreach (var p in category.ExtendFields)
             {
@@ -134,14 +128,14 @@ namespace JR.Cms.Web.Manager.Handle
             };
             var path = Request.GetPath();
             var query = Request.GetQueryString();
-            data = new
+            object data = new
             {
                 extendFieldsHtml = extendFieldsHtml,
                 extend_cls = category.ExtendFields.Count == 0 ? "hidden" : "",
                 thumbPrefix = CmsVariables.Archive_ThumbPrefix,
                 nodes = nodesHtml,
                 url = path + query,
-                tpls,
+                tpls = tplList,
                 json = JsonSerializer.Serialize(json)
             };
 
@@ -172,12 +166,13 @@ namespace JR.Cms.Web.Manager.Handle
 
             string alias = Request.Form("Alias");
             if (alias != "")
+            {
                 if (!ServiceCall.Instance.ArchiveService.CheckArchiveAliasAvailable(SiteId, -1, alias))
                 {
                     RenderError("别名已经存在!");
                     return;
                 }
-
+            }
 
             archive.ViewCount = 1;
             archive.PublisherId = UserState.Administrator.Current.Id;
@@ -185,11 +180,7 @@ namespace JR.Cms.Web.Manager.Handle
             archive = GetFormCopyedArchive(SiteId, Request, archive, alias);
             var r = ServiceCall.Instance.ArchiveService.SaveArchive(
                 SiteId, archive.Category.ID, archive);
-            if (r.ErrCode > 0)
-                RenderError(r.ErrMsg);
-            else
-                //返回文章ID
-                RenderSuccess(r.Data["ArchiveId"].ToString());
+            RenderJson(r);
         }
 
         /// <summary>
@@ -219,7 +210,7 @@ namespace JR.Cms.Web.Manager.Handle
             string attrValue;
             IExtendField field;
 
-            sb.Append("<div class=\"dataextend_item\">");
+            sb.Append("<div class=\"data-extend-item\">");
 
             foreach (var extValue in archive.ExtendValues)
             {
@@ -382,7 +373,9 @@ namespace JR.Cms.Web.Manager.Handle
                 return;
             }
 
-            var alias = string.IsNullOrEmpty(Request.Form("Alias")) ? string.Empty : HttpUtil.UrlEncode(Request.Form("Alias"));
+            var alias = string.IsNullOrEmpty(Request.Form("Alias"))
+                ? string.Empty
+                : HttpUtil.UrlEncode(Request.Form("Alias"));
 
             if (alias != string.Empty && archive.Alias != alias)
                 if (!ServiceCall.Instance.ArchiveService
@@ -395,11 +388,7 @@ namespace JR.Cms.Web.Manager.Handle
             archive = GetFormCopyedArchive(SiteId, Request, archive, alias);
             var r = ServiceCall.Instance.ArchiveService.SaveArchive(
                 SiteId, archive.Category.ID, archive);
-            if (r.ErrCode > 0)
-                RenderError(r.ErrMsg);
-            else
-                //返回文章ID
-                RenderSuccess("保存成功");
+            RenderJson(r);
         }
 
         private ArchiveDto GetFormCopyedArchive(int siteId, ICompatibleRequest form, ArchiveDto archive, string alias)

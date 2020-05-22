@@ -61,7 +61,7 @@ namespace JR.Cms.Domain.Content.Archive
                     //if (!this._templateBindLoaded)
                     //{
                     _templateBind = _templateRep.GetTemplateBind(
-                        GetAggregaterootId(),
+                        GetAggregateRootId(),
                         TemplateBindType.ArchiveTemplate);
 
                     //如果没有的话，则获取分类的模板
@@ -87,12 +87,16 @@ namespace JR.Cms.Domain.Content.Archive
 
             if (Template != null)
                 //处理自身的模板
-                if (Template.BindRefrenceId == GetAggregaterootId())
+                if (Template.BindRefrenceId == GetAggregateRootId())
                 {
                     if (templateIsNull)
+                    {
                         Template.TplPath = null;
+                    }
                     else
+                    {
                         Template.TplPath = templatePath;
+                    }
                     return;
                 }
 
@@ -103,7 +107,7 @@ namespace JR.Cms.Domain.Content.Archive
                     -1,
                     TemplateBindType.ArchiveTemplate,
                     templatePath);
-                Template.BindRefrenceId = GetAggregaterootId();
+                Template.BindRefrenceId = GetAggregateRootId();
             }
         }
 
@@ -120,29 +124,35 @@ namespace JR.Cms.Domain.Content.Archive
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override Error Save()
         {
             _value.SiteId = Category.Get().SiteId;
-            UpdateArchivePath();
+            this.CheckArchiveAlias();
+            this.UpdateArchivePath();
             if (_value.SortNumber <= 0)
             {
-                var sortNum = _archiveRep.GetMaxSortNumber(Category.Site().GetAggregaterootId());
+                var sortNum = _archiveRep.GetMaxSortNumber(Category.Site().GetAggregateRootId());
                 _value.SortNumber = sortNum + 1;
             }
 
-            _archiveRep.SaveArchive(Get());
-
-
-            if (_templateBind != null)
-            {
-            }
-
+            this._archiveRep.SaveArchive(Get());
             //保存文档绑定的模板
-            if (_templateBind != null)
+            if (this._templateBind != null)
             {
-                if (_templateBind != null) _templateBind.BindRefrenceId = GetAggregaterootId();
-                _templateRep.SaveTemplateBind(GetAggregaterootId(), _templateBind);
-                if (_templateBind.TplPath == null) _templateBind = null;
+                if (_templateBind != null)
+                {
+                    this._templateBind.BindRefrenceId = GetAggregateRootId();
+                }
+
+                this._templateRep.SaveTemplateBind(GetAggregateRootId(), _templateBind);
+                if (_templateBind.TplPath == null)
+                {
+                    this._templateBind = null;
+                }
             }
 
             //保存扩展属性
@@ -152,18 +162,35 @@ namespace JR.Cms.Domain.Content.Archive
             return base.Save();
         }
 
+        private void CheckArchiveAlias()
+        {
+            if (String.IsNullOrEmpty(this._value.Alias))
+            {
+                // 生成5位随机ID
+                string strId;
+                do
+                {
+                    strId = IdGenerator.GetNext(5); //创建5位ID
+                } while (_archiveRep.CheckSidIsExist(_value.SiteId, strId));
+
+                this._value.Alias = strId;
+            }
+        }
+
+        /// <inheritdoc />
         public override void MoveSortDown()
         {
-            var siteId = Category.Site().GetAggregaterootId();
-            var prev = _archiveRep.GetNextArchive(siteId, GetAggregaterootId(), true, true);
+            var siteId = Category.Site().GetAggregateRootId();
+            var prev = _archiveRep.GetNextArchive(siteId, GetAggregateRootId(), true, true);
             SwapSortNumber(prev);
         }
 
 
+        /// <inheritdoc />
         public override void MoveSortUp()
         {
-            var siteId = Category.Site().GetAggregaterootId();
-            var next = _archiveRep.GetPreviousArchive(siteId, GetAggregaterootId(), true, true);
+            var siteId = Category.Site().GetAggregateRootId();
+            var next = _archiveRep.GetPreviousArchive(siteId, GetAggregateRootId(), true, true);
             SwapSortNumber(next);
         }
 
@@ -237,7 +264,7 @@ namespace JR.Cms.Domain.Content.Archive
         /// <summary>
         /// 更新文档路径
         /// </summary>
-        public void UpdateArchivePath()
+        private void UpdateArchivePath()
         {
             // 设置了跳转地址
             if (!string.IsNullOrEmpty(_value.Location))
@@ -249,17 +276,25 @@ namespace JR.Cms.Domain.Content.Archive
             _value.Path = CombineArchivePath();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public CmsArchiveEntity Get()
         {
             return _value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
         public Error Set(CmsArchiveEntity src)
         {
             _value.ID = src.ID;
             _value.StrId = src.StrId;
             _value.SiteId = src.SiteId;
-            _value.Alias = src.Alias;
             _value.CatId = src.CatId;
             _value.Path = src.Path;
             _value.Flag = src.Flag;
@@ -280,21 +315,13 @@ namespace JR.Cms.Domain.Content.Archive
             var unix = TimeUtils.Unix(DateTime.Now);
             _value.UpdateTime = unix;
 
-            if (GetAggregaterootId() <= 0)
+            if (GetAggregateRootId() <= 0)
             {
                 if (src.SiteId <= 0) return new Error("参数错误：SiteId");
                 if (_value.CatId < 0) return new Error("参数错误:CatId");
                 _value.SiteId = src.SiteId;
                 _value.CatId = src.CatId;
                 _value.CreateTime = unix;
-                // 生成5位随机ID
-                string strId;
-                do
-                {
-                    strId = IdGenerator.GetNext(5); //创建5位ID
-                } while (_archiveRep.CheckSidIsExist(_value.SiteId, strId));
-
-                _value.StrId = strId;
             }
 
             var ic = Category;
@@ -303,15 +330,16 @@ namespace JR.Cms.Domain.Content.Archive
             if (!string.IsNullOrEmpty(src.Alias))
             {
                 var path = CombineArchivePath();
-                var isMatch = _archiveRep.CheckPathMatch(_value.SiteId, path, GetAggregaterootId());
+                var isMatch = _archiveRep.CheckPathMatch(_value.SiteId, path, GetAggregateRootId());
                 if (!isMatch) return new Error("文档路径已存在");
+                this._value.Alias = src.Alias;
             }
-
             if (src.SortNumber > 0) _value.SortNumber = src.SortNumber;
             return null;
         }
 
-        public override int GetAggregaterootId()
+        /// <inheritdoc />
+        public override int GetAggregateRootId()
         {
             return _value.ID;
         }

@@ -346,9 +346,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
         public string Special_Archives(string tag, string num, string skipSize, string splitSize,
             string container, string format)
         {
-            int intSkipSize, intSplitSize;
-            int.TryParse(skipSize, out intSkipSize);
-            int.TryParse(splitSize, out intSplitSize);
+            int.TryParse(skipSize, out var intSkipSize);
+            int.TryParse(splitSize, out var intSplitSize);
             return Special_Archives(tag, num, intSkipSize, intSplitSize, IsTrue(container), format);
         }
 

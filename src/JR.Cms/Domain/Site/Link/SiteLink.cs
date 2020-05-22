@@ -43,7 +43,7 @@ namespace JR.Cms.Domain.Site.Link
 
         public int Save()
         {
-            return _siteRep.SaveSiteLink(_site.GetAggregaterootId(), this);
+            return _siteRep.SaveSiteLink(_site.GetAggregateRootId(), this);
         }
     }
 }

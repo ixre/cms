@@ -128,7 +128,8 @@ namespace JR.Cms.Web.Manager.Handle
                 .SaveCategory(SiteId, parentId, category);
             if (r.ErrCode > 0) return ReturnError(r.ErrMsg);
             Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
-            var categoryId = Convert.ToInt32(r.Data["CategoryId"]);
+            var mp = r.Data as IDictionary<String, String>;
+            var categoryId = Convert.ToInt32(mp["CategoryId"]);
             var key = Consts.NODE_TREE_JSON_KEY + ":" + SiteId.ToString();
             Kvdb.Gca.Delete(key);
             return ReturnSuccess(null, categoryId.ToString());

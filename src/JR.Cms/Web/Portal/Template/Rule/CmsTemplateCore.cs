@@ -126,18 +126,16 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// 获取文档的地址
         /// </summary>
         /// <param name="location"></param>
-        /// <param name="flags"></param>
-        /// <param name="category"></param>
-        /// <param name="id"></param>
+        /// <param name="flag"></param>
+        /// <param name="archivePath"></param>
         /// <returns></returns>
-        protected string GetArchiveUrl(string location, int flag, string archivePath)
+        private string GetArchiveUrl(string location, int flag, string archivePath)
         {
             if (!string.IsNullOrEmpty(location)) return ConcatUrl(location);
             if (!FlagAnd(flag, BuiltInArchiveFlags.AsPage))
             {
                 return FormatPageUrl(UrlRulePageKeys.Archive, new[] {archivePath});
             }
-
             return FormatPageUrl(UrlRulePageKeys.SinglePage, new[] {archivePath});
         }
 
@@ -1245,7 +1243,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <param name="format"></param>
         /// <param name="dt"></param>
         /// <param name="index"></param>
-        protected void ResolveArchivePlaceHolder(StringBuilder sb, ArchiveDto archiveDto, ref string format,
+        private void ResolveArchivePlaceHolder(StringBuilder sb, ArchiveDto archiveDto, ref string format,
             IEnumerable<ArchiveDto> dt, int index)
         {
             var id = string.IsNullOrEmpty(archiveDto.Alias) ? archiveDto.StrId : archiveDto.Alias;
@@ -1312,7 +1310,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         case "content": return archiveDto.Content;
 
                         //压缩过的内容
-                        case "conten2":
+                        case "content2":
                             return Regex.Replace(archiveDto.Content, "\\r|\\t|\\s\\s", string.Empty);
 
                         //图片元素
@@ -1344,7 +1342,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             sb2.Append("</ul>");
                             return sb2.ToString();
                         default:
-                            if (field.IndexOf("[") != -1)
+                            if (field.IndexOf("[", StringComparison.Ordinal) != -1)
                             {
                                 // 格式化时间
                                 var p = GetArchiveHolderTagParam(field, "time_fmt[");
@@ -1643,34 +1641,48 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="catPath"></param>
+        /// <param name="num"></param>
+        /// <param name="skipSize"></param>
+        /// <param name="splitSize"></param>
+        /// <param name="container"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         protected string Special_Archives(string catPath, string num, int skipSize, int splitSize, bool container,
             string format)
         {
-            int intNum;
-            int.TryParse(num, out intNum);
-
+            int.TryParse(num, out var intNum);
             //获取栏目
             var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, catPath);
 
-            if (!(category.ID > 0)) return string.Format("ERROR:模块或栏目不存在!参数:{0}", catPath);
-
-            var dt =
-                ServiceCall.Instance.ArchiveService.GetSpecialArchives(SiteId, category.Path, container, intNum,
-                    skipSize);
-
+            if (!(category.ID > 0)) return $"ERROR:模块或栏目不存在!参数:{catPath}";
+            var dt = ServiceCall.Instance.ArchiveService.GetSpecialArchives(
+                SiteId, category.Path, container, intNum,skipSize);
             return ArchiveList(dt, splitSize, format);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="catPath"></param>
+        /// <param name="num"></param>
+        /// <param name="skipSize"></param>
+        /// <param name="splitSize"></param>
+        /// <param name="container"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         protected string Archives(string catPath, string num, int skipSize, int splitSize, bool container,
             string format)
         {
-            int intNum;
-            int.TryParse(num, out intNum);
+            int.TryParse(num, out var intNum);
 
             //栏目
             var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, catPath);
 
-            if (!(category.ID > 0)) return string.Format("ERROR:模块或栏目不存在!参数:{0}", catPath);
+            if (!(category.ID > 0)) return $"ERROR:模块或栏目不存在!参数:{catPath}";
 
             var archives = ServiceCall.Instance.ArchiveService
                 .GetArchivesByCategoryPath(SiteId, category.Path, container, intNum, skipSize);
@@ -2392,7 +2404,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 }
                 */
 
-                if (_category.Site().GetAggregaterootId() != SiteId) return;
+                if (_category.Site().GetAggregateRootId() != SiteId) return;
 
                 sb.Append("<option value=\"").Append(_category.Get().Path)
                     .Append("\" path=\"").Append(_category.Get().Path)

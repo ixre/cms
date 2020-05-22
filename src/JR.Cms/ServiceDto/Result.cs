@@ -6,7 +6,7 @@ namespace JR.Cms.ServiceDto
     /// <summary>
     /// 结果
     /// </summary>
-    public class Result
+    public class Result1
     {
         /// <summary>
         /// 错误码

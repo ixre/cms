@@ -187,7 +187,7 @@ namespace JR.Cms.Domain.Site.Category
             get
             {
                 return _extendFields ?? (_extendFields = new List<IExtendField>(
-                    _extendRep.GetExtendFields(Site().GetAggregaterootId(), GetDomainId())));
+                    _extendRep.GetExtendFields(Site().GetAggregateRootId(), GetDomainId())));
             }
             set
             {
@@ -258,7 +258,7 @@ namespace JR.Cms.Domain.Site.Category
                 }
 
                 foreach (var extendId in addList)
-                    ExtendFields.Add(_extendRep.GetExtendFieldById(Site().GetAggregaterootId(), extendId));
+                    ExtendFields.Add(_extendRep.GetExtendFieldById(Site().GetAggregateRootId(), extendId));
 
                 #endregion
 

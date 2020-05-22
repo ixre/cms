@@ -12,8 +12,12 @@ namespace JR.Cms.Domain.Interface
     /// <summary>
     /// Description of IAggregateroot.
     /// </summary>
-    public interface IAggregateroot
+    public interface IAggregateRoot
     {
-        int GetAggregaterootId();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        int GetAggregateRootId();
     }
 }
