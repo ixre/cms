@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Packaging;
-using System.Web;
-using JR.Stand.Core.Framework.Web.Utils;
+using JR.Stand.Core.Web;
 
 //(WindowsBase.dll)
 
@@ -52,7 +51,7 @@ namespace JR.Stand.Core.Utils
 
         private static void ExtractPart(PackagePart packagePart, string targetDirectory, bool overrideExisting)
         {
-            string stringPart = targetDirectory + HttpUtil.UrlDecode(packagePart.Uri.ToString()).Replace('\\', '/');
+            string stringPart = targetDirectory + HttpUtils.UrlDecode(packagePart.Uri.ToString()).Replace('\\', '/');
 
             if (!Directory.Exists(Path.GetDirectoryName(stringPart)))
                 Directory.CreateDirectory(Path.GetDirectoryName(stringPart));

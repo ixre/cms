@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 OPS,All right reserved .
+ * Copyright 2010 OPS.CC,All right reserved .
  * name     : ftpclient
  * author   : newmin
  * date     : 2010/12/13

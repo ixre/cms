@@ -46,7 +46,7 @@ $js()
         if (confirm('继续操作会导致表格数据丢失，确定吗？')) {
             var td = this.parentNode.parentNode;
             var id = getId(this);
-            jr.xhr.post('?module=table&action=deleterow', 'tableid=${tableid}&rowid=' + id,
+            jr.xhr.post('?module=table&action=deleterow', 'table_id=${table_id}&rowid=' + id,
                 function (x) {
                     var msg = '';
                     var resultTag; eval('resultTag=' + x);

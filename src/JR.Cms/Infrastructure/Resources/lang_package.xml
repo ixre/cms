@@ -94,5 +94,6 @@
   <item key="submit" zh_CN="提交" zh_TW="提交" en_US="Submit" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="rewrite" zh_CN="重写" zh_TW="重写" en_US="Rewrite" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="reset" zh_CN="重置" zh_TW="重置" en_US="Reset" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="here" zh_CN="这里" zh_TW="这里" en_US="Here" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="special offer" zh_CN="促销活动" zh_TW="促销活动" en_US="Special Offer" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
 </lang>

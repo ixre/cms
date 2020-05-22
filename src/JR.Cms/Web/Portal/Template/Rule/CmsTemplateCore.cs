@@ -23,7 +23,6 @@ using JR.Stand.Core;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Framework.Web.UI;
-using JR.Stand.Core.Framework.Web.Utils;
 using JR.Stand.Core.Framework.Xml.AutoObject;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
@@ -896,7 +895,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 .Append("if(jr.validator.validate('cms_form_").Append(tableId)
                 .Append("')){cfs.innerHTML='提交中...';jr.xhr.post('")
                 .Append(FormatPageUrl(UrlRulePageKeys.Common,
-                    new[] {CmsVariables.DEFAULT_CONTROLLER_NAME + "/submitform?tableid="}))
+                    new[] {CmsVariables.DEFAULT_CONTROLLER_NAME + "/submitform?table_id="}))
                 .Append(tableId).Append("&token=").Append(token).Append("',jr.json.toObject('cms_form_")
                 .Append(tableId).Append(
                     "'),function(r){var result;eval('result='+r);cfs.innerHTML=result.tag==-1?'<span style=\"color:red\">'+result.message+'</span>':result.message;},function(){cfs.innerHTML='<span style=\"color:red\">提交失败，请重试!</span>';});")
@@ -1956,12 +1955,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     total,
                     FormatPageUrl(UrlRulePageKeys.Search, new[]
                     {
-                        HttpUtil.UrlEncode(keyword),
+                        HttpUtils.UrlEncode(keyword),
                         categoryTagOrModuleId ?? ""
                     }),
                     FormatPageUrl(UrlRulePageKeys.SearchPager, new[]
                     {
-                        HttpUtil.UrlEncode(keyword),
+                        HttpUtils.UrlEncode(keyword),
                         categoryTagOrModuleId ?? "", "{0}"
                     })
                 );
@@ -2070,14 +2069,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         case "eTagName":
                         case "ename":
                         case "urlname":
-                            return HttpUtil.UrlEncode(tag);
+                            return HttpUtils.UrlEncode(tag);
 
                         //搜索页URL
                         case "searchurl":
-                            return FormatPageUrl(UrlRulePageKeys.Search, new[] {HttpUtil.UrlEncode(tag), string.Empty});
+                            return FormatPageUrl(UrlRulePageKeys.Search, new[] {HttpUtils.UrlEncode(tag), string.Empty});
 
                         //Tag页URL
-                        case "url": return FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtil.UrlEncode(tag)});
+                        case "url": return FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtils.UrlEncode(tag)});
                     }
 
                     return tag;
@@ -2273,8 +2272,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     _pageIndex,
                     _pages,
                     _records,
-                    FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtil.UrlEncode(tag)}),
-                    FormatPageUrl(UrlRulePageKeys.TagPager, new[] {HttpUtil.UrlEncode(tag), "{0}"})
+                    FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtils.UrlEncode(tag)}),
+                    FormatPageUrl(UrlRulePageKeys.TagPager, new[] {HttpUtils.UrlEncode(tag), "{0}"})
                 );
             //sb.Append("</div>");
 

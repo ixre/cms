@@ -138,10 +138,10 @@ namespace JR.Cms.Web.Manager.Handle
                     Environment.Version.Major + "." + Environment.Version.Minor + "." + Environment.Version.Build +
                     "." +
                     Environment.Version.Revision,
-                server_https = Request.GetEncodedUrl().IndexOf("https://", StringComparison.Ordinal) != -1 ? "是" : "否",
+                server_https = Request.GetProto() == "https" ? "是" : "否",
                 //server_port = Request.ServerVariables["Server_Port"],
-                server_hour = string.Format("{0}小时", (Environment.TickCount / 0x3e8 / 3600).ToString()),
-                server_time = DateTime.Now.ToString(),
+                server_hour = $"{(Environment.TickCount / 0x3e8 / 3600).ToString()}小时",
+                server_time = DateTime.Now.ToString(CultureInfo.InvariantCulture),
                 server_cpu = $"{Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER")},{Environment.GetEnvironmentVariable("NUMBER_OF_PROCESSORS")}核",
                 server_meory = Environment.WorkingSet / 1024 / 1024 + "M",
                 server_net_meory =

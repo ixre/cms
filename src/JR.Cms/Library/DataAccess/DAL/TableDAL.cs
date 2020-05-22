@@ -351,7 +351,7 @@ namespace JR.Cms.Library.DataAccess.DAL
 
             //数据库为OLEDB,且为第一页时
             const string sql1 =
-                @"SELECT TOP $[pagesize] * FROM $PREFIX_table_row WHERE tableid=$[tableid] ORDER BY submittime DESC";
+                @"SELECT TOP $[pagesize] * FROM $PREFIX_table_row WHERE table_id=$[tableid] ORDER BY submittime DESC";
 
 
             //记录数
@@ -385,7 +385,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             {
                 switch (match.Groups[1].Value)
                 {
-                    case "tableid": return tableID.ToString();
+                    case "table_id": return tableID.ToString();
                     case "pagesize": return pageSize.ToString();
                     case "skipsize": return skipCount.ToString();
                     // case "keyword": return keyword;

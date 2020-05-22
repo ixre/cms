@@ -106,7 +106,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             object data = new
             {
-                url = Request.GetEncodedUrl(),
+                url = Request.GetPath()+Request.GetQueryString(),
                 categories = categoryOptions,
                 category_tpls = categoryTplOpts,
                 archive_tpls = archiveTplOpts,
@@ -207,7 +207,7 @@ namespace JR.Cms.Web.Manager.Handle
             //检验站点
             if (!(category.ID > 0)) return;
 
-            //获取父栏目pleft
+            //获取父栏目
             var pId = category.ParentId;
 
             /*
@@ -250,7 +250,7 @@ namespace JR.Cms.Web.Manager.Handle
             object data = new
             {
                 entity = JsonSerializer.Serialize(category),
-                url = Request.GetEncodedUrl(),
+                url = Request.GetPath()+Request.GetQueryString(),
                 categories = categoryOptions,
                 //categoryTypes = categoryTypeOptions,
                 parentId = pId,

@@ -30,11 +30,12 @@ namespace JR.Stand.Abstracts.Web
         /// 获取会话
         /// </summary>
         ICompatibleSession Session { get; }
-        
+
         /// <summary>
         /// 尝试获取项目
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         bool TryGetItem<T>(string key, out T value);
 

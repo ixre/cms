@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 OPS,All right reserved .
+ * Copyright 2010 OPS.CC,All right reserved .
  * name     : ftpclient
  * author   : newmin
  * date     : 2010/12/13
@@ -12,9 +12,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Web;
-using JR.Stand.Core.Framework.Web.UI;
-using JR.Stand.Core.Framework.Web.Utils;
+using JR.Stand.Core.Web;
 
 namespace JR.Stand.Core.Framework.Net
 {
@@ -123,7 +121,7 @@ namespace JR.Stand.Core.Framework.Net
             foreach (KeyValuePair<String, String> p in paramMap)
             {
                 if (i++ > 0) sb.Append("&");
-                sb.Append(p.Key).Append("=").Append(HttpUtil.UrlEncode(p.Value));
+                sb.Append(p.Key).Append("=").Append(HttpUtils.UrlEncode(p.Value));
             }
             return sb.ToString();
         }
@@ -151,8 +149,6 @@ namespace JR.Stand.Core.Framework.Net
         {
             const int buffer = 32768; //32k
             byte[] data = new byte[buffer];
-            int cread;
-            int cTotal;
 
             MemoryStream ms = fileBytes == null || fileBytes.Length == 0
                 ? new MemoryStream()
@@ -171,14 +167,11 @@ namespace JR.Stand.Core.Framework.Net
             try
             {
                 WebResponse rsp = wr.GetResponse();
-
                 Stream st = rsp.GetResponseStream();
-
-                cTotal = (int) rsp.ContentLength;
-
-                while ((cread = st.Read(data, 0, buffer)) != 0)
+                int cRead;
+                while ((cRead = st.Read(data, 0, buffer)) != 0)
                 {
-                    ms.Write(data, 0, cread);
+                    ms.Write(data, 0, cRead);
                 }
 
                 byte[] streamArray = ms.ToArray();
@@ -188,7 +181,9 @@ namespace JR.Stand.Core.Framework.Net
             }
             catch
             {
+                // ignored
             }
+
             return null;
         }
 

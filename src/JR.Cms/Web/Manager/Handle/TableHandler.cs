@@ -16,7 +16,7 @@ using System.Data;
 using System.Text;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Library.DataAccess.BLL;
-using JR.Stand.Core.Framework.Web.Utils;
+using JR.Stand.Core.Web;
 
 namespace JR.Cms.Web.Manager.Handle
 {
@@ -57,7 +57,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void EditTable()
         {
-            var tableId = int.Parse(Request.Query("tableid"));
+            var tableId = int.Parse(Request.Query("table_id"));
             var table = CmsLogic.Table.GetTable(tableId);
 
             RenderTemplate(ResourceMap.Edittable, new
@@ -103,10 +103,10 @@ namespace JR.Cms.Web.Manager.Handle
                     sb.Append("<tr><td class=\"center\">").Append(t.Id.ToString())
                         .Append("</td><td>").Append(t.Name)
                         .Append(
-                            "</td><td class=\"center\"><a href=\"?module=table&action=columns&control=true&tableid=")
+                            "</td><td class=\"center\"><a href=\"?module=table&action=columns&control=true&table_id=")
                         .Append(t.Id.ToString()).Append("\">").Append(clist == null ? "0" : clist.Count.ToString())
                         .Append(
-                            "</a></td><td class=\"center\"><a href=\"?module=table&action=rows&control=true&tableid=")
+                            "</a></td><td class=\"center\"><a href=\"?module=table&action=rows&control=true&table_id=")
                         .Append(t.Id.ToString()).Append("\">").Append(tbll.GetRowsCount(t.Id).ToString())
                         .Append("</a></td><td class=\"center\">")
                         .Append(t.Enabled ? ResourceMap.RightText : ResourceMap.ErrorText)
@@ -116,9 +116,9 @@ namespace JR.Cms.Web.Manager.Handle
                         .Append(string.IsNullOrEmpty(t.ApiServer) ? "<span class=\"center\">-</span>" : t.ApiServer)
                         .Append("</td>")
                         .Append(
-                            "<td class=\"center\"><a style=\"margin:0;\" href=\"?module=table&action=columns&control=true&tableid=")
+                            "<td class=\"center\"><a style=\"margin:0;\" href=\"?module=table&action=columns&control=true&table_id=")
                         .Append(t.Id.ToString()).Append("\">列</a> / ")
-                        .Append("<a href=\"?module=table&action=rows&control=true&tableid=").Append(t.Id.ToString())
+                        .Append("<a href=\"?module=table&action=rows&control=true&table_id=").Append(t.Id.ToString())
                         .Append("\">行</a></td>")
                         .Append(
                             "<td class=\"center\"><button class=\"edit\" /></td><td><button class=\"delete\" /></td>")
@@ -134,7 +134,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void DeleteTable_POST()
         {
-            var tableID = int.Parse(Request.Query("tableid"));
+            var tableID = int.Parse(Request.Query("table_id"));
             var result = (int) CmsLogic.Table.DeleteTable(tableID);
             Response.WriteAsync(result.ToString());
         }
@@ -144,7 +144,7 @@ namespace JR.Cms.Web.Manager.Handle
             int tableID;
             string tableName;
 
-            tableID = int.Parse(Request.Query("tableid"));
+            tableID = int.Parse(Request.Query("table_id"));
 
             //判断表格状态并取得名称
             var table = CmsLogic.Table.GetTable(tableID);
@@ -157,7 +157,7 @@ namespace JR.Cms.Web.Manager.Handle
             if (list == null || list.Count == 0)
             {
                 sb.Append(
-                        "<tr><td colspan=\"8\" class=\"center hightlight\">暂无任何列，您可以<a href=\"?module=table&action=createcolumn&tableid=")
+                        "<tr><td colspan=\"8\" class=\"center hightlight\">暂无任何列，您可以<a href=\"?module=table&action=createcolumn&table_id=")
                     .Append(tableID.ToString()).Append("\">添加列</a></td></tr>");
             }
             else
@@ -176,7 +176,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             RenderTemplate(ResourceMap.Columns, new
             {
-                tableid = tableID.ToString(),
+                table_id = tableID.ToString(),
                 tableName = tableName,
                 count = list.Count.ToString(),
                 columnListHtml = sb.ToString()
@@ -185,7 +185,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void CreateColumn()
         {
-            var tableID = int.Parse(Request.Query("tableid"));
+            var tableID = int.Parse(Request.Query("table_id"));
             //判断表格状态并取得名称
             var table = CmsLogic.Table.GetTable(tableID);
             if (table == null) return;
@@ -197,17 +197,17 @@ namespace JR.Cms.Web.Manager.Handle
                 note = string.Empty,
                 validformat = string.Empty,
                 orderindex = 1,
-                tableid = int.Parse(Request.Query("tableid")),
+                table_id = int.Parse(Request.Query("table_id")),
                 columnid = ""
             });
         }
 
         public void CreateColumn_POST()
         {
-            var tableID = int.Parse(Request.Form("tableid"));
+            var tableId = int.Parse(Request.Form("table_id"));
             var result = (int) CmsLogic.Table.AddColumn(new TableColumn
             {
-                TableId = tableID,
+                TableId = tableId,
                 Name = Request.Form("name"),
                 Note = Request.Form("note"),
                 ValidFormat = Request.Form("validformat"),
@@ -218,11 +218,11 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void EditColumn()
         {
-            var tableID = int.Parse(Request.Query("tableid"));
+            var tableId = int.Parse(Request.Query("table_id"));
             var columnID = int.Parse(Request.Query("columnid"));
 
             //判断表格状态并取得名称
-            var table = CmsLogic.Table.GetTable(tableID);
+            var table = CmsLogic.Table.GetTable(tableId);
             if (table == null) return;
 
 
@@ -235,7 +235,7 @@ namespace JR.Cms.Web.Manager.Handle
                 note = column.Note,
                 validformat = column.ValidFormat,
                 orderindex = column.SortNumber.ToString(),
-                tableid = column.TableId.ToString(),
+                table_id = column.TableId.ToString(),
                 columnid = columnID.ToString()
             });
         }
@@ -257,9 +257,9 @@ namespace JR.Cms.Web.Manager.Handle
         public void DeleteColumn_POST()
         {
             var columnID = int.Parse(Request.Query("columnid"));
-            var tableID = int.Parse(Request.Query("tableid"));
+            var tableId = int.Parse(Request.Query("table_id"));
 
-            var result = (int) CmsLogic.Table.DeleteColumn(tableID, columnID);
+            var result = (int) CmsLogic.Table.DeleteColumn(tableId, columnID);
             Response.WriteAsync(result.ToString());
         }
 
@@ -279,7 +279,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var tbll = CmsLogic.Table;
 
-            var tableID = int.Parse(Request.Query("tableid"));
+            var tableId = int.Parse(Request.Query("table_id"));
             string keywords = Request.Query("keyword");
             int.TryParse(Request.Query("page"), out pageIndex);
             int.TryParse(Request.Query("size"), out pageSize);
@@ -289,24 +289,24 @@ namespace JR.Cms.Web.Manager.Handle
             var sb = new StringBuilder();
 
             //判断表格状态并取得名称
-            var table = CmsLogic.Table.GetTable(tableID);
+            var table = CmsLogic.Table.GetTable(tableId);
             if (table == null) return;
             tableName = table.Name;
 
             //控制表格操作
             if (Request.Query("control") == "true")
                 controlHtml = string.Format(@"<a href=""?module=table&amp;action=all"">所有表</a>
-                                                                  <a href=""?module=table&action=columns&tableid={0}"">结构</a>
+                                                                  <a href=""?module=table&action=columns&table_id={0}"">结构</a>
                                                                   <a href=""javascript:;""  class=""current"">数据</a>",
-                    tableID.ToString());
+                    tableId.ToString());
             else
                 controlHtml = @"<a href=""javascript:;""  class=""current"">数据</a>";
 
             //生成表格数据
-            var dt = tbll.GetPagedRecords(tableID, keywords, pageSize, pageIndex, out recordCount, out pageCount);
+            var dt = tbll.GetPagedRecords(tableId, keywords, pageSize, pageIndex, out recordCount, out pageCount);
 
             //判断表格列
-            var columns = tbll.GetColumns(tableID);
+            var columns = tbll.GetColumns(tableId);
             if (columns == null || columns.Count == 0)
             {
                 pagerHtml = rowsHtml = string.Empty;
@@ -342,8 +342,8 @@ namespace JR.Cms.Web.Manager.Handle
 
                 rowsHtml = sb.ToString();
 
-                var format = string.Format("?module=table&action=rows&tableid={0}&keyword={1}&size={2}&&page={3}",
-                    tableID, HttpUtil.UrlEncode(keywords), pageSize, "{0}");
+                var format =
+                    $"?module=table&action=rows&table_id={tableId}&keyword={HttpUtils.UrlEncode(keywords)}&size={pageSize}&&page={"{0}"}";
 
                 pagerHtml = Helper.BuildPagerInfo(format, pageIndex, recordCount, pageCount);
             }
@@ -351,7 +351,7 @@ namespace JR.Cms.Web.Manager.Handle
             render:
             RenderTemplate(ResourceMap.Rows, new
             {
-                tableid = tableID.ToString(),
+                tableid = tableId.ToString(),
                 tableName = tableName,
                 controlHtml = controlHtml,
                 columnsHtml = columnsHtml,
@@ -363,9 +363,9 @@ namespace JR.Cms.Web.Manager.Handle
         public void DeleteRow_POST()
         {
             var rowID = int.Parse(Request.Query("rowid"));
-            var tableID = int.Parse(Request.Query("tableid"));
+            var tableId = int.Parse(Request.Query("table_id"));
 
-            var result = (int) CmsLogic.Table.DeleteRow(tableID, rowID);
+            var result = (int) CmsLogic.Table.DeleteRow(tableId, rowID);
             Response.WriteAsync(result.ToString());
         }
     }

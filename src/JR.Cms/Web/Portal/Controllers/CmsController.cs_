@@ -354,13 +354,13 @@ namespace JR.Cms.WebImpl.Mvc.Controllers
 
             int tableID;
 
-            if (String.IsNullOrEmpty(Request["tableid"]))
+            if (String.IsNullOrEmpty(Request["table_id"]))
             {
                 return "{\"tag\":-1,\"message\":\"表单出错！\"}";
             }
             else
             {
-                tableID = int.Parse(base.Request["tableid"]);
+                tableID = int.Parse(base.Request["table_id"]);
                 string sessName = String.Format("cms_form_{0}_token", tableID.ToString());
 
                 //校验TOKEN
