@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace JR.Stand.Core.Template.Impl
 {
-    public sealed class Eval
+    public static class Eval
     {
         /// <summary>
         /// 添加到数据项

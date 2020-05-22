@@ -187,7 +187,7 @@ namespace JR.Cms.Domain.Interface.Common.Language
                 }
                 else
                 {
-                    sb.Append("#").Append(keys[i]).Append("#");
+                    sb.Append(keys[i]);
                 }
             }
 
