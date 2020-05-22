@@ -129,7 +129,7 @@ namespace JR.Cms.Core
                 HttpItemShared = true,
                 Names = names,
             };
-            registry = new TemplateRegistry(createContainer(), opt);
+            registry = new TemplateRegistry(CreateContainer(), opt);
         }
 
 
@@ -137,20 +137,19 @@ namespace JR.Cms.Core
         /// 初始化
         /// </summary>
         /// <param name="tplPath"></param>
-        /// <param name="tplNameAsTemplateId"></param>
-        public void Register(string tplPath, bool tplNameAsTemplateId)
-        {
-            if (Settings.loaded)
-                //将配置写入模板缓存
-                registry.Register(tplPath);
+        public void Register(string tplPath)
+        { 
+            //将配置写入模板缓存
+            if (Settings.loaded)registry.Register(tplPath);
             //将文件中的加载到模板缓存中
             //AddTagsFromSettingsFile(new SettingFile(Configuration.cmsConfigFile), true);
             else
-                //HttpRuntime.UnloadAppDomain();
+            {
                 throw new ApplicationException("请在系统加载配置后再进行初始化!");
+            }
         }
 
-        private IDataContainer createContainer()
+        private IDataContainer CreateContainer()
         {
             var ctx = HttpHosting.Context;
             var adapter = new TemplateDataAdapter(ctx, cache);
@@ -252,12 +251,12 @@ namespace JR.Cms.Core
     internal class TemplateDataAdapter : IDataAdapter
     {
         private readonly ICompatibleHttpContext _context;
-        private readonly IMemoryCacheWrapper cache;
+        private readonly IMemoryCacheWrapper _cache;
 
         public TemplateDataAdapter(ICompatibleHttpContext context, IMemoryCacheWrapper cache)
         {
             this._context = context;
-            this.cache = cache;
+            this._cache = cache;
         }
 
         public object GetItem(string key)
@@ -272,12 +271,12 @@ namespace JR.Cms.Core
 
         public object GetCache(string key)
         {
-            return cache.Get(key);
+            return _cache.Get(key);
         }
 
         public void InsertCache(string key, object value, int duration, string dependFileName)
         {
-            cache.Set(key, value, TimeSpan.Zero, new TimeSpan(0, 0, duration));
+            _cache.Set(key, value, TimeSpan.Zero, new TimeSpan(0, 0, duration));
         }
 
         public string GetQueryParam(string varKey)

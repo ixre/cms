@@ -72,10 +72,10 @@ namespace JR.Stand.Core.Template.Impl
                     if (IncludeFileIdRegexp.IsMatch(arr[0]))
                     {
                         //Console.WriteLine("---" + arr[1]);
-                        string content = TemplateUtility.ReadPartial(arr[0]);
+                        string content = TemplateUtility.ReadPartial(arr[1]);
                         if (content != null) return content;
                     }
-                    return $"No such partial file \"{arr[1]}\"";
+                    return $"No such included file \"{arr[1]}\"";
                 });
             }
             //返回替换部分视图后的内容

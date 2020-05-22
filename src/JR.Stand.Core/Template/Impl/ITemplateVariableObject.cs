@@ -11,7 +11,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 数据字典
         /// </summary>
-        IDictionary<String, String> __dict__ { get; }
+        IDictionary<String, String> Map { get; }
 
         /// <summary>
         /// 添加数据

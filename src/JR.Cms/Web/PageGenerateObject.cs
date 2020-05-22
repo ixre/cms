@@ -134,15 +134,14 @@ namespace JR.Cms.Web
         /// <returns></returns>
         public string GetIndex()
         {
-            return PageUtility.Require(FormatTemplatePath("index"), page =>
+            return PageUtility.Require(this.FormatTemplatePath("index"), page =>
             {
                 page.AddVariable("site", _site);
-                page.AddVariable("page",
-                    new PageVariable
-                    {
-                        Title = _site.Title, SubTitle = _site.Title, Keywords = _site.Keywords,
-                        Description = _site.Description
-                    });
+                page.AddVariable("page", new PageVariable
+                {
+                    Title = _site.Title, SubTitle = _site.Title, Keywords = _site.Keywords,
+                    Description = _site.Description
+                });
             });
         }
 
