@@ -39,14 +39,14 @@ namespace JR.Stand.Core
     /// </summary>
     public abstract class ReflectTemplateClass : ITemplateClass
     {
-        private MicroTemplateEngine engine;
-        private Dictionary<string, MethodInfo> fnMap;
+        private MicroTemplateEngine _engine;
+        private readonly Dictionary<string, MethodInfo> _fnMap;
         /// <summary>
         /// 初始化函数
         /// </summary>
         public ReflectTemplateClass()
         {
-            this.fnMap = new Dictionary<String, MethodInfo>();
+            this._fnMap = new Dictionary<String, MethodInfo>();
             BindingFlags fnFlag = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.IgnoreCase;
             Type type = this.GetType();
             foreach (MethodInfo mi in type.GetMethods(fnFlag))
@@ -67,7 +67,7 @@ namespace JR.Stand.Core
                         continue;
                 }
                 int paraLen = mi.GetParameters().Length;
-                this.fnMap[String.Format("{0}#{1}",name.ToLower(), paraLen)] = mi;
+                this._fnMap[$"{name.ToLower()}#{paraLen}"] = mi;
             }
         }
 
@@ -79,14 +79,14 @@ namespace JR.Stand.Core
         /// <returns></returns>
         public virtual string Execute(string fn, object[] paramArray)
         {
-            String key = String.Format("{0}#{1}", fn.ToLower(), paramArray.Length);
+            String key = $"{fn.ToLower()}#{paramArray.Length}";
             // 不存在方法
-            if (!this.fnMap.ContainsKey(key)) return null;
+            if (!this._fnMap.ContainsKey(key)) return null;
             // 参数类型数组
             Type[] parameterTypes = new Type[paramArray.Length];
             //查找是否存在方法(方法参数均为string类型)
             for (int i = 0; i < parameterTypes.Length; i++) parameterTypes[i] = typeof(String);
-            MethodInfo mi = this.fnMap[key];
+            MethodInfo mi = this._fnMap[key];
             // 执行方法并返回结果
             try
             {
@@ -104,7 +104,7 @@ namespace JR.Stand.Core
         /// <param name="engine"></param>
         public void UpdateEngine(MicroTemplateEngine engine)
         {
-            this.engine = engine;
+            this._engine = engine;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace JR.Stand.Core
         /// <returns></returns>
         protected MicroTemplateEngine GetEngine()
         {
-            return this.engine;
+            return this._engine;
         }
     }
 

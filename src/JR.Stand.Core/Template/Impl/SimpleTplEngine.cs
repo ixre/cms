@@ -189,7 +189,7 @@ namespace JR.Stand.Core.Template.Impl
                 for (int i = 0; i < paramMcs.Count; i++)
                 {
                     var paramGroupValue = paramMcs[i].Groups[1].Value.Trim();
-                    var value = this.GetFunctionParamValue(paramGroupValue);
+                    var value = TemplateUtils.GetFunctionParamValue(paramGroupValue);
                     //Console.WriteLine("---value:");
                     //Console.WriteLine(value);
                     parameters[i] = value;
@@ -202,27 +202,7 @@ namespace JR.Stand.Core.Template.Impl
             });
         }
 
-        private string GetFunctionParamValue(string value)
-        {
-            var len = value.Length;
-            if (len == 0) return value;
-            if (value[0] == '\'')
-            {
-                if(len == 1 || value[len-1]!='\'')throw new TemplateException("参数末尾应包含\"'\"");
-                return value.Substring(1, len - 2);
-            }
-            if (value[0] == '\"')
-            {
-                if(len == 1 || value[len-1]!='\"')throw new TemplateException("参数末尾应包含\"");
-                return value.Substring(1, len - 2);
-            } 
-            if (value[0] == '{')
-            {
-                if(len == 1 || value[len-1]!='}')throw new TemplateException("参数末尾应包含\"}\"");
-                return value.Substring(1, len - 2);
-            }
-            return value;
-        }
+       
 
         /// <summary>
         /// 执行解析模板内容
@@ -245,7 +225,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <returns></returns>
         public static string FieldTemplate(string format, Func<string, string> func)
         {
-            return FieldRegex.Replace(format, a => { return func(a.Groups[1].Value); });
+            return FieldRegex.Replace(format, a => func(a.Groups[1].Value));
         }
     }
 }
