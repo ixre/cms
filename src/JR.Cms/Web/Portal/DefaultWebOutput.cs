@@ -13,7 +13,7 @@ using JR.Cms.Web.Portal.Template.Model;
 using JR.Stand.Core.Template;
 using JR.Stand.Core.Web;
 
-namespace JR.Cms.Web
+namespace JR.Cms.Web.Portal
 {
     /// <summary>
     /// 默认网站输出

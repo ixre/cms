@@ -19,8 +19,7 @@ namespace JR.Stand.Core.Web.Plugin
         private string _shareJs;
         private string _shareCss;
         private string _pluginPath;
-       private  IDataContainer dc = new BasicDataContainer(null);
-
+        private IDataContainer dc = new BasicDataContainer(null);
 
 
         internal WebPluginApp(WebPluginHandleProxy<TContext> webHandler)
@@ -51,7 +50,6 @@ namespace JR.Stand.Core.Web.Plugin
             //     routes.Add("plugin_mono_pl", new Route("{plugin}.pl", pluginHandler));
             //     routes.Add("plugin_mono_aspx", new Route("{plugin}.pl.aspx", pluginHandler));
             // }
-
         }
 
         /// <summary>
@@ -100,15 +98,14 @@ namespace JR.Stand.Core.Web.Plugin
             base.Iterate((p, a) =>
             {
                 xml.InsertObjectNode(a.WorkIndent, a.Name, a.Description,
-                                     new XmlObjectProperty("version", "版本", a.Version),
-                                     new XmlObjectProperty("state", "状态", ((int)a.State).ToString()),
-                                     new XmlObjectProperty("author", "作者", a.Author),
-                                     new XmlObjectProperty("icon", "图标", a.Icon),
-                                     new XmlObjectProperty("webpage", "官网", a.WebPage),
-                                     new XmlObjectProperty("portalUrl", "入口地址", a.PortalUrl),
-                                     new XmlObjectProperty("configUrl", "设置地址", a.ConfigUrl)
-                                    );
-
+                    new XmlObjectProperty("version", "版本", a.Version),
+                    new XmlObjectProperty("state", "状态", ((int) a.State).ToString()),
+                    new XmlObjectProperty("author", "作者", a.Author),
+                    new XmlObjectProperty("icon", "图标", a.Icon),
+                    new XmlObjectProperty("webpage", "官网", a.WebPage),
+                    new XmlObjectProperty("portalUrl", "入口地址", a.PortalUrl),
+                    new XmlObjectProperty("configUrl", "设置地址", a.ConfigUrl)
+                );
             });
             xml.Flush();
         }
@@ -183,11 +180,10 @@ namespace JR.Stand.Core.Web.Plugin
                 {
                     throw new Exception(exc.Message + ", File:" + tplFilePath);
                 }
-
             }
-            
+
             TemplatePage tpl = new TemplatePage(this.dc);
-            tpl.TemplateContent = html;
+            tpl.SetTemplateContent(html);
 
             string pluginPath = this._pluginPath + attr.WorkIndent;
 
@@ -218,9 +214,12 @@ namespace JR.Stand.Core.Web.Plugin
             if (!this._loaded)
             {
                 string domain = WebCtx.Current.Domain;
-                this._fpath = String.Concat(domain, "/", FwCtx.Variables.AssetsPath.Substring(0, FwCtx.Variables.AssetsPath.Length - 1));
-                this._shareJs = String.Concat(domain, "/", FwCtx.Variables.AssetsPath, "share.js?ver=", FwCtx.Version.GetVersion());
-                this._shareCss = String.Concat(domain, "/", FwCtx.Variables.AssetsPath, "share.css?ver=", FwCtx.Version.GetVersion());
+                this._fpath = String.Concat(domain, "/",
+                    FwCtx.Variables.AssetsPath.Substring(0, FwCtx.Variables.AssetsPath.Length - 1));
+                this._shareJs = String.Concat(domain, "/", FwCtx.Variables.AssetsPath, "share.js?ver=",
+                    FwCtx.Version.GetVersion());
+                this._shareCss = String.Concat(domain, "/", FwCtx.Variables.AssetsPath, "share.css?ver=",
+                    FwCtx.Version.GetVersion());
                 this._pluginPath = String.Concat(domain, "/", PluginConfig.PLUGIN_DIRECTORY);
                 this._loaded = true;
             }
@@ -283,8 +282,8 @@ namespace JR.Stand.Core.Web.Plugin
             //throw new Exception(extendName + "/" + aliasName);
             if (aliasName == ""
                 || String.Compare(aliasName,
-                workIndent, true,
-                CultureInfo.InvariantCulture) == 0)
+                    workIndent, true,
+                    CultureInfo.InvariantCulture) == 0)
                 return;
             MapPluginRoute(aliasName, workIndent);
         }

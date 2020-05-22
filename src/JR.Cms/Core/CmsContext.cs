@@ -498,7 +498,6 @@ namespace JR.Cms.Core
             {
                 html = "File not found!";
             }
-
             this._context.Response.StatusCode(404);
             this._context.Response.WriteAsync(html);
         }

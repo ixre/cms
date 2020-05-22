@@ -469,6 +469,11 @@ namespace JR.Cms.Web.Portal.Comm
             return true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public Task ProcessInstallRequest(ICompatibleHttpContext context)
         {
             if (context.Request.Method() == "POST")
@@ -477,7 +482,7 @@ namespace JR.Cms.Web.Portal.Comm
                 return context.Response.WriteAsync(rspTxt);
             }
 
-            //context.Response.ContentType("text/html;charset=utf-8");
+            context.Response.ContentType("text/html;charset=utf-8");
             if (File.Exists(Cms.PhysicPath + "/config/install.lock"))
             {
                 return context.Response.WriteAsync("系统已经安装成功,如需重新安装请删除:/config/install.lock");
@@ -486,7 +491,7 @@ namespace JR.Cms.Web.Portal.Comm
             FileInfo fi = new FileInfo(Cms.PhysicPath + "/install/install.html");
             if (!fi.Exists) return context.Response.WriteAsync("系统丢失文件,无法启动安装向导");
             var bytes = File.ReadAllBytes(fi.FullName);
-            context.Response.ContentType("text/html;charset=utf-8");
+            //context.Response.ContentType("text/html;charset=utf-8");
             context.Response.WriteAsync(bytes);
             return SafetyTask.CompletedTask;
         }

@@ -68,19 +68,6 @@ namespace JR.Stand.Core.Template.Impl
         {
             if (this._content == null)
             {
-                /*
-                string content;
-                IDataContainer dc = new HttpDataContainer();
-
-                //从缓存中读取模板内容
-                if (Config.EnabledCache)
-                {
-                    content = dc.GetTemplatePageCacheContent(this.Id);
-                    if (content != null) return content;
-                }
-
-                if (String.IsNullOrEmpty(this.FilePath)) throw new ArgumentNullException("模板文件不存在!" + this.FilePath);
-                */
                 FileInfo fi = new FileInfo(this.FilePath);
                 long lastWriteUnix = TemplateUtility.Unix(fi.LastWriteTime);
                 if (this._content == null || lastWriteUnix > this.LastModify)
@@ -89,14 +76,11 @@ namespace JR.Stand.Core.Template.Impl
                     StreamReader sr = new StreamReader(this.FilePath);
                     string content = sr.ReadToEnd();
                     sr.Dispose();
-                    // 替换注释
-                    content = Regex.Replace(content, "<!--[^\\[][\\s\\S]*?-->", String.Empty);
                     // 读取模板里的部分视图
                     content = TemplateRegexUtility.IncludeFileRegex.Replace(content, m =>
                     {
                         string path = m.Groups[1].Value;
-                        string tplId =
-                            TemplateUtility.GetPartialTemplateId(path, this.FilePath, out var partialFilePath);
+                        string tplId = TemplateUtility.GetPartialTemplateId(path, this.FilePath, out var partialFilePath);
                         return m.Value.Replace(path, tplId + "@" + partialFilePath);
                     });
                     // 缓存内容
@@ -106,10 +90,14 @@ namespace JR.Stand.Core.Template.Impl
 
                 // 替换系统标签
                 this._content = TemplateRegexUtility.Replace(_content, m => TemplateCache.Tags[m.Groups[1].Value]);
+                
+                //替换部分视图
+                this._content = TemplateRegexUtility.ReplacePartial(this._content);
+
                 //压缩模板代码
                 if (this.Options.EnabledCompress)
                 {
-                    this._content = TemplateUtility.CompressHtml(_content);
+                    this._content = TemplateUtils.CompressHtml(_content);
                 }
 
                 if (!this.Options.EnabledCache)

@@ -15,3 +15,9 @@ $archives('cms/release','2')
     </div>
 #end
 ```
+
+## 包含页面
+
+```
+${include:"include/header.html"}
+```

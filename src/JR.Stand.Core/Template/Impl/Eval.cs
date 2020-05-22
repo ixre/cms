@@ -123,6 +123,8 @@ namespace JR.Stand.Core.Template.Impl
             return outHtml;
         }
 
+        private static IDictionary<String, MethodInfo> evalMethodMap = new Dictionary<string, MethodInfo>();
+        
         /// <summary>
         /// 执行方法并将返回值赋予变量
         /// </summary>
@@ -139,8 +141,7 @@ namespace JR.Stand.Core.Template.Impl
             const string expressionPattern =
                 "(/*/*)\\$([a-zA-Z][a-zA-Z0-9_]*)\\s*=>\\s*([a-zA-Z][a-zA-Z0-9_]*)\\((([^\\)]|\\\\\\))*)\\)(\\s+\\B)*"; //设置表达式
 
-            string outHtml,
-                varName,
+            string varName,
                 methodName,
                 paramArray;
 
@@ -151,12 +152,10 @@ namespace JR.Stand.Core.Template.Impl
             int parametersNum;
 
 
-            outHtml = Regex.Replace(content, expressionPattern, m =>
+            var outHtml = Regex.Replace(content, expressionPattern, m =>
             {
                 //注释
                 if (m.Groups[1].Value != "") return String.Empty;
-
-
                 //获取变量及表达式
                 varName = m.Groups[2].Value;
                 methodName = m.Groups[3].Value;
@@ -170,16 +169,21 @@ namespace JR.Stand.Core.Template.Impl
                 for (int i = 0; i < parametersNum; i++)
                 {
                     parameterTypes[i] = typeof(String);
-                    parameters[i] =
-                        Regex.Replace(parameters[i].ToString(), "\\B\"|\"\\B", String.Empty).Replace("__CSP__", ",");
+                    parameters[i] = Regex.Replace(parameters[i].ToString(), "\\B\"|\"\\B", String.Empty).Replace("__CSP__", ",");
                 }
 
-                method = type.GetMethod(
-                    methodName,
-                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.IgnoreCase,
-                    null,
-                    parameterTypes,
-                    null);
+                string key = type.FullName + ":" + methodName+"$"+parameters.Length;
+                if (evalMethodMap.ContainsKey(key))
+                {
+                    method = evalMethodMap[key];
+                }
+                else
+                {
+                    var flag = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public |
+                               BindingFlags.IgnoreCase;
+                    method = type.GetMethod(methodName,flag, null, parameterTypes, null);
+                    evalMethodMap[key] = method;
+                }
 
                 if (method != null)
                 {
@@ -195,8 +199,7 @@ namespace JR.Stand.Core.Template.Impl
                             }
                             else
                             {
-                                dc.DefineVariable(varName,
-                                    new Variable {Key = varName, Value = result, Type = returnType});
+                                dc.DefineVariable(varName, new Variable {Key = varName, Value = result, Type = returnType});
                             }
                         }
                     }
@@ -273,9 +276,8 @@ namespace JR.Stand.Core.Template.Impl
 
         public static string Compile(IDataContainer dc, string html, object data)
         {
-            string outHtml;
             //======= 设置变量 ======//
-            outHtml = SetToVariable(dc, html);
+            var outHtml = SetToVariable(dc, html);
             //======= 求方法 =======//
             if (data != null)
             {
@@ -338,6 +340,8 @@ namespace JR.Stand.Core.Template.Impl
             return templateHtml;
         }
 
+        private static readonly IDictionary<String,PropertyInfo> PropertiesMap = new Dictionary<string, PropertyInfo>();
+
         /// <summary>
         /// 解析变量
         /// </summary>
@@ -346,101 +350,81 @@ namespace JR.Stand.Core.Template.Impl
         /// <returns></returns>
         internal static string ResolveVariable(string templateHtml, Variable variable)
         {
+            if (variable.Value == null) return templateHtml;
             //
             // ${obj.name};
-            // 字典方式 ${obj.__dict__[key]}
+            // 字典方式 ${obj.map[key]}
             // 不支持的属性，默认以_开头
             // a-z下划线或中文开头
             //
-            string keyParttern = "\\$\\{" + variable.Key +
-                                 "\\.([A-Z_a-z\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5]*|__dict__\\[([^\\]]+)\\])\\}";
-            string proName, dictKey;
+            string keyPattern = "\\$\\{" + variable.Key + "\\.([A-Z_a-z\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5]*|map\\[([^\\]]+)\\])\\}";
+            string proName;
             PropertyInfo pro = null;
             IDictionary<string, string> propDict = null;
-
-            templateHtml = Regex.Replace(templateHtml, keyParttern, m =>
+            templateHtml = Regex.Replace(templateHtml, keyPattern, m =>
             {
                 proName = m.Groups[1].Value;
-                if (variable.Value != null)
+                if (proName.StartsWith("map[")) proName = "map";
+                string key = variable.Type.FullName + ":" + variable.Key + "$" + proName;
+                if (PropertiesMap.ContainsKey(key))
+                {
+                    pro = PropertiesMap[key];
+                }
+                else
                 {
                     //解析属性的值
                     pro = variable.Type.GetProperty(proName,
                         BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.IgnoreCase);
-                    if (pro != null)
+                    PropertiesMap[key] = pro;
+                }
+                #region 获取字典
+                if (proName == "map")
+                {
+                    if (propDict == null)
                     {
-                        return (pro.GetValue(variable.Value, null) ?? "").ToString();
-                    }
-
-                    #region 获取字典
-
-                    if (!String.IsNullOrEmpty(m.Groups[2].Value))
-                    {
-                        //获取属性字典，并缓存
+                        if (pro == null)
+                        {
+                            throw new TypeLoadException($"类型{variable.Type.FullName}未定义字典");
+                        }
+                        propDict = pro.GetValue(variable.Value, null) as IDictionary<string, string>;
                         if (propDict == null)
                         {
-                            pro = variable.Type.GetProperty("__dict__",
-                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
-                                BindingFlags.IgnoreCase);
-                            if (pro != null)
-                            {
-                                if (pro.PropertyType != typeof(IDictionary<string, string>))
-                                {
-                                    throw new TypeLoadException("__dict__属性的类型应为IDictionary<string,string>");
-                                }
-                                else
-                                {
-                                    propDict = pro.GetValue(variable.Value, null) as IDictionary<string, string>;
-                                }
-                            }
-                            else
-                            {
-                                //未定义字典
-                                throw new TypeLoadException("字典不存在!");
-                            }
-                        }
-
-                        //获取值
-                        dictKey = m.Groups[2].Value;
-                        if (propDict.ContainsKey(dictKey))
-                        {
-                            return propDict[dictKey];
-                        }
-                        else
-                        {
-                            //字典不存在值
-                            return String.Empty;
+                            throw new TypeLoadException("map属性的类型应为IDictionary<string,string>");
                         }
                     }
-
-                    #endregion
-
-                    string message = "";
-                    TemplateVariableFieldAttribute[] attr;
-                    int i = 0;
-                    foreach (
-                        PropertyInfo p in
-                        variable.Type.GetProperties(BindingFlags.Instance | BindingFlags.Public |
-                                                    BindingFlags.NonPublic | BindingFlags.IgnoreCase))
+                    //获取值
+                    string dictKey = m.Groups[2].Value;
+                    if (propDict.ContainsKey(dictKey))
                     {
-                        if (!p.Name.StartsWith("_"))
-                        {
-                            attr =
-                                (TemplateVariableFieldAttribute[])
-                                p.GetCustomAttributes(typeof(TemplateVariableFieldAttribute), true);
-                            //message += (++i == 1 ? "" : ",") + p.Name;
-                            message += (++i == 1 ? "\n=================================\n" : "\n") + p.Name +
-                                       "\t : \t" +
-                                       (attr.Length > 0 ? attr[0].Descript : "");
-                        }
+                        return propDict[dictKey];
                     }
-
-                    throw new NotSupportedException("不支持的属性调用${" + variable.Key + "." + proName + "}\n\n" +
-                                                    variable.Key +
-                                                    "支持下列可选属性：" + message + "\n\n注：使用\"${" + variable.Key +
-                                                    ".属性}\"进行调用，属性不区分大小写。");
+                    return String.Empty; //字典不存在值
                 }
+                #endregion
 
-                return m.Value;
+                // 普通属性
+                if (pro != null)
+                {
+                    return (pro.GetValue(variable.Value, null) ?? "").ToString();
+                }
+                string message = "";
+                int i = 0;
+                foreach (PropertyInfo p in variable.Type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
+                {
+                    if (!p.Name.StartsWith("_"))
+                    {
+                        var attr = (TemplateVariableFieldAttribute[])
+                            p.GetCustomAttributes(typeof(TemplateVariableFieldAttribute), true);
+                        //message += (++i == 1 ? "" : ",") + p.Name;
+                        message += (++i == 1 ? "\n=================================\n" : "\n") + p.Name +
+                                   "\t : \t" +
+                                   (attr.Length > 0 ? attr[0].Descript : "");
+                    }
+                }
+                throw new NotSupportedException("不支持的属性调用${" + variable.Key + "." + proName + "}\n\n" +
+                                                variable.Key +
+                                                "支持下列可选属性：" + message + "\n\n注：使用\"${" + variable.Key +
+                                                ".属性}\"进行调用，属性不区分大小写。");
             });
             return templateHtml;
         }
