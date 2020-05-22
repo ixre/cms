@@ -10,8 +10,8 @@
     <div class="tab_mini">
         <a href="?module=table&amp;action=all">所有表</a>
         <a href="javascript:;"  class="current">结构</a>
-        <a href="?module=table&amp;action=createcolumn&amp;tableid=${tableid}" id="btnlink_create">创建列</a>
-        <a href="?module=table&action=rows&control=true&tableid=${tableid}">数据</a>
+        <a href="?module=table&amp;action=createcolumn&amp;table_id=${table_id}" id="btnlink_create">创建列</a>
+        <a href="?module=table&action=rows&control=true&table_id=${table_id}">数据</a>
         <span class="meta">表名：<span>${tablename}</span></span>
     </div>
     <table class="ui-table" cellspacing="0" cellpadding="0" id="gd">
@@ -51,7 +51,7 @@ $js()
         if (confirm('继续操作会导致表格数据丢失，确定吗？')) {
             var td = this.parentNode.parentNode;
             var id = getId(this);
-            jr.xhr.post('?module=table&action=deletecolumn', 'tableid=${tableid}&columnid='+id,
+            jr.xhr.post('?module=table&action=deletecolumn', 'table_id=${table_id}&columnid='+id,
                 function (x) {
                     var msg = '';
                     var resultTag; eval('resultTag=' + x);

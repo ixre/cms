@@ -13,7 +13,6 @@ using JR.Cms.Domain.Interface.Common.Language;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Web.Portal.Template.Model;
-using JR.Stand.Core.Framework.Web.Utils;
 using JR.Stand.Core.Web;
 using ArchiveDto = JR.Cms.ServiceDto.ArchiveDto;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
@@ -302,8 +301,8 @@ namespace JR.Cms.Web
                         Key = key.Replace(",", "+"),
                         Param = catPath,
                         PageIndex = pageIndex,
-                        EscapeKey = HttpUtil.UrlEncode(key.ToString()),
-                        Escape_Key = HttpUtil.UrlEncode(key.ToString()), //过期
+                        EscapeKey = HttpUtils.UrlEncode(key.ToString()),
+                        Escape_Key = HttpUtils.UrlEncode(key.ToString()), //过期
                         Cate = catPath //过期
                     });
                 }
@@ -351,8 +350,8 @@ namespace JR.Cms.Web
                         Key = key.Replace(",", "+"),
                         Param = key,
                         PageIndex = pageIndex,
-                        EscapeKey = HttpUtil.UrlEncode(key.ToString()),
-                        Escape_Key = HttpUtil.UrlEncode(key.ToString()),
+                        EscapeKey = HttpUtils.UrlEncode(key.ToString()),
+                        Escape_Key = HttpUtils.UrlEncode(key.ToString()),
                         Cate = key
                     });
                 }

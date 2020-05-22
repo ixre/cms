@@ -8,9 +8,9 @@
 
     <div class="tab_mini">
         <a href="?module=table&amp;action=all">所有表</a>
-        <a href="?module=table&amp;action=columns&amp;tableid=${tableid}"  class="current" id="btnlink">结构</a>
-        <a href="?module=table&amp;action=createcolumn&amp;tableid=${tableid}" id="btnlink_create">创建列</a>
-        <a href="?module=table&amp;action=rows&amp;control=true&amp;tableid=${tableid}">数据</a>
+        <a href="?module=table&amp;action=columns&amp;table_id=${table_id}"  class="current" id="btnlink">结构</a>
+        <a href="?module=table&amp;action=createcolumn&amp;table_id=${table_id}" id="btnlink_create">创建列</a>
+        <a href="?module=table&amp;action=rows&amp;control=true&amp;table_id=${table_id}">数据</a>
         <span class="meta">表名：<span>${tablename}</span></span>
     </div>
     
@@ -30,7 +30,7 @@
 
         <dl><dt>备注：</dt><dd><input class="tb_normal ui-box ui-validate" length="[0,50]" type="text" field="note" value="${note}" /></dd></dl>
    
-        <dl><dt>&nbsp;</dt><dd><input type="hidden" id="tableid" field="tableid" value="${tableid}" />
+        <dl><dt>&nbsp;</dt><dd><input type="hidden" id="table_id" field="table_id" value="${table_id}" />
         <input type="hidden" id="columnid" field="columnid" value="${columnid}" />
   <a href="javascript:;" class="btn"onclick="return submitForm();">提交</a></dd></dl>
         </form>
@@ -57,8 +57,8 @@ $js()
                     }
 
                     showMsg2(msg,function () {
-                        var tableId = jr.$fn('#tableid').val();
-                        location.replace('?xhr=1&module=table&action=columns&tableid=' + tableId);
+                        var tableId = jr.$fn('#table_id').val();
+                        location.replace('?xhr=1&module=table&action=columns&table_id=' + tableId);
                     });
                 });
             }

@@ -6,11 +6,14 @@ using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
-using JR.Stand.Core.Framework.Web.Utils;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Web;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PageArchive : ITemplateVariableObject
     {
         private string _properies;
@@ -160,9 +163,9 @@ namespace JR.Cms.Web.Portal.Template.Model
                         if (j++ != 0) sb.Append(",");
 
                         sb.Append("<a href=\"")
-                            .Append(FormatUrl(UrlRulePageKeys.Tag, new[]{HttpUtil.UrlEncode(tag)}))
+                            .Append(FormatUrl(UrlRulePageKeys.Tag, new[]{HttpUtils.UrlEncode(tag)}))
                             .Append("\" search-url=\"")
-                            .Append(FormatUrl(UrlRulePageKeys.Search, new[]{HttpUtil.UrlEncode(tag), string.Empty}))
+                            .Append(FormatUrl(UrlRulePageKeys.Search, new[]{HttpUtils.UrlEncode(tag), string.Empty}))
                             .Append("\">")
                             .Append(tag)
                             .Append("</a>");

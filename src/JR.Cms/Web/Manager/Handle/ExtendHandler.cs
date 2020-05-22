@@ -57,7 +57,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Site_Extend_Category_Check), new
             {
-                url = Request.GetEncodedUrl(),
+                url = Request.GetPath()+Request.GetQueryString(),
                 json = json,
                 category = categoryJson
             });

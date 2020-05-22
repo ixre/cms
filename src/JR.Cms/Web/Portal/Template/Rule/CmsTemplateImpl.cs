@@ -29,9 +29,9 @@ using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts.Web;
-using JR.Stand.Core.Framework.Web.Utils;
 using JR.Stand.Core.Framework.Xml.AutoObject;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Web;
 
 namespace JR.Cms.Web.Portal.Template.Rule
 {
@@ -980,10 +980,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var reg = new Regex("([^\\?]+\\?*)(.+)", RegexOptions.IgnoreCase);
 
             string link1 = string.Format(TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) UrlRulePageKeys.Search],
-		            HttpUtil.UrlEncode(keyword), c ?? ""),
+		            HttpUtils.UrlEncode(keyword), c ?? ""),
                 link2 = string.Format(
                     TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) UrlRulePageKeys.SearchPager],
-                    HttpUtil.UrlEncode(keyword), c ?? "", "{0}");
+                    HttpUtils.UrlEncode(keyword), c ?? "", "{0}");
 
             SetPager(
                 pageIndex,

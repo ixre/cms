@@ -76,7 +76,20 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         [TemplateVariableField("当前地址")]
-        public string Url => _context.HttpContext.Request.GetEncodedUrl();
+        public string Url
+        {
+            get
+            {
+                var url = _context.HttpContext.Request.GetEncodedUrl();
+                var proto = this._context.HttpContext.Request.GetProto();
+                if (!url.StartsWith(proto))
+                {
+                    url = "https" + url.Substring(4);
+                }
+
+                return url;
+            }
+        } 
 
         [TemplateVariableField("随机变亮")]
         public string Spam

@@ -31,7 +31,6 @@ using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core;
 using JR.Stand.Core.Framework;
-using JR.Stand.Core.Framework.Web.Utils;
 using JR.Stand.Core.Web;
 using JsonSerializer = JR.Cms.Web.Util.JsonSerializer;
 
@@ -375,7 +374,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var alias = string.IsNullOrEmpty(Request.Form("Alias"))
                 ? string.Empty
-                : HttpUtil.UrlEncode(Request.Form("Alias"));
+                : HttpUtils.UrlEncode(Request.Form("Alias"));
 
             if (alias != string.Empty && archive.Alias != alias)
                 if (!ServiceCall.Instance.ArchiveService
@@ -661,7 +660,7 @@ namespace JR.Cms.Web.Manager.Handle
 
 
                 var format = string.Format("?module=archive&action=search&keyword={1}&page={0}&size={2}", "{0}",
-                    HttpUtil.UrlEncode(_keyword), pageSize);
+                    HttpUtils.UrlEncode(_keyword), pageSize);
 
                 //pagerHtml = Helper.BuildPagerInfo(format, pageIndex, recordCount, pages);
 
