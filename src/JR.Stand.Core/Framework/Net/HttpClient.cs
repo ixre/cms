@@ -92,10 +92,14 @@ namespace JR.Stand.Core.Framework.Net
             }
 
             //发送请求
-            req.ContentLength = data.Length;
-            Stream requestStream = req.GetRequestStream();
-            requestStream.Write(data, 0, data.Length);
-            requestStream.Dispose();
+            if (data != null)
+            {
+                req.ContentLength = data.Length;
+                Stream requestStream = req.GetRequestStream();
+                requestStream.Write(data, 0, data.Length);
+                requestStream.Dispose();
+            }
+
             //获取响应
             HttpWebResponse rsp = req.GetResponse() as HttpWebResponse;
             if (rsp.StatusCode != HttpStatusCode.OK)
