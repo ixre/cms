@@ -34,90 +34,89 @@ namespace JR.Stand.Core.Template.Impl
             // $menu=12 fsdf
             // $menu=item:123456
             // $menu=>getmenu(test,item,get)
-            const string expressionPattern =
-                "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*(\"(\"|[^\"\\n])*\"|[^<>\\s\\n\"\\$/]+)(\\s+\\B)*";
-                //设置表达式
-            const string specialVarPattern = "(item|cache|query|form)\\([\"']*(.+?)[\"']*\\)"; //特殊数据
+            //const string expressionPattern = "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*(\"(\"|[^\"\\n])*\"|[^<>\\s\\n\"\\$/]+)(\\s+\\B)*";
+            const string expressionPattern = "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*([^()]+)\\(([^)]*)\\)";
 
-            string outHtml,
-                varName,
-                varValue,
-                varKey;
+            //设置表达式
+            const string specialVarPattern = "(item|cache|query|form)\\([\"']*(.+?)[\"']*\\)"; //特殊数据
 
             Match valueMatch;
 
-            outHtml = Regex.Replace(content, expressionPattern, m =>
+            var outHtml = Regex.Replace(content, expressionPattern, m =>
             {
                 //注释
-                if (m.Groups[1].Value != "") return String.Empty;
+                if (m.Groups[1].Value != "")
+                {
+                    return String.Empty;
+                }
 
 
                 //获取变量及表达式
-                varName = m.Groups[2].Value;
-                varValue = m.Groups[3].Value;
-                if (Regex.IsMatch(varValue, specialVarPattern, RegexOptions.IgnoreCase))
+                var varName = m.Groups[2].Value;
+                var expName = m.Groups[3].Value;
+                var expValue = TemplateUtils.GetFunctionParamValue(m.Groups[4].Value);
+                var value = String.Empty;
+                switch (expName)
                 {
-                    valueMatch = Regex.Match(varValue, specialVarPattern, RegexOptions.IgnoreCase);
-                    varKey = valueMatch.Groups[2].Value;
-                    var varType = valueMatch.Groups[1].Value.ToLower();
-                    object value = "";
-                    switch (valueMatch.Groups[1].Value.ToLower())
-                    {
-                        case "item":
-                            value = dc.GetAdapter().GetItem(varKey);
-                            break;
-                        case "cache":
-                            value = dc.GetAdapter().GetCache(varKey);
-                            break;
-                        case "query":
-                            value = dc.GetAdapter().GetQueryParam(varKey);
-                            break;
-                        case "form":
-                            value = dc.GetAdapter().GetFormParam(varKey);
-                            break;
-                    }
-                    dc.DefineVariable(varName,value);
+                    case "item":
+                        value = dc.GetAdapter().GetItem(expValue).ToString();
+                        break;
+                    case "cache":
+                        value = dc.GetAdapter().GetCache(expValue).ToString();
+                        break;
+                    case "query":
+                        value = dc.GetAdapter().GetQueryParam(expValue);
+                        break;
+                    case "form":
+                        value = dc.GetAdapter().GetFormParam(expValue);
+                        break;
+                }
+
+                dc.DefineVariable(varName, value ?? "");
+
+                /*
+            }
+            else
+            {
+                string varRealValue = Regex.Replace(expValue, "\\B\"|\"\\B", String.Empty);
+
+                //如果为字符,否则读取指定值的变量
+                if (Regex.IsMatch(expValue, "\\B\"|\"\\B"))
+                {
+                    dc.DefineVariable(varName, varRealValue);
                 }
                 else
                 {
-                    string varRealValue = Regex.Replace(varValue, "\\B\"|\"\\B", String.Empty);
-
-                    //如果为字符,否则读取指定值的变量
-                    if (Regex.IsMatch(varValue, "\\B\"|\"\\B"))
+                    object obj = dc.GetVariable(varRealValue);
+                    if (obj != null)
                     {
-                        dc.DefineVariable(varName, varRealValue);
-                    }
-                    else
-                    {
-                        object obj = dc.GetVariable(varRealValue);
-                        if (obj != null)
+                        if (obj is Variable)
                         {
-                            if (obj is Variable)
-                            {
-                                dc.DefineVariable(varName, (Variable) obj);
-                            }
-                            else
-                            {
-                                dc.DefineVariable(varName, obj.ToString());
-                            }
+                            dc.DefineVariable(varName, (Variable) obj);
                         }
                         else
                         {
-                            string message = "";
-                            int i = 0;
-                            foreach (string key in dc.GetDefineVariable().Keys)
-                            {
-                                message += (++i == 1 ? "" : "," + key);
-                            }
-                            throw new NotSupportedException("数据引用键错误:" + m.Value + "\n"
-                                                            +
-                                                            (message != ""
-                                                                ? "受支持可引用的数据键包括" + message + "\n使用\"$" + varName +
-                                                                  "=>键\"进行调用！"
-                                                                : ""));
+                            dc.DefineVariable(varName, obj.ToString());
                         }
                     }
+                    else
+                    {
+                        string message = "";
+                        int i = 0;
+                        foreach (string key in dc.GetDefineVariable().Keys)
+                        {
+                            message += (++i == 1 ? "" : "," + key);
+                        }
+                        throw new NotSupportedException("数据引用键错误:" + m.Value + "\n"
+                                                        +
+                                                        (message != ""
+                                                            ? "受支持可引用的数据键包括" + message + "\n使用\"$" + varName +
+                                                              "=>键\"进行调用！"
+                                                            : ""));
+                    }
                 }
+            }
+            */
 
                 return String.Empty;
             }, RegexOptions.Singleline);
@@ -170,7 +169,7 @@ namespace JR.Stand.Core.Template.Impl
                 parameterTypes = new Type[parametersNum];
                 for (int i = 0; i < parametersNum; i++)
                 {
-                    parameterTypes[i] = typeof (String);
+                    parameterTypes[i] = typeof(String);
                     parameters[i] =
                         Regex.Replace(parameters[i].ToString(), "\\B\"|\"\\B", String.Empty).Replace("__CSP__", ",");
                 }
@@ -185,12 +184,12 @@ namespace JR.Stand.Core.Template.Impl
                 if (method != null)
                 {
                     Type returnType = method.ReturnType;
-                    if (returnType != typeof (void))
+                    if (returnType != typeof(void))
                     {
                         object result = method.Invoke(data, parameters);
                         if (result != null)
                         {
-                            if (returnType.IsPrimitive || returnType == typeof (String))
+                            if (returnType.IsPrimitive || returnType == typeof(String))
                             {
                                 dc.DefineVariable(varName, (result ?? "").ToString());
                             }
@@ -265,13 +264,14 @@ namespace JR.Stand.Core.Template.Impl
                             m2 => { return (pro.GetValue(obj, null) ?? "").ToString(); }, RegexOptions.IgnoreCase);
                     }
                 }
+
                 return String.Empty;
             }, RegexOptions.Singleline);
             return outHtml;
         }
 
 
-        public static string Compile(IDataContainer dc, string html,object data)
+        public static string Compile(IDataContainer dc, string html, object data)
         {
             string outHtml;
             //======= 设置变量 ======//
@@ -281,6 +281,7 @@ namespace JR.Stand.Core.Template.Impl
             {
                 outHtml = EvalMethodToVar(dc, outHtml, data);
             }
+
             // outHtml = EntityVariable(dc, outHtml);
             return outHtml;
         }
@@ -322,8 +323,8 @@ namespace JR.Stand.Core.Template.Impl
                     int i = 0;
                     foreach (
                         PropertyInfo p in
-                            var.Type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
-                                                   BindingFlags.IgnoreCase))
+                        var.Type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
+                                               BindingFlags.IgnoreCase))
                     {
                         message += (++i == 1 ? "" : ",") + p.Name;
                     }
@@ -331,6 +332,7 @@ namespace JR.Stand.Core.Template.Impl
                     throw new NotSupportedException("不支持的属性调用${" + var.Key + "." + proName + "}\n" + var.Key +
                                                     "支持可选的属性：" + message + "\n使用\"${" + var.Key + ".属性}\"进行调用！");
                 }
+
                 return String.Empty;
             });
             return templateHtml;
@@ -381,7 +383,7 @@ namespace JR.Stand.Core.Template.Impl
                                 BindingFlags.IgnoreCase);
                             if (pro != null)
                             {
-                                if (pro.PropertyType != typeof (IDictionary<string, string>))
+                                if (pro.PropertyType != typeof(IDictionary<string, string>))
                                 {
                                     throw new TypeLoadException("__dict__属性的类型应为IDictionary<string,string>");
                                 }
@@ -417,24 +419,27 @@ namespace JR.Stand.Core.Template.Impl
                     int i = 0;
                     foreach (
                         PropertyInfo p in
-                            variable.Type.GetProperties(BindingFlags.Instance | BindingFlags.Public |
-                                                        BindingFlags.NonPublic | BindingFlags.IgnoreCase))
+                        variable.Type.GetProperties(BindingFlags.Instance | BindingFlags.Public |
+                                                    BindingFlags.NonPublic | BindingFlags.IgnoreCase))
                     {
                         if (!p.Name.StartsWith("_"))
                         {
                             attr =
                                 (TemplateVariableFieldAttribute[])
-                                    p.GetCustomAttributes(typeof (TemplateVariableFieldAttribute), true);
+                                p.GetCustomAttributes(typeof(TemplateVariableFieldAttribute), true);
                             //message += (++i == 1 ? "" : ",") + p.Name;
-                            message += (++i == 1 ? "\n=================================\n" : "\n") + p.Name + "\t : \t" +
+                            message += (++i == 1 ? "\n=================================\n" : "\n") + p.Name +
+                                       "\t : \t" +
                                        (attr.Length > 0 ? attr[0].Descript : "");
                         }
                     }
 
-                    throw new NotSupportedException("不支持的属性调用${" + variable.Key + "." + proName + "}\n\n" + variable.Key +
+                    throw new NotSupportedException("不支持的属性调用${" + variable.Key + "." + proName + "}\n\n" +
+                                                    variable.Key +
                                                     "支持下列可选属性：" + message + "\n\n注：使用\"${" + variable.Key +
                                                     ".属性}\"进行调用，属性不区分大小写。");
                 }
+
                 return m.Value;
             });
             return templateHtml;
