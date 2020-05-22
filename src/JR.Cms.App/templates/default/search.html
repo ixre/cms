@@ -7,7 +7,7 @@ $c = query('c')
     <link rel="Stylesheet" href="${page.tpath}/css/default/page.css?v=${page.built}" type="text/css" />
 </head>
 <body>
-    ${include:"include/header.part.html"}
+    ${include:"include/header.html"}
 
 
     <div class="mod-crumb">
@@ -27,7 +27,7 @@ $c = query('c')
                         </ul>
                     </div>
              </div>
-           <!-- ${include:"include/side_bar.part.html"}-->
+           <!-- ${include:"include/side_bar.html"}-->
           </div>
            
 
@@ -65,7 +65,7 @@ $c = query('c')
     </div>
     </div>
 </div>
-${include:"include/footer.part.html"}
+${include:"include/footer.html"}
 <script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
 <script type="text/javascript">
     document.getElementById('c').value='${c}';
