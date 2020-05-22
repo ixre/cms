@@ -81,6 +81,7 @@ namespace JR.Cms.Core
             //是否为虚拟目录运行
             if ((SiteRunType) CurrentSite.RunType == SiteRunType.VirtualDirectory)
                 _isVirtualDirectoryRunning = true;
+            this._containCookie = _context.Request.GetHeader("Cookie") != null;
         }
         
         /// <summary>
@@ -118,13 +119,16 @@ namespace JR.Cms.Core
             {
                 if (this._userLanguage == Languages.Unknown)
                 {
-                    
-                    this._userLanguage = this.GetUserLangSetFromCookie();
-                    if (this._userLanguage == Languages.Unknown)
+                    if (this._containCookie)
                     {
-                        this._userLanguage = CurrentSite.Language;
-                        //SetSessionLangSet((int)this._userLanguage);
+                        this._userLanguage = this.GetUserLangSetFromCookie();
+                        if (this._userLanguage == Languages.Unknown)
+                        {
+                            this._userLanguage = CurrentSite.Language;
+                            //SetSessionLangSet((int)this._userLanguage);
+                        }
                     }
+                    this._userLanguage = CurrentSite.Language;
                 }
                 return this._userLanguage;
             }
@@ -136,6 +140,8 @@ namespace JR.Cms.Core
         /// <returns></returns>
         private Languages GetUserLangSetFromCookie()
         {
+            var s = this._context.Request.GetHeader("Cookie");
+                
             // var s = _context.Session.GetInt32("user.lang.set");
             // if (s > 0) return (Languages)s;
             
@@ -227,10 +233,13 @@ namespace JR.Cms.Core
             // {
             //     return (DeviceType) Convert.ToInt32(s);
             // }
-            this._context.Request.TryGetCookie(UserDeviceCookieName,out var ck);
-            if (!String.IsNullOrEmpty(ck))
+            if (this._containCookie)
             {
-                if (Enum.TryParse<DeviceType>(ck, out var device)) return device;
+                this._context.Request.TryGetCookie(UserDeviceCookieName, out var ck);
+                if (!String.IsNullOrEmpty(ck))
+                {
+                    if (Enum.TryParse<DeviceType>(ck, out var device)) return device;
+                }
             }
             //如果包含手机的域名或agent
             var host = this._context.Request.GetHost();
@@ -268,7 +277,8 @@ namespace JR.Cms.Core
         private Languages _userLanguage;
         private DeviceType? _userDevice;
         private string _proto;
-        
+        private bool _containCookie = false;
+
         /// <summary>
         /// 系统应用程序目录
         /// </summary>
