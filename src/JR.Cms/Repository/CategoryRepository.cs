@@ -82,12 +82,12 @@ namespace JR.Cms.Repository
 
             foreach (var _category in categories)
             {
-                if (!RepositoryDataCache._categories.ContainsKey(_category.Site().GetAggregaterootId()))
-                    RepositoryDataCache._categories.Add(_category.Site().GetAggregaterootId(), new List<ICategory>());
-                RepositoryDataCache._categories[_category.Site().GetAggregaterootId()].Add(_category);
+                if (!RepositoryDataCache._categories.ContainsKey(_category.Site().GetAggregateRootId()))
+                    RepositoryDataCache._categories.Add(_category.Site().GetAggregateRootId(), new List<ICategory>());
+                RepositoryDataCache._categories[_category.Site().GetAggregateRootId()].Add(_category);
 
                 //添加Id->Path映射
-                var key = catIdKey(_category.Site().GetAggregaterootId(), _category.GetDomainId());
+                var key = catIdKey(_category.Site().GetAggregateRootId(), _category.GetDomainId());
                 Kvdb.Put(key, _category.Get().Path);
             }
 

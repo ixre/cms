@@ -28,7 +28,7 @@ namespace JR.Cms.Repository
 
         public int SaveUser(IUser user)
         {
-            if (user.GetAggregaterootId() > 0) return _userDal.SaveUser(user, false);
+            if (user.GetAggregateRootId() > 0) return _userDal.SaveUser(user, false);
             return _userDal.SaveUser(user, true);
         }
 

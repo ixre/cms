@@ -20,7 +20,7 @@ namespace JR.Cms.Domain.Content
         protected int _categoryId;
 
 
-        public abstract int GetAggregaterootId();
+        public abstract int GetAggregateRootId();
 
         /// <summary>
         /// 内容模型标识
@@ -54,7 +54,7 @@ namespace JR.Cms.Domain.Content
             _linkManager
             ?? (_linkManager =
                 new ContentLinkManager(_contentRep, ((ContentTypeIndent) ContentModelIndent).ToString().ToLower(),
-                    GetAggregaterootId()));
+                    GetAggregateRootId()));
 
         /// <summary>
         /// 下移排序

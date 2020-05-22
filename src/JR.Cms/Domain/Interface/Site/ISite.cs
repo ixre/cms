@@ -24,7 +24,7 @@ namespace JR.Cms.Domain.Interface.Site
     /// <summary>
     /// 站点
     /// </summary>
-    public interface ISite : IAggregateroot
+    public interface ISite : IAggregateRoot
     {
         /// <summary>
         /// 获取值

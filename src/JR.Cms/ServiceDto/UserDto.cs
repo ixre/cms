@@ -44,7 +44,7 @@ namespace JR.Cms.ServiceDto
         {
             var usr = new UserDto
             {
-                Id = user.GetAggregaterootId(),
+                Id = user.GetAggregateRootId(),
                 Name = user.Name,
                 Avatar = user.Avatar,
                 CheckCode = user.CheckCode,

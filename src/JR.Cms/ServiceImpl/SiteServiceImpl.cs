@@ -13,32 +13,44 @@ using JR.Cms.Domain.Interface.User;
 using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Tree;
 using JR.Cms.ServiceContract;
+using JR.Stand.Abstracts;
 using JR.Stand.Core.Framework.Extensions;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 using ExtendFieldDto = JR.Cms.ServiceDto.ExtendFieldDto;
-using Result = JR.Cms.ServiceDto.Result;
 using SiteDto = JR.Cms.ServiceDto.SiteDto;
 using SiteLinkDto = JR.Cms.ServiceDto.SiteLinkDto;
 
 namespace JR.Cms.ServiceImpl
 {
-    public class SiteService : ISiteServiceContract
+    /// <summary>
+    /// 
+    /// </summary>
+    public class SiteServiceImpl : ISiteServiceContract
     {
-        private readonly ISiteRepo repo;
+        private readonly ISiteRepo _repo;
         private readonly IExtendFieldRepository _extendRep;
         private readonly ICategoryRepo _categoryRep;
         private readonly ITemplateRepo _tempRep;
         private readonly IArchiveRepository _archiveRep;
         private readonly IContentRepository _contentRep;
 
-        public SiteService(ISiteRepo resp,
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resp"></param>
+        /// <param name="categoryRep"></param>
+        /// <param name="archiveRep"></param>
+        /// <param name="extendFieldPository"></param>
+        /// <param name="contentRep"></param>
+        /// <param name="tempRep"></param>
+        public SiteServiceImpl(ISiteRepo resp,
             ICategoryRepo categoryRep,
             IArchiveRepository archiveRep,
             IExtendFieldRepository extendFieldPository,
             IContentRepository contentRep,
             ITemplateRepo tempRep)
         {
-            repo = resp;
+            _repo = resp;
             _extendRep = extendFieldPository;
             _categoryRep = categoryRep;
             _archiveRep = archiveRep;
@@ -46,17 +58,23 @@ namespace JR.Cms.ServiceImpl
             _tempRep = tempRep;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteDto"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public int SaveSite(SiteDto siteDto)
         {
             ISite site;
             if (siteDto.SiteId != 0)
             {
-                site = repo.GetSiteById(siteDto.SiteId);
+                site = _repo.GetSiteById(siteDto.SiteId);
                 if (site == null) throw new ArgumentException("No such site");
             }
             else
             {
-                site = repo.CreateSite(new CmsSiteEntity());
+                site = _repo.CreateSite(new CmsSiteEntity());
             }
 
             SiteDto.CopyTo(siteDto, site);
@@ -64,10 +82,11 @@ namespace JR.Cms.ServiceImpl
         }
 
 
+        /// <inheritdoc />
         public IList<SiteDto> GetSites()
         {
             IList<SiteDto> siteDtos = new List<SiteDto>();
-            var sites = repo.GetSites();
+            var sites = _repo.GetSites();
             foreach (var site in sites) siteDtos.Add(SiteDto.ConvertFromSite(site));
             return siteDtos;
         }
@@ -79,24 +98,27 @@ namespace JR.Cms.ServiceImpl
         }
 
 
+        /// <inheritdoc />
         public SiteDto GetSingleOrDefaultSite(string host, string appPath)
         {
-            var ist = repo.GetSingleOrDefaultSite(host, appPath);
+            var ist = _repo.GetSingleOrDefaultSite(host, appPath);
             return GetSiteDtoFromISite(ist);
         }
 
 
+        /// <inheritdoc />
         public SiteDto GetSiteById(int siteId)
         {
             return GetSiteDtoFromISite(
-                repo.GetSiteById(siteId)
+                _repo.GetSiteById(siteId)
             );
         }
 
 
+        /// <inheritdoc />
         public IEnumerable<ExtendFieldDto> GetExtendFields(int siteId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             ExtendFieldDto dto;
             IEnumerable<IExtendField> extends = site.GetExtendManager().GetAllExtends();
             foreach (var extend in extends)
@@ -110,7 +132,7 @@ namespace JR.Cms.ServiceImpl
 
         public Result SaveExtendField(int siteId, ExtendFieldDto dto)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             if (site == null)
                 throw new Exception("站点不存在");
 
@@ -123,21 +145,20 @@ namespace JR.Cms.ServiceImpl
                 r.ErrCode = 1;
                 r.ErrMsg = err.Message;
             }
-
             return r;
         }
 
 
         public CategoryDto GetCategory(int siteId, int categoryId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             return CategoryDto.ConvertFrom(site.GetCategory(categoryId));
         }
 
 
         public CategoryDto GetCategoryByName(int siteId, string categoryName)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             return CategoryDto.ConvertFrom(site.GetCategoryByName(categoryName));
         }
 
@@ -145,14 +166,14 @@ namespace JR.Cms.ServiceImpl
         {
             // 如果以"/"开头，则去掉
             if (!string.IsNullOrEmpty(catPath) && catPath[0] == '/') catPath = catPath.Substring(1);
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             return CategoryDto.ConvertFrom(site.GetCategoryByPath(catPath));
         }
 
 
         public IEnumerable<CategoryDto> GetCategories(int siteId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             var categories = site.Categories;
             foreach (var category in categories) yield return CategoryDto.ConvertFrom(category);
         }
@@ -160,7 +181,7 @@ namespace JR.Cms.ServiceImpl
         public IEnumerable<CategoryDto> GetCategories(
             int siteId, string catPath)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             var ic = _categoryRep.GetCategoryByPath(siteId, catPath);
             if (ic == null) yield break;
             foreach (var category in ic.NextLevelChilds) yield return CategoryDto.ConvertFrom(category);
@@ -168,27 +189,27 @@ namespace JR.Cms.ServiceImpl
 
         public Error DeleteCategory(int siteId, int catId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             return site.DeleteCategory(catId);
         }
 
         public void ItrCategoryTree(StringBuilder sb, int siteId, int categoryId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             site.ItreCategoryTree(sb, categoryId);
         }
 
 
         public void HandleCategoryTree(int siteId, int parentId, CategoryTreeHandler treeHandler)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             site.HandleCategoryTree(parentId, treeHandler);
         }
 
 
         public Result SaveCategory(int siteId, int parentId, CategoryDto category)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             ICategory ic = null;
             if (category.ID > 0) ic = site.GetCategory(category.ID);
             if (ic == null) ic = _categoryRep.CreateCategory(new CmsCategoryEntity());
@@ -230,8 +251,11 @@ namespace JR.Cms.ServiceImpl
             var r = new Result();
             if (err == null)
             {
-                r.Data = new Dictionary<string, string>();
-                r.Data["CategoryId"] = ic.GetDomainId().ToString();
+                var mp = new Dictionary<string, string>
+                {
+                    ["CategoryId"] = ic.GetDomainId().ToString()
+                };
+                r.Data = mp;
             }
             else
             {
@@ -245,14 +269,14 @@ namespace JR.Cms.ServiceImpl
 
         public TreeNode GetCategoryTreeWithRootNode(int siteId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             return site.GetCategoryTreeWithRootNode();
         }
 
 
         public string GetCategorySitemapHtml(int siteId, string catPath, string split, string linkFormat)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             var category = site.GetCategoryByPath(catPath);
 
             if (linkFormat.EndsWith("/")) linkFormat = linkFormat.Substring(0, linkFormat.Length - 1);
@@ -303,7 +327,7 @@ namespace JR.Cms.ServiceImpl
 
         public bool CheckCategoryTagAvailable(int siteId, int categoryId, string categoryTag)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             var category = site.GetCategoryByPath(categoryTag);
 
             if (category == null)
@@ -319,7 +343,7 @@ namespace JR.Cms.ServiceImpl
 
         public IEnumerable<SiteLinkDto> GetLinksByType(int siteId, SiteLinkType type, bool ignoreDisabled)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             var links = site.GetLinkManager().GetLinks(type);
             foreach (var link in links)
             {
@@ -332,7 +356,7 @@ namespace JR.Cms.ServiceImpl
 
         public void DeleteLink(int siteId, int linkId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
 
             site.GetLinkManager().DeleteLink(linkId);
         }
@@ -340,10 +364,10 @@ namespace JR.Cms.ServiceImpl
 
         public int SaveLink(int siteId, SiteLinkDto dto)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             ISiteLink link = null;
             if (dto.Id <= 0)
-                link = repo.CreateLink(site, 0, dto.Text);
+                link = _repo.CreateLink(site, 0, dto.Text);
             else
                 link = site.GetLinkManager().GetLinkById(dto.Id);
 
@@ -362,7 +386,7 @@ namespace JR.Cms.ServiceImpl
 
         public SiteLinkDto GetLinkById(int siteId, int linkId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             var link = site.GetLinkManager().GetLinkById(linkId);
             if (link == null) return default(SiteLinkDto);
 
@@ -371,7 +395,7 @@ namespace JR.Cms.ServiceImpl
 
         public IList<RoleValue> GetAppRoles(int siteId)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             return site.GetUserManager().GetAppRoles();
         }
 
@@ -379,14 +403,15 @@ namespace JR.Cms.ServiceImpl
         public void CloneCategory(int sourceSiteId, int targetSiteId, int fromCid, int toCid,
             bool includeChild, bool includeExtend, bool includeTemplateBind)
         {
-            var fromSite = repo.GetSiteById(sourceSiteId);
-            var toSite = repo.GetSiteById(targetSiteId);
+            var fromSite = _repo.GetSiteById(sourceSiteId);
+            var toSite = _repo.GetSiteById(targetSiteId);
             if (fromSite == null || toSite == null) throw new ArgumentException("no such site");
             var toCate = toSite.GetCategory(toCid);
             var fromCate = fromSite.GetCategory(fromCid);
             var r = CloneCategoryDetails(targetSiteId, fromCate, toCate.GetDomainId(), includeExtend,
                 includeTemplateBind);
-            var newCateId = Convert.ToInt32(r.Data["CategoryId"]);
+            var mp = r.Data as IDictionary<String, String>;
+            var newCateId = Convert.ToInt32(mp["CategoryId"]);
             if (includeChild) ItrCloneCate(toSite, fromCate, newCateId, includeExtend, includeTemplateBind);
         }
 
@@ -396,9 +421,10 @@ namespace JR.Cms.ServiceImpl
             var newCategory = toSite.GetCategory(parentCateId);
             foreach (var cate in fromCate.NextLevelChilds)
             {
-                var r = CloneCategoryDetails(toSite.GetAggregaterootId(), cate, newCategory.GetDomainId(),
+                var r = CloneCategoryDetails(toSite.GetAggregateRootId(), cate, newCategory.GetDomainId(),
                     includeExtend, includeTemplateBind);
-                var catId = Convert.ToInt32(r.Data["CategoryId"]);
+                var mp = r.Data as IDictionary<String, String>;
+                var catId = Convert.ToInt32(mp["CategoryId"]);
                 ItrCloneCate(toSite, cate, catId, includeExtend, includeTemplateBind);
             }
         }
@@ -496,7 +522,7 @@ namespace JR.Cms.ServiceImpl
 
                 if (isFailed)
                 {
-                    _archiveRep.DeleteArchive(targetSiteId, tarArchive.GetAggregaterootId());
+                    _archiveRep.DeleteArchive(targetSiteId, tarArchive.GetAggregateRootId());
                     totalFailed += 1;
                 }
                 else if (shouldReSave)
@@ -516,9 +542,9 @@ namespace JR.Cms.ServiceImpl
 
         public bool CheckSiteExists(int siteId)
         {
-            var sites = repo.GetSites();
+            var sites = _repo.GetSites();
             foreach (var site in sites)
-                if (site.GetAggregaterootId() == siteId)
+                if (site.GetAggregateRootId() == siteId)
                     return true;
             return false;
         }
@@ -565,10 +591,10 @@ namespace JR.Cms.ServiceImpl
                     else
                     {
                         var message = " <break>[1001]：扩展字段\"" + field.Name + "\"不存在";
-                        if (errDict.ContainsKey(tarArchive.GetAggregaterootId()))
-                            errDict[tarArchive.GetAggregaterootId()] += message;
+                        if (errDict.ContainsKey(tarArchive.GetAggregateRootId()))
+                            errDict[tarArchive.GetAggregateRootId()] += message;
                         else
-                            errDict[tarArchive.GetAggregaterootId()] =
+                            errDict[tarArchive.GetAggregateRootId()] =
                                 "发布文档\"" + tarArchive.Get().Title + "\"不成功！原因：" + message;
                         isFailed = true;
                     }
@@ -587,7 +613,7 @@ namespace JR.Cms.ServiceImpl
         /// <param name="direction"></param>
         public void MoveCategorySortNumber(int siteId, int id, int direction)
         {
-            var site = repo.GetSiteById(siteId);
+            var site = _repo.GetSiteById(siteId);
             if (site == null) throw new ArgumentException("no such site");
             var c = site.GetCategory(id);
             if (c == null) throw new ArgumentException("no such category");

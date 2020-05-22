@@ -15,7 +15,7 @@
             SqlConst.Archive_NotSystemAndHidden + " ORDER BY $PREFIX_archive.sort_number DESC";
 
         public override string Archive_GetArchiveList =>
-            @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
+            @"SELECT $PREFIX_archive.`id`,$PREFIX_archive.path,`str_id`,`alias`,`cat_id`,`title`,$PREFIX_archive.`location`,
                         small_title,$PREFIX_archive.`flag`,`thumbnail`,`outline`,`content`,view_count,
                         update_time,author_id,tags,source,create_time,
                         $PREFIX_category.`name`,$PREFIX_category.`tag` FROM $PREFIX_archive 
@@ -86,7 +86,7 @@
 
 
         public override string Archive_GetSpecialArchiveList =>
-            @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,`cat_id`,$PREFIX_archive.`flag`,`title`,$PREFIX_archive.`location`,`thumbnail`,
+            @"SELECT $PREFIX_archive.`id`,`str_id`,`alias`,$PREFIX_archive.path,`cat_id`,$PREFIX_archive.`flag`,`title`,$PREFIX_archive.`location`,`thumbnail`,
                         `content`,`outline`,`tags`,`create_time`,`update_time`,view_count,`source` FROM $PREFIX_archive
                         INNER JOIN $PREFIX_category ON $PREFIX_category.`id`=$PREFIX_archive.`cat_id`
                         WHERE " + SqlConst.Archive_Special +

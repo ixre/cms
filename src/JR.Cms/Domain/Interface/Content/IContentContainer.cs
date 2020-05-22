@@ -7,7 +7,7 @@ namespace JR.Cms.Domain.Interface.Content
     /// <summary>
     /// 内容聚合根
     /// </summary>
-    public interface IContentContainer : IAggregateroot
+    public interface IContentContainer : IAggregateRoot
     {
         /// <summary>
         /// 聚合根编号，等于站点编号
@@ -82,7 +82,7 @@ namespace JR.Cms.Domain.Interface.Content
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="categoryTag"></param>
+        /// <param name="catPath"></param>
         /// <param name="number"></param>
         /// <param name="skipSize"></param>
         /// <returns></returns>

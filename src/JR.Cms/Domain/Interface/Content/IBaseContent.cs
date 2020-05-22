@@ -3,7 +3,10 @@ using JR.Cms.Infrastructure;
 
 namespace JR.Cms.Domain.Interface.Content
 {
-    public interface IBaseContent : IAggregateroot
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IBaseContent : IAggregateRoot
     {
         /// <summary>
         /// 链接管理

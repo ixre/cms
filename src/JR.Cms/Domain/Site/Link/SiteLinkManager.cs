@@ -17,18 +17,18 @@ namespace JR.Cms.Domain.Site.Link
 
         public bool DeleteLink(int linkId)
         {
-            return _siteRep.DeleteSiteLink(_site.GetAggregaterootId(), linkId);
+            return _siteRep.DeleteSiteLink(_site.GetAggregateRootId(), linkId);
         }
 
 
         public ISiteLink GetLinkById(int linkId)
         {
-            return _siteRep.GetSiteLinkById(_site.GetAggregaterootId(), linkId);
+            return _siteRep.GetSiteLinkById(_site.GetAggregateRootId(), linkId);
         }
 
         public IEnumerable<ISiteLink> GetLinks(SiteLinkType type)
         {
-            return _siteRep.GetSiteLinks(_site.GetAggregaterootId(), type);
+            return _siteRep.GetSiteLinks(_site.GetAggregateRootId(), type);
         }
     }
 }

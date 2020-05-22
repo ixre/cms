@@ -282,12 +282,16 @@
                 }*/
                 data["xhr"] = 1;
                 jr.xhr.jsonPost('${url}', data, function (json) {
-                    if (json.result) {
+                    if (!json["ErrCode"]) {
+                        var alias = json.Data.Alias;
+                        if(alias!="") {
+                            jr.$fn("#alias").val(alias);
+                        }
                         jr.dialog.alert('文档保存成功！', function() {
                             if (_dg)_dg.reload();
                         });
                     } else {
-                        jr.dialog.alert(json.message);
+                        jr.dialog.alert(json["ErrMsg"]);
                     }
                 });
             }

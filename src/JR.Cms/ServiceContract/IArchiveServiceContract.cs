@@ -2,6 +2,7 @@
 using System.Data;
 using JR.Cms.Infrastructure;
 using JR.Cms.ServiceDto;
+using JR.Stand.Abstracts;
 
 
 namespace JR.Cms.ServiceContract

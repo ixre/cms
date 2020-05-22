@@ -102,7 +102,7 @@ namespace JR.Cms.Domain.Site
 
         public int Save()
         {
-            var create = GetAggregaterootId() <= 0;
+            var create = GetAggregateRootId() <= 0;
             var siteId = _siteRepository.SaveSite(this);
             value.SiteId = siteId;
             if (create)
@@ -112,7 +112,7 @@ namespace JR.Cms.Domain.Site
                     Code = "",
                     Tag = "default",
                     ParentId = 0,
-                    SiteId = GetAggregaterootId(),
+                    SiteId = GetAggregateRootId(),
                     Flag = (int) CategoryFlag.Enabled,
                     Name = "默认栏目",
                     Path = "default",
@@ -129,7 +129,7 @@ namespace JR.Cms.Domain.Site
                 if (err != null) throw new Exception("初始化站点目录失败:" + err.Message);
             }
 
-            return GetAggregaterootId();
+            return GetAggregateRootId();
         }
 
 
@@ -150,7 +150,7 @@ namespace JR.Cms.Domain.Site
         {
             if (this._extendManager == null)
             {
-                this._extendManager =  new ExtendManager(_extendRepository, GetAggregaterootId());
+                this._extendManager =  new ExtendManager(_extendRepository, GetAggregateRootId());
             }
 
             return _extendManager;
@@ -175,7 +175,7 @@ namespace JR.Cms.Domain.Site
         {
             if (this._appUserManager == null)
             {
-                this._appUserManager = _userRep.GetAppUserManager(GetAggregaterootId());
+                this._appUserManager = _userRep.GetAppUserManager(GetAggregateRootId());
             }
 
             return _appUserManager;
@@ -186,7 +186,7 @@ namespace JR.Cms.Domain.Site
         {
             get
             {
-                if (_categories == null) _categories = _categoryRep.GetCategories(GetAggregaterootId());
+                if (_categories == null) _categories = _categoryRep.GetCategories(GetAggregateRootId());
                 return _categories;
             }
         }
@@ -198,7 +198,7 @@ namespace JR.Cms.Domain.Site
                 if (_rootCategory == null)
                     _rootCategory = _categoryRep.CreateCategory(new CmsCategoryEntity
                     {
-                        SiteId = GetAggregaterootId(),
+                        SiteId = GetAggregateRootId(),
                         Tag = "root",
                         Name = "根栏目",
                     });
@@ -218,7 +218,7 @@ namespace JR.Cms.Domain.Site
 
         public ICategory GetCategoryByPath(string path)
         {
-            return _categoryRep.GetCategoryByPath(GetAggregaterootId(), path);
+            return _categoryRep.GetCategoryByPath(GetAggregateRootId(), path);
         }
 
 
@@ -235,10 +235,10 @@ namespace JR.Cms.Domain.Site
             var category = GetCategory(catId);
             if (category == null) return new Error("栏目不存在!");
             if (category.Childs.Count() != 0) return new Error("栏目包含子栏目!");
-            if (_categoryRep.GetArchiveCount(GetAggregaterootId(), category.Get().Path) != 0)
+            if (_categoryRep.GetArchiveCount(GetAggregateRootId(), category.Get().Path) != 0)
                 return new Error("栏目包含文档!");
             foreach (var bind in category.GetTemplates()) _tempRep.RemoveBind(category.GetDomainId(), bind.BindType);
-            _categoryRep.DeleteCategory(GetAggregaterootId(), catId);
+            _categoryRep.DeleteCategory(GetAggregateRootId(), catId);
             ClearSelf();
             return null;
         }
@@ -455,7 +455,7 @@ namespace JR.Cms.Domain.Site
             this.runType = runType;
         }
 
-        public int GetAggregaterootId()
+        public int GetAggregateRootId()
         {
             return value.SiteId;
         }

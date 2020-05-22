@@ -27,7 +27,7 @@ namespace JR.Cms.Domain.Content
         }
 
 
-        public int GetAggregaterootId()
+        public int GetAggregateRootId()
         {
             return Id;
         }
@@ -106,15 +106,28 @@ namespace JR.Cms.Domain.Content
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="catPath"></param>
+        /// <param name="includeChild"></param>
+        /// <param name="number"></param>
+        /// <param name="skipSize"></param>
+        /// <returns></returns>
         public IEnumerable<IArchive> GetSpecialArchives(string catPath, bool includeChild, int number, int skipSize)
         {
             var ic = _catRepo.GetCategoryByPath(SiteId, catPath);
 
             int[] catIdArray;
             if (includeChild)
+            {
                 catIdArray = GetCatArrayByPath(ic);
+            }
             else
-                catIdArray = new int[] {ic.GetDomainId()};
+            {
+                catIdArray = new[] {ic.GetDomainId()};
+            }
+
             return _archiveRep.GetSpecialArchives(SiteId, catIdArray, number, skipSize);
         }
 
@@ -146,11 +159,11 @@ namespace JR.Cms.Domain.Content
                 return false;
             if (FlagAnd(archive.Get().Flag, BuiltInArchiveFlags.IsSystem))
                 throw new NotSupportedException("系统文档，不允许删除,请先取消系统设置后再进行删除！");
-            var result = _archiveRep.DeleteArchive(SiteId, archive.GetAggregaterootId());
+            var result = _archiveRep.DeleteArchive(SiteId, archive.GetAggregateRootId());
 
             if (result)
                 //删除模板绑定
-                _tempRep.RemoveBind(archive.GetAggregaterootId(), TemplateBindType.ArchiveTemplate);
+                _tempRep.RemoveBind(archive.GetAggregateRootId(), TemplateBindType.ArchiveTemplate);
 
             //
             //TODO:删除评论及点评

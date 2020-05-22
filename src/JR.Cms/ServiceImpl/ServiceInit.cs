@@ -38,7 +38,7 @@ namespace JR.Cms.ServiceImpl
             //设置依赖反转
             Ioc.Configure(_ =>
             {
-                _.For<ISiteServiceContract>().Singleton().Use<SiteService>();
+                _.For<ISiteServiceContract>().Singleton().Use<SiteServiceImpl>();
                 _.For<IArchiveServiceContract>().Singleton().Use<ArchiveService>();
                 _.For<IContentServiceContract>().Singleton().Use<ContentService>();
                 _.For<IUserServiceContract>().Singleton().Use<UserService>();

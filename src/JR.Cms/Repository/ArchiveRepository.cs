@@ -91,14 +91,14 @@ namespace JR.Cms.Repository
             IDictionary<int, IList<IExtendValue>> extendValues = new Dictionary<int, IList<IExtendValue>>();
 
             IList<int> idList = new List<int>();
-            foreach (var a in archives) idList.Add(a.GetAggregaterootId());
+            foreach (var a in archives) idList.Add(a.GetAggregateRootId());
 
             //获取扩展信息
             extendValues = _extendRep.GetExtendFieldValuesList(siteId, ExtendRelationType.Archive, idList);
             foreach (var a in archives)
             {
-                if (extendValues.ContainsKey(a.GetAggregaterootId()))
-                    a.SetExtendValue(extendValues[a.GetAggregaterootId()]);
+                if (extendValues.ContainsKey(a.GetAggregateRootId()))
+                    a.SetExtendValue(extendValues[a.GetAggregateRootId()]);
                 yield return a;
             }
         }
@@ -197,8 +197,8 @@ namespace JR.Cms.Repository
                 while (rd.Read())
                 {
                     archive = CreateArchiveFromDataReader(rd, dg);
-                    if (extendValues.ContainsKey(archive.GetAggregaterootId()))
-                        archive.SetExtendValue(extendValues[archive.GetAggregaterootId()]);
+                    if (extendValues.ContainsKey(archive.GetAggregateRootId()))
+                        archive.SetExtendValue(extendValues[archive.GetAggregateRootId()]);
                     else
                         archive.SetExtendValue(defaultValues);
                     archives.Add(archive);
@@ -245,6 +245,14 @@ namespace JR.Cms.Repository
             return GetContainExtendValueArchiveList(siteId, archives);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catIdArray"></param>
+        /// <param name="number"></param>
+        /// <param name="skipSize"></param>
+        /// <returns></returns>
         public IEnumerable<IArchive> GetSpecialArchives(int siteId, int[] catIdArray, int number, int skipSize)
         {
             IList<IArchive> archives = new List<IArchive>();

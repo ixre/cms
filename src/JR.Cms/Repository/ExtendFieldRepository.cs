@@ -83,13 +83,13 @@ namespace JR.Cms.Repository
         public IList<IExtendValue> GetExtendFieldValues(IArchive archive)
         {
             int extendId;
-            var siteId = archive.Category.Site().GetAggregaterootId();
+            var siteId = archive.Category.Site().GetAggregateRootId();
             IDictionary<int, IExtendValue> extendValues = new Dictionary<int, IExtendValue>();
             foreach (var field in archive.Category.ExtendFields)
                 if (!extendValues.Keys.Contains(field.GetDomainId()))
                     extendValues.Add(field.GetDomainId(), CreateExtendValue(field, -1, null));
 
-            _extendDal.GetExtendValues(siteId, (int) ExtendRelationType.Archive, archive.GetAggregaterootId(), rd =>
+            _extendDal.GetExtendValues(siteId, (int) ExtendRelationType.Archive, archive.GetAggregateRootId(), rd =>
             {
                 while (rd.Read())
                 {
@@ -141,7 +141,7 @@ namespace JR.Cms.Repository
 
         public void UpdateArchiveRelationExtendValues(IArchive archive)
         {
-            var siteId = archive.Category.Site().GetAggregaterootId();
+            var siteId = archive.Category.Site().GetAggregateRootId();
             //============ 更新 ============
             IDictionary<int, string> extendValues = new Dictionary<int, string>();
             IExtendField field;
@@ -156,7 +156,7 @@ namespace JR.Cms.Repository
                         value.Value);
             }
 
-            _extendDal.InsertDataExtendFields(ExtendRelationType.Archive, archive.GetAggregaterootId(), extendValues);
+            _extendDal.InsertDataExtendFields(ExtendRelationType.Archive, archive.GetAggregateRootId(), extendValues);
 
             /*
             foreach (DataExtendField f in this.GetExtendFileds(relationID))
@@ -199,7 +199,7 @@ namespace JR.Cms.Repository
 
         public int GetCategoryExtendRefrenceNum(ICategory category, int extendId)
         {
-            return _extendDal.GetCategoryExtendRefrenceNum(category.Site().GetAggregaterootId(), category.GetDomainId(),
+            return _extendDal.GetCategoryExtendRefrenceNum(category.Site().GetAggregateRootId(), category.GetDomainId(),
                 extendId);
         }
 
