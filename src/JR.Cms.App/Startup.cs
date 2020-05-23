@@ -43,7 +43,7 @@ namespace JR.Cms.App
             services.AddControllers().AddSessionStateTempDataProvider();
             // GZIP
             services.Configure<GzipCompressionProviderOptions>(options =>
-                options.Level = System.IO.Compression.CompressionLevel.Optimal);
+                options.Level = System.IO.Compression.CompressionLevel.Fastest);
             services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
