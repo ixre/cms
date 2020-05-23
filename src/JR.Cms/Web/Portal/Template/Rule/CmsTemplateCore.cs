@@ -711,8 +711,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                 return string.Empty;
             });
-
-            if (Settings.TPL_USE_COMPRESS)return TemplateUtils.CompressHtml(content);
             return content;
         }
 
@@ -831,8 +829,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     }
                 }));
             }
-
-            if (Settings.TPL_USE_COMPRESS)return TemplateUtils.CompressHtml(sb.ToString());
             return sb.ToString();
         }
 

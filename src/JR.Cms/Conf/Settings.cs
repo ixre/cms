@@ -19,6 +19,9 @@ using System.IO.Compression;
 
 namespace JR.Cms.Conf
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public struct Settings
     {
         static Settings()
