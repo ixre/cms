@@ -124,11 +124,12 @@ namespace JR.Cms.Core
             {
                 EnabledCompress = Settings.TPL_USE_COMPRESS,
                 // 非正式环境关闭模板缓存
-                EnabledCache = !Cms.OfficialEnvironment && Settings.TPL_USE_CACHE,
+                EnabledCache = Cms.OfficialEnvironment && Settings.TPL_USE_CACHE,
                 UrlQueryShared = true,
                 HttpItemShared = true,
                 Names = names,
             };
+            Console.WriteLine("----"+opt.EnabledCompress+"/"+opt.EnabledCache);
             registry = new TemplateRegistry(CreateContainer(), opt);
         }
 
