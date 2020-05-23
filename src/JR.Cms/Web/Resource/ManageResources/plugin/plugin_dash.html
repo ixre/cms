@@ -183,7 +183,7 @@
 				descript= p.descript==''?'无说明': p.descript;
 
             var html = '<img src="'+ appPath +'module=plugin&action=geticon&worker_indent=' + p.key + '" class="icon" alt=""/><h3 class="name">' + p.name + '</h3>' +
-						'<p class="descript">' + descript + '</p><div class="meta">作者：<span class="author">' + author + '</span>&nbsp;&nbsp;版本：<span class="version">' +
+						'<p class="describe">' + descript + '</p><div class="meta">作者：<span class="author">' + author + '</span>&nbsp;&nbsp;版本：<span class="version">' +
  						version + '</span></div><span class="btns">' +
 						'<a class="handler enable" href="plugin:chstat(\'' + indent + '\')" stat="'+state+'">' + (state == '1' ? '停用' : '启用') + '</a>';
 

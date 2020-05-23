@@ -147,7 +147,7 @@ namespace JR.Cms.Web.Manager
                     if (string.CompareOrdinal(s, file) == 0)
                         return false;
                 Directory.Delete(path + "/"); //目录下有文件,不能删除
-                CheckReloadTemplate(path, true);
+                Helper.CheckReloadTemplate(path, true);
             }
             else
             {
@@ -157,7 +157,7 @@ namespace JR.Cms.Web.Manager
                         return false;
 
                 File.Delete(path);
-                CheckReloadTemplate(path, false);
+                Helper.CheckReloadTemplate(path, false);
             }
 
             return true;
@@ -181,12 +181,12 @@ namespace JR.Cms.Web.Manager
             if (isDir)
             {
                 Directory.Move(path + "/", newPath + "/");
-                CheckReloadTemplate(path, true);
+                Helper.CheckReloadTemplate(path, true);
             }
             else
             {
                 File.Move(path, newPath);
-                CheckReloadTemplate(path, false);
+                Helper.CheckReloadTemplate(path, false);
             }
 
             return true;
@@ -232,23 +232,11 @@ namespace JR.Cms.Web.Manager
             }
 
             File.Create(filePath).Dispose();
-            CheckReloadTemplate(filePath, false);
+            Helper.CheckReloadTemplate(filePath, false);
             return "{}";
         }
 
-        /// <summary>
-        /// 如果新增了模板文件,则重新加载模板
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="b"></param>
-        private static void CheckReloadTemplate(string filePath, bool isDir)
-        {
-            if (filePath.IndexOf("/templates/") == -1) return;
-            if (isDir || filePath.EndsWith(".html") || filePath.EndsWith(".html"))
-            {
-                Cms.Template.Reload();
-            }
-        }
+       
 
         /// <summary>
         /// 

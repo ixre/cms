@@ -269,7 +269,7 @@ namespace JR.Stand.Core.Framework.Xml.AutoObject
         /// </summary>
         /// <param name="key"></param>
         /// <param name="name"></param>
-        /// <param name="descript"></param>
+        /// <param name="describe"></param>
         /// <param name="properties"></param>
         /// <returns></returns>
         public bool InsertObjectNode(string key, string name, string descript, params XmlObjectProperty[] properties)
@@ -289,7 +289,7 @@ namespace JR.Stand.Core.Framework.Xml.AutoObject
             node.Attributes.Append(attr);
 
             //add Descript
-            tempNode = xd.CreateElement("descript");
+            tempNode = xd.CreateElement("describe");
             XmlCDataSection cdd = xd.CreateCDataSection(descript);
             tempNode.AppendChild(cdd);
             node.AppendChild(tempNode);
@@ -446,7 +446,7 @@ namespace JR.Stand.Core.Framework.Xml.AutoObject
 
             IList<XmlObjectProperty> prolist = new List<XmlObjectProperty>();
             XmlObject obj = new XmlObject(node.Attributes["key"].Value, node.Attributes["name"].Value,
-                node.SelectSingleNode("descript").InnerText);
+                node.SelectSingleNode("describe").InnerText);
             XmlNodeList proNodes = node.SelectNodes("properties/property");
             foreach (XmlNode n in proNodes)
             {
@@ -475,7 +475,7 @@ namespace JR.Stand.Core.Framework.Xml.AutoObject
             foreach (XmlNode node in nodes)
             {
                 obj = new XmlObject(node.Attributes["key"].Value, node.Attributes["name"].Value,
-                    node.SelectSingleNode("descript").InnerText);
+                    node.SelectSingleNode("describe").InnerText);
                 proNodes = node.SelectNodes("properties/property");
 
                 prolist.Clear();

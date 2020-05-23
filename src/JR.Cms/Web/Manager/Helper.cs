@@ -9,6 +9,7 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -257,6 +258,20 @@ namespace JR.Cms.Web.Manager
             });
 
             return sb.ToString();
+        }
+        
+        /// <summary>
+        /// 如果新增了模板文件,则重新加载模板
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="isDir"></param>
+        public static void CheckReloadTemplate(string filePath, bool isDir)
+        {
+            if (filePath.IndexOf("/templates/", StringComparison.Ordinal) == -1) return;
+            if (isDir || filePath.EndsWith(".html") || filePath.EndsWith(".html"))
+            {
+                Cms.Template.Reload();
+            }
         }
     }
 }
