@@ -126,7 +126,7 @@ namespace JR.Cms.Web.Manager.Handle
             ViewData["file"] = path;
             ViewData["path"] = path;
 
-            return RequireTemplate(CompressHtml(ResourceMap.GetPageContent(ManagementPage.Template_EditFile)));
+            return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Template_EditFile));
         }
 
         /// <summary>

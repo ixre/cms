@@ -172,10 +172,7 @@ namespace JR.Cms.Web.Manager.Handle
 
                     if (filename == "style")
                     {
-                        Response.WriteAsync(
-                            ResourceUtility.CompressHtml(
-                                ResourceMap.GetPageContent(ManagementPage.Css_Style)
-                            ));
+                        Response.WriteAsync(ResourceMap.GetPageContent(ManagementPage.Css_Style));
                     }
                     else
                     {
@@ -209,7 +206,7 @@ namespace JR.Cms.Web.Manager.Handle
                     {
                         if (compress && (type == "js" || type == "css"))
                         {
-                            Response.WriteAsync(CompressHtml(File.ReadAllText(appDir + file)));
+                            Response.WriteAsync(File.ReadAllText(appDir + file));
                         }
                         else
                         {
