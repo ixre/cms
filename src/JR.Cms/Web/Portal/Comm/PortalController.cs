@@ -70,9 +70,9 @@ namespace JR.Cms.Web.Portal.Comm
         public Task Index(ICompatibleHttpContext context)
         {
             // 如果启用了静态文件缓存
-            if (Settings.Opti_IndexCacheSeconds > 0)
+            if (Settings.PERM_INDEX_CACHE_SECOND > 0)
             {
-                var task = this.CheckStaticIndex(context, Settings.Opti_IndexCacheSeconds);
+                var task = this.CheckStaticIndex(context, Settings.PERM_INDEX_CACHE_SECOND);
                 if (task != null) return task;
             }
 

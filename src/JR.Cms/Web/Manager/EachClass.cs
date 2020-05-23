@@ -215,7 +215,7 @@ namespace JR.Cms.Web.Manager
             if (!dir.Exists || dir.Name == ".backup") return;
             foreach (var file in dir.GetFiles())
                 if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
-                    && CheckExtension(file, ".html|.part.html"))
+                    && CheckExtension(file, ".html|.html"))
                 {
                     var path = file.FullName.Substring(subLen).Replace("\\", "/");
                     nameDictionary.TryGetValue(path, out var value);

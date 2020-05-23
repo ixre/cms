@@ -171,7 +171,6 @@ namespace JR.Cms.Web.Portal.Comm
             file.Set("license_name", licenceName);
             file.Set("server_static", "");
             file.Set("server_static_enabled", "false");
-
             file.Set("db_type", dbType);
             file.Set("db_conn", dbStr);
             file.Set("db_prefix", dbPrefix);

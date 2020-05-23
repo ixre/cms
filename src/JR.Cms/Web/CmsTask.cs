@@ -42,10 +42,10 @@ namespace JR.Cms.Web
                 box.OnTaskExecuting += taskClient.Execute;
             });
 
-            RegistDropMemoryTask();
+            RegisterDropMemoryTask();
         }
 
-        private static void RegistDropMemoryTask()
+        private static void RegisterDropMemoryTask()
         {
             if (Settings.opti_gc_collect_interval <= 0)
                 return;

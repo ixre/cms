@@ -59,7 +59,7 @@ namespace JR.Stand.Core.Template.Impl
             if (String.IsNullOrEmpty(match.Value)) throw new Exception("模版页文件名:" + filePath + "不合法");
             string fileName = match.Groups[2].Value;
             String lowerFileName = fileName.ToLower();
-            if (lowerFileName.EndsWith(".part.html") || nameType == TemplateNames.ID)
+            if (lowerFileName.EndsWith(".html") || nameType == TemplateNames.ID)
             {
                 //return MD5.EncodeTo16(Regex.Replace(fileName, "/|\\\\", String.Empty).ToLower());
             }
@@ -91,7 +91,7 @@ namespace JR.Stand.Core.Template.Impl
                 DirectoryInfo dPar = null;
                 DirectoryInfo dCurr = new FileInfo(walkFilePath).Directory;
                 
-                //example path: ../../inc/top.part.html
+                //example path: ../../inc/top.html
                 if (Regex.IsMatch(partPath, "^\\.\\./"))
                 {
                     Regex pathRegex = new Regex("\\.\\./");
@@ -122,7 +122,7 @@ namespace JR.Stand.Core.Template.Impl
                 else
                 {
                     //
-                    //example path: inc/top.part.html
+                    //example path: inc/top.html
                     //
 
                     do
@@ -212,9 +212,9 @@ namespace JR.Stand.Core.Template.Impl
 
             sb.Append(@"<tr><td colspan=""6"" align=""center"" style=""background:#f0f0f0;color:#333"">
 						部分视图扩展名为“.phtml”,可允许格式如:
-						&nbsp;&nbsp;A:${include:""inc/header.part.html""}
-						&nbsp;&nbsp;B:${include:""/tmpdir/inc/header.part.html""}
-						&nbsp;&nbsp;C:${include:""../../inc/header.part.html""}
+						&nbsp;&nbsp;A:${include:""inc/header.html""}
+						&nbsp;&nbsp;B:${include:""/tmpdir/inc/header.html""}
+						&nbsp;&nbsp;C:${include:""../../inc/header.html""}
 						</td></tr>");
 
             sb.Append(

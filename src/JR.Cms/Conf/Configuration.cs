@@ -76,7 +76,7 @@ namespace JR.Cms.Conf
 
             Settings.TPL_FULL_URL_PATH = !sf.Contains("tpl_full_url_path") || sf["tpl_full_url_path"] == "true";
             Settings.TPL_USE_COMPRESS = sf.Contains("tpl_use_compress") && sf["tpl_use_compress"] == "true";
-            Settings.TPL_USE_CACHE = sf.Contains("tpl_use_cache") && sf["tpl_use_cache"] == "true";
+            Settings.TPL_USE_CACHE = !sf.Contains("tpl_use_cache") || sf["tpl_use_cache"] == "true";
 
             #endregion
 
@@ -91,9 +91,9 @@ namespace JR.Cms.Conf
             Settings.OPTI_DEBUG_MODE = WebConfig.IsDebug();
 
             //缓存项
-            if (sf.Contains("opti_index_cache_seconds"))
+            if (sf.Contains("perm_index_cache_second"))
             {
-                Int32.TryParse(sf["opti_index_cache_seconds"], out Settings.Opti_IndexCacheSeconds);
+                Int32.TryParse(sf["perm_index_cache_second"], out Settings.PERM_INDEX_CACHE_SECOND);
             }
 
             if (sf.Contains("opti_client_cache_seconds"))
@@ -270,7 +270,7 @@ namespace JR.Cms.Conf
                 //优化
                 case "opti":
                     //缓存项
-                    sf.Set("opti_index_cache_seconds", Settings.Opti_IndexCacheSeconds.ToString());
+                    sf.Set("perm_index_cache_second", Settings.PERM_INDEX_CACHE_SECOND.ToString());
                     sf.Set("opti_gc_collect_interval", Settings.opti_gc_collect_interval.ToString());
                     sf.Set("opti_client_cache_seconds", Settings.Opti_ClientCacheSeconds.ToString());
                     break;

@@ -54,7 +54,7 @@ namespace JR.Stand.Core.Template.Impl
         private static void RegisterTemplates(DirectoryInfo dir, Options options)
         {
             // tml 为模板文件，防止可以被直接浏览
-            Regex allowExt = new Regex("(.html|.part.html)$", RegexOptions.IgnoreCase);
+            Regex allowExt = new Regex("(.html|.html)$", RegexOptions.IgnoreCase);
             foreach (FileInfo file in dir.GetFiles())
             {
                 if (allowExt.IsMatch(file.Extension))
