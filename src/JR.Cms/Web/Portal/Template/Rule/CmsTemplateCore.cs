@@ -1008,6 +1008,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "url":
                                 return this.ConcatUrl(string.IsNullOrEmpty(link.Bind) 
                                     ? link.Uri : GetBingLinkUrl(link.Bind));
+                            case "target": return string.IsNullOrEmpty(link.Target) ? "_self" : link.Target;
                             case "text": return link.Text;
                             case "img_url": return link.ImgUrl;
                         }
@@ -2116,9 +2117,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
             string alias;
-            string title;
             string content;
-            string title_hightlight;
+            string titleHightLight;
 
 
             var i = 0;
@@ -2148,12 +2148,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 #region 处理关键词
 
                 alias = string.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias;
-                title = title_hightlight = archive.Title;
+                titleHightLight = archive.Title;
                 content = RegexHelper.FilterHtml(archive.Content);
 
-                if (keyRegex.IsMatch(title_hightlight))
-                    title_hightlight =
-                        keyRegex.Replace(title_hightlight, "<span class=\"search_hightlight\">$0</span>");
+                if (keyRegex.IsMatch(titleHightLight))
+                    titleHightLight =
+                        keyRegex.Replace(titleHightLight, "<span class=\"search_hightlight\">$0</span>");
 
                 //关键词前数字索引算法
                 var contentLength = content.Length;
@@ -2197,7 +2197,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "id":
                                 return archive.Id.ToString();
                             case "str_id": return alias;
-                            case "title": return title_hightlight;
+                            case "title": return titleHightLight;
                             case "raw_title": return archive.Title;
                             case "small_title": return archive.SmallTitle;
                             case "author_id": return archive.PublisherId.ToString();
