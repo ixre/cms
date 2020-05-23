@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace JR.Stand.Core.Template
@@ -57,6 +59,25 @@ namespace JR.Stand.Core.Template
             }
 
             return value;
+        }
+
+
+        /// <summary>
+        /// 使用指定编码保存成为本地文件
+        /// </summary>
+        /// <param name="dstFile">包含路径的文件名称,如：C:/html/default.html</param>
+        /// <param name="html"></param>
+        /// <param name="encoder"></param>
+        public static void SaveFile(string html,string dstFile,Encoding encoder)
+        {
+            //FileShare.None  独占方式打开
+            FileStream fs = new FileStream(dstFile, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+            StreamWriter sr = new StreamWriter(fs,encoder);
+            sr.Write(html);
+            sr.Flush();
+            fs.Flush();
+            sr.Dispose();
+            fs.Dispose();
         }
     }
 }

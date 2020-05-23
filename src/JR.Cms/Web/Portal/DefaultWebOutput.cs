@@ -5,7 +5,6 @@ using JR.Cms.Core;
 using JR.Cms.Core.Interface;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Models;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
@@ -74,10 +73,11 @@ namespace JR.Cms.Web.Portal
         {
             try
             {
+                ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
+                /*
                 var site = context.CurrentSite;
                 var siteId = site.SiteId;
                 var cacheId = $"cms_s{siteId}_{(int) Cms.Context.DeviceType}_index_page";
-                ICmsPageGenerator cmsPage = new PageGeneratorObject(context);
                 if (context.HttpContext.Request.Query("cache") == "0") Cms.Cache.Rebuilt();
                 string html;
                 if (Settings.Opti_IndexCacheSeconds > 0)
@@ -97,7 +97,9 @@ namespace JR.Cms.Web.Portal
                 else
                 {
                     html = cmsPage.GetIndex();
-                }
+                }*/
+
+                var  html = cmsPage.GetIndex();
 
                 context.HttpContext.Response.WriteAsync(html);
             }

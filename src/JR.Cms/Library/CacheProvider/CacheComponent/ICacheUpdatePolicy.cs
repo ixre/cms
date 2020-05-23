@@ -7,7 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-namespace JR.Cms.Library.CacheProvider.CacheCompoment
+namespace JR.Cms.Library.CacheProvider.CacheComponent
 {
     /// <summary>
     /// Description of ICacheUpdatePolicy.

@@ -3,7 +3,7 @@ using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Infrastructure;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;

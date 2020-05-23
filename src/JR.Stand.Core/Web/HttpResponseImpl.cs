@@ -72,9 +72,9 @@ namespace JR.Stand.Core.Web
             this._accessor.HttpContext.Response.Body.Write(bytes,offset,count);
         }
 
-        public void WriteAsync(byte[] bytes)
+        public Task WriteAsync(byte[] bytes)
         {
-            this._accessor.HttpContext.Response.Body.Write(bytes,0,bytes.Length);
+            return this._accessor.HttpContext.Response.Body.WriteAsync(bytes,0,bytes.Length);
         }
     }
 }

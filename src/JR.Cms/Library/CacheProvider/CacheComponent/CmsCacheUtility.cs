@@ -10,7 +10,7 @@
 using System;
 using System.Reflection;
 
-namespace JR.Cms.Library.CacheProvider.CacheCompoment
+namespace JR.Cms.Library.CacheProvider.CacheComponent
 {
     /// <summary>
     /// Description of CmsCacheUtility.

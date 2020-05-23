@@ -15,7 +15,7 @@
 
 using System;
 using System.Text.RegularExpressions;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Stand.Core.Framework.Automation;

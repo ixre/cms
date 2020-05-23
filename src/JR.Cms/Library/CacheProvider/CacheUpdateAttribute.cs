@@ -8,7 +8,7 @@
  */
 
 using System;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 
 namespace JR.Cms.Library.CacheProvider
 {
