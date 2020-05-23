@@ -29,13 +29,13 @@ namespace JR.Stand.Core.Template.Impl
         public event TemplateHandler<object> OnPreRender;
 
 
-        private string _templateId;
-        private IDataContainer dc;
+        private readonly string _templateId;
+        private readonly IDataContainer _dc;
 
         /// <summary>
         /// 模板数据
         /// </summary>
-        private IDictionary<string, object> data = new Dictionary<string, object>();
+        private readonly IDictionary<string, object> _data = new Dictionary<string, object>();
 
         private string _templateHtml;
 
@@ -44,12 +44,12 @@ namespace JR.Stand.Core.Template.Impl
         /// </summary>
         public TemplatePage(IDataContainer container)
         {
-            this.dc = container;
+            this._dc = container;
         }
 
         public TemplatePage(string templateId,IDataContainer container):this(container)
         {
-            this._templateId = templateId;
+            this._templateId = templateId.ToLower();
         }
 
         public TemplatePage(string templateId,IDataContainer container, object templateData)
@@ -57,28 +57,17 @@ namespace JR.Stand.Core.Template.Impl
         {
             this.AddDataObject(templateData);
         }
-
-        /// <summary>
-        /// 模板编号
-        /// </summary>
-        public string TemplateId
-        {
-            get => this._templateId;
-            set => this._templateId = value;
-        }
-
+        
         /// <summary>
         /// 模板内容
         /// </summary>
-        public string TemplateContent
+        public void SetTemplateContent(String content)
         {
-            get { return _templateHtml; }
-            set
+            if (!String.IsNullOrEmpty(_templateId))
             {
-                if (!String.IsNullOrEmpty(_templateId))
-                    throw new ArgumentException("已经指定模板ID,将自动读取模板内容，无法在过程中设置模板的内容!", "TemplateContent");
-                _templateHtml = value;
+                throw new ArgumentException("已经指定模板ID,将自动读取模板内容，无法在过程中设置模板的内容!", "TemplateContent");
             }
+            _templateHtml = content;
         }
 
         /// <summary>
@@ -93,7 +82,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <param name="value"></param>
         public TemplatePage AddVariable<T>(string key, T value)
         {
-            dc.DefineVariable(key, value);
+            _dc.DefineVariable(key, value);
             return this;
         }
 
@@ -105,27 +94,23 @@ namespace JR.Stand.Core.Template.Impl
         {
             //替换传入的标签参数
             PropertyInfo[] properties = templateData.GetType().GetProperties();
-            object dataValue;
             foreach (PropertyInfo p in properties)
             {
-                dataValue = p.GetValue(templateData, null);
+                var dataValue = p.GetValue(templateData, null);
                 if (dataValue != null)
                 {
-                    data.Add(p.Name, dataValue);
+                    _data.Add(p.Name, dataValue);
                 }
             }
         }
 
 
-        internal void PreRender(object obj, ref string content)
+        private void PreRender(object obj, ref string content)
         {
-            if (this.OnPreRender != null)
-            {
-                this.OnPreRender(obj, ref content);
-            }
+            OnPreRender?.Invoke(obj, ref content);
         }
 
-        internal void PreInit(object obj, ref string content)
+        private void PreInit(object obj, ref string content)
         {
             if (this.OnPreInit != null && obj != null)
             {
@@ -141,33 +126,29 @@ namespace JR.Stand.Core.Template.Impl
 
         public string Compile()
         {
-            //指定了模板ID
-            if (!String.IsNullOrEmpty(_templateId))
+            
+            // 从缓存中获取模板内容
+            if (this._templateHtml == null && !String.IsNullOrEmpty(this._templateId))
             {
-                //读取内容
-                _templateHtml = TemplateUtility.Read(_templateId);
-                //替换部分视图
-                _templateHtml = TemplateRegexUtility.ReplacePartial(_templateHtml);
+                this._templateHtml = TemplateCache.GetTemplateContent(this._templateId);
             }
-
             //HttpContext.Current.Response.Write("<br />1." + (DateTime.Now - dt).Milliseconds.ToString());
             //初始化之前发生
             this.PreInit(this.TemplateHandleObject, ref _templateHtml);
-
             //如果参数不为空，则替换标签并返回内容
-            if (this.data.Count != 0)
+            /*
+            if (this._data.Count != 0)
             {
-                foreach (string key in this.data.Keys)
+                foreach (string key in this._data.Keys)
                 {
-                    _templateHtml = TemplateRegexUtility.ReplaceHtml(_templateHtml, key, this.data[key].ToString());
+                    _templateHtml = TemplateRegexUtility.ReplaceHtml(_templateHtml, key, this._data[key].ToString());
                 }
             }
-
+            */
+            
             //  HttpContext.Current.Response.Write("<br />2." + (DateTime.Now - dt).Milliseconds.ToString());
             //执行模板语法
-            _templateHtml = Eval.Compile(dc, _templateHtml, this.TemplateHandleObject);
-
-
+            _templateHtml = Eval.Compile(_dc, _templateHtml, this.TemplateHandleObject);
             _templateHtml = this.ReplaceDefinedVariables(_templateHtml);
            
 
@@ -191,8 +172,8 @@ namespace JR.Stand.Core.Template.Impl
         /// <returns></returns>
         private string ReplaceDefinedVariables(string templateHtml)
         {
-            if (dc == null) return templateHtml;
-            IDictionary<string, object> defineVars = dc.GetDefineVariable();
+            if (_dc == null) return templateHtml;
+            IDictionary<string, object> defineVars = _dc.GetDefineVariable();
             if (defineVars != null && defineVars.Count != 0)
             {
                 foreach (string key in defineVars.Keys)
@@ -217,7 +198,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <returns></returns>
         public string ToCompressedString()
         {
-            return TemplateUtility.CompressHtml(ToString());
+            return TemplateUtils.CompressHtml(ToString());
         }
         
         /// <summary>

@@ -52,8 +52,6 @@ namespace JR.Cms.App
         /// <summary>
         /// 注册路由 
         /// </summary>
-        /// <param name="routes">路由集合</param>
-        /// <param name="cmsHandleType"></param>
         private static void RegisterInstalledCmsRoutes(IEndpointRouteBuilder endpoints, Type portalType)
         {
             var portal = new PortalController();
@@ -63,7 +61,6 @@ namespace JR.Cms.App
 
             // string urlPrefix = "/" + routePrefix;
             var urlPrefix = String.Empty;
-            var routePrefix = String.Empty;
 
             //MVC路由规则词典
             IDictionary<UrlRulePageKeys, string> dict = new Dictionary<UrlRulePageKeys, string>();

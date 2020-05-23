@@ -13,7 +13,7 @@ using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Domain.Interface.Site.Link;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.Library.Utility;
@@ -24,6 +24,7 @@ using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Framework.Web.UI;
 using JR.Stand.Core.Framework.Xml.AutoObject;
+using JR.Stand.Core.Template;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
 using Module = JR.Cms.Domain.Interface.Models.Module;
@@ -711,7 +712,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 return string.Empty;
             });
 
-            if (Settings.TPL_USE_COMPRESS)return PageUtility.CompressHtml(content);
+            if (Settings.TPL_USE_COMPRESS)return TemplateUtils.CompressHtml(content);
             return content;
         }
 
@@ -831,7 +832,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 }));
             }
 
-            if (Settings.TPL_USE_COMPRESS)return PageUtility.CompressHtml(sb.ToString());
+            if (Settings.TPL_USE_COMPRESS)return TemplateUtils.CompressHtml(sb.ToString());
             return sb.ToString();
         }
 

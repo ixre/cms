@@ -116,7 +116,7 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 是否使用压缩
         /// </summary>
-        public static bool TPL_USE_COMPRESS;
+        public static bool TPL_USE_COMPRESS = true;
 
         /// <summary>
         /// 多模板公享模式
@@ -186,7 +186,7 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 首页缓存秒数
         /// </summary>
-        public static int Opti_IndexCacheSeconds = 0;
+        public static int PERM_INDEX_CACHE_SECOND = 0;
 
         /// <summary>
         /// GC回收间隔(默认30分钟回收一次)

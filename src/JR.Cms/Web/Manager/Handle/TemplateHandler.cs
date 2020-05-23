@@ -134,13 +134,6 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void EditFile_POST()
         {
-            //修改系统文件
-            if (Request.Query("path")[0].IndexOf("templates/", StringComparison.Ordinal) == -1)
-            {
-                Response.WriteAsync("不允许修改!");
-                return;
-            }
-
             string action = Request.Form("action");
             string path = Request.Form("path");
             string content = Request.Form("content");

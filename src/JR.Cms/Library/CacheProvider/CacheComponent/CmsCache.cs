@@ -17,7 +17,7 @@ using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Web.Cache;
 using JR.Stand.Core.Utils;
 
-namespace JR.Cms.Library.CacheProvider.CacheCompoment
+namespace JR.Cms.Library.CacheProvider.CacheComponent
 {
     /// <summary>
     /// Cms注入缓存
@@ -58,6 +58,12 @@ namespace JR.Cms.Library.CacheProvider.CacheCompoment
             return this.cache.Get(key);
         }
 
+        public override void Reset(CmsHandler handler)
+        {
+            this.cache.Reset();
+            handler?.Invoke();
+        }
+
         public override void Insert(string key, object value)
         {
             cache.Set(key, value, TimeSpan.Zero);
@@ -86,6 +92,12 @@ namespace JR.Cms.Library.CacheProvider.CacheCompoment
 
             //FileInfo file = new FileInfo(cacheDependFile);
             //file.LastWriteTimeUtc = DateTime.UtcNow;
+        }
+
+        /// <inheritdoc />
+        public override int GetInt(string key)
+        {
+            return this.cache.GetInt(key);
         }
     }
 
@@ -123,9 +135,8 @@ namespace JR.Cms.Library.CacheProvider.CacheCompoment
         public void Reset(CmsHandler handler)
         {
             //清除系统缓存
-            _cacheSha1ETag = _dependCache.Rebuilt();
-
-            if (handler != null) handler();
+            _cacheSha1ETag = this._dependCache.Rebuilt();
+            this._dependCache.Reset(handler);
         }
 
         public bool CheckClientCacheExpires(int seconds)
@@ -187,5 +198,11 @@ namespace JR.Cms.Library.CacheProvider.CacheCompoment
         }
 
         #endregion
+
+        /// <inheritdoc />
+        public int GetInt(string key)
+        {
+            return this._dependCache.GetInt(key);
+        }
     }
 }

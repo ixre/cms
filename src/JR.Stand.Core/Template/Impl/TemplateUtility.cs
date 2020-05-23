@@ -29,6 +29,7 @@ namespace JR.Stand.Core.Template.Impl
             return Convert.ToInt64(ts.TotalSeconds);
         }
 
+        
         internal static string Read(string templateId)
         {
             //从缓存中获取模板内容
@@ -39,41 +40,17 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 从缓存中读取部分模板内容
         /// </summary>
-        /// <param name="templateId"></param>
+        /// <param name="templateName"></param>
         /// <returns></returns>
-        internal static string ReadPartial(string templateId)
+        internal static string ReadPartial(string templateName)
         {
-            if (TemplateCache.Exists(templateId))
+            var partName = templateName.Replace(".html", "");
+            if (partName.Length > 0 && partName[0] != '/') partName = "/" + partName;
+            if (TemplateCache.Exists(partName))
             {
-                return TemplateCache.GetTemplateContent(templateId);
+                return TemplateCache.GetTemplateContent(partName);
             }
-
             return null;
-        }
-
-
-        /// <summary>
-        /// 使用模板引擎自带的压缩程序压缩代码
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        public static string CompressHtml(string html)
-        {
-            //html = Regex.Replace(html, ">(\\s)+<", "><");
-            ////html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|(^?!=http:|https:)//(.+?)\r\n|\r|\n|\t|(\\s\\s)", String.Empty);
-            //html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|\r|\n|\t|(\\s\\s)", String.Empty);
-            //return html;
-            html = Regex.Replace(html, ">(\\s)+<", "><");
-            //替换 //单行注释
-            html = Regex.Replace(html, "[\\s|\\t]+\\/\\/[^\\n]*(?=\\n)", String.Empty);
-            //替换多行注释
-            //const string multiCommentPattern = "";
-            html = Regex.Replace(html, "/\\*[^\\*]+\\*/", String.Empty);
-            //替换<!-- 注释 -->
-            html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->", String.Empty);
-            //html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|(^?!=http:|https:)//(.+?)\r\n|\r|\n|\t|(\\s\\s)", String.Empty);
-            html = Regex.Replace(html, "\r|\n|\t|(\\s\\s)", String.Empty);
-            return html;
         }
 
         internal static string GetTemplateId(string filePath, TemplateNames nameType)
@@ -82,9 +59,9 @@ namespace JR.Stand.Core.Template.Impl
             if (String.IsNullOrEmpty(match.Value)) throw new Exception("模版页文件名:" + filePath + "不合法");
             string fileName = match.Groups[2].Value;
             String lowerFileName = fileName.ToLower();
-            if (lowerFileName.EndsWith(".part.html") || nameType == TemplateNames.ID)
+            if (lowerFileName.EndsWith(".html") || nameType == TemplateNames.ID)
             {
-                return MD5.EncodeTo16(Regex.Replace(fileName, "/|\\\\", String.Empty).ToLower());
+                //return MD5.EncodeTo16(Regex.Replace(fileName, "/|\\\\", String.Empty).ToLower());
             }
 
             string id = $"{match.Groups[1].Value}{match.Groups[2].Value}"
@@ -114,7 +91,7 @@ namespace JR.Stand.Core.Template.Impl
                 DirectoryInfo dPar = null;
                 DirectoryInfo dCurr = new FileInfo(walkFilePath).Directory;
                 
-                //example path: ../../inc/top.part.html
+                //example path: ../../inc/top.html
                 if (Regex.IsMatch(partPath, "^\\.\\./"))
                 {
                     Regex pathRegex = new Regex("\\.\\./");
@@ -145,7 +122,7 @@ namespace JR.Stand.Core.Template.Impl
                 else
                 {
                     //
-                    //example path: inc/top.part.html
+                    //example path: inc/top.html
                     //
 
                     do
@@ -235,9 +212,9 @@ namespace JR.Stand.Core.Template.Impl
 
             sb.Append(@"<tr><td colspan=""6"" align=""center"" style=""background:#f0f0f0;color:#333"">
 						部分视图扩展名为“.phtml”,可允许格式如:
-						&nbsp;&nbsp;A:${include:""inc/header.part.html""}
-						&nbsp;&nbsp;B:${include:""/tmpdir/inc/header.part.html""}
-						&nbsp;&nbsp;C:${include:""../../inc/header.part.html""}
+						&nbsp;&nbsp;A:${include:""inc/header.html""}
+						&nbsp;&nbsp;B:${include:""/tmpdir/inc/header.html""}
+						&nbsp;&nbsp;C:${include:""../../inc/header.html""}
 						</td></tr>");
 
             sb.Append(
@@ -257,7 +234,7 @@ namespace JR.Stand.Core.Template.Impl
 
                 return String.Empty;
             });
-            return CompressHtml(templateContent);
+            return TemplateUtils.CompressHtml(templateContent);
         }
     }
 }

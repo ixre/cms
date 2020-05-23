@@ -130,19 +130,17 @@ namespace JR.Cms.Web
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="args"></param>
         /// <returns></returns>
         public string GetIndex()
         {
-            return PageUtility.Require(FormatTemplatePath("index"), page =>
+            return PageUtility.Require(this.FormatTemplatePath("index"), page =>
             {
                 page.AddVariable("site", _site);
-                page.AddVariable("page",
-                    new PageVariable
-                    {
-                        Title = _site.Title, SubTitle = _site.Title, Keywords = _site.Keywords,
-                        Description = _site.Description
-                    });
+                page.AddVariable("page", new PageVariable
+                {
+                    Title = _site.Title, SubTitle = _site.Title, Keywords = _site.Keywords,
+                    Description = _site.Description
+                });
             });
         }
 
@@ -151,7 +149,6 @@ namespace JR.Cms.Web
         /// </summary>
         /// <param name="category"></param>
         /// <param name="pageIndex"></param>
-        /// <param name="args"></param>
         /// <returns></returns>
         public string GetCategory(CategoryDto category, int pageIndex)
         {
@@ -258,7 +255,7 @@ namespace JR.Cms.Web
 
                     page.AddVariable("page", new PageVariable
                     {
-                        Title = $"{archive.Title}_{category.Name}_{_site.Title}",
+                        Title = $"{archive.Title}_{_site.Title}",
                         SubTitle = _site.Title,
                         Keywords = archive.Tags,
                         Description = pageArchive.Outline.Replace("\"", string.Empty)

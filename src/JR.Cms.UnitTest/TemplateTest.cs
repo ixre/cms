@@ -30,7 +30,7 @@ namespace JR.Cms.UnitTest
             TemplatePage tp = new TemplatePage(null);
             tp.TemplateHandleObject = new TemplateMock();
             tp.OnPreInit += TemplateMock.CompliedTemplate;
-            tp.TemplateContent = temp;
+            tp.SetTemplateContent( temp);
             var content = tp.Compile();
             Console.WriteLine(content);
         }

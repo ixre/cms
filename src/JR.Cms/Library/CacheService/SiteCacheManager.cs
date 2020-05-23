@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JR.Cms.Library.CacheProvider;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.ServiceDto;
 
 namespace JR.Cms.Library.CacheService

@@ -55,12 +55,28 @@ namespace JR.Stand.Core.Utils
         /// <summary>
         /// 删除所有缓存
         /// </summary>
-        void RemoveCacheAll();
+        void Reset();
         
         /// <summary>
         /// 获取所有缓存键
         /// </summary>
         /// <returns></returns>
         List<string> GetCacheKeys();
+        
+        
+        /// <summary>
+        /// 获取Int类型的缓存,如果缓存不存在或类型不匹配,返回-1
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <returns></returns>
+        int GetInt(string key);
+        
+        
+        /// <summary>
+        /// 获取字符类型的缓存,如果缓存不存在或类型不匹配,返回null
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <returns></returns>
+        string GetString(string key);
     }
 }
