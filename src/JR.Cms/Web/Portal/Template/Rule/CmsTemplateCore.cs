@@ -2115,15 +2115,15 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var sb = new StringBuilder(1000);
 
 
-            string alias,
-                title,
-                content,
-                title_hightlight;
+            string alias;
+            string title;
+            string content;
+            string title_hightlight;
 
 
             var i = 0;
 
-            var C_LENGTH = GetSetting().CfgOutlineLength;
+            var cLength = GetSetting().CfgOutlineLength;
             var searchArchives = ServiceCall.Instance.ArchiveService
                 .SearchArchives(SiteId, "", false, tag,
                     _pageSize, _pageIndex,
@@ -2162,19 +2162,19 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 if (keyRegex.IsMatch(content))
                 {
                     var match = keyRegex.Match(content);
-                    if (contentLength > C_LENGTH)
+                    if (contentLength > cLength)
                     {
                         if (match.Index > firstSplitIndex)
                         {
                             //如果截取包含关键词的长度仍大于内容长度时
-                            if (contentLength - match.Index > C_LENGTH)
-                                content = content.Substring(match.Index - firstSplitIndex, C_LENGTH - firstSplitIndex);
+                            if (contentLength - match.Index > cLength)
+                                content = content.Substring(match.Index - firstSplitIndex, cLength - firstSplitIndex);
                             else
                                 content = content.Substring(match.Index - firstSplitIndex);
                         }
                         else
                         {
-                            content = content.Remove(C_LENGTH);
+                            content = content.Remove(cLength);
                         }
                     }
 
@@ -2182,7 +2182,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 }
                 else
                 {
-                    if (contentLength > C_LENGTH) content = content.Substring(0, C_LENGTH) + "...";
+                    if (contentLength > cLength) content = content.Substring(0, cLength) + "...";
                 }
 
                 #endregion

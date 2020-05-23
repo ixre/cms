@@ -127,9 +127,8 @@ namespace JR.Cms.Core
                 EnabledCache = Cms.OfficialEnvironment && Settings.TPL_USE_CACHE,
                 UrlQueryShared = true,
                 HttpItemShared = true,
-                Names = names,
+                Names = names
             };
-            Console.WriteLine("----"+opt.EnabledCompress+"/"+opt.EnabledCache);
             registry = new TemplateRegistry(CreateContainer(), opt);
         }
 
