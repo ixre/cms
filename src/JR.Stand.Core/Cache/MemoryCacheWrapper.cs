@@ -120,7 +120,7 @@ namespace JR.Stand.Core.Utils
         /// <summary>
         /// 删除所有缓存
         /// </summary>
-        public void RemoveCacheAll()
+        public void Reset()
         {
             var l = GetCacheKeys();
             foreach (var s in l)
@@ -171,6 +171,16 @@ namespace JR.Stand.Core.Utils
                 keys.Add(cacheItem.Key.ToString());
             }
             return keys;
+        }
+
+        public int GetInt(string key)
+        {
+            return TypesConv.SafeParseInt(this.Get(key),-1);
+        }
+
+        public string GetString(string key)
+        {
+            return this.Get<String>(key);
         }
     }
 }

@@ -100,9 +100,10 @@ namespace JR.Stand.Core.AspNet
             Context.Response.BinaryWrite(bytes);
         }
 
-        public void WriteAsync(byte[] bytes)
+        public Task WriteAsync(byte[] bytes)
         {
             Context.Response.BinaryWrite(bytes);
+            return SafetyTask.CompletedTask;
         }
     }
 }

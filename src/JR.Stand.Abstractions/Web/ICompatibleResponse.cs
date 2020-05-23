@@ -14,6 +14,6 @@ namespace JR.Stand.Abstracts.Web
         void ContentType(string contentType);
         void Write(byte[] bytes, int offset, int count);
         
-        void WriteAsync(byte[] bytes);
+        Task WriteAsync(byte[] bytes);
     }
 }

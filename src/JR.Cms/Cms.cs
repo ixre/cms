@@ -14,7 +14,7 @@ using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.DataAccess.DB;
 using JR.Cms.ServiceDto;
 using JR.Stand.Core;

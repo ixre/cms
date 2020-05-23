@@ -47,3 +47,4 @@ src/JR.Cms.AspNet.App/install
 src/JR.Cms.AspNet.App/uploads
 *.blob
 
+/src/JR.Cms.App/index.html

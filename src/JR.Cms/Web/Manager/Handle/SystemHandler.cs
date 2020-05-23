@@ -31,11 +31,14 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace JR.Cms.Web.Manager.Handle
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SystemHandler : BasePage
     {
         private static FontFamily font = null;
 
-        internal string GetPath()
+        private string GetPath()
         {
             //如请求路径为/opsite/admin
             //取出admin供IE CSS使用
