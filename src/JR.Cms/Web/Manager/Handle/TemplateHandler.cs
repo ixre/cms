@@ -26,6 +26,9 @@ using SharpCompress.Common;
 
 namespace JR.Cms.Web.Manager.Handle
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class TemplateHandler : BasePage
     {
         /// <summary>
@@ -172,6 +175,7 @@ namespace JR.Cms.Web.Manager.Handle
                         fs.Write(data, 0, data.Length);
                         fs.Flush();
                         fs.Dispose();
+                        Cms.Template.Reload();
                         Response.WriteAsync("保存成功!");
                     }
                     else if (action == "restore")
@@ -188,7 +192,7 @@ namespace JR.Cms.Web.Manager.Handle
                             tmpFile.MoveTo(backFile);
                             File.SetAttributes(filePath, file.Attributes & FileAttributes.Normal);
                         }
-
+                        Cms.Template.Reload();
                         Response.WriteAsync("还原成功!");
                     }
                 }
@@ -201,32 +205,27 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void CreateView_POST()
         {
-            var tplname = string.Format("templates/{0}/{1}.{2}",
-                CurrentSite.Tpl,
-                Request.Form("name"),
-                Request.Form("type") == "1" ? "part.html" : "html");
-
-            var tplPath = string.Format("{0}/{1}",
-                EnvUtil.GetBaseDirectory(),
-                tplname);
-
+            var tplName = $"templates/{CurrentSite.Tpl}/{Request.Form("name")}.html";
+            var tplPath = $"{EnvUtil.GetBaseDirectory()}/{tplName}";
             if (File.Exists(tplPath))
+            {
                 Response.WriteAsync("文件已经存在!");
+            }
             else
+            {
                 try
                 {
                     //global::System.IO.Directory.CreateDirectory(tplPath).Create();   //创建目录
                     File.Create(tplPath).Dispose(); //创建文件
-
                     Cms.Template.Reload(); //重新注册模板
-
-                    Response.WriteAsync(tplname);
+                    Response.WriteAsync(tplName);
                 }
                 catch (Exception e)
                 {
                     // Response.Write(e.Message);
                     Response.WriteAsync("无权限创建文件，请设置视图目录(templates)可写权限！");
                 }
+            }
         }
 
         /// <summary>
@@ -250,7 +249,7 @@ namespace JR.Cms.Web.Manager.Handle
                 tpl_CFG_FriendShowNum = tplSetting.CFG_FriendShowNum,
                 tpl_CFG_NavigatorLinkFormat = tplSetting.CFG_NavigatorLinkFormat,
                 tpl_CFG_NavigatorChildFormat = tplSetting.CFG_NavigatorChildFormat,
-                tpl_CFG_SitemapSplit = tplSetting.CFG_SitemapSplit,
+                tpl_CFG_SiteMapSplit = tplSetting.CFG_SitemapSplit,
                 tpl_CFG_TrafficFormat = tplSetting.CFG_TrafficFormat,
                 tpl_CFG_Enabled_Mobi = tplSetting.CfgEnabledMobiPage ? "1" : "0",
                 tpl_CFG_Show_Error = tplSetting.CfgShowError ? "1" : "0",
@@ -288,12 +287,12 @@ namespace JR.Cms.Web.Manager.Handle
             tplSetting.CFG_FriendShowNum = friendlinkNum;
             tplSetting.CFG_NavigatorLinkFormat = req.Form("tpl_CFG_NavigatorLinkFormat");
             tplSetting.CFG_NavigatorChildFormat = req.Form("tpl_CFG_NavigatorChildFormat");
-            tplSetting.CFG_SitemapSplit = req.Form("tpl_CFG_SitemapSplit");
+            tplSetting.CFG_SitemapSplit = req.Form("tpl_CFG_SiteMapSplit");
             tplSetting.CFG_TrafficFormat = req.Form("tpl_CFG_TrafficFormat");
             tplSetting.CfgEnabledMobiPage = req.Form("tpl_CFG_Enabled_Mobi") == "1";
             tplSetting.CfgShowError = req.Form("tpl_CFG_Show_Error") == "1";
             tplSetting.Save();
-
+            Cms.Template.Reload();
             RenderSuccess("修改成功!");
         }
 
@@ -317,28 +316,24 @@ namespace JR.Cms.Web.Manager.Handle
             }
 
             SettingFile sf;
-            string currentName = "",
-                currentThumbnail = "",
-                tplConfigFile,
-                tplName,
-                tplDescrpt,
-                tplThumbnail;
+            string currentName = "";
+            string currentThumbnail = "";
 
             var sb = new StringBuilder();
             foreach (var tpl in tplList)
             {
-                tplName = tpl;
-                tplThumbnail = null;
-                tplDescrpt = null;
+                var tplName = tpl;
+                string tplThumbnail = null;
+                string tplDescrpt = null;
 
-                tplConfigFile = $"{tplRootPath}{tpl}/tpl.conf";
+                var tplConfigFile = $"{tplRootPath}{tpl}/tpl.conf";
                 if (File.Exists(tplConfigFile))
                 {
                     sf = new SettingFile(tplConfigFile);
                     if (sf.Contains("name")) tplName = sf["name"];
 
                     if (sf.Contains("thumbnail")) tplThumbnail = sf["thumbnail"];
-                    if (sf.Contains("descript")) tplDescrpt = sf["descript"];
+                    if (sf.Contains("describe")) tplDescrpt = sf["describe"];
                 }
 
                 if (string.CompareOrdinal(tpl, curTemplate) != 0)
@@ -449,16 +444,18 @@ namespace JR.Cms.Web.Manager.Handle
             }
 
             if (entryCount == 0)
+            {
                 resultMessage = "上传的模板不包含任何内容!";
+            }
             else
+            {
                 resultMessage = "模板安装成功!";
-
+            }
 
             handleOver:
 
             archive.Dispose();
             File.Delete(tempTplPath);
-
             //重新注册模板
             Cms.Template.Reload();
 
@@ -510,14 +507,14 @@ namespace JR.Cms.Web.Manager.Handle
             string tpl = Request.Query("tpl");
 
             //设置目录
-            var dir = new DirectoryInfo(string.Format("{0}backups/templates/", Cms.PhysicPath));
+            var dir = new DirectoryInfo($"{Cms.PhysicPath}backups/templates/");
             if (!dir.Exists)
                 Directory.CreateDirectory(dir.FullName).Create();
             else
                 Cms.Utility.SetDirCanWrite("backups/templates/");
 
-            ZipHelper.ZipAndSave(string.Format("{0}/templates/{1}/", Cms.PhysicPath, tpl)
-                , string.Format("{0}/backups/templet/{1}_{2:yyyyMMddHHss}.zip", Cms.PhysicPath, tpl, DateTime.Now),
+            ZipHelper.ZipAndSave($"{Cms.PhysicPath}/templates/{tpl}/"
+                , $"{Cms.PhysicPath}/data/backups/template/{tpl}_{DateTime.Now:yyyyMMddHHss}.zip",
                 tpl
             );
         }

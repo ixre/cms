@@ -22,7 +22,7 @@ namespace JR.Stand.Core.PluginKernel
         /// <param name="name"></param>
         /// <param name="author"></param>
         /// <param name="webpage"></param>
-        /// <param name="descript"></param>
+        /// <param name="describe"></param>
         [Obsolete]
         public PluginInfoAttribute(string name, string author, string webpage, string descript)
         {
