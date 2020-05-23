@@ -213,6 +213,8 @@ img{max-width:100%;border:0}
 .g-align-center{align-content:center !important;align-items: center !important;}
 /** 内容右对齐 */
 .g-align-right{display:flex;justify-content: flex-end;}
+/** 元素垂直居中 */
+.g-align-middle *{vertical-align: middle}
 /* g-flex-boxes div垂直水平居中 */
 .g-flex{display:flex;}
 .g-flex-boxes>*{display:flex;justify-content:center;align-items:center}
