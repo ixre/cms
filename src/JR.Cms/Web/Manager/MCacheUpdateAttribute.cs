@@ -9,7 +9,7 @@
 
 using System;
 using JR.Cms.Library.CacheProvider;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
 
 namespace JR.Cms.Web.Manager

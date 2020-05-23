@@ -29,29 +29,29 @@ namespace JR.Cms.Web
         /// <summary>
         /// 页面呈现之前发生
         /// </summary>
-        public static TemplateHandler<object> OnPreRender;
+        private static TemplateHandler<object> _onPreRender;
 
         private const string CopyStr =
             "<!-- Power By JR-CMS v {0}, please visit website \"http://56x.net/cms\" known more. -->";
 
-        private static string copyStr2019;
+        private static readonly string CopyStr2019;
 
         /// <summary>
         /// 编译模板
         /// </summary>
         private static readonly TemplateHandler<object> CompliedTemplate = (object classInstance, ref string html) =>
         {
-            var mctpl = new SimpleTplEngine(classInstance, !true);
-            html = mctpl.Execute(html);
+            var tpl = new SimpleTplEngine(classInstance, !true);
+            html = tpl.Execute(html);
         };
 
 
         static PageUtility()
         {
-            copyStr2019 = string.Format(CopyStr, Cms.Version);
+            CopyStr2019 = string.Format(CopyStr, Cms.Version);
         }
 
-        private static TemplateHandler<object> PreHandler = (object obj, ref string html) =>
+        private static readonly TemplateHandler<object> PreHandler = (object obj, ref string html) =>
         {
             //throw new Exception(html);
 
@@ -66,32 +66,31 @@ namespace JR.Cms.Web
 * 【承接】定制网站,营销型网站,WAP手机网站开发。联系电话：13162222872  QQ:188867734
 *************************************************************************************
 -->";*/
-            html = html.Insert(Math.Max(html.LastIndexOf("<"), 0), copyStr2019);
+            html = html.Insert(Math.Max(html.LastIndexOf("<", StringComparison.Ordinal), 0), CopyStr2019);
         };
 
 
         /// <summary>
         /// 返回模板内容
         /// </summary>
-        /// <param name="templateId"></param>
+        /// <param name="templateName"></param>
         /// <param name="pageFunc">对模板处理前操作，可以添加数据对象</param>
-        public static string Require(string templateId, TemplatePageHandler pageFunc)
+        public static string Require(string templateName, TemplatePageHandler pageFunc)
         {
-            var page = Cms.Template.GetTemplate(templateId);
-            var context = HttpHosting.Context;
-            using (var tpl = new CmsTemplateImpl(context))
-            {
-                page.TemplateHandleObject = tpl;
-                page.OnPreInit += PreHandler;
-                page.OnPreRender += CompliedTemplate;
-            }
-            //注册扩展的模板解析事件
-            if (OnPreRender != null) page.OnPreRender += OnPreRender;
+            var page = Cms.Template.GetTemplate(templateName);
+            RegisterEventHandlers(page);
+            // 注册扩展的模板解析事件
+            if (_onPreRender != null) page.OnPreRender += _onPreRender;
             pageFunc?.Invoke(page);
-            return page.ToString();
+            return page.Compile();
         }
 
-        public static TemplatePage RegisterEventHandlers(TemplatePage page)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public static void RegisterEventHandlers(TemplatePage page)
         {
             var context = HttpHosting.Context;
             using (var tpl = new CmsTemplateImpl(context))
@@ -100,7 +99,6 @@ namespace JR.Cms.Web
                 page.OnPreInit += PreHandler;
                 page.OnPreRender += CompliedTemplate;
             }
-            return page;
         }
 
 
@@ -118,7 +116,7 @@ namespace JR.Cms.Web
             page.OnPreRender += CompliedTemplate;
 
             //注册扩展的模板解析事件
-            if (OnPreRender != null) page.OnPreRender += OnPreRender;
+            if (_onPreRender != null) page.OnPreRender += _onPreRender;
 
             page.SaveToFile(path);
         }
@@ -136,7 +134,7 @@ namespace JR.Cms.Web
             page.OnPreRender += PreHandler;
             page.OnPreRender += CompliedTemplate;
             //注册扩展的模板解析事件
-            if (OnPreRender != null) page.OnPreRender += OnPreRender;
+            if (_onPreRender != null) page.OnPreRender += _onPreRender;
             page.SaveToFile(path, out html);
         }
 
@@ -177,32 +175,6 @@ div.tip{font-size:12px;padding:0 20px;color:#d0d0d0;text-align:right;}
                 tpl.Replace("$MSG", e.Message.Replace("\n", "<br />"))
                     .Replace("$DETAILS", e.StackTrace.Replace("\n", "<br />"))
             );
-        }
-
-
-        public static string CompressHtml(string html)
-        {
-            //html = Regex.Replace(html, ">(\\s)+<", "><");
-            ////html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|(^?!=http:|https:)//(.+?)\r\n|\r|\n|\t|(\\s\\s)", String.Empty);
-            //html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|\r|\n|\t|(\\s\\s)", String.Empty);
-            //return html;
-
-            html = Regex.Replace(html, ">(\\s)+<", "><");
-
-            //替换 //单行注释
-            html = Regex.Replace(html, "[\\s|\\t]+\\/\\/[^\\n]*(?=\\n)", string.Empty);
-
-            //替换多行注释
-            //const string multCommentPattern = "";
-            html = Regex.Replace(html, "/\\*[^\\*]+\\*/", string.Empty);
-
-            //替换<!-- 注释 -->
-            html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->", string.Empty);
-
-            //html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|(^?!=http:|https:)//(.+?)\r\n|\r|\n|\t|(\\s\\s)", String.Empty);
-            html = Regex.Replace(html, "\r|\n|\t|(\\s\\s)", string.Empty);
-
-            return html;
         }
     }
 }

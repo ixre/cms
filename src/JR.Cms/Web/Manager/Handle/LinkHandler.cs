@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using JR.Cms.Domain.Interface.Site.Link;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Cms.Web.Util;

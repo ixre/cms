@@ -10,7 +10,7 @@
 using System;
 using JR.Cms.Infrastructure;
 
-namespace JR.Cms.Library.CacheProvider.CacheCompoment
+namespace JR.Cms.Library.CacheProvider.CacheComponent
 {
     /// <summary>
     /// 缓存基础类
@@ -53,6 +53,8 @@ namespace JR.Cms.Library.CacheProvider.CacheCompoment
             return "";
         }
 
+        public abstract int GetInt(string key);
+
 
         /// <summary>
         /// 获取缓存结果
@@ -67,8 +69,6 @@ namespace JR.Cms.Library.CacheProvider.CacheCompoment
         }
 
 
-        public virtual void Reset(CmsHandler handler)
-        {
-        }
+        public abstract void Reset(CmsHandler handler);
     }
 }

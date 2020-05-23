@@ -10,7 +10,7 @@ namespace JR.Cms.Web.Portal.Controllers
     /// </summary>
     public class CmsInstallHandler
     {
-        private static readonly CmsInstallWiz wiz = new CmsInstallWiz();
+        private static readonly CmsInstallWiz Wiz = new CmsInstallWiz();
 
         /// <summary>
         /// 
@@ -19,7 +19,7 @@ namespace JR.Cms.Web.Portal.Controllers
         /// <returns></returns>
         public Task ProcessRequest(HttpContext context)
         {
-            return wiz.ProcessInstallRequest(HttpHosting.Context);
+            return Wiz.ProcessInstallRequest(HttpHosting.Context);
         }
     }
 }

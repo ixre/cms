@@ -16,11 +16,15 @@ namespace JR.Cms.Web.Portal.Template.Model
     /// </summary>
     public class PageArchive : ITemplateVariableObject
     {
-        private string _properies;
+        private string _properties;
         private IDictionary<string, string> _dict;
         private string _tagsHtml;
         private string _url;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="archive"></param>
         public PageArchive(ArchiveDto archive)
         {
             Archive = archive;
@@ -33,7 +37,10 @@ namespace JR.Cms.Web.Portal.Template.Model
             return dataArray == null ? urlFormat : string.Format(urlFormat, dataArray);
         }
 
-        public IDictionary<string, string> __dict__
+        /// <summary>
+        /// 
+        /// </summary>
+        public IDictionary<string, string> Map
         {
             get
             {
@@ -43,7 +50,6 @@ namespace JR.Cms.Web.Portal.Template.Model
 
                     foreach (var value in Archive.ExtendValues) _dict.Add(value.Field.Name, value.Value);
                 }
-
                 return _dict;
             }
         }
@@ -200,11 +206,11 @@ namespace JR.Cms.Web.Portal.Template.Model
         /// 扩展属性列表
         /// </summary>
         [TemplateVariableField("扩展属性")]
-        public string Properies
+        public string Properties
         {
             get
             {
-                if (_properies == null)
+                if (_properties == null)
                 {
                     var sb = new StringBuilder();
                     sb.Append("<ul class=\"extend_field_list\">");
@@ -217,21 +223,21 @@ namespace JR.Cms.Web.Portal.Template.Model
                                 .Append(value.Value).Append("</span></li>");
 
                     sb.Append("</ul>");
-                    _properies = sb.ToString();
+                    _properties = sb.ToString();
                 }
 
-                return _properies;
+                return _properties;
             }
         }
 
         public void AddData(string key, string data)
         {
-            __dict__.Add(key, data);
+            _dict.Add(key, data);
         }
 
         public void RemoveData(string key)
         {
-            __dict__.Remove(key);
+            _dict.Remove(key);
         }
     }
 }

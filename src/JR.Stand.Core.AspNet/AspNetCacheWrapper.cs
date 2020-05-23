@@ -54,7 +54,7 @@ namespace JR.Stand.Core.AspNet
             return  HttpRuntime.Cache[key];
         }
 
-        public void RemoveCacheAll()
+        public void Reset()
         {
             var cache = HttpRuntime.Cache;
             var cacheEnum = cache.GetEnumerator();
@@ -75,6 +75,16 @@ namespace JR.Stand.Core.AspNet
                 list.Add(cacheEnum.Key.ToString());
             }
             return list;
+        }
+
+        public int GetInt(string key)
+        {
+            return TypesConv.SafeParseInt(this.Get(key),-1);
+        }
+
+        public string GetString(string key)
+        {
+            return this.Get(key) as string;
         }
     }
 }

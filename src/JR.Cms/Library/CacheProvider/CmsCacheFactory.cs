@@ -1,4 +1,4 @@
-﻿using JR.Cms.Library.CacheProvider.CacheCompoment;
+﻿using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Library.CacheProvider

@@ -16,7 +16,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
 using JR.Cms.Web.Manager.Handle;

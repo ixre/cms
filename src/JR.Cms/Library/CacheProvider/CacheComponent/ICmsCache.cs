@@ -10,7 +10,7 @@
 using System;
 using JR.Cms.Infrastructure;
 
-namespace JR.Cms.Library.CacheProvider.CacheCompoment
+namespace JR.Cms.Library.CacheProvider.CacheComponent
 {
     public interface ICmsCache
     {
@@ -41,5 +41,12 @@ namespace JR.Cms.Library.CacheProvider.CacheCompoment
 
 
         string Rebuilt();
+        
+        /// <summary>
+        /// 获取Int类型的缓存,如果缓存不存在或类型不匹配,返回-1
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <returns></returns>
+        int GetInt(string key);
     }
 }

@@ -3,13 +3,16 @@ using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Infrastructure;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PageVariable
     {
         private string _domain;
@@ -37,6 +40,9 @@ namespace JR.Cms.Web.Portal.Template.Model
     <![endif]-->";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PageVariable()
         {
             _context = Cms.Context;

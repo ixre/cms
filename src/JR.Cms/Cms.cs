@@ -14,7 +14,7 @@ using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
-using JR.Cms.Library.CacheProvider.CacheCompoment;
+using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.DataAccess.DB;
 using JR.Cms.ServiceDto;
 using JR.Stand.Core;
@@ -288,7 +288,7 @@ namespace JR.Cms
                 //　初始化模板
                 Template = new CmsTemplate(_cache, TemplateNames.FileName);
                 // 注册模板
-                Template.Register("/" + CmsVariables.TEMPLATE_PATH, true);
+                Template.Register("/" + CmsVariables.TEMPLATE_PATH);
                 // 模板管理器
                 _templateManager = new TemplateManager(PhysicPath + CmsVariables.TEMPLATE_PATH);
                 

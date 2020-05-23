@@ -9,6 +9,9 @@ using System;
 
 namespace JR.Cms.Web.Portal.Template
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public delegate void GenerateDelegate();
 
     public delegate string ParameterGenerateDelegate(object[] parameters);

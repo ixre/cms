@@ -9,7 +9,7 @@
 
 using System;
 
-namespace JR.Cms.Library.CacheProvider.CacheCompoment
+namespace JR.Cms.Library.CacheProvider.CacheComponent
 {
     /// <summary>
     /// 缓存符号
