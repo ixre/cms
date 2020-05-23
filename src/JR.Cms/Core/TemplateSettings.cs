@@ -17,16 +17,15 @@ namespace JR.Cms.Core
     /// </summary>
     public class TemplateSetting
     {
-        private SettingFile sf;
-        private string tplName;
+        private readonly string _tplName;
         private bool _cfgShowError = true;
-        private int _cfgOutlineLength = 80;
-        private string _cfgSitemapSplit = ">";
+        private int _cfgOutlineLength = 50;
+        private string _cfgSiteMapSplit = ">";
         private string _cfgArchiveTagsFormat = "<a href=\"{url}\">{text}</a>";
-        private string _cfgNavigatorLinkFormat = "<a href=\"{url}\" class=\"l1\"><span>{text}</span></a>";
-        private string _cfgNavigatorChildFormat = "<a href=\"{url}\" class=\"l2\"><span>{text}</span></a>";
+        private string _cfgNavigatorLinkFormat = "<a href=\"{url}\" target=\"{target}\" class=\"l1\"><span>{text}</span></a>";
+        private string _cfgNavigatorChildFormat = "<a href=\"{url}\" target=\"{target}\" class=\"l2\"><span>{text}</span></a>";
         private int _cfgFriendShowNum = 50;
-        private string _cfgFriendLinkFormat = "<a href=\"{url}\">{text}</a>";
+        private string _cfgFriendLinkFormat = "<a href=\"{url}\" target=\"{target}\">{text}</a>";
         private string _cfgTrafficFormat = "今日IP:{todayip},今日PV:{todaypv},历史PV:{totalpv},历史IP:{totalip}";
         private string _cfgCommentEditorHtml = string.Empty;
 
@@ -42,15 +41,20 @@ namespace JR.Cms.Core
         private string _cfgCategoryLinkFormat = "<li><a href=\"{url}\" title=\"{title}\">{title}</a></li>";
         private bool _cfgAllowAmousComment = true;
         private bool _cfgEnabledMobiPage = false;
-        private string _tplDirName;
+        private readonly string _tplDirName;
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tplName"></param>
+        /// <param name="confPath"></param>
         public TemplateSetting(string tplName, string confPath)
         {
             _tplDirName = tplName;
-            this.tplName = tplName;
-            sf = new SettingFile(confPath);
-            if (sf.Contains("TPL_NAME")) this.tplName = sf.Get("TPL_NAME");
+            this._tplName = tplName;
+            var sf = new SettingFile(confPath);
+            if (sf.Contains("TPL_NAME")) this._tplName = sf.Get("TPL_NAME");
 
             #region 获取设置
 
@@ -58,7 +62,7 @@ namespace JR.Cms.Core
 
             if (sf.Contains("CFG_EnabledMobiPage")) _cfgEnabledMobiPage = sf["CFG_EnabledMobiPage"] == "true";
 
-            if (sf.Contains("CFG_SitemapSplit")) _cfgSitemapSplit = sf["CFG_SitemapSplit"];
+            if (sf.Contains("CFG_SitemapSplit")) _cfgSiteMapSplit = sf["CFG_SitemapSplit"];
             if (sf.Contains("CFG_ArchiveTagsFormat")) _cfgArchiveTagsFormat = sf["CFG_ArchiveTagsFormat"];
             if (sf.Contains("CFG_NavigatorLinkFormat")) _cfgNavigatorLinkFormat = sf["CFG_NavigatorLinkFormat"];
             if (sf.Contains("CFG_NavigatorChildFormat")) _cfgNavigatorChildFormat = sf["CFG_NavigatorChildFormat"];
@@ -111,8 +115,8 @@ namespace JR.Cms.Core
         /// </summary>
         public string CFG_SitemapSplit
         {
-            get => _cfgSitemapSplit;
-            set => _cfgSitemapSplit = value;
+            get => _cfgSiteMapSplit;
+            set => _cfgSiteMapSplit = value;
         }
 
         /// <summary>
@@ -237,9 +241,9 @@ namespace JR.Cms.Core
             var sf = new SettingFile(string.Format("{0}templates/{1}/tpl.conf", Cms.PhysicPath, _tplDirName));
 
             /**************** 模板设置 ****************/
-            sf.Set("TPL_NAME", tplName);
+            sf.Set("TPL_NAME", _tplName);
             sf.Set("CFG_ShowErrror", CfgShowError ? "true" : "false");
-            sf.Set("CFG_SitemapSplit", _cfgSitemapSplit);
+            sf.Set("CFG_SitemapSplit", _cfgSiteMapSplit);
             sf.Set("CFG_ArchiveTagsFormat", _cfgArchiveTagsFormat);
             sf.Set("CFG_NavigatorLinkFormat", _cfgNavigatorLinkFormat);
             sf.Set("CFG_NavigatorChildFormat", _cfgNavigatorChildFormat);
