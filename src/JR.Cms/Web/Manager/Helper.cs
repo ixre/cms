@@ -268,7 +268,7 @@ namespace JR.Cms.Web.Manager
         public static void CheckReloadTemplate(string filePath, bool isDir)
         {
             if (filePath.IndexOf("/templates/", StringComparison.Ordinal) == -1) return;
-            if (isDir || filePath.EndsWith(".html") || filePath.EndsWith(".html"))
+            if (isDir || filePath.EndsWith(".html"))
             {
                 Cms.Template.Reload();
             }
