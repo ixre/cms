@@ -351,7 +351,7 @@ namespace JR.Cms.Web.Manager.Handle
                 sys_admin_tag = Settings.SYS_ADMIN_TAG,
                 sys_encode_conf = Settings.SYS_ENCODE_CONF_FILE,
                 db_prefix = Settings.DB_PREFIX,
-                opti_index_cache_seconds = (Settings.Opti_IndexCacheSeconds / 60).ToString(),
+                perm_index_cache_second = (Settings.PERM_INDEX_CACHE_SECOND / 60).ToString(),
                 opti_client_cache_seconds = (Settings.Opti_ClientCacheSeconds / 60).ToString(),
                 opti_gc_collect_interval = Settings.opti_gc_collect_interval / 3600000,
                 opti_debug = Settings.OPTI_DEBUG_MODE,
@@ -393,7 +393,7 @@ namespace JR.Cms.Web.Manager.Handle
                         Settings.SYS_ADMIN_TAG = req.Form("sys_admin_tag");
 
                     //缓存
-                    Settings.Opti_IndexCacheSeconds = int.Parse(req.Form("opti_index_cache_seconds")) * 60;
+                    Settings.PERM_INDEX_CACHE_SECOND = int.Parse(req.Form("perm_index_cache_second")) * 60;
                     Settings.Opti_ClientCacheSeconds = int.Parse(req.Form("opti_client_cache_seconds")) * 60;
                     Settings.opti_gc_collect_interval = int.Parse(req.Form("opti_gc_collect_interval")) * 3600000;
 
