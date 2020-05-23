@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using JR.Cms.Core;
 using JR.Cms.ServiceDto;
@@ -34,7 +35,6 @@ namespace JR.Cms.Web.Portal.Comm
         /// </summary>
         /// <param name="ctx"></param>
         /// <param name="site"></param>
-        /// <param name="siteDto"></param>
         /// <returns></returns>
         private bool CheckSiteUrl(ICompatibleHttpContext ctx, SiteDto site)
         {
@@ -91,12 +91,14 @@ namespace JR.Cms.Web.Portal.Comm
         public Task Archive(ICompatibleHttpContext context)
         {           
             context.Response.ContentType("text/html;charset=utf-8");
+            var path = context.Request.GetPath();
+            var task = this.CheckStaticFile(context,path);
+            if (task != null) return task;
             CmsContext ctx = Cms.Context;
             //检测网站状态及其缓存
             if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
             {
                 context.Response.ContentType("text/html;charset=utf-8");
-                var path = context.Request.GetPath();
                 String archivePath = this.SubPath(path, ctx.SiteAppPath);
                 archivePath = archivePath.Substring(0, archivePath.LastIndexOf(".", StringComparison.Ordinal));
                 DefaultWebOutput.RenderArchive(ctx, archivePath);
@@ -116,6 +118,33 @@ namespace JR.Cms.Web.Portal.Comm
                 DefaultWebOutput.RenderArchive(ctx, archivePath);
             }
             */
+        }
+
+        /// <summary>
+        /// 检查位于根目录和root下的静态文件是否存在
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private Task CheckStaticFile(ICompatibleHttpContext context, string path)
+        {
+            if (path.LastIndexOf("/", StringComparison.Ordinal) == 0)
+            {
+                if (!File.Exists(Cms.PhysicPath + path))
+                {
+                    path = "root" + path;
+                    if (!File.Exists(Cms.PhysicPath + path))
+                    {
+                        return null;
+                    }
+                }
+                // 输出静态文件
+                var bytes = File.ReadAllBytes(Cms.PhysicPath + path);
+                context.Response.WriteAsync(bytes);
+                return SafetyTask.CompletedTask;
+            }
+
+            return null;
         }
 
         /// <summary>
