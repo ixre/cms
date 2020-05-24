@@ -39,7 +39,7 @@ p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
 .nom{margin:auto;}
 div.line{border-top:solid 1px #ddd;border-bottom:solid 1px #fff;height:0px;overflow:hidden;}
 /* 高亮显示 */
-.hight_light,.search_hightlight,.special{color:Red;}
+.high-light,.search-high-light{color:#F00;}
 img.full{width:100%;}
 *:required { /* insert your own styles for invalid form input */ -moz-box-shadow: none; }
 
@@ -54,7 +54,8 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 	display:block;width:100%;height: 100%;}
 */
 
-.pt-30{padding-top:30px;}.pt-60{padding-top:60px;}.pt-90{padding-top:90px;}.pb-90{padding-bottom:90px;}.mt-30{margin-top:30px;}.mt-60{margin-top:60px;}
+.pt-30{padding-top:30px;}.pt-60{padding-top:60px;}.pt-90{padding-top:90px;}.pb-90{padding-bottom:90px;}
+.mt-30{margin-top:30px;}.mt-60{margin-top:60px;}.mb-30{margin-bottom:30px;}.mb-60{margin-bottom:60px;}
 .g-section-title>h1{font-size:2.4rem;}
 .g-section-title>p{padding:0.5em 0 1em;font-size:1.4rem;font-weight:400;color:#333;}
 .g-suited-img-65{padding-bottom:65%;}.g-suited-img-75{padding-bottom:75%;}.g-suited-img-100{padding-bottom:100%}
@@ -426,10 +427,9 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 
 
 /* mod-crumb 面包屑 */
-.mod-crumb{line-height:3em;background:#F5F5F5;color:#333;padding-left:1em;
-    text-shadow:0px 0px 0 #FFF;position:relative;}
+.mod-crumb{line-height:3em;color:#333;position:relative;}
+.mod-crumb>.rgt{position: absolute;right:1em;top:5px;}
 .mod-crumb a{color:#333;text-decoration: none;margin:0 5px;}
-.mod-crumb .rgt{position: absolute;right:1em;top:5px;}
 
 /* mod-nav-side 边栏 */
 .mod-nav-side {}
