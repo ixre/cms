@@ -54,7 +54,8 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 	display:block;width:100%;height: 100%;}
 */
 
-.pt-30{padding-top:30px;}.pt-60{padding-top:60px;}.pt-90{padding-top:90px;}.pb-90{padding-bottom:90px;}
+.pt-30{padding-top:30px;}.pt-60{padding-top:60px;}.pt-90{padding-top:90px;}
+.pb-30{padding-bottom:30px;}.pb-60{padding-bottom:60px;}.pb-90{padding-bottom:90px;}
 .mt-30{margin-top:30px;}.mt-60{margin-top:60px;}.mb-30{margin-bottom:30px;}.mb-60{margin-bottom:60px;}
 .g-section-title>h1{font-size:2.4rem;}
 .g-section-title>p{padding:0.5em 0 1em;font-size:1.4rem;font-weight:400;color:#333;}
