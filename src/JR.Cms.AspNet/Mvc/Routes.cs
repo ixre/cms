@@ -77,7 +77,7 @@ namespace JR.Cms.WebImpl.Mvc
             dict.Add(UrlRulePageKeys.Tag, new[] {"cms_tag", routePrefix + "tag", urlPrefix + "tag?t={0}"});
             dict.Add(UrlRulePageKeys.TagPager, new[] {null, null, urlPrefix + "tag?t={0}&p={1}"});
 
-            dict.Add(UrlRulePageKeys.Category, new[] {"cms_category", routePrefix + "{*all_cate}", urlPrefix + "{0}/"});
+            dict.Add(UrlRulePageKeys.Category, new[] {"cms_category", routePrefix + "{*all_cate}", urlPrefix + "{0}"});
             dict.Add(UrlRulePageKeys.CategoryPager, new[] {null, null, urlPrefix + "{0}/list_{1}.html"});
 
             dict.Add(UrlRulePageKeys.Archive,

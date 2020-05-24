@@ -178,13 +178,20 @@ namespace JR.Cms.ServiceImpl
             foreach (var category in categories) yield return CategoryDto.ConvertFrom(category);
         }
 
-        public IEnumerable<CategoryDto> GetCategories(
-            int siteId, string catPath)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
+        /// <returns></returns>
+        public IEnumerable<CategoryDto> GetCategories(int siteId, string catPath)
         {
             var site = _repo.GetSiteById(siteId);
-            var ic = _categoryRep.GetCategoryByPath(siteId, catPath);
+            ICategory ic = catPath == "root" || String.IsNullOrEmpty(catPath)
+                ? this._categoryRep.CreateCategory(new CmsCategoryEntity {SiteId = siteId,ParentId = 0})
+                : this._categoryRep.GetCategoryByPath(siteId, catPath);
             if (ic == null) yield break;
-            foreach (var category in ic.NextLevelChilds) yield return CategoryDto.ConvertFrom(category);
+            foreach (var category in ic.NextLevelChildren) yield return CategoryDto.ConvertFrom(category);
         }
 
         public Error DeleteCategory(int siteId, int catId)
@@ -419,7 +426,7 @@ namespace JR.Cms.ServiceImpl
             bool includeTemplateBind)
         {
             var newCategory = toSite.GetCategory(parentCateId);
-            foreach (var cate in fromCate.NextLevelChilds)
+            foreach (var cate in fromCate.NextLevelChildren)
             {
                 var r = CloneCategoryDetails(toSite.GetAggregateRootId(), cate, newCategory.GetDomainId(),
                     includeExtend, includeTemplateBind);

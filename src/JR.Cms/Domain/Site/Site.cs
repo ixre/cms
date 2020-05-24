@@ -234,7 +234,7 @@ namespace JR.Cms.Domain.Site
         {
             var category = GetCategory(catId);
             if (category == null) return new Error("栏目不存在!");
-            if (category.Childs.Count() != 0) return new Error("栏目包含子栏目!");
+            if (category.Children.Count() != 0) return new Error("栏目包含子栏目!");
             if (_categoryRep.GetArchiveCount(GetAggregateRootId(), category.Get().Path) != 0)
                 return new Error("栏目包含文档!");
             foreach (var bind in category.GetTemplates()) _tempRep.RemoveBind(category.GetDomainId(), bind.BindType);
@@ -399,7 +399,7 @@ namespace JR.Cms.Domain.Site
 
         private void ItrNodeTree(TreeNode node, ICategory root)
         {
-            IEnumerable<ICategory> list = root.NextLevelChilds.OrderBy(a => a.Get().SortNumber);
+            IEnumerable<ICategory> list = root.NextLevelChildren.OrderBy(a => a.Get().SortNumber);
             foreach (var c in list)
             {
                 var nodeValue = GetCategoryNodeValue(c);
@@ -424,7 +424,7 @@ namespace JR.Cms.Domain.Site
         private void ItrCategoryTree(ICategory root, int level, bool isLast, CategoryTreeHandler handler)
         {
             if (root.GetDomainId() != 0) handler(root, level, isLast);
-            IEnumerable<ICategory> list = root.NextLevelChilds.OrderBy(a => a.Get().SortNumber);
+            IEnumerable<ICategory> list = root.NextLevelChildren.OrderBy(a => a.Get().SortNumber);
             var len = list.Count();
             if (len > 0)
             {

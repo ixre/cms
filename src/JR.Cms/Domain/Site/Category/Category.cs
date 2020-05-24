@@ -117,7 +117,7 @@ namespace JR.Cms.Domain.Site.Category
                 // 更新子栏目的Tag
                 if (pathRenew)
                 {
-                    foreach (var ic in NextLevelChilds)ic.ForceUpdatePath();
+                    foreach (var ic in NextLevelChildren)ic.ForceUpdatePath();
                     // 替换文档路径
                     _repo.ReplaceArchivePath(value.SiteId, _oldPath, value.Path);
                 }
@@ -175,8 +175,8 @@ namespace JR.Cms.Domain.Site.Category
                 return;
             }
 
-            if (Parent.Childs != null && Parent.Childs.Any())
-                value.SortNumber = Parent.Childs.Max(a => a.Get().SortNumber) + 1;
+            if (Parent.Children != null && Parent.Children.Any())
+                value.SortNumber = Parent.Children.Max(a => a.Get().SortNumber) + 1;
             else
                 value.SortNumber = 1;
         }
@@ -277,7 +277,7 @@ namespace JR.Cms.Domain.Site.Category
             set => _parent = value;
         }
 
-        public IEnumerable<ICategory> Childs
+        public IEnumerable<ICategory> Children
         {
             get
             {
@@ -286,13 +286,18 @@ namespace JR.Cms.Domain.Site.Category
             }
         }
 
-        public IEnumerable<ICategory> NextLevelChilds
+        /// <inheritdoc />
+        public IEnumerable<ICategory> NextLevelChildren
         {
             get
             {
-                if (_nextLevelChilds == null)
-                    _nextLevelChilds = _repo.GetNextLevelChilds(this).OrderBy(a => a.Get().SortNumber);
-                return _nextLevelChilds;
+                if (this._nextLevelChilds == null)
+                {
+                    this._nextLevelChilds = _repo.GetNextLevelChildren(this)
+                        .OrderBy(a => a.Get().SortNumber);
+                }
+
+                return this._nextLevelChilds;
             }
         }
 
@@ -304,7 +309,7 @@ namespace JR.Cms.Domain.Site.Category
 
         public void ClearSelf()
         {
-            foreach (var category in Childs) category.ClearSelf();
+            foreach (var category in Children) category.ClearSelf();
 
             _childs = null;
             _parent = null;
@@ -322,7 +327,7 @@ namespace JR.Cms.Domain.Site.Category
         {
             if (Parent != null)
             {
-                var list = Parent.Childs.OrderBy(a => a.Get().SortNumber).ToArray();
+                var list = Parent.Children.OrderBy(a => a.Get().SortNumber).ToArray();
                 for (var i = 0; i < list.Length; i++)
                     if (list[i].GetDomainId() == GetDomainId() && i != 0)
                     {
@@ -339,7 +344,7 @@ namespace JR.Cms.Domain.Site.Category
         {
             if (Parent != null)
             {
-                var list = Parent.Childs.OrderBy(a => a.Get().SortNumber).ToArray();
+                var list = Parent.Children.OrderBy(a => a.Get().SortNumber).ToArray();
                 for (var i = 0; i < list.Length; i++)
                     if (list[i].GetDomainId() == GetDomainId() && i < list.Length - 1)
                     {
@@ -462,7 +467,7 @@ namespace JR.Cms.Domain.Site.Category
             var err = Save();
             if (err == null)
             {
-                foreach (var ic in NextLevelChilds)
+                foreach (var ic in NextLevelChildren)
                 {
                     ic.ForceUpdatePath();
                 }

@@ -65,9 +65,19 @@ namespace JR.Cms.Domain.Interface.Site.Category
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        IEnumerable<ICategory> GetNextLevelChilds(ICategory category);
+        IEnumerable<ICategory> GetNextLevelChildren(ICategory category);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="sortNumber"></param>
         void SaveCategorySortNumber(int id, int sortNumber);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
         int GetMaxSortNumber(int siteId);
 
         /// <summary>

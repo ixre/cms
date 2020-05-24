@@ -90,7 +90,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <param name="key"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public virtual string FormatPageUrl(UrlRulePageKeys key, string[] data)
+        public virtual string FormatPageUrl(UrlRulePageKeys key, object[] data)
         {
             var url = TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
             if (data != null) url = string.Format(url, data);
@@ -103,16 +103,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public virtual string ConcatUrl(string url)
+        protected string ConcatUrl(string url)
         {
-            if (url.IndexOf("//", StringComparison.Ordinal) != -1
-                || url.IndexOf("javascript:", StringComparison.Ordinal) != -1)
-                return url;
-
-            if (!string.IsNullOrEmpty(url) && url[0] != '/') url = string.Concat("/", url);
-
+            if (url.IndexOf("//", StringComparison.Ordinal) != -1)return url;
+            if(url.StartsWith("javascript:", StringComparison.Ordinal))return url;
+            if (!string.IsNullOrEmpty(url) && url[0] != '/')url = string.Concat("/", url);
             if (Settings.TPL_FULL_URL_PATH) return string.Concat(Cms.Context.SiteDomain, url);
-
             return url;
         }
 
@@ -154,13 +150,17 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <param name="category"></param>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
-        public virtual string GetCategoryUrl(CategoryDto category, int pageIndex)
+        protected string GetCategoryUrl(CategoryDto category, int pageIndex)
         {
             if (!string.IsNullOrEmpty(category.Location)) return ConcatUrl(category.Location);
             if (pageIndex < 2)
-                return FormatPageUrl(UrlRulePageKeys.Category, new[] {category.Path});
+            {
+                return ConcatUrl(category.Path);
+            }
             else
-                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new[] {category.Path, pageIndex.ToString()});
+            {
+                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new object[] {category.Path, pageIndex.ToString()});
+            }
         }
 
         #region 分页
@@ -1121,6 +1121,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <summary>
         /// 栏目链接列表
         /// </summary>
+        /// <param name="catPath"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         protected string CategoryList(string catPath, string format)
@@ -1153,8 +1154,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             var isModule = false;
             if (!isModule)
+            {
                 categories = new List<CategoryDto>(ServiceCall.Instance.SiteService
                     .GetCategories(SiteId, catPath));
+            }
 
             //如果没有下级了,则获取当前级
             //if (categories.Count == 0)
