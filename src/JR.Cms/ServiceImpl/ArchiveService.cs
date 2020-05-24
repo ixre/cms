@@ -342,7 +342,7 @@ namespace JR.Cms.ServiceImpl
         private int[] GetCatArrayByPath(ICategory ic)
         {
             if (ic == null) return new int[] { };
-            IList<int> list = ic.Childs.Select(a => a.GetDomainId()).ToList();
+            IList<int> list = ic.Children.Select(a => a.GetDomainId()).ToList();
             list.Insert(0, ic.GetDomainId());
             return list.ToArray();
         }

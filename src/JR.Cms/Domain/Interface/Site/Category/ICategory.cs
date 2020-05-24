@@ -83,12 +83,12 @@ namespace JR.Cms.Domain.Interface.Site.Category
         /// <summary>
         /// 子栏目
         /// </summary>
-        IEnumerable<ICategory> Childs { get; }
+        IEnumerable<ICategory> Children { get; }
 
         /// <summary>
         /// 下一级子栏目
         /// </summary>
-        IEnumerable<ICategory> NextLevelChilds { get; }
+        IEnumerable<ICategory> NextLevelChildren { get; }
 
 
         /// <summary>
