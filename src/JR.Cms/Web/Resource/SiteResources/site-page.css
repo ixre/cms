@@ -193,7 +193,10 @@ a.f{color:#6E6E6E;}
 .mod-pagination{line-height:2.4em;text-align:center;}
 .mod-pagination .it{margin:0 5px 0 0;vertical-align:middle;user-select:none;display:inline-block;}
 .mod-pagination a{display:inline-block;text-decoration:none !important;}
-@media(max-width:575px){.mod-pagination .pagination-info{display:none;}}
+@media(max-width:575px){
+    .mod-pagination{margin:0 auto}
+    .mod-pagination .pagination-info{display:none;}
+}
 
 /* ---------- 公共元素 ---------- */
 
