@@ -427,9 +427,9 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 
 
 /* mod-crumb 面包屑 */
-.mod-crumb{line-height:3em;color:#333;position:relative;}
+.mod-crumb{line-height:3em;color:#999;position:relative;font-size:1.2rem;}
 .mod-crumb>.rgt{position: absolute;right:1em;top:5px;}
-.mod-crumb a{color:#333;text-decoration: none;margin:0 5px;}
+.mod-crumb a{color:#999;text-decoration: none;margin:0 5px;}
 
 /* mod-nav-side 边栏 */
 .mod-nav-side {}
