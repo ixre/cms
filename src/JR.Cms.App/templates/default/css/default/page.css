@@ -412,7 +412,7 @@ div.palist a.title{padding-left:10px;background:url(images/ico.png) 0 center no-
 .page-search .list h2 a:link,.page-search .list h2:visited{color:#333;text-decoration:none;}
 .page-search .list li div.meta{margin:10px 0;color:#AAA;font-weight: bold;}
 .page-search .list li p.outline{color:#666;}
-.page-search .list .search_hightlight{color:#D50000;}
+.page-search .list .search-high-light{color:#D50000;}
 
 /** 品牌页 **/
 .page-brands .top{border:solid 1px #ddd;padding:1em 2em;font-size:1.2em;line-height:2em;border-bottom:0;background:#FFE;

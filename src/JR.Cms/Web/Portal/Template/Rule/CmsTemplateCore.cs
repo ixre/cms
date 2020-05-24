@@ -2156,7 +2156,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                 if (keyRegex.IsMatch(titleHightLight))
                     titleHightLight =
-                        keyRegex.Replace(titleHightLight, "<span class=\"search_hightlight\">$0</span>");
+                        keyRegex.Replace(titleHightLight, "<span class=\"search-high-light\">$0</span>");
 
                 //关键词前数字索引算法
                 var contentLength = content.Length;
@@ -2181,7 +2181,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         }
                     }
 
-                    content = keyRegex.Replace(content, "<span class=\"search_hightlight\">$0</span>") + "...";
+                    content = keyRegex.Replace(content, "<span class=\"search-high-light\">$0</span>") + "...";
                 }
                 else
                 {
