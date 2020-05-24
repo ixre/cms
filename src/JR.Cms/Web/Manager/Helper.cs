@@ -49,7 +49,9 @@ namespace JR.Cms.Web.Manager
         internal static string BuildJsonPagerInfo(string firstLinkFormat, string linkFormat, int pageIndex,
             int recordCount, int pages)
         {
-            var pagingGetter = new CustomPagingGetter(firstLinkFormat, linkFormat, "", "", "<<", ">>");
+            var pagingGetter = new CustomPagingGetter(
+                firstLinkFormat, linkFormat,
+                 "<<", ">>");
             var pg = UrlPaging.NewPager(pageIndex, pages, pagingGetter);
             pg.RecordCount = recordCount;
             pg.LinkCount = 10;

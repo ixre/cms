@@ -195,8 +195,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 firstLink,
                 link,
                 Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
-                Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText),
-                Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
                 Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText)
             );
 
