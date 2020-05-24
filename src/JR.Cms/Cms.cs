@@ -288,7 +288,7 @@ namespace JR.Cms
                 //　初始化模板
                 Template = new CmsTemplate(_cache, TemplateNames.FileName);
                 // 注册模板
-                Template.Register("/" + CmsVariables.TEMPLATE_PATH);
+                Template.Register(CmsVariables.TEMPLATE_PATH);
                 // 模板管理器
                 _templateManager = new TemplateManager(PhysicPath + CmsVariables.TEMPLATE_PATH);
                 
