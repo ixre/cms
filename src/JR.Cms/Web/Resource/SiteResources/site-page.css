@@ -197,10 +197,10 @@ a.f{color:#6E6E6E;}
 }
 
 /** 分页 **/
-.mod-pagination{line-height:1.6em;text-align:center;}
-.mod-pagination .it{margin:5px 0 5px 5px;vertical-align:middle;user-select:none;display:inline-block;padding:0 5px;}
-.mod-pagination .page a{display:inline-block;}
-@media(min-width:320px){.ui-pagination .info{display:none;}}
+.mod-pagination{line-height:2.4em;text-align:center;}
+.mod-pagination .it{margin:0 5px 0 0;vertical-align:middle;user-select:none;display:inline-block;}
+.mod-pagination a{display:inline-block;text-decoration:none !important;}
+@media(max-width:575px){.ui-pagination .info{display:none;}}
 
 /* ---------- 公共元素 ---------- */
 
@@ -428,7 +428,7 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 /* mod-crumb 面包屑 */
 .mod-crumb{line-height:3em;color:#999;position:relative;font-size:1.2rem;}
 .mod-crumb>.rgt{position: absolute;right:1em;top:5px;}
-.mod-crumb a{color:#999;text-decoration: none;margin:0 5px;}
+.mod-crumb a,.mod-crumb a:visited{color:#999;text-decoration: none;margin:0 5px;}
 
 /* mod-nav-side 边栏 */
 .mod-nav-side {}
