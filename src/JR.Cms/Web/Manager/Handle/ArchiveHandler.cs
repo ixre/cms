@@ -186,14 +186,8 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void Update()
         {
-            object data;
             var archiveId = int.Parse(Request.Query("archive.id"));
-            string tpls,
-                nodesHtml,
-                //栏目JSON
-                extendFieldsHtml = ""; //属性Html
-
-            Module module;
+            string extendFieldsHtml = ""; //属性Html
 
             var siteId = CurrentSite.SiteId;
 
@@ -205,15 +199,12 @@ namespace JR.Cms.Web.Manager.Handle
 
             var sb = new StringBuilder(50);
 
-            string attrValue;
-            IExtendField field;
-
             sb.Append("<div class=\"data-extend-item\">");
 
             foreach (var extValue in archive.ExtendValues)
             {
-                field = extValue.Field;
-                attrValue = (extValue.Value ?? field.DefaultValue).Replace("<br />", "\n");
+                var field = extValue.Field;
+                var attrValue = (extValue.Value ?? field.DefaultValue).Replace("<br />", "\n");
                 AppendExtendFormHtml(sb, field, attrValue);
             }
 
@@ -228,10 +219,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             //模板目录
             var dir = new DirectoryInfo(
-                string.Format("{0}/templates/{1}",
-                    EnvUtil.GetBaseDirectory(),
-                    CurrentSite.Tpl + "/"
-                ));
+                $"{EnvUtil.GetBaseDirectory()}/templates/{CurrentSite.Tpl + "/"}");
             var names = Cms.TemplateManager.Get(CurrentSite.Tpl).GetNameDictionary();
 
             EachClass.EachTemplatePage(dir, dir,
@@ -243,11 +231,8 @@ namespace JR.Cms.Web.Manager.Handle
                 }
             );
 
-            tpls = sb2.ToString();
-
-            nodesHtml = Helper.GetCategoryIdSelector(SiteId, categoryId);
-
-
+            var tplList = sb2.ToString();
+            var nodesHtml = Helper.GetCategoryIdSelector(SiteId, categoryId);
             var thumbnail = !string.IsNullOrEmpty(archive.Thumbnail)
                 ? archive.Thumbnail
                 : "/" + CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto;
@@ -288,13 +273,13 @@ namespace JR.Cms.Web.Manager.Handle
             var path = Request.GetPath();
             var query = Request.GetQueryString();
 
-            data = new
+            object data = new
             {
                 extendFieldsHtml = extendFieldsHtml,
                 extend_cls = archive.ExtendValues.Count == 0 ? "hidden" : "",
                 nodes = nodesHtml,
                 url = path + query,
-                tpls = tpls,
+                tpls = tplList,
                 json = JsonSerializer.Serialize(json)
             };
 
@@ -319,8 +304,6 @@ namespace JR.Cms.Web.Manager.Handle
         {
             var uiType = (PropertyUI) int.Parse(field.Type);
             sb.Append("<dl><dt>").Append(field.Name).Append("：</dt><dd>");
-
-
             switch (uiType)
             {
                 case PropertyUI.Text:
