@@ -8,7 +8,11 @@ a:hover{color:#0000cc;}
 p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
 
 /** 作废,使用col-*代替 */
+
+/*
 @media(max-width:575px){
+    .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+        padding-left: 15px;padding-right: 15px; position: relative;width:100%;min-height: 1px;}
     .hidden-xs{display:none !important;}
     .col-xs-1{flex:0 0 8.333333%;max-width:8.333333%}
     .col-xs-2{flex:0 0 16.666666%;max-width:16.666666%}
@@ -22,8 +26,8 @@ p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
     .col-xs-10{flex:0 0 83.333333%;max-width:83.333333%}
     .col-xs-11{flex:0 0 91.666666%;max-width:91.666666%}
     .col-xs-12{flex:0 0 100%;max-width:100%}
-    /*.col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-10,.col-xs-11,.col-xs-12{float:left}*/
 }
+*/
 /** 作废 */
 
 
