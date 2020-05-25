@@ -175,7 +175,7 @@ namespace JR.Cms.Web.Manager.Handle
             archive.ViewCount = 1;
             archive.PublisherId = UserState.Administrator.Current.Id;
 
-            archive = GetFormCopyedArchive(SiteId, Request, archive, alias);
+            archive = GetFormCopiedArchive(SiteId, Request, archive, alias);
             var r = ServiceCall.Instance.ArchiveService.SaveArchive(
                 SiteId, archive.Category.ID, archive);
             RenderJson(r);
@@ -366,13 +366,13 @@ namespace JR.Cms.Web.Manager.Handle
                     return;
                 }
 
-            archive = GetFormCopyedArchive(SiteId, Request, archive, alias);
+            archive = GetFormCopiedArchive(SiteId, Request, archive, alias);
             var r = ServiceCall.Instance.ArchiveService.SaveArchive(
                 SiteId, archive.Category.ID, archive);
             RenderJson(r);
         }
 
-        private ArchiveDto GetFormCopyedArchive(int siteId, ICompatibleRequest form, ArchiveDto archive, string alias)
+        private ArchiveDto GetFormCopiedArchive(int siteId, ICompatibleRequest form, ArchiveDto archive, string alias)
         {
             string content = form.Form("Content");
 
