@@ -13,7 +13,9 @@ echo "setup1: prepare.." && \
 
 echo "setup2: buiding.." && \
 msbuild *.csproj /p:Configuration=Release && \
-    cp -r bin public templates oem install plugins root ${RELEASE_DIR} && \
+    mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
+    mkdir ${RELEASE_DIR}/templates && cp -r templates/default ${RELEASE_DIR}/templates && \
+    cp -r bin public  oem install plugins ${RELEASE_DIR} && \
     cp  Global.asax Web.config ${RELEASE_DIR}
 
 cd ${RELEASE_DIR} && \
