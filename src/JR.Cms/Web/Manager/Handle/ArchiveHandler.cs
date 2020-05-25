@@ -61,8 +61,7 @@ namespace JR.Cms.Web.Manager.Handle
             var sb2 = new StringBuilder();
 
             //模板目录
-            var dir = new DirectoryInfo(
-                $"{EnvUtil.GetBaseDirectory()}/templates/{CurrentSite.Tpl + "/"}");
+            var dir = new DirectoryInfo($"{EnvUtil.GetBaseDirectory()}/templates/{CurrentSite.Tpl + "/"}");
 
             var names = Cms.TemplateManager.Get(CurrentSite.Tpl).GetNameDictionary();
             EachClass.EachTemplatePage(
@@ -108,10 +107,9 @@ namespace JR.Cms.Web.Manager.Handle
             var sb = new StringBuilder(500);
 
             sb.Append("<div class=\"data-extend-item\">");
-            PropertyUI uiType;
             foreach (var p in category.ExtendFields)
             {
-                uiType = (PropertyUI) int.Parse(p.Type);
+                // PropertyUI uiType = (PropertyUI) int.Parse(p.Type);
                 AppendExtendFormHtml(sb, p, p.DefaultValue);
             }
 
@@ -122,6 +120,7 @@ namespace JR.Cms.Web.Manager.Handle
             object json = new
             {
                 IsVisible = true,
+                TemplatePath = "",
                 Thumbnail = CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto,
                 Location = string.Empty
             };

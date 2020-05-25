@@ -180,7 +180,9 @@ namespace JR.Cms.Web.Manager
         public static void EachTemplatePage(DirectoryInfo rootDir, DirectoryInfo dir, StringBuilder sb,
             IDictionary<string, string> names, TemplatePageType[] pageType)
         {
-            if (!dir.Exists || dir.Name == ".backup") return;
+            if (!dir.Exists || dir.Name == ".backup" ||
+                dir.Name == "include" || dir.Name == "part" ||
+                dir.Name == "ad" || dir.Name == "component") return;
             var rootDirLength = rootDir.FullName.Length;
 
             foreach (var file in dir.GetFiles())
