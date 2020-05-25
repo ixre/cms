@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using JR.Cms.Conf;
+using JR.Stand.Abstracts;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Template.Impl;
@@ -235,6 +236,14 @@ namespace JR.Cms.Core
         public void Reload()
         {
             registry.Reload();
+        }
+
+        /// <summary>
+        /// 清理页面缓存
+        /// </summary>
+        public void CleanPageCache()
+        {
+            Cms.Cache.RemoveKeys("site:page");
         }
 
         /// <summary>

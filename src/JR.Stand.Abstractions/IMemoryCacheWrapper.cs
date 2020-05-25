@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace JR.Stand.Core.Utils
+namespace JR.Stand.Abstracts
 {
     public interface IMemoryCacheWrapper
     {
@@ -62,7 +62,13 @@ namespace JR.Stand.Core.Utils
         /// </summary>
         /// <returns></returns>
         List<string> GetCacheKeys();
-        
+
+        /// <summary>
+        /// 搜索 匹配到的缓存
+        /// </summary>
+        /// <param name="pattern">模式,正则表达式</param>
+        /// <returns></returns>
+        IList<string> SearchKeys(string pattern);
         
         /// <summary>
         /// 获取Int类型的缓存,如果缓存不存在或类型不匹配,返回-1

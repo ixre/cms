@@ -48,5 +48,11 @@ namespace JR.Cms.Library.CacheProvider.CacheComponent
         /// <param name="key">键</param>
         /// <returns></returns>
         int GetInt(string key);
+
+        /// <summary>
+        /// 移出指定前缀的缓存
+        /// </summary>
+        /// <param name="prefix"></param>
+        void RemoveKeys(string prefix);
     }
 }
