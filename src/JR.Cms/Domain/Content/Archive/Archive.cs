@@ -113,6 +113,7 @@ namespace JR.Cms.Domain.Content.Archive
         }
 
 
+        /// <inheritdoc />
         public Error SetExtendValue(IList<IExtendValue> extendValues)
         {
             _extendValues = extendValues;
