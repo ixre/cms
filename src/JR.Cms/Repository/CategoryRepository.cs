@@ -108,14 +108,19 @@ namespace JR.Cms.Repository
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public ICategory GetCategoryByPath(int siteId, string path)
         {
             ChkPreload();
-            IList<ICategory> list;
             if (Categories.ContainsKey(siteId))
             {
-                list = GetCategories(siteId);
-                return list.FirstOrDefault(a => string.Compare(a.Get().Path, path) == 0);
+                var list = GetCategories(siteId);
+                return list.FirstOrDefault(a => String.CompareOrdinal(a.Get().Path, path) == 0);
             }
 
             return null;
@@ -207,25 +212,33 @@ namespace JR.Cms.Repository
         }
 
 
-        public IEnumerable<ICategory> GetNextLevelChilds(ICategory category)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        public IEnumerable<ICategory> GetNextLevelChildren(ICategory category)
         {
             ChkPreload();
             var catId = category.GetDomainId();
-            var catgories = GetCategories(category.Get().SiteId);
-            return catgories.Where(a => a.Get().ParentId == catId);
+            var categories = GetCategories(category.Get().SiteId);
+            return categories.Where(a => a.Get().ParentId == catId);
         }
 
+        /// <inheritdoc />
         public void SaveCategorySortNumber(int id, int sortNumber)
         {
             categoryDal.SaveSortNumber(id, sortNumber);
         }
 
 
+        /// <inheritdoc />
         public int GetArchiveCount(int siteId, string catPath)
         {
             return categoryDal.GetCategoryArchivesCount(siteId, catPath);
         }
 
+        /// <inheritdoc />
         public void DeleteCategory(int siteId, int catId)
         {
             var result = categoryDal.DeleteSelfAndChildCategoy(siteId, catId);

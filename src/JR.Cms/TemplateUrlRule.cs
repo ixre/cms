@@ -14,15 +14,21 @@ using JR.Cms.Domain.Interface.Enum;
 
 namespace JR.Cms
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class TemplateUrlRule
     {
-        public static string[,] urls;
+        private static readonly string[,] urls;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string[,] Urls => urls;
 
         static TemplateUrlRule()
         {
-            urls = new string[,]
+            urls = new[,]
             {
                 // ID:0 自定义Url
                 {
@@ -36,8 +42,8 @@ namespace JR.Cms
 
                 // ID:1 适用于MVC
                 {
-                    "admin/",
-                    "{0}/", //栏目页面
+                    "admin",
+                    "{0}", //栏目页面
                     "{0}/{1}/", //栏目分页
                     "{0.html",
                     "{0}/{1}.html", //文档页面
@@ -62,12 +68,11 @@ namespace JR.Cms
             };
         }
 
-        internal static int templateUrlRuleIndex = 1;
+        private static int templateUrlRuleIndex = 1;
 
         /// <summary>
         /// 设置模板URL方案
         /// </summary>
-        /// <param name="index"></param>
         public static void SetRule(UrlRuleType type)
         {
             templateUrlRuleIndex = (int) type;

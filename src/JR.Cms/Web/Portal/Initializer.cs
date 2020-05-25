@@ -1,6 +1,7 @@
 using System;
 using JR.Cms.Conf;
 using JR.Cms.Web.Resource;
+using JR.Stand.Core.Cache;
 using JR.Stand.Core.Utils;
 using Microsoft.AspNetCore.Builder;
 

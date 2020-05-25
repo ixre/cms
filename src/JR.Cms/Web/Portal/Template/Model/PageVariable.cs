@@ -19,7 +19,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         private string _frameworkPath;
         private string _templatePath;
         private string _pluginRootPath;
-        private string _siteMap; 
+        private string _siteMap;
         private readonly CmsContext _context;
         private string _resDomain;
         private static readonly string IeHtml5ShivTag;
@@ -33,11 +33,10 @@ namespace JR.Cms.Web.Portal.Template.Model
             //http://www.cnblogs.com/dayezi/p/4702038.html
             //<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
             //<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-            IeHtml5ShivTag = @"
-    <!--[if lt IE 9]>
-        <script src=""https://cdn.bootcss.com/html5shiv/r29/html5.min.js""></script>
-        <script src=""https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js""></script>
-    <![endif]-->";
+            IeHtml5ShivTag = @"<!--[if lt IE 9]>"
+                             + @"<script src=""https://cdn.bootcss.com/html5shiv/r29/html5.min.js""></script>"
+                             + @"<script src=""https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js""></script>"
+                             + @"<![endif]-->";
         }
 
         /// <summary>
@@ -48,8 +47,7 @@ namespace JR.Cms.Web.Portal.Template.Model
             _context = Cms.Context;
         }
 
-        [TemplateVariableField("年")]
-        public string Year => DateTime.Now.Year.ToString();
+        [TemplateVariableField("年")] public string Year => DateTime.Now.Year.ToString();
 
         [TemplateVariableField("版本")]
         public string Version
@@ -77,6 +75,7 @@ namespace JR.Cms.Web.Portal.Template.Model
                 {
                     this._lang = Cms.Context.UserLanguage.ToString();
                 }
+
                 return _lang;
             }
         }
@@ -95,7 +94,7 @@ namespace JR.Cms.Web.Portal.Template.Model
 
                 return url;
             }
-        } 
+        }
 
         [TemplateVariableField("随机变亮")]
         public string Spam

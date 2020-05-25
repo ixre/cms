@@ -18,10 +18,10 @@ namespace JR.Stand.Core.Framework.Xml.AutoObject
         {
             const string tpl = @"<div class=""ui-xmldoc"" id=""object_%object.key%"">
                                     <h2><a href=""#%object.key%"">%object.index%%object.name%<span class=""key"">(%object.key%)</span></a></h2>
-                                    <p class=""descript"">描述：%object.descript%</p>
+                                    <p class=""describe"">描述：%object.descript%</p>
                                     <p class=""prop"">
                                         <table cellspacing=""1"" cellpadding=""0"">
-                                            <tr><th class=""key"">属性键:</th><th class=""name"">属性名称：</th><th class=""descript"">备注:</th></tr>
+                                            <tr><th class=""key"">属性键:</th><th class=""name"">属性名称：</th><th class=""describe"">备注:</th></tr>
                                             %object.prop%
                                         </table>
                                     </p>

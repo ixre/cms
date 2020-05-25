@@ -18,7 +18,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 模板编号列表
         /// </summary>
-        internal static readonly IDictionary<string, Template> TemplateDictionary = new Dictionary<string, Template>();
+        internal static  IDictionary<string, Template> TemplateDictionary = new Dictionary<string, Template>();
 
         /// <summary>
         /// 标签词典
@@ -78,6 +78,11 @@ namespace JR.Stand.Core.Template.Impl
         internal static bool Exists(String templatePath)
         {
             return TemplateDictionary.ContainsKey(templatePath);
+        }
+
+        internal static void Reset()
+        {
+            TemplateDictionary = new Dictionary<string, Template>();
         }
 
         /// <summary>

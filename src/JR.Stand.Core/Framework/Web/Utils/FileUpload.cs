@@ -95,7 +95,7 @@ namespace JR.Stand.Core.Framework.Web.UI
             }
         }
 
-        private void SaveStream(Stream stream, string path)
+        private async void SaveStream(Stream stream, string path)
         {
             const int bufferSize = 100; //缓冲区大小
             byte[] buffer = new byte[bufferSize]; //缓冲区
@@ -104,7 +104,7 @@ namespace JR.Stand.Core.Framework.Web.UI
             {
                 while (true)
                 {
-                    var bytes = stream.Read(buffer, 0, bufferSize); //从流中读取的值
+                    var bytes = await stream.ReadAsync(buffer, 0, bufferSize); //从流中读取的值
                     if (bytes == 0)
                     {
                         break;

@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 
 namespace JR.Stand.Abstracts.Web
 {
@@ -11,7 +12,7 @@ namespace JR.Stand.Abstracts.Web
         /// </summary>
         /// <param name="path"></param>
         void Save(string path);
-        void CopyToAsync(FileStream fs);
+        Task CopyToAsync(FileStream fs);
         long GetLength();
         Stream OpenReadStream();
         string GetContentType();

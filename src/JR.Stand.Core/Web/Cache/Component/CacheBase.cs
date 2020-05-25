@@ -8,6 +8,7 @@
  */
 
 using System;
+using JR.Stand.Abstracts;
 using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Core.Web.Cache.Component

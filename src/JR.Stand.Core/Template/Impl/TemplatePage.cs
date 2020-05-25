@@ -196,7 +196,7 @@ namespace JR.Stand.Core.Template.Impl
         /// 压缩后的字符
         /// </summary>
         /// <returns></returns>
-        public string ToCompressedString()
+        private string ToCompressedString()
         {
             return TemplateUtils.CompressHtml(ToString());
         }
@@ -208,7 +208,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <param name="coder"></param>
         /// <param name="compressed"></param>
         /// <param name="html"></param>
-        public void SaveToFile(string fileName, Encoding coder, bool compressed, out string html)
+        private void SaveToFile(string fileName, Encoding coder, bool compressed, out string html)
         {
             string filePath =  EnvUtil.GetBaseDirectory()+"/" + fileName;
 

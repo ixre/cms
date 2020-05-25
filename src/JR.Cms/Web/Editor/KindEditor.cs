@@ -69,7 +69,7 @@ namespace JR.Cms.Web.Editor
             String currentDirPath = "";
             String moveUpDirPath = "";
 
-            String dirPath = EnvUtil.GetBaseDirectory()+this._rootPath;
+            String dirPath = EnvUtil.GetBaseDirectory() + this._rootPath;
             String dirName = context.Request.Query("dir");
             if (!String.IsNullOrEmpty(dirName))
             {
@@ -199,7 +199,6 @@ namespace JR.Cms.Web.Editor
         }
 
 
-        
         /// <summary>
         /// 处理上传
         /// </summary>
@@ -225,10 +224,10 @@ namespace JR.Cms.Web.Editor
             ICompatiblePostedFile imgFile = context.Request.File("imgFile");
             if (imgFile == null)
             {
-                return this.showError(context,"请选择文件。");
+                return this.showError(context, "请选择文件。");
             }
 
-            String dirPath = EnvUtil.GetBaseDirectory()+ this._rootPath;
+            String dirPath = EnvUtil.GetBaseDirectory() + this._rootPath;
             if (!Directory.Exists(dirPath))
             {
                 Directory.CreateDirectory(dirPath).Create();
@@ -243,7 +242,7 @@ namespace JR.Cms.Web.Editor
 
             if (!extTable.ContainsKey(dirName))
             {
-                return this.showError(context,"目录名不正确。");
+                return this.showError(context, "目录名不正确。");
             }
 
             String fileName = imgFile.GetFileName();
@@ -251,13 +250,13 @@ namespace JR.Cms.Web.Editor
 
             if (imgFile.GetLength() > maxSize)
             {
-                return this.showError(context,"上传文件大小超过限制。");
+                return this.showError(context, "上传文件大小超过限制。");
             }
 
             if (String.IsNullOrEmpty(fileExt) ||
                 Array.IndexOf(((String) extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
             {
-                return this.showError(context,"上传文件扩展名是不允许的扩展名。\n只允许" + ((String) extTable[dirName]) + "格式。");
+                return this.showError(context, "上传文件扩展名是不允许的扩展名。\n只允许" + ((String) extTable[dirName]) + "格式。");
             }
 
             //创建文件夹
@@ -290,11 +289,7 @@ namespace JR.Cms.Web.Editor
                 targetPath = dirPath + newFileName;
             }
 
-            using (FileStream fs = new FileStream(targetPath, FileMode.Create))
-            {
-                imgFile.CopyToAsync(fs);
-                fs.Flush();
-            }
+            SaveFile(imgFile, targetPath);
 
             String fileUrl = saveUrl + newFileName;
 
@@ -304,12 +299,21 @@ namespace JR.Cms.Web.Editor
             return context.Response.WriteAsync(JsonAnalyzer.ToJson(hash));
         }
 
-        private Task showError(ICompatibleHttpContext context,string message)
+        private async void SaveFile(ICompatiblePostedFile imgFile, string targetPath)
+        {
+            using (FileStream fs = new FileStream(targetPath, FileMode.Create))
+            {
+                await imgFile.CopyToAsync(fs);
+                fs.Flush();
+            }
+        }
+
+        private Task showError(ICompatibleHttpContext context, string message)
         {
             Hashtable hash = new Hashtable {["error"] = 1, ["message"] = message};
             return context.Response.WriteAsync(JsonAnalyzer.ToJson(hash));
         }
-        
+
         public class NameSorter : IComparer
         {
             public int Compare(object x, object y)

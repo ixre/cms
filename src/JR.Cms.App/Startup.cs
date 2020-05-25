@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,10 +30,10 @@ namespace JR.Cms.App
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
-                options.Cookie.Name = "_cms_session";
+                options.Cookie.Name = "j_session";
                 options.IdleTimeout = TimeSpan.FromSeconds(1200);
                 //options.Cookie.Path = "/" + Settings.SYS_ADMIN_TAG;
-                options.Cookie.HttpOnly = true;
+                options.Cookie.HttpOnly = false;
                 options.Cookie.IsEssential = true;
             });
             // 启动异步IO
@@ -40,7 +41,14 @@ namespace JR.Cms.App
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             // 使用MVC并添加Session支持
             services.AddControllers().AddSessionStateTempDataProvider();
-            services.AddResponseCompression();
+            // GZIP
+            services.Configure<GzipCompressionProviderOptions>(options =>
+                options.Level = System.IO.Compression.CompressionLevel.Fastest);
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<GzipCompressionProvider>();
+            });
             HttpContextNetCoreExtension.AddHttpContextAccessor(services);
         }
 

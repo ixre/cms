@@ -9,18 +9,25 @@
 
 using System;
 using System.Reflection;
+using JR.Stand.Abstracts.Cache;
 
 namespace JR.Cms.Library.CacheProvider.CacheComponent
 {
     /// <summary>
     /// Description of CmsCacheUtility.
     /// </summary>
-    public class CmsCacheUtility
+    public static class CmsCacheUtility
     {
-        public static void EvalCacheUpdate<T>(MethodInfo method) where T : Attribute, ICacheUpdatePolicy
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void EvalCacheUpdate<T>(MethodInfo method) where T : Attribute, ICachePolicy
         {
             var attrs = method.GetCustomAttributes(typeof(T), false);
-            if (attrs.Length != 0) (attrs[0] as ICacheUpdatePolicy).Clear();
+            if (attrs.Length == 0) return;
+            (attrs[0] as ICachePolicy)?.Clean();
         }
     }
 }

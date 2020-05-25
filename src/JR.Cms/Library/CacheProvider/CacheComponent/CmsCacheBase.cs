@@ -54,6 +54,7 @@ namespace JR.Cms.Library.CacheProvider.CacheComponent
         }
 
         public abstract int GetInt(string key);
+        public abstract void RemoveKeys(string prefix);
 
 
         /// <summary>
