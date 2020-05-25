@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using JR.Stand.Abstracts;
 using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Core.Web.Cache.Component

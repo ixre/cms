@@ -13,5 +13,5 @@ namespace JR.Cms.Library.CacheProvider.CacheComponent
     /// 创建缓存数据结果事件
     /// </summary>
     /// <returns></returns>
-    public delegate T BuiltCacheResultHandler<T>();
+    public delegate T BuiltCacheResultHandler<out T>();
 }

@@ -236,7 +236,7 @@ namespace JR.Cms.Web.Manager
             return "{}";
         }
 
-       
+
 
         /// <summary>
         /// 
@@ -251,13 +251,19 @@ namespace JR.Cms.Web.Manager
 
             var filePath = dirPath + file.GetFileName();
             if (File.Exists(filePath)) return "{\"error\":\"文件已经存在\"}";
+
+            SaveFile(file, filePath);
+            
+            return "{\"url\":\"" + dir + fileName + "\"}";
+        }
+
+        private static async void SaveFile(ICompatiblePostedFile file, string filePath)
+        {
             using (var fs = new FileStream(filePath, FileMode.Create))
             {
-                file.CopyToAsync(fs);
+                await file.CopyToAsync(fs);
                 fs.Flush();
             }
-
-            return "{\"url\":\"" + dir + fileName + "\"}";
         }
     }
 }

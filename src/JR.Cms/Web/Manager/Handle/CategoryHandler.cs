@@ -115,12 +115,10 @@ namespace JR.Cms.Web.Manager.Handle
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Category_CreateCategory), data);
         }
 
-        [MCacheUpdate(CacheSign.Category | CacheSign.Link)]
+        [MCache(CacheSign.Category | CacheSign.Link)]
         public string Create_POST()
         {
-
-            var parentId = 0;
-            int.TryParse(Request.Form("ParentId"), out parentId);
+            int.TryParse(Request.Form("ParentId"), out var parentId);
 
             var category = InitCategoryDtoFromHttpPost(Request, new CategoryDto());
 
@@ -264,7 +262,7 @@ namespace JR.Cms.Web.Manager.Handle
         }
 
 
-        [MCacheUpdate(CacheSign.Category | CacheSign.Link)]
+        [MCache(CacheSign.Category | CacheSign.Link)]
         public string Update_POST()
         {
             var category = ServiceCall.Instance.SiteService.GetCategory(
@@ -286,7 +284,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// <summary>
         /// 删除栏目
         /// </summary>
-        [MCacheUpdate(CacheSign.Category | CacheSign.Link)]
+        [MCache(CacheSign.Category | CacheSign.Link)]
         public string Delete_POST()
         {
             var categoryId = int.Parse(Request.Form("category_id"));

@@ -12,6 +12,7 @@ using System;
 using System.IO;
 using System.Text;
 using JR.Cms.Infrastructure;
+using JR.Stand.Abstracts;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Web.Cache;
@@ -47,10 +48,14 @@ namespace JR.Cms.Library.CacheProvider.CacheComponent
 
         public override void Clear(string keySign)
         {
-            if (keySign != null)
-                foreach (var key in cache.GetCacheKeys())
-                    if (key.StartsWith(keySign))
-                        cache.Remove(key);
+            if (keySign == null) return;
+            foreach (var key in cache.GetCacheKeys())
+            {
+                if (key.StartsWith(keySign))
+                {
+                    cache.Remove(key);
+                }
+            }
         }
 
         public override object Get(string key)
@@ -98,6 +103,19 @@ namespace JR.Cms.Library.CacheProvider.CacheComponent
         public override int GetInt(string key)
         {
             return this.cache.GetInt(key);
+        }
+
+        /// <summary>
+        /// 删除指定前缀的键
+        /// </summary>
+        /// <param name="prefix"></param>
+        public override void RemoveKeys(string prefix)
+        {
+            var list = this.cache.SearchKeys("^" + prefix);
+            foreach (var l in list)
+            {
+                this.cache.Remove(l);
+            }
         }
     }
 
@@ -182,11 +200,20 @@ namespace JR.Cms.Library.CacheProvider.CacheComponent
             _dependCache.Insert(key, value);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keySign"></param>
         public void Clear(string keySign)
         {
             _dependCache.Clear(keySign);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        /// <returns></returns>
         public object Get(string cacheKey)
         {
             return _dependCache.Get(cacheKey);
@@ -203,6 +230,11 @@ namespace JR.Cms.Library.CacheProvider.CacheComponent
         public int GetInt(string key)
         {
             return this._dependCache.GetInt(key);
+        }
+
+        public void RemoveKeys(string prefix)
+        {
+            this._dependCache.RemoveKeys(prefix);
         }
     }
 }

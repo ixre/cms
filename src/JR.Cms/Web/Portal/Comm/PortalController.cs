@@ -104,8 +104,8 @@ namespace JR.Cms.Web.Portal.Comm
 
         private Task CheckStaticIndex(ICompatibleHttpContext context, int seconds)
         {
-            const string cacheKey = "site:index:cache";
-            const string cacheUnixKey = "site:index:last-create";
+            const string cacheKey = "site:page:index:cache";
+            const string cacheUnixKey = "site:page:index:last-create";
             String html;
             // 如果非首页访问, 则使用动态的站点首页
             var req = context.Request;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Xml;
+using JR.Stand.Abstracts;
 using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web.Cache;
 

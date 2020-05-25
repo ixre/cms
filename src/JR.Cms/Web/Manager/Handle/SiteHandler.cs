@@ -122,7 +122,7 @@ namespace JR.Cms.Web.Manager.Handle
             });
         }
 
-        [MCacheUpdate(CacheSign.Site | CacheSign.Link)]
+        [MCache(CacheSign.Site | CacheSign.Link)]
         public string Save_POST()
         {
             var entity =Request.ParseFormToEntity<SiteDto>();
