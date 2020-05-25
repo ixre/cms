@@ -104,8 +104,8 @@ namespace JR.Cms.Web.Portal.Comm
 
         private Task CheckStaticIndex(ICompatibleHttpContext context, int seconds)
         {
-            const string cacheKey = "site:index:cache";
-            const string cacheUnixKey = "site:index:last-create";
+            const string cacheKey = "site:page:index:cache";
+            const string cacheUnixKey = "site:page:index:last-create";
             String html;
             // 如果非首页访问, 则使用动态的站点首页
             var req = context.Request;
@@ -152,43 +152,6 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         /// <summary>
-        /// 文档页
-        /// </summary>
-        /// <returns></returns>
-        public Task Archive(ICompatibleHttpContext context)
-        {
-            context.Response.ContentType("text/html;charset=utf-8");
-            var path = context.Request.GetPath();
-            var task = this.CheckStaticFile(context, path);
-            if (task != null) return task;
-            CmsContext ctx = Cms.Context;
-            //检测网站状态及其缓存
-            if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
-            {
-                context.Response.ContentType("text/html;charset=utf-8");
-                String archivePath = this.SubPath(path, ctx.SiteAppPath);
-                archivePath = archivePath.Substring(0, archivePath.LastIndexOf(".", StringComparison.Ordinal));
-                DefaultWebOutput.RenderArchive(ctx, archivePath);
-            }
-
-            return SafetyTask.CompletedTask;
-
-            /*
-            bool eventResult = false;
-            if (OnArchiveRequest != null)
-            {
-                OnArchiveRequest(ctx, archivePath, ref eventResult);
-            }
-
-            //如果返回false,则执行默认输出
-            if (!eventResult)
-            {
-                DefaultWebOutput.RenderArchive(ctx, archivePath);
-            }
-            */
-        }
-
-        /// <summary>
         /// 检查位于根目录和root下的静态文件是否存在
         /// </summary>
         /// <param name="context"></param>
@@ -230,19 +193,18 @@ namespace JR.Cms.Web.Portal.Comm
             {
                 var path = context.Request.GetPath();
                 var sitePath = ctx.SiteAppPath;
-                // 验证是否为当前站点的首页
-                if (path == sitePath)
+                // 如果为"/news/",跳转到"/news"
+                var pLen = path.Length;
+                if (path[pLen-1] == '/')
                 {
-                    return this.Index(context);
-                }
-
-                // 如果为"/site/",跳转到"/site"
-                if (path == sitePath + "/")
-                {
-                    context.Response.Redirect(path.Substring(0, path.Length - 1), false);
+                    context.Response.StatusCode(301);
+                    context.Response.AddHeader("Location",path.Substring(0, pLen-1));
                     return SafetyTask.CompletedTask;
                 }
 
+                // 验证是否为当前站点的首页
+                if (path == sitePath)return this.Index(context);
+                
                 String catPath = this.SubPath(path, sitePath);
                 int page = 1;
                 //获取页码和tag
@@ -274,5 +236,43 @@ namespace JR.Cms.Web.Portal.Comm
 
             return SafetyTask.CompletedTask;
         }
+        
+        /// <summary>
+        /// 文档页
+        /// </summary>
+        /// <returns></returns>
+        public Task Archive(ICompatibleHttpContext context)
+        {
+            context.Response.ContentType("text/html;charset=utf-8");
+            var path = context.Request.GetPath();
+            var task = this.CheckStaticFile(context, path);
+            if (task != null) return task;
+            CmsContext ctx = Cms.Context;
+            //检测网站状态及其缓存
+            if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
+            {
+                context.Response.ContentType("text/html;charset=utf-8");
+                String archivePath = this.SubPath(path, ctx.SiteAppPath);
+                archivePath = archivePath.Substring(0, archivePath.LastIndexOf(".", StringComparison.Ordinal));
+                DefaultWebOutput.RenderArchive(ctx, archivePath);
+            }
+
+            return SafetyTask.CompletedTask;
+
+            /*
+            bool eventResult = false;
+            if (OnArchiveRequest != null)
+            {
+                OnArchiveRequest(ctx, archivePath, ref eventResult);
+            }
+
+            //如果返回false,则执行默认输出
+            if (!eventResult)
+            {
+                DefaultWebOutput.RenderArchive(ctx, archivePath);
+            }
+            */
+        }
+
     }
 }

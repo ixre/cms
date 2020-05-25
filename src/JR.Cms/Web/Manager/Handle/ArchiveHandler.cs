@@ -300,7 +300,7 @@ namespace JR.Cms.Web.Manager.Handle
             };
 
             RenderTemplate(
-                CompressHtml(ResourceMap.GetPageContent(ManagementPage.Archive_Update)),
+                ResourceMap.GetPageContent(ManagementPage.Archive_Update),
                 data);
         }
 

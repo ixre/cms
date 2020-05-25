@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using JR.Stand.Abstracts.Web;
 using Microsoft.AspNetCore.Http;
 
@@ -27,9 +28,9 @@ namespace JR.Stand.Core.Web
             }
         }
 
-        public void CopyToAsync(FileStream fs)
+        public Task CopyToAsync(FileStream fs)
         {
-            this._file.CopyToAsync(fs);
+           return this._file.CopyToAsync(fs);
         }
 
         public long GetLength()

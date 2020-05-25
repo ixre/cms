@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using JR.Stand.Abstracts;
+using JR.Stand.Core.Utils;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace JR.Stand.Core.Utils
+namespace JR.Stand.Core.Cache
 {
     public class MemoryCacheWrapper : IMemoryCacheWrapper
     {
@@ -136,7 +138,7 @@ namespace JR.Stand.Core.Utils
         /// <returns></returns>
         private void RemoveCacheRegex(string pattern)
         {
-            IList<string> l = SearchCacheRegex(pattern);
+            IList<string> l = this.SearchKeys(pattern);
             foreach (var s in l)
             {
                 Remove(s);
@@ -148,7 +150,7 @@ namespace JR.Stand.Core.Utils
         /// </summary>
         /// <param name="pattern"></param>
         /// <returns></returns>
-        private IList<string> SearchCacheRegex(string pattern)
+        public IList<string> SearchKeys(string pattern)
         {
             var cacheKeys = GetCacheKeys();
             var l = cacheKeys.Where(k => Regex.IsMatch(k, pattern)).ToList();

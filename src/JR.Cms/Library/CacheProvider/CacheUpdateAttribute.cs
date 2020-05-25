@@ -9,6 +9,7 @@
 
 using System;
 using JR.Cms.Library.CacheProvider.CacheComponent;
+using JR.Stand.Abstracts.Cache;
 
 namespace JR.Cms.Library.CacheProvider
 {
@@ -16,14 +17,14 @@ namespace JR.Cms.Library.CacheProvider
     /// Description of CacheUpdateAttribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class CacheUpdateAttribute : Attribute, ICacheUpdatePolicy
+    public class CacheAttribute : Attribute, ICachePolicy
     {
-        public CacheUpdateAttribute(string cacheKey)
+        public CacheAttribute(string cacheKey)
         {
             Key = cacheKey;
         }
 
-        public CacheUpdateAttribute(CacheSign sign)
+        public CacheAttribute(CacheSign sign)
         {
             Key = sign.ToString();
         }
@@ -31,7 +32,7 @@ namespace JR.Cms.Library.CacheProvider
         public string Key { get; private set; }
 
 
-        public void Clear()
+        public void Clean()
         {
             CmsCacheFactory.Singleton.Clear(Key);
         }

@@ -218,7 +218,7 @@ namespace JR.Cms.Web.Manager
                     else if (method.ReturnType == typeof(void))
                     {
                         method.Invoke(obj, null);
-                        task =  SafetyTask.CompletedTask;
+                        task = SafetyTask.CompletedTask;
                     }
                     else
                     {
@@ -226,8 +226,10 @@ namespace JR.Cms.Web.Manager
                         task = context.Response.WriteAsync(JsonConvert.SerializeObject(result));
                     }
 
-                    if (requestMethod == "POST") CmsCacheUtility.EvalCacheUpdate<MCacheUpdateAttribute>(method); //清理缓存
-                    
+                    if (requestMethod == "POST")
+                    {
+                        CmsCacheUtility.EvalCacheUpdate<MCacheAttribute>(method); //清理缓存
+                    }
                     return task;
                 }
 

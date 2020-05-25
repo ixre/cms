@@ -73,7 +73,7 @@ namespace JR.Cms.App
             dict.Add(UrlRulePageKeys.Tag,  urlPrefix + "tag?t={0}");
             dict.Add(UrlRulePageKeys.TagPager, urlPrefix + "tag?t={0}&p={1}");
 
-            dict.Add(UrlRulePageKeys.Category, urlPrefix + "{0}/");
+            dict.Add(UrlRulePageKeys.Category, urlPrefix + "{0}");
             dict.Add(UrlRulePageKeys.CategoryPager, urlPrefix + "{0}/list_{1}.html");
 
             dict.Add(UrlRulePageKeys.Archive,urlPrefix + "{0}.html");

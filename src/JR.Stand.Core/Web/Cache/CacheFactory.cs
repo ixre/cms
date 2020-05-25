@@ -1,4 +1,5 @@
-﻿using JR.Stand.Core.Utils;
+﻿using JR.Stand.Abstracts;
+using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web.Cache.Component;
 
 namespace JR.Stand.Core.Web.Cache

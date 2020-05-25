@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace JR.Stand.Core.Framework.Web.UI
 {
+    [Flags]
     public enum PagingFlag
     {
         Control = 1,
@@ -27,17 +28,15 @@ namespace JR.Stand.Core.Framework.Web.UI
         string Get(int page, int total, int nowPage, PagingFlag flag, out string text);
     }
 
-    internal class DefaultPageingGetter : IPagingGetter
+    internal class DefaultPagingGetter : IPagingGetter
     {
-        private static readonly CustomPagingGetter getter;
+        private static readonly CustomPagingGetter Getter;
 
-        static DefaultPageingGetter()
+        static DefaultPagingGetter()
         {
-            getter = new CustomPagingGetter(
+            Getter = new CustomPagingGetter(
                 "",
                 "?page=%d",
-                "第一页",
-                "最末页",
                 "上一页",
                 "下一页"
                 );
@@ -45,35 +44,27 @@ namespace JR.Stand.Core.Framework.Web.UI
 
         public string Get(int page, int total, int nowPage, PagingFlag flag, out string text)
         {
-            return getter.Get(page, total, nowPage, flag, out text);
+            return Getter.Get(page, total, nowPage, flag, out text);
         }
     }
 
     public class CustomPagingGetter : IPagingGetter
     {
-        private int pagerLinkCount;
-        private string firstPageText;
-        private string lastPageText;
-        private string nextPageText;
-        private string previousPageText;
-        private string pagerLinkFormat;
-        private string firstLinkFormat;
+        private readonly string _nextPageText;
+        private readonly string _previousPageText;
+        private readonly string _pagerLinkFormat;
+        private readonly string _firstLinkFormat;
 
         public CustomPagingGetter(
             string firstLinkFormat,
             string pagerLinkFormat,
-            string firstPageText,
-            string lastPageText,
             string previousPageText,
-            string nextPageText
-            )
+            string nextPageText)
         {
-            this.firstLinkFormat = firstLinkFormat;
-            this.pagerLinkFormat = pagerLinkFormat;
-            this.firstPageText = firstPageText;
-            this.lastPageText = lastPageText;
-            this.nextPageText = nextPageText;
-            this.previousPageText = previousPageText;
+            this._firstLinkFormat = firstLinkFormat;
+            this._pagerLinkFormat = pagerLinkFormat;
+            this._nextPageText = nextPageText;
+            this._previousPageText = previousPageText;
         }
 
         public string Get(int page, int total, int nowPage, PagingFlag flag, out string text)
@@ -82,7 +73,7 @@ namespace JR.Stand.Core.Framework.Web.UI
             {
                 if ((flag & PagingFlag.Previous) != 0)
                 {
-                    text = this.previousPageText;
+                    text = this._previousPageText;
                     if (page == 1)
                     {
                         return "javascript:;";
@@ -91,31 +82,31 @@ namespace JR.Stand.Core.Framework.Web.UI
                     {
                         if (nowPage == 1)
                         {
-                            return this.firstLinkFormat;
+                            return this._firstLinkFormat;
                         }
-                        return String.Format(this.pagerLinkFormat, nowPage);
+                        return String.Format(this._pagerLinkFormat, nowPage);
                     }
                 }
                 else if ((flag & PagingFlag.Next) != 0)
                 {
-                    text = this.nextPageText;
+                    text = this._nextPageText;
                     if (page == total)
                     {
                         return "javascript:;";
                     }
                     else
                     {
-                        return String.Format(this.pagerLinkFormat, nowPage);
+                        return String.Format(this._pagerLinkFormat, nowPage);
                     }
                 }
             }
 
             text = nowPage.ToString();
-            if (nowPage == 1 && this.firstLinkFormat.Length != 0)
+            if (nowPage == 1 && this._firstLinkFormat.Length != 0)
             {
-                return this.firstLinkFormat;
+                return this._firstLinkFormat;
             }
-            return String.Format(this.pagerLinkFormat, nowPage);
+            return String.Format(this._pagerLinkFormat, nowPage);
         }
     }
 
@@ -123,27 +114,24 @@ namespace JR.Stand.Core.Framework.Web.UI
     public class UrlPager
     {
         private int _linkCount;
+        
 
-
-        internal UrlPager()
-        {
-        }
-
-        internal UrlPager(int currentPageIndex, int pageCount)
+        internal UrlPager(int currentPageIndex, int pageCount, bool enableSelect)
         {
             CurrentPageIndex = currentPageIndex;
             PageCount = pageCount;
+            EnableSelect = enableSelect;
         }
 
         /// <summary>
         /// 当前页面索引（从1开始）
         /// </summary>
-        public int CurrentPageIndex { get; set; }
+        private int CurrentPageIndex { get; set; }
 
         /// <summary>
         /// 页面总数
         /// </summary>
-        public int PageCount { get; set; }
+        private int PageCount { get; set; }
 
         //获取分页数据
         public IPagingGetter Getter { get; set; }
@@ -188,7 +176,7 @@ namespace JR.Stand.Core.Framework.Web.UI
         /// <summary>
         /// 使用选页
         /// </summary>
-        public bool EnableSelect { get; set; }
+        private bool EnableSelect { get; }
 
         /// <summary>
         /// 分页详细记录,如果为空字符则用默认,为空则不显示
@@ -199,18 +187,16 @@ namespace JR.Stand.Core.Framework.Web.UI
         /// <summary>
         /// 输入分页链接HTML代码
         /// </summary>
-        /// <param name="format">例如:?domain=ops.cc&page={0},{0}将会被解析成页码</param>
-        /// <param name="formatProvider"></param>
         /// <returns></returns>
         public string Pager()
         {
             string cls;
-            string linkText = String.Empty;
+            string linkText;
             string linkUrl;
 
             StringBuilder sb = new StringBuilder();
 
-            string _pageCount = (this.PageCount == 0 ? 1 : this.PageCount).ToString();
+            string pageCount = (this.PageCount == 0 ? 1 : this.PageCount).ToString();
 
             //Div Wrap
             sb.Append("<div class=\"pagination mod-pagination\">");
@@ -241,8 +227,6 @@ namespace JR.Stand.Core.Framework.Web.UI
             int c = this.LinkCount;
             int startPage = (CurrentPageIndex - 1)/c*c + 1;
 
-            bool _gotoPrevious = false; //是否上一栏分页
-
             for (int i = 1, j = startPage;
                 i <= c && j <= PageCount;
                 i++, j = (CurrentPageIndex%c == 0 ? CurrentPageIndex - 1 : CurrentPageIndex)/c*c + i)
@@ -250,23 +234,24 @@ namespace JR.Stand.Core.Framework.Web.UI
                 //输出页面
                 if (j == CurrentPageIndex)
                 {
-                    _gotoPrevious = j != 1 && j%c == 1;
-
-                    if (_gotoPrevious)
+                    var gotoPrevious = j != 1 && j%c == 1; //是否上一栏分页
+                    if (gotoPrevious)
                     {
                         linkUrl = this.Getter.Get(this.CurrentPageIndex, this.PageCount,
                             j - 1, 0, out linkText);
-                        sb.Append(String.Format(@"<span  class=""it page""><a href=""{1}"">{2}</a></span>",
+                        sb.Append(String.Format(@"<span class=""it page""><a href=""{1}"">{2}</a></span>",
                             cls, linkUrl, "..."));
                     }
 
                     //如果为页码为当前页
 
-                    sb.Append("<span class=\"it current\">").Append(j.ToString()).Append("</span>");
+                    sb.Append("<span class=\"it current\"><a href=\"javascript:void(0)\">")
+                        .Append(j.ToString())
+                        .Append("</a></span>");
 
 
                     //如果为最后一个页码，则显示下一栏
-                    if (!_gotoPrevious && j%c == 0 && j != PageCount)
+                    if (!gotoPrevious && j%c == 0 && j != PageCount)
                     {
                         linkUrl = this.Getter.Get(this.CurrentPageIndex, this.PageCount,
                             j + 1, 0, out linkText);
@@ -282,8 +267,7 @@ namespace JR.Stand.Core.Framework.Web.UI
 
                     linkUrl = this.Getter.Get(this.CurrentPageIndex, this.PageCount,
                         j, 0, out linkText);
-                    sb.Append(String.Format("<span class=\"it page\"><a href=\"{0}\">{1}</a></span>",
-                        linkUrl, linkText));
+                    sb.Append($"<span class=\"it page\"><a href=\"{linkUrl}\">{linkText}</a></span>");
                 }
             }
 
@@ -305,8 +289,7 @@ namespace JR.Stand.Core.Framework.Web.UI
                 linkUrl = this.Getter.Get(this.CurrentPageIndex, this.PageCount,
                     this.CurrentPageIndex, PagingFlag.Control | PagingFlag.Next, out linkText);
             }
-            sb.Append(String.Format(@"<span class=""it {0}""><a href=""{1}"">{2}</a></span>"
-                , cls, linkUrl, linkText));
+            sb.Append($@"<span class=""it {cls}""><a href=""{linkUrl}"">{linkText}</a></span>");
 
 
             //显示下拉选页框
@@ -341,7 +324,7 @@ namespace JR.Stand.Core.Framework.Web.UI
 
                 //设置下拉框HTML格式
                 if (String.IsNullOrEmpty(this.SelectPageText)) this.SelectPageText = "{0}";
-                else if (this.SelectPageText.IndexOf("{0}") == -1) this.SelectPageText += "{0}";
+                else if (this.SelectPageText.IndexOf("{0}", StringComparison.Ordinal) == -1) this.SelectPageText += "{0}";
 
                 //将选页框添加到内容中
                 sb.Append(String.Format(String.Concat("<span class=\"select\">", this.SelectPageText, "</span>"),
@@ -352,17 +335,15 @@ namespace JR.Stand.Core.Framework.Web.UI
             //显示信息
             if (this.PagerTotal != null)
             {
-                const string _pagerTotalFormat = @"&nbsp;<span class=""page-info"">第{0}/{1}页，共{2}条。</span>";
-                string _pagerTotal = this.PagerTotal;
-                if (_pagerTotal == String.Empty)
+                const string pagerTotalFormat = @"&nbsp;<span class=""page-info"">第{0}/{1}页，共{2}条。</span>";
+                string pagerTotal = this.PagerTotal;
+                if (pagerTotal == String.Empty)
                 {
-                    _pagerTotal = _pagerTotalFormat;
+                    pagerTotal = pagerTotalFormat;
                 }
-                sb.Append(String.Format(_pagerTotal,
-                    CurrentPageIndex.ToString(),
-                    _pageCount.ToString(),
-                    this.RecordCount.ToString()
-                    ));
+                sb.Append(String.Format(pagerTotal, 
+                    CurrentPageIndex.ToString(), pageCount,
+                    this.RecordCount.ToString()));
             }
 
             //Wrap Close
@@ -374,14 +355,14 @@ namespace JR.Stand.Core.Framework.Web.UI
 
     public static class UrlPaging
     {
-        public static IPagingGetter DefaultGetter = new DefaultPageingGetter();
+        private static readonly IPagingGetter DefaultGetter = new DefaultPagingGetter();
 
         public static UrlPager NewPager(int page, int pageCount, IPagingGetter pg)
         {
             if (pageCount == 0) pageCount = 1;
             if (page == 0) page = 1;
 
-            UrlPager p = new UrlPager(page, pageCount);
+            UrlPager p = new UrlPager(page, pageCount,false);
             if (pg == null)
             {
                 pg = DefaultGetter;
@@ -397,19 +378,18 @@ namespace JR.Stand.Core.Framework.Web.UI
         /// <summary>
         /// 创建分页信息
         /// </summary>
-        /// <param name="pageSize"></param>
+        /// <param name="format"></param>
         /// <param name="currentPageIndex"></param>
         /// <param name="recordCount"></param>
         /// <param name="pageCount"></param>
+        /// <param name="firstFormat"></param>
         /// <returns></returns>
-        public static string PagerHtml(string firstFormat, string format, int currentPageIndex, int recordCount,
-            int pageCount)
+        public static string PagerHtml(string firstFormat, string format, 
+            int currentPageIndex, int recordCount, int pageCount)
         {
             IPagingGetter pg = new CustomPagingGetter(
                 firstFormat,
                 format,
-                "第一页",
-                "最末页",
                 "&lt;&lt;上一页",
                 "&gt;&gt;下一页"
                 );

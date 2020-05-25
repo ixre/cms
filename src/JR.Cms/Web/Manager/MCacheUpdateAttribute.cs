@@ -8,9 +8,9 @@
  */
 
 using System;
-using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
+using JR.Stand.Abstracts.Cache;
 
 namespace JR.Cms.Web.Manager
 {
@@ -18,36 +18,41 @@ namespace JR.Cms.Web.Manager
     /// Description of MCacheUpdateAttribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class MCacheUpdateAttribute : Attribute, ICacheUpdatePolicy
+    public class MCacheAttribute : Attribute, ICachePolicy
     {
-        private CacheSign sign;
+        private readonly CacheSign _sign;
 
-        public MCacheUpdateAttribute(string cacheKey)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        public MCacheAttribute(string cacheKey)
         {
-            Key = cacheKey;
         }
 
-        public MCacheUpdateAttribute(CacheSign sign)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sign"></param>
+        public MCacheAttribute(CacheSign sign)
         {
-            Key = sign.ToString();
-            this.sign = sign;
+            this._sign = sign;
         }
 
-        public string Key { get; private set; }
-
-        public void Clear(string cacheKey)
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Clean()
         {
-            CmsCacheFactory.Singleton.Clear(cacheKey);
-        }
 
-        public void Clear()
-        {
+            if (_sign == CacheSign.Unknown)return;
             var siteId = CmsWebMaster.CurrentManageSite.SiteId;
-
-            if (sign != CacheSign.Unknown)
-                if ((sign & CacheSign.Link) != 0)
-                    SiteLinkCache.ClearForSite(siteId);
-            CmsCacheFactory.Singleton.Clear(Key);
+            if ((_sign & CacheSign.Link) != 0)
+            {
+                SiteLinkCache.ClearForSite(siteId);
+                Cms.Template.CleanPageCache();
+            }
+            //CmsCacheFactory.Singleton.Clear(Key);
         }
     }
 }

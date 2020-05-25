@@ -90,7 +90,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <param name="key"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public virtual string FormatPageUrl(UrlRulePageKeys key, string[] data)
+        public virtual string FormatPageUrl(UrlRulePageKeys key, object[] data)
         {
             var url = TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
             if (data != null) url = string.Format(url, data);
@@ -103,16 +103,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public virtual string ConcatUrl(string url)
+        protected string ConcatUrl(string url)
         {
-            if (url.IndexOf("//", StringComparison.Ordinal) != -1
-                || url.IndexOf("javascript:", StringComparison.Ordinal) != -1)
-                return url;
-
-            if (!string.IsNullOrEmpty(url) && url[0] != '/') url = string.Concat("/", url);
-
+            if (url.IndexOf("//", StringComparison.Ordinal) != -1)return url;
+            if(url.StartsWith("javascript:", StringComparison.Ordinal))return url;
+            if (!string.IsNullOrEmpty(url) && url[0] != '/')url = string.Concat("/", url);
             if (Settings.TPL_FULL_URL_PATH) return string.Concat(Cms.Context.SiteDomain, url);
-
             return url;
         }
 
@@ -154,13 +150,17 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <param name="category"></param>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
-        public virtual string GetCategoryUrl(CategoryDto category, int pageIndex)
+        protected string GetCategoryUrl(CategoryDto category, int pageIndex)
         {
             if (!string.IsNullOrEmpty(category.Location)) return ConcatUrl(category.Location);
             if (pageIndex < 2)
-                return FormatPageUrl(UrlRulePageKeys.Category, new[] {category.Path});
+            {
+                return ConcatUrl(category.Path);
+            }
             else
-                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new[] {category.Path, pageIndex.ToString()});
+            {
+                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new object[] {category.Path, pageIndex.ToString()});
+            }
         }
 
         #region 分页
@@ -194,8 +194,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
             IPagingGetter getter = new CustomPagingGetter(
                 firstLink,
                 link,
-                Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
-                Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText),
                 Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
                 Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText)
             );
@@ -711,8 +709,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                 return string.Empty;
             });
-
-            if (Settings.TPL_USE_COMPRESS)return TemplateUtils.CompressHtml(content);
             return content;
         }
 
@@ -831,8 +827,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     }
                 }));
             }
-
-            if (Settings.TPL_USE_COMPRESS)return TemplateUtils.CompressHtml(sb.ToString());
             return sb.ToString();
         }
 
@@ -1012,6 +1006,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "url":
                                 return this.ConcatUrl(string.IsNullOrEmpty(link.Bind) 
                                     ? link.Uri : GetBingLinkUrl(link.Bind));
+                            case "target": return string.IsNullOrEmpty(link.Target) ? "_self" : link.Target;
                             case "text": return link.Text;
                             case "img_url": return link.ImgUrl;
                         }
@@ -1124,6 +1119,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <summary>
         /// 栏目链接列表
         /// </summary>
+        /// <param name="catPath"></param>
         /// <param name="format"></param>
         /// <returns></returns>
         protected string CategoryList(string catPath, string format)
@@ -1156,8 +1152,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             var isModule = false;
             if (!isModule)
+            {
                 categories = new List<CategoryDto>(ServiceCall.Instance.SiteService
                     .GetCategories(SiteId, catPath));
+            }
 
             //如果没有下级了,则获取当前级
             //if (categories.Count == 0)
@@ -2119,15 +2117,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var sb = new StringBuilder(1000);
 
 
-            string alias,
-                title,
-                content,
-                title_hightlight;
+            string alias;
+            string content;
+            string titleHightLight;
 
 
             var i = 0;
 
-            var C_LENGTH = GetSetting().CfgOutlineLength;
+            var cLength = GetSetting().CfgOutlineLength;
             var searchArchives = ServiceCall.Instance.ArchiveService
                 .SearchArchives(SiteId, "", false, tag,
                     _pageSize, _pageIndex,
@@ -2152,12 +2149,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 #region 处理关键词
 
                 alias = string.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias;
-                title = title_hightlight = archive.Title;
+                titleHightLight = archive.Title;
                 content = RegexHelper.FilterHtml(archive.Content);
 
-                if (keyRegex.IsMatch(title_hightlight))
-                    title_hightlight =
-                        keyRegex.Replace(title_hightlight, "<span class=\"search_hightlight\">$0</span>");
+                if (keyRegex.IsMatch(titleHightLight))
+                    titleHightLight =
+                        keyRegex.Replace(titleHightLight, "<span class=\"search-high-light\">$0</span>");
 
                 //关键词前数字索引算法
                 var contentLength = content.Length;
@@ -2166,27 +2163,27 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 if (keyRegex.IsMatch(content))
                 {
                     var match = keyRegex.Match(content);
-                    if (contentLength > C_LENGTH)
+                    if (contentLength > cLength)
                     {
                         if (match.Index > firstSplitIndex)
                         {
                             //如果截取包含关键词的长度仍大于内容长度时
-                            if (contentLength - match.Index > C_LENGTH)
-                                content = content.Substring(match.Index - firstSplitIndex, C_LENGTH - firstSplitIndex);
+                            if (contentLength - match.Index > cLength)
+                                content = content.Substring(match.Index - firstSplitIndex, cLength - firstSplitIndex);
                             else
                                 content = content.Substring(match.Index - firstSplitIndex);
                         }
                         else
                         {
-                            content = content.Remove(C_LENGTH);
+                            content = content.Remove(cLength);
                         }
                     }
 
-                    content = keyRegex.Replace(content, "<span class=\"search_hightlight\">$0</span>") + "...";
+                    content = keyRegex.Replace(content, "<span class=\"search-high-light\">$0</span>") + "...";
                 }
                 else
                 {
-                    if (contentLength > C_LENGTH) content = content.Substring(0, C_LENGTH) + "...";
+                    if (contentLength > cLength) content = content.Substring(0, cLength) + "...";
                 }
 
                 #endregion
@@ -2201,7 +2198,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "id":
                                 return archive.Id.ToString();
                             case "str_id": return alias;
-                            case "title": return title_hightlight;
+                            case "title": return titleHightLight;
                             case "raw_title": return archive.Title;
                             case "small_title": return archive.SmallTitle;
                             case "author_id": return archive.PublisherId.ToString();

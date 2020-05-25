@@ -1,8 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Caching;
+using JR.Stand.Abstracts;
 using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Core.AspNet
@@ -15,7 +16,7 @@ namespace JR.Stand.Core.AspNet
             var cacheEnum = cache.GetEnumerator();
             while (cacheEnum.MoveNext())
             {
-                if (cacheEnum.Key.ToString().Equals(key,StringComparison.OrdinalIgnoreCase))
+                if (cacheEnum.Key != null && cacheEnum.Key.ToString().Equals(key,StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
@@ -60,7 +61,10 @@ namespace JR.Stand.Core.AspNet
             var cacheEnum = cache.GetEnumerator();
             while (cacheEnum.MoveNext())
             {
-                cache.Remove(cacheEnum.Key.ToString());
+                if (cacheEnum.Key != null)
+                {
+                    cache.Remove(cacheEnum.Key.ToString());
+                }
             }
         }
 
@@ -72,10 +76,26 @@ namespace JR.Stand.Core.AspNet
             var cacheEnum = cache.GetEnumerator();
             while (cacheEnum.MoveNext())
             {
-                list.Add(cacheEnum.Key.ToString());
+                if (cacheEnum.Key != null)
+                {
+                    list.Add(cacheEnum.Key.ToString());
+                }
             }
             return list;
         }
+
+        /// <summary>
+        /// 搜索 匹配到的缓存
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public IList<string> SearchKeys(string pattern)
+        {
+            var cacheKeys = GetCacheKeys();
+            var l = cacheKeys.Where(k => Regex.IsMatch(k, pattern)).ToList();
+            return l.AsReadOnly();
+        }
+
 
         public int GetInt(string key)
         {

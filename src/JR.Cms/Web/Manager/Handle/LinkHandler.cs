@@ -334,7 +334,7 @@ namespace JR.Cms.Web.Manager.Handle
             return RequireTemplate(resource);
         }
 
-        [MCacheUpdate(CacheSign.Link)]
+        [MCache(CacheSign.Link)]
         public string Save_POST()
         {
             var link = default(SiteLinkDto);
@@ -374,7 +374,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// <summary>
         /// 设置链接可见
         /// </summary>
-        [MCacheUpdate(CacheSign.Link)]
+        [MCache(CacheSign.Link)]
         public string Set_visible_POST()
         {
             var linkId = int.Parse(Request.Form("link_id"));
@@ -403,7 +403,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// <summary>
         /// 删除链接
         /// </summary>
-        [MCacheUpdate(CacheSign.Link)]
+        [MCache(CacheSign.Link)]
         public void Delete_POST()
         {
             var linkId = int.Parse(Request.Form("link_id"));

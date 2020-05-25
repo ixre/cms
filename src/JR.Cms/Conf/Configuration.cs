@@ -56,7 +56,7 @@ namespace JR.Cms.Conf
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <returns>返回加载消息，如成功返回空</returns>
-        private static string Load(string filePath)
+        private static void Load(string filePath)
         {
             cmsConfFile = filePath;
             //从配置文件中加载
@@ -182,7 +182,6 @@ namespace JR.Cms.Conf
             }
 
             if (settingChanged) sf.Flush();
-            return String.Empty;
         }
 
         private static int GetInt(SettingFile s, string key)
@@ -383,7 +382,7 @@ namespace JR.Cms.Conf
                     FileEncoder.DecodeFile(confPath, confPath, CmsVariables.FileEncodeHeader,
                         CmsVariables.FileEncodeToken);
                 }
-                Configuration.Load(confPath);
+                Load(confPath);
                 if (isEncoded || Settings.SYS_ENCODE_CONF_FILE)
                 {
                     FileEncoder.EncodeFile(confPath, confPath, CmsVariables.FileEncodeHeader,

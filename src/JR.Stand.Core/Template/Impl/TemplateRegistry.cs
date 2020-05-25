@@ -20,7 +20,7 @@ namespace JR.Stand.Core.Template.Impl
         private readonly Options _options;
         private readonly IDataContainer _container;
         private readonly IList<string> _directories = new List<string>();
-
+        private readonly object _locker = new object();
         public TemplateRegistry(IDataContainer container,Options options)
         {
             this._options = options ?? new Options();
@@ -32,14 +32,21 @@ namespace JR.Stand.Core.Template.Impl
         /// </summary>
         public void Register(string directory)
         {
-            var dir = new DirectoryInfo(EnvUtil.GetBaseDirectory()+"/" + directory);
+            var dir = new DirectoryInfo(EnvUtil.GetBaseDirectory() + directory);
             if (!dir.Exists) throw new DirectoryNotFoundException("模版文件夹不存在!");
             // 添加到目录数组,用于重新加载模板
             if(!this._directories.Contains(directory))this._directories.Add(directory);
+            // 重置模板缓存
+            this.ResetCaches();
             //注册模板
             RegisterTemplates(dir, this._options);
         }
 
+        private void ResetCaches()
+        {
+            lock(this._locker) TemplateCache.Reset();
+        }
+        
         /// <summary>
         /// 是否存在模板
         /// </summary>
@@ -53,11 +60,9 @@ namespace JR.Stand.Core.Template.Impl
         //递归方式注册模板
         private static void RegisterTemplates(DirectoryInfo dir, Options options)
         {
-            // tml 为模板文件，防止可以被直接浏览
-            Regex allowExt = new Regex("(.html|.html)$", RegexOptions.IgnoreCase);
             foreach (FileInfo file in dir.GetFiles())
             {
-                if (allowExt.IsMatch(file.Extension))
+                if (file.Extension.EndsWith(".html"))
                 {
                    // Console.WriteLine("---" + file.FullName);
                     TemplateCache.RegisterTemplate(TemplateUtility.GetTemplateId(

@@ -7,16 +7,16 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-namespace JR.Cms.Library.CacheProvider.CacheComponent
+namespace JR.Stand.Abstracts.Cache
 {
     /// <summary>
     /// Description of ICacheUpdatePolicy.
     /// </summary>
-    public interface ICacheUpdatePolicy
+    public interface ICachePolicy
     {
         /// <summary>
         /// 清理缓存
         /// </summary>
-        void Clear();
+        void Clean();
     }
 }
