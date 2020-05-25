@@ -52,6 +52,13 @@ namespace JR.Cms.ServiceImpl
         }
 
 
+        /// <summary>
+        /// 保存文档
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catId"></param>
+        /// <param name="archiveDto"></param>
+        /// <returns></returns>
         public Result SaveArchive(int siteId, int catId, ArchiveDto archiveDto)
         {
             var value = archiveDto.ToArchiveEntity();
@@ -72,7 +79,7 @@ namespace JR.Cms.ServiceImpl
             if (err == null)
             {
                 // 更新模板
-                if (!string.IsNullOrEmpty(archiveDto.TemplatePath)) ia.SetTemplatePath(archiveDto.TemplatePath);
+                ia.SetTemplatePath(archiveDto.TemplatePath);
                 // 设置扩展属性
                 err = ia.SetExtendValue(archiveDto.ExtendValues);
                 // 保存文档

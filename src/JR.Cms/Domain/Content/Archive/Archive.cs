@@ -81,24 +81,19 @@ namespace JR.Cms.Domain.Content.Archive
             set => _templateBind = value;
         }
 
+        /// <inheritdoc />
         public void SetTemplatePath(string templatePath)
         {
             var templateIsNull = string.IsNullOrEmpty(templatePath);
-
             if (Template != null)
+            {
                 //处理自身的模板
                 if (Template.BindRefrenceId == GetAggregateRootId())
                 {
-                    if (templateIsNull)
-                    {
-                        Template.TplPath = null;
-                    }
-                    else
-                    {
-                        Template.TplPath = templatePath;
-                    }
+                    Template.TplPath = templateIsNull ? null : templatePath;
                     return;
                 }
+            }
 
             //为文档新建模板绑定
             if (!templateIsNull)
