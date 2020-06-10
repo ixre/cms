@@ -23,7 +23,17 @@ namespace JR.Stand.Core.AspNet
 
         public void AddHeader(string key, string value)
         {
-            Context.Response.Headers.Add(key,value);
+            try
+            {
+                
+                // 如果在经典模式下,提示： 此操作要求使用 IIS 集成管线模式。 
+                Context.Response.Headers.Add(key, value);
+            }
+            catch(PlatformNotSupportedException ex)
+            {
+                //IIS经典模式
+                Context.Response.AppendHeader(key,value);
+            }
         }
 
         public void StatusCode(int status)
