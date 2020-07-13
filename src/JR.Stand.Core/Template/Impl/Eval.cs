@@ -35,12 +35,10 @@ namespace JR.Stand.Core.Template.Impl
             // $menu=item:123456
             // $menu=>getmenu(test,item,get)
             //const string expressionPattern = "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*(\"(\"|[^\"\\n])*\"|[^<>\\s\\n\"\\$/]+)(\\s+\\B)*";
-            const string expressionPattern = "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*([^()]+)\\(([^)]*)\\)";
+            const string expressionPattern = "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*([^()]+)\\((((?!}\\)).)+\\}*)\\)";
 
             //设置表达式
-            const string specialVarPattern = "(item|cache|query|form)\\([\"']*(.+?)[\"']*\\)"; //特殊数据
-
-            Match valueMatch;
+            //const string specialVarPattern = "(item|cache|query|form)\\([\"']*(.+?)[\"']*\\)"; //特殊数据
 
             var outHtml = Regex.Replace(content, expressionPattern, m =>
             {
@@ -123,15 +121,16 @@ namespace JR.Stand.Core.Template.Impl
             return outHtml;
         }
 
-        private static IDictionary<String, MethodInfo> evalMethodMap = new Dictionary<string, MethodInfo>();
-        
+        private static readonly IDictionary<String, MethodInfo> EvalMethodMap = new Dictionary<string, MethodInfo>();
+
         /// <summary>
         /// 执行方法并将返回值赋予变量
         /// </summary>
         /// <param name="data"></param>
+        /// <param name="dc"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public static string EvalMethodToVar(IDataContainer dc, string content, object data)
+        private static string EvalMethodToVar(IDataContainer dc, string content, object data)
         {
             //正则模式，支持以下
             // //$menu="123456\" f" sdf
@@ -173,16 +172,16 @@ namespace JR.Stand.Core.Template.Impl
                 }
 
                 string key = type.FullName + ":" + methodName+"$"+parameters.Length;
-                if (evalMethodMap.ContainsKey(key))
+                if (EvalMethodMap.ContainsKey(key))
                 {
-                    method = evalMethodMap[key];
+                    method = EvalMethodMap[key];
                 }
                 else
                 {
                     var flag = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public |
                                BindingFlags.IgnoreCase;
                     method = type.GetMethod(methodName,flag, null, parameterTypes, null);
-                    evalMethodMap[key] = method;
+                    EvalMethodMap[key] = method;
                 }
 
                 if (method != null)
@@ -290,7 +289,7 @@ namespace JR.Stand.Core.Template.Impl
 
         internal static string ResolveEntityProperties(IDataContainer dc, string templateHtml)
         {
-            const string keyParttern = "\\$\\{([a-zA-Z][a-zA-Z0-9_]*)\\.([A-Z_a-z][a-zA-Z0-9_]*)\\}";
+            const string keyPattern = "\\$\\{([a-zA-Z][a-zA-Z0-9_]*)\\.([A-Z_a-z][a-zA-Z0-9_]*)\\}";
             IDictionary<string, string> entityKeys = new Dictionary<string, string>();
             IDictionary<string, Variable> entityValues = new Dictionary<string, Variable>();
 
@@ -299,7 +298,7 @@ namespace JR.Stand.Core.Template.Impl
             PropertyInfo pro;
             object varValue;
 
-            templateHtml = Regex.Replace(templateHtml, keyParttern, m =>
+            templateHtml = Regex.Replace(templateHtml, keyPattern, m =>
             {
                 entityName = m.Groups[1].Value;
                 proName = m.Groups[2].Value;
@@ -357,14 +356,14 @@ namespace JR.Stand.Core.Template.Impl
             // 不支持的属性，默认以_开头
             // a-z下划线或中文开头
             //
-            string keyPattern = "\\$\\{" + variable.Key + "\\.([A-Z_a-z\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5]*|map\\[([^\\]]+)\\])\\}";
+            string keyPattern = "\\$\\{" + variable.Key + "\\.([A-Z_a-z\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5]*|map\\(([^\\]]+)\\))\\}";
             string proName;
             PropertyInfo pro = null;
             IDictionary<string, string> propDict = null;
             templateHtml = Regex.Replace(templateHtml, keyPattern, m =>
             {
                 proName = m.Groups[1].Value;
-                if (proName.StartsWith("map[")) proName = "map";
+                if (proName.StartsWith("map(")) proName = "map";
                 string key = variable.Type.FullName + ":" + variable.Key + "$" + proName;
                 if (PropertiesMap.ContainsKey(key))
                 {

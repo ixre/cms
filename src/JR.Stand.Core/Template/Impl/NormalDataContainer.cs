@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 
 namespace JR.Stand.Core.Template.Impl
-{
-    internal class NormalDataContrainer : IDataContainer
+{ 
+    public class NormalDataContainer : IDataContainer
     {
-        private IDictionary<string, object> varDict;
+        private IDictionary<string, object> _varDict = new Dictionary<string, object>();
 
         public IDataAdapter GetAdapter()
         {
@@ -26,7 +26,7 @@ namespace JR.Stand.Core.Template.Impl
             if (value == null) return; //防止非法参数
 
 
-            if (varDict.Keys.Contains(key))
+            if (_varDict.Keys.Contains(key))
             {
                 throw new ArgumentException("模板变量已定义。", key);
             }
@@ -35,40 +35,40 @@ namespace JR.Stand.Core.Template.Impl
             Type t = typeof (T);
             if (t == typeof (String) || t.IsPrimitive)
             {
-                varDict.Add(key, value);
+                _varDict.Add(key, value);
             }
             else
             {
-                varDict.Add(key, new Variable {Key = key, Value = value, Type = t});
+                _varDict.Add(key, new Variable {Key = key, Value = value, Type = t});
             }
         }
 
         public void DefineVariable(string key, Variable variable)
         {
-            if (varDict.Keys.Contains(key))
+            if (_varDict.Keys.Contains(key))
             {
                 throw new ArgumentException("模板变量已定义。", key);
             }
             variable.Key = key;
-            varDict.Add(key, variable);
+            _varDict.Add(key, variable);
         }
 
         public object GetVariable(string key)
         {
-            if (this.varDict.Keys.Contains(key))
+            if (this._varDict.Keys.Contains(key))
             {
-                return varDict[key];
+                return _varDict[key];
             }
             return null;
         }
 
         public IDictionary<string, object> GetDefineVariable()
         {
-            if (varDict == null)
+            if (_varDict == null)
             {
-                varDict = new Dictionary<string, object>();
+                _varDict = new Dictionary<string, object>();
             }
-            return varDict;
+            return _varDict;
         }
     }
 }
