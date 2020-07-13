@@ -35,7 +35,7 @@ namespace JR.Stand.Core.Template.Impl
             // $menu=item:123456
             // $menu=>getmenu(test,item,get)
             //const string expressionPattern = "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*(\"(\"|[^\"\\n])*\"|[^<>\\s\\n\"\\$/]+)(\\s+\\B)*";
-            const string expressionPattern = "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*([^()]+)\\((((?!}\\)).)+\\}*)\\)";
+            const string expressionPattern = "(/*/*|#*)\\$([_a-zA-Z][a-zA-Z0-9_]*)\\s*=\\s*([^()]+)\\(((\\{[^}]*\\})|([^)]*))\\)";
 
             //设置表达式
             //const string specialVarPattern = "(item|cache|query|form)\\([\"']*(.+?)[\"']*\\)"; //特殊数据
