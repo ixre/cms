@@ -21,7 +21,8 @@ namespace JR.Cms.UnitTest
         public void TestCompileFunction()
         {
             var temp = @"
-$lang(home)
+$lang(home) 
+$navigator()
 ${archive.map(视频)}
      <div>
               $categories('prod\,uct',{
@@ -47,12 +48,14 @@ ${archive.map(视频)}
         [Test]
         public void TestVariable()
         {
-            const string expressionPattern = "\\$([a-z_0-9\u4e00-\u9fa5]+)\\((((?!}\\)).)+\\}*\\))";
+            //const string expressionPattern = "\\$([a-z_0-9\u4e00-\u9fa5]+)\\((((?!}\\)).)+\\}*)\\)";
+            const string expressionPattern = "\\$([a-z_0-9\u4e00-\u9fa5]+)\\(((\\{[^}]*\\})|([^)]*))\\)";
             Regex reg = new Regex(expressionPattern);
-            MatchCollection matches = reg.Matches("$archive({ (haha) })  $lang(home) ");
+            MatchCollection matches = reg.Matches("$archive({ (haha) *(sese2)})  $lang(home)$navigator()");
+            var i = 0;
             foreach (Match match in matches)
             {
-                Console.WriteLine(match.Value);
+                Console.WriteLine((i++)+ match.Value+"/"+match.Groups[2]);
             }
         }
     }
@@ -117,6 +120,12 @@ ${archive.map(视频)}
         public string Lang(string catPath)
         {
             return "haha";
+        }
+
+        [TemplateTag]
+        public string Navigator()
+        {
+            return "navigator";
         }
     }
 }
