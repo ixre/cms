@@ -47,8 +47,10 @@ namespace JR.Cms.Web.Portal.Template.Model
                 if (_dict == null)
                 {
                     _dict = new Dictionary<string, string>();
-
-                    foreach (var value in Archive.ExtendValues) _dict.Add(value.Field.Name, value.Value);
+                    if (Archive.ExtendValues != null)
+                    {
+                        foreach (var value in Archive.ExtendValues) _dict.Add(value.Field.Name, value.Value);
+                    }
                 }
                 return _dict;
             }

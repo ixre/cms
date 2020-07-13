@@ -24,6 +24,11 @@ namespace JR.Stand.Core.Template.Impl
         public event TemplateHandler<object> OnPreInit;
 
         /// <summary>
+        /// 编译之前发生的事件
+        /// </summary>
+        public event BeforeCompileEvent OnBeforeCompile;
+        
+        /// <summary>
         /// 模板呈现之前发生的事件
         /// </summary>
         public event TemplateHandler<object> OnPreRender;
@@ -110,6 +115,10 @@ namespace JR.Stand.Core.Template.Impl
             OnPreRender?.Invoke(obj, ref content);
         }
 
+        private void BeforeCompile(string templateHtml)
+        {
+            OnBeforeCompile?.Invoke(this, ref templateHtml);
+        }
         private void PreInit(object obj, ref string content)
         {
             if (this.OnPreInit != null && obj != null)
@@ -132,6 +141,9 @@ namespace JR.Stand.Core.Template.Impl
             {
                 this._templateHtml = TemplateCache.GetTemplateContent(this._templateId);
             }
+
+            this.BeforeCompile(this._templateHtml);
+            
             //HttpContext.Current.Response.Write("<br />1." + (DateTime.Now - dt).Milliseconds.ToString());
             //初始化之前发生
             this.PreInit(this.TemplateHandleObject, ref _templateHtml);
@@ -164,7 +176,8 @@ namespace JR.Stand.Core.Template.Impl
 
             return _templateHtml;
         }
-            
+
+
         /// <summary>
         /// 替换自定义变量
         /// </summary>

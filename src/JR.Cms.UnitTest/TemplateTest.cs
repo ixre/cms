@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
+using JR.Cms.Web.Portal.Template.Model;
 using JR.Stand.Core;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Web;
 using NUnit.Framework;
 
 namespace JR.Cms.UnitTest
@@ -18,6 +21,8 @@ namespace JR.Cms.UnitTest
         public void TestCompileFunction()
         {
             var temp = @"
+$lang(home)
+${archive.map(视频)}
      <div>
               $categories('prod\,uct',{
                     <div class=""col-md-3 col-lg-2 col-sm-4"">
@@ -26,13 +31,29 @@ namespace JR.Cms.UnitTest
                     <div style=""background-image:url('{name}')""></div>
         }) </div>
 ";
-            
-            TemplatePage tp = new TemplatePage(null);
+            IDataContainer dc = new NormalDataContainer();
+            TemplatePage tp = new TemplatePage(dc);
             tp.TemplateHandleObject = new TemplateMock();
             tp.OnPreInit += TemplateMock.CompliedTemplate;
-            tp.SetTemplateContent( temp);
+            tp.OnBeforeCompile += (TemplatePage page, ref String content) =>
+            {
+                var pageArchive = new PageArchive(new ArchiveDto());
+                page.AddVariable("archive", pageArchive);
+            };
+            tp.SetTemplateContent(temp);
             var content = tp.Compile();
             Console.WriteLine(content);
+        }
+        [Test]
+        public void TestVariable()
+        {
+            const string expressionPattern = "\\$([a-z_0-9\u4e00-\u9fa5]+)\\((((?!}\\)).)+\\}*\\))";
+            Regex reg = new Regex(expressionPattern);
+            MatchCollection matches = reg.Matches("$archive({ (haha) })  $lang(home) ");
+            foreach (Match match in matches)
+            {
+                Console.WriteLine(match.Value);
+            }
         }
     }
 
@@ -90,6 +111,12 @@ namespace JR.Cms.UnitTest
             }
 
             return sb.ToString();
+        }
+
+        [TemplateTag]
+        public string Lang(string catPath)
+        {
+            return "haha";
         }
     }
 }

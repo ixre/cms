@@ -31,7 +31,6 @@ namespace JR.Stand.Core.Template
             html = MultiRowCommentRegex.Replace(html, String.Empty);
             //替换<!-- 注释 -->
             html = HtmlCommentRegex.Replace(html, String.Empty);
-            //html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->|(^?!=http:|https:)//(.+?)\r\n|\r|\n|\t|(\\s\\s)", String.Empty);
             html = TrimBreakRegex.Replace(html, String.Empty);
             return html;
         }

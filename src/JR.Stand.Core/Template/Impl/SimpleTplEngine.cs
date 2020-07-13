@@ -38,7 +38,7 @@ namespace JR.Stand.Core.Template.Impl
         private static readonly Regex MethodRegex = new Regex("\\#begin\\s([A-Za-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)\\s*([\\S\\s]+)#end");
         // 参数正则
         private static readonly  Regex ParamRegex = new Regex("\\s*'([^']*)',*|\\s*(?!=')([^,]+),*");
-        private static readonly  Regex TagRegex = new Regex("\\$([a-z_0-9\u4e00-\u9fa5]+)\\(([^)]*)\\)");
+        private static readonly  Regex TagRegex = new Regex("\\$([a-z_0-9\u4e00-\u9fa5]+)\\((((?!}\\)).)+\\}*)\\)");
         private static readonly  Regex TagParamRegex = new Regex("\\s*(((\\\\,)|[^,])+),*");
 
         /// <summary>
