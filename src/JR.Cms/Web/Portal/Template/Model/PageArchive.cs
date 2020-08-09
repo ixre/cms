@@ -14,7 +14,7 @@ namespace JR.Cms.Web.Portal.Template.Model
     /// <summary>
     /// 
     /// </summary>
-    public class PageArchive : ITemplateVariableObject
+    public class PageArchive : ITemplateVariableInstance
     {
         private string _properties;
         private IDictionary<string, string> _dict;
@@ -40,7 +40,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         /// <summary>
         /// 
         /// </summary>
-        public IDictionary<string, string> Map
+        public IDictionary<string, string> Data
         {
             get
             {

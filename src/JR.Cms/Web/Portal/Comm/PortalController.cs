@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using JR.Cms.Conf;
 using JR.Cms.Core;
@@ -75,12 +76,6 @@ namespace JR.Cms.Web.Portal.Comm
                 var task = this.CheckStaticIndex(context, Settings.PERM_INDEX_CACHE_SECOND);
                 if (task != null) return task;
             }
-
-            // bool eventResult = false;
-            // if (OnIndexRequest != null)
-            // {
-            //     OnIndexRequest(base.OutputContext, ref eventResult);
-            // }
             var ctx = Cms.Context;
             SiteDto site = ctx.CurrentSite;
             // 站点站点路径
@@ -91,15 +86,7 @@ namespace JR.Cms.Web.Portal.Comm
             {
                 DefaultWebOutput.RenderIndex(ctx);
             }
-
             return SafetyTask.CompletedTask;
-
-
-            //如果返回false,则执行默认输出
-            // if (!eventResult)
-            // {
-            //     DefaultWebOutput.RenderIndex(base.OutputContext);
-            // }
         }
 
         private Task CheckStaticIndex(ICompatibleHttpContext context, int seconds)
@@ -120,21 +107,35 @@ namespace JR.Cms.Web.Portal.Comm
 #if DEBUG
                 Console.WriteLine("[ cms][ Info]: update index page cache..");
 #endif
-                html = GenerateCache(cacheKey);
-                Cms.Cache.Insert(cacheUnixKey, unix);
+                html = GenerateIndexPageCache(context,cacheKey, cacheUnixKey, unix);
             }
             else
             {
                 html = Cms.Cache.Get(cacheKey) as String;
                 if (String.IsNullOrEmpty(html))
                 {
-                    html = GenerateCache(cacheKey);
-                    Cms.Cache.Insert(cacheUnixKey, unix);
+                    html = GenerateIndexPageCache(context,cacheKey, cacheUnixKey, unix);
                 }
             }
 
             context.Response.ContentType("text/html;charset=utf-8");
             return context.Response.WriteAsync(html);
+        }
+
+        private static string GenerateIndexPageCache(ICompatibleHttpContext context, 
+            string cacheKey, string cacheUnixKey, int unix)
+        {
+            string html = GenerateCache(cacheKey);
+            // 如果以IP访问,则不保存缓存
+            String host = context.Request.GetHost();
+            int i = host.IndexOf(":", StringComparison.Ordinal);
+            if (i != -1) host = host.Substring(0, i);
+            String[] hostParts = host.Split('.');
+            if (!Regex.IsMatch(hostParts[hostParts.Length - 1], "\\d"))
+            {
+                Cms.Cache.Insert(cacheUnixKey, unix);
+            }
+            return html;
         }
 
         private static string GenerateCache(string cacheKey)

@@ -251,20 +251,7 @@ namespace JR.Cms.Core
         {
             _context.Session.SetInt32("user.device.set", deviceType);
         }
-
-        /// <summary>
-        /// 路径和查询
-        /// </summary>
-        //public string PathAndQuery
-        //{
-        //    get
-        //    {
-        //        string str = context.Request.Url.PathAndQuery;
-        //        return !IsVirtualDirectoryRunning ? str : str.Replace(this.CurrentSite.DirName + "/", String.Empty);
-        //    }
-        //}
-
-
+        
         /// <summary>
         /// 站点域名
         /// </summary>
@@ -277,7 +264,7 @@ namespace JR.Cms.Core
         private Languages _userLanguage;
         private DeviceType? _userDevice;
         private string _proto;
-        private bool _containCookie = false;
+        private readonly bool _containCookie;
 
         /// <summary>
         /// 系统应用程序目录
@@ -311,9 +298,13 @@ namespace JR.Cms.Core
                 if (_siteDomain == null)
                 {
                     if (SiteAppPath != "/")
+                    {
                         _siteDomain = WebCtx.Current.Domain + SiteAppPath;
+                    }
                     else
+                    {
                         _siteDomain = WebCtx.Current.Domain;
+                    }
                 }
 
                 return _siteDomain;
@@ -342,7 +333,7 @@ namespace JR.Cms.Core
                     }
                     else
                     {
-                        _staticDomain = ResourceDomain;
+                        _staticDomain = this.ResourceDomain;
                     }
                 }
 
