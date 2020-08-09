@@ -352,18 +352,18 @@ namespace JR.Stand.Core.Template.Impl
             if (variable.Value == null) return templateHtml;
             //
             // ${obj.name};
-            // 字典方式 ${obj.map[key]}
+            // 字典方式 ${obj.data[key]}
             // 不支持的属性，默认以_开头
             // a-z下划线或中文开头
             //
-            string keyPattern = "\\$\\{" + variable.Key + "\\.([A-Z_a-z\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5]*|map\\(([^\\]]+)\\))\\}";
+            string keyPattern = "\\$\\{" + variable.Key + "\\.([A-Z_a-z\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5]*|data\\(([^\\]]+)\\))\\}";
             string proName;
-            PropertyInfo pro = null;
+            PropertyInfo pro;
             IDictionary<string, string> propDict = null;
             templateHtml = Regex.Replace(templateHtml, keyPattern, m =>
             {
                 proName = m.Groups[1].Value;
-                if (proName.StartsWith("map(")) proName = "map";
+                if (proName.StartsWith("data(")) proName = "data";
                 string key = variable.Type.FullName + ":" + variable.Key + "$" + proName;
                 if (PropertiesMap.ContainsKey(key))
                 {
@@ -377,7 +377,7 @@ namespace JR.Stand.Core.Template.Impl
                     PropertiesMap[key] = pro;
                 }
                 #region 获取字典
-                if (proName == "map")
+                if (proName == "data")
                 {
                     if (propDict == null)
                     {
@@ -388,7 +388,7 @@ namespace JR.Stand.Core.Template.Impl
                         propDict = pro.GetValue(variable.Value, null) as IDictionary<string, string>;
                         if (propDict == null)
                         {
-                            throw new TypeLoadException("map属性的类型应为IDictionary<string,string>");
+                            throw new TypeLoadException("data属性的类型应为IDictionary<string,string>");
                         }
                     }
                     //获取值

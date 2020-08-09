@@ -6,12 +6,12 @@ namespace JR.Stand.Core.Template.Impl
     /// <summary>
     /// 模板变量对象
     /// </summary>
-    public interface ITemplateVariableObject
+    public interface ITemplateVariableInstance
     {
         /// <summary>
         /// 数据字典
         /// </summary>
-        IDictionary<String, String> Map { get; }
+        IDictionary<String, String> Data { get; }
 
         /// <summary>
         /// 添加数据

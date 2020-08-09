@@ -33,8 +33,8 @@ namespace JR.Stand.Core.AspNet
 
         public string GetProto()
         {
-            if (this.GetScheme() == "https") return "https";
-            return HttpUtils.IsProxyHttpsRequest(this) ? "https" : "http";
+            return this.GetScheme() == "https" || HttpUtils.IsProxyHttpsRequest(this) 
+                ? "https" : "http";
         }
 
 
