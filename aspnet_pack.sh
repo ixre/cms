@@ -28,7 +28,7 @@ cd ${RELEASE_DIR} && \
     Microsoft.Extensions.ObjectPool.dll Microsoft.Extensions.Localization* \
     Microsoft.Extensions.FileProviders.Abstractions.dll Microsoft.Extensions.Dependency* \
     Microsoft.Extensions.Configuration.Abstractions.dll Microsoft.Extensions.Caching* \
-    Microsoft.Win32.Registry.dll Microsoft.Web.Infrastructure.dll Microsoft.Net.Http.Headers.dll \
+    Microsoft.Win32.Registry.dll Microsoft.Net.Http.Headers.dll \
     Microsoft.AspNetCore.WebUtilities.dll \
     Microsoft.AspNetCore.JsonPatch.dll Microsoft.AspNetCore.Http.Extensions.dll \
     Microsoft.AspNetCore.Http.dll Microsoft.AspNetCore.Http.Abstractions.dll \
