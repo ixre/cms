@@ -95,25 +95,20 @@ namespace JR.Stand.Core.Framework.Web.UI
             }
         }
 
-        private async void SaveStream(Stream stream, string path)
+        private  void SaveStream(Stream stream, string path)
         {
             const int bufferSize = 100; //缓冲区大小
             byte[] buffer = new byte[bufferSize]; //缓冲区
 
-            using (FileStream fs = new FileStream(path, FileMode.Create))
+            FileStream fs = new FileStream(path, FileMode.Create);
+            while (true)
             {
-                while (true)
-                {
-                    var bytes = await stream.ReadAsync(buffer, 0, bufferSize); //从流中读取的值
-                    if (bytes == 0)
-                    {
-                        break;
-                    }
-                    fs.Write(buffer, 0, bytes);
-                }
-                fs.Flush();
-                fs.Close();
+                var bytes = stream.Read(buffer, 0, bufferSize); //从流中读取的值
+                if (bytes == 0) break;
+                fs.Write(buffer, 0, bytes);
             }
+            fs.Flush();
+            fs.Close();
         }
     }
 }
