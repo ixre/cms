@@ -1,3 +1,4 @@
+using System;
 using JR.Cms.Conf;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
@@ -20,7 +21,7 @@ namespace JR.Cms.Web.Portal
                     await next();
                     return;
                 }
-                context.Response.Redirect("/install");
+                context.Response.Redirect("/install",false);
             });
             // 自动跳转到www开头的域名
             app.Use(async (context, next) =>
@@ -32,6 +33,7 @@ namespace JR.Cms.Web.Portal
                     var target = Utils.GetRdUrl(HttpHosting.Context.Request);
                     if (target != null)
                     {
+                        Console.WriteLine("redirect url="+target);
                         context.Response.StatusCode = 301;
                         context.Response.Headers.Add("Location", target);
                         redirect = true;
