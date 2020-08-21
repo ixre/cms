@@ -19,7 +19,7 @@ namespace JR.Cms.Web.Portal.Comm
     /// </summary>
     public class PortalControllerHandler
     {
-        private static readonly object locker = new object();
+        private static readonly object Locker = new object();
 
         /// <summary>
         /// 获取真实的请求地址
@@ -61,7 +61,7 @@ namespace JR.Cms.Web.Portal.Comm
                 ctx.Response.Redirect("/" + site.AppPath, false);
                 return false;
             }
-
+            
             return true;
         }
 
@@ -141,7 +141,7 @@ namespace JR.Cms.Web.Portal.Comm
         private static string GenerateCache(string cacheKey)
         {
             String html;
-            lock (locker)
+            lock (Locker)
             {
                 ICmsPageGenerator cmsPage = new PageGeneratorObject(Cms.Context);
                 html = cmsPage.GetIndex();
