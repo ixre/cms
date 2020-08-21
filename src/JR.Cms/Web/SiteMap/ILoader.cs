@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace SitemapGenerator.Sitemap
+namespace JR.Cms.Web.SiteMap
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ILoader
     {
         Task<string> Get(string url);

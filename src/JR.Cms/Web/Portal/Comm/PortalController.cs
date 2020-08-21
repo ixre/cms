@@ -34,7 +34,6 @@ namespace JR.Cms.Web.Portal.Comm
                 if (path.Length < len) return "";
                 return path.Substring(len);
             }
-
             return path;
         }
 

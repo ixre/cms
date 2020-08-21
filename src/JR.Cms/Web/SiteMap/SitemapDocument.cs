@@ -1,17 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Xml;
 
-namespace SitemapGenerator.Sitemap
+namespace JR.Cms.Web.SiteMap
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SitemapDocument
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string LastMode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string Changefreq { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public string Priority { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public bool UseOpt { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public List<string> Urls { get; set; }
         public void Save(string path)
         {
@@ -55,6 +73,7 @@ namespace SitemapGenerator.Sitemap
         }
         private string Tag(string name, string content)
         {
+            if (String.IsNullOrEmpty(content)) return String.Empty;
             return OpenTag(name) + content + CloseTag(name);
         }
         private string CloseTag(string name)

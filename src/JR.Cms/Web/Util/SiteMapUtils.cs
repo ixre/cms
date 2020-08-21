@@ -22,8 +22,8 @@ namespace JR.Cms.Web.Util
             {
                 return SafetyTask.CompletedTask;
             }
-            return new Sitemapper(Settings.SYS_SITE_MAP_PATH, "/")
-                .GenerateSitemap(Cms.PhysicPath + "sitemap.xml");
+            return new SiteMapper(Settings.SYS_SITE_MAP_PATH, "/")
+                .GenerateSiteMap(Cms.PhysicPath + "sitemap.xml");
         }
     }
 }
