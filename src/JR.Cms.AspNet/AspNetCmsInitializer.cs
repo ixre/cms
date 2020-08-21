@@ -1,5 +1,6 @@
 using System.Web.Routing;
 using JR.Cms.Conf;
+using JR.Cms.Web.Job;
 using JR.Cms.Web.Resource;
 using JR.Cms.WebImpl.Mvc;
 using JR.Stand.Core.AspNet;
@@ -41,6 +42,9 @@ namespace JR.Cms.AspNet
             Cms.Utility.SetDirCanWrite(CmsVariables.PLUGIN_PATH);
             Cms.Utility.SetDirCanWrite(CmsVariables.TEMP_PATH + "update");
             Cms.Utility.SetDirHidden("config");
+            
+            //注册定时任务
+            CronJob.Initialize();
         }
     }
 }

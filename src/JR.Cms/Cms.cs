@@ -16,6 +16,7 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.DataAccess.DB;
+using JR.Cms.Web.Portal;
 using JR.Stand.Abstracts;
 using JR.Stand.Core;
 using JR.Stand.Core.Cache;
@@ -80,7 +81,6 @@ namespace JR.Cms
                 var insLockFile = new FileInfo($"{PhysicPath}/config/install.lock");
                 isInstalled = insLockFile.Exists;
             }
-
             return isInstalled;
         }
 
@@ -92,17 +92,17 @@ namespace JR.Cms
         /// <summary>
         /// 物理路径
         /// </summary>
-        public static  string PhysicPath { get; private set; }
+        public static string PhysicPath { get; private set; }
         
         /// <summary>
         /// CMS实用工具
         /// </summary>
-        public static  CmsUtility Utility { get; private set; }
+        public static CmsUtility Utility { get; private set; }
 
         /// <summary>
         /// CMS缓存
         /// </summary>
-        public static  CmsCache Cache { get; private set; }
+        public static CmsCache Cache { get; private set; }
 
         private static TemplateManager _templateManager;
 
@@ -156,7 +156,7 @@ namespace JR.Cms
         /// <summary>
         /// 语言包
         /// </summary>
-        public static  CmsLanguagePackage Language { get; private set; }
+        public static CmsLanguagePackage Language { get; private set; }
 
         /// <summary>
         /// 模版管理器

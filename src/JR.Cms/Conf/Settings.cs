@@ -110,6 +110,11 @@ namespace JR.Cms.Conf
         public static bool SYS_ENCODE_CONF_FILE = false;
 
 
+        /// <summary>
+        /// 站点地图URL地址
+        /// </summary>
+        public static string SYS_SITE_MAP_PATH = "";
+        
         #region 模板相关
         /// <summary>
         /// 是否使用完整路径

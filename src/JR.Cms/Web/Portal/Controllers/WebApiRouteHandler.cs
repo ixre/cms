@@ -16,16 +16,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace JR.Cms.Web.Portal.Controllers
 {
     /// <summary>
-    /// Description of PluginExtendRouteHandler.
+    ///     Description of PluginExtendRouteHandler.
     /// </summary>
     public class WebApiRouteHandler : Controller
     {
         public Task ProcessRequest(HttpContext context)
         {
-          return  CmsWebApiResponse.ProcessRequest(HttpHosting.Context);
+            return CmsWebApiResponse.ProcessRequest(HttpHosting.Context);
         }
-
-       
     }
-
 }

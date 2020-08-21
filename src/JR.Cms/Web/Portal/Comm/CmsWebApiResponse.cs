@@ -10,7 +10,6 @@ using JR.Stand.Core.Web;
 namespace JR.Cms.Web.Portal.Comm
 {
     /// <summary>
-    /// 
     /// </summary>
     public class CmsWebApiResponse
     {
@@ -38,7 +37,7 @@ namespace JR.Cms.Web.Portal.Comm
             return context.Response.WriteAsync(result ?? defaultRsp);
         }
     }
-    
+
     internal static class ApiTypes
     {
         public class RLink

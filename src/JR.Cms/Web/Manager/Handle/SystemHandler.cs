@@ -22,6 +22,7 @@ using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.Utility;
+using JR.Cms.Web.Portal;
 using JR.Cms.Web.Portal.Template.Model;
 using JR.Cms.Web.Util;
 using JR.Stand.Core.Framework.Extensions;
@@ -526,6 +527,28 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 var json = Locale.SaveByPostForm(Request);
                 if (json != null) Cms.Language.GetPackage().LoadFromJson(json);
+            }
+            catch (Exception exc)
+            {
+                return ReturnError(exc.Message);
+            }
+
+            return ReturnSuccess("");
+        }
+
+        /// <summary>
+        /// 生成站点地图
+        /// </summary>
+        /// <returns></returns>
+        public string SiteMap_POST()
+        {
+            try
+            {
+                Settings.SYS_SITE_MAP_PATH = Utils.GetBaseUrl(HttpHosting.Context);
+                Configuration.BeginWrite();
+                Configuration.UpdateByPrefix("sys");
+                Configuration.EndWrite();
+                SiteMapUtils.Generate();
             }
             catch (Exception exc)
             {

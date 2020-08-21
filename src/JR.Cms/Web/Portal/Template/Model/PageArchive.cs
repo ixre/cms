@@ -12,17 +12,15 @@ using JR.Stand.Core.Web;
 namespace JR.Cms.Web.Portal.Template.Model
 {
     /// <summary>
-    /// 
     /// </summary>
     public class PageArchive : ITemplateVariableInstance
     {
-        private string _properties;
         private IDictionary<string, string> _dict;
+        private string _properties;
         private string _tagsHtml;
         private string _url;
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="archive"></param>
         public PageArchive(ArchiveDto archive)
@@ -30,39 +28,13 @@ namespace JR.Cms.Web.Portal.Template.Model
             Archive = archive;
         }
 
-        private static string FormatUrl(UrlRulePageKeys key, string[] dataArray)
-        {
-            var urlFormat = (Settings.TPL_FULL_URL_PATH ? Cms.Context.SiteDomain + "/" : Cms.Context.SiteAppPath)
-                            + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
-            return dataArray == null ? urlFormat : string.Format(urlFormat, dataArray);
-        }
-
         /// <summary>
-        /// 
+        ///     文档
         /// </summary>
-        public IDictionary<string, string> Data
-        {
-            get
-            {
-                if (_dict == null)
-                {
-                    _dict = new Dictionary<string, string>();
-                    if (Archive.ExtendValues != null)
-                    {
-                        foreach (var value in Archive.ExtendValues) _dict.Add(value.Field.Name, value.Value);
-                    }
-                }
-                return _dict;
-            }
-        }
+        internal ArchiveDto Archive { get; }
 
         /// <summary>
-        /// 文档
-        /// </summary>
-        internal ArchiveDto Archive { get; private set; }
-
-        /// <summary>
-        /// 编号
+        ///     编号
         /// </summary>
         [TemplateVariableField("编号")]
         public string Id => Archive.Id.ToString();
@@ -87,7 +59,7 @@ namespace JR.Cms.Web.Portal.Template.Model
 
 
         /// <summary>
-        /// 标题
+        ///     标题
         /// </summary>
         [TemplateVariableField("标题")]
         public string Title => Archive.Title;
@@ -99,13 +71,13 @@ namespace JR.Cms.Web.Portal.Template.Model
 
 
         /// <summary>
-        /// 作者
+        ///     作者
         /// </summary>
         [TemplateVariableField("作者")]
         public string Author => ServiceCall.Instance.UserService.GetUserRealName(Archive.PublisherId) ?? "未知";
 
         /// <summary>
-        /// 来源
+        ///     来源
         /// </summary>
         [TemplateVariableField("来源")]
         public string Source
@@ -118,7 +90,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
-        /// 大纲
+        ///     大纲
         /// </summary>
         [TemplateVariableField("大纲")]
         public string Outline
@@ -132,26 +104,26 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
-        /// 内容
+        ///     内容
         /// </summary>
         [TemplateVariableField("内容")]
         public string Content => Archive.Content;
 
         /// <summary>
-        /// 缩略图
+        ///     缩略图
         /// </summary>
         [TemplateVariableField("缩略图")]
         public string Thumbnail => Archive.Thumbnail;
 
         /// <summary>
-        /// 标签
+        ///     标签
         /// </summary>
         [TemplateVariableField("标签Tags")]
         public string Tags => Archive.Tags;
 
 
         /// <summary>
-        /// 标签
+        ///     标签
         /// </summary>
         [TemplateVariableField("标签Tags，HTML内容")]
         public string TagsHtml
@@ -171,9 +143,9 @@ namespace JR.Cms.Web.Portal.Template.Model
                         if (j++ != 0) sb.Append(",");
 
                         sb.Append("<a href=\"")
-                            .Append(FormatUrl(UrlRulePageKeys.Tag, new[]{HttpUtils.UrlEncode(tag)}))
+                            .Append(FormatUrl(UrlRulePageKeys.Tag, new[] {HttpUtils.UrlEncode(tag)}))
                             .Append("\" search-url=\"")
-                            .Append(FormatUrl(UrlRulePageKeys.Search, new[]{HttpUtils.UrlEncode(tag), string.Empty}))
+                            .Append(FormatUrl(UrlRulePageKeys.Search, new[] {HttpUtils.UrlEncode(tag), string.Empty}))
                             .Append("\">")
                             .Append(tag)
                             .Append("</a>");
@@ -187,25 +159,25 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
-        /// 访问统计
+        ///     访问统计
         /// </summary>
         [TemplateVariableField("访问量")]
         public string Count => Archive.ViewCount.ToString();
 
         /// <summary>
-        /// 发布时间
+        ///     发布时间
         /// </summary>
         [TemplateVariableField("发布时间")]
         public string Publish => string.Format("{0:yyyy-MM-dd HH:mm}", Archive.CreateTime);
 
         /// <summary>
-        /// 修改时间
+        ///     修改时间
         /// </summary>
         [TemplateVariableField("修改时间")]
         public string Modify => string.Format("{0:yyyy-MM-dd HH:mm}", Archive.UpdateTime);
 
         /// <summary>
-        /// 扩展属性列表
+        ///     扩展属性列表
         /// </summary>
         [TemplateVariableField("扩展属性")]
         public string Properties
@@ -232,6 +204,24 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
+        /// <summary>
+        /// </summary>
+        public IDictionary<string, string> Data
+        {
+            get
+            {
+                if (_dict == null)
+                {
+                    _dict = new Dictionary<string, string>();
+                    if (Archive.ExtendValues != null)
+                        foreach (var value in Archive.ExtendValues)
+                            _dict.Add(value.Field.Name, value.Value);
+                }
+
+                return _dict;
+            }
+        }
+
         public void AddData(string key, string data)
         {
             _dict.Add(key, data);
@@ -240,6 +230,13 @@ namespace JR.Cms.Web.Portal.Template.Model
         public void RemoveData(string key)
         {
             _dict.Remove(key);
+        }
+
+        private static string FormatUrl(UrlRulePageKeys key, string[] dataArray)
+        {
+            var urlFormat = (Settings.TPL_FULL_URL_PATH ? Cms.Context.SiteDomain + "/" : Cms.Context.SiteAppPath)
+                            + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
+            return dataArray == null ? urlFormat : string.Format(urlFormat, dataArray);
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using JR.Cms.Conf;
-using JR.Cms.Core;
 using JR.Cms.Core.Interface;
 using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts.Safety;
@@ -15,21 +14,21 @@ using JR.Stand.Core.Template;
 namespace JR.Cms.Web.Portal.Comm
 {
     /// <summary>
-    /// 内容门户控制器
+    ///     内容门户控制器
     /// </summary>
     public class PortalControllerHandler
     {
         private static readonly object Locker = new object();
 
         /// <summary>
-        /// 获取真实的请求地址
+        ///     获取真实的请求地址
         /// </summary>
         /// <param name="path"></param>
         /// <param name="appPath"></param>
         /// <returns></returns>
-        private string SubPath(String path, string appPath)
+        private string SubPath(string path, string appPath)
         {
-            int len = appPath.Length;
+            var len = appPath.Length;
             if (len > 2)
             {
                 if (path.Length < len) return "";
@@ -40,7 +39,7 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         /// <summary>
-        /// 检查站点首页路径
+        ///     检查站点首页路径
         /// </summary>
         /// <param name="ctx"></param>
         /// <param name="site"></param>
@@ -48,7 +47,7 @@ namespace JR.Cms.Web.Portal.Comm
         private bool CheckSiteUrl(ICompatibleHttpContext ctx, SiteDto site)
         {
             //　跳转到自定义地址
-            if (!String.IsNullOrEmpty(site.Location))
+            if (!string.IsNullOrEmpty(site.Location))
             {
                 ctx.Response.Redirect(site.Location, false); //302
                 return false;
@@ -56,36 +55,41 @@ namespace JR.Cms.Web.Portal.Comm
 
             // 跳转到站点首页
             var path = ctx.Request.GetPath();
-            if (!String.IsNullOrEmpty(site.AppPath) && path == "/")
+            if (!string.IsNullOrEmpty(site.AppPath) && path == "/")
             {
                 ctx.Response.Redirect("/" + site.AppPath, false);
                 return false;
             }
-            
+
+            if (string.IsNullOrEmpty(Settings.SYS_SITE_MAP_PATH))
+            {
+                Settings.SYS_SITE_MAP_PATH = Utils.GetBaseUrl(ctx);
+                Configuration.BeginWrite();
+                Configuration.UpdateByPrefix("sys");
+                Configuration.EndWrite();
+            }
+
             return true;
         }
 
         /// <summary>
-        /// 首页
+        ///     首页
         /// </summary>
         public Task Index(ICompatibleHttpContext context)
         {
             // 如果启用了静态文件缓存
             if (Settings.PERM_INDEX_CACHE_SECOND > 0)
             {
-                var task = this.CheckStaticIndex(context, Settings.PERM_INDEX_CACHE_SECOND);
+                var task = CheckStaticIndex(context, Settings.PERM_INDEX_CACHE_SECOND);
                 if (task != null) return task;
             }
-            var ctx = Cms.Context;
-            SiteDto site = ctx.CurrentSite;
-            // 站点站点路径
-            if (!this.CheckSiteUrl(context, site)) return SafetyTask.CompletedTask;
 
+            var ctx = Cms.Context;
+            var site = ctx.CurrentSite;
+            // 站点站点路径
+            if (!CheckSiteUrl(context, site)) return SafetyTask.CompletedTask;
             //检测网站状态及其缓存
-            if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
-            {
-                DefaultWebOutput.RenderIndex(ctx);
-            }
+            if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache()) DefaultWebOutput.RenderIndex(ctx);
             return SafetyTask.CompletedTask;
         }
 
@@ -93,7 +97,7 @@ namespace JR.Cms.Web.Portal.Comm
         {
             const string cacheKey = "site:page:index:cache";
             const string cacheUnixKey = "site:page:index:last-create";
-            String html;
+            string html;
             // 如果非首页访问, 则使用动态的站点首页
             var req = context.Request;
             var path = context.Request.GetPath();
@@ -107,40 +111,34 @@ namespace JR.Cms.Web.Portal.Comm
 #if DEBUG
                 Console.WriteLine("[ cms][ Info]: update index page cache..");
 #endif
-                html = GenerateIndexPageCache(context,cacheKey, cacheUnixKey, unix);
+                html = GenerateIndexPageCache(context, cacheKey, cacheUnixKey, unix);
             }
             else
             {
-                html = Cms.Cache.Get(cacheKey) as String;
-                if (String.IsNullOrEmpty(html))
-                {
-                    html = GenerateIndexPageCache(context,cacheKey, cacheUnixKey, unix);
-                }
+                html = Cms.Cache.Get(cacheKey) as string;
+                if (string.IsNullOrEmpty(html)) html = GenerateIndexPageCache(context, cacheKey, cacheUnixKey, unix);
             }
 
             context.Response.ContentType("text/html;charset=utf-8");
             return context.Response.WriteAsync(html);
         }
 
-        private static string GenerateIndexPageCache(ICompatibleHttpContext context, 
+        private static string GenerateIndexPageCache(ICompatibleHttpContext context,
             string cacheKey, string cacheUnixKey, int unix)
         {
-            string html = GenerateCache(cacheKey);
+            var html = GenerateCache(cacheKey);
             // 如果以IP访问,则不保存缓存
-            String host = context.Request.GetHost();
-            int i = host.IndexOf(":", StringComparison.Ordinal);
+            var host = context.Request.GetHost();
+            var i = host.IndexOf(":", StringComparison.Ordinal);
             if (i != -1) host = host.Substring(0, i);
-            String[] hostParts = host.Split('.');
-            if (!Regex.IsMatch(hostParts[hostParts.Length - 1], "\\d"))
-            {
-                Cms.Cache.Insert(cacheUnixKey, unix);
-            }
+            var hostParts = host.Split('.');
+            if (!Regex.IsMatch(hostParts[hostParts.Length - 1], "\\d")) Cms.Cache.Insert(cacheUnixKey, unix);
             return html;
         }
 
         private static string GenerateCache(string cacheKey)
         {
-            String html;
+            string html;
             lock (Locker)
             {
                 ICmsPageGenerator cmsPage = new PageGeneratorObject(Cms.Context);
@@ -153,7 +151,7 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         /// <summary>
-        /// 检查位于根目录和root下的静态文件是否存在
+        ///     检查位于根目录和root下的静态文件是否存在
         /// </summary>
         /// <param name="context"></param>
         /// <param name="path"></param>
@@ -165,10 +163,7 @@ namespace JR.Cms.Web.Portal.Comm
                 if (!File.Exists(Cms.PhysicPath + path))
                 {
                     path = "root" + path;
-                    if (!File.Exists(Cms.PhysicPath + path))
-                    {
-                        return null;
-                    }
+                    if (!File.Exists(Cms.PhysicPath + path)) return null;
                 }
 
                 // 输出静态文件
@@ -181,14 +176,14 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         /// <summary>
-        /// 栏目页
+        ///     栏目页
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
         public Task Category(ICompatibleHttpContext context)
         {
             context.Response.ContentType("text/html;charset=utf-8");
-            CmsContext ctx = Cms.Context;
+            var ctx = Cms.Context;
             //检测网站状态及其缓存
             if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
             {
@@ -196,18 +191,18 @@ namespace JR.Cms.Web.Portal.Comm
                 var sitePath = ctx.SiteAppPath;
                 // 如果为"/news/",跳转到"/news"
                 var pLen = path.Length;
-                if (path[pLen-1] == '/')
+                if (path[pLen - 1] == '/')
                 {
                     context.Response.StatusCode(301);
-                    context.Response.AddHeader("Location",path.Substring(0, pLen-1));
+                    context.Response.AddHeader("Location", path.Substring(0, pLen - 1));
                     return SafetyTask.CompletedTask;
                 }
 
                 // 验证是否为当前站点的首页
-                if (path == sitePath)return this.Index(context);
-                
-                String catPath = this.SubPath(path, sitePath);
-                int page = 1;
+                if (path == sitePath) return Index(context);
+
+                var catPath = SubPath(path, sitePath);
+                var page = 1;
                 //获取页码和tag
                 if (catPath.EndsWith(".html"))
                 {
@@ -237,23 +232,23 @@ namespace JR.Cms.Web.Portal.Comm
 
             return SafetyTask.CompletedTask;
         }
-        
+
         /// <summary>
-        /// 文档页
+        ///     文档页
         /// </summary>
         /// <returns></returns>
         public Task Archive(ICompatibleHttpContext context)
         {
             context.Response.ContentType("text/html;charset=utf-8");
             var path = context.Request.GetPath();
-            var task = this.CheckStaticFile(context, path);
+            var task = CheckStaticFile(context, path);
             if (task != null) return task;
-            CmsContext ctx = Cms.Context;
+            var ctx = Cms.Context;
             //检测网站状态及其缓存
             if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
             {
                 context.Response.ContentType("text/html;charset=utf-8");
-                String archivePath = this.SubPath(path, ctx.SiteAppPath);
+                var archivePath = SubPath(path, ctx.SiteAppPath);
                 archivePath = archivePath.Substring(0, archivePath.LastIndexOf(".", StringComparison.Ordinal));
                 DefaultWebOutput.RenderArchive(ctx, archivePath);
             }
@@ -274,6 +269,5 @@ namespace JR.Cms.Web.Portal.Comm
             }
             */
         }
-
     }
 }

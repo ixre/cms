@@ -6,14 +6,13 @@ using Microsoft.AspNetCore.Http;
 namespace JR.Cms.Web.Portal.Controllers
 {
     /// <summary>
-    /// Description of CmsInstallRouteHandler.
+    ///     Description of CmsInstallRouteHandler.
     /// </summary>
     public class CmsInstallHandler
     {
         private static readonly CmsInstallWiz Wiz = new CmsInstallWiz();
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
