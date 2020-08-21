@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Http;
 namespace JR.Cms.Web.Portal.Controllers
 {
     /// <summary>
-    /// CMS管理
+    ///     CMS管理
     /// </summary>
     public class CmsManagerHandler
     {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

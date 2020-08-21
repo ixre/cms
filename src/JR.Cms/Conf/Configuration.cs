@@ -149,9 +149,7 @@ namespace JR.Cms.Conf
                 sf.Set("server_static_enabled", "false");
                 settingChanged = true;
             }
-
-
-
+            
             if (sf.Contains("sys_encode_conf"))
             {
                 Settings.SYS_ENCODE_CONF_FILE = sf["sys_encode_conf"] == "true";
@@ -178,6 +176,16 @@ namespace JR.Cms.Conf
             else
             {
                 sf.Set("sys_admin_tag", Settings.SYS_ADMIN_TAG);
+                settingChanged = true;
+            }
+
+            if (sf.Contains("sys_site_map_path"))
+            {
+                Settings.SYS_SITE_MAP_PATH = sf["sys_site_map_path"];
+            }
+            else
+            {
+                sf.Set("sys_site_map_path","");
                 settingChanged = true;
             }
 
@@ -242,6 +250,7 @@ namespace JR.Cms.Conf
                     sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME?"true":"false");
                     sf["sys_www_rd"] = Settings.SYS_WWW_RD.ToString();
                     sf.Set("sys_force_https", Settings.SYS_FORCE_HTTPS?"true":"false");
+                    sf["sys_site_map_path"] = Settings.SYS_SITE_MAP_PATH ??"";
                     //虚拟路径
                     //if (!sf.Contains("sys_virthpath"))
                     //{

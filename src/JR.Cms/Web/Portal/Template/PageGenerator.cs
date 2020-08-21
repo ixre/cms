@@ -10,7 +10,6 @@ using System;
 namespace JR.Cms.Web.Portal.Template
 {
     /// <summary>
-    /// 
     /// </summary>
     public delegate void GenerateDelegate();
 
@@ -20,7 +19,7 @@ namespace JR.Cms.Web.Portal.Template
     //public delegate string  CategoryListPageGenerateDelegate(Category category,int page);
 
     /// <summary>
-    /// 页面生成器
+    ///     页面生成器
     /// </summary>
     [Obsolete]
     public static class PageGenerator

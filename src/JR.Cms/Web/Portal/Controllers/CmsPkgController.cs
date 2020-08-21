@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace JR.Cms.Web.Portal.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     public class CmsPkgController : Controller
     {
@@ -17,21 +16,17 @@ namespace JR.Cms.Web.Portal.Controllers
         //     //return this._next(context);
         // }
 
-        public CmsPkgController()
-        {
-            
-        }
         public ActionResult Version()
         {
             return Content("JR-Cms " + CmsVariables.VERSION);
         }
-        
-        
+
+
         [Route("software/errors/{statusCode}")]
         public void CustomError(int statusCode)
         {
-            this.HttpContext.Response.StatusCode = statusCode;
-            this.HttpContext.Response.ContentType = "text/html;charset=utf-8";
+            HttpContext.Response.StatusCode = statusCode;
+            HttpContext.Response.ContentType = "text/html;charset=utf-8";
             Cms.Context.RenderNotfound(statusCode == 500 ? "您访问的页面出错了" : "page not found", null);
         }
 

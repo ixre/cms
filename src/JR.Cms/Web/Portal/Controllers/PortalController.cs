@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 namespace JR.Cms.Web.Portal.Controllers
 {
     /// <summary>
-    /// 内容门户控制器
+    ///     内容门户控制器
     /// </summary>
     public class PortalController
     {
@@ -14,24 +14,24 @@ namespace JR.Cms.Web.Portal.Controllers
 
 
         /// <summary>
-        /// 首页
+        ///     首页
         /// </summary>
         public Task Index(HttpContext context)
         {
             return portal.Index(HttpHosting.Context);
         }
-        
+
         /// <summary>
-        /// 文档页
+        ///     文档页
         /// </summary>
         /// <returns></returns>
         public Task Archive(HttpContext context)
-        {           
+        {
             return portal.Archive(HttpHosting.Context);
         }
 
         /// <summary>
-        /// 栏目页
+        ///     栏目页
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

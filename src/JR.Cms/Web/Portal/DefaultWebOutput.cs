@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Core.Interface;
 using JR.Cms.Domain.Interface.Content.Archive;
@@ -15,7 +14,7 @@ using JR.Stand.Core.Web;
 namespace JR.Cms.Web.Portal
 {
     /// <summary>
-    /// 默认网站输出
+    ///     默认网站输出
     /// </summary>
     public static class DefaultWebOutput
     {
@@ -30,7 +29,7 @@ namespace JR.Cms.Web.Portal
         }
 
         /// <summary>
-        /// 显示错误页面
+        ///     显示错误页面
         /// </summary>
         /// <param name="context"></param>
         /// <param name="exc"></param>
@@ -38,19 +37,16 @@ namespace JR.Cms.Web.Portal
         {
             context.HttpContext.Response.ContentType("text/html;charset=utf-8");
             context.HttpContext.Response.StatusCode(404);
-            var content = "<span style='font-size:14px;color:#333;font-weight:300'>"+ exc.Message;
-            if (stack)
-            {
-                content += "<br />堆栈信息:" + exc.StackTrace;
-            }
+            var content = "<span style='font-size:14px;color:#333;font-weight:300'>" + exc.Message;
+            if (stack) content += "<br />堆栈信息:" + exc.StackTrace;
 
             content += "</span>";
 
             context.HttpContext.Response.WriteAsync(content);
         }
 
-        ///<summary>
-        /// 校验验证码
+        /// <summary>
+        ///     校验验证码
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
@@ -66,7 +62,7 @@ namespace JR.Cms.Web.Portal
 
 
         /// <summary>
-        /// 呈现首页
+        ///     呈现首页
         /// </summary>
         /// <param name="context"></param>
         public static void RenderIndex(CmsContext context)
@@ -99,7 +95,7 @@ namespace JR.Cms.Web.Portal
                     html = cmsPage.GetIndex();
                 }*/
 
-                var  html = cmsPage.GetIndex();
+                var html = cmsPage.GetIndex();
 
                 context.HttpContext.Response.WriteAsync(html);
             }
@@ -111,7 +107,7 @@ namespace JR.Cms.Web.Portal
 
 
         /// <summary>
-        /// 访问文档
+        ///     访问文档
         /// </summary>
         /// <param name="context"></param>
         /// <param name="archivePath">文档路径</param>
@@ -178,8 +174,8 @@ namespace JR.Cms.Web.Portal
                 if (!archivePath.StartsWith(category.Path + "/"))
                 {
                     // 如果栏目和文档路径不匹配
-                    ServiceCall.Instance.ArchiveService.UpdateArchivePath(siteId,archive.Id);
-                    RenderError(context,new Exception("文档路径不匹配, 已自动纠正为正确地址, 请重新打开访问"),false);
+                    ServiceCall.Instance.ArchiveService.UpdateArchivePath(siteId, archive.Id);
+                    RenderError(context, new Exception("文档路径不匹配, 已自动纠正为正确地址, 请重新打开访问"), false);
                     return;
                 }
             }
@@ -206,7 +202,7 @@ namespace JR.Cms.Web.Portal
         }
 
         /// <summary>
-        /// 呈现分类页
+        ///     呈现分类页
         /// </summary>
         /// <param name="context"></param>
         /// <param name="catPath"></param>
@@ -268,7 +264,7 @@ namespace JR.Cms.Web.Portal
         }
 
         /// <summary>
-        /// 呈现搜索页
+        ///     呈现搜索页
         /// </summary>
         /// <param name="context"></param>
         /// <param name="c"></param>
@@ -296,7 +292,7 @@ namespace JR.Cms.Web.Portal
         }
 
         /// <summary>
-        /// 呈现标签页
+        ///     呈现标签页
         /// </summary>
         /// <param name="context"></param>
         /// <param name="t"></param>
@@ -317,7 +313,7 @@ namespace JR.Cms.Web.Portal
         }
 
         /// <summary>
-        /// 文档页提交
+        ///     文档页提交
         /// </summary>
         /// <param name="context"></param>
         /// <param name="allhtml"></param>
@@ -351,13 +347,15 @@ namespace JR.Cms.Web.Portal
                             "ce_tip(false,'验证码不正确!');jr.$('ce_verify_code').nextSibling.onclick();"));
                     return;
                 }
-                else if (string.Compare(content, "请在这里输入评论内容", StringComparison.OrdinalIgnoreCase) == 0 ||
-                         content.Length == 0)
+
+                if (string.Compare(content, "请在这里输入评论内容", StringComparison.OrdinalIgnoreCase) == 0 ||
+                    content.Length == 0)
                 {
                     rsp.WriteAsync(ScriptUtility.ParentClientScriptCall("ce_tip(false,'请输入内容!'); "));
                     return;
                 }
-                else if (content.Length > 200)
+
+                if (content.Length > 200)
                 {
                     rsp.WriteAsync(ScriptUtility.ParentClientScriptCall("ce_tip(false,'评论内容长度不能大于200字!'); "));
                     return;
@@ -371,12 +369,10 @@ namespace JR.Cms.Web.Portal
                         rsp.WriteAsync(ScriptUtility.ParentClientScriptCall("ce_tip(false,'不允许匿名评论!'); "));
                         return;
                     }
-                    else
-                    {
-                        //补充用户
-                        content = string.Format("(u:'{0}'){1}", view_name, content);
-                        memberID = 0;
-                    }
+
+                    //补充用户
+                    content = string.Format("(u:'{0}'){1}", view_name, content);
+                    memberID = 0;
                 }
                 else
                 {
@@ -387,7 +383,6 @@ namespace JR.Cms.Web.Portal
                 rsp.WriteAsync(
                     ScriptUtility.ParentClientScriptCall(
                         "ce_tip(false,'提交成功!'); setTimeout(function(){location.reload();},500);"));
-                return;
             }
         }
     }

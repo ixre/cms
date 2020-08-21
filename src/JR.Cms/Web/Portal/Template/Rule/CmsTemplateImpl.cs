@@ -36,7 +36,7 @@ using JR.Stand.Core.Web;
 namespace JR.Cms.Web.Portal.Template.Rule
 {
     [XmlObject("CmsTemplateTag", "模板标签")]
-    public partial class CmsTemplateImpl : CmsTemplateDataMethod
+    public class CmsTemplateImpl : CmsTemplateDataMethod
     {
         private static Type __type;
 
@@ -46,8 +46,356 @@ namespace JR.Cms.Web.Portal.Template.Rule
             __type = typeof(CmsTemplateImpl);
         }
 
-        public CmsTemplateImpl(ICompatibleHttpContext context):base(context)
+        public CmsTemplateImpl(ICompatibleHttpContext context) : base(context)
         {
+        }
+
+
+        [TemplateTag]
+        [XmlObjectProperty("显示栏目分页文档结果", @"
+        	<p class=""red"">只能在栏目页或文档页中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：显示数量<br />
+        	2：显示格式
+		")]
+        public string Paging_Archives(string pageSize, string format)
+        {
+            if (_context.TryGetItem<string>("category.path", out var catPath))
+                if (_context.TryGetItem<int>("page.index", out var pageIndex))
+                    return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, 0, format);
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
+        }
+
+        [TemplateTag]
+        [XmlObjectProperty("显示栏目分页文档结果", @"
+        	<p class=""red"">只能在栏目页或文档页中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：显示数量<br />
+            2 : 分割条数<br />
+        	3：显示格式
+		")]
+        public string Paging_Archives(string pageSize, string splitSize, string format)
+        {
+            if (_context.TryGetItem<string>("category.path", out var catPath))
+                if (_context.TryGetItem<int>("page.index", out var pageIndex))
+                {
+                    int.TryParse(splitSize, out var intSplitSize);
+                    return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, intSplitSize, format);
+                }
+
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
+        }
+
+        [TemplateTag]
+        [XmlObjectProperty("显示栏目分页文档结果", @"
+        	<p class=""red"">只能在栏目页或文档页中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+            1 : 栏目标识<br />
+            2 : 当前页码<br />
+        	3：显示数量<br />
+            4 : 分割条数<br />
+        	5：显示格式
+		")]
+        public string Paging_Archives(string categoryTag, string pageIndex, string pageSize, string splitSize,
+            string format)
+        {
+            int intSplitSize;
+            int.TryParse(splitSize, out intSplitSize);
+            return base.Paging_Archives(categoryTag, pageIndex, pageSize, 0, intSplitSize, format);
+        }
+
+
+        [TemplateTag]
+        [XmlObjectProperty("显示文档搜索结果", @"
+        	<p class=""red"">只能在搜索页中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：显示数量<br />
+        	2：显示格式
+		")]
+        public string Search_Archives(string pageSize, string format)
+        {
+            _context.TryGetItem<string>("search.key", out var key);
+
+            _context.TryGetItem<string>("search.param", out var param);
+
+            _context.TryGetItem<int>("page.index", out var pageIndex);
+
+            if (string.IsNullOrEmpty(key)) return TplMessage("Error: 此标签不允许在当前页面中调用!");
+            return Search_Archives(param, key, pageIndex.ToString(), pageSize, "0", format);
+        }
+
+        [TemplateTag]
+        [XmlObjectProperty("显示文档搜索结果", @"
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：关键词<br />
+        	2：显示数量<br />
+            3 : 分割条数<br />
+        	4：显示格式
+		")]
+        public string Search_Archives(string keyword, string pageSize, string splitSize, string format)
+        {
+            _context.TryGetItem<int>("page.index", out var pageIndex);
+
+            return Search_Archives(null, keyword, pageIndex.ToString(), pageSize, splitSize, format);
+        }
+
+        /// <summary>
+        ///     自定义分页搜索
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="splitSize"></param>
+        /// <param name="format"></param>
+        /// <param name="pagerLinkPath">分页地址路径</param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("显示文档搜索结果", @"
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：关键词<br />
+        	2：显示数量<br />
+            3 : 分割条数<br />
+        	4：显示格式<br />
+        	5：页面路径(可用于自定义搜索页的URL)
+		")]
+        public string Search_Archives(string keyword, string pageSize, string splitSize, string format,
+            string pagerLinkPath)
+        {
+            int pageIndex,
+                recordCount,
+                pageCount;
+            var c = Request("c");
+            int.TryParse(Request("p"), out pageIndex);
+            if (pageIndex < 1) pageIndex = 1;
+
+            var html = SearchArchives(
+                _site.SiteId,
+                c,
+                keyword,
+                pageIndex.ToString(),
+                pageSize,
+                splitSize,
+                format,
+                out pageCount,
+                out recordCount);
+
+            //添加查询符串
+            pagerLinkPath += pagerLinkPath.IndexOf("?") == -1 ? "?" : "&";
+
+            //替换链接
+            var reg = new Regex("([^\\?]+\\?*)(.+)", RegexOptions.IgnoreCase);
+
+            string link1 = string.Format(TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) UrlRulePageKeys.Search],
+                    HttpUtils.UrlEncode(keyword), c ?? ""),
+                link2 = string.Format(
+                    TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) UrlRulePageKeys.SearchPager],
+                    HttpUtils.UrlEncode(keyword), c ?? "", "{0}");
+
+            SetPager(
+                pageIndex,
+                pageCount,
+                recordCount,
+                reg.Replace(link1, string.Format("{0}$2", pagerLinkPath)),
+                reg.Replace(link2, string.Format("{0}$2", pagerLinkPath))
+            );
+
+            return html;
+        }
+
+        /// <summary>
+        ///     搜索文档列表
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="categoryTagOrModuleId"></param>
+        /// <param name="splitSize"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("显示指定栏目下的文档搜索结果", @"
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：栏目Tag
+        	2：关键词<br />
+        	3：当前页码<br />
+        	4：显示数量<br />
+            5 : 分割条数<br />
+        	6：显示格式
+		")]
+        public string Search_Archives(string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize,
+            string splitSize, string format)
+        {
+            int pageCount, recordCount;
+            return SearchArchives(_site.SiteId, categoryTagOrModuleId, keyword, pageIndex, pageSize, splitSize, format,
+                out pageCount, out recordCount);
+        }
+
+
+        /// <summary>
+        ///     链接
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="number"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("自定义显示链接", @"
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：链接类型，可选[1|2|3],1:导航,2:友情链接,3:自定义链接]<br />
+        	2：显示数量<br />
+        	3：显示格式
+		")]
+        public string Links(string type, string number, string format)
+        {
+            return base.Link(type, format, int.Parse(number), "-1");
+        }
+
+        /// <summary>
+        ///     链接
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("使用自定义格式显示<b>全部</b>链接", @"
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：链接类型，可选[1|2|3],1:导航,2:友情链接,3:自定义链接]<br />
+        	2：显示格式
+		")]
+        public string Link(string type, string format)
+        {
+            return base.Link(type, format, 1000, "-1");
+        }
+
+        [TemplateTag]
+        [ContainSetting]
+        [XmlObjectProperty("显示Tags", @"
+        	<p class=""red"">仅能在文档页中使用此标签</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：标签数据，多个标签用"",""隔开。如：电脑,手机,相机
+		")]
+        public string Tags(string tags)
+        {
+            return base.Tags(tags, GetSetting().CFG_ArchiveTagsFormat);
+        }
+
+        [TemplateTag]
+        [ContainSetting]
+        [XmlObjectProperty("显示Tags", @"
+        	<p class=""red"">只能在文档页中使用,格式在【模板设置】中进行设置</p>
+		")]
+        public string Tags()
+        {
+            if (!(archive.Id > 0)) return TplMessage("请先使用标签$require('id')获取文档后再调用属性");
+            return Tags(archive.Tags, GetSetting().CFG_ArchiveTagsFormat);
+        }
+
+        [TemplateTag]
+        [XmlObjectProperty("显示标签文档结果", @"
+        	<p class=""red"">只能在标签搜索页(tags.html)中使用！</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：显示数量<br />
+        	2：显示格式
+		")]
+        public string Tag_Archives(string pageSize, string format)
+        {
+            _context.TryGetItem<string>("tag.key", out var key);
+            _context.TryGetItem<int>("page.index", out var pageIndex);
+            if (string.IsNullOrEmpty(key)) return TplMessage("Error: 此标签不允许在当前页面中调用!");
+            return TagArchives(key, pageIndex.ToString(), pageSize, format);
+        }
+
+
+        [TemplateTag]
+        [ContainSetting]
+        [XmlObjectProperty("显示评论框", @"
+        	<p class=""red"">只能在文档页中使用！</p>
+		")]
+        public string Comment_Editor()
+        {
+            return Comment_Editor(GetSetting().CFG_AllowAmousComment ? "true" : "false",
+                GetSetting().CFG_CommentEditorHtml);
+        }
+
+
+        [TemplateTag]
+        [XmlObjectProperty("显示站点地图", @"
+        	<p class=""red"">只能在栏目页或文档页中使用！</p>
+		")]
+        public string Sitemap()
+        {
+            var path = Cms.Context.Items["category.path"] as string;
+            if (string.IsNullOrEmpty(path))
+                return TplMessage("无法在当前页面调用此标签!\r\n解决方法:使用标签$sitemap('栏目标签')或设置Cms.Context.Items[\"category.path\"]");
+            return Sitemap(path);
+        }
+
+
+        /// <summary>
+        ///     带缓存的导航
+        /// </summary>
+        /// <returns></returns>
+        [TemplateTag]
+        [ContainSetting]
+        [XmlObjectProperty("显示网站导航", @"
+        	<p class=""red"">显示格式在【模板设置】中修改.</p>
+		")]
+        public string Navigator()
+        {
+            var cache = SiteLinkCache.GetNavigatorBySiteId(SiteId);
+            var siteDomain = _ctx.SiteDomain;
+            if (string.IsNullOrEmpty(cache))
+            {
+                cache = base.Navigator(GetSetting().CFG_NavigatorLinkFormat, GetSetting().CFG_NavigatorChildFormat,
+                    "-1");
+                var cache2 = cache.Replace(siteDomain, "${DOMAIN}");
+                SiteLinkCache.SetNavigatorForSite(SiteId, cache2);
+                return cache;
+            }
+
+            //throw new Exception(siteDomain +" | "+ cache );
+            return cache.Replace("${DOMAIN}", siteDomain);
+        }
+
+
+        [TemplateTag]
+        [ContainSetting]
+        [XmlObjectProperty("显示友情链接", @"
+        	<p class=""red"">显示条数，以及格式均在【模板设置】中修改.</p>
+		")]
+        public string Friend_Link()
+        {
+            return Friend_Link(GetSetting().CFG_FriendShowNum.ToString(), GetSetting().CFG_FriendLinkFormat);
+        }
+
+        [TemplateTag]
+        [XmlObjectProperty("显示友情链接", @"
+        	<p class=""red"">仅能在文档页中使用此标签</p>
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：显示数目<br />
+			2：HTML格式,如:<a href=""{url}"" {target}>{text}</a>
+		")]
+        public string Friend_Link(string num, string format)
+        {
+            var cache = SiteLinkCache.GetFLinkBySiteId(SiteId);
+            if (cache == null)
+            {
+                cache = Link("2", format, int.Parse(num), "-1");
+                SiteLinkCache.SetFLinkForSite(SiteId, cache);
+            }
+
+            return cache;
         }
 
 
@@ -56,7 +404,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /* ==================================== 查看文档 ====================================*/
 
         /// <summary>
-        /// 文档内容
+        ///     文档内容
         /// </summary>
         /// <param name="idOrAlias"></param>
         /// <param name="num"></param>
@@ -86,10 +434,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Archive(string format)
         {
-	        if (this._context.TryGetItem<object>("archive.id", out var id))
-	        {
-		        return base.Archive(_site.SiteId, id, format);
-	        }
+            if (_context.TryGetItem<object>("archive.id", out var id)) return base.Archive(_site.SiteId, id, format);
             return TplMessage("Error: 此标签只能在文档页面中调用!");
         }
 
@@ -102,12 +447,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Prev_Archive(string format)
         {
-	        
-	        if (this._context.TryGetItem<object>("archive.id", out var id))
-	        {
-		        return PrevArchive(id.ToString(), format);	        }
-	        return TplMessage("Error: 此标签只能在文档页面中调用!");
-          
+            if (_context.TryGetItem<object>("archive.id", out var id)) return PrevArchive(id.ToString(), format);
+            return TplMessage("Error: 此标签只能在文档页面中调用!");
         }
 
         [TemplateTag]
@@ -118,13 +459,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Next_Archive(string format)
         {
-	        
-	        if (this._context.TryGetItem<object>("archive.id", out var id))
-	        {
-		        return NextArchive(id.ToString(), format);        }
-	        return TplMessage("Error: 此标签只能在文档页面中调用!");
-	        
-           
+            if (_context.TryGetItem<object>("archive.id", out var id)) return NextArchive(id.ToString(), format);
+            return TplMessage("Error: 此标签只能在文档页面中调用!");
         }
 
 
@@ -157,7 +493,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         //====================== 普通列表 ==========================//
 
         /// <summary>
-        /// 文档列表
+        ///     文档列表
         /// </summary>
         [XmlObjectProperty("获取栏目下的文档列表。", @"
         	<b>参数：</b><br />
@@ -179,7 +515,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 文档列表(包含子类)
+        ///     文档列表(包含子类)
         /// </summary>
         /// <param name="catPath"></param>
         /// <param name="num"></param>
@@ -215,7 +551,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        /// 文档列表(包含子类)
+        ///     文档列表(包含子类)
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
@@ -229,19 +565,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Archives(string num, string format)
         {
-	        
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Archives(catPath, num, 0, 0, true, format);		        
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-            
+            if (_context.TryGetItem<string>("category.path", out var catPath))
+                return Archives(catPath, num, 0, 0, true, format);
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
 
         /// <summary>
-        /// 文档列表(包含子类)
+        ///     文档列表(包含子类)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
@@ -258,7 +589,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 文档列表(不包含子类)
+        ///     文档列表(不包含子类)
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="num"></param>
@@ -278,7 +609,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 文档列表(不包含子类)
+        ///     文档列表(不包含子类)
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
@@ -292,17 +623,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Self_Archives(string num, string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Self_Archives(catPath, num, format);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-
+            if (_context.TryGetItem<string>("category.path", out var catPath))
+                return Self_Archives(catPath, num, format);
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
         /// <summary>
-        /// 文档列表(不包含子类)
+        ///     文档列表(不包含子类)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
@@ -323,7 +650,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        /// 特殊文档(包含子栏目)
+        ///     特殊文档(包含子栏目)
         /// </summary>
         /// <param name="tag"></param>
         /// <param name="num"></param>
@@ -352,7 +679,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 特殊文档(包含子栏目)
+        ///     特殊文档(包含子栏目)
         /// </summary>
         /// <param name="tag"></param>
         /// <param name="num"></param>
@@ -374,7 +701,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 特殊文档(包含子栏目)
+        ///     特殊文档(包含子栏目)
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
@@ -390,15 +717,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Special_Archives(string num, string format)
         {
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Special_Archives(catPath, num, 0, 0, true, format);	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-	     
+            if (_context.TryGetItem<string>("category.path", out var catPath))
+                return Special_Archives(catPath, num, 0, 0, true, format);
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
         /// <summary>
-        /// 特殊文档(包含子栏目)
+        ///     特殊文档(包含子栏目)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
@@ -416,7 +741,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 特殊文档(包含子栏目)
+        ///     特殊文档(包含子栏目)
         /// </summary>
         /// <param name="param"></param>
         /// <param name="num"></param>
@@ -438,7 +763,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        /// 特殊文档(包含子栏目)
+        ///     特殊文档(包含子栏目)
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
@@ -453,16 +778,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Self_Special_Archives(string num, string format)
         {
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Special_Archives(catPath, num, 0, 0, false, format);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-
+            if (_context.TryGetItem<string>("category.path", out var catPath))
+                return Special_Archives(catPath, num, 0, 0, false, format);
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
         /// <summary>
-        /// 特殊文档(包含子栏目)
+        ///     特殊文档(包含子栏目)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
@@ -482,7 +804,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         //====================== 浏览排行列表 ==========================//
 
         /// <summary>
-        /// 按点击排行文档列表
+        ///     按点击排行文档列表
         /// </summary>
         /// <param name="container"></param>
         /// <param name="categoryTag"></param>
@@ -514,7 +836,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 按点击排行文档列表
+        ///     按点击排行文档列表
         /// </summary>
         /// <param name="param"></param>
         /// <param name="num"></param>
@@ -550,7 +872,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 按点击排行文档列表
+        ///     按点击排行文档列表
         /// </summary>
         /// <param name="container"></param>
         /// <param name="num"></param>
@@ -565,17 +887,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Hot_Archives(string num, string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Hot_Archives(catPath, num, format, true);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-	        
+            if (_context.TryGetItem<string>("category.path", out var catPath))
+                return Hot_Archives(catPath, num, format, true);
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
         /// <summary>
-        /// 按点击排行文档列表
+        ///     按点击排行文档列表
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
@@ -593,7 +911,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        /// 按点击排行文档列表
+        ///     按点击排行文档列表
         /// </summary>
         /// <param name="param"></param>
         /// <param name="num"></param>
@@ -613,7 +931,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 按点击排行文档列表
+        ///     按点击排行文档列表
         /// </summary>
         /// <param name="container"></param>
         /// <param name="num"></param>
@@ -628,16 +946,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Self_Hot_Archives(string num, string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Hot_Archives(catPath, num, format, false);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
+            if (_context.TryGetItem<string>("category.path", out var catPath))
+                return Hot_Archives(catPath, num, format, false);
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
         /// <summary>
-        /// 按点击排行文档列表
+        ///     按点击排行文档列表
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
@@ -654,7 +969,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 根据模快获取文档
+        ///     根据模快获取文档
         /// </summary>
         /// <param name="num"></param>
         /// <param name="format"></param>
@@ -679,7 +994,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         #region 栏目
 
         /// <summary>
-        /// 栏目链接列表
+        ///     栏目链接列表
         /// </summary>
         /// <param name="param"></param>
         /// <param name="format"></param>
@@ -780,13 +1095,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Categories(string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Categories(catPath, format);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-	        
+            if (_context.TryGetItem<string>("category.path", out var catPath)) return Categories(catPath, format);
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
         [TemplateTag]
@@ -834,360 +1144,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
         #endregion
 
 
-        [TemplateTag]
-        [XmlObjectProperty("显示栏目分页文档结果", @"
-        	<p class=""red"">只能在栏目页或文档页中使用！</p>
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：显示数量<br />
-        	2：显示格式
-		")]
-        public string Paging_Archives(string pageSize, string format)
-        {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        if (this._context.TryGetItem<int>("page.index", out var pageIndex))
-		        {
-			        return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, 0, format);
-		        }
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-        }
-
-        [TemplateTag]
-        [XmlObjectProperty("显示栏目分页文档结果", @"
-        	<p class=""red"">只能在栏目页或文档页中使用！</p>
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：显示数量<br />
-            2 : 分割条数<br />
-        	3：显示格式
-		")]
-        public string Paging_Archives(string pageSize, string splitSize, string format)
-        {
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        if (this._context.TryGetItem<int>("page.index", out var pageIndex))
-		        {
-			        int.TryParse(splitSize, out var intSplitSize);
-			        return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, intSplitSize, format);		        }
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-	        
-        }
-
-        [TemplateTag]
-        [XmlObjectProperty("显示栏目分页文档结果", @"
-        	<p class=""red"">只能在栏目页或文档页中使用！</p>
-        	<b>参数：</b><br />
-        	==========================<br />
-            1 : 栏目标识<br />
-            2 : 当前页码<br />
-        	3：显示数量<br />
-            4 : 分割条数<br />
-        	5：显示格式
-		")]
-        public string Paging_Archives(string categoryTag, string pageIndex, string pageSize, string splitSize,
-            string format)
-        {
-            int intSplitSize;
-            int.TryParse(splitSize, out intSplitSize);
-            return base.Paging_Archives(categoryTag, pageIndex, pageSize, 0, intSplitSize, format);
-        }
-
-
-        [TemplateTag]
-        [XmlObjectProperty("显示文档搜索结果", @"
-        	<p class=""red"">只能在搜索页中使用！</p>
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：显示数量<br />
-        	2：显示格式
-		")]
-        public string Search_Archives(string pageSize, string format)
-        {
-            this._context.TryGetItem<string>("search.key", out var key);
-
-            this._context.TryGetItem<string>("search.param", out var param);
-
-            this._context.TryGetItem<int>("page.index", out var pageIndex);
-
-            if (string.IsNullOrEmpty(key)) return TplMessage("Error: 此标签不允许在当前页面中调用!");
-            return Search_Archives(param, key, pageIndex.ToString(), pageSize, "0", format);
-        }
-
-        [TemplateTag]
-        [XmlObjectProperty("显示文档搜索结果", @"
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：关键词<br />
-        	2：显示数量<br />
-            3 : 分割条数<br />
-        	4：显示格式
-		")]
-        public string Search_Archives(string keyword, string pageSize, string splitSize, string format)
-        {
-	        this._context.TryGetItem<int>("page.index", out var pageIndex);
-		        
-			        return Search_Archives(null, keyword, pageIndex.ToString(), pageSize, splitSize, format);
-        }
-
-        /// <summary>
-        /// 自定义分页搜索
-        /// </summary>
-        /// <param name="keyword"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="splitSize"></param>
-        /// <param name="format"></param>
-        /// <param name="pagerLinkPath">分页地址路径</param>
-        /// <returns></returns>
-        [TemplateTag]
-        [XmlObjectProperty("显示文档搜索结果", @"
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：关键词<br />
-        	2：显示数量<br />
-            3 : 分割条数<br />
-        	4：显示格式<br />
-        	5：页面路径(可用于自定义搜索页的URL)
-		")]
-        public string Search_Archives(string keyword, string pageSize, string splitSize, string format,
-            string pagerLinkPath)
-        {
-            int pageIndex,
-                recordCount,
-                pageCount;
-            var c = Request("c");
-            int.TryParse(Request("p"), out pageIndex);
-            if (pageIndex < 1) pageIndex = 1;
-
-            var html = SearchArchives(
-                _site.SiteId,
-                c,
-                keyword,
-                pageIndex.ToString(),
-                pageSize,
-                splitSize,
-                format,
-                out pageCount,
-                out recordCount);
-
-            //添加查询符串
-            pagerLinkPath += pagerLinkPath.IndexOf("?") == -1 ? "?" : "&";
-
-            //替换链接
-            var reg = new Regex("([^\\?]+\\?*)(.+)", RegexOptions.IgnoreCase);
-
-            string link1 = string.Format(TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) UrlRulePageKeys.Search],
-		            HttpUtils.UrlEncode(keyword), c ?? ""),
-                link2 = string.Format(
-                    TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) UrlRulePageKeys.SearchPager],
-                    HttpUtils.UrlEncode(keyword), c ?? "", "{0}");
-
-            SetPager(
-                pageIndex,
-                pageCount,
-                recordCount,
-                reg.Replace(link1, string.Format("{0}$2", pagerLinkPath)),
-                reg.Replace(link2, string.Format("{0}$2", pagerLinkPath))
-            );
-
-            return html;
-        }
-
-        /// <summary>
-        /// 搜索文档列表
-        /// </summary>
-        /// <param name="keyword"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="categoryTagOrModuleId"></param>
-        /// <param name="splitSize"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
-        [TemplateTag]
-        [XmlObjectProperty("显示指定栏目下的文档搜索结果", @"
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：栏目Tag
-        	2：关键词<br />
-        	3：当前页码<br />
-        	4：显示数量<br />
-            5 : 分割条数<br />
-        	6：显示格式
-		")]
-        public string Search_Archives(string categoryTagOrModuleId, string keyword, string pageIndex, string pageSize,
-            string splitSize, string format)
-        {
-            int pageCount, recordCount;
-            return SearchArchives(_site.SiteId, categoryTagOrModuleId, keyword, pageIndex, pageSize, splitSize, format,
-                out pageCount, out recordCount);
-        }
-
-
-        /// <summary>
-        /// 链接
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="number"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
-        [TemplateTag]
-        [XmlObjectProperty("自定义显示链接", @"
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：链接类型，可选[1|2|3],1:导航,2:友情链接,3:自定义链接]<br />
-        	2：显示数量<br />
-        	3：显示格式
-		")]
-        public string Links(string type, string number, string format)
-        {
-            return base.Link(type, format, int.Parse(number), "-1");
-        }
-
-        /// <summary>
-        /// 链接
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
-        [TemplateTag]
-        [XmlObjectProperty("使用自定义格式显示<b>全部</b>链接", @"
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：链接类型，可选[1|2|3],1:导航,2:友情链接,3:自定义链接]<br />
-        	2：显示格式
-		")]
-        public string Link(string type, string format)
-        {
-            return base.Link(type, format, 1000, "-1");
-        }
-
-        [TemplateTag]
-        [ContainSetting]
-        [XmlObjectProperty("显示Tags", @"
-        	<p class=""red"">仅能在文档页中使用此标签</p>
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：标签数据，多个标签用"",""隔开。如：电脑,手机,相机
-		")]
-        public string Tags(string tags)
-        {
-            return base.Tags(tags, GetSetting().CFG_ArchiveTagsFormat);
-        }
-
-        [TemplateTag]
-        [ContainSetting]
-        [XmlObjectProperty("显示Tags", @"
-        	<p class=""red"">只能在文档页中使用,格式在【模板设置】中进行设置</p>
-		")]
-        public string Tags()
-        {
-            if (!(archive.Id > 0)) return TplMessage("请先使用标签$require('id')获取文档后再调用属性");
-            return Tags(archive.Tags, GetSetting().CFG_ArchiveTagsFormat);
-        }
-
-        [TemplateTag]
-        [XmlObjectProperty("显示标签文档结果", @"
-        	<p class=""red"">只能在标签搜索页(tags.html)中使用！</p>
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：显示数量<br />
-        	2：显示格式
-		")]
-        public string Tag_Archives(string pageSize, string format)
-        {
-            this._context.TryGetItem<string>("tag.key", out var key);
-            this._context.TryGetItem<int>("page.index", out var pageIndex);
-            if (string.IsNullOrEmpty(key)) return TplMessage("Error: 此标签不允许在当前页面中调用!");
-            return TagArchives(key, pageIndex.ToString(), pageSize, format);
-        }
-
-
-        [TemplateTag]
-        [ContainSetting]
-        [XmlObjectProperty("显示评论框", @"
-        	<p class=""red"">只能在文档页中使用！</p>
-		")]
-        public string Comment_Editor()
-        {
-            return Comment_Editor(GetSetting().CFG_AllowAmousComment ? "true" : "false",
-                GetSetting().CFG_CommentEditorHtml);
-        }
-
-
-        [TemplateTag]
-        [XmlObjectProperty("显示站点地图", @"
-        	<p class=""red"">只能在栏目页或文档页中使用！</p>
-		")]
-        public string Sitemap()
-        {
-            var path = Cms.Context.Items["category.path"] as string;
-            if (string.IsNullOrEmpty(path))
-                return TplMessage("无法在当前页面调用此标签!\r\n解决方法:使用标签$sitemap('栏目标签')或设置Cms.Context.Items[\"category.path\"]");
-            return Sitemap(path);
-        }
-
-
-        /// <summary>
-        /// 带缓存的导航
-        /// </summary>
-        /// <returns></returns>
-        [TemplateTag]
-        [ContainSetting]
-        [XmlObjectProperty("显示网站导航", @"
-        	<p class=""red"">显示格式在【模板设置】中修改.</p>
-		")]
-        public string Navigator()
-        {
-            var cache = SiteLinkCache.GetNavigatorBySiteId(SiteId);
-            var siteDomain = _ctx.SiteDomain;
-            if (string.IsNullOrEmpty(cache))
-            {
-                cache = base.Navigator(GetSetting().CFG_NavigatorLinkFormat, GetSetting().CFG_NavigatorChildFormat,
-                    "-1");
-                var cache2 = cache.Replace(siteDomain, "${DOMAIN}");
-                SiteLinkCache.SetNavigatorForSite(SiteId, cache2);
-                return cache;
-            }
-
-            //throw new Exception(siteDomain +" | "+ cache );
-            return cache.Replace("${DOMAIN}", siteDomain);
-        }
-
-
-        [TemplateTag]
-        [ContainSetting]
-        [XmlObjectProperty("显示友情链接", @"
-        	<p class=""red"">显示条数，以及格式均在【模板设置】中修改.</p>
-		")]
-        public string Friend_Link()
-        {
-            return Friend_Link(GetSetting().CFG_FriendShowNum.ToString(), GetSetting().CFG_FriendLinkFormat);
-        }
-
-        [TemplateTag]
-        [XmlObjectProperty("显示友情链接", @"
-        	<p class=""red"">仅能在文档页中使用此标签</p>
-        	<b>参数：</b><br />
-        	==========================<br />
-        	1：显示数目<br />
-			2：HTML格式,如:<a href=""{url}"" {target}>{text}</a>
-		")]
-        public string Friend_Link(string num, string format)
-        {
-            var cache = SiteLinkCache.GetFLinkBySiteId(SiteId);
-            if (cache == null)
-            {
-                cache = Link("2", format, int.Parse(num), "-1");
-                SiteLinkCache.SetFLinkForSite(SiteId, cache);
-            }
-
-            return cache;
-        }
-
-
         #region 地区Region标签
 
         // [TemplateTag]
@@ -1233,8 +1189,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [TemplateTag]
         protected string SearchList(string keyword, string pageSize, string format)
         {
-	        this._context.TryGetItem<string>("page.index", out var pageIndex);
-	        return Search_Archives(null, keyword, pageIndex, pageSize, format);
+            _context.TryGetItem<string>("page.index", out var pageIndex);
+            return Search_Archives(null, keyword, pageIndex, pageSize, format);
         }
 
         [TemplateTag]
@@ -1244,7 +1200,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        /// 自定义分页搜索
+        ///     自定义分页搜索
         /// </summary>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
@@ -1273,7 +1229,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        /// 标签文档列表
+        ///     标签文档列表
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="pageIndex"></param>
@@ -1295,7 +1251,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        /// 文档列表
+        ///     文档列表
         /// </summary>
         /// <param name="tag"></param>
         /// <param name="container"></param>
@@ -1314,7 +1270,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         #region 过期
 
         /// <summary>
-        /// 模块栏目标签
+        ///     模块栏目标签
         /// </summary>
         /// <param name="id"></param>
         /// <param name="root"></param>

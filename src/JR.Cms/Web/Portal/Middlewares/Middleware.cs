@@ -1,12 +1,11 @@
-using System;
 using JR.Cms.Conf;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
 
-namespace JR.Cms.Web.Portal
+namespace JR.Cms.Web.Portal.Middlewares
 {
     /// <summary>
-    /// Cms Middleware
+    ///     Cms Middleware
     /// </summary>
     public static class Middleware
     {
@@ -21,7 +20,8 @@ namespace JR.Cms.Web.Portal
                     await next();
                     return;
                 }
-                context.Response.Redirect("/install",false);
+
+                context.Response.Redirect("/install", false);
             });
             // 自动跳转到www开头的域名
             app.Use(async (context, next) =>
