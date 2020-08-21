@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using SitemapGenerator.Sitemap;
 
 namespace JR.Cms.Web.SiteMap
 {

@@ -29,7 +29,7 @@ namespace JR.Cms.Web.Job
         {
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("site_map_trigger1", "group1")
-                .StartNow()
+                //.StartNow()
                 .WithSimpleSchedule(x => x
                     .WithIntervalInHours(12)
                     //.WithIntervalInSeconds(10)

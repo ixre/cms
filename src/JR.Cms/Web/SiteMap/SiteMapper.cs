@@ -2,35 +2,58 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SitemapGenerator.Sitemap;
 
 namespace JR.Cms.Web.SiteMap
 {
     /// <summary>
     /// 站点地图包装器
     /// </summary>
-    public class Sitemapper
+    public class SiteMapper
     {
         private readonly SitemapDocument _document;
-        public string BaseUrl { get; set; }
-        public string Domain { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        private string BaseUrl { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        private string Domain { get; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Exclude { get; set; }
-        private ILoader _loader = new Loader();
+        private readonly ILoader _loader = new Loader();
         public delegate void Info();
-        public Info Notify;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Info Notify;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="domain"></param>
         /// <param name="basePath"></param>
-        public Sitemapper(string domain, string basePath)
+        public SiteMapper(string domain, string basePath)
         {
             Domain = domain;
             BaseUrl = domain + basePath;
             Exclude = true;
-            _document = new SitemapDocument();
+            _document = new SitemapDocument
+            {
+                UseOpt = true,
+                Priority = "",
+                Changefreq = "weekly", 
+                LastMode = $"{DateTime.Now:yyyy-MM-dd}"
+            };
+            //_document.Priority = "0.5";
         }
-        public async Task GenerateSitemap(String path)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public async Task GenerateSiteMap(String path)
         {
             List<string> newUrls = new List<string>();
             List<string> visited = new List<string>();
