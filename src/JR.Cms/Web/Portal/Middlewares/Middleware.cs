@@ -33,7 +33,6 @@ namespace JR.Cms.Web.Portal
                     var target = Utils.GetRdUrl(HttpHosting.Context.Request);
                     if (target != null)
                     {
-                        Console.WriteLine("redirect url="+target);
                         context.Response.StatusCode = 301;
                         context.Response.Headers.Add("Location", target);
                         redirect = true;
