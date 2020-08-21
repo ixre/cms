@@ -1,19 +1,19 @@
-using System;
-using System.Text;
 using JR.Cms.Conf;
 using JR.Stand.Abstracts.Web;
-using JR.Stand.Core.Web;
 
 namespace JR.Cms.Web.Portal
 {
     /// <summary>
-    /// 
+    /// 工具类
     /// </summary>
     public static class Utils
     {
 
         /// <summary>
-        /// 获取自动定向的地址
+        /// 获取自动定向的地址,如果nginx设置了https跳转, 参考如下:
+        /// if ($server_port !~ 443){
+        ///     rewrite ^(/.*)$ https://fze.net$1 permanent;
+        /// }
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
@@ -28,7 +28,6 @@ namespace JR.Cms.Web.Portal
             {
                 target = target.Replace("http://", "https://");
                 forceHttps = true;
-                Console.WriteLine("--- target = "+target +"/"+request.GetProto());
             }
 
             var hostParts = host.Split('.').Length;

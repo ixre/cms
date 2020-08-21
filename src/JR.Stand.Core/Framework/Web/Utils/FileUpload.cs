@@ -64,10 +64,10 @@ namespace JR.Stand.Core.Framework.Web.UI
             InitUplDirectory(baseDir, this._saveAbsoluteDir);
             this._fileInfo = new UploadFileInfo
             {
-                Id = processId,
                 ContentLength = postedFile.GetLength(),
                 FilePath = $"{this._saveAbsoluteDir}{this._fileName}.{fileExt}"
             };
+            this._fileInfo.Id = processId;
             String targetPath = baseDir + this._fileInfo.FilePath;
             if (!this._autoRename && File.Exists(targetPath))
             {
