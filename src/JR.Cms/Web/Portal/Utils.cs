@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using JR.Cms.Conf;
 using JR.Stand.Abstracts.Web;
@@ -18,17 +19,18 @@ namespace JR.Cms.Web.Portal
         /// <returns></returns>
         public static string GetRdUrl(ICompatibleRequest request)
         {
+            string host = request.GetHost();
+            if (host == "localhost") return null;
             var target = request.GetEncodedUrl();
-            if (target == null) return null;
+            //if (target == null) return null;
             var forceHttps = false;
-            if (Settings.SYS_FORCE_HTTPS && request.GetProto()!="https")
+            if (Settings.SYS_FORCE_HTTPS && request.GetProto() !="https")
             {
                 target = target.Replace("http://", "https://");
                 forceHttps = true;
+                Console.WriteLine("--- target = "+target +"/"+request.GetProto());
             }
 
-            string host = request.GetHost();
-            if (host == "localhost") return null;
             var hostParts = host.Split('.').Length;
             // 跳转到带www的二级域名
             if (Settings.SYS_WWW_RD == 1 && hostParts == 2)
