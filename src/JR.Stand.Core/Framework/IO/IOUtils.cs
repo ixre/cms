@@ -27,5 +27,7 @@ namespace JR.Stand.Core.Framework.IO
                 CopyFolder(item, Path.Combine(destFolder, Path.GetFileName(item)));
             }
         }
+        
+        
     }
 }

@@ -68,6 +68,10 @@ namespace JR.Cms.Web.Portal.Comm
                 Configuration.EndWrite();
             }
 
+            if (!Cms.ExistsRobots())
+            {
+                Cms.GenerateRobots(Utils.GetBaseUrl(ctx));
+            }
             return true;
         }
 

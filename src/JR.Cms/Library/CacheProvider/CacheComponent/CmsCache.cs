@@ -93,7 +93,7 @@ namespace JR.Cms.Library.CacheProvider.CacheComponent
                 fs.Flush();
             }
 
-            return IoUtil.GetFileSha1(_cacheDependFile);
+            return FileUtil.GetFileSha1(_cacheDependFile);
 
             //FileInfo file = new FileInfo(cacheDependFile);
             //file.LastWriteTimeUtc = DateTime.UtcNow;
