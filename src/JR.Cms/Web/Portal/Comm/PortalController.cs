@@ -19,6 +19,9 @@ namespace JR.Cms.Web.Portal.Comm
     public class PortalControllerHandler
     {
         private static readonly object Locker = new object();
+        const string IndexCacheKey = "site:page:index:cache";
+        const string IndexCacheUnixKey = "site:page:index:last-create";
+
 
         /// <summary>
         ///     获取真实的请求地址
@@ -34,6 +37,7 @@ namespace JR.Cms.Web.Portal.Comm
                 if (path.Length < len) return "";
                 return path.Substring(len);
             }
+
             return path;
         }
 
@@ -72,6 +76,7 @@ namespace JR.Cms.Web.Portal.Comm
             {
                 Cms.GenerateRobots(Utils.GetBaseUrl(ctx));
             }
+
             return true;
         }
 
@@ -92,38 +97,44 @@ namespace JR.Cms.Web.Portal.Comm
             // 站点站点路径
             if (!CheckSiteUrl(context, site)) return SafetyTask.CompletedTask;
             //检测网站状态及其缓存
-            if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache()) DefaultWebOutput.RenderIndex(ctx);
+            if (ctx.CheckSiteState())
+            {
+                if (Settings.PERM_INDEX_CACHE_SECOND > 0)
+                {
+#if DEBUG
+                    Console.WriteLine("[ cms][ Info]: update index page cache..");
+#endif
+                    var unix = TimeUtils.Unix(DateTime.Now);
+                    String html = GenerateIndexPageCache(context, IndexCacheKey, IndexCacheUnixKey, unix);
+                    context.Response.ContentType("text/html;charset=utf-8");
+                    return context.Response.WriteAsync(html);
+                }
+                DefaultWebOutput.RenderIndex(ctx);
+            }
+
             return SafetyTask.CompletedTask;
         }
 
         private Task CheckStaticIndex(ICompatibleHttpContext context, int seconds)
         {
-            const string cacheKey = "site:page:index:cache";
-            const string cacheUnixKey = "site:page:index:last-create";
-            string html;
             // 如果非首页访问, 则使用动态的站点首页
-            var req = context.Request;
             var path = context.Request.GetPath();
             var appPath = context.Request.GetApplicationPath();
             if (path.Length - 1 > appPath.Length) return null;
             // 缓存失效
-            var last = Cms.Cache.GetInt(cacheUnixKey);
+            var last = Cms.Cache.GetInt(IndexCacheUnixKey);
             var unix = TimeUtils.Unix(DateTime.Now);
-            if (last < unix - seconds)
+            if (last > unix - seconds)
             {
-#if DEBUG
-                Console.WriteLine("[ cms][ Info]: update index page cache..");
-#endif
-                html = GenerateIndexPageCache(context, cacheKey, cacheUnixKey, unix);
-            }
-            else
-            {
-                html = Cms.Cache.Get(cacheKey) as string;
-                if (string.IsNullOrEmpty(html)) html = GenerateIndexPageCache(context, cacheKey, cacheUnixKey, unix);
+                var html = Cms.Cache.Get(IndexCacheKey) as string;
+                if (!string.IsNullOrEmpty(html))
+                {
+                    context.Response.ContentType("text/html;charset=utf-8");
+                    return context.Response.WriteAsync(html);
+                }
             }
 
-            context.Response.ContentType("text/html;charset=utf-8");
-            return context.Response.WriteAsync(html);
+            return null;
         }
 
         private static string GenerateIndexPageCache(ICompatibleHttpContext context,
