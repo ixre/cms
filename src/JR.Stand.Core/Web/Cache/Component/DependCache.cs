@@ -81,7 +81,7 @@ namespace JR.Stand.Core.Web.Cache.Component
                 fs.Flush();
             }
 
-            return  IoUtil.GetFileSha1(CacheDependFile);
+            return  FileUtil.GetFileSha1(CacheDependFile);
             
             //FileInfo file = new FileInfo(cacheDependFile);
             //file.LastWriteTimeUtc = DateTime.UtcNow;

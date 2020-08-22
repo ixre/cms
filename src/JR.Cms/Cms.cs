@@ -23,6 +23,7 @@ using JR.Stand.Core.Cache;
 using JR.Stand.Core.Framework.Web.UI;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
 using JR.Stand.Core.Web.Cache;
 
@@ -51,6 +52,8 @@ namespace JR.Cms
     {
         private static bool isInstalled;
         private static  IMemoryCacheWrapper _cache;
+        private static int _robotsExists = -1;
+        
         /// <summary>
         /// 版本
         /// </summary>
@@ -71,6 +74,8 @@ namespace JR.Cms
         /// </summary>
         public static bool IsNetStandard { get;private set; }
 
+        
+        
         /// <summary>
         /// 是否已经安装
         /// </summary>
@@ -394,6 +399,40 @@ namespace JR.Cms
         public static void ConfigCache(IMemoryCacheWrapper cache)
         {
             _cache = cache;
+        }
+
+        /// <summary>
+        /// 是否存在robots.txt文件
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static bool ExistsRobots()
+        {
+            if (_robotsExists == -1)
+            {
+                _robotsExists = File.Exists(Cms.PhysicPath + "robots.txt") ? 1 : 0;
+            }
+            return _robotsExists == 1;
+        }
+
+        /// <summary>
+        /// 生成robots.txt文件
+        /// </summary>
+        /// <param name="baseUrl">基础URL</param>
+        public static void GenerateRobots(string baseUrl)
+        {
+            try
+            {
+                String tpl = PhysicPath + CmsVariables.FRAMEWORK_PATH + "/embed/robots_template.txt";
+                String raw = FileUtil.ReadFileEnd(tpl);
+                raw = raw.Replace("{host}", baseUrl);
+                FileUtil.SaveContent(PhysicPath + "robots.txt", raw);
+                _robotsExists = 1;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"[ cms][ error]: generate robots.txt failed! message:{ex.Message}");
+            }
         }
     }
 }
