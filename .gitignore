@@ -47,8 +47,9 @@ src/JR.Cms.AspNet.App/install
 src/JR.Cms.AspNet.App/uploads
 *.blob
 
-/src/JR.Cms.App/index.html
-/src/JR.Cms.App/robots.txt
+src/JR.Cms.App/index.html
+robots.txt
 src/JR.Cms.AspNet.App/index.html
-src/JR.Cms.AspNet.App/robots.txt
-
+sitemap.xml
+uploads
+mono*.json
