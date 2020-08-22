@@ -410,7 +410,7 @@ namespace JR.Cms
         {
             if (_robotsExists == -1)
             {
-                _robotsExists = File.Exists(Cms.PhysicPath + "robots.txt") ? 1 : 0;
+                _robotsExists = File.Exists(PhysicPath + "robots.txt") ? 1 : 0;
             }
             return _robotsExists == 1;
         }
