@@ -25,13 +25,6 @@ namespace JR.Cms.AspNet.Mvc
         }
         
         
-        [Route("software/errors/{statusCode}")]
-        public void CustomError(int statusCode)
-        {
-            this.HttpContext.Response.StatusCode = statusCode;
-            this.HttpContext.Response.ContentType = "text/html;charset=utf-8";
-            Cms.Context.RenderNotfound(statusCode == 500 ? "您访问的页面出错了" : "page not found", null);
-        }
 
         public void Change()
         {

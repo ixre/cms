@@ -14,6 +14,7 @@ using System.Web.Mvc;
 using JR.Cms.Conf;
 using JR.Cms.Web.Portal.Comm;
 using JR.Cms.Web.Portal.Template.Rule;
+using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework.Xml.AutoObject;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
@@ -173,6 +174,17 @@ namespace JR.Cms.AspNet.Mvc
         public void Archive(string allHtml)
         {
             portal.Archive(HttpHosting.Context);
+        }
+
+        public void Error(String path)
+        {
+            ICompatibleHttpContext ctx = HttpHosting.Context;
+            int statusCode = 500;
+            if (path == "404")
+            {
+                statusCode = 404;
+            }
+            portal.Error(ctx,statusCode);
         }
 
         //

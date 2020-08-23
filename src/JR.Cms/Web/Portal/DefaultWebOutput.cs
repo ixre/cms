@@ -18,16 +18,6 @@ namespace JR.Cms.Web.Portal
     /// </summary>
     public static class DefaultWebOutput
     {
-        private static void RenderNotFound(CmsContext context)
-        {
-            context.RenderNotfound("No such file", tpl =>
-            {
-                tpl.AddVariable("site", new PageSite(context.CurrentSite));
-                tpl.AddVariable("page", new PageVariable());
-                PageUtility.RegisterEventHandlers(tpl);
-            });
-        }
-
         /// <summary>
         ///     显示错误页面
         /// </summary>
@@ -118,7 +108,7 @@ namespace JR.Cms.Web.Portal
             var archive = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(siteId, archivePath);
             if (archive.Id <= 0)
             {
-                RenderNotFound(context);
+                Cms.Context.ErrorPage(404,"");
                 return;
             }
 
@@ -144,7 +134,7 @@ namespace JR.Cms.Web.Portal
 
             if (!FlagAnd(archive.Flag, BuiltInArchiveFlags.Visible))
             {
-                RenderNotFound(context);
+                Cms.Context.ErrorPage(404,"");
                 return;
             }
 
@@ -152,7 +142,7 @@ namespace JR.Cms.Web.Portal
 
             if (!(category.ID > 0))
             {
-                RenderNotFound(context);
+                Cms.Context.ErrorPage(404,"");
                 return;
             }
 
@@ -216,13 +206,13 @@ namespace JR.Cms.Web.Portal
             var category = ServiceCall.Instance.SiteService.GetCategory(siteId, catPath);
             if (!(category.ID > 0))
             {
-                RenderNotFound(context);
+                Cms.Context.ErrorPage(404,"");
                 return;
             }
 
             if (!catPath.StartsWith(category.Path))
             {
-                RenderNotFound(context);
+                Cms.Context.ErrorPage(404,"");
                 return;
             }
 

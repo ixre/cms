@@ -155,6 +155,9 @@ namespace JR.Cms.WebImpl.Mvc
                 dict[UrlRulePageKeys.Archive][0], dict[UrlRulePageKeys.Archive][1],
                 new {controller = cmsControllerName, action = "Archive"}, new {all_html = "^(.+?).html$"}
             );
+            
+            // 错误页面
+            routes.MapRoute("Error", "error/{*path}", new {controller = cmsControllerName, action = "Error"});
 
             //默认路由
             routes.MapRoute(
@@ -162,8 +165,7 @@ namespace JR.Cms.WebImpl.Mvc
                 routePrefix + "{controller}/{action}/{id}", // URL with parameters
                 new {controller = cmsControllerName, action = "Index", id = UrlParameter.Optional} // Parameter defaults
             );
-
-
+            
             routes.MapRoute("all_path", "{*path}", new {controller = cmsControllerName, action = "NotFound"});
 
 

@@ -54,6 +54,7 @@ namespace JR.Cms.App
         /// </summary>
         private static void RegisterInstalledCmsRoutes(IEndpointRouteBuilder endpoints, Type portalType)
         {
+            IEnumerable<String> methods = new[] {"GET", "HEAD"}; 
             var portal = new PortalController();
             //路由前缀，前缀+虚拟路径
             //string routePrefix = (String.IsNullOrEmpty(prefix) ? "" : prefix + "/")
@@ -127,14 +128,17 @@ namespace JR.Cms.App
 */
     
             //栏目档案列表
-            endpoints.MapGet("{*cate:regex(^([^/]+/)*[^\\.]+$)}", portal.Category);
-            endpoints.MapGet("{*cate:regex(^(.+)/list_\\d+.html$)}", portal.Category);
+            endpoints.MapMethods("{*cate:regex(^([^/]+/)*[^\\.]+$)}",methods, portal.Category);
+            endpoints.MapMethods("{*cate:regex(^(.+)/list_\\d+.html$)}",methods, portal.Category);
 
             // 显示档案,不包含"/list_\d.html"
-            endpoints.MapGet("{*archive:regex(^((?!list_\\d+).)+.html$)}", portal.Archive);
+            endpoints.MapMethods("{*archive:regex(^((?!list_\\d+).)+.html$)}",methods, portal.Archive);
 
+            // 错误页面
+            endpoints.MapMethods("/error/{code:int}", methods, portal.Error);
+            
             // 首页
-            endpoints.MapMethods("/",new[]{"GET","HEAD"}, portal.Index);
+            endpoints.MapMethods("/",methods, portal.Index);
             
             //默认路由
             // endpoints.MapControllerRoute("Default",                                                                                             

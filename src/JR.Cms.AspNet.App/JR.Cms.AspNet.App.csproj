@@ -640,7 +640,6 @@
     <Content Include="templates\default\css\default\tit-bar-mult.png" />
     <Content Include="templates\default\css\default\ver-split.png" />
     <Content Include="templates\default\index.html" />
-    <Content Include="templates\default\not_found.html" />
     <Content Include="templates\default\search.html" />
     <Content Include="templates\default\tag.html" />
     <Content Include="templates\default\tpl.conf">
