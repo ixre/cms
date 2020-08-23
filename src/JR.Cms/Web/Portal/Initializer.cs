@@ -1,6 +1,6 @@
 using JR.Cms.Conf;
 using JR.Cms.Web.Job;
-using JR.Cms.Web.Portal.Middlewares;
+using JR.Cms.Web.Portal.Middleware;
 using JR.Cms.Web.Resource;
 using JR.Stand.Core.Cache;
 using Microsoft.AspNetCore.Builder;
