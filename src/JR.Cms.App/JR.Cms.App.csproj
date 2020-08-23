@@ -484,7 +484,7 @@
       <Content Include="templates\default\include\share_control.html" />
       <Content Include="templates\default\include\side_bar.html" />
       <Content Include="templates\default\index.html" />
-      <Content Include="templates\default\not_found.html" />
+      <Content Include="templates\default\404.html" />
       <Content Include="templates\default\search.html" />
       <Content Include="templates\default\tag.html" />
       <Content Include="templates\default\tpl.conf">

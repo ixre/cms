@@ -4,12 +4,15 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using JR.Cms.Conf;
+using JR.Cms.Core;
 using JR.Cms.Core.Interface;
 using JR.Cms.ServiceDto;
+using JR.Cms.Web.Portal.Template.Model;
 using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Template;
+using JR.Stand.Core.Web;
 
 namespace JR.Cms.Web.Portal.Comm
 {
@@ -282,6 +285,43 @@ namespace JR.Cms.Web.Portal.Comm
                 DefaultWebOutput.RenderArchive(ctx, archivePath);
             }
             */
+        }
+
+        /// <summary>
+        /// 显示错误页面
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="statusCode"></param>
+        /// <returns></returns>
+        public Task Error(ICompatibleHttpContext ctx,int statusCode)
+        {
+            if (statusCode == 404)
+            {
+                CmsContext context = Cms.Context;
+                var site = context.CurrentSite;
+                string html;
+                try
+                {
+                    var pageName = $"/{site.Tpl}/404";
+                    var tpl = Cms.Template.GetTemplate(pageName);
+                    tpl.AddVariable("site", new PageSite(context.CurrentSite));
+                    tpl.AddVariable("page", new PageVariable());
+                    PageUtility.RegisterEventHandlers(tpl);
+                    html = tpl.Compile();
+                }
+                catch
+                {
+                    html = "File not found!";
+                }
+                ctx.Response.ContentType("text/html;charset=utf-8");
+                ctx.Response.StatusCode(404);
+                ctx.Response.WriteAsync(html);
+            }
+            else
+            {
+                HttpHosting.Context.Response.WriteAsync("internal error");
+            }
+            return SafetyTask.CompletedTask;
         }
     }
 }

@@ -135,6 +135,7 @@ namespace JR.Stand.Core.Web
             return this.Context().Request.Headers;
         }
 
+
         private ICompatiblePostedFile ParsePostedFile(IFormFile file)
         {
             if (file != null) return new PostedFileImpl(file);
