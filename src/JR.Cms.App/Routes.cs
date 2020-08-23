@@ -134,7 +134,7 @@ namespace JR.Cms.App
             endpoints.MapGet("{*archive:regex(^((?!list_\\d+).)+.html$)}", portal.Archive);
 
             // 首页
-            endpoints.MapGet("/", portal.Index);
+            endpoints.MapMethods("/",new[]{"GET","HEAD"}, portal.Index);
             
             //默认路由
             // endpoints.MapControllerRoute("Default",                                                                                             

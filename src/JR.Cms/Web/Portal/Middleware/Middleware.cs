@@ -2,7 +2,7 @@ using JR.Cms.Conf;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
 
-namespace JR.Cms.Web.Portal.Middlewares
+namespace JR.Cms.Web.Portal.Middleware
 {
     /// <summary>
     ///     Cms Middleware
