@@ -102,6 +102,9 @@ namespace JR.Cms.WebImpl.Mvc
             routes.MapRoute("tpl_catchall", "templates/{*catchall}",
                 new {controller = cmsControllerName, action = "Disallow"});
 
+            // 错误页面
+            routes.MapRoute("Error", "error/{code}", new {controller = cmsControllerName, action = "Error"});
+
 
             //兼容以前插件
             //  IRouteHandler pluginHandler = new PluginRouteHandler();
@@ -156,9 +159,6 @@ namespace JR.Cms.WebImpl.Mvc
                 new {controller = cmsControllerName, action = "Archive"}, new {all_html = "^(.+?).html$"}
             );
             
-            // 错误页面
-            routes.MapRoute("Error", "error/{*path}", new {controller = cmsControllerName, action = "Error"});
-
             //默认路由
             routes.MapRoute(
                 "Default", // Route name
@@ -166,7 +166,7 @@ namespace JR.Cms.WebImpl.Mvc
                 new {controller = cmsControllerName, action = "Index", id = UrlParameter.Optional} // Parameter defaults
             );
             
-            routes.MapRoute("all_path", "{*path}", new {controller = cmsControllerName, action = "NotFound"});
+            //routes.MapRoute("all_path", "{*path}", new {controller = cmsControllerName, action = "NotFound"});
 
 
             IDictionary<UrlRulePageKeys, string> urlDict = new Dictionary<UrlRulePageKeys, string>();

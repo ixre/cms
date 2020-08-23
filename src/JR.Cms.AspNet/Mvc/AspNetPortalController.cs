@@ -176,14 +176,10 @@ namespace JR.Cms.AspNet.Mvc
             portal.Archive(HttpHosting.Context);
         }
 
-        public void Error(String path)
+        public void Error(int code)
         {
             ICompatibleHttpContext ctx = HttpHosting.Context;
-            int statusCode = 500;
-            if (path == "404")
-            {
-                statusCode = 404;
-            }
+            int statusCode = code;
             portal.Error(ctx,statusCode);
         }
 

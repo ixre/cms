@@ -481,6 +481,7 @@ namespace JR.Cms.Core
         /// <returns></returns>
         public void ErrorPage(int statusCode, string message = "File not found!")
         {
+            // 拼接地址
             StringBuilder sb = new StringBuilder("/error/");
             sb.Append(statusCode);
             if (!String.IsNullOrEmpty(message))
@@ -489,7 +490,7 @@ namespace JR.Cms.Core
                 sb.Append(HttpUtils.UrlEncode(message));
             }
             String url = sb.ToString();
-            var response = HttpHosting.Context.Response;
+            var response =  HttpHosting.Context.Response;
             response.StatusCode(302);
             response.AddHeader("Location",url);
         }
