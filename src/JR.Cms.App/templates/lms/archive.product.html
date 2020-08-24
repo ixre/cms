@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <link rel="stylesheet" type="text/css" href="${page.fpath}/base.css?v=${page.built}" />
+    <link rel="stylesheet" type="text/css" href="${page.tpath}/2013/v1/style.css" />
+    <link rel="stylesheet" href="${page.tpath}/css/page.css" />
+    <link rel="stylesheet" href="${page.tpath}/css/product.css?${page.built}" />
+    <script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,navi,alist&version=${page.version}"></script>
+</head>
+
+<body>
+    ${include:"include/header.html"}
+    <div class="container-fluid mod-row-prod-details">
+        <div class="row">
+       
+        <div class="col-lg-3 col-sm-3 hidden-xs pull">
+            ${include:"include/welcome.html"}
+            ${include:"include/side_product_box.html"}
+            ${include:"include/contact.html"}
+            ${include:"include/file_down.html"}
+        </div>
+             <div class="col-lg-9 col-sm-9 col-xs-12 push">
+            <div id="location" class="mod-sitemap sitemap">
+                <a href="${page.domain}">$lang(home)</a>::$sitemap()
+                ${include:"include/share.html"}
+            </div>
+            <p class="title"><b>$lang(product)$lang(space)$lang(detail)</b></p>
+           
+            <div id="pro_info">
+                <h2 class="colm_title"><br /><a href="">${archive.title}</a></h2>
+                
+                ${include:"include/share2.html"}
+                
+                <div id="big_pic"><img id="Img" title="${archive.title}" onload="clickThisImg(this.src)" src="${archive.thumbnail}" style="cursor: pointer;" /></div>
+                <div id="small_pics" class="mod-prod-thumbs">
+                    <ul>
+                        <!-- loop -->
+                        <li><a><img style='cursor:pointer;' src='${archive.thumbnail}' onclick="clickThisImg('${archive.thumbnail}')" /></a></li>
+                        <!-- end loop -->
+                    </ul>
+                </div>
+                <script type="text/javascript">
+                var ulHtml = '<ul>';
+                var thumbnails = ['${archive.thumbnail}', '${archive.__dict__[产品图片2]}', '${archive.__dict__[产品图片3]}', '${archive.__dict__[产品图片4]}'];
+                for (var i = 0; i < thumbnails.length; i++) {
+                    if (thumbnails[i]) {
+                        ulHtml += '<li style="padding:0"><a><img style="cursor:pointer;" src="' + thumbnails[i] + '" onclick="clickThisImg(\'' + thumbnails[i] + '\')" /></a></li>';
+                    }
+                }
+                ulHtml += '</ul>';
+                document.getElementById('small_pics').innerHTML = ulHtml;
+                </script>
+                <ul>
+                    <li> <iframe src="http://www.facebook.com/plugins/like.php?href=${page.url}&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none;
+overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe> </li>
+                    <li>$lang(tag):
+                        ${archive.tagshtml}</li>
+                    <li id="Prodblank" style="display:none"></li>
+                    <li>
+                        <input onclick="inquire()" type="button" style=" cursor:pointer;" /><br />
+                        <!--
+               <a href="${page.domain}/gallery/${category.tag}-gallery/">
+    $lang(product)$lang(space)$lang(galleries):</a><br />-->
+                        <div class="p_video_title" id="p_video_title">
+                            $lang(related)$lang(space)$lang(video):</div>
+                        <div id="p_video_panel">
+                        </div>
+                        <script type="text/javascript">
+                        function inquire() {
+                            var productId = "${archive.id}";
+                            j6.xhr.post("/com.lms.sh.aspx/SaveInquiryBasket", "action=saveinquiry&inquireList=" + productId, function() {
+                                location.href = "${page.domain}/inquirybasket.html";
+                            }, function(x) { alert(x) });
+                        }
+                        </script>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div id="pro_txt">
+                <p class="title">
+                    $lang(product)$lang(space)$lang(information)
+                </p>
+                <div class="inner">
+                    ${archive.content}
+                    <!--<div id="page2"><a href="#"><img src="/images/previous.gif" /></a><a href="#"><img src="/images/next.gif" /></a></div>-->
+                </div>
+            </div>
+            <div class="clearfix">
+                <p class="title">$lang(related)$lang(space)$lang(product)</p>
+                <ul class="mod-prod-list">
+                    $archives(${category.path},4,'
+                    <li class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="b">
+                            <a href="{url}">
+                                <div class="g-suited-img g-suited-img-34 gra-suited-img gra-suited-img-34">
+                                    <span class="mask"></span>
+                                    <img src="{thumbnail}" alt="{raw_title}" />
+                                </div>
+                            </a>
+                            <div class="tit">
+                                <a href="{url}">{title}</a>
+                            </div>
+                            <p>{outline[100]}</p>
+                        </div>
+                    </li>
+                    ')
+                </ul>
+            </div>
+        </div>
+            </div>
+    </div>
+    ${include:"include/footer.html"}
+    <script type="text/javascript" src="${page.fpath}/api.js?v=${page.version}"></script>
+    <script>
+    jr.api.setPath('${page.domain}');
+    jr.api.getRLink('${archive.id}', "json", function(data) {
+        var html = '<ul class="p_video">';
+
+        if (data.length > 0) {
+            var tpl = '<li><a href="{Url}" title="{Title}"><img src="{Thumbnail}" class="pvideo" /></a></li>';
+            for (var i=0;i < data.length;i++) {
+                html += j6.template(tpl, data[i]);
+            }
+        } else {
+            html += '<li>No related video about this video</li>';
+        }
+
+        html += '</ul>';
+        j6.$('p_video_panel').innerHTML = html;
+
+    });
+    </script>
+</body>
+
+</html>

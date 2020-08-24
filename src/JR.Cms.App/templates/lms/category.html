@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <link rel="stylesheet" href="${page.fpath}/base.css?${page.built}" />
+    <link rel="stylesheet" href="${page.tpath}/css/page.css?${page.built}" />
+    <link rel="stylesheet" href="${page.fpath}/icon-font.css?${page.built}" />
+    <link rel="stylesheet" href="${page.tpath}/css/news.css?${page.built}" />
+    <link rel="stylesheet" type="text/css" href="${page.tpath}/2013/v1/style.css" />
+    <script type="text/javascript" src="${page.fpath}/base.min.js?v=${page.built}&hover=navi,cat"></script>
+</head>
+
+<body>
+    ${include:"include/header.html"}
+    <div class="container-fluid mod-row-news">
+        <div class="row">
+            
+        <div class="col-md-3 col-sm-3 hidden-xs pull">
+            ${include:"include/welcome.html"}
+            <div class="mod-box mod-side-box">
+                <div class="title">$lang(news)$lang(space)$lang(category)</div>
+                <ul class="mod-side-box-c-list">
+                    $categories(news,'
+                    <li><a id="a_cert_class_20" href="{url}" title="{name}">{name}</a></li>
+                    ')
+                </ul>
+            </div>
+            ${include:"include/file_down.html"}
+        </div>
+            
+        <div class="col-md-col-md-9 col-sm-9 col-xs-12 push">
+            <div id="location" class="mod-sitemap sitemap">
+                <a href="${page.domain}">$lang(home)</a>::$sitemap()
+                ${include:"include/share.html"}
+            </div>
+            <div id="news">
+                <p class="title">
+                    <a href="${page.domain}/news/">$lang(news)$lang(space)$lang(center)</a>>>${category.name}
+                </p>
+                <ul class="mod-news-list">
+                    $paging_archives(15,5,'
+                    <li class="it clearfix row">
+                        <div class="col-md-3 col-sm-3 col-xs-4">
+                            <div class="g-suited-img g-suited-img-34 gra-suited-img gra-suited-img-34">
+   								<div class="mask"></div>
+    								<img class="thumbnail" src="{thumbnail}" alt="{raw_title}" />
+								</div>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-8">
+                            <h2 class="tit">
+                                <a href="{url}" target="_blank">{title}</a>
+                            </h2>
+                            <span class="dt">{time_fmt[MM]}/{time_fmt[dd]}</span>
+                            <p>{outline[300]}</p>
+                        </div>
+                    </li>')
+                </ul>
+                <div id="clearfix">$pager()</div><br />
+            </div>
+        </div>
+            </div>
+    </div>
+    ${include:"include/footer.html"}
+</body>
+
+</html>

@@ -23,4 +23,12 @@ namespace JR.Stand.Core.Template.Impl
     public delegate void BeforeCompileEvent(TemplatePage page,ref string templateContent);
     
     public delegate void TemplateBehavior();
+    
+    
+    /// <summary>
+    /// 解析内容
+    /// </summary>
+    /// <param name="content">内容</param>
+    /// <param name="options">模板选项</param>
+    public delegate string TemplateResolveHandler(string content,Options options);
 }

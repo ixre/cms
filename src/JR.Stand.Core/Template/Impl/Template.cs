@@ -16,6 +16,7 @@ namespace JR.Stand.Core.Template.Impl
     /// </summary>
     public sealed class Template
     {
+        public event TemplateResolveHandler OnResolve;
         public Template(string filePath, Options opt)
         {
             this.FilePath = filePath;
@@ -91,15 +92,18 @@ namespace JR.Stand.Core.Template.Impl
                 // 替换系统标签
                 this._content = TemplateRegexUtility.Replace(_content, m => TemplateCache.Tags[m.Groups[1].Value]);
                 
-                //替换部分视图
+                //　替换部分视图
                 this._content = TemplateRegexUtility.ReplacePartial(this._content);
-
-                //压缩模板代码
+                // 处理解析事件
+                if (this.OnResolve != null)
+                {
+                    this._content = this.OnResolve(this._content, this.Options);
+                }
+                //　压缩模板代码
                 if (this.Options.EnabledCompress)
                 {
                     this._content = TemplateUtils.CompressHtml(_content);
                 }
-
                 if (!this.Options.EnabledCache)
                 {
                     var swp = this._content;

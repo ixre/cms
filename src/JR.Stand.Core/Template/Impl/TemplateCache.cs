@@ -61,12 +61,16 @@ namespace JR.Stand.Core.Template.Impl
         /// <param name="templateId"></param>
         /// <param name="filePath"></param>
         /// <param name="options"></param>
-        internal static void RegisterTemplate(string templateId, string filePath, Options options)
+        /// <param name="handler"></param>
+        internal static void RegisterTemplate(string templateId, string filePath, Options options,
+            TemplateResolveHandler handler = null)
         {
             templateId = templateId.ToLower();
             if (!TemplateDictionary.ContainsKey(templateId))
             {
-                TemplateDictionary.Add(templateId, new Template(filePath, options));
+                Template t = new Template(filePath, options);
+                if(handler!= null)t.OnResolve += handler;
+                TemplateDictionary.Add(templateId,t);
             }
         }
 
