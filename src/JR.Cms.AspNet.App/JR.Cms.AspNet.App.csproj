@@ -72,6 +72,7 @@
     <Content Include="copy_assets.sh" />
     <Content Include="data\db.db" />
     <Content Include="depend_list.txt" />
+    <Content Include="favicon.ico" />
     <Content Include="install\db\access.mdb" />
     <Content Include="install\db\mysql.sql" />
     <Content Include="install\db\mssql.sql" />

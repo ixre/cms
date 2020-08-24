@@ -16,7 +16,7 @@ msbuild *.csproj /p:Configuration=Release && \
     mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
     mkdir ${RELEASE_DIR}/templates && cp -r templates/default ${RELEASE_DIR}/templates && \
     cp -r bin public  oem install plugins ${RELEASE_DIR} && \
-    cp  Global.asax Web.config ${RELEASE_DIR}
+    cp favicon.ico Global.asax Web.config ${RELEASE_DIR}
 
 cd ${RELEASE_DIR} && \
     sed -i 's/compilation debug="true"/compilation debug="false"/g' Web.config && \
