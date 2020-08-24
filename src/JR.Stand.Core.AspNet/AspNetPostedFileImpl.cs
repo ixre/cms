@@ -28,7 +28,7 @@ namespace JR.Stand.Core.AspNet
             }
         }
 
-        public Task CopyToAsync(FileStream fs)
+        public Task CopyToAsync(Stream fs)
         {
             return this._file.InputStream.CopyToAsync(fs);
         }
