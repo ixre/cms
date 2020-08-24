@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace JR.Cms.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class ContainSetting : Attribute
     {

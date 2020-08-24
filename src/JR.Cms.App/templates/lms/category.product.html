@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <link rel="stylesheet" type="text/css" href="${page.fpath}/base.css?v=${page.built}" />
+    <link rel="stylesheet" type="text/css" href="${page.tpath}/2013/v1/style.css" />
+    <link rel="stylesheet" href="${page.tpath}/css/page.css" />
+    <link rel="stylesheet" href="${page.tpath}/css/product.css?${page.built}" />
+    <script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,navi,alist&version=${page.version}"></script>
+</head>
+
+<body>
+    ${include:"include/header.html"}
+    <div id="main" class="container-fluid">
+        <div class="row">
+            
+        <div class="col-lg-3 col-sm-3 hidden-xs pull">
+            ${include:"include/welcome.html"}
+            ${include:"include/side_product_box.html"}
+            ${include:"include/contact.html"}
+            ${include:"include/file_down.html"}
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-12 push">
+            <div id="location" class="mod-sitemap sitemap">
+                <a href="${page.domain}">$lang(home)</a>::$sitemap()
+                ${include:"include/share.html"}
+            </div>
+            <p class="title"><b>
+                    <!--$lang(all)$lang(space)$lang(product)-->${category.name}</b></p>
+            <div id="pro_txt">
+                <div class="inner">
+                    <!--
+                <%object catalogDes = ViewData["catalogdescription"];
+      if (catalogDes != null) Response.Write(catalogDes.ToString());
+      else
+      {                      %>-->
+                    LMS has become a recognized leader in the manufacture of
+                    <a title="cold roll forming machine" href="${page.domain}/product/Roll-Forming-Machine">Cold Roll forming machines</a>,
+                    <a title="sheet metal machines" href="${page.domain}/product/Metal-sheet-Machine">sheet metal machines</a>,
+                    <a title="duct machine supplier" href="${page.domain}/product/Duct-Machine">duct machines</a>,
+                    <a title="pipe making machines" href="${page.domain}/product/Pipe-Making-Machine">pipe making machines</a>,
+                    <a title="combined drawing machine" target="_blank" href="${page.domain}/product/Combined-Drawing-Machine">combined drawing machine </a>and
+                    <a title="slitting machine supplier" href="${page.domain}/product/Slitting-Machine-cut-to-length">slitting machines</a>.
+                    Our excellent reputation for sound and innovative engineering and our many years of experience have brought us recognition for offering our customers the ultimate in efficiency for
+                    <a href="http://www.lmsmachinery.com" title="roll forming machine" target="_blank">roll forming tooling</a> and other equipment.
+                </div>
+            </div>
+            <!-- search box -->
+            <div class="mod-search-b clearfix">
+                <ul>
+                    <li>
+                        <i></i>
+                        <label for="keyword">$lang(keyword):</label>
+                        <select class="g-form-i g-text-box gra-form-i gra-text-box" name="c" field="c" id="productcatalogues">
+                            <option value="">-- ALL --</option>
+                            $categories(product,'<option value="{tag}">{name}</option>')
+                        </select>
+                    </li>
+                    <li>
+                        <i></i>
+                        <label for="option">$lang(search)$lang(space)$lang(by):</label>
+                        <input class="g-form-i g-text-box gra-form-i gra-text-box" name="keywords" type="text" id="_keywords" />
+                    </li>
+                    <li>
+                        <i></i>
+                        <label for=""></label>
+                        <button class="g-btn g-btn-search gra-btn gra-btn-search gra-form-i_ uppercase" onclick="pcSearch()">$lang(search)</button>
+                    </li>
+                </ul>
+            </div>
+            <!-- product list -->
+            <ul class="mod-prod-list row">
+                $pager_archives(12,'
+                <li class="col-lg-3 col-sm-3 col-xs-6">
+                    <div class="b">
+                        <a href="{url}">
+                            <div class="g-suited-img g-suited-img-34 gra-suited-img gra-suited-img-34">
+                                <span class="mask"></span>
+                                <img src="{thumbnail}" alt="{raw_title}" />
+                            </div>
+                        </a>
+                        <div class="tit">
+                            <input name="CheckBox_Prod" type="checkbox" value="{id}" />
+                            <a href="{url}">{title}</a>
+                        </div>
+                        <p>{outline}</p>
+                    </div>
+                </li>
+                ')
+            </ul>
+            <div class="mod-inquire-control clearfix">
+                <div class="inquire"><button onclick="inquiry()" class="g-btn g-btn-inqure gra-btn gra-btn-inqure">INQUIRE SELECTED</button></div>
+                $pager()
+            </div>
+        </div>
+            </div>
+    </div>
+    ${include:"include/footer.html"}
+    <script type="text/javascript">
+    var inquireList = new Array();
+
+    function pcSearch() {
+        var keyword = document.getElementById("_keywords").value;
+        if (keyword == "") alert('please input keyword!');
+        else {
+            location.href = "${page.domain}/page/product_search.html?c=product&w=" + encodeURIComponent(keyword);
+        }
+    }
+    var cata = document.getElementById("productcatalogues");
+    cata.onchange = function() {
+        location.href = "${page.domain}/product/" + (this.value == '' ? '' : this.value + '/');
+    }
+
+    function pushInquireList(v) {
+        inquireList.push(v);
+        $b.$fn(".gra-btn-inqure").addClass("gra-btn-inqure-active");
+    }
+
+    function popInquireList(v) {
+        inquireList.pop(v);
+        if (inquireList.length == 0) $b.$fn(".gra-btn-inqure").removeClass("gra-btn-inqure-active");
+    }
+    $b.$fn(".mod-prod-list INPUT").each(function(i, e) {
+        if (e.attr("type") == "checkbox") {
+            e.click(function() {
+                if (this.attr("checked")) {
+                    pushInquireList(this.value);
+                } else {
+                    popInquireList(this.value);
+                }
+            });
+            if (e.attr("checked")) pushInquireList(e.val());
+        }
+    });
+
+    function inquiry() {
+        var _istr = "";
+        for (var i in inquireList) {
+            _istr += inquireList[i] + "|";
+        }
+        if (_istr != "") {
+            _istr = _istr.substring(0, _istr.length - 1);
+        }
+        j6.xhr.post("/com.lms.sh.aspx/SaveInquiryBasket", "action=saveinquiry&inquireList=" + _istr, function() {
+            location.href = "${page.domain}/inquirybasket.html";
+        }, function(x) { alert(x) });
+    }
+    </script>
+</body>
+
+</html>

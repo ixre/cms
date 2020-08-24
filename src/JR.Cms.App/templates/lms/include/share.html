@@ -1,0 +1,24 @@
+
+<span class="share-box hidden-xs" id="sharebox">
+    <b>Share:</b>
+    <a rel="nofollow" target="_blank" href="http://www.facebook.com/share.php?u=#url#">
+        <span class="a facebook"><b>Facebook</b></span>
+    </a>
+    <a rel="nofollow" target="_blank" href="http://twitter.com/home?status=#tit# #url#">
+        <span class="a twitter"><b>Twitter</b></span>
+    </a>
+    <a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=#url#&title=#tit#&source=LMS">
+        <span class="a linkedin"><b>LinkedIn</b></span>
+    </a>
+    <a rel="nofollow" target="_blank" href="http://www.google.com/bookmarks/mark?op=add&bkmk=#url#&title=#tit#&annotation=">
+        <span class="a google"><b>Google</b></span>
+    </a>
+</span>
+<script type="text/javascript">
+    var sas = document.getElementById('sharebox').getElementsByTagName('A');
+    var url = encodeURIComponent(location.href);
+    var tit = encodeURIComponent(document.title);
+    for(var i=0;i<sas.length;i++){
+        sas[i].href = sas[i].href.replace('#tit#',tit).replace('#url#',url);
+    }
+</script>

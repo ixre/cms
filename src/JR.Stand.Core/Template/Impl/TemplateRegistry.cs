@@ -30,7 +30,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 注册模板
         /// </summary>
-        public void Register(string directory)
+        public void Register(string directory,TemplateResolveHandler handler = null)
         {
             var dir = new DirectoryInfo(EnvUtil.GetBaseDirectory() + directory);
             if (!dir.Exists) throw new DirectoryNotFoundException("模版文件夹不存在!");
@@ -39,7 +39,7 @@ namespace JR.Stand.Core.Template.Impl
             // 重置模板缓存
             this.ResetCaches();
             //注册模板
-            RegisterTemplates(dir, this._options);
+            RegisterTemplates(dir, this._options,handler);
         }
 
         private void ResetCaches()
@@ -58,15 +58,18 @@ namespace JR.Stand.Core.Template.Impl
         }
 
         //递归方式注册模板
-        private static void RegisterTemplates(DirectoryInfo dir, Options options)
+        private static void RegisterTemplates(DirectoryInfo dir, Options options, TemplateResolveHandler handler = null)
         {
             foreach (FileInfo file in dir.GetFiles())
             {
                 if (file.Extension.EndsWith(".html"))
                 {
                    // Console.WriteLine("---" + file.FullName);
-                    TemplateCache.RegisterTemplate(TemplateUtility.GetTemplateId(
-                        file.FullName, options.Names), file.FullName,options);
+                    TemplateCache.RegisterTemplate(
+                        TemplateUtility.GetTemplateId(file.FullName, options.Names),
+                        file.FullName,
+                        options,
+                        handler);
                 }
             }
             foreach (DirectoryInfo dst in dir.GetDirectories())
@@ -74,7 +77,7 @@ namespace JR.Stand.Core.Template.Impl
                 //如果文件夹是可见的
                 if ((dst.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
-                    RegisterTemplates(dst, options);
+                    RegisterTemplates(dst, options,handler);
                 }
             }
         }

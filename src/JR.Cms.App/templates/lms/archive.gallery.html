@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <link rel="stylesheet" type="text/css" href="${page.fpath}/base.css?v=${page.built}" />
+    <link rel="stylesheet" type="text/css" href="${page.tpath}/2013/v1/style.css" />
+    <link rel="stylesheet" href="${page.tpath}/css/page.css" />
+    <script type="text/javascript" src="${page.fpath}/base.min.js?v=${page.built}"></script>
+    <script type="text/javascript" src="${page.tpath}/script.js?v=${page.built}"></script>
+</head>
+
+<body>
+    ${include:"include/header.html"}
+    <div id="main">
+        <div id="right">
+            <div id="location" class="mod-sitemap sitemap">
+                <a href="${page.domain}">$lang(home)</a>::$sitemap()
+                ${include:"include/share.html"}
+            </div>
+            <div>
+                <div id="company">
+                    <div id="company">
+                        <p class="title"><a title="${archive.title}">${archive.title}</a></p>
+                        <div class="content">
+                            <div class="v_pic" style="display:block">
+                                <div style="text-align:center">
+                                    <img id="Img" onclick="window.open(this.src)" src="${archive.thumbnail}" alt="${archive.title}" style="border-width:0px;cursor: pointer;" /></div>
+                                <p>${archive.content}</p>
+                            </div>
+                            <div class="btn" id="BtbDiv">
+                                $prev_archive('<a href="{url}">previous pic</a>')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|$next_archive('<a href="{url}">next pic</a>')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="left">
+            ${include:"include/welcome.html"}
+            <div class="subnav">
+                <p class="title">$lang(galleries)</p>
+                $categories('gallery','
+                <h2><a id="a_cert_class_20" href="{url}" title="{name}">{name}</a></h2>
+                ')
+            </div>
+            ${include:"include/filesdownload.html"}
+            <div id="left_btm"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    ${include:"include/footer.html"}
+    <script type="text/javascript">
+    showBgImage(4);
+    </script>
+</body>
+
+</html>

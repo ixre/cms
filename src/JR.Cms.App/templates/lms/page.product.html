@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0" />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    <link rel="stylesheet" type="text/css" href="${page.fpath}/base.css?v=${page.built}" />
+    <link rel="stylesheet" type="text/css" href="${page.tpath}/2013/v1/style.css" />
+    <link rel="stylesheet" href="${page.tpath}/css/page.css" />
+    <script type="text/javascript" src="${page.fpath}/base.min.js?v=${page.built}"></script>
+    <script type="text/javascript" src="${page.tpath}/script.js?v=${page.built}"></script>
+</head>
+
+<body>
+    ${include:"include/header.html"}
+
+    <div class="container-fluid mod-row-">
+        <div class="col-md-col-md-9 col-sm-9 col-xs-12 push">
+              <div id="location" class="mod-sitemap sitemap">
+                <a href="${page.domain}">$lang(home)</a>::$sitemap()
+                ${include:"include/share.html"}
+            </div>
+            <div>
+                <p class="title">$lang(new)$lang(space)$lang(product)
+                    <a href="${page.domain}/product/" title="View all LMS's products" style="float:right;font-weight:normal;color:red">>> Click here view all products!</a></p>
+                <br />
+                @eachcategory(product,100,tag,name,curl)
+                <div class="productcata">
+                    <h2><a href="{curl}" title="More {name} product">{name}</a></h2>
+                    <span class="right"><a href="{curl}">>>$lang(more)</a></span>
+                </div>
+                <ul class="pro_list">
+                    $archives({tag},4,'
+                    <li>
+                        <a href="{url}"><img src="{thumbnail}" alt="{raw_title}" /></a>
+                        <h2><a href="{url}">{title}</a></h2>
+                        <p>{outline}</p>
+                    </li>')
+                </ul>
+                @each off
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 hidden-xs pull">
+             ${include:"include/welcome.html"}
+            ${include:"include/side_product_box.html"}
+            ${include:"include/contact.html"}
+            ${include:"include/file_down.html"}
+        </div>
+    </div>
+
+    ${include:"include/footer.html"}
+    <script type="text/javascript" src="${page.fpath}/core.js?v=${page.built}"></script>
+</body>
+
+</html>
