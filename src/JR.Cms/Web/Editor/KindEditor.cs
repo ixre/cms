@@ -303,11 +303,11 @@ namespace JR.Cms.Web.Editor
             return context.Response.WriteAsync(JsonAnalyzer.ToJson(hash));
         }
 
-        private async void SaveFile(ICompatiblePostedFile imgFile, string targetPath)
+        private void SaveFile(ICompatiblePostedFile imgFile, string targetPath)
         {
             using (FileStream fs = new FileStream(targetPath, FileMode.Create))
             {
-                imgFile?.CopyToAsync(fs);
+                imgFile.CopyToAsync(fs);
                 fs.Flush();
             }
         }
