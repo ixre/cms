@@ -16,7 +16,7 @@ WORKDIR src/JR.Cms.App
 RUN dotnet restore && dotnet publish -c Release -o ${RELEASE_DIR}
 RUN mkdir -p ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
     mkdir -p ${RELEASE_DIR}/templates && cp -r templates/default ${RELEASE_DIR}/templates && \
-    cp -r public oem install plugins ${RELEASE_DIR} && \
+    cp -r favicon.ico public oem install plugins ${RELEASE_DIR} && \
     cd ${RELEASE_DIR} && \
     rm -rf *.pdb *.xml appsettings.json appsettings.Development.json && \
     rm -rf runtimes/win* runtimes/osx* runtimes/*arm* runtimes/*x86 && \
