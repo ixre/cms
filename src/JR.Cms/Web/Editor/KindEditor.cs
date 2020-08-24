@@ -305,11 +305,7 @@ namespace JR.Cms.Web.Editor
 
         private void SaveFile(ICompatiblePostedFile imgFile, string targetPath)
         {
-            using (FileStream fs = new FileStream(targetPath, FileMode.Create))
-            {
-                imgFile.CopyToAsync(fs);
-                fs.Flush();
-            }
+            FileUtil.SaveStream(imgFile.OpenReadStream(),targetPath);
         }
 
         private Task showError(ICompatibleHttpContext context, string message)
