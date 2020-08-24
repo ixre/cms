@@ -21,6 +21,8 @@ namespace JR.Stand.Core.Template.Impl
         private readonly IDataContainer _container;
         private readonly IList<string> _directories = new List<string>();
         private readonly object _locker = new object();
+        private TemplateResolveHandler _resolveHandler;
+
         public TemplateRegistry(IDataContainer container,Options options)
         {
             this._options = options ?? new Options();
@@ -38,6 +40,7 @@ namespace JR.Stand.Core.Template.Impl
             if(!this._directories.Contains(directory))this._directories.Add(directory);
             // 重置模板缓存
             this.ResetCaches();
+            this._resolveHandler = handler;
             //注册模板
             RegisterTemplates(dir, this._options,handler);
         }
@@ -86,7 +89,7 @@ namespace JR.Stand.Core.Template.Impl
         {
             foreach (var s in this._directories)
             {
-                this.Register(s);
+                this.Register(s,this._resolveHandler);
             }
         }
 
