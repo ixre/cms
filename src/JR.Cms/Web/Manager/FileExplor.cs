@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Web.Manager
 {
@@ -54,11 +55,11 @@ namespace JR.Cms.Web.Manager
             //   pdir:{path='/templates/'},
             //     dirs:[
             //             name:'text',
-            //             dirnum:0,
-            //             filenum:0
+            //             dir_num:0,
+            //             file_num:0
             //          ],
             //     files:[
-            //             {name:'1.txt',len:'123400',date:'2013-04-05',mdate:'2013-04-05',readonly:1,system:1}
+            //             {name:'1.txt',len:'123400',date:'2013-04-05',modify_date:'2013-04-05',readonly:1,system:1}
             //          ]
             //   ]
             //
@@ -76,8 +77,8 @@ namespace JR.Cms.Web.Manager
                 if ((d.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
                     sb.Append(i++ == 0 ? "" : ",");
-                    sb.Append("{\"name\":\"").Append(d.Name).Append("\",\"dirnum\":")
-                        .Append(d.GetDirectories().Length).Append(",\"filenum\":")
+                    sb.Append("{\"name\":\"").Append(d.Name).Append("\",\"dir_num\":")
+                        .Append(d.GetDirectories().Length).Append(",\"file_num\":")
                         .Append(d.GetFiles().Length).Append(",\"system\":0}");
                 }
 
@@ -93,8 +94,8 @@ namespace JR.Cms.Web.Manager
                     sb.Append(i++ == 0 ? "" : ",");
                     sb.Append("{\"name\":\"").Append(f.Name).Append("\",\"len\":")
                         .Append(f.Length.ToString()).Append(",\"date\":\"")
-                        .Append(string.Format("{0:yyyy-MM-dd HH:mm:ss}", f.CreationTime))
-                        .Append("\",\"mdate\":\"").Append($"{f.LastWriteTime:yyyy-MM-dd HH:mm:ss}")
+                        .Append($"{f.CreationTime:yyyy-MM-dd HH:mm:ss}")
+                        .Append("\",\"modify_date\":\"").Append($"{f.LastWriteTime:yyyy-MM-dd HH:mm:ss}")
                         .Append("\",\"readonly\":").Append(
                             (Array.Find(ReadOnlyFiles,
                                  str => string.Compare(str, f.Name, StringComparison.OrdinalIgnoreCase) == 0) != null ||
@@ -236,10 +237,9 @@ namespace JR.Cms.Web.Manager
             return "{}";
         }
 
-
-
+        
         /// <summary>
-        /// 
+        /// 上传文件
         /// </summary>
         /// <param name="dir"></param>
         /// <param name="file"></param>
@@ -248,20 +248,17 @@ namespace JR.Cms.Web.Manager
         {
             var dirPath = Cms.PhysicPath + dir;
             var fileName = file.GetFileName();
-
             var filePath = dirPath + file.GetFileName();
             if (File.Exists(filePath)) return "{\"error\":\"文件已经存在\"}";
-
             SaveFile(file, filePath);
-            
             return "{\"url\":\"" + dir + fileName + "\"}";
         }
 
-        private static async void SaveFile(ICompatiblePostedFile file, string filePath)
+        private static void SaveFile(ICompatiblePostedFile file, string filePath)
         {
             using (var fs = new FileStream(filePath, FileMode.Create))
             {
-                await file.CopyToAsync(fs);
+                file.CopyToAsync(fs);
                 fs.Flush();
             }
         }
