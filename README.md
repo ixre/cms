@@ -97,6 +97,10 @@ docker run -d  --name cms -p 8080:80 \
     --restart always jarry6/cms
 ```
 
+#　自定义模板
+
+编辑或创建模板,请参考模板[模板指南](docs/TEMPLATE_GUIDE.md)和[模板语法]()
+
 # 插件开发 #
 详见：[https://github.com/jsix/cms/tree/master/plugins](https://github.com/jsix/cms/tree/master/plugins)
 

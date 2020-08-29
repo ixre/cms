@@ -122,6 +122,13 @@ function loadIconFont() {
     c.href = ASSETS_PATH+"/icon-font.css";
     document.head.appendChild(c);
 }
+
+
+
+/**
+ <img class="lazy" src="${page.fpath}/images/lazy_holder.gif"
+ data-src="${page.tpath}/images/map-address.png" alt="">
+ */
 /** 延迟加载图片 */
 var observer = new IntersectionObserver(
     function(changes) {
@@ -134,11 +141,6 @@ var observer = new IntersectionObserver(
         });
     }
 );
-
-/**                      
- <img class="lazy" src="${page.fpath}/images/lazy_holder.gif" 
- data-src="${page.tpath}/images/map-address.png" alt="">
-*/
  function lazyObserve() {
     var arr = Array.from(document.querySelectorAll(".lazy"));
     arr.forEach(function (item) {
