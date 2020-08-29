@@ -12,7 +12,7 @@ CMS基础JS库:`base.min.js`,包含基本的JS操作,不依赖外部框架. 加�
 ###１.懒加载图片
 在html中添加html,如:
 ```
-<img class="lazy" src="${page.fpath}/images/lazy_holder.gif" data-src="/images/raw.png" alt="图片">
+<img class="lazy" src="${page.fpath}/images/lazy-holder.gif" data-src="/images/raw.png" alt="图片">
 ```
 当图片可见时才会加载, 必须JS调用
 
