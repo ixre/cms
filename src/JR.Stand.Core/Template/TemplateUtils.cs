@@ -35,6 +35,12 @@ namespace JR.Stand.Core.Template
             return html;
         }
 
+        /// <summary>
+        /// 获取方法参数的值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <exception cref="TemplateException"></exception>
         public static string GetFunctionParamValue(string value)
         {
             var len = value.Length;
@@ -53,10 +59,9 @@ namespace JR.Stand.Core.Template
 
             if (value[0] == '{')
             {
-                if (len == 1 || value[len - 1] != '}') throw new TemplateException("参数末尾应包含\"}\"");
+                if (len == 1 || value[len - 1] != '}') throw new TemplateException("参数末尾应包含\"}\",内容:"+value);
                 return value.Substring(1, len - 2);
             }
-
             return value;
         }
 

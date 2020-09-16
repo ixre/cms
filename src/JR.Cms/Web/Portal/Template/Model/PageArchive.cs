@@ -13,7 +13,7 @@ namespace JR.Cms.Web.Portal.Template.Model
 {
     /// <summary>
     /// </summary>
-    public class PageArchive : ITemplateVariableInstance
+    public class PageArchive : ITemplateVariable
     {
         private IDictionary<string, string> _dict;
         private string _properties;

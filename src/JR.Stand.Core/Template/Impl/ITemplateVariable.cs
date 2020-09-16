@@ -6,10 +6,10 @@ namespace JR.Stand.Core.Template.Impl
     /// <summary>
     /// 模板变量对象
     /// </summary>
-    public interface ITemplateVariableInstance
+    public interface ITemplateVariable
     {
         /// <summary>
-        /// 数据字典
+        /// 数据字典, 使用格式:${xxx.data(xx)}获取数据
         /// </summary>
         IDictionary<String, String> Data { get; }
 
