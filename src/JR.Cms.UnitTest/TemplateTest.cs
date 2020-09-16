@@ -23,13 +23,12 @@ namespace JR.Cms.UnitTest
             var temp = @"
 $lang(home) 
 $navigator()
-${archive.map(视频)}
+${archive.data(视频)}
      <div>
               $categories('prod\,uct',{
                     <div class=""col-md-3 col-lg-2 col-sm-4"">
                         {name}
                     </div>
-                    <div style=""background-image:url('{name}')""></div>
         }) </div>
 ";
             IDataContainer dc = new NormalDataContainer();
