@@ -12,9 +12,9 @@ echo "setup1: prepare.." && \
     rm -rf out && mkdir -p ${RELEASE_DIR} && cd src/NetFx/JR.Cms.AspNet.App
 
 # copy assets from project: jr.cms.app
-cp -r src/JR.Cms.App/install src/JR.Cms.App/oem  \
-   src/JR.Cms.App/public  src/JR.Cms.App/templates \
-   src/JR.Cms.App/root src/NetFx/JR.Cms.AspNet.App
+cp -r ../../JR.Cms.App/install ../../JR.Cms.App/oem  \
+   ../../JR.Cms.App/public  ../..JR.Cms.App/templates \
+   ../../JR.Cms.App/root .
         
 echo "setup2: building.." && \
 xbuild *.csproj /p:Configuration=Release && \
