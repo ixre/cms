@@ -36,15 +36,15 @@ cms.config
 devsofts
 txxf
 *.tar.gz
-src/JR.Cms.AspNet.App/config/
-src/JR.Cms.AspNet.App/public
-src/JR.Cms.AspNet.App/templates
-src/JR.Cms.App/templates/fze
-src/JR.Cms.App/config
-src/JR.Cms.AspNet.App/public
-src/JR.Cms.AspNet.App/oem
-src/JR.Cms.AspNet.App/install
-src/JR.Cms.AspNet.App/uploads
+src/NetFx/JR.Cms.AspNet.App/config/
+src/NetFx/JR.Cms.AspNet.App/public
+src/NetFx/JR.Cms.AspNet.App/templates
+src/NetFx/JR.Cms.App/templates/fze
+src/NetFx/JR.Cms.App/config
+src/NetFx/JR.Cms.AspNet.App/public
+src/NetFx/JR.Cms.AspNet.App/oem
+src/NetFx/JR.Cms.AspNet.App/install
+src/NetFx/JR.Cms.AspNet.App/uploads
 *.blob
 
 /src/JR.Cms.App/index.html

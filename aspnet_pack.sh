@@ -8,7 +8,7 @@ echo "======================================="
 RELEASE_DIR=$(pwd)/out/aspnet
 
 echo "setup1: prepare.." && \
-    rm -rf out && mkdir -p ${RELEASE_DIR} && cd src/JR.Cms.AspNet.App && sh copy_assets.sh 
+    rm -rf out && mkdir -p ${RELEASE_DIR} && cd src/NetFx/JR.Cms.AspNet.App && sh copy_assets.sh 
 
 
 echo "setup2: buiding.." && \
