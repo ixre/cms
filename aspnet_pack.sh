@@ -12,7 +12,7 @@ echo "setup1: prepare.." && \
 
 
 echo "setup2: buiding.." && \
-msbuild *.csproj /p:Configuration=Release && \
+xbuild *.csproj /p:Configuration=Release && \
     mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
     mkdir ${RELEASE_DIR}/templates && cp -r templates/default ${RELEASE_DIR}/templates && \
     cp -r bin public  oem install plugins ${RELEASE_DIR} && \
