@@ -2,9 +2,6 @@ kind: pipeline
 name: default
 
 steps:
-  - name: "compile for fx48"
-    image: jarry6/drone-mono4:latest
-    exec: bash ./aspnet_pack.sh
   - name: docker
     image: plugins/docker
     settings:
@@ -13,6 +10,9 @@ steps:
       username: jarry6                                                                                                                                                                                            
       password:
           from_secret: docker_password
+  - name: "compile for fx48"
+    image: jarry6/drone-mono4:latest
+    exec: bash ./aspnet_pack.sh
   - name: publish
     image: appleboy/drone-scp
     settings:
