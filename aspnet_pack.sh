@@ -9,10 +9,14 @@ echo "======================================="
 RELEASE_DIR=$(pwd)/out/aspnet
 
 echo "setup1: prepare.." && \
-    rm -rf out && mkdir -p ${RELEASE_DIR} && cd src/NetFx/JR.Cms.AspNet.App && sh copy_assets.sh 
+    rm -rf out && mkdir -p ${RELEASE_DIR} && cd src/NetFx/JR.Cms.AspNet.App
 
-
-echo "setup2: buiding.." && \
+# copy assets from project: jr.cms.app
+cp -r src/JR.Cms.App/install src/JR.Cms.App/oem  \
+   src/JR.Cms.App/public  src/JR.Cms.App/templates \
+   src/JR.Cms.App/root src/NetFx/JR.Cms.AspNet.App
+        
+echo "setup2: building.." && \
 xbuild *.csproj /p:Configuration=Release && \
     mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
     mkdir ${RELEASE_DIR}/templates && cp -r templates/default ${RELEASE_DIR}/templates && \
