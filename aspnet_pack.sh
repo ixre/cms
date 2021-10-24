@@ -48,6 +48,4 @@ echo 'setup5: packing..' && \
     tar czf ../../jrcms-aspnet-latest.tar.gz *
     
 echo "package finished!"
-    
-
-    
+ 
