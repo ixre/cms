@@ -33,18 +33,21 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-          <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+          <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-          <HintPath>..\..\..\..\..\..\home\jarrysix\.nuget\packages\microsoft.aspnetcore.http.features\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+          <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+          <Private>True</Private>
         </Reference>
         <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-          <HintPath>..\..\..\..\..\..\home\jarrysix\.nuget\packages\microsoft.extensions.primitives\3.1.2\lib\netcoreapp3.1\Microsoft.Extensions.Primitives.dll</HintPath>
+          <HintPath>..\..\packages\Microsoft.Extensions.Primitives.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+          <Private>True</Private>
         </Reference>
         <Reference Include="mscorlib" />
-        <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-          <HintPath>..\..\..\..\..\..\home\jarrysix\.nuget\packages\newtonsoft.json\12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+        <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+          <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <Private>True</Private>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.ComponentModel.Composition" />
@@ -52,10 +55,6 @@
         <Reference Include="System.Data" />
         <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-          <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="System.Web" />
@@ -76,9 +75,13 @@
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\JR.Stand.Abstractions\JR.Stand.Abstractions.csproj">
+      <ProjectReference Include="..\..\JR.Stand.Abstractions\JR.Stand.Abstractions.csproj">
         <Project>{f6e36ee1-908e-4b73-bb0e-81f40b09d8a1}</Project>
         <Name>JR.Stand.Abstractions</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\..\JR.Stand.Core\JR.Stand.Core.csproj">
+        <Project>{aa5e3087-1247-4039-a25f-907fbdf78343}</Project>
+        <Name>JR.Stand.Core</Name>
       </ProjectReference>
       <ProjectReference Include="..\JR.Stand.Core\JR.Stand.Core.csproj">
         <Project>{aa5e3087-1247-4039-a25f-907fbdf78343}</Project>

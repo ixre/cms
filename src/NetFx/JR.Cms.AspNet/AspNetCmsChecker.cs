@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Web;
 using JR.Cms.Conf;
 using JR.Cms.Web.Portal;
-using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Web;
 
 namespace JR.Cms.AspNet

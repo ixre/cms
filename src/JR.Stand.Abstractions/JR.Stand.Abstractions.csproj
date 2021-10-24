@@ -4,7 +4,7 @@
         <RootNamespace>JR.Stand.Abstracts</RootNamespace>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>

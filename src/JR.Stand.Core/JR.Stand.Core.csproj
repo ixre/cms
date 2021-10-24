@@ -5,7 +5,7 @@
         <FileVersion>1.0.0</FileVersion>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>jr.stand.snk</AssemblyOriginatorKeyFile>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -23,7 +23,7 @@
       <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.2" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
       <PackageReference Include="MySql.Data" Version="8.0.19" />
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
       <PackageReference Include="System.CodeDom" Version="4.7.0" />
       <PackageReference Include="System.Data.OleDb" Version="4.7.0" />
       <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />

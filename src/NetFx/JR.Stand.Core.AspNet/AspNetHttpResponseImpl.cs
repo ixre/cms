@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Web;
 using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
-using Microsoft.AspNetCore.Http;
 using HttpContext = System.Web.HttpContext;
 
 namespace JR.Stand.Core.AspNet
