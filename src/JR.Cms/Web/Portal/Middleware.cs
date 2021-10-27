@@ -1,4 +1,6 @@
+using System;
 using JR.Cms.Conf;
+using JR.Cms.ServiceDto;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
 
@@ -20,25 +22,36 @@ namespace JR.Cms.Web.Portal
                     await next();
                     return;
                 }
+
                 context.Response.Redirect("/install");
             });
             // 自动跳转到www开头的域名
+            String boardPath = "/admin";
+            if (!String.IsNullOrEmpty(Settings.SYS_ADMIN_TAG))
+            {
+                boardPath = "/" + Settings.SYS_ADMIN_TAG;
+            }
+
             app.Use(async (context, next) =>
             {
-                if (Cms.IsStaticRequest(context.Request.Path)) await next();
-                var redirect = false;
-                if (Settings.SYS_FORCE_HTTPS || Settings.SYS_WWW_RD > 0)
+                String path = context.Request.Path;
+                if (Cms.IsStaticRequest(context.Request.Path) || path.StartsWith(boardPath))
                 {
-                    var target = Utils.GetRdUrl(HttpHosting.Context.Request);
-                    if (target != null)
-                    {
-                        context.Response.StatusCode = 301;
-                        context.Response.Headers.Add("Location", target);
-                        redirect = true;
-                    }
+                    await next();
+                    return;
                 }
 
-                if (!redirect) await next();
+                SiteDto site = Cms.Context.CurrentSite;
+                var target = Utils.GetSiteRedirectUrl(HttpHosting.Context.Request, site);
+                if (target != null)
+                {
+                    context.Response.StatusCode = 301;
+                    context.Response.Headers.Add("Location", target);
+                }
+                else
+                {
+                    await next();
+                }
             });
         }
     }

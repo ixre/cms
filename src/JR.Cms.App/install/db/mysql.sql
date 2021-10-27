@@ -502,7 +502,10 @@ CREATE TABLE `cms_site` (
   `seo_title` varchar(200) DEFAULT NULL,
   `seo_keywords` varchar(250) DEFAULT NULL,
   `seo_description` varchar(250) DEFAULT NULL,
+  `seo_force_https` int(4) NOT NULL DEFAULT 0 COMMENT '强制HTTPS',
+  `seo_force_redirect` int(4) NOT NULL DEFAULT 0 COMMENT '强制重定向',
   `state` int(1) NOT NULL,
+  `alone_board` int(4) NOT NULL DEFAULT 0 COMMENT '独立管理面板',
   `pro_tel` varchar(50) DEFAULT NULL,
   `pro_phone` varchar(11) DEFAULT NULL,
   `pro_fax` varchar(50) DEFAULT NULL,
@@ -512,6 +515,7 @@ CREATE TABLE `cms_site` (
   `pro_post` varchar(100) DEFAULT NULL,
   `pro_notice` varchar(250) DEFAULT NULL,
   `pro_slogan` varchar(250) DEFAULT NULL,
+  
   PRIMARY KEY (`site_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
