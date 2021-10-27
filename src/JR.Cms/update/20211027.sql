@@ -1,4 +1,4 @@
-ALTER TABLE `cms`.`cms_site` 
+ALTER TABLE `cms_site` 
 CHANGE COLUMN `site_id` `site_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '站点编号' ,
 CHANGE COLUMN `language` `language` INT(1) NOT NULL COMMENT '语言' ,
 CHANGE COLUMN `tpl` `tpl` VARCHAR(100) NULL DEFAULT NULL COMMENT '模板' ,
@@ -18,6 +18,6 @@ CHANGE COLUMN `pro_notice` `pro_notice` VARCHAR(250) NULL DEFAULT NULL COMMENT '
 CHANGE COLUMN `pro_slogan` `pro_slogan` VARCHAR(250) NULL DEFAULT NULL COMMENT '标语' ;
 
 
-ALTER TABLE cms.cms_site ADD seo_force_https int(4) DEFAULT 0 NOT NULL COMMENT '强制HTTPS';
-ALTER TABLE cms.cms_site ADD seo_force_redirect int(4) DEFAULT 0 NULL COMMENT '强制重定向';
-ALTER TABLE cms.cms_site ADD alone_board int(4) DEFAULT 0 NULL COMMENT '独立管理面板';
+ALTER TABLE cms_site ADD seo_force_https int(4) DEFAULT 0 NOT NULL COMMENT '强制HTTPS';
+ALTER TABLE cms_site ADD seo_force_redirect int(4) DEFAULT 0 NULL COMMENT '强制重定向';
+ALTER TABLE cms_site ADD alone_board int(4) DEFAULT 0 NULL COMMENT '独立管理面板';

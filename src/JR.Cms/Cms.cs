@@ -138,7 +138,6 @@ namespace JR.Cms
                     context = new CmsContext(httpCtx);
                     httpCtx.SaveItem("cms.context", context);
                 }
-
                 return context;
             }
         }
