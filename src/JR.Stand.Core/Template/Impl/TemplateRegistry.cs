@@ -21,8 +21,6 @@ namespace JR.Stand.Core.Template.Impl
         private readonly IDataContainer _container;
         private readonly IList<string> _directories = new List<string>();
         private readonly object _locker = new object();
-        private TemplateResolveHandler _resolveHandler;
-
         public TemplateRegistry(IDataContainer container,Options options)
         {
             this._options = options ?? new Options();
@@ -32,7 +30,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 注册模板
         /// </summary>
-        public void Register(string directory,TemplateResolveHandler handler = null)
+        public void Register(string directory)
         {
             var dir = new DirectoryInfo(EnvUtil.GetBaseDirectory() + directory);
             if (!dir.Exists) throw new DirectoryNotFoundException("模版文件夹不存在!");
@@ -40,9 +38,8 @@ namespace JR.Stand.Core.Template.Impl
             if(!this._directories.Contains(directory))this._directories.Add(directory);
             // 重置模板缓存
             this.ResetCaches();
-            this._resolveHandler = handler;
             //注册模板
-            RegisterTemplates(dir, this._options,handler);
+            RegisterTemplates(dir, this._options);
         }
 
         private void ResetCaches()
@@ -61,18 +58,15 @@ namespace JR.Stand.Core.Template.Impl
         }
 
         //递归方式注册模板
-        private static void RegisterTemplates(DirectoryInfo dir, Options options, TemplateResolveHandler handler = null)
+        private static void RegisterTemplates(DirectoryInfo dir, Options options)
         {
             foreach (FileInfo file in dir.GetFiles())
             {
                 if (file.Extension.EndsWith(".html"))
                 {
                    // Console.WriteLine("---" + file.FullName);
-                    TemplateCache.RegisterTemplate(
-                        TemplateUtility.GetTemplateId(file.FullName, options.Names),
-                        file.FullName,
-                        options,
-                        handler);
+                    TemplateCache.RegisterTemplate(TemplateUtility.GetTemplateId(
+                        file.FullName, options.Names), file.FullName,options);
                 }
             }
             foreach (DirectoryInfo dst in dir.GetDirectories())
@@ -80,7 +74,7 @@ namespace JR.Stand.Core.Template.Impl
                 //如果文件夹是可见的
                 if ((dst.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
-                    RegisterTemplates(dst, options,handler);
+                    RegisterTemplates(dst, options);
                 }
             }
         }
@@ -89,7 +83,7 @@ namespace JR.Stand.Core.Template.Impl
         {
             foreach (var s in this._directories)
             {
-                this.Register(s,this._resolveHandler);
+                this.Register(s);
             }
         }
 

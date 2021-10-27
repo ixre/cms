@@ -16,14 +16,12 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.DataAccess.DB;
-using JR.Cms.Web.Portal;
 using JR.Stand.Abstracts;
 using JR.Stand.Core;
 using JR.Stand.Core.Cache;
 using JR.Stand.Core.Framework.Web.UI;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;
-using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
 using JR.Stand.Core.Web.Cache;
 
@@ -52,8 +50,6 @@ namespace JR.Cms
     {
         private static bool isInstalled;
         private static  IMemoryCacheWrapper _cache;
-        private static int _robotsExists = -1;
-        
         /// <summary>
         /// 版本
         /// </summary>
@@ -74,8 +70,6 @@ namespace JR.Cms
         /// </summary>
         public static bool IsNetStandard { get;private set; }
 
-        
-        
         /// <summary>
         /// 是否已经安装
         /// </summary>
@@ -86,6 +80,7 @@ namespace JR.Cms
                 var insLockFile = new FileInfo($"{PhysicPath}/config/install.lock");
                 isInstalled = insLockFile.Exists;
             }
+
             return isInstalled;
         }
 
@@ -97,17 +92,17 @@ namespace JR.Cms
         /// <summary>
         /// 物理路径
         /// </summary>
-        public static string PhysicPath { get; private set; }
+        public static  string PhysicPath { get; private set; }
         
         /// <summary>
         /// CMS实用工具
         /// </summary>
-        public static CmsUtility Utility { get; private set; }
+        public static  CmsUtility Utility { get; private set; }
 
         /// <summary>
         /// CMS缓存
         /// </summary>
-        public static CmsCache Cache { get; private set; }
+        public static  CmsCache Cache { get; private set; }
 
         private static TemplateManager _templateManager;
 
@@ -143,7 +138,6 @@ namespace JR.Cms
                     context = new CmsContext(httpCtx);
                     httpCtx.SaveItem("cms.context", context);
                 }
-
                 return context;
             }
         }
@@ -161,7 +155,7 @@ namespace JR.Cms
         /// <summary>
         /// 语言包
         /// </summary>
-        public static CmsLanguagePackage Language { get; private set; }
+        public static  CmsLanguagePackage Language { get; private set; }
 
         /// <summary>
         /// 模版管理器
@@ -399,40 +393,6 @@ namespace JR.Cms
         public static void ConfigCache(IMemoryCacheWrapper cache)
         {
             _cache = cache;
-        }
-
-        /// <summary>
-        /// 是否存在robots.txt文件
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public static bool ExistsRobots()
-        {
-            if (_robotsExists == -1)
-            {
-                _robotsExists = File.Exists(PhysicPath + "robots.txt") ? 1 : 0;
-            }
-            return _robotsExists == 1;
-        }
-
-        /// <summary>
-        /// 生成robots.txt文件
-        /// </summary>
-        /// <param name="baseUrl">基础URL</param>
-        public static void GenerateRobots(string baseUrl)
-        {
-            try
-            {
-                String tpl = PhysicPath + CmsVariables.FRAMEWORK_PATH + "/embed/robots_template.txt";
-                String raw = FileUtil.ReadFileEnd(tpl);
-                raw = raw.Replace("{host}", baseUrl);
-                FileUtil.SaveContent(PhysicPath + "robots.txt", raw);
-                _robotsExists = 1;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"[ cms][ error]: generate robots.txt failed! message:{ex.Message}");
-            }
         }
     }
 }

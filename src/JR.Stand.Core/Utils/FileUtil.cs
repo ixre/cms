@@ -1,21 +1,19 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using JR.Stand.Core.Extensions;
 
 namespace JR.Stand.Core.Utils
 {
     /// <summary>
     /// 
     /// </summary>
-    public static class FileUtil
+    public static class IoUtil
     {
         /// <summary>
         /// 计算文件的 MD5 值
         /// </summary>
         /// <param name="fileName">要计算 MD5 值的文件名和路径</param>
         /// <returns>MD5 值16进制字符串</returns>
-        public static string FileMd5(string fileName)
+        public static string GetFileMd5(string fileName)
         {
             return HashFile(fileName, "md5");
         }
@@ -38,8 +36,11 @@ namespace JR.Stand.Core.Utils
         /// <returns>哈希值16进制字符串</returns>
         private static string HashFile(string fileName, string algName)
         {
-            if (!File.Exists(fileName)) return string.Empty;
-            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            if (!System.IO.File.Exists(fileName))
+                return string.Empty;
+
+            System.IO.FileStream fs = new System.IO.FileStream(fileName, System.IO.FileMode.Open,
+                System.IO.FileAccess.Read);
             byte[] hashBytes = HashData(fs, algName);
             fs.Close();
             return ByteArrayToHexString(hashBytes);
@@ -51,28 +52,25 @@ namespace JR.Stand.Core.Utils
         /// <param name="stream">要计算哈希值的 Stream</param>
         /// <param name="algName">算法:sha1,md5</param>
         /// <returns>哈希值字节数组</returns>
-        private static byte[] HashData(Stream stream, string algName)
+        private static byte[] HashData(System.IO.Stream stream, string algName)
         {
             System.Security.Cryptography.HashAlgorithm algorithm;
             if (algName == null)
             {
-                throw new ArgumentNullException(nameof(algName));
+                throw new ArgumentNullException("algName 不能为 null");
             }
-
-            if (String.Compare(algName, "sha1", StringComparison.OrdinalIgnoreCase) == 0)
+            if (string.Compare(algName, "sha1", true) == 0)
             {
                 algorithm = System.Security.Cryptography.SHA1.Create();
             }
             else
             {
-                if (String.Compare(algName, "md5", StringComparison.OrdinalIgnoreCase) != 0)
+                if (string.Compare(algName, "md5", true) != 0)
                 {
                     throw new Exception("algName 只能使用 sha1 或 md5");
                 }
-
                 algorithm = System.Security.Cryptography.MD5.Create();
             }
-
             return algorithm.ComputeHash(stream);
         }
 
@@ -83,6 +81,7 @@ namespace JR.Stand.Core.Utils
         {
             return BitConverter.ToString(buf).Replace("-", "");
         }
+
 
 
         /// <summary>
@@ -119,59 +118,14 @@ namespace JR.Stand.Core.Utils
                     Directory.CreateDirectory(dir.FullName).Create();
                     dir.Attributes = dir.Attributes & FileAttributes.Hidden;
                 }
-
-                // else
-                // {
-                //     if ((dir.Attributes & FileAttributes.Hidden) != FileAttributes.ReadOnly)
-                //     {
-                //         dir.Attributes = dir.Attributes & FileAttributes.Hidden;
-                //     }
-                // }
+                else
+                {
+                    if ((dir.Attributes & FileAttributes.Hidden) != FileAttributes.ReadOnly)
+                    {
+                        dir.Attributes = dir.Attributes & FileAttributes.Hidden;
+                    }
+                }
             }
-        }
-
-        /// <summary>
-        /// 读取文件内容
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string ReadFileEnd(string path)
-        {
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-            {
-                return fs.ReadToEnd();
-            }
-        }
-
-
-        /// <summary>
-        /// 保存流到文件
-        /// </summary>
-        /// <param name="stream">流</param>
-        /// <param name="path">路径</param>
-        public static void SaveStream(Stream stream, string path)
-        {
-            const int bufferSize = 100; //缓冲区大小
-            byte[] buffer = new byte[bufferSize]; //缓冲区
-
-            FileStream fs = new FileStream(path, FileMode.Create);
-            while (true)
-            {
-                var bytes = stream.Read(buffer, 0, bufferSize); //从流中读取的值
-                if (bytes == 0) break;
-                fs.Write(buffer, 0, bytes);
-            }
-
-            fs.Flush();
-            fs.Close();
-        }
-
-        public static void SaveContent(string path, string content)
-        {
-            StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8);
-            sw.Write(content);
-            sw.Flush();
-            sw.Close();
         }
     }
 }

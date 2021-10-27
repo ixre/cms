@@ -1,17 +1,16 @@
+using System;
 using JR.Cms.Conf;
-using JR.Cms.Web.Job;
-using JR.Cms.Web.Portal.Middleware;
 using JR.Cms.Web.Resource;
 using JR.Stand.Core.Cache;
+using JR.Stand.Core.Utils;
 using Microsoft.AspNetCore.Builder;
 
 namespace JR.Cms.Web.Portal
 {
-    /// <summary>
-    /// </summary>
     public static class Initializer
     {
         /// <summary>
+        /// 
         /// </summary>
         /// <param name="app"></param>
         public static void UserCmsInitializer(this IApplicationBuilder app)
@@ -37,7 +36,7 @@ namespace JR.Cms.Web.Portal
             Cms.Utility.SetDirHidden("config");
 
             //注册定时任务
-            CronJob.Initialize();
+            //CmsTask.Init();
         }
     }
 }

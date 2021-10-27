@@ -8,7 +8,6 @@
 using System;
 using System.IO;
 using JR.Stand.Abstracts.Web;
-using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Http;
 
@@ -65,10 +64,10 @@ namespace JR.Stand.Core.Framework.Web.UI
             InitUplDirectory(baseDir, this._saveAbsoluteDir);
             this._fileInfo = new UploadFileInfo
             {
+                Id = processId,
                 ContentLength = postedFile.GetLength(),
                 FilePath = $"{this._saveAbsoluteDir}{this._fileName}.{fileExt}"
             };
-            this._fileInfo.Id = processId;
             String targetPath = baseDir + this._fileInfo.FilePath;
             if (!this._autoRename && File.Exists(targetPath))
             {
@@ -82,7 +81,7 @@ namespace JR.Stand.Core.Framework.Web.UI
                 this._fileInfo.FilePath = $"{this._saveAbsoluteDir}{this._fileName}_{i.ToString()}.{fileExt}";
                 targetPath = baseDir + this._fileInfo.FilePath;
             }
-            FileUtil.SaveStream(postedFile.OpenReadStream(), targetPath);
+            this.SaveStream(postedFile.OpenReadStream(), targetPath);
             return _fileInfo.FilePath;
         }
 
@@ -93,6 +92,27 @@ namespace JR.Stand.Core.Framework.Web.UI
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir).Create();
+            }
+        }
+
+        private async void SaveStream(Stream stream, string path)
+        {
+            const int bufferSize = 100; //缓冲区大小
+            byte[] buffer = new byte[bufferSize]; //缓冲区
+
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                while (true)
+                {
+                    var bytes = await stream.ReadAsync(buffer, 0, bufferSize); //从流中读取的值
+                    if (bytes == 0)
+                    {
+                        break;
+                    }
+                    fs.Write(buffer, 0, bytes);
+                }
+                fs.Flush();
+                fs.Close();
             }
         }
     }

@@ -55,6 +55,7 @@ namespace JR.Cms.Web.Util
         /// <summary>
         /// 获取上传文件的原始名称
         /// </summary>
+        /// <param name="request"></param>
         /// <returns></returns>
         public static string GetUploadFileRawName(ICompatiblePostedFile file)
         {

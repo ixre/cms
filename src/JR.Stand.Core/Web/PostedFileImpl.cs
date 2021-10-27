@@ -28,7 +28,7 @@ namespace JR.Stand.Core.Web
             }
         }
 
-        public Task CopyToAsync(Stream fs)
+        public Task CopyToAsync(FileStream fs)
         {
            return this._file.CopyToAsync(fs);
         }

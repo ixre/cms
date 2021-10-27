@@ -32,7 +32,7 @@ namespace JR.Cms.Web
         private static TemplateHandler<object> _onPreRender;
 
         private const string CopyStr =
-            "\n<!-- Power By JR-CMS v{0}, visit \"56x.net/cms\" know more. -->";
+            "\n<!-- Power By JR-CMS v{0}, please visit url \"http://56x.net/cms\" to see more. -->";
 
         private static readonly string CopyStr2019;
 

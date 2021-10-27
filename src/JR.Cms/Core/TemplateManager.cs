@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using JR.Cms.Domain.Interface.Enum;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Template;
 
@@ -11,18 +12,22 @@ namespace JR.Cms.Core
     /// </summary>
     public class TemplateManager
     {
-        private readonly IDictionary<string, TemplateSetting> _dict;
+        private readonly string _rootDirPath;
+
+        private IDictionary<string, TemplateSetting> _dict;
 
         internal TemplateManager(string dirPath)
         {
-            _dict = LoadFromDirectory(dirPath);
+            _rootDirPath = dirPath;
+            _dict = LoadFromDirectory(_rootDirPath);
         }
 
         private static IDictionary<string, TemplateSetting> LoadFromDirectory(string rootDirPath)
         {
+            IDictionary<string, TemplateSetting> dict;
             var dir = new DirectoryInfo(rootDirPath);
             var dirs = dir.GetDirectories();
-            IDictionary<string, TemplateSetting> dict = new Dictionary<string, TemplateSetting>(dirs.Length);
+            dict = new Dictionary<string, TemplateSetting>(dirs.Length);
             if (!dir.Exists) return dict;
             foreach (var d in dirs)
                 if ((d.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
@@ -35,10 +40,8 @@ namespace JR.Cms.Core
                         sf.Flush();
                     }
 
-                    var ts = new TemplateSetting(d.Name, tplConfigFile)
-                    {
-                        CfgEnabledMobiPage = Directory.Exists($"{rootDirPath}{d.Name}/_mobile_")
-                    };
+                    var ts = new TemplateSetting(d.Name, tplConfigFile);
+                    ts.CfgEnabledMobiPage = Directory.Exists(string.Format("{0}{1}/_mobile_", rootDirPath, d.Name));
                     dict.Add(d.Name, ts);
                 }
 
@@ -53,8 +56,7 @@ namespace JR.Cms.Core
         /// <exception cref="ArgumentException"></exception>
         public TemplateSetting Get(string tpl)
         {
-            if (!_dict.ContainsKey(tpl))
-                throw new TemplateException($"Can not find template in folder '/templates/{tpl}'");
+            if (!_dict.ContainsKey(tpl)) throw new TemplateException($"Can not find template in folder '/templates/{tpl}'");
             return _dict[tpl];
         }
     }

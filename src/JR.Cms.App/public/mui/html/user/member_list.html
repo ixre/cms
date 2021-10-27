@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>会员列表</title>
+    $css()
+	</head>
+	<body>
+    
+	        <div id="memberlist">
+                ${memberRowsHtml}
+            </div>
+            <br /><br />
+            <div class="pager">${pagerHtml}</div>
+
+
+$js()
+<script type="text/javascript">
+  function showProfile(id) {
+    window.open('/member/profile/' + id);
+  }
+  function deleteMember(t, id) {
+    var b = confirm('是否删除改会员的评论及文章信息?');
+    jr.xhr.post('/app.axd', 'do=member:delete:' + id + ',' + b, function (x) {
+      if (x == "True") t.parentNode.parentNode.style.display = 'none'; else alert(x);
+    }, function (x) { alert(x); });
+  }
+</script>
+
+
+	</body>
+</html>

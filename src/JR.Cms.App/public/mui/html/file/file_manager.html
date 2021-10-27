@@ -284,8 +284,8 @@ $js()
             var row = tb.insertRow(-1);
             this.insertCell(row, '<input type="hidden" file="' + o.name + '"/>', 'hidden');
             this.insertCell(row, '<div class="dir-name"><a href="#' + curdir + encodeURIComponent(o.name) + '/">' + o.name + '</a></a>', 'dir-name');
-            this.insertCell(row, (o.dir_num == 0 ? '' : '目录:' + o.dir_num + '&nbsp;') +
-            (o.file_num == 0 ? '' : '文件:' + o.file_num), null, 5);
+            this.insertCell(row, (o.dirnum == 0 ? '' : '目录:' + o.dirnum + '&nbsp;') +
+            (o.filenum == 0 ? '' : '文件:' + o.filenum), null, 5);
 
             this.insertCell(row, (o.system == 1 ? '' :
                     '<a href="javascript:;" onclick="ctobj.rename(this,\'dir\')">重命名</a>' +
@@ -299,7 +299,7 @@ $js()
             this.insertCell(row, this.getFileLen(o.len));
             this.insertCell(row, this.getFileType(o.name));
             this.insertCell(row, o.date, 'center');
-            this.insertCell(row, o.modify_date, 'center');
+            this.insertCell(row, o.mdate, 'center');
             this.insertCell(row, o.readonly == 1 ? '读' : '读 / 写', 'center');
             this.insertCell(row, '<a href="javascript:;" onclick="ctobj.down(this)">下载</a>' +
             (o.system == 1 || o.readonly==1 ? '' :

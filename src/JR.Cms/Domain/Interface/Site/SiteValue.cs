@@ -136,5 +136,23 @@ namespace JR.Cms.Domain.Interface.Site
         /// </summary>
         [Alias("pro_slogan")]
         public string ProSlogan { get; set; }
+
+        /// <summary>
+        /// 强制使用HTTPS
+        /// </summary>
+        [Alias("seo_force_https")]
+        public int SeoForceHttps { get; set; }
+
+        /// <summary>
+        /// 强制定向
+        /// </summary>
+        [Alias("seo_force_redirect")]
+        public int SeoForceRedirect { get; set; }
+
+        /// <summary>
+        /// 独立面板
+        /// </summary>
+        [Alias("alone_board")]
+        public int AloneBoard { get; set; }
     }
 }

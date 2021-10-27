@@ -82,17 +82,6 @@ namespace JR.Cms.Conf
         /// 系统虚拟路径(默认为空)
         /// </summary>
         //public static string SYS_VIRTHPATH;
-
-        /// <summary>
-        /// 0：关闭 1：自动301跳转到www 2：自动跳转到顶级域名
-        /// </summary>
-        public static int SYS_WWW_RD;
-
-
-        /// <summary>
-        /// 强制跳转到HTTPS
-        /// </summary>
-        public static bool SYS_FORCE_HTTPS;
         
         /// <summary>
         /// 是否使用原始上传文件名称
@@ -110,11 +99,6 @@ namespace JR.Cms.Conf
         public static bool SYS_ENCODE_CONF_FILE = false;
 
 
-        /// <summary>
-        /// 站点地图URL地址
-        /// </summary>
-        public static string SYS_SITE_MAP_PATH = "";
-        
         #region 模板相关
         /// <summary>
         /// 是否使用完整路径

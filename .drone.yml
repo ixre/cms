@@ -7,7 +7,7 @@ steps:
     settings:
       repo: jarry6/cms
       tags: latest
-      username: jarry6                                                                                                                                                                                            
+      username: jarry6
       password:
           from_secret: docker_password
 trigger:

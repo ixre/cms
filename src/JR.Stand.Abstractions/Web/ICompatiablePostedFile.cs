@@ -12,7 +12,7 @@ namespace JR.Stand.Abstracts.Web
         /// </summary>
         /// <param name="path"></param>
         void Save(string path);
-        Task CopyToAsync(Stream fs);
+        Task CopyToAsync(FileStream fs);
         long GetLength();
         Stream OpenReadStream();
         string GetContentType();

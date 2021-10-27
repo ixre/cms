@@ -68,9 +68,6 @@ namespace JR.Cms.Conf
             // {
             Settings.LICENSE_NAME = sf.Contains("license_name") ? sf["license_name"] : "评估用户";
             Settings.LICENSE_KEY = sf.Contains("license_key") ? sf["license_key"] : String.Empty;
-            Settings.SYS_WWW_RD = GetInt(sf,"sys_www_rd");       
-            Settings.SYS_FORCE_HTTPS = CheckTrueValue(sf,"sys_force_https"); 
-            Settings.SYS_USE_UPLOAD_RAW_NAME = CheckTrueValue(sf, "sys_use_upload_raw_path");
 
             #region 读取模板选项
 
@@ -149,7 +146,9 @@ namespace JR.Cms.Conf
                 sf.Set("server_static_enabled", "false");
                 settingChanged = true;
             }
-            
+
+
+
             if (sf.Contains("sys_encode_conf"))
             {
                 Settings.SYS_ENCODE_CONF_FILE = sf["sys_encode_conf"] == "true";
@@ -176,16 +175,6 @@ namespace JR.Cms.Conf
             else
             {
                 sf.Set("sys_admin_tag", Settings.SYS_ADMIN_TAG);
-                settingChanged = true;
-            }
-
-            if (sf.Contains("sys_site_map_path"))
-            {
-                Settings.SYS_SITE_MAP_PATH = sf["sys_site_map_path"];
-            }
-            else
-            {
-                sf.Set("sys_site_map_path","");
                 settingChanged = true;
             }
 
@@ -248,9 +237,6 @@ namespace JR.Cms.Conf
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
                     sf["sql_profile_trace"] = Settings.SQL_PROFILE_TRACE ? "true" : "false";
                     sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME?"true":"false");
-                    sf["sys_www_rd"] = Settings.SYS_WWW_RD.ToString();
-                    sf.Set("sys_force_https", Settings.SYS_FORCE_HTTPS?"true":"false");
-                    sf["sys_site_map_path"] = Settings.SYS_SITE_MAP_PATH ??"";
                     //虚拟路径
                     //if (!sf.Contains("sys_virthpath"))
                     //{

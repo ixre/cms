@@ -11,10 +11,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
 {
     public abstract class CmsTemplateDataMethod : CmsTemplateCore
     {
-        protected CmsTemplateDataMethod(ICompatibleHttpContext context) : base(context)
+        protected CmsTemplateDataMethod(ICompatibleHttpContext context):base(context)
         {
         }
-
+        
         //     protected string GetProvince()
         //     {
         //         string prv=this.Request("prv");
@@ -44,7 +44,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         //     }
 
         /// <summary>
-        ///     根据名称获取分类tag
+        /// 根据名称获取分类tag
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>

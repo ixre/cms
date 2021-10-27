@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -401,7 +402,7 @@
       <Content Include="public\mui\css\res\highlight-bg.jpg" />
       <Content Include="public\mui\css\res\logo_login.png" />
       <Content Include="public\mui\html\archive\archive_create.html" />
-      <Content Include="public\mui\html\archive\archive_forword.html" />
+      <Content Include="public\mui\html\archive\archive_forward.html" />
       <Content Include="public\mui\html\archive\archive_list.html" />
       <Content Include="public\mui\html\archive\archive_search.html" />
       <Content Include="public\mui\html\archive\archive_tags.html" />
@@ -429,6 +430,7 @@
       <Content Include="public\mui\html\login.html" />
       <Content Include="public\mui\html\plugin\plugin_dashboard.html" />
       <Content Include="public\mui\html\plugin\plugin_miniapps.html" />
+      <Content Include="public\mui\html\site\site.variable.html" />
       <Content Include="public\mui\html\site\extend\extend.category_check.html" />
       <Content Include="public\mui\html\site\extend\extend.create.html" />
       <Content Include="public\mui\html\site\extend\extend.list.html" />
@@ -439,7 +441,7 @@
       <Content Include="public\mui\html\template\template_edit_file.html" />
       <Content Include="public\mui\html\template\template_manager.html" />
       <Content Include="public\mui\html\template\template_setting.html" />
-      <Content Include="public\mui\html\user\memberList.html" />
+      <Content Include="public\mui\html\user\member_list.html" />
       <Content Include="public\mui\html\user\operationList.html" />
       <Content Include="public\mui\html\user\setPermissions.html" />
       <Content Include="public\mui\html\user\user_edit.html" />
@@ -484,7 +486,7 @@
       <Content Include="templates\default\include\share_control.html" />
       <Content Include="templates\default\include\side_bar.html" />
       <Content Include="templates\default\index.html" />
-      <Content Include="templates\default\404.html" />
+      <Content Include="templates\default\not_found.html" />
       <Content Include="templates\default\search.html" />
       <Content Include="templates\default\tag.html" />
       <Content Include="templates\default\tpl.conf">

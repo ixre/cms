@@ -33,14 +33,6 @@
                         </span>
                     </span>
 
-            &nbsp;
-            <span class="ui-button w100">
-                        <span class="button-inner">
-                            <span class="button-txt">生成站点地图</span>
-                            <input type="button" onclick="sitemap()" />
-                        </span>
-                    </span>
-
 
             </div>
         
@@ -77,18 +69,6 @@
                 }
             }, function () {
                 showErr("操作失败", 1000);
-            });
-        }
-        
-        function sitemap() {
-            var t = this;
-            jr.xhr.filter = null;
-            jr.xhr.jsonPost("?module=system&action=siteMap", {},function () {
-                showMsg2("任务请求成功",null,10000);
-                t.disabled = false;
-            }, function (x) {
-                t.disabled = false;
-                showMsg2(x);
             });
         }
     </script>
