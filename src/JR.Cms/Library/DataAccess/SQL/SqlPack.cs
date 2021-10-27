@@ -991,7 +991,12 @@ namespace JR.Cms.Library.DataAccess.SQL
         public readonly string GetSiteVariables = @"SELECT * FROM $PREFIX_site_variables 
                             WHERE site_id=@siteId ORDER BY id ASC";
 
-
+        /// <summary>
+        /// 删除站点变量
+        /// </summary>
+        public readonly string DeleteSiteVariable = @"DELETE FROM $PREFIX_site_variables 
+                            WHERE site_id=@siteId AND id=@id";
+        
         #endregion
 
         public readonly string Link_RemoveRelatedLinks = @"DELETE FROM $PREFIX_related_link

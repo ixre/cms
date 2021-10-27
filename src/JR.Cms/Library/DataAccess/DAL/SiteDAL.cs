@@ -135,7 +135,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             IDictionary<string, object> data = new Dictionary<string, object>();
             data.Add("@id",varId);
             data.Add("@siteId", siteId);
-            ExecuteNonQuery(NewQuery(DbSql.UpdateSiteVariable, Db.GetDialect().ParseParameters(data)));
+            ExecuteNonQuery(NewQuery(DbSql.DeleteSiteVariable, Db.GetDialect().ParseParameters(data)));
         }
 
         /// <summary>

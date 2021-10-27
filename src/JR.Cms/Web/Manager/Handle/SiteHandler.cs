@@ -194,6 +194,7 @@ namespace JR.Cms.Web.Manager.Handle
             }
             catch (Exception exc)
             {
+                Console.WriteLine(exc.StackTrace);
                 return ReturnError(exc.Message);
             }
 
