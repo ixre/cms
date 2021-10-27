@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>本地化</title>
+		<title>站点变量</title>
 	    $css()
 	    <style type="text/css">
             .top {
@@ -107,23 +107,18 @@
     <table width="100%" class="data-table" cellspacing="0" style="border-top: solid 1px #167CD2;">
         <thead id="thead">
         <tr>
-            <td class="fix-col" style="min-width: 100px; text-align: left;"><span style="padding-left: 10px;"><b>键</b>(字母排序)</span></td>
-            <td class="fix-col" width="">英语<br/>(Unit States)</td>
-            <td class="fix-col" width="">中文简体<br/>(Chinese Simplified)</td>
-            <td class="fix-col" width="">中文繁体<br/>(Chinese Traditional</td>
-            <td class="fix-col" width="">西班牙语<br/>(Spanish)</td>
-            <td class="fix-col" width="">法语<br/>(French)</td>
-            <td class="fix-col" width="">泰语<br/>(Thai)</td>
-            <td class="fix-col" width="">俄语<br/>(Russian)</td>
-            <td class="fix-col" width="">阿拉伯语<br/>(Arabic)</td>
-            <td class="fix-col">操作</td>
+            <td class="fix-col" style="width: 20%; text-align: left;"><span style="padding-left: 10px;"><b>键</b>(字母排序)</span></td>
+            <td class="fix-col">值</td>
+            <td class="fix-col" style="width:30%">备注</td>
+            <td class="fix-col" style="width:200px">操作</td>
         </tr>
         </thead>
+        <tbody id="tbody"></tbody>
     </table>
 
     <div class="panel" id="locale-data-list">
         <table width="100%" class="data-table" cellspacing="0">
-            <tbody id="tbody"></tbody>
+        
         </table>
     </div>
 </div>
@@ -131,69 +126,53 @@
 $js()
 <script type="text/javascript">
     var currentType = "custom";
-    var langCount = 8;
+    var langCount = 2;
     var tby = jr.$('tbody');
-    var tds = jr.$('thead').getElementsByTagName('TD');
-    var rowTpl = '<tr><td class="key" style="min-width: 120px;" id="${key}"><b><span field="k_{row}">{key}</span></b></td>{lang}<td width="40px"><a href="javascript:;" onclick="delKey(\'{key}\')">删除</a></td></tr>';
-    var editTpl = '<td><input type="text" class="ui-box" field="f_{row}_{col}" value="{value}"/></td>';
+    var rowTpl = '<tr>' +
+        '<td class="key" style="min-width: 120px;" id="${Id}"><b><span field="name">{Name}</span></b></td>' +
+        '<td><input class="id" field="id" type="hidden" value="{Id}"/>' +
+        '<input type="text" class="ui-box tb_normal value" field="value" value="{Value}"/></td>' +
+        '<td><input type="text" class="ui-box tb_normal remark" field="remark" value="{Remark}"/></td>' +
+        '<td width="40px"><a href="javascript:;" onclick="delKey(\'{Id}\')">删除</a>  ' +
+        '<a href="javascript:;" class="btn_save">保存</a></td></tr>';
     function writeToBody(d) {
         if (d == null)return;
         var html = '';
-        var editHtm = '';
-        var val = "";
         for (var i = 0; i < d.length; i++) {
-            editHtm = '';
-            for (var j = 0; j < langCount; j++) {
-                if (d[i].value != null ) val = d[i].value[j+1] || '';
-                editHtm += jr.template(editTpl, { row: i, col: j + 1, value: val });
-            }
-            html += jr.template(rowTpl, { row: i, key: d[i].key, lang: editHtm });
+            console.log("---",d[i]);
+            html += jr.template(rowTpl, d[i]);
         }
         tby.innerHTML = html;
         if (d.length > 0) {
-            fixTitRow();
+          //  fixTitRow();
         }
-    }
 
-    function fixTitRow() {
-        var srcTds = tby.getElementsByTagName('TR')[0].getElementsByTagName('TD');
-        for (var i = 0; i < tds.length; i++) {
-            var width = Math.floor(srcTds[i].offsetWidth);
-            if (tds.length - 1 == i) {
-                tds[i].style.width = ( width+ getScrollWidth()) + 'px';
-            } else {
-                tds[i].style.width = width+ 'px';
-                srcTds[i].style.width =width+ 'px';
-            }
-        }
-        var pl = jr.$('locale-data-list');
-        var y = document.documentElement.clientHeight;
-        if (pl.scrollHeight > y - 80) {
-            pl.style.height = (y - 80) + 'px';
-        } else {
-            pl.style.height = 'inherit';
-        }
-    }
+        jr.$fn('.btn_save').click(function () {
+            console.log(this.parent().parent().html());
+            var data = jr.json.toObject(this.parent().parent().elem());
+            var t = this;
+            t.disabled = true;
+            jr.xhr.jsonPost('?xhr=1&module=site&action=SaveVariable', data, function (r) {
+                t.disabled = false;
+                if (r.result) {
+                    jr.dialog.alert('保存成功', function () { loadKeys(currentType); });
+                } else {
+                    jr.dialog.alert(r.message);
+                }
+            });
+        });
 
-    function getScrollWidth() {
-        var noScroll, scroll, oDiv = document.createElement("DIV");
-        oDiv.style.cssText = "position:absolute; top:-1000px; width:100px; height:100px; overflow:hidden;";
-        noScroll = document.body.appendChild(oDiv).clientWidth;
-        oDiv.style.overflowY = "scroll";
-        scroll = oDiv.clientWidth;
-        document.body.removeChild(oDiv);
-        return noScroll - scroll;
     }
-
+    
     function loadKeys(type) {
-        jr.xhr.jsonPost('?xhr=1&module=system&action=GetLocaleJson', { type: type }, function(d) {
+        jr.xhr.jsonPost('?xhr=1&module=site&action=GetVariablesJson', { type: type }, function(d) {
             writeToBody(d);
         });
     }
     loadKeys(currentType);
     jr.$('btn_create').onclick = function() {
         var key = jr.$('keyName').value;
-        jr.xhr.jsonPost("?xhr=1&module=system&action=CreateNewLocaleKey", { key: key }, function(r) {
+        jr.xhr.jsonPost("?xhr=1&module=site&action=CreateVariable", { key: key }, function(r) {
             if (r.result) {
                 showMsg2('创建成功');
                 loadKeys(currentType);
@@ -203,30 +182,11 @@ $js()
             }
         });
     };
-
-
-    window.saveData = function() {
-        jr.$('btn_save').onclick();
-    };
-
-    jr.$('btn_save').onclick = function () {
-        var data = jr.json.toObject('locale-data');
-        var t = this;
-        t.disabled = true;
-        jr.xhr.jsonPost('?xhr=1&module=system&action=SaveLocale', data, function (r) {
-            t.disabled = false;
-            if (r.result) {
-                jr.dialog.alert('保存成功', function () { loadKeys(currentType); });
-            } else {
-                jr.dialog.alert(r.message);
-            }
-        });
-    };
-
+    
     function delKey(k) {
         jr.dialog.confirm('请在删除之前，确定是否保存更改？', function(b) {
             if (b) {
-                jr.xhr.jsonPost("?xhr=1&module=system&action=DelLocaleKey", { key: k }, function (r) {
+                jr.xhr.jsonPost("?xhr=1&module=site&action=DeleteVariable", { key: k }, function (r) {
                     if (r.result) {
                         jr.dialog.alert('删除成功', function () { loadKeys(currentType); });
                     } else {

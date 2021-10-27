@@ -74,7 +74,8 @@ namespace JR.Cms.Domain.Site.Variable
         public SiteVariable Get(string name)
         {
             this.GetAll();
-            return this._mapper[name];
+            if(this._mapper.ContainsKey(name)) return this._mapper[name];
+            return null;
         }
     }
 }

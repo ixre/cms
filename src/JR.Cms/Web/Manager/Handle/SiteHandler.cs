@@ -178,13 +178,14 @@ namespace JR.Cms.Web.Manager.Handle
             }
             catch (Exception exc)
             {
+                Console.WriteLine(exc.StackTrace);
                 return ReturnError(exc.Message);
             }
 
             return ReturnSuccess("");
         }
 
-        public string DeleteVarible_POST()
+        public string DeleteVariable_POST()
         {
             int varId = int.Parse(Request.Form("id"));
             try

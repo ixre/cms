@@ -145,7 +145,9 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// <param name="func"></param>
         public void GetVariables(int siteId, DataReaderFunc func)
         {
-            ExecuteReader(NewQuery(DbSql.GetSiteVariables, null), func);
+            IDictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("@siteId", siteId);
+            ExecuteReader(NewQuery(DbSql.GetSiteVariables,  Db.GetDialect().ParseParameters(data)), func);
         }
     }
 }
