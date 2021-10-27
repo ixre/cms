@@ -15,6 +15,7 @@ using JR.Cms.Domain.Interface.Common.Language;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Domain.Interface.Site.Link;
+using JR.Cms.Domain.Interface.Site.Variable;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Tree;
@@ -77,6 +78,12 @@ namespace JR.Cms.Domain.Interface.Site
         /// </summary>
         ISiteLinkManager GetLinkManager();
 
+        /// <summary>
+        /// 变量管理器
+        /// </summary>
+        /// <returns></returns>
+        ISiteVariableManager GetVariableManager();
+        
         /// <summary>
         /// 
         /// </summary>

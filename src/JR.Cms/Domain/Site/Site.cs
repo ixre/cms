@@ -10,9 +10,11 @@ using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Domain.Interface.Site.Link;
 using JR.Cms.Domain.Interface.Site.Template;
+using JR.Cms.Domain.Interface.Site.Variable;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Domain.Site.Extend;
 using JR.Cms.Domain.Site.Link;
+using JR.Cms.Domain.Site.Variable;
 using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Tree;
 
@@ -27,6 +29,7 @@ namespace JR.Cms.Domain.Site
         private IList<ICategory> _categories;
         private readonly ITemplateRepo _tempRep;
         private ISiteLinkManager _linkManager;
+        private ISiteVariableManager _variableManager;
         private string _fullDomain;
         private IAppUserManager _appUserManager;
         private readonly IUserRepository _userRep;
@@ -164,6 +167,16 @@ namespace JR.Cms.Domain.Site
             }
 
             return _linkManager;
+        }
+
+        public ISiteVariableManager GetVariableManager()
+        {
+            if (this._variableManager == null)
+            {
+                this._variableManager = new VariableManagerImpl(this._siteRepository, this);
+            }
+
+            return this._variableManager;
         }
 
 

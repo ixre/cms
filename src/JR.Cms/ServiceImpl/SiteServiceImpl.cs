@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using JR.Cms.Domain.Interface;
 using JR.Cms.Domain.Interface.Content;
@@ -9,10 +10,12 @@ using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Domain.Interface.Site.Link;
 using JR.Cms.Domain.Interface.Site.Template;
+using JR.Cms.Domain.Interface.Site.Variable;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Tree;
 using JR.Cms.ServiceContract;
+using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts;
 using JR.Stand.Core.Framework.Extensions;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
@@ -628,6 +631,49 @@ namespace JR.Cms.ServiceImpl
             if (direction == 1)
                 c.MoveSortUp();
             else if (direction == 2) c.MoveSortDown();
+        }
+
+        /// <summary>
+        /// 保存变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="dto"></param>
+        public void SaveSiteVariable(int siteId, SiteVariableDto dto)
+        {
+            ISite site = this._repo.GetSiteById(siteId);
+            if (site == null) throw new ArgumentException("no such site");
+            site.GetVariableManager().SaveVariable(dto.ToVariable(dto));
+        }
+
+        /// <summary>
+        /// 删除变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="varId"></param>
+        public void DeleteSiteVariable(int siteId, int varId)
+        {  
+            ISite site = this._repo.GetSiteById(siteId);
+            if (site == null) throw new ArgumentException("no such site");
+            site.GetVariableManager().DeleteVariable(varId);
+        }
+
+        /// <summary>
+        /// 获取所有的变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        public IList<SiteVariableDto> GetSiteVariables(int siteId)
+        {
+            ISite site = this._repo.GetSiteById(siteId);
+            if (site == null) throw new ArgumentException("no such site");
+            IList<SiteVariable> list = site.GetVariableManager().GetAll();
+            IList<SiteVariableDto> dtoList = new List<SiteVariableDto>();
+            foreach (var src in list)
+            {
+                dtoList.Add(SiteVariableDto.ParseFrom(src));
+            }
+
+            return dtoList;
         }
     }
 }

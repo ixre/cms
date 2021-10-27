@@ -8,6 +8,7 @@ using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Domain.Interface.Site.Link;
 using JR.Cms.Domain.Interface.Site.Template;
+using JR.Cms.Domain.Interface.Site.Variable;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Domain.Site;
 using JR.Cms.Infrastructure;
@@ -253,6 +254,61 @@ namespace JR.Cms.Repository
                 while (rd.Read()) links.Add(ConvertToILink(siteId, rd));
             });
             return links;
+        }
+
+        /// <summary>
+        /// 保存变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="siteVariable"></param>
+        public void SaveSiteVariable(int siteId, SiteVariable siteVariable)
+        {
+            if (siteVariable.Id <= 0)
+            {
+                siteDal.AddVariable(siteId, siteVariable);
+                return;
+            }
+
+            siteDal.UpdateVariable(siteId, siteVariable);
+        }
+        
+
+        /// <summary>
+        /// 删除变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="varId"></param>
+        public void DeleteSiteVariable(int siteId, int varId)
+        {
+            if(siteId > 0 && varId > 0) siteDal.DeleteVariable(siteId, varId);
+        }
+
+        /// <summary>
+        /// 获取所有的变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public IList<SiteVariable> GetSiteVariables(int siteId)
+        { 
+            IList<SiteVariable> list = new List<SiteVariable>();
+            siteDal.GetVariables(siteId, rd =>
+            {
+                while (rd.Read()) list.Add(ConvertToVariable(siteId, rd));
+            });
+            return list;
+        }
+
+        private SiteVariable ConvertToVariable(int siteId, DbDataReader reader)
+        {
+            var v = new SiteVariable
+            {
+                Id = int.Parse(reader["id"].ToString()),
+                Name = reader["name"].ToString(),
+                Value = reader["value"].ToString(),
+                Remark = reader["remark"].ToString()
+            };
+            return v;
         }
     }
 }
