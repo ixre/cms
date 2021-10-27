@@ -642,7 +642,7 @@ namespace JR.Cms.ServiceImpl
         {
             ISite site = this._repo.GetSiteById(siteId);
             if (site == null) throw new ArgumentException("no such site");
-            site.GetVariableManager().SaveVariable(dto.ToVariable(dto));
+            site.GetVariableManager().SaveVariable(dto.ToVariable());
         }
 
         /// <summary>

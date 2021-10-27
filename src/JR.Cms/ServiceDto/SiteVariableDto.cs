@@ -32,14 +32,14 @@ namespace JR.Cms.ServiceDto
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public SiteVariable ToVariable(SiteVariableDto dto)
+        public SiteVariable ToVariable()
         {
             return new SiteVariable
             {
-                Id = dto.Id,
-                Name = dto.Name,
-                Value = dto.Value,
-                Remark = dto.Remark,
+                Id = this.Id,
+                Name = this.Name,
+                Value = this.Value,
+                Remark = this.Remark,
             };
         }
         

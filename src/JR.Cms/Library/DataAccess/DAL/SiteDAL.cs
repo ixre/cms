@@ -101,7 +101,7 @@ namespace JR.Cms.Library.DataAccess.DAL
         {
             IDictionary<string, object> data = new Dictionary<string, object>();
             data.Add("@name", v.Name);
-            data.Add("@value", v.Remark);
+            data.Add("@value", v.Value);
             data.Add("@siteId", siteId);
             data.Add("@remark",v.Remark);
             ExecuteNonQuery(NewQuery(DbSql.CreateSiteVariable, Db.GetDialect().ParseParameters(data)));
@@ -120,7 +120,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@id",v.Id);
             data.Add("@siteId", siteId);
             data.Add("@name", v.Name);
-            data.Add("@value", v.Remark);
+            data.Add("@value", v.Value);
             data.Add("@remark",v.Remark);
              ExecuteNonQuery(NewQuery(DbSql.UpdateSiteVariable, Db.GetDialect().ParseParameters(data)));
         }
