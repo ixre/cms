@@ -54,7 +54,7 @@ namespace JR.Stand.Core.Framework.Automation
         /// <summary>
         /// 列描述
         /// </summary>
-        public string Descript { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// 是否可以编辑
@@ -92,9 +92,9 @@ namespace JR.Stand.Core.Framework.Automation
         public string Length { get; set; }
 
         /// <summary>
-        /// 是否多行，多行用Textbox显示
+        /// 是否多行，多行用TextBox显示
         /// </summary>
-        public bool MultLine { get; set; }
+        public bool MultiLine { get; set; }
     }
 
     /// <summary>
@@ -219,14 +219,28 @@ namespace JR.Stand.Core.Framework.Automation
                                 }
                                 else
                                 {
-                                    //
-                                    //UNDONE:....
-                                    //
+                                    //输出选项
+                                    string[] data = sfa.Data.Split(';', '|');
+                                    string[] opt;
+                                    foreach (string dstr in data)
+                                    {
+                                        opt = dstr.Split('=');
+                                        if (opt.Length == 2)
+                                        {
+                                            String id =  (ffa.Group + ffa.Name).GetHashCode() + opt[1];
+                                            sb.Append("<input type=\"radio\" field=\"").Append(ffa.Name).Append("\" name=\"field_")
+                                                .Append(ffa.Name).Append("\" value=\"").Append(opt[1]).Append("\"")
+                                                .Append(value == opt[1] ? " checked=\"checked\"" : "")
+                                                .Append(" id=\"").Append(id).Append("\"")
+                                                .Append("/><label for=\"")
+                                                .Append(id).Append("\">").Append(opt[0]).Append("</label>");
+                                        }
+                                    }
                                 }
                             }
                             else
                             {
-                                if (ffa.MultLine)
+                                if (ffa.MultiLine)
                                 {
                                     //输出Textbox
                                     sb.Append("<textarea class=\"ui-validate ui-box tb_")
@@ -269,7 +283,7 @@ namespace JR.Stand.Core.Framework.Automation
                                     sb.Append(" regex=\"").Append(ffa.Regex).Append("\"");
                                 }
 
-                                if (ffa.MultLine)
+                                if (ffa.MultiLine)
                                 {
                                     //关闭Textarea
                                     sb.Append(">").Append(value).Append("</textarea>");
@@ -292,9 +306,9 @@ namespace JR.Stand.Core.Framework.Automation
                         }
 
                         //列描述
-                        if (!String.IsNullOrEmpty(ffa.Descript))
+                        if (!String.IsNullOrEmpty(ffa.Description))
                         {
-                            sb.Append("<span class=\"descript\">").Append(ffa.Descript).Append("</span>");
+                            sb.Append("<span class=\"descript\">").Append(ffa.Description).Append("</span>");
                         }
 
                         //关闭列

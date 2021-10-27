@@ -122,25 +122,23 @@ function loadIconFont() {
     c.href = ASSETS_PATH+"/icon-font.css";
     document.head.appendChild(c);
 }
-
-
-
-/**
- <img class="lazy" src="${page.fpath}/images/lazy-holder.gif"
- data-src="${page.tpath}/images/map-address.png" alt="">
- */
 /** 延迟加载图片 */
 var observer = new IntersectionObserver(
     function(changes) {
         changes.forEach(function(it) {
             if(it.isIntersecting) {
-                var e = it.target;
-                e.setAttribute("src", e.getAttribute("data-src"));
-                observer.unobserve(e);
+                var container = it.target;
+                container.setAttribute("src", container.getAttribute("data-src"));
+                observer.unobserve(container);
             }
         });
     }
 );
+
+/**                      
+ <img class="lazy" src="${page.fpath}/images/lazy_holder.gif" 
+ data-src="${page.tpath}/images/map-address.png" alt="">
+*/
  function lazyObserve() {
     var arr = Array.from(document.querySelectorAll(".lazy"));
     arr.forEach(function (item) {

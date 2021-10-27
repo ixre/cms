@@ -84,7 +84,7 @@ namespace JR.Cms.App
             // 处理异常
             app.UseExceptionHandler(builder => builder.Run(async context => await ErrorEvent(context)));
             // 捕获404错误
-            app.UseStatusCodePagesWithReExecute("/error/{0}");
+            app.UseStatusCodePagesWithReExecute("/software/errors/{0}");
             // Cms初始化, 注册中间件，应在路由注册之前注册
             app.UserCmsInitializer();
             app.UseCmsRoutes();

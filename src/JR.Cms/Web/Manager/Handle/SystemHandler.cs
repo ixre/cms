@@ -22,7 +22,6 @@ using JR.Cms.Conf;
 using JR.Cms.Core;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.Utility;
-using JR.Cms.Web.Portal;
 using JR.Cms.Web.Portal.Template.Model;
 using JR.Cms.Web.Util;
 using JR.Stand.Core.Framework.Extensions;
@@ -347,8 +346,6 @@ namespace JR.Cms.Web.Manager.Handle
                 license_name = Settings.LICENSE_NAME,
                 license_key = Settings.LICENSE_KEY,
                 site_domain = Request.GetHost(),
-                sys_www_rd = Settings.SYS_WWW_RD,
-                sys_force_https = Settings.SYS_FORCE_HTTPS,
                 sys_admin_tag = Settings.SYS_ADMIN_TAG,
                 sys_encode_conf = Settings.SYS_ENCODE_CONF_FILE,
                 db_prefix = Settings.DB_PREFIX,
@@ -381,8 +378,6 @@ namespace JR.Cms.Web.Manager.Handle
                 case "1":
                     Settings.LICENSE_KEY = req.Form("license_key");
                     Settings.LICENSE_NAME = req.Form("license_name");
-                    Settings.SYS_WWW_RD = int.Parse(req.Form("sys_www_rd"));
-                    Settings.SYS_FORCE_HTTPS = req.Form("sys_force_https") == "1";
                     Settings.SYS_ENCODE_CONF_FILE = req.Form("sys_encode_conf") == "on";
                     Settings.SQL_PROFILE_TRACE = req.Form("sql_profile_trace") == "on";
                     Settings.DB_PREFIX = req.Form("db_prefix");
@@ -457,11 +452,13 @@ namespace JR.Cms.Web.Manager.Handle
 
             return ReturnSuccess();
         }
-
+        
+        
         public string Locales()
         {
-            return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Locales));
+            return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Locale));
         }
+        
 
         public string GetLocaleJson_POST()
         {
@@ -527,28 +524,6 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 var json = Locale.SaveByPostForm(Request);
                 if (json != null) Cms.Language.GetPackage().LoadFromJson(json);
-            }
-            catch (Exception exc)
-            {
-                return ReturnError(exc.Message);
-            }
-
-            return ReturnSuccess("");
-        }
-
-        /// <summary>
-        /// 生成站点地图
-        /// </summary>
-        /// <returns></returns>
-        public string SiteMap_POST()
-        {
-            try
-            {
-                Settings.SYS_SITE_MAP_PATH = Utils.GetBaseUrl(HttpHosting.Context);
-                Configuration.BeginWrite();
-                Configuration.UpdateByPrefix("sys");
-                Configuration.EndWrite();
-                SiteMapUtils.Generate();
             }
             catch (Exception exc)
             {

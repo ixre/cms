@@ -12,7 +12,6 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Common.Language;
@@ -411,16 +410,12 @@ namespace JR.Cms.Core
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public bool CheckSiteState()
         {
             if (CurrentSite.State == SiteState.Normal) return true;
             if (CurrentSite.State == SiteState.Closed)
             {
-                ErrorPage(404,"该站点已关闭,如有疑问请联系管理员!");
+                RenderNotfound();
                 return false;
             }
             if (CurrentSite.State == SiteState.Paused)
@@ -475,24 +470,37 @@ namespace JR.Cms.Core
         }
 
 
+
+
         /// <summary>
         /// 显示400页面
         /// </summary>
         /// <returns></returns>
-        public void ErrorPage(int statusCode, string message = "File not found!")
+        public void RenderNotfound()
         {
-            // 拼接地址
-            StringBuilder sb = new StringBuilder("/error/");
-            sb.Append(statusCode);
-            if (!String.IsNullOrEmpty(message))
+            RenderNotfound("File not found!", null);
+        }
+
+        /// <summary>
+        /// 显示400页面
+        /// </summary>
+        /// <returns></returns>
+        public void RenderNotfound(string message, TemplatePageHandler handler)
+        {
+            string html = null;
+            try
             {
-                sb.Append("?message=");
-                sb.Append(HttpUtils.UrlEncode(message));
+                var pageName = $"/{CurrentSite.Tpl}/not_found";
+                var tpl = Cms.Template.GetTemplate(pageName);
+                handler?.Invoke(tpl);
+                html = tpl.Compile();
             }
-            String url = sb.ToString();
-            var response =  HttpHosting.Context.Response;
-            response.StatusCode(302);
-            response.AddHeader("Location",url);
+            catch
+            {
+                html = "File not found!";
+            }
+            this._context.Response.StatusCode(404);
+            this._context.Response.WriteAsync(html);
         }
 
         public string ComposeUrl(string url)

@@ -36,6 +36,7 @@ namespace JR.Stand.Core.Web
         /// 获取上下文项目
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public bool TryGetItem<T>(string key, out T value)
         {

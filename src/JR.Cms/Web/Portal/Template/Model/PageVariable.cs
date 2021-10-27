@@ -11,21 +11,22 @@ using JR.Stand.Core.Template.Impl;
 namespace JR.Cms.Web.Portal.Template.Model
 {
     /// <summary>
+    /// 
     /// </summary>
     public class PageVariable
     {
-        private static readonly string IeHtml5ShivTag;
-        private static string _currentBuilt;
-        private readonly CmsContext _context;
         private string _domain;
         private string _frameworkPath;
-        private string _lang;
-        private string _pluginRootPath;
-        private string _resDomain;
-        private string _resPath;
-        private string _siteMap;
-        private string _spam;
         private string _templatePath;
+        private string _pluginRootPath;
+        private string _siteMap;
+        private readonly CmsContext _context;
+        private string _resDomain;
+        private static readonly string IeHtml5ShivTag;
+        private string _spam;
+        private static string _currentBuilt;
+        private string _lang;
+        private string _resPath;
 
         static PageVariable()
         {
@@ -39,6 +40,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
+        /// 
         /// </summary>
         public PageVariable()
         {
@@ -59,11 +61,20 @@ namespace JR.Cms.Web.Portal.Template.Model
 
         [TemplateVariableField("生成标签")] public string Built => Spam;
 
+        public static void ResetBuilt()
+        {
+            var built = DateHelper.ToUnix(DateTime.Now).ToString().Substring(8);
+            _currentBuilt = built;
+        }
+
         public string Lang
         {
             get
             {
-                if (_lang == null) _lang = Cms.Context.UserLanguage.ToString();
+                if (this._lang == null)
+                {
+                    this._lang = Cms.Context.UserLanguage.ToString();
+                }
 
                 return _lang;
             }
@@ -75,8 +86,11 @@ namespace JR.Cms.Web.Portal.Template.Model
             get
             {
                 var url = _context.HttpContext.Request.GetEncodedUrl();
-                var proto = _context.HttpContext.Request.GetProto();
-                if (!url.StartsWith(proto)) url = "https" + url.Substring(4);
+                var proto = this._context.HttpContext.Request.GetProto();
+                if (!url.StartsWith(proto))
+                {
+                    url = "https" + url.Substring(4);
+                }
 
                 return url;
             }
@@ -93,7 +107,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
-        ///     域名
+        /// 域名
         /// </summary>
         [TemplateVariableField("站点域名")]
         public string Domain => _domain ?? (_domain = _context.SiteDomain);
@@ -104,7 +118,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         [TemplateVariableField("静态服务器域名")] public string StaticDomain => _context.StaticDomain;
 
         /// <summary>
-        ///     框架路径
+        /// 框架路径
         /// </summary>
         [TemplateVariableField("框架资源根路径")]
         private string FrameworkPath
@@ -138,6 +152,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
+        /// 
         /// </summary>
         [TemplateVariableField("插件根路径")]
         public string PluginPath
@@ -165,35 +180,43 @@ namespace JR.Cms.Web.Portal.Template.Model
 
         [TemplateVariableField("资源根路径")] public string RPath => getResPath();
 
+        private string getResPath()
+        {
+            if (_resPath == null)
+                _resPath = ResDomain + "/" +
+                           CmsVariables.RESOURCE_PATH.Substring(0, CmsVariables.RESOURCE_PATH.Length - 1);
+            return _resPath;
+        }
+
         [TemplateVariableField("资源域名路径")] public string RDomain => ResDomain;
 
 
         /// <summary>
-        ///     标题
+        ///标题
         /// </summary>
         [TemplateVariableField("网页(当前页)标题")]
         public string Title { get; set; }
 
         /// <summary>
-        ///     子标题
+        /// 子标题
         /// </summary>
         [TemplateVariableField("子标题")]
         public string SubTitle { get; set; }
 
         /// <summary>
-        ///     关键词
+        /// 关键词
         /// </summary>
         [TemplateVariableField("关键词")]
         public string Keywords { get; set; }
 
         /// <summary>
-        ///     描述
+        /// 描述
         /// </summary>
         [TemplateVariableField("描述")]
         public string Description { get; set; }
 
         /// <summary>
-        ///     站点地图
+        /// 站点地图
         /// </summary>
         [TemplateVariableField("站点地图")]
         public string Sitemap
@@ -228,29 +251,15 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
-        ///     页码
+        /// 页码
         /// </summary>
         [TemplateVariableField("当前页面（带分页页面)的页码")]
         public int PageIndex { get; set; }
 
         /// <summary>
-        ///     页码
+        /// 页码
         /// </summary>
         [TemplateVariableField("支持HTML5")]
         public string Html5 => IeHtml5ShivTag;
-
-        public static void ResetBuilt()
-        {
-            var built = DateHelper.ToUnix(DateTime.Now).ToString().Substring(8);
-            _currentBuilt = built;
-        }
-
-        private string getResPath()
-        {
-            if (_resPath == null)
-                _resPath = ResDomain + "/" +
-                           CmsVariables.RESOURCE_PATH.Substring(0, CmsVariables.RESOURCE_PATH.Length - 1);
-            return _resPath;
-        }
     }
 }

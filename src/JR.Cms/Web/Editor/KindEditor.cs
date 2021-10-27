@@ -156,16 +156,14 @@ namespace JR.Cms.Web.Editor
             for (int i = 0; i < dirList.Length; i++)
             {
                 DirectoryInfo dir = new DirectoryInfo(dirList[i]);
-                Hashtable hash = new Hashtable
-                {
-                    ["is_dir"] = true,
-                    ["has_file"] = (dir.GetFileSystemInfos().Length > 0),
-                    ["filesize"] = 0,
-                    ["is_photo"] = false,
-                    ["filetype"] = "",
-                    ["filename"] = dir.Name,
-                    ["datetime"] = dir.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss")
-                };
+                Hashtable hash = new Hashtable();
+                hash["is_dir"] = true;
+                hash["has_file"] = (dir.GetFileSystemInfos().Length > 0);
+                hash["filesize"] = 0;
+                hash["is_photo"] = false;
+                hash["filetype"] = "";
+                hash["filename"] = dir.Name;
+                hash["datetime"] = dir.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
                 dirFileList.Add(hash);
             }
 
@@ -173,16 +171,14 @@ namespace JR.Cms.Web.Editor
             {
                 FileInfo file = new FileInfo(fileList[i]);
                 if (file.Extension.Equals("")) continue;
-                Hashtable hash = new Hashtable
-                {
-                    ["is_dir"] = false,
-                    ["has_file"] = false,
-                    ["filesize"] = file.Length,
-                    ["is_photo"] = (Array.IndexOf(fileTypes.Split(','), file.Extension.Substring(1).ToLower()) >= 0),
-                    ["filetype"] = file.Extension.Substring(1),
-                    ["filename"] = file.Name,
-                    ["datetime"] = file.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss")
-                };
+                Hashtable hash = new Hashtable();
+                hash["is_dir"] = false;
+                hash["has_file"] = false;
+                hash["filesize"] = file.Length;
+                hash["is_photo"] = (Array.IndexOf(fileTypes.Split(','), file.Extension.Substring(1).ToLower()) >= 0);
+                hash["filetype"] = file.Extension.Substring(1);
+                hash["filename"] = file.Name;
+                hash["datetime"] = file.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
                 dirFileList.Add(hash);
             }
 
@@ -303,9 +299,13 @@ namespace JR.Cms.Web.Editor
             return context.Response.WriteAsync(JsonAnalyzer.ToJson(hash));
         }
 
-        private void SaveFile(ICompatiblePostedFile imgFile, string targetPath)
+        private async void SaveFile(ICompatiblePostedFile imgFile, string targetPath)
         {
-            FileUtil.SaveStream(imgFile.OpenReadStream(),targetPath);
+            using (FileStream fs = new FileStream(targetPath, FileMode.Create))
+            {
+                await imgFile.CopyToAsync(fs);
+                fs.Flush();
+            }
         }
 
         private Task showError(ICompatibleHttpContext context, string message)

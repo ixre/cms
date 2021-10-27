@@ -39,7 +39,8 @@ namespace JR.Cms
     /// </summary>
     public class Updater
     {
-        private static readonly string upgradeDir = "/tmp/";
+
+        public static string UpgadeDir = "/tmp/";
         /// <summary>
         /// 升级时发生
         /// </summary>
@@ -96,7 +97,7 @@ namespace JR.Cms
 
                     //最后更新dll
                     Console.WriteLine("[ CMS][ Update]: extras boot.zip ..");
-                    UpgradeFile("boot.zip", UpgradeFileType.Zip, upgradeDir, false);
+                    UpgradeFile("boot.zip", UpgradeFileType.Zip, UpgadeDir, false);
                     Console.WriteLine("[ CMS][ Update]: cms update to v" + result.Version);
                 }
                 else
@@ -120,7 +121,7 @@ namespace JR.Cms
             }
             string updateMetaFile = GetUpdateUrl("upgrade.xml");
             WebRequest wr = WebRequest.Create(updateMetaFile);
-            wr.Timeout = 10000;
+
             HttpWebResponse rsp;
             try
             {
@@ -457,7 +458,7 @@ namespace JR.Cms
             if (UpgradePercent == 1F)
             {
                 //线程沉睡并更新dll
-                FileInfo[] files = new DirectoryInfo(Cms.PhysicPath + upgradeDir+"/bin").GetFiles();
+                FileInfo[] files = new DirectoryInfo(Cms.PhysicPath + UpgadeDir+"/bin").GetFiles();
                 Console.WriteLine("[ CMS][ Update]: apply " + files.Length.ToString() + " files in bin.zip");
                 foreach (FileInfo file in files)
                 {

@@ -75,36 +75,34 @@ namespace JR.Cms.Core
         /// <summary>
         /// 模板
         /// </summary>
-        private readonly TemplateRegistry _registry;
+        private readonly TemplateRegistry registry;
 
         /// <summary>
         /// 模板页描述
         /// </summary>
-        private static readonly IDictionary<TemplatePageType, string> PageDescribes;
+        private static readonly IDictionary<TemplatePageType, string> pageDescripts;
 
         /// <summary>
         /// 系统模板页
         /// </summary>
-        private static readonly string[] SystemTemplatePages;
+        private static readonly string[] systemTemplatePages;
 
-        private readonly IMemoryCacheWrapper _cache;
+        private readonly IMemoryCacheWrapper cache;
 
         static CmsTemplate()
         {
-            PageDescribes = new Dictionary<TemplatePageType, string>
-            {
-                {TemplatePageType.Index, "首页文件"},
-                {TemplatePageType.Category, "栏目页面"},
-                {TemplatePageType.Tag, "标签页面"},
-                {TemplatePageType.Notfound, "404错误页面"},
-                {TemplatePageType.Archive, "文档页面"},
-                {TemplatePageType.Search, "搜索页面"},
-                {TemplatePageType.Partial, "通用部分页"},
-                {TemplatePageType.Custom, "自定义页"}
-            };
+            pageDescripts = new Dictionary<TemplatePageType, string>();
+            pageDescripts.Add(TemplatePageType.Index, "首页文件");
+            pageDescripts.Add(TemplatePageType.Category, "栏目页面");
+            pageDescripts.Add(TemplatePageType.Tag, "标签页面");
+            pageDescripts.Add(TemplatePageType.Notfound, "404错误页面");
+            pageDescripts.Add(TemplatePageType.Archive, "文档页面");
+            pageDescripts.Add(TemplatePageType.Search, "搜索页面");
+            pageDescripts.Add(TemplatePageType.Partial, "通用部分页");
+            pageDescripts.Add(TemplatePageType.Custom, "自定义页");
 
             //系统模板页
-            SystemTemplatePages = new[]
+            systemTemplatePages = new[]
             {
                 "index.html",
                 "category.html",
@@ -122,7 +120,7 @@ namespace JR.Cms.Core
         /// <param name="names"></param>
         public CmsTemplate(IMemoryCacheWrapper cache, TemplateNames names)
         {
-            this._cache = cache;
+            this.cache = cache;
             var opt = new Options
             {
                 EnabledCompress = Settings.TPL_USE_COMPRESS,
@@ -132,7 +130,7 @@ namespace JR.Cms.Core
                 HttpItemShared = true,
                 Names = names
             };
-            _registry = new TemplateRegistry(CreateContainer(), opt);
+            registry = new TemplateRegistry(CreateContainer(), opt);
         }
 
 
@@ -143,18 +141,7 @@ namespace JR.Cms.Core
         public void Register(string tplPath)
         { 
             //将配置写入模板缓存
-            if (Settings.loaded)
-            {
-                this._registry.Register(tplPath, ( content,opt) =>
-                {
-                    // 为页面指定默认的语言
-                    if (content.IndexOf("<html>", StringComparison.Ordinal) != -1)
-                    {
-                        content = content.Replace("<html>", "<html lang=\"zh\">");
-                    }
-                    return content;
-                });
-            }
+            if (Settings.loaded)registry.Register(tplPath);
             //将文件中的加载到模板缓存中
             //AddTagsFromSettingsFile(new SettingFile(Configuration.cmsConfigFile), true);
             else
@@ -166,7 +153,7 @@ namespace JR.Cms.Core
         private IDataContainer CreateContainer()
         {
             var ctx = HttpHosting.Context;
-            var adapter = new TemplateDataAdapter(ctx, _cache);
+            var adapter = new TemplateDataAdapter(ctx, cache);
             return new BasicDataContainer(adapter);
         }
 
@@ -219,7 +206,7 @@ namespace JR.Cms.Core
         /// <returns></returns>
         public string GetPageDescribe(TemplatePageType pageType)
         {
-            if (PageDescribes.Keys.Contains(pageType)) return PageDescribes[pageType];
+            if (pageDescripts.Keys.Contains(pageType)) return pageDescripts[pageType];
             return null;
         }
 
@@ -230,7 +217,7 @@ namespace JR.Cms.Core
         /// <returns></returns>
         public bool IsSystemTemplate(string templateFileName)
         {
-            return Array.Exists(SystemTemplatePages, a => string.Compare(a, templateFileName, true) == 0);
+            return Array.Exists(systemTemplatePages, a => string.Compare(a, templateFileName, true) == 0);
         }
 
         /// <summary>
@@ -248,7 +235,7 @@ namespace JR.Cms.Core
         /// </summary>
         public void Reload()
         {
-            _registry.Reload();
+            registry.Reload();
         }
 
         /// <summary>
@@ -266,7 +253,7 @@ namespace JR.Cms.Core
         /// <returns></returns>
         public TemplatePage GetTemplate(string pageName)
         {
-            return _registry.GetPage(pageName);
+            return registry.GetPage(pageName);
         }
     }
 

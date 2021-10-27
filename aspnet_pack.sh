@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+set -e
 echo "======================================="
 echo "= JR Cms .NET ! packer ="
 echo "======================================="
@@ -8,15 +9,20 @@ echo "======================================="
 RELEASE_DIR=$(pwd)/out/aspnet
 
 echo "setup1: prepare.." && \
-    rm -rf out && mkdir -p ${RELEASE_DIR} && cd src/JR.Cms.AspNet.App && sh copy_assets.sh 
+    rm -rf out && mkdir -p ${RELEASE_DIR} && cd src/NetFx/JR.Cms.AspNet.App
 
+# copy assets from project: jr.cms.app
+cp -r ../../JR.Cms.App/install ../../JR.Cms.App/oem  \
+   ../../JR.Cms.App/public  ../../JR.Cms.App/templates \
+   ../../JR.Cms.App/root .
+        
+echo "setup2: building.." && \
+#xbuild *.csproj /p:Configuration=Release
 
-echo "setup2: buiding.." && \
-msbuild *.csproj /p:Configuration=Release && \
-    mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
+mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
     mkdir ${RELEASE_DIR}/templates && cp -r templates/default ${RELEASE_DIR}/templates && \
-    cp -r bin public  oem install plugins ${RELEASE_DIR} && \
-    cp favicon.ico Global.asax Web.config ${RELEASE_DIR}
+    cp -r bin public oem install plugins ${RELEASE_DIR} && \
+    cp  Global.asax Web.config ${RELEASE_DIR}
 
 cd ${RELEASE_DIR} && \
     sed -i 's/compilation debug="true"/compilation debug="false"/g' Web.config && \
@@ -28,7 +34,7 @@ cd ${RELEASE_DIR} && \
     Microsoft.Extensions.ObjectPool.dll Microsoft.Extensions.Localization* \
     Microsoft.Extensions.FileProviders.Abstractions.dll Microsoft.Extensions.Dependency* \
     Microsoft.Extensions.Configuration.Abstractions.dll Microsoft.Extensions.Caching* \
-    Microsoft.Win32.Registry.dll Microsoft.Net.Http.Headers.dll \
+    Microsoft.Win32.Registry.dll Microsoft.Web.Infrastructure.dll Microsoft.Net.Http.Headers.dll \
     Microsoft.AspNetCore.WebUtilities.dll \
     Microsoft.AspNetCore.JsonPatch.dll Microsoft.AspNetCore.Http.Extensions.dll \
     Microsoft.AspNetCore.Http.dll Microsoft.AspNetCore.Http.Abstractions.dll \
@@ -43,6 +49,4 @@ echo 'setup5: packing..' && \
     tar czf ../../jrcms-aspnet-latest.tar.gz *
     
 echo "package finished!"
-    
-
-    
+ 

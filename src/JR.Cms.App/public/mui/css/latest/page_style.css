@@ -71,9 +71,9 @@ input.ui-box,select.ui-box{height: 2em;}
 
 
 
-input.tb_normal,select.tb_normal,textarea.tb_normal{width:200px;}
+input.tb_normal,select.tb_normal,textarea.tb_normal{width:300px;}
 
-select.tb_normal{width:200px;padding:1px 3px;overflow:hidden;
+select.tb_normal{width:300px;padding:1px 3px;overflow:hidden;
                  /*border-bottom:solid 1px #e0e0e0;border-right:solid 1px #e0e0e0;*/}
 textarea.code{font-size:14px;line-height:20px;color:black;overflow-y:auto;border:none;}
 textarea.singlerow{line-height:20px;height:20px;}
@@ -352,7 +352,7 @@ div.selectbox div.move{padding:40px 20px;}
 .ctarea{padding:30px;position:relative;}
 
 /* tab */
-.tab_mini{margin:0;padding:1px 30px;border-bottom:solid 1px #d0d0d0;background:#f0f0f0;height:23px;}
+.tab_mini{margin:0;padding:1px 30px;border-bottom:solid 1px #d0d0d0;background:#f0f0f0;height:26px;}
 .tab_mini a{display:block;float:left;padding:0px 10px;text-decoration:none;color:#666;line-height:24px;border:solid 1px #d5d5d5;border-bottom:none;margin-left:-1px;}
 .tab_mini a.current{background:white;color:#4d9fdd;line-height:24px;border-color:#d0d0d0;}
 .tab_mini div.title{padding-right:10px;float:left; font-weight:bold;line-height:26px;color:#006699;}

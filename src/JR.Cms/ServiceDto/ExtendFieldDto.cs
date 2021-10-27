@@ -27,7 +27,7 @@ namespace JR.Cms.ServiceDto
         /// <summary>
         /// 属性名称
         /// </summary>
-        [FormField("Name", Text = "属性名称", IsRequired = true, Length = "[1,30]", Descript = "属性的唯一标识")]
+        [FormField("Name", Text = "属性名称", IsRequired = true, Length = "[1,30]", Description = "属性的唯一标识")]
         public string Name { get; set; }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace JR.Cms.ServiceDto
         /// <summary>
         /// 验证数据正则表达式
         /// </summary>
-        [FormField("Regex", Text = "数据验证", Descript = "正则表达式匹配（可不填）")]
+        [FormField("Regex", Text = "数据验证", Description = "正则表达式匹配（可不填）")]
         public string Regex { get; set; }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace JR.Cms.ServiceDto
         /// <summary>
         /// 默认值
         /// </summary>
-        [FormField("DefaultValue", Text = "默认值", MultLine = true)]
+        [FormField("DefaultValue", Text = "默认值", MultiLine = true)]
         public string DefaultValue { get; set; }
 
         /*

@@ -24,6 +24,7 @@ using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Framework.Web.UI;
 using JR.Stand.Core.Framework.Xml.AutoObject;
+using JR.Stand.Core.Template;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
 using Module = JR.Cms.Domain.Interface.Models.Module;
@@ -32,45 +33,45 @@ namespace JR.Cms.Web.Portal.Template.Rule
 {
     public abstract class CmsTemplateCore : IDisposable
     {
-        private static readonly PropertyInfo[] archivePros =
+        private static PropertyInfo[] archivePros =
             typeof(ArchiveDto).GetProperties(BindingFlags.Instance | BindingFlags.Public); //文档的属性
 
         protected static MicroTemplateEngine TplEngine = new MicroTemplateEngine(null); //模板引擎
 
-        protected ICompatibleHttpContext _context;
+        protected ArchiveDto archive; //当前读取的文档,使用require(archiveID)获取的文档
 
-        protected CmsContext _ctx;
+        private SettingFile _settingsFile; //设置文件，用于保存当前实例的状态
 
         // private LangLabelReader langReader;     //语言字典读取器
         private string _resourceUri; //资源域名
 
-        private SettingFile _settingsFile; //设置文件，用于保存当前实例的状态
-
-        /// <summary>
-        ///     当前站点
-        /// </summary>
-        protected SiteDto _site;
-
-        /// <summary>
-        ///     模板设置
-        /// </summary>
-        private TemplateSetting _tplSetting;
-
-        protected ArchiveDto archive; //当前读取的文档,使用require(archiveID)获取的文档
-
-        /// <summary>
-        ///     当前站点编号
-        /// </summary>
-        protected int SiteId;
+        protected ICompatibleHttpContext _context;
 
         protected CmsTemplateCore(ICompatibleHttpContext context)
         {
-            _context = context;
+            this._context = context;
 
             _ctx = Cms.Context;
             _site = _ctx.CurrentSite;
             SiteId = _site.SiteId;
         }
+
+        /// <summary>
+        /// 当前站点
+        /// </summary>
+        protected SiteDto _site;
+
+        /// <summary>
+        /// 当前站点编号
+        /// </summary>
+        protected int SiteId;
+
+        protected CmsContext _ctx;
+
+        /// <summary>
+        /// 模板设置
+        /// </summary>
+        private TemplateSetting _tplSetting;
 
 
         protected TemplateSetting GetSetting()
@@ -78,22 +79,390 @@ namespace JR.Cms.Web.Portal.Template.Rule
             return _tplSetting ?? (_tplSetting = Cms.TemplateManager.Get(_ctx.CurrentSite.Tpl));
         }
 
+
+        /************************ 辅助方法 ********************************/
+
+        #region
+
+        /// <summary>
+        /// 格式化地址
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public virtual string FormatPageUrl(UrlRulePageKeys key, object[] data)
+        {
+            var url = TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
+            if (data != null) url = string.Format(url, data);
+
+            return ConcatUrl(url);
+        }
+
+        /// <summary>
+        /// 连接URL
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        protected string ConcatUrl(string url)
+        {
+            if (url.IndexOf("//", StringComparison.Ordinal) != -1)return url;
+            if(url.StartsWith("javascript:", StringComparison.Ordinal))return url;
+            if (!string.IsNullOrEmpty(url) && url[0] != '/')url = string.Concat("/", url);
+            if (Settings.TPL_FULL_URL_PATH) return string.Concat(Cms.Context.SiteDomain, url);
+            return url;
+        }
+
+        private bool FlagAnd(int flag, BuiltInArchiveFlags b)
+        {
+            var x = (int) b;
+            return (flag & x) == x;
+        }
+
+        /// <summary>
+        /// 获取文档的地址
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="flag"></param>
+        /// <param name="archivePath"></param>
+        /// <returns></returns>
+        private string GetArchiveUrl(string location, int flag, string archivePath)
+        {
+            if (!string.IsNullOrEmpty(location)) return ConcatUrl(location);
+            if (!FlagAnd(flag, BuiltInArchiveFlags.AsPage))
+            {
+                return FormatPageUrl(UrlRulePageKeys.Archive, new[] {archivePath});
+            }
+            return FormatPageUrl(UrlRulePageKeys.SinglePage, new[] {archivePath});
+        }
+
+        private string GetLocationUrl(string location)
+        {
+            //如果定义了跳转地址
+            // if (Regex.IsMatch(location, "^http(s?)://", RegexOptions.IgnoreCase))
+            if (location.IndexOf("//", StringComparison.Ordinal) != -1) return location;
+
+            return ConcatUrl(location);
+        }
+
+        /// <summary>
+        /// 获取栏目的地址
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        protected string GetCategoryUrl(CategoryDto category, int pageIndex)
+        {
+            if (!string.IsNullOrEmpty(category.Location)) return ConcatUrl(category.Location);
+            if (pageIndex < 2)
+            {
+                return ConcatUrl(category.Path);
+            }
+            else
+            {
+                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new object[] {category.Path, pageIndex.ToString()});
+            }
+        }
+
+        #region 分页
+
+        /// <summary>
+        /// 设置分页
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="recordCount"></param>
+        /// <param name="firstLink"></param>
+        /// <param name="link"></param>
+        public virtual void SetPager(int pageIndex, int pageCount, int recordCount, string firstLink, string link)
+        {
+            //string pagerPack = "";
+            //switch (this.site.Language)
+            //{
+            //    default:
+            //    case Languages.En_US:
+            //        pagerPack = en_us_pack; break;
+            //    case Languages.zh_CN:
+            //        pagerPack = zh_cn_pack; break;
+            //    case Languages.zh_TW:
+            //        pagerPack = zh_tw_pack; break;
+            //}
+
+            //string[] pagerLangs = pagerPack.Split('|');
+
+            // const string pagerTpl = "<div class=\"pager\">{0}</div>";
+
+            IPagingGetter getter = new CustomPagingGetter(
+                firstLink,
+                link,
+                Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
+                Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText)
+            );
+
+            var p = UrlPaging.NewPager(pageIndex, pageCount, getter);
+            p.LinkCount = 10;
+            p.PagerTotal = "<span class=\"pagination-info\">" + Cms.Language.Get(LanguagePackageKey.PAGER_PagerTotal) +
+                           "</span>";
+            p.RecordCount = recordCount;
+            /* StringBuilder sb = new StringBuilder();
+           
+           sb.Append("<div class=\"pager\">");
+
+           
+           p.RecordCount = recordCount;
+           p.FirstPageLink = firstLink;
+           p.LinkFormat = link;
+
+           p.PreviousPageText = jr.Language.Get(LanguagePackageKey.PAGER_PrePageText);
+           p.NextPageText = jr.Language.Get(LanguagePackageKey.PAGER_NextPageText);
+           p.PageTextFormat = "{0}";
+           p.SelectPageText = jr.Language.Get(LanguagePackageKey.PAGER_SelectPageText);
+           p.Style = PagerStyle.Custom;
+           p.EnableSelect = true;
+           p.PagerTotal = jr.Language.Get(LanguagePackageKey.PAGER_PagerTotal);
+           p.LinkCount = 10;*/
+
+            var key = PushPagerKey();
+            Cms.Context.Items[key] = p.Pager(); // String.Format(pagerTpl, p.ToString());
+        }
+
+        protected string PopPagerKey()
+        {
+            var pagerNumber = 0;
+            var pagerNum = Cms.Context.Items["pagerNumber"];
+            if (pagerNum == null)
+            {
+                pagerNumber = 0;
+            }
+            else
+            {
+                int.TryParse(pagerNum.ToString(), out pagerNumber);
+                --pagerNumber;
+            }
+
+            Cms.Context.Items["pagerNumber"] = pagerNumber;
+            return string.Format("pager_{0}", (pagerNumber + 1).ToString());
+        }
+
+        protected string PushPagerKey()
+        {
+            var pagerNumber = 0;
+            var pagerNum = Cms.Context.Items["pagerNumber"];
+            if (pagerNum == null)
+            {
+                pagerNumber = 1;
+            }
+            else
+            {
+                int.TryParse(pagerNum.ToString(), out pagerNumber);
+                ++pagerNumber;
+            }
+
+            Cms.Context.Items["pagerNumber"] = pagerNumber;
+            return string.Format("pager_{0}", pagerNumber.ToString());
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 获取绑定的链接地址
+        /// </summary>
+        /// <param name="bindStr"></param>
+        /// <returns></returns>
+        private string GetBingLinkUrl(string bindStr)
+        {
+            var binds = (bindStr ?? "").Split(':');
+            if (binds.Length == 2 && binds[1] != string.Empty)
+            {
+                if (binds[0] == "category")
+                {
+                    var category = ServiceCall.Instance.SiteService.GetCategory(_site.SiteId, int.Parse(binds[1]));
+                    if (category.ID > 0) return GetCategoryUrl(category, 1);
+                }
+                else if (binds[0] == "archive")
+                {
+                    int.TryParse(binds[1], out var archiveId);
+
+                    var archiveDto = ServiceCall.Instance.ArchiveService
+                        .GetArchiveById(SiteId, archiveId);
+
+                    if (archiveDto.Id > 0)
+                    {
+                        return GetArchiveUrl(archiveDto.Location, archiveDto.Flag, archiveDto.Path);
+                    }
+                }
+            }
+
+            return "javascript:void(0,'no-such-link')";
+        }
+
+
+        /// <summary>
+        /// 返回是否为True
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        protected bool IsTrue(string str)
+        {
+            return str == "1" || string.Compare(str, "true", StringComparison.OrdinalIgnoreCase) == 0;
+        }
+
+        /// <summary>
+        /// 获取缩略图地址
+        /// </summary>
+        /// <param name="thumbnail"></param>
+        /// <returns></returns>
+        protected string GetThumbnailUrl(string thumbnail)
+        {
+            if (string.IsNullOrEmpty(thumbnail)) return string.Concat("/", CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto);
+
+            if (!Settings.TPL_FULL_URL_PATH //不使用完整路径
+                || thumbnail.IndexOf("://", StringComparison.Ordinal) != -1) //如果是包含协议的地址
+            {
+                return thumbnail;
+            }
+            else
+            {
+                //获取包含完整URL的图片地址
+                if (_resourceUri == null) _resourceUri = WebCtx.Current.Domain;
+
+                return string.Concat(_resourceUri, thumbnail);
+            }
+        }
+
+        /// <summary>
+        /// 模板提示
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        protected string TplMessage(string msg)
+        {
+            if (GetSetting().CfgShowError) return string.Format("提示：{0}", msg);
+
+            return string.Empty;
+        }
+
+        #endregion
+
+
+        /************************ 模板方法 *******************************/
+
+        #region 模板方法
+
+        [TemplateMethod]
+        protected string Each_Category(string param, string dataNum, string refTag, string refName, string refUri, string format) {
+            //
+            // @param : 如果为int,则返回模块下的栏目，
+            //                 如果为字符串tag，则返回该子类下的栏目
+            //
+
+            var siteId = _site.SiteId;
+
+            var num = 0;
+            if (Regex.IsMatch(dataNum, "^\\d+$")) int.TryParse(dataNum, out num);
+
+
+            #region 取得栏目
+
+            IEnumerable<CategoryDto> categories1;
+            if (param == string.Empty)
+            {
+                categories1 = ServiceCall.Instance.SiteService.GetCategories(siteId);
+            }
+            else
+            {
+                if (Regex.IsMatch(param, "^\\d+$"))
+                {
+                    var moduleId = int.Parse(param);
+                    categories1 = ServiceCall.Instance.SiteService.GetCategories(siteId)
+                        .Where(a => a.ModuleId == moduleId);
+                }
+                else
+                {
+                    var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, param);
+                    if (category.ID > 0)
+                        categories1 = ServiceCall.Instance.SiteService.GetCategories(SiteId, category.Path);
+                    else
+                        categories1 = null;
+                }
+            }
+
+            #endregion
+
+            if (categories1 == null)
+            {
+                return string.Empty;
+            }
+
+            IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.SortNumber));
+            var sb = new StringBuilder(400);
+            var i = 0;
+            var total = categories.Count;
+            foreach (var c in categories)
+            {
+                if (num != 0 && ++i >= num) break;
+                if (c.SiteId == SiteId)
+                {
+                    sb.Append(TplEngine.ResolveFields(format, field =>
+                    {
+                        switch (field)
+                        {
+                            default:
+                                if (field == refName) return c.Name;
+                                if (field == refTag) return c.Path;
+                                if (field == refUri) return GetCategoryUrl(c, 1);
+                                return "${" + field + "}";
+                            case "description": return c.Description;
+                            case "keywords": return c.Keywords;
+                            case "index": return i.ToString();
+                            case "class":
+                                return GetCssClass(total, i, "c", c.Icon);
+                        }
+                    }));
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        [TemplateMethod]
+        protected string Each_Category(string dataNum, string refTag, string refName, string refUri, string format)
+        {
+            if (this._context.TryGetItem<string>("category.path", out var id))
+            {
+                if (!string.IsNullOrEmpty(id)) return Each_Category(id, dataNum, refTag, refName, refUri, format);
+            }
+
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
+        }
+
+        [TemplateMethod]
+        [Obsolete]
+        protected string EachCategory2(string dataNum, string refTag, string refName, string refUri, string format)
+        {
+            var id = Cms.Context.Items["module.id"];
+            if (id == null) return TplMessage("此标签不允许在当前页面中调用!");
+
+            return Each_Category(id.ToString(), dataNum, refTag, refName, refUri, format);
+        }
+
+        #endregion
+
         /************************ 基本标签 ********************************/
 
 
         /// <summary>
-        ///     获取参数
+        /// 获取参数
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [TemplateTag]
         protected string Request(string id)
         {
-            return _context.Request.Query(id);
+            return this._context.Request.Query(id);
         }
 
         /// <summary>
-        ///     获取项目
+        /// 获取项目
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -104,7 +473,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     字典标签
+        /// 字典标签
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -130,7 +499,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     语言标签
+        /// 语言标签
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -138,12 +507,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [XmlObjectProperty("获取语言文本,连词用\"-\"", @"")]
         public string Lang(string key)
         {
-            var lang = _ctx.UserLanguage;
+            var lang = this._ctx.UserLanguage;
             return Cms.Language.Gets(lang, key.Split('-')) ?? "# missing lang:" + key;
         }
 
         /// <summary>
-        ///     语言标签
+        /// 语言标签
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -151,7 +520,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [XmlObjectProperty("获取翻译数据,以小写开头", @"")]
         public string Lang_lower(string key)
         {
-            var lang = _ctx.UserLanguage;
+            var lang = this._ctx.UserLanguage;
             var s = Cms.Language.Get(lang, key);
             if (s != null) return s.ToLower();
             return "# missing lang:" + key;
@@ -159,7 +528,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     重定向文档
+        /// 重定向文档
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -170,7 +539,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             if (a.Id > 0)
             {
-                var response = _context.Response;
+                var response = this._context.Response;
                 var appPath = Cms.Context.SiteAppPath;
                 if (appPath != "/") appPath += "/";
 
@@ -184,7 +553,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     请求读取文档
+        /// 请求读取文档
         /// </summary>
         /// <param name="idOrAlias"></param>
         /// <returns></returns>
@@ -197,7 +566,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     绑定字段
+        /// 绑定字段
         /// </summary>
         /// <param name="field"></param>
         /// <returns></returns>
@@ -218,7 +587,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     文档评论
+        /// 文档评论
         /// </summary>
         /// <param name="allowAmous"></param>
         /// <param name="html"></param>
@@ -329,7 +698,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             if (amouSubmit)
                                 return
                                     @"昵称：<input class=""ui-validate"" name=""ce_nickname"" type=""text"" id=""ce_nickname"">";
-                            return @"昵称：<span style=""color:red"">不允许匿名评论，请先登录后继续操作！</span>";
+                            else
+                                return @"昵称：<span style=""color:red"">不允许匿名评论，请先登录后继续操作！</span>";
                         }
                         else
                         {
@@ -343,7 +713,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     文档评论
+        /// 文档评论
         /// </summary>
         /// <param name="format"></param>
         /// <param name="usePager"></param>
@@ -354,7 +724,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             int replayCount;
 
             var archive = Cms.Context.Items["archive"] == null
-                ? default
+                ? default(ArchiveDto)
                 : (ArchiveDto) Cms.Context.Items["archive"];
             if (archive.Id <= 0)
                 throw new ArgumentNullException("archive", "不允许在当前页中使用!");
@@ -457,12 +827,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     }
                 }));
             }
-
             return sb.ToString();
         }
 
         /// <summary>
-        ///     表单
+        /// 表单
         /// </summary>
         /// <param name="formId"></param>
         /// <returns></returns>
@@ -481,7 +850,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var token = string.Empty.RandomLetters(16); //验证token
 
             //存入SESSION
-            _context.Session.SetString($"cms_form_{tb.Id.ToString()}_token", token);
+            this._context.Session.SetString($"cms_form_{tb.Id.ToString()}_token", token);
 
             //构造HTML
             if (!string.IsNullOrEmpty(tb.Note)) sb.Append("<div class=\"fnote\">").Append(tb.Note).Append("</div>");
@@ -531,7 +900,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     根据栏目Tag产生站点地图
+        /// 根据栏目Tag产生站点地图
         /// </summary>
         /// <param name="catPath"></param>
         /// <returns></returns>
@@ -549,7 +918,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     分页控件
+        /// 分页控件
         /// </summary>
         /// <returns></returns>
         [TemplateTag]
@@ -559,7 +928,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     流量统计
+        /// 流量统计
         /// </summary>
         /// <returns></returns>
         [TemplateTag]
@@ -589,7 +958,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     导航
+        /// 导航
         /// </summary>
         /// <param name="childFormat"></param>
         /// <param name="index">选中索引</param>
@@ -616,45 +985,44 @@ namespace JR.Cms.Web.Portal.Template.Rule
             string tempLinkStr;
 
 
-            LinkGenerateGBehavior bh = (int genTotal, ref int current, string levelCls, int selected, bool child,
-                SiteLinkDto link,
-                int childCount) =>
-            {
-                var sb2 = new StringBuilder();
-                /* *********************
-                 *  辨别选中的导航
-                 * *********************/
-                var clsName = levelCls;
-                if (childCount != 0) clsName = string.Concat(clsName, " parent ");
-                if (selected == current) clsName = string.Concat(clsName, " current");
-                if (current == 0) clsName = string.Concat(clsName, " first");
-                if (current == genTotal - 1) clsName = string.Concat(clsName, " last");
-                sb2.Append("<li class=\"" + clsName + "\">");
-                //解析格式
-                tempLinkStr = TplEngine.ResolveHolderFields(child ? childFormat : format, a =>
+            LinkGenerateGBehavior bh = (int genTotal, ref int current, string levelCls, int selected, bool child, SiteLinkDto link,
+                    int childCount) =>
                 {
-                    switch (a)
+                    var sb2 = new StringBuilder();
+                    /* *********************
+                     *  辨别选中的导航
+                     * *********************/
+                    var clsName = levelCls;
+                    if (childCount != 0) clsName = string.Concat(clsName, " parent ");
+                    if (selected == current) clsName = string.Concat(clsName, " current");
+                    if (current == 0) clsName = string.Concat(clsName, " first");
+                    if (current == genTotal - 1) clsName = string.Concat(clsName, " last");
+                    sb2.Append("<li class=\"" + clsName + "\">");
+                    //解析格式
+                    tempLinkStr = TplEngine.ResolveHolderFields(child ? childFormat : format, a =>
                     {
-                        case "url":
-                            return ConcatUrl(string.IsNullOrEmpty(link.Bind)
-                                ? link.Uri
-                                : GetBingLinkUrl(link.Bind));
-                        case "target": return string.IsNullOrEmpty(link.Target) ? "_self" : link.Target;
-                        case "text": return link.Text;
-                        case "img_url": return link.ImgUrl;
-                    }
+                        switch (a)
+                        {
+                            case "url":
+                                return this.ConcatUrl(string.IsNullOrEmpty(link.Bind) 
+                                    ? link.Uri : GetBingLinkUrl(link.Bind));
+                            case "target": return string.IsNullOrEmpty(link.Target) ? "_self" : link.Target;
+                            case "text": return link.Text;
+                            case "img_url": return link.ImgUrl;
+                        }
 
-                    return "{" + a + "}";
-                });
-                //添加链接目标
-                if (!string.IsNullOrEmpty(link.Target))
-                    tempLinkStr = tempLinkStr.Replace("<a ", "<a target=\"" + link.Target + "\" ");
+                        return "{" + a + "}";
+                    });
+                    //添加链接目标
+                    if (!string.IsNullOrEmpty(link.Target))
+                        tempLinkStr = tempLinkStr.Replace("<a ", "<a target=\"" + link.Target + "\" ");
 
-                sb2.Append(tempLinkStr).Append("</li>");
-                return sb2.ToString();
-            };
+                    sb2.Append(tempLinkStr).Append("</li>");
+                    return sb2.ToString();
+                };
 
             for (var i = 0; i < links.Count; i++)
+            {
                 if (links[i].Pid == 0)
                 {
                     j = i;
@@ -681,7 +1049,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                     sb.Append(parentHtml);
                 }
-
+            }
             return string.Format(tpl, sb);
         }
 
@@ -689,7 +1057,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /********************** 基本数据 *************************/
 
         /// <summary>
-        ///     文档内容
+        /// 文档内容
         /// </summary>
         /// <param name="idOrAlias"></param>
         /// <returns></returns>
@@ -711,7 +1079,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     上一篇文章
+        /// 上一篇文章
         /// </summary>
         /// <param name="id"></param>
         /// <param name="format"></param>
@@ -730,7 +1098,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     下一篇文章
+        /// 下一篇文章
         /// </summary>
         /// <param name="id"></param>
         /// <param name="format"></param>
@@ -749,7 +1117,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     栏目链接列表
+        /// 栏目链接列表
         /// </summary>
         /// <param name="catPath"></param>
         /// <param name="format"></param>
@@ -784,8 +1152,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             var isModule = false;
             if (!isModule)
+            {
                 categories = new List<CategoryDto>(ServiceCall.Instance.SiteService
                     .GetCategories(SiteId, catPath));
+            }
 
             //如果没有下级了,则获取当前级
             //if (categories.Count == 0)
@@ -838,7 +1208,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     根据数据表生成HTML
+        /// 根据数据表生成HTML
         /// </summary>
         /// <param name="archives"></param>
         /// <param name="splitSize"></param>
@@ -860,10 +1230,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     格式化文档占位符
-        ///     时间：time_fmt[YYYY-MM]
-        ///     大纲：outline[300]
-        ///     语言: lang[contact]
+        /// 格式化文档占位符
+        /// 
+        /// 时间：time_fmt[YYYY-MM]
+        /// 大纲：outline[300]
+        /// 语言: lang[contact]
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="archiveDto"></param>
@@ -962,7 +1333,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             foreach (var f in archiveDto.ExtendValues)
                                 if (!string.IsNullOrEmpty(f.Value))
                                     sb.Append("<li class=\"extend_")
-                                        .Append(f.Field).Append("\"><span class=\"attrName\">")
+                                        .Append(f.Field.ToString()).Append("\"><span class=\"attrName\">")
                                         .Append(f.Field.Name).Append(":</span><span class=\"value\">")
                                         .Append(f.Value).Append("</span></li>");
 
@@ -1004,7 +1375,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     获取文档占位标签参数
+        /// 获取文档占位标签参数
         /// </summary>
         /// <param name="field"></param>
         /// <param name="v"></param>
@@ -1021,7 +1392,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     获取缩略图
+        /// 获取缩略图
         /// </summary>
         /// <param name="url"></param>
         /// <param name="title"></param>
@@ -1035,7 +1406,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     获取css样式
+        /// 获取css样式
         /// </summary>
         /// <param name="total"></param>
         /// <param name="index"></param>
@@ -1049,13 +1420,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var cls = string.Format("{0} {1}{2}{3}{4}", prefix, prefix, (index + 1).ToString(),
                 (index + 1) % 2 == 0 ? " even" : "", noThumb ? "  no-thumb" : string.Empty);
             if (index == total - 1) return cls + " last";
-            if (index == 0) return cls + " first";
+            else if (index == 0) return cls + " first";
             return cls;
         }
 
 
         /// <summary>
-        ///     分页文档列表
+        /// 分页文档列表
         /// </summary>
         /// <param name="categoryTag">栏目Tag</param>
         /// <param name="pageIndex">页码</param>
@@ -1109,7 +1480,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 var categoryId = int.Parse(dr["cat_id"].ToString());
                 var archiveId = int.Parse(dr["id"].ToString());
                 var archivePath = dr["path"].ToString();
-                if (string.IsNullOrEmpty(archivePath)) continue;
+                if (string.IsNullOrEmpty(archivePath))
+                {
+                    continue;
+                }
 
                 if (categoryId != archiveCategory.ID)
                 {
@@ -1234,7 +1608,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     添加分割栏
+        /// 添加分割栏
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="total"></param>
@@ -1266,6 +1640,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
+        /// 
         /// </summary>
         /// <param name="catPath"></param>
         /// <param name="num"></param>
@@ -1283,11 +1658,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             if (!(category.ID > 0)) return $"ERROR:模块或栏目不存在!参数:{catPath}";
             var dt = ServiceCall.Instance.ArchiveService.GetSpecialArchives(
-                SiteId, category.Path, container, intNum, skipSize);
+                SiteId, category.Path, container, intNum,skipSize);
             return ArchiveList(dt, splitSize, format);
         }
 
         /// <summary>
+        /// 
         /// </summary>
         /// <param name="catPath"></param>
         /// <param name="num"></param>
@@ -1314,7 +1690,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     搜索列表
+        /// 搜索列表
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="categoryTagOrModuleId"></param>
@@ -1594,7 +1970,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     链接
+        /// 链接
         /// </summary>
         /// <param name="type"></param>
         /// <param name="format"></param>
@@ -1663,7 +2039,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     标签
+        /// 标签
         /// </summary>
         /// <param name="tags"></param>
         /// <param name="format"></param>
@@ -1696,8 +2072,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                         //搜索页URL
                         case "searchurl":
-                            return FormatPageUrl(UrlRulePageKeys.Search,
-                                new[] {HttpUtils.UrlEncode(tag), string.Empty});
+                            return FormatPageUrl(UrlRulePageKeys.Search, new[] {HttpUtils.UrlEncode(tag), string.Empty});
 
                         //Tag页URL
                         case "url": return FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtils.UrlEncode(tag)});
@@ -1713,7 +2088,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     标签文档列表
+        /// 标签文档列表
         /// </summary>
         /// <param name="tag"></param>
         /// <param name="pageIndex"></param>
@@ -1904,6 +2279,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
             return sb.ToString();
         }
 
+
+        /*========================= 树形数据 ================================*/
+        protected delegate bool CategoryResultTreeHandler(CategoryDto category);
+
         protected void CategoryTree_Iterator(CategoryDto category, StringBuilder sb, CategoryResultTreeHandler handler,
             bool isRoot)
         {
@@ -1946,7 +2325,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        ///     栏目嵌套树
+        /// 栏目嵌套树
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="split"></param>
@@ -1981,7 +2360,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     栏目选择树
+        /// 栏目选择树
         /// </summary>
         /// <param name="categoryTag"></param>
         /// <param name="split"></param>
@@ -2033,9 +2412,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
             };
 
 
-            if (string.IsNullOrEmpty(categoryTag)) return TplMessage("请指定参数:param的值");
-
-            if (Regex.IsMatch(categoryTag, "^\\d+$"))
+            if (string.IsNullOrEmpty(categoryTag))
+            {
+                return TplMessage("请指定参数:param的值");
+            }
+            else if (Regex.IsMatch(categoryTag, "^\\d+$"))
             {
                 //从模块加载
                 moduleId = int.Parse(categoryTag);
@@ -2064,367 +2445,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
         }
 
         /// <summary>
-        ///     栏目选择树
+        /// 栏目选择树
         /// </summary>
         [TemplateTag]
         public string Category_Option(string categoryTag)
         {
             return Category_Option(categoryTag, "一");
         }
-
-
-        /*========================= 树形数据 ================================*/
-        protected delegate bool CategoryResultTreeHandler(CategoryDto category);
-
-
-        /************************ 辅助方法 ********************************/
-
-        #region
-
-        /// <summary>
-        ///     格式化地址
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public virtual string FormatPageUrl(UrlRulePageKeys key, object[] data)
-        {
-            var url = TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
-            if (data != null) url = string.Format(url, data);
-
-            return ConcatUrl(url);
-        }
-
-        /// <summary>
-        ///     连接URL
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        protected string ConcatUrl(string url)
-        {
-            if (url.IndexOf("//", StringComparison.Ordinal) != -1) return url;
-            if (url.StartsWith("javascript:", StringComparison.Ordinal)) return url;
-            if (!string.IsNullOrEmpty(url) && url[0] != '/') url = string.Concat("/", url);
-            if (Settings.TPL_FULL_URL_PATH) return string.Concat(Cms.Context.SiteDomain, url);
-            return url;
-        }
-
-        private bool FlagAnd(int flag, BuiltInArchiveFlags b)
-        {
-            var x = (int) b;
-            return (flag & x) == x;
-        }
-
-        /// <summary>
-        ///     获取文档的地址
-        /// </summary>
-        /// <param name="location"></param>
-        /// <param name="flag"></param>
-        /// <param name="archivePath"></param>
-        /// <returns></returns>
-        private string GetArchiveUrl(string location, int flag, string archivePath)
-        {
-            if (!string.IsNullOrEmpty(location)) return ConcatUrl(location);
-            if (!FlagAnd(flag, BuiltInArchiveFlags.AsPage))
-                return FormatPageUrl(UrlRulePageKeys.Archive, new[] {archivePath});
-            return FormatPageUrl(UrlRulePageKeys.SinglePage, new[] {archivePath});
-        }
-
-        private string GetLocationUrl(string location)
-        {
-            //如果定义了跳转地址
-            // if (Regex.IsMatch(location, "^http(s?)://", RegexOptions.IgnoreCase))
-            if (location.IndexOf("//", StringComparison.Ordinal) != -1) return location;
-
-            return ConcatUrl(location);
-        }
-
-        /// <summary>
-        ///     获取栏目的地址
-        /// </summary>
-        /// <param name="category"></param>
-        /// <param name="pageIndex"></param>
-        /// <returns></returns>
-        protected string GetCategoryUrl(CategoryDto category, int pageIndex)
-        {
-            if (!string.IsNullOrEmpty(category.Location)) return ConcatUrl(category.Location);
-            if (pageIndex < 2)
-                return ConcatUrl(category.Path);
-            return FormatPageUrl(UrlRulePageKeys.CategoryPager, new object[] {category.Path, pageIndex.ToString()});
-        }
-
-        #region 分页
-
-        /// <summary>
-        ///     设置分页
-        /// </summary>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageCount"></param>
-        /// <param name="recordCount"></param>
-        /// <param name="firstLink"></param>
-        /// <param name="link"></param>
-        public virtual void SetPager(int pageIndex, int pageCount, int recordCount, string firstLink, string link)
-        {
-            //string pagerPack = "";
-            //switch (this.site.Language)
-            //{
-            //    default:
-            //    case Languages.En_US:
-            //        pagerPack = en_us_pack; break;
-            //    case Languages.zh_CN:
-            //        pagerPack = zh_cn_pack; break;
-            //    case Languages.zh_TW:
-            //        pagerPack = zh_tw_pack; break;
-            //}
-
-            //string[] pagerLangs = pagerPack.Split('|');
-
-            // const string pagerTpl = "<div class=\"pager\">{0}</div>";
-
-            IPagingGetter getter = new CustomPagingGetter(
-                firstLink,
-                link,
-                Cms.Language.Get(LanguagePackageKey.PAGER_PrePageText),
-                Cms.Language.Get(LanguagePackageKey.PAGER_NextPageText)
-            );
-
-            var p = UrlPaging.NewPager(pageIndex, pageCount, getter);
-            p.LinkCount = 10;
-            p.PagerTotal = "<span class=\"pagination-info\">" + Cms.Language.Get(LanguagePackageKey.PAGER_PagerTotal) +
-                           "</span>";
-            p.RecordCount = recordCount;
-            /* StringBuilder sb = new StringBuilder();
-           
-           sb.Append("<div class=\"pager\">");
-
-           
-           p.RecordCount = recordCount;
-           p.FirstPageLink = firstLink;
-           p.LinkFormat = link;
-
-           p.PreviousPageText = jr.Language.Get(LanguagePackageKey.PAGER_PrePageText);
-           p.NextPageText = jr.Language.Get(LanguagePackageKey.PAGER_NextPageText);
-           p.PageTextFormat = "{0}";
-           p.SelectPageText = jr.Language.Get(LanguagePackageKey.PAGER_SelectPageText);
-           p.Style = PagerStyle.Custom;
-           p.EnableSelect = true;
-           p.PagerTotal = jr.Language.Get(LanguagePackageKey.PAGER_PagerTotal);
-           p.LinkCount = 10;*/
-
-            var key = PushPagerKey();
-            Cms.Context.Items[key] = p.Pager(); // String.Format(pagerTpl, p.ToString());
-        }
-
-        protected string PopPagerKey()
-        {
-            var pagerNumber = 0;
-            var pagerNum = Cms.Context.Items["pagerNumber"];
-            if (pagerNum == null)
-            {
-                pagerNumber = 0;
-            }
-            else
-            {
-                int.TryParse(pagerNum.ToString(), out pagerNumber);
-                --pagerNumber;
-            }
-
-            Cms.Context.Items["pagerNumber"] = pagerNumber;
-            return string.Format("pager_{0}", (pagerNumber + 1).ToString());
-        }
-
-        protected string PushPagerKey()
-        {
-            var pagerNumber = 0;
-            var pagerNum = Cms.Context.Items["pagerNumber"];
-            if (pagerNum == null)
-            {
-                pagerNumber = 1;
-            }
-            else
-            {
-                int.TryParse(pagerNum.ToString(), out pagerNumber);
-                ++pagerNumber;
-            }
-
-            Cms.Context.Items["pagerNumber"] = pagerNumber;
-            return string.Format("pager_{0}", pagerNumber.ToString());
-        }
-
-        #endregion
-
-        /// <summary>
-        ///     获取绑定的链接地址
-        /// </summary>
-        /// <param name="bindStr"></param>
-        /// <returns></returns>
-        private string GetBingLinkUrl(string bindStr)
-        {
-            var binds = (bindStr ?? "").Split(':');
-            if (binds.Length == 2 && binds[1] != string.Empty)
-            {
-                if (binds[0] == "category")
-                {
-                    var category = ServiceCall.Instance.SiteService.GetCategory(_site.SiteId, int.Parse(binds[1]));
-                    if (category.ID > 0) return GetCategoryUrl(category, 1);
-                }
-                else if (binds[0] == "archive")
-                {
-                    int.TryParse(binds[1], out var archiveId);
-
-                    var archiveDto = ServiceCall.Instance.ArchiveService
-                        .GetArchiveById(SiteId, archiveId);
-
-                    if (archiveDto.Id > 0) return GetArchiveUrl(archiveDto.Location, archiveDto.Flag, archiveDto.Path);
-                }
-            }
-
-            return "javascript:void(0,'no-such-link')";
-        }
-
-
-        /// <summary>
-        ///     返回是否为True
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        protected bool IsTrue(string str)
-        {
-            return str == "1" || string.Compare(str, "true", StringComparison.OrdinalIgnoreCase) == 0;
-        }
-
-        /// <summary>
-        ///     获取缩略图地址
-        /// </summary>
-        /// <param name="thumbnail"></param>
-        /// <returns></returns>
-        protected string GetThumbnailUrl(string thumbnail)
-        {
-            if (string.IsNullOrEmpty(thumbnail)) return string.Concat("/", CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto);
-
-            if (!Settings.TPL_FULL_URL_PATH //不使用完整路径
-                || thumbnail.IndexOf("://", StringComparison.Ordinal) != -1) //如果是包含协议的地址
-                return thumbnail;
-
-            //获取包含完整URL的图片地址
-            if (_resourceUri == null) _resourceUri = WebCtx.Current.Domain;
-
-            return string.Concat(_resourceUri, thumbnail);
-        }
-
-        /// <summary>
-        ///     模板提示
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        protected string TplMessage(string msg)
-        {
-            if (GetSetting().CfgShowError) return string.Format("提示：{0}", msg);
-
-            return string.Empty;
-        }
-
-        #endregion
-
-
-        /************************ 模板方法 *******************************/
-
-        #region 模板方法
-
-        [TemplateMethod]
-        protected string Each_Category(string param, string dataNum, string refTag, string refName, string refUri,
-            string format)
-        {
-            //
-            // @param : 如果为int,则返回模块下的栏目，
-            //                 如果为字符串tag，则返回该子类下的栏目
-            //
-
-            var siteId = _site.SiteId;
-
-            var num = 0;
-            if (Regex.IsMatch(dataNum, "^\\d+$")) int.TryParse(dataNum, out num);
-
-
-            #region 取得栏目
-
-            IEnumerable<CategoryDto> categories1;
-            if (param == string.Empty)
-            {
-                categories1 = ServiceCall.Instance.SiteService.GetCategories(siteId);
-            }
-            else
-            {
-                if (Regex.IsMatch(param, "^\\d+$"))
-                {
-                    var moduleId = int.Parse(param);
-                    categories1 = ServiceCall.Instance.SiteService.GetCategories(siteId)
-                        .Where(a => a.ModuleId == moduleId);
-                }
-                else
-                {
-                    var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, param);
-                    if (category.ID > 0)
-                        categories1 = ServiceCall.Instance.SiteService.GetCategories(SiteId, category.Path);
-                    else
-                        categories1 = null;
-                }
-            }
-
-            #endregion
-
-            if (categories1 == null) return string.Empty;
-
-            IList<CategoryDto> categories = new List<CategoryDto>(categories1.OrderBy(a => a.SortNumber));
-            var sb = new StringBuilder(400);
-            var i = 0;
-            var total = categories.Count;
-            foreach (var c in categories)
-            {
-                if (num != 0 && ++i >= num) break;
-                if (c.SiteId == SiteId)
-                    sb.Append(TplEngine.ResolveFields(format, field =>
-                    {
-                        switch (field)
-                        {
-                            default:
-                                if (field == refName) return c.Name;
-                                if (field == refTag) return c.Path;
-                                if (field == refUri) return GetCategoryUrl(c, 1);
-                                return "${" + field + "}";
-                            case "description": return c.Description;
-                            case "keywords": return c.Keywords;
-                            case "index": return i.ToString();
-                            case "class":
-                                return GetCssClass(total, i, "c", c.Icon);
-                        }
-                    }));
-            }
-
-            return sb.ToString();
-        }
-
-        [TemplateMethod]
-        protected string Each_Category(string dataNum, string refTag, string refName, string refUri, string format)
-        {
-            if (_context.TryGetItem<string>("category.path", out var id))
-                if (!string.IsNullOrEmpty(id))
-                    return Each_Category(id, dataNum, refTag, refName, refUri, format);
-
-            return TplMessage("Error: 此标签不允许在当前页面中调用!");
-        }
-
-        [TemplateMethod]
-        [Obsolete]
-        protected string EachCategory2(string dataNum, string refTag, string refName, string refUri, string format)
-        {
-            var id = Cms.Context.Items["module.id"];
-            if (id == null) return TplMessage("此标签不允许在当前页面中调用!");
-
-            return Each_Category(id.ToString(), dataNum, refTag, refName, refUri, format);
-        }
-
-        #endregion
 
 
         #region 析构

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace JR.Stand.Core.Template.Impl
 {
     /// <summary>
-    /// 模板变量对象
+    /// 模板变量对象,实现该接口可使用${var.data("key")}的方式动态获取数据
     /// </summary>
-    public interface ITemplateVariable
+    public interface ITemplateVariableInstance
     {
         /// <summary>
-        /// 数据字典, 使用格式:${xxx.data(xx)}获取数据
+        /// 数据字典
         /// </summary>
         IDictionary<String, String> Data { get; }
 

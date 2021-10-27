@@ -16,6 +16,7 @@
     <item key="Site_Extend_List" value="mui/html/site/extend/extend.list.html"/>
     <item key="Site_Extend_Create" value="mui/html/site/extend/extend.create.html"/>
     <item key="Site_Extend_Category_Check" value="mui/html/site/extend/extend.category_check.html"/>
+    <item key="SiteVariables" value="mui/html/site/site.variable.html"/>
     <item key="Link_List" value="mui/html/link/link_list.html"/>
     <item key="Link_Edit" value="mui/html/link/link_edit.html"/>
     <item key="Link_Edit_Navigator" value="mui/html/link/link_edit_navigator.html"/>
@@ -34,7 +35,7 @@
     <item key="Archive_Update" value="mui/html/archive/archive_update.html"/>
     <item key="Archive_List" value="mui/html/archive/archive_list.html"/>
     <item key="Archive_View" value="mui/html/archive/archive_view.html"/>
-    <item key="Archive_Forword" value="mui/html/archive/archive_forword.html"/>
+    <item key="Archive_Forward" value="mui/html/archive/archive_forward.html"/>
     <item key="Comment_List" value="mui/html/archive/comment_list.html"/>
     <item key="Archive_Search" value="mui/html/archive/archive_search.html"/>
     <item key="Archive_Tags" value="mui/html/archive/archive_tags.html"/>

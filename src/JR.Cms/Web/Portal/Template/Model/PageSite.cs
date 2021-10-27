@@ -1,13 +1,20 @@
-﻿using JR.Cms.Domain.Interface.Common.Language;
+﻿using System.Collections.Generic;
+using JR.Cms.Domain.Interface.Common.Language;
+using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
+using JR.Stand.Core.Template.Impl;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
     /// <summary>
+    /// 
     /// </summary>
-    public class PageSite
+    public class PageSite:ITemplateVariableInstance
     {
+        private IDictionary<string, string> _dict;
+
         /// <summary>
+        /// 
         /// </summary>
         /// <param name="dto"></param>
         public PageSite(SiteDto dto)
@@ -32,22 +39,27 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
+        /// 
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
+        /// 
         /// </summary>
         public string Notice { get; set; }
 
         /// <summary>
+        /// 
         /// </summary>
         public string Post { get; set; }
 
         /// <summary>
+        /// 
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
+        /// 
         /// </summary>
         public string Keywords { get; set; }
 
@@ -72,5 +84,43 @@ namespace JR.Cms.Web.Portal.Template.Model
         public int SiteId { get; set; }
         public string Tpl { get; set; }
         public Languages Language { get; set; }
+
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public IDictionary<string, string> Data
+        {
+            get
+            {
+                if (_dict == null)
+                {
+                    _dict = new Dictionary<string, string>();
+                    IList<SiteVariableDto> list = ServiceCall.Instance.SiteService.GetSiteVariables(this.SiteId);
+
+                    foreach (var value in list) _dict.Add(value.Name, value.Value);
+                }
+
+                return _dict;
+            }
+        }
+
+        /// <summary>
+        /// 添加变量
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        public void AddData(string key, string data)
+        {
+            _dict.Add(key, data);
+        }
+
+        /// <summary>
+        /// 删除变量
+        /// </summary>
+        /// <param name="key"></param>
+        public void RemoveData(string key)
+        {
+            _dict.Remove(key);
+        }
     }
 }

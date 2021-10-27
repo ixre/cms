@@ -26,7 +26,54 @@ namespace JR.Cms.Web.Portal.Comm
 
         private const string INSTALL_LOCK = "config/install.lock";
 
-        private DataBaseAccess db;
+
+        private enum InstallCode
+        {
+            /// <summary>
+            /// 已经安装成功
+            /// </summary>
+            INSTALLED = 0,
+
+            /// <summary>
+            /// 成功
+            /// </summary>
+            SUCCESS = 1,
+
+            /// <summary>
+            ///  无授权信息
+            /// </summary>
+            NO_LICENCE = -1,
+
+            /// <summary>
+            /// 未指定用户
+            /// </summary>
+            NO_USER = -2,
+
+            /// <summary>
+            /// 未设置站点
+            /// </summary>
+            NO_SITE_NAME = -3,
+
+            /// <summary>
+            /// 未知数据库
+            /// </summary>
+            DB_UNKNOWN = -11,
+
+            /// <summary>
+            /// 数据库错误
+            /// </summary>
+            DB_ERROR = -12,
+
+            /// <summary>
+            /// 数据库初始化错误
+            /// </summary>
+            DB_INIT_ERROR = -13,
+
+            /// <summary>
+            /// 数据库端口未设置
+            /// </summary>
+            DB_ERROR_PORT = -14
+        }
 
         private InstallCode Process(ICompatibleHttpContext context)
         {
@@ -39,7 +86,7 @@ namespace JR.Cms.Web.Portal.Comm
             if (File.Exists(Path.Combine(physical, INSTALL_LOCK))) return InstallCode.INSTALLED;
 
             string licenceKey = form.Form("licence_key")[0].Trim(),
-                licenceName = form.Form("licence_name")[0].Trim(),
+                licenceName =form.Form("licence_name")[0].Trim(),
                 siteName = form.Form("site_name")[0].Trim(),
                 siteDomain = form.Form("site_domain")[0].Trim(),
                 siteLanguage = form.Form("site_language"),
@@ -48,7 +95,7 @@ namespace JR.Cms.Web.Portal.Comm
                 dbType = form.Form("db_type")[0].Trim(),
                 dbServer = form.Form("db_server")[0].Trim(),
                 dbPort = form.Form("db_port")[0].Trim(),
-                dbPrefix = form.Form("db_prefix")[0].Trim(),
+                dbPrefix =form.Form("db_prefix")[0].Trim(),
                 dbPrefix1 = form.Form("db_prefix1")[0].Trim(),
                 dbName = form.Form("db_name")[0].Trim(),
                 dbUsr = form.Form("db_usr")[0].Trim(),
@@ -219,7 +266,7 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         /// <summary>
-        ///     初始化站点
+        /// 初始化站点
         /// </summary>
         /// <param name="dbPrefix"></param>
         /// <param name="siteName"></param>
@@ -265,7 +312,7 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         /// <summary>
-        ///     初始化用户信息
+        /// 初始化用户信息
         /// </summary>
         /// <param name="dbPrefix"></param>
         /// <param name="userName"></param>
@@ -301,7 +348,7 @@ namespace JR.Cms.Web.Portal.Comm
                     {"@email", ""},
                     {"@checkCode", ""},
                     {"@flag", Role.Master.Flag},
-                    {"@time", dt}
+                    {"@time", dt},
                 }));
             var userId = int.Parse(db.ExecuteScalar($"SELECT max(id) FROM {dbPrefix}user").ToString());
             db.ExecuteNonQuery(new SqlQuery(
@@ -310,12 +357,12 @@ namespace JR.Cms.Web.Portal.Comm
                 {
                     {"@userId", userId},
                     {"@userName", userName},
-                    {"@password", Generator.CreateUserPwd(userPwd.Md5())}
+                    {"@password", Generator.CreateUserPwd(userPwd.Md5())},
                 }));
         }
 
         /// <summary>
-        ///     创建用户组SQL参数
+        /// 创建用户组SQL参数
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
@@ -330,8 +377,10 @@ namespace JR.Cms.Web.Portal.Comm
             return data;
         }
 
+        private DataBaseAccess db;
+
         /// <summary>
-        ///     释放数据库
+        /// 释放数据库
         /// </summary>
         /// <param name="dbType"></param>
         /// <param name="connStr"></param>
@@ -386,7 +435,7 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         /// <summary>
-        ///     执行数据脚本
+        /// 执行数据脚本
         /// </summary>
         /// <param name="dbPrefix"></param>
         /// <param name="sql"></param>
@@ -420,6 +469,7 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         /// <summary>
+        /// 
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
@@ -427,69 +477,22 @@ namespace JR.Cms.Web.Portal.Comm
         {
             if (context.Request.Method() == "POST")
             {
-                var rspTxt = Process(context).ToString();
+                var rspTxt = this.Process(context).ToString();
                 return context.Response.WriteAsync(rspTxt);
             }
 
             context.Response.ContentType("text/html;charset=utf-8");
             if (File.Exists(Cms.PhysicPath + "/config/install.lock"))
+            {
                 return context.Response.WriteAsync("系统已经安装成功,如需重新安装请删除:/config/install.lock");
+            }
 
-            var fi = new FileInfo(Cms.PhysicPath + "/install/install.html");
+            FileInfo fi = new FileInfo(Cms.PhysicPath + "/install/install.html");
             if (!fi.Exists) return context.Response.WriteAsync("系统丢失文件,无法启动安装向导");
             var bytes = File.ReadAllBytes(fi.FullName);
             //context.Response.ContentType("text/html;charset=utf-8");
             context.Response.WriteAsync(bytes);
             return SafetyTask.CompletedTask;
-        }
-
-
-        private enum InstallCode
-        {
-            /// <summary>
-            ///     已经安装成功
-            /// </summary>
-            INSTALLED = 0,
-
-            /// <summary>
-            ///     成功
-            /// </summary>
-            SUCCESS = 1,
-
-            /// <summary>
-            ///     无授权信息
-            /// </summary>
-            NO_LICENCE = -1,
-
-            /// <summary>
-            ///     未指定用户
-            /// </summary>
-            NO_USER = -2,
-
-            /// <summary>
-            ///     未设置站点
-            /// </summary>
-            NO_SITE_NAME = -3,
-
-            /// <summary>
-            ///     未知数据库
-            /// </summary>
-            DB_UNKNOWN = -11,
-
-            /// <summary>
-            ///     数据库错误
-            /// </summary>
-            DB_ERROR = -12,
-
-            /// <summary>
-            ///     数据库初始化错误
-            /// </summary>
-            DB_INIT_ERROR = -13,
-
-            /// <summary>
-            ///     数据库端口未设置
-            /// </summary>
-            DB_ERROR_PORT = -14
         }
     }
 }

@@ -11,13 +11,13 @@ namespace JR.Cms.Web.Manager.Handle
 {
     public class ExtendHandler : BasePage
     {
-        public void SetProperty()
-        {
-            RenderTemplate(ResourceMap.SetProperties, new
-            {
-                init = ""
-            });
-        }
+        // public void SetProperty()
+        // {
+        //     RenderTemplate(ResourceMap.SetProperties, new
+        //     {
+        //         init = ""
+        //     });
+        // }
 
         public string Fields()
         {
@@ -91,7 +91,7 @@ namespace JR.Cms.Web.Manager.Handle
             }
             catch (Exception exc)
             {
-                throw exc;
+                throw;
                 return ReturnError(exc.Message);
             }
 

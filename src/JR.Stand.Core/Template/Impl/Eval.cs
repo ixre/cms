@@ -352,7 +352,7 @@ namespace JR.Stand.Core.Template.Impl
             if (variable.Value == null) return templateHtml;
             //
             // ${obj.name};
-            // 字典方式 ${obj.data[key]}
+            // 字典方式 ${obj.data(key)}
             // 不支持的属性，默认以_开头
             // a-z下划线或中文开头
             //
@@ -392,7 +392,7 @@ namespace JR.Stand.Core.Template.Impl
                         }
                     }
                     //获取值
-                    string dictKey = m.Groups[2].Value;
+                    string dictKey = m.Groups[2].Value.Replace("\"","").Replace("'","");
                     if (propDict.ContainsKey(dictKey))
                     {
                         return propDict[dictKey];
