@@ -22,6 +22,9 @@ using JR.Stand.Core.Framework.Automation;
 
 namespace JR.Cms.Web.Manager.Handle
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SiteHandler : BasePage
     {
         /// <summary>

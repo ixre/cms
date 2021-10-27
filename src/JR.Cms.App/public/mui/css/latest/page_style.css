@@ -71,9 +71,9 @@ input.ui-box,select.ui-box{height: 2em;}
 
 
 
-input.tb_normal,select.tb_normal,textarea.tb_normal{width:200px;}
+input.tb_normal,select.tb_normal,textarea.tb_normal{width:300px;}
 
-select.tb_normal{width:200px;padding:1px 3px;overflow:hidden;
+select.tb_normal{width:300px;padding:1px 3px;overflow:hidden;
                  /*border-bottom:solid 1px #e0e0e0;border-right:solid 1px #e0e0e0;*/}
 textarea.code{font-size:14px;line-height:20px;color:black;overflow-y:auto;border:none;}
 textarea.singlerow{line-height:20px;height:20px;}
