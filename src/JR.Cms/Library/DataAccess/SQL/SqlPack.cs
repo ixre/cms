@@ -947,9 +947,10 @@ namespace JR.Cms.Library.DataAccess.SQL
         /// </summary>
         public readonly string SiteCreateSite = @"INSERT INTO $PREFIX_site(name,app_name,domain,location,tpl,language,
                                     note,seo_title,seo_keywords,seo_description,state,pro_tel,pro_phone,pro_fax,pro_address,
-                                    pro_email,pro_im,pro_post,pro_notice,pro_slogan)VALUES
+                                    pro_email,pro_im,pro_post,pro_notice,pro_slogan,seo_force_https,seo_force_redirect,alone_board)VALUES
                                     (@name,@appName,@domain,@location,@tpl,@language,@note,@seoTitle,@seoKeywords,@seoDescription,@state,
-                                    @proTel,@proPhone,@proFax,@proAddress,@proEmail,@proIm,@proPost,@proNotice,@proSlogan)";
+                                    @proTel,@proPhone,@proFax,@proAddress,@proEmail,@proIm,@proPost,@proNotice,@proSlogan,
+                                    @seoForceHttps,@seoForceRedirect,@aloneBoard)";
 
         /// <summary>
         /// 获取所有站点
@@ -964,7 +965,10 @@ namespace JR.Cms.Library.DataAccess.SQL
                                         language=@language,note=@note,seo_title=@seoTitle,seo_keywords=@seoKeywords,
                                         seo_description=@seoDescription,state=@state,pro_tel=@proTel,pro_phone=@proPhone,
                                         pro_fax=@proFax,pro_address=@proAddress,pro_email=@proEmail,pro_im=@proIm,
-                                        pro_post=@proPost,pro_notice=@proNotice,pro_slogan=@proSlogan WHERE site_id=@siteId";
+                                        pro_post=@proPost,pro_notice=@proNotice,pro_slogan=@proSlogan,
+                                         seo_force_https=@seoForceHttps,seo_force_redirect=@seoForceRedirect,
+                                         alone_board=@aloneBoard
+                                         WHERE site_id=@siteId";
 
         #endregion
 

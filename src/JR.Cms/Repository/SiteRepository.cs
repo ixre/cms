@@ -101,9 +101,12 @@ namespace JR.Cms.Repository
                         site.SeoTitle = rd["seo_title"].ToString();
                         site.SeoKeywords = rd["seo_keywords"].ToString();
                         site.SeoDescription = rd["seo_description"].ToString();
+                        site.SeoForceHttps = int.Parse(rd["seo_force_https"].ToString());
+                        site.SeoForceRedirect = int.Parse(rd["seo_force_redirect"].ToString());
                         site.ProSlogan = rd["pro_slogan"].ToString();
                         site.ProTel = rd["pro_tel"].ToString();
                         site.Language = int.Parse(rd["language"].ToString());
+                        site.AloneBoard = int.Parse(rd["alone_board"].ToString());
                         var ist = CreateSite(site);
                         RepositoryDataCache._siteDict.Add(site.SiteId, ist);
                     }

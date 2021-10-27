@@ -227,11 +227,10 @@ namespace JR.Stand.Core.Framework.Automation
                                         opt = dstr.Split('=');
                                         if (opt.Length == 2)
                                         {
-                                            String groupId = (ffa.Group + ffa.Name).GetHashCode().ToString();
-                                            String id = groupId + opt[1];
-                                            sb.Append("<input type=\"radio\" name=\"")
-                                                .Append(groupId).Append("\" value=\"").Append(opt[1]).Append("\"")
-                                                .Append(value == opt[1] ? " selected=\"selected\"" : "")
+                                            String id =  (ffa.Group + ffa.Name).GetHashCode() + opt[1];
+                                            sb.Append("<input type=\"radio\" field=\"").Append(ffa.Name).Append("\" name=\"field_")
+                                                .Append(ffa.Name).Append("\" value=\"").Append(opt[1]).Append("\"")
+                                                .Append(value == opt[1] ? " checked=\"checked\"" : "")
                                                 .Append(" id=\"").Append(id).Append("\"")
                                                 .Append("/><label for=\"")
                                                 .Append(id).Append("\">").Append(opt[0]).Append("</label>");
