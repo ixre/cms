@@ -452,11 +452,13 @@ namespace JR.Cms.Web.Manager.Handle
 
             return ReturnSuccess();
         }
-
+        
+        
         public string Locales()
         {
             return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Locale));
         }
+        
 
         public string GetLocaleJson_POST()
         {

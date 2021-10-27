@@ -52,7 +52,12 @@ namespace JR.Cms.Web.Manager
         Site_Extend_List,
         Site_Extend_Create,
         Site_Extend_Category_Check,
-
+        
+        /// <summary>
+        /// 站点变量
+        /// </summary>
+        SiteVariables,
+        
         /// <summary>
         /// 左栏导航树
         /// </summary>
