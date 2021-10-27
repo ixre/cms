@@ -17,8 +17,9 @@ cp -r ../../JR.Cms.App/install ../../JR.Cms.App/oem  \
    ../../JR.Cms.App/root .
         
 echo "setup2: building.." && \
-xbuild *.csproj /p:Configuration=Release && \
-    mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
+#xbuild *.csproj /p:Configuration=Release
+
+mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
     mkdir ${RELEASE_DIR}/templates && cp -r templates/default ${RELEASE_DIR}/templates && \
     cp -r bin public oem install plugins ${RELEASE_DIR} && \
     cp  Global.asax Web.config ${RELEASE_DIR}
