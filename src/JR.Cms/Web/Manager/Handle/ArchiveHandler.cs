@@ -761,7 +761,7 @@ namespace JR.Cms.Web.Manager.Handle
                 link_content = ""
             };
 
-            RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_Forword), data);
+            RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_Forward), data);
         }
 
         /// <summary>

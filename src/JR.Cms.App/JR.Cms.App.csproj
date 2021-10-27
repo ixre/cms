@@ -402,7 +402,7 @@
       <Content Include="public\mui\css\res\highlight-bg.jpg" />
       <Content Include="public\mui\css\res\logo_login.png" />
       <Content Include="public\mui\html\archive\archive_create.html" />
-      <Content Include="public\mui\html\archive\archive_forword.html" />
+      <Content Include="public\mui\html\archive\archive_forward.html" />
       <Content Include="public\mui\html\archive\archive_list.html" />
       <Content Include="public\mui\html\archive\archive_search.html" />
       <Content Include="public\mui\html\archive\archive_tags.html" />
@@ -440,7 +440,7 @@
       <Content Include="public\mui\html\template\template_edit_file.html" />
       <Content Include="public\mui\html\template\template_manager.html" />
       <Content Include="public\mui\html\template\template_setting.html" />
-      <Content Include="public\mui\html\user\memberList.html" />
+      <Content Include="public\mui\html\user\member_list.html" />
       <Content Include="public\mui\html\user\operationList.html" />
       <Content Include="public\mui\html\user\setPermissions.html" />
       <Content Include="public\mui\html\user\user_edit.html" />
