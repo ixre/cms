@@ -976,19 +976,19 @@ namespace JR.Cms.Library.DataAccess.SQL
         /// <summary>
         /// 创建站点变量
         /// </summary>
-        public readonly string CreateSiteVariable = @"INSERT INTO $PREFIX_site_variable(site_id,name,value,remark)
+        public readonly string CreateSiteVariable = @"INSERT INTO $PREFIX_site_variables (site_id,name,value,remark)
                                     VALUES (@siteId,@name,@value,@remark)";
 
         /// <summary>
         /// 更新站点变量
         /// </summary>
-        public readonly string UpdateSiteVariable = @"UPDATE $PREFIX_site_variable SET name=@name,
+        public readonly string UpdateSiteVariable = @"UPDATE $PREFIX_site_variables SET name=@name,
                                         value=@value,remark=@remark WHERE site_id=@siteId AND id=@id";
 
         /// <summary>
         /// 获取所有站点变量
         /// </summary>
-        public readonly string GetSiteVariables = @"SELECT * FROM $PREFIX_site_variable 
+        public readonly string GetSiteVariables = @"SELECT * FROM $PREFIX_site_variables 
                             WHERE site_id=@siteId ORDER BY id ASC";
 
 
