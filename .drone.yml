@@ -7,23 +7,9 @@ steps:
     settings:
       repo: jarry6/cms
       tags: latest
-      username: jarry6                                                                                                                                                                                            
+      username: jarry6
       password:
           from_secret: docker_password
-  - name: "compile for fx48"
-    image: jarry6/drone-mono4:latest
-    settings:
-        exec: bash ./aspnet_pack.sh
-  - name: publish
-    image: appleboy/drone-scp
-    settings:
-      host: pub.56x.net
-      username: root
-      password:
-        from_secret: server_password
-      port: 22
-      target: /data/baozhang/nginx/data/files/${DRONE_REPO_NAME}
-      source: jrcms-aspnet-latest.tar.gz
 trigger:
   branch:
     - master
