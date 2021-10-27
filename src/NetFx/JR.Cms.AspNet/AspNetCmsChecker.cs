@@ -1,6 +1,7 @@
 using System;
 using System.Web;
 using JR.Cms.Conf;
+using JR.Cms.ServiceDto;
 using JR.Cms.Web.Portal;
 using JR.Stand.Core.Web;
 
@@ -36,16 +37,25 @@ namespace JR.Cms.AspNet
         public static bool Check301Redirect(HttpContextBase context)
         {
             // 自动跳转到www开头的域名
-            if (Settings.SYS_FORCE_HTTPS || Settings.SYS_WWW_RD > 0)
+            String boardPath = "/admin";
+            if (!String.IsNullOrEmpty(Settings.SYS_ADMIN_TAG))
             {
-                var target = Utils.GetRdUrl(HttpHosting.Context.Request);
-                if (target != null)
-                {
-                    context.Response.AddHeader("Location", target);
-                    context.Response.StatusCode = 301;
-                    context.Response.End();
-                    return false;
-                }
+                boardPath = "/" + Settings.SYS_ADMIN_TAG;
+            }
+            String path = context.Request.Path;
+            if (Cms.IsStaticRequest(context.Request.Path) || path.StartsWith(boardPath))
+            {
+                return true;
+            }
+
+            SiteDto site = Cms.Context.CurrentSite;
+            var target = Utils.GetSiteRedirectUrl(HttpHosting.Context.Request,site);
+            if (target != null)
+            {
+                context.Response.AddHeader("Location", target);
+                context.Response.StatusCode = 301;
+                context.Response.End();
+                return false;
             }
             return true;
         }
