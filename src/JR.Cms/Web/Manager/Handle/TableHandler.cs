@@ -30,7 +30,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void Create()
         {
-            RenderTemplate(ResourceMap.Edittable, new
+            RenderTemplate(ResourceMap.EditTable, new
             {
                 table_id = 0,
                 name = string.Empty,
@@ -60,7 +60,7 @@ namespace JR.Cms.Web.Manager.Handle
             var tableId = int.Parse(Request.Query("table_id"));
             var table = CmsLogic.Table.GetTable(tableId);
 
-            RenderTemplate(ResourceMap.Edittable, new
+            RenderTemplate(ResourceMap.EditTable, new
             {
                 table_id = tableId,
                 name = table.Name,
@@ -190,7 +190,7 @@ namespace JR.Cms.Web.Manager.Handle
             var table = CmsLogic.Table.GetTable(tableID);
             if (table == null) return;
 
-            RenderTemplate(ResourceMap.Editcolumn, new
+            RenderTemplate(ResourceMap.EditColumn, new
             {
                 tableName = table.Name,
                 name = string.Empty,
@@ -228,7 +228,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var column = CmsLogic.Table.GetColumn(columnID);
 
-            RenderTemplate(ResourceMap.Editcolumn, new
+            RenderTemplate(ResourceMap.EditColumn, new
             {
                 tableName = table.Name,
                 name = column.Name,

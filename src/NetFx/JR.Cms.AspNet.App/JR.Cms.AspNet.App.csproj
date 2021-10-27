@@ -506,7 +506,7 @@
     <Content Include="public\mui\css\res\highlight-bg.jpg" />
     <Content Include="public\mui\css\res\logo_login.png" />
     <Content Include="public\mui\html\archive\archive_create.html" />
-    <Content Include="public\mui\html\archive\archive_forword.html" />
+    <Content Include="public\mui\html\archive\archive_forward.html" />
     <Content Include="public\mui\html\archive\archive_list.html" />
     <Content Include="public\mui\html\archive\archive_search.html" />
     <Content Include="public\mui\html\archive\archive_tags.html" />

@@ -43,7 +43,10 @@ namespace JR.Cms.Web.Manager
 
 
         App_Config,
-        Locales, //本地化
+        /// <summary>
+        /// 本地化
+        /// </summary>
+        Locale, 
         Site_Index,
         Site_Edit,
         Site_Extend_List,
@@ -75,7 +78,7 @@ namespace JR.Cms.Web.Manager
         Archive_Update,
         Archive_List,
         Archive_View,
-        Archive_Forword,
+        Archive_Forward,
         Comment_List,
 
         Archive_Tags,
@@ -194,29 +197,60 @@ namespace JR.Cms.Web.Manager
         }
 
 
-        public static string SetProperties =>GetDebugContent("archive/archive_list.html");
+        // public static string SetProperties =>GetDebugContent("archive/archive_list.html");
 
-        public static string ArchiveTagReplace => GetDebugContent("archive/archive_list.html");
-
-
-        public static string Edittable => GetDebugContent("archive/archive_list.html");
-
-        public static string Tables =>GetDebugContent("archive/archive_list.html");
-
-        public static string Columns =>GetDebugContent("archive/archive_list.html");
-
-        public static string Editcolumn =>GetDebugContent("archive/archive_list.html");
-
-        public static string Rows => GetDebugContent("archive/archive_list.html");
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string ArchiveTagReplace => GetDebugContent("archive/archive_tags.html");
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string EditTable => GetDebugContent("table/edit_table.html");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string Tables =>GetDebugContent("table/tables.html");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string Columns =>GetDebugContent("table/columns.html");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string EditColumn =>GetDebugContent("table/edit_column.html");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string Rows => GetDebugContent("table/rows.html");
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static string MemberList => GetDebugContent("user/member_list.html");
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string RightText =>GetDebugContent("archive/archive_list.html");
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string ErrorText =>GetDebugContent("archive/archive_list.html");
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static string GetBoardMenu()
         {
             var path = Cms.BuildOEM.SelectNodeValuePath("/keys/item[@key='board_set']");

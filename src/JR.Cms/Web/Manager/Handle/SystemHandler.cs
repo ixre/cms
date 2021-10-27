@@ -455,7 +455,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public string Locales()
         {
-            return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Locales));
+            return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Locale));
         }
 
         public string GetLocaleJson_POST()

@@ -34,7 +34,7 @@
     <item key="Archive_Update" value="mui/html/archive/archive_update.html"/>
     <item key="Archive_List" value="mui/html/archive/archive_list.html"/>
     <item key="Archive_View" value="mui/html/archive/archive_view.html"/>
-    <item key="Archive_Forword" value="mui/html/archive/archive_forword.html"/>
+    <item key="Archive_Forward" value="mui/html/archive/archive_forward.html"/>
     <item key="Comment_List" value="mui/html/archive/comment_list.html"/>
     <item key="Archive_Search" value="mui/html/archive/archive_search.html"/>
     <item key="Archive_Tags" value="mui/html/archive/archive_tags.html"/>
