@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using JR.Cms.Domain.Interface;
 using JR.Cms.Domain.Interface.Site.Link;
+using JR.Cms.Domain.Interface.Site.Variable;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Infrastructure.Tree;
 using JR.Cms.Infrastructure;
+using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 using ExtendFieldDto = JR.Cms.ServiceDto.ExtendFieldDto;
@@ -239,5 +241,26 @@ namespace JR.Cms.ServiceContract
         /// <param name="id"></param>
         /// <param name="direction"></param>
         void MoveCategorySortNumber(int siteId, int id, int direction);
+
+        /// <summary>
+        /// 保存站点变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="dto"></param>
+        void SaveSiteVariable(int siteId, SiteVariableDto dto);
+
+        /// <summary>
+        /// 删除站点变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="varId"></param>
+        void DeleteSiteVariable(int siteId, int varId);
+        
+        /// <summary>
+        /// 获取站点变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        IList<SiteVariableDto> GetSiteVariables(int siteId);
     }
 }

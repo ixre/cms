@@ -972,6 +972,28 @@ namespace JR.Cms.Library.DataAccess.SQL
 
         #endregion
 
+        #region 站点变量
+        /// <summary>
+        /// 创建站点变量
+        /// </summary>
+        public readonly string CreateSiteVariable = @"INSERT INTO $PREFIX_site_variable(site_id,name,value,remark)
+                                    VALUES (@siteId,@name,@value,@remark)";
+
+        /// <summary>
+        /// 更新站点变量
+        /// </summary>
+        public readonly string UpdateSiteVariable = @"UPDATE $PREFIX_site_variable SET name=@name,
+                                        value=@value,remark=@remark WHERE site_id=@siteId AND id=@id";
+
+        /// <summary>
+        /// 获取所有站点变量
+        /// </summary>
+        public readonly string GetSiteVariables = @"SELECT * FROM $PREFIX_site_variable 
+                            WHERE site_id=@siteId ORDER BY id ASC";
+
+
+        #endregion
+
         public readonly string Link_RemoveRelatedLinks = @"DELETE FROM $PREFIX_related_link
                         WHERE content_type = @contentType AND content_id = @contentId
                         AND id in ({0})

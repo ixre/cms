@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Site.Link;
+using JR.Cms.Domain.Interface.Site.Variable;
 
 namespace JR.Cms.Domain.Interface.Site
 {
@@ -53,5 +54,26 @@ namespace JR.Cms.Domain.Interface.Site
         ISiteLink GetSiteLinkById(int siteId, int linkId);
 
         IEnumerable<ISiteLink> GetSiteLinks(int siteId, SiteLinkType type);
+        
+        /// <summary>
+        /// 保存变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="siteVariable"></param>
+        void SaveSiteVariable(int siteId, SiteVariable siteVariable);
+        
+        /// <summary>
+        /// 删除变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="varId"></param>
+        void DeleteSiteVariable(int siteId, int varId);
+        
+        /// <summary>
+        /// 获取所有的变量
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        IList<SiteVariable> GetSiteVariables(int siteId);
     }
 }
