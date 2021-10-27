@@ -15,10 +15,12 @@
 
 using System;
 using System.Text.RegularExpressions;
+using JR.Cms.Domain.Site;
 using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Stand.Core.Framework.Automation;
+using Newtonsoft.Json;
 
 namespace JR.Cms.Web.Manager.Handle
 {
@@ -142,6 +144,80 @@ namespace JR.Cms.Web.Manager.Handle
             //   return base.ReturnError(exc.Message);
             //  }
             return ReturnSuccess(siteIsExist ? "站点保存成功" : "站点创建成功");
+        }
+        
+        
+        /// <summary>
+        /// 站点变量
+        /// </summary>
+        /// <returns></returns>
+        public string Variables()
+        {
+            return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.SiteVariables));
+        }
+
+        
+        public string GetVariablesJson_POST()
+        {
+            var list = ServiceCall.Instance.SiteService.GetSiteVariables(base.SiteId);
+            return JsonConvert.SerializeObject(list);
+        }
+
+        public string CreateVariable_POST()
+        {
+            string key = Request.Form("key");
+            try
+            {
+                ServiceCall.Instance.SiteService.SaveSiteVariable(SiteId,
+                    new SiteVariableDto
+                    {
+                        Name = key,
+                        Value = "",
+                        Remark = ""
+                    });
+            }
+            catch (Exception exc)
+            {
+                return ReturnError(exc.Message);
+            }
+
+            return ReturnSuccess("");
+        }
+
+        public string DeleteVarible_POST()
+        {
+            int varId = int.Parse(Request.Form("id"));
+            try
+            {
+                ServiceCall.Instance.SiteService.DeleteSiteVariable(SiteId,varId);
+            }
+            catch (Exception exc)
+            {
+                return ReturnError(exc.Message);
+            }
+
+            return ReturnSuccess("");
+        }
+
+        public string SaveVariable_POST()
+        {
+            try
+            {
+                SiteVariableDto dto = new SiteVariableDto
+                {
+                    Id = int.Parse(Request.Form("id")),
+                    Name = Request.Form("name"),
+                    Value = Request.Form("value"),
+                    Remark = Request.Form("remark")
+                };
+                ServiceCall.Instance.SiteService.SaveSiteVariable(SiteId,dto);
+            }
+            catch (Exception exc)
+            {
+                return ReturnError(exc.Message);
+            }
+
+            return ReturnSuccess("");
         }
     }
 }

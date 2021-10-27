@@ -43,6 +43,10 @@
         <link href="/$prefix/dpicker?action=createproject" text="新建项目" title="" siteid="-1"/>
         <link href="/$prefix/dpicker?action=list" text="采集项目" title="" siteid="-1"/>
       </links>
+
+      <links title="站点设置" toggle="true" iconPos="-168|0">
+        <link href="?module=site&amp;action=variables" text="变量设置" title="" siteid="-1"/>
+      </links>
       
     </bar>
 

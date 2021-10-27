@@ -16,6 +16,7 @@
     <item key="Site_Extend_List" value="mui/html/site/extend/extend.list.html"/>
     <item key="Site_Extend_Create" value="mui/html/site/extend/extend.create.html"/>
     <item key="Site_Extend_Category_Check" value="mui/html/site/extend/extend.category_check.html"/>
+    <item key="SiteVariables" value="mui/html/site/site.variable.html"/>
     <item key="Link_List" value="mui/html/link/link_list.html"/>
     <item key="Link_Edit" value="mui/html/link/link_edit.html"/>
     <item key="Link_Edit_Navigator" value="mui/html/link/link_edit_navigator.html"/>
