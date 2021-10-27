@@ -16,8 +16,6 @@ rm -rf out && mkdir -p ${RELEASE_DIR} && \
     rm -rf *.pdb *.xml appsettings.json appsettings.Development.json && \
     cp ../../LICENSE ../../README.md . && \
     tar czf ../../jrcms-latest.tar.gz *
-    
-echo "package finished!"
-    
 
-    
+echo "package finished!"
+
