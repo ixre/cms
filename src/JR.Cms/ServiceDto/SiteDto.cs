@@ -23,7 +23,7 @@ namespace JR.Cms.ServiceDto
         /// <summary>
         /// 从站点领域对象转换成为数据传输对象
         /// </summary>
-        /// <param name="site"></param>
+        /// <param name="ist"></param>
         /// <returns></returns>
         public static SiteDto ConvertFromSite(ISite ist)
         {
@@ -41,6 +41,7 @@ namespace JR.Cms.ServiceDto
                 ProPost = site.ProPost,
                 Name = site.Name,
                 Note = site.Note,
+                AloneBoard = site.AloneBoard,
                 ProNotice = site.ProNotice,
                 ProPhone = site.ProPhone,
                 ProIm = site.ProIm,
@@ -48,6 +49,8 @@ namespace JR.Cms.ServiceDto
                 SeoDescription = site.SeoDescription,
                 SeoKeywords = site.SeoKeywords,
                 SeoTitle = site.SeoTitle,
+                SeoForceHttps = site.SeoForceHttps,
+                SeoForceRedirect = site.SeoForceRedirect,
                 SiteId = site.SiteId,
                 ProSlogan = site.ProSlogan,
                 State = ist.State(),
@@ -70,11 +73,14 @@ namespace JR.Cms.ServiceDto
             site.Language = (int) dto.Language;
             site.ProPost = dto.ProPost.Trim();
             site.Note = dto.Note.Trim();
+            site.AloneBoard = dto.AloneBoard;
             site.ProNotice = dto.ProNotice.Trim();
             site.ProPhone = dto.ProPhone.Trim();
             site.ProIm = dto.ProIm;
             site.SeoDescription = dto.SeoDescription;
             site.SeoKeywords = dto.SeoKeywords;
+            site.SeoForceHttps = dto.SeoForceHttps;
+            site.SeoForceRedirect = dto.SeoForceRedirect;
             site.SeoTitle = dto.SeoTitle;
             site.ProSlogan = dto.ProSlogan;
             site.State = (int) dto.State;
@@ -148,6 +154,15 @@ namespace JR.Cms.ServiceDto
         [SelectField(UseDrop = true, Data = "正常(Normal)=1;暂停访问(Paused)=2;关闭(Stopped)=3")]
         public SiteState State { get; set; }
 
+        
+        /// <summary>
+        /// 独立面板
+        /// </summary>
+        [FormField("AloneBoard", Group = "basic", Text = "独立管理面板",
+            Description = "开启单独管理后台")]
+        [SelectField(Data = "关闭=0")]
+        public int AloneBoard { get; set; }
+        
         /// <summary>
         /// 电话
         /// </summary>
@@ -215,7 +230,7 @@ namespace JR.Cms.ServiceDto
         [FormField("SeoForceHttps", Group = "seo", Text = "强制HTTPS",
             Description = "强制仅启用HTTPS,普通访问将跳转到HTTPS")]
         [SelectField(Data = "关闭=0;开启=1;")]
-        public string SeoForceHttps { get; set; }
+        public int SeoForceHttps { get; set; }
         
         /// <summary>
         /// 强制定向
@@ -223,7 +238,7 @@ namespace JR.Cms.ServiceDto
         [FormField("SeoForceRedirect", Group = "seo", Text = "强制定向",
             Description = "强制仅启用HTTPS,普通访问将跳转到HTTPS")]
         [SelectField(Data = "关闭=0;定向到二级域名(www)=1;二级(www)定向到顶级域名=2")]
-        public string SeoForceRedirect { get; set; }
+        public int SeoForceRedirect { get; set; }
         
         /// <summary>
         /// SEO标题

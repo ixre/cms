@@ -184,12 +184,11 @@ namespace JR.Stand.Core.Framework.Extensions
             }
 
             PropertyInfo[] pros = type.GetProperties();
-            string value;
 
             foreach (PropertyInfo pro in pros)
             {
                 if (!pro.CanWrite) continue;
-                value = form[pro.Name];
+                string value = form[pro.Name];
 
                 //获取值
                 if (value == null)
@@ -200,11 +199,10 @@ namespace JR.Stand.Core.Framework.Extensions
 
 
                 proType = pro.PropertyType;
-                object obj;
 
                 try
                 {
-                    obj = GetPropertyValue<T>(pro, strType, bitType, proType, value);
+                    var obj = GetPropertyValue<T>(pro, strType, bitType, proType, value);
                     if (obj != null)
                     {
                         pro.SetValue(t, obj, null);

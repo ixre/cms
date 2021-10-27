@@ -31,6 +31,9 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@proPost", site.ProPost);
             data.Add("@proNotice", site.ProNotice);
             data.Add("@proSlogan", site.ProSlogan);
+            data.Add("@seoForceHttps",site.SeoForceHttps);
+            data.Add("@seoForceRedirect",site.SeoForceRedirect);
+            data.Add("@aloneBoard",site.AloneBoard);
             ExecuteNonQuery(CreateQuery(DbSql.SiteCreateSite, data));
             return int.Parse(ExecuteScalar(NewQuery(
                 "SELECT MAX(site_id) FROM $PREFIX_site", null)).ToString());
@@ -67,6 +70,9 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@proNotice", site.ProNotice);
             data.Add("@proSlogan", site.ProSlogan);
             data.Add("@siteId", site.SiteId);
+            data.Add("@seoForceHttps",site.SeoForceHttps);
+            data.Add("@seoForceRedirect",site.SeoForceRedirect);
+            data.Add("@aloneBoard",site.AloneBoard);
             return ExecuteNonQuery(NewQuery(DbSql.SiteEditSite, Db.GetDialect().ParseParameters(data)));
         }
 
