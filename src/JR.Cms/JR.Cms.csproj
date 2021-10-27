@@ -41,7 +41,7 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
       <PackageReference Include="p3-sharpcompress" Version="0.10.5.2" />
       <PackageReference Include="structuremap" Version="4.7.1" />
-      <PackageReference Include="System.Resources.Extensions" Version="4.7.0" />
+      <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
