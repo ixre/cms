@@ -98,6 +98,22 @@ LOCK TABLES `cms_category` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cms_site_variables`
+--
+DROP TABLE IF EXISTS `cms_site_variables`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cms_site_variables` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `site_id` int(11) NOT NULL DEFAULT 0 COMMENT '站点编号',
+  `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+  `value` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '值',
+  `remark` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='站点变量';
+
+
+--
 -- Table structure for table `cms_category_extend`
 --
 
