@@ -32,6 +32,9 @@
       <Compile Remove="_old\**" />
       <Compile Remove="Component\Crawl\PickerTestWeb\**" />
       <Compile Remove="WebImpl\Resource\SiteResource.Designer.cs" />
+      <Compile Remove="Web\Job\**" />
+      <Compile Remove="Web\SiteMap\**" />
+      <Compile Remove="Web\Util\SiteMapUtils.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -76,6 +79,10 @@
       <None Remove="WebImpl\Resource\Static\SiteResouce\assets\wow.js" />
       <None Remove="WebImpl\Resource\Static\SiteResouce\base.min.js" />
       <None Remove="Web\Resource\SiteResources\jslib\js_lib_scroller.js" />
+      <EmbeddedResource Remove="Web\Job\**" />
+      <None Remove="Web\Job\**" />
+      <EmbeddedResource Remove="Web\SiteMap\**" />
+      <None Remove="Web\SiteMap\**" />
     </ItemGroup>
 
     <ItemGroup>
