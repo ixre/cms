@@ -5,6 +5,7 @@
 // Create:2013/09/05
 //
 
+using JR.Stand.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -406,7 +407,7 @@ namespace JR.Stand.Core.Template.Impl
                     string dictKey = m.Groups[2].Value.Replace("\"","").Replace("'","");
                     if (propDict.ContainsKey(dictKey))
                     {
-                        return propDict[dictKey];
+                        return propDict[dictKey].EmptyElse(defaultValue);
                     }
                     return defaultValue; //字典不存在值
                 }
@@ -415,7 +416,9 @@ namespace JR.Stand.Core.Template.Impl
                 // 普通属性
                 if (pro != null)
                 {
-                    return (pro.GetValue(variable.Value, null) ?? defaultValue).ToString();
+                    Object obj = pro.GetValue(variable.Value, null);
+                    if (obj == null) return defaultValue;
+                    return obj.ToString().EmptyElse(defaultValue);
                 }
                 string message = "";
                 int i = 0;
