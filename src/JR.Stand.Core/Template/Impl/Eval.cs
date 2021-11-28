@@ -352,11 +352,19 @@ namespace JR.Stand.Core.Template.Impl
             if (variable.Value == null) return templateHtml;
             //
             // ${obj.name};
-            // 字典方式 ${obj.data(key)}
+            // 字典方式:
+            // ${obj.data(key)}
+            //
+            // 字典方式获取，如果为空，使用默认值：
+            //   ${obj.data(key) | default }
+            //
             // 不支持的属性，默认以_开头
             // a-z下划线或中文开头
             //
-            string keyPattern = "\\$\\{" + variable.Key + "\\.([A-Z_a-z\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5]*|data\\(([^\\]]+)\\))\\}";
+            string keyPattern = "\\$\\{" + variable.Key 
+                + "\\.([A-Z_a-z\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5]*|data\\(([^\\)]+)\\))"+
+                "\\s*(\\|([^}]+)\\s)*"+
+                "\\}";
             string proName;
             PropertyInfo pro;
             IDictionary<string, string> propDict = null;
@@ -365,6 +373,9 @@ namespace JR.Stand.Core.Template.Impl
                 proName = m.Groups[1].Value;
                 if (proName.StartsWith("data(")) proName = "data";
                 string key = variable.Type.FullName + ":" + variable.Key + "$" + proName;
+                // 获取${obj.data(key) | default }表达式中，default部分的默认值
+                String defaultValue = m.Groups[4].Value ?? "";
+                // 尝试获取属性
                 if (PropertiesMap.ContainsKey(key))
                 {
                     pro = PropertiesMap[key];
@@ -397,14 +408,14 @@ namespace JR.Stand.Core.Template.Impl
                     {
                         return propDict[dictKey];
                     }
-                    return String.Empty; //字典不存在值
+                    return defaultValue; //字典不存在值
                 }
                 #endregion
 
                 // 普通属性
                 if (pro != null)
                 {
-                    return (pro.GetValue(variable.Value, null) ?? "").ToString();
+                    return (pro.GetValue(variable.Value, null) ?? defaultValue).ToString();
                 }
                 string message = "";
                 int i = 0;
