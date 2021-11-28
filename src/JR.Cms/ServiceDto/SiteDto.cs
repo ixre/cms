@@ -236,8 +236,8 @@ namespace JR.Cms.ServiceDto
         /// 强制定向
         /// </summary>
         [FormField("SeoForceRedirect", Group = "seo", Text = "强制定向",
-            Description = "强制仅启用HTTPS,普通访问将跳转到HTTPS")]
-        [SelectField(Data = "关闭=0;定向到二级域名(www)=1;二级(www)定向到顶级域名=2")]
+            Description = "")]
+        [SelectField(Data = "关闭=0;定向www.域名=1;定向到顶级域名=2")]
         public int SeoForceRedirect { get; set; }
         
         /// <summary>
