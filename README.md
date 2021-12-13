@@ -85,7 +85,8 @@ mkdir /data/cms && cd /data/cms
 
 2. 运行容器：
 ```
-docker run -d  --name cms -p 8080:80 \
+podman='podman';if [ $(whereis podman) = 'podman:' ]; then podman='docker';fi
+$podman run -d  --name cms -p 8080:80 \
     --volume=$(pwd)/config:/cms/config \
     --volume=$(pwd)/data:/cms/data \
     --volume=$(pwd)/templates:/cms/templates \
