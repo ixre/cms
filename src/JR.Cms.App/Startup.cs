@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace JR.Cms.App
 {
@@ -39,8 +40,10 @@ namespace JR.Cms.App
             // 启动异步IO
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
-            // 使用MVC并添加Session支持
-            services.AddControllers().AddSessionStateTempDataProvider();
+            // 使用MVC并添加Session,NewtonJson支持
+            services.AddControllers()
+                .AddSessionStateTempDataProvider()
+                .AddNewtonsoftJson();
             // GZIP
             services.Configure<GzipCompressionProviderOptions>(options =>
                 options.Level = System.IO.Compression.CompressionLevel.Fastest);

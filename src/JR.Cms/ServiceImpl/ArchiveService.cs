@@ -91,6 +91,7 @@ namespace JR.Cms.ServiceImpl
             {
                 r.Data = new Dictionary<string, string>
                 {
+                    {"Path",ia.Get().Path},
                     {"ArchiveId", ia.GetAggregateRootId().ToString()},
                     {"Alias",ia.Get().Alias}
                 };

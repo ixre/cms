@@ -23,7 +23,7 @@ namespace JR.Cms.UnitTest
             var temp = @"
 $lang(home) 
 $navigator()
-${archive.map(视频)}
+${archive.map(视频) }
      <div>
               $categories('prod\,uct',{
                     <div class=""col-md-3 col-lg-2 col-sm-4"">
@@ -45,6 +45,27 @@ ${archive.map(视频)}
             var content = tp.Compile();
             Console.WriteLine(content);
         }
+
+        [Test]
+        public void TestVariableDefaultValue()
+        {
+            var temp = @"视频:${archive.data(视频)} \n
+地址:${archive.data(地址) | 无地址 }";
+            IDataContainer dc = new NormalDataContainer();
+            TemplatePage tp = new TemplatePage(dc);
+            tp.TemplateHandleObject = new TemplateMock();
+            tp.OnPreInit += TemplateMock.CompliedTemplate;
+            tp.OnBeforeCompile += (TemplatePage page, ref String content) =>
+            {
+                var pageArchive = new PageArchive(new ArchiveDto());
+                pageArchive.AddData("视频", "<video/>");
+                page.AddVariable("archive", pageArchive);
+            };
+            tp.SetTemplateContent(temp);
+            var content = tp.Compile();
+            Console.WriteLine(content);
+        }
+
         [Test]
         public void TestVariable()
         {
