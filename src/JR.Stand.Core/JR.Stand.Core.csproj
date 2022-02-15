@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="JWT" Version="9.0.0-beta1" />
       <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
       <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
@@ -53,6 +54,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\JR.Stand.Abstractions\JR.Stand.Abstractions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Framework\Security\Jwt" />
     </ItemGroup>
 
 </Project>
