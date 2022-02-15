@@ -28,6 +28,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         public PageArchive(ArchiveDto archive)
         {
             Archive = archive;
+            _dict = new Dictionary<string, string>();
         }
 
         private static string FormatUrl(UrlRulePageKeys key, string[] dataArray)
