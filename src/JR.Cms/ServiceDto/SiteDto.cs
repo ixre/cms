@@ -222,8 +222,7 @@ namespace JR.Cms.ServiceDto
         /// 运行类型
         /// </summary>
         public int RunType { get; set; }
-        
-        
+
         /// <summary>
         /// 强制使用HTTPS
         /// </summary>
