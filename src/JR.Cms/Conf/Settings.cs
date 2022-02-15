@@ -98,6 +98,10 @@ namespace JR.Cms.Conf
         /// </summary>
         public static bool SYS_ENCODE_CONF_FILE = false;
 
+        /// <summary>
+        /// 开放接口私钥
+        /// </summary>
+        public static String SYS_PRIVATE_KEY = "";
 
         #region 模板相关
         /// <summary>

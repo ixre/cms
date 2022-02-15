@@ -94,8 +94,11 @@ namespace JR.Stand.Core.Framework.Api
             dict.Add("sign_type", this._signType);
             String sign = this.Sign(this._signType,dict, this._secret);
             dict.Add("sign", sign);
-            byte[] data = Encoding.UTF8.GetBytes(HttpClient.ParseQuery(dict));
-            return HttpClient.Request(this._apiUrl, "POST", data, null, 0);
+            HttpRequestParam p = new HttpRequestParam
+            {
+                Form = dict
+            };
+            return HttpClient.Request(this._apiUrl, "POST",p );
         }
 
 
