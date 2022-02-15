@@ -8,7 +8,7 @@
 
 
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 ENV RELEASE_DIR /app/out/release
 WORKDIR /app
 COPY . ./
@@ -30,7 +30,7 @@ LABEL License="GPLv2"
 LABEL Version=4.0
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 ENV CMS_RUN_ON_DOCKER yes
 WORKDIR /cms
 COPY --from=build-env /app/out/release ./
