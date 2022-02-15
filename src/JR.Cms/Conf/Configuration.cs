@@ -19,6 +19,7 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheService;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.IO;
+using JR.Stand.Core.Framework.Security;
 
 namespace JR.Cms.Conf
 {
@@ -147,7 +148,16 @@ namespace JR.Cms.Conf
                 settingChanged = true;
             }
 
-
+            // 初始化私钥
+            String privateKey = sf.Contains("sys_private_key")? sf.Get("sys_private_key"):"";
+            if (String.IsNullOrEmpty(privateKey))
+            {
+                var pair = RSA.GenRSAKeyPair("");
+                privateKey = pair.PrivateKey;
+                sf.Set("sys_private_key", privateKey);
+                settingChanged = true;
+            }
+            Settings.SYS_PRIVATE_KEY = privateKey;
 
             if (sf.Contains("sys_encode_conf"))
             {
