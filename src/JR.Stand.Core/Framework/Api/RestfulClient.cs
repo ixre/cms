@@ -51,11 +51,10 @@ namespace JR.Stand.Core.Framework.Api
         }
 
 
-        public Response<T> Request<T>(String path,String method, Object data)
+        public T Request<T>(String path,String method, Object data)
         {
             String rspText = this.Request(path,method, data);
-            Response<T> rsp = JsonSerializer.DeserializeObject<Response<T>>(rspText);
-            return rsp;
+            return JsonSerializer.DeserializeObject<T>(rspText);
         }
     }
 }

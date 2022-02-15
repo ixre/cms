@@ -76,7 +76,7 @@ namespace JR.Stand.Core.Framework.Net
                 req.CookieContainer = new CookieContainer();
                 req.CookieContainer.Add(o.Cookies);
             }
-
+            
             Byte[] data = null;
             if (req.Method != "HEAD" && req.Method != "GET")
             {
