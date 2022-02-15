@@ -129,9 +129,10 @@ namespace JR.Cms.Web.Api
 
             Dictionary<string, string> dict = (ret.Data as Dictionary<string, string>) ??
                                               new Dictionary<string, string>();
+            String path = dict["Path"];
             return new ArchivePostResultDto
             {
-                Url = dict["Path"],
+                Url = path,
             };
         }
     }
