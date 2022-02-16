@@ -101,7 +101,7 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 开放接口私钥
         /// </summary>
-        public static String SYS_PRIVATE_KEY = "";
+        public static String SYS_RSA_KEY = "";
 
         #region 模板相关
         /// <summary>
