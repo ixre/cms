@@ -21,14 +21,6 @@ namespace JR.Cms.Web.Portal.Controllers
         /// </summary>
         public Task Index(HttpContext context)
         {
-           Error err = ServiceCall.Instance.ContentService.SaveTag(new SiteWord
-            {
-                Id = 0,
-                Word = "软件",
-                Url = "#",
-                Title = ""
-            });
-           var list = ServiceCall.Instance.ContentService.GetTags();
             return portal.Index(HttpHosting.Context);
         }
         
