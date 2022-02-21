@@ -80,7 +80,7 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// <returns></returns>
         protected string OptimizeSql(string sql)
         {
-            return SqlQueryHelper.OptimizeSql(sql);
+            return SqlQueryHelper.SqlFormat(sql);
         }
 
         /// <summary>

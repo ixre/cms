@@ -21,7 +21,7 @@ using JR.Cms.Library.Utility;
 using JR.Stand.Core;
 using JR.Stand.Core.Framework;
 using Newtonsoft.Json;
-using SharpCompress.Archive;
+using SharpCompress.Archives;
 using SharpCompress.Common;
 
 namespace JR.Cms.Web.Manager.Handle
@@ -440,7 +440,12 @@ namespace JR.Cms.Web.Manager.Handle
                 }
 
                 if (!entry.IsDirectory)
-                    entry.WriteToDirectory(tplRootPath, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                    entry.WriteToDirectory(tplRootPath,  new ExtractionOptions
+                    {
+                        ExtractFullPath=true,
+                        Overwrite=true,
+                        
+                    });
             }
 
             if (entryCount == 0)

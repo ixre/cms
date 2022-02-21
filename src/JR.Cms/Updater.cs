@@ -7,7 +7,7 @@ using System.Xml;
 using JR.Cms.Conf;
 using JR.Cms.Infrastructure;
 using JR.Stand.Core;
-using SharpCompress.Archive;
+using SharpCompress.Archives;
 using SharpCompress.Common;
 
 namespace JR.Cms
@@ -298,7 +298,11 @@ namespace JR.Cms
                     {
                         try
                         {
-                            entry.WriteToDirectory(dir.FullName, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                            entry.WriteToDirectory(dir.FullName, new ExtractionOptions
+                            {
+                                ExtractFullPath = true,
+                                Overwrite=true,
+                            });
                         }
                         catch (Exception exc)
                         {
@@ -430,7 +434,11 @@ namespace JR.Cms
                 {
                     if (!entry.IsDirectory)
                     {
-                        entry.WriteToDirectory(dir.FullName, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                        entry.WriteToDirectory(dir.FullName,  new ExtractionOptions
+                        {
+                            ExtractFullPath = true,
+                            Overwrite=true,
+                        });
                     }
                 }
 
