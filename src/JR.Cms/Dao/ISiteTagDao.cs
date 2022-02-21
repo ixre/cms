@@ -13,20 +13,20 @@ namespace JR.Cms.Dao
         /// 获取所有的标签,并排序
         /// </summary>
         /// <returns></returns>
-        List<SiteTag> GetTags();
+        List<SiteWord> GetTags();
 
         /// <summary>
         /// 保存标签
         /// </summary>
-        /// <param name="tag"></param>
+        /// <param name="word"></param>
         /// <returns></returns>
-        Error SaveTag(SiteTag tag);
+        Error SaveTag(SiteWord word);
 
         /// <summary>
         /// 删除标签
         /// </summary>
-        /// <param name="tag"></param>
+        /// <param name="word"></param>
         /// <returns></returns>
-        Error DeleteTag(SiteTag tag);
+        Error DeleteTag(SiteWord word);
     }
 }

@@ -4,7 +4,7 @@ namespace JR.Cms.Domain.Interface.Models
     /// <summary>
     /// 站内标签
     /// </summary>
-    public class SiteTag
+    public class SiteWord
     {
         /// <summary>
         /// ID
@@ -14,7 +14,7 @@ namespace JR.Cms.Domain.Interface.Models
         /// <summary>
         /// 标签名称
         /// </summary>
-        public string Tag { get; set; }
+        public string Word { get; set; }
         
         /// <summary>
         /// 链接地址
@@ -24,6 +24,6 @@ namespace JR.Cms.Domain.Interface.Models
         /// <summary>
         /// 描述
         /// </summary>
-        public string Description { get; set; }
+        public string Title { get; set; }
     }
 }

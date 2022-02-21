@@ -20,8 +20,8 @@ namespace JR.Cms.ServiceImpl
         private readonly ISiteRepo _siteRep;
         private readonly ISiteTagDao _tagDao;
 
-        private IList<SiteTag> _tags;
-        private IDictionary<String, SiteTag> _tagsDict;
+        private IList<SiteWord> _tags;
+        private IDictionary<String, SiteWord> _tagsDict;
 
         /// <summary>
         /// 
@@ -155,18 +155,18 @@ namespace JR.Cms.ServiceImpl
         /// 
         /// </summary>
         /// <returns></returns>
-        public IList<SiteTag> GetTags()
+        public IList<SiteWord> GetTags()
         {
             if (this._tags == null)
             {
-                List<SiteTag> list = this._tagDao.GetTags();
-                list.Sort((a, b) => b.Tag.Length - a.Tag.Length);
-                this._tags = new List<SiteTag>();
-                this._tagsDict = new Dictionary<string, SiteTag>();
+                List<SiteWord> list = this._tagDao.GetTags();
+                list.Sort((a, b) => b.Word.Length - a.Word.Length);
+                this._tags = new List<SiteWord>();
+                this._tagsDict = new Dictionary<string, SiteWord>();
                 foreach (var it in list)
                 {
                     this._tags.Add(it);
-                    this._tagsDict.Add(it.Tag, it);
+                    this._tagsDict.Add(it.Word, it);
                 }
             }
 
@@ -176,11 +176,11 @@ namespace JR.Cms.ServiceImpl
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="tag"></param>
+        /// <param name="word"></param>
         /// <returns></returns>
-        public Error SaveTag(SiteTag tag)
+        public Error SaveTag(SiteWord word)
         {
-            Error err = this._tagDao.SaveTag(tag);
+            Error err = this._tagDao.SaveTag(word);
             if (err == null)
             {
                 this._tags = null;
@@ -193,11 +193,11 @@ namespace JR.Cms.ServiceImpl
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="tag"></param>
+        /// <param name="word"></param>
         /// <returns></returns>
-        public Error DeleteTag(SiteTag tag)
+        public Error DeleteTag(SiteWord word)
         {
-            Error err = this._tagDao.DeleteTag(tag);
+            Error err = this._tagDao.DeleteTag(word);
             if (err == null)
             {
                 this._tags = null;
