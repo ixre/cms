@@ -1,23 +1,29 @@
 using System.Collections.Generic;
-using JR.Cms.Core.Hibernate;
+using System.Data;
+using Dapper;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Infrastructure;
-using NHibernate;
+using JR.Cms.Library.DataAccess.DAL;
+using JR.Cms.Library.DataAccess.DB;
 
 namespace JR.Cms.Dao.Impl
 {
     /// <summary>
     /// 
     /// </summary>
-    public class SiteTagDaoImpl:BaseDatabaseSession,ISiteTagDao
+    public class SiteTagDaoImpl:ISiteTagDao
     {
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public List<SiteTag> GetTags()
         {
-            throw new System.NotImplementedException();
+            using (IDbConnection db = CmsDataBase.Instance.GetDialect().GetConnection())
+            {
+                return db.Query<SiteTag>(SqlQueryHelper.SqlFormat("SELECT * FROM $PREFIX_site_tag")).AsList();
+            }
         }
 
         /// <summary>
@@ -44,7 +50,7 @@ namespace JR.Cms.Dao.Impl
         /// 
         /// </summary>
         /// <param name="factory"></param>
-        public SiteTagDaoImpl(ISessionFactory factory) : base(factory)
+        public SiteTagDaoImpl()
         {
         }
     }

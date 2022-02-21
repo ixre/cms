@@ -2,7 +2,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using Settings = JR.Cms.Conf.Settings;
 
-namespace JR.Cms.Dao
+namespace JR.Cms.Core.Hibernate
 {
     /// <summary>
     /// HBN数据源
@@ -17,14 +17,5 @@ namespace JR.Cms.Dao
                     .DataBaseIntegration(db => { db.ConnectionString = Settings.DB_CONN; })
                     .BuildSessionFactory();
         }
-
-        public ISession GetSession()
-        {
-            if (_sessionFactory == null)
-            {
-                _sessionFactory = this.GetSessionFactory();
-            }
-            return _sessionFactory.OpenSession();
-        } 
     }
 }
