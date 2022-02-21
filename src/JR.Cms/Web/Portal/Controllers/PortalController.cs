@@ -1,4 +1,7 @@
 using System.Threading.Tasks;
+using JR.Cms.Domain.Interface.Models;
+using JR.Cms.Infrastructure;
+using JR.Cms.Library.CacheService;
 using JR.Cms.Web.Portal.Comm;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +21,14 @@ namespace JR.Cms.Web.Portal.Controllers
         /// </summary>
         public Task Index(HttpContext context)
         {
+           Error err = ServiceCall.Instance.ContentService.SaveTag(new SiteWord
+            {
+                Id = 0,
+                Word = "软件",
+                Url = "#",
+                Title = ""
+            });
+           var list = ServiceCall.Instance.ContentService.GetTags();
             return portal.Index(HttpHosting.Context);
         }
         

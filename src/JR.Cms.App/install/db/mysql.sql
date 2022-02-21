@@ -753,6 +753,20 @@ LOCK TABLES `cms_usergroup` WRITE;
 /*!40000 ALTER TABLE `cms_usergroup` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cms_usergroup` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+--
+-- Dumping data for table `cms_site_word`
+--
+DROP TABLE IF EXISTS `cms_site_word`;
+CREATE TABLE cms.cms_site_word (
+   id BIGINT AUTO_INCREMENT NOT NULL COMMENT '编号',
+   word varchar(20) NOT NULL COMMENT '关键词',
+   url varchar(180) NOT NULL COMMENT '链接地址',
+   title varchar(120) NOT NULL COMMENT '描述',
+   PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='站内关键词';
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
