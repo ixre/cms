@@ -1,4 +1,6 @@
 ﻿using System;
+using JR.Cms.Dao;
+using JR.Cms.Dao.Impl;
 using JR.Cms.Domain.Interface._old;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Content.Archive;
@@ -52,6 +54,9 @@ namespace JR.Cms.ServiceImpl
 
                 _.For<IUserRepository>().Singleton().Use<UserRepository>();
 
+                // Dao
+                _.For<ISiteTagDao>().Singleton().Use<SiteTagDaoImpl>();
+                
                 //x.For<IArchiveModel>().Singleton().Use<ArchiveBLL>();
                 // x.For<ICategoryModel>().Singleton().Use<CategoryBLL>();
                 _.For<IComment>().Singleton().Use<CommentBll>();
