@@ -6,6 +6,7 @@ using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.DataAccess.DAL;
 using JR.Cms.Library.DataAccess.DB;
+using JR.Stand.Core.Data.Provider;
 
 namespace JR.Cms.Dao.Impl
 {
@@ -14,16 +15,25 @@ namespace JR.Cms.Dao.Impl
     /// </summary>
     public class SiteTagDaoImpl:ISiteTagDao
     {
+        private readonly IDbProvider _provider;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="factory"></param>
+        public SiteTagDaoImpl(IDbProvider provider)
+        {
+            this._provider = provider;
+        }
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public List<SiteWord> GetTags()
         {
-            using (IDbConnection db = CmsDataBase.Instance.GetDialect().GetConnection())
+            using (IDbConnection db = _provider.GetConnection())
             {
-                return db.Query<SiteWord>(SqlQueryHelper.SqlFormat("SELECT * FROM $PREFIX_site_word")).AsList();
+                return db.Query<SiteWord>(_provider.FormatQuery("SELECT * FROM $PREFIX_site_word")).AsList();
             }
         }
 
@@ -36,18 +46,23 @@ namespace JR.Cms.Dao.Impl
         {
             try
             {
-                using (IDbConnection db = CmsDataBase.Instance.GetDialect().GetConnection())
+                using (IDbConnection db = _provider.GetConnection())
                 {
+                    Object obj = db.ExecuteScalar("SELECT COUNT(1) FROM $PREFIX_site_word WHERE word=@Word AND id<>@Id", word);
+                    if (Convert.ToInt32(obj) > 0)
+                    {
+                        return new Error("词语已存在");
+                    }
                     if (word.Id == 0)
                     {
-                        db.Execute(SqlQueryHelper.SqlFormat(
+                        db.Execute(_provider.FormatQuery(
                                 "INSERT INTO $PREFIX_site_word(word,url,title) VALUES(@Word,@Url,@Title)"),
                             word);
                         return null;
                     }
 
                     db.Execute(
-                        SqlQueryHelper.SqlFormat(
+                        _provider.FormatQuery(
                             "UPDATE $PREFIX_site_word SET word=@word,url=@Url,title=@Title WHERE id=@ID"),
                         word);
                 }
@@ -69,12 +84,5 @@ namespace JR.Cms.Dao.Impl
             throw new System.NotImplementedException();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="factory"></param>
-        public SiteTagDaoImpl()
-        {
-        }
     }
 }
