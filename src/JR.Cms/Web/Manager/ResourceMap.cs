@@ -99,6 +99,7 @@ namespace JR.Cms.Web.Manager
         /// </summary>
         Plugin_MiniApps,
 
+        
 
         /// <summary>
         /// 默认样式表
@@ -123,7 +124,9 @@ namespace JR.Cms.Web.Manager
         Assistant_Category_Clone,
         Assistant_Local_Patch,
         Assistant_Archive_Clone_Pub,
-        Clear_Page
+        Clear_Page,
+        
+        Addon_Site_Word,
     }
 
 

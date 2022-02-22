@@ -20,7 +20,6 @@ namespace JR.Cms.Dao.Impl
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="factory"></param>
         public SiteTagDaoImpl(IDbProvider provider)
         {
             this._provider = provider;
@@ -48,7 +47,7 @@ namespace JR.Cms.Dao.Impl
             {
                 using (IDbConnection db = _provider.GetConnection())
                 {
-                    Object obj = db.ExecuteScalar("SELECT COUNT(1) FROM $PREFIX_site_word WHERE word=@Word AND id<>@Id", word);
+                    Object obj = db.ExecuteScalar(_provider.FormatQuery("SELECT COUNT(1) FROM $PREFIX_site_word WHERE word=@Word AND id<>@Id"), word);
                     if (Convert.ToInt32(obj) > 0)
                     {
                         return new Error("词语已存在");
@@ -63,7 +62,7 @@ namespace JR.Cms.Dao.Impl
 
                     db.Execute(
                         _provider.FormatQuery(
-                            "UPDATE $PREFIX_site_word SET word=@word,url=@Url,title=@Title WHERE id=@ID"),
+                            "UPDATE $PREFIX_site_word SET word=@word,url=@Url,title=@Title WHERE id=@Id"),
                         word);
                 }
             }
@@ -81,7 +80,22 @@ namespace JR.Cms.Dao.Impl
         /// <returns></returns>
         public Error DeleteTag(SiteWord word)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                using (IDbConnection db = _provider.GetConnection())
+                {
+                    db.Execute(
+                        _provider.FormatQuery(
+                            "DELETE FROM $PREFIX_site_word WHERE id=@Id"),
+                        word);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Error((ex.InnerException ?? ex).Message);
+            }
+
+            return null;
         }
 
     }

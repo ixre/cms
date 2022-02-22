@@ -23,27 +23,7 @@ namespace JR.Cms.Web.Manager.Handle
     /// </summary>
     public class PluginHandler : BasePage
     {
-        #region 旧版插件
-
-        /// <summary>
-        /// 批量替换文档标签
-        /// </summary>
-        public void ReplaceTags()
-        {
-            RenderTemplate(ResourceMap.ArchiveTagReplace, null);
-        }
-
-        public void ReplaceTags_POST()
-        {
-            //foreach (Archive archive in CmsLogic.Archive.GetAllArchives().ToEntityList<Archive>())
-            //{
-            //    //archive.Content = new TagsManager().Replace("/tags?t={0}", archive.Content);
-            //    CmsLogic.Archive.Update(archive);
-            //}
-        }
-
-        #endregion
-
+      
 
         public void Dashboard()
         {
