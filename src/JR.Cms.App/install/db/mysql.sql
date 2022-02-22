@@ -759,7 +759,7 @@ UNLOCK TABLES;
 -- Dumping data for table `cms_site_word`
 --
 DROP TABLE IF EXISTS `cms_site_word`;
-CREATE TABLE cms.cms_site_word (
+CREATE TABLE cms_site_word (
    id BIGINT AUTO_INCREMENT NOT NULL COMMENT '编号',
    word varchar(20) NOT NULL COMMENT '关键词',
    url varchar(180) NOT NULL COMMENT '链接地址',
