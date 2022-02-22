@@ -147,12 +147,12 @@
         /* 服务端回传消息 */
         function tip(msg) {
             jr.dialog.alert(msg,function(){
-               if(msg.indexOf("成功") === -1){
+               if(msg.indexOf("成功") !== -1){
                 location.href =location.search; 
                 }
             });
             // dialog2.innerHTML = msg;
-            // setTimeout(msg.indexOf("成功") === -1 ? closeDialog : function () { location.href =location.search; }, 2000);
+            //setTimeout(msg.indexOf("成功") === -1 ? closeDialog : function () { location.href =location.search; }, 2000);
         }
         function invoke_compelete(msg) {
 
