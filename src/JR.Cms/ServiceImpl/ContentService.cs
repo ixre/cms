@@ -20,8 +20,9 @@ namespace JR.Cms.ServiceImpl
         private readonly ISiteRepo _siteRep;
         private readonly ISiteTagDao _tagDao;
 
-        private IList<SiteWord> _tags;
-        private IDictionary<String, SiteWord> _tagsDict;
+        private IList<SiteWord> _words;
+        private IList<SiteWord> _sortedWords;
+
 
         /// <summary>
         /// 
@@ -155,22 +156,21 @@ namespace JR.Cms.ServiceImpl
         /// 
         /// </summary>
         /// <returns></returns>
-        public IList<SiteWord> GetTags()
+        public IList<SiteWord> GetWords()
         {
-            if (this._tags == null)
+            if (this._words == null)
             {
                 List<SiteWord> list = this._tagDao.GetTags();
-                list.Sort((a, b) => b.Word.Length - a.Word.Length);
-                this._tags = new List<SiteWord>();
-                this._tagsDict = new Dictionary<string, SiteWord>();
+                this._words = new List<SiteWord>();
                 foreach (var it in list)
                 {
-                    this._tags.Add(it);
-                    this._tagsDict.Add(it.Word, it);
+                    this._words.Add(it);
                 }
+                list.Sort((a, b) => b.Word.Length - a.Word.Length);
+                this._sortedWords = list;
             }
 
-            return this._tags;
+            return this._words;
         }
 
         /// <summary>
@@ -178,13 +178,12 @@ namespace JR.Cms.ServiceImpl
         /// </summary>
         /// <param name="word"></param>
         /// <returns></returns>
-        public Error SaveTag(SiteWord word)
+        public Error SaveWord(SiteWord word)
         {
             Error err = this._tagDao.SaveTag(word);
             if (err == null)
             {
-                this._tags = null;
-                this._tagsDict = null;
+                this._words = null;
             }
 
             return err;
@@ -195,13 +194,12 @@ namespace JR.Cms.ServiceImpl
         /// </summary>
         /// <param name="word"></param>
         /// <returns></returns>
-        public Error DeleteTag(SiteWord word)
+        public Error DeleteWord(SiteWord word)
         {
             Error err = this._tagDao.DeleteTag(word);
             if (err == null)
             {
-                this._tags = null;
-                this._tagsDict = null;
+                this._words = null;
             }
             return err;
         }
@@ -214,7 +212,8 @@ namespace JR.Cms.ServiceImpl
         /// <returns></returns>
         public string Replace(string content, bool openInBlank)
         {
-            return TagUtil.ReplaceSiteTag(content,this._tags, openInBlank);
+            this.GetWords(); 
+            return TagUtil.ReplaceSiteWord(content,this._sortedWords, openInBlank);
         }
 
         /// <summary>
@@ -222,9 +221,9 @@ namespace JR.Cms.ServiceImpl
         /// </summary>
         /// <param name="content"></param>
         /// <returns></returns>
-        public string RemoveTags(string content)
+        public string RemoveWord(string content)
         {
-            return TagUtil.RemoveSiteTag(content,this._tagsDict.Keys);
+            return TagUtil.RemoveSiteWord(content);
         }
 
     }

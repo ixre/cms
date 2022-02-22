@@ -63,21 +63,21 @@ namespace JR.Cms.ServiceContract
         /// 获取所有的标签,并排序
         /// </summary>
         /// <returns></returns>
-        IList<SiteWord> GetTags();
+        IList<SiteWord> GetWords();
 
         /// <summary>
         /// 保存标签
         /// </summary>
         /// <param name="word"></param>
         /// <returns></returns>
-        Error SaveTag(SiteWord word);
+        Error SaveWord(SiteWord word);
 
         /// <summary>
         /// 删除标签
         /// </summary>
         /// <param name="word"></param>
         /// <returns></returns>
-        Error DeleteTag(SiteWord word);
+        Error DeleteWord(SiteWord word);
 
         /// <summary>
         /// 替换标签内容
@@ -92,6 +92,6 @@ namespace JR.Cms.ServiceContract
         /// </summary>
         /// <param name="content"></param>
         /// <returns></returns>
-        String RemoveTags(string content);
+        String RemoveWord(string content);
     }
 }
