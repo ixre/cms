@@ -56,7 +56,7 @@ namespace JR.Cms.Web.Api
             long expiresTime = DateTimeOffset.UtcNow.AddSeconds(dto.Expires).ToUnixTimeSeconds();
             String token = JwtBuilder.Create()
                 .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
-                .WithSecret(Settings.SYS_PRIVATE_KEY)
+                .WithSecret(Settings.SYS_RSA_KEY)
                 .AddClaim("aud", ret.Uid.ToString())
                 .AddClaim("iss", "JRCms OpenAPI")
                 .AddClaim("sub", "jrcms-openapi")

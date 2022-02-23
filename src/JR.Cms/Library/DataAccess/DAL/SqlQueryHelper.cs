@@ -6,7 +6,10 @@ using JR.Stand.Core.Data;
 
 namespace JR.Cms.Library.DataAccess.DAL
 {
-    public class SqlQueryHelper
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class SqlQueryHelper
     {
         /// <summary>
         /// 优化SQL语句
@@ -17,7 +20,12 @@ namespace JR.Cms.Library.DataAccess.DAL
 
 
         
-        public static string OptimizeSql(string sql)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public static string SqlFormat(string sql)
         {
             if (SignReg.IsMatch(sql))
                 return SignReg.Replace(sql, m =>
@@ -34,23 +42,23 @@ namespace JR.Cms.Library.DataAccess.DAL
 
         public static SqlQuery Create(string sql, object[,] data)
         {
-            return new SqlQuery(OptimizeSql(sql), data);
+            return new SqlQuery(SqlFormat(sql), data);
         }
 
         public static SqlQuery CreateQuery(string sql)
         {
-            return new SqlQuery(OptimizeSql(sql));
+            return new SqlQuery(SqlFormat(sql));
         }
         
         public static SqlQuery Create(string sql, IDictionary<string, object> data)
         {
-            return new SqlQuery(OptimizeSql(sql), data);
+            return new SqlQuery(SqlFormat(sql), data);
         }
 
 
         public static SqlQuery Format(string sql, object[,] data)
         {
-            return new SqlQuery(OptimizeSql(sql), data);
+            return new SqlQuery(SqlFormat(sql), data);
         }
         
         // .net45及以下不支持,会报错: 找不到方法:“!!0[] System.Array.Empty()”。 

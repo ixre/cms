@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheService;
@@ -149,15 +150,16 @@ namespace JR.Cms.Conf
             }
 
             // 初始化私钥
-            String privateKey = sf.Contains("sys_private_key")? sf.Get("sys_private_key"):"";
+            String privateKey = sf.Contains("sys_rsa_key")? sf.Get("sys_rsa_key"):"";
             if (String.IsNullOrEmpty(privateKey))
             {
-                var pair = RSA.GenRSAKeyPair("");
-                privateKey = pair.PrivateKey;
-                sf.Set("sys_private_key", privateKey);
+                var pair = RSA.CreateKey();
+                Match mc = Regex.Match(pair.PrivateKey, "<Modulus>(.+)</Modulus>");
+                privateKey = mc.Groups[1].Value;
+                sf.Set("sys_rsa_key", privateKey);
                 settingChanged = true;
             }
-            Settings.SYS_PRIVATE_KEY = privateKey;
+            Settings.SYS_RSA_KEY = privateKey;
 
             if (sf.Contains("sys_encode_conf"))
             {
