@@ -381,7 +381,7 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 var cs = ServiceCall.Instance.ContentService;
                 content = cs.RemoveWord(content);
-                content = cs.Replace(content, false);
+                content = cs.Replace(content, false, true);
                 //todo: tags 顺序调换了下
                 /*
                 HttpTags _tags = this.GetTags(siteId);

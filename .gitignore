@@ -49,3 +49,4 @@ src/NetFx/JR.Cms.AspNet.App/uploads
 *.blob
 
 /src/JR.Cms.App/index.html
+output

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Builder;
 
 namespace JR.Cms.Web.Portal
 {
+    /// <summary>
+    /// 初始化
+    /// </summary>
     public static class Initializer
     {
         /// <summary>
@@ -35,8 +38,6 @@ namespace JR.Cms.Web.Portal
             Cms.Utility.SetDirCanWrite(CmsVariables.TEMP_PATH + "update");
             Cms.Utility.SetDirHidden("config");
 
-            //注册定时任务
-            //CmsTask.Init();
         }
     }
 }
