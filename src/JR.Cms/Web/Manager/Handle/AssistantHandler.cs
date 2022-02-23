@@ -6,7 +6,7 @@ using System.Threading;
 using JR.Cms.Conf;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
-using SharpCompress.Archive;
+using SharpCompress.Archives;
 using SharpCompress.Common;
 
 namespace JR.Cms.Web.Manager.Handle
@@ -228,8 +228,15 @@ namespace JR.Cms.Web.Manager.Handle
                     var archive = ArchiveFactory.Open(filePath);
                     foreach (var entry in archive.Entries)
                         if (!entry.IsDirectory)
+                        {
                             //Console.WriteLine(entry.FilePath);
-                            entry.WriteToDirectory(appDir, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                            entry.WriteToDirectory(appDir,new ExtractionOptions
+                            {
+                                ExtractFullPath = true,
+                                Overwrite = true
+                            });
+                        }
+
                     archive.Dispose();
 
                     #endregion

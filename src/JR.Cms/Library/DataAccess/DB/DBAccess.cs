@@ -6,29 +6,37 @@ using JR.Stand.Core.Framework;
 
 namespace JR.Cms.Library.DataAccess.DB
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DbAccess
     {
         private readonly DataBaseType _dbType;
         private readonly string _connectionString;
         private readonly bool _sqlTrace;
-        private DataBaseAccess dbAccess;
-        private FileLogger _fileLogger;
+        private readonly FileLogger _fileLogger;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbType"></param>
+        /// <param name="connectionString"></param>
+        /// <param name="sqlTrace"></param>
         public DbAccess(DataBaseType dbType, string connectionString, bool sqlTrace)
         {
             _dbType = dbType;
             _connectionString = connectionString;
             _sqlTrace = sqlTrace;
-            dbAccess = new DataBaseAccess(_dbType, _connectionString);
+            var dbAccess = new DataBaseAccess(_dbType, _connectionString);
             if (sqlTrace)
             {
                 _fileLogger = new FileLogger(EnvUtil.GetBaseDirectory() + "/tmp/sql_profile.txt");
                 _fileLogger.Truncate();
-                dbAccess.Use(profileTrace);
+                dbAccess.Use(ProfileTrace);
             }
         }
 
-        private bool profileTrace(string action, string sql, DbParameter[] sqlParams, Exception exc)
+        private bool ProfileTrace(string action, string sql, DbParameter[] sqlParams, Exception exc)
         {
             var dt = DateTime.Now;
             if (exc == null)
@@ -49,10 +57,14 @@ namespace JR.Cms.Library.DataAccess.DB
         /// </summary>
         public string TablePrefix { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public DataBaseAccess CreateInstance()
         {
             var db = new DataBaseAccess(_dbType, _connectionString);
-            if (_sqlTrace) db.Use(profileTrace);
+            if (_sqlTrace) db.Use(ProfileTrace);
             return db;
             //return this.dbAccess;
         }

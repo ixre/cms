@@ -10,10 +10,10 @@
 
 using System;
 using System.IO;
-using SharpCompress.Archive;
-using SharpCompress.Archive.Zip;
+using SharpCompress.Archives;
+using SharpCompress.Archives.Zip;
 using SharpCompress.Common;
-using SharpCompress.Writer;
+using SharpCompress.Writers;
 
 namespace JR.Cms
 {

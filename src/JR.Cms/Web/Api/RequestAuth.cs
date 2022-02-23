@@ -28,7 +28,7 @@ namespace JR.Cms.Web.Api
             token = token.Replace("Bearer ", "");
             var payload = JwtBuilder.Create()
                 .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
-                .WithSecret(Settings.SYS_PRIVATE_KEY)
+                .WithSecret(Settings.SYS_RSA_KEY)
                 .MustVerifySignature()
                 .Decode<IDictionary<string, object>>(token);
             if ((string) payload["iss"] != "JRCms OpenAPI")

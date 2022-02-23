@@ -74,18 +74,18 @@ namespace JR.Cms.Domain.Interface.Site
         IExtendManager GetExtendManager();
 
         /// <summary>
-        /// 链接管理器
+        /// 链接服务
         /// </summary>
         ISiteLinkManager GetLinkManager();
 
         /// <summary>
-        /// 变量管理器
+        /// 变量服务
         /// </summary>
         /// <returns></returns>
         ISiteVariableManager GetVariableManager();
         
         /// <summary>
-        /// 
+        /// 用户服务
         /// </summary>
         /// <returns></returns>
         IAppUserManager GetUserManager();
@@ -99,7 +99,6 @@ namespace JR.Cms.Domain.Interface.Site
         /// 分类根节点
         /// </summary>
         ICategory RootCategory { get; }
-
 
         ICategory GetCategory(int categoryId);
 

@@ -35,15 +35,17 @@
       <Compile Remove="Web\Job\**" />
       <Compile Remove="Web\SiteMap\**" />
       <Compile Remove="Web\Util\SiteMapUtils.cs" />
+      <Compile Remove="Core\Hibernate\**" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.0.123" />
       <PackageReference Include="JWT" Version="9.0.0-beta1" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
       <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="p3-sharpcompress" Version="0.10.5.2" />
+      <PackageReference Include="SharpCompress" Version="0.30.1" />
       <PackageReference Include="structuremap" Version="4.7.1" />
       <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     </ItemGroup>
@@ -84,6 +86,8 @@
       <None Remove="Web\Job\**" />
       <EmbeddedResource Remove="Web\SiteMap\**" />
       <None Remove="Web\SiteMap\**" />
+      <EmbeddedResource Remove="Core\Hibernate\**" />
+      <None Remove="Core\Hibernate\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -95,6 +99,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Web\Addon" />
       <Folder Include="_old" />
     </ItemGroup>
 

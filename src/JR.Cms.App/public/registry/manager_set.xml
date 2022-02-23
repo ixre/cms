@@ -49,5 +49,6 @@
     <item key="Assistant_Category_Clone" value="mui/html/assistant/category_clone.html"/>
     <item key="Assistant_Archive_Clone_Pub" value="mui/html/assistant/archive_clone_pub.html"/>
     <item key="Assistant_Local_Patch" value="mui/html/assistant/local_patch.html"/>
+    <item key="Addon_Site_Word" value="mui/html/addon/site_word.html"/>
   </group>
 </keys>

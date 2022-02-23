@@ -379,6 +379,9 @@ namespace JR.Cms.Web.Manager.Handle
             //自动替换Tags
             if (form.Form("auto_tag") == "on")
             {
+                var cs = ServiceCall.Instance.ContentService;
+                content = cs.RemoveWord(content);
+                content = cs.Replace(content, false);
                 //todo: tags 顺序调换了下
                 /*
                 HttpTags _tags = this.GetTags(siteId);
