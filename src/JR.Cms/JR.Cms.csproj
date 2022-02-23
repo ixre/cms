@@ -93,7 +93,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Generator\templates\csharp\dao" />
       <Folder Include="Generator\templates\java" />
       <Folder Include="Web\Addon" />
       <Folder Include="_old" />
