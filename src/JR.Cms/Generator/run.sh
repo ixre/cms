@@ -16,7 +16,7 @@ CONF_DIR=$(dirname "$0")
 tto -conf "$CONF_DIR"/tto.conf -t "$CONF_DIR"/templates/csharp -o output -excludes tmp_ -clean
 
 # Replace generator description part of code file
-# find output/spring -name "*.java" -print0 |  xargs -0 sed -i ':label;N;s/This.*Copy/Copy/g;b label'
+find output -name "*.cs" -print0 |  xargs -0 sed -i ':label;N;s/This.*Copy/Copy/g;b label'
 # Replace package
 # find output/spring -name "*.java" -print0 |  xargs -0 sed -i 's/net.fze/cn.cgt/g'
 # Replace type
