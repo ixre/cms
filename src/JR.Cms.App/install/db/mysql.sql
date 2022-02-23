@@ -767,6 +767,32 @@ CREATE TABLE cms_site_word (
    PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='站内关键词';
 
+--
+-- Dumping data for table `cms_job`
+--
+DROP TABLE IF EXISTS `cms_job`;
+CREATE TABLE cms_job(
+   id BIGINT AUTO_INCREMENT NOT NULL COMMENT '编号',
+   job_name varchar(20) NOT NULL COMMENT '任务名称',
+   job_class varchar(180) NOT NULL COMMENT '任务类',
+   cron_exp varchar(120) NOT NULL COMMENT 'CRON表达式',
+   job_describe varchar(180) NOT NULL COMMENT '任务描述',
+   enabled int(2) NOT NULL COMMENT '是否启用',
+   PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='定时任务';
+
+--
+-- Dumping data for table `cms_job`
+--
+DROP TABLE IF EXISTS `cms_search_engine`;
+CREATE TABLE cms_search_engine(
+    id BIGINT AUTO_INCREMENT NOT NULL COMMENT '编号',
+    site_id BIGINT NOT NULL COMMENT '站点编号',
+    baidu_site_token varchar(180) NOT NULL COMMENT '百度推送Token',
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='搜索引擎设置';
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
