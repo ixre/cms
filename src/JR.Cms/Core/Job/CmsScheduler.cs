@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Specialized;
+using System.Reflection;
 using JR.Cms.Conf;
 using JR.Stand.Core.Framework.TaskBox;
 using JR.Stand.Core.Framework.TaskBox.Toolkit;
+using Quartz;
+using Quartz.Impl;
 
 namespace JR.Cms.Web
 {
@@ -27,22 +31,34 @@ namespace JR.Cms.Web
         }
     }
 
-    public static class CmsTask
+    public static class CmsScheduler
     {
         private static TaskService service;
 
-        public static void Init()
+        public static async void Init()
         {
             return;
-            service = new TaskService();
-            service.Start(box =>
+            // 构造一个调度器工厂
+            NameValueCollection props = new NameValueCollection
             {
-                var taskClient = new TaskClient();
-                box.OnNotifing += box_OnNotifing;
-                box.OnTaskExecuting += taskClient.Execute;
-            });
-
-            RegisterDropMemoryTask();
+                { "quartz.serializer.type", "binary" }
+            };
+            StdSchedulerFactory factory = new StdSchedulerFactory(props);
+// 得到一个调度器
+            IScheduler sched = await factory.GetScheduler();
+            await sched.Start();
+// 定义作业并将其绑定到HelloJob类
+            Assembly.GetCallingAssembly().GetType("");
+            IJobDetail job = JobBuilder.Create()
+                .WithIdentity("myJob", "group1")
+                .Build();
+// 触发作业现在运行，然后每40秒运行一次
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("myTrigger", "group1")
+                .StartNow()
+                .WithCronSchedule("")
+                .Build();
+            await sched.ScheduleJob(job, trigger);
         }
 
         private static void RegisterDropMemoryTask()
@@ -58,7 +74,7 @@ namespace JR.Cms.Web
             }, (client, task, message) => { }, Settings.opti_gc_collect_interval); //2小时
         }
 
-        private static void box_OnNotifing(object data, string message)
+        private static void BoxOnNotifying(object data, string message)
         {
             if (message.StartsWith("[Crash]")) service.Stop();
         }

@@ -42,6 +42,7 @@
       <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="Quartz" Version="3.3.3" />
       <PackageReference Include="SharpCompress" Version="0.30.1" />
       <PackageReference Include="structuremap" Version="4.7.1" />
       <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
@@ -92,6 +93,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Generator\templates\java" />
       <Folder Include="Web\Addon" />
       <Folder Include="_old" />
     </ItemGroup>

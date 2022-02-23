@@ -16,6 +16,7 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.DataAccess.DB;
+using JR.Cms.Web;
 using JR.Stand.Abstracts;
 using JR.Stand.Core;
 using JR.Stand.Core.Cache;
@@ -304,6 +305,10 @@ namespace JR.Cms
                 // 设置验证码字体
                 VerifyCodeGenerator.SetFontFamily(PhysicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
             }
+            
+            // 注册定时任务
+            CmsScheduler.Init();
+            // 触发初始化注册事件
             OnInit?.Invoke();
             IsInitFinish = true;
         }
