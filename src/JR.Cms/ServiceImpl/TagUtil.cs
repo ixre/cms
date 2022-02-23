@@ -17,9 +17,10 @@ namespace JR.Cms.ServiceImpl
         /// </summary>
         /// <param name="content"></param>
         /// <param name="siteTags"></param>
+        /// <param name="replaceOnce">每个次只替换一次</param>
         /// <param name="openInBlank"></param>
         /// <returns></returns>
-        public static string ReplaceSiteWord(string content, IList<SiteWord> siteTags, bool openInBlank)
+        public static string ReplaceSiteWord(string content, IList<SiteWord> siteTags, bool openInBlank, bool replaceOnce)
         {
             //if (!defaultTagLinkFormat.Contains("{0}")) throw new ArgumentException("������{0}��ʾ�������ñ�ǩID����");
             // 链接格式
@@ -31,10 +32,16 @@ namespace JR.Cms.ServiceImpl
             foreach (SiteWord it in siteTags)
             {
                 var reg = new Regex(String.Format("<a[^>]+>(?<key>{0})</a>|(?!<a[^>]*)(?<key>{0})(?![^<]*</a>)", Regex.Escape(it.Word)), RegexOptions.IgnoreCase);
-                content = reg.Replace(content, match => String.Format(tagLinkFormat,
-                    String.IsNullOrEmpty(it.Url)?"javascript:;":it.Url,
-                    it.Title,
-                    it.Word));
+                int i = 0;
+                content = reg.Replace(content, match =>
+                {
+                    // 一个词语只替换一次
+                    if (replaceOnce && ++i > 1) return match.Groups["key"].Value;
+                    return String.Format(tagLinkFormat,
+                            String.IsNullOrEmpty(it.Url) ? "/" : it.Url,
+                            it.Title,
+                            it.Word);
+                });
             }
 
             return content; 

@@ -209,11 +209,12 @@ namespace JR.Cms.ServiceImpl
         /// </summary>
         /// <param name="content"></param>
         /// <param name="openInBlank"></param>
+        /// <param name="replaceOnce">是否只替换一次</param>
         /// <returns></returns>
-        public string Replace(string content, bool openInBlank)
+        public string Replace(string content, bool openInBlank,bool replaceOnce)
         {
             this.GetWords(); 
-            return TagUtil.ReplaceSiteWord(content,this._sortedWords, openInBlank);
+            return TagUtil.ReplaceSiteWord(content,this._sortedWords, openInBlank,replaceOnce);
         }
 
         /// <summary>

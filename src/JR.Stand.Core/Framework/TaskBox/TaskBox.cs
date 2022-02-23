@@ -24,12 +24,12 @@ namespace JR.Stand.Core.Framework.TaskBox
         /// <summary>
         /// 任务返回消息
         /// </summary>
-        public event TaskMessageHandler OnNotifing;
+        public event TaskMessageHandler OnNotifying;
 
         /// <summary>
         /// 默认挂起毫秒数
         /// </summary>
-        private int _suppend_minseconds = 10000;
+        private int _suppendMinseconds = 10000;
 
         public TaskBox(ITaskBoxStorage storage,
             ITaskLogProvider logProvider,
@@ -72,9 +72,9 @@ namespace JR.Stand.Core.Framework.TaskBox
         /// <param name="message"></param>
         public void Notifing(object source, string message)
         {
-            if (this.OnNotifing != null)
+            if (this.OnNotifying != null)
             {
-                this.OnNotifing(source, message);
+                this.OnNotifying(source, message);
             }
         }
 
@@ -89,7 +89,7 @@ namespace JR.Stand.Core.Framework.TaskBox
                 }
                 catch (Exception exc)
                 {
-                    this.OnNotifing(this, "[Crash]:" + exc.Message);
+                    this.OnNotifying(this, "[Crash]:" + exc.Message);
                 }
             });
             _serviceThread.Start();

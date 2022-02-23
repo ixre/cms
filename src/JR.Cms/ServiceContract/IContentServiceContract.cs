@@ -84,8 +84,9 @@ namespace JR.Cms.ServiceContract
         /// </summary>
         /// <param name="content">内容</param>
         /// <param name="openInBlank">是否在新窗口中打开</param>
+        /// <param name="replaceOnce"></param>
         /// <returns></returns>
-        String Replace(string content, bool openInBlank);
+        string Replace(string content, bool openInBlank, bool replaceOnce);
 
         /// <summary>
         /// 移出所有的标签
