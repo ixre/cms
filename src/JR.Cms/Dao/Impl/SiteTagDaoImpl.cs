@@ -54,7 +54,7 @@ namespace JR.Cms.Dao.Impl
                     }
                     if (word.Id == 0)
                     {
-                        db.Execute(_provider.FormatQuery(
+                       int i= db.Execute(_provider.FormatQuery(
                                 "INSERT INTO $PREFIX_site_word(word,url,title) VALUES(@Word,@Url,@Title)"),
                             word);
                         return null;
