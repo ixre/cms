@@ -6,15 +6,18 @@ using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
-using JR.Cms.Infrastructure;
 using JR.Cms.Repository.Query;
 using JR.Cms.ServiceContract;
 using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts;
+using JR.Stand.Core.Extensions;
 using JR.Stand.Core.Framework;
 
 namespace JR.Cms.ServiceImpl
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ArchiveService : IArchiveServiceContract
     {
         private readonly IContentRepository _contentRep;

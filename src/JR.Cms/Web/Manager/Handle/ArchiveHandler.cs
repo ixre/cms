@@ -54,7 +54,7 @@ namespace JR.Cms.Web.Manager.Handle
             Module module;
 
             var categoryId = int.Parse(Request.Query("category.id").ToString() ?? "1"); //分类ID
-            var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryId);
+            var category = LocalService.Instance.SiteService.GetCategory(SiteId, categoryId);
 
 
             //获取模板视图下拉项
@@ -143,7 +143,7 @@ namespace JR.Cms.Web.Manager.Handle
         public string View_frame()
         {
             var id = int.Parse(Request.Query("archive_id"));
-            var archive = ServiceCall.Instance.ArchiveService.GetArchiveById(SiteId, id);
+            var archive = LocalService.Instance.ArchiveService.GetArchiveById(SiteId, id);
             var fullDomain = CurrentSite.FullDomain;
             if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
             {
@@ -165,7 +165,7 @@ namespace JR.Cms.Web.Manager.Handle
             string alias = Request.Form("Alias");
             if (alias != "")
             {
-                if (!ServiceCall.Instance.ArchiveService.CheckArchiveAliasAvailable(SiteId, -1, alias))
+                if (!LocalService.Instance.ArchiveService.CheckArchiveAliasAvailable(SiteId, -1, alias))
                 {
                     RenderError("别名已经存在!");
                     return;
@@ -176,7 +176,7 @@ namespace JR.Cms.Web.Manager.Handle
             archive.PublisherId = UserState.Administrator.Current.Id;
 
             archive = GetFormCopiedArchive(SiteId, Request, archive, alias);
-            var r = ServiceCall.Instance.ArchiveService.SaveArchive(
+            var r = LocalService.Instance.ArchiveService.SaveArchive(
                 SiteId, archive.Category.ID, archive);
             RenderJson(r);
         }
@@ -191,7 +191,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var siteId = CurrentSite.SiteId;
 
-            var archive = ServiceCall.Instance.ArchiveService.GetArchiveById(siteId, archiveId);
+            var archive = LocalService.Instance.ArchiveService.GetArchiveById(siteId, archiveId);
 
             var categoryId = archive.Category.ID;
 
@@ -344,7 +344,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void Update_POST()
         {
-            var archive = ServiceCall.Instance.ArchiveService
+            var archive = LocalService.Instance.ArchiveService
                 .GetArchiveById(SiteId, int.Parse(Request.Form("Id")));
 
             //判断是否有权修改
@@ -359,7 +359,7 @@ namespace JR.Cms.Web.Manager.Handle
                 : HttpUtils.UrlEncode(Request.Form("Alias"));
 
             if (alias != string.Empty && archive.Alias != alias)
-                if (!ServiceCall.Instance.ArchiveService
+                if (!LocalService.Instance.ArchiveService
                     .CheckArchiveAliasAvailable(SiteId, archive.Id, alias))
                 {
                     RenderError("别名已经存在!");
@@ -367,7 +367,7 @@ namespace JR.Cms.Web.Manager.Handle
                 }
 
             archive = GetFormCopiedArchive(SiteId, Request, archive, alias);
-            var r = ServiceCall.Instance.ArchiveService.SaveArchive(
+            var r = LocalService.Instance.ArchiveService.SaveArchive(
                 SiteId, archive.Category.ID, archive);
             RenderJson(r);
         }
@@ -379,7 +379,7 @@ namespace JR.Cms.Web.Manager.Handle
             //自动替换Tags
             if (form.Form("auto_tag") == "on")
             {
-                var cs = ServiceCall.Instance.ContentService;
+                var cs = LocalService.Instance.ContentService;
                 content = cs.RemoveWord(content);
                 content = cs.Replace(content, false, true);
                 //todo: tags 顺序调换了下
@@ -505,7 +505,7 @@ namespace JR.Cms.Web.Manager.Handle
 
 
             //文档数据表,并生成Html
-            var dt = ServiceCall.Instance.ArchiveService.GetPagedArchives(SiteId, categoryId,
+            var dt = LocalService.Instance.ArchiveService.GetPagedArchives(SiteId, categoryId,
                 publisherId, includeChild, 0, keyword, null, false, pageSize, pageIndex, out recordCount, out pages);
 
             foreach (DataRow dr in dt.Rows) dr["content"] = "";
@@ -528,9 +528,9 @@ namespace JR.Cms.Web.Manager.Handle
         public void View()
         {
             var id = int.Parse(Request.Query("archive.id"));
-            var archive = ServiceCall.Instance.ArchiveService.GetArchiveById(SiteId, id);
+            var archive = LocalService.Instance.ArchiveService.GetArchiveById(SiteId, id);
             //UserBll author = CmsLogic.UserBll.GetUser(archive.Author);
-            var user = ServiceCall.Instance.UserService.GetUser(archive.PublisherId);
+            var user = LocalService.Instance.UserService.GetUser(archive.PublisherId);
 
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Archive_View), new
             {
@@ -669,7 +669,7 @@ namespace JR.Cms.Web.Manager.Handle
             string commentListHtml;
 
             var id = int.Parse(Request.Query("archive.id"));
-            var archive = ServiceCall.Instance.ArchiveService.GetArchiveById(SiteId, id);
+            var archive = LocalService.Instance.ArchiveService.GetArchiveById(SiteId, id);
 
             var desc = Request.Query("desc") == "true";
 
@@ -741,7 +741,7 @@ namespace JR.Cms.Web.Manager.Handle
         public void Forword()
         {
             var id = int.Parse(Request.Query("archive.id"));
-            var archive = ServiceCall.Instance.ArchiveService.GetArchiveById(SiteId, id);
+            var archive = LocalService.Instance.ArchiveService.GetArchiveById(SiteId, id);
             var fullDomain = CurrentSite.FullDomain;
 
             if (fullDomain.IndexOf("#", StringComparison.Ordinal) != -1)
@@ -773,13 +773,13 @@ namespace JR.Cms.Web.Manager.Handle
         public string Delete_POST()
         {
             var id = int.Parse(Request.Form("archive.id"));
-            var archive = ServiceCall.Instance.ArchiveService.GetArchiveById(SiteId, id);
+            var archive = LocalService.Instance.ArchiveService.GetArchiveById(SiteId, id);
 
             if (!ArchiveUtility.CanModifyArchive(SiteId, archive.PublisherId)) return ReturnError("您无权删除此文档!");
 
             try
             {
-                ServiceCall.Instance.ArchiveService.DeleteArchive(SiteId, archive.Id);
+                LocalService.Instance.ArchiveService.DeleteArchive(SiteId, archive.Id);
             }
             catch (Exception exc)
             {
@@ -801,7 +801,7 @@ namespace JR.Cms.Web.Manager.Handle
             var idArray = Array.ConvertAll(Request.Form("id_array")[0].Split(','), a => int.Parse(a));
             try
             {
-                ServiceCall.Instance.ArchiveService.BatchDelete(siteId, idArray);
+                LocalService.Instance.ArchiveService.BatchDelete(siteId, idArray);
             }
             catch (Exception exc)
             {
@@ -817,7 +817,7 @@ namespace JR.Cms.Web.Manager.Handle
         public void Republish_POST()
         {
             var id = int.Parse(Request.Form("archive.id"));
-            ServiceCall.Instance.ArchiveService.RepublishArchive(SiteId, id);
+            LocalService.Instance.ArchiveService.RepublishArchive(SiteId, id);
             RenderSuccess();
         }
 
@@ -829,7 +829,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             try
             {
-                ServiceCall.Instance.ArchiveService.MoveSortNumber(SiteId, id, di);
+                LocalService.Instance.ArchiveService.MoveSortNumber(SiteId, id, di);
                 RenderSuccess();
             }
             catch (Exception exc)

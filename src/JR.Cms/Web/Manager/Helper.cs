@@ -216,7 +216,7 @@ namespace JR.Cms.Web.Manager
         {
             var sb = new StringBuilder();
             //加载栏目
-            ServiceCall.Instance.SiteService.HandleCategoryTree(siteId, 1, (category, level, isLast) =>
+            LocalService.Instance.SiteService.HandleCategoryTree(siteId, 1, (category, level, isLast) =>
             {
                 //if (sameLftId < 0 || category.Lft != sameLftId)
                 //{
@@ -234,7 +234,7 @@ namespace JR.Cms.Web.Manager
         {
             var sb = new StringBuilder();
             //加载栏目
-            ServiceCall.Instance.SiteService.HandleCategoryTree(siteId, 0, (category, level, isLast) =>
+            LocalService.Instance.SiteService.HandleCategoryTree(siteId, 0, (category, level, isLast) =>
             {
                 sb.Append("<option class=\"").Append("level level_").Append(level.ToString());
                 if (isLast) sb.Append(" last");

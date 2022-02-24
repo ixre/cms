@@ -19,5 +19,7 @@ namespace JR.Cms.ServiceUtil
 
 
         public IUserServiceContract UserService => Ioc.GetInstance<IUserServiceContract>();
+        public ICmsJobService JobService => Ioc.GetInstance<ICmsJobService>();
+        public ICmsSearchEngineService SeoService => Ioc.GetInstance<ICmsSearchEngineService>();
     }
 }

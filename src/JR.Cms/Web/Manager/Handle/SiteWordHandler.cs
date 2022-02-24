@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheService;
+using JR.Stand.Core.Extensions;
 using JR.Stand.Toolkit.HttpTag;
 
 namespace JR.Cms.Web.Manager.Handle
@@ -29,7 +30,7 @@ namespace JR.Cms.Web.Manager.Handle
             StringBuilder sb = new StringBuilder();
 
             Regex reg = new Regex("\\$\\{([a-zA-Z]+)\\}");
-            var words = ServiceCall.Instance.ContentService.GetWords();
+            var words = LocalService.Instance.ContentService.GetWords();
             if (words.Count > 0)
             {
                 foreach (SiteWord tag in words)
@@ -99,7 +100,7 @@ namespace JR.Cms.Web.Manager.Handle
                 goto tip;
             }
 
-            Error err = ServiceCall.Instance.ContentService.SaveWord(new SiteWord
+            Error err = LocalService.Instance.ContentService.SaveWord(new SiteWord
             {
                 Word = word,
                 Url = url,
@@ -122,7 +123,7 @@ namespace JR.Cms.Web.Manager.Handle
                 if (key.StartsWith("ck") && Request.Form(key) == "on")
                 {
                     int id = int.Parse(key.Substring(2));
-                    ServiceCall.Instance.ContentService.DeleteWord(new SiteWord
+                    LocalService.Instance.ContentService.DeleteWord(new SiteWord
                     {
                         Id = id,
                     });
@@ -150,7 +151,7 @@ namespace JR.Cms.Web.Manager.Handle
                 if (!reg.IsMatch(p)) continue;
                 var id = reg.Match(p).Groups[1].Value;
 
-                ServiceCall.Instance.ContentService.SaveWord(new SiteWord
+                LocalService.Instance.ContentService.SaveWord(new SiteWord
                 {
                     Id = int.Parse(id),
                     Word = Request.GetParameter("word_" + id),

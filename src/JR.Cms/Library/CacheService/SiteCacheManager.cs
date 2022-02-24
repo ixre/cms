@@ -16,7 +16,7 @@ namespace JR.Cms.Library.CacheService
         /// <returns></returns>
         public static IList<SiteDto> GetAllSites()
         {
-            return ServiceCall.Instance.SiteService.GetSites();
+            return LocalService.Instance.SiteService.GetSites();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace JR.Cms.Library.CacheService
         /// <returns></returns>
         public static SiteDto GetSite(int siteId)
         {
-            return ServiceCall.Instance.SiteService.GetSiteById(siteId);
+            return LocalService.Instance.SiteService.GetSiteById(siteId);
         }
 
         public static SiteDto GetSingleOrDefaultSite(string host, string appPath)
@@ -35,11 +35,11 @@ namespace JR.Cms.Library.CacheService
             var siteCacheKey = string.Concat(CacheSign.Site.ToString(), "_host_", host, "_" + appPath);
             var siteId = CmsCacheFactory.Singleton.GetCachedResult(siteCacheKey, () =>
             {
-                dto = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(host, appPath);
+                dto = LocalService.Instance.SiteService.GetSingleOrDefaultSite(host, appPath);
                 return dto.SiteId;
             }, DateTime.Now.AddHours(24));
 
-            if (dto.SiteId == 0) dto = ServiceCall.Instance.SiteService.GetSiteById(siteId);
+            if (dto.SiteId == 0) dto = LocalService.Instance.SiteService.GetSiteById(siteId);
             return dto;
         }
 
@@ -52,7 +52,7 @@ namespace JR.Cms.Library.CacheService
             {
                 if (_defaultSite.SiteId <= 0)
                 {
-                    var sites = ServiceCall.Instance.SiteService.GetSites();
+                    var sites = LocalService.Instance.SiteService.GetSites();
                     if (sites.Count == 0) throw new ArgumentException("没有可用的站点!");
 
                     //如果找不到站点，则获取默认第一个站点

@@ -44,15 +44,18 @@ namespace JR.Cms.ServiceImpl
                 _.For<IArchiveServiceContract>().Singleton().Use<ArchiveService>();
                 _.For<IContentServiceContract>().Singleton().Use<ContentService>();
                 _.For<IUserServiceContract>().Singleton().Use<UserService>();
-
+                _.For<ICmsJobService>().Singleton().Use<CmsJobServiceImpl>();
+                _.For<ICmsSearchEngineService>().Singleton().Use<CmsSearchEngineServiceImpl>();
+                
                 _.For<ISiteRepo>().Singleton().Use<SiteRepository>();
                 _.For<IContentRepository>().Singleton().Use<ContentRepository>();
                 _.For<ICategoryRepo>().Singleton().Use<CategoryRepository>();
                 _.For<IExtendFieldRepository>().Singleton().Use<ExtendFieldRepository>();
                 _.For<IArchiveRepository>().Singleton().Use<ArchiveRepository>();
                 _.For<ITemplateRepo>().Singleton().Use<TemplateRepoImpl>();
-
                 _.For<IUserRepository>().Singleton().Use<UserRepository>();
+                _.For<ICmsJobRepository>().Singleton().Use<CmsJobRepositoryImpl>();
+                _.For<ICmsSearchEngineRepository>().Singleton().Use<CmsSearchEngineRepositoryImpl>();
 
                 // Dao
                 _.For<IDbProvider>().Singleton().Use<DbProviderImpl>();

@@ -132,12 +132,12 @@ namespace JR.Cms.Web.Manager.Handle
         {
             var entity =Request.ParseFormToEntity<SiteDto>();
             if (entity.SiteId <= 0) return ReturnError("不允许新增站点");
-            var siteIsExist = ServiceCall.Instance.SiteService.CheckSiteExists(entity.SiteId);
+            var siteIsExist = LocalService.Instance.SiteService.CheckSiteExists(entity.SiteId);
             //  try
             //  {
             entity = CheckSiteEntity(siteIsExist, entity);
             if (!siteIsExist) entity.SiteId = 0;
-            ServiceCall.Instance.SiteService.SaveSite(entity);
+            LocalService.Instance.SiteService.SaveSite(entity);
             // }
             // catch (Exception exc)
             // {
@@ -159,7 +159,7 @@ namespace JR.Cms.Web.Manager.Handle
         
         public string GetVariablesJson_POST()
         {
-            var list = ServiceCall.Instance.SiteService.GetSiteVariables(base.SiteId);
+            var list = LocalService.Instance.SiteService.GetSiteVariables(base.SiteId);
             return JsonConvert.SerializeObject(list);
         }
 
@@ -168,7 +168,7 @@ namespace JR.Cms.Web.Manager.Handle
             string key = Request.Form("key");
             try
             {
-                ServiceCall.Instance.SiteService.SaveSiteVariable(SiteId,
+                LocalService.Instance.SiteService.SaveSiteVariable(SiteId,
                     new SiteVariableDto
                     {
                         Name = key,
@@ -190,7 +190,7 @@ namespace JR.Cms.Web.Manager.Handle
             int varId = int.Parse(Request.Form("id"));
             try
             {
-                ServiceCall.Instance.SiteService.DeleteSiteVariable(SiteId,varId);
+                LocalService.Instance.SiteService.DeleteSiteVariable(SiteId,varId);
             }
             catch (Exception exc)
             {
@@ -212,7 +212,7 @@ namespace JR.Cms.Web.Manager.Handle
                     Value = Request.Form("value"),
                     Remark = Request.Form("remark")
                 };
-                ServiceCall.Instance.SiteService.SaveSiteVariable(SiteId,dto);
+                LocalService.Instance.SiteService.SaveSiteVariable(SiteId,dto);
             }
             catch (Exception exc)
             {

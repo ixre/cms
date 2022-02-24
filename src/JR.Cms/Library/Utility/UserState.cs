@@ -172,9 +172,9 @@ namespace JR.Cms.Library.Utility
                         var paramStr = Encoding.UTF8.GetString(decodedBytes).Split('&');
                         var username = paramStr[0];
                         var cookieToken = paramStr[1];
-                        var cre = ServiceCall.Instance.UserService.GetCredentialByUserName(username);
+                        var cre = LocalService.Instance.UserService.GetCredentialByUserName(username);
                         if (cre == null) return null;
-                        user = ServiceCall.Instance.UserService.GetUser(cre.UserId);
+                        user = LocalService.Instance.UserService.GetUser(cre.UserId);
                         //用户不存在则返回false
                         if (user != null)
                         {
@@ -207,12 +207,12 @@ namespace JR.Cms.Library.Utility
             public static int Login(string username, string password, double minutes)
             {
                 var sha1Pwd = Generator.CreateUserPwd(password);
-                var result = ServiceCall.Instance.UserService.TryLogin(username, sha1Pwd);
+                var result = LocalService.Instance.UserService.TryLogin(username, sha1Pwd);
                 if (result.Tag == 1)
                 {
                     Exit();
                     var ctx = HttpHosting.Context;
-                    var user = ServiceCall.Instance.UserService.GetUser(result.Uid);
+                    var user = LocalService.Instance.UserService.GetUser(result.Uid);
                     ctx.Session.SetObjectAsJson(AdminSk, user);
                     var opt = new HttpCookieOptions();
                     opt.Expires = DateTime.Now.AddMinutes(minutes);

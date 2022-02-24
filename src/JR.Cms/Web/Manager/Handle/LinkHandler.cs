@@ -47,7 +47,7 @@ namespace JR.Cms.Web.Manager.Handle
             var cate = default(CategoryDto);
 
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
-                ServiceCall.Instance.SiteService.GetLinksByType(SiteId, type, true));
+                LocalService.Instance.SiteService.GetLinksByType(SiteId, type, true));
 
 
             #region 链接拼凑
@@ -82,7 +82,7 @@ namespace JR.Cms.Web.Manager.Handle
                     {
                         if (binds[0] == "category")
                         {
-                            cate = ServiceCall.Instance.SiteService.GetCategory(SiteId, int.Parse(binds[1]));
+                            cate = LocalService.Instance.SiteService.GetCategory(SiteId, int.Parse(binds[1]));
                             bindTitle = cate.ID > 0 ? string.Format("绑定栏目：{0}", cate.Name) : null;
                         }
                         else if (binds[0] == "archive")
@@ -90,7 +90,7 @@ namespace JR.Cms.Web.Manager.Handle
                             int archiveId;
                             int.TryParse(binds[1], out archiveId);
 
-                            archive = ServiceCall.Instance.ArchiveService
+                            archive = LocalService.Instance.ArchiveService
                                 .GetArchiveById(SiteId, archiveId);
 
                             if (archive.Id <= 0)
@@ -193,7 +193,7 @@ namespace JR.Cms.Web.Manager.Handle
             var sb = new StringBuilder();
             var siteId = CurrentSite.SiteId;
 
-            var parentLinks = ServiceCall.Instance.SiteService
+            var parentLinks = LocalService.Instance.SiteService
                 .GetLinksByType(SiteId, type, true);
 
             foreach (var _link in parentLinks)
@@ -241,7 +241,7 @@ namespace JR.Cms.Web.Manager.Handle
             var categoryId = 0;
             var parentOptions = "";
 
-            var link = ServiceCall.Instance.SiteService.GetLinkById(SiteId, linkId);
+            var link = LocalService.Instance.SiteService.GetLinkById(SiteId, linkId);
 
             var bindTitle = string.Empty;
             var binds = (link.Bind ?? "").Split(':');
@@ -255,14 +255,14 @@ namespace JR.Cms.Web.Manager.Handle
 
                 if (binds[0] == "category")
                 {
-                    var cate = ServiceCall.Instance.SiteService.GetCategory(SiteId, bindId);
+                    var cate = LocalService.Instance.SiteService.GetCategory(SiteId, bindId);
 
                     bindTitle = cate.ID > 0 ? $"栏目：{cate.Name}" : null;
                     categoryId = cate.ID;
                 }
                 else if (binds[0] == "archive")
                 {
-                    var archive = ServiceCall.Instance.ArchiveService
+                    var archive = LocalService.Instance.ArchiveService
                         .GetArchiveById(SiteId, bindId);
 
                     if (archive.Id <= 0)
@@ -294,7 +294,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             // ParentOptions
             var sb = new StringBuilder();
-            var parentLinks = ServiceCall.Instance.SiteService
+            var parentLinks = LocalService.Instance.SiteService
                 .GetLinksByType(SiteId, link.Type, true);
 
             foreach (var _link in parentLinks)
@@ -344,7 +344,7 @@ namespace JR.Cms.Web.Manager.Handle
             string bindType = Request.Form("bindType"),
                 bindId = Request.Form("bindId");
 
-            if (linkId > 0) link = ServiceCall.Instance.SiteService.GetLinkById(SiteId, linkId);
+            if (linkId > 0) link = LocalService.Instance.SiteService.GetLinkById(SiteId, linkId);
 
             link.ImgUrl = Request.Form("ImgUrl");
             link.SortNumber = int.Parse(Request.Form("SortNumber"));
@@ -365,7 +365,7 @@ namespace JR.Cms.Web.Manager.Handle
                 link.Bind = string.Empty;
             }
 
-            var id = ServiceCall.Instance.SiteService.SaveLink(SiteId, link);
+            var id = LocalService.Instance.SiteService.SaveLink(SiteId, link);
 
             return ReturnSuccess();
         }
@@ -378,9 +378,9 @@ namespace JR.Cms.Web.Manager.Handle
         public string Set_visible_POST()
         {
             var linkId = int.Parse(Request.Form("link_id"));
-            var link = ServiceCall.Instance.SiteService.GetLinkById(SiteId, linkId);
+            var link = LocalService.Instance.SiteService.GetLinkById(SiteId, linkId);
             link.Visible = !link.Visible;
-            var id = ServiceCall.Instance.SiteService.SaveLink(SiteId, link);
+            var id = LocalService.Instance.SiteService.SaveLink(SiteId, link);
 
             return ReturnSuccess();
         }
@@ -392,7 +392,7 @@ namespace JR.Cms.Web.Manager.Handle
         {
             var linkId = int.Parse(Request.Form("link_id"));
 
-            var link = ServiceCall.Instance.SiteService.GetLinkById(SiteId, linkId);
+            var link = LocalService.Instance.SiteService.GetLinkById(SiteId, linkId);
 
             if (link.Visible)
                 RenderSuccess();
@@ -407,7 +407,7 @@ namespace JR.Cms.Web.Manager.Handle
         public void Delete_POST()
         {
             var linkId = int.Parse(Request.Form("link_id"));
-            ServiceCall.Instance.SiteService.DeleteLink(SiteId, linkId);
+            LocalService.Instance.SiteService.DeleteLink(SiteId, linkId);
             RenderSuccess();
         }
 
@@ -427,7 +427,7 @@ namespace JR.Cms.Web.Manager.Handle
         private string GetContentRelatedIndentOptions()
         {
             var sb = new StringBuilder();
-            var indents = ServiceCall.Instance.ContentService.GetRelatedIndents();
+            var indents = LocalService.Instance.ContentService.GetRelatedIndents();
 
             foreach (var indent in indents)
                 if (indent.Value.Enabled)
@@ -467,7 +467,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void Related_link_POST()
         {
-            var links = ServiceCall.Instance.ContentService
+            var links = LocalService.Instance.ContentService
                 .GetRelatedLinks(
                     SiteId,
                     Request.Form("ContentType"),
@@ -490,7 +490,7 @@ namespace JR.Cms.Web.Manager.Handle
                     Enabled = Request.Form("Enabled") == "1",
                 };
 
-                ServiceCall.Instance.ContentService.SaveRelatedLink(SiteId, dto);
+                LocalService.Instance.ContentService.SaveRelatedLink(SiteId, dto);
 
                 return ReturnSuccess(dto.Id == 0 ? "添加成功" : "保存成功");
             }
@@ -504,7 +504,7 @@ namespace JR.Cms.Web.Manager.Handle
         {
             try
             {
-                ServiceCall.Instance.ContentService.RemoveRelatedLink(
+                LocalService.Instance.ContentService.RemoveRelatedLink(
                     SiteId,
                     Request.Query("contentType"),
                     int.Parse(Request.Query("contentId")),

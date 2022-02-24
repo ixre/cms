@@ -7,6 +7,7 @@ using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Domain.Site.Extend;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.DataAccess.DAL;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Repository
 {

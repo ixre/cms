@@ -32,7 +32,7 @@ namespace JR.Cms.Web.Manager.Handle
             IList<CategoryDto> categories = new List<CategoryDto>();
 
             //根节点
-            ServiceCall.Instance.SiteService.HandleCategoryTree(SiteId, 1, (c, level, isLast) =>
+            LocalService.Instance.SiteService.HandleCategoryTree(SiteId, 1, (c, level, isLast) =>
             {
                 var dto = CategoryDto.ConvertFrom(c);
 
@@ -122,7 +122,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var category = InitCategoryDtoFromHttpPost(Request, new CategoryDto());
 
-            var r = ServiceCall.Instance.SiteService
+            var r = LocalService.Instance.SiteService
                 .SaveCategory(SiteId, parentId, category);
             if (r.ErrCode > 0) return ReturnError(r.ErrMsg);
             Kvdb.Gca.Delete(Consts.NODE_TREE_JSON_KEY);
@@ -143,7 +143,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             try
             {
-                ServiceCall.Instance.SiteService.MoveCategorySortNumber(SiteId, id, di);
+                LocalService.Instance.SiteService.MoveCategorySortNumber(SiteId, id, di);
                 var key = Consts.NODE_TREE_JSON_KEY + ":" + SiteId;
                 Kvdb.Gca.Delete(key);
                 RenderSuccess();
@@ -199,7 +199,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             //获取栏目
             var categoryId = int.Parse(Request.Query("category_id"));
-            var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryId);
+            var category = LocalService.Instance.SiteService.GetCategory(SiteId, categoryId);
 
 
             //检验站点
@@ -265,7 +265,7 @@ namespace JR.Cms.Web.Manager.Handle
         [MCache(CacheSign.Category | CacheSign.Link)]
         public string Update_POST()
         {
-            var category = ServiceCall.Instance.SiteService.GetCategory(
+            var category = LocalService.Instance.SiteService.GetCategory(
                 SiteId, int.Parse(Request.Form("ID").ToString()));
             if (!(category.ID > 0)) return ReturnError("分类不存在!");
 
@@ -274,7 +274,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var parentId = Convert.ToInt32(Request.Form("ParentId"));
             //设置并保存
-            var r = ServiceCall.Instance.SiteService.SaveCategory(SiteId, parentId, category);
+            var r = LocalService.Instance.SiteService.SaveCategory(SiteId, parentId, category);
             if (r.ErrCode > 0) return ReturnError(r.ErrMsg);
             var key = Consts.NODE_TREE_JSON_KEY + ":" + SiteId.ToString();
             Kvdb.Gca.Delete(key);
@@ -288,7 +288,7 @@ namespace JR.Cms.Web.Manager.Handle
         public string Delete_POST()
         {
             var categoryId = int.Parse(Request.Form("category_id"));
-            var err = ServiceCall.Instance.SiteService.DeleteCategory(SiteId, categoryId);
+            var err = LocalService.Instance.SiteService.DeleteCategory(SiteId, categoryId);
             if (err == null)
             {
                 var key = Consts.NODE_TREE_JSON_KEY + ":" + SiteId.ToString();
@@ -304,7 +304,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void Tree()
         {
-            var node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(SiteId);
+            var node = LocalService.Instance.SiteService.GetCategoryTreeWithRootNode(SiteId);
 
             BuiltCacheResultHandler<string> bh = () =>
             {
@@ -320,7 +320,7 @@ namespace JR.Cms.Web.Manager.Handle
 
 
                 //从根目录起循环
-                ServiceCall.Instance.SiteService.ItrCategoryTree(sb, SiteId, 1);
+                LocalService.Instance.SiteService.ItrCategoryTree(sb, SiteId, 1);
 
                 //ItrTree(CmsLogic.Category.Root, sb,siteID);
 

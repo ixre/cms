@@ -275,14 +275,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
             {
                 if (binds[0] == "category")
                 {
-                    var category = ServiceCall.Instance.SiteService.GetCategory(_site.SiteId, int.Parse(binds[1]));
+                    var category = LocalService.Instance.SiteService.GetCategory(_site.SiteId, int.Parse(binds[1]));
                     if (category.ID > 0) return GetCategoryUrl(category, 1);
                 }
                 else if (binds[0] == "archive")
                 {
                     int.TryParse(binds[1], out var archiveId);
 
-                    var archiveDto = ServiceCall.Instance.ArchiveService
+                    var archiveDto = LocalService.Instance.ArchiveService
                         .GetArchiveById(SiteId, archiveId);
 
                     if (archiveDto.Id > 0)
@@ -366,21 +366,21 @@ namespace JR.Cms.Web.Portal.Template.Rule
             IEnumerable<CategoryDto> categories1;
             if (param == string.Empty)
             {
-                categories1 = ServiceCall.Instance.SiteService.GetCategories(siteId);
+                categories1 = LocalService.Instance.SiteService.GetCategories(siteId);
             }
             else
             {
                 if (Regex.IsMatch(param, "^\\d+$"))
                 {
                     var moduleId = int.Parse(param);
-                    categories1 = ServiceCall.Instance.SiteService.GetCategories(siteId)
+                    categories1 = LocalService.Instance.SiteService.GetCategories(siteId)
                         .Where(a => a.ModuleId == moduleId);
                 }
                 else
                 {
-                    var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, param);
+                    var category = LocalService.Instance.SiteService.GetCategory(SiteId, param);
                     if (category.ID > 0)
-                        categories1 = ServiceCall.Instance.SiteService.GetCategories(SiteId, category.Path);
+                        categories1 = LocalService.Instance.SiteService.GetCategories(SiteId, category.Path);
                     else
                         categories1 = null;
                 }
@@ -535,7 +535,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [TemplateTag]
         protected string Archive_Redirect(string id)
         {
-            var a = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(_site.SiteId, id);
+            var a = LocalService.Instance.ArchiveService.GetArchiveByIdOrAlias(_site.SiteId, id);
 
             if (a.Id > 0)
             {
@@ -560,7 +560,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [TemplateTag]
         protected string Require(string idOrAlias)
         {
-            var a = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(SiteId, idOrAlias);
+            var a = LocalService.Instance.ArchiveService.GetArchiveByIdOrAlias(SiteId, idOrAlias);
             if (a.Id > 0) archive = a;
             return string.Empty;
         }
@@ -972,7 +972,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             var sb = new StringBuilder();
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
-                ServiceCall.Instance.SiteService.GetLinksByType(SiteId, SiteLinkType.Navigation, false));
+                LocalService.Instance.SiteService.GetLinksByType(SiteId, SiteLinkType.Navigation, false));
             var total = links.Count;
 
             int navIndex;
@@ -1065,9 +1065,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
         {
             ArchiveDto archiveDto;
             if (idOrAlias is int)
-                archiveDto = ServiceCall.Instance.ArchiveService.GetArchiveById(_siteId, Convert.ToInt32(idOrAlias));
+                archiveDto = LocalService.Instance.ArchiveService.GetArchiveById(_siteId, Convert.ToInt32(idOrAlias));
             else
-                archiveDto = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(_siteId, idOrAlias.ToString());
+                archiveDto = LocalService.Instance.ArchiveService.GetArchiveByIdOrAlias(_siteId, idOrAlias.ToString());
 
             if (archiveDto.Id <= 0) return TplMessage(string.Format("不存在编号（或别名）为:{0}的文档!", idOrAlias));
 
@@ -1088,7 +1088,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected string PrevArchive(string id, string format)
         {
             var archiveDto =
-                ServiceCall.Instance.ArchiveService.GetSameCategoryPreviousArchive(SiteId, int.Parse(id));
+                LocalService.Instance.ArchiveService.GetSameCategoryPreviousArchive(SiteId, int.Parse(id));
             if (!(archiveDto.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoPrevious);
 
             var sb = new StringBuilder(500);
@@ -1107,7 +1107,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected string NextArchive(string id, string format)
         {
             var archiveDto =
-                ServiceCall.Instance.ArchiveService.GetSameCategoryNextArchive(SiteId, int.Parse(id));
+                LocalService.Instance.ArchiveService.GetSameCategoryNextArchive(SiteId, int.Parse(id));
 
             if (!(archiveDto.Id > 0)) return Cms.Language.Get(LanguagePackageKey.ARCHIVE_NoNext);
 
@@ -1153,7 +1153,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var isModule = false;
             if (!isModule)
             {
-                categories = new List<CategoryDto>(ServiceCall.Instance.SiteService
+                categories = new List<CategoryDto>(LocalService.Instance.SiteService
                     .GetCategories(SiteId, catPath));
             }
 
@@ -1438,7 +1438,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected string Paging_Archives(string categoryPath, string pageIndex, string pageSize, int skipSize,
             int splitSize, string format)
         {
-            var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryPath);
+            var category = LocalService.Instance.SiteService.GetCategory(SiteId, categoryPath);
             if (!(category.ID > 0)) return TplMessage("Error:栏目不存在!");
 
             var listContainer = format.EndsWith("</li>");
@@ -1459,7 +1459,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 totalNum = 0;
             DataRowCollection drs;
 
-            drs = ServiceCall.Instance.ArchiveService.GetPagedArchives(
+            drs = LocalService.Instance.ArchiveService.GetPagedArchives(
                 SiteId,
                 categoryPath,
                 _pageSize,
@@ -1487,7 +1487,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                 if (categoryId != archiveCategory.ID)
                 {
-                    archiveCategory = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryId);
+                    archiveCategory = LocalService.Instance.SiteService.GetCategory(SiteId, categoryId);
                     if (!(archiveCategory.ID > 0)) continue;
                 }
 
@@ -1654,10 +1654,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
         {
             int.TryParse(num, out var intNum);
             //获取栏目
-            var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, catPath);
+            var category = LocalService.Instance.SiteService.GetCategory(SiteId, catPath);
 
             if (!(category.ID > 0)) return $"ERROR:模块或栏目不存在!参数:{catPath}";
-            var dt = ServiceCall.Instance.ArchiveService.GetSpecialArchives(
+            var dt = LocalService.Instance.ArchiveService.GetSpecialArchives(
                 SiteId, category.Path, container, intNum,skipSize);
             return ArchiveList(dt, splitSize, format);
         }
@@ -1678,11 +1678,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
             int.TryParse(num, out var intNum);
 
             //栏目
-            var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, catPath);
+            var category = LocalService.Instance.SiteService.GetCategory(SiteId, catPath);
 
             if (!(category.ID > 0)) return $"ERROR:模块或栏目不存在!参数:{catPath}";
 
-            var archives = ServiceCall.Instance.ArchiveService
+            var archives = LocalService.Instance.ArchiveService
                 .GetArchivesByCategoryPath(SiteId, category.Path, container, intNum, skipSize);
 
             return ArchiveList(archives, splitSize, format);
@@ -1759,11 +1759,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 //如果模块不存在，则按栏目搜索
                 if (searchArchives == null)
                 {
-                    category = ServiceCall.Instance.SiteService.GetCategory(siteId, categoryTagOrModuleId);
+                    category = LocalService.Instance.SiteService.GetCategory(siteId, categoryTagOrModuleId);
                     if (category.ID > 0)
                     {
                         hasSetCategory = true;
-                        searchArchives = ServiceCall.Instance.ArchiveService.SearchArchivesByCategory(siteId,
+                        searchArchives = LocalService.Instance.ArchiveService.SearchArchivesByCategory(siteId,
                             category.Path, keyword, intPageSize, intPageIndex, out total, out pages,
                             "ORDER BY create_time DESC");
                     }
@@ -1777,7 +1777,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             //如果未设置模块或栏目参数
             if (searchArchives == null)
-                searchArchives = ServiceCall.Instance.ArchiveService.SearchArchives(siteId, "", false,
+                searchArchives = LocalService.Instance.ArchiveService.SearchArchives(siteId, "", false,
                     keyword, intPageSize, intPageIndex, out total, out pages, "ORDER BY create_time DESC");
 
             IDictionary<string, string> extendFields = null;
@@ -1986,7 +1986,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var sb = new StringBuilder();
 
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
-                ServiceCall.Instance.SiteService
+                LocalService.Instance.SiteService
                     .GetLinksByType(SiteId, linkType, false));
 
             SiteLinkDto link;
@@ -2125,7 +2125,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var i = 0;
 
             var cLength = GetSetting().CfgOutlineLength;
-            var searchArchives = ServiceCall.Instance.ArchiveService
+            var searchArchives = LocalService.Instance.ArchiveService
                 .SearchArchives(SiteId, "", false, tag,
                     _pageSize, _pageIndex,
                     out _records, out _pages, "ORDER BY create_time DESC");
@@ -2302,7 +2302,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     .Append(category.Path).Append("\" path=\"").Append(category.Path).Append("\">")
                     .Append(category.Name).Append("</a>");
 
-            IList<CategoryDto> childs = new List<CategoryDto>(ServiceCall.Instance.SiteService.GetCategories(
+            IList<CategoryDto> childs = new List<CategoryDto>(LocalService.Instance.SiteService.GetCategories(
                 SiteId, category.Path));
 
 
@@ -2344,7 +2344,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 //无缓存,则继续执行
                 var sb = new StringBuilder(400);
 
-                var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryTag);
+                var category = LocalService.Instance.SiteService.GetCategory(SiteId, categoryTag);
                 if (!(category.ID > 0)) return TplMessage("不存在栏目!标识:" + categoryTag);
 
                 sb.Append("<div class=\"category_tree\">");
@@ -2423,16 +2423,16 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 if (CmsLogic.Module.GetModule(moduleId) != null)
                 {
                     isModule = true;
-                    ServiceCall.Instance.SiteService.HandleCategoryTree(SiteId, 1, treeHandler);
+                    LocalService.Instance.SiteService.HandleCategoryTree(SiteId, 1, treeHandler);
                 }
             }
 
             if (!isModule)
             {
-                var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryTag);
+                var category = LocalService.Instance.SiteService.GetCategory(SiteId, categoryTag);
                 if (!(category.ID > 0)) return TplMessage("不存在栏目!标识:" + categoryTag);
 
-                ServiceCall.Instance.SiteService.HandleCategoryTree(SiteId, category.ID, treeHandler);
+                LocalService.Instance.SiteService.HandleCategoryTree(SiteId, category.ID, treeHandler);
             }
 
 

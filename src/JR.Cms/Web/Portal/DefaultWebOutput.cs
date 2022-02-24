@@ -119,7 +119,7 @@ namespace JR.Cms.Web.Portal
         {
             if (archivePath.StartsWith("/")) archivePath = archivePath.Substring(1);
             var siteId = context.CurrentSite.SiteId;
-            var archive = ServiceCall.Instance.ArchiveService.GetArchiveByIdOrAlias(siteId, archivePath);
+            var archive = LocalService.Instance.ArchiveService.GetArchiveByIdOrAlias(siteId, archivePath);
             if (archive.Id <= 0)
             {
                 RenderNotFound(context);
@@ -178,7 +178,7 @@ namespace JR.Cms.Web.Portal
                 if (!archivePath.StartsWith(category.Path + "/"))
                 {
                     // 如果栏目和文档路径不匹配
-                    ServiceCall.Instance.ArchiveService.UpdateArchivePath(siteId,archive.Id);
+                    LocalService.Instance.ArchiveService.UpdateArchivePath(siteId,archive.Id);
                     RenderError(context,new Exception("文档路径不匹配, 已自动纠正为正确地址, 请重新打开访问"),false);
                     return;
                 }
@@ -186,7 +186,7 @@ namespace JR.Cms.Web.Portal
 
             //增加浏览次数
             ++archive.ViewCount;
-            ServiceCall.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);
+            LocalService.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);
             try
             {
                 //显示页面
@@ -217,7 +217,7 @@ namespace JR.Cms.Web.Portal
             // 去掉末尾的"/"
             if (catPath.EndsWith("/")) catPath = catPath.Substring(0, catPath.Length - 1);
             var siteId = context.CurrentSite.SiteId;
-            var category = ServiceCall.Instance.SiteService.GetCategory(siteId, catPath);
+            var category = LocalService.Instance.SiteService.GetCategory(siteId, catPath);
             if (!(category.ID > 0))
             {
                 RenderNotFound(context);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Infrastructure;
+using JR.Stand.Core.Extensions;
 using RelatedLinkDto = JR.Cms.ServiceDto.RelatedLinkDto;
 
 namespace JR.Cms.ServiceContract

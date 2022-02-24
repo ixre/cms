@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Infrastructure;
 using JR.Stand.Core.Data;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Library.DataAccess.DAL
 {

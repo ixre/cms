@@ -28,7 +28,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void GetExtendFields_POST()
         {
-            var list = ServiceCall.Instance.SiteService.GetExtendFields(SiteId);
+            var list = LocalService.Instance.SiteService.GetExtendFields(SiteId);
             PagerJson(list, "共" + list.Count().ToString() + "条");
         }
 
@@ -41,7 +41,7 @@ namespace JR.Cms.Web.Manager.Handle
             var categoryId = int.Parse(Request.Query("category_id"));
             IList<int> extendIds = new List<int>();
             var list = ExtendFieldCacheManager.GetExtendFields(CurrentSite.SiteId);
-            var category = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryId);
+            var category = LocalService.Instance.SiteService.GetCategory(SiteId, categoryId);
 
             foreach (var extend in category.ExtendFields) extendIds.Add(extend.GetDomainId());
 
@@ -75,7 +75,7 @@ namespace JR.Cms.Web.Manager.Handle
                     extendIdstr.Split(',')
                     , a => int.Parse(a));
 
-            var category = ServiceCall.Instance.SiteService.GetCategory(
+            var category = LocalService.Instance.SiteService.GetCategory(
                 SiteId, categoryId);
 
             //重新设置扩展信息
@@ -87,7 +87,7 @@ namespace JR.Cms.Web.Manager.Handle
             //设置并保存
             try
             {
-                ServiceCall.Instance.SiteService.SaveCategory(SiteId, category.ParentId, category);
+                LocalService.Instance.SiteService.SaveCategory(SiteId, category.ParentId, category);
             }
             catch (Exception exc)
             {
@@ -102,7 +102,7 @@ namespace JR.Cms.Web.Manager.Handle
         public string SaveExtendField_POST()
         {
             var extend = Request.ParseFormToEntity<ExtendFieldDto>();
-            var r = ServiceCall.Instance.SiteService.SaveExtendField(SiteId, extend);
+            var r = LocalService.Instance.SiteService.SaveExtendField(SiteId, extend);
             if (r.ErrCode > 0) return ReturnError(r.ErrMsg);
             return ReturnSuccess();
         }

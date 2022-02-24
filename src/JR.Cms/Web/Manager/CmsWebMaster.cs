@@ -35,11 +35,11 @@ namespace JR.Cms.Web.Manager
                 if (site.SiteId == 0)
                 {
                     // get site by host name
-                    site = ServiceCall.Instance.SiteService.GetSingleOrDefaultSite(WebCtx.Current.Host, "");
+                    site = LocalService.Instance.SiteService.GetSingleOrDefaultSite(WebCtx.Current.Host, "");
                     // get the first site for user
                     if (!usr.IsMaster && usr.Roles.GetRole(site.SiteId) == null)
                     {
-                        var sites = ServiceCall.Instance.UserService.GetUserRelationSites(usr.Id);
+                        var sites = LocalService.Instance.UserService.GetUserRelationSites(usr.Id);
                         if (sites.Length == 0) throw new Exception("no permission");
 
                         site = sites[0];
