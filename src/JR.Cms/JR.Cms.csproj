@@ -33,6 +33,8 @@
       <Compile Remove="Component\Crawl\PickerTestWeb\**" />
       <Compile Remove="WebImpl\Resource\SiteResource.Designer.cs" />
       <Compile Remove="Core\Hibernate\**" />
+      <Compile Remove="Generator\output\**" />
+      <Compile Remove="Generator\output\csharp\Service\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -82,6 +84,10 @@
       <None Remove="Web\Resource\SiteResources\jslib\js_lib_scroller.js" />
       <EmbeddedResource Remove="Core\Hibernate\**" />
       <None Remove="Core\Hibernate\**" />
+      <EmbeddedResource Remove="Generator\output\**" />
+      <None Remove="Generator\output\**" />
+      <EmbeddedResource Remove="Generator\output\csharp\Service\**" />
+      <None Remove="Generator\output\csharp\Service\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -93,6 +99,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Generator\output\csharp" />
       <Folder Include="Generator\templates\java" />
       <Folder Include="Web\Addon" />
       <Folder Include="_old" />
