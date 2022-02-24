@@ -3,6 +3,7 @@ using System.Data.Common;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Infrastructure;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Domain.Interface.Site.Extend
 {

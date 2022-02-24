@@ -382,7 +382,7 @@ namespace JR.Cms.Web.Manager.Handle
             string tpl = Request.Query("tpl");
             var site = CurrentSite;
             site.Tpl = tpl;
-            ServiceCall.Instance.SiteService.SaveSite(site);
+            LocalService.Instance.SiteService.SaveSite(site);
             RenderSuccess("");
         }
 

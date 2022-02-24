@@ -17,6 +17,7 @@ using JR.Cms.Domain.Site.Link;
 using JR.Cms.Domain.Site.Variable;
 using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Tree;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Domain.Site
 {

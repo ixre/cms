@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Infrastructure;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Domain.Site.Extend
 {

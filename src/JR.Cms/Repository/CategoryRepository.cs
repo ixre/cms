@@ -9,6 +9,7 @@ using JR.Cms.Domain.Site.Category;
 using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Ioc;
 using JR.Cms.Library.DataAccess.DAL;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Repository
 {

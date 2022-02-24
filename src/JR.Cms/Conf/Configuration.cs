@@ -338,7 +338,7 @@ namespace JR.Cms.Conf
             SettingFile sf = new SettingFile(relatedConf);
             var isModify = false;
             var isLoaded = false;
-            IDictionary<int, RelateIndent> relatedIndents = ServiceCall.Instance.ContentService.GetRelatedIndents();
+            IDictionary<int, RelateIndent> relatedIndents = LocalService.Instance.ContentService.GetRelatedIndents();
 
             IDictionary<int, RelateIndent> newIndents = new Dictionary<int, RelateIndent>(relatedIndents.Count);
 
@@ -368,7 +368,7 @@ namespace JR.Cms.Conf
 
             if (isLoaded)
             {
-                ServiceCall.Instance.ContentService.SetRelatedIndents(newIndents);
+                LocalService.Instance.ContentService.SetRelatedIndents(newIndents);
             }
         }
 

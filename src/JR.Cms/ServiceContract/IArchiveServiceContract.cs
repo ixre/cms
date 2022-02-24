@@ -3,10 +3,14 @@ using System.Data;
 using JR.Cms.Infrastructure;
 using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts;
+using JR.Stand.Core.Extensions;
 
 
 namespace JR.Cms.ServiceContract
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IArchiveServiceContract
     {
         /// <summary>

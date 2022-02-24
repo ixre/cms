@@ -7,6 +7,7 @@ using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
 using JR.Cms.Domain.Interface.Site.Template;
 using JR.Cms.Infrastructure;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Domain.Site.Category
 {

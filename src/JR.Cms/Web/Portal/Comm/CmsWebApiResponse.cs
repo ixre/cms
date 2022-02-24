@@ -57,7 +57,7 @@ namespace JR.Cms.Web.Portal.Comm
     {
         internal static string GetRelatedlinks(SiteDto site, string contentType, int contentId)
         {
-            var cs = ServiceCall.Instance.ContentService;
+            var cs = LocalService.Instance.ContentService;
             var links = cs.GetRelatedLinks(site.SiteId, contentType, contentId);
 
             IList<ApiTypes.RLink> rlinks = new List<ApiTypes.RLink>();
@@ -85,7 +85,7 @@ namespace JR.Cms.Web.Portal.Comm
 
         internal static string GetRelatedArchiveLinks(SiteDto site, string contentType, int contentId)
         {
-            IList<RelatedLinkDto> archives = new List<RelatedLinkDto>(ServiceCall.Instance.ContentService
+            IList<RelatedLinkDto> archives = new List<RelatedLinkDto>(LocalService.Instance.ContentService
                 .GetRelatedLinks(site.SiteId, contentType, contentId));
             var host = WebCtx.Current.Host;
             var resDomain = Cms.Context.ResourceDomain;

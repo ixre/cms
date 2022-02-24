@@ -3,6 +3,7 @@ using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Template;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.DataAccess.DAL;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Repository
 {

@@ -50,7 +50,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <returns></returns>
         protected string GetCategory(string name)
         {
-            var c = ServiceCall.Instance.SiteService.GetCategoryByName(SiteId, name);
+            var c = LocalService.Instance.SiteService.GetCategoryByName(SiteId, name);
             return c.ID <= 0 ? "" : c.Tag;
         }
     }

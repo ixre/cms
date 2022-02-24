@@ -8,6 +8,7 @@ using JR.Cms.Domain.Interface.Site;
 using JR.Cms.Infrastructure;
 using JR.Cms.ServiceContract;
 using JR.Cms.ServiceDto;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.ServiceImpl
 {
