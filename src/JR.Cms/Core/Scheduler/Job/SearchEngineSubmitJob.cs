@@ -69,11 +69,15 @@ namespace JR.Cms.Core.Scheduler.Job
 
         private void SubmitUrlToBaidu(SiteDto site, CmsSearchEngineEntity se, string[] urls)
         {
-            se = new CmsSearchEngineEntity
-            {
-                SiteUrl = "https://fze.net",
-                BaiduSiteToken = "44aehEoPIs7aBdef"
-            };
+            if (se == null) return;
+            // {
+            //     se = new CmsSearchEngineEntity
+            //     {
+            //         SiteUrl = "https://fze.net",
+            //         BaiduSiteToken = "44aehEoPIs7aBdef"
+            //     };
+            // }
+
             String ret = HttpClient.Request(
                 $"http://data.zz.baidu.com/urls?site={se.SiteUrl}&token={se.BaiduSiteToken}", "POST",
                 new HttpRequestParam
