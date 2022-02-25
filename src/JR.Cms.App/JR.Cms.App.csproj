@@ -430,6 +430,7 @@
       <Content Include="public\mui\html\login.html" />
       <Content Include="public\mui\html\plugin\plugin_dashboard.html" />
       <Content Include="public\mui\html\plugin\plugin_miniapps.html" />
+      <Content Include="public\mui\html\seo\search_engine.html" />
       <Content Include="public\mui\html\site\site.variable.html" />
       <Content Include="public\mui\html\site\extend\extend.category_check.html" />
       <Content Include="public\mui\html\site\extend\extend.create.html" />

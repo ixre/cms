@@ -89,7 +89,7 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
          {
              using (IDbConnection db = _provider.GetConnection())
              {
-                 return db.QueryFirst<{{$entityName}}>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM {{$tableName}} WHERE ${where}"));
+                 return db.QueryFirstOrDefault<{{$entityName}}>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM {{$tableName}} WHERE ${where}"));
              }  
          }         
        

@@ -72,7 +72,7 @@ namespace JR.Cms.ServiceImpl
                 }
 
                 dst.SiteId = e.SiteId;
-                dst.UrlPrefix = e.UrlPrefix;
+                dst.SiteUrl = e.SiteUrl;
                 dst.BaiduSiteToken = e.BaiduSiteToken;
                 this._repo.Save(dst);
             }
@@ -94,7 +94,7 @@ namespace JR.Cms.ServiceImpl
 
         public CmsSearchEngineEntity FindSearchEngineBySiteId(int siteId)
         {
-            return this._repo.FindBy($"site_id=${siteId}");
+            return this._repo.FindBy($"site_id={siteId}");
         }
     }
 }

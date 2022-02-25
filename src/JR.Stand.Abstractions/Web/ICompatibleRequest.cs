@@ -57,5 +57,12 @@ namespace JR.Stand.Abstracts.Web
         ICompatiblePostedFile FileIndex(int i);
 
         IDictionary<String, StringValues> Headers();
+        
+        /// <summary>
+        /// 将请求内容绑定到类型T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        T Bind<T>();
     }
 }
