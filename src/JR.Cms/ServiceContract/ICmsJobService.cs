@@ -40,5 +40,6 @@ namespace JR.Cms.ServiceContract
         /// 删除定时任务
         /// </summary>
         int DeleteJobById(long id);
+
     }
 }
