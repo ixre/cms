@@ -35,7 +35,14 @@ namespace JR.Cms.Dao.Impl{
         {
            using (IDbConnection db = _provider.GetConnection())
            {
-               return db.Query<CmsJobEntity>(_provider.FormatQuery("SELECT * FROM $PREFIX_job")).AsList();
+               return db.Query<CmsJobEntity>(_provider.FormatQuery(@"SELECT 
+                  id as Id,
+                  job_name as JobName,
+                  job_class as JobClass,
+                  cron_exp as CronExp,
+                  job_describe as JobDescribe,
+                  enabled as Enabled
+                FROM $PREFIX_job")).AsList();
            } 
         }
         
@@ -79,7 +86,14 @@ namespace JR.Cms.Dao.Impl{
          {
             using (IDbConnection db = _provider.GetConnection())
             {
-                return db.QueryFirst<CmsJobEntity>(_provider.FormatQuery("SELECT * FROM $PREFIX_job WHERE id = @Id"),
+                return db.QueryFirst<CmsJobEntity>(_provider.FormatQuery(@"SELECT 
+                       id as Id,
+                  job_name as JobName,
+                  job_class as JobClass,
+                  cron_exp as CronExp,
+                  job_describe as JobDescribe,
+                  enabled as Enabled
+                    FROM $PREFIX_job WHERE id = @Id"),
                     new CmsJobEntity{
                       Id = id, 
                     });

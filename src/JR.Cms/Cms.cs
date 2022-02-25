@@ -12,6 +12,7 @@ using System;
 using System.IO;
 using JR.Cms.Conf;
 using JR.Cms.Core;
+using JR.Cms.Core.Scheduler;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.CacheProvider.CacheComponent;

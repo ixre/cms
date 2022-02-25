@@ -3,7 +3,7 @@
  *
  * name : CmsSearchEngineRepositoryImpl.cs
  * author : jarrysix
- * date : 2022/02/24 12:31:22
+ * date : 2022/02/25 10:30:30
  * description :
  * history :
  */
@@ -35,7 +35,11 @@ namespace JR.Cms.Dao.Impl{
         {
            using (IDbConnection db = _provider.GetConnection())
            {
-               return db.Query<CmsSearchEngineEntity>(_provider.FormatQuery("SELECT * FROM $PREFIX_search_engine")).AsList();
+               return db.Query<CmsSearchEngineEntity>(_provider.FormatQuery(@"SELECT 
+                  id as Id,
+                  site_id as SiteId,
+                  baidu_site_token as BaiduSiteToken
+                  FROM $PREFIX_search_engine")).AsList();
            } 
         }
         
@@ -52,10 +56,12 @@ namespace JR.Cms.Dao.Impl{
                 {
                     int i = db.Execute(_provider.FormatQuery(
                         @"INSERT INTO $PREFIX_search_engine(
-                           site_id,baidu_site_token
-                        ) VALUES(
-                          @SiteId,@BaiduSiteToken
-                        )"),
+                           site_id,
+                           baidu_site_token
+                           ) VALUES(
+                          @SiteId,
+                          @BaiduSiteToken
+                          )"),
                     e);
                     return e.Id;
                 }
@@ -63,7 +69,8 @@ namespace JR.Cms.Dao.Impl{
                 db.Execute(
                     _provider.FormatQuery(
                     @"UPDATE $PREFIX_search_engine SET 
-                     site_id = @SiteId, baidu_site_token = @BaiduSiteToken  
+                     site_id = @SiteId,
+                     baidu_site_token = @BaiduSiteToken
                      WHERE id=@Id"),
                     e);
                 return e.Id;
@@ -79,7 +86,11 @@ namespace JR.Cms.Dao.Impl{
          {
             using (IDbConnection db = _provider.GetConnection())
             {
-                return db.QueryFirst<CmsSearchEngineEntity>(_provider.FormatQuery("SELECT * FROM $PREFIX_search_engine WHERE id = @Id"),
+                return db.QueryFirst<CmsSearchEngineEntity>(_provider.FormatQuery(@"SELECT 
+                    id as Id,
+                    site_id as SiteId,
+                    baidu_site_token as BaiduSiteToken
+                    FROM $PREFIX_search_engine WHERE id = @Id"),
                     new CmsSearchEngineEntity{
                       Id = id, 
                     });

@@ -10,6 +10,7 @@ using System.Data;
 {{$pkProp := .table.PkProp}}
 {{$tableName := .table.Name}}
 {{$columns := exclude .columns $pkName}}
+{{$allColumns := .columns}}
 
 namespace {{pkg "csharp" .global.pkg}}.Repository{
     {{$pkType := pk_type "csharp" .table.PkType}}
@@ -34,7 +35,10 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
         {
            using (IDbConnection db = _provider.GetConnection())
            {
-               return db.Query<{{$entityName}}>(_provider.FormatQuery("SELECT * FROM {{.table.Name}}")).AsList();
+               return db.Query<{{$entityName}}>(_provider.FormatQuery(@"SELECT 
+                  {{range $i,$c := $allColumns}}{{$c.Name}} as {{$c.Prop}}{{if not (is_last $i $allColumns) }},{{end}}
+                  {{end}}\
+                FROM {{.table.Name}}")).AsList();
            } 
         }
         
@@ -51,9 +55,11 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
                 {
                     int i = db.Execute(_provider.FormatQuery(
                         @"INSERT INTO {{$tableName}}(
-                           {{range $i,$c := $columns}}{{$c.Name}}{{if not (is_last $i $columns) }},{{end}}{{end}}
+                           {{range $i,$c := $columns}}{{$c.Name}}{{if not (is_last $i $columns) }},{{end}}
+                           {{end}}\
                         ) VALUES(
-                          {{range $i,$c := $columns}}@{{$c.Prop}}{{if not (is_last $i $columns) }},{{end}}{{end}}
+                          {{range $i,$c := $columns}}@{{$c.Prop}}{{if not (is_last $i $columns) }},{{end}}
+                          {{end}}\
                         )"),
                     e);
                     return e.{{.table.PkProp}};
@@ -62,7 +68,8 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
                 db.Execute(
                     _provider.FormatQuery(
                     @"UPDATE {{.table.Name}} SET 
-                     {{range $i,$c := $columns}}{{$c.Name}} = @{{$c.Prop}}{{if not (is_last $i $columns) }},{{end}} {{end}} 
+                     {{range $i,$c := $columns}}{{$c.Name}} = @{{$c.Prop}}{{if not (is_last $i $columns) }},{{end}}
+                     {{end}}\
                      WHERE {{$pkName}}=@{{$pkProp}}"),
                     e);
                 return e.{{.table.PkProp}};
@@ -78,7 +85,10 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
          {
             using (IDbConnection db = _provider.GetConnection())
             {
-                return db.QueryFirst<{{$entityName}}>(_provider.FormatQuery("SELECT * FROM {{$tableName}} WHERE {{$pkName}} = @{{$pkProp}}"),
+                return db.QueryFirst<{{$entityName}}>(_provider.FormatQuery(@"SELECT 
+                    {{range $i,$c := $allColumns}}{{$c.Name}} as {{$c.Prop}}{{if not (is_last $i $allColumns) }},{{end}}
+                    {{end}}\
+                    FROM {{$tableName}} WHERE {{$pkName}} = @{{$pkProp}}"),
                     new {{$entityName}}{
                       {{$pkProp}} = {{$pkName}}, 
                     });
