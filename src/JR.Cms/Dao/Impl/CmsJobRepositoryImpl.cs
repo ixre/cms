@@ -104,7 +104,7 @@ namespace JR.Cms.Dao.Impl{
          {
              using (IDbConnection db = _provider.GetConnection())
              {
-                 return db.QueryFirst<CmsJobEntity>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM $PREFIX_job WHERE ${where}"));
+                 return db.QueryFirstOrDefault<CmsJobEntity>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM $PREFIX_job WHERE ${where}"));
              }  
          }         
        

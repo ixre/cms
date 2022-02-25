@@ -29,7 +29,7 @@ namespace JR.Stand.Core.Framework.Net
         /// <param name="method">方法</param>
         /// <param name="o">数据</param>
         /// <returns></returns>
-        public static string Request(string url,string method, HttpRequestParam o)
+        public static string Request(string url,string method = "GET", HttpRequestParam o = null)
         {
             if (o == null) o = new HttpRequestParam();
             HttpWebRequest req ;
@@ -84,10 +84,22 @@ namespace JR.Stand.Core.Framework.Net
                 {
                     req.ContentType = "application/x-www-form-urlencoded";
                     data = Encoding.UTF8.GetBytes(ParseQuery(o.Form));
-                }else if (o.Data != null)
+                }else if (o.Body != null)
                 {
-                    req.ContentType = "application/json";
-                    data = Encoding.UTF8.GetBytes( JsonConvert.SerializeObject(o.Data));
+                    if (o.Body is string oData)
+                    {
+                        req.ContentType = "text/plain";
+                        data = Encoding.UTF8.GetBytes(oData);
+                    }else if(o.Body is byte[] bytes)
+                    {
+                        req.ContentType = "application/oct-stream";
+                        data = bytes;
+                    }
+                    else
+                    {
+                        req.ContentType = "application/json";
+                        data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(o.Body));
+                    }
                 }
             }
 
@@ -118,7 +130,7 @@ namespace JR.Stand.Core.Framework.Net
         /// </summary>
         /// <param name="paramMap">参数字典</param>
         /// <returns></returns>
-        public static string ParseQuery(IDictionary<string, string> paramMap)
+        private static string ParseQuery(IDictionary<string, string> paramMap)
         {
             int i = 0;
             StringBuilder sb = new StringBuilder();

@@ -46,7 +46,7 @@ namespace JR.Stand.Core.Framework.Api
                 {
                     {"Authorization", this._accessToken},
                 },
-                Data = data,
+                Body = data,
             });
         }
 

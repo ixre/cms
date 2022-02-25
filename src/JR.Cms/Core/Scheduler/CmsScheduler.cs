@@ -50,17 +50,17 @@ namespace JR.Cms.Core.Scheduler
                 {"quartz.serializer.type", "binary"}
             };
             StdSchedulerFactory factory = new StdSchedulerFactory(props);
-// 得到一个调度器
+            // 得到一个调度器
             IScheduler sched = await factory.GetScheduler();
             await sched.Start();
 
             foreach (CmsJobEntity je in jobs)
             {
                 // 定义作业并将其绑定到HelloJob类
-                Type classType =Assembly.GetExecutingAssembly().GetType(je.JobClass);
+                Type classType = Assembly.GetExecutingAssembly().GetType(je.JobClass);
                 IJobDetail job = JobBuilder.Create()
                     .OfType(classType)
-                    .UsingJobData("job_id",je.Id)
+                    .UsingJobData("job_id", je.Id)
                     .WithIdentity(je.JobName, "group1")
                     .Build();
                 // 触发作业现在运行，然后每40秒运行一次
@@ -70,7 +70,6 @@ namespace JR.Cms.Core.Scheduler
                     .WithCronSchedule(je.CronExp)
                     .Build();
                 await sched.ScheduleJob(job, trigger);
-
             }
         }
 
@@ -96,7 +95,6 @@ namespace JR.Cms.Core.Scheduler
                     LocalService.Instance.JobService.SaveJob(it);
                 }
             }
-            
         }
 
         private static void RegisterDropMemoryTask()

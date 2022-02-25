@@ -157,5 +157,11 @@ namespace JR.Stand.Core.AspNet
             if (file != null) return new AspNetPostedFileImpl(file);
             return null;
         }
+        public T Bind<T>()
+        {
+            StreamReader sr = new StreamReader(this.Context().Request.Body);
+            String body = sr.ReadToEnd();
+            return JsonSerializer.DeserializeObject<T>(body);
+        }
     }
 }

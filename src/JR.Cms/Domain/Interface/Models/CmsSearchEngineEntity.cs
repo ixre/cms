@@ -31,7 +31,7 @@ namespace JR.Cms.Domain.Interface.Models
         /// <summary>
         /// URL前缀
         /// </summary>
-        public string UrlPrefix{get;set;}
+        public string SiteUrl{get;set;}
     
         /// <summary>
         /// 百度推送Token
@@ -48,7 +48,7 @@ namespace JR.Cms.Domain.Interface.Models
             {
                 Id = this.Id,
                 SiteId = this.SiteId,
-                UrlPrefix = this.UrlPrefix,
+                SiteUrl = this.SiteUrl,
                 BaiduSiteToken = this.BaiduSiteToken,
             };
         }
@@ -63,7 +63,7 @@ namespace JR.Cms.Domain.Interface.Models
             {
                 {"Id",this.Id},
                 {"SiteId",this.SiteId},
-                {"UrlPrefix",this.UrlPrefix},
+                {"SiteUrl",this.SiteUrl},
                 {"BaiduSiteToken",this.BaiduSiteToken},
             };
         }
@@ -76,7 +76,7 @@ namespace JR.Cms.Domain.Interface.Models
             return new CmsSearchEngineEntity{
                 Id = 0L,
                 SiteId = 0L,
-                UrlPrefix = "",
+                SiteUrl = "",
                 BaiduSiteToken = "",
             };
         }

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Stand.Core.Framework;
+using JR.Stand.Core.Framework.Net;
 using Microsoft.CodeAnalysis;
 using Quartz;
 
@@ -47,11 +49,47 @@ namespace JR.Cms.Core.Scheduler.Job
                    LocalService.Instance.ArchiveService.GetArchiveByTimeAgo(site.SiteId, unix, int.MaxValue);
                foreach (var archive in archives)
                {
-                   urls.Add(archive.Path + ".html");
+                   urls.Add(se.SiteUrl+"/"+archive.Path + ".html");
                }
-               
+               if (urls.Count > 0)
+               {
+                   this.SubmitUrlToSearchEngine(site,se, urls);
+               }
            }
            return Task.CompletedTask;
+        }
+
+        private void SubmitUrlToSearchEngine(SiteDto siteDto, CmsSearchEngineEntity se, IList<string> urls)
+        {
+            String[] urlArray = urls.ToArray();
+
+            _logger.Info($"[ Job][ Baidu]: 推送的URL为:{String.Join(",",urlArray)}");
+            this.SubmitUrlToBaidu(siteDto,se, urlArray);
+        }
+
+        private void SubmitUrlToBaidu(SiteDto site, CmsSearchEngineEntity se, string[] urls)
+        {
+            se = new CmsSearchEngineEntity
+            {
+                SiteUrl = "https://fze.net",
+                BaiduSiteToken = "44aehEoPIs7aBdef"
+            };
+            String ret = HttpClient.Request(
+                $"http://data.zz.baidu.com/urls?site={se.SiteUrl}&token={se.BaiduSiteToken}", "POST",
+                new HttpRequestParam
+                {
+                    Body = String.Join("\n", urls),
+                });
+            var rs = JsonSerializer.DeserializeObject<Dictionary<string, Object>>(ret);
+            if (rs.TryGetValue("error", out _))
+            {
+                Object errorMessage = rs["message"];
+                _logger.Error($"[ Job][ Baidu]: 百度URL推送失败:{errorMessage}");
+            }
+            else
+            {
+                _logger.Error($"[ Job][ Baidu]: 百度URL推送成功");
+            }
         }
     }
 }

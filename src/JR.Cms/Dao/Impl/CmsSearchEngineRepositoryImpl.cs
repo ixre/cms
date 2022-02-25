@@ -23,7 +23,7 @@ namespace JR.Cms.Dao.Impl
         private readonly String _fieldAliases = @"
             id as Id,
             site_id as SiteId,
-            url_prefix as UrlPrefix,
+            site_url as SiteUrl,
             baidu_site_token as BaiduSiteToken
             ";
     
@@ -49,11 +49,11 @@ namespace JR.Cms.Dao.Impl
                     int i = db.Execute(_provider.FormatQuery(
                         @"INSERT INTO $PREFIX_search_engine(
                            site_id,
-                           url_prefix,
+                           site_url,
                            baidu_site_token
                            ) VALUES(
                           @SiteId,
-                          @UrlPrefix,
+                          @SiteUrl,
                           @BaiduSiteToken
                           )"),
                     e);
@@ -64,7 +64,7 @@ namespace JR.Cms.Dao.Impl
                     _provider.FormatQuery(
                     @"UPDATE $PREFIX_search_engine SET 
                      site_id = @SiteId,
-                     url_prefix = @UrlPrefix,
+                     site_url = @SiteUrl,
                      baidu_site_token = @BaiduSiteToken
                      WHERE id=@Id"),
                     e);
@@ -97,7 +97,7 @@ namespace JR.Cms.Dao.Impl
          {
              using (IDbConnection db = _provider.GetConnection())
              {
-                 return db.QueryFirst<CmsSearchEngineEntity>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM $PREFIX_search_engine WHERE ${where}"));
+                 return db.QueryFirstOrDefault<CmsSearchEngineEntity>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM $PREFIX_search_engine WHERE ${where}"));
              }  
          }         
        
