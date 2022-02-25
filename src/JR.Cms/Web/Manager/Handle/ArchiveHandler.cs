@@ -536,7 +536,7 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 title = archive.Title,
                 publisherName = user == null ? "" : user.Name,
-                publishdate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime),
+                publishdate = $"{archive.CreateTime:yyyy-MM-dd HH:mm:ss}",
                 content = archive.Content,
                 thumbnail = archive.Thumbnail,
                 count = archive.ViewCount

@@ -18,6 +18,9 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
     public class {{.table.Title}}RepositoryImpl : I{{.table.Title}}Repository{
     
         private readonly IDbProvider _provider;
+        private readonly String _fieldAliases = @"
+            {{range $i,$c := $allColumns}}{{$c.Name}} as {{$c.Prop}}{{if not (is_last $i $allColumns) }},{{end}}
+            {{end}}";
     
         /// <summary>
         /// 创建仓储对象
@@ -26,22 +29,7 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
         {
             this._provider = provider;
         }
-            
-        /// <summary>
-        /// 获取所有{{.table.Comment}}
-        /// </summary>
-        /// <returns></returns>
-        public IList<{{$entityName}}> FindAll()
-        {
-           using (IDbConnection db = _provider.GetConnection())
-           {
-               return db.Query<{{$entityName}}>(_provider.FormatQuery(@"SELECT 
-                  {{range $i,$c := $allColumns}}{{$c.Name}} as {{$c.Prop}}{{if not (is_last $i $allColumns) }},{{end}}
-                  {{end}}\
-                FROM {{.table.Name}}")).AsList();
-           } 
-        }
-        
+             
         /// <summary>
         /// 保存{{.table.Comment}}
         /// </summary>
@@ -75,7 +63,7 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
                 return e.{{.table.PkProp}};
             }
         }
-        
+
          /// <summary>
          /// 根据ID获取{{.table.Comment}}
          /// </summary>
@@ -85,16 +73,38 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
          {
             using (IDbConnection db = _provider.GetConnection())
             {
-                return db.QueryFirst<{{$entityName}}>(_provider.FormatQuery(@"SELECT 
-                    {{range $i,$c := $allColumns}}{{$c.Name}} as {{$c.Prop}}{{if not (is_last $i $allColumns) }},{{end}}
-                    {{end}}\
-                    FROM {{$tableName}} WHERE {{$pkName}} = @{{$pkProp}}"),
+                return db.QueryFirstOrDefault<{{$entityName}}>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM {{$tableName}} WHERE {{$pkName}} = @{{$pkProp}}"),
                     new {{$entityName}}{
                       {{$pkProp}} = {{$pkName}}, 
                     });
             }  
          }
          
+         /// <summary>
+         /// 根据条件查找{{.table.Comment}}
+         /// </summary>
+         /// <param name="where"></param>
+         /// <returns></returns>
+         public {{$entityName}} FindBy(string where)
+         {
+             using (IDbConnection db = _provider.GetConnection())
+             {
+                 return db.QueryFirst<{{$entityName}}>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM {{$tableName}} WHERE ${where}"));
+             }  
+         }         
+       
+        /// <summary>
+        /// 获取所有{{.table.Comment}}
+        /// </summary>
+        /// <returns></returns>
+        public IList<{{$entityName}}> FindAll()
+        {
+           using (IDbConnection db = _provider.GetConnection())
+           {
+               return db.Query<{{$entityName}}>(_provider.FormatQuery($@"SELECT {_fieldAliases} FROM {{.table.Name}}")).AsList();
+           } 
+        }
+              
          /// <summary>
          /// 删除{{.table.Comment}}
          /// </summary>

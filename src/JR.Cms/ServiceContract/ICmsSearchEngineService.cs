@@ -15,29 +15,37 @@ using JR.Stand.Core.Extensions;
 namespace JR.Cms.ServiceContract
 {
     /// <summary>
-/// 搜索引擎设置服务
-/// </summary>
-public interface ICmsSearchEngineService {
-    /// <summary>
-    /// 查找搜索引擎设置
+    /// 搜索引擎设置服务
     /// </summary>
-    /// <returns></returns>
-    CmsSearchEngineEntity FindSearchEngineById(long id);
+    public interface ICmsSearchEngineService
+    {
+        /// <summary>
+        /// 查找搜索引擎设置
+        /// </summary>
+        /// <returns></returns>
+        CmsSearchEngineEntity FindSearchEngineById(long id);
 
-    /// <summary>
-    /// 查找全部搜索引擎设置
-    /// </summary>
-    /// <returns></returns>
-    IList<CmsSearchEngineEntity> FindAllSearchEngine();
+        /// <summary>
+        /// 查找全部搜索引擎设置
+        /// </summary>
+        /// <returns></returns>
+        IList<CmsSearchEngineEntity> FindAllSearchEngine();
 
-    /// <summary>
-    /// 保存搜索引擎设置
-    /// </summary>
-    Error SaveSearchEngine(CmsSearchEngineEntity e);
+        /// <summary>
+        /// 保存搜索引擎设置
+        /// </summary>
+        Error SaveSearchEngine(CmsSearchEngineEntity e);
 
-    /// <summary>
-    /// 删除搜索引擎设置
-    /// </summary>
-    int DeleteSearchEngineById(long id);
-}
+        /// <summary>
+        /// 删除搜索引擎设置
+        /// </summary>
+        int DeleteSearchEngineById(long id);
+
+        /// <summary>
+        /// 获取站点的SEO设置
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        CmsSearchEngineEntity FindSearchEngineBySiteId(int siteId);
+    }
 }
