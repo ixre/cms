@@ -6,12 +6,7 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
     {{$pkType := pk_type "csharp" .table.PkType}}
     /** {{.table.Comment}}仓储接口 */
     public interface I{{.table.Title}}Repository{
-        /// <summary>
-        /// 获取所有{{.table.Comment}}
-        /// </summary>
-        /// <returns></returns>
-        IList<{{$entityName}}> FindAll(); 
-        
+
         /// <summary>
         /// 保存{{.table.Comment}}
         /// </summary>
@@ -25,7 +20,20 @@ namespace {{pkg "csharp" .global.pkg}}.Repository{
          /// <param name="id"></param>
          /// <returns></returns>
          {{$entityName}} FindById({{$pkType}} {{.table.Pk}});
+          
+         /// <summary>
+         /// 根据条件查找{{.table.Comment}}
+         /// </summary>
+         /// <param name="where"></param>
+         /// <returns></returns>
+         {{$entityName}} FindBy(string where);   
          
+         /// <summary>
+         /// 获取所有{{.table.Comment}}
+         /// </summary>
+         /// <returns></returns>
+         IList<{{$entityName}}> FindAll(); 
+                      
          /// <summary>
          /// 删除{{.table.Comment}}
          /// </summary>

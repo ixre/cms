@@ -234,6 +234,11 @@ namespace JR.Cms.ServiceContract
         /// <param name="direction"></param>
         void MoveSortNumber(int siteId, int id, int direction);
 
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="idArray"></param>
         void BatchDelete(int siteId, int[] idArray);
         
         /// <summary>
@@ -243,5 +248,14 @@ namespace JR.Cms.ServiceContract
         /// <param name="archiveId"></param>
         /// <returns></returns>
         Error UpdateArchivePath( int siteId,  int archiveId);
+
+        /// <summary>
+        /// 获取时间以前发布的文档
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="unix"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        IEnumerable<ArchiveDto> GetArchiveByTimeAgo(int siteId,long unix,int size);
     }
 }
