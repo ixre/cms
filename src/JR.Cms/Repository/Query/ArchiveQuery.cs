@@ -25,6 +25,22 @@ namespace JR.Cms.Repository.Query
         private readonly ArchiveDal _dal = new ArchiveDal();
         private readonly IDbProvider _provider;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catIdArray"></param>
+        /// <param name="publisherId"></param>
+        /// <param name="includeChild"></param>
+        /// <param name="flag"></param>
+        /// <param name="keyword"></param>
+        /// <param name="orderByField"></param>
+        /// <param name="orderAsc"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="currentPageIndex"></param>
+        /// <param name="recordCount"></param>
+        /// <param name="pages"></param>
+        /// <returns></returns>
         public DataTable GetPagedArchives(int siteId, int[] catIdArray, int publisherId, bool includeChild,
             int flag, string keyword, string orderByField, bool orderAsc, int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
