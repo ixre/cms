@@ -50,5 +50,6 @@
     <item key="Assistant_Archive_Clone_Pub" value="mui/html/assistant/archive_clone_pub.html"/>
     <item key="Assistant_Local_Patch" value="mui/html/assistant/local_patch.html"/>
     <item key="Addon_Site_Word" value="mui/html/addon/site_word.html"/>
+    <item key="Seo_Search_Engine" value="mui/html/seo/search_engine.html"/>
   </group>
 </keys>

@@ -788,6 +788,7 @@ DROP TABLE IF EXISTS `cms_search_engine`;
 CREATE TABLE cms_search_engine(
     id BIGINT AUTO_INCREMENT NOT NULL COMMENT '编号',
     site_id BIGINT NOT NULL COMMENT '站点编号',
+    site_url varchar(40) not null comment 'URL前缀',
     baidu_site_token varchar(180) NOT NULL COMMENT '百度推送Token',
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='搜索引擎设置';

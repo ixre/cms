@@ -131,7 +131,7 @@ namespace JR.Cms.Web.Manager.Handle
                 shortServer = Server.ShortUrlServer,
                 soft_ver = Cms.Version,
                 sys_alias = Settings.LICENSE_NAME, // + "(KEY:" + Settings.SYS_KEY + ")",
-                //server_name = env.EnvironmentName,
+                server_name = Environment.MachineName,
                 server_os = Environment.OSVersion.VersionString,
                 server_local = CultureInfo.InstalledUICulture.EnglishName,
                 server_ip = WebCtx.Current.UserIpAddress,
@@ -139,13 +139,12 @@ namespace JR.Cms.Web.Manager.Handle
                 //server_iis = Request.ServerVariables["Server_SoftWare"],
                 server_netver =
                     Environment.Version.Major + "." + Environment.Version.Minor + "." + Environment.Version.Build +
-                    "." +
-                    Environment.Version.Revision,
+                    (Environment.Version.Revision<=0?"":"." +Environment.Version.Revision),
                 server_https = Request.GetProto() == "https" ? "是" : "否",
                 //server_port = Request.ServerVariables["Server_Port"],
                 server_hour = $"{(Environment.TickCount / 0x3e8 / 3600).ToString()}小时",
                 server_time = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                server_cpu = $"{Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER")},{Environment.GetEnvironmentVariable("NUMBER_OF_PROCESSORS")}核",
+                server_cpu = $"处理器x{Environment.ProcessorCount}",
                 server_meory = Environment.WorkingSet / 1024 / 1024 + "M",
                 server_net_meory =
                     ((double) Process.GetCurrentProcess().WorkingSet64 / 1048576).ToString("N2") + "M",

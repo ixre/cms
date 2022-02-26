@@ -19,6 +19,7 @@ using JR.Cms.Domain.Interface.Site.Variable;
 using JR.Cms.Domain.Interface.User;
 using JR.Cms.Infrastructure;
 using JR.Cms.Infrastructure.Tree;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Domain.Interface.Site
 {

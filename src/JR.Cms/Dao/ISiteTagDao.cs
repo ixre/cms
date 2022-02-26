@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Infrastructure;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Dao
 {

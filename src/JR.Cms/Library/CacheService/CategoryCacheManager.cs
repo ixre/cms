@@ -15,7 +15,7 @@
         /// <returns></returns>
         public static string GetSitemapHtml(int siteId, string catPath, string split, string linkFormat)
         {
-            return ServiceCall.Instance.SiteService.GetCategorySitemapHtml(siteId, catPath, split, linkFormat);
+            return LocalService.Instance.SiteService.GetCategorySitemapHtml(siteId, catPath, split, linkFormat);
         }
     }
 }

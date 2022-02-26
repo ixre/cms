@@ -23,7 +23,7 @@ namespace JR.Cms.UnitTest
             {
                 String data = HttpClient.Request(url + "/access_token", "POST", new HttpRequestParam
                 {
-                    Data = new Dictionary<String, Object>
+                    Body = new Dictionary<String, Object>
                     {
                         {"Username", "master"},
                         {"Password", "newmin888".Md5().ToLower()},
@@ -56,7 +56,7 @@ namespace JR.Cms.UnitTest
 
             String data = HttpClient.Request(url + "/1/upload", "POST", new HttpRequestParam
             {
-                Data = new Dictionary<String, Object>
+                Body = new Dictionary<String, Object>
                 {
                     {"Username", "master"},
                     {"Password", "123456"},

@@ -11,7 +11,7 @@ namespace JR.Cms.Library.CacheService
         public static IList<ExtendFieldDto> GetExtendFields(int siteId)
         {
             IList<ExtendFieldDto> extends =
-                new List<ExtendFieldDto>(ServiceCall.Instance.SiteService.GetExtendFields(siteId));
+                new List<ExtendFieldDto>(LocalService.Instance.SiteService.GetExtendFields(siteId));
             return extends;
         }
     }

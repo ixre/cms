@@ -143,7 +143,7 @@ $js()
         
         pagerPram.page_size = parseInt((document.documentElement.clientHeight - 40) / 50);
         pagerPram.include_child = jr.$('ck_child').checked;
-        var _dg = jr.datagrid('dg', {
+        var _dg = $jr.dataGrid('dg', {
             url: '?module=archive&action=pagerJsonData',
             data: pagerPram,
             idField: 'id',

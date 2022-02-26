@@ -10,6 +10,7 @@ using JR.Cms.Domain.Interface.Site.Template;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.DataAccess.DAL;
 using JR.Stand.Core.Data.Extensions;
+using JR.Stand.Core.Extensions;
 using JR.Stand.Core.Framework;
 
 namespace JR.Cms.Repository

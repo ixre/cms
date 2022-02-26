@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Extensions.Http;
@@ -7,6 +8,8 @@ using JR.Stand.Core.Framework.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+using JsonSerializer = JR.Stand.Core.Framework.JsonSerializer;
 
 namespace JR.Stand.Core.Web
 {
@@ -134,6 +137,14 @@ namespace JR.Stand.Core.Web
         {
             return this.Context().Request.Headers;
         }
+
+        public T Bind<T>()
+        {
+            StreamReader sr = new StreamReader(this.Context().Request.Body);
+            String body = sr.ReadToEnd();
+            return JsonSerializer.DeserializeObject<T>(body);
+        }
+
 
         private ICompatiblePostedFile ParsePostedFile(IFormFile file)
         {

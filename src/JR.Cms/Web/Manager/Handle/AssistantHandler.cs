@@ -53,7 +53,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             try
             {
-                ServiceCall.Instance.SiteService.CloneCategory(sourceSiteId, targetSiteId, fromCid, toCid,
+                LocalService.Instance.SiteService.CloneCategory(sourceSiteId, targetSiteId, fromCid, toCid,
                     includeChild, includeExtend, includeTempateBind);
                 return ReturnSuccess();
             }
@@ -110,7 +110,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             try
             {
-                var errs = ServiceCall.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,
+                var errs = LocalService.Instance.SiteService.ClonePubArchive(sourceSiteId, targetSiteId, toCid,
                     idArray, includeExtend, includeTempateBind, includeRelatedLink);
                 if (errs.Count > 0)
                 {

@@ -34,9 +34,9 @@
         <link href="?module=template&amp;action=edit" text="模板编辑" title="" siteid="-1"/>
       </links>
       
-      <links title="SEO工具" toggle="true" iconPos="-168|0">
-        <link href="?module=site_word&amp;action=index" text="站内关键词" title="" siteid="-1"/>
-<!--        <link href="?module=site_word&amp;action=replace" text="批量更新关键词" title="" siteid="-1"/>-->
+      <links title="SEO优化" toggle="true" iconPos="-168|0">
+        <link href="?module=seo&amp;action=siteWord" text="站内关键词" title="" siteid="-1"/>
+        <link href="?module=seo&amp;action=searchEngine" text="配置搜索引擎" title="" siteid="-1"/>
       </links>
 
       <links title="内容采集" toggle="true" iconPos="-168|0">
@@ -79,6 +79,7 @@
       <links title="系统设置" toggle="true" iconPos="-432|0">
         <link href="?module=system&amp;action=config&amp;item=1" text="系统设置" title="" siteid="0"/>
         <link href="?module=system&amp;action=clear" text="缓存重启" title="" siteid="0"/>
+        <link href="?module=system&amp;action=job" text="定时任务管理" title="" siteid="0"/>
       </links>
 
 

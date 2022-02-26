@@ -191,8 +191,8 @@ namespace JR.Cms.Web.Manager
                 case "assistant":return CallMethod(context, typeof(AssistantHandler), action);
                 // 编辑器
                 case "editor":return CallMethod(context, typeof(EditorHandler), action);
-                // 站内关键词
-                case "site_word": return CallMethod(context, typeof(SiteWordHandler), action);
+                // Seo
+                case "seo": return CallMethod(context, typeof(SeoHandler), action);
             }
             return context.Response.WriteAsync("模块错误,请检查！");
         }

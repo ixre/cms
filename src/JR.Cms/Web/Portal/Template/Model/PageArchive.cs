@@ -103,7 +103,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         /// 作者
         /// </summary>
         [TemplateVariableField("作者")]
-        public string Author => ServiceCall.Instance.UserService.GetUserRealName(Archive.PublisherId) ?? "未知";
+        public string Author => LocalService.Instance.UserService.GetUserRealName(Archive.PublisherId) ?? "未知";
 
         /// <summary>
         /// 来源

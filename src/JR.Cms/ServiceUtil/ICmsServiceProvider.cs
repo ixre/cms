@@ -26,5 +26,15 @@ namespace JR.Cms.ServiceUtil
         /// 用户服务
         /// </summary>
         IUserServiceContract UserService { get; }
+        
+        /// <summary>
+        /// 定时任务服务
+        /// </summary>
+        ICmsJobService JobService { get; }
+        
+        /// <summary>
+        /// SEO服务
+        /// </summary>
+        ICmsSearchEngineService SeoService { get; }
     }
 }
