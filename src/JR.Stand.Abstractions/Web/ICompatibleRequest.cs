@@ -64,5 +64,6 @@ namespace JR.Stand.Abstracts.Web
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         T Bind<T>();
+
     }
 }

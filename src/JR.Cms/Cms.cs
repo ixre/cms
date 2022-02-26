@@ -26,6 +26,7 @@ using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
 using JR.Stand.Core.Web.Cache;
+using Logger = JR.Stand.Core.Framework.Logger;
 
 namespace JR.Cms
 {
@@ -50,6 +51,7 @@ namespace JR.Cms
     /// </summary>
     public static class Cms
     {
+        private static readonly Logger Logger = new Logger(typeof(Cms));
         private static bool isInstalled;
         private static  IMemoryCacheWrapper _cache;
         /// <summary>
@@ -248,6 +250,15 @@ namespace JR.Cms
         /// </summary>
         public static void Init(BootFlag flag, string confPath)
         {
+            Console.WriteLine(@"
+      _   _____     _____   __  __    _____      _   _  ______  _______ 
+     | | |  __ \   / ____| |  \/  |  / ____|    | \ | ||  ____||__   __|
+     | | | |__) | | |      | \  / | | (___      |  \| || |__      | |   
+ _   | | |  _  /  | |      | |\/| |  \___ \     | . ` ||  __|     | |   
+| |__| | | | \ \  | |____  | |  | |  ____) |  _ | |\  || |____    | |   
+ \____/  |_|  \_\  \_____| |_|  |_| |_____/  (_)|_| \_||______|   |_|   
+            ");
+           Logger.Info("初始化中.."); 
             PrepareCms();
             BeforeInit();
             if (!IsInstalled()) return;
@@ -269,13 +280,13 @@ namespace JR.Cms
             if ((flag & BootFlag.Normal) != 0)
             {
                 BuildOEM = new BuildOEM();
-
                 //
                 //TODO:
                 //
                 //检查网站激活状态
                 //SoftwareActivator.VerifyActivation();
                 
+                Logger.Info("注册模板引擎..");
                 //如果不存在模板文件夹，则创建目录
                 if (!Directory.Exists(PhysicPath + "templates/"))
                 {
@@ -283,7 +294,6 @@ namespace JR.Cms
                     //暂时网络安装默认模板(后可使用资源代替)
                     Updater.InstallTemplate("default", "tpl_default.zip");
                 }
-
                 //　初始化模板
                 Template = new CmsTemplate(_cache, TemplateNames.FileName);
                 // 注册模板
@@ -291,6 +301,7 @@ namespace JR.Cms
                 // 模板管理器
                 _templateManager = new TemplateManager(PhysicPath + CmsVariables.TEMPLATE_PATH);
                 
+                Logger.Info("注册插件..");
                 // 注册插件
                 //PluginConfig.PLUGIN_FILE_PARTTERN = "*.dll,*.so";
                 PluginConfig.PLUGIN_DIRECTORY = CmsVariables.PLUGIN_PATH;
@@ -307,11 +318,13 @@ namespace JR.Cms
                 VerifyCodeGenerator.SetFontFamily(PhysicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
             }
             
+            Logger.Info("注册定时任务..");
             // 注册定时任务
             CmsScheduler.Init();
             // 触发初始化注册事件
             OnInit?.Invoke();
             IsInitFinish = true;
+            Logger.Info("启动完成..");
         }
 
         /// <summary>

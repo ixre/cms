@@ -6,6 +6,7 @@ using System.Reflection;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Library.CacheService;
+using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.TaskBox;
 using JR.Stand.Core.Framework.TaskBox.Toolkit;
 using Quartz;
@@ -35,10 +36,13 @@ namespace JR.Cms.Core.Scheduler
         }
     }
 
+    /// <summary>
+    /// CMS定时任务
+    /// </summary>
     public static class CmsScheduler
     {
-        private static TaskService service;
 
+        private static readonly Logger Logger = new Logger(typeof(CmsScheduler));
         public static async void Init()
         {
             CheckJob();
@@ -51,25 +55,33 @@ namespace JR.Cms.Core.Scheduler
             };
             StdSchedulerFactory factory = new StdSchedulerFactory(props);
             // 得到一个调度器
-            IScheduler sched = await factory.GetScheduler();
-            await sched.Start();
+            IScheduler sc = await factory.GetScheduler();
+            await sc.Start();
 
             foreach (CmsJobEntity je in jobs)
             {
-                // 定义作业并将其绑定到HelloJob类
-                Type classType = Assembly.GetExecutingAssembly().GetType(je.JobClass);
-                IJobDetail job = JobBuilder.Create()
-                    .OfType(classType)
-                    .UsingJobData("job_id", je.Id)
-                    .WithIdentity(je.JobName, "group1")
-                    .Build();
-                // 触发作业现在运行，然后每40秒运行一次
-                ITrigger trigger = TriggerBuilder.Create()
-                    .WithIdentity("myTrigger" + je.Id, "group1")
-                    .StartNow()
-                    .WithCronSchedule(je.CronExp)
-                    .Build();
-                await sched.ScheduleJob(job, trigger);
+                try
+                {
+                    // 定义作业并将其绑定到HelloJob类
+                    Type classType = Assembly.GetExecutingAssembly().GetType(je.JobClass);
+                    IJobDetail job = JobBuilder.Create()
+                        .OfType(classType)
+                        .UsingJobData("job_id", je.Id)
+                        .WithIdentity(je.JobName, "group1")
+                        .Build();
+                    // 触发作业现在运行，然后每40秒运行一次
+                    ITrigger trigger = TriggerBuilder.Create()
+                        .WithIdentity("myTrigger" + je.Id, "group1")
+                        .StartNow()
+                        .WithCronSchedule(je.CronExp)
+                        .Build();
+                    await sc.ScheduleJob(job, trigger);
+                }
+                catch (Exception ex)
+                {
+                   Logger.Error($"任务注册失败, {je.JobName}, 异常:"+(ex.InnerException??ex).Message+"\n"+(ex.InnerException??ex).StackTrace); 
+                }
+                Logger.Info($"注册定时任务[{je.JobName}]成功, 启动规则为:{je.CronExp}");
             }
         }
 
@@ -95,24 +107,6 @@ namespace JR.Cms.Core.Scheduler
                     LocalService.Instance.JobService.SaveJob(it);
                 }
             }
-        }
-
-        private static void RegisterDropMemoryTask()
-        {
-            if (Settings.opti_gc_collect_interval <= 0)
-                return;
-
-            service.Sington.RegistContinuTasks(() =>
-            {
-                ITask task = new Task();
-                task.TaskName = "gc_collect";
-                return task;
-            }, (client, task, message) => { }, Settings.opti_gc_collect_interval); //2小时
-        }
-
-        private static void BoxOnNotifying(object data, string message)
-        {
-            if (message.StartsWith("[Crash]")) service.Stop();
         }
     }
 }
