@@ -36,6 +36,8 @@
       <Compile Remove="Web\SiteMap\**" />
       <Compile Remove="Web\Util\SiteMapUtils.cs" />
       <Compile Remove="Core\Hibernate\**" />
+      <Compile Remove="Generator\output\**" />
+      <Compile Remove="Generator\output\csharp\Service\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -89,6 +91,10 @@
       <None Remove="Web\SiteMap\**" />
       <EmbeddedResource Remove="Core\Hibernate\**" />
       <None Remove="Core\Hibernate\**" />
+      <EmbeddedResource Remove="Generator\output\**" />
+      <None Remove="Generator\output\**" />
+      <EmbeddedResource Remove="Generator\output\csharp\Service\**" />
+      <None Remove="Generator\output\csharp\Service\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -100,6 +106,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Generator\output\csharp" />
       <Folder Include="Generator\templates\java" />
       <Folder Include="Web\Addon" />
       <Folder Include="_old" />

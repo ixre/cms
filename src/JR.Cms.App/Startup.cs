@@ -23,6 +23,7 @@ namespace JR.Cms.App
 {
     public class Startup
     {
+        private static readonly Logger Logger = new Logger(typeof(Program));
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -99,7 +100,7 @@ namespace JR.Cms.App
             var error = feature?.Error;
             if (error != null)
             {
-                Console.WriteLine("[ cms][ error]: {0} {1}\n", error.Message, error.StackTrace);
+                Logger.Error($"[ cms][ error]: {error.Message} {error.StackTrace}");
                 CmsLogger.Println(LoggerLevel.Error, error.Message + "; stack =" + error.StackTrace);
             }
             context.Response.ContentType = "text/html;charset=utf-8";

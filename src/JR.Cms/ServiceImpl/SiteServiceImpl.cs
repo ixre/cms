@@ -17,6 +17,7 @@ using JR.Cms.Infrastructure.Tree;
 using JR.Cms.ServiceContract;
 using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts;
+using JR.Stand.Core.Extensions;
 using JR.Stand.Core.Framework.Extensions;
 using CategoryDto = JR.Cms.ServiceDto.CategoryDto;
 using ExtendFieldDto = JR.Cms.ServiceDto.ExtendFieldDto;

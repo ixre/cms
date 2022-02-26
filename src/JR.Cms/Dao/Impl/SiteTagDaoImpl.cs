@@ -7,6 +7,7 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Library.DataAccess.DAL;
 using JR.Cms.Library.DataAccess.DB;
 using JR.Stand.Core.Data.Provider;
+using JR.Stand.Core.Extensions;
 
 namespace JR.Cms.Dao.Impl
 {
@@ -54,7 +55,7 @@ namespace JR.Cms.Dao.Impl
                     }
                     if (word.Id == 0)
                     {
-                        db.Execute(_provider.FormatQuery(
+                       int i= db.Execute(_provider.FormatQuery(
                                 "INSERT INTO $PREFIX_site_word(word,url,title) VALUES(@Word,@Url,@Title)"),
                             word);
                         return null;

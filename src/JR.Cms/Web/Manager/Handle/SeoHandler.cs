@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheService;
+using JR.Cms.Web.Util;
+using JR.Stand.Core.Extensions;
 using JR.Stand.Toolkit.HttpTag;
 
 namespace JR.Cms.Web.Manager.Handle
@@ -12,12 +14,12 @@ namespace JR.Cms.Web.Manager.Handle
     /// <summary>
     /// 站内关键词
     /// </summary>
-    public class SiteWordHandler : BasePage
+    public class SeoHandler : BasePage
     {
         /// <summary>
         /// 
         /// </summary>
-        public void Index()
+        public void SiteWord()
         {
             string tagsHtml;
 
@@ -29,7 +31,7 @@ namespace JR.Cms.Web.Manager.Handle
             StringBuilder sb = new StringBuilder();
 
             Regex reg = new Regex("\\$\\{([a-zA-Z]+)\\}");
-            var words = ServiceCall.Instance.ContentService.GetWords();
+            var words = LocalService.Instance.ContentService.GetWords();
             if (words.Count > 0)
             {
                 foreach (SiteWord tag in words)
@@ -60,7 +62,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// <summary>
         /// Post请求
         /// </summary>
-        public void Index_POST()
+        public void SiteWord_POST()
         {
             string action = Request.Form("action");
 
@@ -99,7 +101,7 @@ namespace JR.Cms.Web.Manager.Handle
                 goto tip;
             }
 
-            Error err = ServiceCall.Instance.ContentService.SaveWord(new SiteWord
+            Error err = LocalService.Instance.ContentService.SaveWord(new SiteWord
             {
                 Word = word,
                 Url = url,
@@ -122,7 +124,7 @@ namespace JR.Cms.Web.Manager.Handle
                 if (key.StartsWith("ck") && Request.Form(key) == "on")
                 {
                     int id = int.Parse(key.Substring(2));
-                    ServiceCall.Instance.ContentService.DeleteWord(new SiteWord
+                    LocalService.Instance.ContentService.DeleteWord(new SiteWord
                     {
                         Id = id,
                     });
@@ -140,8 +142,6 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         private void SaveWord()
         {
-            string msg;
-
             Regex reg = new Regex("^word_([a-zA-Z0-9]+)$");
 
             int i = 0;
@@ -150,7 +150,7 @@ namespace JR.Cms.Web.Manager.Handle
                 if (!reg.IsMatch(p)) continue;
                 var id = reg.Match(p).Groups[1].Value;
 
-                ServiceCall.Instance.ContentService.SaveWord(new SiteWord
+                LocalService.Instance.ContentService.SaveWord(new SiteWord
                 {
                     Id = int.Parse(id),
                     Word = Request.GetParameter("word_" + id),
@@ -160,11 +160,11 @@ namespace JR.Cms.Web.Manager.Handle
                 i++;
             }
 
-            msg = i == 0 ? "没有保存的项!" : "保存成功";
+            var msg = i == 0 ? "没有保存的项!" : "保存成功";
 
             Response.WriteAsync($"<script>window.parent.tip('{msg}');</script>");
         }
-        
+
         // /// <summary>
         // /// 批量替换文档标签
         // /// </summary>
@@ -181,5 +181,44 @@ namespace JR.Cms.Web.Manager.Handle
         //         CmsLogic.Archive.Update(archive);
         //     }
         // }
+
+        /// <summary>
+        /// 保存搜索引擎设置
+        /// </summary>
+        public void SearchEngine()
+        {
+            int siteId = CurrentSite.SiteId;
+            var engine = LocalService.Instance.SeoService.FindSearchEngineBySiteId(siteId);
+            if (engine == null)
+            {
+                engine = new CmsSearchEngineEntity
+                {
+                    SiteId = siteId,
+                    SiteUrl = "",
+                    BaiduSiteToken = "",
+                };
+            }
+
+            var data = new
+            {
+                data = JsonSerializer.Serialize(engine)
+            };
+            RenderTemplate(ResourceMap.GetPageContent(ManagementPage.Seo_Search_Engine), data);
+        }
+
+        /// <summary>
+        /// 保存搜索引擎设置
+        /// </summary>
+        public void SearchEngine_POST()
+        {
+            var engine = this.Request.Bind<CmsSearchEngineEntity>();
+            Error err = LocalService.Instance.SeoService.SaveSearchEngine(engine);
+            if (err != null)
+            {
+                RenderError(err.Message);
+                return;
+            }
+            RenderSuccess();
+        }
     }
 }

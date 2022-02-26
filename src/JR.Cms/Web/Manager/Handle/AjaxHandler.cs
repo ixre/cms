@@ -117,9 +117,9 @@ namespace JR.Cms.Web.Manager.Handle
 
             SiteDto[] siteArr = null;
             if (usr.IsMaster)
-                siteArr = ServiceCall.Instance.SiteService.GetSites().ToArray();
+                siteArr = LocalService.Instance.SiteService.GetSites().ToArray();
             else
-                siteArr = ServiceCall.Instance.UserService.GetUserRelationSites(usr.Id);
+                siteArr = LocalService.Instance.UserService.GetUserRelationSites(usr.Id);
 
             var i = 0;
             foreach (var s in siteArr)
@@ -409,12 +409,12 @@ namespace JR.Cms.Web.Manager.Handle
             string catPath = null;
             if (catId > 0)
             {
-                var c = ServiceCall.Instance.SiteService.GetCategory(intSiteId, catId);
+                var c = LocalService.Instance.SiteService.GetCategory(intSiteId, catId);
                 catPath = c.Path;
             }
 
             var strBuilder = new StringBuilder(500);
-            var list = ServiceCall.Instance.ArchiveService
+            var list = LocalService.Instance.ArchiveService
                 .SearchArchives(intSiteId, catPath, onlyTitle, key,
                     int.Parse(size),
                     1,
@@ -430,7 +430,7 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 if (++i != 1) strBuilder.Append(",");
                 if (site.SiteId == 0 || site.SiteId != a.Category.SiteId)
-                    site = ServiceCall.Instance.SiteService.GetSiteById(a.Category.SiteId);
+                    site = LocalService.Instance.SiteService.GetSiteById(a.Category.SiteId);
 
                 strBuilder.Append("{\"id\":").Append(a.Id)
                     .Append(",\"path\":\"").Append(a.Path)
@@ -484,9 +484,9 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 TreeNode node;
                 if (Request.Query("root") == "true")
-                    node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
+                    node = LocalService.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
                 else
-                    node = ServiceCall.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
+                    node = LocalService.Instance.SiteService.GetCategoryTreeWithRootNode(siteId);
                 try
                 {
                     nodeJson = JsonSerializer.Serialize(node);

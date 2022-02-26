@@ -205,7 +205,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 module = CmsLogic.Module.GetModule(int.Parse(catPath));
                 if (module != null)
                 {
-                    dt = ServiceCall.Instance.ArchiveService.GetArchivesByModuleId(SiteId, module.ID, _num);
+                    dt = LocalService.Instance.ArchiveService.GetArchivesByModuleId(SiteId, module.ID, _num);
                     return ArchiveList(dt, 0, format);
                 }
             }
@@ -505,10 +505,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var category = default(CategoryDto);
             int.TryParse(num, out _num);
 
-            category = ServiceCall.Instance.SiteService.GetCategory(SiteId, categoryTag);
+            category = LocalService.Instance.SiteService.GetCategory(SiteId, categoryTag);
             if (!(category.ID > 0)) return string.Format("ERROR:模块或栏目不存在!参数:{0}", categoryTag);
 
-            dt = ServiceCall.Instance.ArchiveService.GetArchivesByViewCount(
+            dt = LocalService.Instance.ArchiveService.GetArchivesByViewCount(
                 SiteId, category.Path, container, _num);
             return ArchiveList(dt, 0, format);
         }
@@ -541,7 +541,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 module = CmsLogic.Module.GetModule(int.Parse(param));
                 if (module != null)
                 {
-                    dt = ServiceCall.Instance.ArchiveService.GetArchivesByViewCountByModuleId(SiteId, module.ID, _num);
+                    dt = LocalService.Instance.ArchiveService.GetArchivesByViewCountByModuleId(SiteId, module.ID, _num);
                     return ArchiveList(dt, 0, format);
                 }
             }
@@ -1334,7 +1334,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 //从模块加载
                 var moduleID = int.Parse(id);
                 if (CmsLogic.Module.GetModule(moduleID) != null)
-                    ServiceCall.Instance.SiteService.HandleCategoryTree(SiteId, 1, (c, level, isLast) =>
+                    LocalService.Instance.SiteService.HandleCategoryTree(SiteId, 1, (c, level, isLast) =>
                     {
                         if (!onlyRoot || onlyRoot && level == 0)
                             if (c.Get().ModuleId == moduleID)

@@ -43,21 +43,22 @@ namespace JR.Cms.Web.Manager
 
 
         App_Config,
+
         /// <summary>
         /// 本地化
         /// </summary>
-        Locale, 
+        Locale,
         Site_Index,
         Site_Edit,
         Site_Extend_List,
         Site_Extend_Create,
         Site_Extend_Category_Check,
-        
+
         /// <summary>
         /// 站点变量
         /// </summary>
         SiteVariables,
-        
+
         /// <summary>
         /// 左栏导航树
         /// </summary>
@@ -99,7 +100,6 @@ namespace JR.Cms.Web.Manager
         /// </summary>
         Plugin_MiniApps,
 
-        
 
         /// <summary>
         /// 默认样式表
@@ -125,8 +125,12 @@ namespace JR.Cms.Web.Manager
         Assistant_Local_Patch,
         Assistant_Archive_Clone_Pub,
         Clear_Page,
-        
+
+        // 站点关键词
         Addon_Site_Word,
+
+        // 搜索诈病擎设置
+        Seo_Search_Engine,
     }
 
 
@@ -182,6 +186,20 @@ namespace JR.Cms.Web.Manager
             return File.ReadAllText(pagePath);
         }
 
+        /// <summary>
+        ///  获取页面内容
+        /// </summary>
+        /// <param name="pagePath"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string GetPage(String pagePath)
+        {
+            if (pagePath == null || pagePath.Trim() == string.Empty)
+                throw new Exception("页面不存在,PAGE:" + pagePath);
+            pagePath = Cms.PhysicPath + pagePath;
+            return File.ReadAllText(pagePath);
+        }
+
         public static string GetPageUrl(ManagementPage page)
         {
             initialize();
@@ -221,17 +239,17 @@ namespace JR.Cms.Web.Manager
         /// <summary>
         /// 
         /// </summary>
-        public static string Tables =>GetDebugContent("table/tables.html");
+        public static string Tables => GetDebugContent("table/tables.html");
 
         /// <summary>
         /// 
         /// </summary>
-        public static string Columns =>GetDebugContent("table/columns.html");
+        public static string Columns => GetDebugContent("table/columns.html");
 
         /// <summary>
         /// 
         /// </summary>
-        public static string EditColumn =>GetDebugContent("table/edit_column.html");
+        public static string EditColumn => GetDebugContent("table/edit_column.html");
 
         /// <summary>
         /// 
@@ -248,12 +266,12 @@ namespace JR.Cms.Web.Manager
         /// <summary>
         /// 
         /// </summary>
-        public static string RightText =>GetDebugContent("archive/archive_list.html");
+        public static string RightText => GetDebugContent("archive/archive_list.html");
 
         /// <summary>
         /// 
         /// </summary>
-        public static string ErrorText =>GetDebugContent("archive/archive_list.html");
+        public static string ErrorText => GetDebugContent("archive/archive_list.html");
 
         /// <summary>
         /// 

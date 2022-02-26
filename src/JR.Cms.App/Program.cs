@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using JR.Stand.Core.Framework;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -10,7 +11,6 @@ namespace JR.Cms.App
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine($"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} - [ JRCms][ Log]: cms is starting..");
             CreateHostBuilder(args).Build().Run();
         }
 

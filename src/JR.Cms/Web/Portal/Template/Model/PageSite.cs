@@ -95,7 +95,7 @@ namespace JR.Cms.Web.Portal.Template.Model
                 if (_dict == null)
                 {
                     _dict = new Dictionary<string, string>();
-                    IList<SiteVariableDto> list = ServiceCall.Instance.SiteService.GetSiteVariables(this.SiteId);
+                    IList<SiteVariableDto> list = LocalService.Instance.SiteService.GetSiteVariables(this.SiteId);
 
                     foreach (var value in list) _dict.Add(value.Name, value.Value);
                 }

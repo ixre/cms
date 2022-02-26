@@ -50,7 +50,7 @@ namespace JR.Cms.Web.Api
                 return new AccessTokenDataDto {Code= 2, Message="密码长度不正确"};
             }
             dto.Password = Generator.CreateUserPwd(dto.Password);
-            var ret = ServiceCall.Instance.UserService.TryLogin(dto.Username, dto.Password);
+            var ret = LocalService.Instance.UserService.TryLogin(dto.Username, dto.Password);
             if (ret.Tag == -1) return new AccessTokenDataDto {Code= 1, Message="用户名或密码不正确"};
             if(ret.Tag == -2) return new AccessTokenDataDto {Code= 3, Message="用户已停用"};
             long expiresTime = DateTimeOffset.UtcNow.AddSeconds(dto.Expires).ToUnixTimeSeconds();
@@ -109,7 +109,7 @@ namespace JR.Cms.Web.Api
         [RequestAuthorize]
         public ArchivePostResultDto Post(int siteId, int catalogId, [FromBody] PostedArchiveDto archive)
         {
-            var ret = ServiceCall.Instance.ArchiveService.SaveArchive(siteId, catalogId, new ArchiveDto
+            var ret = LocalService.Instance.ArchiveService.SaveArchive(siteId, catalogId, new ArchiveDto
             {
                 Title = archive.Title ?? "",
                 PublisherId = 0,

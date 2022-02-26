@@ -63,7 +63,7 @@ namespace JR.Cms.Web.Manager.Handle
                 name = Request.Form("name");
 
             var curr = UserState.Administrator.Current;
-            var user = ServiceCall.Instance.UserService.GetUser(curr.Id);
+            var user = LocalService.Instance.UserService.GetUser(curr.Id);
             user.Name = name;
             user.Phone = Request.Query("Phone");
             user.Email = Request.Query("Email");
@@ -77,7 +77,7 @@ namespace JR.Cms.Web.Manager.Handle
                 user.Credential.Password = Generator.CreateUserPwd(newPassword.Md5());
             }
 
-            ServiceCall.Instance.UserService.SaveUser(user);
+            LocalService.Instance.UserService.SaveUser(user);
 
             UserState.Administrator.Clear();
             RenderSuccess("修改成功!");
@@ -93,7 +93,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void UserRole()
         {
-            var usrService = ServiceCall.Instance.UserService;
+            var usrService = LocalService.Instance.UserService;
             var user = usrService.GetUser(int.Parse(Request.Query("id")));
             var roleOpts = GetRoleOptions(null);
             var appRoles = usrService.GetUserAppRoles(user.Id);
@@ -127,7 +127,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void UpdateUser()
         {
-            var user = ServiceCall.Instance.UserService.GetUser(int.Parse(Request.Query("id")));
+            var user = LocalService.Instance.UserService.GetUser(int.Parse(Request.Query("id")));
             if (user.Credential != null) user.Credential.Password = "*********";
             var json = JsonSerializer.Serialize(user.ToFormObject());
             RenderTemplate(ResourceMap.GetPageContent(ManagementPage.User_Edit), new
@@ -147,7 +147,7 @@ namespace JR.Cms.Web.Manager.Handle
             var sb = new StringBuilder();
             SiteRoleAppend ap = (s) =>
             {
-                var roles = ServiceCall.Instance.SiteService.GetAppRoles(s.SiteId);
+                var roles = LocalService.Instance.SiteService.GetAppRoles(s.SiteId);
                 sb.Append("<div class=\"item\"><div class=\"tit\"><strong>[编号:").Append(s.SiteId.ToString())
                     .Append("] - ")
                     .Append(s.Name).Append("</strong></div>");
@@ -168,7 +168,7 @@ namespace JR.Cms.Web.Manager.Handle
                 sb.Append("</ul></div><div class=\"clear-fix\"></div></div>");
             };
 
-            var sites = ServiceCall.Instance.SiteService.GetSites();
+            var sites = LocalService.Instance.SiteService.GetSites();
             foreach (var site in sites) ap(site);
 
             return sb.ToString();
@@ -185,7 +185,7 @@ namespace JR.Cms.Web.Manager.Handle
             UserDto user;
 
             if (obj.Id > 0)
-                user = ServiceCall.Instance.UserService.GetUser(obj.Id);
+                user = LocalService.Instance.UserService.GetUser(obj.Id);
             else
                 user = new UserDto();
 
@@ -215,7 +215,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             try
             {
-                var id = ServiceCall.Instance.UserService.SaveUser(user);
+                var id = LocalService.Instance.UserService.SaveUser(user);
                 RenderSuccess("修改成功!");
             }
             catch (Exception exc)
@@ -260,7 +260,7 @@ namespace JR.Cms.Web.Manager.Handle
                 for (var i = 0; i < strArr.Length; i++) flags[i] = int.Parse(strArr[i]);
             }
 
-            ServiceCall.Instance.UserService.SaveUserRole(userId, siteId, flags);
+            LocalService.Instance.UserService.SaveUserRole(userId, siteId, flags);
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace JR.Cms.Web.Manager.Handle
             try
             {
                 if (UserState.Administrator.Current.Id == userId) throw new Exception("Not allow this operation");
-                var result = ServiceCall.Instance.UserService.DeleteUser(userId);
+                var result = LocalService.Instance.UserService.DeleteUser(userId);
                 if (result < 1) return ReturnError("删除失败");
             }
             catch (Exception exc)
@@ -343,9 +343,9 @@ namespace JR.Cms.Web.Manager.Handle
             DataTable dt;
             var user = UserState.Administrator.Current;
             if (user.IsMaster)
-                dt = ServiceCall.Instance.UserService.GetAllUsers();
+                dt = LocalService.Instance.UserService.GetAllUsers();
             else
-                dt = ServiceCall.Instance.UserService.GetMyUserTable(SiteId, user.Id);
+                dt = LocalService.Instance.UserService.GetMyUserTable(SiteId, user.Id);
             PagerJson(dt, string.Format("共{0}个用户", dt.Rows.Count.ToString()));
         }
 

@@ -6,33 +6,52 @@ using JR.Cms.Domain.Interface.Content;
 using JR.Cms.Domain.Interface.Content.Archive;
 using JR.Cms.Domain.Interface.Site.Category;
 using JR.Cms.Domain.Interface.Site.Extend;
-using JR.Cms.Infrastructure;
 using JR.Cms.Repository.Query;
 using JR.Cms.ServiceContract;
 using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts;
+using JR.Stand.Core.Data.Provider;
+using JR.Stand.Core.Extensions;
 using JR.Stand.Core.Framework;
 
 namespace JR.Cms.ServiceImpl
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ArchiveService : IArchiveServiceContract
     {
         private readonly IContentRepository _contentRep;
-        private readonly ArchiveQuery _archiveQuery = new ArchiveQuery();
+        private readonly ArchiveQuery _archiveQuery;
         private readonly IExtendFieldRepository _extendRep;
         private readonly ICategoryRepo _catRepo;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contentRep"></param>
+        /// <param name="catRepo"></param>
+        /// <param name="extendRep"></param>
+        /// <param name="provider"></param>
         public ArchiveService(
             IContentRepository contentRep,
             ICategoryRepo catRepo,
-            IExtendFieldRepository extendRep
+            IExtendFieldRepository extendRep,
+            IDbProvider provider
         )
         {
             _contentRep = contentRep;
             _extendRep = extendRep;
             _catRepo = catRepo;
+            _archiveQuery = new ArchiveQuery(provider);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ArchiveDto GetArchiveByIdOrAlias(int siteId, string id)
         {
             var ic = _contentRep.GetContent(siteId);
@@ -448,6 +467,41 @@ namespace JR.Cms.ServiceImpl
             var v = archive.Get();
             v.Path = "";
             return archive.Set(v) ?? archive.Save();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="unix"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public IEnumerable<ArchiveDto> GetArchiveByTimeAgo(int siteId, long unix, int size)
+        {
+            var list = _archiveQuery.GetArchiveByTimeAgo(siteId,unix,size);
+            IList<ArchiveDto> archives = new List<ArchiveDto>();
+            foreach (var it in list)
+            {
+                archives.Add(this.parseArchiveToDto(it));
+            }
+
+            return archives;
+        }
+
+        private ArchiveDto parseArchiveToDto(Domain.Interface.Models.CmsArchiveEntity it)
+        {
+            return new ArchiveDto
+            {
+                Id = 0,
+                StrId = it.StrId,
+                Title = it.Title,
+                Thumbnail = it.Thumbnail,
+                FirstImageUrl = it.Thumbnail,
+                Tags = "",
+                Path = it.Path,
+                Flag = 0,
+                Location = it.Location
+            };
         }
     }
 }

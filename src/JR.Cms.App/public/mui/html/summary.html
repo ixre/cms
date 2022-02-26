@@ -11,7 +11,7 @@
         .border .title {
             background: #f5f5f5;
             padding: 0 5px;
-            line-height: 23px;
+            line-height: 30px;
             font-weight: bold;
             color: #333;
             background: transparent linear-gradient(to bottom, #F7F8FA, #E7E9EC);
@@ -25,6 +25,7 @@
           padding-left:30px;padding-top:5px;padding-bottom:5px;
     }
     dl dd{color:#666;padding-top:5px;padding-bottom:5px;}
+    dl dt{width:150px;}
     
     #dialog_server{width:59%;margin-left:-60%;float:right;}
    .leftPart{width:40%;float:left;margin-right:60%;}
@@ -56,14 +57,14 @@
                 <div class="title"><span>服务器状态</span></div>
                 <dl><dt>服务器名称：</dt><dd>${server_name}( IP:${server_ip} )</dd></dl>
                 <dl><dt>操作系统：</dt><dd>${server_os},语言：${server_local}</dd></dl>
-                <dl><dt>服务器软件:</dt><dd>${server_iis}(.NET版本：${server_netver})</dd></dl>
+                <dl><dt>.NET版本:</dt><dd>${server_netver}</dd></dl>
                 <dl><dt>服务器时间:</dt><dd>${server_time}</dd></dl>
                 <dl><dt>开机时长:</dt><dd>${server_hour}</dd></dl>
                 <dl><dt>CPU类型:</dt><dd>${server_cpu}</dd></dl>
                 <dl><dt>内存占用:</dt><dd>${server_net_meory}<!--${server_meory}--></dd></dl>
-                <dl><dt>本机IP:</dt><dd>${person_ip}</dd></dl>
-                <dl><dt>本机系统:</dt><dd>${person_os}</dd></dl>
-                <dl style="border: none"><dt>浏览器:</dt><dd>${person_soft} (版本:${person_softver})</dd></dl>
+<!--                <dl><dt>本机IP:</dt><dd>${person_ip}</dd></dl>-->
+<!--                <dl><dt>本机系统:</dt><dd>${person_os}</dd></dl>-->
+<!--                <dl style="border: none"><dt>浏览器:</dt><dd>${person_soft} (版本:${person_softver})</dd></dl>-->
             </div>
         </div>
 
@@ -110,8 +111,7 @@ $js()
 		    var e = jr.$('version');
 		    e.innerHTML = '正在从服务器获取版本...';
 		    e.className = '';
-		    jr.xhr.get('?module=ajax&action=checkupgrade', function (rsp) {
-		        ver = JSON.parse(rsp);
+		    jr.xhr.get('?module=ajax&action=checkupgrade', function (ver) {
                 if (ver.result === 1) {
                     e.className = 'new-version';
                     e.innerHTML = '新版本可升级：v' + ver.version + '&nbsp;<a class="button" href="javascript:;" onclick="confirmUpgrade(false)">点击升级</a>';
