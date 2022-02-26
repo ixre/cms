@@ -1428,7 +1428,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <summary>
         /// 分页文档列表
         /// </summary>
-        /// <param name="categoryTag">栏目Tag</param>
+        /// <param name="categoryPath">栏目Tag</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">每页数量</param>
         /// <param name="splitSize">分隔条数</param>
