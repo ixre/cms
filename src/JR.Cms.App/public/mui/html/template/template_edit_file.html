@@ -72,7 +72,7 @@
                 data.content = coder.getValue();
             }
 
-            jr.xhr.post(location.href, data, function (result) {
+            jr.xhr.jsonPost(location.href, data, function (result) {
                 window.parent.showMsg2(result);
             });
         }

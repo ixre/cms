@@ -59,7 +59,7 @@
             }
 
         .data-panel .panel {
-            overflow: auto;
+            overflow-x: hidden;
             border-bottom: solid 1px #ddd;
         }
 
@@ -432,7 +432,6 @@ $js()
     function load(dir) {
         // ctobj.tip('加载中...', 0);
         ctobj.resetTable();
-        console.log("" instanceof Object);
         jr.xhr.post(fm_handler, 'act=list&dir=' + dir, function (json) {
             if (json.error) {
                 ctobj.tip(json.error, true);
