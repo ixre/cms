@@ -35,7 +35,7 @@ namespace JR.Cms.Core.Scheduler.Job
 
            if (job.Enabled != 1)
            {
-               _logger.Info("任务未启动");
+               _logger.Info($"任务{job.JobName}未启动");
                return Task.CompletedTask;
            }
 
