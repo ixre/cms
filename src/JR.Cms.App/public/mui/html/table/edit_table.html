@@ -90,7 +90,7 @@
                 }
 
                 var data = jr.json.toObject(document);
-                jr.xhr.post(location.href, data, function(x) {
+                jr.xhr.jsonPost(location.href, data, function(x) {
 
                     var msg = '';
                     var resultTag;
