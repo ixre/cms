@@ -533,10 +533,9 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// <summary>
         /// 获取栏目分页文档
         /// </summary>
-        /// <param name="lft"></param>
-        /// <param name="rgt"></param>
         /// <param name="siteId"></param>
         /// <param name="moduleId">参数暂时不使用为-1</param>
+        /// <param name="catIdArray"></param>
         /// <param name="publisherId"></param>
         /// <param name="includeChild"></param>
         /// <param name="flag"></param>
@@ -554,15 +553,14 @@ namespace JR.Cms.Library.DataAccess.DAL
             int pageSize, int currentPageIndex,
             out int recordCount, out int pages)
         {
-            //SQL Condition Template
+            // SQL Condition Template
             const string conditionTpl = "$[siteid]$[module]$[category]$[author_id]$[flag]$[keyword]";
-
-            string condition, //SQL where condition
-                order = string.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,
+            // SQL where condition
+            string order = string.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,
                 orderType = orderAsc ? "ASC" : "DESC"; //ASC or DESC
 
 
-            condition = SQLRegex.Replace(conditionTpl, match =>
+            var condition = SQLRegex.Replace(conditionTpl, match =>
             {
                 switch (match.Groups[1].Value)
                 {
@@ -673,7 +671,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount,
             string orderby, DataReaderFunc func)
         {
-            CheckSqlInject(new[]{keyword, orderby});
+            CheckSqlInject(new[] {keyword, orderby});
             var sb = new StringBuilder(SqlConst.Archive_NotSystemAndHidden);
             if (siteId > 0) sb.Append(" AND $PREFIX_category.site_id=").Append(siteId.ToString());
 
@@ -691,7 +689,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             //排序规则
             if (string.IsNullOrEmpty(orderby)) orderby = string.Intern("ORDER BY $PREFIX_archive.sort_number DESC");
 
-            var query =SqlQueryHelper.CreateQuery(String.Format(DbSql.Archive_GetSearchRecordCount, condition));
+            var query = SqlQueryHelper.CreateQuery(String.Format(DbSql.Archive_GetSearchRecordCount, condition));
             //记录数
             recordCount = int.Parse(ExecuteScalar(query).ToString());
 
@@ -764,7 +762,7 @@ namespace JR.Cms.Library.DataAccess.DAL
                                     AND ([Title] LIKE '%$[keyword]%' OR [Outline] LIKE '%$[keyword]%' 
                                    OR [Content] LIKE '%$[keyword]%' OR [Tags] LIKE '%$[keyword]%')
                                    $[orderby],$PREFIX_archive.id";
-            
+
             //记录数
             recordCount = int.Parse(ExecuteScalar(
                 SqlQueryHelper.Format(
@@ -934,7 +932,7 @@ namespace JR.Cms.Library.DataAccess.DAL
         public void GetArchivesExtendValues(int siteId, int relationType, string categoryTag, int number, int skipSize,
             DataReaderFunc func)
         {
-            var sql = String.Format(DbSql.Archive_GetArchivesExtendValues, skipSize.ToString(),number.ToString());
+            var sql = String.Format(DbSql.Archive_GetArchivesExtendValues, skipSize.ToString(), number.ToString());
             ExecuteReader(
                 SqlQueryHelper.Format(sql,
                     new object[,]
@@ -942,7 +940,7 @@ namespace JR.Cms.Library.DataAccess.DAL
                         {"@siteId", siteId},
                         {"@tag", categoryTag},
                         {"@relationType", relationType}
-                    } 
+                    }
                 ), func);
         }
 
