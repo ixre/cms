@@ -29,10 +29,10 @@ namespace JR.Cms.Web
         /// <summary>
         /// 页面呈现之前发生
         /// </summary>
-        private static TemplateHandler<object> _onPreRender;
+        private static TemplateHandler<object> preRender;
 
         private const string CopyStr =
-            "\n<!-- Power By JR-CMS v{0}, please visit url \"http://56x.net/cms\" to see more. -->";
+            "\n<!-- This website use JRCMS v{0}, learn more please visiting \"https://fze.net/cms\"  -->";
 
         private static readonly string CopyStr2019;
 
@@ -61,9 +61,9 @@ namespace JR.Cms.Web
 <!--
 *************************************************************************************
 * 本站使用《JR-CMS》驱动。唯一跨平台,支持多种数据库,基于ASP.net技术构建的网站管理系统。
-* 欢迎访问 http://56x.net/cms 获取详细信息及试用版本。
+* 欢迎访问 https://fze.net/cms 获取详细信息及免费试用版本。
 
-* 【承接】定制网站,营销型网站,WAP手机网站开发。联系电话：13162222872  QQ:188867734
+* 【承接】定制网站,营销型网站,WAP手机网站开发。QQ/微信:188867734
 *************************************************************************************
 -->";*/
             html = html.Insert(Math.Max(html.LastIndexOf("<", StringComparison.Ordinal), 0), CopyStr2019);
@@ -80,7 +80,7 @@ namespace JR.Cms.Web
             var page = Cms.Template.GetTemplate(templateName);
             RegisterEventHandlers(page);
             // 注册扩展的模板解析事件
-            if (_onPreRender != null) page.OnPreRender += _onPreRender;
+            if (preRender != null) page.OnPreRender += preRender;
             pageFunc?.Invoke(page);
             return page.Compile();
         }
@@ -116,7 +116,7 @@ namespace JR.Cms.Web
             page.OnPreRender += CompliedTemplate;
 
             //注册扩展的模板解析事件
-            if (_onPreRender != null) page.OnPreRender += _onPreRender;
+            if (preRender != null) page.OnPreRender += preRender;
 
             page.SaveToFile(path);
         }
@@ -134,7 +134,7 @@ namespace JR.Cms.Web
             page.OnPreRender += PreHandler;
             page.OnPreRender += CompliedTemplate;
             //注册扩展的模板解析事件
-            if (_onPreRender != null) page.OnPreRender += _onPreRender;
+            if (preRender != null) page.OnPreRender += preRender;
             page.SaveToFile(path, out html);
         }
 

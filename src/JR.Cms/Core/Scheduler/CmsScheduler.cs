@@ -43,8 +43,13 @@ namespace JR.Cms.Core.Scheduler
     {
 
         private static readonly Logger Logger = new Logger(typeof(CmsScheduler));
+        private static bool initialized = false;
+        /// <summary>
+        /// 初始化定时任务
+        /// </summary>
         public static async void Init()
         {
+            if (initialized) return;
             CheckJob();
             var jobs = LocalService.Instance.JobService.FindAllJob();
 
@@ -81,7 +86,8 @@ namespace JR.Cms.Core.Scheduler
                 {
                    Logger.Error($"任务注册失败, {je.JobName}, 异常:"+(ex.InnerException??ex).Message+"\n"+(ex.InnerException??ex).StackTrace); 
                 }
-                Logger.Info($"注册定时任务[{je.JobName}]成功, 启动规则为:{je.CronExp}");
+                initialized = true;
+                Logger.Info($"定时任务{je.JobName}注册成功, 启动规则为:{je.CronExp}");
             }
         }
 
@@ -95,7 +101,7 @@ namespace JR.Cms.Core.Scheduler
                 {
                     JobName = "搜索引擎提交任务",
                     CronExp = "0 0 */2 * * ?",
-                    Enabled = 0,
+                    Enabled = 1,
                     JobClass = "JR.Cms.Core.Scheduler.Job.SearchEngineSubmitJob",
                     JobDescribe = "每日将新的文档提交到百度等搜索引擎, 每2小时执行一次"
                 }

@@ -59,7 +59,7 @@
             }
 
         .data-panel .panel {
-            overflow: auto;
+            overflow-x: hidden;
             border-bottom: solid 1px #ddd;
         }
 
@@ -194,7 +194,7 @@ $js()
     function resetUploadFormAction() {
         var form =  jr.$(up.id).getElementsByTagName("FORM")[0];
         if (form != undefined) {
-            form.setAttribute('action', fm_handler + '&act=upload&dir='+curdir);
+            form.setAttribute('action', fm_handler + '&amp;act=upload&amp;dir='+curdir);
         }
     }
 
@@ -204,10 +204,6 @@ $js()
         },
 
         resetTable: function () {
-//            var leng = tb.rows.length;
-//            for (var i = 1; i < leng; i++) {
-//                tb.deleteRow(1);
-//            }
 
             tb.innerHTML = '';  //清空
 
@@ -411,8 +407,7 @@ $js()
             if (fileName.length > 0) {
                 jr.xhr.post(fm_handler, 'xhr=1&act=create&dir=' + encodeURIComponent(curdir) + '&is_dir='
                     + (isDir ? "true" : "false") + '&file=' + encodeURIComponent(fileName),
-                    function(result) {
-                        var json = JSON.parse(result);
+                    function(json) {
                         if (json.error) {
                             _this.tip(json.error, true);
                         } else {
@@ -437,8 +432,7 @@ $js()
     function load(dir) {
         // ctobj.tip('加载中...', 0);
         ctobj.resetTable();
-        jr.xhr.post(fm_handler, 'act=list&dir=' + dir, function (result) {
-            var json = JSON.parse(result);
+        jr.xhr.post(fm_handler, 'act=list&dir=' + dir, function (json) {
             if (json.error) {
                 ctobj.tip(json.error, true);
             } else {

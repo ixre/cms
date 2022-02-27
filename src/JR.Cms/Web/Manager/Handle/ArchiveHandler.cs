@@ -479,8 +479,7 @@ namespace JR.Cms.Web.Manager.Handle
             //  _system = Request.Form("lb_system")[0] ?? "-1",
             //  _aspage = Request.Form("lb_page")[0] ?? "-1";
 
-            int publisherId;
-            int.TryParse(Request.Query("author_id"), out publisherId);
+            int.TryParse(Request.Query("author_id"), out var publisherId);
 
             var includeChild = Request.Query("include_child") == "true";
             string keyword = Request.Form("keyword");
@@ -490,8 +489,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             if (_categoryId != null)
             {
-                int __categoryId;
-                int.TryParse(_categoryId, out __categoryId);
+                int.TryParse(_categoryId, out var __categoryId);
                 if (__categoryId > 0) categoryId = __categoryId;
             }
 

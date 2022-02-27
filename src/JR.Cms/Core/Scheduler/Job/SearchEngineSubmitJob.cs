@@ -35,7 +35,7 @@ namespace JR.Cms.Core.Scheduler.Job
 
            if (job.Enabled != 1)
            {
-               _logger.Info("任务未启动");
+               _logger.Info($"任务{job.JobName}未启动");
                return Task.CompletedTask;
            }
 
@@ -62,7 +62,6 @@ namespace JR.Cms.Core.Scheduler.Job
         private void SubmitUrlToSearchEngine(SiteDto siteDto, CmsSearchEngineEntity se, IList<string> urls)
         {
             String[] urlArray = urls.ToArray();
-
             _logger.Info($"[ Job][ Baidu]: 推送的URL为:{String.Join(",",urlArray)}");
             this.SubmitUrlToBaidu(siteDto,se, urlArray);
         }
