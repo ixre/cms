@@ -90,11 +90,11 @@ namespace JR.Cms.WebImpl.Export
 
             byte[] bytes = DataExportDirector.Export(_portal, parameter, provider);
 
-            context.Response.BinaryWrite(bytes);
             context.Response.ContentType = "application/octet-stream";
             context.Response.AppendHeader("Content-Disposition", String.Format("attachment;filename=\"{0:yyyyMMdd-hhssfff}.{1}\"",
                 DateTime.Now,
                 extension));
+            context.Response.BinaryWrite(bytes);
 
         }
     }
