@@ -315,7 +315,15 @@ namespace JR.Cms
                 //todo: plugin
                 //CmsPluginContext.Connect();
                 // 设置验证码字体
-                VerifyCodeGenerator.SetFontFamily(PhysicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
+                try
+                {
+                    VerifyCodeGenerator.SetFontFamily(PhysicPath + CmsVariables.FRAMEWORK_ASSETS_PATH +
+                                                      "fonts/comic.ttf");
+                }
+                catch (Exception ex)
+                {
+                    Logger.Warning("加载字体失败:"+(ex.InnerException??ex).Message);
+                }
             }
             
             Logger.Info("注册定时任务..");

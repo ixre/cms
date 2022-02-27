@@ -498,10 +498,10 @@ namespace JR.Cms.Web.Manager.Handle
         {
             string tpl = Request.Query("tpl");
             var bytes = ZipHelper.Compress($"{Cms.PhysicPath}templates/{tpl}/", tpl);
-            Response.WriteAsync(bytes);
             Response.ContentType ("application/octet-stream");
             Response.AddHeader("Content-Disposition", "attachment;filename=template_" + tpl + ".zip");
             Response.AddHeader("Content-Length", bytes.Length.ToString());
+            Response.WriteAsync(bytes);
         }
 
         /// <summary>
