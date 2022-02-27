@@ -179,7 +179,7 @@ func (this *UrlPager) Pager() []byte {
 	return bys.Bytes()
 }
 
-func (this *UrlPager) PagerString()string{
+func (this *UrlPager) PagerString() string {
 	return string(this.Pager())
 }
 

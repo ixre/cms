@@ -72,7 +72,7 @@ namespace JR.Cms.Core
             var path = request.GetPath();
 
             string appPath = "";
-            if (path != "/")
+            if (path != "/" && path.Length > 0)
             {
                 appPath = path.Substring(1);
                 if (appPath.EndsWith("/")) appPath = appPath.Substring(0, appPath.Length - 1);

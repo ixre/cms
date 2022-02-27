@@ -5,6 +5,8 @@ using JR.Stand.Abstracts.Web;
 using Microsoft.Extensions.Primitives;
 using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Web;
+using System.IO;
+using JR.Stand.Core.Framework;
 
 namespace JR.Stand.Core.AspNet
 {
@@ -159,7 +161,7 @@ namespace JR.Stand.Core.AspNet
         }
         public T Bind<T>()
         {
-            StreamReader sr = new StreamReader(this.Context().Request.Body);
+            StreamReader sr = new StreamReader(this.Context.Request.InputStream);
             String body = sr.ReadToEnd();
             return JsonSerializer.DeserializeObject<T>(body);
         }

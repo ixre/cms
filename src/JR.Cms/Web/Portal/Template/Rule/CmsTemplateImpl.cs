@@ -834,6 +834,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
         #endregion
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         [TemplateTag]
         [XmlObjectProperty("显示栏目分页文档结果", @"
         	<p class=""red"">只能在栏目页或文档页中使用！</p>
@@ -855,6 +861,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="splitSize"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         [TemplateTag]
         [XmlObjectProperty("显示栏目分页文档结果", @"
         	<p class=""red"">只能在栏目页或文档页中使用！</p>

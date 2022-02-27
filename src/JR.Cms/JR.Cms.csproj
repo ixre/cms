@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <Company>56X.NET</Company>
@@ -50,7 +50,7 @@
       <PackageReference Include="Quartz" Version="3.3.3" />
       <PackageReference Include="SharpCompress" Version="0.30.1" />
       <PackageReference Include="structuremap" Version="4.7.1" />
-      <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+      <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
