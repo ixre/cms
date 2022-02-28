@@ -7,6 +7,8 @@ namespace JR.Stand.Core
     {
         public static string GetBaseDirectory()
         {
+            return AppDomain.CurrentDomain.BaseDirectory;
+
 #if NETFRAMEWORK
            return AppDomain.CurrentDomain.BaseDirectory;
 #endif

@@ -27,7 +27,7 @@ mkdir ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
 cd ${RELEASE_DIR} && \
     sed -i 's/compilation debug="true"/compilation debug="false"/g' Web.config && \
     echo "setup3: clean assemblies.." && \
-    cd bin && rm -rf *.pdb *.xml \
+    cd bin && rm -rf *.pdb *.xml roslyn zh-Hans \
     Microsoft.Extensions.DependencyInjection.Abstractions.dll \
     Google.Protobuf.dll Microsoft.DotNet.PlatformAbstractions.dll \
     Microsoft.Extensions.WebEncoders.dll Microsoft.Extensions.Options.dll \
