@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    $css()
+    $js()
+</head>
+<body>
+    <div id="category_extends" class="form entityForm">
+        <form id="form3">
+            <dl id="category">
+                <dt>栏目名称：</dt>
+                <dd field="Name"></dd>
+            </dl>
+            <dl id="extends">
+                <dt>扩展属性：</dt>
+                <dd>
+                    <span id="extendPanel"></span>
+                </dd>
+            </dl>
+            <div class="clearfix"></div>
+            <dl>
+                <dt>&nbsp;</dt>
+                <dd>
+
+                    <span class="ui-button w150" id="btn">
+                                <span class=" button-inner">
+                                    <span class="button-txt">确定</span>
+                                    <a href="javascript:;"></a>
+                                </span>
+                            </span>
+                    &nbsp;
+                    <span class="ui-button w150" id="btn_reset">
+                        <span class=" button-inner">
+                            <span class="button-txt">重设</span>
+                            <a href="javascript:;"></a>
+                        </span>
+                    </span>
+
+                </dd>
+            </dl>
+        </form>
+    </div>
+    <div class="form autostyle" id="extend_form">
+
+    </div>
+
+
+    <script type="text/javascript">
+        var _category=${category};
+        var _extends=${json};
+
+        var _extendForm = jr.$('category_extends');
+        var _extendPanel = jr.$('extendPanel');
+        jr.json.bind(_extendForm,_category);
+
+        for (var i = 0; i < _extends.length;i++) {
+            _extendPanel.innerHTML+='<input type="checkbox" field="ExtendIds['+i+']" id="ck'+i
+                +'" value="'+_extends[i].Id+'"/><label for="ck'
+                +i+'">'+_extends[i].Name+'</label>&nbsp;&nbsp;';
+        }
+        if(_extendPanel.innerHTML==''){
+            _extendPanel.innerHTML='<span style="color:red">系统还没有扩展属性，请通过栏目管理=》扩展属性进行添加！</span>';
+            jr.$('btn').setAttribute('disabled','disabled');
+        }
+        jr.json.bind(_extendForm,_category);
+
+
+        window.save= function () {
+            var settedExtend=jr.json.toObject(_extendForm).ExtendIds;
+            var extendIdStr='';
+            for (var i = 0; i< settedExtend.length;i++){
+                if(i!=0) extendIdStr+=',';
+                extendIdStr+=settedExtend[i];
+            }
+
+
+            jr.xhr.jsonPost('${url}',
+                'xhr=1&extendIds='+extendIdStr,
+                function (json) { 
+                    if (json.result) {
+                        jr.dialog.close();
+                       showMsg2(json.message);
+                    } else {
+                       showErr(json.message);
+                    }
+                });
+        };
+
+        jr.$('btn').onclick =save;
+
+        jr.$('btn_reset').onclick=function(){
+            document.forms["form3"].reset();
+        }
+    </script>
+</body>
+</html>

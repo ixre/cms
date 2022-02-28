@@ -1,0 +1,74 @@
+﻿/*
+   @control : 显示控制按钮
+
+*/
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>表格行列表</title>
+        $css()
+	</head>
+	<body>
+	
+  <div class="tabarea">
+
+    <div class="tab_mini">
+        ${controlHtml}
+        <span class="meta">表名：<span>${tablename}</span></span>
+    </div>
+
+    <table class="ui-table" cellspacing="0" cellpadding="0" id="gd">
+      ${columnsHtml}
+      ${rowsHtml}
+    </table>
+    <div class="pager">${pagerHtml}</div>
+</div>
+
+$js()
+<script type="text/javascript">
+
+    var md;
+    window.onload = function () {
+        jr.table.dynamic(document.getElementsByTagName("table")[0]);
+
+        var bts = jr.$("gd", "button");
+        for (var i in bts) {
+            switch (bts[i].className) {
+                case 'edit': bts[i].onclick = editColumn; break;
+                case 'delete': bts[i].onclick = deleteRecord; break;
+            }
+        }
+    };
+    function editColumn() {
+        location.replace(location.search.replace('columns', 'editcolumn') + '&columnid=' + getId(this));
+    }
+    function deleteRecord() {
+        if (confirm('继续操作会导致表格数据丢失，确定吗？')) {
+            var td = this.parentNode.parentNode;
+            var id = getId(this);
+            jr.xhr.post('?module=table&action=deleterow', 'table_id=${table_id}&rowid=' + id,
+                function (x) {
+                    var msg = '';
+                    var resultTag; eval('resultTag=' + x);
+                    switch (resultTag) {
+                        case 1: msg = '删除成功!'; break;
+                        case 2: msg = '删除失败，请重试!'; break;
+                    }
+
+                    if (resultTag != 1) {
+                       showMsg2(msg);
+                    } else {
+                        td.style.display = 'none';
+                    }
+                });
+        }
+    }
+    function getId(s) {
+        return s.parentNode.parentNode.childNodes[0].innerHTML;
+    }
+  </script>
+
+
+
+	</body>
+</html>

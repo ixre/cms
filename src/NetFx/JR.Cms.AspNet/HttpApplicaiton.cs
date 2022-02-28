@@ -13,6 +13,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace JR.Cms.AspNet
@@ -44,7 +45,14 @@ namespace JR.Cms.AspNet
 
         protected virtual void Application_Start()
         {
+            AreaRegistration.RegisterAllAreas();
+            this.RegisterGlobalFilters(GlobalFilters.Filters);
             AspNetCmsInitializer.Init();
+        }
+
+        private void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
+            filters.Add(new HandleErrorAttribute());
         }
 
         protected virtual void Application_Error(object sender, EventArgs e)

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文档跨站发布</title>
+    $css()
+   
+</head>
+<body>
+
+    <style type="text/css">
+        .panel {
+            margin: 1em;
+            padding: 1em;
+            background: #FFF;
+            border: solid 1px #EEE;
+        }
+
+        table {
+            background: #FFF;
+        }
+
+            table .panel {
+                background: #F8F8F8;
+            }
+
+        .ctrl-panel {
+            text-align: left;
+            padding: 1em 1em;
+            border-top: solid 1px #EEE;
+        }
+
+            .ctrl-panel #tip-msg {
+                padding-left: 2em;
+                color: #ff0000;
+            }
+
+        .panel .tit {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #F00;
+            margin-bottom: 1em;
+        }
+
+        .note {
+            padding: 2em;
+            border-bottom: solid 1px #E0E0E0;
+            box-shadow: 0 1px 0 #FFF;
+            background: #F5F5F5;
+        }
+    </style>
+<div class="note"><span>使用此工具，可以选中的文档发布到其他站点</span></div>
+ <div>
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="50%" valign="top">
+                    <div class="panel">
+
+                        <div class="tit">
+                            源栏目：
+                            <select id="site_selector" class="ui-box">
+                                <option value="">选择站点</option>
+                                ${site_opt}
+                            </select>
+                        </div>
+
+                        <div class="true" id="to_tree"></div>
+                    </div>
+                </td>
+                <td valign="top">
+                    <strong>消息框</strong><br />
+                    <textarea id="msg" rows="10" class="ui-box" style="width: 80%; font-size: 12px; line-height: 16px;">等待发布...</textarea>
+                </td>
+            </tr>
+        </table>
+</div>
+
+
+<div class="ctrl-panel">
+
+    <div>
+        <input type="checkbox" id="ck_with_extend" checked="checked" /><label for="ck_with_extend">包括扩展数据</label>
+        <input type="checkbox" id="ck_with_templateBind" checked="checked" /><label for="ck_with_templateBind">包含模版绑定</label>
+        <input type="checkbox" id="ck_with_relatedLink" checked="checked" /><label for="ck_with_relatedLink">包含文档关联</label>
+    </div>
+
+    <br/>
+    <span class="ui-button w150" id="btn_clone">
+        <span class="button-inner">
+            <span class="button-txt">开始发布</span>
+            <a href="javascript:;"></a>
+        </span>
+    </span>
+
+    <span id="tip-msg">还未选择栏目</span>
+</div>
+
+$js()
+<script type="text/javascript">
+    var siteId = ${source_site};
+    var targetSiteId = 0;
+    var idArr = '${id_array}'.split(',');
+    var toTreePanel = jr.$('to_tree');
+    var tipMsg = jr.$('tip-msg');
+    var toNode = {};
+
+    function pubList(d) {
+        idArr = d;
+    }
+   jr.$('site_selector').onchange = function() {
+       var targetSiteId = this.value;
+       if (targetSiteId !== '') {
+            loadCategoryTree(targetSiteId,toTreePanel);
+        }
+    };
+
+
+    //加载栏目树
+   function loadCategoryTree(siteId, panel) {
+        toNode = {};
+        targetSiteId = siteId;
+        reqTree(siteId, 'false',function(json) {
+            jr.tree.load(panel, json, '/public/assets/tree/', function(a, d) {
+                treeChecked(true,a,d);
+            });
+        });
+    }
+    function reqTree(siteId,withRoot, callback) {
+        jr.xhr.request({
+            uri: '?module=ajax&action=CategoryNodes&root='+withRoot+'&site_id='+siteId,
+            method: 'GET',
+            data: 'json'
+        }, {
+            success: function (json) {
+                callback(json);
+            }, error: function () {
+                alert('栏目加载失败!');
+            }
+        });
+    }
+
+    function treeChecked(from,a, d) {
+        a.className = 'node node-selelected';
+        var json = JSON.parse(d);
+        toNode = { id: json.cid, name: a.innerHTML };
+        absMsg();
+    }
+
+    function absMsg() {
+        if (toNode.id == undefined) {
+            tipMsg.innerHTML = '目标栏目未选择';
+        } else {
+            tipMsg.innerHTML = jr.template('目标发布栏目：<b>{tName}</b>', {
+                tName: toNode.name
+            });
+        }
+    }
+
+
+    //重新加载栏目树
+    function _reloadTree() {
+        if (parent._loadCategoryTree) parent._loadCategoryTree();
+        if (window._thisLoadCategoryTree) window._thisLoadCategoryTree();
+    }
+ 
+    jr.$('btn_clone').onclick = function() {
+
+        if (idArr == null || idArr.length == 0) {
+            showErr('请选择文档');
+            return false;
+        }
+        if (toNode.id != undefined) {
+            var data = {
+                sourceSiteId: siteId,
+                targetSiteId: targetSiteId,
+                toCid: toNode.id,
+                idArr: idArr.join(','),
+                includeExtend: jr.$('ck_with_extend').checked,
+                includeTemplateBind: jr.$('ck_with_templateBind').checked,
+                includeRelatedLink: jr.$('ck_with_relatedLink').checked,
+                xhr:1
+        };
+            jr.xhr.jsonPost('${post_url}', data,function(j) {
+                if (j.result) {
+                    showMsg2('发布成功');
+                } 
+                jr.$('msg').innerHTML =j.result?'发布成功':j.message;
+            });
+        }
+        return true;
+    };
+
+</script>
+
+</body>
+</html>

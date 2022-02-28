@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings>
+  <add key="system_logo">/public/mui/css/latest/logo.png</add>
+  <add key="entry_frame_url">?module=system&amp;action=summary</add>
+</settings>

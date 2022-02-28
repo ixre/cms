@@ -1,0 +1,99 @@
+<div class="mod-footer">
+
+  <div class="mod-quick-link">
+    <div class="container">
+
+     <div class="col col-first">
+        <div class="con">
+            <p class="tit">$lang(about)$lang(space)$lang(us)</p>
+            <a href="${page.domain}/about/intro.html">$lang(company)$lang(space)$lang(intro)</a>
+            <a href="${page.domain}/article/news">$lang(news)</a>
+            <!--<a href="${page.domain}/#">公司事件</a>-->
+            <a href="${page.domain}/about/contact.html">$lang(contact-us)</a>
+            <a href="${page.domain}/jobs">$lang(human)</a>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="con">
+            <p class="tit">$lang(product)</p>
+            <a href="${page.domain}/product">$lang(all)$lang(space)$lang(product)</a>
+            <a href="${page.domain}/brand">$lang(brand-proxy)</a>
+            <a href="${page.domain}/product/pro-diy.html">$lang(pro-diy)</a>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="con">
+            <p class="tit">$lang(service)$lang(space)$lang(item)</p>
+            $archives('items',5,'
+            <a href="{url}">{title}</a>')
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="con">
+            <p class="tit">$lang(help)</p>
+            <a href="${page.domain}/logistics">$lang(logistics)$lang(space)$lang(delivery)</a>
+            <a href="${page.domain}/about/service-of-sales.html">$lang(service-of-sales)</a>
+        </div>
+      </div>
+
+      <div class="col col-last">
+       <div class="con-last">
+           <div class="right center">
+               <img class="qr" src="${page.tpath}/images/footer_qr.png" width="70" height="70" /><br />
+                $lang(follow)$lang(space)$lang(us)
+           </div>
+            <p>
+              <span class="tel">
+               ${site.tel}
+              </span><br />
+              周一到周六 8：00-18：00
+              <br />
+              工作手机号码: ${site.phone}
+            </p>
+          
+            <img style="cursor: pointer" onclick="window.open('tencent://message?uin=${site.im}')" border="0" src="${page.tpath}/images/qq_online.png" title="在线咨询">
+        </div>
+      </div>
+
+      <div class="clear-fix"></div>
+    </div>
+  </div>
+  <div class="mod-footer-con">
+      <div class="container">
+        <div class="left">
+        </div>
+
+        <div class="rgt">
+
+<!--
+        <a href="${page.domain}/_cms/change?device=1">$lang(pc-version)</a>
+        &nbsp;
+        <a href="${page.domain}/_cms/change?device=3">$lang(touch-version)</a>
+        &nbsp; &nbsp; &nbsp;-->
+
+        Copyright&nbsp;©&nbsp;2015&nbsp;<strong>${site.name}</strong> &nbsp;All Right Reserved<br />
+
+            <div class="small">
+              <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备15066003号</a>
+              &nbsp;&nbsp;网站基于<a target="_blank" href="//to2.net/cms">JR-CMS</a>构建
+            </div>
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+  </div>
+</div>
+    
+  <!--<span style="display:none">
+  <script language="javascript" src="http://counJR7.51yes.com/click.aspx?id=272810781&logo=1" charset="gb2312"></script></span>-->
+
+
+<link href="${page.tpath}/extra/kf/css/kf.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${page.tpath}/extra/kf/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+  window.topHtml="<div id=\"izl_rmenu\" class=\"izl-rmenu\"><a href=\"tencent://Message/?Uin=${site.im}&Menu=yes\" class=\"btn btn-qq\"></a><div class=\"btn btn-wx\"><img class=\"pic\" src=\"${page.tpath}/images/footer_qr.png\" onclick=\"\'\"/></div><div class=\"btn btn-phone\"><div class=\"phone\">${site.tel}</div></div><div class=\"btn btn-top\"></div></div>";
+</script>
+<script type="text/javascript" src="${page.tpath}/extra/kf/js/kf.js"></script>
+<div id="top"></div>
