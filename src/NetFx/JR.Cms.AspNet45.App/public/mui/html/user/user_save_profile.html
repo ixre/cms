@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改密码</title>
+    $css()
+</head>
+<body>
+    <div class="_tabarea">
+        <!--
+            <div class="tab_mini">
+                <a href="?module=system&amp;action=config">应用程序设置</a>
+                <a href="?module=system&amp;action=modifyuserbasicprofile"  onclick="return false" class="current">修改个人资料</a>
+                <a href="?module=system&amp;action=settingsconfig">词典设置</a>
+            </div>
+            -->
+        <div class="area" id="area">
+                <div class="form" id="form1" style="width:400px;padding:20px">
+                    <div class="fl">
+                        <div class="label"><span class="red">*</span>显示名称：</div>
+                        <div class="in">
+                            <input type="text" class="ui-validate ui-box" required="true" length="[,10]" field="Name" value="${name}" />
+                            <div class="tip">10字以下</div>
+                        </div>
+                    </div>
+
+                    <div class="fl hidden">
+                        <div class="label">头像：</div>
+                        <div class="in">
+                            <input type="text" class="ui-validate ui-box" field="Avatar" />
+                            <div class="tip">(*开发中)</div>
+                        </div>
+                    </div>
+
+                    <div class="fl">
+                        <div class="label">
+                            <span class="red">*&nbsp;</span>电话：
+                        </div>
+                        <div class="in">
+                            <input type="text" class="ui-box ui-validate" required="true" field="Phone" />
+                        </div>
+                    </div>
+
+                    <div class="fl">
+                        <div class="label">
+                            <span class="red">*&nbsp;</span>邮箱：
+                        </div>
+                        <div class="in">
+                            <input type="text" class="ui-box ui-validate" required="true" field="Email" />
+                        </div>
+                    </div>
+
+                    <div class="title"><span class="icon icon1"></span>修改密码</div>
+
+                    <div class="fl">
+                        <div class="label">原密码：</div>
+                        <div class="in">
+                            <input class="ui-validate ui-box" type="password" field="old_pwd" length="[,20]" />
+                            <div class="tip">输入原密码</div>
+                        </div>
+                    </div>
+
+                    <div class="fl">
+                        <div class="label">新密码：</div>
+                        <div class="in">
+                            <input class="ui-validate ui-box" type="password" field="pwd" length="[,20]" />
+                        </div>
+                    </div>
+
+
+                    <div class="fl">
+                        <div class="label">确认密码：</div>
+                        <div class="in">
+                            <input class="ui-validate ui-box" type="password" field="repwd" length="[,20]" />
+                            <div class="tip">重复输入新密码</div>
+                        </div>
+                    </div>
+
+                    <div class="fl">
+                        <div class="label"></div>
+                        <div class="in">
+                            <span class="ui-button w150" id="btn">
+                                <span class="button-inner">
+                                    <span class="button-txt">保存</span>
+                                    <a href="javascript:;"></a>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+    $js()
+<script type="text/javascript">
+    
+    var entity = ${entity}||{};
+    jr.json.bind('form1', entity);
+    jr.$("btn").onclick = function () {
+        var form = jr.$('form1');
+        var json = jr.json.toObject(form);
+        var inputs = form.getElementsByTagName('INPUT');
+        if (json.name == '') {
+            jr.validator.setTip(inputs[0], false, null, '请输入名称!');
+            return false;
+        }
+        if (json.pwd != '') {
+            if (json.old_pwd == '') {
+                jr.validator.setTip(inputs[1], false, null, '请输入密码!'); return false;
+            }
+            else if (json.pwd != json.repwd) {
+                jr.validator.setTip(inputs[3], false, null, '新密码两次输入不一致!'); return false;
+            }
+        }
+
+        if (jr.validator.validate(form.id)) {
+            jr.xhr.jsonPost('?xhr=1&module=user&action=SaveProfile', json, function (json) {
+                if (json.result) {
+                    showMsg2('修改成功');
+                } else {
+                    showErr(json.message);
+                }
+            });
+        }
+    };
+
+
+</script>
+
+</body>
+</html>

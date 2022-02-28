@@ -1,8 +1,8 @@
-using System.Web.Routing;
 using JR.Cms.Conf;
 using JR.Cms.Web.Resource;
 using JR.Cms.WebImpl.Mvc;
 using JR.Stand.Core.AspNet;
+using System.Web.Routing;
 
 namespace JR.Cms.AspNet
 {
@@ -20,7 +20,7 @@ namespace JR.Cms.AspNet
             //Cms.OnInit += CmsEventRegister.Init;
             Cms.Init(BootFlag.Normal, null);
             //注册路由;
-            Routes.MapRoutes(RouteTable.Routes);
+            RouteConfig.MapRoutes(RouteTable.Routes);
             // 加载插件
             //WebCtx.Current.Plugin.Connect();
 

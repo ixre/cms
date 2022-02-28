@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>站点管理</title>
+    	$css()
+        $iconcss()
+	    <style>
+	        #bind{width:300px;position:absolute;left:550px;top:20px;}
+			.tree dd span.txt{padding-bottom:2px;}
+             div.form dl dt{width:120px}
+	    </style>
+	</head>
+	<body>
+        <div id="main" class="autoStyle" style="overflow:hidden">
+        <table cellpadding="0" cellspacing="0" width="100%" height="100%">
+        <tr>
+            <td width="200px" valign="top">
+                <div class="control" style="height:100%">
+                    <div class="top">
+                        <ul>
+                            <li><a href="javascript:;" class="fn" fn="create">$icon(create)新建</a></li>
+                            <li><a href="javascript:;" class="fn" fn="del">$icon(delete)删除站点</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="main autoHeight" style="padding:5px;">
+                        ${siteTree}
+                    </div>
+                </div>
+            </td>
+            <td valign="top">
+                <div id="pl" class="relative autoHeight autoScroll"></div>
+            </td>
+        </tr>
+    </table>
+  </div>
+
+		$js()
+	<script type="text/javascript">
+	    jr.dom.fitHeight(jr.$('main'));
+	    var nameLinks = document.getElementsByClassName('namelink');
+	    for (var i = 0; i < nameLinks.length; i++) {
+	        nameLinks[i].onclick = (function (t,ls) {
+	            return function () {
+	                for(var j=0;j<ls.length;j++){
+	                    ls[j].style.fontWeight=ls[j]==this?'bold':'';
+	                }
+	                var id = t.parentNode.parentNode.getAttribute('treeid');
+	                jr.load2('pl', 'site','edit','site_id='+id);
+	            };
+	        })(nameLinks[i], nameLinks);
+	        if (i == 0) {
+	            nameLinks[i].onclick();
+	        }
+	    }
+
+	    //创建
+	    Fn.create = function () {
+	        jr.load2('pl', 'site', 'create', '');
+	    };
+
+	    //删除站点
+	    Fn.del = function () {
+	        jr.dialog.alert('站点不允许删除！');
+	    };
+
+	</script>
+        
+	</body>
+</html>
