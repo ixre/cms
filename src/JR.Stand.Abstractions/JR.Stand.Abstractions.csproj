@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
-      <PackageReference Include="Microsoft.Extensions.Primitives" Version="6.0.2-mauipre.1.22054.8" />
+      <PackageReference Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
     </ItemGroup>
 
 </Project>
