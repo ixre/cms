@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using JR.Stand.Core.Framework;
+using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Core.PluginKernel
 {

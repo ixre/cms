@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace JR.Stand.Core
+namespace JR.Stand.Core.Utils
 {
     public static class EnvUtil
     {

@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using JR.Stand.Core;
 using Microsoft.AspNetCore.Http;
 using JR.Stand.Core.Extensions.Http;
+using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Toolkit.HttpTag
 {

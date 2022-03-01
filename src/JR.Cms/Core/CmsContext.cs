@@ -24,6 +24,7 @@ using JR.Stand.Abstracts.Web;
 using JR.Stand.Core;
 using JR.Stand.Core.Framework.Web.Cache;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
 
 namespace JR.Cms.Core

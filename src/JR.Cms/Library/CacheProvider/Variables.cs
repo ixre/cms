@@ -1,5 +1,6 @@
 ﻿using System;
 using JR.Stand.Core;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Library.CacheProvider
 {

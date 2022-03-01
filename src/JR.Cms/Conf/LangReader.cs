@@ -16,7 +16,7 @@ namespace JR.Cms.Conf
         public LangLabelReader(string filePath)
         {
             this.filePath = filePath;
-            this.cache = CacheFactory.Sington.RawCache();
+            this.cache = CacheFactory.Singleton.RawCache();
             cacheKey = String.Format("lang_cache_{0}" ,this.filePath.GetHashCode());
         }
 

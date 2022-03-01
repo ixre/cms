@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using JR.Stand.Core;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Conf
 {

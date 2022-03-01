@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Web.Manager
 {

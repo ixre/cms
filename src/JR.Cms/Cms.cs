@@ -23,6 +23,7 @@ using JR.Stand.Core.Cache;
 using JR.Stand.Core.Framework.Web.UI;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
 using JR.Stand.Core.Web.Cache;
 using Logger = JR.Stand.Core.Framework.Logger;

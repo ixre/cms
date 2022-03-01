@@ -14,6 +14,7 @@
 using System;
 using System.IO;
 using JR.Stand.Core;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Core
 {

@@ -43,7 +43,7 @@ namespace JR.Stand.Core.Web.Cache
 		
 		public void Clear()
 		{
-            CacheFactory.Sington.Clear(this.Key);
+            CacheFactory.Singleton.Clear(this.Key);
 		}
 	}
 }
