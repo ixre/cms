@@ -22,6 +22,7 @@ using JR.Cms.Conf;
 using JR.Cms.Web.Resource;
 using JR.Stand.Core;
 using JR.Stand.Core.Framework.Web.Cache;
+using JR.Stand.Core.Utils;
 
 
 // http://bbs.csdn.net/topics/300217787 #17

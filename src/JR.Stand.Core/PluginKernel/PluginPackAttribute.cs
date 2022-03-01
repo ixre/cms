@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using JR.Stand.Core.Framework;
+using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Core.PluginKernel
 {

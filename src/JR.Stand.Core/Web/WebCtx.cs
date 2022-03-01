@@ -4,6 +4,7 @@ using System.Text;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework.Web.Cache;
 using JR.Stand.Core.PluginKernel.Web;
+using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web.Cache;
 using JR.Stand.Core.Web.Cache.Component;
 using JR.Stand.Core.Web.Plugin;
@@ -122,7 +123,7 @@ namespace JR.Stand.Core.Web
 
         public ICache Cache
         {
-            get { return CacheFactory.Sington; }
+            get { return CacheFactory.Singleton; }
         }
 
      

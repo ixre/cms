@@ -1,4 +1,5 @@
-﻿using JR.Stand.Abstracts;
+﻿using System;
+using JR.Stand.Abstracts;
 using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web.Cache.Component;
 
@@ -14,7 +15,7 @@ namespace JR.Stand.Core.Web.Cache
         /// <summary>
         /// 
         /// </summary>
-        public static ICache Sington
+        public static ICache Singleton
         {
             get
             {
@@ -24,7 +25,7 @@ namespace JR.Stand.Core.Web.Cache
         }
 
         public static void Configure(IMemoryCacheWrapper  cache)
-        {
+        {     
             _cacheInstance = new BasicCache(new DependCache(cache));
         }
     }

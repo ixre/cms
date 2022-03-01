@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using JR.Cms.Conf;
 using JR.Stand.Core;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Web.Resource
 {

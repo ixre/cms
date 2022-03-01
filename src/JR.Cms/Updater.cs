@@ -7,6 +7,7 @@ using System.Xml;
 using JR.Cms.Conf;
 using JR.Cms.Infrastructure;
 using JR.Stand.Core;
+using JR.Stand.Core.Utils;
 using SharpCompress.Archives;
 using SharpCompress.Common;
 

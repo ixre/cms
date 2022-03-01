@@ -1,12 +1,13 @@
 ﻿using System;
+using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Core.Web.Cache
 {
     /// <summary>
     /// 
     /// </summary>
-    internal class Variables
+    internal static class Variables
     {
-        public static string PhysicPath =  EnvUtil.GetBaseDirectory();
+        public static readonly string PhysicPath =  EnvUtil.GetBaseDirectory();
     }
 }
