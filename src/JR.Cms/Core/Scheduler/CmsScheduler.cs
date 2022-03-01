@@ -49,8 +49,8 @@ namespace JR.Cms.Core.Scheduler
                 {
                     Type classType = Assembly.GetExecutingAssembly().GetType(je.JobClass);
                     ICronJob job = Activator.CreateInstance(classType) as ICronJob;
-                    if (job == null)throw new NotImplementedException($"{je.JobClass} not implemention ICronJob");
-                    daemon.AddJob(je.CronExp, () =>
+                    if (job == null)throw new NotImplementedException($"{je.JobClass} not implementation ICronJob");
+                    daemon.AddJob(ParseCronExp(je.CronExp), () =>
                     {
                         job.ExecuteJob(je);
                     });
@@ -63,6 +63,23 @@ namespace JR.Cms.Core.Scheduler
                 Logger.Info($"定时任务{je.JobName}注册成功, 启动规则为:{je.CronExp}");
             }
             daemon.Start();
+        }
+
+        /// <summary>
+        /// 将6位长度的cron表达式转为5位
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private static string ParseCronExp(string exp)
+        {
+            if (exp.Split(' ').Length == 6)
+            {
+                int i = exp.IndexOf(' ');
+                return exp.Substring(i + 1);
+            }
+
+            return exp;
         }
 
         /// <summary>
