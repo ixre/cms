@@ -3,39 +3,16 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using JR.Cms.Conf;
+using System.Threading.Tasks;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Library.CacheService;
 using JR.Stand.Core.Framework;
-using JR.Stand.Core.Framework.TaskBox;
-using JR.Stand.Core.Framework.TaskBox.Toolkit;
 using Quartz;
 using Quartz.Impl;
+using JR.Stand.Core.Framework.Scheduler;
 
 namespace JR.Cms.Core.Scheduler
 {
-    internal class TaskClient : ITaskExecuteClient
-    {
-        public string ClientName => "taskClient";
-
-        public void Execute(ITask task)
-        {
-            switch (task.TaskName)
-            {
-                case "gc_collect":
-                    GC_Collect();
-                    break;
-            }
-
-            task.SetState(this, TaskState.Ok, TaskMessage.Ok);
-        }
-
-        private void GC_Collect()
-        {
-            GC.Collect();
-        }
-    }
-
     /// <summary>
     /// CMS定时任务
     /// </summary>
@@ -44,6 +21,8 @@ namespace JR.Cms.Core.Scheduler
 
         private static readonly Logger Logger = new Logger(typeof(CmsScheduler));
         private static bool initialized = false;
+        private static IScheduler sc;
+        private static CronDaemon daemon;
         /// <summary>
         /// 初始化定时任务
         /// </summary>
@@ -51,16 +30,61 @@ namespace JR.Cms.Core.Scheduler
         {
             if (initialized) return;
             CheckJob();
+
             var jobs = LocalService.Instance.JobService.FindAllJob();
+            if (Environment.Version.Major <= 4)
+            {
+                StartSchedulerWithCronNet(jobs);
+                return;
+            }
+            await StartSchedulerWithQuartz(jobs);
+        }
+
+        private static void StartSchedulerWithCronNet(IList<CmsJobEntity> jobs)
+        {
+            daemon = new CronDaemon();
+            foreach(CmsJobEntity je in jobs)
+            {
+                try
+                {
+                    Type classType = Assembly.GetExecutingAssembly().GetType(je.JobClass);
+                    ICronJob job = Activator.CreateInstance(classType) as ICronJob;
+                    if (job == null)throw new NotImplementedException($"{je.JobClass} not implemention ICronJob");
+                    daemon.AddJob(je.CronExp, () =>
+                    {
+                        job.ExecuteJob(je);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"任务注册失败, {je.JobName}, 异常:" + (ex.InnerException ?? ex).Message + "\n" + (ex.InnerException ?? ex).StackTrace);
+                }
+                initialized = true;
+                Logger.Info($"定时任务{je.JobName}注册成功, 启动规则为:{je.CronExp}");
+            }
+            daemon.Start();
+        }
+
+        /// <summary>
+        /// 使用Quartz运行定时任务
+        /// </summary>
+        /// <returns></returns>
+        private static async Task StartSchedulerWithQuartz(IList<CmsJobEntity> jobs)
+        {
+
 
             // 构造一个调度器工厂
             NameValueCollection props = new NameValueCollection
             {
-                {"quartz.serializer.type", "binary"}
+                {"quartz.serializer.type", "binary"},
+                                  {"quartz.threadPool.type","Quartz.Simpl.SimpleThreadPool, Quartz" },
+                {"quartz.threadPool.threadCount","1" },
+                {"quartz.jobStore.misfireThreshold","60000" },
+
             };
             StdSchedulerFactory factory = new StdSchedulerFactory(props);
             // 得到一个调度器
-            IScheduler sc = await factory.GetScheduler();
+            sc = await factory.GetScheduler();
             await sc.Start();
 
             foreach (CmsJobEntity je in jobs)
@@ -84,13 +108,21 @@ namespace JR.Cms.Core.Scheduler
                 }
                 catch (Exception ex)
                 {
-                   Logger.Error($"任务注册失败, {je.JobName}, 异常:"+(ex.InnerException??ex).Message+"\n"+(ex.InnerException??ex).StackTrace); 
+                    Logger.Error($"任务注册失败, {je.JobName}, 异常:" + (ex.InnerException ?? ex).Message + "\n" + (ex.InnerException ?? ex).StackTrace);
                 }
                 initialized = true;
                 Logger.Info($"定时任务{je.JobName}注册成功, 启动规则为:{je.CronExp}");
             }
         }
 
+        /// <summary>
+        /// 关闭定时任务
+        /// </summary>
+        public static async void Shutdown()
+        {
+            if (sc != null && !sc.IsShutdown) await sc.Shutdown();
+            if (daemon != null) daemon.Stop();
+        }
         private static void CheckJob()
         {
             var jobs = LocalService.Instance.JobService.FindAllJob();
