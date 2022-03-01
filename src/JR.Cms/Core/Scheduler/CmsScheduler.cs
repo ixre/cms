@@ -26,18 +26,18 @@ namespace JR.Cms.Core.Scheduler
         /// <summary>
         /// 初始化定时任务
         /// </summary>
-        public static async void Init()
+        public static void Init()
         {
             if (initialized) return;
             CheckJob();
-
             var jobs = LocalService.Instance.JobService.FindAllJob();
+            initialized = true;
             if (Environment.Version.Major <= 4)
             {
                 StartSchedulerWithCronNet(jobs);
                 return;
             }
-            await StartSchedulerWithQuartz(jobs);
+            StartSchedulerWithQuartz(jobs);
         }
 
         private static void StartSchedulerWithCronNet(IList<CmsJobEntity> jobs)
@@ -86,10 +86,8 @@ namespace JR.Cms.Core.Scheduler
         /// 使用Quartz运行定时任务
         /// </summary>
         /// <returns></returns>
-        private static async Task StartSchedulerWithQuartz(IList<CmsJobEntity> jobs)
+        private static void StartSchedulerWithQuartz(IList<CmsJobEntity> jobs)
         {
-
-
             // 构造一个调度器工厂
             NameValueCollection props = new NameValueCollection
             {
@@ -101,8 +99,8 @@ namespace JR.Cms.Core.Scheduler
             };
             StdSchedulerFactory factory = new StdSchedulerFactory(props);
             // 得到一个调度器
-            sc = await factory.GetScheduler();
-            await sc.Start();
+            sc = factory.GetScheduler().Result;
+            sc.Start().Start();
 
             foreach (CmsJobEntity je in jobs)
             {
@@ -121,7 +119,7 @@ namespace JR.Cms.Core.Scheduler
                         .StartNow()
                         .WithCronSchedule(je.CronExp)
                         .Build();
-                    await sc.ScheduleJob(job, trigger);
+                    sc.ScheduleJob(job, trigger).Start();
                 }
                 catch (Exception ex)
                 {

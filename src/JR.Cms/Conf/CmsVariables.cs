@@ -1,5 +1,4 @@
-﻿﻿
-namespace JR.Cms.Conf
+﻿namespace JR.Cms.Conf
 {
     /// <summary>
     /// 
