@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Security;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Extensions.Http;
 using JR.Stand.Core.Framework.Extensions;
@@ -41,7 +42,7 @@ namespace JR.Stand.Core.Web
         {
             var port = this.Context().Request.Host.Port ?? 80;
             var host =  this.Context().Request.Host.Host;
-            return port == 80 ? host : $"{host}:{port}";
+            return port == 80 || port == 443 ? host : $"{host}:{port}";
         }
 
         public string GetProto()
