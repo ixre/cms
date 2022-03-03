@@ -40,9 +40,9 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && apk del tzdata \
     && echo "create data init folder.." && \
     mkdir -p ${CMS_INIT_DIR:=/var/cms} && mv -f templates plugins oem root ${CMS_INIT_DIR} && \
-    echo "if [ \`ls /cms/templates|wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/templates/* /cms/templates;fi;" \
-         "if [ \`ls /cms/plugins|wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/plugins/* /cms/plugins;fi;"\
-         "if [ \`ls /cms/oem|wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/oem/* /cms/oem;fi;"\
+    echo "if [ \`ls /cms/templates | wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/templates/* /cms/templates;fi;" \
+         "if [ \`ls /cms/plugins | wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/plugins/* /cms/plugins;fi;"\
+         "if [ \`ls /cms/oem | wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/oem/* /cms/oem;fi;"\
          "dotnet JR.Cms.App.dll --urls http://+:80" > ../entrypoint.sh && chmod u+x ../entrypoint.sh
 
 VOLUME ["/cms/config","/cms/templates","/cms/plugins",\
