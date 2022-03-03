@@ -2,20 +2,22 @@
 
 ![Build Status](https://cloud.drone.io/api/badges/ixre/cms/status.svg)
 
-基于.Net + DDD 构建的跨平台开源内容管理系统; 同时支持`ASP.NET`和`.NET6.0`; 可以运行在Windows,Linux,MacOSX等操作系统；支持Docker容器。
-此项目已维护超过十年, 不断使用最合适的技术改进. 独立服务器上建议运行`.NET5`版, 以获得更好的性能; 如果您没有, 可以部署到更低廉的虚拟主机,
-项目都能满足您的需求. 
+基于.Net + DDD 构建的跨平台多站点开源内容管理系统; 同时支持`ASP.NET 4.x`和`.NET6.0`; 可以运行在Windows,Linux,MacOSX等操作系统；支持Docker容器。
+此项目已维护超过十年, 不断使用最合适的技术改进. 独立服务器上建议运行`.NET6`版,或上传到虚拟主机。
+
+￥99元/年的虚拟主机也能开出多个网站, 推荐的虚拟主机参考:[主机服务商评测](#部署)
 
 ## 特性：
 
-- **跨平台**：支持Windows、Linux、MacOSX运行。
-- **支持容器**：提供Docker镜像，能使用Docker部署。
+- **跨平台**：支持Windows、Linux、MacOSX运行,同时支持虚拟主机。
+- **支持容器**：提供容器镜像，可用Docker/Podman部署至服务器。
 - **支援多种数据库**:支持MySQL、SQLite、Sql Server、ACCESS数据库, 推荐使用:MySQL作为数据库。
 - **领域驱动设计**：核心代码使用DDD领域驱动设计构建，通过领域模型，提供了可扩展性。
 - **支持模板**：内置模板引擎，编写简单。后台支持模板的安装，网络安装，修改，备份等。
 - **源代码编辑**：支持在线编辑代码，支持EMMET插件自动生成HTML代码。
 - **支持插件**：支持网络安装插件，卸载插件等。利用插件可开发自定义功能。比如内嵌的采集系统。
 - **多站点支持**：支持后台创建站点、域名绑定、虚拟目录等，站点相互隔离，大大节省服务器空间开支和维护成本。
+- **内置SEO模块**:内置站内连接,URL提供等SEO工具。
 
 在线[演示站点](http://www.cms.to2.net)-(运行于CentOS7.2) 
 
@@ -36,11 +38,9 @@ dotnet JR.Cms.App.dll --urls http://+:8000
 打包发布需要环境如下：
 
 - `.NET Standard 2.1`及以上(.NET5/.NET6)
-- `.NET Framework 4.8`及以上或最新版`Mono`
+- `.NET Framework 4.5.1`/`Mono`或以上
 
-_因Mono已升级到.NET6,需要安装4.8版本请通过链接[https://download.mono-project.com/archive/4.8.1/](https://download.mono-project.com/archive/4.8.1/)下载安装,仅支持mac和windows_
-
-编译打包`.Net core`程序包运行命令:
+编译打包`.Net`程序包运行命令:
 ```
 sh ./build.sh
 ```
@@ -49,34 +49,40 @@ sh ./build.sh
 sh ./aspnet_pack.sh
 ```
 
-_注:在MacOSX和Fedora上成功运行,windows用户需要使用`bash`客户端运行命令(安装`git`会默认安装`git-bash`)_
+_注:在windows平台打包,需要使用`shell`客户端运行命令, 比如:`git-bash` 安装`git`会默认安装_
 
 ## 部署 ##
 
 ### 一.　通过虚拟主机部署
 
-- 1. 需准备一台支持ASP.NET 4.0的虚拟主机
-- 2. FTP上传ASP.NET版的所有文件到虚拟主机, 完成部署。
+- 需准备一台支持ASP.NET 4.0的虚拟主机。
+- 下载程序文件: [jrcms-aspnet-latest.tar.gz](https://github.com/ixre/cms/releases) 并解压。
+- 通过FTP上传ASP.NET版的所有文件到虚拟主机。
+- 虚拟主机设置线程池为集成模式,版本更改为.NET4.0及以上。
 
-> 虚拟主机推荐使用西部数码, 联系作者(qq: 959398298)可八五折优惠,额外买三年送二年
+*推荐虚拟主机服务商*
+
+- 西部数码: 工单速度处理快, 虚拟主机买二年送一年。
+- 新网: 网络快,技术支持24小时在线处理。
+
+
 
 ### 二.　使用服务器或VPS部署
 
 Windows(IIS)
- 
-- 1. 点击[下载](http://s.56x.net/jrcms_latest)安装包，并解压；
-- 2. 使用IIS添加站点，选择无托管代码, 完成部署。
+- 点击下载[安装包](https://github.com/ixre/cms/releases) 并解压；
+- 使用IIS添加站点，选择无托管代码, 完成部署。
 
 Linux、MacOSX
 ```
-curl -LO cms.zip http://s.56x.net/jrcms_latest|tar xz
+curl -L https://github.com/ixre/cms/releases/download/v4.6/jrcms-latest.tar.gz | tar xz
 cd cms && dotnet JR.Cms.App.dll --urls http://+:8080
 ```
 浏览器访问: http://127.0.0.1:8080
 
-###　使用Docker运行 ###
+###　使用Docker/Podman运行 ###
 
-[Docker镜像帮助](https://hub.docker.com/r/jarry6/cms)
+容器镜像托管在[docker.io](https://hub.docker.com/r/jarry6/cms), 操作步骤如下:
 
 1. 创建存放CMS模板、数据、插件、文件的目录:
 ```
@@ -94,17 +100,22 @@ $podman run -d  --name cms -p 8080:80 \
     --volume=$(pwd)/uploads:/cms/uploads \
     --volume=$(pwd)/oem:/cms/oem \
     --volume=$(pwd)/root:/cms/root \
-    --restart always jarry6/cms
+    --restart always jarry6/cms:latest
 ```
-
-###　反向代理
-
-- [通过Nginx反向代理](doc/nginx-proxy.md)
-- [通过Apache反向代理](doc/apache-proxy.md)
 
 # 插件开发 #
 详见：[https://github.com/jsix/cms/tree/master/plugins](https://github.com/jsix/cms/tree/master/plugins)
 
-## 如何加入开发 ##
+### 其他　
+
+- [通过Nginx反向代理](doc/nginx-proxy.md)
+- [通过Apache反向代理](doc/apache-proxy.md)
+
+## 如何加入开发
 
 请先在github上fork代码,克隆到本地修改后直接提交。 交流QQ群：737378973
+
+## 捐助项目
+
+如果项目对您有帮助, 可以购买虚拟主机向作者发起捐助. 如果您有购买的需要, 可以通过添加QQ/微信:[959398298](tencent://message?uin=959398298)购买主机发起对项目的赞助, 我们同时给到`八折优惠`和额外的技术支持。
+
