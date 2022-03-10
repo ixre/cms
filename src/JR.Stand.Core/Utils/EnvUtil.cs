@@ -1,16 +1,20 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace JR.Stand.Core
+namespace JR.Stand.Core.Utils
 {
     public static class EnvUtil
     {
-        public static string GetBaseDirectory()
+        public static string GetBaseDirectory()                                                                                                                                                                          
         {
-#if NETFRAMEWORK
-           return AppDomain.CurrentDomain.BaseDirectory;
-#endif
-            return Environment.CurrentDirectory + "/";
+            var ver = Environment.Version;
+            if(ver.Major > 4)
+            {
+                return Environment.CurrentDirectory + "/";
+            }
+            // .net4 and below .net4
+            return AppDomain.CurrentDomain.BaseDirectory;
+            
         }
 
 

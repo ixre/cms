@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Core.Template.Impl
 {

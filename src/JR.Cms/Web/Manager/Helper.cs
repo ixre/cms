@@ -20,6 +20,7 @@ using JR.Cms.Library.DataAccess.BLL;
 using JR.Stand.Core;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Web.UI;
+using JR.Stand.Core.Utils;
 
 namespace JR.Cms.Web.Manager
 {

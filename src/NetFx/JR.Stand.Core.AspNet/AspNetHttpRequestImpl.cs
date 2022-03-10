@@ -30,7 +30,7 @@ namespace JR.Stand.Core.AspNet
             var url = this.Context.Request.Url;
             var port = url.Port;
             var host = url.Host;
-            return port == 80 ? host : $"{host}:{port}";
+            return port == 80 || port == 443 ? host : $"{host}:{port}";
         }
 
         public string GetProto()

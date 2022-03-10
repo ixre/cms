@@ -32,7 +32,7 @@ namespace JR.Cms.Web
         private static TemplateHandler<object> preRender;
 
         private const string CopyStr =
-            "\n<!-- This website use JRCMS v{0}, learn more please visiting \"https://fze.net/cms\"  -->";
+            "\n<!-- This website use JRCMS v{0}, learn more please visiting https://fze.net/cms  -->";
 
         private static readonly string CopyStr2019;
 
@@ -66,7 +66,7 @@ namespace JR.Cms.Web
 * 【承接】定制网站,营销型网站,WAP手机网站开发。QQ/微信:188867734
 *************************************************************************************
 -->";*/
-            html = html.Insert(Math.Max(html.LastIndexOf("<", StringComparison.Ordinal), 0), CopyStr2019);
+            html = html.Insert(Math.Max(html.LastIndexOf("</body>", StringComparison.Ordinal), 0), CopyStr2019);
         };
 
 
