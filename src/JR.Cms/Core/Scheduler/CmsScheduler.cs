@@ -100,7 +100,6 @@ namespace JR.Cms.Core.Scheduler
             StdSchedulerFactory factory = new StdSchedulerFactory(props);
             // 得到一个调度器
             sc = factory.GetScheduler().Result;
-            sc.Start();
 
             foreach (CmsJobEntity je in jobs)
             {
@@ -123,11 +122,15 @@ namespace JR.Cms.Core.Scheduler
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error($"任务注册失败, {je.JobName}, 异常:" + (ex.InnerException ?? ex).Message + "\n" + (ex.InnerException ?? ex).StackTrace);
+                    Logger.Error($"任务注册失败, {je.JobName}, 异常:" + (ex.InnerException ?? ex).Message + "\n" +
+                                 (ex.InnerException ?? ex).StackTrace);
                 }
+
                 initialized = true;
                 Logger.Info($"定时任务{je.JobName}注册成功, 启动规则为:{je.CronExp}");
             }
+
+            sc.Start();
         }
 
         /// <summary>
