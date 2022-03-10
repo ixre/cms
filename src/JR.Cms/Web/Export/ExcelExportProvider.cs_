@@ -71,9 +71,9 @@ namespace JR.Cms.WebImpl.Export
             }
 
 
-            wb.Write(ms);
             //rsp.AddHeader("Content-Disposition", String.Format("attachment; filename=EmptyWorkbook.xls"));
             //rsp.BinaryWrite(ms.ToArray());
+            wb.Write(ms);
 
             wb = null;
             ms.Close();

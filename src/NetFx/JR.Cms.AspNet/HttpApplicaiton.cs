@@ -7,12 +7,14 @@
  * 要改变这种模板请点击 工具|选项|代码编写|编辑标准头文件
  */
 
+using JR.Cms.Core.Scheduler;
 using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace JR.Cms.AspNet
@@ -44,7 +46,20 @@ namespace JR.Cms.AspNet
 
         protected virtual void Application_Start()
         {
+            AreaRegistration.RegisterAllAreas();
+            this.RegisterGlobalFilters(GlobalFilters.Filters);
             AspNetCmsInitializer.Init();
+        }
+
+        protected virtual void Application_End()
+        {
+            CmsScheduler.Shutdown(); // 关闭定时任务
+        }
+
+
+        private void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
+            filters.Add(new HandleErrorAttribute());
         }
 
         protected virtual void Application_Error(object sender, EventArgs e)

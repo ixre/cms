@@ -45,13 +45,13 @@ namespace JR.Cms.Web.Manager.Handle
         {
             try
             {
-                var filePath = new FileUpload(dir, name, autoName).Upload(file);
-                Response.WriteAsync("{" + $"\"url\":\"{filePath}\"" + "}");
+                var filePath =  new FileUpload(dir, name, autoName).Upload(file);
+                Response.Write("{" + $"\"url\":\"{filePath}\"" + "}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
-                Response.WriteAsync("{" + $"\"error\":\"{ex.Message}\"" + "}");
+                Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
         }
 

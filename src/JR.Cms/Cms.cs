@@ -17,13 +17,13 @@ using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheProvider;
 using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.DataAccess.DB;
-using JR.Cms.Web;
 using JR.Stand.Abstracts;
 using JR.Stand.Core;
 using JR.Stand.Core.Cache;
 using JR.Stand.Core.Framework.Web.UI;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
 using JR.Stand.Core.Web.Cache;
 using Logger = JR.Stand.Core.Framework.Logger;
@@ -315,7 +315,15 @@ namespace JR.Cms
                 //todo: plugin
                 //CmsPluginContext.Connect();
                 // 设置验证码字体
-                VerifyCodeGenerator.SetFontFamily(PhysicPath + CmsVariables.FRAMEWORK_ASSETS_PATH + "fonts/comic.ttf");
+                try
+                {
+                    VerifyCodeGenerator.SetFontFamily(PhysicPath + CmsVariables.FRAMEWORK_ASSETS_PATH +
+                                                      "fonts/comic.ttf");
+                }
+                catch (Exception ex)
+                {
+                    Logger.Warning("加载字体失败:"+(ex.InnerException??ex).Message);
+                }
             }
             
             Logger.Info("注册定时任务..");

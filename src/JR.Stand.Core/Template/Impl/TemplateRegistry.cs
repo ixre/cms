@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using JR.Stand.Core.Utils;
 
 namespace JR.Stand.Core.Template.Impl
 {

@@ -7,7 +7,9 @@
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using JR.Stand.Abstracts.Web;
+using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Http;
 
@@ -47,7 +49,7 @@ namespace JR.Stand.Core.Framework.Web.UI
         /// 上传
         /// </summary>
         /// <returns>异步则返回进程ID，同步返回上传文件的路径</returns>
-        public string Upload(ICompatiblePostedFile postedFile)
+        public  String Upload(ICompatiblePostedFile postedFile)
         {
             ICompatibleRequest request = HttpHosting.Context.Request;
             String baseDir = EnvUtil.GetBaseDirectory();
@@ -81,6 +83,7 @@ namespace JR.Stand.Core.Framework.Web.UI
                 this._fileInfo.FilePath = $"{this._saveAbsoluteDir}{this._fileName}_{i.ToString()}.{fileExt}";
                 targetPath = baseDir + this._fileInfo.FilePath;
             }
+
             this.SaveStream(postedFile.OpenReadStream(), targetPath);
             return _fileInfo.FilePath;
         }
@@ -95,7 +98,7 @@ namespace JR.Stand.Core.Framework.Web.UI
             }
         }
 
-        private async void SaveStream(Stream stream, string path)
+        private  void SaveStream(Stream stream, string path)
         {
             const int bufferSize = 100; //缓冲区大小
             byte[] buffer = new byte[bufferSize]; //缓冲区
@@ -104,7 +107,7 @@ namespace JR.Stand.Core.Framework.Web.UI
             {
                 while (true)
                 {
-                    var bytes = await stream.ReadAsync(buffer, 0, bufferSize); //从流中读取的值
+                    var bytes = stream.Read(buffer, 0, bufferSize); //从流中读取的值
                     if (bytes == 0)
                     {
                         break;
