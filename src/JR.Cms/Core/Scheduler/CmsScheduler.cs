@@ -118,7 +118,7 @@ namespace JR.Cms.Core.Scheduler
                         .StartNow()
                         .WithCronSchedule(je.CronExp)
                         .Build();
-                    sc.ScheduleJob(job, trigger).Start();
+                    sc.ScheduleJob(job, trigger).Wait();
                 }
                 catch (Exception ex)
                 {
@@ -130,7 +130,7 @@ namespace JR.Cms.Core.Scheduler
                 Logger.Info($"定时任务{je.JobName}注册成功, 启动规则为:{je.CronExp}");
             }
 
-            sc.Start();
+            sc.Start().Wait();
         }
 
         /// <summary>
