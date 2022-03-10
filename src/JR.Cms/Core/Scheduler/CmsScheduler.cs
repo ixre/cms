@@ -100,7 +100,7 @@ namespace JR.Cms.Core.Scheduler
             StdSchedulerFactory factory = new StdSchedulerFactory(props);
             // 得到一个调度器
             sc = factory.GetScheduler().Result;
-            sc.Start().Start();
+            sc.Start();
 
             foreach (CmsJobEntity je in jobs)
             {
