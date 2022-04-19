@@ -5,18 +5,18 @@ namespace JR.Stand.Core.Framework
 {
     public class Logger
     {
-        private static readonly Logger _logger = new Logger();
+        private static readonly Logger _logger = new Logger("");
         public static Logger GetDefault() => _logger;
         private readonly TextWriter _writer = null;
         private readonly string _typeName;
 
-        private Logger()
+        private Logger(String typeName)
         {
-            this._typeName = "";
+            this._typeName = typeName;
         }
-        public Logger(Type type)
+        public static Logger Factory(Type type)
         {
-            this._typeName = type.FullName;
+            return new Logger(type.FullName);
         }
 
         /// <summary>

@@ -150,7 +150,7 @@ namespace JR.Cms.Conf
             }
 
             // 初始化私钥
-            String privateKey = sf.Contains("sys_rsa_key")? sf.Get("sys_rsa_key"):"";
+            String privateKey = sf.Contains("sys_rsa_key") ? sf.Get("sys_rsa_key") : "";
             if (String.IsNullOrEmpty(privateKey))
             {
                 var pair = RSA.CreateKey();
@@ -159,6 +159,7 @@ namespace JR.Cms.Conf
                 sf.Set("sys_rsa_key", privateKey);
                 settingChanged = true;
             }
+
             Settings.SYS_RSA_KEY = privateKey;
 
             if (sf.Contains("sys_encode_conf"))
@@ -180,6 +181,7 @@ namespace JR.Cms.Conf
                 sf.Set("sql_profile_trace", Settings.SQL_PROFILE_TRACE ? "true" : "false");
                 settingChanged = true;
             }
+
             if (sf.Contains("sys_admin_tag"))
             {
                 Settings.SYS_ADMIN_TAG = sf["sys_admin_tag"];
@@ -187,6 +189,57 @@ namespace JR.Cms.Conf
             else
             {
                 sf.Set("sys_admin_tag", Settings.SYS_ADMIN_TAG);
+                settingChanged = true;
+            }
+
+            // smtp发信相关
+            if (sf.Contains("smtp_host"))
+            {
+                Settings.SMTP_HOST = sf["smtp_host"];
+            }
+            else
+            {
+                sf.Set("smtp_host", Settings.SMTP_HOST);
+                settingChanged = true;
+            }
+
+            if (sf.Contains("smtp_port"))
+            {
+                Settings.SMTP_PORT = int.Parse(sf["smtp_port"]);
+            }
+            else
+            {
+                sf.Set("smtp_port", Settings.SMTP_PORT.ToString());
+                settingChanged = true;
+            }
+
+            if (sf.Contains("smtp_ssl"))
+            {
+                Settings.SMTP_SSL = sf["smtp_ssl"] == "true";
+            }
+            else
+            {
+                sf.Set("smtp_ssl", Settings.SMTP_SSL ? "true" : "false");
+                settingChanged = true;
+            }
+
+            if (sf.Contains("smtp_username"))
+            {
+                Settings.SMTP_USERNAME = sf["smtp_username"];
+            }
+            else
+            {
+                sf.Set("smtp_username", Settings.SMTP_USERNAME);
+                settingChanged = true;
+            }
+
+            if (sf.Contains("smtp_password"))
+            {
+                Settings.SMTP_PASSWORD = sf["smtp_password"];
+            }
+            else
+            {
+                sf.Set("smtp_password", Settings.SMTP_PASSWORD);
                 settingChanged = true;
             }
 
@@ -272,7 +325,13 @@ namespace JR.Cms.Conf
                     sf.Set("tpl_full_url_path", Settings.TPL_FULL_URL_PATH ? "true" : "false");
                     Cms.Template.Reload();
                     break;
-
+                case "smtp":
+                    sf.Set("smtp_host",Settings.SMTP_HOST);
+                    sf.Set("smtp_port",Settings.SMTP_PORT.ToString());
+                    sf.Set("smtp_ssl",Settings.SMTP_SSL?"true":"false");
+                    sf.Set("smtp_username",Settings.SMTP_USERNAME);
+                    sf.Set("smtp_password",Settings.SMTP_PASSWORD);
+                    break;
                 //优化
                 case "opti":
                     //缓存项
