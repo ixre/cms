@@ -116,7 +116,7 @@
     <Compile Include="Mvc\CmsInstallHandler.cs" />
     <Compile Include="Mvc\AspNetCmsManagerHandler.cs" />
     <Compile Include="Mvc\CmsPkgController.cs" />
-    <Compile Include="Mvc\CmsWebApiResponse.cs" />
+    <Compile Include="Mvc\WebApiController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
