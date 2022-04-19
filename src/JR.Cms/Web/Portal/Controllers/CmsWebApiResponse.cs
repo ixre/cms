@@ -128,9 +128,13 @@ namespace JR.Cms.Web.Portal.Controllers
     /// WebAPI
     /// </summary>
     [Route("/cms/webapi")]
-    [ApiController]
     public class WebApiController:Controller
     {
+        [HttpGet("/test")]
+        public String TestGet(String id)
+        {
+            return id;
+        }
         /// <summary>
         /// 提交表单数据
         /// </summary>

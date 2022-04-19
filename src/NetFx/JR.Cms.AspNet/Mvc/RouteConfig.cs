@@ -183,6 +183,7 @@ namespace JR.Cms.WebImpl.Mvc
         {
             routes.Clear();
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapMvcAttributeRoutes();
             //在加载cms后避免覆盖 /_cms
             RegisterCmsMajorRoutes(routes);
             //注册CMS路由

@@ -1,7 +1,7 @@
 using System.Web;
 using System.Web.Routing;
 using System.Web.SessionState;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Controllers;
 using JR.Stand.Core.Web;
 
 namespace JR.Cms.WebImpl.Mvc
