@@ -1,6 +1,9 @@
 using System.Web.Mvc;
 using System;
 using System.Collections.Generic;
+using JR.Cms.Web.Portal.Comm;
+using JR.Stand.Abstracts;
+using JR.Stand.Core.Web;
 
 namespace JR.Cms.Web.Mvc
 {
@@ -19,10 +22,10 @@ namespace JR.Cms.Web.Mvc
 
         [Route("cms/webapi/form/{formId}/{formSubject}")]
         [HttpPOST]
-        public String TestGet(String formId,String formSubject,[FromBody] Dictionary<String,String> form)
+        public Result PostForm(String formId,String formSubject)
         {
-            return id;
+            Dictionary<String, String> forms = WebCtx.HttpCtx.Request.Bind < Dictionary<String, String>();
+            WebApiHandler.PostForm(formId, formSubject, forms);
         }
-
     }
 }
