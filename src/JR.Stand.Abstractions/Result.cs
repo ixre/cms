@@ -54,5 +54,10 @@ namespace JR.Stand.Abstracts
         {
             return new Result {ErrCode = code, ErrMsg = msg, Data = data};
         }
+
+        public static Result Success(object data)
+        {
+            return new Result {ErrCode = 0, ErrMsg = "", Data = data};
+        }
     }
 }

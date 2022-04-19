@@ -17,7 +17,7 @@ namespace JR.Cms.Core.Scheduler.Job
     /// </summary>
     public class SearchEngineSubmitJob : IJob, ICronJob
     {
-        private readonly Logger _logger = new Logger(typeof(SearchEngineSubmitJob));
+        private readonly Logger _logger =  Logger.Factory(typeof(SearchEngineSubmitJob));
         /// <summary>
         /// 
         /// </summary>
