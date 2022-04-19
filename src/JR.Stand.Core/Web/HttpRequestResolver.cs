@@ -4,7 +4,11 @@ using System.Text;
 
 namespace JR.Stand.Core.Web
 {
-    internal class HttpRequestResolver
+    public class HttpRequestResolver
     {
+        public T FromBody<T>(ICompatibleHttpContext context)
+        {
+            Stream stream = context.request.
+        }
     }
 }
