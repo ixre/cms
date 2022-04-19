@@ -19,7 +19,6 @@ namespace JR.Cms.AspNet
             Cms.ConfigCache(new AspNetCacheWrapper());
             //Cms.OnInit += CmsEventRegister.Init;
             Cms.Init(BootFlag.Normal, null);
-            //注册路由;
             RouteConfig.MapRoutes(RouteTable.Routes);
             // 加载插件
             //WebCtx.Current.Plugin.Connect();
