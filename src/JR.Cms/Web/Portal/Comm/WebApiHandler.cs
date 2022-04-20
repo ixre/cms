@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using JR.Cms.Conf;
+using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Cms.Web.Portal.Controllers;
 using JR.Stand.Abstracts;
 using JR.Stand.Core.Web;
-using Microsoft.AspNetCore.Mvc;
 
 namespace JR.Cms.Web.Portal.Comm
 {
     /// <summary>
     /// WebApiHandler
     /// </summary>
-    public class WebApiHandler
+    public static class WebApiHandler
     {
         /// <summary>
         /// 提交表单数据
@@ -37,8 +37,9 @@ namespace JR.Cms.Web.Portal.Comm
             String ip = WebCtx.HttpCtx.RemoteAddress();
             StringBuilder sb = new StringBuilder();
             sb.Append("<div style='border:solid 1px #DDDD;border-radius:8px'>");
-            sb.Append("<div style='background:#34B334;color:#FFF;font-size:16px;font-weight:500;padding:15px;border-radius:8px 8px 0 0'>")
-                .Append(site.Name+formSubject).Append("(#"+formId+")").Append("</div>");
+            sb.Append(
+                    "<div style='background:#34B334;color:#FFF;font-size:16px;font-weight:500;padding:15px;border-radius:8px 8px 0 0'>")
+                .Append(site.Name + formSubject).Append("(#" + formId + ")").Append("</div>");
             sb.Append("<div style='padding:30px;'>");
             sb.Append("<div style='color:#00aa00; font-weight:400;'>")
                 .Append("用户:&nbsp;").Append(ip)
@@ -59,9 +60,10 @@ namespace JR.Cms.Web.Portal.Comm
                 .Append("本邮件为系统<a style='color:#999;' href='https://fze.net/cms' target='_blank'>JR.Cms v")
                 .Append(CmsVariables.VERSION)
                 .Append("</a>自动发布,请您定期查看邮箱,以免错过重要信息！</div>");
-                sb.Append("</div></div>");
+            sb.Append("</div></div>");
             SendMailClient client = new SendMailClient(
-                Settings.SMTP_USERNAME, Settings.SMTP_PASSWORD, Settings.SMTP_HOST, Settings.SMTP_PORT, Settings.SMTP_SSL);
+                Settings.SMTP_USERNAME, Settings.SMTP_PASSWORD, Settings.SMTP_HOST, Settings.SMTP_PORT,
+                Settings.SMTP_SSL);
             new Thread(() =>
             {
                 client.Send(fromAddress,
@@ -72,5 +74,40 @@ namespace JR.Cms.Web.Portal.Comm
             }).Start();
             return Result.Success("");
         }
+
+        /// <summary>
+        /// 获取关联的链接
+        /// </summary>
+        /// <param name="site"></param>
+        /// <param name="contentType"></param>
+        /// <param name="contentId"></param>
+        /// <returns></returns>
+        public static IList<RelatedLinkDto> GetRelateArchiveLinks(SiteDto site, string contentType, int contentId)
+        {
+            IList<RelatedLinkDto> archives = new List<RelatedLinkDto>(LocalService.Instance.ContentService
+                .GetRelateLinks(site.SiteId, contentType, contentId));
+            var host = WebCtx.Current.Host;
+            var resDomain = Cms.Context.ResourceDomain;
+            var defaultThumb = string.Concat(resDomain, "/" + CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto);
+
+            for (var i = 0; i < archives.Count; i++)
+                if (archives[i].Enabled)
+                {
+                    archives[i].Url = archives[i].Url.Replace("#", host);
+                    if (!archives[i].Url.EndsWith(".html")) archives[i].Url += ".html";
+                    if (archives[i].Thumbnail.Length == 0)
+                        archives[i].Thumbnail = defaultThumb;
+                    else if (!archives[i].Thumbnail.StartsWith("http"))
+                        archives[i].Thumbnail = string.Concat(resDomain, "/", archives[i].Thumbnail);
+                }
+                else
+                {
+                    archives.Remove(archives[i]);
+                    i--;
+                }
+
+            return archives;
+        }
+
     }
 }
