@@ -468,7 +468,7 @@ namespace JR.Cms.Web.Manager.Handle
         public void Related_link_POST()
         {
             var links = LocalService.Instance.ContentService
-                .GetRelatedLinks(
+                .GetRelateLinks(
                     SiteId,
                     Request.Form("ContentType"),
                     int.Parse(Request.Form("ContentId")));

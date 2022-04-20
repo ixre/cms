@@ -100,7 +100,7 @@ namespace JR.Cms.ServiceImpl
         /// <param name="contentType"></param>
         /// <param name="contentId"></param>
         /// <returns></returns>
-        public IEnumerable<RelatedLinkDto> GetRelatedLinks(int siteId, string contentType, int contentId)
+        public IEnumerable<RelatedLinkDto> GetRelateLinks(int siteId, string contentType, int contentId)
         {
             var content = GetContent(siteId, contentType, contentId);
             var linkList = content.LinkManager.GetRelatedLinks();

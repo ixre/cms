@@ -20,6 +20,7 @@ namespace JR.Cms.Web.Portal.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [Obsolete]
     public class CmsWebApiResponse
     {
         public static Task ProcessRequest(ICompatibleHttpContext context)
@@ -61,12 +62,13 @@ namespace JR.Cms.Web.Portal.Controllers
         }
     }
 
+    [Obsolete]
     internal static class WebApiProcess
     {
         internal static string GetRelatedlinks(SiteDto site, string contentType, int contentId)
         {
             var cs = LocalService.Instance.ContentService;
-            var links = cs.GetRelatedLinks(site.SiteId, contentType, contentId);
+            var links = cs.GetRelateLinks(site.SiteId, contentType, contentId);
 
             IList<ApiTypes.RLink> rlinks = new List<ApiTypes.RLink>();
 
@@ -94,7 +96,7 @@ namespace JR.Cms.Web.Portal.Controllers
         internal static string GetRelatedArchiveLinks(SiteDto site, string contentType, int contentId)
         {
             IList<RelatedLinkDto> archives = new List<RelatedLinkDto>(LocalService.Instance.ContentService
-                .GetRelatedLinks(site.SiteId, contentType, contentId));
+                .GetRelateLinks(site.SiteId, contentType, contentId));
             var host = WebCtx.Current.Host;
             var resDomain = Cms.Context.ResourceDomain;
             var defaultThumb = string.Concat(resDomain, "/" + CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto);
@@ -142,6 +144,18 @@ namespace JR.Cms.Web.Portal.Controllers
         public Result PostForm(string formId, string formSubject, [FromBody] Dictionary<String, String> forms)
         {
             return WebApiHandler.PostForm(formId, formSubject, forms);
+        }
+
+        /// <summary>
+        /// 查询文档关联的URL
+        /// </summary>
+        /// <param name="archiveId"></param>
+        /// <returns></returns>
+        [HttpGet("relate/{archiveId}")]
+        public IList<RelatedLinkDto> QueryArchiveRelateLink(long archiveId)
+        {
+            SiteDto site = Cms.Context.CurrentSite;
+            return WebApiHandler.GetRelateArchiveLinks(site, "archive", Convert.ToInt32(archiveId));
         }
     }
 }

@@ -39,7 +39,7 @@ namespace JR.Cms.ServiceContract
         /// <param name="typeIndent"></param>
         /// <param name="contentId"></param>
         /// <returns></returns>
-        IEnumerable<RelatedLinkDto> GetRelatedLinks(int siteId, string typeIndent, int contentId);
+        IEnumerable<RelatedLinkDto> GetRelateLinks(int siteId, string typeIndent, int contentId);
 
         /// <summary>
         /// 
