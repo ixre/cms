@@ -64,14 +64,12 @@ namespace JR.Cms.Web.Portal.Comm
             SendMailClient client = new SendMailClient(
                 Settings.SMTP_USERNAME, Settings.SMTP_PASSWORD, Settings.SMTP_HOST, Settings.SMTP_PORT,
                 Settings.SMTP_SSL);
-            new Thread(() =>
-            {
-                client.Send(fromAddress,
-                    toAddress,
-                    "站点机器人",
-                    subject,
-                    sb.ToString(), true);
-            }).Start();
+
+            client.Send(fromAddress,
+                toAddress,
+                "站点机器人",
+                subject,
+                sb.ToString(), true);
             return Result.Success("");
         }
 
