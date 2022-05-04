@@ -14,15 +14,25 @@ namespace JR.Cms.Web.Manager
 {
     //using BLL;
 
+    /// <summary>
+    /// 
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
     public class PermissionAttribute : Attribute
     {
         private string path;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PermissionAttribute()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
         public PermissionAttribute(string path)
         {
             this.path = path;

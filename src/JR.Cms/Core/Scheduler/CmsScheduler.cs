@@ -19,7 +19,7 @@ namespace JR.Cms.Core.Scheduler
     public static class CmsScheduler
     {
 
-        private static readonly Logger Logger = new Logger(typeof(CmsScheduler));
+        private static readonly Logger Logger = Logger.Factory(typeof(CmsScheduler));
         private static bool initialized = false;
         private static IScheduler sc;
         private static CronDaemon daemon;

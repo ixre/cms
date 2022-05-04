@@ -1,6 +1,5 @@
 body {
-    background:#e6e6e6 url(res/highlight-bg.jpg) 100px top no-repeat;
-    margin:0;font-size:16px;font-family:'Microsoft YaHei','寰蒋闆呴粧';
+    margin:0;font-size:16px;font-family:'Microsoft YaHei';
 }
 img{border:none;}
 
@@ -16,7 +15,7 @@ a{text-decoration:none;outline:none;color:#006699;}
 
 .login-panel{margin:0 auto;opacity:0;filter:alpha(opacity=0);width:400px;}
 .login-panel p{margin:0;padding:6px 0;}
-.login-panel .panel{border:solid 1px #D5D5D5;background:#E5E5E5;padding:0;box-shadow: 0 0 10px #BBB;}
+.login-panel .panel{padding:0;box-shadow: 0 0 30px rgba(0,0,0,0.1);}
 .login-panel .panel .panel_con{background:#FFF;padding:30px 30px;box-shadow:0 0px 0 rgba(0,0,0,0.5) inset}
 .login-panel #tip{padding-left:15px;border-bottom:dashed 1px #ddd;padding-bottom:10px;line-height:30px;font-size:12px;margin-bottom:20px;}
 

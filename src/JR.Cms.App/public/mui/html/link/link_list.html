@@ -62,9 +62,9 @@
         //jr.hover(listMenu);
 
         //初始化表格
-        jr.initTable = function (table, multSelected, clickCall) {
-            jr.table.dynamic(table, multSelected, function (trs) {
-                window.Fn.ids = new Array();
+        jr.initTable = function (table, multiSelected, clickCall) {
+            jr.table.dynamic(table, multiSelected, function (trs) {
+                window.Fn.ids = [];
                 var id;
                 for (var i = 0; i < trs.length; i++) {
                     if (trs[i].getAttribute('indent')) {
@@ -72,7 +72,7 @@
                         window.Fn.ids.push(id);
                     }
                 }
-                if (clickCall && window.Fn.ids.length != 0) {
+                if (clickCall && window.Fn.ids.length !== 0) {
                     clickCall();
                 }
             });
@@ -89,7 +89,7 @@
             if (tables.length >= 2) {
                 Fn.table = tables[1];
                 //默认加载第一个栏目
-                if (jr.$('pl').innerHTML == '') {
+                if (jr.$('pl').innerHTML === '') {
                     var rows = Fn.table.rows;
                     if (rows.length > 0) {
                         var id = rows[0].childNodes[0].innerHTML;
@@ -100,7 +100,7 @@
                 jr.each(Fn.table.getElementsByTagName('TD'), function (i, e) {
                     jr.contextmenu.bind(e, '', function (menu) {
                         var id = e.parentNode.getAttribute('indent');
-                        var state = e.parentNode.getAttribute('visible') == '1' ? '<em style="color:#333;font-style:normal">停用(隐藏)</em>' : '启用(显示)';
+                        var state = e.parentNode.getAttribute('visible') === '1' ? '<em style="color:#333;font-style:normal">停用</em>' : '启用';
                         menu.innerHTML = jr.template(jr.$('tpl').innerHTML, { id: id, state: state });
                     });
                 });
@@ -114,7 +114,7 @@
         //加载数据
         Fn.loadData = function (page) {
             var _page = page || 1;
-            jr.pagerLoad('plist', 'pager', _page, 'link', 'data', 'type=${link_type}&page=' + _page, Fn.initTable);
+            jr.pagerLoad('plist', 'pager', _page, 'link', 'data', 'type=${link_type}', Fn.initTable);
         };
 
         //创建

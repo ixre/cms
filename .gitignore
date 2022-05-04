@@ -51,3 +51,4 @@ src/NetFx/JR.Cms.AspNet.App/uploads
 /src/JR.Cms.App/index.html
 output
 cache.pid
+uploads

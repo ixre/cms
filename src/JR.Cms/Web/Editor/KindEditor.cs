@@ -20,6 +20,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using JR.Cms.Web.Util;
+using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core;
 using JR.Stand.Core.Utils;
@@ -296,7 +297,8 @@ namespace JR.Cms.Web.Editor
             Hashtable hash = new Hashtable();
             hash["error"] = 0;
             hash["url"] = fileUrl;
-            return context.Response.WriteAsync(JsonAnalyzer.ToJson(hash));
+            context.Response.Write(JsonAnalyzer.ToJson(hash));
+            return SafetyTask.CompletedTask;
         }
 
         private async void SaveFile(ICompatiblePostedFile imgFile, string targetPath)
@@ -311,7 +313,8 @@ namespace JR.Cms.Web.Editor
         private Task showError(ICompatibleHttpContext context, string message)
         {
             Hashtable hash = new Hashtable {["error"] = 1, ["message"] = message};
-            return context.Response.WriteAsync(JsonAnalyzer.ToJson(hash));
+             context.Response.Write(JsonAnalyzer.ToJson(hash));
+             return SafetyTask.CompletedTask;
         }
 
         public class NameSorter : IComparer
@@ -390,11 +393,6 @@ namespace JR.Cms.Web.Editor
 
                 return xInfo.Extension.CompareTo(yInfo.Extension);
             }
-        }
-
-        public bool IsReusable
-        {
-            get { return true; }
         }
     }
 }
