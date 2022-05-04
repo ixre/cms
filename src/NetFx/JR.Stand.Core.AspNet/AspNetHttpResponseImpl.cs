@@ -53,7 +53,7 @@ namespace JR.Stand.Core.AspNet
             {
                 if (opt.Expires != null)
                 {
-                    cookie.Expires = DateTime.Now.Add(opt.Expires.Value.Offset);
+                    cookie.Expires = opt.Expires.Value;
                 }
 
                 if (opt.Path != null)
