@@ -55,7 +55,7 @@ namespace JR.Cms.Web.Api
             if (ret.Tag == -1) return new AccessTokenDataDto {Code= 1, Message="用户名或密码不正确"};
             if(ret.Tag == -2) return new AccessTokenDataDto {Code= 3, Message="用户已停用"};
             long expiresTime = DateTime.UtcNow.AddSeconds(dto.Expires).Unix();
-            String token = JwtBuilder.Create()
+            String token = new JwtBuilder()
                 .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                 .WithSecret(Settings.SYS_RSA_KEY)
                 .AddClaim("aud", ret.Uid.ToString())

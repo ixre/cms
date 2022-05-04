@@ -25,7 +25,6 @@ using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Web;
 using JWT.Algorithms;
 using JWT.Builder;
-using Org.BouncyCastle.Utilities;
 
 namespace JR.Cms.Library.Utility
 {
@@ -49,10 +48,6 @@ namespace JR.Cms.Library.Utility
         /// </summary>
         private static readonly string AdministratorTokenPattern;
 
-        /// <summary>
-        /// 会员Cookie键匹配模式
-        /// </summary>
-        private static string memberTokenPattern;
 
         static UserState()
         {
@@ -61,7 +56,6 @@ namespace JR.Cms.Library.Utility
             Array.ForEach(CharArray, a => { sb.Append((char) a); });
 
             AdministratorTokenPattern = string.Format("^cms_sid_([{0}]+)$", sb.ToString());
-            memberTokenPattern = string.Format("^_token_[{0}]+_$", sb.ToString());
         }
 
         /// <summary>
@@ -146,16 +140,17 @@ namespace JR.Cms.Library.Utility
             {
                 ctx.Request.TryGetCookie("cms_ds_token", out var cookieValue);
                 if (string.IsNullOrEmpty(cookieValue))return null;
-                var payload = JwtBuilder.Create()
+                var payload = new JwtBuilder()
                     .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                     .WithSecret(Settings.SYS_RSA_KEY)
                     .MustVerifySignature()
                     .Decode<IDictionary<string, object>>(cookieValue);
+
                 if ((string) payload["iss"] != "JRCms")
                 {
                     throw new Exception("401: error jwt iss, access denied");
                 }
-                long exp = Convert.ToInt64(payload["exp"]);
+                long exp = Convert.ToInt32(payload["exp"]);
                 if (TimeUtils.Unix(DateTime.Now) > exp)
                 {
                     throw new Exception("401: session timeout");
@@ -266,10 +261,8 @@ namespace JR.Cms.Library.Utility
                         // cookie.Domain=AppContext.Config.Domain.HostName;
                         Path = "/" + Settings.SYS_ADMIN_TAG
                     };
-
                     long expiresTime = DateTime.UtcNow.AddMinutes(minutes).Unix();
-                    
-                    String token = JwtBuilder.Create()
+                    String token = new JwtBuilder()
                         .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                         .WithSecret(Settings.SYS_RSA_KEY)
                         .AddClaim("aud", username)
@@ -287,21 +280,19 @@ namespace JR.Cms.Library.Utility
                 return result.Tag;
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
             public static void Exit()
             {
                 var ctx = HttpHosting.Context;
                 //UserBll user = Current;
                 //移除会话
                 ctx.Session.Remove(AdminSk);
-                //移除Cookie
-                foreach (var key in ctx.Request.CookiesKeys())
-                    if (Regex.IsMatch(key.ToString(), AdministratorTokenPattern))
-                    {
-                        var opt = new HttpCookieOptions();
-                        opt.Expires = DateTime.Now.AddYears(-1);
-                        opt.Path = "/" + Settings.SYS_ADMIN_TAG;
-                        ctx.Response.DeleteCookie(key, opt);
-                    }
+                var opt = new HttpCookieOptions();
+                opt.Expires = DateTime.Now.AddYears(-1);
+                opt.Path = "/" + Settings.SYS_ADMIN_TAG;
+                ctx.Response.DeleteCookie("cms_ds_token", opt);
             }
 
             /// <summary>
