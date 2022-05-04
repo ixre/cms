@@ -22,7 +22,7 @@ namespace JR.Stand.Core.Framework
         /// 获取当前时间戳
         /// </summary>
         /// <returns></returns>
-        public static int Unix()
+        public static long Unix()
         {
             return Unix(DateTime.Now);
         }
@@ -30,7 +30,7 @@ namespace JR.Stand.Core.Framework
         /// 获取时间戳  
         /// </summary>  
         /// <returns></returns>  
-        public static int Unix(DateTime d)
+        public static long Unix(DateTime d)
         {
             TimeSpan ts = d - unixVar;
             return Convert.ToInt32(ts.TotalSeconds);
@@ -44,6 +44,7 @@ namespace JR.Stand.Core.Framework
         /// <returns></returns>
         public static DateTime UnixTime(int unix,TimeZone zone)
         {
+            if (zone == null) throw new ArgumentNullException(nameof(zone));
             long l = unix;
             return zone.ToLocalTime(unixVar).Add(new TimeSpan(l * 10000 * 1000));
         }
@@ -53,10 +54,9 @@ namespace JR.Stand.Core.Framework
         /// </summary>
         /// <param name="unix">时间戳</param>
         /// <returns></returns>
-        public static DateTime UnixTime(int unix)
+        public static DateTime UnixTime(long unix)
         {
-            long l = unix;
-            TimeSpan ts = new TimeSpan(l * 10000 * 1000);
+            TimeSpan ts = new TimeSpan(unix * 10000 * 1000);
             return TimeZone.CurrentTimeZone.ToLocalTime(unixVar).Add(ts);
         }
 

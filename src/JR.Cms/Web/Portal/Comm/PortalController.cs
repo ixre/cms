@@ -123,7 +123,7 @@ namespace JR.Cms.Web.Portal.Comm
         }
 
         private static string GenerateIndexPageCache(ICompatibleHttpContext context, 
-            string cacheKey, string cacheUnixKey, int unix)
+            string cacheKey, string cacheUnixKey, long unix)
         {
             string html = GenerateCache(cacheKey);
             // 如果以IP访问,则不保存缓存

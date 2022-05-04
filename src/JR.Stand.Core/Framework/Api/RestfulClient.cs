@@ -34,7 +34,7 @@ namespace JR.Stand.Core.Framework.Api
 
         public String Request(String path,String method, Object data)
         {
-            int now = TimeUtils.Unix();
+            long now = TimeUtils.Unix();
             if (now - this._lastTokenUnix > this._expires)
             {
                 this._accessToken = this._accessTokenFunc();

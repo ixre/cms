@@ -167,12 +167,12 @@ namespace JR.Cms.Domain.Interface.Content.Archive
         /// 创建时间
         /// </summary>
         [Alias("create_time")]
-        public int CreateTime { get; set; }
+        public long CreateTime { get; set; }
 
         /// <summary>
         /// 修改时间
         /// </summary>
         [Alias("update_time")]
-        public int UpdateTime { get; set; }
+        public long UpdateTime { get; set; }
     }
 }
