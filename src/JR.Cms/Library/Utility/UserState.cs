@@ -260,8 +260,6 @@ namespace JR.Cms.Library.Utility
                     var ctx = HttpHosting.Context;
                     var user = LocalService.Instance.UserService.GetUser(result.Uid);
                     ctx.Session.SetObjectAsJson(AdminSk, user);
-                    
-                    throw new Exception("haa");
                     var opt = new HttpCookieOptions
                     {
                         Expires = DateTime.Now.AddMinutes(minutes),
