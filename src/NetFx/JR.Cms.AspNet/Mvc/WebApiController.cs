@@ -23,10 +23,11 @@ namespace JR.Cms.Web.Mvc
 
         [Route("cms/webapi/form/{formId}/{formSubject}")]
         [HttpPost]
-        public Result PostForm(String formId,String formSubject)
+        public JsonResult PostForm(String formId,String formSubject)
         {
             Dictionary<String, String> forms = WebCtx.HttpCtx.Request.Bind<Dictionary<String,String>>();
-            return WebApiHandler.PostForm(formId, formSubject, forms);
+            Result ret = WebApiHandler.PostForm(formId, formSubject, forms);
+            return Json(ret);
         }
 
         /// <summary>
@@ -36,10 +37,11 @@ namespace JR.Cms.Web.Mvc
         /// <returns></returns>
         [Route("cms/webapi/relate/{archiveId}")]
         [HttpGet]
-        public IList<RelatedLinkDto> QueryArchiveRelateLink(long archiveId)
+        public JsonResult QueryArchiveRelateLink(long archiveId)
         {
             SiteDto site = Cms.Context.CurrentSite;
-            return WebApiHandler.GetRelateArchiveLinks(site, "archive", Convert.ToInt32(archiveId));
+            IList<RelatedLinkDto> ret = WebApiHandler.GetRelateArchiveLinks(site, "archive", Convert.ToInt32(archiveId));
+            return Json(ret);
         }
     }
 }
