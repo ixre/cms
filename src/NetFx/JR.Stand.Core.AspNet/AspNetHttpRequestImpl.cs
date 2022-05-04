@@ -7,6 +7,8 @@ using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Web;
 using System.IO;
 using JR.Stand.Core.Framework;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace JR.Stand.Core.AspNet
 {
@@ -161,9 +163,12 @@ namespace JR.Stand.Core.AspNet
         }
         public T Bind<T>()
         {
-            StreamReader sr = new StreamReader(this.Context.Request.InputStream);
-            String body = sr.ReadToEnd();
-            return JsonSerializer.DeserializeObject<T>(body);
+            Stream stream = this.Context.Request.InputStream;
+            stream.Position = 0; // 需要重新设置到流的开头
+            byte[] buffer = new byte[stream.Length];
+            stream.Read(buffer, 0, buffer.Length);
+            String body = Encoding.UTF8.GetString(buffer);
+            return JsonConvert.DeserializeObject<T>(body);
         }
     }
 }

@@ -10,6 +10,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using JR.Cms.Conf;
@@ -19,8 +20,11 @@ using JR.Cms.Library.CacheService;
 using JR.Cms.Library.DataAccess.BLL;
 using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts.Web;
+using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Web;
+using JWT.Algorithms;
+using JWT.Builder;
 
 namespace JR.Cms.Library.Utility
 {
@@ -44,10 +48,6 @@ namespace JR.Cms.Library.Utility
         /// </summary>
         private static readonly string AdministratorTokenPattern;
 
-        /// <summary>
-        /// 会员Cookie键匹配模式
-        /// </summary>
-        private static string memberTokenPattern;
 
         static UserState()
         {
@@ -56,7 +56,6 @@ namespace JR.Cms.Library.Utility
             Array.ForEach(CharArray, a => { sb.Append((char) a); });
 
             AdministratorTokenPattern = string.Format("^cms_sid_([{0}]+)$", sb.ToString());
-            memberTokenPattern = string.Format("^_token_[{0}]+_$", sb.ToString());
         }
 
         /// <summary>
@@ -135,6 +134,40 @@ namespace JR.Cms.Library.Utility
         /// </summary>
         public static class Administrator
         {
+            
+
+            private static UserDto GetUserFromJwt(ICompatibleHttpContext ctx, string adminSk)
+            {
+                ctx.Request.TryGetCookie("cms_ds_token", out var cookieValue);
+                if (string.IsNullOrEmpty(cookieValue))return null;
+                var payload = new JwtBuilder()
+                    .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
+                    .WithSecret(Settings.SYS_RSA_KEY)
+                    .MustVerifySignature()
+                    .Decode<IDictionary<string, object>>(cookieValue);
+
+                if ((string) payload["iss"] != "JRCms")
+                {
+                    throw new Exception("401: error jwt iss, access denied");
+                }
+                long exp = Convert.ToInt32(payload["exp"]);
+                if (TimeUtils.Unix(DateTime.Now) > exp)
+                {
+                    throw new Exception("401: session timeout");
+                }
+                String aud  = (String)payload["aud"];
+                var cre = LocalService.Instance.UserService.GetCredentialByUserName(aud);
+                if (cre == null) return null;
+                UserDto user = LocalService.Instance.UserService.GetUser(cre.UserId);
+                //用户不存在则返回false
+                if (user != null)
+                {
+                    ctx.Session.SetObjectAsJson(adminSk, user);
+                }
+
+                return user;
+            }
+
             /// <summary>
             /// 账户信息
             /// </summary>
@@ -145,6 +178,8 @@ namespace JR.Cms.Library.Utility
                     var ctx = HttpHosting.Context;
                     var user = ctx.Session.GetObjectFromJson<UserDto>(AdminSk);
                     if (user != null) return user;
+                    return GetUserFromJwt(ctx,AdminSk);
+                    
                     string cookieValue = null;
                     var cookieKeyIsRight = true; //检查cookie字符是否存在数组中
                     foreach (var key in ctx.Request.CookiesKeys())
@@ -188,7 +223,6 @@ namespace JR.Cms.Library.Utility
                     return user;
                 }
             }
-
             /// <summary>
             /// 用户类型
             /// </summary>
@@ -204,6 +238,13 @@ namespace JR.Cms.Library.Utility
             /// </summary>
             public static bool HasLogin => Current != null;
 
+            /// <summary>
+            /// 用户登录
+            /// </summary>
+            /// <param name="username"></param>
+            /// <param name="password"></param>
+            /// <param name="minutes"></param>
+            /// <returns></returns>
             public static int Login(string username, string password, double minutes)
             {
                 var sha1Pwd = Generator.CreateUserPwd(password);
@@ -214,36 +255,44 @@ namespace JR.Cms.Library.Utility
                     var ctx = HttpHosting.Context;
                     var user = LocalService.Instance.UserService.GetUser(result.Uid);
                     ctx.Session.SetObjectAsJson(AdminSk, user);
-                    var opt = new HttpCookieOptions();
-                    opt.Expires = DateTime.Now.AddMinutes(minutes);
-                    // cookie.Domain=AppContext.Config.Domain.HostName;
-                    opt.Path = "/" + Settings.SYS_ADMIN_TAG;
+                    var opt = new HttpCookieOptions
+                    {
+                        Expires = DateTime.Now.AddMinutes(minutes),
+                        // cookie.Domain=AppContext.Config.Domain.HostName;
+                        Path = "/" + Settings.SYS_ADMIN_TAG
+                    };
+                    long expiresTime = DateTime.UtcNow.AddMinutes(minutes).Unix();
+                    String token = new JwtBuilder()
+                        .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
+                        .WithSecret(Settings.SYS_RSA_KEY)
+                        .AddClaim("aud", username)
+                        .AddClaim("iss", "JRCms")
+                        .AddClaim("sub", "JRCms-Dashboard")
+                        .AddClaim("exp", expiresTime)
+                        .Encode();
                     //保存到Cookie中的密钥
-                    var token = (username + Generator.Salt + sha1Pwd).Md5();
-                    var encodeBytes = Encoding.UTF8.GetBytes(username + "&" + token);
-                    var encodedTokenStr = Convert.ToBase64String(encodeBytes);
-
-                    ctx.Response.AppendCookie($"cms_sid_{GeneratorRandomStr()}", encodedTokenStr,opt);
+                    // var token = (username + Generator.Salt + sha1Pwd).Md5();
+                    // var encodeBytes = Encoding.UTF8.GetBytes(username + "&" + token);
+                    // var encodedTokenStr = Convert.ToBase64String(encodeBytes);
+                    ctx.Response.AppendCookie("cms_ds_token", token,opt);
                 }
 
                 return result.Tag;
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
             public static void Exit()
             {
                 var ctx = HttpHosting.Context;
                 //UserBll user = Current;
                 //移除会话
                 ctx.Session.Remove(AdminSk);
-                //移除Cookie
-                foreach (var key in ctx.Request.CookiesKeys())
-                    if (Regex.IsMatch(key.ToString(), AdministratorTokenPattern))
-                    {
-                        var opt = new HttpCookieOptions();
-                        opt.Expires = DateTime.Now.AddYears(-1);
-                        opt.Path = "/" + Settings.SYS_ADMIN_TAG;
-                        ctx.Response.DeleteCookie(key, opt);
-                    }
+                var opt = new HttpCookieOptions();
+                opt.Expires = DateTime.Now.AddYears(-1);
+                opt.Path = "/" + Settings.SYS_ADMIN_TAG;
+                ctx.Response.DeleteCookie("cms_ds_token", opt);
             }
 
             /// <summary>

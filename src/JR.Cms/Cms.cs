@@ -51,7 +51,7 @@ namespace JR.Cms
     /// </summary>
     public static class Cms
     {
-        private static readonly Logger Logger = new Logger(typeof(Cms));
+        private static readonly Logger Logger =  Logger.Factory(typeof(Cms));
         private static bool isInstalled;
         private static  IMemoryCacheWrapper _cache;
         /// <summary>

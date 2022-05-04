@@ -146,7 +146,6 @@ namespace JR.Stand.Core.Web
             return JsonSerializer.DeserializeObject<T>(body);
         }
 
-
         private ICompatiblePostedFile ParsePostedFile(IFormFile file)
         {
             if (file != null) return new PostedFileImpl(file);

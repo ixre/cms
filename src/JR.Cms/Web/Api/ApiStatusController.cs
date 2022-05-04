@@ -8,6 +8,7 @@ using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Cms.Web.Util;
 using JR.Stand.Abstracts.Web;
+using JR.Stand.Core.Framework.Extensions;
 using JR.Stand.Core.Framework.Web.UI;
 using JR.Stand.Core.Web;
 using JWT.Algorithms;
@@ -53,8 +54,8 @@ namespace JR.Cms.Web.Api
             var ret = LocalService.Instance.UserService.TryLogin(dto.Username, dto.Password);
             if (ret.Tag == -1) return new AccessTokenDataDto {Code= 1, Message="用户名或密码不正确"};
             if(ret.Tag == -2) return new AccessTokenDataDto {Code= 3, Message="用户已停用"};
-            long expiresTime = DateTimeOffset.UtcNow.AddSeconds(dto.Expires).ToUnixTimeSeconds();
-            String token = JwtBuilder.Create()
+            long expiresTime = DateTime.UtcNow.AddSeconds(dto.Expires).Unix();
+            String token = new JwtBuilder()
                 .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                 .WithSecret(Settings.SYS_RSA_KEY)
                 .AddClaim("aud", ret.Uid.ToString())

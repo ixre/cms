@@ -23,7 +23,7 @@ namespace JR.Cms.App
 {
     public class Startup
     {
-        private static readonly Logger Logger = new Logger(typeof(Program));
+        private static readonly Logger Logger =  Logger.Factory(typeof(Program));
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)

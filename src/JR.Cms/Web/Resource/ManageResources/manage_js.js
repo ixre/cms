@@ -199,7 +199,7 @@ $jr.loadurl = function (id, url, func) {
 $jr.load2 = function (id, module, action, query, func) {
     var url = '?ajax=1&module=' + module + '&action=' + action;
     if (query) {
-        if (query.indexOf('?') == 0) {
+        if (query.indexOf('?') === 0) {
             url += '&' + query.substring(1);
         } else {
             url += '&' + query;
@@ -216,7 +216,7 @@ $jr.pagerLoad = function (id, pid, page, module, action, query, func) {
     var e = $jr.$(id), pe = jr.$(pid), eDis = e.style.display;
     var url = '?ajax=1&module=' + module + '&action=' + action + '&page=' + (page || 1);
     if (query) {
-        if (query.indexOf('?') == 0) {
+        if (query.indexOf('?') === 0) {
             url += '&' + query.substring(1);
         } else {
             url += '&' + query;
@@ -224,13 +224,13 @@ $jr.pagerLoad = function (id, pid, page, module, action, query, func) {
     }
     //e.style.display = 'none';
 
-    $jr.loadurl(id, url, function (result) {
-        var json = JSON.parse(result);
+    $jr.xhr.get(url,function (json) {
+        //var json = JSON.parse(result);
 
         try {
             e.innerHTML = json.html;
         } catch (ex) {
-            if (e.nodeName == 'TBODY') {
+            if (e.nodeName === 'TBODY') {
                 jr.each(e.rows, function (i, _e) {
                     e.removeChild(_e);
                 });
@@ -240,7 +240,8 @@ $jr.pagerLoad = function (id, pid, page, module, action, query, func) {
 
                 var tempTable = tempNode.firstChild;
                 var tbody = e;
-                for (var i = 0, tr; tr = tempTable.rows[i]; i++) {
+                for (var i = 0;i<tempTable.rows.length ; i++) {
+                    var tr = tempTable.rows[i];
                     tbody.appendChild(tr);
                 }
             }
@@ -377,12 +378,12 @@ window.bindInit = function () {
             // while (win.parent != undefined) {
             //     win = win.parent;
             // }
-            if (win.parent != win) {
+            if (win.parent !== win) {
                 win = win.parent;
             }
 
             //CTRL+S保存
-            if (e.ctrlKey && e.keyCode == 83) {
+            if (e.ctrlKey && e.keyCode === 83) {
                 if (window.saveData && window.saveData instanceof Function) {
                     window.saveData();
                     return $jr.event.preventDefault(e);
@@ -390,13 +391,13 @@ window.bindInit = function () {
                 return true;
             }
             //按键ALT+F11,启用全屏
-            else if (e.altKey && e.keyCode == 122) {
+            else if (e.altKey && e.keyCode === 122) {
                 win.M.setFullScreen();
                 return $jr.event.preventDefault(event);
-            } else if (e.keyCode == 122) {
+            } else if (e.keyCode === 122) {
                 win.M.setFullScreen();
                 return $jr.event.preventDefault(event);
-            } else if (!e.ctrlKey && e.keyCode == 116) {
+            } else if (!e.ctrlKey && e.keyCode === 116) {
                 var ifr = win.document.getElementsByClassName('currentframe')[0];
                 if (ifr) {
                     var src = ifr.src;
@@ -420,7 +421,7 @@ window.bindInit = function () {
 
             switch (ele.nodeName) {
                 case "INPUT":
-                    if (ele.getAttribute('type') == 'text') {
+                    if (ele.getAttribute('type') === 'text') {
                         ele.className += ' tb_normal';
                     }
                     break;
@@ -437,7 +438,7 @@ window.bindInit = function () {
                 //包含div的TD设置为自动顶部               
                 case "TD":
                     if (!ele.getAttribute('valign')) {
-                        if (ele.getElementsByTagName('DIV').length != 0) {
+                        if (ele.getElementsByTagName('DIV').length !== 0) {
                             ele.setAttribute('valign', 'top');
                         }
                     }
@@ -454,7 +455,7 @@ window.bindInit = function () {
         var height = 0;
         var ahs_arr = ahs[i].parentNode.childNodes;
         for (var j = 0; j < ahs_arr.length; j++) {
-            if (ahs_arr[j].nodeName == 'DIV' && ahs_arr[j] != ahs[i]) {
+            if (ahs_arr[j].nodeName === 'DIV' && ahs_arr[j] !== ahs[i]) {
                 height += ahs_arr[j].offsetHeight;
             }
         }

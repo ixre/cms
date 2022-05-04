@@ -8,7 +8,8 @@
 //
 if (!window.$jr) alert('未加载core.js！');
 $jr.extend({
-    api: {
+    /** old version */
+    hapi: {
         path: '',
         setPath:function(p) {
             this.path = p;
@@ -30,5 +31,18 @@ $jr.extend({
                 error
                 );
         }
-    }
+    },
+    api:{
+        path: '/cms/webapi',
+        setPath:function(p) {
+            this.path = p;
+        },
+        request: function (apiName, params, call, errCall) {
+            var url = this.path +apiName+ (apiName.indexOf("?") === -1?"?":"&")+'key=11857832134';
+            jr.xhr.get(url,call, errCall);
+        },
+        getRLink: function (contentId, callback, error) {
+            this.request("relate/"+contentId, callback, error);
+        }
+    },
 });

@@ -192,6 +192,29 @@ namespace JR.Cms.Conf
         public static bool TPL_USE_CACHE = true;
 
 
+        /** 邮件服务器 */
+        
+        /// <summary>
+        /// 邮件服务器主机
+        /// </summary>
+        public static string SMTP_HOST = "";
+        /// <summary>
+        /// 邮件服务器端口
+        /// </summary>
+        public static int SMTP_PORT = 25;
+        /// <summary>
+        /// 邮件服务器是否启用SSL
+        /// </summary>
+        public static bool SMTP_SSL = true;
+        /// <summary>
+        /// 邮件服务器账号
+        /// </summary>
+        public static string SMTP_USERNAME = "";
+        /// <summary>
+        /// 邮件服务器密码
+        /// </summary>
+        public static string SMTP_PASSWORD = "";
+        
         public static void TurnOnDebug()
         {
             OPTI_DEBUG_MODE = true;

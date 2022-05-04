@@ -23,7 +23,7 @@ namespace JR.Stand.Abstracts.Web
     /// Gets or sets the expiration date and time for the cookie.
     /// </summary>
     /// <returns>The expiration date and time for the cookie.</returns>
-    public DateTimeOffset? Expires { get; set; }
+    public DateTime? Expires { get; set; }
 
     /// <summary>
     /// Gets or sets a value that indicates whether to transmit the cookie using Secure Sockets Layer (SSL)--that is, over HTTPS only.
