@@ -26,7 +26,7 @@ namespace JR.Cms.Web.Api
             }
 
             token = token.Replace("Bearer ", "");
-            var payload = JwtBuilder.Create()
+            var payload = new JwtBuilder()
                 .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                 .WithSecret(Settings.SYS_RSA_KEY)
                 .MustVerifySignature()
