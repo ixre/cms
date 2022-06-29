@@ -224,7 +224,7 @@ namespace JR.Cms.ServiceDto
         /// <summary>
         /// 备案号
         /// </summary>
-        [FormField("BeianNo", Group = "profile", Text = "备案号", MultiLine = true, Length = "[0,200]")]
+        [FormField("BeianNo", Group = "profile", Text = "备案号", MultiLine = true, Length = "[0,40]")]
 
         public string BeianNo { get; set; }
 
