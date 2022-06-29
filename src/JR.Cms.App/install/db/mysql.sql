@@ -532,7 +532,7 @@ CREATE TABLE `cms_site` (
   `pro_post` varchar(100) DEFAULT NULL,
   `pro_notice` varchar(250) DEFAULT NULL,
   `pro_slogan` varchar(250) DEFAULT NULL,
-  
+  `beian_no` varchar(20) NOT NULL DEFAULT '' COMMENT '网站备案号',
   PRIMARY KEY (`site_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

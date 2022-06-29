@@ -39,8 +39,7 @@ if [ -d bin ];then
 else
     mkdir ${RELEASE_DIR}/bin \
         && cd ${RELEASE_DIR}/bin \
-        && unzip ../../../dll/aspnet_bin.zip >/dev/null \
-        && unzip ../../../dll/aspnet_fx_bin.zip >/dev/null
+        && unzip ../../../dll/aspnet_bin.zip >/dev/null
     # replace cms core dll
     find ../../../src/JR.Cms.App/bin/Debug -name "JR*.dll" | xargs -I {} cp {} .
     # remove net core entrypoint dll
@@ -66,6 +65,7 @@ cd ${RELEASE_DIR} \
 
 echo 'setup4: upgrade dll..' \
     &&  cp ../../../dll/aspnet/* . \
+    &&  cp ../../../dll/fx/* . \
     &&  cd ..
     
 echo 'setup5: packing..' \

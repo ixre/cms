@@ -81,3 +81,12 @@ ALTER TABLE `cms_site`
 CHANGE COLUMN `domain` `domain` VARCHAR(120) NOT NULL COMMENT '域名' ,
 CHANGE COLUMN `location` `location` VARCHAR(120) NOT NULL COMMENT '重定向URL' ;
 
+-- 2020-12-30 --
+ALTER TABLE cms_site
+ADD COLUMN `seo_force_https` int(4) NOT NULL DEFAULT 0 COMMENT '强制HTTPS',
+ADD COLUMN `seo_force_redirect` int(4) NOT NULL DEFAULT 0 COMMENT '强制重定向'
+, ADD COLUMN `alone_board` int(4) NOT NULL DEFAULT 0 COMMENT '独立管理面板' ;
+
+-- 2022-06-29 13:00 --
+ALTER TABLE cms_site
+ADD COLUMN `beian_no` varchar(20) NOT NULL DEFAULT 0 COMMENT '网站备案号';

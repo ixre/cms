@@ -32,9 +32,10 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@proPost", site.ProPost);
             data.Add("@proNotice", site.ProNotice);
             data.Add("@proSlogan", site.ProSlogan);
-            data.Add("@seoForceHttps",site.SeoForceHttps);
-            data.Add("@seoForceRedirect",site.SeoForceRedirect);
-            data.Add("@aloneBoard",site.AloneBoard);
+            data.Add("@seoForceHttps", site.SeoForceHttps);
+            data.Add("@seoForceRedirect", site.SeoForceRedirect);
+            data.Add("@aloneBoard", site.AloneBoard);
+            data.Add("@beianNo", site.BeianNo);
             ExecuteNonQuery(CreateQuery(DbSql.SiteCreateSite, data));
             return int.Parse(ExecuteScalar(NewQuery(
                 "SELECT MAX(site_id) FROM $PREFIX_site", null)).ToString());
@@ -71,9 +72,10 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@proNotice", site.ProNotice);
             data.Add("@proSlogan", site.ProSlogan);
             data.Add("@siteId", site.SiteId);
-            data.Add("@seoForceHttps",site.SeoForceHttps);
-            data.Add("@seoForceRedirect",site.SeoForceRedirect);
-            data.Add("@aloneBoard",site.AloneBoard);
+            data.Add("@seoForceHttps", site.SeoForceHttps);
+            data.Add("@seoForceRedirect", site.SeoForceRedirect);
+            data.Add("@aloneBoard", site.AloneBoard);
+            data.Add("@beianNo",site.BeianNo);
             return ExecuteNonQuery(NewQuery(DbSql.SiteEditSite, Db.GetDialect().ParseParameters(data)));
         }
 
@@ -103,7 +105,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@name", v.Name);
             data.Add("@value", v.Value);
             data.Add("@siteId", siteId);
-            data.Add("@remark",v.Remark);
+            data.Add("@remark", v.Remark);
             ExecuteNonQuery(NewQuery(DbSql.CreateSiteVariable, Db.GetDialect().ParseParameters(data)));
             v.Id = int.Parse(ExecuteScalar(NewQuery(
                 "SELECT MAX(id) FROM $PREFIX_site_variables", null)).ToString());
@@ -117,12 +119,12 @@ namespace JR.Cms.Library.DataAccess.DAL
         public void UpdateVariable(int siteId, SiteVariable v)
         {
             IDictionary<string, object> data = new Dictionary<string, object>();
-            data.Add("@id",v.Id);
+            data.Add("@id", v.Id);
             data.Add("@siteId", siteId);
             data.Add("@name", v.Name);
             data.Add("@value", v.Value);
-            data.Add("@remark",v.Remark);
-             ExecuteNonQuery(NewQuery(DbSql.UpdateSiteVariable, Db.GetDialect().ParseParameters(data)));
+            data.Add("@remark", v.Remark);
+            ExecuteNonQuery(NewQuery(DbSql.UpdateSiteVariable, Db.GetDialect().ParseParameters(data)));
         }
 
         /// <summary>
@@ -133,7 +135,7 @@ namespace JR.Cms.Library.DataAccess.DAL
         public void DeleteVariable(int siteId, int varId)
         {
             IDictionary<string, object> data = new Dictionary<string, object>();
-            data.Add("@id",varId);
+            data.Add("@id", varId);
             data.Add("@siteId", siteId);
             ExecuteNonQuery(NewQuery(DbSql.DeleteSiteVariable, Db.GetDialect().ParseParameters(data)));
         }
@@ -147,7 +149,7 @@ namespace JR.Cms.Library.DataAccess.DAL
         {
             IDictionary<string, object> data = new Dictionary<string, object>();
             data.Add("@siteId", siteId);
-            ExecuteReader(NewQuery(DbSql.GetSiteVariables,  Db.GetDialect().ParseParameters(data)), func);
+            ExecuteReader(NewQuery(DbSql.GetSiteVariables, Db.GetDialect().ParseParameters(data)), func);
         }
     }
 }
