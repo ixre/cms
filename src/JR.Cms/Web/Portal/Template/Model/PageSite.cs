@@ -35,6 +35,7 @@ namespace JR.Cms.Web.Portal.Template.Model
             Description = dto.SeoDescription;
             SiteId = dto.SiteId;
             Tpl = dto.Tpl;
+            BeianNo = dto.BeianNo;
             Language = dto.Language;
         }
 
@@ -83,6 +84,10 @@ namespace JR.Cms.Web.Portal.Template.Model
 
         public int SiteId { get; set; }
         public string Tpl { get; set; }
+        /// <summary>
+        /// 备案号
+        /// </summary>
+        public string BeianNo { get; set; }
         public Languages Language { get; set; }
 
         /// <summary>

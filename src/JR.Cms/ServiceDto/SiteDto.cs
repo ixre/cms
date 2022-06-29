@@ -45,7 +45,7 @@ namespace JR.Cms.ServiceDto
                 ProNotice = site.ProNotice,
                 ProPhone = site.ProPhone,
                 ProIm = site.ProIm,
-                RunType = (int) ist.RunType(),
+                RunType = (int)ist.RunType(),
                 SeoDescription = site.SeoDescription,
                 SeoKeywords = site.SeoKeywords,
                 SeoTitle = site.SeoTitle,
@@ -55,7 +55,8 @@ namespace JR.Cms.ServiceDto
                 ProSlogan = site.ProSlogan,
                 State = ist.State(),
                 ProTel = site.ProTel,
-                Tpl = site.Tpl
+                Tpl = site.Tpl,
+                BeianNo = site.BeianNo,
             };
         }
 
@@ -70,7 +71,7 @@ namespace JR.Cms.ServiceDto
             site.Location = dto.Location.Trim();
             site.ProEmail = dto.ProEmail;
             site.ProFax = dto.ProFax.Trim();
-            site.Language = (int) dto.Language;
+            site.Language = (int)dto.Language;
             site.ProPost = dto.ProPost.Trim();
             site.Note = dto.Note.Trim();
             site.AloneBoard = dto.AloneBoard;
@@ -83,11 +84,13 @@ namespace JR.Cms.ServiceDto
             site.SeoForceRedirect = dto.SeoForceRedirect;
             site.SeoTitle = dto.SeoTitle;
             site.ProSlogan = dto.ProSlogan;
-            site.State = (int) dto.State;
+            site.State = (int)dto.State;
             site.ProTel = dto.ProTel;
             site.Tpl = dto.Tpl;
+            site.BeianNo = dto.BeianNo;
             return ist;
         }
+
 
         /// <summary>
         /// 站点ID
@@ -154,7 +157,7 @@ namespace JR.Cms.ServiceDto
         [SelectField(UseDrop = true, Data = "正常(Normal)=1;暂停访问(Paused)=2;关闭(Stopped)=3")]
         public SiteState State { get; set; }
 
-        
+
         /// <summary>
         /// 独立面板
         /// </summary>
@@ -162,7 +165,7 @@ namespace JR.Cms.ServiceDto
             Description = "开启单独管理后台")]
         [SelectField(Data = "关闭=0")]
         public int AloneBoard { get; set; }
-        
+
         /// <summary>
         /// 电话
         /// </summary>
@@ -219,6 +222,13 @@ namespace JR.Cms.ServiceDto
         public string ProSlogan { get; set; }
 
         /// <summary>
+        /// 备案号
+        /// </summary>
+        [FormField("BeianNo", Group = "profile", Text = "备案号", MultiLine = true, Length = "[0,200]")]
+
+        public string BeianNo { get; set; }
+
+        /// <summary>
         /// 运行类型
         /// </summary>
         public int RunType { get; set; }
@@ -230,7 +240,7 @@ namespace JR.Cms.ServiceDto
             Description = "强制仅启用HTTPS,普通访问将跳转到HTTPS")]
         [SelectField(Data = "关闭=0;开启=1;")]
         public int SeoForceHttps { get; set; }
-        
+
         /// <summary>
         /// 强制定向
         /// </summary>
@@ -238,7 +248,7 @@ namespace JR.Cms.ServiceDto
             Description = "")]
         [SelectField(Data = "关闭=0;定向www.域名=1;定向到顶级域名=2")]
         public int SeoForceRedirect { get; set; }
-        
+
         /// <summary>
         /// SEO标题
         /// </summary>
@@ -258,6 +268,6 @@ namespace JR.Cms.ServiceDto
         /// </summary>
         [FormField("SeoDescription", Group = "seo", Text = "首页SEO描述", MultiLine = true, Length = "[0,150]")]
         public string SeoDescription { get; set; }
-        
+
     }
 }

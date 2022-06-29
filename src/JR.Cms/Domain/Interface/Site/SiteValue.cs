@@ -154,5 +154,12 @@ namespace JR.Cms.Domain.Interface.Site
         /// </summary>
         [Alias("alone_board")]
         public int AloneBoard { get; set; }
+
+
+        /// <summary>
+        /// 备案号
+        /// </summary>
+        [Alias("beian_no")]
+        public string BeianNo { get; set; }
     }
 }

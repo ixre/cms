@@ -35,3 +35,9 @@ CREATE TABLE `cms_site_variables` (
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='站点变量';
 
 
+
+-- 2022-06-29 13:00 --
+ALTER TABLE cms_site
+ADD COLUMN `beian_no` varchar(20) NOT NULL DEFAULT '' COMMENT '网站备案号';
+
+

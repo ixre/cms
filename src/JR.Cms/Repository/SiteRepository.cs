@@ -108,6 +108,7 @@ namespace JR.Cms.Repository
                         site.ProTel = rd["pro_tel"].ToString();
                         site.Language = int.Parse(rd["language"].ToString());
                         site.AloneBoard = int.Parse(rd["alone_board"].ToString());
+                        site.BeianNo = rd["beian_no"].ToString();
                         var ist = CreateSite(site);
                         RepositoryDataCache._siteDict.Add(site.SiteId, ist);
                     }
@@ -221,7 +222,7 @@ namespace JR.Cms.Repository
             link.SortNumber = int.Parse(reader["sort_number"].ToString());
             link.Pid = int.Parse(reader["pid"].ToString());
             link.Target = reader["target"].ToString();
-            link.Type = (SiteLinkType) int.Parse(reader["type"].ToString());
+            link.Type = (SiteLinkType)int.Parse(reader["type"].ToString());
             link.Uri = reader["uri"].ToString();
             link.Visible = Convert.ToBoolean(reader["visible"]);
 
@@ -271,7 +272,7 @@ namespace JR.Cms.Repository
 
             siteDal.UpdateVariable(siteId, siteVariable);
         }
-        
+
 
         /// <summary>
         /// 删除变量
@@ -280,7 +281,7 @@ namespace JR.Cms.Repository
         /// <param name="varId"></param>
         public void DeleteSiteVariable(int siteId, int varId)
         {
-            if(siteId > 0 && varId > 0) siteDal.DeleteVariable(siteId, varId);
+            if (siteId > 0 && varId > 0) siteDal.DeleteVariable(siteId, varId);
         }
 
         /// <summary>
@@ -290,7 +291,7 @@ namespace JR.Cms.Repository
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public IList<SiteVariable> GetSiteVariables(int siteId)
-        { 
+        {
             IList<SiteVariable> list = new List<SiteVariable>();
             siteDal.GetVariables(siteId, rd =>
             {
