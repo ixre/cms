@@ -444,7 +444,7 @@ window.M = {
 
 
 function setSite(id) {
-    jr.xhr.request({ uri: window._path + '?module=system&action=selectsite&json=1&siteid=' + id, data: 'json' },
+    jr.xhr.request(window._path + '?module=system&action=selectsite&json=1&siteid=' + id, data: 'json' },
         {
             success: function (html) {
                 window.M.loadCatTree();
