@@ -112,8 +112,8 @@ $js()
     }
 
     function reqTree(siteId,withRoot, callback) {
-        jr.xhr.request({
-            uri: '?module=ajax&action=CategoryNodes&root='+withRoot+'&site_id='+siteId,
+        jr.xhr.request(
+            '?module=ajax&action=CategoryNodes&root='+withRoot+'&site_id='+siteId,{
             method: 'GET',
             data: 'json'
         }, {

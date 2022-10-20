@@ -203,7 +203,7 @@
         }
 
         function loadLocal() {
-            J.xhr.request({ uri: appPath, params: 'module=plugin&action=getpluginsJson', method: 'POST', data: 'json' },
+            J.xhr.request( appPath, {params: 'module=plugin&action=getpluginsJson', method: 'POST', data: 'json' },
                {
                    success: function (json) {
                        mp.innerHTML = '';

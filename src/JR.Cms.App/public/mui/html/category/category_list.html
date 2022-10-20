@@ -115,8 +115,7 @@
 
     //加载栏目树
     function _thisLoadCategoryTree() {
-        jr.xhr.request({
-            uri: '?module=ajax&action=CategoryNodes',
+        jr.xhr.request( '?module=ajax&action=CategoryNodes',{
             method: 'GET',
             data: 'json'
         }, {
