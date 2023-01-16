@@ -186,7 +186,7 @@ img{max-width:100%;border:0}
 .container:after,.container-fluid:after,.clearfix:after{content:".";display:block;visibility:hidden;height:0;line-height:0;clear:both;}
 .clearfix{zoom:1;}
 /* 大写 */
-.uppercase{text-transform:uppercase;}
+.g-uppercase{text-transform:uppercase;}
 /* 箭头 */
 .g-arrow{height:0;width:0;margin:auto;display:inline-block;border:solid 5px transparent;}
 .g-arrow-r{border-right:none;border-left-color:#FFF;margin-left:5px;}
