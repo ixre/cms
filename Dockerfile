@@ -1,14 +1,14 @@
 # JR Cms .NET ! Open source .net cross platform cms.
-# Version : 3.2
+# Version : 4.8.0
 # Author : jarrysix(jarrysix@gmail.com)
-# Date : 2020-03-22 08:02
+# Date : 2023-05-16 08:02
 
 # How to docked a dotnet app: 
 # https://docs.docker.com/engine/examples/dotnetcore/
 
 
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
 ENV RELEASE_DIR /app/out/release
 WORKDIR /app
 COPY . ./
@@ -30,7 +30,7 @@ LABEL License="GPLv2"
 LABEL Version=4.0
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine
 ENV CMS_RUN_ON_DOCKER yes
 WORKDIR /cms
 COPY --from=build-env /app/out/release ./

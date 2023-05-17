@@ -13,7 +13,7 @@
         /// <summary>
     	/// 版本号
     	/// </summary>
-        public const string VERSION="4.6.2";
+        public const string VERSION="4.8.0";
         /// <summary>
         /// 框架目录
         /// </summary>
