@@ -19,7 +19,7 @@ $jr.extend({
             for (var key in params) {
                 uri += '&' + key + '=' + params[key];
             }
-            jr.xhr.request( uri,{ params: {}, method: 'GET', data: 'json' }, {
+            jr.xhr.request(uri,{params: {}, method: 'GET', data: 'json' }, {
                 success: call,
                 error: errCall
             });

@@ -20,7 +20,7 @@
   <item key="friend-link" zh_CN="友情链接" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="previous-archive" zh_CN="上一篇" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="next-archive" zh_CN="下一篇" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
-  <item key="keyword" zh_CN="关键词" zh_TW="关键词" en_US="Keyword" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="keyword" zh_CN="关键词" zh_TW="关键词" en_US="Keyword" Es="Palabras clave" Th="คำสำคัญ" Fr="Mots clés" Ru="Ключевые слова" Ar="[الكلمه - المفتاح]"/>
   <item key="hot-keyword" zh_CN="热门关键词" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
 
   <item key="en_US" zh_CN="英语(美国)" zh_TW="英语(美国)" en_US="English" Es="" Th="" Fr="" Ru="" Ar=""/>
@@ -63,6 +63,7 @@
   <item key="more" zh_CN="更多" zh_TW="更多" en_US="More" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="details" zh_CN="详情" zh_TW="更多" en_US="Details" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="change" zh_CN="切换" zh_TW="Change" en_US="Change" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="intro" zh_CN="介绍" zh_TW="介绍" en_US="Intro" Es="" Th="" Fr="" Ru="" Ar=""/>
 
   <item key="brand" zh_CN="品牌" zh_TW="品牌" en_US="Brand" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
   <item key="factory" zh_CN="工厂" zh_TW="工厂" en_US="Factory" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
