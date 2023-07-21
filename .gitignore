@@ -52,3 +52,4 @@ src/NetFx/JR.Cms.AspNet.App/uploads
 output
 cache.pid
 uploads
+mintty.exe.stackdump

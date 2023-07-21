@@ -104,13 +104,13 @@ namespace JR.Stand.Core.Web.Cache.Component
             throw new NotImplementedException();
             //CacheUtil.SetClientCache(response, _cacheSha1ETag);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="response"></param>
         /// <param name="handler"></param>
-        public void ETagOutput(HttpResponse response,StringCreatorHandler handler)
+        public void ETagOutput(HttpResponse response, StringCreatorHandler handler)
         {
             throw new NotImplementedException();
             //CacheUtil.Output(response,_cacheSha1ETag,handler);
