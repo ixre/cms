@@ -125,11 +125,11 @@ namespace JR.Stand.Core.Framework.TaskBox.HttpSync
                 {
                     if (i > 0)
                     {
-                        buffer.AppendFormat("&{0}={1}", key, parameters[key]);
+                        buffer.Append(String.Format("&{0}={1}", key, parameters[key]));
                     }
                     else
                     {
-                        buffer.AppendFormat("{0}={1}", key, parameters[key]);
+                        buffer.Append(String.Format("{0}={1}", key, parameters[key]));
                     }
                     i++;
                 }
