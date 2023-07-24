@@ -22,7 +22,7 @@
       <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.9" />
       <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
-      <PackageReference Include="MySql.Data" Version="8.1.0" />
+      <PackageReference Include="MySql.Data" Version="8.0.30" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
       <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
