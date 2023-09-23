@@ -41,16 +41,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.0.143" />
+      <PackageReference Include="Dapper" Version="2.0.123" />
       <PackageReference Include="MailKitLite" Version="3.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
       <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-      <PackageReference Include="Quartz" Version="3.6.3" />
-      <PackageReference Include="SharpCompress" Version="0.33.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="Quartz" Version="3.3.3" />
+      <PackageReference Include="SharpCompress" Version="0.31.0" />
       <PackageReference Include="structuremap" Version="4.7.1" />
-      <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+      <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
