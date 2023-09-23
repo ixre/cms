@@ -66,8 +66,7 @@ namespace JR.Cms.Web.Manager.Handle
         public string Category_Check_POST()
         {
             var categoryId = int.Parse(Request.Query("category_id"));
-            string extendIdstr = Request.Query("extendIds");
-
+            string extendIdstr = Request.Form("extendIds");
             int[] extendIds = null;
 
             if (!string.IsNullOrEmpty(extendIdstr)){
