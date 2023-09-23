@@ -535,7 +535,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [TemplateTag]
         protected string Archive_Redirect(string id)
         {
-            var a = LocalService.Instance.ArchiveService.GetArchiveByIdOrAlias(_site.SiteId, id);
+            var a = LocalService.Instance.ArchiveService.GetArchiveByPath(_site.SiteId, id);
 
             if (a.Id > 0)
             {
@@ -560,7 +560,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [TemplateTag]
         protected string Require(string idOrAlias)
         {
-            var a = LocalService.Instance.ArchiveService.GetArchiveByIdOrAlias(SiteId, idOrAlias);
+            var a = LocalService.Instance.ArchiveService.GetArchiveByPath(SiteId, idOrAlias);
             if (a.Id > 0) archive = a;
             return string.Empty;
         }
@@ -1067,7 +1067,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             if (idOrAlias is int)
                 archiveDto = LocalService.Instance.ArchiveService.GetArchiveById(_siteId, Convert.ToInt32(idOrAlias));
             else
-                archiveDto = LocalService.Instance.ArchiveService.GetArchiveByIdOrAlias(_siteId, idOrAlias.ToString());
+                archiveDto = LocalService.Instance.ArchiveService.GetArchiveByPath(_siteId, idOrAlias.ToString());
 
             if (archiveDto.Id <= 0) return TplMessage(string.Format("不存在编号（或别名）为:{0}的文档!", idOrAlias));
 
@@ -1293,13 +1293,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         // case "categoryid":
                         // case "cid": return archive.Category.ID.ToString();
                         case "category_name": return archiveDto.Category.Name;
-                        case "category_path": return archiveDto.Path;
+                        case "category_path": return archiveDto.Category.Path;
                         case "category_url": return GetCategoryUrl(archiveDto.Category, 1);
 
 
-                        //
-                        //TODO:
-                        //
+                       
+                        // 路径，用于调用接口
+                        case "path":
+                            return archiveDto.Path;
                         //链接
                         case "url":
                             return GetArchiveUrl(archiveDto.Location, archiveDto.Flag, archiveDto.Path);

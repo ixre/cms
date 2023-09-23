@@ -119,7 +119,7 @@ namespace JR.Cms.Web.Portal
         {
             if (archivePath.StartsWith("/")) archivePath = archivePath.Substring(1);
             var siteId = context.CurrentSite.SiteId;
-            var archive = LocalService.Instance.ArchiveService.GetArchiveByIdOrAlias(siteId, archivePath);
+            var archive = LocalService.Instance.ArchiveService.GetArchiveByPath(siteId, archivePath);
             if (archive.Id <= 0)
             {
                 RenderNotFound(context);

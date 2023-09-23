@@ -50,12 +50,12 @@ namespace JR.Cms.ServiceImpl
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="id"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        public ArchiveDto GetArchiveByIdOrAlias(int siteId, string id)
+        public ArchiveDto GetArchiveByPath(int siteId, string path)
         {
             var ic = _contentRep.GetContent(siteId);
-            var archive = ic.GetArchive(id);
+            var archive = ic.GetArchive(path);
             if (archive == null) return default(ArchiveDto);
 
             return ArchiveDto.ConvertFrom(archive, true, true, true);

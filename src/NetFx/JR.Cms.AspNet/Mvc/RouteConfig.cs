@@ -42,9 +42,9 @@ namespace JR.Cms.WebImpl.Mvc
             //管理后台
             routes.Add("administrator_route", new Route(Settings.SYS_ADMIN_TAG, new AspNetCmsManagerHandler()));
             //WebAPI接口
-            //routes.Add("web_api", new Route("web_api/{*path}", new WebApiRouteHandler()));
-            routes.Add("web_api_router", new Route("web_api", new AspNetWebApiHandler()));
-            routes.Add("web_api_sub_site_router", new Route("{site}/web_api", new AspNetWebApiHandler()));
+            //routes.Add("webapi", new Route("webapi/{*path}", new WebApiRouteHandler()));
+            routes.Add("webapi_router", new Route("webapi", new AspNetWebApiHandler()));
+            routes.Add("webapi_sub_site_router", new Route("{site}/webapi", new AspNetWebApiHandler()));
         }
 
         /// <summary>

@@ -25,9 +25,9 @@ namespace JR.Cms.ServiceContract
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="id"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        ArchiveDto GetArchiveByIdOrAlias(int siteId, string id);
+        ArchiveDto GetArchiveByPath(int siteId, string path);
 
         /// <summary>
         /// 保存文档

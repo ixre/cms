@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Mail;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using JR.Cms.Conf;
-using JR.Cms.Core;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Cms.Web.Portal.Comm;
@@ -42,12 +38,16 @@ namespace JR.Cms.Web.Portal.Controllers
                         context.Request.GetParameter("type") ?? "archive",
                         int.Parse(context.Request.GetParameter("content_id")));
                     break;
+                case "archive/info":
+                    result = WebApiProcess.GetArchiveInfo(site,
+                        context.Request.GetParameter("path"));
+                        break;
             }
 
             return context.Response.WriteAsync(result ?? defaultRsp);
         }
     }
-    
+
     internal static class ApiTypes
     {
         public class RLink
@@ -125,13 +125,29 @@ namespace JR.Cms.Web.Portal.Controllers
                     i--;
                 }
         }
+
+/// <summary>
+/// 获取文档详情, /{site_id}/web_api?name=archive/info&path=brand/welcome
+/// </summary>
+/// <param name="site"></param>
+/// <param name="path"></param>
+/// <returns></returns>
+        internal static string GetArchiveInfo(SiteDto site, String path)
+        {
+            ArchiveDto archiveDto = LocalService.Instance.ArchiveService.GetArchiveByPath(site.SiteId, path);
+            archiveDto.TemplatePath = "";
+            archiveDto.Flag = -1;
+            archiveDto.Id = 0;
+            archiveDto.IsSelfTemplate = false;
+            return Newtonsoft.Json.JsonConvert.SerializeObject(archiveDto);
+        }
     }
 
     /// <summary>
     /// WebAPI(该写法仅支持.NET core及.NET5及其以上)
     /// </summary>
     [Route("/cms/webapi")]
-    public class WebApiController:Controller
+    public class WebApiController : Controller
     {
         /// <summary>
         /// 提交表单数据
@@ -156,6 +172,23 @@ namespace JR.Cms.Web.Portal.Controllers
         {
             SiteDto site = Cms.Context.CurrentSite;
             return WebApiHandler.GetRelateArchiveLinks(site, "archive", Convert.ToInt32(archiveId));
+        }
+
+        /// <summary>
+        /// 获取文档信息
+        /// </summary>
+        /// <param name="id">文档编号</param>
+        /// <returns></returns>
+        [HttpGet("archive/{id}")]
+        public ArchiveDto QueryArchive([FromQuery] int id)
+        {
+            SiteDto site = Cms.Context.CurrentSite;
+            ArchiveDto archiveDto = LocalService.Instance.ArchiveService.GetArchiveById(site.SiteId, id);
+            archiveDto.TemplatePath = "";
+            archiveDto.Flag = -1;
+            archiveDto.Id = 0;
+            archiveDto.IsSelfTemplate = false;
+            return archiveDto;
         }
     }
 }

@@ -42,8 +42,8 @@ namespace JR.Cms.App
             // 管理后台
             endpoints.Map(Settings.SYS_ADMIN_TAG, new CmsManagerHandler().ProcessRequest);
             // WebAPI接口
-            endpoints.Map("web_api", new WebApiRouteHandler().ProcessRequest);
-            endpoints.Map("{site}/web_api", new WebApiRouteHandler().ProcessRequest);
+            endpoints.Map("webapi", new WebApiRouteHandler().ProcessRequest);
+            endpoints.Map("{site}/webapi", new WebApiRouteHandler().ProcessRequest);
             // 支付
             //routes.Add(new Route(routePrefix + "netpay", new CmsNetpayHandler()));
             
