@@ -70,19 +70,20 @@ namespace JR.Cms.Web.Manager.Handle
 
             int[] extendIds = null;
 
-            if (!string.IsNullOrEmpty(extendIdstr))
+            if (!string.IsNullOrEmpty(extendIdstr)){
                 extendIds = Array.ConvertAll<string, int>(
                     extendIdstr.Split(',')
                     , a => int.Parse(a));
+            }
 
             var category = LocalService.Instance.SiteService.GetCategory(
                 SiteId, categoryId);
 
             //重新设置扩展信息
             category.ExtendFields = new List<IExtendField>();
-            if (extendIds != null)
+            if (extendIds != null){
                 Array.ForEach(extendIds, id => { category.ExtendFields.Add(new ExtendField(id, null)); });
-
+            }
 
             //设置并保存
             try
@@ -91,8 +92,7 @@ namespace JR.Cms.Web.Manager.Handle
             }
             catch (Exception exc)
             {
-                throw;
-                return ReturnError(exc.Message);
+                 return ReturnError(exc.Message);
             }
 
             return ReturnSuccess("保存成功!");

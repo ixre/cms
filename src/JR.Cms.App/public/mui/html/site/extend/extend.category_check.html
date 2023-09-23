@@ -73,9 +73,8 @@
                 extendIdStr+=settedExtend[i];
             }
 
-
             jr.xhr.jsonPost('${url}',
-                'xhr=1&extendIds='+extendIdStr,
+                {xhr:1,extendIds:extendIdStr},
                 function (json) { 
                     if (json.result) {
                         jr.dialog.close();

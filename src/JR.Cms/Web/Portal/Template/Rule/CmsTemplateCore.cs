@@ -968,7 +968,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected string Navigator(string format, string childFormat, string index)
         {
             const string tpl =
-                @"<div id=""navigator"" class=""mod-navigator""><div class=""left mod-navigator-left""></div><div class=""right mod-navigator-right""></div><div class=""nav mod-navigator-nav""><ul>{0}</ul><div class=""clearfix""></div></div></div>";
+                @"<div class=""mod-navigator""><div class=""left mod-navigator-left""></div><div class=""right mod-navigator-right""></div><div class=""nav mod-navigator-nav""><ul>{0}</ul><div class=""clearfix""></div></div></div>";
 
             var sb = new StringBuilder();
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
