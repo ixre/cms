@@ -37,7 +37,7 @@ namespace JR.Cms.Web.Resource
                     +ResourceUtility.CompressHtml(GetResource("Web/Resource/SiteResources/cms.core.js")), false);
             
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "api.js",
-                Comment + GetResource("Web/Resource/SiteResources/js_cms_api.js"), false);
+                Comment + GetResource("Web/Resource/SiteResources/js-cms-api.js"), false);
             
             //
             // Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/ui.js",

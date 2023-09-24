@@ -68,7 +68,7 @@
       <EmbeddedResource Include="Web\Resource\SiteResources\Assets\wow.js" />
       <EmbeddedResource Include="Web\Resource\SiteResources\base.min.js" />
       <EmbeddedResource Include="Web\Resource\SiteResources\cms.core.js" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\js_cms_api.js" />
+      <EmbeddedResource Include="Web\Resource\SiteResources\js-cms-api.js" />
       <EmbeddedResource Include="Web\Resource\SiteResources\site-base.css" />
       <EmbeddedResource Include="Web\Resource\SiteResources\site-page.css" />
       <None Remove="WebImpl\Resource\WebManager\resouces\images\manage_js.js" />
@@ -78,7 +78,7 @@
       <EmbeddedResource Include="Infrastructure\Resources\lang_package.xml" />
       <EmbeddedResource Include="Web\Resource\ManageResources\manage_js.js" />
       <EmbeddedResource Include="Web\Resource\ManageResources\ui_component.source.js" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\js_cms_api.js" />
+      <None Remove="WebImpl\Resource\Static\SiteResouce\js-cms-api.js" />
       <None Remove="WebImpl\Resource\Static\SiteResouce\site-base.css" />
       <None Remove="WebImpl\Resource\Static\SiteResouce\site-page.css" />
       <None Remove="WebImpl\Resource\Static\SiteResouce\assets\animate.css" />

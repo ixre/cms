@@ -41,7 +41,7 @@ namespace JR.Cms.Web.Portal.Controllers
                 case "archive/info":
                     result = WebApiProcess.GetArchiveInfo(site,
                         context.Request.GetParameter("path"));
-                        break;
+                    break;
             }
 
             return context.Response.WriteAsync(result ?? defaultRsp);
@@ -126,12 +126,12 @@ namespace JR.Cms.Web.Portal.Controllers
                 }
         }
 
-/// <summary>
-/// 获取文档详情, /{site_id}/web_api?name=archive/info&path=brand/welcome
-/// </summary>
-/// <param name="site"></param>
-/// <param name="path"></param>
-/// <returns></returns>
+        /// <summary>
+        /// 获取文档详情, /{site_id}/web_api?name=archive/info&path=brand/welcome
+        /// </summary>
+        /// <param name="site"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         internal static string GetArchiveInfo(SiteDto site, String path)
         {
             ArchiveDto archiveDto = LocalService.Instance.ArchiveService.GetArchiveByPath(site.SiteId, path);

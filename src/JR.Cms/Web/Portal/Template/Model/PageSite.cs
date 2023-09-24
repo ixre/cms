@@ -33,7 +33,7 @@ namespace JR.Cms.Web.Portal.Template.Model
             Title = dto.SeoTitle;
             Keywords = dto.SeoKeywords;
             Description = dto.SeoDescription;
-            SiteId = dto.SiteId;
+            Id = dto.SiteId;
             Tpl = dto.Tpl;
             BeianNo = dto.BeianNo;
             Language = dto.Language;
@@ -82,7 +82,7 @@ namespace JR.Cms.Web.Portal.Template.Model
 
         public string Name { get; set; }
 
-        public int SiteId { get; set; }
+        public int Id { get; set; }
         public string Tpl { get; set; }
         /// <summary>
         /// 备案号
@@ -100,7 +100,7 @@ namespace JR.Cms.Web.Portal.Template.Model
                 if (_dict == null)
                 {
                     _dict = new Dictionary<string, string>();
-                    IList<SiteVariableDto> list = LocalService.Instance.SiteService.GetSiteVariables(this.SiteId);
+                    IList<SiteVariableDto> list = LocalService.Instance.SiteService.GetSiteVariables(this.Id);
 
                     foreach (var value in list) _dict.Add(value.Name, value.Value);
                 }
