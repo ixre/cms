@@ -92,7 +92,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <returns></returns>
         public virtual string FormatPageUrl(UrlRulePageKeys key, object[] data)
         {
-            var url = TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
+            var url = TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)key];
             if (data != null) url = string.Format(url, data);
 
             return ConcatUrl(url);
@@ -105,16 +105,16 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <returns></returns>
         protected string ConcatUrl(string url)
         {
-            if (url.IndexOf("//", StringComparison.Ordinal) != -1)return url;
-            if(url.StartsWith("javascript:", StringComparison.Ordinal))return url;
-            if (!string.IsNullOrEmpty(url) && url[0] != '/')url = string.Concat("/", url);
+            if (url.IndexOf("//", StringComparison.Ordinal) != -1) return url;
+            if (url.StartsWith("javascript:", StringComparison.Ordinal)) return url;
+            if (!string.IsNullOrEmpty(url) && url[0] != '/') url = string.Concat("/", url);
             if (Settings.TPL_FULL_URL_PATH) return string.Concat(Cms.Context.SiteDomain, url);
             return url;
         }
 
         private bool FlagAnd(int flag, BuiltInArchiveFlags b)
         {
-            var x = (int) b;
+            var x = (int)b;
             return (flag & x) == x;
         }
 
@@ -130,9 +130,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
             if (!string.IsNullOrEmpty(location)) return ConcatUrl(location);
             if (!FlagAnd(flag, BuiltInArchiveFlags.AsPage))
             {
-                return FormatPageUrl(UrlRulePageKeys.Archive, new[] {archivePath});
+                return FormatPageUrl(UrlRulePageKeys.Archive, new[] { archivePath });
             }
-            return FormatPageUrl(UrlRulePageKeys.SinglePage, new[] {archivePath});
+            return FormatPageUrl(UrlRulePageKeys.SinglePage, new[] { archivePath });
         }
 
         private string GetLocationUrl(string location)
@@ -159,7 +159,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             }
             else
             {
-                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new object[] {category.Path, pageIndex.ToString()});
+                return FormatPageUrl(UrlRulePageKeys.CategoryPager, new object[] { category.Path, pageIndex.ToString() });
             }
         }
 
@@ -349,7 +349,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
         #region 模板方法
 
         [TemplateMethod]
-        protected string Each_Category(string param, string dataNum, string refTag, string refName, string refUri, string format) {
+        protected string Each_Category(string param, string dataNum, string refTag, string refName, string refUri, string format)
+        {
             //
             // @param : 如果为int,则返回模块下的栏目，
             //                 如果为字符串tag，则返回该子类下的栏目
@@ -595,7 +596,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [TemplateTag]
         protected string Comment_Editor(string allowAmous, string html)
         {
-            var archive = (ArchiveDto) (Cms.Context.Items["archive"] ?? default(ArchiveDto));
+            var archive = (ArchiveDto)(Cms.Context.Items["archive"] ?? default(ArchiveDto));
 
             const string cmEditorTpl = @"<!-- 提交评论 -->
             <div class=""comment_editor"">
@@ -725,7 +726,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             var archive = Cms.Context.Items["archive"] == null
                 ? default(ArchiveDto)
-                : (ArchiveDto) Cms.Context.Items["archive"];
+                : (ArchiveDto)Cms.Context.Items["archive"];
             if (archive.Id <= 0)
                 throw new ArgumentNullException("archive", "不允许在当前页中使用!");
 
@@ -890,7 +891,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 .Append("if(jr.validator.validate('cms_form_").Append(tableId)
                 .Append("')){cfs.innerHTML='提交中...';jr.xhr.post('")
                 .Append(FormatPageUrl(UrlRulePageKeys.Common,
-                    new[] {CmsVariables.DEFAULT_CONTROLLER_NAME + "/submitform?table_id="}))
+                    new[] { CmsVariables.DEFAULT_CONTROLLER_NAME + "/submitform?table_id=" }))
                 .Append(tableId).Append("&token=").Append(token).Append("',jr.json.toObject('cms_form_")
                 .Append(tableId).Append(
                     "'),function(r){var result;eval('result='+r);cfs.innerHTML=result.tag==-1?'<span style=\"color:red\">'+result.message+'</span>':result.message;},function(){cfs.innerHTML='<span style=\"color:red\">提交失败，请重试!</span>';});")
@@ -1004,7 +1005,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         switch (a)
                         {
                             case "url":
-                                return this.ConcatUrl(string.IsNullOrEmpty(link.Bind) 
+                                return this.ConcatUrl(string.IsNullOrEmpty(link.Bind)
                                     ? link.Uri : GetBingLinkUrl(link.Bind));
                             case "target": return string.IsNullOrEmpty(link.Target) ? "_self" : link.Target;
                             case "text": return link.Text;
@@ -1297,7 +1298,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         case "category_url": return GetCategoryUrl(archiveDto.Category, 1);
 
 
-                       
+
                         // 路径，用于调用接口
                         case "path":
                             return archiveDto.Path;
@@ -1544,6 +1545,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                             case "category_url": return GetCategoryUrl(archiveCategory, 1);
 
+                            case "path":
+                                return dr["path"].ToString();
                             //链接
                             case "url":
                                 return GetArchiveUrl(dr["location"].ToString(), Convert.ToInt32(dr["flag"]),
@@ -1659,7 +1662,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
             if (!(category.ID > 0)) return $"ERROR:模块或栏目不存在!参数:{catPath}";
             var dt = LocalService.Instance.ArchiveService.GetSpecialArchives(
-                SiteId, category.Path, container, intNum,skipSize);
+                SiteId, category.Path, container, intNum, skipSize);
             return ArchiveList(dt, splitSize, format);
         }
 
@@ -1982,7 +1985,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         {
             var _type = 2;
             int.TryParse(type, out _type);
-            var linkType = (SiteLinkType) _type;
+            var linkType = (SiteLinkType)_type;
 
             var sb = new StringBuilder();
 
@@ -2073,10 +2076,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                         //搜索页URL
                         case "searchurl":
-                            return FormatPageUrl(UrlRulePageKeys.Search, new[] {HttpUtils.UrlEncode(tag), string.Empty});
+                            return FormatPageUrl(UrlRulePageKeys.Search, new[] { HttpUtils.UrlEncode(tag), string.Empty });
 
                         //Tag页URL
-                        case "url": return FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtils.UrlEncode(tag)});
+                        case "url": return FormatPageUrl(UrlRulePageKeys.Tag, new[] { HttpUtils.UrlEncode(tag) });
                     }
 
                     return tag;
@@ -2271,8 +2274,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     _pageIndex,
                     _pages,
                     _records,
-                    FormatPageUrl(UrlRulePageKeys.Tag, new[] {HttpUtils.UrlEncode(tag)}),
-                    FormatPageUrl(UrlRulePageKeys.TagPager, new[] {HttpUtils.UrlEncode(tag), "{0}"})
+                    FormatPageUrl(UrlRulePageKeys.Tag, new[] { HttpUtils.UrlEncode(tag) }),
+                    FormatPageUrl(UrlRulePageKeys.TagPager, new[] { HttpUtils.UrlEncode(tag), "{0}" })
                 );
             //sb.Append("</div>");
 

@@ -124,7 +124,7 @@
             " ORDER BY a.`sort_number` DESC limit 0,1";
 
         public override string ArchiveGetPagedArchivesByCategoryIdPagerquery =>
-            @"SELECT `$PREFIX_archive`.`ID` AS `id`,`$PREFIX_archive`.* FROM $PREFIX_archive
+            @"SELECT `$PREFIX_archive`.`id` AS `id`,`$PREFIX_archive`.* FROM $PREFIX_archive
                          INNER JOIN $PREFIX_category ON cat_id=$PREFIX_category.id
                           WHERE $PREFIX_archive.id IN (SELECT id FROM (
 						 SELECT $PREFIX_archive.id FROM $PREFIX_archive
