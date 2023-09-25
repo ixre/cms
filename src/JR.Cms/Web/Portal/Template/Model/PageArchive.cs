@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using JR.Cms.Conf;
 using JR.Cms.Domain.Interface.Common.Language;
@@ -6,8 +7,11 @@ using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
+using JR.Cms.Web.Util;
+using JR.Stand.Core.Framework;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
+using Newtonsoft.Json;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
@@ -28,13 +32,12 @@ namespace JR.Cms.Web.Portal.Template.Model
         public PageArchive(ArchiveDto archive)
         {
             Archive = archive;
-            _dict = new Dictionary<string, string>();
         }
 
         private static string FormatUrl(UrlRulePageKeys key, string[] dataArray)
         {
             var urlFormat = (Settings.TPL_FULL_URL_PATH ? Cms.Context.SiteDomain + "/" : Cms.Context.SiteAppPath)
-                            + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) key];
+                            + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)key];
             return dataArray == null ? urlFormat : string.Format(urlFormat, dataArray);
         }
 
@@ -45,15 +48,23 @@ namespace JR.Cms.Web.Portal.Template.Model
         {
             get
             {
-                if (_dict == null)
+                this.checkDict();
+                return _dict;
+            }
+        }
+
+        private void checkDict()
+        {
+            if (_dict == null)
+            {
+                _dict = new Dictionary<string, string>();
+                if (Archive.ExtendValues != null)
                 {
-                    _dict = new Dictionary<string, string>();
-                    if (Archive.ExtendValues != null)
+                    foreach (var value in Archive.ExtendValues)
                     {
-                        foreach (var value in Archive.ExtendValues) _dict.Add(value.Field.Name, value.Value);
+                        _dict.Add(value.Field.Name, value.Value);
                     }
                 }
-                return _dict;
             }
         }
 
@@ -172,9 +183,9 @@ namespace JR.Cms.Web.Portal.Template.Model
                         if (j++ != 0) sb.Append(",");
 
                         sb.Append("<a href=\"")
-                            .Append(FormatUrl(UrlRulePageKeys.Tag, new[]{HttpUtils.UrlEncode(tag)}))
+                            .Append(FormatUrl(UrlRulePageKeys.Tag, new[] { HttpUtils.UrlEncode(tag) }))
                             .Append("\" search-url=\"")
-                            .Append(FormatUrl(UrlRulePageKeys.Search, new[]{HttpUtils.UrlEncode(tag), string.Empty}))
+                            .Append(FormatUrl(UrlRulePageKeys.Search, new[] { HttpUtils.UrlEncode(tag), string.Empty }))
                             .Append("\">")
                             .Append(tag)
                             .Append("</a>");
@@ -233,13 +244,24 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
+        /// <summary>
+        /// AddData
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
         public void AddData(string key, string data)
         {
+            this.checkDict();
             _dict.Add(key, data);
         }
 
+        /// <summary>
+        /// RemoveData
+        /// </summary>
+        /// <param name="key"></param>
         public void RemoveData(string key)
         {
+            this.checkDict();
             _dict.Remove(key);
         }
     }

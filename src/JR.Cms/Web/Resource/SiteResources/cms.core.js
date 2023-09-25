@@ -1,22 +1,28 @@
-﻿if (!window.$b) var $b = $jr;
-
+﻿
 //设置工作路径
 var ASSETS_PATH = "/public/assets";
-$jr.__WORKPATH__ = '/public/assets/js/';
-window.jr = $jr;
-window.j6 = $jr;
-window.cms = $jr;
+$js.WORKPATH = '/public/assets/js/';
+window.jr = $js;
+window.j6 = $js;
+window.cms = $js;
 
-
+//加载插件/库文件
+function ld(libName, path) {
+    (function (j, _path) {
+        j.xhr.get({ url: _path + libName + '.js', async: false, random: false }, function (script) {
+            j.eval(script);
+        });
+    }($js, path || $js.WORKPATH));
+}
 /****************  页面处理事件 **************/
 var _scripts = document.getElementsByTagName('SCRIPT');
 var _sloc = _scripts[_scripts.length - 1].src;                                  //Script Location
 var _hp = {                                                                //Script Handle Params
-    loadUI: jr.request('ui', _sloc) == '1',                                     //load ui lib
-    hoverNavi: jr.request('hover', _sloc).indexOf('navi') != -1,            //Hover Navigator
-    hoverCList: jr.request('hover', _sloc).indexOf('clist') != -1,           //Hover Category List
-    hoverAList: jr.request('hover', _sloc).indexOf('alist') != -1,           //Hover Archive List
-    plugins: jr.request('ld', _sloc)
+    loadUI: $js.request('ui', _sloc) == '1',                                     //load ui lib
+    hoverNavi: $js.request('hover', _sloc).indexOf('navi') != -1,            //Hover Navigator
+    hoverCList: $js.request('hover', _sloc).indexOf('clist') != -1,           //Hover Category List
+    hoverAList: $js.request('hover', _sloc).indexOf('alist') != -1,           //Hover Archive List
+    plugins: $js.request('ld', _sloc)
 };
 
 var plugins = null;
@@ -27,7 +33,7 @@ if (_hp.loadUI) {
 }
 if (plugins) {
     for (var i = 0; i < plugins.length; i++) {
-        jr.ld(plugins[i]);
+        ld(plugins[i]);
     }
 }
 
@@ -44,7 +50,7 @@ if (_hp.hoverNavi) {
             var loc = window.location.pathname;
             var lis = [];
             var lis2 = navi.getElementsByTagName('UL')[0].childNodes;
-            jr.each(lis2, function (i, e) {
+            $js.each(lis2, function (i, e) {
                 if (e.nodeName == "LI") {
                     lis.push(e);
                 }
@@ -83,50 +89,50 @@ if (_hp.hoverNavi) {
                         }
                     }
                 }
-                setIE6Drop(lis);
+                //setIE6Drop(lis);
             }
             clearInterval(_auto_navigator_timer);
         }
     }, 100);
 }
 
-function setIE6Drop(lis) {
-    /****************** 设置二级菜单 *******************/
-    //针对IE6不支持hover属性
-    if (window.ActiveXObject) {
-        var agent = window.navigator.userAgent;
-        if (/MSIE\s*(6|7)\.0/.test(agent)) {
+// function setIE6Drop(lis) {
+//     /****************** 设置二级菜单 *******************/
+//     //针对IE6不支持hover属性
+//     if (window.ActiveXObject) {
+//         var agent = window.navigator.userAgent;
+//         if (/MSIE\s*(6|7)\.0/.test(agent)) {
 
-            for (var i = 0; i < lis.length; i++) {
-                jr.event.add(lis[i], 'mouseover', (function (t) {
-                    return function () {
-                        t.className += ' drop';
-                    };
-                })(lis[i]));
+//             for (var i = 0; i < lis.length; i++) {
+//                 $js.event.add(lis[i], 'mouseover', (function (t) {
+//                     return function () {
+//                         t.className += ' drop';
+//                     };
+//                 })(lis[i]));
 
-                jr.event.add(lis[i], 'mouseout', (function (t) {
-                    return function () {
-                        t.className = t.className.replace(' drop', '');
-                    };
-                })(lis[i]));
+//                 $js.event.add(lis[i], 'mouseout', (function (t) {
+//                     return function () {
+//                         t.className = t.className.replace(' drop', '');
+//                     };
+//                 })(lis[i]));
 
-            }
-        }
-    }
-}
+//             }
+//         }
+//     }
+// }
 
 /** 加载图标字体 */
 function loadIconFont() {
     var c = document.createElement('link');
     c.rel = "stylesheet";
-    c.href = ASSETS_PATH+"/icon-font.css";
+    c.href = ASSETS_PATH + "/icon-font.css";
     document.head.appendChild(c);
 }
 /** 延迟加载图片 */
 var observer = new IntersectionObserver(
-    function(changes) {
-        changes.forEach(function(it) {
-            if(it.isIntersecting) {
+    function (changes) {
+        changes.forEach(function (it) {
+            if (it.isIntersecting) {
                 var container = it.target;
                 container.setAttribute("src", container.getAttribute("data-src"));
                 observer.unobserve(container);
@@ -139,14 +145,37 @@ var observer = new IntersectionObserver(
  <img class="lazy" src="${page.fpath}/images/lazy_holder.gif" 
  data-src="${page.tpath}/images/map-address.png" alt="">
 */
- function lazyObserve() {
+function lazyObserve() {
     var arr = Array.from(document.querySelectorAll(".lazy"));
     arr.forEach(function (item) {
         observer.observe(item);
     });
 }
 
-$b.event.add(window, 'load', function () {
+// 绑定Toggle触发器
+function bindToggleTrigger(ele) {
+    var trigger = ele.attr ? ele.attr("trigger") : "";
+    if (!trigger) {
+        console.error("元素未设置trigger属性,如：<div class=\".toggle\" trigger=\".toggle-trigger\"></div>");
+        return;
+    }
+    $js.$(trigger).click(function () {
+        var expand = this.hasClass("expanded");
+        if (expand) {
+            this.removeClass("expanded");
+            ele.slideUp("fast", function () {
+                ele.css({ "display": "none" });
+            });
+        } else {
+            this.addClass("expanded");
+            ele.css({ "display": "inherit" });
+            ele.slideDown("fast");
+        }
+        this.find(".icon").attr("class", expand ? "icon fa fa-bars" : "icon fa fa-close");
+    });
+}
+
+$js.event.add(window, 'load', function () {
     if (_hp.hoverNavi && _auto_navigator_ele) {
         clearInterval(_auto_navigator_timer);
     }
@@ -155,6 +184,9 @@ $b.event.add(window, 'load', function () {
 
     loadIconFont();
     lazyObserve();
+
+    // 绑定手机页面,导航菜单
+    bindToggleTrigger($b.$(".toggle"));
 
     /****************** 设置分类菜单 *******************/
 
@@ -202,8 +234,8 @@ $b.event.add(window, 'load', function () {
     }
 
     // 选项卡
-   
-    $b.$fn(".tab").each(function (i, e) {
+
+    $js.$fn(".tab").each(function (i, e) {
         var tabFN = function () {
             var t = this;
             var parent = this.parent();
@@ -233,13 +265,13 @@ $b.event.add(window, 'load', function () {
 
     // 滚动到目标
     var scrollLock = 0;
-    $b.$fn(".scroll-to").click(function () {
+    $js.$fn(".scroll-to").click(function () {
         if (scrollLock == 1) return;
         scrollLock = 1;
         var target = this.attr("target");
         if (!target) throw ".scoll-top missing attribute \"target\"";
-        var ele = this;
-        var target = $b.$fn(target);
+        //var ele = this;
+        var target = $js.$fn(target);
         var offset = parseInt(this.attr("offset") || 0);
         var y = target.attr("offsetTop") + offset;
         var doc = document.documentElement;
@@ -253,12 +285,12 @@ $b.event.add(window, 'load', function () {
             } else {
                 doc.scrollTop += setup;
             }
-        },10);
+        }, 10);
     });
 
     // 将元素绝对定位
-    $b.event.add(document, "scroll", function () {
-        var fixedArr = $b.$fn(".scroll-link");
+    $js.event.add(document, "scroll", function () {
+        var fixedArr = $js.$fn(".scroll-link");
         var scrollTop = document.documentElement.scrollTop;
         fixedArr.each(function (i, e) {
             var top = e.attr("offsetTop") + e.parent().attr("offsetTop");
@@ -277,14 +309,17 @@ $b.event.add(window, 'load', function () {
     });
 
     // Exchange
-    $b.$fn(".ui-exchange").each(function (i, e) {
+    $js.$fn(".ui-exchange").each(function (i, e) {
         e = e.raw();
         var v = null; var d = null; var f = null;
         var g = 'exchange';
         switch (e.nodeName) { case 'IMG': f = 'src'; break; default: f = 'innerHTML'; break }
-        if (f == null) return; v = e[f]; d = e.getAttribute(g); if (d) {
-            jr.event.add(e, 'mouseover', (function (a, b, c) { return function () { a[b] = c } })(e, f, d));
-            jr.event.add(e, 'mouseout', (function (a, b, c) { return function () { a[b] = c } })(e, f, v));
+        if (f == null) return;
+        v = e[f];
+        d = e.getAttribute(g);
+        if (d) {
+            $js.event.add(e, 'mouseover', (function (a, b, c) { return function () { a[b] = c } })(e, f, d));
+            $js.event.add(e, 'mouseout', (function (a, b, c) { return function () { a[b] = c } })(e, f, v));
         }
     });
     // 初始化wow.js
@@ -316,7 +351,6 @@ if (ele_dts.length != 0) {
     setInterval(setDate, 1000);
 }
 */
-
 
 
 
