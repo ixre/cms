@@ -198,7 +198,9 @@ img{max-width:100%;border:0}
 .g-flex-boxes>*{display:flex;justify-content:center;align-items:center}
 /** 背景覆盖 */
 .g-bg-cover{background-size:cover !important;}
-
+/** 隐藏滚动条 */
+.g-hidden-bar{-ms-overflow-style: none;overflow: -moz-scrollbars-none;scrollbar-width: none;}
+.g-hidden-bar::-webkit-scrollbar {width: 0;/** 兼容chrome *}
 
 
 
