@@ -323,6 +323,9 @@ namespace JR.Cms.Domain.Content.Archive
 
             var ic = Category;
             if (ic == null) return new Error("栏目不存在");
+            if(String.IsNullOrEmpty(this._value.Title)){
+                return new Error("标题不能为空");
+            }
             // 如果设置了别名，检测路径是缶匹配
             if (!string.IsNullOrEmpty(src.Alias))
             {
