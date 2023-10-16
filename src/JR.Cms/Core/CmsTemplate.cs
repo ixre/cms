@@ -139,9 +139,9 @@ namespace JR.Cms.Core
         /// </summary>
         /// <param name="tplPath"></param>
         public void Register(string tplPath)
-        { 
+        {
             //将配置写入模板缓存
-            if (Settings.loaded)registry.Register(tplPath);
+            if (Settings.loaded) registry.Register(tplPath);
             //将文件中的加载到模板缓存中
             //AddTagsFromSettingsFile(new SettingFile(Configuration.cmsConfigFile), true);
             else
@@ -181,21 +181,34 @@ namespace JR.Cms.Core
         public TemplatePageType GetPageType(string templatePath)
         {
             var opt = RegexOptions.IgnoreCase;
-
             if (Regex.IsMatch(templatePath, "(^category|/category)\\.[^\\.]*\\.*html$", opt))
+            {
                 return TemplatePageType.Category;
-            else if (Regex.IsMatch(templatePath, "[^\\.]+\\.(part\\.html||phtml)$", opt))
+            }
+            if (Regex.IsMatch(templatePath, "[^\\.]+\\.(part\\.html||phtml)$", opt))
+            {
                 return TemplatePageType.Partial;
-            else if (Regex.IsMatch(templatePath, "(^archive|/archive)\\.[^\\.]*\\.*html$", opt))
+            }
+            if (Regex.IsMatch(templatePath, "(^archive|/archive)\\.[^\\.]*\\.*html$", opt))
+            {
                 return TemplatePageType.Archive;
-            else if (Regex.IsMatch(templatePath, "(^index|/index)\\.[^\\.]*\\.*html$", opt))
+            }
+            if (Regex.IsMatch(templatePath, "(^index|/index)\\.[^\\.]*\\.*html$", opt))
+            {
                 return TemplatePageType.Index;
-            else if (Regex.IsMatch(templatePath, "(^search|/search)\\.[^\\.]*\\.*html$", opt))
+            }
+            if (Regex.IsMatch(templatePath, "(^search|/search)\\.[^\\.]*\\.*html$", opt))
+            {
                 return TemplatePageType.Search;
-            else if (Regex.IsMatch(templatePath, "(^tag|/tag)\\.[^\\.]*\\.*html$", opt))
+            }
+            if (Regex.IsMatch(templatePath, "(^tag|/tag)\\.[^\\.]*\\.*html$", opt))
+            {
                 return TemplatePageType.Tag;
-            else if (Regex.IsMatch(templatePath, "(^notfound|/notfound)\\.[^\\.]*\\.*html$", opt))
+            }
+            if (Regex.IsMatch(templatePath, "(^notfound|/notfound)\\.[^\\.]*\\.*html$", opt))
+            {
                 return TemplatePageType.Notfound;
+            }
             return TemplatePageType.Custom;
         }
 
