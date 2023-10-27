@@ -15,19 +15,46 @@ using JR.Stand.Core.Framework.Extensions;
 
 namespace JR.Cms.Web.Portal.Comm
 {
-    public class CmsInstallWiz
+    /// <summary>
+    /// 安装向导
+    /// </summary>
+    public class CmsInstallWizard
     {
+        /// <summary>
+        /// SQLites数据库
+        /// </summary>
         public const string FILE_DB_SQLITE = "install/db/sqlite.db";
+        /// <summary>
+        /// ACCESS数据库
+        /// </summary>
         private const string FILE_DB_OLEDB = "install/db/access.mdb";
+        /// <summary>
+        /// CMS配置文件路径
+        /// </summary>
         private const string FILE_SETTING = "config/cms.conf";
+        /// <summary>
+        /// MYSql数据库脚本
+        /// </summary>
         private const string MYSQL_INSTALL_SCRIPT = "install/db/mysql.sql";
+        /// <summary>
+        /// MSSql数据库脚本
+        /// </summary>
         private const string MSSQL_INSTALL_SCRIPT = "install/db/mssql.sql";
+        /// <summary>
+        /// SQLite数据库脚本
+        /// </summary>
         private const string SQLite_INSTALL_SCRIPT = "install/db/sqlite.sql";
 
+        /// <summary>
+        /// Cms安装锁定文件
+        /// </summary>
         private const string INSTALL_LOCK = "config/install.lock";
 
 
-        private enum InstallCode
+        /// <summary>
+        /// 安装结果状态码
+        /// </summary>
+        private enum InstallStateCode
         {
             /// <summary>
             /// 已经安装成功
@@ -75,7 +102,11 @@ namespace JR.Cms.Web.Portal.Comm
             DB_ERROR_PORT = -14
         }
 
-        private InstallCode Process(ICompatibleHttpContext context)
+        /// <summary>
+        /// 处理安装 
+        /// </summary>
+        /// <returns></returns>
+        private InstallStateCode Process(ICompatibleHttpContext context)
         {
             var form = context.Request;
             var physical = Cms.PhysicPath;
@@ -83,10 +114,10 @@ namespace JR.Cms.Web.Portal.Comm
             if (!Directory.Exists(Path.Combine(Cms.PhysicPath, "config")))
                 Directory.CreateDirectory(Path.Combine(Cms.PhysicPath, "config")).Create();
 
-            if (File.Exists(Path.Combine(physical, INSTALL_LOCK))) return InstallCode.INSTALLED;
+            if (File.Exists(Path.Combine(physical, INSTALL_LOCK))) return InstallStateCode.INSTALLED;
 
             string licenceKey = form.Form("licence_key")[0].Trim(),
-                licenceName =form.Form("licence_name")[0].Trim(),
+                licenceName = form.Form("licence_name")[0].Trim(),
                 siteName = form.Form("site_name")[0].Trim(),
                 siteDomain = form.Form("site_domain")[0].Trim(),
                 siteLanguage = form.Form("site_language"),
@@ -95,7 +126,7 @@ namespace JR.Cms.Web.Portal.Comm
                 dbType = form.Form("db_type")[0].Trim(),
                 dbServer = form.Form("db_server")[0].Trim(),
                 dbPort = form.Form("db_port")[0].Trim(),
-                dbPrefix =form.Form("db_prefix")[0].Trim(),
+                dbPrefix = form.Form("db_prefix")[0].Trim(),
                 dbPrefix1 = form.Form("db_prefix1")[0].Trim(),
                 dbName = form.Form("db_name")[0].Trim(),
                 dbUsr = form.Form("db_usr")[0].Trim(),
@@ -106,11 +137,11 @@ namespace JR.Cms.Web.Portal.Comm
 
             #region 检测数据
 
-            if (string.IsNullOrEmpty(licenceName) || string.IsNullOrEmpty(licenceKey)) return InstallCode.NO_LICENCE;
+            if (string.IsNullOrEmpty(licenceName) || string.IsNullOrEmpty(licenceKey)) return InstallStateCode.NO_LICENCE;
 
-            if (string.IsNullOrEmpty(siteName)) return InstallCode.NO_SITE_NAME;
+            if (string.IsNullOrEmpty(siteName)) return InstallStateCode.NO_SITE_NAME;
 
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userPwd)) return InstallCode.NO_USER;
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userPwd)) return InstallStateCode.NO_USER;
 
             #endregion
 
@@ -148,16 +179,16 @@ namespace JR.Cms.Web.Portal.Comm
                 //数据库资料不全
                 if (string.IsNullOrEmpty(dbServer) || string.IsNullOrEmpty(dbUsr) || string.IsNullOrEmpty(dbName) ||
                     string.IsNullOrEmpty(dbPrefix))
-                    return InstallCode.DB_ERROR;
+                    return InstallStateCode.DB_ERROR;
 
-                if (!Regex.IsMatch(dbPort, "^\\d+$")) return InstallCode.DB_ERROR_PORT;
+                if (!Regex.IsMatch(dbPort, "^\\d+$")) return InstallStateCode.DB_ERROR_PORT;
 
                 if (dbType == "mysql")
                     dbStr = $"server={dbServer};database={dbName};uid={dbUsr};pwd={dbPwd};port={dbPort};charset=utf8";
                 else if (dbType == "mssql")
                     dbStr = $"server={dbServer},{dbPort};database={dbName};uid={dbUsr};pwd={dbPwd}";
                 else
-                    return InstallCode.DB_UNKNOWN;
+                    return InstallStateCode.DB_UNKNOWN;
             }
 
             #endregion
@@ -182,7 +213,7 @@ namespace JR.Cms.Web.Portal.Comm
 
             #region 初始化数据库
 
-            if (!ExtraDB(dbType, dbStr, dbPrefix)) return InstallCode.DB_INIT_ERROR;
+            if (!ExtraDB(dbType, dbStr, dbPrefix)) return InstallStateCode.DB_INIT_ERROR;
 
             #endregion
 
@@ -201,7 +232,7 @@ namespace JR.Cms.Web.Portal.Comm
             Cms.Init(BootFlag.Normal, null);
             // 重启cms
             Cms.Reload();
-            return InstallCode.SUCCESS;
+            return InstallStateCode.SUCCESS;
         }
 
         private void InitArchive(string dbPrefix, int siteId, int catId)

@@ -10,7 +10,7 @@ namespace JR.Cms.Web.Portal.Controllers
     /// </summary>
     public class CmsInstallHandler
     {
-        private static readonly CmsInstallWiz Wiz = new CmsInstallWiz();
+        private static readonly CmsInstallWizard Wiz = new CmsInstallWizard();
 
         /// <summary>
         /// 

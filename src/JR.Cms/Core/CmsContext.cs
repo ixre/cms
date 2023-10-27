@@ -57,7 +57,7 @@ namespace JR.Cms.Core
 
         static CmsContext()
         {
-            ErrorFilePath = EnvUtil.GetBaseDirectory()+ "/tmp/logs/error.log";
+            ErrorFilePath = EnvUtil.GetBaseDirectory() + "/tmp/logs/error.log";
         }
 
         /// <summary>
@@ -78,13 +78,13 @@ namespace JR.Cms.Core
                 appPath = path.Substring(1);
                 if (appPath.EndsWith("/")) appPath = appPath.Substring(0, appPath.Length - 1);
             }
-            CurrentSite = SiteCacheManager.GetSingleOrDefaultSite(request.GetHost(), appPath);
+            CurrentSite = SiteCacheManager.FindSiteByHost(request.GetHost(), appPath);
             //是否为虚拟目录运行
-            if ((SiteRunType) CurrentSite.RunType == SiteRunType.VirtualDirectory)
+            if ((SiteRunType)CurrentSite.RunType == SiteRunType.VirtualDirectory)
                 _isVirtualDirectoryRunning = true;
             this._containCookie = _context.Request.GetHeader("Cookie") != null;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -107,7 +107,7 @@ namespace JR.Cms.Core
                 {
                     this._userDevice = GetUserDeviceSet();
                 }
-                return this._userDevice?? DeviceType.Standard;
+                return this._userDevice ?? DeviceType.Standard;
             }
         }
 
@@ -142,15 +142,15 @@ namespace JR.Cms.Core
         private Languages GetUserLangSetFromCookie()
         {
             var s = this._context.Request.GetHeader("Cookie");
-                
+
             // var s = _context.Session.GetInt32("user.lang.set");
             // if (s > 0) return (Languages)s;
-            
+
             // Cookie中存在key, 且是语言枚举的成员.　反之lang = -1
-            _context.Request.TryGetCookie(UserLanguageCookieName,out var ck);
+            _context.Request.TryGetCookie(UserLanguageCookieName, out var ck);
             if (!String.IsNullOrEmpty(ck))
             {
-                if (Enum.TryParse<Languages>(ck, out var lang))return lang;
+                if (Enum.TryParse<Languages>(ck, out var lang)) return lang;
             }
             //SetSessionLangSet(lang);
             return Languages.Unknown;
@@ -165,8 +165,8 @@ namespace JR.Cms.Core
         {
             if (Enum.IsDefined(typeof(Languages), lang))
             {
-                var sameLang = lang == (int) this.CurrentSite.Language;
-                _userLanguage = (Languages) lang; //保存
+                var sameLang = lang == (int)this.CurrentSite.Language;
+                _userLanguage = (Languages)lang; //保存
                 var opt = new HttpCookieOptions
                 {
                     Expires = DateTime.Now.AddHours((sameLang ? -24 : 24) * 365),
@@ -191,11 +191,11 @@ namespace JR.Cms.Core
         {
             if (Enum.IsDefined(typeof(DeviceType), device))
             {
-                var same = device == (int) this._userDevice;
+                var same = device == (int)this._userDevice;
                 // _userDevice = (DeviceType) device; //保存
                 var opt = new HttpCookieOptions
                 {
-                    Expires = DateTime.Now.AddHours((same?-24:24)*365),
+                    Expires = DateTime.Now.AddHours((same ? -24 : 24) * 365),
                     Path = SiteAppPath,
                     HttpOnly = true
                 };
@@ -228,7 +228,7 @@ namespace JR.Cms.Core
 
         private DeviceType GetUserDeviceSet()
         {
-            
+
             // var s = ctx.Session.GetString("user.device.set");
             // if (!String.IsNullOrEmpty(s))
             // {
@@ -252,7 +252,7 @@ namespace JR.Cms.Core
         {
             _context.Session.SetInt32("user.device.set", deviceType);
         }
-        
+
         /// <summary>
         /// 站点域名
         /// </summary>
@@ -330,7 +330,7 @@ namespace JR.Cms.Core
                     {
                         var proto = this.GetProto();
                         // this._staticDomain = String.Concat("http://", Settings.SERVER_STATIC);
-                        _staticDomain = string.Concat(proto,"://", Settings.SERVER_STATIC);
+                        _staticDomain = string.Concat(proto, "://", Settings.SERVER_STATIC);
                     }
                     else
                     {
@@ -377,8 +377,8 @@ namespace JR.Cms.Core
                 var path = req.GetPath();
                 var query = req.GetQueryString();
                 var pathAndQuery = path + query;
-                 req.TryGetHeader("Referer",out var referer);
-                 if (!File.Exists(ErrorFilePath))
+                req.TryGetHeader("Referer", out var referer);
+                if (!File.Exists(ErrorFilePath))
                 {
                     var dir = EnvUtil.GetBaseDirectory() + "/tmp/logs";
                     if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
@@ -504,6 +504,12 @@ namespace JR.Cms.Core
             this._context.Response.WriteAsync(html);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public string ComposeUrl(string url)
         {
             if (url.StartsWith("/")) throw new ArgumentException("URL不能以\"/\"开头!");
@@ -526,7 +532,7 @@ namespace JR.Cms.Core
         public object this[string key]
         {
             get => this._context.TryGetItem<object>(key, out var v) ? v : null;
-            set => this._context.SaveItem(key,value);
+            set => this._context.SaveItem(key, value);
         }
     }
 }

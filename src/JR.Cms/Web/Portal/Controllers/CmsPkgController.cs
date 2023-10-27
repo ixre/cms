@@ -16,17 +16,26 @@ namespace JR.Cms.Web.Portal.Controllers
         //     return context.Response.WriteAsync("hallo every one");
         //     //return this._next(context);
         // }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public CmsPkgController()
         {
-            
+
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Version()
         {
             return Content("JR-Cms " + CmsVariables.VERSION);
         }
-        
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="statusCode"></param>
         [Route("software/errors/{statusCode}")]
         public void CustomError(int statusCode)
         {
@@ -35,6 +44,9 @@ namespace JR.Cms.Web.Portal.Controllers
             Cms.Context.RenderNotfound(statusCode == 500 ? "您访问的页面出错了" : "page not found", null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Change()
         {
             proxy.Change(HttpHosting.Context);

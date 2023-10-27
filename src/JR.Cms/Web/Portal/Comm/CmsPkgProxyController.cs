@@ -10,6 +10,10 @@ namespace JR.Cms.Web.Portal.Comm
     public class CmsPkgProxyController
     {
 
+        /// <summary>
+        /// 更改语言和设备类型
+        /// </summary>
+        /// <returns></returns>
         public Task Change(ICompatibleHttpContext context)
         {
             String langOpt = context.Request.Query("lang");
@@ -18,7 +22,7 @@ namespace JR.Cms.Web.Portal.Comm
             int i;
             if (!String.IsNullOrEmpty(langOpt))
             {
-                if (Cms.Context.SetUserLanguage((int) this.ParseLang(langOpt)))
+                if (Cms.Context.SetUserLanguage((int)this.ParseLang(langOpt)))
                 {
                     isChange = true;
                 }
@@ -42,8 +46,8 @@ namespace JR.Cms.Web.Portal.Comm
                     returnUrl = refer.Count == 0 ? "/" : refer.ToString();
                 }
                 context.Response.StatusCode(302);
-                context.Response.AddHeader("Location",returnUrl);
-                return  SafetyTask.CompletedTask;
+                context.Response.AddHeader("Location", returnUrl);
+                return SafetyTask.CompletedTask;
             }
             return context.Response.WriteAsync("error params ! should be  /" + CmsVariables.DEFAULT_CONTROLLER_NAME +
                                                "/change?lang=[1-8]&device=[1-2]");
@@ -54,14 +58,14 @@ namespace JR.Cms.Web.Portal.Comm
             switch (langOpt)
             {
                 case "zh_CN":
-                    case "cn":
+                case "cn":
                     return Languages.zh_CN;
                 case "zh_TW":
-                    case "tw":
+                case "tw":
                     return Languages.zh_TW;
                 case "en":
-                    case "us":
-                    case "en_US":
+                case "us":
+                case "en_US":
                     return Languages.en_US;
             }
 

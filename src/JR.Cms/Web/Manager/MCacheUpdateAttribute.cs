@@ -46,9 +46,13 @@ namespace JR.Cms.Web.Manager
         {
 
             if (_sign == CacheSign.Unknown)return;
-            var siteId = CmsWebMaster.CurrentManageSite.SiteId;
-            if ((_sign & CacheSign.Link) != 0)
+            if((this._sign & CacheSign.Site) == CacheSign.Site){
+                // 重置
+                SiteCacheManager.Reset();
+            }
+            if ((_sign & CacheSign.Link) == CacheSign.Link)
             {
+                var siteId = CmsWebMaster.CurrentManageSite.SiteId;
                 SiteLinkCache.ClearForSite(siteId);
                 Cms.Template.CleanPageCache();
             }

@@ -6,6 +6,9 @@ using JR.Cms.ServiceDto;
 
 namespace JR.Cms.Library.CacheService
 {
+    /// <summary>
+    /// 站点缓存管理器
+    /// </summary>
     public static class SiteCacheManager
     {
         private static SiteDto _defaultSite;
@@ -29,10 +32,16 @@ namespace JR.Cms.Library.CacheService
             return LocalService.Instance.SiteService.GetSiteById(siteId);
         }
 
-        public static SiteDto GetSingleOrDefaultSite(string host, string appPath)
+        /// <summary>
+        /// 查找站点
+        /// </summary>
+        /// <param name="host">主机头</param>
+        /// <param name="appPath">应用路径</param>
+        /// <returns></returns>
+        public static SiteDto FindSiteByHost(string host, string appPath)
         {
             SiteDto dto = default;
-            var siteCacheKey = string.Concat(CacheSign.Site.ToString(), "_host_", host, "_" + appPath);
+            var siteCacheKey = string.Concat("site_" + CacheSign.Site.ToString(), "_host_", host, "_" + appPath);
             var siteId = CmsCacheFactory.Singleton.GetCachedResult(siteCacheKey, () =>
             {
                 dto = LocalService.Instance.SiteService.GetSingleOrDefaultSite(host, appPath);
@@ -41,6 +50,15 @@ namespace JR.Cms.Library.CacheService
 
             if (dto.SiteId == 0) dto = LocalService.Instance.SiteService.GetSiteById(siteId);
             return dto;
+        }
+
+        /// <summary>
+        /// 重置缓存
+        /// </summary>
+        public static void Reset()
+        {
+            _defaultSite.SiteId = 0;
+            CmsCacheFactory.Singleton.RemoveKeys("site_");
         }
 
         /// <summary>
