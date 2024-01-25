@@ -7,6 +7,7 @@ using JR.Cms.Library.CacheProvider.CacheComponent;
 using JR.Cms.Library.CacheService;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Framework.Extensions;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
@@ -23,7 +24,8 @@ namespace JR.Cms.Web.Portal.Template.Model
         private readonly CmsContext _context;
         private string _resDomain;
         private static readonly string IeHtml5ShivTag;
-        private string _spam;
+        private string _buildTagString;
+        private string _nonce;
         private static string _currentBuilt;
         private string _lang;
         private string _resPath;
@@ -59,7 +61,7 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
-        [TemplateVariableField("生成标签")] public string Built => Spam;
+        [TemplateVariableField("生成标签")] public string Built => BuildTag;
 
         public static void ResetBuilt()
         {
@@ -96,13 +98,23 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
-        [TemplateVariableField("随机变亮")]
-        public string Spam
+        [TemplateVariableField("构建标签")]
+        public string BuildTag
         {
             get
             {
-                if (string.IsNullOrEmpty(_spam)) _spam = _currentBuilt ?? Cms.BuiltTime.ToString().Substring(8);
-                return _spam;
+                if (string.IsNullOrEmpty(_buildTagString)) _buildTagString = _currentBuilt ?? Cms.BuiltTime.ToString().Substring(8);
+                return _buildTagString;
+            }
+        }
+
+        [TemplateVariableField("随机字符串")]
+        public string Nonce
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_nonce)) _nonce = String.Format("page_noance_{0:yyyy:MM:dd HH:mm:ss}", DateTime.Now).Md5().Substring(8, 24);
+                return _nonce;
             }
         }
 
@@ -239,7 +251,7 @@ namespace JR.Cms.Web.Portal.Template.Model
                                                 ? Cms.Context.SiteDomain
                                                 : Cms.Context.SiteAppPath)
                                             + TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex,
-                                                (int) UrlRulePageKeys.Category];
+                                                (int)UrlRulePageKeys.Category];
                             return CategoryCacheManager.GetSitemapHtml(siteId, tag, tSetting.CFG_SitemapSplit,
                                 urlFormat);
                         }, DateTime.Now.AddHours(Settings.OptiDefaultCacheHours));
