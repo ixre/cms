@@ -27,7 +27,7 @@ namespace JR.Cms.Web.Manager
 
         static FileJsonExplore()
         {
-            ReadOnlyFiles = new[] {"cms.conf", "web.config", "install.lock", "global.asax"};
+            ReadOnlyFiles = new[] { "cms.conf", "web.config", "install.lock", "global.asax" };
         }
 
         /// <summary>
@@ -254,15 +254,16 @@ namespace JR.Cms.Web.Manager
             if (File.Exists(filePath)) return "{\"error\":\"文件已经存在\"}";
 
             SaveFile(file, filePath);
-            
+
             return "{\"url\":\"" + dir + fileName + "\"}";
         }
 
-        private static async void SaveFile(ICompatiblePostedFile file, string filePath)
+        private static void SaveFile(ICompatiblePostedFile file, string filePath)
         {
             using (var fs = new FileStream(filePath, FileMode.Create))
             {
-                await file.CopyToAsync(fs);
+                // 需要同步，因为InputStream可能会关闭
+                file.CopyTo(fs);
                 fs.Flush();
             }
         }

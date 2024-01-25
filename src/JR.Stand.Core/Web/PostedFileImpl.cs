@@ -27,10 +27,13 @@ namespace JR.Stand.Core.Web
                 fs.Flush();
             }
         }
-
+        public void CopyTo(Stream fs)
+        {
+            this._file.CopyTo(fs);
+        }
         public Task CopyToAsync(FileStream fs)
         {
-           return this._file.CopyToAsync(fs);
+            return this._file.CopyToAsync(fs);
         }
 
         public long GetLength()

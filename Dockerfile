@@ -9,7 +9,10 @@
 
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
-ENV RELEASE_DIR /app/out/release
+ENV RELEASE_DIR=/app/out/release
+# 在Linux上启动GDI+
+ENV DOTNET_System_Drawing_EnableUnixSupport=true
+
 WORKDIR /app
 COPY . ./
 WORKDIR src/JR.Cms.App

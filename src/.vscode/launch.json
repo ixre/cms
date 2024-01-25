@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/JR.Cms.App/bin/Debug/net7.0/JR.Cms.App.dll",
+            "program": "${workspaceFolder}/JR.Cms.App/bin/Debug/net6.0/JR.Cms.App.dll",
             "args": [],
             "cwd": "${workspaceFolder}/JR.Cms.App",
             "stopAtEntry": false,
