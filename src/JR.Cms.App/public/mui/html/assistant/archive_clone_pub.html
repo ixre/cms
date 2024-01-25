@@ -139,8 +139,8 @@ $js()
 
     function treeChecked(from,a, d) {
         a.className = 'node node-selelected';
-        var json = JSON.parse(d);
-        toNode = { id: json.cid, name: a.innerHTML };
+        var json = JSON.parse(d.replace(/'/g,"\""));
+        toNode = { id: json.cid, name: a.html() };
         absMsg();
     }
 

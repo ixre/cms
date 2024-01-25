@@ -47,10 +47,14 @@ namespace JR.Cms.Web.Manager.Handle
             var includeExtend = Request.Form("includeExtend") == "true";
             var includeTempateBind = Request.Form("includeTemplateBind") == "true";
 
-            if (sourceSiteId == 0 || targetSiteId == 0 || fromCid == 0 || toCid == 0)
+            if (sourceSiteId == 0 || targetSiteId == 0 || fromCid == 0)
+            {
                 return ReturnError("参数不正确");
-            else if (targetSiteId != CurrentSite.SiteId) return ReturnError("非法操作");
-
+            }
+            else if (targetSiteId != CurrentSite.SiteId)
+            {
+                return ReturnError("非法操作");
+            }
             try
             {
                 LocalService.Instance.SiteService.CloneCategory(sourceSiteId, targetSiteId, fromCid, toCid,
@@ -230,7 +234,7 @@ namespace JR.Cms.Web.Manager.Handle
                         if (!entry.IsDirectory)
                         {
                             //Console.WriteLine(entry.FilePath);
-                            entry.WriteToDirectory(appDir,new ExtractionOptions
+                            entry.WriteToDirectory(appDir, new ExtractionOptions
                             {
                                 ExtractFullPath = true,
                                 Overwrite = true

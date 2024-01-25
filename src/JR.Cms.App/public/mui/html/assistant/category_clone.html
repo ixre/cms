@@ -78,26 +78,23 @@ $js()
 <script type="text/javascript">
     var siteId = ${target_site};
     var sourceSiteId = 0;
-    var fromTreePanel = jr.$('from_tree');
-    var toTreePanel = jr.$('to_tree');
     var tipMsg = jr.$('tip-msg');
     var fromNode = {};
     var toNode = {};
-
    jr.$('site_selector').onchange = function() {
         var sourceSiteId = this.value;
         if (sourceSiteId !== '') {
-            loadCategoryTree(sourceSiteId,fromTreePanel);
+            loadCategoryTree(sourceSiteId);
         }
     };
 
 
     //加载栏目树
-   function loadCategoryTree(siteId, panel) {
+   function loadCategoryTree(siteId) {
         fromNode = {};
         sourceSiteId = siteId;
         reqTree(siteId, 'false',function(json) {
-            jr.tree.load(panel, json, '/public/assets/tree/', function(a, d) {
+            jr.tree.load('from_tree', json, '/public/assets/tree/', function(a, d) {
                 treeChecked(true,a,d);
             });
         });
@@ -105,7 +102,7 @@ $js()
 
     function loadToCategoryTree() {
         reqTree(siteId, 'true',function(json) {
-            jr.tree.load(toTreePanel, json, '/public/assets/tree/', function(a, d) {
+            jr.tree.load('to_tree', json, '/public/assets/tree/', function(a, d) {
                 treeChecked(false,a,d);
             });
         });
@@ -127,8 +124,8 @@ $js()
 
     function treeChecked(from,a, d) {
         a.className = 'node node-selelected';
-        var json = JSON.parse(d);
-        var node = { id: json.cid, name: a.innerHTML };
+        var json = JSON.parse(d.replace(/'/g,"\""));
+        var node = { id: json.cid, name: a.html() };
         if (from) {
             fromNode = node;
         } else {
