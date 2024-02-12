@@ -13,6 +13,11 @@ echo "setup1: prepare.." \
     && rm -rf out && mkdir -p ${RELEASE_DIR} \
     && cd src/NetFx/JR.Cms.AspNet.App
 
+if [ $(uname) !=  'Windows' ]; then
+  echo "build on others system"
+  rm -rf bin
+fi
+
 # copy assets from project: jr.cms.app
 cp -r ../../JR.Cms.App/install ../../JR.Cms.App/oem  \
    ../../JR.Cms.App/public  ../../JR.Cms.App/templates \
@@ -40,8 +45,10 @@ else
     mkdir ${RELEASE_DIR}/bin \
         && cd ${RELEASE_DIR}/bin \
         && unzip ../../../dll/aspnet_bin.zip >/dev/null
+    # clear history version
+    rm -rf JR.Cms.dll JR.Stand.* 
     # replace cms core dll
-    find ../../../src/JR.Cms.App/bin/Debug -name "JR*.dll" | xargs -I {} cp {} .
+    find ../../../src/JR.Cms.App/bin/Release -name "JR*.dll" | xargs -I {} cp {} .
     # remove net core entrypoint dll
     rm -rf JR.Cms.App.dll
 fi
