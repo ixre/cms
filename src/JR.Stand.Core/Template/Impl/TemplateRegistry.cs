@@ -20,9 +20,10 @@ namespace JR.Stand.Core.Template.Impl
     {
         private readonly Options _options;
         private readonly IDataContainer _container;
-        private readonly IList<string> _directories = new List<string>();
         private readonly object _locker = new object();
-        public TemplateRegistry(IDataContainer container,Options options)
+        private string _directory;
+
+        public TemplateRegistry(IDataContainer container, Options options)
         {
             this._options = options ?? new Options();
             this._container = container;
@@ -33,10 +34,20 @@ namespace JR.Stand.Core.Template.Impl
         /// </summary>
         public void Register(string directory)
         {
+            this._directory = directory;
+            LoadTemplateDirectory();
+        }
+
+        /// <summary>
+        /// 从目录中加载模板
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <exception cref="DirectoryNotFoundException"></exception>
+        private void LoadTemplateDirectory()
+        {
+            string directory = this._directory;
             var dir = new DirectoryInfo(EnvUtil.GetBaseDirectory() + directory);
             if (!dir.Exists) throw new DirectoryNotFoundException("模版文件夹不存在!");
-            // 添加到目录数组,用于重新加载模板
-            if(!this._directories.Contains(directory))this._directories.Add(directory);
             // 重置模板缓存
             this.ResetCaches();
             //注册模板
@@ -45,9 +56,9 @@ namespace JR.Stand.Core.Template.Impl
 
         private void ResetCaches()
         {
-            lock(this._locker) TemplateCache.Reset();
+            lock (this._locker) TemplateCache.Reset();
         }
-        
+
         /// <summary>
         /// 是否存在模板
         /// </summary>
@@ -65,9 +76,9 @@ namespace JR.Stand.Core.Template.Impl
             {
                 if (file.Extension.EndsWith(".html"))
                 {
-                   // Console.WriteLine("---" + file.FullName);
+                    // Console.WriteLine("---" + file.FullName);
                     TemplateCache.RegisterTemplate(TemplateUtility.GetTemplateId(
-                        file.FullName, options.Names), file.FullName,options);
+                        file.FullName, options.Names), file.FullName, options);
                 }
             }
             foreach (DirectoryInfo dst in dir.GetDirectories())
@@ -82,15 +93,12 @@ namespace JR.Stand.Core.Template.Impl
 
         public void Reload()
         {
-            foreach (var s in this._directories)
-            {
-                this.Register(s);
-            }
+            this.LoadTemplateDirectory();
         }
 
         public TemplatePage GetPage(string pageName)
         {
-           return new TemplatePage(pageName,this._container);
+            return new TemplatePage(pageName, this._container);
         }
     }
 }

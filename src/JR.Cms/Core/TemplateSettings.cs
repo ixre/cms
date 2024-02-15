@@ -43,6 +43,14 @@ namespace JR.Cms.Core
         private bool _cfgEnabledMobiPage = false;
         private readonly string _tplDirName;
 
+        /// <summary>
+        /// Create template setting
+        /// </summary>
+        /// <param name="tplName"></param>
+        public TemplateSetting(string tplName)
+        {
+            this._tplName = tplName;
+        }
 
         /// <summary>
         /// 

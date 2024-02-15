@@ -44,7 +44,6 @@ namespace JR.Cms.Core
                     ts.CfgEnabledMobiPage = Directory.Exists(string.Format("{0}{1}/_mobile_", rootDirPath, d.Name));
                     dict.Add(d.Name, ts);
                 }
-
             return dict;
         }
 
@@ -56,7 +55,12 @@ namespace JR.Cms.Core
         /// <exception cref="ArgumentException"></exception>
         public TemplateSetting Get(string tpl)
         {
-            if (!_dict.ContainsKey(tpl)) throw new TemplateException($"Can not find template in folder '/templates/{tpl}'");
+            if (!_dict.ContainsKey(tpl))
+            {
+                return new TemplateSetting(tpl);
+                // 如果不存在模板，则重新加载
+                //throw new TemplateException($"Can not find template in folder '/templates/{tpl}'");
+            }
             return _dict[tpl];
         }
     }

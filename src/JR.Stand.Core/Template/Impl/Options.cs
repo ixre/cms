@@ -32,16 +32,21 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 是否共享URL参数值
         /// </summary>
-        public  bool UrlQueryShared = true;
+        public bool UrlQueryShared = true;
 
         /// <summary>
         /// 共享HttpItem传递的数据
         /// </summary>
-        public  bool HttpItemShared = true;
+        public bool HttpItemShared = true;
 
         /// <summary>
         /// 模板命名规则
         /// </summary>
-        public TemplateNames Names　= TemplateNames.ID;
+        public TemplateNames Names = TemplateNames.ID;
+
+        /// <summary>
+        /// 模板重载策略
+        /// </summary>
+        public ITemplateReloadStrategy reload = null;
     }
 }
