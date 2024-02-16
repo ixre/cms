@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Common;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Http;
 

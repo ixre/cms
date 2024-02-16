@@ -2,22 +2,18 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using JR.Cms.Conf;
 using JR.Cms.Web.Portal;
 using JR.Stand.Core.Framework;
-using JR.Stand.Core.Framework.Web;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 
 namespace JR.Cms.App
 {

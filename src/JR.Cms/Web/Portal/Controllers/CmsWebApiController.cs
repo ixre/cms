@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using JR.Cms.Conf;
 using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Common;
 using JR.Cms.Web.Util;
 using JR.Stand.Abstracts;
 using JR.Stand.Abstracts.Web;

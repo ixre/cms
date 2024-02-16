@@ -33,7 +33,7 @@ namespace JR.Cms.App
         {
             string defaultControllerPrefix = CmsVariables.DEFAULT_CONTROLLER_NAME; //使用别名访问cms系统action
             // endpoints.Map(defaultControllerPrefix+"/version", cmsProcessor.Version);
-            var defaults = new {controller = "CmsPkg", action = "Version"};
+            var defaults = new { controller = "CmsPkg", action = "Version" };
             endpoints.MapControllerRoute("cms_controller", defaultControllerPrefix + "/{action}", defaults);
             endpoints.MapControllerRoute("cms_sub_path_controller",
                 "{site}/" + defaultControllerPrefix + "/{action}", defaults);
@@ -46,7 +46,7 @@ namespace JR.Cms.App
             endpoints.Map("{site}/webapi", new WebApiRouteHandler().ProcessRequest);
             // 支付
             //routes.Add(new Route(routePrefix + "netpay", new CmsNetpayHandler()));
-            
+
         }
 
         /// <summary>
@@ -67,16 +67,16 @@ namespace JR.Cms.App
 
             dict.Add(UrlRulePageKeys.Common, urlPrefix + "{0}");
 
-            dict.Add(UrlRulePageKeys.Search,urlPrefix + "search?w={0}&c={1}");
-            dict.Add(UrlRulePageKeys.SearchPager,  urlPrefix + "search?w={0}&c={1}&p={2}");
+            dict.Add(UrlRulePageKeys.Search, urlPrefix + "search?w={0}&c={1}");
+            dict.Add(UrlRulePageKeys.SearchPager, urlPrefix + "search?w={0}&c={1}&p={2}");
 
-            dict.Add(UrlRulePageKeys.Tag,  urlPrefix + "tag?t={0}");
+            dict.Add(UrlRulePageKeys.Tag, urlPrefix + "tag?t={0}");
             dict.Add(UrlRulePageKeys.TagPager, urlPrefix + "tag?t={0}&p={1}");
 
             dict.Add(UrlRulePageKeys.Category, urlPrefix + "{0}");
             dict.Add(UrlRulePageKeys.CategoryPager, urlPrefix + "{0}/list_{1}.html");
 
-            dict.Add(UrlRulePageKeys.Archive,urlPrefix + "{0}.html");
+            dict.Add(UrlRulePageKeys.Archive, urlPrefix + "{0}.html");
             dict.Add(UrlRulePageKeys.SinglePage, urlPrefix + "{0}.html");
 
             //注册插件路由
@@ -95,8 +95,8 @@ namespace JR.Cms.App
             //routes.MapRoute("tpl_catchall", "templates/{*catchall}", new { controller = cmsControllerName, action = "Disallow" });
 
             #endregion
-            
-            
+
+
             /*
             //搜索档案
             endpoints.MapControllerRoute(dict[UrlRulePageKeys.Search][0] + "_site",
@@ -125,17 +125,17 @@ namespace JR.Cms.App
             );
 
 */
-    
+
             //栏目档案列表
             endpoints.MapGet("{*cate:regex(^([^/]+/)*[^\\.]+$)}", portal.Category);
             endpoints.MapGet("{*cate:regex(^(.+)/list_\\d+.html$)}", portal.Category);
-
+            // 搜索页面
+            //endpoints.MapGet("{*site:regex(^(.+?)$)}/search.html", portal.Search);
             // 显示档案,不包含"/list_\d.html"
             endpoints.MapGet("{*archive:regex(^((?!list_\\d+).)+.html$)}", portal.Archive);
-
             // 首页
             endpoints.MapGet("/", portal.Index);
-            
+
             //默认路由
             // endpoints.MapControllerRoute("Default",                                                                                             
             //     routePrefix + "{controller}/{action}/{id*}",                                                       
@@ -157,7 +157,7 @@ namespace JR.Cms.App
 
             //使用MVC
             TemplateUrlRule.SetRule(UrlRuleType.Mvc);
-            
+
         }
     }
 }

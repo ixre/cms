@@ -9,7 +9,7 @@ using JR.Cms.Web.Portal.Controllers;
 using JR.Stand.Abstracts;
 using JR.Stand.Core.Web;
 
-namespace JR.Cms.Web.Portal.Comm
+namespace JR.Cms.Web.Portal.Common
 {
     /// <summary>
     /// WebApiHandler

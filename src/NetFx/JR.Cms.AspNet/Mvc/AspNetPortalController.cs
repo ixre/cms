@@ -12,7 +12,7 @@
 using System;
 using System.Web.Mvc;
 using JR.Cms.Conf;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Common;
 using JR.Cms.Web.Portal.Template.Rule;
 using JR.Stand.Core.Framework.Xml.AutoObject;
 using JR.Stand.Core.Template.Impl;
@@ -80,7 +80,7 @@ namespace JR.Cms.AspNet.Mvc
             portal.Index(HttpHosting.Context);
         }
 
-     
+
 
 
         #region 系统相关
@@ -108,7 +108,7 @@ namespace JR.Cms.AspNet.Mvc
             }
             else
             {
-               HttpHosting.Context.Response.WriteAsync(TemplateUtility.GetTemplatePagesHTML());
+                HttpHosting.Context.Response.WriteAsync(TemplateUtility.GetTemplatePagesHTML());
             }
         }
 
@@ -175,29 +175,29 @@ namespace JR.Cms.AspNet.Mvc
             portal.Archive(HttpHosting.Context);
         }
 
-        //
-        // /// <summary>
-        // /// 搜索列表
-        // /// </summary>
-        // /// <param name="c"></param>
-        // /// <param name="w"></param>
-        // /// <returns></returns>
-        // public void Search(string c, string w)
-        // {
-        //     bool eventResult = false;
-        //     if (OnSearchRequest != null)
-        //     {
-        //         OnSearchRequest(base.OutputContext, c, w, ref eventResult);
-        //     }
-        //
-        //     //如果返回false,则执行默认输出
-        //     if (!eventResult)
-        //     {
-        //         if (c != null) c = c.Trim();
-        //         if (w != null) w = w.Trim();
-        //         DefaultWebOutput.RenderSearch(base.OutputContext, c,w);
-        //     }
-        // }
+
+        /// <summary>
+        /// 搜索列表
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="w"></param>
+        /// <returns></returns>
+        public void Search(string c, string w)
+        {
+            bool eventResult = false;
+            if (OnSearchRequest != null)
+            {
+                OnSearchRequest(base.OutputContext, c, w, ref eventResult);
+            }
+
+            //如果返回false,则执行默认输出
+            if (!eventResult)
+            {
+                if (c != null) c = c.Trim();
+                if (w != null) w = w.Trim();
+                DefaultWebOutput.RenderSearch(base.OutputContext, c, w);
+            }
+        }
         //
         // /// <summary>
         // /// 搜索列表

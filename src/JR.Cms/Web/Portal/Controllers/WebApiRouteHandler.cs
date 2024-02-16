@@ -8,24 +8,24 @@
  */
 
 using System.Threading.Tasks;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Common;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JR.Cms.Web.Portal.Controllers
 {
-    /// <summary>
-    /// Description of PluginExtendRouteHandler.
-    /// </summary>
-    public class WebApiRouteHandler : Controller
+  /// <summary>
+  /// Description of PluginExtendRouteHandler.
+  /// </summary>
+  public class WebApiRouteHandler : Controller
+  {
+    public Task ProcessRequest(HttpContext context)
     {
-        public Task ProcessRequest(HttpContext context)
-        {
-          return  CmsWebApiResponse.ProcessRequest(HttpHosting.Context);
-        }
-
-       
+      return CmsWebApiResponse.ProcessRequest(HttpHosting.Context);
     }
+
+
+  }
 
 }

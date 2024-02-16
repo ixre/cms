@@ -13,7 +13,7 @@ using JR.Stand.Core.Data;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Extensions;
 
-namespace JR.Cms.Web.Portal.Comm
+namespace JR.Cms.Web.Portal.Common
 {
     /// <summary>
     /// 安装向导

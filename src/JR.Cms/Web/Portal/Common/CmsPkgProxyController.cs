@@ -5,7 +5,7 @@ using JR.Cms.Domain.Interface.Common.Language;
 using JR.Stand.Abstracts.Safety;
 using JR.Stand.Abstracts.Web;
 
-namespace JR.Cms.Web.Portal.Comm
+namespace JR.Cms.Web.Portal.Common
 {
     public class CmsPkgProxyController
     {

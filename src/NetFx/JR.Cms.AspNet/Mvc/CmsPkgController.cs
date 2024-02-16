@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using JR.Cms.Conf;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Common;
 using JR.Stand.Core.Web;
 
 namespace JR.Cms.AspNet.Mvc
@@ -23,8 +23,8 @@ namespace JR.Cms.AspNet.Mvc
         {
             return Content("JR-Cms " + CmsVariables.VERSION);
         }
-        
-        
+
+
         [Route("software/errors/{statusCode}")]
         public void CustomError(int statusCode)
         {
@@ -35,7 +35,7 @@ namespace JR.Cms.AspNet.Mvc
 
         public void Change()
         {
-             proxy.Change(HttpHosting.Context);
+            proxy.Change(HttpHosting.Context);
         }
     }
 }

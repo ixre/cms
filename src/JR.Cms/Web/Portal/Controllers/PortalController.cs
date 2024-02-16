@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Infrastructure;
 using JR.Cms.Library.CacheService;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Common;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Http;
 
@@ -23,13 +23,13 @@ namespace JR.Cms.Web.Portal.Controllers
         {
             return portal.Index(HttpHosting.Context);
         }
-        
+
         /// <summary>
         /// 文档页
         /// </summary>
         /// <returns></returns>
         public Task Archive(HttpContext context)
-        {           
+        {
             return portal.Archive(HttpHosting.Context);
         }
 
@@ -41,6 +41,17 @@ namespace JR.Cms.Web.Portal.Controllers
         public Task Category(HttpContext context)
         {
             return portal.Category(HttpHosting.Context);
+        }
+
+
+        /// <summary>
+        /// 搜索页面 
+        /// </summary>
+        /// <param name="context">上下文</param>
+        /// <returns></returns>
+        public Task Search(HttpContext context)
+        {
+            return portal.Search(HttpHosting.Context);
         }
     }
 }

@@ -12,7 +12,7 @@ using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Template;
 
-namespace JR.Cms.Web.Portal.Comm
+namespace JR.Cms.Web.Portal.Common
 {
     /// <summary>
     /// 内容门户控制器
@@ -107,14 +107,14 @@ namespace JR.Cms.Web.Portal.Comm
 #if DEBUG
                 Console.WriteLine("[ cms][ Info]: update index page cache..");
 #endif
-                html = GenerateIndexPageCache(context,cacheKey, cacheUnixKey, unix);
+                html = GenerateIndexPageCache(context, cacheKey, cacheUnixKey, unix);
             }
             else
             {
                 html = Cms.Cache.Get(cacheKey) as String;
                 if (String.IsNullOrEmpty(html))
                 {
-                    html = GenerateIndexPageCache(context,cacheKey, cacheUnixKey, unix);
+                    html = GenerateIndexPageCache(context, cacheKey, cacheUnixKey, unix);
                 }
             }
 
@@ -122,7 +122,7 @@ namespace JR.Cms.Web.Portal.Comm
             return context.Response.WriteAsync(html);
         }
 
-        private static string GenerateIndexPageCache(ICompatibleHttpContext context, 
+        private static string GenerateIndexPageCache(ICompatibleHttpContext context,
             string cacheKey, string cacheUnixKey, long unix)
         {
             string html = GenerateCache(cacheKey);
@@ -196,16 +196,16 @@ namespace JR.Cms.Web.Portal.Comm
                 var sitePath = ctx.SiteAppPath;
                 // 如果为"/news/",跳转到"/news"
                 var pLen = path.Length;
-                if (path[pLen-1] == '/')
+                if (path[pLen - 1] == '/')
                 {
                     context.Response.StatusCode(301);
-                    context.Response.AddHeader("Location",path.Substring(0, pLen-1));
+                    context.Response.AddHeader("Location", path.Substring(0, pLen - 1));
                     return SafetyTask.CompletedTask;
                 }
 
                 // 验证是否为当前站点的首页
-                if (path == sitePath)return this.Index(context);
-                
+                if (path == sitePath) return this.Index(context);
+
                 String catPath = this.SubPath(path, sitePath);
                 int page = 1;
                 //获取页码和tag
@@ -237,7 +237,7 @@ namespace JR.Cms.Web.Portal.Comm
 
             return SafetyTask.CompletedTask;
         }
-        
+
         /// <summary>
         /// 文档页
         /// </summary>
@@ -252,7 +252,6 @@ namespace JR.Cms.Web.Portal.Comm
             //检测网站状态及其缓存
             if (ctx.CheckSiteState() && ctx.CheckAndSetClientCache())
             {
-                context.Response.ContentType("text/html;charset=utf-8");
                 String archivePath = this.SubPath(path, ctx.SiteAppPath);
                 archivePath = archivePath.Substring(0, archivePath.LastIndexOf(".", StringComparison.Ordinal));
                 DefaultWebOutput.RenderArchive(ctx, archivePath);
@@ -275,5 +274,33 @@ namespace JR.Cms.Web.Portal.Comm
             */
         }
 
+        /// <summary>
+        /// 搜索页面
+        /// </summary>
+        /// <param name="context">上下文</param>
+        /// <returns></returns>
+        public Task Search(ICompatibleHttpContext context)
+        {
+            context.Response.ContentType("text/html;charset=utf-8");
+            var path = context.Request.GetPath();
+            CmsContext ctx = Cms.Context;
+            String cat = context.Request.GetParameter("cate");
+            String word = context.Request.GetParameter("keyword");
+            DefaultWebOutput.RenderSearch(ctx, cat, word);
+            // bool eventResult = false;
+            // if (OnSearchRequest != null)
+            // {
+            //     OnSearchRequest(base.OutputContext, c, w, ref eventResult);
+            // }
+
+            // //如果返回false,则执行默认输出
+            // if (!eventResult)
+            // {
+            //     if (c != null) c = c.Trim();
+            //     if (w != null) w = w.Trim();
+            //     DefaultWebOutput.RenderSearch(base.OutputContext, c,w);
+            // }
+            return SafetyTask.CompletedTask;
+        }
     }
 }

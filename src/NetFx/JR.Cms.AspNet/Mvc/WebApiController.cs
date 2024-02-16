@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using System;
 using System.Collections.Generic;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Common;
 using JR.Stand.Abstracts;
 using JR.Stand.Core.Web;
 using JR.Cms.ServiceDto;
@@ -23,15 +23,15 @@ namespace JR.Cms.Web.Mvc
 
         [Route("cms/webapi/form/{formId}/{formSubject}")]
         [HttpPost]
-        public JsonResult PostForm(String formId,String formSubject)
+        public JsonResult PostForm(String formId, String formSubject)
         {
-            Dictionary<String, String> forms = WebCtx.HttpCtx.Request.Bind<Dictionary<String,String>>();
+            Dictionary<String, String> forms = WebCtx.HttpCtx.Request.Bind<Dictionary<String, String>>();
             Result ret = WebApiHandler.PostForm(formId, formSubject, forms);
             return Json(ret);
         }
 
         /// <summary>
-        /// ²éÑ¯ÎÄµµ¹ØÁªµÄURL
+        /// ï¿½ï¿½Ñ¯ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½URL
         /// </summary>
         /// <param name="archiveId"></param>
         /// <returns></returns>

@@ -1,5 +1,5 @@
 using JR.Cms.Conf;
-using JR.Cms.Web.Portal.Comm;
+using JR.Cms.Web.Portal.Common;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Mvc;
 
