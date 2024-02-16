@@ -140,6 +140,7 @@ namespace JR.Cms.Library.Utility
             {
                 ctx.Request.TryGetCookie("cms_ds_token", out var cookieValue);
                 if (string.IsNullOrEmpty(cookieValue))return null;
+                try{
                 var payload = new JwtBuilder()
                     .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                     .WithSecret(Settings.SYS_RSA_KEY)
@@ -164,8 +165,11 @@ namespace JR.Cms.Library.Utility
                 {
                     ctx.Session.SetObjectAsJson(adminSk, user);
                 }
+                                return user;
 
-                return user;
+                }catch(Exception ex){
+                    return null;
+                }
             }
 
             /// <summary>
