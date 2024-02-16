@@ -20,7 +20,7 @@ namespace JR.Stand.Core.Template.Impl
     /// 编译之前发生的事件
     /// </summary>
     /// <param name="page"></param>
-    public delegate void BeforeCompileEvent(TemplatePage page,ref string templateContent);
-    
+    public delegate void BeforeCompileEvent(TemplatePage page, ref string templateContent);
+
     public delegate void TemplateBehavior();
 }

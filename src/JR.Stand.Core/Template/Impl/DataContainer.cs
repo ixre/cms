@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using JR.Stand.Core.Template;
 
 namespace JR.Stand.Core.Template.Impl
 {

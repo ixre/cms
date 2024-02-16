@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using JR.Stand.Core.Template.Impl;
 
 namespace JR.Stand.Core
 {
@@ -40,6 +41,7 @@ namespace JR.Stand.Core
     public abstract class ReflectTemplateClass : ITemplateClass
     {
         private MicroTemplateEngine _engine;
+
         private readonly Dictionary<string, MethodInfo> _fnMap;
         /// <summary>
         /// 初始化函数
@@ -115,6 +117,7 @@ namespace JR.Stand.Core
         {
             return this._engine;
         }
+
     }
 
     /// <summary>
@@ -133,7 +136,7 @@ namespace JR.Stand.Core
         /// <param name="classInstance"></param>
         public MicroTemplateEngine(ITemplateClass classInstance)
         {
-            if(classInstance != null)
+            if (classInstance != null)
             {
                 this._classInstance = classInstance;
                 this._classInstance.UpdateEngine(this);
@@ -144,7 +147,7 @@ namespace JR.Stand.Core
         /// 数据列正则
         /// </summary>
         //private static Regex fieldRegex = new Regex("{([A-Za-z\\[\\]0-9_\u4e00-\u9fa5]+)}");
-        
+
         // 占位正则
         private static readonly Regex HolderRegex = new Regex("{([A-Za-z\u4e00-\u9fa5]+[^}]+?)}");
         // 字段正则
@@ -167,22 +170,22 @@ namespace JR.Stand.Core
                 // 方法名称
                 String fnName = m.Groups[1].Value;
                 // 获得参数
-                MatchCollection  paramMatches = paramRegex.Matches(m.Groups[2].Value);
+                MatchCollection paramMatches = paramRegex.Matches(m.Groups[2].Value);
                 object[] paramArray = new object[paramMatches.Count];
                 // 则给参数数组赋值
                 for (int i = 0; i < paramMatches.Count; i++)
-                {            
+                {
                     // 数字参数
                     string intParamValue = paramMatches[i].Groups[2].Value;
-                    if (intParamValue != String.Empty)  paramArray[i] = intParamValue;
-                    else  paramArray[i] = paramMatches[i].Groups[1].Value;
+                    if (intParamValue != String.Empty) paramArray[i] = intParamValue;
+                    else paramArray[i] = paramMatches[i].Groups[1].Value;
                 }
                 // 解析模板数据
                 var s = instance.Execute(fnName, paramArray);
                 return s ?? m.Value;
             });
         }
-        
+
 
         /// <summary>
         /// 替换列中的模板占位字符
@@ -194,7 +197,7 @@ namespace JR.Stand.Core
         {
             return HolderRegex.Replace(format, a => func(a.Groups[1].Value));
         }
-        
+
         /// <summary>
         /// 替换列中的模板数据
         /// </summary>

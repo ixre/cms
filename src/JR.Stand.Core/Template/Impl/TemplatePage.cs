@@ -11,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using JR.Stand.Core.Utils;
+using JR.Stand.Core.Template;
 
 namespace JR.Stand.Core.Template.Impl
 {
@@ -22,17 +23,17 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 模板初始化，替换数据之前发生的事件
         /// </summary>
-        public event TemplateHandler<object> OnPreInit;
+        public event TemplateHandler<ITemplateResolver> OnPreInit;
 
         /// <summary>
         /// 编译之前发生的事件
         /// </summary>
         public event BeforeCompileEvent OnBeforeCompile;
-        
+
         /// <summary>
         /// 模板呈现之前发生的事件
         /// </summary>
-        public event TemplateHandler<object> OnPreRender;
+        public event TemplateHandler<ITemplateResolver> OnPreRender;
 
 
         private readonly string _templateId;
@@ -53,17 +54,17 @@ namespace JR.Stand.Core.Template.Impl
             this._dc = container;
         }
 
-        public TemplatePage(string templateId,IDataContainer container):this(container)
+        public TemplatePage(string templateId, IDataContainer container) : this(container)
         {
             this._templateId = templateId.ToLower();
         }
 
-        public TemplatePage(string templateId,IDataContainer container, object templateData)
-            : this(templateId,container)
+        public TemplatePage(string templateId, IDataContainer container, ITemplateResolver templateData)
+            : this(templateId, container)
         {
             this.AddDataObject(templateData);
         }
-        
+
         /// <summary>
         /// 模板内容
         /// </summary>
@@ -79,7 +80,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <summary>
         /// 模板处理对象，用于在OnPreInit和OnInit事件中处理的数据对象
         /// </summary>
-        public object TemplateHandleObject { get; set; }
+        public ITemplateResolver TemplateHandleObject { get; set; }
 
         /// <summary>
         /// 添加变量
@@ -96,7 +97,7 @@ namespace JR.Stand.Core.Template.Impl
         /// 添加匿名对象实例
         /// </summary>
         /// <param name="templateData"></param>
-        public void AddDataObject(object templateData)
+        public void AddDataObject(ITemplateResolver templateData)
         {
             //替换传入的标签参数
             PropertyInfo[] properties = templateData.GetType().GetProperties();
@@ -111,7 +112,7 @@ namespace JR.Stand.Core.Template.Impl
         }
 
 
-        private void PreRender(object obj, ref string content)
+        private void PreRender(ITemplateResolver obj, ref string content)
         {
             OnPreRender?.Invoke(obj, ref content);
         }
@@ -120,7 +121,7 @@ namespace JR.Stand.Core.Template.Impl
         {
             OnBeforeCompile?.Invoke(this, ref templateHtml);
         }
-        private void PreInit(object obj, ref string content)
+        private void PreInit(ITemplateResolver obj, ref string content)
         {
             if (this.OnPreInit != null && obj != null)
             {
@@ -136,15 +137,18 @@ namespace JR.Stand.Core.Template.Impl
 
         public string Compile()
         {
-            
+
             // 从缓存中获取模板内容
             if (this._templateHtml == null && !String.IsNullOrEmpty(this._templateId))
             {
                 this._templateHtml = TemplateCache.GetTemplateContent(this._templateId);
             }
-
+            if (this.TemplateHandleObject != null)
+            {
+                this.TemplateHandleObject.SetContainer(_dc);
+            }
             this.BeforeCompile(this._templateHtml);
-            
+
             //HttpContext.Current.Response.Write("<br />1." + (DateTime.Now - dt).Milliseconds.ToString());
             //初始化之前发生
             this.PreInit(this.TemplateHandleObject, ref _templateHtml);
@@ -158,12 +162,12 @@ namespace JR.Stand.Core.Template.Impl
                 }
             }
             */
-            
+
             //  HttpContext.Current.Response.Write("<br />2." + (DateTime.Now - dt).Milliseconds.ToString());
             //执行模板语法
             _templateHtml = Eval.Compile(_dc, _templateHtml, this.TemplateHandleObject);
             _templateHtml = this.ReplaceDefinedVariables(_templateHtml);
-           
+
 
             // HttpContext.Current.Response.Write("<br />3." + (DateTime.Now - dt).Milliseconds.ToString());
 
@@ -194,7 +198,7 @@ namespace JR.Stand.Core.Template.Impl
                 {
                     if (defineVars[key] is Variable)
                     {
-                        templateHtml = Eval.ResolveVariable(templateHtml, (Variable) defineVars[key]);
+                        templateHtml = Eval.ResolveVariable(templateHtml, (Variable)defineVars[key]);
                     }
                     else
                     {
@@ -214,7 +218,7 @@ namespace JR.Stand.Core.Template.Impl
         {
             return TemplateUtils.CompressHtml(ToString());
         }
-        
+
         /// <summary>
         /// 使用指定编码保存成为本地文件
         /// </summary>
@@ -224,7 +228,7 @@ namespace JR.Stand.Core.Template.Impl
         /// <param name="html"></param>
         private void SaveToFile(string fileName, Encoding coder, bool compressed, out string html)
         {
-            string filePath =  EnvUtil.GetBaseDirectory()+"/" + fileName;
+            string filePath = EnvUtil.GetBaseDirectory() + "/" + fileName;
 
             //FileShare.None  独占方式打开
 

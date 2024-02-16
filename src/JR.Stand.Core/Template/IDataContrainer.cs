@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace JR.Stand.Core.Template.Impl
+namespace JR.Stand.Core.Template
 {
     /// <summary>
     /// 数据适配器

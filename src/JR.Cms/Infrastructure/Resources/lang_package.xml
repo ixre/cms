@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <lang>
+  <!--连接词语-->
+  <item key="s" zh_CN="" zh_TW="" en_US="s" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="space" zh_CN="" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
+
   <item key="PAGE_NO_TAGS" zh_CN="无标签" zh_TW="无标签" en_US="No tags" Es="No tags" Th="ไม่มี แท็ก" Fr="Pas d'étiquette" Ru="нет Этикетка" Ar="لا تسمية"/>
   <item key="PAGER_PrePageText" zh_CN="上一页" zh_TW="上一頁" en_US="previous" Es="previo" Th="ก่อน" Fr="antérieur" Ru="предыдущий" Ar="سابق"/>
   <item key="PAGER_NextPageText" zh_CN="下一页" zh_TW="下一頁" en_US="next" Es="próximo" Th="ต่อไป" Fr="prochaine" Ru="следующий" Ar="التالي"/>
@@ -32,7 +36,6 @@
   <item key="home" zh_CN="首页" zh_TW="首頁" en_US="Home" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="site_map_location" zh_CN="你的位置" zh_TW="位置" en_US="Location" Es="Localización" Th="สถานที่" Fr="Lieu" Ru="Место нахождения" Ar="موقع"/>
   <item key="close" zh_CN="关闭" zh_TW="關閉" en_US="Close" Es="Cerca" Th="ปิด" Fr="Près" Ru="Закрыть" Ar="إغلاق"/>
-  <item key="space" zh_CN="" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="and" zh_CN="和" zh_TW="和" en_US="And" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="or" zh_CN="或" zh_TW="或" en_US="Or" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="category" zh_CN="分类" zh_TW="分類" en_US="Category" Es="Categoría" Th="หมวดหมู่" Fr="Catégorie" Ru="катэгорыя" Ar="فئة"/>
@@ -57,6 +60,7 @@
   <item key="us" zh_CN="我们" zh_TW="我們" en_US="Us" Es="nos" Th="เรา" Fr="nous" Ru="нас" Ar="لنا"/>
   <item key="name" zh_CN="名称" zh_TW="名称" en_US="Name" Es="buscar" Th="ค้นหา" Fr="chercher" Ru="поиск" Ar="البحث عن"/>
   <item key="search" zh_CN="搜索" zh_TW="搜尋" en_US="Search" Es="buscar" Th="ค้นหา" Fr="chercher" Ru="поиск" Ar="البحث عن"/>
+  <item key="result" zh_CN="结果" zh_TW="结果" en_US="Results" Es="Results" Th="Results" Fr="Results" Ru="Results" Ar="Result"/>
   <item key="dot" zh_CN="▪" zh_TW="▪" en_US="▪" Es="▪" Th="▪" Fr="▪" Ru="▪" Ar="▪"/>
   <item key="all" zh_CN="全部" zh_TW="全部" en_US="All" Es="todas" Th="ทั้งหมด" Fr="tous" Ru="все" Ar="جميع"/>
   <item key="by" zh_CN="通过" zh_TW="通過" en_US="By" Es="por" Th="โดย" Fr="par" Ru="от" Ar="بواسطة"/>

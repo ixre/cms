@@ -16,6 +16,7 @@
 using System;
 using System.Text.RegularExpressions;
 using JR.Cms.Web.Portal.Template.Rule;
+using JR.Stand.Core.Template;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
 
@@ -51,7 +52,7 @@ namespace JR.Cms.Web
             CopyStr2019 = string.Format(CopyStr, Cms.Version);
         }
 
-        private static readonly TemplateHandler<object> PreHandler = (object obj, ref string html) =>
+        private static readonly TemplateHandler<object> PreHandler = (object obj,ref string html) =>
         {
             //throw new Exception(html);
 
@@ -108,7 +109,7 @@ namespace JR.Cms.Web
         /// <param name="path"></param>
         /// <param name="templateId"></param>
         /// <param name="data"></param>
-        public static void Save(string path, string templateId, object data)
+        public static void Save(string path, string templateId, ITemplateResolver data)
         {
             var page = Cms.Template.GetTemplate(templateId);
             page.AddDataObject(data);
@@ -127,7 +128,7 @@ namespace JR.Cms.Web
         /// <param name="path"></param>
         /// <param name="templateId"></param>
         /// <param name="data"></param>
-        public static void Save(string path, string templateId, object data, out string html)
+        public static void Save(string path, string templateId, ITemplateResolver data, out string html)
         {
             var page = Cms.Template.GetTemplate(templateId);
             page.AddDataObject(data);

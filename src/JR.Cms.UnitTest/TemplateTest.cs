@@ -25,12 +25,12 @@ $lang(home)
 $navigator()
 ${archive.map(视频) }
      <div>
-              $categories('prod\,uct',{
+              $categories('prod\,uct','
                     <div class=""col-md-3 col-lg-2 col-sm-4"">
                         {name}
                     </div>
                     <div style=""background-image:url('{name}')""></div>
-        }) </div>
+        ') </div>
 ";
             IDataContainer dc = new NormalDataContainer();
             TemplatePage tp = new TemplatePage(dc);

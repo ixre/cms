@@ -121,9 +121,9 @@ namespace JR.Cms.App
             // 搜索页面
             endpoints.MapGet("/search.html", portal.Search);
             endpoints.MapGet("{site}/search.html", portal.Search);
-              //标签档案
-            endpoints.MapGet("/tag", portal.Tag);
-            endpoints.MapGet("/{site}/tag", portal.Tag);
+            //标签档案
+            endpoints.MapGet("/tag.html", portal.Tag);
+            endpoints.MapGet("/{site}/tag.html", portal.Tag);
             // 显示档案,不包含"/list_\d.html"
             endpoints.MapGet("{*archive:regex(^((?!list_\\d+).)+.html$)}", portal.Archive);
             // 首页

@@ -4,8 +4,8 @@ using System.IO;
 using JR.Stand.Core.Framework.Xml.AutoObject;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.PluginKernel.Web;
+using JR.Stand.Core.Template;
 using JR.Stand.Core.Template.Impl;
-
 namespace JR.Stand.Core.Web.Plugin
 {
     /// <summary>

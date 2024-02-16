@@ -31,8 +31,11 @@ using Module = JR.Cms.Domain.Interface.Models.Module;
 
 namespace JR.Cms.Web.Portal.Template.Rule
 {
-    public abstract class CmsTemplateCore : IDisposable
+    
+    public abstract class CmsTemplateCore :ITemplateResolver, IDisposable
     {
+        private IDataContainer _container = null;
+
         private static PropertyInfo[] archivePros =
             typeof(ArchiveDto).GetProperties(BindingFlags.Instance | BindingFlags.Public); //文档的属性
 
@@ -73,6 +76,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// </summary>
         private TemplateSetting _tplSetting;
 
+        public void SetContainer(IDataContainer container){
+            this._container = container;
+        }
+
+        public IDataContainer GetContainer(){
+            return this._container;
+        }
 
         protected TemplateSetting GetSetting()
         {
@@ -511,6 +521,45 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var lang = this._ctx.UserLanguage;
             return Cms.Language.Gets(lang, key.Split('-')) ?? "# missing lang:" + key;
         }
+
+        /// <summary>
+        /// 变量标签
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="value">值,当传值时设置变量，不传值时返回变量</param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("变量标签", @"$nav='hello';$var(nav)")]
+        public string Var(String key)
+        {
+            Object v = _container.GetVariable(key);
+            return (string)v ?? "";
+        }
+
+        /// <summary>
+        /// 判断标签
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="value">值</param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("变量标签", @"$equals(var:nav,1,'active','not-active')")]
+        public string Equals(String key, String value, String trueText, String falseText)
+        {
+            String dst = key;
+            if (key.StartsWith("var:"))
+            {
+                Object v = _container.GetVariable(key.Substring(4));
+                dst = (string)v ?? "";
+            }
+            if (key.StartsWith("param:"))
+            {
+                dst = this._context.Request.Query(key.Substring(6));
+            }
+            return dst.Equals(value) ? trueText : falseText;
+        }
+
+
 
         /// <summary>
         /// 语言标签

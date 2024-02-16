@@ -7,7 +7,7 @@
 
 using System;
 
-namespace JR.Stand.Core.Template.Impl
+namespace JR.Stand.Core.Template
 {
     /// <summary>
     /// 变量

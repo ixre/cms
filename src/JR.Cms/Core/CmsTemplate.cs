@@ -18,6 +18,7 @@ using JR.Cms.Conf;
 using JR.Stand.Abstracts;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework.Web;
+using JR.Stand.Core.Template;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
