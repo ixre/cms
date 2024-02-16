@@ -41,6 +41,8 @@
   <item key="category" zh_CN="分类" zh_TW="分類" en_US="Category" Es="Categoría" Th="หมวดหมู่" Fr="Catégorie" Ru="катэгорыя" Ar="فئة"/>
   <item key="navigator" zh_CN="导航" zh_TW="導航" en_US="Navigator" Es="navegador" Th="นักเดินเรือ" Fr="Navigateur" Ru="навігатар" Ar="ملاح"/>
   <item key="product" zh_CN="产品" zh_TW="產品" en_US="Product" Es="Producto" Th="สินค้า" Fr="Produit" Ru="Продукт" Ar="المنتج"/>
+  <item key="customer" zh_CN="客户" zh_TW="客户" en_US="Customer" Es="Customer" Th="Customer" Fr="Customer" Ru="Customer" Ar="Customer"/>
+  <item key="our" zh_CN="我们的" zh_TW="我们的" en_US="Our" Es="Our" Th="Our" Fr="Our" Ru="Our" Ar="Our"/>
   <item key="service" zh_CN="服务" zh_TW="服務" en_US="Service" Es="Servicio" Th="บริการ" Fr="Service" Ru="обслуживание" Ar="خدمة"/>
   <item key="item" zh_CN="项目" zh_TW="項目" en_US="Item" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
   <item key="project" zh_CN="项目" zh_TW="項目" en_US="Item" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
@@ -100,5 +102,6 @@
   <item key="rewrite" zh_CN="重写" zh_TW="重写" en_US="Rewrite" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="reset" zh_CN="重置" zh_TW="重置" en_US="Reset" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="here" zh_CN="这里" zh_TW="这里" en_US="Here" Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="load" zh_CN="加载" zh_TW="加载" en_US="Load" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="special offer" zh_CN="促销活动" zh_TW="促销活动" en_US="Special Offer" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
 </lang>

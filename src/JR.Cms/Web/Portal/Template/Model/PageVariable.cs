@@ -57,7 +57,7 @@ namespace JR.Cms.Web.Portal.Template.Model
             get
             {
                 var i = CmsVariables.VERSION.LastIndexOf(".", StringComparison.Ordinal);
-                return CmsVariables.PROD + " " + CmsVariables.VERSION.Substring(0, i);
+                return CmsVariables.PROD + "(v" + CmsVariables.VERSION.Substring(0, i)+")";
             }
         }
 

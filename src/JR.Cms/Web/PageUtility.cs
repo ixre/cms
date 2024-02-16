@@ -33,7 +33,7 @@ namespace JR.Cms.Web
         private static TemplateHandler<object> preRender;
 
         private const string CopyStr =
-            "\n<!-- This website use JRCMS v{0}, learn more please visiting https://fze.net/cms  -->";
+            "\n<!-- This website power by JRCMS v{0}, get started: https://fze.net/cms  -->";
 
         private static readonly string CopyStr2019;
 

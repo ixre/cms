@@ -11,7 +11,7 @@ namespace JR.Stand.Core.Template
         private static readonly Regex SingleRowCommentRegex = new Regex("[\\s|\\t]+\\/\\/[^\\n]*(?=\\n)");
         private static readonly Regex MultiRowCommentRegex = new Regex("/\\*[^\\*]+\\*/");
         private static readonly Regex HtmlCommentRegex = new Regex("<!--[^\\[][\\s\\S]*?-->");
-        private static readonly Regex TrimBreakRegex = new Regex("\r|\n|\t|(\\s\\s)");
+        private static readonly Regex TrimBreakRegex = new Regex("(\r|\n|\t|\\s\\s)+");
 
         /// <summary>
         /// 使用模板引擎自带的压缩程序压缩代码
@@ -31,7 +31,7 @@ namespace JR.Stand.Core.Template
             html = MultiRowCommentRegex.Replace(html, String.Empty);
             //替换<!-- 注释 -->
             html = HtmlCommentRegex.Replace(html, String.Empty);
-            html = TrimBreakRegex.Replace(html, String.Empty);
+            html = TrimBreakRegex.Replace(html, " ");
             return html;
         }
 

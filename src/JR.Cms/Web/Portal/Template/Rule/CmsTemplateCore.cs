@@ -1637,8 +1637,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                     if (p != null) return Cms.Language.Get(_ctx.UserLanguage, p) ?? "{" + p + "}";
                                 }
 
-                                if (extendValues.ContainsKey(archiveId) && extendValues[archiveId].ContainsKey(field))
+                                if (extendValues.ContainsKey(archiveId) && extendValues[archiveId].ContainsKey(field)){
                                     return extendValues[archiveId][field];
+                                }
                                 return "{" + field + "}";
                         }
                     }));
