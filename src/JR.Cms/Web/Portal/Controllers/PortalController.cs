@@ -1,7 +1,4 @@
 using System.Threading.Tasks;
-using JR.Cms.Domain.Interface.Models;
-using JR.Cms.Infrastructure;
-using JR.Cms.Library.CacheService;
 using JR.Cms.Web.Portal.Common;
 using JR.Stand.Core.Web;
 using Microsoft.AspNetCore.Http;
@@ -50,6 +47,16 @@ namespace JR.Cms.Web.Portal.Controllers
         /// <param name="context">上下文</param>
         /// <returns></returns>
         public Task Search(HttpContext context)
+        {
+            return portal.Search(HttpHosting.Context);
+        }
+
+        /// <summary>
+        /// 标签页面 
+        /// </summary>
+        /// <param name="context">上下文</param>
+        /// <returns></returns>
+        public Task Tag(HttpContext context)
         {
             return portal.Search(HttpHosting.Context);
         }

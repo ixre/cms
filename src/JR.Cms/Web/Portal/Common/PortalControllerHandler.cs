@@ -302,5 +302,19 @@ namespace JR.Cms.Web.Portal.Common
             // }
             return SafetyTask.CompletedTask;
         }
+      /// <summary>
+        /// 搜索页面
+        /// </summary>
+        /// <param name="context">上下文</param>
+        /// <returns></returns>
+        public Task Tag(ICompatibleHttpContext context){
+            context.Response.ContentType("text/html;charset=utf-8");
+            var path = context.Request.GetPath();
+            CmsContext ctx = Cms.Context;
+            String word = context.Request.GetParameter("word");
+            DefaultWebOutput.RenderTag(ctx,word); 
+            return SafetyTask.CompletedTask;
+ 
+        }
     }
 }

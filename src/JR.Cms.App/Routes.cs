@@ -67,11 +67,11 @@ namespace JR.Cms.App
 
             dict.Add(UrlRulePageKeys.Common, urlPrefix + "{0}");
 
-            dict.Add(UrlRulePageKeys.Search, urlPrefix + "search?w={0}&c={1}");
-            dict.Add(UrlRulePageKeys.SearchPager, urlPrefix + "search?w={0}&c={1}&p={2}");
+            dict.Add(UrlRulePageKeys.Search, urlPrefix + "search?keyword={0}&cate={1}");
+            dict.Add(UrlRulePageKeys.SearchPager, urlPrefix + "search?keyword={0}&cate={1}&page={2}");
 
-            dict.Add(UrlRulePageKeys.Tag, urlPrefix + "tag?t={0}");
-            dict.Add(UrlRulePageKeys.TagPager, urlPrefix + "tag?t={0}&p={1}");
+            dict.Add(UrlRulePageKeys.Tag, urlPrefix + "tag?word={0}");
+            dict.Add(UrlRulePageKeys.TagPager, urlPrefix + "tag?word={0}&page={1}");
 
             dict.Add(UrlRulePageKeys.Category, urlPrefix + "{0}");
             dict.Add(UrlRulePageKeys.CategoryPager, urlPrefix + "{0}/list_{1}.html");
@@ -111,26 +111,19 @@ namespace JR.Cms.App
                 new { controller = cmsControllerName, action = "Search", p = 1 }
             );
 
-            //标签档案
-            endpoints.MapControllerRoute(dict[UrlRulePageKeys.Tag][0], 
-                dict[UrlRulePageKeys.Tag][1],
-                new { controller = cmsControllerName, action = "Tag", p = 1 }
-            );
+          
             
-            //栏目档案列表
-            endpoints.MapControllerRoute(dict[UrlRulePageKeys.Category][0], 
-                dict[UrlRulePageKeys.Category][1],
-                new { controller = cmsControllerName, action = "Category", page = 1 }, 
-                new { all_cate = "^(?!" +CmsVariables.DEFAULT_CONTROLLER_NAME+ ")((.+?)/(p\\d+\\.html)?|([^/]+/)*[^\\.]+)$" }
-            );
-
 */
 
             //栏目档案列表
             endpoints.MapGet("{*cate:regex(^([^/]+/)*[^\\.]+$)}", portal.Category);
             endpoints.MapGet("{*cate:regex(^(.+)/list_\\d+.html$)}", portal.Category);
             // 搜索页面
-            //endpoints.MapGet("{*site:regex(^(.+?)$)}/search.html", portal.Search);
+            endpoints.MapGet("/search.html", portal.Search);
+            endpoints.MapGet("{site}/search.html", portal.Search);
+              //标签档案
+            endpoints.MapGet("/tag", portal.Tag);
+            endpoints.MapGet("/{site}/tag", portal.Tag);
             // 显示档案,不包含"/list_\d.html"
             endpoints.MapGet("{*archive:regex(^((?!list_\\d+).)+.html$)}", portal.Archive);
             // 首页
