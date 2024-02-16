@@ -71,11 +71,11 @@ namespace JR.Cms.WebImpl.Mvc
             dict.Add(UrlRulePageKeys.Common, new[] {"cms_common", routePrefix + "{0}", urlPrefix + "{0}"});
 
             dict.Add(UrlRulePageKeys.Search,
-                new[] {"cms_search", routePrefix + "search", urlPrefix + "search?w={0}&c={1}"});
-            dict.Add(UrlRulePageKeys.SearchPager, new[] {null, null, urlPrefix + "search?w={0}&c={1}&p={2}"});
+                new[] {"cms_search", routePrefix + "search", urlPrefix + "search?keyword={0}&cate={1}"});
+            dict.Add(UrlRulePageKeys.SearchPager, new[] {null, null, urlPrefix + "search?keyword={0}&cate={1}&page={2}"});
 
-            dict.Add(UrlRulePageKeys.Tag, new[] {"cms_tag", routePrefix + "tag", urlPrefix + "tag?t={0}"});
-            dict.Add(UrlRulePageKeys.TagPager, new[] {null, null, urlPrefix + "tag?t={0}&p={1}"});
+            dict.Add(UrlRulePageKeys.Tag, new[] {"cms_tag", routePrefix + "tag", urlPrefix + "tag?word={0}"});
+            dict.Add(UrlRulePageKeys.TagPager, new[] {null, null, urlPrefix + "tag?word={0}&page={1}"});
 
             dict.Add(UrlRulePageKeys.Category, new[] {"cms_category", routePrefix + "{*all_cate}", urlPrefix + "{0}"});
             dict.Add(UrlRulePageKeys.CategoryPager, new[] {null, null, urlPrefix + "{0}/list_{1}.html"});
@@ -121,21 +121,26 @@ namespace JR.Cms.WebImpl.Mvc
 
             //搜索档案
             routes.MapRoute(
-                dict[UrlRulePageKeys.Search][0] + "_site", "{site}/" + dict[UrlRulePageKeys.Search][1],
-                new {controller = cmsControllerName, action = "Search", p = 1}
+                dict[UrlRulePageKeys.Search][0] + "_site", "{site}/search.html",
+                new {controller = cmsControllerName, action = "Search", page = 1}
             );
 
 
             //搜索档案
             routes.MapRoute(
-                dict[UrlRulePageKeys.Search][0], dict[UrlRulePageKeys.Search][1],
-                new {controller = cmsControllerName, action = "Search", p = 1}
+                dict[UrlRulePageKeys.Search][0], "/search.html",
+                new {controller = cmsControllerName, action = "Search", page = 1}
             );
-
             //标签档案
             routes.MapRoute(
-                dict[UrlRulePageKeys.Tag][0], dict[UrlRulePageKeys.Tag][1],
-                new {controller = cmsControllerName, action = "Tag", p = 1}
+                dict[UrlRulePageKeys.Tag][0]+"_site", "{site}/tag.html",
+                new {controller = cmsControllerName, action = "Tag", page = 1}
+            );
+            
+            //标签档案
+            routes.MapRoute(
+                dict[UrlRulePageKeys.Tag][0], "/tag.html",
+                new {controller = cmsControllerName, action = "Tag", page = 1}
             );
 
             //栏目档案列表

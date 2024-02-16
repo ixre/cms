@@ -184,41 +184,43 @@ namespace JR.Cms.AspNet.Mvc
         /// <returns></returns>
         public void Search(string c, string w)
         {
-            bool eventResult = false;
-            if (OnSearchRequest != null)
-            {
-                OnSearchRequest(base.OutputContext, c, w, ref eventResult);
-            }
+            portal.Search(HttpHosting.Context);
+            // bool eventResult = false;
+            // if (OnSearchRequest != null)
+            // {
+            //     OnSearchRequest(base.OutputContext, c, w, ref eventResult);
+            // }
 
-            //如果返回false,则执行默认输出
-            if (!eventResult)
-            {
-                if (c != null) c = c.Trim();
-                if (w != null) w = w.Trim();
-                DefaultWebOutput.RenderSearch(base.OutputContext, c, w);
-            }
+            // //如果返回false,则执行默认输出
+            // if (!eventResult)
+            // {
+            //     if (c != null) c = c.Trim();
+            //     if (w != null) w = w.Trim();
+            //     DefaultWebOutput.RenderSearch(base.OutputContext, c, w);
+            // }
         }
-        //
-        // /// <summary>
-        // /// 搜索列表
-        // /// </summary>
-        // /// <param name="t"></param>
-        // /// <returns></returns>
-        // public void Tag(string t)
-        // {
-        //     bool eventResult = false;
-        //     if (OnTagRequest != null)
-        //     {
-        //         OnTagRequest(base.OutputContext, t, ref eventResult);
-        //     }
-        //
-        //     //如果返回false,则执行默认输出
-        //     if (!eventResult)
-        //     {
-        //         DefaultWebOutput.RenderTag(base.OutputContext, t);
-        //     }
-        // }
-        //
+
+        /// <summary>
+        /// 搜索列表
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public void Tag(string t)
+        {
+            portal.Tag(HttpHosting.Context);
+            // bool eventResult = false;
+            // if (OnTagRequest != null)
+            // {
+            //     OnTagRequest(base.OutputContext, t, ref eventResult);
+            // }
+
+            // //如果返回false,则执行默认输出
+            // if (!eventResult)
+            // {
+            //     DefaultWebOutput.RenderTag(base.OutputContext, t);
+            // }
+        }
+
         // [HttpPost]
         // public void Archive(string allhtml, FormCollection form)
         // {
