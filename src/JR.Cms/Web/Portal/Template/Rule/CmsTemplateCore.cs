@@ -1332,8 +1332,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         case "modify_time": return $"{archiveDto.UpdateTime:yyyy-MM-dd HH:mm}";
                         case "edit_date":
                         case "modify_date": return $"{archiveDto.UpdateTime:yyyy-MM-dd}";
-                        case "publish_short_date":
-                        case "publish_day": return $"{archiveDto.CreateTime:MM-dd}";
+                        case "publish_short_date":return $"{archiveDto.CreateTime:MM-dd}";
+                        case "publish_month": return string.Format("{0:MM}", archiveDto.CreateTime);
+                        case "publish_day": return string.Format("{0:dd}", archiveDto.CreateTime);
+                           
                         case "publish_time":
                         case "create_time": return $"{archiveDto.CreateTime:yyyy-MM-dd HH:mm}";
                         case "publish_date":
@@ -1579,8 +1581,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             //时间
                             case "modify_time": return string.Format("{0:yyyy-MM-dd HH:mm}", createTime);
                             case "modify_date": return string.Format("{0:MM-dd}", dr["update_time"]);
+                            case "publish_short_date":return $"{createTime:MM-dd}";
                             case "publish_month": return string.Format("{0:MM}", createTime);
                             case "publish_day": return string.Format("{0:dd}", createTime);
+                           
                             case "publish_time":
                             case "create_time": return string.Format("{0:yyyy-MM-dd HH:mm}", createTime);
                             case "publish_date":
@@ -1913,10 +1917,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             //时间
                             case "modify_time": return string.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.UpdateTime);
                             case "modify_date": return string.Format("{0:yyyy-MM-dd}", archive.UpdateTime);
-                            case "publish_day": return string.Format("{0:MM-dd}", archive.CreateTime);
                             case "create_time": return string.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime);
                             case "create_date": return string.Format("{0:yyyy-MM-dd}", archive.CreateTime);
-
+                            case "publish_short_date":return $"{archive.CreateTime:MM-dd}";
+                            case "publish_month": return string.Format("{0:MM}", archive.CreateTime);
+                            case "publish_day": return string.Format("{0:dd}", archive.CreateTime);
                             //栏目
                             case "category_name": return category.Name;
                             case "category_path": return category.Path;
@@ -2267,9 +2272,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             //时间
                             case "modify_time": return string.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.UpdateTime);
                             case "modify_date": return string.Format("{0:yyyy-MM-dd}", archive.UpdateTime);
-                            case "publish_day": return string.Format("{0:MM-dd}", archive.CreateTime);
                             case "create_time": return string.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime);
                             case "create_date": return string.Format("{0:yyyy-MM-dd}", archive.CreateTime);
+                            case "publish_short_date":return $"{archive.CreateTime:MM-dd}";
+                            case "publish_month": return string.Format("{0:MM}", archive.CreateTime);
+                            case "publish_day": return string.Format("{0:dd}", archive.CreateTime);
 
                             //栏目
                             //case "categoryid":
