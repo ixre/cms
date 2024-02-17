@@ -180,9 +180,9 @@ namespace JR.Cms.Web.Portal.Template.Model
                     var j = 0;
                     foreach (var tag in tagArr)
                     {
-                        if (j++ != 0) sb.Append(",");
+                        if (j++ != 0) sb.Append("&nbsp;");
 
-                        sb.Append("<a href=\"")
+                        sb.Append("<a class=\"tag archive-tag\" href=\"")
                             .Append(FormatUrl(UrlRulePageKeys.Tag, new[] { HttpUtils.UrlEncode(tag) }))
                             .Append("\" search-url=\"")
                             .Append(FormatUrl(UrlRulePageKeys.Search, new[] { HttpUtils.UrlEncode(tag), string.Empty }))
@@ -209,6 +209,12 @@ namespace JR.Cms.Web.Portal.Template.Model
         /// </summary>
         [TemplateVariableField("发布时间")]
         public string Publish => string.Format("{0:yyyy-MM-dd HH:mm}", Archive.CreateTime);
+
+        /// <summary>
+        /// 发布日期
+        /// </summary>
+        [TemplateVariableField("发布日期")]
+        public string PublishDate => string.Format("{0:yyyy/MM/dd}", Archive.CreateTime);
 
         /// <summary>
         /// 修改时间
