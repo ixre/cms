@@ -1578,8 +1578,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
                             //时间
                             case "modify_time": return string.Format("{0:yyyy-MM-dd HH:mm}", createTime);
-                            case "modify_date": return string.Format("{0:yyyy-MM-dd}", dr["update_time"]);
-                            case "publish_day": return string.Format("{0:MM-dd}", createTime);
+                            case "modify_date": return string.Format("{0:MM-dd}", dr["update_time"]);
+                            case "publish_month": return string.Format("{0:MM}", createTime);
+                            case "publish_day": return string.Format("{0:dd}", createTime);
                             case "publish_time":
                             case "create_time": return string.Format("{0:yyyy-MM-dd HH:mm}", createTime);
                             case "publish_date":
