@@ -213,7 +213,7 @@ namespace JR.Cms.Web.Portal.Common
                 {
                     var ls = catPath.LastIndexOf("/", StringComparison.Ordinal);
                     var len = catPath.Length;
-                    var begin = ls + 1 + "list_".Length;
+                    var begin = ls + 1 + "list-".Length;
                     var ps = catPath.Substring(begin, len - begin - 5);
                     int.TryParse(ps, out page);
                     catPath = catPath.Substring(0, ls);

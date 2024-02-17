@@ -78,7 +78,7 @@ namespace JR.Cms.WebImpl.Mvc
             dict.Add(UrlRulePageKeys.TagPager, new[] {null, null, urlPrefix + "tag?word={0}&page={1}"});
 
             dict.Add(UrlRulePageKeys.Category, new[] {"cms_category", routePrefix + "{*all_cate}", urlPrefix + "{0}"});
-            dict.Add(UrlRulePageKeys.CategoryPager, new[] {null, null, urlPrefix + "{0}/list_{1}.html"});
+            dict.Add(UrlRulePageKeys.CategoryPager, new[] {null, null, urlPrefix + "{0}/list-{1}.html"});
 
             dict.Add(UrlRulePageKeys.Archive,
                 new[] {"cms_archive", routePrefix + "{*all_html}", urlPrefix + "{0}.html"});
@@ -149,7 +149,7 @@ namespace JR.Cms.WebImpl.Mvc
                 new {controller = cmsControllerName, action = "Category", page = 1}, new
                 {
                     all_cate = "^(?!" +
-                               CmsVariables.DEFAULT_CONTROLLER_NAME + ")((.+?)/(list_\\d+\\.html)?|([^/]+/)*[^\\.]+)$"
+                               CmsVariables.DEFAULT_CONTROLLER_NAME + ")((.+?)/(list-\\d+\\.html)?|([^/]+/)*[^\\.]+)$"
                 }
             );
 

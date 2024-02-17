@@ -74,7 +74,7 @@ namespace JR.Cms.App
             dict.Add(UrlRulePageKeys.TagPager, urlPrefix + "tag?word={0}&page={1}");
 
             dict.Add(UrlRulePageKeys.Category, urlPrefix + "{0}");
-            dict.Add(UrlRulePageKeys.CategoryPager, urlPrefix + "{0}/list_{1}.html");
+            dict.Add(UrlRulePageKeys.CategoryPager, urlPrefix + "{0}/list-{1}.html");
 
             dict.Add(UrlRulePageKeys.Archive, urlPrefix + "{0}.html");
             dict.Add(UrlRulePageKeys.SinglePage, urlPrefix + "{0}.html");
@@ -117,15 +117,15 @@ namespace JR.Cms.App
 
             //栏目档案列表
             endpoints.MapGet("{*cate:regex(^([^/]+/)*[^\\.]+$)}", portal.Category);
-            endpoints.MapGet("{*cate:regex(^(.+)/list_\\d+.html$)}", portal.Category);
+            endpoints.MapGet("{*cate:regex(^(.+)/list-\\d+.html$)}", portal.Category);
             // 搜索页面
             endpoints.MapGet("/search.html", portal.Search);
             endpoints.MapGet("{site}/search.html", portal.Search);
             //标签档案
             endpoints.MapGet("/tag.html", portal.Tag);
             endpoints.MapGet("/{site}/tag.html", portal.Tag);
-            // 显示档案,不包含"/list_\d.html"
-            endpoints.MapGet("{*archive:regex(^((?!list_\\d+).)+.html$)}", portal.Archive);
+            // 显示档案,不包含"/list-\d.html"
+            endpoints.MapGet("{*archive:regex(^((?!list-\\d+).)+.html$)}", portal.Archive);
             // 首页
             endpoints.MapGet("/", portal.Index);
 

@@ -218,7 +218,7 @@ namespace JR.Cms.Web.Manager
                 sb.Append("{\"result\":true,\"message\":\"");
                 if (message != null) sb.Append(msg);
                 sb.Append("\",\"data\":\"").Append(data);
-                sb.Append("\"");
+                sb.Append("\",");
                 sb.Append("\"ErrCode\":0,\"ErrMsg\":\"");
                 sb.Append(msg);
                 sb.Append("\"");
