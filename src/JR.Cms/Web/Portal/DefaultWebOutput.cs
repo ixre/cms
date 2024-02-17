@@ -160,30 +160,6 @@ namespace JR.Cms.Web.Portal
                 return;
             }
 
-            if (FlagAnd(archive.Flag, BuiltInArchiveFlags.AsPage))
-            {
-                var pagePattern = "^[\\.0-9A-Za-z_-]+\\.html$";
-
-                if (!Regex.IsMatch(context.HttpContext.Request.GetPath(), pagePattern))
-                {
-                    context.HttpContext.Response.StatusCode(301);
-                    context.HttpContext.Response.AppendHeader("Location",
-                        $"{(string.IsNullOrEmpty(archive.Alias) ? archive.StrId : archive.Alias)}.html");
-                    return;
-                }
-            }
-            else
-            {
-                //校验栏目是否正确
-                if (!archivePath.StartsWith(category.Path + "/"))
-                {
-                    // 如果栏目和文档路径不匹配
-                    LocalService.Instance.ArchiveService.UpdateArchivePath(siteId,archive.Id);
-                    RenderError(context,new Exception("文档路径不匹配, 已自动纠正为正确地址, 请重新打开访问"),false);
-                    return;
-                }
-            }
-
             //增加浏览次数
             ++archive.ViewCount;
             LocalService.Instance.ArchiveService.AddCountForArchive(siteId, archive.Id, 1);

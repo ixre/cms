@@ -164,15 +164,6 @@ namespace JR.Cms.Web.Manager.Handle
 
 
             string alias = Request.Form("Alias");
-            if (alias != "")
-            {
-                if (!LocalService.Instance.ArchiveService.CheckArchiveAliasAvailable(SiteId, -1, alias))
-                {
-                    RenderError("别名已经存在!");
-                    return;
-                }
-            }
-
             archive.ViewCount = 1;
             archive.PublisherId = UserState.Administrator.Current.Id;
 
@@ -358,14 +349,6 @@ namespace JR.Cms.Web.Manager.Handle
             var alias = string.IsNullOrEmpty(Request.Form("Alias"))
                 ? string.Empty
                 : HttpUtils.UrlEncode(Request.Form("Alias"));
-
-            if (alias != string.Empty && archive.Alias != alias)
-                if (!LocalService.Instance.ArchiveService
-                    .CheckArchiveAliasAvailable(SiteId, archive.Id, alias))
-                {
-                    RenderError("别名已经存在!");
-                    return;
-                }
 
             archive = GetFormCopiedArchive(SiteId, Request, archive, alias);
             var r = LocalService.Instance.ArchiveService.SaveArchive(

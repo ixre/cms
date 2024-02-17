@@ -214,9 +214,15 @@ namespace JR.Cms.Web.Manager
             var sb = new StringBuilder();
             if (Request.Query("json") == "1" || Request.Query("xhr") != "")
             {
+                String msg = message.Replace("\"", "\\\"");
                 sb.Append("{\"result\":true,\"message\":\"");
-                if (message != null) sb.Append(message.Replace("\"", "\\\""));
-                sb.Append("\",\"data\":\"").Append(data).Append("\"}");
+                if (message != null) sb.Append(msg);
+                sb.Append("\",\"data\":\"").Append(data);
+                sb.Append("\"");
+                sb.Append("\"ErrCode\":0,\"ErrMsg\":\"");
+                sb.Append(msg);
+                sb.Append("\"");
+                sb.Append("}");
                 Response.ContentType ("application/json;charset=utf-8");
             }
             else
@@ -254,9 +260,13 @@ namespace JR.Cms.Web.Manager
             var sb = new StringBuilder();
             if (Request.Query("json") == "1" || Request.Query("xhr") != "")
             {
+                String errMsg = message.Replace("\"", "\\\"").Replace("\\n", "");
                 sb.Append("{\"result\":false,\"message\":\"");
-                if (message != null) sb.Append(message.Replace("\"", "\\\"").Replace("\\n", ""));
-                sb.Append("\"}");
+                if (message != null) sb.Append(errMsg);
+                sb.Append("\",\"ErrCode\":1,\"ErrMsg\":\"");
+                sb.Append(errMsg);
+                sb.Append("\"");
+                sb.Append("}");
                 Response.ContentType("application/json");
             }
             else
