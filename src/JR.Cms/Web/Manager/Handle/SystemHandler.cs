@@ -441,7 +441,7 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 case "reboot":
                     Cms.Reload();
-                    HttpRuntime.UnloadAppDomain();
+                    //HttpRuntime.UnloadAppDomain();
                     return ReturnSuccess("网站正在重启...");
                 case "cache":
                     PageVariable.ResetBuilt();
