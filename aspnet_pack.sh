@@ -15,7 +15,7 @@ echo "setup1: prepare.." \
 
 if [ $(uname) !=  'Windows' ]; then
   echo "build on others system:"$(uname)
-  # rm -rf bin
+  rm -rf bin
 fi
 
 # copy assets from project: jr.cms.app
@@ -42,12 +42,14 @@ sed -i 's/compilation debug="true"/compilation debug="false"/g' Web.config \
 if [ -d bin ];then 
     cp -r bin ${RELEASE_DIR}
 else
+    echo 'package on others system'
     mkdir ${RELEASE_DIR}/bin \
         && cd ${RELEASE_DIR}/bin \
         && unzip ../../../dll/aspnet_bin.zip >/dev/null
     # clear history version
     rm -rf JR.Cms.dll JR.Stand.* 
     # replace cms core dll
+    # 需要注意在vs下，可能会拷贝到其他目录的dll
     find ../../../src/JR.Cms.App/bin/Release -name "JR*.dll" | xargs -I {} cp {} .
     # remove net core entrypoint dll
     rm -rf JR.Cms.App.dll
