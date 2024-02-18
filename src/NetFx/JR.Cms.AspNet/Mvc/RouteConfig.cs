@@ -128,7 +128,7 @@ namespace JR.Cms.WebImpl.Mvc
 
             //搜索档案
             routes.MapRoute(
-                dict[UrlRulePageKeys.Search][0], "/search.html",
+                dict[UrlRulePageKeys.Search][0], "search.html",
                 new {controller = cmsControllerName, action = "Search", page = 1}
             );
             //标签档案
@@ -139,7 +139,7 @@ namespace JR.Cms.WebImpl.Mvc
             
             //标签档案
             routes.MapRoute(
-                dict[UrlRulePageKeys.Tag][0], "/tag.html",
+                dict[UrlRulePageKeys.Tag][0], "tag.html",
                 new {controller = cmsControllerName, action = "Tag", page = 1}
             );
 

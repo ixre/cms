@@ -14,8 +14,8 @@ echo "setup1: prepare.." \
     && cd src/NetFx/JR.Cms.AspNet.App
 
 if [ $(uname) !=  'Windows' ]; then
-  echo "build on others system"
-  rm -rf bin
+  echo "build on others system:"$(uname)
+  # rm -rf bin
 fi
 
 # copy assets from project: jr.cms.app
