@@ -9,7 +9,7 @@ namespace JR.Cms.WebImpl.Mvc
     {
         private class HttpHandler : IHttpHandler
         {
-            private readonly CmsInstallWiz wiz = new CmsInstallWiz();
+            private readonly CmsInstallWizard wiz = new CmsInstallWizard();
             public bool IsReusable => true;
 
             public void ProcessRequest(HttpContext context)

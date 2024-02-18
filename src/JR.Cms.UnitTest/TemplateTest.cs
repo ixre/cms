@@ -8,6 +8,7 @@ using JR.Cms.Library.CacheService;
 using JR.Cms.ServiceDto;
 using JR.Cms.Web.Portal.Template.Model;
 using JR.Stand.Core;
+using JR.Stand.Core.Template;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
 using NUnit.Framework;
@@ -81,7 +82,7 @@ ${archive.map(视频) }
         }
     }
 
-    public class TemplateMock
+    public class TemplateMock:ITemplateResolver
     {        
         /// <summary>
         /// 编译模板
@@ -93,6 +94,7 @@ ${archive.map(视频) }
         };
 
         private static readonly MicroTemplateEngine TplEngine = new MicroTemplateEngine(null); //模板引擎
+        private IDataContainer _dc;
 
         [TemplateTag]
         public string Categories(string catPath,string format)
@@ -137,6 +139,11 @@ ${archive.map(视频) }
             return sb.ToString();
         }
 
+        public IDataContainer GetContainer()
+        {
+            return this._dc;
+        }
+
         [TemplateTag]
         public string Lang(string catPath)
         {
@@ -147,6 +154,11 @@ ${archive.map(视频) }
         public string Navigator()
         {
             return "navigator";
+        }
+
+        public void SetContainer(IDataContainer dataContainer)
+        {
+            this._dc = dataContainer;
         }
     }
 }
