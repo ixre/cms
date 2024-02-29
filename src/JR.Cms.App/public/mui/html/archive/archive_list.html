@@ -446,15 +446,15 @@
         });
 
         // 浏览图像
-
-        K("#pick_image").click(function () {
+        jr.$fn("#pick_image").click(function () {
           editor.loadPlugin("filemanager", function () {
             editor.plugin.filemanagerDialog({
               viewType: "VIEW",
-              dirName: "image",
+              dirName: "thumbs",
+              allowImageUpload: true,
               clickFn: function (url, title) {
-                jr.$("thumbnail").value = data.url;
-                jr.$("thumbnail_img").src = data.url;
+                jr.$("thumbnail").value = url;
+                jr.$("thumbnail_img").src = url;
                 editor.hideDialog();
               },
             });

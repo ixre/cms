@@ -75,8 +75,8 @@ namespace JR.Cms.Web.Manager.Handle
         public void UploadArchiveThumb_POST()
         {
             var file = Request.File("upload_thumbnail");
-            var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "image/art", true);
-            var name = UploadUtils.GetUploadFileName(file, "");
+            var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "thumbs", false);
+            var name = UploadUtils.GetUploadFileRawName(file);
             UploadResultResponse(file,dir, name, true);
         }
 

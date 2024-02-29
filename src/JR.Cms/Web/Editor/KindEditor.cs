@@ -74,7 +74,7 @@ namespace JR.Cms.Web.Editor
             String dirName = context.Request.Query("dir");
             if (!String.IsNullOrEmpty(dirName))
             {
-                if (Array.IndexOf("image,flash,media,file".Split(','), dirName) == -1)
+                if (Array.IndexOf("image,flash,media,file,thumbs".Split(','), dirName) == -1)
                 {
                     return context.Response.WriteAsync("Invalid Directory name.");
                 }
