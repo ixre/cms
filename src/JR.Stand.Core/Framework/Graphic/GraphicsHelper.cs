@@ -18,12 +18,17 @@ namespace JR.Stand.Core.Framework.Graphic
     /// <summary>
     /// 绘图工具类
     /// </summary>
-    public class GraphicsHelper
+    public static partial class GraphicsHelper
     {
         private static IDictionary<string, ImageCodecInfo> imageCoders;
 
-        static GraphicsHelper()
+        // 检查图像编码器
+        static void CheckInCodecInfo()
         {
+            if(imageCoders != null)
+            {
+                return;
+            }
             imageCoders = new Dictionary<string, ImageCodecInfo>();
             ImageCodecInfo[] imgCodes = ImageCodecInfo.GetImageEncoders();
             string key = null;
@@ -152,6 +157,8 @@ namespace JR.Stand.Core.Framework.Graphic
             long compression,
             ImageGraphicsHandler graphicsHandler)
         {
+            CheckInCodecInfo();
+
             int toWidth = width;
             int toHeight = height;
 
@@ -515,7 +522,7 @@ namespace JR.Stand.Core.Framework.Graphic
 
         #endregion
 
-        private void Thumbnal_Test()
+        private static void Thumbnal_Test()
         {
             int imgHeight = 480, imgWidth = 600;
             string file = "/1.jpg";

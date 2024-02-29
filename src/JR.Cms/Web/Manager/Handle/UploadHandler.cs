@@ -18,17 +18,18 @@ using System.Net;
 using System.Text;
 using JR.Cms.Web.Util;
 using JR.Stand.Abstracts.Web;
+using JR.Stand.Core.Framework.Graphic;
 using JR.Stand.Core.Framework.Web.UI;
 
 namespace JR.Cms.Web.Manager.Handle
 {
     /// <summary>
-    /// 上传
+    ///     上传
     /// </summary>
     public class UploadHandler : BasePage
     {
         /// <summary>
-        /// 上传图片
+        ///     上传图片
         /// </summary>
         public void UploadImage_POST()
         {
@@ -37,7 +38,14 @@ namespace JR.Cms.Web.Manager.Handle
             //string id = base.Request.Query("upload.id");
             var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "image", true);
             var name = UploadUtils.GetUploadFileName(file, uploadFor);
-            UploadResultResponse(file,dir, name, false);
+            UploadResultResponse(file, dir, name, false);
+        }
+
+        // 上传文件
+        private string DoUploadFile(ICompatiblePostedFile file, string dir, string name,
+            bool autoName)
+        {
+            return new FileUpload(dir, name, autoName).Upload(file);
         }
 
         private void UploadResultResponse(ICompatiblePostedFile file, string dir, string name,
@@ -45,7 +53,7 @@ namespace JR.Cms.Web.Manager.Handle
         {
             try
             {
-                var filePath =  new FileUpload(dir, name, autoName).Upload(file);
+                var filePath = DoUploadFile(file, dir, name, autoName);
                 Response.Write("{" + $"\"url\":\"{filePath}\"" + "}");
             }
             catch (Exception ex)
@@ -57,7 +65,7 @@ namespace JR.Cms.Web.Manager.Handle
 
 
         /// <summary>
-        /// 上传分类缩略图
+        ///     上传分类缩略图
         /// </summary>
         public void UploadCatThumb_POST()
         {
@@ -65,24 +73,46 @@ namespace JR.Cms.Web.Manager.Handle
             //string id = base.Request.Query("upload.id");
             var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "image/cat", false);
             var name = UploadUtils.GetUploadFileRawName(file);
-            UploadResultResponse(file,dir, name, true);
+            try
+            {
+                var filePath = DoUploadFile(file, dir, name, true);
+                var imgPath = Cms.PhysicPath + filePath;
+                GraphicsHelper.SaveThumbnailV2(imgPath, imgPath, 320, 0);
+                Response.Write("{" + $"\"url\":\"{filePath}\"" + "}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
+            }
         }
 
 
         /// <summary>
-        /// 上传文档缩略图
+        ///     上传文档缩略图
         /// </summary>
         public void UploadArchiveThumb_POST()
         {
             var file = Request.File("upload_thumbnail");
             var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "thumbs", false);
             var name = UploadUtils.GetUploadFileRawName(file);
-            UploadResultResponse(file,dir, name, true);
+            try
+            {
+                var filePath = DoUploadFile(file, dir, name, true);
+                var imgPath = Cms.PhysicPath + filePath;
+                GraphicsHelper.SaveThumbnailV2(imgPath, imgPath, 320, 0);
+                Response.Write("{" + $"\"url\":\"{filePath}\"" + "}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
+            }
         }
 
 
         /// <summary>
-        /// 上传文件
+        ///     上传文件
         /// </summary>
         public void UploadPropertyFile_POST()
         {
@@ -90,26 +120,26 @@ namespace JR.Cms.Web.Manager.Handle
             var dt = DateTime.Now;
             var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "prop", true);
             var name = UploadUtils.GetUploadFileName(file, "");
-            UploadResultResponse(file,dir, name, true);
+            UploadResultResponse(file, dir, name, true);
         }
 
         /// <summary>
-        /// 上传文件
+        ///     上传文件
         /// </summary>
         public void UploadFile_POST()
         {
-           // string uploadfor = Request.Query("for");
-           // string id = Request.Query("upload.id");
+            // string uploadfor = Request.Query("for");
+            // string id = Request.Query("upload.id");
             var file = Request.FileIndex(0);
             var dir = UploadUtils.GetUploadDirPath(CurrentSite.SiteId, "file", true);
             var name = UploadUtils.GetUploadFileName(file, "");
-            UploadResultResponse(file,dir, name, false);
+            UploadResultResponse(file, dir, name, false);
         }
 
         #region 文件上传至远程服务器
 
         /// <summary>
-        /// 文件上传至远程服务器
+        ///     文件上传至远程服务器
         /// </summary>
         /// <param name="url">远程服务地址</param>
         /// <param name="postedFile">上传文件</param>
@@ -120,7 +150,7 @@ namespace JR.Cms.Web.Manager.Handle
             CookieContainer cookieContainer, ref string output)
         {
             //1>创建请求
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             //2>Cookie容器
             request.CookieContainer = cookieContainer;
             request.Method = "POST";
@@ -130,10 +160,10 @@ namespace JR.Cms.Web.Manager.Handle
 
             var boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x"); //分界线
             var boundaryBytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
-            
+
             //内容类型
             request.ContentType = "multipart/form-data; boundary=" + boundary;
-            
+
             //3>表单数据模板
             var formDataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}";
 
@@ -174,7 +204,7 @@ namespace JR.Cms.Web.Manager.Handle
                     stream.Close();
                 }
 
-                var response = (HttpWebResponse) request.GetResponse();
+                var response = (HttpWebResponse)request.GetResponse();
                 using (var reader = new StreamReader(response.GetResponseStream()))
                 {
                     output = reader.ReadToEnd();

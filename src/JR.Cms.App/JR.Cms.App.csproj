@@ -503,6 +503,7 @@
 
     <ItemGroup>
       <Folder Include="install\config" />
+      <Folder Include="uploads\2\thumbs\" />
     </ItemGroup>
 
 </Project>
