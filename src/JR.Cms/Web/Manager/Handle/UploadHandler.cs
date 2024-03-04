@@ -82,6 +82,7 @@ namespace JR.Cms.Web.Manager.Handle
             }
             catch (Exception ex)
             {
+                throw ex;
                 Console.WriteLine(ex.StackTrace);
                 Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
@@ -105,6 +106,7 @@ namespace JR.Cms.Web.Manager.Handle
             }
             catch (Exception ex)
             {
+                throw ex;
                 Console.WriteLine(ex.StackTrace);
                 Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
