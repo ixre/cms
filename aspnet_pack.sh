@@ -58,6 +58,7 @@ fi
 cd ${RELEASE_DIR} \
     && echo "setup3: clean assemblies.." \
     && cd bin && rm -rf *.pdb *.xml *.json *.config roslyn zh-Hans \
+    System.Text.Encoding.CodePages.dll \
     Microsoft.Extensions.DependencyInjection.Abstractions.dll \
     Google.Protobuf.dll Microsoft.DotNet.PlatformAbstractions.dll \
     Microsoft.Extensions.WebEncoders.dll Microsoft.Extensions.Options.dll \

@@ -52,6 +52,9 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Dapper.2.0.4\lib\netstandard2.0\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="JWT, Version=8.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\JWT.8.0.0\lib\net46\JWT.dll</HintPath>
+    </Reference>
     <Reference Include="K4os.Compression.LZ4, Version=1.2.6.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\K4os.Compression.LZ4.1.2.6\lib\net46\K4os.Compression.LZ4.dll</HintPath>
     </Reference>
@@ -89,8 +92,11 @@
     <Reference Include="Quartz, Version=3.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Quartz.3.3.3\lib\net472\Quartz.dll</HintPath>
     </Reference>
-    <Reference Include="SharpCompress, Version=0.30.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SharpCompress.0.30.1\lib\net461\SharpCompress.dll</HintPath>
+    <Reference Include="SharpCompress, Version=0.31.0.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpCompress.0.31.0\lib\net461\SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SixLabors.ImageSharp.2.1.6\lib\net472\SixLabors.ImageSharp.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
@@ -191,6 +197,8 @@
     <Content Include="public\assets\api.js" />
     <Content Include="public\assets\base.css" />
     <Content Include="public\assets\base.min.js" />
+    <Content Include="public\assets\bshare\bshareC0.js" />
+    <Content Include="public\assets\bshare\buttonLite.js" />
     <Content Include="public\assets\code_editor\lib\codemirror.css" />
     <Content Include="public\assets\code_editor\lib\codemirror.js" />
     <Content Include="public\assets\code_editor\mode\css\css.js" />
@@ -219,14 +227,19 @@
     <Content Include="public\assets\code_editor\mode\markdown\markdown.js" />
     <Content Include="public\assets\code_editor\mode\markdown\test.js" />
     <Content Include="public\assets\code_editor\mode\meta.js" />
+    <Content Include="public\assets\code_editor\mode\nginx\index.html" />
+    <Content Include="public\assets\code_editor\mode\nginx\nginx.js" />
     <Content Include="public\assets\code_editor\mode\php\index.html" />
     <Content Include="public\assets\code_editor\mode\php\php.js" />
     <Content Include="public\assets\code_editor\mode\php\test.js" />
     <Content Include="public\assets\code_editor\mode\sql\index.html" />
     <Content Include="public\assets\code_editor\mode\sql\sql.js" />
+    <Content Include="public\assets\code_editor\mode\vue\index.html" />
+    <Content Include="public\assets\code_editor\mode\vue\vue.js" />
     <Content Include="public\assets\code_editor\mode\xml\index.html" />
     <Content Include="public\assets\code_editor\mode\xml\test.js" />
     <Content Include="public\assets\code_editor\mode\xml\xml.js" />
+    <Content Include="public\assets\code_editor\util\formatting.js" />
     <Content Include="public\assets\editor\kindeditor-all-min.js" />
     <Content Include="public\assets\editor\kindeditor-min.js" />
     <Content Include="public\assets\editor\lang\ar.js" />
@@ -463,12 +476,14 @@
     <Content Include="public\assets\images\app_icon.png" />
     <Content Include="public\assets\images\background.gif" />
     <Content Include="public\assets\images\close.png" />
+    <Content Include="public\assets\images\lazy-holder.gif" />
     <Content Include="public\assets\images\mask.gif" />
     <Content Include="public\assets\images\no_photo.gif" />
     <Content Include="public\assets\js\animation.js" />
     <Content Include="public\assets\js\datagrid.js" />
     <Content Include="public\assets\js\dialog.js" />
     <Content Include="public\assets\js\form.js" />
+    <Content Include="public\assets\js\md5.js" />
     <Content Include="public\assets\js\require.js" />
     <Content Include="public\assets\js\roller.js" />
     <Content Include="public\assets\js\scrollbar.js" />
@@ -476,6 +491,14 @@
     <Content Include="public\assets\js\table.js" />
     <Content Include="public\assets\js\ui.js" />
     <Content Include="public\assets\js\upload.js" />
+    <Content Include="public\assets\js\wow.js" />
+    <Content Include="public\assets\lang\icon\ar.png" />
+    <Content Include="public\assets\lang\icon\en.png" />
+    <Content Include="public\assets\lang\icon\en_US.png" />
+    <Content Include="public\assets\lang\icon\es.png" />
+    <Content Include="public\assets\lang\icon\jp.png" />
+    <Content Include="public\assets\lang\icon\kr.png" />
+    <Content Include="public\assets\lang\icon\zh_CN.png" />
     <Content Include="public\assets\tree\img\base.gif" />
     <Content Include="public\assets\tree\img\cd.gif" />
     <Content Include="public\assets\tree\img\empty.gif" />
@@ -498,6 +521,7 @@
     <Content Include="public\assets\tree\img\question.gif" />
     <Content Include="public\assets\tree\img\trash.gif" />
     <Content Include="public\assets\ui-min.js" />
+    <Content Include="public\assets\vue.min.js" />
     <Content Include="public\assets\widget\video-js\font\VideoJS.svg" />
     <Content Include="public\assets\widget\video-js\lang\ar.js" />
     <Content Include="public\assets\widget\video-js\lang\ba.js" />
@@ -539,6 +563,7 @@
     <Content Include="public\assets\widget\video-js\video.min.css" />
     <Content Include="public\assets\widget\video-js\video.min.js" />
     <Content Include="public\demo\mui_override.js" />
+    <Content Include="public\embed\robots_template.txt" />
     <Content Include="public\locale\ar.xml" />
     <Content Include="public\locale\en.xml" />
     <Content Include="public\locale\es.xml" />
@@ -597,6 +622,7 @@
     <Content Include="public\mui\css\old\sys_themes\default\tree.gif" />
     <Content Include="public\mui\css\res\highlight-bg.jpg" />
     <Content Include="public\mui\css\res\logo_login.png" />
+    <Content Include="public\mui\html\addon\site_word.html" />
     <Content Include="public\mui\html\archive\archive_create.html" />
     <Content Include="public\mui\html\archive\archive_forward.html" />
     <Content Include="public\mui\html\archive\archive_list.html" />
@@ -626,16 +652,24 @@
     <Content Include="public\mui\html\login.html" />
     <Content Include="public\mui\html\plugin\plugin_dashboard.html" />
     <Content Include="public\mui\html\plugin\plugin_miniapps.html" />
+    <Content Include="public\mui\html\seo\search_engine.html" />
     <Content Include="public\mui\html\site\extend\extend.category_check.html" />
     <Content Include="public\mui\html\site\extend\extend.create.html" />
     <Content Include="public\mui\html\site\extend\extend.list.html" />
     <Content Include="public\mui\html\site\site.edit.html" />
     <Content Include="public\mui\html\site\site.index.html" />
+    <Content Include="public\mui\html\site\site.variable.html" />
     <Content Include="public\mui\html\summary.html" />
+    <Content Include="public\mui\html\table\columns.html" />
+    <Content Include="public\mui\html\table\edit_column.html" />
+    <Content Include="public\mui\html\table\edit_table.html" />
+    <Content Include="public\mui\html\table\rows.html" />
+    <Content Include="public\mui\html\table\tables.html" />
     <Content Include="public\mui\html\template\template_edit.html" />
     <Content Include="public\mui\html\template\template_edit_file.html" />
     <Content Include="public\mui\html\template\template_manager.html" />
     <Content Include="public\mui\html\template\template_setting.html" />
+    <Content Include="public\mui\html\user\member_list.html" />
     <Content Include="public\mui\html\user\operationList.html" />
     <Content Include="public\mui\html\user\setPermissions.html" />
     <Content Include="public\mui\html\user\user_edit.html" />
@@ -644,8 +678,12 @@
     <Content Include="public\mui\html\user\user_role_set.html" />
     <Content Include="public\mui\html\user\user_save_profile.html" />
     <Content Include="public\mui\js\base.js" />
+    <Content Include="public\mui\js\component.js" />
+    <Content Include="public\mui\js\vue.min.js" />
+    <Content Include="public\registry\board_set.xml" />
     <Content Include="public\registry\build_set.xml" />
     <Content Include="public\registry\manager_set.xml" />
+    <Content Include="public\registry_index.xml" />
     <Content Include="templates\default\archive.html" />
     <Content Include="templates\default\category.html" />
     <Content Include="templates\default\css\default\bg_ver-line-01.png" />
@@ -689,16 +727,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="oem\OEM_README.md" />
+    <Content Include="copy_assets.sh" />
     <Content Include="config\cms.conf" />
     <Content Include="config\install.lock" />
     <Content Include="config\locale.db" />
     <Content Include="config\related_indent.conf" />
-    <Content Include="copy_assets.sh" />
     <None Include="packages.config" />
     <Content Include="templates\default\tpl.conf">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="plugins\README.md" />
+    <Content Include="public\assets\bshare\README.md" />
+    <Content Include="public\assets\editor\README.md" />
     <Content Include="public\assets\fonts\comic.ttf" />
     <Content Include="public\assets\fonts\fontawesome-webfont.eot" />
     <Content Include="public\assets\fonts\fontawesome-webfont.ttf" />
@@ -706,6 +746,7 @@
     <Content Include="public\assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="public\assets\fonts\FontAwesome.otf" />
     <Content Include="public\assets\fonts\georgia.ttf" />
+    <Content Include="public\assets\lang\icon\README.md" />
     <Content Include="public\assets\widget\video-js\font\VideoJS.ttf" />
     <Content Include="public\assets\widget\video-js\font\VideoJS.woff" />
     <Content Include="public\assets\widget\video-js\lang\ar.json" />
