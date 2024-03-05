@@ -58,6 +58,7 @@ namespace JR.Cms.Web.Manager.Handle
             }
             catch (Exception ex)
             {
+                throw ex;
                 Console.WriteLine(ex.StackTrace);
                 Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
@@ -77,11 +78,16 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 var filePath = DoUploadFile(file, dir, name, true);
                 var imgPath = Cms.PhysicPath + filePath;
-                GraphicsHelper.SaveThumbnailV2(imgPath, imgPath, 320, 0);
-                Response.Write("{" + $"\"url\":\"{filePath}\"" + "}");
+                int i = filePath.LastIndexOf(".");
+                var thumbPath = String.Join("", filePath.Substring(0, i), "_300", filePath.Substring(i));
+                i = imgPath.LastIndexOf(".");
+                var thumbFilePath = String.Join("",imgPath.Substring(0, i), "_300", imgPath.Substring(i));
+                GraphicsHelper.SaveThumbnailV3(imgPath, thumbFilePath, 320, 90);
+                Response.Write("{" + $"\"url\":\"{thumbPath}\"" + "}");
             }
             catch (Exception ex)
             {
+                throw ex;
                 Console.WriteLine(ex.StackTrace);
                 Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
@@ -100,11 +106,16 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 var filePath = DoUploadFile(file, dir, name, true);
                 var imgPath = Cms.PhysicPath + filePath;
-                GraphicsHelper.SaveThumbnailV2(imgPath, imgPath, 320, 0);
-                Response.Write("{" + $"\"url\":\"{filePath}\"" + "}");
+                int i = filePath.LastIndexOf(".");
+                var thumbPath = String.Join("", filePath.Substring(0, i), "_300", filePath.Substring(i));
+                i = imgPath.LastIndexOf(".");
+                var thumbFilePath = String.Join("", imgPath.Substring(0, i), "_300", imgPath.Substring(i));
+                GraphicsHelper.SaveThumbnailV3(imgPath, thumbFilePath, 320, 90);
+                Response.Write("{" + $"\"url\":\"{thumbPath}\"" + "}");
             }
             catch (Exception ex)
             {
+                throw ex;
                 Console.WriteLine(ex.StackTrace);
                 Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
