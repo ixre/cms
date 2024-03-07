@@ -11,7 +11,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 ENV RELEASE_DIR=/app/out/release
 # 在Linux上启动GDI+
-ENV DOTNET_System_Drawing_EnableUnixSupport=true
+#ENV DOTNET_System_Drawing_EnableUnixSupport=true
 
 WORKDIR /app
 COPY . ./
@@ -22,7 +22,7 @@ RUN mkdir -p ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
     cp -r public oem install plugins ${RELEASE_DIR} && \
     cd ${RELEASE_DIR} && \
     rm -rf *.pdb *.xml appsettings.json appsettings.Development.json && \
-    rm -rf runtimes/win* runtimes/osx* runtimes/*arm* runtimes/*x86 && \
+    rm -rf runtimes/win* runtimes/osx* runtimes/*arm* runtimes/*x86 linux-s390x linux-s390x linux-musl-x64 && \
     cp ../../LICENSE ../../README.md . && ls -al
 
 # 设置开发者
@@ -33,14 +33,11 @@ LABEL License="GPLv2"
 LABEL Version=4.0
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 ENV CMS_RUN_ON_DOCKER yes
 WORKDIR /cms
 COPY --from=build-env /app/out/release ./
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    apk add libgdiplus --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
-    apk add tzdata fontconfig ttf-dejavu && \
-    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && apk del tzdata \
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "create data init folder.." && \
     mkdir -p ${CMS_INIT_DIR:=/var/cms} && mv -f templates plugins oem root ${CMS_INIT_DIR} && \
     echo "if [ \`ls /cms/templates | wc -w\` -eq 0 ];then cp -r ${CMS_INIT_DIR}/templates/* /cms/templates;fi;" \

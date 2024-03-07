@@ -184,7 +184,6 @@ var FwTab = {
     initialize: function () {
         var framebox = jr.$('pageframes');
         this.tabs = jr.$('pagetabs').getElementsByTagName('UL')[0];
-
         var getByCls = function (cls) {
             return (framebox.getElementsByClassName ? framebox.getElementsByClassName(cls) : document.getElementsByClassName(cls, framebox))[0];
         };
@@ -199,6 +198,9 @@ var FwTab = {
     showLoadBar: function () { },
     hiddenLoadBar: function () { },
     show: function (text, url, closeable) {
+        if(!this.tabs){
+            this.initialize();
+        }
         var _tabs = this.tabs.getElementsByTagName('LI');
         var _indent;
         var _exits = false;
