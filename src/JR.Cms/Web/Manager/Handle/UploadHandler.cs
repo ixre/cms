@@ -79,10 +79,12 @@ namespace JR.Cms.Web.Manager.Handle
                 var filePath = DoUploadFile(file, dir, name, true);
                 var imgPath = Cms.PhysicPath + filePath;
                 int i = filePath.LastIndexOf(".");
-                var thumbPath = String.Join("", filePath.Substring(0, i), "_300", filePath.Substring(i));
+                var thumbPath = String.Join("", filePath.Substring(0, i), "_w300", filePath.Substring(i));
                 i = imgPath.LastIndexOf(".");
-                var thumbFilePath = String.Join("",imgPath.Substring(0, i), "_300", imgPath.Substring(i));
+                var thumbFilePath = String.Join("", imgPath.Substring(0, i), "_w300", imgPath.Substring(i));
                 GraphicsHelper.SaveThumbnailV3(imgPath, thumbFilePath, 320, 90);
+                // 删除源文件
+                File.Delete(imgPath); 
                 Response.Write("{" + $"\"url\":\"{thumbPath}\"" + "}");
             }
             catch (Exception ex)
@@ -107,10 +109,12 @@ namespace JR.Cms.Web.Manager.Handle
                 var filePath = DoUploadFile(file, dir, name, true);
                 var imgPath = Cms.PhysicPath + filePath;
                 int i = filePath.LastIndexOf(".");
-                var thumbPath = String.Join("", filePath.Substring(0, i), "_300", filePath.Substring(i));
+                var thumbPath = String.Join("", filePath.Substring(0, i), "_w300", filePath.Substring(i));
                 i = imgPath.LastIndexOf(".");
-                var thumbFilePath = String.Join("", imgPath.Substring(0, i), "_300", imgPath.Substring(i));
+                var thumbFilePath = String.Join("", imgPath.Substring(0, i), "_w300", imgPath.Substring(i));
                 GraphicsHelper.SaveThumbnailV3(imgPath, thumbFilePath, 320, 90);
+                // 删除源文件
+                File.Delete(imgPath); 
                 Response.Write("{" + $"\"url\":\"{thumbPath}\"" + "}");
             }
             catch (Exception ex)
