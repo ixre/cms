@@ -99,7 +99,15 @@ mkdir /data/cms && cd /data/cms
 运行容器：
 
 ```bash
+#!/usr/bin/env sh
 podman='podman';if [ $(whereis podman) = 'podman:' ]; then podman='docker';fi
+
+$podman run -d -p 3306:3306 --name mysql-website \
+   -e MYSQL_ROOT_PASSWORD=123456 \
+   -v $(pwd)/mysql/conf.d:/etc/mysql/conf.d \
+   -v $(pwd)/mysql/data:/var/lib/mysql \
+   --restart always mysql:8
+
 $podman run -d  --name cms -p 8080:80 \
     --volume=$(pwd)/config:/cms/config \
     --volume=$(pwd)/data:/cms/data \
