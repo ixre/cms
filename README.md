@@ -102,6 +102,11 @@ mkdir /data/cms && cd /data/cms
 #!/usr/bin/env sh
 podman='podman';if [ $(whereis podman) = 'podman:' ]; then podman='docker';fi
 
+mkdir -p mysql/conf.d mysql/data config templates plugins uploads oem root
+
+$podman rm -f mysql-website
+$podman rm -f cms
+
 $podman run -d -p 3306:3306 --name mysql-website \
    -e MYSQL_ROOT_PASSWORD=123456 \
    -v $(pwd)/mysql/conf.d:/etc/mysql/conf.d \
