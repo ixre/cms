@@ -34,6 +34,212 @@ input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
 img{max-width:100%;border:0}
 
 
+/*================== 基础样式 ===================*/
+:root {
+    /** 0.8 = 16/20,因基础字体为20px */
+    --text-transform-percent: 1;
+    /** 引文次要信息,12px */
+    --text-xs-size: calc(0.75rem * var(--text-transform-percent));
+    /** 正文和正文标题 14px/16px */
+    --text-sm-size: calc(0.875rem * var(--text-transform-percent));
+    --text-base-size: calc(1rem * var(--text-transform-percent));
+    /** 标题,使用粗体,18px/20px/24px/30px */
+    --text-lg-size: calc(1.125rem * var(--text-transform-percent));
+    --text-xl-size: calc(1.25rem * var(--text-transform-percent));
+    --text-2xl-size: calc(1.5rem * var(--text-transform-percent));
+    --text-3xl-size: calc(1.875rem * var(--text-transform-percent));
+  
+    /** 颜色变量 */
+    --primary-color: #0b80f3; /* 蓝色blue */
+    --secondnary-color: rgb(255, 0, 0); /* 红色red */
+  }
+  *,
+  page * {
+    box-sizing: border-box;
+    /** 平滑滚动*/
+    scroll-behavior: smooth;
+  }
+  body {
+    /** 字体默认加粗 */
+    font-weight: 500;
+  }
+  
+  /** 容器 */
+  .container,
+  .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .hidden {
+    display: none !important;
+  }
+  /** text */
+  .text-primary {
+    color: var(--primary-color);
+  }
+  .text-secondnary {
+    color: #333;
+  }
+  .text-gray {
+    color: #707070;
+  }
+  .text-success {
+    color: #0a0;
+  }
+  .text-red {
+    color: #f00;
+  }
+  
+  .txt-right {
+    text-align: right;
+  }
+  .txt-amount {
+    font-weight: 500;
+  }
+  
+  .text-xs {
+    font-size: var(--text-xs-size);
+    line-height: 1rem; /* 16px */
+  }
+  .text-sm {
+    font-size: var(--text-sm-size);
+    line-height: 1.25rem; /* 20px */
+  }
+  .text-base {
+    font-size: var(--text-base-size);
+    line-height: 1.5rem; /* 24px */
+  }
+  .text-lg {
+    font-size: var(--text-lg-size);
+    line-height: 1.75rem; /* 28px */
+  }
+  .text-xl {
+    font-size: var(--text-xl-size);
+    line-height: 1.75rem; /* 28px */
+  }
+  
+  /** 字体粗细 */
+  .font-light {
+    font-weight: 300;
+  }
+  .font-normal {
+    font-weight: 400;
+  }
+  .font-medium {
+    font-weight: 500;
+  }
+  .font-bold {
+    font-weight: 700;
+  }
+  
+  /** 边距 */
+  .margin-vert {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  
+  /** margin */
+  .margin-bottom-10px {
+    margin-bottom: 10px;
+  }
+  .margin-bottom-20px {
+    margin-bottom: 20px;
+  }
+  .margin-bottom-30px {
+    margin-bottom: 30px;
+  }
+  .margin-bottom-3em {
+    margin-bottom: 3em;
+  }
+  .margin-right-1em {
+    margin-right: 1em;
+  }
+  .margin-1 {
+    margin: 0.8em;
+  }
+  .margin-half-em {
+    margin: 0.5em;
+  }
+  
+  .padding-10px {
+    padding: 10px;
+  }
+  
+  .padding-all {
+    padding: 1em;
+  }
+  .padding-half-em {
+    padding: 0.5em;
+  }
+  .margin-10px {
+    margin: 10px;
+  }
+  
+  /** 高度100% */
+  .height-all {
+    height: 100%;
+  }
+  /** flex布局 */
+  .flex {
+    display: flex;
+  }
+  
+  .flex-column {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .justify-end {
+    justify-content: flex-end;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .justify-around {
+    justify-content: space-around;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .align-start {
+    align-items: flex-start;
+  }
+  .align-end {
+    align-items: flex-end;
+  }
+  .align-center {
+    align-items: center;
+  }
+  .align-baseline {
+    align-items: baseline;
+  }
+  
+  .flex-1 {
+    flex: 1;
+  }
+  .flex-2 {
+    flex: 2;
+  }
+  .gap {
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
+  }
+
+
+
+/* =============== 旧版本实现 ===================*/
+
+
 /* Response Layout, 12 Columns */
 .container,.container-fluid{padding-right:15px;padding-left:15px;margin:0 auto}
 .row{display:flex;flex-wrap:wrap;margin-left:-15px;margin-right:-15px;}

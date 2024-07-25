@@ -27,7 +27,7 @@ namespace JR.Cms.Web.Resource
                                GetResource("Web/Resource/SiteResources/site-base.css"))
                                + "\n /* merge page.css */\n"
                                + ResourceUtility.CompressHtml(
-                                   GetResource("Web/Resource/SiteResources/site-page.css")), false);
+                                   GetResource("Web/Resource/SiteResources/site-elements.css")), false);
 
             //Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "cms.js", 
             //    comment + SiteResource.cms_core_min, !true);

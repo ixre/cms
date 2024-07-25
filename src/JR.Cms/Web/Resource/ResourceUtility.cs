@@ -27,7 +27,7 @@ namespace JR.Cms.Web.Resource
 
             //替换多行注释
             //const string multCommentPattern = "";
-            html = Regex.Replace(html, "/\\*[^\\*]+\\*/", string.Empty);
+            html = Regex.Replace(html, "/\\*+(.+)\\*/", string.Empty);
 
             //替换<!-- 注释 -->
             html = Regex.Replace(html, "<!--[^\\[][\\s\\S]*?-->", string.Empty);
