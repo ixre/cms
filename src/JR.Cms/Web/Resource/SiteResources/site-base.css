@@ -33,7 +33,6 @@ input[type="password"]{font-family:inherit}
 input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
 img{max-width:100%;border:0}
 
-
 /*================== 基础样式 ===================*/
 :root {
     /** 0.8 = 16/20,因基础字体为20px */

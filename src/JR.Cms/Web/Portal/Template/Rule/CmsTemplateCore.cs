@@ -31,8 +31,8 @@ using Module = JR.Cms.Domain.Interface.Models.Module;
 
 namespace JR.Cms.Web.Portal.Template.Rule
 {
-    
-    public abstract class CmsTemplateCore :ITemplateResolver, IDisposable
+
+    public abstract class CmsTemplateCore : ITemplateResolver, IDisposable
     {
         private IDataContainer _container = null;
 
@@ -76,11 +76,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// </summary>
         private TemplateSetting _tplSetting;
 
-        public void SetContainer(IDataContainer container){
+        public void SetContainer(IDataContainer container)
+        {
             this._container = container;
         }
 
-        public IDataContainer GetContainer(){
+        public IDataContainer GetContainer()
+        {
             return this._container;
         }
 
@@ -1008,7 +1010,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
 
         /// <summary>
-        /// 导航
+        /// 导航,使用$nav=1来设置高亮的索引
         /// </summary>
         /// <param name="childFormat"></param>
         /// <param name="index">选中索引</param>
@@ -1018,7 +1020,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected string Navigator(string format, string childFormat, string index)
         {
             const string tpl =
-                @"<div class=""mod-navigator""><div class=""left mod-navigator-left""></div><div class=""right mod-navigator-right""></div><div class=""nav mod-navigator-nav""><ul>{0}</ul><div class=""clearfix""></div></div></div>";
+                @"<div class=""mod-navigator navigator"">
+                    <div class=""left mod-navigator-left navigator__left""></div>
+                    <div class=""right mod-navigator-right navigator__right""></div>
+                    <div class=""nav mod-navigator-nav navigator__nav flex"">
+                        {0}
+                        <div class=""clearfix""></div>
+                    </div>
+                </div>";
 
             var sb = new StringBuilder();
             IList<SiteLinkDto> links = new List<SiteLinkDto>(
@@ -1026,11 +1035,15 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var total = links.Count;
 
             int navIndex;
-            if (index == "")
+            if (index == ""){
                 navIndex = -1; //如果为空，则默认不选中
+            }
             else
+            {
                 int.TryParse(index, out navIndex);
+            }
 
+            throw new Exception(navIndex.ToString());
             var j = 0;
             string tempLinkStr;
 
@@ -1043,11 +1056,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
                      *  辨别选中的导航
                      * *********************/
                     var clsName = levelCls;
-                    if (childCount != 0) clsName = string.Concat(clsName, " parent ");
-                    if (selected == current) clsName = string.Concat(clsName, " current");
-                    if (current == 0) clsName = string.Concat(clsName, " first");
-                    if (current == genTotal - 1) clsName = string.Concat(clsName, " last");
-                    sb2.Append("<li class=\"" + clsName + "\">");
+                    if (childCount != 0) clsName = string.Concat(clsName, " navigator__parent parent");
+                    if (selected == current) clsName = string.Concat(clsName, " navigator__current current");
+                    if (current == 0) clsName = string.Concat(clsName, " navigator__first first");
+                    if (current == genTotal - 1) clsName = string.Concat(clsName, " navigator__last last");
+                    sb2.Append("<div class=\"navigator__item " + clsName + "\">");
                     //解析格式
                     tempLinkStr = TplEngine.ResolveHolderFields(child ? childFormat : format, a =>
                     {
@@ -1067,7 +1080,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     if (!string.IsNullOrEmpty(link.Target))
                         tempLinkStr = tempLinkStr.Replace("<a ", "<a target=\"" + link.Target + "\" ");
 
-                    sb2.Append(tempLinkStr).Append("</li>");
+                    sb2.Append(tempLinkStr).Append("</div>");
                     return sb2.ToString();
                 };
 
@@ -1081,10 +1094,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     var secondTotal = 0;
                     if ((secondTotal = children.Count) != 0)
                     {
-                        parentHtml = parentHtml.Replace("</a></li>",
+                        parentHtml = parentHtml.Replace("</a></div>",
                             string.Format(
-                                "<i class=\"nav-arrow\"></i></a><div id=\"{0}_child{1}\" class=\"mod-navigator-child child child{1}\"><div class=\"top\"></div><div class=\"box\">" +
-                                "<ul class=\"menu\">",
+                                @"<i class=""navigator__item--arrow nav-arrow""/></a>
+                                <div id=""{0}_child{1}"" class=""navigator__child mod-navigator-child child child{1}"">
+                                <div class=""navigator__child--top top""></div>
+                                <div class=""navigator__child--box box"">
+                                <div class=""nagigator__child--menu menu"">",
                                 links[i].Type.ToString().ToLower(),
                                 links[i].Id.ToString()));
                         var secondCurrent = 0;
@@ -1094,7 +1110,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             secondCurrent++;
                         }
 
-                        parentHtml += "</ul></div></div></li>";
+                        parentHtml += "</div></div></div></div>";
                     }
 
                     sb.Append(parentHtml);
@@ -1332,10 +1348,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         case "modify_time": return $"{archiveDto.UpdateTime:yyyy-MM-dd HH:mm}";
                         case "edit_date":
                         case "modify_date": return $"{archiveDto.UpdateTime:yyyy-MM-dd}";
-                        case "publish_short_date":return $"{archiveDto.CreateTime:MM-dd}";
+                        case "publish_short_date": return $"{archiveDto.CreateTime:MM-dd}";
                         case "publish_month": return string.Format("{0:MM}", archiveDto.CreateTime);
                         case "publish_day": return string.Format("{0:dd}", archiveDto.CreateTime);
-                           
+
                         case "publish_time":
                         case "create_time": return $"{archiveDto.CreateTime:yyyy-MM-dd HH:mm}";
                         case "publish_date":
@@ -1581,10 +1597,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             //时间
                             case "modify_time": return string.Format("{0:yyyy-MM-dd HH:mm}", createTime);
                             case "modify_date": return string.Format("{0:MM-dd}", dr["update_time"]);
-                            case "publish_short_date":return $"{createTime:MM-dd}";
+                            case "publish_short_date": return $"{createTime:MM-dd}";
                             case "publish_month": return string.Format("{0:MM}", createTime);
                             case "publish_day": return string.Format("{0:dd}", createTime);
-                           
+
                             case "publish_time":
                             case "create_time": return string.Format("{0:yyyy-MM-dd HH:mm}", createTime);
                             case "publish_date":
@@ -1642,7 +1658,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                     if (p != null) return Cms.Language.Get(_ctx.UserLanguage, p) ?? "{" + p + "}";
                                 }
 
-                                if (extendValues.ContainsKey(archiveId) && extendValues[archiveId].ContainsKey(field)){
+                                if (extendValues.ContainsKey(archiveId) && extendValues[archiveId].ContainsKey(field))
+                                {
                                     return extendValues[archiveId][field];
                                 }
                                 return "{" + field + "}";
@@ -1919,7 +1936,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "modify_date": return string.Format("{0:yyyy-MM-dd}", archive.UpdateTime);
                             case "create_time": return string.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime);
                             case "create_date": return string.Format("{0:yyyy-MM-dd}", archive.CreateTime);
-                            case "publish_short_date":return $"{archive.CreateTime:MM-dd}";
+                            case "publish_short_date": return $"{archive.CreateTime:MM-dd}";
                             case "publish_month": return string.Format("{0:MM}", archive.CreateTime);
                             case "publish_day": return string.Format("{0:dd}", archive.CreateTime);
                             //栏目
@@ -2274,7 +2291,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "modify_date": return string.Format("{0:yyyy-MM-dd}", archive.UpdateTime);
                             case "create_time": return string.Format("{0:yyyy-MM-dd HH:mm:ss}", archive.CreateTime);
                             case "create_date": return string.Format("{0:yyyy-MM-dd}", archive.CreateTime);
-                            case "publish_short_date":return $"{archive.CreateTime:MM-dd}";
+                            case "publish_short_date": return $"{archive.CreateTime:MM-dd}";
                             case "publish_month": return string.Format("{0:MM}", archive.CreateTime);
                             case "publish_day": return string.Format("{0:dd}", archive.CreateTime);
 
