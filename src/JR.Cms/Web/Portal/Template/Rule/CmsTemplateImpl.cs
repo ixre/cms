@@ -1154,12 +1154,15 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Navigator()
         {
-            var cache = SiteLinkCache.GetNavigatorBySiteId(SiteId);
+            var index = (String)this.GetContainer().GetVariable("nav");
+            if(String.IsNullOrEmpty(index)){
+                index = "-1";
+            }
+            var cache = SiteLinkCache.GetNavigatorBySiteId(SiteId,index);
             var siteDomain = _ctx.SiteDomain;
             if (string.IsNullOrEmpty(cache))
             {
-                cache = base.Navigator(GetSetting().CFG_NavigatorLinkFormat, GetSetting().CFG_NavigatorChildFormat,
-                    "-1");
+                cache = base.Navigator(GetSetting().CFG_NavigatorLinkFormat, GetSetting().CFG_NavigatorChildFormat,index);
                 var cache2 = cache.Replace(siteDomain, "${DOMAIN}");
                 SiteLinkCache.SetNavigatorForSite(SiteId, cache2);
                 return cache;

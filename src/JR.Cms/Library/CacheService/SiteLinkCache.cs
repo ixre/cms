@@ -8,9 +8,9 @@
             Kvdb.Gca.Delete("link:flink:" + siteId.ToString());
         }
 
-        public static string GetNavigatorBySiteId(int siteId)
+        public static string GetNavigatorBySiteId(int siteId,string index)
         {
-            return Kvdb.Gca.Get("link:navigator:" + siteId.ToString());
+            return Kvdb.Gca.Get("link:navigator:" + siteId.ToString()+":"+index);
         }
 
         public static void SetNavigatorForSite(int siteId, string cache)

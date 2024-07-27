@@ -1042,8 +1042,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
             {
                 int.TryParse(index, out navIndex);
             }
-
-            throw new Exception(navIndex.ToString());
             var j = 0;
             string tempLinkStr;
 
@@ -1057,7 +1055,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                      * *********************/
                     var clsName = levelCls;
                     if (childCount != 0) clsName = string.Concat(clsName, " navigator__parent parent");
-                    if (selected == current) clsName = string.Concat(clsName, " navigator__current current");
+                    if (selected == current) clsName = string.Concat(clsName, " navigator__active current");
                     if (current == 0) clsName = string.Concat(clsName, " navigator__first first");
                     if (current == genTotal - 1) clsName = string.Concat(clsName, " navigator__last last");
                     sb2.Append("<div class=\"navigator__item " + clsName + "\">");

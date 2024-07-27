@@ -35,7 +35,6 @@ img{max-width:100%;border:0}
 
 /*================== 基础样式 ===================*/
 :root {
-    /** 0.8 = 16/20,因基础字体为20px */
     --text-transform-percent: 1;
     /** 引文次要信息,12px */
     --text-xs-size: calc(0.75rem * var(--text-transform-percent));
@@ -114,8 +113,19 @@ img{max-width:100%;border:0}
   }
   .text-xl {
     font-size: var(--text-xl-size);
-    line-height: 1.75rem; /* 28px */
+    line-height: 1.25em; /* 28px */
   }
+ .text-2xl {
+    font-size: var(--text-2xl-size);
+    line-height: 1.25em; /* 28px */
+  }
+  .text-3xl {
+    font-size: var(--text-3xl-size);
+    line-height: 1.25em; /* 28px */
+  }
+  
+  
+  
   
   /** 字体粗细 */
   .font-light {
@@ -369,25 +379,7 @@ img{max-width:100%;border:0}
 .g-uppercase{text-transform:uppercase;}
 /** 遮盖层 */
 .g-mask{position:absolute;left:0;top:0;right:0;bottom:0;background:#000;opacity:0.3;z-index:-1;}
-/* 箭头 */
-.g-arrow{height:0;width:0;margin:auto;display:inline-block;border:solid 5px transparent;}
-.g-arrow-r{border-right:none;border-left-color:#FFF;margin-left:5px;}
-.g-arrow-l{border-left:none;border-right-color:#FFF;margin-right:5px;}
-.g-arrow-t{border-top:none;border-bottom-color:#FFF;margin-top:5px;}
-.g-arrow-b{border-bottom:none;border-top-color:#FFF;margin-bottom:5px;}
-/* 空心箭头： 向下的三角线：<span class="g-arrow-slot g-arrow-slot-b"><span></span><span></span></span> */
-.g-arrow-slot{position: relative;}
-.g-arrow-slot span{position: absolute;border-style: solid dashed dashed;top:0;border-width: 10px;}
-.g-arrow-slot span:first-child{border-color: #666 transparent transparent;top:1px;}
-.g-arrow-slot span:last-child{border-color: #FFF transparent transparent;border-style: solid dashed dashed;}
-.g-arrow-slot-r span:first-child{margin-left:1px;top:1px;border-style: dashed dashed dashed solid;border-color: transparent transparent transparent #666;}
-.g-arrow-slot-r span:last-child{top:1px;border-style: dashed dashed dashed solid;border-color:transparent transparent transparent #fff;}
-.g-arrow-slot-l span:first-child{top:1px;border-style: dashed solid dashed dashed;border-color: transparent #666 transparent transparent;}
-.g-arrow-slot-l span:last-child{margin-left:1px;top:1px;border-style: dashed solid dashed dashed;border-color: transparent #fff transparent transparent;}
-/* 水平箭头折线,如：<div class="g-arrow-hr"><span class="g-arrow-slot g-arrow-slot-b"><span></span><span></span></span> </div>*/
-.g-arrow-hr{border-bottom:solid 1px #999;height:1px;position:relative;margin-bottom:15px;}
-.g-arrow-hr .g-arrow-slot{position: absolute;margin-left:-5px;}
-.g-arrow-hr .g-arrow-slot span{border-width:7px;}
+
 /* 显示单行，超出以省略号显示 */
 .g-single-row{text-overflow: ellipsis;white-space: nowrap;overflow:hidden;}
 /** 文字居中 */

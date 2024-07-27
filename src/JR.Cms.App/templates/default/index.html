@@ -1,101 +1,133 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>${page.title}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="Stylesheet" type="text/css" href="${page.fpath}/base.css?v=${page.built}" />
-    <link rel="Stylesheet" type="text/css" href="${page.tpath}/css/default/page.css?v=${page.built}" />
-    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc?wsd" />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.fpath}/base.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/page.csscss?v=${page.built}"
+    />
+    <link
+      rel="EditURI"
+      type="application/rsd+xml"
+      title="RSD"
+      href="/xmlrpc?wsd"
+    />
     <meta name="keywords" content="${page.keywords}" />
     <meta name="description" content="${page.description}" />
     ${page.html5}
-</head>
-<body>
+  </head>
+  <body>
     ${include:"include/header.html"}
-    <div class="mod-flash-p mod-flash-banner g-mg5 flash-row container" style="margin:5px auto">
-        ${include:"include/flash_banner.html"}
+    <div
+      class="mod-flash-p mod-flash-banner g-mg5 flash-row container"
+      style="margin: 5px auto"
+    >
+      ${include:"include/flash_banner.html"}
     </div>
     <ul>
-        $archives('news',4,'
-        <li>sss{time_fmt[yyyy-MM-dd]}</li>')
+      $archives('news',4,'
+      <li>sss{time_fmt[yyyy-MM-dd]}</li>
+      ')
     </ul>
     <div class="row row-news">
-        <div class="container">
-            <span class="icon icon-sound">
-                最新公告:
-            </span>
-            <span class="list" id="notice_list">
-                <ul>
-                    $archives('news',5,'
-                    <li><a href="{url}">{title}</a></li>
-                    ')
-                </ul>
-            </span>
-        </div>
+      <div class="container">
+        <span class="icon icon-sound"> 最新公告: </span>
+        <span class="list" id="notice_list">
+          <ul>
+            $archives('news',5,'
+            <li><a href="{url}">{title}</a></li>
+            ')
+          </ul>
+        </span>
+      </div>
     </div>
     <div class="page-index container">
-        <div class="busi-blocks">
+      <div class="busi-blocks">
+        <ul>
+          $archives('items',4,'
+          <li>
+            <a href="{url}">
+              <img src="{thumbnail}" alt="{title2}" />
+              <span class="text-mask"></span>
+              <span class="text">{title}</span>
+            </a>
+          </li>
+          ')
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="row row2 hidden">
+        <div class="col row-pro-cates" id="tab1">
+          <div class="tab">
             <ul>
-                $archives('items',4,'
-                <li>
-                    <a href="{url}">
-                        <img src="{thumbnail}" alt="{title2}" />
-                        <span class="text-mask"></span>
-                        <span class="text">{title}</span>
-                    </a>
-                </li>')
+              <li class="current item">$lang(product-category)</li>
+              <li class="item">
+                <a href="${page.domain}/brand">$lang(brand-proxy)</a>
+              </li>
             </ul>
-            <div class="clearfix"></div>
-        </div>
-        <div class="row row2 hidden">
-            <div class="col row-pro-cates" id="tab1">
-                <div class="tab">
-                    <ul>
-                        <li class="current item">$lang(product-category)</li>
-                        <li class="item"><a href="${page.domain}/brand">$lang(brand-proxy)</a></li>
-                    </ul>
-                </div>
-                <div class="clear-fix"></div>
-                <div class="frames">
-                    <div class="frame flash-panel row-pro-cate" id="fla-pro-cate">
-                        <ul>
-                            $categories('product','
-                            <li class="{class}">
-                                <a href="{url}">
-                                    <div class="auto-fit">
-                                        <img src="{thumbnail}" class="thumbnail" height="80" />
-                                    </div>
-                                    <span>{name}</span>
-                                </a>
-                            </li>
-                            ')
-                        </ul>
+          </div>
+          <div class="clear-fix"></div>
+          <div class="frames">
+            <div class="frame flash-panel row-pro-cate" id="fla-pro-cate">
+              <ul>
+                $categories('product','
+                <li class="{class}">
+                  <a href="{url}">
+                    <div class="auto-fit">
+                      <img src="{thumbnail}" class="thumbnail" height="80" />
                     </div>
-                    <div class="frame hidden">
-                        2
-                    </div>
-                </div>
+                    <span>{name}</span>
+                  </a>
+                </li>
+                ')
+              </ul>
             </div>
-            <div class="col col-last">
-                <a href="${page.domain}/product/pro-diy.html">
-                    <img src="${page.tpath}/themes/default/busi-diy.jpg" alt="img" width="100%" />
-                </a>
-            </div>
-            <div class="clearfix"></div>
+            <div class="frame hidden">2</div>
+          </div>
         </div>
+        <div class="col col-last">
+          <a href="${page.domain}/product/pro-diy.html">
+            <img
+              src="${page.tpath}/themes/default/busi-diy.jpg"
+              alt="img"
+              width="100%"
+            />
+          </a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
 
-        <div class="mod-friend-link">
-            <i>$lang(friend-link):</i>$friend_link()
-        </div>
+      <div class="mod-friend-link">
+        <i>$lang(friend-link):</i>$friend_link()
+      </div>
     </div>
 
     ${include:"include/footer.html"}
-    <script type="text/javascript" src="${page.fpath}/base.min.js?v=${page.built}&amp;hover=navi"></script>
-    <script type="text/javascript" src="${page.fpath}/js/scroller.js?v=${page.built}&amp;hover=navi"></script>
-    <script type="text/javascript">$jr.scroller('fla', {direction: 'left',unit:1200,pagerid:'fla_pager'},4000);
-    $jr.scroller('fla-pro-cate', {direction: 'left',unit:100},2000);
-    $jr.scroller('notice_list',{direction:'up',unit:20},3000);
-        //tabCard($jr.$('tab1'));</script>
-</body>
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?v=${page.built}&amp;hover=navi"
+    ></script>
+    <script
+      type="text/javascript"
+      src="${page.fpath}/js/scroller.js?v=${page.built}&amp;hover=navi"
+    ></script>
+    <script type="text/javascript">
+      $jr.scroller(
+        "fla",
+        { direction: "left", unit: 1200, pagerid: "fla_pager" },
+        4000
+      );
+      $jr.scroller("fla-pro-cate", { direction: "left", unit: 100 }, 2000);
+      $jr.scroller("notice_list", { direction: "up", unit: 20 }, 3000);
+      //tabCard($jr.$('tab1'));
+    </script>
+  </body>
 </html>

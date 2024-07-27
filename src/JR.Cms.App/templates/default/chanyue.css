@@ -1,0 +1,75 @@
+:root {
+  --banner-bg-color: #000;
+  --banner-bg-end-color: #387fff;
+  /** 0.8 = 16/20,因基础字体为20px */
+  --text-transform-percent: 1;
+  /** 引文次要信息,12px */
+  --text-xs-size: calc(1.2rem * var(--text-transform-percent));
+  /** 正文和正文标题 14px/16px */
+  --text-sm-size: calc(1.4rem * var(--text-transform-percent));
+  --text-base-size: calc(1.6rem * var(--text-transform-percent));
+  /** 标题,使用粗体,18px/20px/24px/30px */
+  --text-lg-size: calc(1.8rem * var(--text-transform-percent));
+  --text-xl-size: calc(2.4rem * var(--text-transform-percent));
+  --text-2xl-size: calc(3.2rem * var(--text-transform-percent));
+  --text-3xl-size: calc(4.8rem * var(--text-transform-percent));
+}
+.banner {
+  background-image: radial-gradient(
+    at bottom right,
+    var(--banner-bg-end-color) 0%,
+    var(--banner-bg-color) 50%
+  );
+
+  & .banner__main {
+    height: 600px;
+    flex-basis: 50%;
+    & .banner__main--title {
+      padding-bottom: 1em;
+    }
+    & .banner__main--desc {
+      line-height: 1.5em;
+      font-weight: 400;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 1em;
+      color: #333;
+    }
+    & .banner__main--button {
+      margin-top: 2em;
+      a {
+        background: #fff;
+      }
+    }
+  }
+}
+
+.arrow {
+  i {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #f00;
+  }
+}
+
+.banner {
+  color: #fff;
+
+  header {
+    padding: 2em 0 1em 0;
+    height: auto;
+  }
+  .text-3xl {
+    font-size: 4rem;
+  }
+  .header__logo--img {
+    background-blend-mode: lighten;
+  }
+  .navigator a {
+    color: #fff;
+  }
+  .banner__main--desc {
+    color: #999 !important;
+  }
+}

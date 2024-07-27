@@ -1,105 +1,141 @@
 $require('${archive.id}')
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>${page.title}</title>
-    <link rel="Stylesheet" href="${page.fpath}/base.css?v=${page.built}" type="text/css" />
-    <link rel="Stylesheet" href="${page.tpath}/css/default/page.css?v=${page.built}" type="text/css"/>
+    <link
+      rel="Stylesheet"
+      href="${page.fpath}/base.css?v=${page.built}"
+      type="text/css"
+    />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/page.csscss?v=${page.built}"
+      type="text/css"
+    />
     <meta name="keywords" content="${page.keywords}" />
     <meta name="description" content="${page.description}" />
     ${page.html5}
-</head>
-<body>
+  </head>
+  <body>
     ${include:"include/header.html"}
-   <div class="mod-crumb">
-  		<div class="container">
-      	 $lang(sitemap_location):<a href="/">$lang(home)</a> > $sitemap()
-   		</div>
-	</div>
+    <div class="mod-crumb">
+      <div class="container">
+        $lang(sitemap_location):<a href="/">$lang(home)</a> > $sitemap()
+      </div>
+    </div>
 
     <div class="mod-layout page-a mod-archive-${category.tag}">
-        <div class="container clearfix">
-           <div class="l mod-nav-side">
-               <div class="mod-nav-border">
-                    <div class="tit">$lang(category)$lang(space)$lang(navigator)</div>
-                    <div class="content">
-                        <ul class="mod-cat-list clist">
-                            $categories('root','<li><a href="{url}">▪&nbsp;{name}</a></li>')
-                        </ul>
-                    </div>
-                </div>
-                <div class="mod-nav-border mod-nav-relation">
-                    <div class="tit">$lang(relation)$lang(space)$lang(information)</div>
-                    <div class="content">
-                        <ul class="archive-list hot-list">
-                            $hot_archives(${category.tag},'5','<li><a href="{url}" title="{title}">▪&nbsp;{title}</a></li>')
-                        </ul>
-                    </div>
-                 </div>
+      <div class="container clearfix">
+        <div class="l mod-nav-side">
+          <div class="mod-nav-border">
+            <div class="tit">$lang(category)$lang(space)$lang(navigator)</div>
+            <div class="content">
+              <ul class="mod-cat-list clist">
+                $categories('root','
+                <li><a href="{url}">▪&nbsp;{name}</a></li>
+                ')
+              </ul>
             </div>
-
-            <div class="m mod-archive">
-                <div class="m-trip"></div>
-
-                <h1>${archive.title}</h1>
-                <div class="info">
-                    $lang(archive-source)：<em>${archive.source}</em>
-                    &nbsp;&nbsp;
-                    $lang(publish-date)：${archive.publish}
-                    &nbsp;&nbsp;
-                    $lang(archive-click):<em>${archive.count}</em>次
-
-                    <span class="abs">
-                        <div class="share bshare-custom">
-                        <a title="分享到" href="javascript:;" id="bshare-shareto" class="bshare-more">分享到</a>
-                        <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a>
-                        <a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a>
-                        <a title="分享到微信" class="bshare-weixin">微信</a>
-                        <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
-                    </div>
-                    </span>
-                </div>
-                <div class="content">
-                    ${archive.content}
-                    <div class="author">
-                       <!-- [编辑:${archive.author}]-->
-                        <span class="right tags">
-                             $tags('${archive.tags}')
-                        </span>
-                    </div>
-                </div>
-                    
-                <div class="share">
-                     <div class="bshare-custom">
-                        <a title="分享到" href="javascript:;" id="bshare-shareto" class="bshare-more">分享到</a>
-                        <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a>
-                        <a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a>
-                        <a title="分享到腾讯微博" class="bshare-qqmb">腾讯微博</a>
-                        <a title="分享到微信" class="bshare-weixin">微信</a>
-                        <a title="分享到网易微博" class="bshare-neteasemb">网易微博</a>
-                        <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span>
-                    </div>
-                </div>
-
-                <div class="tags">
-                   
-                </div>
-                <div class="mod-relation-archive">
-                    <span class="previous-archive">
-                              上一篇: $prev_archive('<a href="{url}">{title}</a>')
-                    </span>
-                    <span class="next-archive">
-                              下一篇:$next_archive('<a href="{url}">{title}</a>')   
-                    </span>
-                  </div>
+          </div>
+          <div class="mod-nav-border mod-nav-relation">
+            <div class="tit">$lang(relation)$lang(space)$lang(information)</div>
+            <div class="content">
+              <ul class="archive-list hot-list">
+                $hot_archives(${category.tag},'5','
+                <li><a href="{url}" title="{title}">▪&nbsp;{title}</a></li>
+                ')
+              </ul>
             </div>
-                   
-            </div>
+          </div>
         </div>
-           ${include:"include/footer.html"}
-        <script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
-        <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
-<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
-      
-     </body>
+
+        <div class="m mod-archive">
+          <div class="m-trip"></div>
+
+          <h1>${archive.title}</h1>
+          <div class="info">
+            $lang(archive-source)：<em>${archive.source}</em>
+            &nbsp;&nbsp; $lang(publish-date)：${archive.publish} &nbsp;&nbsp;
+            $lang(archive-click):<em>${archive.count}</em>次
+
+            <span class="abs">
+              <div class="share bshare-custom">
+                <a
+                  title="分享到"
+                  href="javascript:;"
+                  id="bshare-shareto"
+                  class="bshare-more"
+                  >分享到</a
+                >
+                <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a>
+                <a title="分享到新浪微博" class="bshare-sinaminiblog"
+                  >新浪微博</a
+                >
+                <a title="分享到微信" class="bshare-weixin">微信</a>
+                <a
+                  title="更多平台"
+                  class="bshare-more bshare-more-icon more-style-addthis"
+                ></a>
+              </div>
+            </span>
+          </div>
+          <div class="content">
+            ${archive.content}
+            <div class="author">
+              <!-- [编辑:${archive.author}]-->
+              <span class="right tags"> $tags('${archive.tags}') </span>
+            </div>
+          </div>
+
+          <div class="share">
+            <div class="bshare-custom">
+              <a
+                title="分享到"
+                href="javascript:;"
+                id="bshare-shareto"
+                class="bshare-more"
+                >分享到</a
+              >
+              <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a>
+              <a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a>
+              <a title="分享到腾讯微博" class="bshare-qqmb">腾讯微博</a>
+              <a title="分享到微信" class="bshare-weixin">微信</a>
+              <a title="分享到网易微博" class="bshare-neteasemb">网易微博</a>
+              <a
+                title="更多平台"
+                class="bshare-more bshare-more-icon more-style-addthis"
+              ></a
+              ><span class="BSHARE_COUNT bshare-share-count">0</span>
+            </div>
+          </div>
+
+          <div class="tags"></div>
+          <div class="mod-relation-archive">
+            <span class="previous-archive">
+              上一篇: $prev_archive('<a href="{url}">{title}</a>')
+            </span>
+            <span class="next-archive">
+              下一篇:$next_archive('<a href="{url}">{title}</a>')
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${include:"include/footer.html"}
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf-8"
+      src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf-8"
+      src="http://static.bshare.cn/b/bshareC0.js"
+    ></script>
+  </body>
 </html>

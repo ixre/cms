@@ -1,18 +1,9 @@
-body{color:#333;font-family:Arial 'MiCROSOFT YAHEI';/*background:#F0F0F0;*/}
+body{color:#333;background:#F2F2F2;font-size:1.6rem;}
+a:link{color:#000;}
+a:visited{color:#333;}
+a:hover{color:#333;text-decoration: underline;}
 
-h1,h2,h3{margin:0;padding:0;}
-h1{font-size:1.25em;line-height: 2em;}
-a:link,a:visited{color:#333;}
-a:hover{color:#D50000;}
-.wrapper,.container{width:1019px;margin:0 auto;}
-.relative{position: relative;}
-.pull{float:left;}
-.push{margin-right:3%;float:left;}
-.arrow{background:url(img/arrow.gif) no-repeat;width:10px;height:10px;display:inline-block;margin-right:3px;}
-.panel{width:1019px;margin:0 auto;font-size:1.2em;}
-p,div{margin-bottom:0;}
-table{border:solid 1px #333;}
-table td{border:solid 1px #333;padding:0 10px;}
+header{box-shadow: none;}
 
 /* 全局元素样式 */
 
