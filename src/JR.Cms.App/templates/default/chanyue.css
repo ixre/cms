@@ -14,32 +14,21 @@
   --text-2xl-size: calc(3.2rem * var(--text-transform-percent));
   --text-3xl-size: calc(4.8rem * var(--text-transform-percent));
 }
-.banner {
-  background-image: radial-gradient(
-    at bottom right,
-    var(--banner-bg-end-color) 0%,
-    var(--banner-bg-color) 50%
-  );
 
-  & .banner__main {
-    height: 600px;
-    flex-basis: 50%;
-    & .banner__main--title {
-      padding-bottom: 1em;
+.header {
+  & .header__logo {
+    & .header__logo--img {
+      max-height: 64px;
     }
-    & .banner__main--desc {
-      line-height: 1.5em;
-      font-weight: 400;
-      background: rgba(0, 0, 0, 0.1);
-      padding: 1em;
-      color: #333;
-    }
-    & .banner__main--button {
-      margin-top: 2em;
-      a {
-        background: #fff;
-      }
-    }
+  }
+}
+
+.section {
+  color: #000;
+
+  & .block__sub {
+    color: #999;
+    font-size: var(--text-sm-size);
   }
 }
 
@@ -55,10 +44,12 @@
 
 .banner {
   color: #fff;
+  --animate-delay: 2s;
 
-  header {
+  .header {
     padding: 2em 0 1em 0;
     height: auto;
+    box-shadow: none;
   }
   .text-3xl {
     font-size: 4rem;
@@ -69,7 +60,83 @@
   .navigator a {
     color: #fff;
   }
+  .banner__main {
+    height: 600px;
+  }
+  .banner__main--title {
+    line-height: 1.25em;
+  }
   .banner__main--desc {
+    color: #eee !important;
+    background: #5a6b86 !important;
+    border-radius: 15px;
+  }
+}
+
+.block {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+
+  .block__title {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+  }
+
+  .block__sub {
+    max-width: 200px;
+  }
+}
+
+.section-services {
+  background: #fff;
+
+/*   .block:hover {
+    transform: scale(1.25);
+    z-index: 999;
+    transition: all 0.5s;
+    
+    .block__sub{
+      display: none;
+    }
+  } */
+
+  .block__icon {
+    background: #eee;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .block__icon img {
+    height: 76px;
+  }
+}
+
+.section-teams {
+  .block:hover .block__title,
+  .block:hover .block__sub {
+    transform: scale(1.2);
+    z-index: 999;
+    transition: all 0.5s;
+  }
+}
+
+.section-contact {
+  background: url(images/footer-bg.jpg);
+  background-size: contain;
+  height: 200px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 2em 0;
+  gap: 5px;
+
+  &,
+  & a {
     color: #999 !important;
   }
 }

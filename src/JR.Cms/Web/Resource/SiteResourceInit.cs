@@ -22,15 +22,18 @@ namespace JR.Cms.Web.Resource
         {
             ExtraMasterAssets();
 
-            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.css",
+            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.css",
                 CssComment + ResourceUtility.CompressHtml(
                                GetResource("Web/Resource/SiteResources/site-base.css"))
-                               + "\n /* merge page.css */\n"
+                               + "\n /* merge elements.css */\n"
                                + ResourceUtility.CompressHtml(
                                    GetResource("Web/Resource/SiteResources/site-elements.css"))
                                + "\n /* merge migration.css */\n"
                                + ResourceUtility.CompressHtml(
                                    GetResource("Web/Resource/SiteResources/site-migration.css"))
+                               + "\n /* merge animate.css */\n"
+                                + ResourceUtility.CompressHtml(
+                                   GetResource("Web/Resource/SiteResources/Assets/animate.css"))
                                    , false);
 
             //Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "cms.js", 

@@ -37,7 +37,7 @@ p,td,blockquote,pre{ word-break: break-all;word-wrap: break-word;}
 
 
 /** 头部 */
-header {
+.header {
   height: 80px;
   display: flex;
   align-items: center;
@@ -125,7 +125,48 @@ header {
 }
 
 
+.banner {
+  /** 轮播图banner */
+  background-image: radial-gradient(
+    at bottom right,
+    var(--banner-bg-end-color) 0%,
+    var(--banner-bg-color) 50%
+  );
 
+  & .banner__main {
+    flex-basis: 50%;
+    & .banner__main--title {
+      padding-bottom: 1em;
+    }
+    & .banner__main--desc {
+      line-height: 1.5em;
+      font-weight: 400;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 1em;
+      color: #333;
+    }
+    & .banner__main--button {
+      margin-top: 2em;
+      a {
+        background: #fff;
+      }
+    }
+  }
+}
+
+
+.footer{
+  /** 底部 */
+  display:flex;
+  justify-content: center;
+  align-content: center;
+  padding:2em 0;
+  gap:5px;
+  
+  &,& a{
+    color:#999 !important;;
+  }
+}
 
 
 

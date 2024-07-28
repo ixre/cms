@@ -1,9 +1,8 @@
-body{color:#333;background:#F2F2F2;font-size:1.6rem;}
+body{background:#F2F2F2;font-size:1.6rem;}
 a:link{color:#000;}
 a:visited{color:#333;}
 a:hover{color:#333;text-decoration: underline;}
 
-header{box-shadow: none;}
 
 /* 全局元素样式 */
 
@@ -425,7 +424,6 @@ div.palist a.title{padding-left:10px;background:url(images/ico.png) 0 center no-
 
 /* 覆盖样式 */
 
-body{font-size:14px;}
 .mod-header{box-shadow:none;padding:20px 0;background:none;}
 .mod-header-right{}
 .mod-navigator{box-shadow:none;}
