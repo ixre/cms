@@ -39,7 +39,7 @@
 .mod-navigator-child .menu div.last{border-bottom:none;}
 
 /* mod-navigator 导航 */
-.mod-navigator{margin:0 auto;height:auto; box-shadow:0 5px 10px #BF0000 inset;line-height:35px;}
+.mod-navigator{height:auto; box-shadow:0 5px 10px #BF0000 inset;line-height:35px;}
 /*.mod-navigator .mod-navigator-left{}
 .mod-navigator .mod-navigator-right{}
 .mod-navigator .mod-navigator-nav{}*/
