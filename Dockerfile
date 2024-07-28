@@ -8,13 +8,14 @@
 
 
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build-env
 ENV RELEASE_DIR=/app/out/release
 # 在Linux上启动GDI+
 #ENV DOTNET_System_Drawing_EnableUnixSupport=true
 
 WORKDIR /app
-COPY . ./
+COPY ./src ./src
+COPY ./README.md ./LICENSE ./
 WORKDIR src/JR.Cms.App
 RUN dotnet restore && dotnet publish -c Release -o ${RELEASE_DIR}
 RUN mkdir -p ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
@@ -33,7 +34,7 @@ LABEL License="GPLv2"
 LABEL Version=4.0
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 ENV CMS_RUN_ON_DOCKER yes
 WORKDIR /cms
 COPY --from=build-env /app/out/release ./
