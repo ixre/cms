@@ -38,7 +38,7 @@ namespace JR.Cms.Web.Portal
         {
             context.HttpContext.Response.ContentType("text/html;charset=utf-8");
             context.HttpContext.Response.StatusCode(404);
-            var content = "<span style='font-size:14px;color:#333;font-weight:300'>"+ exc.Message;
+            var content = "<span style='font-size:14px;color:#333;font-weight:300'>" + exc.Message;
             if (stack)
             {
                 content += "<br />堆栈信息:" + exc.StackTrace;
@@ -99,7 +99,7 @@ namespace JR.Cms.Web.Portal
                     html = cmsPage.GetIndex();
                 }*/
 
-                var  html = cmsPage.GetIndex();
+                var html = cmsPage.GetIndex();
 
                 context.HttpContext.Response.WriteAsync(html);
             }
@@ -151,7 +151,7 @@ namespace JR.Cms.Web.Portal
                 RenderNotFound(context);
                 return;
             }
-
+            Cms.Context.Items["archive"] = archive;
             var category = archive.Category;
 
             if (!(category.ID > 0))
@@ -177,7 +177,7 @@ namespace JR.Cms.Web.Portal
 
         private static bool FlagAnd(int flag, BuiltInArchiveFlags b)
         {
-            var x = (int) b;
+            var x = (int)b;
             return (flag & x) == x;
         }
 

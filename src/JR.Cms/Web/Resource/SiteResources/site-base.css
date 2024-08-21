@@ -251,32 +251,32 @@ body {
 
 .text-xs {
   font-size: var(--text-xs-size);
-  line-height: 1.6rem; /* 12 / 16px */
+  line-height: 1rem; /* 12 / 16px, 如果字体为62.5%，则为1.6rem,以下类推 */
 }
 .text-sm {
   font-size: var(--text-sm-size);
-  line-height: 2rem; /* 14 / 20px */
+  line-height: 1.25rem; /* 14 / 20px */
 }
 .text-base,
 .text-md {
   font-size: var(--text-base-size);
-  line-height: 2.4rem; /* 16 / 24px */
+  line-height: 1.5rem; /* 16 / 24px */
 }
 .text-lg {
   font-size: var(--text-lg-size);
-  line-height: 2.8rem; /* 20 / 28px */
+  line-height: 1.75rem; /* 20 / 28px */
 }
 .text-xl {
   font-size: var(--text-xl-size);
-  line-height: 3.2rem; /* 24 / 32px */
+  line-height: 2rem; /* 24 / 32px */
 }
 .text-2xl {
   font-size: var(--text-2xl-size);
-  line-height: 3.6rem; /* 28 / 36px */
+  line-height: 2.25rem; /* 28 / 36px */
 }
 .text-3xl {
   font-size: var(--text-3xl-size);
-  line-height: 4rem; /* 36 / 40px */
+  line-height: 2.5rem; /* 36 / 40px */
 }
 
 /** 字体粗细 */
@@ -1257,7 +1257,6 @@ body {
   margin: 10px 5px 0 0;
   background: #000;
   display: inline-block;
-  float: left;
 }
 
 /* mod-n-form 表单 */

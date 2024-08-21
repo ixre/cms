@@ -70,8 +70,8 @@ namespace JR.Cms.App
             dict.Add(UrlRulePageKeys.Search, urlPrefix + "search?keyword={0}&cate={1}");
             dict.Add(UrlRulePageKeys.SearchPager, urlPrefix + "search?keyword={0}&cate={1}&page={2}");
 
-            dict.Add(UrlRulePageKeys.Tag, urlPrefix + "tag?word={0}");
-            dict.Add(UrlRulePageKeys.TagPager, urlPrefix + "tag?word={0}&page={1}");
+            dict.Add(UrlRulePageKeys.Tag, urlPrefix + "tag?w={0}");
+            dict.Add(UrlRulePageKeys.TagPager, urlPrefix + "tag?w={0}&page={1}");
 
             dict.Add(UrlRulePageKeys.Category, urlPrefix + "{0}");
             dict.Add(UrlRulePageKeys.CategoryPager, urlPrefix + "{0}/list-{1}.html");

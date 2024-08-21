@@ -1102,6 +1102,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Tags()
         {
+            var ctxArt = Cms.Context.Items["archive"];
+            if (ctxArt != null)
+            {
+                archive = (ArchiveDto)ctxArt;
+            }
             if (!(archive.Id > 0)) return TplMessage("请先使用标签$require('id')获取文档后再调用属性");
             return Tags(archive.Tags, GetSetting().CFG_ArchiveTagsFormat);
         }

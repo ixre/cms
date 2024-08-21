@@ -1079,8 +1079,8 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
     right: 1em;
     top: 5px;
   }
-  & a,
-  & a:visited {
+  a,
+  a:visited {
     color: #999;
     text-decoration: none;
     margin: 0 5px;
@@ -1272,131 +1272,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
   right: 0;
   bottom: 0;
   margin: auto;
-}
-
-/* 文档详情 */
-/* 
-<div class="col col-md-9 mod-art-details">
-    <h1>${archive.title}</h1>
-    <div class="row info">
-        <div class="col-md-6">
-            $lang(date)：${archive.publish}
-            &nbsp;&nbsp;
-            $lang(click):<em>${archive.count}</em>次
-        </div>
-        <div class="g-align-right g-align-center col-md-6 hidden-xs">
-            <div class="share bshare-custom">
-                <a title="分享到" href="javascript:;" class="bshare-more">分享到</a>
-                <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a>
-                <a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a>
-                <a title="分享到微信" class="bshare-weixin">微信</a>
-                <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
-            </div>
-        </div>
-    </div>
-    <div class="details pt-30">
-        ${archive.content}
-        <div class="copyright pt-30">
-            本文版权归&nbsp;<a href="${page.domain}">${site.name}</a>
-            所有, 转载请注明出处.
-            <span class="hidden-xs">本文链接：${page.url}</span>
-        </div>
-    </div>
-    
-    
-    <div class="share pb-30 hidden-xs">
-         <div class="bshare-custom">
-            <a title="分享到" href="javascript:;" id="bshare-shareto" class="bshare-more">分享到</a>
-            <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a>
-            <a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a>
-            <a title="分享到腾讯微博" class="bshare-qqmb">腾讯微博</a>
-            <a title="分享到微信" class="bshare-weixin">微信</a>
-            <a title="分享到网易微博" class="bshare-neteasemb">网易微博</a>
-            <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span>
-        </div>
-    </div>
-
-    <div class="author hidden-xs">
-        <!-- [编辑:${archive.author}]-->
-        <span class="right tags">
-                 $tags('${archive.tags}')
-        </span>
-    </div>
-    
-    <div class="art-rel row">
-        <div class="next col-md-6">
-            下一篇:$next_archive('<a href="{url}">{title}</a>')
-        </div>
-        <div class="prev col-md-6 g-align-right">
-            上一篇: $prev_archive('<a href="{url}">{title}</a>')
-        </div>
-      </div>
-</div>
- */
-.mod-art-details {
-  background: #fff;
-  padding: 3em 4em;
-}
-.mod-art-details > h1 {
-  font-size: 3rem;
-}
-.mod-art-details > .info {
-  color: #666;
-  line-height: 4em;
-  font-size: 1.4rem;
-}
-.mod-art-details > .info em {
-  font-style: normal;
-  margin: 0 5px;
-}
-.mod-art-details > .info .share a {
-  margin-left: 10px;
-}
-.mod-art-details > .details {
-  line-height: 2em;
-}
-.mod-art-details > .details h1,
-.mod-art-details > .details h2 {
-  line-height: 2.4em;
-  padding-top: 1em;
-}
-.mod-art-details > .details p {
-  text-indent: 2.4em;
-}
-.mod-art-details > .details img {
-  margin: 0 auto;
-  max-width: 80%;
-}
-.mod-art-details > .details .copyright {
-  font-size: 1.4rem;
-  line-height: 4rem;
-}
-.mod-art-details .art-rel {
-  font-size: 1.4rem;
-  border-top: dashed 1px #ddd;
-  padding-top: 4rem;
-}
-@media (max-width: 575px) {
-  .mod-art-details {
-    padding: 1em 15px;
-    text-align: center;
-  }
-  .mod-art-details > h1 {
-    font-size: 2rem;
-  }
-  .mod-art-details > .details {
-    text-align: left;
-    font-size: 1.4rem;
-    line-height: 1.8em;
-    padding-top: 0 !important;
-  }
-  .mod-art-details .art-rel {
-    text-align: left;
-    padding-top: 1em;
-  }
-  .mod-art-details .art-rel .g-align-right {
-    justify-content: flex-start !important;
-  }
 }
 
 /**================ elements 2024-07-25 ===================*/

@@ -607,12 +607,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <summary>
         /// 请求读取文档
         /// </summary>
-        /// <param name="idOrAlias"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [TemplateTag]
-        protected string Require(string idOrAlias)
+        protected string Require(string id)
         {
-            var a = LocalService.Instance.ArchiveService.GetArchiveByPath(SiteId, idOrAlias);
+            var a = LocalService.Instance.ArchiveService.GetArchiveById(SiteId, int.Parse(id));
             if (a.Id > 0) archive = a;
             return string.Empty;
         }
@@ -2144,7 +2144,6 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected string Tags(string tags, string format)
         {
             if (string.IsNullOrEmpty(tags)) return string.Empty;
-
             var sb = new StringBuilder();
             var tagArr = tags.Split(',');
             var i = tagArr.Length;
