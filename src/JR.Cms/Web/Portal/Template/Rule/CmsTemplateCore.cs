@@ -1035,7 +1035,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var total = links.Count;
 
             int navIndex;
-            if (index == ""){
+            if (index == "")
+            {
                 navIndex = -1; //如果为空，则默认不选中
             }
             else
@@ -1045,6 +1046,31 @@ namespace JR.Cms.Web.Portal.Template.Rule
             var j = 0;
             string tempLinkStr;
 
+            // 处理一级导航的连接地址
+            List<SiteLinkDto> firstNavs = links.Where(a => a.Pid == 0).ToList();
+            IDictionary<int, string> firstNavLinks = new Dictionary<int, string>();
+            firstNavs.ForEach(a =>
+            {
+                firstNavLinks.Add(a.Id, this.ConcatUrl(string.IsNullOrEmpty(a.Bind)
+                                    ? a.Uri : GetBingLinkUrl(a.Bind)));
+            });
+
+            if (navIndex < 0)
+            {
+                // 根据请求的路径(处理后)，来判断当前选中的是哪个导航
+                String requestPath = this.ConcatUrl(Cms.Context.RequestPath);
+                var sortedFirstLinks = firstNavLinks.Values.OrderByDescending(a => a.Length).ToArray();
+                foreach (var link in sortedFirstLinks)
+                {
+                    var i = firstNavs.FindIndex(0, (d) => firstNavLinks[d.Id] == link);
+                    //Console.WriteLine("navIndex1: " + i + requestPath + "," + sortedFirstLinks[i]);
+                    if (requestPath.StartsWith(link) || (requestPath + "/").Equals(link))
+                    {
+                        navIndex = i;
+                        break;
+                    }
+                }
+            }
 
             LinkGenerateGBehavior bh = (int genTotal, ref int current, string levelCls, int selected, bool child, SiteLinkDto link,
                     int childCount) =>
@@ -1064,9 +1090,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                     {
                         switch (a)
                         {
-                            case "url":
-                                return this.ConcatUrl(string.IsNullOrEmpty(link.Bind)
-                                    ? link.Uri : GetBingLinkUrl(link.Bind));
+                            case "url": return firstNavLinks[link.Id];
                             case "target": return string.IsNullOrEmpty(link.Target) ? "_self" : link.Target;
                             case "text": return link.Text;
                             case "img_url": return link.ImgUrl;

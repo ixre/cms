@@ -46,7 +46,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
             __type = typeof(CmsTemplateImpl);
         }
 
-        public CmsTemplateImpl(ICompatibleHttpContext context):base(context)
+        public CmsTemplateImpl(ICompatibleHttpContext context) : base(context)
         {
         }
 
@@ -86,10 +86,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Archive(string format)
         {
-	        if (this._context.TryGetItem<object>("archive.id", out var id))
-	        {
-		        return base.Archive(_site.SiteId, id, format);
-	        }
+            if (this._context.TryGetItem<object>("archive.id", out var id))
+            {
+                return base.Archive(_site.SiteId, id, format);
+            }
             return TplMessage("Error: 此标签只能在文档页面中调用!");
         }
 
@@ -102,12 +102,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Prev_Archive(string format)
         {
-	        
-	        if (this._context.TryGetItem<object>("archive.id", out var id))
-	        {
-		        return PrevArchive(id.ToString(), format);	        }
-	        return TplMessage("Error: 此标签只能在文档页面中调用!");
-          
+
+            if (this._context.TryGetItem<object>("archive.id", out var id))
+            {
+                return PrevArchive(id.ToString(), format);
+            }
+            return TplMessage("Error: 此标签只能在文档页面中调用!");
+
         }
 
         [TemplateTag]
@@ -118,13 +119,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Next_Archive(string format)
         {
-	        
-	        if (this._context.TryGetItem<object>("archive.id", out var id))
-	        {
-		        return NextArchive(id.ToString(), format);        }
-	        return TplMessage("Error: 此标签只能在文档页面中调用!");
-	        
-           
+
+            if (this._context.TryGetItem<object>("archive.id", out var id))
+            {
+                return NextArchive(id.ToString(), format);
+            }
+            return TplMessage("Error: 此标签只能在文档页面中调用!");
+
+
         }
 
 
@@ -229,14 +231,14 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Archives(string num, string format)
         {
-	        
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Archives(catPath, num, 0, 0, true, format);		        
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-            
+
+
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                return Archives(catPath, num, 0, 0, true, format);
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
+
         }
 
 
@@ -292,12 +294,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Self_Archives(string num, string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Self_Archives(catPath, num, format);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
+
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                return Self_Archives(catPath, num, format);
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
 
         }
 
@@ -390,11 +392,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Special_Archives(string num, string format)
         {
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Special_Archives(catPath, num, 0, 0, true, format);	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-	     
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                return Special_Archives(catPath, num, 0, 0, true, format);
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
+
         }
 
         /// <summary>
@@ -453,11 +456,11 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Self_Special_Archives(string num, string format)
         {
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Special_Archives(catPath, num, 0, 0, false, format);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                return Special_Archives(catPath, num, 0, 0, false, format);
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
 
         }
 
@@ -565,13 +568,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Hot_Archives(string num, string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Hot_Archives(catPath, num, format, true);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-	        
+
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                return Hot_Archives(catPath, num, format, true);
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
+
         }
 
         /// <summary>
@@ -628,12 +631,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Self_Hot_Archives(string num, string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Hot_Archives(catPath, num, format, false);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
+
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                return Hot_Archives(catPath, num, format, false);
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
         /// <summary>
@@ -780,13 +783,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Categories(string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        return Categories(catPath, format);
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-	        
+
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                return Categories(catPath, format);
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
+
         }
 
         [TemplateTag]
@@ -850,15 +853,15 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Paging_Archives(string pageSize, string format)
         {
-	        
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        if (this._context.TryGetItem<int>("page.index", out var pageIndex))
-		        {
-			        return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, 0, format);
-		        }
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
+
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                if (this._context.TryGetItem<int>("page.index", out var pageIndex))
+                {
+                    return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, 0, format);
+                }
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
         }
 
         /// <summary>
@@ -879,15 +882,16 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Paging_Archives(string pageSize, string splitSize, string format)
         {
-	        if (this._context.TryGetItem<string>("category.path", out var catPath))
-	        {
-		        if (this._context.TryGetItem<int>("page.index", out var pageIndex))
-		        {
-			        int.TryParse(splitSize, out var intSplitSize);
-			        return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, intSplitSize, format);		        }
-	        }
-	        return TplMessage("Error: 此标签不允许在当前页面中调用!");
-	        
+            if (this._context.TryGetItem<string>("category.path", out var catPath))
+            {
+                if (this._context.TryGetItem<int>("page.index", out var pageIndex))
+                {
+                    int.TryParse(splitSize, out var intSplitSize);
+                    return base.Paging_Archives(catPath, pageIndex.ToString(), pageSize, 0, intSplitSize, format);
+                }
+            }
+            return TplMessage("Error: 此标签不允许在当前页面中调用!");
+
         }
 
         [TemplateTag]
@@ -941,9 +945,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
 		")]
         public string Search_Archives(string keyword, string pageSize, string splitSize, string format)
         {
-	        this._context.TryGetItem<int>("page.index", out var pageIndex);
-		        
-			        return Search_Archives(null, keyword, pageIndex.ToString(), pageSize, splitSize, format);
+            this._context.TryGetItem<int>("page.index", out var pageIndex);
+
+            return Search_Archives(null, keyword, pageIndex.ToString(), pageSize, splitSize, format);
         }
 
         /// <summary>
@@ -992,10 +996,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
             //替换链接
             var reg = new Regex("([^\\?]+\\?*)(.+)", RegexOptions.IgnoreCase);
 
-            string link1 = string.Format(TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) UrlRulePageKeys.Search],
-		            HttpUtils.UrlEncode(keyword), c ?? ""),
+            string link1 = string.Format(TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)UrlRulePageKeys.Search],
+                    HttpUtils.UrlEncode(keyword), c ?? ""),
                 link2 = string.Format(
-                    TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int) UrlRulePageKeys.SearchPager],
+                    TemplateUrlRule.Urls[TemplateUrlRule.RuleIndex, (int)UrlRulePageKeys.SearchPager],
                     HttpUtils.UrlEncode(keyword), c ?? "", "{0}");
 
             SetPager(
@@ -1149,27 +1153,18 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// <returns></returns>
         [TemplateTag]
         [ContainSetting]
-        [XmlObjectProperty("显示网站导航", @"
+        [XmlObjectProperty("显示网站导航,通过$nav=1自定选中的导航或根据请求路由自动匹配", @"
         	<p class=""red"">显示格式在【模板设置】中修改.</p>
 		")]
         public string Navigator()
         {
+            // 外部控制显示导航的顺序
             var index = (String)this.GetContainer().GetVariable("nav");
-            if(String.IsNullOrEmpty(index)){
+            if (String.IsNullOrEmpty(index))
+            {
                 index = "-1";
             }
-            var cache = SiteLinkCache.GetNavigatorBySiteId(SiteId,index);
-            var siteDomain = _ctx.SiteDomain;
-            if (string.IsNullOrEmpty(cache))
-            {
-                cache = base.Navigator(GetSetting().CFG_NavigatorLinkFormat, GetSetting().CFG_NavigatorChildFormat,index);
-                var cache2 = cache.Replace(siteDomain, "${DOMAIN}");
-                SiteLinkCache.SetNavigatorForSite(SiteId, cache2);
-                return cache;
-            }
-
-            //throw new Exception(siteDomain +" | "+ cache );
-            return cache.Replace("${DOMAIN}", siteDomain);
+            return base.Navigator(GetSetting().CFG_NavigatorLinkFormat, GetSetting().CFG_NavigatorChildFormat, index);
         }
 
 
@@ -1249,8 +1244,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
         [TemplateTag]
         protected string SearchList(string keyword, string pageSize, string format)
         {
-	        this._context.TryGetItem<string>("page.index", out var pageIndex);
-	        return Search_Archives(null, keyword, pageIndex, pageSize, format);
+            this._context.TryGetItem<string>("page.index", out var pageIndex);
+            return Search_Archives(null, keyword, pageIndex, pageSize, format);
         }
 
         [TemplateTag]
@@ -1427,7 +1422,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 //从模块加载
                 if (CmsLogic.Module.GetModule(_moduleID) == null) return TplMessage("不存在模块!ID:" + moduleID);
                 sb.Append("<div class=\"category_tree mtree\">");
-                var dto = new CategoryDto {ID = 0};
+                var dto = new CategoryDto { ID = 0 };
                 CategoryTree_Iterator(dto, sb, a => { return a.ModuleId == _moduleID; }, true);
                 sb.Append("</div>");
                 return sb.ToString();

@@ -288,6 +288,28 @@ namespace JR.Cms.Core
             }
         }
 
+        /// <summary>
+        /// 获取真实的请求地址
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="appPath"></param>
+        /// <returns></returns>
+        private string SubPath(String path, string appPath)
+        {
+            int len = appPath.Length;
+            if (len > 2)
+            {
+                if (path.Length < len) return "";
+                return path.Substring(len);
+            }
+
+            return path;
+        }
+
+        /// <summary>
+        /// 获取请求地址
+        /// </summary>
+        public string RequestPath => this.SubPath(this._context.RequestPath(), this.SiteAppPath);
 
         /// <summary>
         /// 域名
