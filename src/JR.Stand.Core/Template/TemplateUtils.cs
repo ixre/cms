@@ -29,8 +29,9 @@ namespace JR.Stand.Core.Template
             html = SingleRowCommentRegex.Replace(html, String.Empty);
             // 替换多行注释
             html = MultiRowCommentRegex.Replace(html, String.Empty);
-            //替换<!-- 注释 -->
+            //替换 <!-- 注释 -->
             html = HtmlCommentRegex.Replace(html, String.Empty);
+            // 替换空白换行
             html = TrimBreakRegex.Replace(html, " ");
             return html;
         }
@@ -67,11 +68,11 @@ namespace JR.Stand.Core.Template
         /// <param name="dstFile">包含路径的文件名称,如：C:/html/default.html</param>
         /// <param name="html"></param>
         /// <param name="encoder"></param>
-        public static void SaveFile(string html,string dstFile,Encoding encoder)
+        public static void SaveFile(string html, string dstFile, Encoding encoder)
         {
             //FileShare.None  独占方式打开
             FileStream fs = new FileStream(dstFile, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
-            StreamWriter sr = new StreamWriter(fs,encoder);
+            StreamWriter sr = new StreamWriter(fs, encoder);
             sr.Write(html);
             sr.Flush();
             fs.Flush();
