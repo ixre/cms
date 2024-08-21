@@ -189,20 +189,24 @@ img {
   --text-xl-size: calc(1.25rem * var(--text-transform-percent));
   --text-2xl-size: calc(1.5rem * var(--text-transform-percent));
   --text-3xl-size: calc(1.875rem * var(--text-transform-percent));
-
+  /** 字体默认粗细程度 */
+  --font-weight: 500;
   /** 颜色变量 */
-  --primary-color: #0b80f3; /* 蓝色blue */
-  --secondnary-color: rgb(255, 0, 0); /* 红色red */
+  --primary-color: rgb(0, 0, 255); /* 蓝色blue */
+  --secondnary-color: rgb(59, 111, 255); /* 红色red */
+  --background-color: #f8f9fb; /** 背景颜色 */
+  /** 全局原角大小 */
+  --border-radius: 5px;
 }
-*,
-page * {
+* {
   box-sizing: border-box;
   /** 平滑滚动*/
   scroll-behavior: smooth;
+  /** 字体默认加粗 */
+  font-weight: var(--font-weight);
 }
 body {
-  /** 字体默认加粗 */
-  font-weight: 500;
+  background: var(--background-color);
 }
 
 /** 容器 */
@@ -219,10 +223,10 @@ body {
   color: var(--primary-color);
 }
 .text-secondnary {
-  color: #333;
+  color: #555;
 }
 .text-gray {
-  color: #707070;
+  color: #999;
 }
 .text-success {
   color: #0a0;
@@ -249,7 +253,8 @@ body {
   font-size: var(--text-sm-size);
   line-height: 2rem; /* 14 / 20px */
 }
-.text-base {
+.text-base,
+.text-md {
   font-size: var(--text-base-size);
   line-height: 2.4rem; /* 16 / 24px */
 }
@@ -288,6 +293,17 @@ body {
 .margin-vert {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+/** 指定位置 */
+.pos-relative {
+  position: relative;
+}
+.pos-absolute {
+  position: absolute;
+}
+.pos-fixed {
+  position: fixed;
 }
 
 /** margin */
@@ -363,6 +379,18 @@ body {
 .justify-center {
   justify-content: center;
 }
+.justify-self-end {
+  justify-self: flex-end;
+}
+.justify-self-between {
+  justify-self: space-between;
+}
+.justify-self-around {
+  justify-self: space-around;
+}
+.justify-self-center {
+  justify-self: center;
+}
 .align-start {
   align-items: flex-start;
 }
@@ -376,10 +404,10 @@ body {
   align-items: baseline;
 }
 
-.flex-1 {
+.flex1 {
   flex: 1;
 }
-.flex-2 {
+.flex2 {
   flex: 2;
 }
 .gap {
