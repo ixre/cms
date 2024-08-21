@@ -31,6 +31,7 @@ using JR.Cms.ServiceDto;
 using JR.Stand.Abstracts.Web;
 using JR.Stand.Core.Framework.Xml.AutoObject;
 using JR.Stand.Core.Template.Impl;
+using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
 
 namespace JR.Cms.Web.Portal.Template.Rule
@@ -1164,7 +1165,13 @@ namespace JR.Cms.Web.Portal.Template.Rule
             {
                 index = "-1";
             }
-            return base.Navigator(GetSetting().CFG_NavigatorLinkFormat, GetSetting().CFG_NavigatorChildFormat, index);
+            String navigatorHtml = TypesConv.String(Cms.Context.Items["nav-html"]);
+            if (String.IsNullOrEmpty(navigatorHtml))
+            {
+                navigatorHtml = base.Navigator(GetSetting().CFG_NavigatorLinkFormat, GetSetting().CFG_NavigatorChildFormat, index);
+                Cms.Context.Items["nav-html"] = navigatorHtml;
+            }
+            return navigatorHtml;
         }
 
 

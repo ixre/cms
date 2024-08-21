@@ -13,12 +13,22 @@ namespace JR.Stand.Core.Utils
             if (v == null) return def;
             try
             {
-                return (int) v;
+                return (int)v;
             }
             catch
             {
                 return def;
             }
+        }
+
+        /// <summary>
+        /// 转为字符串
+        /// </summary>
+        /// <param name="v">值</param>
+        /// <returns></returns>
+        public static string String(object v)
+        {
+            return v == null ? "" : v.ToString();
         }
     }
 }
