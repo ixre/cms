@@ -149,6 +149,7 @@ pre {
 
   & .header__logo {
     position: relative;
+    padding-left: 0;
 
     & .header__logo--img {
       max-height: 48px;
@@ -164,6 +165,10 @@ pre {
       width: 100%;
       height: 100%;
     }
+  }
+  & .header__nav {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 .header-fixed {
@@ -199,7 +204,6 @@ pre {
   }
   .navigator__nav {
     width: auto;
-    margin: 0 10px;
     gap: 1.6em;
   }
   .navigator__nav > .l1 {
@@ -271,13 +275,9 @@ pre {
   display: flex;
   justify-content: center;
   align-content: center;
+  flex-flow: column wrap;
   padding: 2em 0;
   gap: 5px;
-
-  &,
-  & a {
-    color: #999 !important;
-  }
 }
 
 /********* ======================= end   ==============================*/
@@ -345,15 +345,7 @@ header .logo a,.page-header .logo a{position:absolute;left:0;top:0;margin:auto;
 .mb-60 {
   margin-bottom: 60px;
 }
-.g-section-title > h1 {
-  font-size: 2.4rem;
-}
-.g-section-title > p {
-  padding: 0.5em 0 1em;
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: #333;
-}
+
 .g-suited-img-65 {
   padding-bottom: 65%;
 }
@@ -1074,23 +1066,25 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
   display: inherit;
 }
 
-/* mod-crumb 面包屑 */
-.mod-crumb {
+.crumb {
+  /* crumb 面包屑 */
   line-height: 3em;
+  padding: 1rem 0;
   color: #999;
   position: relative;
-  font-size: 1.2rem;
-}
-.mod-crumb > .rgt {
-  position: absolute;
-  right: 1em;
-  top: 5px;
-}
-.mod-crumb a,
-.mod-crumb a:visited {
-  color: #999;
-  text-decoration: none;
-  margin: 0 5px;
+  font-size: var(--text-base-size);
+
+  & > .rgt {
+    position: absolute;
+    right: 1em;
+    top: 5px;
+  }
+  & a,
+  & a:visited {
+    color: #999;
+    text-decoration: none;
+    margin: 0 5px;
+  }
 }
 
 /* mod-nav-side 边栏 */
