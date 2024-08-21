@@ -137,11 +137,10 @@ pre {
 
 /** 头部 */
 .header {
-  height: 80px;
+  height: var(--header-height);
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 6px #fdfdfd;
-  z-index: 321;
+  box-shadow: 2px 2px 5px #eeeeeeee;
 
   & .header__main {
     display: flex;
@@ -166,6 +165,16 @@ pre {
       height: 100%;
     }
   }
+}
+.header-fixed {
+  /** 头部浮动,添加样式header-nofix,则不会自动浮动 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #ffffffee;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 /** 导航 */
@@ -193,8 +202,14 @@ pre {
     margin: 0 10px;
     gap: 1.6em;
   }
+  .navigator__nav > .l1 {
+    float: left;
+    position: relative;
+    z-index: 200;
+  }
   .navigator__nav > .navigator__item {
     line-height: 48px;
+
     /** 底部边框 */
     &::after {
       position: absolute;

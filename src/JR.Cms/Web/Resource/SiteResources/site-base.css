@@ -75,9 +75,9 @@ strong {
   font-weight: 600;
 }
 
-html {
+/* html {
   font-size: 62.5%;
-}
+} */
 @media only screen and (max-width: 958px) {
   @media only screen and (min-width: 361px) {
     html {
@@ -197,11 +197,15 @@ img {
   --background-color: #f8f9fb; /** 背景颜色 */
   /** 全局原角大小 */
   --border-radius: 5px;
+  /** 头部高度 */
+  --header-height: 80px;
 }
 * {
   box-sizing: border-box;
   /** 平滑滚动*/
   scroll-behavior: smooth;
+}
+html {
   /** 字体默认加粗 */
   font-weight: var(--font-weight);
 }

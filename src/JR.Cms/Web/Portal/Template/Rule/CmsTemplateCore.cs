@@ -1020,11 +1020,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
         protected string Navigator(string format, string childFormat, string index)
         {
             const string tpl =
-                @"<div class=""mod-navigator navigator"">" +
-                    @"<div class=""left mod-navigator-left navigator__left""></div>" +
-                    @"<div class=""right mod-navigator-right navigator__right""></div>" +
-                    @"<div class=""nav mod-navigator-nav navigator__nav flex"">{0}" +
-                        @"<div class=""clearfix""></div>" +
+                @"<div class=""navigator"">" +
+                    @"<div class=""navigator__left""></div>" +
+                    @"<div class=""navigator__right""></div>" +
+                    @"<div class=""navigator__nav flex"">{0}" +
                     "</div></div>";
 
             var sb = new StringBuilder();
