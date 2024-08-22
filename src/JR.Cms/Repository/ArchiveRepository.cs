@@ -72,6 +72,7 @@ namespace JR.Cms.Repository
             if (indexOf("tags") != -1) archive.Tags = (rd["tags"] ?? "").ToString();
             if (indexOf("thumbnail") != -1) archive.Thumbnail = (rd["thumbnail"] ?? "").ToString();
             if (indexOf("create_time") != -1) archive.CreateTime = Convert.ToInt32(rd["create_time"]);
+            if (indexOf("schedule_time") != -1) archive.ScheduleTime = Convert.ToInt32(rd["schedule_time"]);
             if (indexOf("update_time") != -1) archive.UpdateTime = Convert.ToInt32(rd["update_time"]);
             if (indexOf("view_count") != -1) archive.ViewCount = int.Parse((rd["view_count"] ?? "0").ToString());
             //archive.Agree = int.Parse((rd["agree"] ?? "0").ToString());
@@ -185,7 +186,7 @@ namespace JR.Cms.Repository
 
             IDictionary<int, IList<IExtendValue>> extendValues = null;
 
-            _dal.GetSelftAndChildArchiveExtendValues(siteId, (int) ExtendRelationType.Archive, catIdArray, number,
+            _dal.GetSelftAndChildArchiveExtendValues(siteId, (int)ExtendRelationType.Archive, catIdArray, number,
                 skipSize, rd => { extendValues = _extendRep._GetExtendValuesFromDataReader(siteId, rd); });
 
             if (extendValues == null) extendValues = new Dictionary<int, IList<IExtendValue>>();

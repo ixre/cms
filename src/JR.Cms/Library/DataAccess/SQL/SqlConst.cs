@@ -13,9 +13,12 @@ namespace JR.Cms.Library.DataAccess.SQL
     /// </summary>
     public class SqlConst
     {
-        public static string ArchiveNotSystemAndHiddenAlias = " (a.flag & 1 AND a.flag ^ 4)";
+        public static string ArchiveNotSystemAndHiddenAlias = "schedule_time <= 0 AND (a.flag & 1 AND a.flag ^ 4)";
 
-        public static string Archive_NotSystemAndHidden = " ($PREFIX_archive.flag & 1 AND $PREFIX_archive.flag ^ 4)";
+        /// <summary>
+        /// 正常显示的文章
+        /// </summary>
+        public static string Archive_NotSystemAndHidden = "schedule_time <= 0 AND ($PREFIX_archive.flag & 1 AND $PREFIX_archive.flag ^ 4)";
 
         /// <summary>
         /// 特殊文档

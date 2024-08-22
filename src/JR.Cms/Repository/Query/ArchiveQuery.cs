@@ -54,6 +54,17 @@ namespace JR.Cms.Repository.Query
                 out pages);
         }
 
+        /// <summary>
+        /// 前端查询文章列表
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="catIdArray"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="skipSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="records"></param>
+        /// <param name="pages"></param>
+        /// <returns></returns>
         public DataTable GetPagedArchives(
             int siteId,
             int[] catIdArray, int pageSize,
@@ -73,7 +84,7 @@ namespace JR.Cms.Repository.Query
         /// <param name="unix"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public IEnumerable<CmsArchiveEntity> GetArchiveByTimeAgo(int siteId,long unix, int size)
+        public IEnumerable<CmsArchiveEntity> GetArchiveByTimeAgo(int siteId, long unix, int size)
         {
             using (IDbConnection db = _provider.GetConnection())
             {
@@ -98,6 +109,7 @@ namespace JR.Cms.Repository.Query
                   agree as Agree,
                   disagree as Disagree,
                   thumbnail as Thumbnail,
+                  schedule_time as ScheduleTime,
                   create_time as CreateTime,
                   update_time as UpdateTime
                   FROM $PREFIX_archive
@@ -107,6 +119,47 @@ namespace JR.Cms.Repository.Query
                 {
                     SiteId = siteId
                 }).Take(size);
+            }
+        }
+        /// <summary>
+        /// 查询定时发布文章
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public IEnumerable<CmsArchiveEntity> GetArchiveByScheduleTime(int size)
+        {
+            using (IDbConnection db = _provider.GetConnection())
+            {
+                return db.Query<CmsArchiveEntity>(_provider.FormatQuery($@"SELECT 
+                  id as Id,
+                  str_id as StrId,
+                  site_id as SiteId,
+                  alias as Alias,
+                  cat_id as CatId,
+                  path as Path,
+                  flag as Flag,
+                  author_id as AuthorId,
+                  title as Title,
+                  small_title as SmallTitle,
+                  location as Location,
+                  sort_number as SortNumber,
+                  source as Source,
+                  tags as Tags,
+                  outline as Outline,
+                  content as Content,
+                  view_count as ViewCount,
+                  agree as Agree,
+                  disagree as Disagree,
+                  thumbnail as Thumbnail,
+                  schedule_time as ScheduleTime,
+                  create_time as CreateTime,
+                  update_time as UpdateTime
+                  FROM $PREFIX_archive
+                  WHERE site_id=@SiteId
+                  AND schedule_time > 0
+                  ORDER BY schedule_time ASC
+                  "
+                )).Take(size);
             }
         }
     }

@@ -133,8 +133,7 @@ namespace JR.Cms.Domain.Interface.Content.Archive
         /// 
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="categoryLft"></param>
-        /// <param name="categoryRgt"></param>
+        /// <param name="catPath"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
         /// <param name="pageIndex"></param>
@@ -150,14 +149,13 @@ namespace JR.Cms.Domain.Interface.Content.Archive
         /// 
         /// </summary>
         /// <param name="siteId"></param>
+        /// <param name="catPath"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
         /// <param name="pageIndex"></param>
         /// <param name="records"></param>
         /// <param name="pages"></param>
         /// <param name="orderBy"></param>
-        /// <param name="categoryLft"></param>
-        /// <param name="categoryRgt"></param>
         /// <param name="onlyMatchTitle"></param>
         /// <returns></returns>
         IEnumerable<IArchive> SearchArchives(int siteId, string catPath, bool onlyMatchTitle, string keyword,

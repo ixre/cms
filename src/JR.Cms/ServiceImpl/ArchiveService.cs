@@ -173,6 +173,7 @@ namespace JR.Cms.ServiceImpl
                     CreateTime = TimeUtils.UnixTime(av.CreateTime),
                     Tags = av.Tags,
                     UpdateTime = TimeUtils.UnixTime(av.UpdateTime),
+                    ScheduleTime = av.ScheduleTime,
                     Source = av.Source,
                     Thumbnail = av.Thumbnail,
                     Title = av.Title,
@@ -310,7 +311,7 @@ namespace JR.Cms.ServiceImpl
             if (includeChild)
                 catIdArray = GetCatArrayByPath(ic);
             else
-                catIdArray = new[] {categoryId ?? 0};
+                catIdArray = new[] { categoryId ?? 0 };
 
             return _archiveQuery.GetPagedArchives(siteId, catIdArray, publisherId,
                 includeChild, flag, keyword, orderByField, orderAsc, pageSize, currentPageIndex,
@@ -459,7 +460,7 @@ namespace JR.Cms.ServiceImpl
             foreach (var id in idArray) content.DeleteArchive(id);
         }
 
-        public Error UpdateArchivePath( int siteId,  int archiveId)
+        public Error UpdateArchivePath(int siteId, int archiveId)
         {
             var content = _contentRep.GetContent(siteId);
             var archive = content.GetArchiveById(archiveId);
@@ -478,7 +479,7 @@ namespace JR.Cms.ServiceImpl
         /// <returns></returns>
         public IEnumerable<ArchiveDto> GetArchiveByTimeAgo(int siteId, long unix, int size)
         {
-            var list = _archiveQuery.GetArchiveByTimeAgo(siteId,unix,size);
+            var list = _archiveQuery.GetArchiveByTimeAgo(siteId, unix, size);
             IList<ArchiveDto> archives = new List<ArchiveDto>();
             foreach (var it in list)
             {
@@ -502,6 +503,31 @@ namespace JR.Cms.ServiceImpl
                 Flag = 0,
                 Location = it.Location
             };
+        }
+
+        /// <summary>
+        /// 发布文章
+        /// </summary>
+        /// <param name="siteId">站点ID</param>
+        /// <param name="archiveId">文章ID</param>
+        /// <returns>错误</returns>
+        public Error PublishArchive(int siteId, int archiveId)
+        {
+            var content = _contentRep.GetContent(siteId);
+            var archive = content.GetArchiveById(archiveId);
+            if (archive == null) return new Error("no such archive");
+            return archive.Publish(true);
+        }
+        /// <inheritdoc/>
+        public IList<ArchiveDto> GetArchivesByScheduleTime(int size)
+        {
+            var list = _archiveQuery.GetArchiveByScheduleTime(size);
+            IList<ArchiveDto> archives = new List<ArchiveDto>();
+            foreach (var it in list)
+            {
+                archives.Add(this.parseArchiveToDto(it));
+            }
+            return archives;
         }
     }
 }

@@ -146,7 +146,7 @@
         public override string Archive_GetPagedArchivesByCategoryId =>
             @" SELECT a.`id` AS `id`,`str_id`,`alias`,`title`,a.`location`,`thumbnail`,
                         c.`name` as categoryName,`cat_id`,a.`flag`,`author_id`,`content`,`source`,
-                        `create_time`,view_count FROM $PREFIX_archive a
+                        schedule_time,`create_time`,view_count FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON c.id=a.cat_id
                         WHERE a.id IN (SELECT id FROM (SELECT a.`id` AS `id` FROM $PREFIX_archive a
                         INNER JOIN $PREFIX_category c ON a.cat_id=c.ID
@@ -227,9 +227,12 @@
             @"INSERT INTO $PREFIX_archive(site_id,str_id,`alias`,`cat_id`,`author_id`,`path`,
             `flag`,`title`,small_title,
            `location`,sort_number,`source`,`thumbnail`,`outline`,`content`,`tags`,
-            `agree`,`disagree`,view_count,`create_time`,`update_time`)VALUES(@siteId,@strId,@alias,@catId,@authorId,@path,@flag,@title,
+            `agree`,`disagree`,view_count,schedule_time,`create_time`,`update_time`)VALUES(
+            @siteId,@strId,@alias,@catId,@authorId,@path,@flag,@title,
                                     @smallTitle,@location,@sortNumber,
-                                    @source,@thumbnail,@outline, @content,@tags,0,0,1,@createTime,
+                                    @source,@thumbnail,@outline, @content,@tags,0,0,1,
+                                    @scheduleTime,
+                                    @createTime,
                                     @updateTime)";
 
         public override string Comment_GetCommentDetailsListForArchive =>
@@ -241,8 +244,11 @@
         public override string ArchiveUpdate =>
             @"UPDATE $PREFIX_archive SET `cat_id`=@catId,path=@path,flag=@flag,`title`=@Title,small_title=@smallTitle,sort_number=@sortNumber,
                    `alias`=@Alias,`location`=@location,`source`=@Source,
-`thumbnail`=@thumbnail,update_time=@updateTime,
-                        `outline`=@Outline,`content`=@Content,`tags`=@Tags WHERE $PREFIX_archive.id=@id";
+`thumbnail`=@thumbnail,
+    update_time=@updateTime,
+    schedule_time=@scheduleTime,
+                        `outline`=@Outline,`content`=@Content,
+                        `tags`=@Tags WHERE $PREFIX_archive.id=@id";
 
 
         public override string ArchiveGetSearchRecordCountByModuleId =>

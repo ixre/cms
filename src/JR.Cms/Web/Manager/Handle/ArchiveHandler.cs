@@ -13,6 +13,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Text;
@@ -33,6 +34,7 @@ using JR.Stand.Core;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Utils;
 using JR.Stand.Core.Web;
+using Org.BouncyCastle.Utilities;
 using JsonSerializer = JR.Cms.Web.Util.JsonSerializer;
 
 namespace JR.Cms.Web.Manager.Handle
@@ -229,6 +231,8 @@ namespace JR.Cms.Web.Manager.Handle
                 ? archive.Thumbnail
                 : "/" + CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto;
 
+            long now = TimeUtils.Unix();
+            long createUnix = TimeUtils.Unix(archive.CreateTime);
             object json = new
             {
                 //IsSpecial = flags.ContainsKey(ArchiveFlag.GetInternalFlagKey(BuiltInArchiveFlags.IsSpecial))
@@ -259,7 +263,10 @@ namespace JR.Cms.Web.Manager.Handle
                     ? archive.TemplatePath
                     : string.Empty,
                 Thumbnail = thumbnail,
-                Location = archive.Location
+                Location = archive.Location,
+                ScheduleTime = archive.ScheduleTime > 0 ? String.Format("{0:yyyy-MM-dd}", TimeUtils.UnixTime(archive.ScheduleTime)) : "",
+                // 如果创建时间大于0，并且当前时间大于创建时间+24小时，则不能再修改定时发送
+                ScheduleClassName = createUnix > 0 && (now - createUnix) > 3600 * 24 ? "hidden" : "",
             };
 
             var path = Request.GetPath();
@@ -282,7 +289,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         private bool FlagAnd(int flag, BuiltInArchiveFlags b)
         {
-            var v = (int) b;
+            var v = (int)b;
             return (flag & v) == v;
         }
 
@@ -294,7 +301,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// <param name="attrValue"></param>
         private void AppendExtendFormHtml(StringBuilder sb, IExtendField field, string attrValue)
         {
-            var uiType = (PropertyUI) int.Parse(field.Type);
+            var uiType = (PropertyUI)int.Parse(field.Type);
             sb.Append("<dl><dt>").Append(field.Name).Append("：</dt><dd>");
             switch (uiType)
             {
@@ -375,10 +382,10 @@ namespace JR.Cms.Web.Manager.Handle
             }
 
             archive.Flag = 0;
-            if (form.Form("IsVisible") == "on") archive.Flag |= (int) BuiltInArchiveFlags.Visible;
-            if (form.Form("AsPage") == "on") archive.Flag |= (int) BuiltInArchiveFlags.AsPage;
-            if (form.Form("IsSpecial") == "on") archive.Flag |= (int) BuiltInArchiveFlags.IsSpecial;
-            if (form.Form("IsSystem") == "on") archive.Flag |= (int) BuiltInArchiveFlags.IsSystem;
+            if (form.Form("IsVisible") == "on") archive.Flag |= (int)BuiltInArchiveFlags.Visible;
+            if (form.Form("AsPage") == "on") archive.Flag |= (int)BuiltInArchiveFlags.AsPage;
+            if (form.Form("IsSpecial") == "on") archive.Flag |= (int)BuiltInArchiveFlags.IsSpecial;
+            if (form.Form("IsSystem") == "on") archive.Flag |= (int)BuiltInArchiveFlags.IsSystem;
             archive.UpdateTime = DateTime.Now;
             archive.Title = form.Form("Title").ToString().Trim();
             archive.SmallTitle = form.Form("SmallTitle").ToString().Trim();
@@ -389,10 +396,19 @@ namespace JR.Cms.Web.Manager.Handle
             archive.Tags = form.Form("Tags").ToString().Replace("，", ",");
             archive.Content = content;
             archive.Thumbnail = form.Form("Thumbnail");
-
+            archive.ScheduleTime = 0;
+            String date = form.Form("ScheduleTime");
+            if (!String.IsNullOrEmpty(date))
+            {
+                if (!form.Form("IsSchedule").Equals("0"))
+                {
+                    long unix = TimeUtils.DateUnix(DateTime.Parse(date + " 00:00:00"));
+                    archive.ScheduleTime = unix + TimeUtils.Unix() % (3600 * 24);
+                }
+            }
             //分类
             var categoryId = int.Parse(form.Form("categoryid"));
-            archive.Category = new CategoryDto {ID = categoryId};
+            archive.Category = new CategoryDto { ID = categoryId };
 
             //检测图片是否为默认图片
             if (archive.Thumbnail == CmsVariables.FRAMEWORK_ARCHIVE_NoPhoto)

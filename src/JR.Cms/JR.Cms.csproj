@@ -1,122 +1,111 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <Company>56X.NET</Company>
-        <Product>JRCms.NET</Product>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
-        <AssemblyOriginatorKeyFile>jr.cms.snk</AssemblyOriginatorKeyFile>
-        <Title>JR.Cms.NET</Title>
-        <Description>The cross platform .NET content manage system</Description>
-        <PackageProjectUrl>http://s.56x.net/cms</PackageProjectUrl>
-        <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>bin\Debug\JR.Cms.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\JR.Cms.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <Compile Remove="Library\DataAccess\SQL\OleDbSqlPack.cs" />
-      <Compile Remove="Core\Plugins\**" />
-      <Compile Remove="old\WatchService.cs" />
-      <Compile Remove="old\WatchServiceRegister.cs" />
-      <Compile Remove="Repository\Export\**" />
-      <Compile Remove="WebImpl\Resource\WebHandles\**" />
-      <Compile Remove="_old\**" />
-      <Compile Remove="Component\Crawl\PickerTestWeb\**" />
-      <Compile Remove="WebImpl\Resource\SiteResource.Designer.cs" />
-      <Compile Remove="Web\Job\**" />
-      <Compile Remove="Web\SiteMap\**" />
-      <Compile Remove="Web\Util\SiteMapUtils.cs" />
-      <Compile Remove="Core\Hibernate\**" />
-      <Compile Remove="Generator\output\**" />
-      <Compile Remove="Generator\output\csharp\Service\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.0.123" />
-      <PackageReference Include="MailKitLite" Version="3.2.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-      <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="Quartz" Version="3.3.3" />
-      <PackageReference Include="SharpCompress" Version="0.31.0" />
-      <PackageReference Include="structuremap" Version="4.7.1" />
-      <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\JR.Stand.Core\JR.Stand.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="Core\Plugins\**" />
-      <EmbeddedResource Remove="Repository\Export\**" />
-      <EmbeddedResource Remove="WebImpl\Resource\WebHandles\**" />
-      <EmbeddedResource Remove="_old\**" />
-      <EmbeddedResource Remove="Component\Crawl\PickerTestWeb\**" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\Assets\animate.css" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\Assets\js_lib_scroller.js" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\Assets\wow.js" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\base.min.js" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\cms.core.js" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\js-cms-api.js" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\site-base.css" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\site-elements.css" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\site-pages.css" />
-      <EmbeddedResource Include="Web\Resource\SiteResources\site-migration.css" />
-      <None Remove="WebImpl\Resource\WebManager\resouces\images\manage_js.js" />
-      <None Remove="WebImpl\Resource\WebManager\resouces\images\ui_component.source.js" />
-      <None Remove="Infrastructure\Resources\xml\lang_package.xml" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\cms.core.js" />
-      <EmbeddedResource Include="Infrastructure\Resources\lang_package.xml" />
-      <EmbeddedResource Include="Web\Resource\ManageResources\manage_js.js" />
-      <EmbeddedResource Include="Web\Resource\ManageResources\ui_component.source.js" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\js-cms-api.js" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\site-base.css" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\site-elements.css" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\site-migration.css" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\assets\animate.css" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\assets\wow.js" />
-      <None Remove="WebImpl\Resource\Static\SiteResouce\base.min.js" />
-      <None Remove="Web\Resource\SiteResources\jslib\js_lib_scroller.js" />
-      <EmbeddedResource Remove="Web\Job\**" />
-      <None Remove="Web\Job\**" />
-      <EmbeddedResource Remove="Web\SiteMap\**" />
-      <None Remove="Web\SiteMap\**" />
-      <EmbeddedResource Remove="Core\Hibernate\**" />
-      <None Remove="Core\Hibernate\**" />
-      <EmbeddedResource Remove="Generator\output\**" />
-      <None Remove="Generator\output\**" />
-      <EmbeddedResource Remove="Generator\output\csharp\Service\**" />
-      <None Remove="Generator\output\csharp\Service\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Core\Plugins\**" />
-      <None Remove="Repository\Export\**" />
-      <None Remove="WebImpl\Resource\WebHandles\**" />
-      <None Remove="_old\**" />
-      <None Remove="Component\Crawl\PickerTestWeb\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Generator\output\csharp" />
-      <Folder Include="Generator\templates\java" />
-      <Folder Include="Web\Addon" />
-      <Folder Include="_old" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="Web\Resource\ManageResources\logo.png" />
-    </ItemGroup>
-
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Company>56X.NET</Company>
+    <Product>JRCms.NET</Product>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <AssemblyOriginatorKeyFile>jr.cms.snk</AssemblyOriginatorKeyFile>
+    <Title>JR.Cms.NET</Title>
+    <Description>The cross platform .NET content manage system</Description>
+    <PackageProjectUrl>http://s.56x.net/cms</PackageProjectUrl>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\JR.Cms.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\JR.Cms.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Library\DataAccess\SQL\OleDbSqlPack.cs" />
+    <Compile Remove="Core\Plugins\**" />
+    <Compile Remove="old\WatchService.cs" />
+    <Compile Remove="old\WatchServiceRegister.cs" />
+    <Compile Remove="Repository\Export\**" />
+    <Compile Remove="WebImpl\Resource\WebHandles\**" />
+    <Compile Remove="_old\**" />
+    <Compile Remove="Component\Crawl\PickerTestWeb\**" />
+    <Compile Remove="WebImpl\Resource\SiteResource.Designer.cs" />
+    <Compile Remove="Web\Job\**" />
+    <Compile Remove="Web\SiteMap\**" />
+    <Compile Remove="Web\Util\SiteMapUtils.cs" />
+    <Compile Remove="Core\Hibernate\**" />
+    <Compile Remove="Generator\output\**" />
+    <Compile Remove="Generator\output\csharp\Service\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="MailKitLite" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Quartz" Version="3.3.3" />
+    <PackageReference Include="SharpCompress" Version="0.31.0" />
+    <PackageReference Include="structuremap" Version="4.7.1" />
+    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JR.Stand.Core\JR.Stand.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Core\Plugins\**" />
+    <EmbeddedResource Remove="Repository\Export\**" />
+    <EmbeddedResource Remove="WebImpl\Resource\WebHandles\**" />
+    <EmbeddedResource Remove="_old\**" />
+    <EmbeddedResource Remove="Component\Crawl\PickerTestWeb\**" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\Assets\animate.css" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\Assets\js_lib_scroller.js" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\Assets\wow.js" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\base.min.js" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\cms.core.js" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\js-cms-api.js" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-base.css" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-elements.css" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-pages.css" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-migration.css" />
+    <None Remove="WebImpl\Resource\WebManager\resouces\images\manage_js.js" />
+    <None Remove="WebImpl\Resource\WebManager\resouces\images\ui_component.source.js" />
+    <None Remove="Infrastructure\Resources\xml\lang_package.xml" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\cms.core.js" />
+    <EmbeddedResource Include="Infrastructure\Resources\lang_package.xml" />
+    <EmbeddedResource Include="Web\Resource\ManageResources\manage_js.js" />
+    <EmbeddedResource Include="Web\Resource\ManageResources\ui_component.source.js" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\js-cms-api.js" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\site-base.css" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\site-elements.css" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\site-migration.css" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\assets\animate.css" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\assets\wow.js" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\base.min.js" />
+    <None Remove="Web\Resource\SiteResources\jslib\js_lib_scroller.js" />
+    <EmbeddedResource Remove="Web\Job\**" />
+    <None Remove="Web\Job\**" />
+    <EmbeddedResource Remove="Web\SiteMap\**" />
+    <None Remove="Web\SiteMap\**" />
+    <EmbeddedResource Remove="Core\Hibernate\**" />
+    <None Remove="Core\Hibernate\**" />
+    <EmbeddedResource Remove="Generator\output\**" />
+    <None Remove="Generator\output\**" />
+    <EmbeddedResource Remove="Generator\output\csharp\Service\**" />
+    <None Remove="Generator\output\csharp\Service\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Core\Plugins\**" />
+    <None Remove="Repository\Export\**" />
+    <None Remove="WebImpl\Resource\WebHandles\**" />
+    <None Remove="_old\**" />
+    <None Remove="Component\Crawl\PickerTestWeb\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Generator\output\csharp" />
+    <Folder Include="Generator\templates\java" />
+    <Folder Include="Web\Addon" />
+    <Folder Include="_old" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web\Resource\ManageResources\logo.png" />
+  </ItemGroup>
 </Project>

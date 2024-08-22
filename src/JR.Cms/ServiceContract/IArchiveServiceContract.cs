@@ -167,6 +167,14 @@ namespace JR.Cms.ServiceContract
         /// <param name="archiveId"></param>
         void RepublishArchive(int siteId, int archiveId);
 
+
+        /// <summary>
+        /// 发布文章(定时发布)
+        /// </summary>
+        /// <param name="siteId">站点编号</param>
+        /// <param name="archiveId">文章编号</param>
+        Error PublishArchive(int siteId, int archiveId);
+
         /// <summary>
         /// 根据分类搜索文章
         /// </summary>
@@ -240,14 +248,14 @@ namespace JR.Cms.ServiceContract
         /// <param name="siteId"></param>
         /// <param name="idArray"></param>
         void BatchDelete(int siteId, int[] idArray);
-        
+
         /// <summary>
         /// 更新文档路径
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="archiveId"></param>
         /// <returns></returns>
-        Error UpdateArchivePath( int siteId,  int archiveId);
+        Error UpdateArchivePath(int siteId, int archiveId);
 
         /// <summary>
         /// 获取时间以前发布的文档
@@ -256,6 +264,14 @@ namespace JR.Cms.ServiceContract
         /// <param name="unix"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        IEnumerable<ArchiveDto> GetArchiveByTimeAgo(int siteId,long unix,int size);
+        IEnumerable<ArchiveDto> GetArchiveByTimeAgo(int siteId, long unix, int size);
+
+
+        /// <summary>
+        /// 获取定时发布的文章
+        /// </summary>
+        /// <param name="size">数量</param>
+        /// <returns></returns>
+        IList<ArchiveDto> GetArchivesByScheduleTime(int size);
     }
 }

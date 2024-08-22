@@ -6,6 +6,9 @@
     $css()$js()
     <script type="text/javascript" src="/public/assets/editor/kindeditor-all-min.js"></script>
     <script type="text/javascript" src="/public/assets/editor/plugins/code/prettify.js"></script>
+    <link rel="stylesheet" href="/public/assets/jquery/jquery-ui.theme.min.css">
+    <script type="text/javascript" src="/public/assets/jquery/external/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/public/assets/jquery/jquery-ui.min.js"></script>
 
 </head>
 <body>
@@ -73,6 +76,7 @@
                         </dd>
                     </dl>
 
+                  
 
                     <dl>
                         <dt>来源：</dt>
@@ -83,6 +87,19 @@
                             &nbsp;<input type="checkbox" style="border: none" field="IsSpecial" title="以特殊的形式显示" id="ck_special" /><label for="ck_special">推荐</label>
                             &nbsp;<input type="checkbox" style="border: none" field="IsSystem" title="用于系统使用的文档(系统页面不会在搜索和列表中出现)" id="ck_system" /><label for="ck_system">系统</label>
                             &nbsp;<input type="checkbox" style="border: none" field="AsPage" title="单页，会以单页的URL地址显示" id="ck_single" /><label for="ck_single">页面</label>
+                        </dd>
+                    </dl>
+
+                    <dl class="${ScheduleClassName}">
+                        <dt>定时发布：</dt>
+                        <dd>
+                            <input type="radio" class="radio" field="IsSchedule" name="IsSchedule" id="IsSchedule1" value="0" checked="checked" /><label for="IsSchedule1">否</label>
+                            <input type="radio" class="radio" field="IsSchedule" name="IsSchedule" id="IsSchedule2" value="1" /><label for="IsSchedule1">是</label>
+
+                            <span id="schedulePanel" class="hidden" style="padding-left:20px">
+                                时间：<input class="schedual-time tb_normal ui-box ui-validate" name="scheduleTime" field="ScheduleTime" />
+                            </span>
+                            <br /> <span class="desc" style="padding-left:60px">提示：定时发布可以将文档页面在指定时间发布。</span>
                         </dd>
                     </dl>
 
@@ -201,25 +218,47 @@
     <script type="text/javascript">
         var entity = ${json};
         entity.IsRedirect = (entity.Location||'').length!=0;
+        entity.IsSchedule = (entity.ScheduleTime || '').length!=0;
         jr.json.bind('form1',entity);
 
         //var extData = ${ext_json};
         //jr.json.bind('form1',extData);
 
         //设置是否跳转显示
-        var redirectPanel = jr.$('redirectPanel');
-        jr.$('IsRedirect1').onchange = jr.$('IsRedirect2').onchange = function(){
-            if(this.checked){
-                if(this.value == '1'){
-                    redirectPanel.className = '';
+        var redirectPanel = $jr.$fn('#redirectPanel');
+        if(entity.IsRedirect)redirectPanel.removeClass('hidden');
+        var redirectFn = function(){
+            if(this.attr("checked")){
+                if(this.val() == '1'){
+                    redirectPanel.removeClass('hidden');
                 }else {
-                    redirectPanel.className = 'hidden';
+                    redirectPanel.addClass('hidden');
                 }
             }
         };
-        if(entity.IsRedirect)redirectPanel.className='';
+        $jr.$fn('#IsRedirect1').change(redirectFn);
+        $jr.$fn('#IsRedirect2').change(redirectFn);
 
+        //设置是否定时发布
+        var schedulePanel = $jr.$fn('#schedulePanel');
+        if(entity.IsSchedule)schedulePanel.removeClass('hidden');
+        var schFn = function(){
+            if(this.attr("checked")){
+                if(this.val() == '1'){  
+                    schedulePanel.removeClass('hidden');
+                }else {
+                    schedulePanel.addClass('hidden');
+                }
+            }
+        };
+        $jr.$fn("#IsSchedule1").change(schFn);
+        $jr.$fn("#IsSchedule2").change(schFn);
         
+        $( ".schedual-time" ).datepicker({
+            dateFormat: 'yy-mm-dd',
+        });
+
+
         jr.$('thumbnail_img').src = entity.Thumbnail;
         var thumbId= 'thumbnail', thumbImg = 'thumbnail_img';
 

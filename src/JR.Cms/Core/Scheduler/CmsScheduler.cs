@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using JR.Cms.Domain.Interface.Models;
 using JR.Cms.Library.CacheService;
 using JR.Stand.Core.Framework;
@@ -43,13 +42,13 @@ namespace JR.Cms.Core.Scheduler
         private static void StartSchedulerWithCronNet(IList<CmsJobEntity> jobs)
         {
             daemon = new CronDaemon();
-            foreach(CmsJobEntity je in jobs)
+            foreach (CmsJobEntity je in jobs)
             {
                 try
                 {
                     Type classType = Assembly.GetExecutingAssembly().GetType(je.JobClass);
                     ICronJob job = Activator.CreateInstance(classType) as ICronJob;
-                    if (job == null)throw new NotImplementedException($"{je.JobClass} not implementation ICronJob");
+                    if (job == null) throw new NotImplementedException($"{je.JobClass} not implementation ICronJob");
                     daemon.AddJob(ParseCronExp(je.CronExp), () =>
                     {
                         job.ExecuteJob(je);
@@ -154,6 +153,14 @@ namespace JR.Cms.Core.Scheduler
                     Enabled = 1,
                     JobClass = "JR.Cms.Core.Scheduler.Job.SearchEngineSubmitJob",
                     JobDescribe = "每日将新的文档提交到百度等搜索引擎, 每2小时执行一次"
+                },
+                new CmsJobEntity
+                {
+                    JobName = "定时发布文章",
+                    CronExp = "*/5 * * * * ?",
+                    Enabled = 1,
+                    JobClass = "JR.Cms.Core.Scheduler.Job.PublishArticleJob",
+                    JobDescribe = "定时发布提前准备好的文章, 每5秒执行一次"
                 }
             };
             foreach (var it in initial)

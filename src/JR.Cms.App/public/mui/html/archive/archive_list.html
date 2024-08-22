@@ -23,6 +23,16 @@
         padding: 10px 0 30px 60px;
       }
     </style>
+
+    <link rel="stylesheet" href="/public/assets/jquery/jquery-ui.css" />
+    <script
+      type="text/javascript"
+      src="/public/assets/jquery/external/jquery/jquery.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/public/assets/jquery/jquery-ui.min.js"
+    ></script>
   </head>
   <body>
     <div class="overhidden">
@@ -183,10 +193,15 @@
             field: "title",
             title: "名称",
             formatter: function (val, row, index) {
+              var title = val.length > 25 ? val.substring(0, 25) + "..." : val;
+              if (row.schedule_time > 0) {
+                title +=
+                  " <span style='color:red;vertical-align:unset'>[定时发布]</span>";
+              }
               return jr.template(itemTemplate, {
                 id: row.id,
                 index: index + 1,
-                title: val.length > 25 ? val.substring(0, 25) + "..." : val,
+                title: title,
                 publish: unix2str(row["create_time"]).substring(0, 16),
                 viewCount: row.view_count,
               });

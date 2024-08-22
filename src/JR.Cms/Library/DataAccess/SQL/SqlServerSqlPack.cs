@@ -147,7 +147,7 @@
                         WHERE $[condition] ORDER BY [$[orderByField]] $[orderASC]) ORDER BY [$[orderByField]] $[orderASC]";*/
             @"SELECT * FROM (SELECT a.id AS id,str_id,alias,title,
                         a.location,thumbnail,c.name as categoryName,[cat_id],a.flag,author_id,[content],
-                        [source],create_time,view_count,
+                        [source],schedule_time,[create_time],view_count,
 						ROW_NUMBER()OVER(ORDER BY $[orderByField] $[orderASC]) as rowNum
 						FROM $PREFIX_archive a LEFT JOIN $PREFIX_category c
                         ON a.cat_id=c.ID WHERE $[condition]) _t
@@ -234,10 +234,12 @@
             @"INSERT INTO $PREFIX_archive(site_id,str_id,alias,cat_id,author_id,path,flag,
                                     title,small_title,location,sort_number,
                                     [source],thumbnail,[Outline],[Content],[Tags],[Agree],[Disagree],view_count,
-                                    create_time,update_time)
+                                    schedule_time,create_time,update_time)
                                     VALUES(@siteId,@strId,@alias,@catId,@authorId,@path,@flag,@title,
                                     @smallTitle,@location,@sortNumber,
-                                    @source,@thumbnail,@outline, @content,@tags,0,0,1,@createTime,
+                                    @source,@thumbnail,@outline, @content,@tags,0,0,1,
+                                    @scheduleTime,
+                                    @createTime,
                                     @updateTime)";
 
         public override string Comment_GetCommentDetailsListForArchive =>
@@ -247,7 +249,9 @@
 
         public override string ArchiveUpdate =>
             @"UPDATE $PREFIX_archive SET [cat_id]=@catId,path=@path,flag=@flag,[Title]=@Title,small_title=@smallTitle,sort_number=@sortNumber,
-                                    [Alias]=@Alias,location=@location,[Source]=@Source,update_time=@updateTime,
+                                    [Alias]=@Alias,location=@location,[Source]=@Source,
+                                    schedule_time=@scheduleTime,
+                                    update_time=@updateTime,
                                     thumbnail=@thumbnail,[Outline]=@Outline,[Content]=@Content,[Tags]=@Tags WHERE id=@id";
 
         public override string ArchiveGetSearchRecordCountByModuleId =>

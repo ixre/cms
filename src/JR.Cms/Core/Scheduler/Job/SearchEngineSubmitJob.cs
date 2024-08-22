@@ -17,7 +17,7 @@ namespace JR.Cms.Core.Scheduler.Job
     /// </summary>
     public class SearchEngineSubmitJob : IJob, ICronJob
     {
-        private readonly Logger _logger =  Logger.Factory(typeof(SearchEngineSubmitJob));
+        private readonly Logger _logger = Logger.Factory(typeof(SearchEngineSubmitJob));
         /// <summary>
         /// 
         /// </summary>
@@ -25,9 +25,9 @@ namespace JR.Cms.Core.Scheduler.Job
         /// <returns></returns>
         public Task Execute(IJobExecutionContext context)
         {
-           long jobId = context.JobDetail.JobDataMap.GetLongValue("job_id");
+            long jobId = context.JobDetail.JobDataMap.GetLongValue("job_id");
             this.ExecuteByJobId(jobId);
-           return Task.CompletedTask;
+            return Task.CompletedTask;
         }
         /// <summary>
         /// .NET45运行
@@ -45,9 +45,6 @@ namespace JR.Cms.Core.Scheduler.Job
             CmsJobEntity job = LocalService.Instance.JobService.FindJobById(jobId);
             if (job == null)
             {
-                _logger.Error("JOB不存在,建议重新启动应用");
-                return;
-
                 if (job.Enabled != 1)
                 {
                     _logger.Info($"任务{job.JobName}未启动");
@@ -77,8 +74,8 @@ namespace JR.Cms.Core.Scheduler.Job
         private void SubmitUrlToSearchEngine(SiteDto siteDto, CmsSearchEngineEntity se, IList<string> urls)
         {
             String[] urlArray = urls.ToArray();
-            _logger.Info($"[ Job][ Baidu]: 推送的URL为:{String.Join(",",urlArray)}");
-            this.SubmitUrlToBaidu(siteDto,se, urlArray);
+            _logger.Info($"[ Job][ Baidu]: 推送的URL为:{String.Join(",", urlArray)}");
+            this.SubmitUrlToBaidu(siteDto, se, urlArray);
         }
 
         private void SubmitUrlToBaidu(SiteDto site, CmsSearchEngineEntity se, string[] urls)
@@ -110,6 +107,6 @@ namespace JR.Cms.Core.Scheduler.Job
             }
         }
 
-       
+
     }
 }

@@ -93,6 +93,10 @@ namespace JR.Cms.ServiceDto
         /// </summary>
         public int ViewCount { get; set; }
 
+        /// <summary>
+        /// 定时发布时间
+        /// </summary>
+        public long ScheduleTime { get; set; }
 
         //创建时间
         public DateTime CreateTime { get; set; }
@@ -145,6 +149,7 @@ namespace JR.Cms.ServiceDto
                 Agree = a.Agree,
                 UpdateTime = TimeUtils.UnixTime(a.UpdateTime),
                 CreateTime = TimeUtils.UnixTime(a.CreateTime),
+                ScheduleTime = a.ScheduleTime,
                 Content = a.Content,
                 Alias = a.Alias,
                 PublisherId = a.AuthorId,
@@ -209,6 +214,7 @@ namespace JR.Cms.ServiceDto
             dst.Agree = Agree;
             dst.Disagree = Disagree;
             dst.Thumbnail = Thumbnail;
+            dst.ScheduleTime = ScheduleTime;
             return dst;
         }
     }

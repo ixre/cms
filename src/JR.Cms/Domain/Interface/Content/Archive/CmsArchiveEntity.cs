@@ -4,36 +4,6 @@ using JR.Stand.Core.Data.Orm.Mapping;
 using JR.Stand.Core.Framework;
 
 
-/*
- 
-     
-     dst.ID = src.ID;
-     dst.StrId = src.StrId;
-     dst.SiteId = src.SiteId;
-     dst.Alias = src.Alias;
-     dst.CatId = src.CatId;
-     dst.Path = src.Path;
-     dst.Flag = src.Flag;
-     dst.AuthorId = src.AuthorId;
-     dst.Title = src.Title;
-     dst.SmallTitle = src.SmallTitle;
-     dst.Location = src.Location;
-     dst.SortNumber = src.SortNumber;
-     dst.Source = src.Source;
-     dst.Tags = src.Tags;
-     dst.Outline = src.Outline;
-     dst.Content = src.Content;
-     dst.ViewCount = src.ViewCount;
-     dst.Agree = src.Agree;
-     dst.Disagree = src.Disagree;
-     dst.Createdate = src.Createdate;
-     dst.Lastmodifydate = src.Lastmodifydate;
-     dst.Flags = src.Flags;
-     dst.Thumbnail = src.Thumbnail;
-     dst.CreateTime = src.CreateTime;
-     dst.UpdateTime = src.UpdateTime;
-
- */
 
 namespace JR.Cms.Domain.Interface.Content.Archive
 {
@@ -168,6 +138,12 @@ namespace JR.Cms.Domain.Interface.Content.Archive
         /// </summary>
         [Alias("create_time")]
         public long CreateTime { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Alias("schedule_time")]
+        public long ScheduleTime { get; set; }
 
         /// <summary>
         /// 修改时间

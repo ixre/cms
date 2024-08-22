@@ -46,6 +46,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@tags", e.Tags ?? "");
             data.Add("@createTime", e.CreateTime);
             data.Add("@updateTime", e.UpdateTime);
+            data.Add("@scheduleTime", e.ScheduleTime);
             var rowcount = ExecuteNonQuery(CreateQuery(DbSql.ArchiveAdd, data));
             return rowcount == 1;
         }
@@ -74,6 +75,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@content", e.Content);
             data.Add("@tags", e.Tags ?? "");
             data.Add("@updateTime", e.UpdateTime);
+            data.Add("@scheduleTime", e.ScheduleTime);
             data.Add("@id", e.ID);
             ExecuteNonQuery(CreateQuery(DbSql.ArchiveUpdate, data));
         }
@@ -472,11 +474,9 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// 获取栏目分页文档
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="lft"></param>
         /// <param name="pageSize"></param>
         /// <param name="skipSize"></param>
         /// <param name="currentPageIndex"></param>
-        /// <param name="rgt"></param>
         /// <param name="recordCount"></param>
         /// <param name="pages"></param>
         /// <returns></returns>
@@ -524,7 +524,6 @@ namespace JR.Cms.Library.DataAccess.DAL
                     case "skipsize": return (skipCount + skipSize).ToString();
                     case "pagesize": return pageSize.ToString();
                 }
-
                 return null;
             });
             return GetDataSet(SqlQueryHelper.Format(sql, data)).Tables[0];
@@ -656,7 +655,7 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// 搜索关键词相关的内容
         /// </summary>
         /// <param name="siteId"></param>
-        /// <param name="categoryRgt"></param>
+        /// <param name="catPath"></param>
         /// <param name="onlyMatchTitle"></param>
         /// <param name="keyword"></param>
         /// <param name="pageSize"></param>
@@ -665,13 +664,12 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// <param name="pageCount"></param>
         /// <param name="orderby"></param>
         /// <param name="func"></param>
-        /// <param name="categoryLft"></param>
         /// <returns></returns>
         public void SearchArchives(int siteId, string catPath, bool onlyMatchTitle,
             string keyword, int pageSize, int currentPageIndex, out int recordCount, out int pageCount,
             string orderby, DataReaderFunc func)
         {
-            CheckSqlInject(new[] {keyword, orderby});
+            CheckSqlInject(new[] { keyword, orderby });
             var sb = new StringBuilder(SqlConst.Archive_NotSystemAndHidden);
             if (siteId > 0) sb.Append(" AND $PREFIX_category.site_id=").Append(siteId.ToString());
 
@@ -953,7 +951,7 @@ namespace JR.Cms.Library.DataAccess.DAL
                     {
                         {"@siteId", siteId},
                     })).ToString();
-            if (obj == DBNull.Value || (string) obj == "") return 0;
+            if (obj == DBNull.Value || (string)obj == "") return 0;
             return int.Parse(obj.ToString());
         }
 

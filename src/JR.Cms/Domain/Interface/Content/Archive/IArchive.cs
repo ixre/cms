@@ -69,5 +69,13 @@ namespace JR.Cms.Domain.Interface.Content.Archive
         /// </summary>
         /// <returns></returns>
         Error Save();
+
+
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="refresh">如果已发布,是否刷新</param>
+        /// <returns></returns>
+        Error Publish(bool refresh = false);
     }
 }

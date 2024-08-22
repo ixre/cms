@@ -9,6 +9,7 @@ using JR.Cms.Domain.Interface.Site.Template;
 using JR.Cms.Infrastructure;
 using JR.Stand.Core.Extensions;
 using JR.Stand.Core.Framework;
+using Org.BouncyCastle.Utilities;
 
 //
 // 2012-10-01 添加文档扩展属性
@@ -130,7 +131,8 @@ namespace JR.Cms.Domain.Content.Archive
             _value.SiteId = Category.Get().SiteId;
             this.CheckArchiveAlias();
             Error err = this.UpdateArchivePath();
-            if(err != null){
+            if (err != null)
+            {
                 return err;
             }
             if (_value.SortNumber <= 0)
@@ -263,25 +265,27 @@ namespace JR.Cms.Domain.Content.Archive
 
         private static bool FlagAnd(int flag, BuiltInArchiveFlags b)
         {
-            var x = (int) b;
+            var x = (int)b;
             return (flag & x) == x;
         }
 
         /// <summary>
         /// 获取文档路径
         /// </summary>
-        private String GetArchivePath(){
+        private String GetArchivePath()
+        {
             // 设置了跳转地址
             if (!string.IsNullOrEmpty(_value.Location))
             {
                 // 设置了自定义路径
                 return _value.Location;
             }
-            if (FlagAnd(_value.Flag, BuiltInArchiveFlags.AsPage)){
+            if (FlagAnd(_value.Flag, BuiltInArchiveFlags.AsPage))
+            {
                 // 单页面
                 return string.IsNullOrEmpty(_value.Alias) ? _value.StrId : _value.Alias;
             }
-            return CombineArchivePath(); 
+            return CombineArchivePath();
         }
 
         /// <summary>
@@ -290,8 +294,9 @@ namespace JR.Cms.Domain.Content.Archive
         private Error UpdateArchivePath()
         {
             String path = GetArchivePath();
-            Boolean isMatch = this._archiveRepo.CheckPathMatch(_value.SiteId,path,GetAggregateRootId());
-            if(!isMatch){
+            Boolean isMatch = this._archiveRepo.CheckPathMatch(_value.SiteId, path, GetAggregateRootId());
+            if (!isMatch)
+            {
                 return new Error("文档路径已存在");
             }
             _value.Path = path;
@@ -348,10 +353,11 @@ namespace JR.Cms.Domain.Content.Archive
 
             var ic = Category;
             if (ic == null) return new Error("栏目不存在");
-            if(String.IsNullOrEmpty(this._value.Title)){
+            if (String.IsNullOrEmpty(this._value.Title))
+            {
                 return new Error("标题不能为空");
             }
-            // 如果设置了别名，检测路径是缶匹配
+            // 如果设置了别名，检测路径是否匹配
             if (!string.IsNullOrEmpty(src.Alias))
             {
                 // var path = CombineArchivePath();
@@ -360,6 +366,26 @@ namespace JR.Cms.Domain.Content.Archive
                 this._value.Alias = src.Alias;
             }
             if (src.SortNumber > 0) _value.SortNumber = src.SortNumber;
+
+            // 处理定时发送
+            if (src.ScheduleTime > 0)
+            {
+                if (src.ScheduleTime <= TimeUtils.Unix())
+                {
+                    return new Error("定时发布时间不能小于当前时间");
+                }
+                // 定时发送
+                _value.ScheduleTime = src.ScheduleTime;
+                _value.CreateTime = 0;
+            }
+            else
+            {
+                _value.ScheduleTime = 0;
+                if (_value.CreateTime <= 0)
+                {
+                    this._value.CreateTime = TimeUtils.Unix();
+                }
+            }
             return null;
         }
 
@@ -367,6 +393,38 @@ namespace JR.Cms.Domain.Content.Archive
         public override int GetAggregateRootId()
         {
             return _value.ID;
+        }
+
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="refresh"></param>
+        /// <returns></returns>
+        public Error Publish(bool refresh = false)
+        {
+            if (this.GetAggregateRootId() <= 0)
+            {
+                throw new Error("文章未保存");
+            }
+
+            if (this._value.ScheduleTime == 0 && !refresh)
+            {
+                return new Error("文章已发布");
+            }
+
+            long now = TimeUtils.Unix(DateTime.Now);
+            if (!refresh && this._value.ScheduleTime > 0)
+            {
+                // 定时发布
+                if (this._value.ScheduleTime > now)
+                {
+                    return new Error("文章未到发布时间");
+                }
+            }
+
+            this._value.ScheduleTime = 0;
+            this._value.CreateTime = now;
+            return this.Save();
         }
 
 
