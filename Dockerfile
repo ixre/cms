@@ -27,7 +27,7 @@ RUN mkdir -p ${RELEASE_DIR}/root && cp -r root/*.md ${RELEASE_DIR}/root && \
     cp ../../LICENSE ../../README.md . && ls -al
 
 # 设置开发者
-MAINTAINER jarrysix
+LABEL MAINTAINER=jarrysix
 # 设置标签
 LABEL Vendor="jarrysix"
 LABEL License="GPLv2"
