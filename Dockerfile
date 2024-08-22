@@ -9,7 +9,7 @@
 
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build-env
-ENV RELEASE_DIR /app/out/release
+ENV RELEASE_DIR=/app/out/release
 # 在Linux上启动GDI+
 #ENV DOTNET_System_Drawing_EnableUnixSupport=true
 
@@ -35,7 +35,7 @@ LABEL Version=4.0
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
-ENV CMS_RUN_ON_DOCKER yes
+ENV CMS_RUN_ON_DOCKER=yes
 WORKDIR /cms
 COPY --from=build-env /app/out/release ./
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.sustech.edu.cn/g' /etc/apk/repositories && \
