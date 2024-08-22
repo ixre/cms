@@ -38,7 +38,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 ENV CMS_RUN_ON_DOCKER yes
 WORKDIR /cms
 COPY --from=build-env /app/out/release ./
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.sustech.edu.cn/g' /etc/apk/repositories && \
     apk add tzdata &&  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "create data init folder.." && \
     mkdir -p ${CMS_INIT_DIR:=/var/cms} && mv -f templates plugins oem root ${CMS_INIT_DIR} && \
