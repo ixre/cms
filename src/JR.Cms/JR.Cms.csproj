@@ -71,6 +71,7 @@
       <EmbeddedResource Include="Web\Resource\SiteResources\js-cms-api.js" />
       <EmbeddedResource Include="Web\Resource\SiteResources\site-base.css" />
       <EmbeddedResource Include="Web\Resource\SiteResources\site-elements.css" />
+      <EmbeddedResource Include="Web\Resource\SiteResources\site-pages.css" />
       <EmbeddedResource Include="Web\Resource\SiteResources\site-migration.css" />
       <None Remove="WebImpl\Resource\WebManager\resouces\images\manage_js.js" />
       <None Remove="WebImpl\Resource\WebManager\resouces\images\ui_component.source.js" />

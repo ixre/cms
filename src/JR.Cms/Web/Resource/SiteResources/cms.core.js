@@ -43,7 +43,7 @@ if (plugins) {
 function loadIconFont() {
   var c = document.createElement("link");
   c.rel = "stylesheet";
-  c.href = ASSETS_PATH + "/icon-font.css";
+  c.href = ASSETS_PATH + "/iconfont.css";
   document.head.appendChild(c);
 }
 /** 延迟加载图片 */
@@ -95,8 +95,40 @@ function bindToggleTrigger(ele) {
     }
     this.find(".icon").attr(
       "class",
-      expand ? "icon fa fa-bars" : "icon fa fa-close"
+      expand
+        ? "icon fa fa-bars iconfont icon-menu"
+        : "icon fa fa-close iconfont icon-cross"
     );
+  });
+}
+
+function initMobileNavigator() {
+  var nav = $js.$fn(".toggle-navigator");
+  var navToggle = $js.$fn(".nav-toggle");
+
+  navToggle.click(function () {
+    var expand = this.hasClass("expanded");
+    if (expand) {
+      this.removeClass("expanded");
+      nav.removeClass("expanded");
+      // nav.slideUp("fast", function () {
+      //   nav.css({ display: "none" });
+      // });
+    } else {
+      this.addClass("expanded");
+      nav.addClass("expanded");
+    }
+    this.find("i").attr(
+      "class",
+      expand
+        ? "fa fa-bars iconfont icon-menu"
+        : "fa fa-close iconfont icon-cross"
+    );
+  });
+  nav.find(".toggle-navigator__mask").click(function () {
+    nav.removeClass("expanded");
+    navToggle.removeClass("expanded");
+    navToggle.find("i").attr("class", "fa fa-bars iconfont icon-menu");
   });
 }
 
@@ -112,7 +144,8 @@ $js.event.add(window, "load", function () {
 
   // 绑定手机页面,导航菜单
   bindToggleTrigger($b.$(".toggle"));
-
+  // todo: 上面的实现可以考虑删除
+  initMobileNavigator();
   /****************** 设置分类菜单 *******************/
 
   //根据className设置Hover状态

@@ -79,6 +79,11 @@ strong {
   font-size: 62.5%;
 } */
 @media only screen and (max-width: 958px) {
+  @media only screen and (max-width: 360px) {
+    html {
+      font-size: 81.25% !important; /** 13px */
+    }
+  }
   @media only screen and (min-width: 361px) {
     html {
       font-size: 70.31% !important;
@@ -1158,7 +1163,7 @@ body {
   letter-spacing: 1px;
 }
 .g-big-tit .sub {
-  font-size: var(--text-md-size);
+  font-size: var(--text-base-size);
   margin: 15px 0;
   color: #666;
   line-height: 1.5em;

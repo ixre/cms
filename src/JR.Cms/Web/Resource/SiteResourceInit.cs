@@ -28,6 +28,9 @@ namespace JR.Cms.Web.Resource
                                + "\n /* merge elements.css */\n"
                                + ResourceUtility.CompressHtml(
                                    GetResource("Web/Resource/SiteResources/site-elements.css"))
+                               + "\n /* merge pages.css */\n"
+                               + ResourceUtility.CompressHtml(
+                                   GetResource("Web/Resource/SiteResources/site-pages.css"))
                                + "\n /* merge migration.css */\n"
                                + ResourceUtility.CompressHtml(
                                    GetResource("Web/Resource/SiteResources/site-migration.css"))

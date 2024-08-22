@@ -250,7 +250,6 @@ pre {
   );
 
   & .banner__main {
-    flex-basis: 50%;
     & .banner__main--title {
       padding-bottom: 1em;
     }

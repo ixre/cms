@@ -1,0 +1,102 @@
+@media (max-width: 767px) {
+  .header {
+    /** 移动端头部 */
+    .container {
+      width: 100%;
+    }
+    .row {
+      flex-wrap: nowrap;
+      padding: 0 2rem;
+      align-items: center;
+    }
+    .header__logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header__xs {
+      width: 3rem;
+      padding-left: 1.5rem;
+      i {
+        font-size: var(--text-3xl-size);
+      }
+    }
+  }
+  .toggle-navigator {
+    /** 移动端导航 */
+    background: #fff;
+    border-radius: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    z-index: 1;
+    transition: all 0.3s;
+
+    .container-fluid {
+      background: #fff;
+      padding-top: 1rem;
+      height: 100%;
+    }
+
+    & > .toggle-navigator__header {
+      padding: 1rem 2rem;
+      margin: 1rem 0;
+    }
+    .navigator__nav {
+      flex-flow: column nowrap;
+      margin: 1rem 1rem 1.5rem 1rem;
+      gap: 0;
+      .navigator__item {
+        border-bottom: solid 1px #efefef;
+        padding: 0.25rem 1rem;
+
+        a {
+          display: block;
+        }
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+    .toggle-navigator__footer {
+      .toggle-navigator__footer--qr {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  .toggle-navigator.expanded {
+    width: 60%;
+    .toggle-navigator__mask {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -2;
+    }
+  }
+
+  .toggle-navigator li.l1 {
+    margin-left: 0;
+    font-size: 1.4rem;
+  }
+  .mod-navigator-left,
+  .mod-navigator-right {
+    display: none;
+  }
+  .mod-navigator .nav li.l1 {
+    width: 100%;
+    border-bottom: solid 1px #efefef;
+  }
+  .mod-navigator .nav li.l1 a {
+    text-align: left;
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}

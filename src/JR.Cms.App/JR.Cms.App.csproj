@@ -233,6 +233,7 @@
       <Content Include="public\assets\html5\html5shiv.min.js" />
       <Content Include="public\assets\html5\PIE.htc" />
       <Content Include="public\assets\icon-font.css" />
+      <Content Include="public\assets\iconfont.css" />
       <Content Include="public\assets\icons\admin\add.gif" />
       <Content Include="public\assets\icons\admin\back_1.gif" />
       <Content Include="public\assets\icons\admin\book.gif" />
