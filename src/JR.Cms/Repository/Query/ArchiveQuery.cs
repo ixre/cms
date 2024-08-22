@@ -124,9 +124,10 @@ namespace JR.Cms.Repository.Query
         /// <summary>
         /// 查询定时发布文章
         /// </summary>
+        /// <param name="unix">时间</param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public IEnumerable<CmsArchiveEntity> GetArchiveByScheduleTime(int size)
+        public IEnumerable<CmsArchiveEntity> GetArchiveByScheduleTime(long unix, int size)
         {
             using (IDbConnection db = _provider.GetConnection())
             {
@@ -155,11 +156,13 @@ namespace JR.Cms.Repository.Query
                   create_time as CreateTime,
                   update_time as UpdateTime
                   FROM $PREFIX_archive
-                  WHERE site_id=@SiteId
-                  AND schedule_time > 0
+                  WHERE schedule_time > 0 AND schedule_time < @ScheduleTime
                   ORDER BY schedule_time ASC
                   "
-                )).Take(size);
+                ), new CmsArchiveEntity
+                {
+                    ScheduleTime = unix
+                }).Take(size);
             }
         }
     }

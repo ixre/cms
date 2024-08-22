@@ -157,10 +157,10 @@ namespace JR.Cms.Core.Scheduler
                 new CmsJobEntity
                 {
                     JobName = "定时发布文章",
-                    CronExp = "*/5 * * * * ?",
+                    CronExp = "* */5 * * * ?",
                     Enabled = 1,
-                    JobClass = "JR.Cms.Core.Scheduler.Job.PublishArticleJob",
-                    JobDescribe = "定时发布提前准备好的文章, 每5秒执行一次"
+                    JobClass = "JR.Cms.Core.Scheduler.Job.SchedulePublishArchive",
+                    JobDescribe = "定时发布提前准备好的文章, 每5分钟执行一次"
                 }
             };
             foreach (var it in initial)

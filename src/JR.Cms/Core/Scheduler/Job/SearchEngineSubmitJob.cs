@@ -56,7 +56,7 @@ namespace JR.Cms.Core.Scheduler.Job
                 foreach (SiteDto site in sites)
                 {
                     var se = LocalService.Instance.SeoService.FindSearchEngineBySiteId(site.SiteId);
-                    IList<String> urls = new List<string>();
+                    IList<string> urls = new List<string>();
                     IEnumerable<ArchiveDto> archives =
                         LocalService.Instance.ArchiveService.GetArchiveByTimeAgo(site.SiteId, unix, int.MaxValue);
                     foreach (var archive in archives)

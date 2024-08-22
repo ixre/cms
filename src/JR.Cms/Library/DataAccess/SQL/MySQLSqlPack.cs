@@ -247,6 +247,7 @@
 `thumbnail`=@thumbnail,
     update_time=@updateTime,
     schedule_time=@scheduleTime,
+    create_time=@createTime,
                         `outline`=@Outline,`content`=@Content,
                         `tags`=@Tags WHERE $PREFIX_archive.id=@id";
 

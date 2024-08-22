@@ -1,5 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using JR.Cms.Library.CacheService;
+using JR.Cms.ServiceContract;
+using JR.Stand.Core.Extensions;
 using JR.Stand.Core.Framework;
 using JR.Stand.Core.Framework.Scheduler;
 using Quartz;
@@ -36,8 +39,20 @@ namespace JR.Cms.Core.Scheduler.Job
 
         private void ProcessPublishArchives()
         {
-            Console.WriteLine("定时发布文章");
+            long now = TimeUtils.Unix();
+            var list = LocalService.Instance.ArchiveService.GetArchivesByScheduleTime(now, 10);
+            if (list.Count > 0)
+            {
+                _logger.Info("定时发布文章, 总数:" + list.Count);
+                foreach (var item in list)
+                {
+                    Error err = LocalService.Instance.ArchiveService.PublishArchive(item.SiteId, item.Id);
+                    if (err != null)
+                    {
+                        _logger.Error(String.Format("定时发布文章失败, ID={0},Err={1}", item.Id, err.Message));
+                    }
+                }
+            }
         }
-
     }
 }

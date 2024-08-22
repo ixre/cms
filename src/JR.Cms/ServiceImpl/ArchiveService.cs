@@ -493,7 +493,8 @@ namespace JR.Cms.ServiceImpl
         {
             return new ArchiveDto
             {
-                Id = 0,
+                Id = (int)it.Id,
+                SiteId = (int)it.SiteId,
                 StrId = it.StrId,
                 Title = it.Title,
                 Thumbnail = it.Thumbnail,
@@ -519,9 +520,9 @@ namespace JR.Cms.ServiceImpl
             return archive.Publish(true);
         }
         /// <inheritdoc/>
-        public IList<ArchiveDto> GetArchivesByScheduleTime(int size)
+        public IList<ArchiveDto> GetArchivesByScheduleTime(long unix, int size)
         {
-            var list = _archiveQuery.GetArchiveByScheduleTime(size);
+            var list = _archiveQuery.GetArchiveByScheduleTime(unix, size);
             IList<ArchiveDto> archives = new List<ArchiveDto>();
             foreach (var it in list)
             {

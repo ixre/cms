@@ -75,6 +75,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             data.Add("@content", e.Content);
             data.Add("@tags", e.Tags ?? "");
             data.Add("@updateTime", e.UpdateTime);
+            data.Add("@createTime", e.CreateTime);
             data.Add("@scheduleTime", e.ScheduleTime);
             data.Add("@id", e.ID);
             ExecuteNonQuery(CreateQuery(DbSql.ArchiveUpdate, data));

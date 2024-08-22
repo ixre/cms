@@ -265,8 +265,6 @@ namespace JR.Cms.Web.Manager.Handle
                 Thumbnail = thumbnail,
                 Location = archive.Location,
                 ScheduleTime = archive.ScheduleTime > 0 ? String.Format("{0:yyyy-MM-dd}", TimeUtils.UnixTime(archive.ScheduleTime)) : "",
-                // 如果创建时间大于0，并且当前时间大于创建时间+24小时，则不能再修改定时发送
-                ScheduleClassName = createUnix > 0 && (now - createUnix) > 3600 * 24 ? "hidden" : "",
             };
 
             var path = Request.GetPath();
@@ -279,7 +277,10 @@ namespace JR.Cms.Web.Manager.Handle
                 nodes = nodesHtml,
                 url = path + query,
                 tpls = tplList,
-                json = JsonSerializer.Serialize(json)
+                json = JsonSerializer.Serialize(json),
+                // 如果创建时间大于0，并且当前时间大于创建时间+24小时，则不能再修改定时发送
+                ScheduleClassName = createUnix > 0 && (now - createUnix) > 3600 * 24 ? "hidden" : "",
+
             };
 
             RenderTemplate(

@@ -224,6 +224,7 @@ $PREFIX_archive.flag,outline,
                                     thumbnail=@thumbnail,
                                     schedule_time=@scheduleTime,
                                     update_time=@updateTime,
+                                    create_time=@createTime,
                                     [Outline]=@Outline,[Content]=@Content,[Tags]=@Tags
                                      WHERE id=@id";
 

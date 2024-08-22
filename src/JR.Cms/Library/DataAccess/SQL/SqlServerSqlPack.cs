@@ -252,6 +252,7 @@
                                     [Alias]=@Alias,location=@location,[Source]=@Source,
                                     schedule_time=@scheduleTime,
                                     update_time=@updateTime,
+                                    create_time=@createTime,
                                     thumbnail=@thumbnail,[Outline]=@Outline,[Content]=@Content,[Tags]=@Tags WHERE id=@id";
 
         public override string ArchiveGetSearchRecordCountByModuleId =>

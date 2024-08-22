@@ -18,6 +18,10 @@ namespace JR.Cms.ServiceDto
         public int Id { get; set; }
 
         /// <summary>
+        /// 站点ID
+        /// </summary>
+        public int SiteId { get; set; }
+        /// <summary>
         /// 编号,一个16位Md5字符串
         /// </summary>
         public string StrId { get; set; }
@@ -144,6 +148,7 @@ namespace JR.Cms.ServiceDto
             var dto = new ArchiveDto
             {
                 Id = archive.GetAggregateRootId(),
+                SiteId = a.SiteId,
                 StrId = a.StrId,
                 Disagree = a.Disagree,
                 Agree = a.Agree,
@@ -196,6 +201,7 @@ namespace JR.Cms.ServiceDto
         {
             var dst = new CmsArchiveEntity();
             dst.ID = Id;
+            dst.SiteId = SiteId;
             dst.StrId = StrId;
             dst.Alias = Alias;
             dst.Path = Path;

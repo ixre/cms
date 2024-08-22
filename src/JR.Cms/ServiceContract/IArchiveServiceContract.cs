@@ -270,8 +270,9 @@ namespace JR.Cms.ServiceContract
         /// <summary>
         /// 获取定时发布的文章
         /// </summary>
+        /// <param name="unix">时间</param>
         /// <param name="size">数量</param>
         /// <returns></returns>
-        IList<ArchiveDto> GetArchivesByScheduleTime(int size);
+        IList<ArchiveDto> GetArchivesByScheduleTime(long unix, int size);
     }
 }
