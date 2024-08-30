@@ -41,7 +41,7 @@ div,input,span,select,textarea,label,img,b,a{ vertical-align: middle;}
 
 /*按钮*/
 .ui-button{border:solid 1px #FFF;border-color: #ADB1B8 #A2A6AC #8D9096;border-radius:2px;display: inline-block;
-    position: relative;vertical-align: middle;cursor: default;}
+    position: relative;vertical-align: middle;cursor: default;padding:0 !important}
 .ui-button .button-inner{display:block;position: relative;background:#F0F0F0;border-radius:2px;
     background:transparent linear-gradient(to bottom, #F7F8FA, #E7E9EC);height:100%;
     box-shadow:0px 1px 0px rgba(255, 255, 255, 0.6) inset;}

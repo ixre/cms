@@ -141,6 +141,10 @@ namespace JR.Cms.Web.Editor
                     Array.Sort(dirList, new NameSorter());
                     Array.Sort(fileList, new TypeSorter());
                     break;
+                case "time":
+                    Array.Sort(dirList, new NameSorter());
+                    Array.Sort(fileList, new TimeSorter());
+                    break;
                 case "name":
                 default:
                     Array.Sort(dirList, new NameSorter());
@@ -255,9 +259,9 @@ namespace JR.Cms.Web.Editor
             }
 
             if (String.IsNullOrEmpty(fileExt) ||
-                Array.IndexOf(((String) extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
+                Array.IndexOf(((String)extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
             {
-                return this.showError(context, "上传文件扩展名是不允许的扩展名。\n只允许" + ((String) extTable[dirName]) + "格式。");
+                return this.showError(context, "上传文件扩展名是不允许的扩展名。\n只允许" + ((String)extTable[dirName]) + "格式。");
             }
 
             //创建文件夹
@@ -312,9 +316,9 @@ namespace JR.Cms.Web.Editor
 
         private Task showError(ICompatibleHttpContext context, string message)
         {
-            Hashtable hash = new Hashtable {["error"] = 1, ["message"] = message};
-             context.Response.Write(JsonAnalyzer.ToJson(hash));
-             return SafetyTask.CompletedTask;
+            Hashtable hash = new Hashtable { ["error"] = 1, ["message"] = message };
+            context.Response.Write(JsonAnalyzer.ToJson(hash));
+            return SafetyTask.CompletedTask;
         }
 
         public class NameSorter : IComparer
@@ -392,6 +396,30 @@ namespace JR.Cms.Web.Editor
                 FileInfo yInfo = new FileInfo(y.ToString());
 
                 return xInfo.Extension.CompareTo(yInfo.Extension);
+            }
+        }
+        public class TimeSorter : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                if (x == null && y == null)
+                {
+                    return 0;
+                }
+
+                if (x == null)
+                {
+                    return -1;
+                }
+
+                if (y == null)
+                {
+                    return 1;
+                }
+
+                FileInfo xInfo = new FileInfo(x.ToString());
+                FileInfo yInfo = new FileInfo(y.ToString());
+                return yInfo.CreationTime.CompareTo(xInfo.CreationTime);
             }
         }
     }

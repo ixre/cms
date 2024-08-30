@@ -15,12 +15,12 @@ namespace JR.Stand.Core.Web
 
         public Task WriteAsync(string str)
         {
-           return this._accessor.HttpContext.Response.WriteAsync(str);
+            return this._accessor.HttpContext.Response.WriteAsync(str);
         }
 
         public void AddHeader(string key, string value)
         {
-            this._accessor.HttpContext.Response.Headers.Add(key,value);
+            this._accessor.HttpContext.Response.Headers.Add(key, value);
         }
 
         public void StatusCode(int status)
@@ -30,12 +30,12 @@ namespace JR.Stand.Core.Web
 
         public void AppendCookie(string key, string value, HttpCookieOptions opt)
         {
-            this._accessor.HttpContext.Response.Cookies.Append(key,value,this.ParseOptions(opt));
+            this._accessor.HttpContext.Response.Cookies.Append(key, value, this.ParseOptions(opt));
         }
 
         public void DeleteCookie(string key, HttpCookieOptions opt)
         {
-            this._accessor.HttpContext.Response.Cookies.Delete(key,this.ParseOptions(opt));
+            this._accessor.HttpContext.Response.Cookies.Delete(key, this.ParseOptions(opt));
         }
 
         private CookieOptions ParseOptions(HttpCookieOptions opt)
@@ -54,12 +54,12 @@ namespace JR.Stand.Core.Web
 
         public void Redirect(string url, bool permanent)
         {
-            this._accessor.HttpContext.Response.Redirect(url,permanent);
+            this._accessor.HttpContext.Response.Redirect(url, permanent);
         }
 
         public void AppendHeader(string key, string value)
         {
-            this._accessor.HttpContext.Response.Headers.Append(key,value);
+            this._accessor.HttpContext.Response.Headers.Append(key, value);
         }
 
         public void ContentType(string contentType)
@@ -69,12 +69,12 @@ namespace JR.Stand.Core.Web
 
         public void Write(byte[] bytes, int offset, int count)
         {
-            this._accessor.HttpContext.Response.Body.Write(bytes,offset,count);
+            this._accessor.HttpContext.Response.Body.Write(bytes, offset, count);
         }
 
         public Task WriteAsync(byte[] bytes)
         {
-            return this._accessor.HttpContext.Response.Body.WriteAsync(bytes,0,bytes.Length);
+            return this._accessor.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
         }
     }
 }

@@ -54,11 +54,11 @@ namespace JR.Cms.Web.Manager.Handle
             try
             {
                 var filePath = DoUploadFile(file, dir, name, autoName);
+                Response.StatusCode(200);
                 Response.Write("{" + $"\"url\":\"{filePath}\"" + "}");
             }
             catch (Exception ex)
             {
-                throw ex;
                 Console.WriteLine(ex.StackTrace);
                 Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
@@ -84,12 +84,12 @@ namespace JR.Cms.Web.Manager.Handle
                 var thumbFilePath = String.Join("", imgPath.Substring(0, i), "_w300", imgPath.Substring(i));
                 GraphicsHelper.SaveThumbnailV3(imgPath, thumbFilePath, 320, 90);
                 // 删除源文件
-                File.Delete(imgPath); 
+                File.Delete(imgPath);
+                Response.StatusCode(200);
                 Response.Write("{" + $"\"url\":\"{thumbPath}\"" + "}");
             }
             catch (Exception ex)
             {
-                throw ex;
                 Console.WriteLine(ex.StackTrace);
                 Response.Write("{" + $"\"error\":\"{ex.Message}\"" + "}");
             }
@@ -114,7 +114,8 @@ namespace JR.Cms.Web.Manager.Handle
                 var thumbFilePath = String.Join("", imgPath.Substring(0, i), "_w300", imgPath.Substring(i));
                 GraphicsHelper.SaveThumbnailV3(imgPath, thumbFilePath, 320, 90);
                 // 删除源文件
-                File.Delete(imgPath); 
+                File.Delete(imgPath);
+                Response.StatusCode(200);
                 Response.Write("{" + $"\"url\":\"{thumbPath}\"" + "}");
             }
             catch (Exception ex)

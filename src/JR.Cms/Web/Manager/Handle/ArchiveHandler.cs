@@ -279,7 +279,7 @@ namespace JR.Cms.Web.Manager.Handle
                 tpls = tplList,
                 json = JsonSerializer.Serialize(json),
                 // 如果创建时间大于0，并且当前时间大于创建时间+24小时，则不能再修改定时发送
-                ScheduleClassName = createUnix > 0 && (now - createUnix) > 3600 * 24 ? "hidden" : "",
+                ScheduleClassName = createUnix > Math.Pow(10, 10) && (now - createUnix) > 3600 * 24 ? "hidden" : "",
 
             };
 
