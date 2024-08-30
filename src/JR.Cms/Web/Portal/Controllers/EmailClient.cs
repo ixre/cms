@@ -1,3 +1,5 @@
+using System;
+using JR.Cms.Library.Utility;
 using MailKit.Net.Smtp;
 using MimeKit;
 
@@ -24,7 +26,7 @@ namespace JR.Cms.Web.Portal.Controllers
       /// <param name="host"></param>
       /// <param name="port"></param>
       /// <param name="enableSsl"></param>
-      public SendMailClient(   string address,
+      public SendMailClient(string address,
        string password,
        string host,
        int port,
@@ -50,16 +52,11 @@ namespace JR.Cms.Web.Portal.Controllers
       public void Send(string fromAddress, string toAddress, string fromName, string subject,
          string body, bool isBodyHtml)
       {
-
-         // SmtpClient smtp = new SmtpClient();
-         // smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-         // smtp.Credentials = new NetworkCredential(address, password);
-         // smtp.Host = smtpHost;
-         // smtp.Port = smtpPort;
-         // smtp.EnableSsl = isEnableSsl;
-         // mailMessage.Priority = priority;
-         // smtp.Send(mailMessage); //发送邮件
-
+         toAddress = toAddress.Replace("#", "@");
+         if (!RegexHelper.IsEmail(toAddress))
+         {
+            throw new ArgumentException("不是有效的邮箱地址:" + toAddress);
+         }
          var message = new MimeMessage();
          message.From.Add(new MailboxAddress(fromName ?? "", fromAddress));
          message.To.Add(new MailboxAddress("", toAddress));
@@ -74,9 +71,7 @@ namespace JR.Cms.Web.Portal.Controllers
          {
             bodyBuilder.TextBody = body;
          }
-
          message.Body = bodyBuilder.ToMessageBody();
-
          using (var client = new SmtpClient())
          {
             client.ServerCertificateValidationCallback = (s, c, h, e) => true;

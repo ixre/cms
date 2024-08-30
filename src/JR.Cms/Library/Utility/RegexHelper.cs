@@ -15,5 +15,15 @@ namespace JR.Cms.Library.Utility
         {
             return Regex.Replace(html, "(<[^>]+>)|(&(\\w)+;)|(\\s)", string.Empty, RegexOptions.IgnoreCase);
         }
+
+        /// <summary>
+        /// 是否为邮箱
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public static bool IsEmail(string email)
+        {
+            return Regex.IsMatch(email, "^[A-Za-z0-9_\\-]+@[a-zA-Z0-9\\\\-]+(\\.[a-zA-Z0-9]+)+$");
+        }
     }
 }

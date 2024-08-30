@@ -70,6 +70,7 @@ namespace JR.Cms.Web.Portal.Common
                 "站点机器人",
                 subject,
                 sb.ToString(), true);
+
             return Result.Success("");
         }
 
