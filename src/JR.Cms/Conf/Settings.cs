@@ -57,21 +57,21 @@ namespace JR.Cms.Conf
         /// </summary>
         public static string LICENSE_KEY;
 
-        
+
         /// <summary>
         /// 后台管理地址
         /// </summary>
-        public static string SYS_ADMIN_TAG="admin";
-        
+        public static string SYS_ADMIN_TAG = "admin";
+
         /// <summary>
         /// 是否启用静态服务器
         /// </summary>
-        public static Boolean SERVER_STATIC_ENABLED=false;
-        
+        public static Boolean SERVER_STATIC_ENABLED = false;
+
         /// <summary>
         /// 静态服务器地址
         /// </summary>
-        public static String SERVER_STATIC="";
+        public static String SERVER_STATIC = "";
 
         /// <summary>
         /// 更新服务器
@@ -82,7 +82,7 @@ namespace JR.Cms.Conf
         /// 系统虚拟路径(默认为空)
         /// </summary>
         //public static string SYS_VIRTHPATH;
-        
+
         /// <summary>
         /// 是否使用原始上传文件名称
         /// </summary>
@@ -129,7 +129,7 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 数据库类型
         /// </summary>
-        public static string DB_TYPE="mysql";
+        public static string DB_TYPE = "mysql";
 
         /// <summary>
         /// 数据库连接字符串
@@ -143,7 +143,7 @@ namespace JR.Cms.Conf
 
 
 
-       
+
 
         /***** 会员配置  *****/
 
@@ -177,7 +177,7 @@ namespace JR.Cms.Conf
         /// <summary>
         /// 客户端缓存秒数
         /// </summary>
-        public static int Opti_ClientCacheSeconds =0;
+        public static int Opti_ClientCacheSeconds = 0;
 
         /// <summary>
         /// 首页缓存秒数
@@ -191,9 +191,13 @@ namespace JR.Cms.Conf
 
         public static bool TPL_USE_CACHE = true;
 
+        /// <summary>
+        /// 站点地图路径
+        /// </summary>
+        public static string SYS_SITE_MAP_PATH = "http://localhost/sitemap.xml";
 
         /** 邮件服务器 */
-        
+
         /// <summary>
         /// 邮件服务器主机
         /// </summary>
@@ -214,7 +218,7 @@ namespace JR.Cms.Conf
         /// 邮件服务器密码
         /// </summary>
         public static string SMTP_PASSWORD = "";
-        
+
         public static void TurnOnDebug()
         {
             OPTI_DEBUG_MODE = true;

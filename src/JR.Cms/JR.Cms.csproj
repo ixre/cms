@@ -29,14 +29,15 @@
     <Compile Remove="Component\Crawl\PickerTestWeb\**" />
     <Compile Remove="WebImpl\Resource\SiteResource.Designer.cs" />
     <Compile Remove="Web\Job\**" />
-    <Compile Remove="Web\SiteMap\**" />
     <Compile Remove="Web\Util\SiteMapUtils.cs" />
+    <Compile Remove="Web\SiteMap\**" />
     <Compile Remove="Core\Hibernate\**" />
     <Compile Remove="Generator\output\**" />
     <Compile Remove="Generator\output\csharp\Service\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <!-- <PackageReference Include="HtmlAgilityPack" Version="1.11.65" /> -->
     <PackageReference Include="MailKitLite" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
@@ -66,6 +67,7 @@
     <EmbeddedResource Include="Web\Resource\SiteResources\site-elements.css" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-pages.css" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-migration.css" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-robots.txt" />
     <None Remove="WebImpl\Resource\WebManager\resouces\images\manage_js.js" />
     <None Remove="WebImpl\Resource\WebManager\resouces\images\ui_component.source.js" />
     <None Remove="Infrastructure\Resources\xml\lang_package.xml" />
@@ -77,6 +79,7 @@
     <None Remove="WebImpl\Resource\Static\SiteResouce\site-base.css" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\site-elements.css" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\site-migration.css" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\site-rebots.txt" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\assets\animate.css" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\assets\wow.js" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\base.min.js" />

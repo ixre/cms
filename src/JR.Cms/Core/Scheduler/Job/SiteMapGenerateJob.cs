@@ -28,8 +28,9 @@ namespace JR.Cms.Web.Job
             {
                 return SafetyTask.CompletedTask;
             }
-
-            return SiteMapUtils.Generate();
+            //todo: 依赖较多故没有引入
+            // return SiteMapUtils.Generate();
+            return null;
         }
     }
 }

@@ -1,0 +1,6 @@
+# robots.txt is auto generated.
+User-agent: *
+Disallow: /admin/
+Disallow: /templates/
+Disallow: /public/
+#Sitemap: https://example.com/sitemap.xml

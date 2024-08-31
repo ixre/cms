@@ -445,7 +445,7 @@ div.palist a.title{padding-left:10px;background:url(images/ico.png) 0 center no-
 .mod-pagination a,.mod-pagination .current{background:#e7c0c0;}
 
 /* mod-footer */
-.mod-footer .tel{font-size:1.7em;margin:0;color:#666;font-weight: bold;}
+.mod-footer .tel{margin:0;color:#000;font-weight: bold;}
 .mod-footer .qr{/*! padding:3px; */background:#FFF;/*! margin-right:1em; *//*! float:right; */margin-left:5px;
     /*! position:absolute; */right:0;top:6px;}
 .mod-footer a{text-decoration:none;}
