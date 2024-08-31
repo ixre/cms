@@ -26,8 +26,7 @@ namespace JR.Cms.Web.Resource
             // robots.txt
             ExtraFile("robots.txt", GetResource("Web/Resource/SiteResources/site-robots.txt"));
             // robots.txt
-            ExtraFile("favicon.ico", GetResource("Web/Resource/SiteResources/site-favicon.ico"));
-
+            InitFavicon();
             // 释放base.min.css
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.css",
                 CssComment + ResourceUtility.CompressHtml(
@@ -96,6 +95,25 @@ namespace JR.Cms.Web.Resource
                                                                       GetResource("Web/Resource/SiteResources/Assets/animate.css"), false);
             // wow.js
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "js/wow.js", Comment + GetResource("Web/Resource/SiteResources/Assets/wow.js"), false);
+        }
+
+        private static void InitFavicon()
+        {
+            try
+            {
+                //todo: 释放后文件提示无法打开, 故采用复制的方式
+                //ExtraFile("favicon.ico", GetResource("Web/Resource/SiteResources/site-favicon.ico"));
+                string dstPath = EnvUtil.GetBaseDirectory() + "favicon.ico";
+                string fromPath = CmsVariables.FRAMEWORK_PATH + "assets/site-favicon.ico";
+                if (!File.Exists(dstPath))
+                {
+                    File.Copy(fromPath, dstPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("释放favicon错误:" + ex.Message);
+            }
         }
 
         private static void ExtraMasterAssets()
