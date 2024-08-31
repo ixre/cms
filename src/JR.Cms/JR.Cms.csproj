@@ -68,6 +68,7 @@
     <EmbeddedResource Include="Web\Resource\SiteResources\site-pages.css" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-migration.css" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-robots.txt" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-favicon.ico"/>
     <None Remove="WebImpl\Resource\WebManager\resouces\images\manage_js.js" />
     <None Remove="WebImpl\Resource\WebManager\resouces\images\ui_component.source.js" />
     <None Remove="Infrastructure\Resources\xml\lang_package.xml" />

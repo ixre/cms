@@ -25,6 +25,9 @@ namespace JR.Cms.Web.Resource
             ExtraMasterAssets();
             // robots.txt
             ExtraFile("robots.txt", GetResource("Web/Resource/SiteResources/site-robots.txt"));
+            // robots.txt
+            ExtraFile("favicon.ico", GetResource("Web/Resource/SiteResources/site-favicon.ico"));
+
             // 释放base.min.css
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.css",
                 CssComment + ResourceUtility.CompressHtml(
