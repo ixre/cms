@@ -182,48 +182,47 @@ img {
 }
 
 /*================== 基础样式 ===================*/
-:root {
-  --text-transform-percent: 1;
+
+:root,
+page {
+  /** 0.8 = 16/20,因基础字体为20px */
   /** 引文次要信息,12px */
-  --text-xs-size: calc(0.75rem * var(--text-transform-percent));
+  --text-xs-size: calc(0.75rem);
   /** 正文和正文标题 14px/16px */
-  --text-sm-size: calc(0.875rem * var(--text-transform-percent));
-  --text-base-size: calc(1rem * var(--text-transform-percent));
+  --text-sm-size: calc(0.875rem);
+  --text-base-size: calc(1rem);
   /** 标题,使用粗体,18px/20px/24px/30px */
-  --text-lg-size: calc(1.125rem * var(--text-transform-percent));
-  --text-xl-size: calc(1.25rem * var(--text-transform-percent));
-  --text-2xl-size: calc(1.5rem * var(--text-transform-percent));
-  --text-3xl-size: calc(1.875rem * var(--text-transform-percent));
-  /** 字体默认粗细程度 */
-  --font-weight: 500;
+  --text-lg-size: calc(1.125rem);
+  --text-xl-size: calc(1.25rem);
+  --text-2xl-size: calc(1.5rem);
+  --text-3xl-size: calc(1.875rem);
+
   /** 颜色变量 */
   --primary-color: rgb(0, 0, 255); /* 蓝色blue */
-  --secondnary-color: rgb(59, 111, 255); /* 红色red */
-  --background-color: #f8f9fb; /** 背景颜色 */
+  --secondnary-color: #6185ff; /* 红色red */
+  --background-color: #f6f7f8; /** 背景颜色 */
+
   /** 全局原角大小 */
-  --border-radius: 5px;
-  /** 头部高度 */
-  --header-height: 80px;
+  --border-radius: 0.4rem;
 }
-* {
+*,
+page * {
   box-sizing: border-box;
   /** 平滑滚动*/
   scroll-behavior: smooth;
 }
-html {
+body,
+page {
   /** 字体默认加粗 */
-  font-weight: var(--font-weight);
-}
-body {
-  background: var(--background-color);
+  font-weight: 400;
 }
 
 /** 容器 */
-.container,
-.container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
+.container {
+  padding-right: 0.9375rem;
+  padding-left: 0.9375rem;
 }
+
 .hidden {
   display: none !important;
 }
@@ -232,48 +231,57 @@ body {
   color: var(--primary-color);
 }
 .text-secondnary {
-  color: #555;
+  color: var(--secondnary-color);
 }
 .text-gray {
-  color: #999;
+  color: #707070;
 }
-.text-success {
+.text-green {
   color: #0a0;
+}
+.text-blue {
+  color: #00f;
 }
 .text-red {
   color: #f00;
 }
-
-.text-right {
-  text-align: right;
-}
 .text-center {
   text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 .text-amount {
   font-weight: 500;
 }
 
+.text-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/** 字体, 页面基础字体为20px, 故14/20=0.7rem, 参考:https://blog.csdn.net/weixin_40551876/article/details/97269237 */
 .text-xs {
   font-size: var(--text-xs-size);
-  line-height: 1rem; /* 12 / 16px, 如果字体为62.5%，则为1.6rem,以下类推 */
+  line-height: 1rem; /* 16px */
 }
 .text-sm {
   font-size: var(--text-sm-size);
-  line-height: 1.25rem; /* 14 / 20px */
+  line-height: 1.25rem; /* 20px */
 }
 .text-base,
 .text-md {
   font-size: var(--text-base-size);
-  line-height: 1.5rem; /* 16 / 24px */
+  line-height: 1.5rem; /* 24px */
 }
 .text-lg {
   font-size: var(--text-lg-size);
-  line-height: 1.75rem; /* 20 / 28px */
+  line-height: 1.75rem; /* 28px */
 }
 .text-xl {
   font-size: var(--text-xl-size);
-  line-height: 2rem; /* 24 / 32px */
+  line-height: 1.75rem; /* 28px */
 }
 .text-2xl {
   font-size: var(--text-2xl-size);
@@ -303,6 +311,20 @@ body {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+.margin-hori {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.margin-all {
+  margin: 1em;
+}
+.margin-bottom {
+  margin-bottom: 1em;
+}
+
+.padding-xs {
+  padding-top: 0.25em;
+}
 
 /** 指定位置 */
 .pos-relative {
@@ -315,43 +337,91 @@ body {
   position: fixed;
 }
 
-/** margin */
-.margin-bottom-10px {
-  margin-bottom: 10px;
+.margin-reset-top {
+  margin-top: 0 !important;
 }
-.margin-bottom-20px {
-  margin-bottom: 20px;
+.margin-reset-row {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
-.margin-bottom-30px {
-  margin-bottom: 30px;
+.margin-reset-col {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
-.margin-bottom-3em {
-  margin-bottom: 3em;
+.margin-x-1 {
+  margin: 0.25rem;
 }
-.margin-right-1em {
-  margin-right: 1em;
+.margin-x-2 {
+  margin: 0.5rem;
 }
-.margin-1 {
-  margin: 0.8em;
+.margin-x-3 {
+  margin: 0.75rem;
 }
-.margin-half-em {
-  margin: 0.5em;
+.margin-x-4 {
+  margin: 1rem;
 }
-
-.padding-10px {
-  padding: 10px;
+.margin-x-5 {
+  margin: 1.25rem;
 }
-
-.padding-all {
-  padding: 1em;
+.margin-bx-1 {
+  margin-bottom: 0.25rem;
 }
-.padding-half-em {
-  padding: 0.5em;
+.margin-bx-2 {
+  margin-bottom: 0.5rem;
 }
-.margin-10px {
-  margin: 10px;
+.margin-bx-3 {
+  margin-bottom: 0.75rem;
 }
-
+.margin-bx-4 {
+  margin-bottom: 1rem;
+}
+.margin-bx-5 {
+  margin-bottom: 1.25rem;
+}
+.padding-reset-top {
+  padding-top: 0 !important;
+}
+.padding-reset-bottom {
+  padding-bottom: 0 !important;
+}
+.padding-reset-row {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.padding-reset-col {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.padding-x-1 {
+  padding: 0.25rem;
+}
+.padding-x-2 {
+  padding: 0.5rem;
+}
+.padding-x-3 {
+  padding: 0.75rem;
+}
+.padding-x-4 {
+  padding: 1rem;
+}
+.padding-x-5 {
+  padding: 1.25rem;
+}
+.padding-bx-1 {
+  padding-bottom: 0.25rem;
+}
+.padding-bx-2 {
+  padding-bottom: 0.5rem;
+}
+.padding-bx-3 {
+  padding-bottom: 0.75rem;
+}
+.padding-bx-4 {
+  padding-bottom: 1rem;
+}
+.padding-bx-5 {
+  padding-bottom: 1.25rem;
+}
 /** 高度100% */
 .height-all {
   height: 100%;
@@ -360,10 +430,9 @@ body {
 .flex {
   display: flex;
 }
-
-.flex-column {
+.flex-col {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column nowrap !important;
 }
 
 .flex-wrap {
@@ -385,6 +454,10 @@ body {
 .justify-around {
   justify-content: space-around;
 }
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -401,7 +474,7 @@ body {
   justify-self: center;
 }
 .align-start {
-  align-items: flex-start;
+  align-self: flex-start;
 }
 .align-end {
   align-items: flex-end;
@@ -419,9 +492,201 @@ body {
 .flex2 {
   flex: 2;
 }
+.flex3 {
+  flex: 3;
+}
+.flex-b-1_2 {
+  flex-basis: 50%;
+}
+.flex-b-1_3 {
+  flex-basis: 33.3333333333%;
+}
+.flex-b-1_4 {
+  flex-basis: 25%;
+}
+.column-gap-5 {
+  column-gap: 5%;
+}
 .gap {
   row-gap: 0.5rem;
   column-gap: 0.5rem;
+}
+.gap-x-1 {
+  row-gap: 0.25rem;
+  column-gap: 0.25rem;
+}
+.gap-x-2 {
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
+}
+.gap-x-3 {
+  row-gap: 0.75rem;
+  column-gap: 0.75rem;
+}
+.gap-x-4 {
+  row-gap: 1rem;
+  column-gap: 1rem;
+}
+.gap-x-5 {
+  row-gap: 1.25rem;
+  column-gap: 1.25rem;
+}
+
+.grid {
+  /** 网格布局 */
+  display: grid;
+  .col-span-12 {
+    grid-column: span 12 / span 12;
+  }
+  .col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+  .col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+  .col-span-7 {
+    grid-column: span 7 / span 7;
+  }
+  .row-span-12 {
+    grid-row: span 12 / span 12;
+  }
+  .row-span-2 {
+    grid-row: span 2 / span 2;
+  }
+  .row-span-6 {
+    grid-row: span 6 / span 6;
+  }
+  .col-start-1 {
+    grid-column-start: 1;
+  }
+  .col-start-2 {
+    /** 网格从第2列开始显示 */
+    grid-column-start: 2;
+  }
+  .col-start-6 {
+    grid-column-start: 6;
+  }
+  .row-start-1 {
+    /** 网格从第2行开始显示 */
+    grid-row-start: 1;
+  }
+  .row-start-2 {
+    grid-row-start: 2;
+  }
+  .row-start-4 {
+    grid-row-start: 4;
+  }
+  .grid-cols-12 {
+    /** 定义网络为12列 */
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .grid-rows-12 {
+    /** 定义网格为12行 */
+    grid-template-rows: repeat(12, minmax(0, 1fr));
+  }
+  .grid-rows-6 {
+    /** 定义网络为6行 */
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/** 宽度 */
+.w-1_3 {
+  width: 33.3333333333%;
+}
+.w-1_4 {
+  width: 25%;
+}
+.w-11_12 {
+  width: 91.6666666667%;
+}
+.w-3_4 {
+  width: 75%;
+}
+
+/** 背景覆盖 */
+.bg-cover {
+  background-size: cover !important;
+}
+
+.bg-white {
+  background: #fff;
+}
+.reset-bg {
+  background: none !important;
+}
+.reset-padding {
+  padding: 0 !important;
+}
+/** 文本显示一行 */
+.row-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/** 按钮 */
+.txt-button {
+}
+
+/** 分割线 */
+.divider {
+  border-bottom: solid 1px #ddd;
+  margin-bottom: 15px;
+}
+
+/** 阴影 */
+.shadow-after:after {
+  content: " ";
+  height: 15px;
+  display: block;
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-before::before {
+  content: " ";
+  height: 15px;
+  display: block;
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-top {
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-bottom {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/** 头像 */
+.portrait {
+  border-radius: 50rem;
+}
+
+.img-fit {
+  /** 图片比例自适应 */
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-top: 100%;
+  }
+  img,
+  .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 /* =============== 旧版本实现 ===================*/
