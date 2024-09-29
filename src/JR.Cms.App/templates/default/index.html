@@ -39,7 +39,7 @@
     <div class="row row-news">
       <div class="container">
         <span class="icon icon-sound"> 最新公告: </span>
-        <span class="list" id="notice_list">
+        <span class="list" id="notice-swiper">
           <ul>
             $archives('news',5,'
             <li><a href="{url}">{title}</a></li>
@@ -114,15 +114,5 @@
       type="text/javascript"
       src="${page.fpath}/base.min.js?v=${page.built}&amp;hover=navi"
     ></script>
-    <script type="text/javascript">
-      // $jr.scroller(
-      //   "swiper",
-      //   { direction: "left", unit: 1200, pagerid: "swiper-indicator" },
-      //   4000
-      // );
-      //$jr.scroller("fla-pro-cate", { direction: "left", unit: 100 }, 2000);
-      //$jr.scroller("notice_list", { direction: "up", unit: 20 }, 3000);
-      //tabCard($jr.$('tab1'));
-    </script>
   </body>
 </html>

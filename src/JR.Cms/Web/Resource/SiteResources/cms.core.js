@@ -70,13 +70,17 @@ function lazyObserve() {
 
 /** 初始化轮播器 */
 function initSwiper() {
-  if ($js.$("#swiper").len() > 0) {
+  if ($js.$fn("#swiper").len() > 0) {
     // 自动初始化id为swiper的轮播器
     $jr.scroller(
       "swiper",
       { direction: "left", unit: 1200, pagerid: "swiper-indicator" },
       4000
     );
+  }
+  if ($js.$fn("#notice-swiper").len() > 0) {
+    // 自动初始化id为notice的轮播器
+    $js.scroller("notice-swiper", { direction: "up", unit: 20 }, 3000);
   }
 }
 
