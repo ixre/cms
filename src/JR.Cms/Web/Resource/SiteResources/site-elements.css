@@ -9,6 +9,18 @@
   --header-shadow-height: 5px;
   /** 头部浮动背景色 */
   --header-fixed-background-color: #ffffffee;
+
+  /** 导航未激活颜色 */
+  --navigator-item-color: #000;
+  /** 导航条激活颜色 */
+  --navigator-active-color: var(--primary-color);
+  /** 导航字体大小 */
+  --navigator-font-size: var(--text-base-size, 14px);
+
+  /** 底部背景色 */
+  --footer-background-color: none;
+  /** 底部颜色 */
+  --footer-color: #333;
 }
 
 /** 头部 */
@@ -127,15 +139,6 @@
   }
 }
 
-:root {
-  /** 导航未激活颜色 */
-  --navigator-item-color: #000;
-  /** 导航条激活颜色 */
-  --navigator-active-color: var(--primary-color);
-  /** 导航字体大小 */
-  --navigator-font-size: var(--text-base-size, 14px);
-}
-
 .banner {
   /** 轮播图banner */
   background-image: radial-gradient(
@@ -172,6 +175,24 @@
   flex-flow: column wrap;
   padding: 2em 0;
   gap: 5px;
+  background: var(--footer-background-color, none);
+  color: var(--footer-color, #000);
+
+  & a:link,
+  & a:visited,
+  & a:hover {
+    color: var(--footer-color, #000);
+  }
+  & .footer__col--title {
+    /* 标题 */
+    font-size: var(--text-lg-size);
+    padding-bottom: 0.5rem;
+  }
+  & .footer__copyright {
+    /* 版权信息 */
+    text-align: center;
+    font-size: var(--text-sm-size);
+  }
 }
 
 /********* ======================= end   ==============================*/
@@ -1028,27 +1049,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
   font-weight: bold;
   display: block;
 }
-
-/* mod-footer 底部 */
-/*
-
-.mod-footer{margin-top:5em;font-size:1em;line-height:2em;text-align:center;background:#FCFCFC}
-.mod-footer-con{padding:1em 0;}
-.mod-footer .small {font-size: 12px;}
-
-.mod-quick-link{padding:2em 0;background:#F0F0F0;box-shadow:0 0 20px #EEE inset;margin-bottom:0;}
-.mod-quick-link .col{float:left;width:16%;}
-.mod-quick-link .col-last{width:36%;}
-.mod-quick-link .con-last{border-left:solid 1px #BBB;margin-right:0;padding-left:10%;text-align:left;position:relative;}
-.mod-quick-link .col div.con{padding:2px 0 0 0;margin-right:30%;}
-.mod-quick-link .col .tit{font-weight:bold;color:#D50000;font-size:1.1em;margin-top:0;}
-.mod-quick-link .col-last div.con{border:none;}
-.mod-quick-link .col a:link,.page-footer .col a:visited{display: block;margin:10px 0;color:#666;text-decoration: none;}
-.mod-quick-link .col a:hover{color:#D50000;text-decoration:underline;}
-.mod-quick-link .col p{line-height:2.5em;}
-
-*/
-
 /* mod-friend-link : 友情链接 */
 .mod-friend-link {
   font-size: 12px;

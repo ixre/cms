@@ -3,6 +3,7 @@
   <!--连接词语-->
   <item key="s" zh_CN="" zh_TW="" en_US="s" Es="" Th="" Fr="" Ru="" Ar=""/>
   <item key="space" zh_CN="" zh_TW="" en_US=" " Es="" Th="" Fr="" Ru="" Ar=""/>
+  <item key="of" zh_CN="的" zh_TW="的" en_US="Of" Es="Of" Th="" Fr="" Ru="" Ar=""/>
 
   <item key="PAGE_NO_TAGS" zh_CN="无标签" zh_TW="无标签" en_US="No tags" Es="No tags" Th="ไม่มี แท็ก" Fr="Pas d'étiquette" Ru="нет Этикетка" Ar="لا تسمية"/>
   <item key="PAGER_PrePageText" zh_CN="上一页" zh_TW="上一頁" en_US="previous" Es="previo" Th="ก่อน" Fr="antérieur" Ru="предыдущий" Ar="سابق"/>

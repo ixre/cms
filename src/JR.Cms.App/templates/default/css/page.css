@@ -1,11 +1,22 @@
-body{background:#F2F2F2;font-size:1.6rem;}
+html{font-weight:500;}
 a:link{color:#000;}
 a:visited{color:#333;}
 a:hover{color:#333;text-decoration: underline;}
 
+/** 设置变量 */
+:root{
+    --header-background-color: #73c998;
+    --header-fixed-background-color: #73c998ee;
+    --navigator-active-color: #FFF;
+    --navigator-item-color: #aeebc3;
+    --footer-background-color: #73c998;
+    --footer-color:#FFF;
+}
 
 /* 全局元素样式 */
 
+header{
+}
 .page-header .ch-lang{position: absolute;right:0;top:0em;/*! background:#575757; */}
 .page-header .ch-lang img{width:15px;height:10px;margin:8px;vertical-align: middle;}
 .page-header .ch-lang .drop:hover,.page-header .ch-lang .hover{}
@@ -443,13 +454,6 @@ div.palist a.title{padding-left:10px;background:url(images/ico.png) 0 center no-
 /* mod-pagination */
 .mod-pagination{margin:1em 0 0 0;padding-top:1em;}
 .mod-pagination a,.mod-pagination .current{background:#e7c0c0;}
-
-/* mod-footer */
-.mod-footer .tel{margin:0;color:#000;font-weight: bold;}
-.mod-footer .qr{/*! padding:3px; */background:#FFF;/*! margin-right:1em; *//*! float:right; */margin-left:5px;
-    /*! position:absolute; */right:0;top:6px;}
-.mod-footer a{text-decoration:none;}
-.mod-footer .main .rgt{float:right;text-align:right;line-height:2.5em;}
 
 /* mod-quick-link */
 .mod-quick-link{/*background:#E5E5E5;*/}

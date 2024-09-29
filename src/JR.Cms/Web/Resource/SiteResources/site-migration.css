@@ -475,3 +475,23 @@ header .logo a {
     }
   }
 }
+
+/* mod-footer 底部 */
+/*
+
+.mod-footer{margin-top:5em;font-size:1em;line-height:2em;text-align:center;background:#FCFCFC}
+.mod-footer-con{padding:1em 0;}
+.mod-footer .small {font-size: 12px;}
+
+.mod-quick-link{padding:2em 0;background:#F0F0F0;box-shadow:0 0 20px #EEE inset;margin-bottom:0;}
+.mod-quick-link .col{float:left;width:16%;}
+.mod-quick-link .col-last{width:36%;}
+.mod-quick-link .con-last{border-left:solid 1px #BBB;margin-right:0;padding-left:10%;text-align:left;position:relative;}
+.mod-quick-link .col div.con{padding:2px 0 0 0;margin-right:30%;}
+.mod-quick-link .col .tit{font-weight:bold;color:#D50000;font-size:1.1em;margin-top:0;}
+.mod-quick-link .col-last div.con{border:none;}
+.mod-quick-link .col a:link,.page-footer .col a:visited{display: block;margin:10px 0;color:#666;text-decoration: none;}
+.mod-quick-link .col a:hover{color:#D50000;text-decoration:underline;}
+.mod-quick-link .col p{line-height:2.5em;}
+
+*/
