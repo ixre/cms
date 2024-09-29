@@ -1,67 +1,96 @@
 <footer class="footer">
-    <div class="container">
-      <div class="row hidden-xs">
+  <div class="container">
+    <div class="row hidden-xs">
       <div class="footer__col col-lg-4 col-sm-4 col-12">
         <h3 class="footer__col--title hidden-xs">$lang(contact-us)</h3>
         <ul>
           <li>
-            <a href="/"><strong>${site.name}</strong>
+            <a href="/"><strong>${site.name}</strong></a>
           </li>
           <li class="flex align-center">
-            <i>$lang(tel):</i>
+            <i class="icon icon-phone"></i>
             <span class="tel">${site.tel}</span>
             <span class="hidden-lg hidden-lg hidden-sm hidden-md">
-              &nbsp;<i>$lang(email):</i> ${site.email}
+              &nbsp;<i class="icon icon-envelope"></i>
+              ${site.email}
             </span>
           </li>
-          <li class="hidden-xs"><i>$lang(email):</i> ${site.email}</li>
-          <li><i>$lang(address):</i> ${site.address}</li>
+          <li class="hidden-xs">
+            <i class="icon icon-envelope"></i> ${site.email}
+          </li>
+          <li><i class="icon icon-apartment"></i> ${site.address}</li>
         </ul>
-      
       </div>
       <div class="footer__col col-lg-2 hidden-xs">
         <h3 class="footer__col--title">$lang(about)$lang(space)$lang(us)</h3>
         <ul>
-          <li><a href="${page.domain}/about/aboutus.html">$lang(company)$lang(space)$lang(intro)</a></li>
-          <li><a href="${page.domain}/news">$lang(news)$lang(space)$lang(info)</a></li>
-          <li><a href="${page.domain}/about/contactus.html">$lang(contact-us)</a></li>
-          <li><a href="${page.domain}/jobs">$lang(human)$lang(space)$lang(resource)</a></li>
+          <li>
+            <a href="${page.domain}/about/aboutus.html"
+              >$lang(company)$lang(space)$lang(intro)</a
+            >
+          </li>
+          <li>
+            <a href="${page.domain}/news">$lang(news)$lang(space)$lang(info)</a>
+          </li>
+          <li>
+            <a href="${page.domain}/about/contactus.html">$lang(contact-us)</a>
+          </li>
+          <li>
+            <a href="${page.domain}/jobs"
+              >$lang(human)$lang(space)$lang(resource)</a
+            >
+          </li>
         </ul>
       </div>
       <div class="footer__col col-lg-2 hidden-xs">
         <h3 class="footer__col--title">$lang(product)</h3>
         <ul>
-          <li><a href="${page.domain}/product">$lang(all)$lang(space)$lang(product)</a></li>
+          <li>
+            <a href="${page.domain}/product"
+              >$lang(all)$lang(space)$lang(product)</a
+            >
+          </li>
           <li><a href="${page.domain}/brand">$lang(brand-proxy)</a></li>
-          <li><a href="${page.domain}/product/pro-diy.html">$lang(pro-diy)</a></li>
+          <li>
+            <a href="${page.domain}/product/pro-diy.html">$lang(pro-diy)</a>
+          </li>
         </ul>
       </div>
       <div class="footer__col col-lg-2 hidden-xs">
-        <h3 class="footer__col--title">$lang(service)$lang(space)$lang(item)</h3>
+        <h3 class="footer__col--title">
+          $lang(service)$lang(space)$lang(item)
+        </h3>
         <ul>
-            $archives('items',5,'<li><a href="{url}">{title}</a></li>')
+          $archives('items',5,'
+          <li><a href="{url}">{title}</a></li>
+          ')
         </ul>
       </div>
       <div class="footer__col col-lg-2 hidden-xs">
         <h3 class="footer__col--title">$lang(help)</h3>
         <ul>
-          <li><a href="${page.domain}/logistics">$lang(logistics)$lang(space)$lang(delivery)</a></li>
-          <li><a href="${page.domain}/about/service-of-sales.html">$lang(service-of-sales)</a></li>
+          <li>
+            <a href="${page.domain}/logistics"
+              >$lang(logistics)$lang(space)$lang(delivery)</a
+            >
+          </li>
+          <li>
+            <a href="${page.domain}/about/service-of-sales.html"
+              >$lang(service-of-sales)</a
+            >
+          </li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div class="div">
-      <ul class="social">
-          <li><i class="i weibo"></i></li>
-          <li><i class="i facebook"></i></li>
-          <li><i class="i qq"></i></li>
-          <li><i class="i twitter"></i></li>
-          <li><i class="i telegram"></i></li>
-        </ul>
+  <div class="footer__social flex gap-x-4 justify-center">
+      <div class="footer__social--item"><i class="icon icon-weibo"></i></div>
+      <div class="footer__social--item"><i class="icon icon-weixin1"></i></div>
+      <div class="footer__social--item"><i class="icon icon-qq"></i></div>
+      <div class="footer__social--item"><i class="icon icon-douyin"></i></div>
+    </ul>
   </div>
-
 
   <div class="footer__copyright padding-x-4 text-sm">
     <div class="container padding-x-4">
@@ -88,5 +117,4 @@
       </div>
     </div>
   </div>
-
 </footer>

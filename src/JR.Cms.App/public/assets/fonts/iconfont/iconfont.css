@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4661348 */
-  src: url('iconfont.woff2?t=1724296122035') format('woff2'),
-       url('iconfont.woff?t=1724296122035') format('woff'),
-       url('iconfont.ttf?t=1724296122035') format('truetype');
+  src: url('iconfont.woff2?t=1727610526424') format('woff2'),
+       url('iconfont.woff?t=1727610526424') format('woff'),
+       url('iconfont.ttf?t=1727610526424') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,42 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Telegram:before {
+  content: "\ef70";
+}
+
+.icon-t-fb:before {
+  content: "\e626";
+}
+
+.icon-qq:before {
+  content: "\e60b";
+}
+
+.icon-youtube:before {
+  content: "\e60c";
+}
+
+.icon-shipinhao:before {
+  content: "\e745";
+}
+
+.icon-weibo:before {
+  content: "\e743";
+}
+
+.icon-douyin:before {
+  content: "\e746";
+}
+
+.icon-tuite:before {
+  content: "\e612";
+}
+
+.icon-weixin1:before {
+  content: "\e601";
 }
 
 .icon-mapmarker:before {

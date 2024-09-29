@@ -21,6 +21,10 @@
   --footer-background-color: none;
   /** 底部颜色 */
   --footer-color: #333;
+  /** 底部社交图标大小 */
+  --footer-social-icon-size: 1.5rem;
+  /** 底部社交图标间距 */
+  --footer-social-icon-gap: 1rem;
 }
 
 /** 头部 */
@@ -192,6 +196,17 @@
     /* 版权信息 */
     text-align: center;
     font-size: var(--text-sm-size);
+  }
+
+  .footer__social {
+    /** 社会化媒体 */
+    padding: 1rem 0;
+    gap: var(--footer-social-icon-gap, 1rem);
+
+    .icon {
+      /** 社会化媒体图标 */
+      font-size: var(--footer-social-icon-size, 1.5rem);
+    }
   }
 }
 

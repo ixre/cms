@@ -11,6 +11,8 @@ a:hover{color:#333;text-decoration: underline;}
     --navigator-item-color: #aeebc3;
     --footer-background-color: #73c998;
     --footer-color:#FFF;
+    --footer-social-icon-size:2rem;
+    --footer-social-icon-gap:1.2rem;
 }
 
 /* 全局元素样式 */

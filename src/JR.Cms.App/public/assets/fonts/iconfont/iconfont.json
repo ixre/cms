@@ -6,6 +6,69 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "23490111",
+      "name": "Telegram",
+      "font_class": "Telegram",
+      "unicode": "ef70",
+      "unicode_decimal": 61296
+    },
+    {
+      "icon_id": "25513803",
+      "name": "facebook_facebook52",
+      "font_class": "t-fb",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "309936",
+      "name": "qq",
+      "font_class": "qq",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "8634514",
+      "name": "youtube",
+      "font_class": "youtube",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "27456877",
+      "name": "视频号",
+      "font_class": "shipinhao",
+      "unicode": "e745",
+      "unicode_decimal": 59205
+    },
+    {
+      "icon_id": "29499226",
+      "name": "微博",
+      "font_class": "weibo",
+      "unicode": "e743",
+      "unicode_decimal": 59203
+    },
+    {
+      "icon_id": "29499231",
+      "name": "抖音",
+      "font_class": "douyin",
+      "unicode": "e746",
+      "unicode_decimal": 59206
+    },
+    {
+      "icon_id": "29539642",
+      "name": "推特",
+      "font_class": "tuite",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "34697840",
+      "name": "微信-copy",
+      "font_class": "weixin1",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
       "icon_id": "310719",
       "name": "map-marker",
       "font_class": "mapmarker",
