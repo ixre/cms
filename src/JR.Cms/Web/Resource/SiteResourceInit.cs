@@ -50,6 +50,9 @@ namespace JR.Cms.Web.Resource
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.js",
                 Comment + GetResource("Web/Resource/SiteResources/base.min.js")
+                + "\n /* merge js_lib_scroller.js */\n"
+                + ResourceUtility.CompressHtml(GetResource("Web/Resource/SiteResources/Assets/js_lib_scroller.js"))
+                + "\n /* merge cms.core.js */\n"
                     + ResourceUtility.CompressHtml(GetResource("Web/Resource/SiteResources/cms.core.js")), false);
 
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "api.js",

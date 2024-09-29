@@ -68,6 +68,18 @@ function lazyObserve() {
   });
 }
 
+/** 初始化轮播器 */
+function initSwiper() {
+  if ($js.$("#swiper").len() > 0) {
+    // 自动初始化id为swiper的轮播器
+    $jr.scroller(
+      "swiper",
+      { direction: "left", unit: 1200, pagerid: "swiper-indicator" },
+      4000
+    );
+  }
+}
+
 // 绑定Toggle触发器
 function bindToggleTrigger(ele) {
   if (ele.eleList.length == 0) {
@@ -132,6 +144,9 @@ function initMobileNavigator() {
   });
 }
 
+/** 加载图标字体及样式 */
+loadIconFont();
+
 $js.event.add(window, "load", function () {
   if (_hp.hoverNavi && _auto_navigator_ele) {
     clearInterval(_auto_navigator_timer);
@@ -139,8 +154,8 @@ $js.event.add(window, "load", function () {
 
   var loc = window.location.pathname;
 
-  loadIconFont();
   lazyObserve();
+  initSwiper();
 
   // 绑定手机页面,导航菜单
   bindToggleTrigger($b.$(".toggle"));
