@@ -228,7 +228,7 @@ $js.event.add(window, "load", function () {
     // 头部元素自动浮动
     var header = $js.$fn(".header");
     if (!header.hasClass("header-nofix")) {
-      if (scrollTop > 30) {
+      if (scrollTop > 0) {
         header.addClass("header-fixed");
       } else {
         header.removeClass("header-fixed");
