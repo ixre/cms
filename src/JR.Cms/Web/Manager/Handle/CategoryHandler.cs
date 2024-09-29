@@ -96,17 +96,17 @@ namespace JR.Cms.Web.Manager.Handle
             //模板目录
             var dir = new DirectoryInfo(string.Format("{0}templates/{1}/", Cms.PhysicPath, CurrentSite.Tpl));
             var names = Cms.TemplateManager.Get(CurrentSite.Tpl).GetNameDictionary();
-            EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Archive});
+            EachClass.EachTemplatePage(dir, dir, sb, names, new[] { TemplatePageType.Archive });
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Category});
+            EachClass.EachTemplatePage(dir, dir, sb, names, new[] { TemplatePageType.Category });
             categoryTplOpts = sb.ToString();
 
             object data = new
             {
-                url = Request.GetPath()+Request.GetQueryString(),
+                url = Request.GetPath() + Request.GetQueryString(),
                 categories = categoryOptions,
                 category_tpls = categoryTplOpts,
                 archive_tpls = archiveTplOpts,
@@ -130,7 +130,7 @@ namespace JR.Cms.Web.Manager.Handle
             var categoryId = Convert.ToInt32(mp["CategoryId"]);
             var key = Consts.NODE_TREE_JSON_KEY + ":" + SiteId.ToString();
             Kvdb.Gca.Delete(key);
-            return ReturnSuccess(null, categoryId.ToString());
+            return ReturnSuccess("分类添加成功", categoryId.ToString());
         }
 
         /// <summary>
@@ -158,9 +158,9 @@ namespace JR.Cms.Web.Manager.Handle
         {
             //form.BindToEntity(category);
             category.Keywords = form.Form("Keywords");
-            category.PageTitle =form.Form("PageTitle");
+            category.PageTitle = form.Form("PageTitle");
             category.Tag = form.Form("Tag");
-            category.Name =form.Form("Name");
+            category.Name = form.Form("Name");
             category.SortNumber = int.Parse(form.Form("SortNumber"));
             category.Description = form.Form("Description");
             category.Location = form.Form("Location");
@@ -232,12 +232,12 @@ namespace JR.Cms.Web.Manager.Handle
             var dir = new DirectoryInfo($"{Cms.PhysicPath}templates/{CurrentSite.Tpl}/");
 
             var names = Cms.TemplateManager.Get(CurrentSite.Tpl).GetNameDictionary();
-            EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Archive});
+            EachClass.EachTemplatePage(dir, dir, sb, names, new[] { TemplatePageType.Archive });
             archiveTplOpts = sb.ToString();
 
             sb.Remove(0, sb.Length);
 
-            EachClass.EachTemplatePage(dir, dir, sb, names, new[]{TemplatePageType.Category});
+            EachClass.EachTemplatePage(dir, dir, sb, names, new[] { TemplatePageType.Category });
             categoryTplOpts = sb.ToString();
 
 
@@ -248,7 +248,7 @@ namespace JR.Cms.Web.Manager.Handle
             object data = new
             {
                 entity = JsonSerializer.Serialize(category),
-                url = Request.GetPath()+Request.GetQueryString(),
+                url = Request.GetPath() + Request.GetQueryString(),
                 categories = categoryOptions,
                 //categoryTypes = categoryTypeOptions,
                 parentId = pId,

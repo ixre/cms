@@ -175,8 +175,8 @@ namespace JR.Cms.Web.Manager
                 html = CompressHtml(html);
             HttpHosting.Context.TryGetItem<string>("ajax", out var isAjax);
 
-            
-            if (Request.Query("ajax") == "1" ||isAjax == "1")
+
+            if (Request.Query("ajax") == "1" || isAjax == "1")
             {
                 const string ajaxPartern = "<body([^>]*)>([\\s\\S]+)</body>";
                 if (Regex.IsMatch(html, ajaxPartern))
@@ -211,6 +211,7 @@ namespace JR.Cms.Web.Manager
 
         internal string ReturnSuccess(string message, string data)
         {
+            if (message == null) message = "操作成功";
             var sb = new StringBuilder();
             if (Request.Query("json") == "1" || Request.Query("xhr") != "")
             {
@@ -223,7 +224,7 @@ namespace JR.Cms.Web.Manager
                 sb.Append(msg);
                 sb.Append("\"");
                 sb.Append("}");
-                Response.ContentType ("application/json;charset=utf-8");
+                Response.ContentType("application/json;charset=utf-8");
             }
             else
             {
@@ -252,7 +253,7 @@ namespace JR.Cms.Web.Manager
         {
             Response.ContentType("application/json;charset=utf-8");
             var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data));
-            Response.Write(bytes,0,bytes.Length);
+            Response.Write(bytes, 0, bytes.Length);
         }
 
         internal string ReturnError(string message = "对不起，操作失败！")
@@ -311,7 +312,7 @@ namespace JR.Cms.Web.Manager
         internal void PagerJson(object rows, string pager)
         {
             const string fmt = "{\"pager\":\"%pager%\",\"rows\":%html%}";
-            Response.ContentType ( "application/json;charset=utf-8");
+            Response.ContentType("application/json;charset=utf-8");
             Response.WriteAsync(fmt.Template(
                 pager.Replace("\"", "\\\""),
                 JsonSerializer.Serialize(rows)

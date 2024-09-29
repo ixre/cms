@@ -1,150 +1,24 @@
-body {
-  font-family: Helvetica, Tahoma, sans-serif;
-  margin: 0;
-}
-
-a {
-  outline: none;
-}
-table {
-  border-collapse: collapse;
-  border: none;
-}
-a:link,
-a:visited {
-  color: #0066ff;
-}
-a:hover {
-  color: #0000cc;
-}
-.mask {
-  background: url(/public/assets/images/mask.gif);
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-p,
-td,
-blockquote,
-pre {
-  word-break: break-all;
-  word-wrap: break-word;
-}
-
-/* +++++++++++++ Classes ++++++++++++++ */
-.center {
-  text-align: center;
-}
-.clear,
-.clear-fix,
-.clearfix {
-  clear: both;
-  margin-bottom: 0;
-}
-.overflow {
-  overflow: hidden;
-}
-.clearfix {
-  clear: both;
-}
-
-/* 箭头 */
-.g-arrow {
-  height: 0;
-  width: 0;
-  margin: auto;
-  display: inline-block;
-  border: solid 5px transparent;
-}
-.g-arrow-r {
-  border-right: none;
-  border-left-color: #fff;
-  margin-left: 5px;
-}
-.g-arrow-l {
-  border-left: none;
-  border-right-color: #fff;
-  margin-right: 5px;
-}
-.g-arrow-t {
-  border-top: none;
-  border-bottom-color: #fff;
-  margin-top: 5px;
-}
-.g-arrow-b {
-  border-bottom: none;
-  border-top-color: #fff;
-  margin-bottom: 5px;
-}
-/* 空心箭头： 向下的三角线：<span class="g-arrow-slot g-arrow-slot-b"><span></span><span></span></span> */
-.g-arrow-slot {
-  position: relative;
-}
-.g-arrow-slot span {
-  position: absolute;
-  border-style: solid dashed dashed;
-  top: 0;
-  border-width: 10px;
-}
-.g-arrow-slot span:first-child {
-  border-color: #666 transparent transparent;
-  top: 1px;
-}
-.g-arrow-slot span:last-child {
-  border-color: #fff transparent transparent;
-  border-style: solid dashed dashed;
-}
-.g-arrow-slot-r span:first-child {
-  margin-left: 1px;
-  top: 1px;
-  border-style: dashed dashed dashed solid;
-  border-color: transparent transparent transparent #666;
-}
-.g-arrow-slot-r span:last-child {
-  top: 1px;
-  border-style: dashed dashed dashed solid;
-  border-color: transparent transparent transparent #fff;
-}
-.g-arrow-slot-l span:first-child {
-  top: 1px;
-  border-style: dashed solid dashed dashed;
-  border-color: transparent #666 transparent transparent;
-}
-.g-arrow-slot-l span:last-child {
-  margin-left: 1px;
-  top: 1px;
-  border-style: dashed solid dashed dashed;
-  border-color: transparent #fff transparent transparent;
-}
-/* 水平箭头折线,如：<div class="g-arrow-hr"><span class="g-arrow-slot g-arrow-slot-b"><span></span><span></span></span> </div>*/
-.g-arrow-hr {
-  border-bottom: solid 1px #999;
-  height: 1px;
-  position: relative;
-  margin-bottom: 15px;
-}
-.g-arrow-hr .g-arrow-slot {
-  position: absolute;
-  margin-left: -5px;
-}
-.g-arrow-hr .g-arrow-slot span {
-  border-width: 7px;
-}
-
 :root {
+  /** 头部高度 */
   --header-height: 80px;
+  /** 头部背景色 */
+  --header-background-color: none;
+  /** 头部阴影色 */
+  --header-shadow-color: #eee;
+  /** 头部阴影高度 */
+  --header-shadow-height: 5px;
+  /** 头部浮动背景色 */
+  --header-fixed-background-color: #ffffffee;
 }
 
 /** 头部 */
 .header {
-  height: var(--header-height);
   display: flex;
   align-items: center;
-  box-shadow: 2px 2px 5px #eeeeeeee;
+  height: var(--header-height, "inherit");
+  background: var(--header-background-color, "none");
+  box-shadow: 2px 2px var(--header-shadow-height, 5px)
+    var(--header-shadow-color, "#EEE");
 
   & .header__main {
     display: flex;
@@ -175,14 +49,14 @@ pre {
     padding-right: 0;
   }
 }
-.header-fixed {
+.header.header-fixed {
   /** 头部浮动,添加样式header-nofix,则不会自动浮动 */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  background: #ffffffee;
+  background: var(--header-fixed-background-color, #ffffffee);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -190,6 +64,8 @@ pre {
 .navigator {
   z-index: 200;
   text-transform: uppercase;
+  font-size: var(--navigator-font-size, 14px);
+
   .navigator__left,
   .navigator__right,
   .navgiator__nav {
@@ -216,6 +92,7 @@ pre {
     z-index: 200;
   }
   .navigator__nav > .navigator__item {
+    /** 未激活导航项 */
     line-height: 48px;
 
     /** 底部边框 */
@@ -229,20 +106,34 @@ pre {
       height: 3px;
       opacity: 0;
       transition: all 0.2s;
-      background: var(--primary-color);
+      background: var(--navigator-active-color, #0d6efd);
     }
-    a {
+    a.l1 {
       text-decoration: none;
+      color: var(--navigator-item-color, #000);
     }
   }
 
   .navigator__nav > .navigator__active,
   .navigator__nav > .navigator__item:hover {
+    /** 激活导航项 */
     &::after {
       bottom: 0;
       opacity: 1;
     }
+    a.l1 {
+      color: var(--navigator-active-color, --primary-color);
+    }
   }
+}
+
+:root {
+  /** 导航未激活颜色 */
+  --navigator-item-color: #000;
+  /** 导航条激活颜色 */
+  --navigator-active-color: var(--primary-color);
+  /** 导航字体大小 */
+  --navigator-font-size: var(--text-base-size, 14px);
 }
 
 .banner {
@@ -1278,3 +1169,140 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 }
 
 /**================ elements 2024-07-25 ===================*/
+
+body {
+  font-family: Helvetica, Tahoma, sans-serif;
+  margin: 0;
+}
+
+a {
+  outline: none;
+}
+table {
+  border-collapse: collapse;
+  border: none;
+}
+a:link,
+a:visited {
+  color: #0066ff;
+}
+a:hover {
+  color: #0000cc;
+}
+.mask {
+  background: url(/public/assets/images/mask.gif);
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+p,
+td,
+blockquote,
+pre {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+/* +++++++++++++ Classes ++++++++++++++ */
+.center {
+  text-align: center;
+}
+.clear,
+.clear-fix,
+.clearfix {
+  clear: both;
+  margin-bottom: 0;
+}
+.overflow {
+  overflow: hidden;
+}
+.clearfix {
+  clear: both;
+}
+
+/* 箭头 */
+.g-arrow {
+  height: 0;
+  width: 0;
+  margin: auto;
+  display: inline-block;
+  border: solid 5px transparent;
+}
+.g-arrow-r {
+  border-right: none;
+  border-left-color: #fff;
+  margin-left: 5px;
+}
+.g-arrow-l {
+  border-left: none;
+  border-right-color: #fff;
+  margin-right: 5px;
+}
+.g-arrow-t {
+  border-top: none;
+  border-bottom-color: #fff;
+  margin-top: 5px;
+}
+.g-arrow-b {
+  border-bottom: none;
+  border-top-color: #fff;
+  margin-bottom: 5px;
+}
+/* 空心箭头： 向下的三角线：<span class="g-arrow-slot g-arrow-slot-b"><span></span><span></span></span> */
+.g-arrow-slot {
+  position: relative;
+}
+.g-arrow-slot span {
+  position: absolute;
+  border-style: solid dashed dashed;
+  top: 0;
+  border-width: 10px;
+}
+.g-arrow-slot span:first-child {
+  border-color: #666 transparent transparent;
+  top: 1px;
+}
+.g-arrow-slot span:last-child {
+  border-color: #fff transparent transparent;
+  border-style: solid dashed dashed;
+}
+.g-arrow-slot-r span:first-child {
+  margin-left: 1px;
+  top: 1px;
+  border-style: dashed dashed dashed solid;
+  border-color: transparent transparent transparent #666;
+}
+.g-arrow-slot-r span:last-child {
+  top: 1px;
+  border-style: dashed dashed dashed solid;
+  border-color: transparent transparent transparent #fff;
+}
+.g-arrow-slot-l span:first-child {
+  top: 1px;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent #666 transparent transparent;
+}
+.g-arrow-slot-l span:last-child {
+  margin-left: 1px;
+  top: 1px;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent #fff transparent transparent;
+}
+/* 水平箭头折线,如：<div class="g-arrow-hr"><span class="g-arrow-slot g-arrow-slot-b"><span></span><span></span></span> </div>*/
+.g-arrow-hr {
+  border-bottom: solid 1px #999;
+  height: 1px;
+  position: relative;
+  margin-bottom: 15px;
+}
+.g-arrow-hr .g-arrow-slot {
+  position: absolute;
+  margin-left: -5px;
+}
+.g-arrow-hr .g-arrow-slot span {
+  border-width: 7px;
+}
