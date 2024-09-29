@@ -55,10 +55,13 @@
   <item key="help" zh_CN="帮助" zh_TW="幫助" en_US="Help" Es="Ayuda" Th="ช่วยด้วย" Fr="Aidez-moi" Ru="Помогите" Ar="مساعدة"/>
   <item key="case" zh_CN="案例" zh_TW="案例" en_US="Case" Es="caso" Th="กรณี" Fr="cas" Ru="дело" Ar="شركة"/>
   <item key="company" zh_CN="公司" zh_TW="公司" en_US="Company" Es="Compañía" Th="บริษัท" Fr="entreprise" Ru="Компания" Ar="شركة"/>
+  <item key="address" zh_CN="地址" zh_TW="地址" en_US="Address" Es="Compañía" Th="บริษัท" Fr="entreprise" Ru="Компания" Ar="شركة"/>
   <item key="about" zh_CN="关于" zh_TW="關於" en_US="About" Es="Acerca de" Th="เกี่ยวกับ" Fr="sur" Ru="Около" Ar="حول"/>
   <item key="contact" zh_CN="联系" zh_TW="聯繫" en_US="Contact" Es="Contacto" Th="ติดต่อ" Fr="Contactez" Ru="контакт" Ar="اتصال"/>
   <item key="follow" zh_CN="关注" zh_TW="關注" en_US="Follow" Es="seguir" Th="ปฏิบัติตาม" Fr="suivre" Ru="прытрымлівацца" Ar="إتبع"/>
   <item key="tel" zh_CN="电话" zh_TW="電話" en_US="Tel" Es="tel" Th="โทร" Fr="tél" Ru="телефон" Ar="الهاتف"/>
+  <item key="phone" zh_CN="手机" zh_TW="手机" en_US="Phone" Es="tel" Th="โทร" Fr="tél" Ru="телефон" Ar="الهاتف"/>
+  <item key="email" zh_CN="邮箱" zh_TW="邮箱" en_US="Email" Es="tel" Th="โทร" Fr="tél" Ru="телефон" Ar="الهاتف"/>
   <item key="us" zh_CN="我们" zh_TW="我們" en_US="Us" Es="nos" Th="เรา" Fr="nous" Ru="нас" Ar="لنا"/>
   <item key="name" zh_CN="名称" zh_TW="名称" en_US="Name" Es="buscar" Th="ค้นหา" Fr="chercher" Ru="поиск" Ar="البحث عن"/>
   <item key="search" zh_CN="搜索" zh_TW="搜尋" en_US="Search" Es="buscar" Th="ค้นหา" Fr="chercher" Ru="поиск" Ar="البحث عن"/>
@@ -78,6 +81,7 @@
   <item key="proxy" zh_CN="代理" zh_TW="代理" en_US="Proxy" Es="ít" Th="ชิ้น" Fr="article" Ru="пункт" Ar="بند"/>
   <item key="new" zh_CN="新" zh_TW="新" en_US="New" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="news" zh_CN="新闻" zh_TW="新闻" en_US="News" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
+  <item key="info" zh_CN="咨讯" zh_TW="资讯" en_US="Info" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="announcement" zh_CN="公告" zh_TW="公告" en_US="Announcement" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="links" zh_CN="链接" zh_TW="连结" en_US="Links" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
   <item key="friendly" zh_CN="友情" zh_TW="友情" en_US="Friendly" Es="Casa" Th="บ้าน" Fr="Accueil" Ru="Главная" Ar="الصفحة الرئيسية"/>
