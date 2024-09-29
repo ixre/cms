@@ -64,7 +64,6 @@ var {
   padding: 0;
   border: 0;
   outline: 0;
-  font-weight: inherit;
   font-style: normal;
   font-family: inherit;
   text-decoration: none;
@@ -211,8 +210,7 @@ page * {
   /** 平滑滚动*/
   scroll-behavior: smooth;
 }
-body,
-page {
+html {
   /** 字体默认加粗 */
   font-weight: 400;
 }
@@ -261,7 +259,6 @@ page {
   overflow: hidden;
 }
 
-/** 字体, 页面基础字体为20px, 故14/20=0.7rem, 参考:https://blog.csdn.net/weixin_40551876/article/details/97269237 */
 .text-xs {
   font-size: var(--text-xs-size);
   line-height: 1rem; /* 16px */

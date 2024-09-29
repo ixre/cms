@@ -135,6 +135,10 @@ pre {
   border-width: 7px;
 }
 
+:root {
+  --header-height: 80px;
+}
+
 /** 头部 */
 .header {
   height: var(--header-height);
