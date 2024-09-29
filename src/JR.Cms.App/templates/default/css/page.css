@@ -14,6 +14,17 @@ a:hover{color:#333;text-decoration: underline;}
     --footer-social-icon-size:2rem;
     --footer-social-icon-gap:1.2rem;
 }
+.header{
+    --header-shadow-height:0;
+}
+.swiper{
+     /** 图片比例,默认:16:9 */
+  --swiper-image-scale: 0.4;
+  /** 指示器颜色 */
+  --swiper-indicator-color: #999;
+  /** 指示器激活颜色 */
+  --swiper-indicator-active-color: #fff;
+}
 
 /* 全局元素样式 */
 

@@ -1,0 +1,80 @@
+<div id="swiper" class="swiper">
+  <div id="swiper-indicator" class="swiper__indicator"></div>
+  <ul>
+    <li>
+      <div class="swiper__item">
+        <img src="${page.tpath}/images/banner/banner1.jpg" alt="" />
+      </div>
+    </li>
+    <li>
+      <div class="swiper__item">
+        <img src="${page.tpath}/images/banner/banner2.jpg" alt="" />
+      </div>
+    </li>
+    <li>
+      <div class="swiper__item">
+        <img src="${page.tpath}/images/banner/banner3.jpg" alt="" />
+      </div>
+    </li>
+  </ul>
+</div>
+<style type="text/css">
+  .swiper {
+    /** 轮播组件 */
+    position: relative;
+    /** 图片比例,默认:16:9 */
+    --swiper-image-scale: 9/16;
+    /** 指示器颜色 */
+    --swiper-indicator-color: #999;
+    /** 指示器激活颜色 */
+    --swiper-indicator-active-color: #fff;
+
+    .swiper__indicator {
+      /* 轮播页码指示器 */
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      z-index: 1;
+      transform: translate(-50%, -0.75em);
+      display: flex;
+      gap: 0.5rem;
+
+      & > a {
+        background: var(--swiper-indicator-color, #999);
+        border-radius: 99rem;
+        display: block;
+        width: 0.625rem;
+        height: 0.625rem;
+        text-indent: -99rem;
+      }
+      & > a.current {
+        background: var(--swiper-indicator-active-color, #fff);
+      }
+    }
+    .swiper__item {
+      /** 图片比例自适应 */
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+
+      &::before {
+        /** 按图片撑开容器高度 */
+        content: "";
+        display: block;
+        width: 100%;
+        padding-top: calc(100% * var(--swiper-image-scale, 0.5625));
+      }
+      & > img {
+        /** 图片居中显示 */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        right: 50%;
+        bottom: 50%;
+        width: 100%;
+        z-index: -1;
+      }
+    }
+  }
+</style>

@@ -495,3 +495,31 @@ header .logo a {
 .mod-quick-link .col p{line-height:2.5em;}
 
 */
+
+.banner {
+  /** 轮播图banner */
+  background-image: radial-gradient(
+    at bottom right,
+    var(--banner-bg-end-color) 0%,
+    var(--banner-bg-color) 50%
+  );
+
+  & .banner__main {
+    & .banner__main--title {
+      padding-bottom: 1em;
+    }
+    & .banner__main--desc {
+      line-height: 1.5em;
+      font-weight: 400;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 1em;
+      color: var(--secondnary-color);
+    }
+    & .banner__main--button {
+      margin-top: 2em;
+      a {
+        background: #fff;
+      }
+    }
+  }
+}

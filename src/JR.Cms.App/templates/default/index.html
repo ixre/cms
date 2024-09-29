@@ -25,12 +25,12 @@
   </head>
   <body>
     ${include:"include/header.html"}
+
+    <div class="swiper">${include:"include/swiper_banner.html"}</div>
     <div
       class="mod-flash-p mod-flash-banner g-mg5 flash-row container"
       style="margin: 5px auto"
-    >
-      ${include:"include/flash_banner.html"}
-    </div>
+    ></div>
     <ul>
       $archives('news',4,'
       <li>sss{time_fmt[yyyy-MM-dd]}</li>
@@ -120,12 +120,12 @@
     ></script>
     <script type="text/javascript">
       $jr.scroller(
-        "fla",
-        { direction: "left", unit: 1200, pagerid: "fla_pager" },
+        "swiper",
+        { direction: "left", unit: 1200, pagerid: "swiper-indicator" },
         4000
       );
-      $jr.scroller("fla-pro-cate", { direction: "left", unit: 100 }, 2000);
-      $jr.scroller("notice_list", { direction: "up", unit: 20 }, 3000);
+      //$jr.scroller("fla-pro-cate", { direction: "left", unit: 100 }, 2000);
+      //$jr.scroller("notice_list", { direction: "up", unit: 20 }, 3000);
       //tabCard($jr.$('tab1'));
     </script>
   </body>
