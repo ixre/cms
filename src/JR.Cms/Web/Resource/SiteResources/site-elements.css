@@ -243,6 +243,69 @@
   }
 }
 
+.bubble {
+  /** 气泡颜色 */
+  --bubble-text-color: #000;
+  /** 气泡背景颜色 */
+  --bubble-background-color: #ffe;
+  /** 气泡箭头大小 */
+  --bubble-arrow-size: 10px;
+  & {
+    /** 亮色气泡 */
+    position: relative;
+    background: var(--bubble-background-color, #ffe);
+    border-radius: 10px;
+    color: var(--bubble-text-color, #000);
+    padding: 10px;
+  }
+  &.bubble-dark {
+    /** 暗色气泡 */
+    --bubble-text-color: #fff;
+    --bubble-background-color: #000;
+  }
+
+  .bubble__left,
+  .bubble__right,
+  .bubble__top,
+  .bubble__bottom {
+    position: absolute;
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    border: solid var(--bubble-arrow-size, 10px) transparent;
+  }
+
+  .bubble__left,
+  .bubble__right {
+    top: calc(50% - var(--bubble-arrow-size, 10px));
+  }
+  .bubble__top,
+  .bubble__bottom {
+    left: 0;
+    right: 0;
+  }
+  .bubble__top {
+    top: calc(0px - var(--bubble-arrow-size, 10px));
+    border-bottom-color: var(--bubble-background-color, #ffe);
+    border-top: 0;
+  }
+  .bubble__bottom {
+    bottom: calc(0px - var(--bubble-arrow-size, 10px));
+    border-top-color: var(--bubble-background-color, #ffe);
+    border-bottom: 0;
+  }
+  .bubble__left {
+    left: calc(0px - var(--bubble-arrow-size, 10px));
+    border-right-color: var(--bubble-background-color, #ffe);
+    border-left: 0;
+  }
+  .bubble__right {
+    right: calc(0px - var(--bubble-arrow-size, 10px));
+    border-left-color: var(--bubble-background-color, #ffe);
+    border-right: 0;
+  }
+}
+
 /********* ======================= end   ==============================*/
 
 .nom {
