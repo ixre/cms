@@ -9,6 +9,7 @@ steps:
     settings:
       repo: uhub.service.ucloud.cn/fze/cms
       tags: latest
+      registry: uhub.service.ucloud.cn
       username: 
           from_secret: docker_username
       password:
