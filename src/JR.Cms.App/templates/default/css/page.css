@@ -52,6 +52,15 @@ a:hover {
   --assistant-bubble-right: 1.5em;
 }
 
+.crumb {
+  /** 面包屑高度 */
+  --crumb-height: 3em;
+  /** 面包屑文字颜色 */
+  --crumb-text-color: #999;
+  /** 面包屑文字大小 */
+  --crumb-text-size: var(--text-sm-size);
+}
+
 .modal.feedback-modal {
   .title {
     /** 模态框标题不显示 */

@@ -17,12 +17,8 @@
   </head>
   <body>
     ${include:"include/header.html"}
-
-    <div class="crumb">
-      <div class="container">
-        $lang(sitemap_location):<a href="/">$lang(home)</a> > $sitemap()
-      </div>
-    </div>
+ ${include:"include/sitemap.html"}
+  
 
     <div class="mod-layout mod-cat-${category.tag}">
       <div class="container page-category clearfix">

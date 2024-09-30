@@ -437,6 +437,38 @@
   }
 }
 
+.crumb {
+  /** 面包屑高度 */
+  --crumb-height: 3em;
+  /** 面包屑文字颜色 */
+  --crumb-text-color: #999;
+  /** 面包屑文字大小 */
+  --crumb-text-size: var(--text-sm-size);
+
+  & {
+    /* crumb 面包屑 */
+    line-height: var(--crumb-height, 3em);
+    line-height: var(--crumb-height, 3em);
+    color: var(--crumb-text-color, #999);
+    font-size: var(--crumb-text-size, 14px);
+  }
+
+  .container {
+    /** 垂直居中对齐 */
+    display: flex;
+    align-items: center;
+  }
+
+  a,
+  a:link,
+  a:visited {
+    /** 面包屑链接颜色 */
+    color: var(--crumb-text-color, #999);
+    text-decoration: none;
+    margin: 0 5px;
+  }
+}
+
 /********* ======================= end   ==============================*/
 
 .nom {
@@ -1221,27 +1253,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 }
 .mod-lang-drop:hover .mod-lang-drop-list {
   display: inherit;
-}
-
-.crumb {
-  /* crumb 面包屑 */
-  line-height: 3em;
-  padding: 1rem 0;
-  color: #999;
-  position: relative;
-  font-size: var(--text-base-size);
-
-  & > .rgt {
-    position: absolute;
-    right: 1em;
-    top: 5px;
-  }
-  a,
-  a:visited {
-    color: #999;
-    text-decoration: none;
-    margin: 0 5px;
-  }
 }
 
 /* mod-nav-side 边栏 */
