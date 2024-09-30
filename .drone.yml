@@ -7,9 +7,10 @@ steps:
   - name: docker
     image: plugins/docker
     settings:
-      repo: jarry6/cms
+      repo: uhub.service.ucloud.cn/fze/cms
       tags: latest
-      username: jarry6
+      username: 
+          from_secret: docker_username
       password:
           from_secret: docker_password
 trigger:
