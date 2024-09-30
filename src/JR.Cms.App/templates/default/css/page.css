@@ -14,17 +14,23 @@ a:hover {
 
 /** 设置变量 */
 :root {
+  --primary-color: #73c998;
+  --secondnary-color: #aeebc3;
+}
+.header {
+  --header-shadow-height: 0;
   --header-background-color: #73c998;
   --header-fixed-background-color: #73c998ee;
+}
+.navigator {
   --navigator-active-color: #fff;
   --navigator-item-color: #aeebc3;
+}
+.footer {
   --footer-background-color: #73c998;
   --footer-color: #fff;
   --footer-social-icon-size: 2rem;
   --footer-social-icon-gap: 1.2rem;
-}
-.header {
-  --header-shadow-height: 0;
 }
 .swiper {
   /** 图片比例,默认:16:9 */
