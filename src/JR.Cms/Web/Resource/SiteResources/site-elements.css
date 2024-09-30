@@ -1,4 +1,6 @@
 :root {
+  /** 主体背景色 */
+  --body-background-color: #f5f7fa;
   /** 头部高度 */
   --header-height: 80px;
   /** 头部背景色 */
@@ -25,6 +27,12 @@
   --footer-social-icon-size: 1.5rem;
   /** 底部社交图标间距 */
   --footer-social-icon-gap: 1rem;
+}
+
+body {
+  background: var(--body-background-color, #fff);
+  font-family: Helvetica, Tahoma, sans-serif;
+  margin: 0;
 }
 
 /** 头部 */
@@ -439,7 +447,7 @@
 
 .crumb {
   /** 面包屑高度 */
-  --crumb-height: 3em;
+  --crumb-height: 3rem;
   /** 面包屑文字颜色 */
   --crumb-text-color: #999;
   /** 面包屑文字大小 */
@@ -447,8 +455,8 @@
 
   & {
     /* crumb 面包屑 */
-    line-height: var(--crumb-height, 3em);
-    line-height: var(--crumb-height, 3em);
+    line-height: var(--crumb-height, 3rem);
+    line-height: var(--crumb-height, 3rem);
     color: var(--crumb-text-color, #999);
     font-size: var(--crumb-text-size, 14px);
   }
@@ -457,6 +465,11 @@
     /** 垂直居中对齐 */
     display: flex;
     align-items: center;
+    .icon {
+      /** 主页图标与文字垂直对齐 */
+      padding-bottom: 0.15rem;
+      padding-right: 0.5rem;
+    }
   }
 
   a,
@@ -466,6 +479,80 @@
     color: var(--crumb-text-color, #999);
     text-decoration: none;
     margin: 0 5px;
+  }
+}
+
+/** 分页 **/
+.pagination {
+  /** 分页组件的文字颜色 */
+  --pagination-text-color: #777;
+  /** 分页组件的文字大小 */
+  --pagination-text-size: var(--text-sm-size);
+  /** 分页组件当前页面的文字颜色 */
+  --pagination-current-text-color: #000;
+  /** 分页组件行高 */
+  --pagination-line-height: 2rem;
+  /** 分页码项宽度 */
+  --pagination-item-width: 4rem;
+  /** 分页码项的背景色 */
+  --pagination-item-background-color: #fff;
+  /** 分页码项的边框宽度 */
+  --pagination-item-border-width: 1px;
+  /** 分页码项的边框颜色 */
+  --pagination-item-border-color: #ddd;
+  /** 分页码项的圆角 */
+  --pagination-item-border-radius: 0.375rem;
+  /** 分页码项之间的间距 */
+  --pagination-item-margin-width: 0.375rem;
+
+  & {
+    /** 分页组件 */
+    padding: 2rem 0;
+    line-height: var(--pagination-line-height, 2rem);
+    text-align: center;
+    color: var(--pagination-text-color, #777);
+    font-size: var(--pagination-text-size, 0.75rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & .it {
+    /** 分页页码项 */
+    margin: 0 var(--pagination-item-margin-width, 5px) 0 0;
+    vertical-align: middle;
+    user-select: none;
+    display: inline-block;
+    border: solid var(--pagination-item-border-width, 1px)
+      var(--pagination-item-border-color, #ddd);
+    border-radius: var(--assistant-border-radius, 10px);
+    background: var(--pagination-item-background-color, #fff);
+    width: var(--pagination-item-width, 4rem);
+  }
+  & .current {
+    /** 当前选中项 */
+    border: solid var(--pagination-item-border-width, 1px)
+      var(--pagination-current-text-color, #000);
+    color: var(--pagination-current-text-color, #000);
+    a {
+      color: var(--pagination-current-text-color, #000);
+      font-weight: 600;
+    }
+  }
+  & a {
+    display: inline-block;
+    text-decoration: none !important;
+    color: var(--pagination-text-color, #999);
+  }
+  .pagination-info {
+    padding-left: 2rem;
+  }
+  @media (max-width: 575px) {
+    & {
+      margin: 0 auto;
+    }
+    & .pagination-info {
+      display: none;
+    }
   }
 }
 
@@ -845,30 +932,6 @@ a.f {
   }
   to {
     transform: rotateZ(360deg);
-  }
-}
-
-/** 分页 **/
-.mod-pagination {
-  line-height: 2.4em;
-  text-align: center;
-}
-.mod-pagination .it {
-  margin: 0 5px 0 0;
-  vertical-align: middle;
-  user-select: none;
-  display: inline-block;
-}
-.mod-pagination a {
-  display: inline-block;
-  text-decoration: none !important;
-}
-@media (max-width: 575px) {
-  .mod-pagination {
-    margin: 0 auto;
-  }
-  .mod-pagination .pagination-info {
-    display: none;
   }
 }
 
@@ -1396,12 +1459,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
 }
 
 /**================ elements 2024-07-25 ===================*/
-
-body {
-  font-family: Helvetica, Tahoma, sans-serif;
-  margin: 0;
-}
-
 a {
   outline: none;
 }

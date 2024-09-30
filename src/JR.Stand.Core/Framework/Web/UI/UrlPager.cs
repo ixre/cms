@@ -199,7 +199,7 @@ namespace JR.Stand.Core.Framework.Web.UI
             string pageCount = (this.PageCount == 0 ? 1 : this.PageCount).ToString();
 
             //Div Wrap
-            sb.Append("<div class=\"pagination mod-pagination\">");
+            sb.Append("<div class=\"pagination\">");
 
             //输出上一页
             if (this.CurrentPageIndex > 1)
