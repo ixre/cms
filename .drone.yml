@@ -7,7 +7,7 @@ steps:
   - name: docker
     image: plugins/docker
     settings:
-      repo: uhub.service.ucloud.cn/fze/cms
+      repo: uhub.service.ucloud.cn/fze-registry/cms
       tags: latest
       registry: uhub.service.ucloud.cn
       username: 
