@@ -15,7 +15,7 @@ namespace JR.Stand.Core.Template.Impl
         private static readonly Regex TagRegex = new Regex("\\${([a-zA-Z\u4e00-\u9fa5\\._]+)}");
 
         //部分页匹配模式
-        internal static readonly Regex IncludeFileRegex = new Regex("\\${include:\"(.+?)\"}");
+        internal static readonly Regex IncludeFileRegex = new Regex("\\${include:*\\s*\"(.+?)\"}");
         // 部分面ID匹配模式
         private static readonly Regex IncludeFileIdRegexp = new Regex("^[a-z0-9]+$", RegexOptions.IgnoreCase);
 

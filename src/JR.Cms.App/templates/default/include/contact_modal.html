@@ -1,0 +1,40 @@
+<!--/**
+ * Copyright (C) 2007-2024 fze.NET, All rights reserved.
+ *
+ * name: contact_modal.html
+ * author: jarrysix (jarrysix#gmail.com)
+ * date: 2024-09-30 15:20:26
+ * description:
+ * history: 在线联系模态框
+ */-->
+<div class="contact-modal">
+  <h2 class="text-3xl text-center modal-title">在线联系</h2>
+  <h4 class="text-center text-lg">
+    您可以通过【微信】添加客服, 或通过电话/QQ与我们联系
+  </h4>
+  <div class="flex flex1 contacts align-center">
+    <div class="contacts__item flex justify-end">
+      <img
+        class="radius"
+        src="${page.tpath}/images/1/fze-qr.jpg"
+        width="160"
+        alt="添加微信"
+      />
+    </div>
+    <div class="contacts__item">
+      <div class="contacts__phone">
+        <div class="contacts__item--label text-md">业务咨询电话</div>
+        <div class="text-2xl font-bold text-primary">${site.tel}</div>
+      </div>
+
+      <div class="contacts__qq">
+        <div class="contacts__item--label">QQ</div>
+        <div class="text-xl">
+          <a href="tencent://message?uin=${site.im}" rel="nofollow"
+            >${site.im}</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

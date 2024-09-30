@@ -306,6 +306,137 @@
   }
 }
 
+.assistant {
+  /** 工具栏背景色 */
+  --assistant-background-color: #fff;
+  /** 工具栏边框色 */
+  --assistant-border-color: #f0f0f0;
+  /** 工具栏边框大小 */
+  --assistant-border-size: 0.0625rem;
+  /** 工具栏圆角 */
+  --assistant-border-radius: 0.3125rem;
+  /** 右侧工具栏距离右边的距离 */
+  --assistant-position-right: 2em;
+  /** 右侧工具栏距离上边的距离 */
+  --assistant-position-top: 50%;
+  /** 气泡距离右侧和左侧的距离 */
+  --assistant-bubble-right: 1.5em;
+
+  & {
+    /** 右侧工具栏 */
+    position: fixed;
+    cursor: pointer;
+    top: var(--assistant-position-top, 50%);
+    right: var(--assistant-position-right, 2em);
+    border: solid var(--assistant-border-size, 0.0625rem)
+      var(--assistant-border-color, #f0f0f0);
+    background: var(--assistant-background-color, #fff);
+    transform: translate(0, calc(0px - var(--assistant-position-top, 50%)));
+    border-radius: var(--assistant-border-radius, 0.3125rem);
+  }
+  & .assistant__item {
+    /** 工具栏项 */
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.75rem 0.5rem;
+    border-top: solid 1px var(--assistant-border-color, #f0f0f0);
+    & .assistant__item--label {
+      font-size: var(--text-xs-size, 0.75rem);
+    }
+    & .icon {
+      font-size: var(--text-3xl-size, 20px);
+    }
+  }
+  & .assistant__item:first-child {
+    border-top: 0;
+  }
+  & .bubble {
+    /** 气泡提示 */
+    position: absolute;
+    top: 0;
+    left: calc(0px - var(--assistant-bubble-right, 1.5em));
+    right: calc(0px - var(--assistant-bubble-right, 1.5em));
+    transform: translate(0, -125%);
+    text-align: center;
+    display: none;
+  }
+  &:hover .bubble {
+    display: inherit;
+  }
+}
+
+/* 模态框 */
+.modal {
+  /** 模态框背景色 */
+  --modal-background-color: #fff;
+  /** 遮罩层背景色 */
+  --modal-mask-background-color: rgba(255, 255, 255, 0.75);
+  /** 模态框圆角 */
+  --modal-border-radius: 0.375rem;
+  /** 模态框标题字体大小 */
+  --modal-title-text-size: 18px;
+  /** 模态框标题字体颜色 */
+  --modal-title-text-color: #000;
+
+  & {
+    display: none;
+  }
+
+  & .mask,
+  & .modal {
+    position: fixed;
+  }
+  & .mask {
+    /** 遮罩层 */
+    z-index: 99998;
+    opacity: 0.75;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--modal-mask-background-color, rgba(0, 0, 0, 0.5));
+  }
+  & .modal {
+    /** 模态框 */
+    border-radius: var(--modal-boder-radius, 0.375rem);
+    z-index: 99999;
+    display: inherit;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    margin: auto;
+    background: var(--modal-background-color, #fff);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+  }
+
+  & .close {
+    /** 关闭按钮 */
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 3rem;
+    padding: 0.625rem 0.75rem;
+  }
+  & .title {
+    /** 标题 */
+    text-align: center;
+    padding: 1em 0;
+    font-size: var(--modal-title-text-size, 18px);
+    color: var(--modal-title-text-color, #000);
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    & .title {
+      display: none;
+    }
+  }
+}
+
 /********* ======================= end   ==============================*/
 
 .nom {
@@ -1211,32 +1342,6 @@ right:0;left:auto;border:solid 1px #D5D5D5;}
   text-align: right;
   padding-top: 15px;
   padding-bottom: 15px;
-}
-
-/** 即时聊天 */
-.mod-instant-chat {
-  position: fixed;
-  top: 70%;
-  right: 30px;
-  border: solid 3px #707070;
-  border-radius: 50px;
-  display: block;
-  width: 60px;
-  height: 60px;
-  background: #fff;
-  background-size: 50%;
-  cursor: pointer;
-}
-.mod-instant-chat .g-pop {
-  position: absolute;
-  top: -60px;
-  left: -20px;
-  right: -20px;
-  text-align: center;
-  display: none;
-}
-.mod-instant-chat:hover .g-pop {
-  display: inherit;
 }
 
 /* 轮播图 */

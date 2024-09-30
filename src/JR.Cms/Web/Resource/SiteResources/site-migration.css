@@ -496,6 +496,76 @@ header .logo a {
 
 */
 
+/* 模态框 */
+.g-modal .mask,
+.g-modal .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 99999;
+}
+.g-modal .mask {
+  background: #fff;
+  z-index: 99998;
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+}
+.g-modal .modal {
+  background: #fff;
+  padding: 0;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+.g-modal .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 45px;
+  padding: 10px 12px;
+}
+.g-modal .close i {
+  width: 20px;
+}
+.g-modal .title {
+  text-align: center;
+  line-height: 45px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  border-bottom: solid 1px #eaeaea;
+  color: #aaa;
+}
+.g-modal .content {
+  padding: 15px;
+}
+.g-modal .bottom {
+  display: none;
+}
+.g-modal .ui-alert-message {
+  padding: 1.5em 1.5em 0 1.5em;
+  font-size: 1em;
+  min-width: 200px;
+  color: #f00;
+}
+.g-modal .ui-alert-control {
+  text-align: right;
+  padding: 0 1em 1em 0;
+  border-radius: 0 0 10px 10px;
+}
+.g-modal .ui-alert-control input {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px 15px;
+  color: #666;
+  background: none;
+}
+@media (max-width: 600px) {
+  .g-modal .title {
+    display: none;
+  }
+}
 .banner {
   /** 轮播图banner */
   background-image: radial-gradient(

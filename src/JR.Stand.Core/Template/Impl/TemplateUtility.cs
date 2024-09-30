@@ -29,7 +29,7 @@ namespace JR.Stand.Core.Template.Impl
             return Convert.ToInt64(ts.TotalSeconds);
         }
 
-        
+
         internal static string Read(string templateId)
         {
             //从缓存中获取模板内容
@@ -90,7 +90,7 @@ namespace JR.Stand.Core.Template.Impl
                 DirectoryInfo dWrap = null;
                 DirectoryInfo dPar = null;
                 DirectoryInfo dCurr = new FileInfo(walkFilePath).Directory;
-                
+
                 //example path: ../../inc/top.html
                 if (Regex.IsMatch(partPath, "^\\.\\./"))
                 {
@@ -212,6 +212,7 @@ namespace JR.Stand.Core.Template.Impl
 
             sb.Append(@"<tr><td colspan=""6"" align=""center"" style=""background:#f0f0f0;color:#333"">
 						部分视图扩展名为“.phtml”,可允许格式如:
+						&nbsp;&nbsp;A:${include ""inc/header.html""}
 						&nbsp;&nbsp;A:${include:""inc/header.html""}
 						&nbsp;&nbsp;B:${include:""/tmpdir/inc/header.html""}
 						&nbsp;&nbsp;C:${include:""../../inc/header.html""}
