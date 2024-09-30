@@ -1,7 +1,9 @@
 # 模板引擎文档 V1
 
 ## 调用方法
+
 语法: `$[方法名]([参数])`, 调用示例如下:
+
 ```
 $archives('cms/release','2')
 ```
@@ -18,6 +20,6 @@ $archives('cms/release','2')
 
 ## 包含页面
 
-```
+```html
 ${include:"include/header.html"}
 ```

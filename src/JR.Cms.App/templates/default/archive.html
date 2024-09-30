@@ -17,7 +17,8 @@ $require('${archive.id}')
     <meta name="description" content="${page.description}" />
   </head>
   <body>
-    ${include:"include/header.html"} ${include:"include/sitemap.html"}
+    ${include:"include/topbar.html"} ${include:"include/header.html"}
+    ${include:"include/sitemap.html"}
 
     <div class="mod-layout page-a mod-archive-${category.tag}">
       <div class="container clearfix">
@@ -116,20 +117,6 @@ $require('${archive.id}')
         </div>
       </div>
     </div>
-    ${include:"include/footer.html"}
-    <script
-      type="text/javascript"
-      src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"
-    ></script>
-    <script
-      type="text/javascript"
-      charset="utf-8"
-      src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"
-    ></script>
-    <script
-      type="text/javascript"
-      charset="utf-8"
-      src="http://static.bshare.cn/b/bshareC0.js"
-    ></script>
+    ${include:"include/footer.html"} ${include "include/assistant.html"}
   </body>
 </html>
