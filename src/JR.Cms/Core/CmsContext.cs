@@ -76,7 +76,9 @@ namespace JR.Cms.Core
             if (path != "/" && path.Length > 0)
             {
                 appPath = path.Substring(1);
-                if (appPath.EndsWith("/")) appPath = appPath.Substring(0, appPath.Length - 1);
+                int nextSep = appPath.IndexOf('/', 1);
+                if (nextSep > 0) appPath = appPath.Substring(0, nextSep);
+                //if (appPath.EndsWith("/")) appPath = appPath.Substring(0, appPath.Length - 1);
             }
             CurrentSite = SiteCacheManager.FindSiteByHost(request.GetHost(), appPath);
             //是否为虚拟目录运行
