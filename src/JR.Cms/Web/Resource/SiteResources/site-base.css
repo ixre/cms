@@ -210,7 +210,8 @@ page * {
   /** 平滑滚动*/
   scroll-behavior: smooth;
 }
-html {
+body,
+page {
   /** 字体默认加粗 */
   font-weight: 400;
 }
@@ -241,7 +242,7 @@ html {
   color: #00f;
 }
 .text-red {
-  color: #f00;
+  color: rgb(217, 0, 0);
 }
 .text-center {
   text-align: center;
@@ -321,6 +322,23 @@ html {
 
 .padding-xs {
   padding-top: 0.25em;
+}
+
+/** 圆角 */
+.radius-x-1 {
+  border-radius: 0.25rem;
+}
+.radius-x-2 {
+  border-radius: 0.5rem;
+}
+.radius-x-3 {
+  border-radius: 0.75rem;
+}
+.radius-x-4 {
+  border-radius: 1rem;
+}
+.radius-x-5 {
+  border-radius: 1.25rem;
 }
 
 /** 指定位置 */
@@ -529,78 +547,6 @@ html {
   column-gap: 1.25rem;
 }
 
-.grid {
-  /** 网格布局 */
-  display: grid;
-  .col-span-12 {
-    grid-column: span 12 / span 12;
-  }
-  .col-span-3 {
-    grid-column: span 3 / span 3;
-  }
-  .col-span-5 {
-    grid-column: span 5 / span 5;
-  }
-  .col-span-7 {
-    grid-column: span 7 / span 7;
-  }
-  .row-span-12 {
-    grid-row: span 12 / span 12;
-  }
-  .row-span-2 {
-    grid-row: span 2 / span 2;
-  }
-  .row-span-6 {
-    grid-row: span 6 / span 6;
-  }
-  .col-start-1 {
-    grid-column-start: 1;
-  }
-  .col-start-2 {
-    /** 网格从第2列开始显示 */
-    grid-column-start: 2;
-  }
-  .col-start-6 {
-    grid-column-start: 6;
-  }
-  .row-start-1 {
-    /** 网格从第2行开始显示 */
-    grid-row-start: 1;
-  }
-  .row-start-2 {
-    grid-row-start: 2;
-  }
-  .row-start-4 {
-    grid-row-start: 4;
-  }
-  .grid-cols-12 {
-    /** 定义网络为12列 */
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-  .grid-rows-12 {
-    /** 定义网格为12行 */
-    grid-template-rows: repeat(12, minmax(0, 1fr));
-  }
-  .grid-rows-6 {
-    /** 定义网络为6行 */
-    grid-template-rows: repeat(6, minmax(0, 1fr));
-  }
-}
-
-/** 宽度 */
-.w-1_3 {
-  width: 33.3333333333%;
-}
-.w-1_4 {
-  width: 25%;
-}
-.w-11_12 {
-  width: 91.6666666667%;
-}
-.w-3_4 {
-  width: 75%;
-}
-
 /** 背景覆盖 */
 .bg-cover {
   background-size: cover !important;
@@ -622,10 +568,6 @@ html {
   overflow: hidden;
 }
 
-/** 按钮 */
-.txt-button {
-}
-
 /** 分割线 */
 .divider {
   border-bottom: solid 1px #ddd;
@@ -633,7 +575,7 @@ html {
 }
 
 /** 阴影 */
-.shadow-after:after {
+.shadow-after::after {
   content: " ";
   height: 15px;
   display: block;

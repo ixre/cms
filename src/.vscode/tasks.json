@@ -7,9 +7,9 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/JR.Cms.App/JR.Cms.App.csproj",
+                "${workspaceFolder}/JR.Cms.sln",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -19,9 +19,9 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/JR.Cms.App/JR.Cms.App.csproj",
+                "${workspaceFolder}/JR.Cms.sln",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/JR.Cms.App/JR.Cms.App.csproj"
+                "${workspaceFolder}/JR.Cms.sln"
             ],
             "problemMatcher": "$msCompile"
         }
