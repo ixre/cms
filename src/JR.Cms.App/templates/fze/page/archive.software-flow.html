@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>${page.title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.fpath}/base.min.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/page.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/services.css?v=${page.built}"
+    />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+  </head>
+
+  <body>
+    ${include:"../include/topbar.html"} ${include:"../include/header.html"}
+    ${include:"../include/sitemap.html"}
+
+    <div class="g-body-wrap row mod-deve-flow">
+      <div class="container">
+        <div class="g-big-tit">
+          软件定制开发服务流程
+          <div class="sub">全程参与、让您省心省时、定制软件其实很简单</div>
+        </div>
+        <div class="mod-deve-flow-img">
+          <img src="${page.tpath}/css/images/software-flow@2x.png" />
+        </div>
+      </div>
+    </div>
+    <div class="g-body-wrap row mod-deve-chat">
+      <div class="container">
+        <center>
+          <a class="g-circle-button" href="javascript:popFeedback()"
+            >我有需求，立即咨询</a
+          >
+        </center>
+        <br /><br />
+      </div>
+    </div>
+
+    <section
+      class="row-adv mod-our-adv mod-index-our-adv g-bg-cover pt-60 pb-30"
+    >
+      <div class="container">${include:"../include/our_adv.html"}</div>
+    </section>
+    ${include "../include/assistant.html"} ${include:"../include/footer.html"}
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?s=${page.built}&amp;hover=navi"
+    ></script>
+  </body>
+</html>

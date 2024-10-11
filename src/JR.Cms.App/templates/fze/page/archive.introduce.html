@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>${page.title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="Stylesheet"
+      href="${page.fpath}/base.min.css?v=${page.built}"
+      type="text/css"
+    />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/page.css?v=${page.built}"
+      type="text/css"
+    />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/about.css?v=${page.built}"
+      type="text/css"
+    />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+  </head>
+  <body>
+    ${include:"../include/topbar.html"} ${include:"../include/header.html"}
+    ${include:"../include/sitemap.html"}
+
+    <!--  关于我们 -->
+    <section
+      data-scroll-index="1"
+      id="about"
+      class="row-about pt-90 pb-90 gray-bg"
+    >
+      <div class="container">
+        <div class="g-section-title pb-60 g-text-center">
+          <h1>关于我们</h1>
+          <p>ABOUT US</p>
+        </div>
+        <div class="row g-align-center">
+          <div class="col-lg-5 offset-lg-1 pt-30">
+            <div class="about-text">
+              <p class="sub pb-60 text-lg">
+                <a href="https://www.fze.net"><strong>复泽网络</strong></a
+                >www.fze.net－专业的软件定制开发服务商。
+              </p>
+              <p>
+                位于佛山国际会议展览中心, 团队骨干均来自上海,
+                平均软件开发经验超过十年.
+              </p>
+              <p>
+                我们擅长企业级应用的业务分析、软件研发；并先后向多家企业提供了IT咨询服务,在软件架构、云计算、DevOps和自动化运维等领域进行技术输出.
+              </p>
+              <p>
+                技术和服务是复泽的核心,我们始终践行“<em>技术创造更多价值</em>”的理念,老客户合作至今超过十二年.
+              </p>
+              <br />
+              <div class="g-btn g-btn-inline hidden-xs">
+                <a href="${page.domain}">了解我们如何服务客户</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <img
+              src="${page.tpath}/images/1/fze-namecard-revert.png"
+              alt="复泽网络"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 售后服务 -->
+    <!--
+<section class="mod-row-service pt-60 pb-60 hidden">
+    <div class="container">
+
+        <div class="g-section-title pb-15 g-text-center">
+            <h1>服务保障</h1>
+            <p>SERVICE</p>
+        </div>
+
+
+        <ul class="row pt-60 row-service-spec">
+            <li class="it col-md-6 col-sm-12 col-xs-12">
+                1<div>代码符合规范、代码注释完整</div>
+            </li>
+            <li class="it col-md-6 col-sm-12 col-xs-12">
+                2<div>提供源码、不套模板</div>
+            </li>
+            <li class="it col-md-6 col-sm-12 col-xs-12">
+                3<div>我方保证所提供的产品，如发生故障，在接到定点采购方通知2小时内予以答复，在采购方要求 ，我方的技术人员在收到通知后，48小时内到现场进行修理。</div>
+            </li>
+            <li class="it col-md-6 col-sm-12 col-xs-12">
+                4<div>所出售的产品保质期为1年，在保质期内除人为因素外，产品实行三包，我公司第一免费负责和厂家沟通处理。产品保质期内厂家负责保修，超过保质期后自负。</div>
+            </li>
+            <li class="it col-md-6 col-sm-12 col-xs-12">
+                5<div>承诺对所销售的产品的销售价格实行统一明细价目表标明，双方所协定的价目表，在投标生效之日起二个月内不变。</div>
+            </li>
+            <li class="it col-md-6 col-sm-12 col-xs-12">
+                6<div>每个产品出厂前均经过强度检验和密封测试。</div>
+            </li>
+            <li class="it col-md-6 col-sm-12 col-xs-12">
+                7<div>产品的包装、运输符合厂标准。确保产品适合长途运输。</div>
+            </li>
+            <li class="it col-md-6 col-sm-12 col-xs-12">
+                8、<div>自收到需方订货合同之日起，我方半个月内将所需货物送到需方指定地点。</div>
+            </li>
+        </ul>
+    </div>
+</section>
+-->
+
+    <!-- 我们的优势 -->
+    <section class="mod-slogan g-bg-cover pt-30 pb-30">
+      <div class="container">
+        <h2>复泽－用心为客户创造更多价值</h2>
+      </div>
+    </section>
+
+    <section class="mod-row-intro pt-90 pb-60">
+      <div class="container">
+        <div class="g-section-title pb-60 g-text-center">
+          <h1>联系方式</h1>
+          <p>CONTACT</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12 map g-bg-cover hidden-xs"></div>
+          <div class="col-md-6 col-12 introduce">
+            <ul>
+              <li><i class="hidden-xs">办公地址:</i> ${site.address}</li>
+              <li><i>工作时间:</i> 周一至周五(09：00-18:00)</li>
+              <li><i>电话:</i> ${site.tel}</li>
+              <li><i>邮箱:</i> ${site.email}</li>
+              <li class="wx">
+                <i>微信:</i>
+                <img
+                  class="lazy"
+                  src="${page.fpath}/images/lazy-holder.gif"
+                  data-src="${page.tpath}/images/1/fze-qr.jpg"
+                  width="140"
+                  alt=""
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <br /><br /><br /><br />
+    </section>
+    ${include "../include/assistant.html"} ${include:"../include/footer.html"}
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"
+    ></script>
+  </body>
+</html>

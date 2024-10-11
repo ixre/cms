@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>${page.title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="Stylesheet"
+      href="${page.fpath}/base.min.css?v=${page.built}"
+      type="text/css"
+    />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/page.css?v=${page.built}"
+      type="text/css"
+    />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+  </head>
+  <body>
+    ${include:"include/topbar.html"} ${include:"include/header.html"}
+    ${include:"include/sitemap.html"}
+
+    <div class="mod-art mod-cat pb-30 mod-art-${category.tag} art">
+      <div class="container">
+        <div class="row">
+          <div class="col col-md-9 mod-art-details">
+            <div class="art__header">
+              <h1 class="art__header--title text-2xl">${archive.title}</h1>
+              <div class="row info art__header--info">
+                <div class="col-md-6 text-sm text-gray">
+                  $lang(date)：${archive.publish} &nbsp;&nbsp;
+                  $lang(click):<em>${archive.count}</em>次
+                </div>
+              </div>
+            </div>
+            <div class="art__details details text-md">
+              ${archive.content}
+
+              <div class="art__footer">
+                <div class="art__details--copyright">
+                  本文版权归&nbsp;<a href="${page.domain}">${site.name}</a>
+                  所有, 转载请注明出处.
+                  <span class="hidden-xs">本文链接：${page.url}</span>
+                </div>
+                <div class="art__tags hidden-xs">
+                  <span class="right tags">$tags() </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="art-rel row">
+              <div class="next col-md-6">
+                下一篇:$next_archive('<a href="{url}">{title}</a>')
+              </div>
+              <div class="prev col-md-6 g-align-right">
+                上一篇: $prev_archive('<a href="{url}">{title}</a>')
+              </div>
+            </div>
+          </div>
+
+          <div class="col col-md-3 mod-nav-side">
+            <div class="mod-cat-nav">
+              <h2 class="tit">$lang(category)$lang(space)$lang(navigator)</h2>
+              <div class="content">
+                <ul class="mod-cat-list clist list">
+                  $categories('root','
+                  <li><a href="{url}">{name}</a></li>
+                  ')
+                </ul>
+              </div>
+              <br />
+            </div>
+            ${include:"ad/cat-side-bar.html"}
+          </div>
+        </div>
+      </div>
+    </div>
+    ${include:"include/footer.html"} ${include "include/assistant.html"}
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!--/**
+ * Copyright (C) 2007-2024 fze.NET, All rights reserved.
+ *
+ * name: footer.html
+ * author: jarrysix (jarrysix#gmail.com)
+ * date: 2024-09-30 11:59:02
+ * description: 底部组件
+ * history:
+ */-->
+<footer class="footer">
+  <div class="container">
+    <div class="row hidden-xs">
+      <div class="footer__col col-lg-4 col-sm-4 col-12">
+        <h3 class="footer__col--title hidden-xs">$lang(contact-us)</h3>
+        <ul>
+          <li>
+            <a href="/"><strong>${site.name}</strong></a
+            >&nbsp;－&nbsp;专业可信赖的<a href="${page.domain}">佛山软件开发</a
+            >服务商
+          </li>
+          <li class="flex align-center">
+            <i class="icon icon-phone"></i>
+            <span class="tel">${site.tel}</span>
+            <span class="hidden-lg hidden-lg hidden-sm hidden-md">
+              &nbsp;<i class="icon icon-envelope"></i> ${site.email}
+            </span>
+          </li>
+          <li class="hidden-xs">
+            <i class="icon icon-envelope"></i> ${site.email}
+          </li>
+          <li><i class="icon icon-apartment"></i> ${site.address}</li>
+        </ul>
+        <ul class="social">
+          <li><i class="i weibo"></i></li>
+          <li><i class="i facebook"></i></li>
+          <li><i class="i qq"></i></li>
+          <li><i class="i twitter"></i></li>
+          <li><i class="i telegram"></i></li>
+        </ul>
+      </div>
+      <div class="footer__col col-lg-2 hidden-xs">
+        <h3 class="footer__col--title">客户服务</h3>
+        <ul>
+          <li><a href="">联系我们</a></li>
+          <li><a href="">服务流程</a></li>
+          <li><a href="">付款方式</a></li>
+          <li><a href="">疑问解答</a></li>
+        </ul>
+      </div>
+      <div class="footer__col col-lg-2 hidden-xs">
+        <h3 class="footer__col--title">服务项目</h3>
+        <ul>
+          <li><a href="${page.domain}">软件定制开发</a></li>
+          <li><a href="${page.domain}">APP开发</a></li>
+          <li><a href="${page.domain}">小程序开发</a></li>
+          <li><a href="${page.domain}">服务器托管</a></li>
+          <li><a href="${page.domain}">IT咨询服务</a></li>
+          <li><a href="${page.domain}">企业品牌设计</a></li>
+        </ul>
+      </div>
+      <div class="footer__col col-lg-2 hidden-xs">
+        <h3 class="footer__col--title">信息资讯</h3>
+        <ul>
+          <li><a href="">新闻动态</a></li>
+          <li><a href="">优惠活动</a></li>
+          <li><a href="">行业咨询</a></li>
+          <li><a href="">软件咨讯</a></li>
+        </ul>
+      </div>
+      <div class="footer__col col-lg-2 hidden-xs">
+        <h3 class="footer__col--title">关于复泽</h3>
+        <ul>
+          <li><a href="">关于我们</a></li>
+          <li><a href="">技术优势</a></li>
+          <li><a href="">隐私策略</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__social flex gap-x-4 justify-center">
+    <div class="footer__social--item"><i class="icon icon-weibo"></i></div>
+    <div class="footer__social--item"><i class="icon icon-weixin1"></i></div>
+    <div class="footer__social--item"><i class="icon icon-qq"></i></div>
+    <div class="footer__social--item"><i class="icon icon-douyin"></i></div>
+  </div>
+
+  <div class="footer__copyright padding-x-4 text-sm">
+    <div class="container padding-x-4">
+      <div class="row">
+        <div class="col-lg-12 g-text-center">
+          Copyright © ${site.name} 2009 - ${page.year}
+          <br class="hidden-lg hidden-lg hidden-sm hidden-md" />
+          <span class="mod-footer-beian">
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow"
+              >${site.beianNo}</a
+            >
+          </span>
+          <span class="power hidden-xs">
+            网站使用建站软件：<a target="_blank" href="http://fze.net"
+              >${page.version}</a
+            >&nbsp;创建
+          </span>
+          <div class="padding-bx-1"></div>
+          <div class="brand text-xs">
+            <b><a href="${page.domain}">复泽网络</a>(www.fze.net)</b
+            >自零八年起提供软件系统定制开发服务,服务客户数十年.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script
+  type="text/javascript"
+  src="${page.fpath}/base.min.js?v=${page.built}"
+></script>
+<script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?809809e8edb59d8a031aac948eb3e092";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>

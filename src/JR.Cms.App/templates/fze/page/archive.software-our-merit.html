@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>${page.title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.fpath}/base.min.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/page.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/services.css?v=${page.built}"
+    />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?s=${page.built}&amp;hover=navi"
+    ></script>
+  </head>
+  <body>
+    ${include:"../include/header.html"}
+
+    <div class="row-adv mod-our-adv g-body-wrap row" id="adv">
+      <div class="container-fluid">${include:"../include/our_adv.html"}</div>
+    </div>
+
+    <br /><br />
+
+    <div class="g-body-wrap row mod-deve-chat">
+      <div class="container-fluid">
+        <center>
+          <a class="g-circle-button" href="javascript:popFeedback()"
+            >我有需求，立即咨询</a
+          >
+        </center>
+        <br />
+      </div>
+    </div>
+
+    <br /><br />
+
+    ${include "../include/assistant.html"} ${include:"../include/footer.html"}
+  </body>
+</html>

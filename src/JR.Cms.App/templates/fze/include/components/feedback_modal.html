@@ -1,0 +1,135 @@
+<style type="text/css">
+  .mod-contact-pop {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    display: none;
+  }
+  .mod-contact-pop .mod-modal {
+    margin: 0;
+  }
+  .mod-contact-pop .modal {
+    width: 800px;
+    height: 480px;
+    max-width: 90%;
+    border-radius: 5px;
+  }
+  .mod-contact-pop .title {
+    display: none;
+  }
+  .mod-contact-pop .content {
+    padding: 15px 45px;
+  }
+
+  .g-modal .mask {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  .modal-title {
+    padding: 0.5em 0 2em 0;
+  }
+
+  .contacts {
+    padding-top: 2em;
+    .contacts__item {
+      flex-basis: 50%;
+      padding-left: 2em;
+    }
+    .contacts__item:first-child {
+      border-right: solid 1px #d2d3d5;
+      padding-right: 2em;
+      padding-left: 0;
+    }
+    .contacts__phone {
+      padding-bottom: 2em;
+    }
+  }
+</style>
+
+<div id="free-tria-form" class="g-modal mod-contact-pop">
+  <div class="mask"></div>
+  <div class="modal">
+    <div class="title g-big-tit">在线联系</div>
+    <span class="close">
+      <img src="${page.fpath}/images/close.png" alt="关闭窗口" />
+    </span>
+    <div class="content">
+      <h2 class="text-3xl text-center modal-title">在线联系</h2>
+      <h4 class="text-center text-lg">
+        您可以通过【微信】添加客服, 或通过电话/QQ与我们联系
+      </h4>
+      <div class="flex flex1 contacts align-center">
+        <div class="contacts__item flex justify-end">
+          <img
+            src="${page.tpath}/images/1/fze-qr.jpg"
+            width="160"
+            alt="添加微信"
+          />
+        </div>
+        <div class="contacts__item">
+          <div class="contacts__phone">
+            <div class="contacts__item--label text-md">业务咨询电话</div>
+            <div class="text-2xl font-bold text-primary">${site.tel}</div>
+          </div>
+
+          <div class="contacts__qq">
+            <div class="contacts__item--label">QQ</div>
+            <div class="text-xl">
+              <a href="tencent://message?uin=${site.im}" rel="nofollow"
+                >${site.im}</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $b.$fn(".mod-contact-pop .close").click(function () {
+    this.parent()
+      .parent()
+      .fadeOut("fast", function () {
+        this.css({ display: "none" });
+      });
+  });
+  // 弹出框
+  function popFeedback() {
+    $b.$fn(".mod-contact-pop .close")
+      .parent()
+      .parent()
+      .css({ display: "inherit" })
+      .fadeIn();
+    $jr.$fn(".submit-result").addClass("hidden");
+  }
+
+  // 姓名联想
+  var nickNameInput = $b.$fn(".mod-contact-pop .nick-name-input");
+  nickNameInput.keyup(function () {
+    var v = this.val();
+    var guess = this.parent().find(".nick-name-guess");
+    console.log(v, this.parent().html());
+    if (v.length == 1) {
+      guess.find(".nick-name").html(v);
+      guess.css({ display: "inherit" });
+    } else {
+      guess.css({ display: "none" });
+    }
+  });
+
+  $b.$fn(".mod-contact-pop .nick-name-guess li").click(function () {
+    this.parent().parent().find(".nick-name-input").val(this.text());
+    this.parent().css({ display: "none" });
+  });
+  $b.$fn(".mod-contact-pop .mask").click(function () {
+    this.parent().fadeOut("fast", function () {
+      this.css({ display: "none" });
+    });
+  });
+
+  //   function submitForm(formId) {
+  //     var data = $jr.json.toObject(formId);
+  //     $jr.xhr.post("/cms/webapi/form/1/首页需求提交", data, function (r) {
+  //       $jr.$fn(".submit-result").removeClass("hidden");
+  //     });
+  //   }
+</script>

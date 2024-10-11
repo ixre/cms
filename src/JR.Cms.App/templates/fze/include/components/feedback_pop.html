@@ -1,0 +1,169 @@
+<style type="text/css">
+.mod-contact-pop{opacity:0;filter:alpha(opacity=0);display:none;}
+.mod-contact-pop .row{align-items:flex-start;justify-content: space-around;}
+.mod-contact-pop .mod-modal{margin:0;}
+.mod-contact-pop .modal{width:800px;height:480px;max-width:90%;border-radius:5px;}
+.mod-contact-pop .title{display:none;}
+.mod-contact-pop .content{padding:15px 45px;}
+.mod-contact-pop .content .g-big-tit{padding-bottom:60px;}
+.mod-contact-pop .content h4{font-size:14px;line-height:1.5em;font-weight:500;color: #333;}
+.mod-contact-pop .field{padding-bottom:16px;}
+.mod-contact-pop .field div{position:relative;}
+.mod-contact-pop .field label{width:96px;margin-right:0;display:inline-block;font-weight: 400;line-height:2.5em;font-size:14px;}
+    .mod-contact-pop .row-left{padding-top:3em;}
+    .mod-contact-pop .field div.p{width: calc(100% - 100px);}
+    .mod-contact-pop .field .g-text-box{width:80%;}
+.nick-name-guess{position:absolute;display:none;left:0;right:0;border:solid 1px #CCC;
+    box-shadow:0 0 20px #EEE;padding:5px 0;background:#FFE;font-size:16px;width:80%;z-index:333;}
+.nick-name-guess li{line-height:24px;padding:0 15px;font-size:14px;}
+.nick-name-guess b{float:left;font-weight:normal;color:#06C;font-size:16px;margin-right:5px;}
+.mod-contact-pop .contact-button{border:solid 1px #06C;font-weight: bold;color:#06C;text-align:center;line-height:3em; padding:0 1.5em;display:inline-block; text-decoration: none;}
+.mod-contact-pop .wx .g-pop{top:10px;background:#333;width:120px;text-align:center;border-radius:3px;}
+.mod-contact-pop .wx .g-pop-top{border-bottom-color:#333;left:15px;right:auto;}
+.mod-contact-pop .wx img{padding:5px;background:#FFF;}
+    .mod-contact-pop .btn{padding:.2em 3em;}
+.mod-contact-pop .submit-result{color:#00aa00;padding-left:1em;font-size:.85em;}
+    
+    
+@media(max-width:767px){
+    .mod-contact-pop .modal{width:300px;height:240px;}
+    .mod-contact-pop .content .g-big-tit{padding-bottom:30px;}
+    .mod-contact-pop .content{padding:0;}
+    .mod-contact-pop .wx .g-pop{width:120px;height:80px;}
+    .mod-contact-pop .wx img{width:60px;}
+}
+</style>
+
+<div id="free-tria-form" class="g-modal mod-contact-pop">
+    <div class="mask">
+    </div>
+    <div class="modal">
+        <div class="title g-big-tit">在线联系
+        </div>
+        <span class="close">
+            <img src="${page.fpath}/images/close.png" alt="关闭窗口"/>
+        </span>
+        <div class="content">
+            <h2 class="g-big-tit">在线联系
+            </h2>
+            <div class="row">
+            <div class="row-left">
+                <div class="col-xs-6">
+                    <div class="hidden-lg hidden-md hidden-sm" style="margin-bottom:15px">
+                        <a href="tel:${site.tel}" class="contact-button">拨打电话给我
+                        </a>
+                    </div>
+                     <div class="wx">
+                         <span class="hidden-lg hidden-md hidden-sm">微信扫码咨询
+                         </span>
+                        <div class="g-pop1">
+                            <i class="g-pop-top1">
+                            </i>
+                            <img src="${page.tpath}/images/wx-code@2x.png" width="160" alt="添加微信"/>
+                        </div>
+                        <div class="contact-button1 hidden">
+                            <span class="hidden-xs">微信：${site.im}</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="center hidden">
+                        <a href="tencent://message?uin=${site.im}" rel="nofollow">QQ在线</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8 hidden-xs mod-form">
+                <h4>请留下您的联系方式和需求，客服人员将尽快回复并解决您的问题。
+                </h4>
+                <br />
+                <br />
+                <form name="contactForm1" id="contactForm1">
+                    <div class="field mod-form-field">
+                        <label for="" class="label">姓名：
+                        </label>
+                        <div class="p">
+                            <input type="text" name="name" field="姓名" class="text g-text-box nick-name-input"/>
+                            <br />
+                            <ul class="nick-name-guess">
+                                <li>
+                                    <b class="nick-name">-
+                                    </b>先生
+                                </li>
+                                <li>
+                                    <b class="nick-name">-
+                                    </b>女士
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="field mod-form-field">
+                        <label for="" class="label">联系电话：
+                        </label>
+                        <div class="p">
+                            <input type="text" name="phone" field="联系电话" class="text g-text-box"/>
+                        </div>
+                    </div>
+                    <div class="field mod-form-field">
+                        <label for="" class="label">您的需求：
+                        </label>
+                        <div class="p">
+                            <textarea type="text" name="remark" field="客户需求" class="text g-text-box" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="field mod-form-field">
+                        <label for="" class="label">
+                        </label>
+                        <div>
+                            <div class="btn g-circle-fill-button" onclick="return submitForm('contactForm1')">
+                               提&nbsp;交
+                            </div>
+                            <div class="submit-result">提交成功</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+            </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+   $b.$fn(".mod-contact-pop .close").click(function() {
+    	this.parent().parent().fadeOut("fast",function(){this.css({"display":"none"})});
+   });
+    // 弹出框
+    function popFeedback() {
+        $b.$fn(".mod-contact-pop .close").parent().parent()
+        .css({ "display": "inherit" }).fadeIn();
+        $jr.$fn(".submit-result").addClass("hidden");
+    }
+    // 姓名联想
+    var nickNameInput = $b.$fn(".mod-contact-pop .nick-name-input");
+    nickNameInput.keyup(function() {
+        var v = this.val();
+        var guess = this.parent().find(".nick-name-guess");
+        console.log(v,this.parent().html());
+        if (v.length == 1) {
+            guess.find(".nick-name").html(v);
+            guess.css({ "display": "inherit" });
+        } else {
+            guess.css({ "display": "none" });
+        }
+    });
+
+    $b.$fn(".mod-contact-pop .nick-name-guess li").click(function() {
+        this.parent().parent().find(".nick-name-input").val(this.text()); 
+        this.parent().css({ "display": "none" });
+    });
+    $b.$fn(".mod-contact-pop .mask").click(function(){
+      this.parent().fadeOut("fast",function(){this.css({"display":"none"})});
+    });
+	
+    function submitForm(formId){
+        var data = $jr.json.toObject(formId);
+        $jr.xhr.post("/cms/webapi/form/1/首页需求提交",data,function(r){
+           $jr.$fn(".submit-result").removeClass("hidden");
+        });
+    }
+  </script>
+
+

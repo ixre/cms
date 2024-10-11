@@ -1,0 +1,87 @@
+<!--
+/**
+ * Copyright (C) 2007-2024 fze.NET, All rights reserved.
+ *
+ * name: feedback_modal.html
+ * author: jarrysix (jarrysix#gmail.com)
+ * date: 2024-09-30 11:53:26
+ * description: 工具栏
+ * history:
+ */
+-->
+
+<div class="assistant" onclick="popFeedback()">
+  <div class="assistant__item">
+    <i class="icon icon-weixin1"></i>
+    <div class="assistant__item--label">售前客服</div>
+  </div>
+  <div class="assistant__item">
+    <i class="icon icon-phone"></i>
+    <div class="assistant__item--label">咨询电话</div>
+  </div>
+  <div class="bubble bubble-dark text-sm">
+    <div class="bubble__content">点击查看联系方式</div>
+    <i class="bubble__bottom"></i>
+  </div>
+</div>
+
+<div class="modal feedback-modal">
+  <div class="mask"></div>
+  <div class="modal">
+    <div class="title">在线联系</div>
+    <span class="close">
+      <img src="${page.fpath}/images/close.png" alt="关闭窗口" />
+    </span>
+    <div class="content">${include "contact_modal.html"}</div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $b.$fn(".feedback-modal .close").click(function () {
+    this.parent()
+      .parent()
+      .fadeOut("fast", function () {
+        this.css({ display: "none" });
+      });
+  });
+  // 弹出框
+  function popFeedback() {
+    $b.$fn(".feedback-modal .close")
+      .parent()
+      .parent()
+      .css({ display: "inherit" })
+      .fadeIn();
+    $jr.$fn(".submit-result").addClass("hidden");
+  }
+
+  // 姓名联想
+  var nickNameInput = $b.$fn(".feedback-modal .nick-name-input");
+  nickNameInput.keyup(function () {
+    var v = this.val();
+    var guess = this.parent().find(".nick-name-guess");
+    console.log(v, this.parent().html());
+    if (v.length == 1) {
+      guess.find(".nick-name").html(v);
+      guess.css({ display: "inherit" });
+    } else {
+      guess.css({ display: "none" });
+    }
+  });
+
+  $b.$fn(".feedback-modal .nick-name-guess li").click(function () {
+    this.parent().parent().find(".nick-name-input").val(this.text());
+    this.parent().css({ display: "none" });
+  });
+  $b.$fn(".feedback-modal .mask").click(function () {
+    this.parent().fadeOut("fast", function () {
+      this.css({ display: "none" });
+    });
+  });
+
+  //   function submitForm(formId) {
+  //     var data = $jr.json.toObject(formId);
+  //     $jr.xhr.post("/cms/webapi/form/1/首页需求提交", data, function (r) {
+  //       $jr.$fn(".submit-result").removeClass("hidden");
+  //     });
+  //   }
+</script>

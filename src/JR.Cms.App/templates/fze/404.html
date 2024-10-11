@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>网页不存在</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.fpath}/base.min.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/page.css?v=${page.built}"
+    />
+
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?s=${page.built}&amp;hover=navi"
+    ></script>
+  </head>
+  <body>
+    ${include:"include/topbar.html"} ${include:"include/header.html"}
+
+    <p
+      style="
+        font-size: 24px;
+        margin: 5em 0 8em 0;
+        color: #b00;
+        text-align: center;
+      "
+      class="g-txt-center"
+    >
+      <b>您访问的网页不存在或地址已经更改！</b><br /><br />
+
+      <span style="color: #666"
+        >您可以&nbsp;【<a href="${page.domain}/">回到首页</a>】</span
+      >
+    </p>
+
+    ${include:"include/footer.html"} ${include "include/assistant.html"}
+  </body>
+</html>

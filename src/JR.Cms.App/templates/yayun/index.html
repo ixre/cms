@@ -473,18 +473,18 @@
         </div>
       </div>
     </div>
-    <section class="mod-news pt-90 pb-90">
-      <div class="container">
-        <div class="block__title">
+    <section class="row row-news block padding-bx-4">
+      <div class="container flex-col padding-bx-4">
+        <div class="block__title margin-bx-4">
           <div class="block__title--inner">
             <div class="block__title--secondnary">News</div>
             <div class="block__title--text">资讯动态</div>
           </div>
         </div>
-        <div class="row pt-30">
+        <div class="row">
           $archives('/info',6,{
-          <div class="it col-lg-4">
-            <div class="g-suited-img g-suite-img-65">
+          <div class="it row-news__item col-lg-4">
+            <div class="img-fit img-fit-75 margin-bx-4">
               <img
                 class="lazy"
                 src="${page.fpath}/images/lazy-holder.gif"
@@ -492,14 +492,16 @@
                 alt="{raw_title}"
               />
             </div>
-            <h3 class="title text-lg">
+            <h3 class="row-news__item--title text-lg padding-bx-2">
               <a href="{url}">{title}</a>
             </h3>
-            <p class="text-sm text-gray">{outline}</p>
+            <p class="row-news__item--desc text-sm text-gray padding-bx-2">
+              {outline}
+            </p>
             <div class="flex align-center justify-between more">
               <div class="time text-gray">{publish_short_date}</div>
               <div class="text-gray">
-                »<a href="{url}" class="text-sm">阅读更多</a>
+                <a href="{url}" class="text-sm">阅读更多</a>»
               </div>
             </div>
           </div>

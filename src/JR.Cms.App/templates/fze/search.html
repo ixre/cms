@@ -1,0 +1,78 @@
+$c = query('c')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${page.title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="Stylesheet" href="${page.fpath}/base.min.css?v=${page.built}" type="text/css" />
+    <link rel="Stylesheet" href="${page.tpath}/css/page.css?v=${page.built}" type="text/css" />
+</head>
+<body>
+    ${include:"include/topbar.html"} ${include:"include/header.html"}
+
+
+    <div class="crumb">
+        <div class="container">
+            $lang(sitemap_location): <a href="${page.domain}">$lang(home)</a> > <a href="${page.domain}/search?w=${search.escapeKey}&c="> $lang(search)$lang(space)"${search.key}"</a>
+        </div>
+    </div>
+
+   <div class="mod-layout page-search">
+      <div class="container">
+         <div class="l mod-nav-side">
+             <div class="mod-nav-border">
+                    <div class="tit">$lang(category)$lang(space)$lang(navigator)</div>
+                    <div class="content">
+                        <ul class="mod-cat-list clist">
+                            $categories('root','<li><a href="{url}">▪&nbsp;{name}</a></li>')
+                        </ul>
+                    </div>
+             </div>
+           <!-- ${include:"include/side_bar.html"}-->
+          </div>
+           
+
+          <div class="m">
+            <div class="m-trip"></div>
+            <div class="search-box">
+                <form action="${page.domain}/search" method="GET">
+                    <span>$lang(search)</span>
+                    <select class="box" name="c" id="c">
+                        <option value="">--$lang_upper(all)--</option>
+                        <option value="product">$lang_upper(product)</option>
+                        <option value="article">$lang_upper(article)</option>
+                    </select>
+                    <input name="w" class="box" placeholder="$lang(typing_keyword)" type="text" value="${search.key}">
+                    <input type="submit" value="$lang(search)"/>
+                </form>
+            </div>
+
+            <div class="mod-archive-list">
+                <ul>
+                    $search_archives('15','
+                    <li class="{class}">
+                        {img2}
+                        <h3><a href="{url}">{title}</a></h3>
+                        <div class="meta">发布时间: {create_date}&nbsp;&nbsp;点击：{count}</div>
+                        <p class="outline">{outline}</p>
+                    </li>')
+                </ul>
+            </div>
+
+            <div class="clearfix">
+                $pager()
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+${include:"include/footer.html"}
+${include "include/assistant.html"}
+<script type="text/javascript" src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"></script>
+<script type="text/javascript">
+    document.getElementById('c').value='${c}';
+</script>
+
+</body>
+</html>

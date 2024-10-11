@@ -1,0 +1,61 @@
+<header class="header">
+  <div class="container">
+    <div class="row">
+      <div class="header__logo col-lg-4 col-sm-4">
+        <img
+          src="${page.tpath}/images/logo.png"
+          alt="${site.name}"
+          class="header__logo--img"
+        />
+        <a class="header__logo--mask" href="${page.domain}"></a>
+      </div>
+
+      <div class="header__nav g-align-right col-lg-8 col-sm-8 hidden-xs">
+        $navigator()
+      </div>
+
+      <div class="header__xs hidden-lg hidden-xl hidden-sm hidden-md">
+        <div
+          class="hidden-lg hidden-md hidden-sm nav-toggle g-text-right col-xs-8 text-lg"
+        >
+          <i class="iconfont icon-menu"></i>
+        </div>
+
+        <!-- 移动端导航 -->
+        <div class="toggle-navigator col-xs-12">
+          <div class="toggle-navigator__mask"></div>
+          <div class="container-fluid">
+            <div class="toggle-navigator__header">
+              <div class="toggle-navigator__header--title text-lg">
+                网站导航
+              </div>
+            </div>
+            $navigator()
+
+            <div
+              class="toggle-navigator__footer flex flex-column align-center justify-center"
+            >
+              <img
+                src="${page.fpath}/images/lazy-holder.gif"
+                data-src="${page.tpath}/images/1/fze-qr.jpg"
+                width="120"
+                alt="微信二维码"
+                class="lazy toggle-navigator__footer--qr"
+              />
+              <div
+                class="toggle-navigator__footer--text text-sm text-primary text-center"
+              >
+                <div>添加微信</div>
+                <div>了解更多信息</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script type="text/javascript">
+  window.addEventListener("load", function () {});
+</script>

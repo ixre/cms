@@ -36,7 +36,6 @@ cms.config
 devsofts
 txxf
 *.tar.gz
-src/JR.Cms.App/templates/fze/
 src/NetFx/JR.Cms.AspNet.App/config/
 src/NetFx/JR.Cms.AspNet.App/public
 src/NetFx/JR.Cms.AspNet.App/templates
