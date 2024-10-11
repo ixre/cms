@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>${page.title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.fpath}/base.min.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/page.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/index.css?v=${page.built}"
+    />
+
+    <link
+      rel="EditURI"
+      type="application/rsd+xml"
+      title="RSD"
+      href="/xmlrpc?wsd"
+    />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+  </head>
+  <body>
+    ${include:"include/topbar.html"} ${include:"include/header.html"}
+
+    <div class="swiper">${include:"include/swiper.html"}</div>
+
+    <!-- 创始人介绍 -->
+    <div class="row row-ceo bg-white">
+      <div class="container flex gap-x-5">
+        <div class="flex1 img-fit1 row-ceo__pep">
+          <img
+            src="${page.tpath}/images/ceo.png"
+            alt="${site.name}创始人-林丽雅"
+            class="row-ceo__pep--img"
+          />
+        </div>
+        <div class="flex2 row-ceo__main">
+          <h1 class="font-bold text-2xl margin-bx-2">雅孕产康瑜伽</h1>
+          <div class="row-ceo__brand flex margin-bx-2">
+            <div class="row-ceo__brand--label label">品牌创始人</div>
+            <div class="row-ceo__brand--name label text-black">
+              <strong>林丽雅女士</strong>
+            </div>
+          </div>
+          <div
+            class="row-ceo__slogan font-bold text-sm padding-x-2 padding-reset-row text-gray margin-bx-2"
+          >
+            帮助女性，成就美丽人生！
+          </div>
+          <div class="row-ceo__cert flex gap-x-4 margin-bx-5">
+            <div class="flex1">
+              <img src="${page.tpath}/images/ceo-cert-1.png" alt="个人证书1" />
+            </div>
+            <div class="flex1">
+              <img src="${page.tpath}/images/ceo-cert-1.png" alt="个人证书1" />
+            </div>
+            <div class="flex1">
+              <img src="${page.tpath}/images/ceo-cert-1.png" alt="个人证书1" />
+            </div>
+          </div>
+          <div class="row-ceo__news">
+            <div class="row-ceo__news--item flex">
+              <div class="row-ceo__news--rect"></div>
+              <div class="row-ceo__news--time">10-09</div>
+              <div class="row-ceo__news--title flex1">
+                <a href="">媒体报道林丽雅女人参加南庄女性职业培训大奖赛</a>
+              </div>
+              <div class="row-ceo__news--more text-sm font-bold">
+                <a href=""> <span class="text-secondnary">查看详细</span></a>
+                <i class="icon icon-chevronright"></i>
+              </div>
+            </div>
+            <div class="row-ceo__news--item flex align-center">
+              <div class="row-ceo__news--rect"></div>
+              <div class="row-ceo__news--time">10.09</div>
+              <div class="row-ceo__news--title flex1">
+                媒体报道林丽雅女人参加南庄女性职业培训大奖赛
+              </div>
+              <div class="row-ceo__news--more text-sm font-bold">
+                <a href=""> <span class="text-secondnary">查看详细</span></a>
+                <i class="icon icon-chevronright"></i>
+              </div>
+            </div>
+            <div class="row-ceo__news--item flex align-center">
+              <div class="row-ceo__news--rect"></div>
+              <div class="row-ceo__news--time">10.09</div>
+              <div class="row-ceo__news--title flex1">
+                媒体报道林丽雅女人参加南庄女性职业培训大奖赛
+              </div>
+              <div class="row-ceo__news--more text-sm font-bold">
+                <a href=""> <span class="text-secondnary">查看详细</span></a>
+                <i class="icon icon-chevronright"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 课程介绍 -->
+    <div class="row row-course block">
+      <div class="block__title">
+        <div class="block__title--en">Cource INTRODUCTION</div>
+        <div class="block__title--text">课程介绍</div>
+      </div>
+      <div class="flex flex-wrap gap-x-6">
+        <div class="course-tile">
+          <img src="" alt="课程图片" />
+          <div class="course-tile__label">
+            <div class="text-sm">瑜伽课程名称</div>
+            <div class="text-xl">塑性</div>
+          </div>
+        </div>
+        <div class="course-tile">
+          <img src="" alt="课程图片" />
+          <div class="course-tile__label">
+            <div class="text-sm">瑜伽课程名称2</div>
+            <div class="text-xl">塑性</div>
+          </div>
+        </div>
+        <div class="course-tile">
+          <img src="" alt="课程图片" />
+          <div class="course-tile__label">
+            <div class="text-sm">瑜伽课程名称3</div>
+            <div class="text-xl">塑性</div>
+          </div>
+        </div>
+        <div class="course-tile">
+          <img src="" alt="课程图片" />
+          <div class="course-tile__label">
+            <div class="text-sm">瑜伽课程名称4</div>
+            <div class="text-xl">塑性</div>
+          </div>
+        </div>
+        <div class="course-tile">
+          <img src="" alt="课程图片" />
+          <div class="course-tile__label">
+            <div class="text-sm">瑜伽课程名称5</div>
+            <div class="text-xl">塑性</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 门店环境 -->
+    <div class="row row-course block">
+      <div class="block__title">
+        <div class="block__title--en">STORE ENVIROMENT</div>
+        <div class="block__title--text">门店环境</div>
+      </div>
+      <div class="flex flex-wrap gap-x-6">
+        <div class="flex gap-x-6">
+          <div class="store-env-tile flex2">
+            <div class="img-fit">
+              <img src="" alt="门店环境图片" />
+            </div>
+          </div>
+
+          <div class="store-env-tile flex2">
+            <div class="img-fit">
+              <img src="" alt="门店环境图片" />
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-x-6">
+          <div class="store-env-tile flex2">
+            <div class="store-introduce">
+              <h3>雅孕产康瑜伽</h3>
+              <p class="store-introduce__content">
+                我们的门店位于交通便利的繁华地段，佛山地铁二号线出站即到,
+                同时我们提供优雅温馨的环境,
+                让您在锻炼和康复过程序中得到更加舒适的体验
+              </p>
+              <div class="store-introduce__link">
+                <a href="${page.domain}/about/aboutus.html"
+                  >获取位置和交通路线</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="store-env-tile flex1">
+            <div class="img-fit">
+              <img src="" alt="门店环境图片" />
+            </div>
+          </div>
+          <div class="store-env-tile flex1">
+            <div class="img-fit">
+              <img src="" alt="门店环境图片" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 学员评价 -->
+    <div class="row row-apprise">
+      <div class="flex align-center justify-center">
+        <div class="arraw arraw-left">
+          <i class="icon icon-chevronleft" />
+        </div>
+      </div>
+      <div class="flex1 row-apprise__list">
+        <div class="apprise-item">
+          <div class="apprise-item__content">
+            服务态度好，服务周到，环境优美，值得推荐，有效帮助我解决了很多问题，谢谢！
+            林老师很用心，很负责，服务态度很好！
+          </div>
+          <div class="apprise-item__user flex gap-x-6">
+            <div class="apprise-item__user--img">
+              <img src="" alt="用户头像" />
+            </div>
+            <div class="apprise-item__user--name">
+              <div class="text-lg">春天</div>
+              <div class="text-sm">某外贸公司职员</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex align-center justify-center">
+        <div class="arraw arraw-right">
+          <i class="icon icon-chevronright" />
+        </div>
+      </div>
+    </div>
+    <!-- 导师风采 -->
+    <div class="row row-mentor block">
+      <div class="block__title">
+        <div class="block__title--en">MENTOR STYLES</div>
+        <div class="block__title--text">导师风采</div>
+        <div class="block__title--spec">全程陪练指导，效果立竿见影</div>
+      </div>
+      <div class="flex gap-x-6">
+        <div class="row-mentor__intro flex flex-col gap-x-4">
+          <div class="row-mentor__intro--name text-2xl">小小</div>
+          <div class="row-mentor__intro--desc">雅孕产康瑜伽核心导师</div>
+          <div class="row-mentor__intro--content">
+            擅长于解决产后相关问题，如：产后腰酸背痛、臀部下垂、骨盆不正等。
+            经xxx名师瑜伽机构认证培训，
+            拥有丰富的瑜伽教学经验，帮助众多女性解决产后问题。
+          </div>
+
+          <div class="row-mentor__data">
+            <div class="row-mentor__data--label">
+              <b class="font-bold text-primary text-2xl">10</b>
+              年
+            </div>
+            <div class="row-mentor__data--value">
+              多年教龄，被评为优秀瑜伽教练
+            </div>
+          </div>
+
+          <div class="row-mentor__data">
+            <div class="row-mentor__data--label">
+              <b class="font-bold text-primary text-2xl">1000+</b>
+              名
+            </div>
+            <div class="row-mentor__data--value">顾客的一致好评</div>
+          </div>
+        </div>
+        <div class="row-mentor__item flex">
+          <div class="img-fit row-mentor__item--img">
+            <img src="" alt="门店环境图片" />
+          </div>
+          <div class="row-mentor__item--name">小小</div>
+        </div>
+
+        <div class="row-mentor__item flex">
+          <div class="img-fit row-mentor__item--img">
+            <img src="" alt="门店环境图片" />
+          </div>
+          <div class="row-mentor__item--name">小小</div>
+        </div>
+        <div class="row-mentor__item flex">
+          <div class="img-fit row-mentor__item--img">
+            <img src="" alt="门店环境图片" />
+          </div>
+          <div class="row-mentor__item--name">小小</div>
+        </div>
+        <div class="row-mentor__item flex">
+          <div class="img-fit row-mentor__item--img">
+            <img src="" alt="门店环境图片" />
+          </div>
+          <div class="row-mentor__item--name">小小</div>
+        </div>
+      </div>
+
+      <div class="row-mentor__booking">
+        <div class="bubble bubble-dark text-sm">
+          <div class="bubble__content">扫码微信小程序进行约课</div>
+          <i class="bubble__bottom"></i>
+        </div>
+        <div class="button button-warning">微信约课</div>
+      </div>
+    </div>
+
+    <!-- 资质荣誉 -->
+    <div class="row row-cert block">
+      <div class="block__title">
+        <div class="block__title--en">MENTOR STYLES</div>
+        <div class="block__title--text">导师风采</div>
+        <div class="block__title--spec">全程陪练指导，效果立竿见影</div>
+      </div>
+      <div class="flex">
+        <div class="flex1 row-cert__info">
+          <div class="row-cert__info--title">雅孕产康瑜伽</div>
+          <p class="row-cert__info--desc">
+            专注产后康复，致力于为女性提供专业的产后康复服务。
+            获得学员和市场的认可，获得多家媒体报道和各项荣誉。
+          </p>
+          <div class="flex algin-center justify-center">
+            <div class="row-cert__count">
+              <div class="row-cert__count--num">
+                <span class="text-primary">1000+</span>
+              </div>
+              <div class="row-cert__count--label">学员</div>
+            </div>
+
+            <div class="row-cert__count">
+              <div class="row-cert__count--num">
+                <span class="text-primary">1000+</span>
+              </div>
+              <div class="row-cert__count--label">学员</div>
+            </div>
+
+            <div class="row-cert__count">
+              <div class="row-cert__count--num">
+                <span class="text-primary">1000+</span>
+              </div>
+              <div class="row-cert__count--label">学员</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex2 row-cert__gallery">
+          <div class="img-fit row-cert__gallery--img">
+            <img src="" alt="资质荣誉" />
+          </div>
+          <div class="img-fit row-cert__gallery--img">
+            <img src="" alt="资质荣誉" />
+          </div>
+          <div class="img-fit row-cert__gallery--img">
+            <img src="" alt="资质荣誉" />
+          </div>
+          <div class="img-fit row-cert__gallery--img">
+            <img src="" alt="资质荣誉" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="mod-news pt-90 pb-90">
+      <div class="container">
+        <div class="block__title">
+          <div class="block__title--en">News</div>
+          <div class="block__title--text">资讯动态</div>
+        </div>
+        <div class="row pt-30">
+          $archives('/info',6,{
+          <div class="it col-lg-4">
+            <div class="g-suited-img g-suite-img-65">
+              <img
+                class="lazy"
+                src="${page.fpath}/images/lazy-holder.gif"
+                data-src="{thumbnail}"
+                alt="{raw_title}"
+              />
+            </div>
+            <h3 class="title text-lg">
+              <a href="{url}">{title}</a>
+            </h3>
+            <p class="text-sm text-gray">{outline}</p>
+            <div class="flex align-center justify-between more">
+              <div class="time text-gray">{publish_short_date}</div>
+              <div class="text-gray">
+                »<a href="{url}" class="text-sm">阅读更多</a>
+              </div>
+            </div>
+          </div>
+          })
+        </div>
+      </div>
+    </section>
+
+    ${include:"include/footer.html"} ${include:"include/assistant.html"}
+  </body>
+</html>

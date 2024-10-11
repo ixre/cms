@@ -1,0 +1,108 @@
+html {
+  font-weight: 500;
+}
+a:link {
+  color: #000;
+}
+a:visited {
+  color: #333;
+}
+a:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+/** 设置变量 */
+:root {
+  --primary-color: #73c998;
+  --secondnary-color: #aeebc3;
+}
+.header {
+  --header-shadow-height: 0;
+  --header-background-color: #73c998;
+  --header-fixed-background-color: #73c998ee;
+}
+.navigator {
+  --navigator-active-color: #fff;
+  --navigator-item-color: #aeebc3;
+}
+.footer {
+  --footer-background-color: #73c998;
+  --footer-color: #fff;
+  --footer-social-icon-size: 2rem;
+  --footer-social-icon-gap: 1.2rem;
+}
+.swiper {
+  /** 图片比例,默认:16:9 */
+  --swiper-image-scale: 0.4;
+  /** 指示器颜色 */
+  --swiper-indicator-color: #999;
+  /** 指示器激活颜色 */
+  --swiper-indicator-active-color: #fff;
+}
+
+.assistant {
+  /** 工具栏背景色 */
+  --assistant-background-color: #fff;
+  /** 工具栏边框色 */
+  --assistant-border-color: #f0f0f0;
+  /** 工具栏边框大小 */
+  --assistant-border-size: 0.0625rem;
+  /** 工具栏圆角 */
+  --assistant-border-radius: 0.3125rem;
+  /** 右侧工具栏距离右边的距离 */
+  --assistant-position-right: 2em;
+  /** 右侧工具栏距离上边的距离 */
+  --assistant-position-top: 50%;
+  /** 气泡距离右侧和左侧的距离 */
+  --assistant-bubble-right: 1.5em;
+}
+
+.crumb {
+  /** 面包屑高度 */
+  --crumb-height: 3rem;
+  /** 面包屑文字颜色 */
+  --crumb-text-color: #999;
+  /** 面包屑文字大小 */
+  --crumb-text-size: var(--text-sm-size);
+}
+
+.modal.feedback-modal {
+  .title {
+    /** 模态框标题不显示 */
+    display: none;
+  }
+}
+
+.contact-modal {
+  /** 联系方式模态框 */
+  min-width: 800px;
+  height: 480px;
+  padding-bottom: 2rem;
+
+  .modal-title {
+    padding: 2em 0 2em 0;
+  }
+
+  img.radius {
+    border-radius: 0.5rem;
+  }
+
+  .contacts {
+    padding-top: 2em;
+    .contacts__item {
+      flex-basis: 50%;
+      padding-left: 4em;
+    }
+    .contacts__item:first-child {
+      border-right: solid 1px #d2d3d5;
+      padding-right: 4em;
+      padding-left: 0;
+    }
+    .contacts__phone {
+      padding-bottom: 2em;
+    }
+  }
+}
+/** ===================================== 新样式结束 ===================================== */
+/* 全局元素样式 */

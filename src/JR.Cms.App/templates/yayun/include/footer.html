@@ -1,0 +1,133 @@
+<!--/**
+ * Copyright (C) 2007-2024 fze.NET, All rights reserved.
+ *
+ * name: footer.html
+ * author: jarrysix (jarrysix#gmail.com)
+ * date: 2024-09-30 11:59:02
+ * description: 底部组件
+ * history:
+ */-->
+<footer class="footer">
+  <div class="container">
+    <div class="row hidden-xs">
+      <div class="footer__col col-lg-4 col-sm-4 col-12">
+        <h3 class="footer__col--title hidden-xs">$lang(contact-us)</h3>
+        <ul>
+          <li>
+            <a href="/"><strong>${site.name}</strong></a>
+          </li>
+          <li class="flex align-center">
+            <i class="icon icon-phone"></i>
+            <span class="tel">${site.tel}</span>
+            <span class="hidden-lg hidden-lg hidden-sm hidden-md">
+              &nbsp;<i class="icon icon-envelope"></i>
+              ${site.email}
+            </span>
+          </li>
+          <li class="hidden-xs">
+            <i class="icon icon-envelope"></i> ${site.email}
+          </li>
+          <li><i class="icon icon-apartment"></i> ${site.address}</li>
+        </ul>
+      </div>
+      <div class="footer__col col-lg-2 hidden-xs">
+        <h3 class="footer__col--title">$lang(about)$lang(space)$lang(us)</h3>
+        <ul>
+          <li>
+            <a href="${page.domain}/about/aboutus.html"
+              >$lang(company)$lang(space)$lang(intro)</a
+            >
+          </li>
+          <li>
+            <a href="${page.domain}/news">$lang(news)$lang(space)$lang(info)</a>
+          </li>
+          <li>
+            <a href="${page.domain}/about/contactus.html">$lang(contact-us)</a>
+          </li>
+          <li>
+            <a href="${page.domain}/jobs"
+              >$lang(human)$lang(space)$lang(resource)</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="footer__col col-lg-2 hidden-xs">
+        <h3 class="footer__col--title">$lang(product)</h3>
+        <ul>
+          <li>
+            <a href="${page.domain}/product"
+              >$lang(all)$lang(space)$lang(product)</a
+            >
+          </li>
+          <li><a href="${page.domain}/brand">$lang(brand-proxy)</a></li>
+          <li>
+            <a href="${page.domain}/product/pro-diy.html">$lang(pro-diy)</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer__col col-lg-2 hidden-xs">
+        <h3 class="footer__col--title">
+          $lang(service)$lang(space)$lang(item)
+        </h3>
+        <ul>
+          $archives('items',5,'
+          <li><a href="{url}">{title}</a></li>
+          ')
+        </ul>
+      </div>
+      <div class="footer__col col-lg-2 hidden-xs">
+        <h3 class="footer__col--title">$lang(help)</h3>
+        <ul>
+          <li>
+            <a href="${page.domain}/logistics"
+              >$lang(logistics)$lang(space)$lang(delivery)</a
+            >
+          </li>
+          <li>
+            <a href="${page.domain}/about/service-of-sales.html"
+              >$lang(service-of-sales)</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__social flex gap-x-4 justify-center">
+    <div class="footer__social--item"><i class="icon icon-weibo"></i></div>
+    <div class="footer__social--item"><i class="icon icon-weixin1"></i></div>
+    <div class="footer__social--item"><i class="icon icon-qq"></i></div>
+    <div class="footer__social--item"><i class="icon icon-douyin"></i></div>
+  </div>
+
+  <div class="footer__copyright padding-x-4 text-sm">
+    <div class="container padding-x-4">
+      <div class="row">
+        <div class="col-lg-12 g-text-center">
+          Copyright © ${site.name} 2009 - ${page.year}
+          <br class="hidden-lg hidden-lg hidden-sm hidden-md" />
+          <span class="mod-footer-beian">
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow"
+              >${site.beianNo}</a
+            >
+          </span>
+          <span class="power hidden-xs">
+            网站使用建站软件：<a target="_blank" href="http://fze.net"
+              >${page.version}</a
+            >&nbsp;创建
+          </span>
+          <div class="padding-bx-1"></div>
+          <div class="brand text-xs">
+            <b><a href="${page.domain}">复泽网络</a>(www.fze.net)</b
+            >自零八年起提供软件系统定制开发服务,服务客户数十年.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script
+  type="text/javascript"
+  src="${page.fpath}/base.min.js?v=${page.built}"
+></script>
