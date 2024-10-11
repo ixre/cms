@@ -161,4 +161,50 @@
 .row-apprise {
   /** 学员评价 */
   padding: 2rem 0;
+  background: url(../images/apprise-bg.png) no-repeat center center;
+  background-size: cover;
+
+  .arraw {
+    display: flex;
+    background: var(--primary-color);
+    border-radius: 100%;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      color: #fff;
+    }
+  }
+
+  .row-apprise__list {
+    padding: 2rem;
+  }
+
+  .apprise-item {
+    padding: 2rem 10rem;
+    .apprise-item__user {
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      gap: 2rem;
+
+      .apprise-item__user--img {
+        width: 75px;
+        height: 75px;
+        border-radius: 10rem;
+        overflow: hidden;
+      }
+    }
+    .bubble {
+      --bubble-background-color: var(--primary-color);
+      --bubble-text-color: #fff;
+      padding: 1rem 3rem;
+      font-weight: 500;
+      .bubble__bottom {
+        left: -135px;
+      }
+    }
+  }
 }
