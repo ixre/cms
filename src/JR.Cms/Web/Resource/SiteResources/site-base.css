@@ -393,6 +393,12 @@ page {
 .margin-bx-5 {
   margin-bottom: 1.25rem;
 }
+.margin-bx-6 {
+  margin-bottom: 1.5rem;
+}
+.margin-bx-8 {
+  margin-bottom: 2rem;
+}
 .padding-reset-top {
   padding-top: 0 !important;
 }
@@ -436,6 +442,12 @@ page {
 }
 .padding-bx-5 {
   padding-bottom: 1.25rem;
+}
+.padding-bx-6 {
+  padding-bottom: 1.5rem;
+}
+.padding-bx-8 {
+  padding-bottom: 2rem;
 }
 /** 高度100% */
 .height-all {
@@ -626,6 +638,22 @@ page {
     transform: translate(-50%, -50%);
     right: 0;
     bottom: 0;
+  }
+
+  &.img-fit-75 {
+    &::before {
+      padding-top: 75%;
+    }
+  }
+  &.img-fit-50 {
+    &::before {
+      padding-top: 50%;
+    }
+  }
+  &.img-fit-25 {
+    &::before {
+      padding-top: 25%;
+    }
   }
 }
 
