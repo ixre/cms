@@ -641,6 +641,20 @@ body {
   }
 }
 
+.x-page {
+  /** 水平切换,提供水平切换屏功能 */
+  .x-page__container {
+    .x-page__page {
+      display: none;
+      animation: fadeOut 1s;
+    }
+    .x-page__page.x-page__active {
+      display: inherit;
+      animation: fadeIn 1s;
+    }
+  }
+}
+
 /********* ======================= end   ==============================*/
 
 div.line {

@@ -84,6 +84,53 @@ function initSwiper() {
   }
 }
 
+/** 初始化水平切换 */
+function initXPage() {
+  var xs = $jr.$(".x-page");
+  var sc = xs.find(".x-page__container");
+  // 设置默认显示的屏数
+  sc.attr("page", "0");
+  // 获取屏数
+  var pages = sc.find(".x-page__page");
+  if (pages.len() > 0) {
+    // 第一屏显示
+    pages.get(0).addClass("x-page__active");
+  }
+  var changePage = function (p) {
+    // 将原来的页面设置为不显示
+    var currentPage = parseInt(sc.attr("page"));
+    pages.get(currentPage).removeClass("x-page__active");
+    // 计算当前页码
+    var nowPage = currentPage + p;
+    if (nowPage < 0) {
+      nowPage = pages.len() - 1;
+    }
+    if (nowPage > pages.len() - 1) {
+      // 如果超出，则第一页
+      nowPage = 0;
+    }
+    pages.each(function (idx, p) {
+      if (idx == nowPage) {
+        p.addClass("x-page__active");
+      } else {
+        p.removeClass("x-page__active");
+      }
+    });
+    // 设置当前页码
+    sc.attr("page", nowPage);
+  };
+  sc.parent()
+    .find(".x-page__left")
+    .click(function () {
+      changePage(-1);
+    });
+  sc.parent()
+    .find(".x-page__right")
+    .click(function () {
+      changePage(1);
+    });
+}
+
 // 绑定Toggle触发器
 function bindToggleTrigger(ele) {
   if (ele.eleList.length == 0) {
@@ -160,7 +207,7 @@ $js.event.add(window, "load", function () {
 
   lazyObserve();
   initSwiper();
-
+  initXPage();
   // 绑定手机页面,导航菜单
   bindToggleTrigger($b.$(".toggle"));
   // todo: 上面的实现可以考虑删除
