@@ -9,6 +9,7 @@
  */
 
 .row-ceo {
+  /** 创始人 */
   padding: 5rem 0;
   .row-ceo__main {
     padding-left: 3rem;
@@ -50,6 +51,109 @@
     }
     .row-ceo__news--item:first-child {
       border-top: 0;
+    }
+  }
+}
+
+.row-course {
+  /** 课程介绍 */
+  background: #f7fcfa;
+  padding: 2rem 0;
+
+  .course-list {
+    /** 
+       w1 | w2 | s3
+          |一一一一一
+       w1 | w4  w4
+    */
+    /** 定义为网格布局 */
+    display: grid;
+    /** 定义网格间距 */
+    grid-gap: 1rem 1rem;
+    /** 定义3列,每列宽度相同,auto-fill:表示列数根据容器宽度自动填充 */
+    grid-template-columns: repeat(3, 1fr);
+    /** 定义2行,每行高度相同 */
+    grid-template-rows: repeat(2, 1fr);
+    /** 定义网格自动排列方式,column表示从上到下排列 */
+    grid-auto-flow: row dense;
+
+    .w1 {
+      /** 从第1行开始占2行 */
+      grid-row: 1/3;
+    }
+    .w4 {
+      /** 从第2列开始占2列 */
+      grid-column: 2/4;
+    }
+    .w1 .img-fit::before {
+      /** 此处应gap为1rem，故为保持对齐 */
+      padding-top: calc(450px + 1rem);
+    }
+    .w2 .img-fit::before,
+    .w3 .img-fit::before,
+    .w4 .img-fit::before,
+    .w5 .img-fit::before {
+      padding-top: 225px;
+    }
+    .w4-1 {
+      width: 59%;
+      float: left;
+    }
+    .w4-2 {
+      width: 39%;
+      float: right;
+    }
+    .img-fit {
+      background: #f0f0f0;
+    }
+  }
+  .course-tile {
+    position: relative;
+    .course-tile__label {
+      background: #73c998cc;
+      padding: 0.5rem 1rem;
+      position: absolute;
+      bottom: 1rem;
+      left: 1.5rem;
+      color: #fff;
+      .text-3xl {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+
+.row-store-env {
+  /** 门店环境 */
+  padding: 2rem 0;
+
+  .store-env-tile {
+    .img-fit::before {
+      padding-top: 250px;
+    }
+  }
+  .store-env-tile.th2:nth-child(2) {
+    border-radius: 0 3rem 0 0;
+    overflow: hidden;
+  }
+  .store-env-tile-introduce {
+    padding-right: 1rem;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 0 0 0 3rem;
+  }
+  .store-introduce {
+    padding: 2rem;
+
+    .store-introduce__content {
+      font-size: var(--text-sm-size);
+    }
+    .store-introduce__link {
+      margin-top: 1rem;
+      background: #fff;
+      padding: 0.5rem 1rem;
+      display: inline-block;
+      border-radius: 0.5rem;
     }
   }
 }

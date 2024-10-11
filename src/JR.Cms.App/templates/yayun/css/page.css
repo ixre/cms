@@ -41,6 +41,21 @@ a:hover {
   --swiper-indicator-active-color: #fff;
 }
 
+.block {
+  /** 块级元素边框颜色 */
+  --block-border-color: #000;
+  /** 块级元素标题行高 */
+  --block-title-line-height: 3.5rem;
+  /** 块级元素标题文字颜色 */
+  --block-title-text-color: #000;
+  /** 块级元素标题文字大小 */
+  --block-title-text-size: var(--text-lg-size);
+  /** 块级元素标题副标题文字大小 */
+  --block-title-text-secondnary-size: var(--text-base-size);
+  /** 块级元素标题副标题文字颜色 */
+  --block-title-text-secondnary-color: #999;
+}
+
 .assistant {
   /** 工具栏背景色 */
   --assistant-background-color: #fff;
