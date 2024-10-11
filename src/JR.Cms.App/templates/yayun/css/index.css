@@ -208,3 +208,97 @@
     }
   }
 }
+
+.row-mentor {
+  /** 导师风采 */
+  padding: 2rem 0 4rem 0;
+  .row-mentor__item {
+    flex: 1;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    .img-fit {
+      width: 100%;
+    }
+    .row-mentor__item--name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #73c998cc;
+      color: #fff;
+      padding: 0.5rem 1rem;
+    }
+  }
+  .row-mentor__data {
+    gap: 2rem;
+  }
+  .row-mentor__intro {
+    .row-mentor__intro--content {
+      padding-right: 2rem;
+    }
+  }
+  .row-mentor__booking {
+    position: relative;
+    .button {
+      padding: 1rem 5rem;
+      font-weight: 600;
+    }
+    .bubble {
+      /** 气泡样式 */
+      --bubble-background-color: #f5f5f5;
+      --bubble-text-color: var(--primary-color);
+      position: absolute;
+      top: -19.5rem;
+      left: -1rem;
+      right: -1rem;
+      display: none;
+      .bubble__content {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        padding: 1rem;
+        gap: 1rem;
+      }
+    }
+    &:hover {
+      .bubble {
+        display: block;
+      }
+    }
+  }
+}
+
+.row-honor {
+  /** 资质荣誉 */
+  padding: 2rem 0 4rem 0;
+  .row-honor__gallery {
+    flex-wrap: wrap;
+    padding-left: 4rem;
+
+    .row-honor__gallery--img {
+      flex-basis: 30%;
+    }
+  }
+
+  .row-honor__count {
+    padding: 0 1rem 0 0;
+    margin-right: 1rem;
+    position: relative;
+    text-align: center;
+    font-weight: 500;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -1rem;
+      top: 0;
+      bottom: 0;
+      border-left: solid 1px #aaa;
+    }
+    &:first-child::before {
+      border-left: 0;
+    }
+  }
+}
