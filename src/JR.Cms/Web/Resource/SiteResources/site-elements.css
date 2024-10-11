@@ -344,6 +344,61 @@ body {
   }
 }
 
+.block {
+  /** 块级元素边框颜色 */
+  --block-border-color: #ccc;
+  /** 块级元素标题行高 */
+  --block-title-line-height: 3.5rem;
+  /** 块级元素标题文字颜色 */
+  --block-title-text-color: var(--primary-color);
+  /** 块级元素标题文字大小 */
+  --block-title-text-size: var(--text-lg-size);
+  /** 块级元素标题副标题文字大小 */
+  --block-title-text-secondnary-size: var(--text-base-size);
+  /** 块级元素标题副标题文字颜色 */
+  --block-title-text-secondnary-color: var(--secondnary-color);
+  & {
+    /** 块级元素
+        <div class="block__title">
+          <div class="block__title--inner">
+            <div class="block__title--secondnary">MENTOR STYLES</div>
+            <div class="block__title--text">导师风采</div>
+            <div class="block__title--spec">全程陪练指导，效果立竿见影</div>
+          </div>
+        </div>
+    */
+  }
+  .block__title {
+    /** 块级元素标题 */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    line-height: var(--block-title-line-height);
+    color: var(--block-title-text-color);
+    font-size: var(--block-title-text-size);
+    text-transform: uppercase;
+
+    .block__title--secondnary {
+      /** 块级元素标题副标题 */
+      display: flex;
+      flex-flow: column wrap;
+      font-weight: 600;
+      color: var(--block-title-text-secondnary-color);
+      font-size: var(--block-title-text-secondnary-size);
+      &::after {
+        content: "";
+        width: 50%;
+        margin: 0 auto;
+        border-bottom: solid 1px var(--block-border-color);
+      }
+    }
+    .block__title--text {
+      /** 块级元素标题文字 */
+      font-weight: 500;
+    }
+  }
+}
+
 .assistant {
   /** 工具栏背景色 */
   --assistant-background-color: #fff;
