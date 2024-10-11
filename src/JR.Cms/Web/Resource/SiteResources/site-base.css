@@ -638,11 +638,17 @@ page {
     transform: translate(-50%, -50%);
     right: 0;
     bottom: 0;
+    min-width: 100%;
   }
 
   &.img-fit-75 {
     &::before {
       padding-top: 75%;
+    }
+  }
+  &.img-fit-65 {
+    &::before {
+      padding-top: 65%;
     }
   }
   &.img-fit-50 {
