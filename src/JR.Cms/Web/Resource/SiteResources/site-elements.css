@@ -655,6 +655,36 @@ body {
   }
 }
 
+.button {
+  /** 默认按钮样式 */
+  background: #f0f0f0;
+  color: #000;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-weight: 500;
+  &.warning {
+    /** 警告按钮样式 */
+    background: #ff9e5e;
+    color: #fff;
+  }
+  &.success {
+    /** 成功按钮样式 */
+    background: #73c998;
+    color: #fff;
+  }
+  &.danger {
+    /** 危险按钮样式 */
+    background: #ff5e5e;
+    color: #fff;
+  }
+  &.primary {
+    /** 主色调按钮样式 */
+    background: var(--primary-color);
+    color: #fff;
+  }
+}
+
 /********* ======================= end   ==============================*/
 
 div.line {
