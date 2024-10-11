@@ -662,10 +662,10 @@ body {
   border-radius: var(--border-radius);
   padding: 0.5rem 1rem;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   &.warning {
     /** 警告按钮样式 */
-    background: #ff9e5e;
+    background-color: #ff8838;
     color: #fff;
   }
   &.success {
