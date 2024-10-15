@@ -169,8 +169,10 @@ namespace JR.Cms.Web.Portal.Common
                     dbFile = "rd_" + string.Empty.RandomLetters(5) + ".mdb";
                 else if (dbFile.IndexOf(".", StringComparison.Ordinal) == -1) dbFile += ".mdb";
 
-                if (!Directory.Exists(physical + dbDirName)) Directory.CreateDirectory(physical + dbDirName).Create();
-
+                if (!Directory.Exists(physical + dbDirName))
+                {
+                    Directory.CreateDirectory(physical + dbDirName).Create();
+                }
                 File.Copy(physical + FILE_DB_OLEDB, physical + dbDirName + "/" + dbFile, true);
                 dbStr = "Data Source=$ROOT/" + dbDirName + "/" + dbFile;
             }
@@ -181,14 +183,23 @@ namespace JR.Cms.Web.Portal.Common
                     string.IsNullOrEmpty(dbPrefix))
                     return InstallStateCode.DB_ERROR;
 
-                if (!Regex.IsMatch(dbPort, "^\\d+$")) return InstallStateCode.DB_ERROR_PORT;
+                if (!Regex.IsMatch(dbPort, "^\\d+$"))
+                {
+                    return InstallStateCode.DB_ERROR_PORT;
+                }
 
                 if (dbType == "mysql")
-                    dbStr = $"server={dbServer};database={dbName};uid={dbUsr};pwd={dbPwd};port={dbPort};charset=utf8";
+                {
+                    dbStr = $"server={dbServer};database={dbName};uid={dbUsr};pwd={dbPwd};port={dbPort};charset=utf8mb4";
+                }
                 else if (dbType == "mssql")
+                {
                     dbStr = $"server={dbServer},{dbPort};database={dbName};uid={dbUsr};pwd={dbPwd}";
+                }
                 else
+                {
                     return InstallStateCode.DB_UNKNOWN;
+                }
             }
 
             #endregion
