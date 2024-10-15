@@ -4,7 +4,7 @@
 //      2012-12-29  newmin  [+]:Link & SAList
 //      2013-03-05  newmin  [+]: 标签缩写
 //      2013-03-06  newmin  [+]: 评论模块
-//      2013-03-07  newmin  [+]: 添加数据标签参数符 "[ ]",主要用于outline[200]
+//      2013-03-07  newmin  [+]: 添加数据标签参数符 "[ ]",主要用于summary[200]
 //      2013-03-11  newmin  [+]: 添加authorname列，用于显示作者名称
 //  2013-04-25  22:28 newmin [+]:PagerArchiveList添加
 //  2013-06-07  22:15 newmin [+]:MCategoryTree,MCategoryList
@@ -354,6 +354,27 @@ namespace JR.Cms.Web.Portal.Template.Rule
             return Special_Archives(tag, num, intSkipSize, intSplitSize, IsTrue(container), format);
         }
 
+        /// <summary>
+        /// 特殊文档(包含子栏目)
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <param name="num"></param>
+        /// <param name="skipSize"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("获取标记为【推荐】的文档列表,默认包含子栏目", @"
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：栏目编号<br />
+        	2：数目<br />
+            3：跳过的数目<br />
+			6：HTML格式
+		")]
+        public string Special_Archives(string tag, string num, string skipSize, string format)
+        {
+            return this.Special_Archives(tag, num, skipSize, "5", "false", format);
+        }
         /// <summary>
         /// 特殊文档(包含子栏目)
         /// </summary>

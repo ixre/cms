@@ -1318,7 +1318,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// 格式化文档占位符
         /// 
         /// 时间：time_fmt[YYYY-MM]
-        /// 大纲：outline[300]
+        /// 大纲：summary[300]
         /// 语言: lang[contact]
         /// </summary>
         /// <param name="sb"></param>
@@ -1354,7 +1354,9 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         //
                         //case "author_name": return ArchiveUtility.GetAuthorName(dr["author"].ToString());
                         case "source": return archiveDto.Source == "" ? "原创" : archiveDto.Source;
+
                         case "outline":
+                        case "summary":
                             return ArchiveUtility.GetOutline(
                                 string.IsNullOrEmpty(archiveDto.Outline) ? archiveDto.Content : archiveDto.Outline,
                                 GetSetting().CfgOutlineLength);
@@ -1435,7 +1437,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                 if (p != null) return string.Format("{0:" + p + "}", archiveDto.CreateTime);
 
                                 //读取自定义长度大纲
-                                p = GetArchiveHolderTagParam(field, "outline[");
+                                p = GetArchiveHolderTagParam(field, "summary[");
                                 if (p != null)
                                     return ArchiveUtility.GetOutline(
                                         string.IsNullOrEmpty(archiveDto.Outline)
@@ -1601,6 +1603,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                     dr["content"].ToString(),
                                     GetSetting().CfgOutlineLength);
                             case "outline":
+                            case "summary":
                                 return ArchiveUtility.GetOutline(
                                     string.IsNullOrEmpty((dr["outline"] ?? "").ToString())
                                         ? dr["content"].ToString()
@@ -1666,10 +1669,10 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                     if (p != null) return string.Format("{0:" + p + "}", createTime);
 
                                     //读取自定义长度大纲
-                                    p = GetArchiveHolderTagParam(field, "outline[");
+                                    p = GetArchiveHolderTagParam(field, "summary[");
                                     if (p != null)
                                         return ArchiveUtility.GetOutline(
-                                            string.IsNullOrEmpty(dr["outline"].ToString())
+                                            string.IsNullOrEmpty(dr["summary"].ToString())
                                                 ? dr["content"].ToString()
                                                 : dr["outline"].ToString(), int.Parse(p));
                                     // 返回语言项
@@ -1945,7 +1948,8 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "author_id": return archive.PublisherId.ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
-                            case "outline": return content;
+                            case "outline":
+                            case "summary": return content;
                             case "tags": return archive.Tags;
                             case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archive.StrId).ToString();
                             case "count": return archive.ViewCount.ToString();
@@ -1990,7 +1994,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                     if (p != null) return string.Format("{0:" + p + "}", archive.CreateTime);
 
                                     //读取自定义长度大纲
-                                    p = GetArchiveHolderTagParam(field, "outline[");
+                                    p = GetArchiveHolderTagParam(field, "summary[");
                                     if (p != null)
                                         return ArchiveUtility.GetOutline(
                                             string.IsNullOrEmpty(archive.Outline) ? archive.Content : archive.Outline,
@@ -2299,7 +2303,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                             case "author_id": return archive.PublisherId.ToString();
                             case "author_name": return ArchiveUtility.GetPublisherName(archive.PublisherId);
                             case "source": return archive.Source;
-                            case "outline": return content;
+                            case "outline": case "summary": return content;
                             case "tags": return archive.Tags;
                             case "replay": return CmsLogic.Comment.GetArchiveCommentsCount(archive.StrId).ToString();
                             case "count": return archive.ViewCount.ToString();
