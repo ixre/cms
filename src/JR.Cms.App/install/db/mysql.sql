@@ -52,6 +52,9 @@ CREATE TABLE `cms_archive` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+-- 设置内容可以包括emoji表情
+ALTER TABLE cms_archive MODIFY COLUMN `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 --
 -- Dumping data for table `cms_archive`
 --
