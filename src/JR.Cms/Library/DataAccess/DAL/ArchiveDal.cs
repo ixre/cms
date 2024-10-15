@@ -556,7 +556,7 @@ namespace JR.Cms.Library.DataAccess.DAL
             // SQL Condition Template
             const string conditionTpl = "$[siteid]$[module]$[category]$[author_id]$[flag]$[keyword]";
             // SQL where condition
-            string order = string.IsNullOrEmpty(orderByField) ? "a.sort_number" : orderByField,
+            string order = string.IsNullOrEmpty(orderByField) ? "a.sort_number DESC,a.create_time" : orderByField,
                 orderType = orderAsc ? "ASC" : "DESC"; //ASC or DESC
 
 

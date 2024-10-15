@@ -464,9 +464,7 @@ namespace JR.Cms.Web.Manager.Handle
                 pageIndex,
                 recordCount,
                 pages;
-
-            int? categoryId = null,
-                moduleId = null;
+            int? categoryId = null;
 
             int.TryParse(Request.Form("page_size"), out var pageSize);
             if (pageSize == 0) pageSize = 10;
