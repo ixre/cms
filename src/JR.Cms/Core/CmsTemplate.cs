@@ -182,7 +182,7 @@ namespace JR.Cms.Core
         public TemplatePageType GetPageType(string templatePath)
         {
             var opt = RegexOptions.IgnoreCase;
-            if (Regex.IsMatch(templatePath, "(^category|/category)\\.[^\\.]*\\.*html$", opt))
+            if (Regex.IsMatch(templatePath, "(^category|/category)[^\\.]*\\.html*$", opt))
             {
                 return TemplatePageType.Category;
             }
@@ -190,19 +190,19 @@ namespace JR.Cms.Core
             {
                 return TemplatePageType.Partial;
             }
-            if (Regex.IsMatch(templatePath, "(^archive|/archive)\\.[^\\.]*\\.*html$", opt))
+            if (Regex.IsMatch(templatePath, "(^archive|/archive)[^\\.]*\\.*html*$", opt))
             {
                 return TemplatePageType.Archive;
             }
-            if (Regex.IsMatch(templatePath, "(^index|/index)\\.[^\\.]*\\.*html$", opt))
+            if (Regex.IsMatch(templatePath, "(^index|/index)[^\\.]*\\.*html*$", opt))
             {
                 return TemplatePageType.Index;
             }
-            if (Regex.IsMatch(templatePath, "(^search|/search)\\.[^\\.]*\\.*html$", opt))
+            if (Regex.IsMatch(templatePath, "(^search|/search)[^\\.]*\\.*html*$", opt))
             {
                 return TemplatePageType.Search;
             }
-            if (Regex.IsMatch(templatePath, "(^tag|/tag)\\.[^\\.]*\\.*html$", opt))
+            if (Regex.IsMatch(templatePath, "(^tag|/tag)[^\\.]*\\.*html*$", opt))
             {
                 return TemplatePageType.Tag;
             }
