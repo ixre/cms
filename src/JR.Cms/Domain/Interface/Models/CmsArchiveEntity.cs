@@ -187,6 +187,7 @@ namespace JR.Cms.Domain.Interface.Models
             {"Source",this.Source},
             {"Tags",this.Tags},
             {"Outline",this.Outline},
+            {"Summary",this.Outline},
             {"Content",this.Content},
             {"ViewCount",this.ViewCount},
             {"Agree",this.Agree},
