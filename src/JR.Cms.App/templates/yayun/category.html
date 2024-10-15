@@ -19,58 +19,108 @@
     ${include:"include/topbar.html"} ${include:"include/header.html"}
     ${include:"include/sitemap.html"}
 
-    <div class="mod-layout mod-cat-${category.tag}">
-      <div class="container page-category clearfix">
-        <div class="l mod-nav-side">
-          <div class="mod-nav-border">
-            <div class="tit">$lang(category)$lang(space)$lang(navigator)</div>
-            <div class="content">
-              <ul class="mod-cat-list clist">
-                $categories('root','
-                <li><a href="{url}">▪&nbsp;{name}</a></li>
-                ')
-              </ul>
+      <!-- 门店活动  -->
+      <div class="row flex-col activity block block-page bg-white">
+        <div class="padding-x-4"></div>
+        <div class="container">
+        <div class="activity__title margin-bx-8">
+          <div class="block__title margin-bx-4">
+            <div class="block__title--inner">
+              <div class="block__title--secondnary">Store Activity</div>
+              <div class="block__title--text">门店活动</div>
             </div>
-            <br />
           </div>
         </div>
 
-        <div class="m">
-          <div class="m-trip"></div>
-
-          <div class="mod-archive-list">
-            <ul>
-              $paging_archives(15,0,'
-              <li class="{class}">
-                {img}
-                <h3><a href="{url}" target="_blank">{title}</a></h3>
-                <div class="meta">
-                  发布日期：{create_date} &nbsp;&nbsp;&nbsp;点击：{count}
+        <div class="activity__list flex flex-wrap">
+          <div class="col-md-8 col-xs-12">
+            $special_archives(activity,1,'
+            <div class="activity__item {class} flex gap-x-8">
+              <div class="img-fit img-fit-75 flex1 activity__item--img">
+                <img src="{thumbnail}" alt="{title}" />
+              </div>
+              <div class="flex1">
+                <div class="activity__item--title font-bold text-xl margin-bx-4">
+                  <a href="{url}" target="_blank"><span class="text-primary">{title}</span></a>
                 </div>
-                <p class="desc">{outline}</p>
-              </li>
-              ')
-            </ul>
+                <div class="activity__item--info padding-bx-8">{outline}</div>
+                <div class="activity__item--time">{publish_short_date}</div>
+              </div>
+            </div>
+            ')
           </div>
-
-          <div class="clearfix">$pager()</div>
+          <div class="flex1 col-md-4 col-xs-12 flex-col gap-x-4">
+            $special_archives(activity,3,1,'
+            <div class="activity__item {class} flex gap-x-2">
+              <div class="img-fit img-fit-75 activity__item--img flex1">
+                <img src="{thumbnail}" alt="{title}" />
+              </div>
+              <div class="flex2 padding-x-2">
+                <div class="activity__item--title text-sm font-medium padding-bx-2">
+                  <a href="{url}" target="_blank">{title}</a>
+                </div>
+                <div class="activity__item--time text-sm text-gray">{publish_short_date}</div>
+              </div>
+            </div>
+            ')
+          </div>
         </div>
       </div>
+      </div>
+
+      <!-- 行业动态 -->
+      <div class="row flex-col block block-page bg-white">
+        <div class="padding-x-8"></div>
+        <div class="container">
+        <div>
+          <div class="block__title margin-bx-4">
+            <div class="block__title--inner">
+              <div class="block__title--secondnary">Industry News</div>
+              <div class="block__title--text">行业资讯</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-banner padding-x-10 padding-reset-row">
+          <div class="img-fit img-fit-25">
+            <img src="${page.tpath}/images/info-banner.png" alt="行业资讯" />
+          </div>
+        </div>
+
+
+        <div class="article-list flex flex-col gap-x-4">
+          $special_archives(activity,3,1,'
+          <div class="article-list__item {class} flex margin-x-8 margin-reset-row">
+            <div class="article-list__info flex flex-col flex2">
+              <div
+                class="article-list__item--time flex align-baseline gap-x-1 font-bold text-gray margin-bx-4"
+              >
+                <div class="text-2xl">{publish_day}</div>
+                <div class="text-2xl">/</div>
+                <div class="text-md">{publish_month}</div>
+              </div>
+              <div
+                class="article-list__item--title font-medium text-xl margin-bx-4"
+              >
+                <a href="{url}" target="_blank">{title}</a>
+              </div>
+              <div class="article-list__item--summary text-gray font-medium">{summary}</div>
+            </div>
+            <div class="article-list__thumb flex1">
+              <div class="img-fit img-fit-75 activity__item--img">
+                <img src="{thumbnail}" alt="{title}" />
+              </div>
+            </div>
+          </div>
+          ')
+        </div>
+      </div>
+
+      <div class="article-paging">$pager()</div>
+      <div class="padding-x-4"></div>
+    </div>
     </div>
 
     ${include:"include/footer.html"} ${include "include/assistant.html"}
-
-    <script type="text/javascript">
-      function showTab(idx) {
-        var tabs = document.getElementById("tabs").getElementsByTagName("a");
-        var ps = document
-          .getElementById("archivelistbar")
-          .getElementsByTagName("p");
-        for (var i = 0; i < tabs.length; i++) {
-          tabs[i].parentNode.className = i == idx ? "sel" : "";
-          ps[i].style.display = i == idx ? "block" : "none";
-        }
-      }
-    </script>
   </body>
 </html>

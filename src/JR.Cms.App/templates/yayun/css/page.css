@@ -121,3 +121,21 @@ a:hover {
 }
 /** ===================================== 新样式结束 ===================================== */
 /* 全局元素样式 */
+
+.article-list {
+  .article-list__item {
+    .article-list__info {
+      padding-right: 2rem;
+      border-bottom: solid 1px #eee;
+    }
+    .article-list__thumb {
+      padding-left: 2rem;
+      max-width: 300px;
+    }
+    .article-list__item--time {
+      .text-lg {
+        font-size: var(--text-base-size);
+      }
+    }
+  }
+}
