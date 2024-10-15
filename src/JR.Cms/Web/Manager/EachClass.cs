@@ -24,7 +24,7 @@ namespace JR.Cms.Web.Manager
             public string name;
         }
 
-        private static string[] allowListedExt = new string[] {".html", ".phtml", ".css", ".js"};
+        private static string[] allowListedExt = new string[] { ".html", ".phtml", ".css", ".js" };
 
         /// <summary>
         /// 查找文件夹
@@ -186,6 +186,7 @@ namespace JR.Cms.Web.Manager
             var rootDirLength = rootDir.FullName.Length;
 
             foreach (var file in dir.GetFiles())
+            {
                 if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
                     && CheckExtension(file, ".html")
                     && file.FullName.Replace("\\", "/").IndexOf("/mobi/", StringComparison.Ordinal) == -1 //手机模版页面排除
@@ -202,8 +203,11 @@ namespace JR.Cms.Web.Manager
                     else
                         sb.Append(path).Append("\">/").Append(path).Append("</option>");
                 }
-
-            foreach (var _dir in dir.GetDirectories()) EachTemplatePage(rootDir, _dir, sb, names, pageType);
+            }
+            foreach (var _dir in dir.GetDirectories())
+            {
+                EachTemplatePage(rootDir, _dir, sb, names, pageType);
+            }
         }
 
         private static bool CheckExtension(FileInfo file, string extensions)
@@ -221,7 +225,7 @@ namespace JR.Cms.Web.Manager
                 {
                     var path = file.FullName.Substring(subLen).Replace("\\", "/");
                     nameDictionary.TryGetValue(path, out var value);
-                    list.Add(new TemplateNames {path = path, name = value ?? ""});
+                    list.Add(new TemplateNames { path = path, name = value ?? "" });
                 }
 
             foreach (var _dir in dir.GetDirectories()) IterTemplateFiles2(_dir, subLen, list, nameDictionary);
