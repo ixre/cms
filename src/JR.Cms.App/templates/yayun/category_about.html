@@ -12,6 +12,16 @@
       href="${page.tpath}/css/page.css?v=${page.built}"
       type="text/css"
     />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/style.css?v=${page.built}"
+      type="text/css"
+    />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/index.css?v=${page.built}"
+      type="text/css"
+    />
     <meta name="keywords" content="${page.keywords}" />
     <meta name="description" content="${page.description}" />
   </head>
@@ -36,51 +46,166 @@
                 让她重新去定义瑜伽馆，超出她想象，我们和普通的瑜伽馆不同，可能别人
               </p>
               <p>
-                能帮你拉拉练，拍拍照很好看，但来到我们这里，不管是心理还是生理，或是身体，
-                我们都会给很全面地解决您的问题，并给你一个舒心的体验。
+                雅孕瑜伽疗愈体系完整、拥有中国瑜伽师联盟孕产瑜伽认证导师、孕产高级认证导师、印度惜河瑜伽学院高级瑜伽认证导师、徒手面部精雕认证
               </p>
             </div>
             <div class="text-gray">
               欢迎您到店体验，我们提供专业的瑜伽课程，帮助产后妈妈恢复身材，提升气质。
             </div>
           </div>
-
-          <div class="info-banner padding-x-10 padding-reset-row">
-            <div class="img-fit img-fit-25">
-              <img src="${page.tpath}/images/info-banner.png" alt="行业资讯" />
-            </div>
-          </div>
         </div>
       </div>
 
-      <!-- 门店环境 -->
+      <div class="section">
+        <div class="container">
+          $special_archives(mentor,1,'
+          <div class="mentors__item flex mentors">
+            <div class="mentors__image img-fit1 img-fit-65 col-md-4">
+              <img src="{thumbnail}" alt="{title}" />
+            </div>
+            <div class="mentors__info col-md-8">
+              <div class="padding-bx-4"></div>
+              <div class="flex justify-between padding-bx-4">
+                <div class="font-bold padding-bx-4">
+                  <h2 class="mentors__info--title padding-bx-2">{title}</h2>
+                  <div class="mentors__info--desc">品牌创始人</div>
+                </div>
+              </div>
+              <div class="mentors__summary text-md padding-bx-4">
+                {extra_html[ul]}
+              </div>
+              <div class="line"></div>
+              <div class="mentors__news row-ceo">
+                <div class="row-ceo__news">
+                  <div class="row-ceo__news--item flex">
+                    <div class="row-ceo__news--rect"></div>
+                    <div class="row-ceo__news--time">10-09</div>
+                    <div class="row-ceo__news--title flex1">
+                      <a href=""
+                        >媒体报道林丽雅女士参加南庄女性职业培训大奖赛</a
+                      >
+                    </div>
+                    <div class="row-ceo__news--more text-sm font-bold">
+                      <a href="">
+                        <span class="text-secondnary">查看详细</span></a
+                      >
+                      <i class="icon icon-chevronright"></i>
+                    </div>
+                  </div>
+                  <div class="row-ceo__news--item flex align-center">
+                    <div class="row-ceo__news--rect"></div>
+                    <div class="row-ceo__news--time">10.09</div>
+                    <div class="row-ceo__news--title flex1">
+                      媒体报道林丽雅女士参加南庄女性职业培训大奖赛
+                    </div>
+                    <div class="row-ceo__news--more text-sm font-bold">
+                      <a href="">
+                        <span class="text-secondnary">查看详细</span></a
+                      >
+                      <i class="icon icon-chevronright"></i>
+                    </div>
+                  </div>
+                  <div class="row-ceo__news--item flex align-center">
+                    <div class="row-ceo__news--rect"></div>
+                    <div class="row-ceo__news--time">10.09</div>
+                    <div class="row-ceo__news--title flex1">
+                      媒体报道林丽雅女士参加南庄女性职业培训大奖赛
+                    </div>
+                    <div class="row-ceo__news--more text-sm font-bold">
+                      <a href="">
+                        <span class="text-secondnary">查看详细</span></a
+                      >
+                      <i class="icon icon-chevronright"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          ')
+        </div>
+      </div>
+      <!-- 发展里程 -->
       <div class="section bg-white">
         <div class="container">
           <div class="section__title center section-title1 margin-bx-4">
             <div class="section__title--inner">
-              <div class="section__title--text">Store Environment</div>
+              <div class="section__title--text">Development mileage</div>
               <div class="section__title--secondnary section__title--line">
-                门店环境
+                发展历程
               </div>
             </div>
           </div>
           <div class="section__content padding-x-4 padding-reset-row">
-            <img
-              src="${page.tpath}/images/store-envirment.png"
-              alt="${site.name}门店环境"
-            />
+            <div class="timeline">
+              <div class="timeline__header text-center">
+                <img src="${page.tpath}/images/logo.png" alt="发展历程" />
+              </div>
+              <div class="timeline__list">
+                <div class="timeline__item">
+                  <div class="timeline__item--content">
+                    <p>雅孕产康瑜伽品牌创立</p>
+                  </div>
+                  <div class="timeline__item--line"><i></i></div>
+                  <div class="timeline__item--time">
+                    <div class="text-2xl">2018年</div>
+                  </div>
+                </div>
+                <div class="timeline__item">
+                  <div class="timeline__item--content">
+                    <p>吉利店开业</p>
+                  </div>
+                  <div class="timeline__item--line"><i></i></div>
+                  <div class="timeline__item--time">
+                    <div class="text-2xl">2018年</div>
+                  </div>
+                </div>
+
+                <div class="timeline__item">
+                  <div class="timeline__item--content">
+                    <p>开展中医产康瑜伽课程，效果显著，无副作用</p>
+                  </div>
+                  <div class="timeline__item--line"><i></i></div>
+                  <div class="timeline__item--time">
+                    <div class="text-2xl">2018年</div>
+                  </div>
+                </div>
+                <div class="timeline__item">
+                  <div class="timeline__item--content">
+                    <p>南庄店开业</p>
+                  </div>
+                  <div class="timeline__item--line"><i></i></div>
+                  <div class="timeline__item--time">
+                    <div class="text-2xl">2018年</div>
+                  </div>
+                </div>
+
+                <div class="timeline__item">
+                  <div class="timeline__item--content">
+                    <p>创始人开始瑜伽教学</p>
+                  </div>
+                  <div class="timeline__item--line"><i></i></div>
+                  <div class="timeline__item--time">
+                    <div class="text-2xl">2018年</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- 门店列表 -->
       <div class="section bg-white block">
+        <div class="padding-x-8"></div>
         <div class="container">
           <div class="section__title section-title1 center margin-bx-4">
             <div class="section__title--inner">
-              <div class="section__title--text">Store List</div>
+              <div class="section__title--text">
+                We are here waiting for your arrival
+              </div>
               <div class="section__title--secondnary section__title--line">
-                门店列表
+                我们在这里等待您的到来
               </div>
             </div>
           </div>

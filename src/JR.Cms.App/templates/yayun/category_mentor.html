@@ -31,7 +31,7 @@
       ${include:"include/sitemap.html"}
 
       <!-- 课程列表-->
-      <div class="course-list section bg-white block">
+      <div class="course-list section bg-white block mentors">
         <div class="container">
           <div class="section__title center margin-bx-4">
             <div class="section__title--inner">
@@ -44,25 +44,30 @@
               </div>
             </div>
           </div>
-          <div class="line padding-bx-8"></div>
+          <div class="padding-x-8"></div>
           <div class="mentors__list flex flex-col gap-x-8">
             $archives(mentor,10,'
-            <div class="mentors__item flex gap-x-8">
+            <div class="mentors__item flex">
               <div class="mentors__image img-fit1 img-fit-65 col-md-4">
                 <img src="{thumbnail}" alt="{title}" />
               </div>
               <div class="mentors__info col-md-8">
-                <div class="flex justify-between">
+                <div class="padding-bx-4"></div>
+                <div class="flex justify-between padding-bx-4">
                   <div class="font-bold padding-bx-4">
-                    <h2 class="mentors__info--title">{title}</h2>
-                    <div class="mentors__info--desc">中医康复理疗瑜伽老师</div>
+                    <h2 class="mentors__info--title text-primary padding-bx-2">
+                      {title}
+                    </h2>
+                    <div class="mentors__info--desc text-secondnary">
+                      中医康复理疗瑜伽老师
+                    </div>
                   </div>
                   <div class="mentors__booking">
                     ${include "include/wechat_booking.html"}
                   </div>
                 </div>
-                <div class="mentors__summary text-gray padding-bx-8">
-                  {summary}
+                <div class="mentors__summary text-gray text-sm padding-bx-8">
+                  {extra_html[ul]}
                 </div>
                 <div class="mentors__fields flex">
                   <div class="mentors__field">
