@@ -1320,6 +1320,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
         /// 时间：time_fmt[YYYY-MM]
         /// 大纲：summary[300]
         /// 语言: lang[contact]
+        /// 抓取标签: extra_html[ul]
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="archiveDto"></param>
@@ -1432,31 +1433,18 @@ namespace JR.Cms.Web.Portal.Template.Rule
                         default:
                             if (field.IndexOf("[", StringComparison.Ordinal) != -1)
                             {
-                                // 格式化时间
-                                var p = GetArchiveHolderTagParam(field, "time_fmt[");
-                                if (p != null) return string.Format("{0:" + p + "}", archiveDto.CreateTime);
-
-                                //读取自定义长度大纲
-                                p = GetArchiveHolderTagParam(field, "summary[");
-                                if (p != null)
-                                    return ArchiveUtility.GetOutline(
-                                        string.IsNullOrEmpty(archiveDto.Outline)
-                                            ? archiveDto.Content
-                                            : archiveDto.Outline, int.Parse(p));
-
-                                // 返回语言项
-                                p = GetArchiveHolderTagParam(field, "lang[");
-                                if (p != null) return Cms.Language.Get(_ctx.UserLanguage, p) ?? "{" + p + "}";
+                                String ret = TemplateResolveUtils.GetArchiveExtraTagValue(_ctx, archiveDto, field);
+                                if (ret != null) return ret;
                             }
-
                             //读取自定义属性
                             if (extendFields == null)
                             {
                                 extendFields = new Dictionary<string, string>();
                                 foreach (var value in archiveDto.ExtendValues)
+                                {
                                     extendFields.Add(value.Field.Name, value.Value);
+                                }
                             }
-
                             // 查找自定义属性
                             if (extendFields.ContainsKey(field)) return extendFields[field];
                             return string.Empty;
@@ -1464,22 +1452,7 @@ namespace JR.Cms.Web.Portal.Template.Rule
                 }));
         }
 
-        /// <summary>
-        /// 获取文档占位标签参数
-        /// </summary>
-        /// <param name="field"></param>
-        /// <param name="v"></param>
-        /// <returns></returns>
-        private string GetArchiveHolderTagParam(string field, string prefix)
-        {
-            if (field.StartsWith(prefix))
-            {
-                var len = prefix.Length;
-                return field.Substring(len, field.Length - len - 1);
-            }
 
-            return null;
-        }
 
         /// <summary>
         /// 获取缩略图
@@ -1662,22 +1635,15 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                 return archiveIndex.ToString();
 
                             default:
-                                if (field.IndexOf("[") != -1)
+                                if (field.IndexOf("[", StringComparison.Ordinal) != -1)
                                 {
-                                    // 格式化时间
-                                    var p = GetArchiveHolderTagParam(field, "time_fmt[");
-                                    if (p != null) return string.Format("{0:" + p + "}", createTime);
-
-                                    //读取自定义长度大纲
-                                    p = GetArchiveHolderTagParam(field, "summary[");
-                                    if (p != null)
-                                        return ArchiveUtility.GetOutline(
-                                            string.IsNullOrEmpty(dr["summary"].ToString())
-                                                ? dr["content"].ToString()
-                                                : dr["outline"].ToString(), int.Parse(p));
-                                    // 返回语言项
-                                    p = GetArchiveHolderTagParam(field, "lang[");
-                                    if (p != null) return Cms.Language.Get(_ctx.UserLanguage, p) ?? "{" + p + "}";
+                                    String ret = TemplateResolveUtils.GetArchiveExtraTagValue(_ctx, new ArchiveDto
+                                    {
+                                        CreateTime = createTime,
+                                        Outline = dr["outline"].ToString(),
+                                        Content = dr["content"].ToString(),
+                                    }, field);
+                                    if (ret != null) return ret;
                                 }
 
                                 if (extendValues.ContainsKey(archiveId) && extendValues[archiveId].ContainsKey(field))
@@ -1987,23 +1953,12 @@ namespace JR.Cms.Web.Portal.Template.Rule
                                 return GetCssClass(total, i, "a", archive.Thumbnail);
 
                             default:
-                                if (field.IndexOf("[") != -1)
+                                if (field.IndexOf("[", StringComparison.Ordinal) != -1)
                                 {
-                                    // 格式化时间
-                                    var p = GetArchiveHolderTagParam(field, "time_fmt[");
-                                    if (p != null) return string.Format("{0:" + p + "}", archive.CreateTime);
-
-                                    //读取自定义长度大纲
-                                    p = GetArchiveHolderTagParam(field, "summary[");
-                                    if (p != null)
-                                        return ArchiveUtility.GetOutline(
-                                            string.IsNullOrEmpty(archive.Outline) ? archive.Content : archive.Outline,
-                                            int.Parse(p));
-
-                                    // 返回语言项
-                                    p = GetArchiveHolderTagParam(field, "lang[");
-                                    if (p != null) return Cms.Language.Get(_ctx.UserLanguage, p) ?? "{" + p + "}";
+                                    String ret = TemplateResolveUtils.GetArchiveExtraTagValue(_ctx, archive, field);
+                                    if (ret != null) return ret;
                                 }
+
 
                                 //读取自定义属性
                                 if (extendFields == null)

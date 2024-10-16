@@ -327,12 +327,14 @@ page {
 /** 圆角 */
 .radius-x-1 {
   border-radius: 0.25rem;
+  overflow: hidden;
 }
 .radius-x-2 {
   border-radius: 0.5rem;
 }
 .radius-x-3 {
   border-radius: 0.75rem;
+  overflow: hidden;
 }
 .radius-x-4 {
   border-radius: 1rem;
@@ -602,12 +604,6 @@ page {
 .gap-x-8 {
   row-gap: 2rem;
   column-gap: 2rem;
-}
-
-.section {
-  /** 段落 */
-  padding-top: 3rem;
-  padding-bottom: 3rem;
 }
 
 /** 背景覆盖 */
