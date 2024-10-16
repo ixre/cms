@@ -344,67 +344,75 @@ body {
   }
 }
 
-.block {
+.section {
   /** 块级元素边框颜色 */
-  --block-border-color: #ccc;
+  --section-border-color: #ccc;
+  /** 块级元素内边距 */
+  --section-padding-top: 3rem;
+  /** 块级元素内边距 */
+  --section-padding-bottom: 3rem;
   /** 块级元素标题行高 */
-  --block-title-line-height: 3.5rem;
+  --section-title-line-height: 3.5rem;
   /** 块级元素标题主标题文字大小 */
-  --block-title-text-primary-size: var(--text-lg-size);
+  --section-title-text-primary-size: var(--text-lg-size);
   /** 块级元素标题主标题文字颜色 */
-  --block-title-text-primary-color: var(--primary-color);
+  --section-title-text-primary-color: var(--primary-color);
   /** 块级元素标题副标题文字大小 */
-  --block-title-text-secondnary-size: var(--text-base-size);
+  --section-title-text-secondnary-size: var(--text-base-size);
   /** 块级元素标题副标题文字颜色 */
-  --block-title-text-secondnary-color: var(--secondnary-color);
+  --section-title-text-secondnary-color: var(--secondnary-color);
   & {
     /** 块级元素
-        <div class="block__title center">
-          <div class="block__title--inner">
-            <div class="block__title--secondnary">MENTOR STYLES</div>
-            <div class="block__title--text">导师风采</div>
-            <div class="block__title--line"></div>
-            <div class="block__title--spec">全程陪练指导，效果立竿见影</div>
+      <div class="section">
+        <div class="section__title center">
+          <div class="section__title--inner">
+            <div class="section__title--secondnary">MENTOR STYLES</div>
+            <div class="section__title--text">导师风采</div>
+            <div class="section__title--line"></div>
+            <div class="section__title--spec">全程陪练指导，效果立竿见影</div>
           </div>
         </div>
+      </div>
     */
+    padding-top: var(--section-padding-top, 3rem);
+    padding-bottom: var(--section-padding-bottom, 3rem);
   }
-  .block__title {
+  .section__title {
     /** 块级元素标题 */
     display: flex;
     justify-content: flex-start;
-    line-height: var(--block-title-line-height);
-    color: var(--block-title-text-color);
-    font-size: var(--block-title-text-size);
+    line-height: var(--section-title-line-height);
+    color: var(--section-title-text-color);
+    font-size: var(--section-title-text-size);
 
     &.center {
       justify-content: center;
       text-align: center;
-      .block__title--line::after {
+      .section__title--line::after {
         margin: 0 auto;
       }
     }
-    .block__title--line {
+    .section__title--line {
       display: flex;
       flex-flow: column wrap;
       &::after {
         content: "";
         width: 25%;
         margin: inherit;
-        border-bottom: solid 1px var(--block-border-color);
+        border-bottom: solid 1px var(--section-border-color);
       }
     }
-    .block__title--secondnary {
+    .section__title--secondnary {
       /** 块级元素标题副标题 */
       font-weight: 500;
-      color: var(--block-title-text-secondnary-color);
-      font-size: var(--block-title-text-secondnary-size);
+      color: var(--section-title-text-secondnary-color);
+      font-size: var(--section-title-text-secondnary-size);
     }
-    .block__title--text {
+    .section__title--text {
       /** 块级元素标题文字 */
       font-weight: 600;
-      color: var(--block-title-text-primary-color);
-      font-size: var(--block-title-text-primary-size);
+      color: var(--section-title-text-primary-color);
+      font-size: var(--section-title-text-primary-size);
     }
   }
 }
@@ -436,6 +444,7 @@ body {
     background: var(--assistant-background-color, #fff);
     transform: translate(0, calc(0px - var(--assistant-position-top, 50%)));
     border-radius: var(--assistant-border-radius, 0.3125rem);
+    z-index: 10;
   }
   & .assistant__item {
     /** 工具栏项 */
