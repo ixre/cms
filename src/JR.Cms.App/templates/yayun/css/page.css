@@ -139,3 +139,48 @@ a:hover {
     }
   }
 }
+
+.booking {
+  /** 预约 */
+  position: relative;
+  .button {
+    padding: 1rem 5rem;
+    font-weight: 600;
+  }
+  .bubble {
+    /** 气泡样式 */
+    --bubble-background-color: #f5f5f5;
+    --bubble-text-color: var(--primary-color);
+    position: absolute;
+    top: -19.5rem;
+    left: -1rem;
+    right: -1rem;
+    display: none;
+    .bubble__content {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      padding: 1rem;
+      gap: 1rem;
+    }
+  }
+  &:hover {
+    .bubble {
+      display: block;
+    }
+  }
+}
+
+.block-title1 {
+  /** 块级元素样式1 */
+  --block-border-color: #ccc;
+  .block__title--secondnary,
+  .block__title--text {
+    color: #666 !important;
+    font-weight: bold;
+  }
+  .block__title--text {
+    font-size: var(--text-2xl-size) !important;
+    line-height: 1rem;
+  }
+}
