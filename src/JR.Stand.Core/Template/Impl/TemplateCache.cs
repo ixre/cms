@@ -13,12 +13,17 @@ namespace JR.Stand.Core.Template.Impl
     /// <summary>
     /// 模板缓存
     /// </summary>
-     static class TemplateCache
+    static class TemplateCache
     {
         /// <summary>
         /// 模板编号列表
         /// </summary>
-        internal static  IDictionary<string, Template> TemplateDictionary = new Dictionary<string, Template>();
+        internal static IDictionary<string, Template> TemplateDictionary = new Dictionary<string, Template>();
+
+        /// <summary>
+        /// 模板注册器
+        /// </summary>
+        internal static TemplateRegistry TemplateRegistry;
 
         /// <summary>
         /// 标签词典
@@ -100,6 +105,7 @@ namespace JR.Stand.Core.Template.Impl
             return null;
         }
 
+
         /// <summary>
         /// 如果模板字典包含改模板则获取缓存
         /// </summary>
@@ -111,7 +117,22 @@ namespace JR.Stand.Core.Template.Impl
             {
                 return TemplateDictionary[templateId].GetContent();
             }
-            throw new TemplateException(templateId+".html", "模板不存在");
+            if (TemplateRegistry != null)
+            {
+                // 如果模板不存在，则重新注册
+                TemplateRegistry.Reload();
+                // 再次尝试获取模板
+                if (TemplateDictionary.ContainsKey(templateId))
+                {
+                    return TemplateDictionary[templateId].GetContent();
+                }
+            }
+            throw new TemplateException(templateId + ".html", "模板不存在");
+        }
+
+        internal static void BindRegistry(TemplateRegistry templateRegistry)
+        {
+            TemplateRegistry = templateRegistry;
         }
     }
 }
