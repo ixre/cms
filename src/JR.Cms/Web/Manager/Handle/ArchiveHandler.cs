@@ -304,6 +304,7 @@ namespace JR.Cms.Web.Manager.Handle
         {
             var uiType = (PropertyUI)int.Parse(field.Type);
             sb.Append("<dl><dt>").Append(field.Name).Append("：</dt><dd>");
+
             switch (uiType)
             {
                 case PropertyUI.Text:
