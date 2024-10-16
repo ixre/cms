@@ -446,6 +446,28 @@ page {
 .padding-x-10 {
   padding: 2.5rem;
 }
+.padding-lx-1 {
+  padding-left: 0.25rem;
+}
+.padding-lx-2 {
+  padding-left: 0.5rem;
+}
+.padding-lx-3 {
+  padding-left: 0.75rem;
+}
+.padding-lx-4 {
+  padding-left: 1rem;
+}
+.padding-lx-5 {
+  padding-left: 1.25rem;
+}
+.padding-lx-6 {
+  padding-left: 1.5rem;
+}
+.padding-lx-8 {
+  padding-left: 2rem;
+}
+
 .padding-bx-1 {
   padding-bottom: 0.25rem;
 }
@@ -467,6 +489,7 @@ page {
 .padding-bx-8 {
   padding-bottom: 2rem;
 }
+
 /** 高度100% */
 .height-all {
   height: 100%;
@@ -579,6 +602,12 @@ page {
 .gap-x-8 {
   row-gap: 2rem;
   column-gap: 2rem;
+}
+
+.section {
+  /** 段落 */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 /** 背景覆盖 */

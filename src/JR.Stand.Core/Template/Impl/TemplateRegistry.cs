@@ -52,6 +52,8 @@ namespace JR.Stand.Core.Template.Impl
             this.ResetCaches();
             //注册模板
             RegisterTemplates(dir, this._options);
+            // 绑定模板注册器
+            TemplateCache.BindRegistry(this);
         }
 
         private void ResetCaches()
