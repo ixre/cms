@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>${page.title}</title>
+    <link
+      rel="Stylesheet"
+      href="${page.fpath}/base.min.css?v=${page.built}"
+      type="text/css"
+    />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/page.css?v=${page.built}"
+      type="text/css"
+    />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/style.css?v=${page.built}"
+      type="text/css"
+    />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+  </head>
+  <body>
+    ${include:"include/topbar.html"} ${include:"include/header.html"}
+
+    <div class="course-page">
+      <div class="course-page__banner">
+        <img src="${page.tpath}/images/course-banner.png" alt="课程" />
+      </div>
+
+      ${include:"include/sitemap.html"}
+
+      <!-- 课程列表-->
+      <div class="course-list section bg-white block">
+        <div class="container">
+          <div class="section__title center margin-bx-4">
+            <div class="section__title--inner">
+              <div class="section__title--secondnary section__title--line">
+                Mentors
+              </div>
+              <div class="section__title--text">教练团队</div>
+              <div class="section__title--spec text-sm text-primary">
+                全程陪练指导，效果立竿见影
+              </div>
+            </div>
+          </div>
+          <div class="line padding-bx-8"></div>
+          <div class="mentors__list flex flex-col gap-x-8">
+            $archives(mentor,10,'
+            <div class="mentors__item flex gap-x-8">
+              <div class="mentors__image img-fit1 img-fit-65 col-md-4">
+                <img src="{thumbnail}" alt="{title}" />
+              </div>
+              <div class="mentors__info col-md-8">
+                <div class="flex justify-between">
+                  <div class="font-bold padding-bx-4">
+                    <h2 class="mentors__info--title">{title}</h2>
+                    <div class="mentors__info--desc">中医康复理疗瑜伽老师</div>
+                  </div>
+                  <div class="mentors__booking">
+                    ${include "include/wechat_booking.html"}
+                  </div>
+                </div>
+                <div class="mentors__summary text-gray padding-bx-8">
+                  {summary}
+                </div>
+                <div class="mentors__fields flex">
+                  <div class="mentors__field">
+                    <div class="mentors__field--title">肥胖问题</div>
+                    <div class="mentors__field--desc">Obesity Problem</div>
+                  </div>
+                  <div class="mentors__field">
+                    <div class="mentors__field--title">亚健康</div>
+                    <div class="mentors__field--desc">Sub-Health</div>
+                  </div>
+                  <div class="mentors__field">
+                    <div class="mentors__field--title">产后困扰</div>
+                    <div class="mentors__field--desc">Postpartum Trouble</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ')
+          </div>
+        </div>
+      </div>
+    </div>
+
+    ${include:"include/footer.html"} ${include "include/assistant.html"}
+  </body>
+</html>

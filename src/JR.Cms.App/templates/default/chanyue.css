@@ -26,7 +26,7 @@
 .section {
   color: #000;
 
-  & .block__sub {
+  & .section__sub {
     color: #999;
     font-size: var(--text-sm-size);
   }
@@ -78,12 +78,12 @@
   flex-flow: column wrap;
   align-items: center;
 
-  .block__title {
+  .section__title {
     padding-top: 1em;
     padding-bottom: 0.5em;
   }
 
-  .block__sub {
+  .section__sub {
     max-width: 200px;
   }
 }
@@ -91,31 +91,31 @@
 .section-services {
   background: #fff;
 
-/*   .block:hover {
+  /*   .block:hover {
     transform: scale(1.25);
     z-index: 999;
     transition: all 0.5s;
     
-    .block__sub{
+    .section__sub{
       display: none;
     }
   } */
 
-  .block__icon {
+  .section__icon {
     background: #eee;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   }
 
-  .block__icon img {
+  .section__icon img {
     height: 76px;
   }
 }
 
 .section-teams {
-  .block:hover .block__title,
-  .block:hover .block__sub {
+  .block:hover .section__title,
+  .block:hover .section__sub {
     transform: scale(1.2);
     z-index: 999;
     transition: all 0.5s;

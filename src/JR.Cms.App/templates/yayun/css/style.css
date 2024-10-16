@@ -1,0 +1,22 @@
+/**
+ * Copyright (C) 2007-2024 fze.NET, All rights reserved.
+ *
+ * name: style.css
+ * author: jarrysix (jarrysix@gmail.com)
+ * date: 2024-10-16 19:21:17
+ * description: 样式
+ * history:
+ */
+.section-title1 {
+  /** 块级元素样式1 */
+  --section-border-color: #ccc;
+  .section__title--secondnary,
+  .section__title--text {
+    color: #666 !important;
+    font-weight: bold;
+  }
+  .section__title--text {
+    font-size: var(--text-2xl-size) !important;
+    line-height: 1rem;
+  }
+}

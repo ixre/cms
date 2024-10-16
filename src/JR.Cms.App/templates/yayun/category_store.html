@@ -20,107 +20,160 @@
 
     <div class="course-page">
       <div class="course-page__banner">
-        <img src="${page.tpath}/images/course-banner.png" alt="课程" />
+        <img src="${page.tpath}/images/banner-store.png" alt="门店环境" />
       </div>
 
       ${include:"include/sitemap.html"}
 
-      <!-- 推荐课程 -->
-      $special_archives(course,1,'
-      <div class="primary-course section bg-white">
-        <div class="container flex">
-          <div class="primary-course__image flex1">
-            <div class="img-fit img-fit-65">
-              <img src="${page.tpath}/images/course-item.png" alt="课程" />
-            </div>
-          </div>
-          <div class="primary-course__info flex1 padding-lx-8">
-            <div class="padding-bx-4"></div>
-            <div class="primary-course__title padding-bx-4 text-2xl font-bold">
-              {title}
-            </div>
-            <div class="primary-course__desc padding-bx-4">{summary}</div>
-            <div
-              class="primary-course__group gap-x-2 flex align-start padding-bx-2"
-            >
-              <div>适合人群:</div>
-              <div class="flex1">{适合群体}</div>
-            </div>
-            <div
-              class="primary-course__effect flex gap-x-2 align-start text-green padding-bx-8"
-            >
-              <div>课程目的:</div>
-              <div>{课程目的}</div>
-            </div>
-            <div class="primary-course__booking flex">
-              ${include "include/wechat_booking.html"}
-            </div>
-          </div>
-        </div>
-      </div>
-      ')
-      <!-- 学员见证-->
-      <div class="student-witness section">
-        <div class="container block">
-          <div class="block__title center">
-            <div class="block__title--text block__title--line">
-              学员前后对比
-            </div>
-          </div>
-          <div class="padding-x-4"></div>
-          <div class="student-witness__list flex gap-x-4">
-            $archives(case,3,'
-            <div class="student-witness__item flex1">
-              <div class="student-witness__item--image img-fit img-fit-65">
-                <a href="{url}">
-                  <img src="{thumbnail}" alt="学员见证" />
-                </a>
-              </div>
-              <div class="padding-x-2"></div>
-              <div
-                class="student-witness__item--title text-center padding-x-2 text-lg"
-              >
-                <a href="{url}">{title}</a>
-              </div>
-              <div class="student-witness__item--summary text-gray text-sm">
-                {summary}
-              </div>
-            </div>
-            ')'
-          </div>
-        </div>
-        <div class="padding-x-2"></div>
-      </div>
-      <!-- 课程列表-->
-      <div class="course-list section bg-white block">
+      <!-- 门店介绍 -->
+      <div class="section block bg-white">
         <div class="container">
-          <div class="block__title block-title1 margin-bx-4">
-            <div class="block__title--inner">
-              <div class="block__title--text">Course List</div>
-              <div class="block__title--secondnary">课程列表</div>
+          <div class="flex flex-col gap-x-8 justify-center text-center">
+            <div class="text-2xl font-bold">雅孕产康瑜伽</div>
+            <div class="text-gray">
+              <p>
+                很多第一次咨询的宝宝问我是教瑜伽？普拉提？健身？还是中医？
+                让她重新去定义瑜伽馆，超出她想象，我们和普通的瑜伽馆不同，可能别人
+              </p>
+              <p>
+                能帮你拉拉练，拍拍照很好看，但来到我们这里，不管是心理还是生理，或是身体，
+                我们都会给很全面地解决您的问题，并给你一个舒心的体验。
+              </p>
+            </div>
+            <div class="text-gray">
+              欢迎您到店铺参观，我们提供专业的瑜伽课程，帮助产后妈妈恢复身材，提升气质。
             </div>
           </div>
-          <div class="line padding-bx-8"></div>
-          <div class="course-list__list flex flex-col gap-x-8">
-            $archives(course,10,'
-            <div class="course-list__item flex gap-x-8">
-              <div class="course-list__image img-fit img-fit-65 col-md-2">
-                <img src="{thumbnail}" alt="{title}" />
+
+          <div class="info-banner padding-x-10 padding-reset-row">
+            <div class="img-fit img-fit-25">
+              <img src="${page.tpath}/images/info-banner.png" alt="行业资讯" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 门店环境 -->
+      <div class="section bg-white">
+        <div class="container">
+          <div class="section__title center section-title1 margin-bx-4">
+            <div class="section__title--inner">
+              <div class="section__title--text">Store Environment</div>
+              <div class="section__title--secondnary section__title--line">
+                门店环境
               </div>
-              <div class="course-list__info col-md-10">
-                <div class="course-list__info--title font-bold padding-bx-4">
-                  <a href="{url}">{title}</a>
+            </div>
+          </div>
+          <div class="section__content padding-x-4 padding-reset-row">
+            <img
+              src="${page.tpath}/images/store-envirment.png"
+              alt="${site.name}门店环境"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- 门店列表 -->
+      <div class="section bg-white block">
+        <div class="container">
+          <div class="section__title section-title1 center margin-bx-4">
+            <div class="section__title--inner">
+              <div class="section__title--text">Store List</div>
+              <div class="section__title--secondnary section__title--line">
+                门店列表
+              </div>
+            </div>
+          </div>
+          <div class="section__list padding-x-4 padding-reset-row">
+            <div class="flex store-list gap-x-8">
+              <div class="store-list__item">
+                <div class="store-list__map">
+                  <div class="img-fit1">
+                    <img
+                      src="${page.tpath}/images/store-hb.png"
+                      alt="雅孕产康瑜伽(汇博店)地图"
+                    />
+                  </div>
                 </div>
-                <div class="course-list__info--summary text-gray padding-bx-8">
-                  {summary}
+                <div class="store-list__item--title">
+                  <div class="store-list__item--title--text">
+                    雅孕产康瑜伽(汇博店)
+                  </div>
+                  <div class="store-list__item--address">
+                    地址：禅城区南庄镇汇博国际广场6座10楼
+                  </div>
                 </div>
-                <div class="couse--list__booking flex">
-                  ${include "include/wechat_booking.html"}
+              </div>
+              <div class="store-list__item">
+                <div class="store-list__map">
+                  <div class="img-fit1">
+                    <img
+                      src="${page.tpath}/images/store-jl.png"
+                      alt="雅孕产康瑜伽(吉利店)地图"
+                    />
+                  </div>
+                </div>
+                <div class="store-list__item--title">
+                  <div class="store-list__item--title--text">
+                    雅孕产康瑜伽(吉利店)
+                  </div>
+                  <div class="store-list__item--address">
+                    地址：佛山市禅城区雅韵美学瑜伽
+                  </div>
                 </div>
               </div>
             </div>
-            ')
           </div>
+        </div>
+      </div>
+
+      <!-- 联系我们 -->
+      <div class="section bg-white">
+        <div class="container">
+          <div class="section__title section-title1 center margin-bx-4">
+            <div class="section__title--inner">
+              <div class="section__title--text">Contact Us</div>
+              <div class="section__title--secondnary">联系我们</div>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div
+            class="section__list flex align-center justify-center gap-y-8 padding-x-8"
+          >
+            <div class="flex1 flex-col gap-y-4">
+              <div class="text-xl text-primary font-bold padding-bx-4">
+                雅孕产康瑜伽
+              </div>
+              <div class="flex flex-col gap-y-2">
+                <div class="">联系地址：${site.address}</div>
+                <div class="padding-bx-0">联系电话：${site.tel}</div>
+                <div class="padding-bx-8">
+                  营业时间：周一至周五 09:00-21:00，周六至周日 09:00-22:00
+                </div>
+                <div class="flex align-start">
+                  <div class="flex">公交线路：</div>
+                  <div class="flex1">
+                    乘坐佛山地铁二号线至南庄站，从B出口出站即到。或乘坐公交:
+                    133路 ; 135路 ; 143路 ; 145路 ; 149路 ; 225路 ; K2路 ;
+                    K500路 ; K500区间线 ; 高峰1路 ; 江01路 ; 樵15路在地铁南庄站
+                    下车步行约100米。
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex1 flex flex-col justify-center text-center gap-x-4">
+              <div class="qr">
+                <img
+                  src="${page.tpath}/images/qr.jpg"
+                  width="160"
+                  class="flex1 radius-x-2"
+                  alt="雅孕产康瑜伽(汇博店)二维码"
+                />
+              </div>
+              <div class="text-gray text-xs">添加微信好友，获取更多信息</div>
+            </div>
+          </div>
+          <div class="padding-bx-8"></div>
         </div>
       </div>
     </div>
