@@ -8,13 +8,14 @@ using JR.Cms.Library.CacheService;
 using JR.Stand.Core.PluginKernel;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Framework.Extensions;
+using System.Collections.Generic;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
     /// <summary>
-    /// 
+    /// 页面变量模型
     /// </summary>
-    public class PageVariable
+    public class PageVariableModel : ITemplateVariableInstance
     {
         private string _domain;
         private string _frameworkPath;
@@ -30,7 +31,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         private string _lang;
         private string _resPath;
 
-        static PageVariable()
+        static PageVariableModel()
         {
             //http://www.cnblogs.com/dayezi/p/4702038.html
             //<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -44,31 +45,48 @@ namespace JR.Cms.Web.Portal.Template.Model
         /// <summary>
         /// 
         /// </summary>
-        public PageVariable()
+        public PageVariableModel()
         {
             _context = Cms.Context;
         }
 
-        [TemplateVariableField("年")] public string Year => DateTime.Now.Year.ToString();
+        /// <summary>
+        /// 年
+        /// </summary>
+        [TemplateVariableField("年")]
+        public string Year => DateTime.Now.Year.ToString();
 
+        /// <summary>
+        /// 版本
+        /// </summary>
         [TemplateVariableField("版本")]
         public string Version
         {
             get
             {
                 var i = CmsVariables.VERSION.LastIndexOf(".", StringComparison.Ordinal);
-                return CmsVariables.PROD + "(v" + CmsVariables.VERSION.Substring(0, i)+")";
+                return CmsVariables.PROD + "(v" + CmsVariables.VERSION.Substring(0, i) + ")";
             }
         }
 
-        [TemplateVariableField("生成标签")] public string Built => BuildTag;
+        /// <summary>
+        /// 生成标签
+        /// </summary>
+        [TemplateVariableField("生成标签")]
+        public string Built => BuildTag;
 
+        /// <summary>
+        /// 重置生成标签
+        /// </summary>
         public static void ResetBuilt()
         {
             var built = DateHelper.ToUnix(DateTime.Now).ToString().Substring(8);
             _currentBuilt = built;
         }
 
+        /// <summary>
+        /// 语言
+        /// </summary>
         public string Lang
         {
             get
@@ -82,6 +100,9 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
+        /// <summary>
+        /// 当前地址
+        /// </summary>
         [TemplateVariableField("当前地址")]
         public string Url
         {
@@ -98,6 +119,9 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
+        /// <summary>
+        /// 构建标签
+        /// </summary>
         [TemplateVariableField("构建标签")]
         public string BuildTag
         {
@@ -108,6 +132,9 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
+        /// <summary>
+        /// 随机字符串
+        /// </summary>
         [TemplateVariableField("随机字符串")]
         public string Nonce
         {
@@ -124,10 +151,17 @@ namespace JR.Cms.Web.Portal.Template.Model
         [TemplateVariableField("站点域名")]
         public string Domain => _domain ?? (_domain = _context.SiteDomain);
 
-        [TemplateVariableField("资源域名")] public string ResDomain => _resDomain ?? (_resDomain = _context.ResourceDomain);
+        /// <summary>
+        /// 资源域名
+        /// </summary>
+        [TemplateVariableField("资源域名")]
+        public string ResDomain => _resDomain ?? (_resDomain = _context.ResourceDomain);
 
-
-        [TemplateVariableField("静态服务器域名")] public string StaticDomain => _context.StaticDomain;
+        /// <summary>
+        /// 静态服务器域名
+        /// </summary>
+        [TemplateVariableField("静态服务器域名")]
+        public string StaticDomain => _context.StaticDomain;
 
         /// <summary>
         /// 框架路径
@@ -147,6 +181,9 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
+        /// <summary>
+        /// 模板根路径
+        /// </summary>
         [TemplateVariableField("模板根路径")]
         private string TemplatePath
         {
@@ -164,7 +201,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
-        /// 
+        /// 插件根路径
         /// </summary>
         [TemplateVariableField("插件根路径")]
         public string PluginPath
@@ -184,15 +221,35 @@ namespace JR.Cms.Web.Portal.Template.Model
             }
         }
 
-        [TemplateVariableField("框架资源根路径")] public string FPath => FrameworkPath;
+        /// <summary>
+        /// 框架资源根路径
+        /// </summary>
+        [TemplateVariableField("框架资源根路径")]
+        public string FPath => FrameworkPath;
 
-        [TemplateVariableField("模板根路径")] public string TPath => TemplatePath;
+        /// <summary>
+        /// 模板根路径
+        /// </summary>
+        [TemplateVariableField("模板根路径")]
+        public string TPath => TemplatePath;
 
-        [TemplateVariableField("插件根路径")] public string PPath => PluginPath;
+        /// <summary>
+        /// 插件根路径
+        /// </summary>
+        [TemplateVariableField("插件根路径")]
+        public string PPath => PluginPath;
 
-        [TemplateVariableField("资源根路径")] public string RPath => getResPath();
+        /// <summary>
+        /// 资源根路径
+        /// </summary>
+        [TemplateVariableField("资源根路径")]
+        public string RPath => GetResPath();
 
-        private string getResPath()
+        /// <summary>
+        /// 获取资源根路径
+        /// </summary>
+        /// <returns></returns>
+        private string GetResPath()
         {
             if (_resPath == null)
                 _resPath = ResDomain + "/" +
@@ -200,11 +257,34 @@ namespace JR.Cms.Web.Portal.Template.Model
             return _resPath;
         }
 
-        [TemplateVariableField("资源域名路径")] public string RDomain => ResDomain;
+        /// <summary>
+        /// 添加变量
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        public void AddData(string key, string data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 删除变量
+        /// </summary>
+        /// <param name="key"></param>
+        public void RemoveData(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 资源域名路径
+        /// </summary>
+        [TemplateVariableField("资源域名路径")]
+        public string RDomain => ResDomain;
 
 
         /// <summary>
-        ///标题
+        /// 标题
         /// </summary>
         [TemplateVariableField("网页(当前页)标题")]
         public string Title { get; set; }
@@ -269,9 +349,14 @@ namespace JR.Cms.Web.Portal.Template.Model
         public int PageIndex { get; set; }
 
         /// <summary>
-        /// 页码
+        /// 支持HTML5
         /// </summary>
         [TemplateVariableField("支持HTML5")]
         public string Html5 => IeHtml5ShivTag;
+
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public IDictionary<string, string> Data => throw new NotImplementedException();
     }
 }

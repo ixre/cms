@@ -39,7 +39,7 @@ ${archive.map(视频) }
             tp.OnPreInit += TemplateMock.CompliedTemplate;
             tp.OnBeforeCompile += (TemplatePage page, ref String content) =>
             {
-                var pageArchive = new PageArchive(new ArchiveDto());
+                var pageArchive = new PageArchiveModel(new ArchiveDto());
                 page.AddVariable("archive", pageArchive);
             };
             tp.SetTemplateContent(temp);
@@ -58,7 +58,7 @@ ${archive.map(视频) }
             tp.OnPreInit += TemplateMock.CompliedTemplate;
             tp.OnBeforeCompile += (TemplatePage page, ref String content) =>
             {
-                var pageArchive = new PageArchive(new ArchiveDto());
+                var pageArchive = new PageArchiveModel(new ArchiveDto());
                 pageArchive.AddData("视频", "<video/>");
                 page.AddVariable("archive", pageArchive);
             };
@@ -77,13 +77,13 @@ ${archive.map(视频) }
             var i = 0;
             foreach (Match match in matches)
             {
-                Console.WriteLine((i++)+ match.Value+"/"+match.Groups[2]);
+                Console.WriteLine((i++) + match.Value + "/" + match.Groups[2]);
             }
         }
     }
 
-    public class TemplateMock:ITemplateResolver
-    {        
+    public class TemplateMock : ITemplateResolver
+    {
         /// <summary>
         /// 编译模板
         /// </summary>
@@ -97,7 +97,7 @@ ${archive.map(视频) }
         private IDataContainer _dc;
 
         [TemplateTag]
-        public string Categories(string catPath,string format)
+        public string Categories(string catPath, string format)
         {
             IList<CategoryDto> categories = new List<CategoryDto>();
             categories.Add(new CategoryDto
@@ -113,25 +113,25 @@ ${archive.map(视频) }
 
             foreach (var c in categories.OrderBy(a => a.SortNumber))
             {
-                    sb.Append(TplEngine.ResolveHolderFields(format, field =>
+                sb.Append(TplEngine.ResolveHolderFields(format, field =>
+                {
+                    switch (field)
                     {
-                        switch (field)
-                        {
-                            default: return string.Empty;
+                        default: return string.Empty;
 
-                            case "name": return c.Name;
-                            case "tag": return c.Tag;
-                            case "path": return c.Path;
-                            case "thumbnail":
-                            case "id": return c.ID.ToString();
+                        case "name": return c.Name;
+                        case "tag": return c.Tag;
+                        case "path": return c.Path;
+                        case "thumbnail":
+                        case "id": return c.ID.ToString();
 
-                            //case "pid":  return c.PID.ToString();
+                        //case "pid":  return c.PID.ToString();
 
-                            case "description": return c.Description;
-                            case "keywords": return c.Keywords;
-                            case "index": return (i + 1).ToString();
-                        }
-                    }));
+                        case "description": return c.Description;
+                        case "keywords": return c.Keywords;
+                        case "index": return (i + 1).ToString();
+                    }
+                }));
 
                 ++i;
             }
