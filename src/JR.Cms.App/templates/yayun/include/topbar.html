@@ -10,11 +10,10 @@
 <div class="topbar hidden-xs text-sm">
   <div class="container">
     <div class="row">
-      <div class="slogan">
-        <a href="${page.domain}">复泽网络</a>-${site.data(area) | 佛山
-        }软件开发,商城系统开发,APP小程序开发,管理系统软件定制开发,超十年软件行业定制开发经验.
+      <div class="topbar__slogan">
+        <a href="${page.domain}">${site.name}</a>-${site.slogan}
       </div>
-      <div class="contact g-text-right">
+      <div class="topbar__contact g-text-right hidden">
         <i class="fa fa-phone"></i> &nbsp;微信/QQ:
         <a rel="nofollow" href="tencent://message?uin=${site.im}">
           ${site.im}</a
@@ -23,4 +22,5 @@
       </div>
     </div>
   </div>
+  <div class="topbar__line xs-hidden"></div>
 </div>

@@ -17,20 +17,30 @@ a:hover {
   --primary-color: #73c998;
   --secondnary-color: #aeebc3;
 }
+.topbar {
+  --topbar-background-color: #73c998;
+  --topbar-text-color: #fff;
+  --topbar-text-size: var(--text-xs-size);
+  --topbar-height: 30px;
+}
 .header {
   --header-shadow-height: 0;
   --header-background-color: #73c998;
   --header-fixed-background-color: #73c998ee;
 }
 .navigator {
+  --navigator-item-color: #fff;
   --navigator-active-color: #fff;
-  --navigator-item-color: #aeebc3;
+  --navigator-active-text-weight: 600;
+  --navigator-font-size: var(--text-base-size);
 }
 .footer {
   --footer-background-color: #73c998;
-  --footer-color: #fff;
+  --footer-text-color: #fff;
   --footer-social-icon-size: 2rem;
   --footer-social-icon-gap: 1.2rem;
+  --footer-line-color: #fff;
+  --footer-line-opacity: 0.15;
 }
 .swiper {
   /** 图片比例,默认:16:9 */
@@ -58,13 +68,15 @@ a:hover {
 
 .assistant {
   /** 工具栏背景色 */
-  --assistant-background-color: #fff;
+  --assistant-background-color: #73c998;
   /** 工具栏边框色 */
   --assistant-border-color: #f0f0f0;
   /** 工具栏边框大小 */
   --assistant-border-size: 0.0625rem;
   /** 工具栏圆角 */
   --assistant-border-radius: 0.3125rem;
+  /** 工具栏文字颜色 */
+  --assistant-text-color: #fff;
   /** 右侧工具栏距离右边的距离 */
   --assistant-position-right: 2em;
   /** 右侧工具栏距离上边的距离 */
