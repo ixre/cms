@@ -24,7 +24,7 @@ namespace JR.Cms.Web
     /// </summary>
     public sealed class PageGeneratorObject : ICmsPageGenerator
     {
-        private readonly PageSite _site;
+        private readonly PageSiteModel _site;
 
         /// <summary>
         /// 
@@ -33,7 +33,7 @@ namespace JR.Cms.Web
         public PageGeneratorObject(CmsContext context)
         {
             //this.context=context;
-            _site = new PageSite(context.CurrentSite);
+            _site = new PageSiteModel(context.CurrentSite);
         }
 
         /// <summary>
@@ -136,9 +136,11 @@ namespace JR.Cms.Web
             return PageUtility.Require(this.FormatTemplatePath("index"), page =>
             {
                 page.AddVariable("site", _site);
-                page.AddVariable("page", new PageVariable
+                page.AddVariable("page", new PageVariableModel
                 {
-                    Title = _site.Title, SubTitle = _site.Title, Keywords = _site.Keywords,
+                    Title = _site.Title,
+                    SubTitle = _site.Title,
+                    Keywords = _site.Keywords,
                     Description = _site.Description
                 });
             });
@@ -190,7 +192,7 @@ namespace JR.Cms.Web
             return PageUtility.Require(tplId, page =>
             {
                 page.AddVariable("site", _site);
-                page.AddVariable("page", new PageVariable
+                page.AddVariable("page", new PageVariableModel
                 {
                     Title = title,
                     SubTitle = _site.Title,
@@ -199,7 +201,7 @@ namespace JR.Cms.Web
                     PageIndex = pageIndex
                 });
                 page.AddVariable("category", category);
-                page.AddVariable("module", new Module {ID = category.ModuleId});
+                page.AddVariable("module", new Module { ID = category.ModuleId });
             });
         }
 
@@ -238,22 +240,22 @@ namespace JR.Cms.Web
             Cms.Context.Items["category.path"] = category.Path;
             Cms.Context.Items["module.id"] = category.ModuleId;
 
-            
+
             //解析模板
             var html = PageUtility.Require(tplId,
                 page =>
                 {
                     page.AddVariable("site", _site);
 
-                    var pageArchive = new PageArchive(archive);
+                    var pageArchive = new PageArchiveModel(archive);
 
                     page.AddVariable("archive", pageArchive);
 
                     page.AddVariable("category", category);
-                    page.AddVariable("module", new Module {ID = category.ModuleId});
+                    page.AddVariable("module", new Module { ID = category.ModuleId });
 
 
-                    page.AddVariable("page", new PageVariable
+                    page.AddVariable("page", new PageVariableModel
                     {
                         Title = $"{archive.Title}_{_site.Title}",
                         SubTitle = _site.Title,
@@ -264,7 +266,7 @@ namespace JR.Cms.Web
             return html;
         }
 
-        public string GetSearch(string catPath,string key)
+        public string GetSearch(string catPath, string key)
         {
 
             var ctx = HttpHosting.Context;
@@ -284,7 +286,7 @@ namespace JR.Cms.Web
                 {
                     page.AddVariable("site", _site);
 
-                    page.AddVariable("page", new PageVariable
+                    page.AddVariable("page", new PageVariableModel
                     {
                         Title = $"\"{key}\"相关的信息{(pageIndex == 1 ? string.Empty : string.Format(Cms.Language.Get(LanguagePackageKey.PAGE_PagerTitle), pageIndex.ToString()))}_{_site.Title}",
                         SubTitle = _site.Title,
@@ -327,7 +329,7 @@ namespace JR.Cms.Web
                 {
                     page.AddVariable("site", _site);
 
-                    page.AddVariable("page", new PageVariable
+                    page.AddVariable("page", new PageVariableModel
                     {
                         Title = string.Format("{0}{1}_{2}",
                             key,

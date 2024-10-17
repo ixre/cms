@@ -14,23 +14,39 @@ body {
   --topbar-background-color: none;
   /** 顶部栏颜色 */
   --topbar-text-color: #000;
+  /** 顶部栏字体大小 */
+  --topbar-text-size: var(--text-sm-size);
   /** 顶部栏高度 */
   --topbar-height: 50px;
   & {
     /** 顶部栏 */
     background-color: var(--topbar-background-color, #ffffff);
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    flex-flow: column nowrap;
+    justify-content: center;
     height: var(--topbar-height, 50px);
-    color: var(---topbar-text-color, #000);
+    color: var(--topbar-text-color, #000);
+    font-size: var(--topbar-text-size, 14px);
   }
   & .row {
     justify-content: flex-end;
-    & .left,
-    & .slogan {
+    & .left {
       flex: 1;
     }
+  }
+  .topbar__slogan {
+    flex: 1;
+  }
+  .topbar__line {
+    height: 1px;
+    width: 100%;
+    background: var(--topbar-text-color);
+    opacity: 0.25;
+  }
+  a:link,
+  a:visited,
+  a:hover {
+    color: var(--topbar-text-color);
   }
 }
 
@@ -54,7 +70,10 @@ body {
     box-shadow: 0 0 var(--header-shadow-height, 5px)
       var(--header-shadow-color, "#EEE");
   }
-
+  & .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
   & .header__main {
     display: flex;
     align-items: center;
@@ -101,6 +120,8 @@ body {
   --navigator-item-color: #000;
   /** 导航条激活颜色 */
   --navigator-active-color: var(--primary-color);
+  /** 导航激活文字粗细 */
+  --navigator-active-text-weight: 500;
   /** 导航字体大小 */
   --navigator-font-size: var(--text-base-size, 14px);
   & {
@@ -166,6 +187,7 @@ body {
     }
     a.l1 {
       color: var(--navigator-active-color, --primary-color);
+      font-weight: var(--navigator-active-text-weight, 500);
     }
   }
 }
@@ -235,11 +257,15 @@ body {
   /** 底部背景色 */
   --footer-background-color: none;
   /** 底部颜色 */
-  --footer-color: #333;
+  --footer-text-color: #333;
   /** 底部社交图标大小 */
   --footer-social-icon-size: 1.5rem;
   /** 底部社交图标间距 */
   --footer-social-icon-gap: 1rem;
+  /** 底部线条颜色 */
+  --footer-line-color: #fff;
+  /** 底部线条透明度 */
+  --footer-line-opacity: 0.15;
   /** 底部 */
   & {
     display: flex;
@@ -249,14 +275,33 @@ body {
     padding: 2em 0;
     gap: 5px;
     background: var(--footer-background-color, none);
-    color: var(--footer-color, #000);
+    color: var(--footer-text-color, #000);
     background-size: cover;
+  }
+
+  .footer__col {
+    font-size: var(--text-md-size);
+    .footer__col--title {
+      font-size: var(--text-lg-size);
+      padding-bottom: 1.25rem;
+      font-weight: 500;
+    }
+    li {
+      padding-bottom: 0.25rem;
+    }
+  }
+
+  .footer__line {
+    height: 1px;
+    width: 100%;
+    background: var(--footer-line-color, #fff);
+    opacity: var(--footer-line-opacity, 0.15);
   }
 
   & a:link,
   & a:visited,
   & a:hover {
-    color: var(--footer-color, #000);
+    color: var(--footer-text-color, #000);
   }
   & .footer__col--title {
     /* 标题 */
@@ -278,6 +323,11 @@ body {
       /** 社会化媒体图标 */
       font-size: var(--footer-social-icon-size, 1.5rem);
     }
+  }
+  .footer__desc {
+    /** 底部描述 */
+    max-width: 875px;
+    margin: 0 auto;
   }
 }
 
@@ -426,6 +476,8 @@ body {
   --assistant-border-size: 0.0625rem;
   /** 工具栏圆角 */
   --assistant-border-radius: 0.3125rem;
+  /** 工具栏文字颜色 */
+  --assistant-text-color: #000;
   /** 右侧工具栏距离右边的距离 */
   --assistant-position-right: 2em;
   /** 右侧工具栏距离上边的距离 */
@@ -455,6 +507,8 @@ body {
     gap: 0.375rem;
     padding: 0.75rem 0.5rem;
     border-top: solid 1px var(--assistant-border-color, #f0f0f0);
+    color: var(--assistant-text-color, #000);
+
     & .assistant__item--label {
       font-size: var(--text-xs-size, 0.75rem);
     }

@@ -1,4 +1,12 @@
-﻿using System;
+﻿/**
+ * Copyright (C) 2007-2024 fze.NET, All rights reserved.
+ *
+ * name: PageArchive.cs
+ * author: jarrysix (jarrysix@gmail.com)
+ * date: 2016-06-17 08:18:37
+ * description:
+ * history:
+ */
 using System.Collections.Generic;
 using System.Text;
 using JR.Cms.Conf;
@@ -7,18 +15,15 @@ using JR.Cms.Domain.Interface.Enum;
 using JR.Cms.Library.CacheService;
 using JR.Cms.Library.Utility;
 using JR.Cms.ServiceDto;
-using JR.Cms.Web.Util;
-using JR.Stand.Core.Framework;
 using JR.Stand.Core.Template.Impl;
 using JR.Stand.Core.Web;
-using Newtonsoft.Json;
 
 namespace JR.Cms.Web.Portal.Template.Model
 {
     /// <summary>
-    /// 
+    /// 文档模型
     /// </summary>
-    public class PageArchive : ITemplateVariableInstance
+    public class PageArchiveModel : ITemplateVariableInstance
     {
         private string _properties;
         private IDictionary<string, string> _dict;
@@ -26,10 +31,10 @@ namespace JR.Cms.Web.Portal.Template.Model
         private string _url;
 
         /// <summary>
-        /// 
+        /// 文档模型
         /// </summary>
         /// <param name="archive"></param>
-        public PageArchive(ArchiveDto archive)
+        public PageArchiveModel(ArchiveDto archive)
         {
             Archive = archive;
         }
@@ -42,7 +47,7 @@ namespace JR.Cms.Web.Portal.Template.Model
         }
 
         /// <summary>
-        /// 
+        /// 文档变量
         /// </summary>
         public IDictionary<string, string> Data
         {
@@ -79,9 +84,15 @@ namespace JR.Cms.Web.Portal.Template.Model
         [TemplateVariableField("编号")]
         public string Id => Archive.Id.ToString();
 
+        /// <summary>
+        /// 别名
+        /// </summary>
         [TemplateVariableField("别名")]
         public string Alias => string.IsNullOrEmpty(Archive.Alias) ? Archive.StrId : Archive.Alias;
 
+        /// <summary>
+        /// 地址
+        /// </summary>
         [TemplateVariableField("地址")]
         public string Url
         {
@@ -104,17 +115,24 @@ namespace JR.Cms.Web.Portal.Template.Model
         [TemplateVariableField("标题")]
         public string Title => Archive.Title;
 
-        [TemplateVariableField("子标题")] public string SmallTitle => Archive.SmallTitle;
+        /// <summary>       
+        /// 子标题
+        /// </summary>
+        [TemplateVariableField("子标题")]
+        public string SmallTitle => Archive.SmallTitle;
 
+        /// <summary>
+        /// 子标题
+        /// </summary>
         [TemplateVariableField("子标题")]
         public string ContactSmallTitle => string.IsNullOrEmpty(Archive.SmallTitle) ? "" : "-" + Archive.SmallTitle;
-
 
         /// <summary>
         /// 作者
         /// </summary>
         [TemplateVariableField("作者")]
         public string Author => LocalService.Instance.UserService.GetUserRealName(Archive.PublisherId) ?? "未知";
+
 
         /// <summary>
         /// 来源

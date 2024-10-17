@@ -139,7 +139,7 @@ namespace JR.Cms.Web.Manager.Handle
                 //server_iis = Request.ServerVariables["Server_SoftWare"],
                 server_netver =
                     Environment.Version.Major + "." + Environment.Version.Minor + "." + Environment.Version.Build +
-                    (Environment.Version.Revision<=0?"":"." +Environment.Version.Revision),
+                    (Environment.Version.Revision <= 0 ? "" : "." + Environment.Version.Revision),
                 server_https = Request.GetProto() == "https" ? "是" : "否",
                 //server_port = Request.ServerVariables["Server_Port"],
                 server_hour = $"{(Environment.TickCount / 0x3e8 / 3600).ToString()}小时",
@@ -147,7 +147,7 @@ namespace JR.Cms.Web.Manager.Handle
                 server_cpu = $"处理器x{Environment.ProcessorCount}",
                 server_meory = Environment.WorkingSet / 1024 / 1024 + "M",
                 server_net_meory =
-                    ((double) Process.GetCurrentProcess().WorkingSet64 / 1048576).ToString("N2") + "M",
+                    ((double)Process.GetCurrentProcess().WorkingSet64 / 1048576).ToString("N2") + "M",
                 //person_os = this.GetOSNameByUserAgent(base.Request.Headers.TryGetValue(UserAgent)),
                 //person_ip = base.Request.UserHostAddress,
                 //person_soft = base.Request.Browser.Browser,
@@ -175,7 +175,7 @@ namespace JR.Cms.Web.Manager.Handle
 
             var usr = UserState.Administrator.Current;
             if (usr != null)
-                Response.Redirect(url,false);
+                Response.Redirect(url, false);
             else
                 Response.WriteAsync("<script>location.href='/" +
                                     Settings.SYS_ADMIN_TAG +
@@ -433,7 +433,7 @@ namespace JR.Cms.Web.Manager.Handle
             return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Clear_Page));
         }
 
-       
+
 
         public string Clear_POST()
         {
@@ -444,7 +444,7 @@ namespace JR.Cms.Web.Manager.Handle
                     //HttpRuntime.UnloadAppDomain();
                     return ReturnSuccess("网站正在重启...");
                 case "cache":
-                    PageVariable.ResetBuilt();
+                    PageVariableModel.ResetBuilt();
                     Cms.Cache.Reset(null);
                     Cms.Template.Reload();
                     return ReturnSuccess("缓存清理成功");
@@ -452,13 +452,13 @@ namespace JR.Cms.Web.Manager.Handle
 
             return ReturnSuccess();
         }
-        
-        
+
+
         public string Locales()
         {
             return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.Locale));
         }
-        
+
 
         public string GetLocaleJson_POST()
         {

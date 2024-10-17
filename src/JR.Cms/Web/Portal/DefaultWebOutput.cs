@@ -23,8 +23,8 @@ namespace JR.Cms.Web.Portal
         {
             context.RenderNotfound("No such file", tpl =>
             {
-                tpl.AddVariable("site", new PageSite(context.CurrentSite));
-                tpl.AddVariable("page", new PageVariable());
+                tpl.AddVariable("site", new PageSiteModel(context.CurrentSite));
+                tpl.AddVariable("page", new PageVariableModel());
                 PageUtility.RegisterEventHandlers(tpl);
             });
         }
