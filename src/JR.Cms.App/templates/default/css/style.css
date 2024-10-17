@@ -1,0 +1,205 @@
+/**
+ * Copyright (C) 2007-2024 fze.NET, All rights reserved.
+ *
+ * name: style.css
+ * author: jarrysix (jarrysix@gmail.com)
+ * date: 2024-10-16 19:21:17
+ * description: 样式
+ * history:
+ */
+
+.crumb {
+  background: #fff;
+}
+
+.section-title1 {
+  /** 块级元素样式1 */
+  --section-border-color: #ccc;
+  .section__title--secondnary,
+  .section__title--text {
+    color: #666 !important;
+    font-weight: bold;
+  }
+  .section__title--text {
+    font-size: var(--text-2xl-size) !important;
+    line-height: 1rem;
+  }
+}
+
+.footer {
+}
+
+.mentors {
+  /** 导师 */
+  position: relative;
+
+  .mentors__info {
+    position: relative;
+    z-index: 1;
+  }
+  .mentors__summary ul {
+    list-style: none;
+    padding-left: 0.5rem;
+    li {
+      position: relative;
+      display: flex;
+      gap: 0.5rem;
+      padding-bottom: 0.25rem;
+      &:before {
+        content: "•";
+        padding-top: 0;
+        color: var(--text-gray-color);
+        font-size: var(--text-sm-size);
+      }
+    }
+  }
+  .mentors__fields {
+    position: absolute;
+    right: 15px;
+    left: -12%;
+    bottom: 15%;
+    z-index: 2;
+    padding: 1.5rem 0;
+    color: #fff;
+    background: #73c998ee;
+    display: flex;
+    gap: 0.5rem;
+    .mentors__field {
+      flex: 1;
+      border-left: solid 1px #fff;
+      text-align: center;
+    }
+    .mentors__field:first-child {
+      border-left: none;
+    }
+  }
+
+  .mentors__item {
+    padding-bottom: 5rem;
+    &:nth-child(2n) {
+      .mentors__fields {
+        left: 15px;
+        right: -12%;
+      }
+      .mentors__image {
+        order: 1;
+        text-align: right;
+      }
+    }
+  }
+
+  .mentors__news {
+    padding: 0;
+  }
+}
+
+.awards {
+  /** 资质证书 */
+  .awards__item {
+    margin-bottom: 1rem;
+    .awards__item--title {
+      padding-top: 0.5rem;
+      font-size: var(--text-sm-size);
+    }
+  }
+}
+
+.timeline {
+  /** 时光轴 */
+  --timeline-color: var(--primary-color);
+  --timeline-header-height: 80px;
+  & {
+    position: relative;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: var(--timeline-header-height);
+    width: 2px;
+    margin-left: -1px;
+    height: 100%;
+    background: var(--timeline-color);
+  }
+
+  .timeline__header {
+    padding: 0 0 3rem 0;
+  }
+
+  .timeline__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+
+    .timeline__item--content {
+      flex: 1;
+      text-align: center;
+    }
+    .timeline__item--line {
+      flex: 1;
+      display: flex;
+      margin-right: -25px;
+      justify-content: space-between;
+      align-items: center;
+      i {
+        flex: 1;
+        height: 0;
+        border-bottom: solid 1px var(--timeline-color);
+      }
+      &::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--timeline-color);
+      }
+
+      &::after {
+        content: "";
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--timeline-color);
+      }
+    }
+    .timeline__item--time {
+      flex: 2;
+      display: flex;
+      font-weight: bold;
+      & > div {
+        padding-left: 4rem;
+      }
+    }
+
+    &:nth-child(2n) {
+      .timeline__item--time {
+        order: 1;
+        text-align: right;
+        display: flex;
+        justify-content: flex-end;
+        & > div {
+          padding-left: 0;
+          padding-right: 4rem;
+        }
+      }
+      .timeline__item--line {
+        order: 2;
+        margin-right: 0;
+        margin-left: -25px;
+
+        &::before {
+          width: 25px;
+          height: 25px;
+        }
+        &::after {
+          width: 10px;
+          height: 10px;
+        }
+      }
+      .timeline__item--content {
+        order: 3;
+      }
+    }
+  }
+}

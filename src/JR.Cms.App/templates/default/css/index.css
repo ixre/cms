@@ -1,0 +1,285 @@
+/**
+ * Copyright (C) 2007-2024 fze.NET, All rights reserved.
+ *
+ * name: index.css
+ * author: jarrysix (jarrysix#gmail.com)
+ * date: 2024-10-11 11:35:16
+ * description: 首页样式
+ * history:
+ */
+
+body {
+  overflow-x: hidden;
+}
+.row-ceo {
+  /** 创始人 */
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+
+  .row-ceo__main {
+    padding-left: 3rem;
+  }
+
+  .row-ceo__pep {
+    .row-ceo__pep--img {
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0);
+    }
+  }
+  .row-ceo__brand {
+    .label {
+      padding: 0.5rem 2rem;
+    }
+    & .row-ceo__brand--label {
+      background: #000;
+      color: #fff;
+    }
+    & .row-ceo__brand--name {
+      background: #eee;
+    }
+  }
+  .row-ceo__news {
+    position: relative;
+
+    .row-ceo__news--rect {
+      width: 0.75rem;
+      height: 0.75rem;
+      background: var(--primary-color);
+      border-radius: 0 0 5rem 0;
+    }
+    .row-ceo__news--item {
+      border-top: solid 1px #eee;
+      padding: 0.75rem 0;
+
+      & .row-ceo__news--time {
+        padding: 0 2rem 0 0.25rem;
+      }
+    }
+    .row-ceo__news--item:first-child {
+      border-top: 0;
+    }
+  }
+}
+
+.row-course {
+  /** 课程介绍 */
+  background: #f7fcfa;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  .course-list {
+    /** 
+       w1 | w2 | s3
+          |一一一一一
+       w1 | w4  w4
+    */
+    /** 定义为网格布局 */
+    display: grid;
+    /** 定义网格间距 */
+    grid-gap: 1rem 1rem;
+    /** 定义3列,每列宽度相同,auto-fill:表示列数根据容器宽度自动填充 */
+    grid-template-columns: repeat(3, 1fr);
+    /** 定义2行,每行高度相同 */
+    grid-template-rows: repeat(2, 1fr);
+    /** 定义网格自动排列方式,column表示从上到下排列 */
+    grid-auto-flow: row dense;
+
+    .w1 {
+      /** 从第1行开始占2行 */
+      grid-row: 1/3;
+    }
+    .w4 {
+      /** 从第2列开始占2列 */
+      grid-column: 2/4;
+    }
+    .w1 .img-fit::before {
+      /** 此处应gap为1rem，故为保持对齐 */
+      padding-top: calc(450px + 1rem);
+    }
+    .w2 .img-fit::before,
+    .w3 .img-fit::before,
+    .w4 .img-fit::before,
+    .w5 .img-fit::before {
+      padding-top: 225px;
+    }
+    .w4-1 {
+      width: 59%;
+      float: left;
+    }
+    .w4-2 {
+      width: 39%;
+      float: right;
+    }
+    .img-fit {
+      background: #f0f0f0;
+    }
+  }
+  .course-tile {
+    position: relative;
+    .course-tile__label {
+      background: #73c998cc;
+      padding: 0.5rem 1rem;
+      position: absolute;
+      bottom: 1rem;
+      left: 1.5rem;
+      color: #fff;
+      .text-3xl {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+
+.row-store-env {
+  /** 门店环境 */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  .store-env-tile {
+    .img-fit::before {
+      padding-top: 250px;
+    }
+  }
+  .store-env-tile.th2:nth-child(2) {
+    border-radius: 0 3rem 0 0;
+    overflow: hidden;
+  }
+  .store-env-tile-introduce {
+    padding-right: 1rem;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 0 0 0 3rem;
+  }
+  .store-introduce {
+    padding: 2rem;
+
+    .store-introduce__content {
+      font-size: var(--text-sm-size);
+    }
+    .store-introduce__link {
+      margin-top: 1rem;
+      background: #fff;
+      padding: 0.5rem 1rem;
+      display: inline-block;
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+.row-apprise {
+  /** 学员评价 */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background: url(../images/apprise-bg.png) no-repeat center center;
+  background-size: cover;
+
+  .arraw {
+    display: flex;
+    background: var(--primary-color);
+    border-radius: 100%;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      color: #fff;
+    }
+  }
+
+  .row-apprise__list {
+    padding: 2rem;
+  }
+
+  .apprise-item {
+    padding: 2rem 10rem;
+    .apprise-item__user {
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      gap: 2rem;
+
+      .apprise-item__user--img {
+        width: 75px;
+        height: 75px;
+        border-radius: 10rem;
+        overflow: hidden;
+      }
+    }
+    .bubble {
+      --bubble-background-color: var(--primary-color);
+      --bubble-text-color: #fff;
+      padding: 1rem 3rem;
+      font-weight: 500;
+      .bubble__bottom {
+        left: -135px;
+      }
+    }
+  }
+}
+
+.row-mentor {
+  /** 导师风采 */
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  .row-mentor__item {
+    flex: 1;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    .img-fit {
+      width: 100%;
+    }
+    .row-mentor__item--name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #73c998cc;
+      color: #fff;
+      padding: 0.5rem 1rem;
+    }
+  }
+  .row-mentor__data {
+    gap: 2rem;
+  }
+  .row-mentor__intro {
+    .row-mentor__intro--content {
+      padding-right: 2rem;
+    }
+  }
+}
+
+.row-honor {
+  /** 资质荣誉 */
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  .row-honor__gallery {
+    flex-wrap: wrap;
+    padding-left: 4rem;
+
+    .row-honor__gallery--img {
+      flex-basis: 30%;
+    }
+  }
+
+  .row-honor__count {
+    padding: 0 1rem 0 0;
+    margin-right: 1rem;
+    position: relative;
+    text-align: center;
+    font-weight: 500;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -1rem;
+      top: 0;
+      bottom: 0;
+      border-left: solid 1px #aaa;
+    }
+    &:first-child::before {
+      border-left: 0;
+    }
+  }
+}
