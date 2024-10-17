@@ -8,9 +8,14 @@
  * history:
  */
 
+body {
+  overflow-x: hidden;
+}
 .row-ceo {
   /** 创始人 */
-  padding: 5rem 0;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+
   .row-ceo__main {
     padding-left: 3rem;
   }
@@ -58,7 +63,8 @@
 .row-course {
   /** 课程介绍 */
   background: #f7fcfa;
-  padding: 2rem 0;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 
   .course-list {
     /** 
@@ -125,7 +131,8 @@
 
 .row-store-env {
   /** 门店环境 */
-  padding: 2rem 0;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 
   .store-env-tile {
     .img-fit::before {
@@ -160,7 +167,8 @@
 
 .row-apprise {
   /** 学员评价 */
-  padding: 2rem 0;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   background: url(../images/apprise-bg.png) no-repeat center center;
   background-size: cover;
 
@@ -211,7 +219,8 @@
 
 .row-mentor {
   /** 导师风采 */
-  padding: 2rem 0 4rem 0;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
   .row-mentor__item {
     flex: 1;
     position: relative;
@@ -243,7 +252,8 @@
 
 .row-honor {
   /** 资质荣誉 */
-  padding: 2rem 0 4rem 0;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
   .row-honor__gallery {
     flex-wrap: wrap;
     padding-left: 4rem;
