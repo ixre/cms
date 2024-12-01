@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="dotless.Core" Version="1.6.7" />
     <!-- <PackageReference Include="HtmlAgilityPack" Version="1.11.65" /> -->
     <PackageReference Include="MailKitLite" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
@@ -68,7 +69,7 @@
     <EmbeddedResource Include="Web\Resource\SiteResources\site-pages.css" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-migration.css" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-robots.txt" />
-    <EmbeddedResource Include="Web\Resource\SiteResources\site-favicon.ico"/>
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-favicon.ico" />
     <None Remove="WebImpl\Resource\WebManager\resouces\images\manage_js.js" />
     <None Remove="WebImpl\Resource\WebManager\resouces\images\ui_component.source.js" />
     <None Remove="Infrastructure\Resources\xml\lang_package.xml" />
