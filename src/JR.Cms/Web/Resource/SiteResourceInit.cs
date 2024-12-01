@@ -35,13 +35,13 @@ namespace JR.Cms.Web.Resource
             // 释放base.min.css
             Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.css",
                 CssComment + ResourceUtility.CompressHtml(
-                               ParseLessContent("Web/Resource/SiteResources/site-base.css"))
+                               ParseLessContent("Web/Resource/SiteResources/site-base.less"))
                                + "\n /* merge elements.css */\n"
                                + ResourceUtility.CompressHtml(
-                                   ParseLessContent("Web/Resource/SiteResources/site-elements.css"))
+                                   ParseLessContent("Web/Resource/SiteResources/site-elements.less"))
                                + "\n /* merge pages.css */\n"
                                + ResourceUtility.CompressHtml(
-                                   ParseLessContent("Web/Resource/SiteResources/site-pages.css"))
+                                   ParseLessContent("Web/Resource/SiteResources/site-pages.less"))
                                + "\n /* merge migration.css */\n"
                                + ResourceUtility.CompressHtml(
                                    ParseLessContent("Web/Resource/SiteResources/site-migration.css"))
