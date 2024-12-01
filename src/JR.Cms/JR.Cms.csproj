@@ -64,9 +64,9 @@
     <EmbeddedResource Include="Web\Resource\SiteResources\base.min.js" />
     <EmbeddedResource Include="Web\Resource\SiteResources\cms.core.js" />
     <EmbeddedResource Include="Web\Resource\SiteResources\js-cms-api.js" />
-    <EmbeddedResource Include="Web\Resource\SiteResources\site-base.css" />
-    <EmbeddedResource Include="Web\Resource\SiteResources\site-elements.css" />
-    <EmbeddedResource Include="Web\Resource\SiteResources\site-pages.css" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-base.less" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-elements.less" />
+    <EmbeddedResource Include="Web\Resource\SiteResources\site-pages.less" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-migration.css" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-robots.txt" />
     <EmbeddedResource Include="Web\Resource\SiteResources\site-favicon.ico" />
@@ -78,8 +78,8 @@
     <EmbeddedResource Include="Web\Resource\ManageResources\manage_js.js" />
     <EmbeddedResource Include="Web\Resource\ManageResources\ui_component.source.js" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\js-cms-api.js" />
-    <None Remove="WebImpl\Resource\Static\SiteResouce\site-base.css" />
-    <None Remove="WebImpl\Resource\Static\SiteResouce\site-elements.css" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\site-base.less" />
+    <None Remove="WebImpl\Resource\Static\SiteResouce\site-elements.less" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\site-migration.css" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\site-rebots.txt" />
     <None Remove="WebImpl\Resource\Static\SiteResouce\assets\animate.css" />

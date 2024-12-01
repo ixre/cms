@@ -1,14 +1,3 @@
-:root {
-  /** 主体背景色 */
-  --body-background-color: #f5f7fa;
-}
-
-body {
-  background: var(--body-background-color, #fff);
-  font-family: Helvetica, Tahoma, sans-serif;
-  margin: 0;
-}
-
 .topbar {
   /** 顶部栏背景色 */
   --topbar-background-color: none;
@@ -18,26 +7,26 @@ body {
   --topbar-text-size: var(--text-sm-size);
   /** 顶部栏高度 */
   --topbar-height: 50px;
-  & {
-    /** 顶部栏 */
-    background-color: var(--topbar-background-color, #ffffff);
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    height: var(--topbar-height, 50px);
-    color: var(--topbar-text-color, #000);
-    font-size: var(--topbar-text-size, 14px);
-  }
+
+  /** 顶部栏 */
+  background-color: var(--topbar-background-color, #ffffff);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  height: var(--topbar-height, 50px);
+  color: var(--topbar-text-color, #000);
+  font-size: var(--topbar-text-size, 14px);
+
   & .row {
     justify-content: flex-end;
     & .left {
       flex: 1;
     }
   }
-  .topbar__slogan {
+  &__slogan {
     flex: 1;
   }
-  .topbar__line {
+  &__line {
     height: 1px;
     width: 100%;
     background: var(--topbar-text-color);
@@ -70,23 +59,23 @@ body {
     box-shadow: 0 0 var(--header-shadow-height, 5px)
       var(--header-shadow-color, "#EEE");
   }
-  & .container {
+  .container {
     padding-left: 0;
     padding-right: 0;
   }
-  & .header__main {
+  &__main {
     display: flex;
     align-items: center;
   }
 
-  & .header__logo {
+  &__logo {
     position: relative;
     padding-left: 0;
 
-    & .header__logo--img {
+    &--img {
       max-height: 48px;
     }
-    & .header__logo--mask,
+    &--mask,
     a.mask {
       position: absolute;
       left: 0;
@@ -98,20 +87,21 @@ body {
       height: 100%;
     }
   }
-  & .header__nav {
+  &__nav {
     padding-left: 0;
     padding-right: 0;
   }
-}
-.header.header-fixed {
-  /** 头部浮动,添加样式header-nofix,则不会自动浮动 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: var(--header-fixed-background-color, #ffffffee);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+  &-fixed {
+    /** 头部浮动,添加样式header-nofix,则不会自动浮动 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--header-fixed-background-color, #ffffffee);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /** 导航 */
@@ -130,51 +120,53 @@ body {
     font-size: var(--navigator-font-size, 14px);
   }
 
-  .navigator__left,
-  .navigator__right,
-  .navgiator__nav {
+  &__left,
+  &__right,
+  &__nav {
     padding-bottom: 0px;
     margin-bottom: 0px;
   }
-  .navigator__left {
+  &__left {
     float: left;
     width: 10px;
     margin-right: -10px;
   }
-  .navigator__right {
+  &__right {
     float: right;
     width: 10px;
     margin-left: -10px;
   }
-  .navigator__nav {
+  &__nav {
     width: auto;
     gap: 1.6em;
-  }
-  .navigator__nav > .l1 {
-    float: left;
-    position: relative;
-    z-index: 200;
-  }
-  .navigator__nav > .navigator__item {
-    /** 未激活导航项 */
-    line-height: 48px;
 
-    /** 底部边框 */
-    &::after {
-      position: absolute;
-      content: "";
-      bottom: -5px;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      height: 3px;
-      opacity: 0;
-      transition: all 0.2s;
-      background: var(--navigator-active-color, #0d6efd);
+    & > .l1 {
+      float: left;
+      position: relative;
+      z-index: 200;
     }
-    a.l1 {
-      text-decoration: none;
-      color: var(--navigator-item-color, #000);
+
+    & > .navigator__item {
+      /** 未激活导航项 */
+      line-height: 48px;
+
+      /** 底部边框 */
+      &::after {
+        position: absolute;
+        content: "";
+        bottom: -5px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        height: 3px;
+        opacity: 0;
+        transition: all 0.2s;
+        background: var(--navigator-active-color, #0d6efd);
+      }
+      a.l1 {
+        text-decoration: none;
+        color: var(--navigator-item-color, #000);
+      }
     }
   }
 
@@ -237,7 +229,7 @@ body {
       content: "";
       display: block;
       width: 100%;
-      padding-top: calc(100% * var(--swiper-image-scale, 0.5625));
+      padding-top: ~"calc(100% * var(--swiper-image-scale, 0.5625))";
     }
     & > img {
       /** 图片居中显示 */
@@ -365,7 +357,7 @@ body {
 
   .bubble__left,
   .bubble__right {
-    top: calc(50% - var(--bubble-arrow-size, 10px));
+    top: ~"calc(50% - var(--bubble-arrow-size, 10px))";
   }
   .bubble__top,
   .bubble__bottom {
@@ -373,22 +365,22 @@ body {
     right: 0;
   }
   .bubble__top {
-    top: calc(0px - var(--bubble-arrow-size, 10px));
+    top: ~"calc(0px - var(--bubble-arrow-size, 10px))";
     border-bottom-color: var(--bubble-background-color, #ffe);
     border-top: 0;
   }
   .bubble__bottom {
-    bottom: calc(0px - var(--bubble-arrow-size, 10px));
+    bottom: ~"calc(0px - var(--bubble-arrow-size, 10px))";
     border-top-color: var(--bubble-background-color, #ffe);
     border-bottom: 0;
   }
   .bubble__left {
-    left: calc(0px - var(--bubble-arrow-size, 10px));
+    left: ~"calc(0px - var(--bubble-arrow-size, 10px))";
     border-right-color: var(--bubble-background-color, #ffe);
     border-left: 0;
   }
   .bubble__right {
-    right: calc(0px - var(--bubble-arrow-size, 10px));
+    right: ~"calc(0px - var(--bubble-arrow-size, 10px))";
     border-left-color: var(--bubble-background-color, #ffe);
     border-right: 0;
   }
@@ -494,7 +486,7 @@ body {
     border: solid var(--assistant-border-size, 0.0625rem)
       var(--assistant-border-color, #f0f0f0);
     background: var(--assistant-background-color, #fff);
-    transform: translate(0, calc(0px - var(--assistant-position-top, 50%)));
+    transform: translate(0, ~"calc(0px - var(--assistant-position-top, 50%))");
     border-radius: var(--assistant-border-radius, 0.3125rem);
     z-index: 10;
   }
@@ -523,8 +515,8 @@ body {
     /** 气泡提示 */
     position: absolute;
     top: 0;
-    left: calc(0px - var(--assistant-bubble-right, 1.5em));
-    right: calc(0px - var(--assistant-bubble-right, 1.5em));
+    left: ~"calc(0px - var(--assistant-bubble-right, 1.5em))";
+    right: ~"calc(0px - var(--assistant-bubble-right, 1.5em))";
     transform: translate(0, -125%);
     text-align: center;
     display: none;
