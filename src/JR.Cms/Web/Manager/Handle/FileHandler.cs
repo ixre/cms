@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : File.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/17 18:10:55
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -43,7 +43,7 @@ namespace JR.Cms.Web.Manager.Handle
             Response.ContentType("Image/Jpeg");
             Response.AppendHeader("Content-Disposition",
                 "attachment;filename=guest_avatar.jpg");
-            
+
             var bytes = Convert.FromBase64String(base64Str);
             Response.Write(bytes, 0, bytes.Length);
         }
@@ -59,7 +59,7 @@ namespace JR.Cms.Web.Manager.Handle
             //图片数据
             const string loadingBase64String =
                 "R0lGODlhEAAQAPIAAP///wBg/8LY/kKJ/gBg/2Kc/oKw/pK6/iH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6ImKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA== ";
-         
+
             Response.ContentType("Image/Gif");
             Response.AppendHeader("Content-Disposition",
                 "attachment;filename=loading.gif");
@@ -83,7 +83,7 @@ namespace JR.Cms.Web.Manager.Handle
             bool isDir = Request.GetParameter("is_dir") == "1" || Request.GetParameter("is_dir") == "true";
             if (!dir.StartsWith(".")) dir = "./" + dir;
             if (action == "list")
-            { 
+            {
                 Response.WriteAsync(FileJsonExplore.GetJson(dir));
                 return;
             }
@@ -158,7 +158,7 @@ namespace JR.Cms.Web.Manager.Handle
             var dependJs = "/public/assets/code_editor/mode/htmlmixed/htmlmixed.js";
 
             var file = new FileInfo(EnvUtil.GetBaseDirectory() + "/" + path);
-            var bakFile = new FileInfo(Cms.PhysicPath+Helper.GetBackupFilePath(path));
+            var bakFile = new FileInfo(Cms.PhysicPath + Helper.GetBackupFilePath(path));
 
             switch (file.Extension.ToLower())
             {
@@ -238,7 +238,7 @@ namespace JR.Cms.Web.Manager.Handle
 
                     if (action == "save")
                     {
-                        var backupDir = backFile.Substring(0, backFile.LastIndexOfAny(new char[] {'/', '\\'}) + 1);
+                        var backupDir = backFile.Substring(0, backFile.LastIndexOfAny(new char[] { '/', '\\' }) + 1);
 
                         if (!Directory.Exists(backupDir))
                         {

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ TO2.NET,All right reserved.
+// Copyright 2011 @ fze.NET,All right reserved.
 // Name: RSSUtility.cs
 // author_id: newmin
 // Comments:
@@ -58,7 +58,7 @@ namespace JR.Cms.Library.Utility
                 .Append("<description>").Append(Settings.SYS_NAME).Append("-最近发布的文档</description>")
                 .Append("<language>zh-cn</language>")
                 .Append("<copyright>Copyright (C) OPS.CC. All rights reserved.</copyright>")
-                .Append("<generator>to2.net/cms RSS Generator</generator>");
+                .Append("<generator>fze.NET/cms RSS Generator</generator>");
 
             IList<Archive> archives = archiveBLL.GetAllArchives().ToEntityList<Archive>();
             foreach (Archive a in archives)

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : Ajax.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/15 21:16:56
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -101,7 +101,7 @@ namespace JR.Cms.Web.Manager.Handle
         {
             string path = Request.Query("path");
             string bakInfo;
-            var file = new FileInfo(EnvUtil.GetBaseDirectory()+ path);
+            var file = new FileInfo(EnvUtil.GetBaseDirectory() + path);
             var bakFile = new FileInfo(EnvUtil.GetBaseDirectory() + Helper.GetBackupFilePath(path));
             if (!file.Exists)
             {
@@ -123,7 +123,7 @@ namespace JR.Cms.Web.Manager.Handle
             var sr = new StreamReader(file.FullName);
             var content = sr.ReadToEnd();
             sr.Dispose();
-            
+
             content = content.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
             ViewData["raw_content"] = content;
             ViewData["bakInfo"] = bakInfo;
@@ -156,7 +156,7 @@ namespace JR.Cms.Web.Manager.Handle
 
                     if (action == "save")
                     {
-                        var backupDir = backFile.Substring(0, backFile.LastIndexOfAny(new char[] {'/', '\\'}) + 1);
+                        var backupDir = backFile.Substring(0, backFile.LastIndexOfAny(new char[] { '/', '\\' }) + 1);
 
                         if (!Directory.Exists(backupDir))
                         {
@@ -305,7 +305,7 @@ namespace JR.Cms.Web.Manager.Handle
             if (!UserState.Administrator.Current.IsMaster) return;
             var curTemplate = CurrentSite.Tpl;
 
-            var tplRootPath = string.Format("{0}/templates/",EnvUtil.GetBaseDirectory());
+            var tplRootPath = string.Format("{0}/templates/", EnvUtil.GetBaseDirectory());
             var tplList = new string[0];
             var dir = new DirectoryInfo(tplRootPath);
             if (dir.Exists)
@@ -413,7 +413,7 @@ namespace JR.Cms.Web.Manager.Handle
                 totalReadBytes += readBytes;
             }
             */
-            
+
             //保存文件
             var file = Request.FileIndex(0);
             file.Save(tempTplPath);
@@ -441,11 +441,11 @@ namespace JR.Cms.Web.Manager.Handle
                 }
 
                 if (!entry.IsDirectory)
-                    entry.WriteToDirectory(tplRootPath,  new ExtractionOptions
+                    entry.WriteToDirectory(tplRootPath, new ExtractionOptions
                     {
-                        ExtractFullPath=true,
-                        Overwrite=true,
-                        
+                        ExtractFullPath = true,
+                        Overwrite = true,
+
                     });
             }
 
@@ -458,7 +458,7 @@ namespace JR.Cms.Web.Manager.Handle
                 resultMessage = "模板安装成功!";
             }
 
-            handleOver:
+        handleOver:
 
             archive.Dispose();
             File.Delete(tempTplPath);
@@ -499,7 +499,7 @@ namespace JR.Cms.Web.Manager.Handle
         {
             string tpl = Request.Query("tpl");
             var bytes = ZipHelper.Compress($"{Cms.PhysicPath}templates/{tpl}/", tpl);
-            Response.ContentType ("application/octet-stream");
+            Response.ContentType("application/octet-stream");
             Response.AddHeader("Content-Disposition", "attachment;filename=template_" + tpl + ".zip");
             Response.AddHeader("Content-Length", bytes.Length.ToString());
             Response.WriteAsync(bytes);

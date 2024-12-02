@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : Ajax.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/15 21:16:56
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 // Modify:
 //  2013-06-08 22:30 newmin [!] : 添加模块更新菜单数据
 //
@@ -40,18 +40,18 @@ namespace JR.Cms.Web.Manager.Handle
             bindDomain = null;
             if (!string.IsNullOrEmpty(domainStr))
             {
-                var split = new char[] {' ', ','};
+                var split = new char[] { ' ', ',' };
                 foreach (var domain in domainStr.Split(split))
-                foreach (var s in SiteCacheManager.GetAllSites())
-                {
-                    if (string.IsNullOrEmpty(s.Domain) || siteId != -1 && siteId == s.SiteId) continue;
-                    if (Array.Exists(s.Domain.Split(split),
-                        a => string.Compare(a, domain, StringComparison.OrdinalIgnoreCase) == 0))
+                    foreach (var s in SiteCacheManager.GetAllSites())
                     {
-                        bindDomain += "\n" + domain;
-                        break;
+                        if (string.IsNullOrEmpty(s.Domain) || siteId != -1 && siteId == s.SiteId) continue;
+                        if (Array.Exists(s.Domain.Split(split),
+                            a => string.Compare(a, domain, StringComparison.OrdinalIgnoreCase) == 0))
+                        {
+                            bindDomain += "\n" + domain;
+                            break;
+                        }
                     }
-                }
             }
 
             return bindDomain != null;
@@ -129,7 +129,7 @@ namespace JR.Cms.Web.Manager.Handle
         [MCache(CacheSign.Site | CacheSign.Link)]
         public string Save_POST()
         {
-            var entity =Request.ParseFormToEntity<SiteDto>();
+            var entity = Request.ParseFormToEntity<SiteDto>();
             if (entity.SiteId <= 0) return ReturnError("不允许新增站点");
             var siteIsExist = LocalService.Instance.SiteService.CheckSiteExists(entity.SiteId);
             //  try
@@ -144,8 +144,8 @@ namespace JR.Cms.Web.Manager.Handle
             //  }
             return ReturnSuccess(siteIsExist ? "站点保存成功" : "站点创建成功");
         }
-        
-        
+
+
         /// <summary>
         /// 站点变量
         /// </summary>
@@ -155,7 +155,7 @@ namespace JR.Cms.Web.Manager.Handle
             return RequireTemplate(ResourceMap.GetPageContent(ManagementPage.SiteVariables));
         }
 
-        
+
         public string GetVariablesJson_POST()
         {
             var list = LocalService.Instance.SiteService.GetSiteVariables(base.SiteId);
@@ -189,7 +189,7 @@ namespace JR.Cms.Web.Manager.Handle
             int varId = int.Parse(Request.Form("id"));
             try
             {
-                LocalService.Instance.SiteService.DeleteSiteVariable(SiteId,varId);
+                LocalService.Instance.SiteService.DeleteSiteVariable(SiteId, varId);
             }
             catch (Exception exc)
             {
@@ -211,7 +211,7 @@ namespace JR.Cms.Web.Manager.Handle
                     Value = Request.Form("value"),
                     Remark = Request.Form("remark")
                 };
-                LocalService.Instance.SiteService.SaveSiteVariable(SiteId,dto);
+                LocalService.Instance.SiteService.SaveSiteVariable(SiteId, dto);
             }
             catch (Exception exc)
             {

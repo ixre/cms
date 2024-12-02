@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2013 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2013 fze.NET,All rights reserved.
 // 
 // Project: Cms.Core
 // FileName : Settings.cs
@@ -7,7 +7,7 @@
 // Create : 2012/5/26 19:25:33
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/jr-cms
+// Get infromation of this software,please visit our site http://fze.NET/jr-cms
 // Modify:
 //  2013-02-21  17:28   newmin [+]: SYS_UseFullPath ，SYS_UseCompress
 //  2013-05-30  21:30   newmin [+]: 检测是否gzip,支持则默认开启动

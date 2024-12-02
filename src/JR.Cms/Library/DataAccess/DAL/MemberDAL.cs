@@ -1,6 +1,6 @@
 ﻿//
 // MemberDAL   会员数据访问
-// Copryright 2011 @ TO2.NET,All rights reserved !
+// Copryright 2011 @ fze.NET,All rights reserved !
 // Create by newmin @ 2011/03/16
 //
 
@@ -240,7 +240,7 @@ namespace JR.Cms.Library.DataAccess.DAL
         /// <param name="id"></param>
         public void Delete(int memberID)
         {
-            var pa = new object[,] {{"@id", memberID}};
+            var pa = new object[,] { { "@id", memberID } };
             var parameters = Db.CreateParametersFromArray(pa);
             ExecuteMultiNonQuery(new[]{NewQuery(DbSql.Member_DeleteMember, parameters),
                 NewQuery(DbSql.Member_DeleteMemberDetails, parameters)});

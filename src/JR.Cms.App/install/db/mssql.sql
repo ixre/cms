@@ -24,7 +24,7 @@ view_count [int]  NULL DEFAULT (0),
 ALTER TABLE [cms_archive] WITH NOCHECK ADD  CONSTRAINT [PK_cms_archive] PRIMARY KEY  NONCLUSTERED ( [aid],[id],[alias],[cid] )
 SET IDENTITY_INSERT [cms_archive] ON
 
-INSERT [cms_archive] ([aid],[id],[alias],[cid],[author_id],[title],[content],[properties],view_count,[agree],[disagree],[createdate],[update_time],[flags]) VALUES ( 1,N'spcnet',N'welcome',2,N'admin',N'»¶Ó­Ê¹ÓÃSpecial Cms .NET',N'<div style="text-align:center;font-size:30px"><h2>??¡é¨¨??????¡±¡§Special Cms .NET!</h2></div>',N'{}',1,0,0,N'2013/1/1 1:01:01',N'2013/1/1 1:01:01',N'{st:''0'',sc:''0'',v:''1'',p:''0''}')
+INSERT [cms_archive] ([aid],[id],[alias],[cid],[author_id],[title],[content],[properties],view_count,[agree],[disagree],[createdate],[update_time],[flags]) VALUES ( 1,N'spcnet',N'welcome',2,N'admin',N'ï¿½ï¿½Ó­Ê¹ï¿½ï¿½Special Cms .NET',N'<div style="text-align:center;font-size:30px"><h2>??ï¿½é¨¨??????ï¿½ï¿½ï¿½ï¿½Special Cms .NET!</h2></div>',N'{}',1,0,0,N'2013/1/1 1:01:01',N'2013/1/1 1:01:01',N'{st:''0'',sc:''0'',v:''1'',p:''0''}')
 
 SET IDENTITY_INSERT [cms_archive] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_category]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
@@ -46,8 +46,8 @@ CREATE TABLE [cms_category] (
 ALTER TABLE [cms_category] WITH NOCHECK ADD  CONSTRAINT [PK_cms_category] PRIMARY KEY  NONCLUSTERED ( [id] )
 SET IDENTITY_INSERT [cms_category] ON
 
-INSERT [cms_category] ([id],[siteid],[module_id],[tag],[name],[lft],[rgt],[orderindex]) VALUES ( 1,0,1,N'root',N'¸ùÀ¸Ä¿',1,4,0)
-INSERT [cms_category] ([id],[siteid],[module_id],[tag],[name],[lft],[rgt],[orderindex]) VALUES ( 2,1,1,N'cms',N'»¶Ó­Ê¹ÓÃ',2,3,0)
+INSERT [cms_category] ([id],[siteid],[module_id],[tag],[name],[lft],[rgt],[orderindex]) VALUES ( 1,0,1,N'root',N'ï¿½ï¿½ï¿½ï¿½Ä¿',1,4,0)
+INSERT [cms_category] ([id],[siteid],[module_id],[tag],[name],[lft],[rgt],[orderindex]) VALUES ( 2,1,1,N'cms',N'ï¿½ï¿½Ó­Ê¹ï¿½ï¿½',2,3,0)
 
 SET IDENTITY_INSERT [cms_category] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_comment]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
@@ -128,9 +128,9 @@ CREATE TABLE [cms_link] (
 ALTER TABLE [cms_link] WITH NOCHECK ADD  CONSTRAINT [PK_cms_link] PRIMARY KEY  NONCLUSTERED ( [id] )
 SET IDENTITY_INSERT [cms_link] ON
 
-INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[target],[index],[visible]) VALUES ( 1,0,1,2,N'JR-CMS.NET',N'http://to2.net/cms/cms/',N'_blank',2,1)
-INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[index],[visible]) VALUES ( 2,1,1,1,N'Ê×Ò³',N'/',1,1)
-INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[index],[visible]) VALUES ( 3,0,1,1,N'»¶Ó­Ê¹ÓÃ',N'/cms/welcome.html',2,1)
+INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[target],[index],[visible]) VALUES ( 1,0,1,2,N'JR-CMS.NET',N'http://fze.NET/cms/cms/',N'_blank',2,1)
+INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[index],[visible]) VALUES ( 2,1,1,1,N'ï¿½ï¿½Ò³',N'/',1,1)
+INSERT [cms_link] ([id],[pid],[siteid],[type],[text],[uri],[index],[visible]) VALUES ( 3,0,1,1,N'ï¿½ï¿½Ó­Ê¹ï¿½ï¿½',N'/cms/welcome.html',2,1)
 
 SET IDENTITY_INSERT [cms_link] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_log]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
@@ -204,8 +204,8 @@ CREATE TABLE [cms_modules] (
 ALTER TABLE [cms_modules] WITH NOCHECK ADD  CONSTRAINT [PK_cms_modules] PRIMARY KEY  NONCLUSTERED ( [id] )
 SET IDENTITY_INSERT [cms_modules] ON
 
-INSERT [cms_modules] ([id],[siteid],[name],[issystem],[isdelete],[extid1],[extid2],[extid3],[extid4]) VALUES ( 1,0,N'×Ô¶¨ÒåÒ³Ãæ',1,0,0,0,0,0)
-INSERT [cms_modules] ([id],[siteid],[name],[issystem],[isdelete],[extid1],[extid2],[extid3],[extid4]) VALUES ( 2,0,N'ÎÄµµ',1,0,0,0,0,0)
+INSERT [cms_modules] ([id],[siteid],[name],[issystem],[isdelete],[extid1],[extid2],[extid3],[extid4]) VALUES ( 1,0,N'ï¿½Ô¶ï¿½ï¿½ï¿½Ò³ï¿½ï¿½',1,0,0,0,0,0)
+INSERT [cms_modules] ([id],[siteid],[name],[issystem],[isdelete],[extid1],[extid2],[extid3],[extid4]) VALUES ( 2,0,N'ï¿½Äµï¿½',1,0,0,0,0,0)
 
 SET IDENTITY_INSERT [cms_modules] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_operation]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
@@ -220,48 +220,48 @@ CREATE TABLE [cms_operation] (
 ALTER TABLE [cms_operation] WITH NOCHECK ADD  CONSTRAINT [PK_cms_operation] PRIMARY KEY  NONCLUSTERED ( [id] )
 SET IDENTITY_INSERT [cms_operation] ON
 
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 44,N'ÓÑÇéÁ´½Ó',N'link?view=list&type=friendlink',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 45,N'·ÖÀà->·ÖÀàÁÐ±í',N'catalog?view=list',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 46,N'ÏµÍ³->ÍøÕ¾ÉèÖÃ',N'config?id=1',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 47,N'ÏµÍ³->ÍøÕ¾»ù±¾×ÊÁÏÐÞ¸Ä',N'config?id=2',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 48,N'ÏµÍ³->ÍøÕ¾ÓÅ»¯ÉèÖÃ',N'config?id=3',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 49,N'´íÎóÈÕÖ¾',N'system?view=errorlog',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 50,N'ÄÚÈÝ->Ò³Ãæ¹ÜÀí',N'archive?view=list&type=1',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 51,N'ÄÚÈÝ->Ìí¼ÓÒ³Ãæ',N'archive?view=create&type=1',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 52,N'ÄÚÈÝ->ÐÅÏ¢ÁÐ±í',N'archive?view=list&type=2',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 53,N'ÄÚÈÝ->·¢²¼ÐÅÏ¢',N'archive?view=create&type=2',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 54,N'·ÖÀà->É¾³ý·ÖÀà',N'app.axd?do=catalog:delete',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 55,N'·ÖÀà->ÐÞ¸Ä·ÖÀà',N'app.axd?do=catalog:update',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 56,N'»áÔ±>»áÔ±ÁÐ±í',N'user?view=member',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 57,N'»áÔ±>É¾³ý»áÔ±',N'app.axd?do=member:delete',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 58,N'ÏµÍ³ÓÃ»§¹ÜÀí',N'user?view=user',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 59,N'É¾³ýÆÀÂÛ',N'app.axd?do=archive:deletecomment',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 60,N'Í·²¿µ¼º½Á´½Ó',N'link?view=list&type=headerlink',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 61,N'ÍøÕ¾µ¼º½Á´½Ó',N'link?view=list&type=navigation',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 62,N'Ìí¼ÓÐÂÁ´½Ó',N'link?view=create',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 63,N'ÐÞ¸ÄÁ´½Ó',N'link?view=edit',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 64,N'É¾³ýÁ´½Ó',N'app.axd?do=link:delete',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 65,N'¸üÐÂÒ³Ãæ',N'archive?view=update&typeid=1',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 66,N'¸üÐÂÐÅÏ¢',N'archive?view=update&typeid=2',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 67,N'¸üÐÂÍ¼ÎÄÐÅÏ¢',N'archive?view=update&typeid=3',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 68,N'¸üÐÂ»­ÀÈÐÅÏ¢',N'archive?view=update&typeid=4',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 69,N'¸üÐÂÊÓÆµÐÅÏ¢',N'archive?view=update&typeid=5',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 70,N'¸üÐÂ×¨ÌâÐÅÏ¢',N'archive?view=update&typeid=6',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 71,N'Í¼ÎÄÐÅÏ¢ÁÐ±í',N'archive?view=list&typeid=3',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 72,N'»­ÀÈÏ¢ÁÐ±í',N'archive?view=list&typeid=4',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 73,N'ÊÓÆµÐÅÏ¢ÁÐ±í',N'archive?view=list&typeid=5',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 74,N'×¨ÌâÁÐ±í',N'archive?view=list&typeid=6',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 75,N'·¢²¼Í¼ÎÄÐÅÏ¢',N'archive?view=create&typeid=3',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 76,N'·¢²¼»­ÀÈÐÅÏ¢',N'archive?view=create&typeid=4',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 77,N'·¢²¼ÊÓÆµÐÅÏ¢',N'archive?view=create&typeid=5',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 78,N'´´½¨ÐÂ×¨Ìâ',N'archive?view=create&typeid=6',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 79,N'Çå³ý»º´æ',N'system?view=clearcache',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 80,N'²Ù×÷ÁÐ±í',N'operation?view=list',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 81,N'ÓÃ»§×é²Ù×÷È¨ÏÞÉèÖÃ',N'operation?view=set',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 82,N'Çå³ý´íÎóÈÕÖ¾',N'/app.axd?log:clearErrorLog',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 83,N'É¾³ýÎÄµµ',N'archive:delete',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 84,N'Ë¢ÐÂÎÄµµ´´½¨Ê±¼ä',N'archive:refresh',1)
-INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 85,N'ÄÚÈÝ²É¼¯',N'/plugin/collection.ashx',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 44,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'link?view=list&type=friendlink',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 45,N'ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½',N'catalog?view=list',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 46,N'ÏµÍ³->ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½',N'config?id=1',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 47,N'ÏµÍ³->ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½',N'config?id=2',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 48,N'ÏµÍ³->ï¿½ï¿½Õ¾ï¿½Å»ï¿½ï¿½ï¿½ï¿½ï¿½',N'config?id=3',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 49,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾',N'system?view=errorlog',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 50,N'ï¿½ï¿½ï¿½ï¿½->Ò³ï¿½ï¿½ï¿½ï¿½ï¿½',N'archive?view=list&type=1',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 51,N'ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½',N'archive?view=create&type=1',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 52,N'ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½Ï¢ï¿½Ð±ï¿½',N'archive?view=list&type=2',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 53,N'ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢',N'archive?view=create&type=2',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 54,N'ï¿½ï¿½ï¿½ï¿½->É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'app.axd?do=catalog:delete',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 55,N'ï¿½ï¿½ï¿½ï¿½->ï¿½Þ¸Ä·ï¿½ï¿½ï¿½',N'app.axd?do=catalog:update',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 56,N'ï¿½ï¿½Ô±>ï¿½ï¿½Ô±ï¿½Ð±ï¿½',N'user?view=member',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 57,N'ï¿½ï¿½Ô±>É¾ï¿½ï¿½ï¿½ï¿½Ô±',N'app.axd?do=member:delete',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 58,N'ÏµÍ³ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½',N'user?view=user',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 59,N'É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'app.axd?do=archive:deletecomment',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 60,N'Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'link?view=list&type=headerlink',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 61,N'ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'link?view=list&type=navigation',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 62,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'link?view=create',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 63,N'ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½',N'link?view=edit',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 64,N'É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'app.axd?do=link:delete',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 65,N'ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½',N'archive?view=update&typeid=1',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 66,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢',N'archive?view=update&typeid=2',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 67,N'ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ï¢',N'archive?view=update&typeid=3',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 68,N'ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢',N'archive?view=update&typeid=4',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 69,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½Ï¢',N'archive?view=update&typeid=5',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 70,N'ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½ï¿½ï¿½Ï¢',N'archive?view=update&typeid=6',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 71,N'Í¼ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ð±ï¿½',N'archive?view=list&typeid=3',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 72,N'ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ð±ï¿½',N'archive?view=list&typeid=4',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 73,N'ï¿½ï¿½Æµï¿½ï¿½Ï¢ï¿½Ð±ï¿½',N'archive?view=list&typeid=5',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 74,N'×¨ï¿½ï¿½ï¿½Ð±ï¿½',N'archive?view=list&typeid=6',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 75,N'ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ï¢',N'archive?view=create&typeid=3',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 76,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢',N'archive?view=create&typeid=4',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 77,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½Ï¢',N'archive?view=create&typeid=5',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 78,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½',N'archive?view=create&typeid=6',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 79,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'system?view=clearcache',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 80,N'ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½',N'operation?view=list',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 81,N'ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',N'operation?view=set',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 82,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾',N'/app.axd?log:clearErrorLog',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 83,N'É¾ï¿½ï¿½ï¿½Äµï¿½',N'archive:delete',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 84,N'Ë¢ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½',N'archive:refresh',1)
+INSERT [cms_operation] ([id],[name],[path],[available]) VALUES ( 85,N'ï¿½ï¿½ï¿½Ý²É¼ï¿½',N'/plugin/collection.ashx',1)
 
 SET IDENTITY_INSERT [cms_operation] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_review]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
@@ -301,7 +301,7 @@ CREATE TABLE [cms_site] (
 ALTER TABLE [cms_site] WITH NOCHECK ADD  CONSTRAINT [PK_cms_site] PRIMARY KEY  NONCLUSTERED ( [siteid] )
 SET IDENTITY_INSERT [cms_site] ON
 
-INSERT [cms_site] ([siteid],[name],[language],[tpl],[seotitle],[state],[pronotice]) VALUES ( 1,N'Ä¬ÈÏÕ¾µã',1,N'default',N'Ä¬ÈÏÕ¾µã-Speicial Cms .NET!',1,N'JR-CMS.NETÊÇÒ»¿î¿çÆ½Ì¨Ö§³Ö¶àÕ¾µã»ùÓÚASP.NET MVC¼¼Êõ¼Ü¹¹µÄÄÚÈÝ¹ÜÀíÏµÍ³!')
+INSERT [cms_site] ([siteid],[name],[language],[tpl],[seotitle],[state],[pronotice]) VALUES ( 1,N'Ä¬ï¿½ï¿½Õ¾ï¿½ï¿½',1,N'default',N'Ä¬ï¿½ï¿½Õ¾ï¿½ï¿½-Speicial Cms .NET!',1,N'JR-CMS.NETï¿½ï¿½Ò»ï¿½ï¿½ï¿½Æ½Ì¨Ö§ï¿½Ö¶ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ASP.NET MVCï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ÏµÍ³!')
 
 SET IDENTITY_INSERT [cms_site] OFF
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_table]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
@@ -387,11 +387,11 @@ CREATE TABLE [cms_usergroup] (
 
 ALTER TABLE [cms_usergroup] WITH NOCHECK ADD  CONSTRAINT [PK_cms_usergroup] PRIMARY KEY  NONCLUSTERED ( [id] )
 INSERT [cms_usergroup] ([id]) VALUES ( 0)
-INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 1,N'³¬¼¶¹ÜÀíÔ±',N'1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42')
-INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 2,N'¹ÜÀíÔ±',N'1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,40,41,42')
-INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 3,N'±à¼­',N'1,2,3,4,5,6,10,11,12,13,14,15')
-INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 4,N'»áÔ±',N'1,2,3,4,5,6')
-INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 5,N'ÓÎ¿Í',N'3,4')
+INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 1,N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±',N'1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42')
+INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 2,N'ï¿½ï¿½ï¿½ï¿½Ô±',N'1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,40,41,42')
+INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 3,N'ï¿½à¼­',N'1,2,3,4,5,6,10,11,12,13,14,15')
+INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 4,N'ï¿½ï¿½Ô±',N'1,2,3,4,5,6')
+INSERT [cms_usergroup] ([id],[name],[permissions]) VALUES ( 5,N'ï¿½Î¿ï¿½',N'3,4')
 if exists (select * from sysobjects where id = OBJECT_ID('[cms_user]') and OBJECTPROPERTY(id, 'IsUserTable') = 1) 
 DROP TABLE [cms_user]
 

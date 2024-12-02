@@ -1,6 +1,6 @@
 ﻿//
 // MessageBLL   消息逻辑
-// Copryright 2011 @ TO2.NET,All rights reserved !
+// Copryright 2011 @ fze.NET,All rights reserved !
 // Create by newmin @ 2011/04/06
 //
 
@@ -92,7 +92,7 @@ namespace JR.Cms.Library.DataAccess.BLL
             int pageSize, ref int currentPageIndex,
             out int recordCount, out int pageCount)
         {
-            return dal.GetPagedMessage(uid, (int) type, pageSize,
+            return dal.GetPagedMessage(uid, (int)type, pageSize,
                     ref currentPageIndex, out recordCount, out pageCount)
                 .ToEntityList<Message>();
         }

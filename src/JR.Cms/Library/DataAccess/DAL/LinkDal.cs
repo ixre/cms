@@ -1,6 +1,6 @@
 ﻿//
 // LinkDAL   友情链接数据访问层
-// Copryright 2011 @ TO2.NET,All rights reserved !
+// Copryright 2011 @ fze.NET,All rights reserved !
 // Create by newmin @ 2011/03/13
 //
 
@@ -132,7 +132,7 @@ namespace JR.Cms.Library.DataAccess.DAL
         public void RemoveRelatedLinks(string contenType, int contentId, string ids)
         {
             var sql = String.Format(DbSql.Link_RemoveRelatedLinks, ids);
-            ExecuteNonQuery(  SqlQueryHelper.Format(sql, new object[,]
+            ExecuteNonQuery(SqlQueryHelper.Format(sql, new object[,]
                 {
                     {"@contentType", contenType},
                     {"@contentId", contentId}

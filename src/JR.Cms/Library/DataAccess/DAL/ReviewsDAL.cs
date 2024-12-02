@@ -1,6 +1,6 @@
 ﻿//
 // ReviewsDAL   点评(赞同和反对)访问层
-// Copryright 2011 @ TO2.NET,All rights reserved !
+// Copryright 2011 @ fze.NET,All rights reserved !
 // Create by newmin @ 2011/03/13
 //
 
@@ -60,7 +60,7 @@ namespace JR.Cms.Library.DataAccess.DAL
                 ? OptimizeSql(DbSql.Reviews_UpdateEvaluate_Agree)
                 : OptimizeSql(DbSql.Reviews_UpdateEvaluate_Disagree);
 
-            ExecuteNonQuery(new SqlQuery(sql, new object[,] {{"@id", archiveId}}));
+            ExecuteNonQuery(new SqlQuery(sql, new object[,] { { "@id", archiveId } }));
         }
 
         /// <summary>

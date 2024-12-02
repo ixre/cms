@@ -1,5 +1,5 @@
 ﻿//
-// Copyright TO2.NET.
+// Copyright fze.NET.
 // UserBLL.cs newmin (new.min@msn.com)
 //
 
@@ -221,7 +221,7 @@ namespace JR.Cms.Library.DataAccess.BLL
             var groups = GetUserGroups();
             if (groups != null)
                 foreach (var u in groups)
-                    if (u != null && u.Id == (int) @group)
+                    if (u != null && u.Id == (int)@group)
                         return u;
             return null;
         }
@@ -260,13 +260,13 @@ namespace JR.Cms.Library.DataAccess.BLL
         /// <param name="permissions"></param>
         public void UpdateUserGroupPermissions(UserGroups group, Operation[] permissions)
         {
-            _dal.UpdateUserGroupPermissions((int) group, ConvertPermissionArrayToString(permissions));
+            _dal.UpdateUserGroupPermissions((int)group, ConvertPermissionArrayToString(permissions));
 
             //更新组的权限
             if (_groups == null) GetUserGroups();
             Array.ForEach(_groups, a =>
             {
-                if (a.Id == (int) group) a.Permissions = permissions;
+                if (a.Id == (int)group) a.Permissions = permissions;
             });
         }
 
@@ -277,12 +277,12 @@ namespace JR.Cms.Library.DataAccess.BLL
         /// <param name="groupName"></param>
         public void RenameUserGroup(UserGroups group, string groupName)
         {
-            _dal.RenameUserGroup((int) group, groupName);
+            _dal.RenameUserGroup((int)group, groupName);
 
             //更新用户组的名称
             Array.ForEach(GetUserGroups(), a =>
             {
-                if (a.Id == (int) group) a.Name = groupName;
+                if (a.Id == (int)group) a.Name = groupName;
             });
         }
 

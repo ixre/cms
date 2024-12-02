@@ -224,7 +224,7 @@ namespace JR.Cms.Web.Portal.Common
 
             #region 初始化数据库
 
-            if (!ExtraDB(dbType, dbStr, dbPrefix)) return InstallStateCode.DB_INIT_ERROR;
+            if (!ExtraDB(dbType, dbName, dbStr, dbPrefix)) return InstallStateCode.DB_INIT_ERROR;
 
             #endregion
 
@@ -425,10 +425,11 @@ namespace JR.Cms.Web.Portal.Common
         /// 释放数据库
         /// </summary>
         /// <param name="dbType"></param>
+        /// <param name="dbName"></param>
         /// <param name="connStr"></param>
         /// <param name="dbPrefix"></param>
         /// <returns></returns>
-        private bool ExtraDB(string dbType, string connStr, string dbPrefix)
+        private bool ExtraDB(string dbType, string dbName, string connStr, string dbPrefix)
         {
             var type = DataBaseType.MySQL;
             switch (dbType)
@@ -458,19 +459,19 @@ namespace JR.Cms.Web.Portal.Common
             if (type == DataBaseType.MySQL)
             {
                 sqlScript = string.Concat(Cms.PhysicPath, MYSQL_INSTALL_SCRIPT);
-                return execDbScript(dbPrefix, ref sql, sqlScript);
+                return execDbScript(dbName, dbPrefix, ref sql, sqlScript);
             }
 
             if (type == DataBaseType.SQLServer)
             {
                 sqlScript = string.Concat(Cms.PhysicPath, MSSQL_INSTALL_SCRIPT);
-                return execDbScript(dbPrefix, ref sql, sqlScript);
+                return execDbScript(dbName, dbPrefix, ref sql, sqlScript);
             }
 
             if (type == DataBaseType.SQLite)
             {
                 sqlScript = string.Concat(Cms.PhysicPath, SQLite_INSTALL_SCRIPT);
-                return execDbScript(dbPrefix, ref sql, sqlScript);
+                return execDbScript(dbName, dbPrefix, ref sql, sqlScript);
             }
 
             return true;
@@ -483,14 +484,16 @@ namespace JR.Cms.Web.Portal.Common
         /// <param name="sql"></param>
         /// <param name="sqlScript"></param>
         /// <returns></returns>
-        private bool execDbScript(string dbPrefix, ref string sql, string sqlScript)
+        private bool execDbScript(String dbName, string dbPrefix, ref string sql, string sqlScript)
         {
             if (sqlScript != null)
             {
                 //从脚本中读取出SQL语句
                 TextReader tr = new StreamReader(sqlScript);
 
-                sql = tr.ReadToEnd().Replace("cms_", dbPrefix)
+                sql = tr.ReadToEnd()
+                    .Replace("CREATE SCHEMA IF NOT EXISTS `cms`", $"CREATE SCHEMA IF NOT EXISTS `{dbName}`")
+                    .Replace("cms_", dbPrefix)
                     .Replace(",False", ",0")
                     .Replace(",True", ",1")
                     .Replace(",index", ",`index`");

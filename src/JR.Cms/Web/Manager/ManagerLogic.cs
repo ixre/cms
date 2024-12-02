@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : ManagerLogic.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/15 19:19:00
 // Description :
 //
-// Get information of this software,please visit our site http://to2.net/cms
+// Get information of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -80,7 +80,7 @@ namespace JR.Cms.Web.Manager
             //获取请求和发送对象
             var request = context.Request;
             var response = context.Response;
-            
+
             //不需要进行权限验证的页面
             var query = context.Request.GetQueryString();
             if (Regex.IsMatch(query, "^\\?res=[^&]+"))
@@ -105,7 +105,7 @@ namespace JR.Cms.Web.Manager
                     return CallMethod(context, typeof(SystemHandler), "LoadSession");
                 }
             }
-            
+
             //获取模块和动作参数
             var module = request.Query("module");
             var action = request.Query("action");
@@ -129,7 +129,7 @@ namespace JR.Cms.Web.Manager
                         $"<script>window.parent.location.replace('{request.GetPath()}?action=login')</script>");
                 }
                 // 无权执行操作则返回
-                if (!HasPermissions()) return  SafetyTask.CompletedTask;
+                if (!HasPermissions()) return SafetyTask.CompletedTask;
             }
 
             // 默认返回system的界面
@@ -142,55 +142,55 @@ namespace JR.Cms.Web.Manager
             switch (module)
             {
                 //主页
-                case "system":return CallMethod(context, typeof(SystemHandler), action);
+                case "system": return CallMethod(context, typeof(SystemHandler), action);
 
                 //站点管理
-                case "site":return CallMethod(context, typeof(SiteHandler), action);
+                case "site": return CallMethod(context, typeof(SiteHandler), action);
 
                 //AJAX操作
-                case "ajax":return CallMethod(context, typeof(AjaxHandler), action);
+                case "ajax": return CallMethod(context, typeof(AjaxHandler), action);
 
                 //文档
-                case "archive":return CallMethod(context, typeof(ArchiveHandler), action);
+                case "archive": return CallMethod(context, typeof(ArchiveHandler), action);
 
                 //栏目
-                case "category":return CallMethod(context, typeof(CategoryHandler), action);
-                
+                case "category": return CallMethod(context, typeof(CategoryHandler), action);
+
                 //链接
-                case "link":return CallMethod(context, typeof(LinkHandler), action);
+                case "link": return CallMethod(context, typeof(LinkHandler), action);
 
                 //用户
-                case "user":return CallMethod(context, typeof(UserHandler), action);
+                case "user": return CallMethod(context, typeof(UserHandler), action);
 
                 //模板
-                case "template":return CallMethod(context, typeof(TemplateHandler), action);
+                case "template": return CallMethod(context, typeof(TemplateHandler), action);
 
                 //插件
-                case "plugin":return CallMethod(context, typeof(PluginHandler), action);
+                case "plugin": return CallMethod(context, typeof(PluginHandler), action);
 
                 //图像
-                case "file":return CallMethod(context, typeof(FileHandler), action);
+                case "file": return CallMethod(context, typeof(FileHandler), action);
 
                 //上传
-                case "upload":return CallMethod(context, typeof(UploadHandler), action);
+                case "upload": return CallMethod(context, typeof(UploadHandler), action);
 
                 //模块
                 // case "module":
                 //     return CallMethod(context,  typeof(ModuleHandler), action);
 
                 //表单
-                case "table":return CallMethod(context, typeof(TableHandler), action);
+                case "table": return CallMethod(context, typeof(TableHandler), action);
 
                 //工具
                 // case "tool":
                 //    return CallMethod(context,  typeof(MToolsHandler), action);
 
                 //扩展字段
-                case "extend":return CallMethod(context, typeof(ExtendHandler), action);
+                case "extend": return CallMethod(context, typeof(ExtendHandler), action);
                 // 助手
-                case "assistant":return CallMethod(context, typeof(AssistantHandler), action);
+                case "assistant": return CallMethod(context, typeof(AssistantHandler), action);
                 // 编辑器
-                case "editor":return CallMethod(context, typeof(EditorHandler), action);
+                case "editor": return CallMethod(context, typeof(EditorHandler), action);
                 // Seo
                 case "seo": return CallMethod(context, typeof(SeoHandler), action);
             }
@@ -211,7 +211,7 @@ namespace JR.Cms.Web.Manager
                     Task task;
                     if (method.ReturnType == typeof(Task))
                     {
-                        task = method.Invoke(obj, new object[] {context}) as Task;
+                        task = method.Invoke(obj, new object[] { context }) as Task;
                     }
                     else if (method.ReturnType == typeof(string))
                     {

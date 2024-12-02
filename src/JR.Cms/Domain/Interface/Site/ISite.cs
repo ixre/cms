@@ -42,7 +42,7 @@ namespace JR.Cms.Domain.Interface.Site
         Error Set(CmsSiteEntity value);
 
         /// <summary>
-        /// 获取基础URL,如:http://to2.net/cms/.
+        /// 获取基础URL,如:http://fze.NET/cms/.
         /// 如果未绑定域名，则用#代替Host部分,如：
         /// http://#/sub
         /// </summary>
@@ -84,7 +84,7 @@ namespace JR.Cms.Domain.Interface.Site
         /// </summary>
         /// <returns></returns>
         ISiteVariableManager GetVariableManager();
-        
+
         /// <summary>
         /// 用户服务
         /// </summary>
