@@ -507,6 +507,7 @@ namespace JR.Cms.Web.Portal.Common
                 }
                 catch (Exception exc)
                 {
+                    Console.WriteLine(exc.StackTrace);
                     return false;
                 }
 
