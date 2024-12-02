@@ -23,7 +23,6 @@
 -- Table structure for table `cms_archive`
 --
 
-CREATE SCHEMA IF NOT EXISTS `cms` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 DROP TABLE IF EXISTS `cms_archive`;
