@@ -1,0 +1,292 @@
+$nav=2
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>${page.title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.fpath}/base.min.css?v=${page.built}"
+    />
+
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/page.css?v=${page.built}"
+    />
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/chanyue.css?v=${page.built}"
+    />
+
+    <link
+      rel="Stylesheet"
+      type="text/css"
+      href="${page.tpath}/css/index.css?v=${page.built}"
+    />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    ${page.html5}
+    <meta
+      name="360-site-verification"
+      content="23fad96b4585c0b46335f677780ad79d"
+    />
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?s=${page.built}&amp;hover=navi"
+    ></script>
+  </head>
+
+  <body>
+    <div class="banner">
+      ${include:"include/header.html"}
+
+      <!-- Banner -->
+      <section class="banner__container flex align-end container">
+        <div
+          class="banner__main flex flex-column align-center justify-center flex1"
+        >
+          <div class="flex flex-col align-center mod-tech-banner-p1">
+            <h2
+              class="banner__main--title text-3xl animate__animated animate__slideInLeft text-center"
+            >
+              创新发展, 打造下一代数字法律在线咨询平台
+            </h2>
+            <!-- <div class="arrow"><i></i></div> -->
+            <p class="banner__main--desc text-lg">
+              禅悦信息咨询服务有限公司总部位于珠三角大湾区核心城市-佛山,是一家专注于法律咨询领域的技术公司，持有互联网在线法律咨询资质;
+              公司拥有全国300+城市入驻律师团队等优势,让人人都能享受到便捷贴心的法律咨询服务!
+            </p>
+            <!-- <div class="banner__main--button flex flex-end justify-end">
+              合作热线: ${site.tel}
+            </div> -->
+          </div>
+        </div>
+        <div
+          class="banner__side flex align-end animate__animated animate__fadeInRight flex1"
+        >
+          <img src="${page.tpath}/images/pep-trans.png" alt="" />
+        </div>
+      </section>
+    </div>
+
+    <!-- 我们的服务 -->
+    <section
+      data-scroll-index="2"
+      id="service"
+      class="row-services pt-90 pb-90 section section-services"
+    >
+      <div class="container">
+        <div class="center section__title">
+          <div class="section__title--inner">
+            <div class="section__title--text">平台优势</div>
+            <div class="section__title--secondary">
+              <span class="text-lg">多 . 快 . 好 . 省</span>
+            </div>
+          </div>
+        </div>
+        <div class="row section__main flex gap-rx-4">
+          <div class="block col-lg-4 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img src="${page.tpath}/images/icon_id-card-v.svg" alt="LOL" />
+              </div>
+              <h3 class="block__title text-lg">专业团队</h3>
+              <p class="block__sub">全国3000多家律所合作,上万名律师在线服务</p>
+            </div>
+          </div>
+          <div class="block col-lg-4 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img
+                  src="${page.tpath}/images/icon_communication.svg"
+                  alt="LOL"
+                />
+              </div>
+              <h3 class="block__title text-lg">即时咨询</h3>
+              <p class="block__sub">小程序在线咨询,无需安装软件,简单便捷</p>
+            </div>
+          </div>
+          <div class="block col-lg-4 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img src="${page.tpath}/images/icon_data-file.svg" alt="LOL" />
+              </div>
+              <h3 class="block__title text-lg">数据报表</h3>
+              <p class="block__sub">为律师提供完整的数据查询,数据一目了然</p>
+            </div>
+          </div>
+          <div class="block col-lg-4 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img
+                  src="${page.tpath}/images/icon_friends-circle.svg"
+                  alt="LOL"
+                />
+              </div>
+              <h3 class="block__title text-lg">服务保障</h3>
+              <p class="block__sub">
+                用户可对服务进行评价和投诉,提高客户满意度
+              </p>
+            </div>
+          </div>
+          <div class="block col-lg-4 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img src="${page.tpath}/images/icon_local-pin.svg" alt="LOL" />
+              </div>
+              <h3 class="block__title text-lg">本地律所</h3>
+              <p class="block__sub">
+                全国各城市线下门店提供委托代理服务,全程跟踪服务
+              </p>
+            </div>
+          </div>
+          <div class="block col-lg-4 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img src="${page.tpath}/images/icon_protect.svg" alt="LOL" />
+              </div>
+              <h3 class="block__title text-lg">数据保密</h3>
+              <p class="block__sub">
+                系统对敏感数据已进行加密,平台不存储聊天信息
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      data-scroll-index="2"
+      id="team"
+      class="pt-90 pb-90 section section-teams"
+    >
+      <div class="container">
+        <div class="center section__title">
+          <div class="section__title--inner">
+            <div class="section__title--text">创始团队</div>
+            <div class="section__title--secondary">
+              <span class="text-lg">TEAM MEMBERS</span>
+            </div>
+          </div>
+        </div>
+        <div class="row section__main flex">
+          <div class="block col-lg-3 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img src="${page.tpath}/images/team-member-1.png" alt="LOL" />
+              </div>
+              <h3 class="block__title text-lg">创始人</h3>
+              <p class="block__sub">公司执行总裁-知名律师事务所高级合伙人</p>
+            </div>
+          </div>
+          <div class="block col-lg-3 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img src="${page.tpath}/images/team-member-2.png" alt="LOL" />
+              </div>
+
+              <h3 class="block__title text-lg">创始人</h3>
+              <p class="block__sub">公司执行总裁-知名律师事务所高级合伙人</p>
+            </div>
+          </div>
+          <div class="block col-lg-3 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img src="${page.tpath}/images/team-member-3.png" alt="LOL" />
+              </div>
+
+              <h3 class="block__title text-lg">创始人</h3>
+              <p class="block__sub">公司执行总裁-知名律师事务所高级合伙人</p>
+            </div>
+          </div>
+          <div class="block col-lg-3 col-md-6 col-12">
+            <div class="block it it-1 mt-30 g-text-center">
+              <div class="block__icon icon pb30">
+                <img src="${page.tpath}/images/team-member-4.png" alt="LOL" />
+              </div>
+
+              <h3 class="block__title text-lg">创始人</h3>
+              <p class="block__sub">公司执行总裁-知名律师事务所高级合伙人</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="contact"
+      data-scroll-index="7"
+      class="section section-contact gray-bg flex align-center"
+    >
+      <div class="container">
+        <div class="section__title center">
+          <div class="section__title--inner">
+            <div class="section__title--text">商务合作</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div
+              class="text-2xl text-center animate__animated animate__heartBeat"
+            >
+              <p>商户合作请拨打: ${site.tel}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-app">
+      <div class="container">
+        <div class="section__title section__default center">
+          <div class="section__title--inner">
+            <div class="section__title--text">律师在线APP</div>
+            <div class="section__title--secondary">
+              <span class="text-lg"
+                >我们提供了会员端小程序和律师端APP供您使用</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="row text-center app">
+          <div class="col-lg-6">
+            <div class="app__item">
+              <div class="radius-x-5 app__qr">
+                <img src="${page.tpath}/images/mp-app.jpeg" alt="LOL" />
+
+                <div class="text-lg app__item--title font-bold">
+                  会员端小程序
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 app">
+            <div class="app__item">
+              <div class="radius-x-5 app__qr">
+                <img src="${page.tpath}/images/app-dl.png" alt="LOL" />
+
+                <div class="text-lg app__item--title font-bold">律师端APP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="flex align-center justify-center text-xs">
+      Copyright&nbsp;©&nbsp;2015&nbsp;<strong>${site.name}</strong> &nbsp;All
+      Right Reserved<br />
+
+      <div class="small">
+        <a href="https://beian.miit.gov.cn/" target="_blank">${site.beianNo}</a>
+        &nbsp;&nbsp;网站基于<a target="_blank" href="//to2.net/cms">JR-CMS</a
+        >构建
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+:root {
+  --banner-bg-color: #000;
+  --banner-bg-end-color: #387fff;
+  --text-base-size: 16px;
+}
+
+.header__logo--img {
+  max-height: 64px;
+  border-radius: 99rem;
+}
+
+.navigator {
+  --navigator-item-color: #fff;
+  --navigator-active-color: #fff;
+  --navigator-active-text-weight: 500;
+  --navigator-font-size: var(--text-base-size, 14px);
+}
+
+.section {
+  color: #000;
+}
+.section .block__sub {
+  color: #999;
+  font-size: var(--text-sm-size);
+}
+
+.arrow {
+  i {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #f00;
+  }
+}
+
+.banner {
+  color: #fff;
+  --animate-delay: 2s;
+
+  .header {
+    padding: 2em 0 1em 0;
+    height: auto;
+    box-shadow: none;
+  }
+  .text-3xl {
+    font-size: 2.5rem;
+  }
+  .header__logo--img {
+    background-blend-mode: lighten;
+  }
+  .navigator a {
+    color: #fff;
+  }
+  .banner__main {
+    height: 600px;
+  }
+  .banner__main--title {
+    line-height: 1.25em;
+  }
+  .banner__main--desc {
+    color: #eee !important;
+    background: #5a6b86 !important;
+    border-radius: 15px;
+  }
+}
+
+.block {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+
+  .block__title {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+  }
+
+  .block__sub {
+    max-width: 200px;
+  }
+}
+
+.section-services {
+  background: #fff;
+
+  /*   .block:hover {
+    transform: scale(1.25);
+    z-index: 999;
+    transition: all 0.5s;
+    
+    .block__sub{
+      display: none;
+    }
+  } */
+
+  .block__icon {
+    background: #eee;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .block__icon img {
+    height: 76px;
+  }
+}
+
+.section-teams {
+  .block:hover .block__title,
+  .block:hover .block__sub {
+    transform: scale(1.2);
+    z-index: 999;
+    transition: all 0.5s;
+  }
+}
+
+.section-contact {
+  background: url(images/footer-bg.jpg);
+  background-size: contain;
+  height: 200px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 2em 0;
+  gap: 5px;
+
+  &,
+  & a {
+    color: #999 !important;
+  }
+}
+
+.app__item--title {
+  font-size: var(--text-lg-size);
+}
+.app__qr {
+  background: #fff;
+  padding: 1rem;
+}
+.app__qr img {
+  max-width: 75%;
+}

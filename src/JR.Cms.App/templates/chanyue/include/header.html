@@ -1,0 +1,64 @@
+<div class="topbar hidden">
+  <div class="container">
+    <i class="phone"></i>
+    $lang(service)$lang(space)$lang(tel)：<b>${site.tel}</b>&nbsp;
+    <span class="right"> ${site.slogan} </span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="container header__main">
+    <div
+      class="header__logo mod-header-logo col-lg-4 col-4 flex justify-start align-center gap-x-4"
+    >
+      <img
+        class="header__logo--img"
+        src="${page.tpath}/images/logo_320.jpg"
+        alt="${site.name}"
+      />
+      <div class="header__logo--text h1 text-lg">${site.name}</div>
+      <a class="header__logo--mask" href="/"></a>
+    </div>
+
+    <div class="header__nav g-align-right col-lg-8 col-sm-8 hidden-xs">
+      $navigator()
+    </div>
+
+    <div class="header__xs hidden-lg hidden-xl hidden-sm hidden-md">
+      <div
+        class="hidden-lg hidden-md hidden-sm nav-toggle g-text-right col-xs-8 text-lg"
+      >
+        <i class="iconfont icon-menu"></i>
+      </div>
+
+      <!-- 移动端导航 -->
+      <div class="toggle-navigator col-xs-12">
+        <div class="toggle-navigator__mask"></div>
+        <div class="container-fluid">
+          <div class="toggle-navigator__header">
+            <div class="toggle-navigator__header--title text-lg">网站导航</div>
+          </div>
+          $navigator()
+
+          <div
+            class="toggle-navigator__footer flex flex-column align-center justify-center"
+          >
+            <img
+              src="${page.fpath}/images/lazy-holder.gif"
+              data-src="${page.tpath}/images/1/fze-qr.jpg"
+              width="120"
+              alt="微信二维码"
+              class="lazy toggle-navigator__footer--qr"
+            />
+            <div
+              class="toggle-navigator__footer--text text-sm text-primary text-center"
+            >
+              <div>添加微信</div>
+              <div>了解更多信息</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

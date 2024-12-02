@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>${page.title}</title>
+    <link
+      rel="Stylesheet"
+      href="${page.fpath}/base.css?v=${page.built}"
+      type="text/css"
+    />
+    <link
+      rel="Stylesheet"
+      href="${page.tpath}/css/page.csscss?v=${page.built}"
+      type="text/css"
+    />
+    <meta name="keywords" content="${page.keywords}" />
+    <meta name="description" content="${page.description}" />
+    ${page.html5}
+  </head>
+  <body>
+    ${include:"include/header.html"}
+
+    <div class="mod-crumb">
+      <div class="container">
+        $lang(sitemap_location):<a href="/">$lang(home)</a> > $sitemap()
+      </div>
+    </div>
+
+    <div class="mod-layout mod-cat-${category.tag}">
+      <div class="container page-category clearfix">
+        <div class="l mod-nav-side">
+          <div class="mod-nav-border">
+            <div class="tit">$lang(category)$lang(space)$lang(navigator)</div>
+            <div class="content">
+              <ul class="mod-cat-list clist">
+                $categories('root','
+                <li><a href="{url}">▪&nbsp;{name}</a></li>
+                ')
+              </ul>
+            </div>
+            <br />
+          </div>
+        </div>
+
+        <div class="m">
+          <div class="m-trip"></div>
+
+          <div class="mod-archive-list">
+            <ul>
+              $paging_archives(15,0,'
+              <li class="{class}">
+                {img}
+                <h3><a href="{url}" target="_blank">{title}</a></h3>
+                <div class="meta">
+                  发布日期：{create_date} &nbsp;&nbsp;&nbsp;点击：{count}
+                </div>
+                <p class="desc">{outline}</p>
+              </li>
+              ')
+            </ul>
+          </div>
+
+          <div class="clearfix">$pager()</div>
+        </div>
+      </div>
+    </div>
+
+    ${include:"include/footer.html"}
+
+    <script
+      type="text/javascript"
+      src="${page.fpath}/base.min.js?hover=clist,alist,navi&amp;version=${page.version}"
+    ></script>
+    <script type="text/javascript">
+      function showTab(idx) {
+        var tabs = document.getElementById("tabs").getElementsByTagName("a");
+        var ps = document
+          .getElementById("archivelistbar")
+          .getElementsByTagName("p");
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].parentNode.className = i == idx ? "sel" : "";
+          ps[i].style.display = i == idx ? "block" : "none";
+        }
+      }
+    </script>
+  </body>
+</html>

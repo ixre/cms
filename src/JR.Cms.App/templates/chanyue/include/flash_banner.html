@@ -1,0 +1,38 @@
+<style type="text/css">
+.flash-panel{background:#ddd;}
+.flash-panel ul{list-style:none;margin:0;padding:0;height:100%;}
+.flash-panel li{height:100%;background:#eee;}
+
+.flash-pager{}
+.flash-pager a{font-weight:bold;background:#D6000D;color:#FFF;}
+.flash-pager a.current{background:#FFF;color:#666;}
+
+</style>
+
+<div id="fla" class="flash-panel" style="height:400px;overflow:hidden">
+
+  <ul>
+      <li>
+        <a href="#" target="_blank">
+         
+            <div class="item" style="background-image:url(${page.tpath}/images/banner/b01.jpg);background-size:cover">
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#" target="_blank">
+         
+          <div class="item" style="background-image:url(${page.tpath}/images/banner/b02.jpg);background-size:cover">
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#" target="_blank">
+         
+            <div class="item" style="background-image:url(${page.tpath}/images/banner/b03.jpg);background-size:cover">
+          </div>
+        </a>
+      </li>
+  </ul><!--<div id="scroll-logger"></div>-->
+  <div id="fla_pager" class="flash-pager"></div>
+</div>
