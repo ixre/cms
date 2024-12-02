@@ -389,23 +389,22 @@
   /** 块级元素内边距 */
   --section-padding-bottom: 3rem;
   /** 块级元素标题行高 */
-  --section-title-line-height: 3.5rem;
+  --section-title-line-height: 1.75em;
   /** 块级元素标题主标题文字大小 */
-  --section-title-text-primary-size: var(--text-lg-size);
+  --section-title-text-primary-size: var(--text-3xl-size);
   /** 块级元素标题主标题文字颜色 */
   --section-title-text-primary-color: var(--primary-color);
   /** 块级元素标题副标题文字大小 */
-  --section-title-text-secondnary-size: var(--text-base-size);
+  --section-title-text-secondnary-size: var(--text-lg-size);
   /** 块级元素标题副标题文字颜色 */
   --section-title-text-secondnary-color: var(--secondnary-color);
   & {
     /** 块级元素
       <div class="section">
-        <div class="section__title center">
+        <div class="section__title section__default center">
           <div class="section__title--inner">
             <div class="section__title--secondnary">MENTOR STYLES</div>
-            <div class="section__title--text">导师风采</div>
-            <div class="section__title--line"></div>
+            <div class="section__title--text section__title--line">导师风采</div>
             <div class="section__title--spec">全程陪练指导，效果立竿见影</div>
           </div>
         </div>
@@ -418,9 +417,8 @@
     /** 块级元素标题 */
     display: flex;
     justify-content: flex-start;
-    line-height: var(--section-title-line-height);
     color: var(--section-title-text-color);
-    font-size: var(--section-title-text-size);
+    font-size: var(--text-base-size);
 
     &.center {
       justify-content: center;
@@ -439,17 +437,29 @@
         border-bottom: solid 1px var(--section-border-color);
       }
     }
+    &--text {
+      /** 块级元素标题文字 */
+      font-weight: 500;
+      color: var(--section-title-text-primary-color);
+      font-size: var(--section-title-text-primary-size);
+      line-height: var(--section-title-line-height);
+    }
     &--secondnary {
       /** 块级元素标题副标题 */
       font-weight: 500;
       color: var(--section-title-text-secondnary-color);
       font-size: var(--section-title-text-secondnary-size);
+      line-height: var(--section-title-line-height);
     }
-    &--text {
-      /** 块级元素标题文字 */
-      font-weight: 600;
-      color: var(--section-title-text-primary-color);
-      font-size: var(--section-title-text-primary-size);
+  }
+
+  &__default {
+    /** 默认样式 */
+    .section__title--text {
+      color: #000;
+    }
+    .section__title--secondnary {
+      color: #777;
     }
   }
 }
