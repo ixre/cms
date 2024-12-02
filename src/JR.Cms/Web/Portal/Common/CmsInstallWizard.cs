@@ -436,6 +436,7 @@ namespace JR.Cms.Web.Portal.Common
             {
                 case "mysql":
                     type = DataBaseType.MySQL;
+                    this.CreateMySQLSchema(connStr, dbName);
                     break;
                 case "mssql":
                     type = DataBaseType.SQLServer;
@@ -475,6 +476,25 @@ namespace JR.Cms.Web.Portal.Common
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// 创建MySQL数据库
+        /// </summary>
+        /// <param name="connStr"></param>
+        /// <param name="dbName"></param>
+        private void CreateMySQLSchema(string connStr, string dbName)
+        {
+            var sql = $"CREATE SCHEMA IF NOT EXISTS `{dbName}` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;";
+            try
+            {
+                DataBaseAccess db = new DataBaseAccess(DataBaseType.MySQL, connStr.Replace($";database={dbName}", ""));
+                db.ExecuteNonQuery(new SqlQuery(sql));
+            }
+            catch (Exception exc)
+            {
+                Logger.GetDefault().Error("尝试初始化数据库失败:" + exc.Message);
+            }
         }
 
         /// <summary>
