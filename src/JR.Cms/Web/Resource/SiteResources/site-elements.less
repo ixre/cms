@@ -390,6 +390,8 @@
   --section-padding-bottom: 3rem;
   /** 块级元素标题行高 */
   --section-title-line-height: 1.75em;
+  /** 块级元素标题垂直间距 */
+  --section-title-margin-bottom: 2rem;
   /** 块级元素标题主标题文字大小 */
   --section-title-text-primary-size: var(--text-3xl-size);
   /** 块级元素标题主标题文字颜色 */
@@ -419,6 +421,7 @@
     justify-content: flex-start;
     color: var(--section-title-text-color);
     font-size: var(--text-base-size);
+    margin-bottom: var(--section-title-margin-bottom, 2rem);
 
     &.center {
       justify-content: center;
