@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ TO2.NET,All right reserved.
+// Copyright 2011 @ fze.NET,All right reserved.
 // Name: ArchiveUtility.cs
 // author_id: newmin
 // Comments:
@@ -51,15 +51,15 @@ namespace JR.Cms.Library.Utility
             throw new NotImplementedException();
 
             return "";
-//            if (Regex.IsMatch(author_id, "^[a-z0-9_]+$"))
-//            {
-//                UserBll u = ubll.GetUser(author_id);
-//                if (u != null)
-//                {
-//                    return u.Name;
-//                }
-//            }
-//            return author_id;
+            //            if (Regex.IsMatch(author_id, "^[a-z0-9_]+$"))
+            //            {
+            //                UserBll u = ubll.GetUser(author_id);
+            //                if (u != null)
+            //                {
+            //                    return u.Name;
+            //                }
+            //            }
+            //            return author_id;
         }
 
         public static string GetFormatedOutline(string outline, string content, int contentLenLimit)

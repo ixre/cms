@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: Cms.Cms
 // FileName : CmsContext.cs
@@ -7,7 +7,7 @@
 // Create : 2013/06/23 14:53:11
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/jr-cms
+// Get infromation of this software,please visit our site http://fze.NET/jr-cms
 //
 //
 

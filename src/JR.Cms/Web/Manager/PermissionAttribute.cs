@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2011 @ TO2.NET.
+// Copyright 2011 @ fze.NET.
 // Permission.cs
 // author_id:
 //      newmin(new.min@msn.com)

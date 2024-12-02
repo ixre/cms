@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : Link.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/18 11:51:46
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -35,7 +35,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public void Data()
         {
-            var type = (SiteLinkType) Enum.Parse(typeof(SiteLinkType),
+            var type = (SiteLinkType)Enum.Parse(typeof(SiteLinkType),
                 Request.Query("type"), true);
 
             //链接列表
@@ -140,7 +140,7 @@ namespace JR.Cms.Web.Manager.Handle
         /// </summary>
         public string List()
         {
-            var type = (SiteLinkType) Enum.Parse(typeof(SiteLinkType),
+            var type = (SiteLinkType)Enum.Parse(typeof(SiteLinkType),
                 Request.Query("type"), true);
             string linkTypeName;
             switch (type)
@@ -170,7 +170,7 @@ namespace JR.Cms.Web.Manager.Handle
         {
             var parentOptions = "";
             string linkType = Request.Query("type");
-            var type = (SiteLinkType) Enum.Parse(typeof(SiteLinkType), linkType, true);
+            var type = (SiteLinkType)Enum.Parse(typeof(SiteLinkType), linkType, true);
             string linkTypeName;
             string resource;
             switch (type)
@@ -220,7 +220,7 @@ namespace JR.Cms.Web.Manager.Handle
                 });
 
             ViewData["entity"] = json;
-            ViewData["link_type"] = (int) type;
+            ViewData["link_type"] = (int)type;
             ViewData["form_title"] = "创建" + linkTypeName;
             ViewData["category_opts"] = Helper.GetCategoryIdSelector(SiteId, -1);
             ViewData["parent_opts"] = parentOptions;
@@ -273,7 +273,7 @@ namespace JR.Cms.Web.Manager.Handle
             }
 
             string linkTypeName;
-             string   resource;
+            string resource;
 
             switch (link.Type)
             {
@@ -317,7 +317,7 @@ namespace JR.Cms.Web.Manager.Handle
                     BindType = binds == null ? "" : binds[0],
                     BindTitle = bindTitle == string.Empty ? "未绑定" : bindTitle,
                     Target = link.Target,
-                    Type = (int) link.Type,
+                    Type = (int)link.Type,
                     ImgUrl = link.ImgUrl,
                     Visible = link.Visible.ToString(),
                     Pid = link.Pid,
@@ -325,7 +325,7 @@ namespace JR.Cms.Web.Manager.Handle
                 });
 
             ViewData["entity"] = json;
-            ViewData["link_type"] = (int) link.Type;
+            ViewData["link_type"] = (int)link.Type;
             ViewData["form_title"] = "修改" + linkTypeName;
             ViewData["category_opts"] = Helper.GetCategoryIdSelector(SiteId, -1);
             ViewData["parent_opts"] = parentOptions;
@@ -351,7 +351,7 @@ namespace JR.Cms.Web.Manager.Handle
             link.Pid = int.Parse(Request.Form("Pid"));
             link.Target = Request.Form("Target");
             link.Text = Request.Form("Text").ToString().Trim();
-            link.Type = (SiteLinkType) int.Parse(Request.Form("type"));
+            link.Type = (SiteLinkType)int.Parse(Request.Form("type"));
             link.Uri = Request.Form("Uri");
             link.Visible = Request.Form("visible") == "True";
 

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: Cms.Cms
 // FileName : ApplicationManager.cs
@@ -7,7 +7,7 @@
 // Create : 2011/12/23 14:53:11
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/jr-cms
+// Get infromation of this software,please visit our site http://fze.NET/jr-cms
 //
 //
 
@@ -47,7 +47,7 @@ namespace JR.Cms.Conf
             //     
             // HttpContext.Current.Server.ClearError();
             // HttpContext.Current.Response.Write("<div style=\"margin:50px auto;width:600px;font-size:14px;color:red;line-height:50px;\"><b style=\"font-size:25px\">500&nbsp;Server Error!</b> <br />" +
-            //                                    (ex ?? ex.InnerException).Message + "<br />问题出现的详细原因，请见：http://s.to2.net/cms</div>");
+            //                                    (ex ?? ex.InnerException).Message + "<br />问题出现的详细原因，请见：http://s.fze.NET/cms</div>");
             // HttpRuntime.UnloadAppDomain();
 
             //}
@@ -301,7 +301,7 @@ namespace JR.Cms.Conf
                     sf["sys_admin_tag"] = Settings.SYS_ADMIN_TAG;
                     sf["sys_encode_conf"] = Settings.SYS_ENCODE_CONF_FILE ? "true" : "false";
                     sf["sql_profile_trace"] = Settings.SQL_PROFILE_TRACE ? "true" : "false";
-                    sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME?"true":"false");
+                    sf.Set("sys_use_upload_raw_path", Settings.SYS_USE_UPLOAD_RAW_NAME ? "true" : "false");
                     //虚拟路径
                     //if (!sf.Contains("sys_virthpath"))
                     //{
@@ -318,7 +318,7 @@ namespace JR.Cms.Conf
                     break;
 
                 case "tpl":
-                    sf.Set("tpl_use_cache",Settings.TPL_USE_CACHE?"true":"false");
+                    sf.Set("tpl_use_cache", Settings.TPL_USE_CACHE ? "true" : "false");
                     //压缩代码
                     sf.Set("tpl_use_compress", Settings.TPL_USE_COMPRESS ? "true" : "false");
                     //使用完整路径
@@ -326,11 +326,11 @@ namespace JR.Cms.Conf
                     Cms.Template.Reload();
                     break;
                 case "smtp":
-                    sf.Set("smtp_host",Settings.SMTP_HOST);
-                    sf.Set("smtp_port",Settings.SMTP_PORT.ToString());
-                    sf.Set("smtp_ssl",Settings.SMTP_SSL?"true":"false");
-                    sf.Set("smtp_username",Settings.SMTP_USERNAME);
-                    sf.Set("smtp_password",Settings.SMTP_PASSWORD);
+                    sf.Set("smtp_host", Settings.SMTP_HOST);
+                    sf.Set("smtp_port", Settings.SMTP_PORT.ToString());
+                    sf.Set("smtp_ssl", Settings.SMTP_SSL ? "true" : "false");
+                    sf.Set("smtp_username", Settings.SMTP_USERNAME);
+                    sf.Set("smtp_password", Settings.SMTP_PASSWORD);
                     break;
                 //优化
                 case "opti":
@@ -408,7 +408,7 @@ namespace JR.Cms.Conf
                 key = relatedIndent.Key.ToString();
                 if (isExists && sf.Contains(key))
                 {
-                   value = sf.Get(key);
+                    value = sf.Get(key);
                     isLoaded = true;
                 }
                 else
@@ -417,7 +417,7 @@ namespace JR.Cms.Conf
                     sf.Set(key, value);
                     isModify = true;
                 }
-                newIndents.Add(relatedIndent.Key,new RelateIndent(value));
+                newIndents.Add(relatedIndent.Key, new RelateIndent(value));
             }
 
             if (isModify)

@@ -1,6 +1,6 @@
 ﻿/**
- * Copyright (C) 2007-2015 TO2.NET,All rights reserved.
- * Get more infromation of this software,please visit site http://to2.net/cms
+ * Copyright (C) 2007-2015 fze.NET,All rights reserved.
+ * Get more infromation of this software,please visit site http://fze.NET/cms
  * 
  * name : HttpApp.cs
  * author : newmin (new.min@msn.com)

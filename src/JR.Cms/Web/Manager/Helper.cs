@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 TO2.NET
+* Copyright(C) 2010-2012 fze.NET
 * 
 * File Name	: PagerLinkHelper
 * Author	: Newmin (new.min@msn.com)
@@ -248,21 +248,21 @@ namespace JR.Cms.Web.Manager
 
                 for (var i = 0; i < level - 1; i++)
                     sb.Append(CmsCharMap.Connect);
-//                    if (i == 0 || i == level - 1)
-//                    {
-//                        sb.Append("─");
-//                    }
-//                    else
-//                    {
-//                        sb.Append("├");
-//                    }
+                //                    if (i == 0 || i == level - 1)
+                //                    {
+                //                        sb.Append("─");
+                //                    }
+                //                    else
+                //                    {
+                //                        sb.Append("├");
+                //                    }
 
                 sb.Append(" ").Append(category.Get().Name).Append("</option>");
             });
 
             return sb.ToString();
         }
-        
+
         /// <summary>
         /// 如果新增了模板文件,则重新加载模板
         /// </summary>

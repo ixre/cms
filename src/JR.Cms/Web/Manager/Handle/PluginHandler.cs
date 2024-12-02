@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : Plugin.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/18 16:20:58
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -23,7 +23,7 @@ namespace JR.Cms.Web.Manager.Handle
     /// </summary>
     public class PluginHandler : BasePage
     {
-      
+
 
         public void Dashboard()
         {

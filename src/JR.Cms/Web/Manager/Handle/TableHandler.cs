@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : Table.cs
@@ -7,7 +7,7 @@
 // Create : 2013-01-06 10:56:06
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -43,7 +43,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void Create_POST()
         {
-            var result = (int) CmsLogic.Table.AddTable(new Table
+            var result = (int)CmsLogic.Table.AddTable(new Table
             {
                 IsSystem = Request.Form("issystem") == "on",
                 Enabled = Request.Form("isavailable") == "on",
@@ -73,7 +73,7 @@ namespace JR.Cms.Web.Manager.Handle
 
         public void EditTable_POST()
         {
-            var result = (int) CmsLogic.Table.UpdateTable(new Table
+            var result = (int)CmsLogic.Table.UpdateTable(new Table
             {
                 Id = int.Parse(Request.Form("TableId")),
                 IsSystem = Request.Form("issystem") == "on",
@@ -135,7 +135,7 @@ namespace JR.Cms.Web.Manager.Handle
         public void DeleteTable_POST()
         {
             var tableID = int.Parse(Request.Query("table_id"));
-            var result = (int) CmsLogic.Table.DeleteTable(tableID);
+            var result = (int)CmsLogic.Table.DeleteTable(tableID);
             Response.WriteAsync(result.ToString());
         }
 
@@ -205,7 +205,7 @@ namespace JR.Cms.Web.Manager.Handle
         public void CreateColumn_POST()
         {
             var tableId = int.Parse(Request.Form("table_id"));
-            var result = (int) CmsLogic.Table.AddColumn(new TableColumn
+            var result = (int)CmsLogic.Table.AddColumn(new TableColumn
             {
                 TableId = tableId,
                 Name = Request.Form("name"),
@@ -243,7 +243,7 @@ namespace JR.Cms.Web.Manager.Handle
         public void EditColumn_POST()
         {
             var columnID = int.Parse(Request.Form("columnid"));
-            var result = (int) CmsLogic.Table.UpdateColumn(new TableColumn
+            var result = (int)CmsLogic.Table.UpdateColumn(new TableColumn
             {
                 Id = columnID,
                 Name = Request.Form("name"),
@@ -259,7 +259,7 @@ namespace JR.Cms.Web.Manager.Handle
             var columnID = int.Parse(Request.Query("columnid"));
             var tableId = int.Parse(Request.Query("table_id"));
 
-            var result = (int) CmsLogic.Table.DeleteColumn(tableId, columnID);
+            var result = (int)CmsLogic.Table.DeleteColumn(tableId, columnID);
             Response.WriteAsync(result.ToString());
         }
 
@@ -348,7 +348,7 @@ namespace JR.Cms.Web.Manager.Handle
                 pagerHtml = Helper.BuildPagerInfo(format, pageIndex, recordCount, pageCount);
             }
 
-            render:
+        render:
             RenderTemplate(ResourceMap.Rows, new
             {
                 tableid = tableId.ToString(),
@@ -365,7 +365,7 @@ namespace JR.Cms.Web.Manager.Handle
             var rowID = int.Parse(Request.Query("rowid"));
             var tableId = int.Parse(Request.Query("table_id"));
 
-            var result = (int) CmsLogic.Table.DeleteRow(tableId, rowID);
+            var result = (int)CmsLogic.Table.DeleteRow(tableId, rowID);
             Response.WriteAsync(result.ToString());
         }
     }

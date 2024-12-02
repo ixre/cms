@@ -1,5 +1,5 @@
 ﻿/*
-* Copyright(C) 2010-2012 TO2.NET
+* Copyright(C) 2010-2012 fze.NET
 * 
 * File Name	: ImoduleDAL
 * Author	: Newmin (new.min@msn.com)

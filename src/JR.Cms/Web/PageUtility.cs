@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms
 // FileName : TemplateUtility.cs
@@ -9,7 +9,7 @@
 //  2013-03-21  newmin [+] : 支持将URL参数作为模板内容
 //
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -52,7 +52,7 @@ namespace JR.Cms.Web
             CopyStr2019 = string.Format(CopyStr, Cms.Version);
         }
 
-        private static readonly TemplateHandler<object> PreHandler = (object obj,ref string html) =>
+        private static readonly TemplateHandler<object> PreHandler = (object obj, ref string html) =>
         {
             //throw new Exception(html);
 

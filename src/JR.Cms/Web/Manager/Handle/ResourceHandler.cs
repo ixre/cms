@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : File.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/17 18:10:55
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -28,7 +28,7 @@ using JR.Stand.Core.Utils;
 // http://bbs.csdn.net/topics/300217787 #17
 namespace JR.Cms.Web.Manager.Handle
 {
-    public class ResourceHandler:BasePage
+    public class ResourceHandler : BasePage
     {
         private static IDictionary<string, string> fileMImE;
 
@@ -96,9 +96,9 @@ namespace JR.Cms.Web.Manager.Handle
                 // }
 
                 Response.AppendHeader("Cache-Control", "max-age=" + maxAge.ToString());
-               Response.AppendHeader("Last-Modified", nowTime.ToString("r"));
-               Response.AppendHeader("Expires", DateTime.Now.AddYears(1).ToString("r"));
-               Response.AppendHeader("ETag", "\"" + DateTime.Now.Ticks + "\"");
+                Response.AppendHeader("Last-Modified", nowTime.ToString("r"));
+                Response.AppendHeader("Expires", DateTime.Now.AddYears(1).ToString("r"));
+                Response.AppendHeader("ETag", "\"" + DateTime.Now.Ticks + "\"");
 
                 /*
                     response.Cache.SetETag(lastModified.Ticks.ToString());
@@ -118,7 +118,7 @@ namespace JR.Cms.Web.Manager.Handle
 
                 if (Regex.IsMatch(mime, "^image\\/(jpg|jpeg|png|gif)$", RegexOptions.IgnoreCase))
                 {
-                    Response.ContentType( mime);
+                    Response.ContentType(mime);
 
                     //ajax_loading图片
                     if (filename == "ajax_loader")
@@ -127,7 +127,7 @@ namespace JR.Cms.Web.Manager.Handle
                         const string data =
                             "R0lGODlhEAAQAPIAAP///wBg/8LY/kKJ/gBg/2Kc/oKw/pK6/iH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6ImKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==";
                         var bytes = Convert.FromBase64String(data);
-                       Response.Write(bytes, 0, bytes.Length);
+                        Response.Write(bytes, 0, bytes.Length);
                     }
                     else if (filename == "load_process")
                     {
@@ -135,11 +135,12 @@ namespace JR.Cms.Web.Manager.Handle
                             "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";
                         var bytes = Convert.FromBase64String(data);
                         Response.Write(bytes, 0, bytes.Length);
-                    }else if (filename == "cms_top_logo")
+                    }
+                    else if (filename == "cms_top_logo")
                     {
                         var file = new FileInfo($"{EnvUtil.GetBaseDirectory()}/{CmsVariables.FRAMEWORK_PATH}local/logo.gif");
                         if (file.Exists)
-                        { 
+                        {
                             var bit = new Bitmap(file.FullName);
                             var stream = new MemoryStream();
                             bit.Save(stream, ImageFormat.Gif);
@@ -177,8 +178,8 @@ namespace JR.Cms.Web.Manager.Handle
                     }
                     else
                     {
-                       //  var res = WebManagerResource.ResourceManager.GetString(filename);
-                       // Response.WriteAsync(ResourceUtility.CompressHtml(res));
+                        //  var res = WebManagerResource.ResourceManager.GetString(filename);
+                        // Response.WriteAsync(ResourceUtility.CompressHtml(res));
                     }
                 }
 
@@ -219,16 +220,16 @@ namespace JR.Cms.Web.Manager.Handle
                 switch (type.ToLower())
                 {
                     case "js":
-                        Response.ContentType ( "text/javascript");
+                        Response.ContentType("text/javascript");
                         break;
                     case "css":
-                        Response.ContentType (  "text/css");
+                        Response.ContentType("text/css");
                         break;
                     case "img":
-                        Response.ContentType (  "image/jpeg");
+                        Response.ContentType("image/jpeg");
                         break;
                     default:
-                        Response.ContentType ( "application/oct-stream");
+                        Response.ContentType("application/oct-stream");
                         break;
                 }
 

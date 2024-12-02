@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : Ajax.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/15 21:16:56
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 // Modify:
 //  2013-06-08 22:30 newmin [!] : 添加模块更新菜单数据
 //
@@ -67,7 +67,7 @@ namespace JR.Cms.Web.Manager.Handle
             {
                 try
                 {
-                    WebRequest request = WebRequest.Create("http://ct.cms.to2.net/view/opsite_notice/");
+                    WebRequest request = WebRequest.Create("http://ct.cms.fze.NET/view/opsite_notice/");
                     StreamReader sr = new StreamReader(request.GetResponse().GetResponseStream());
                     notice = sr.ReadToEnd();
                     sr.Dispose();
@@ -236,50 +236,50 @@ namespace JR.Cms.Web.Manager.Handle
 
 
                 goto netx;
-                //添加模块
+            //添加模块
 
-                #region
+            #region
 
-                /*
-                if (String.Compare(pn.Attributes["id"].Value, "content") == 0)
+            /*
+            if (String.Compare(pn.Attributes["id"].Value, "content") == 0)
+            {
+                if (j != 0)
                 {
-                    if (j != 0)
-                    {
-                        sb.Append(",");
-                        j = 0;
-                    }
-                    IList<Module> modules = new List<Module>(CmsLogic.Module.GetAvailableModules());
+                    sb.Append(",");
+                    j = 0;
+                }
+                IList<Module> modules = new List<Module>(CmsLogic.Module.GetAvailableModules());
 
-                    foreach (Module m in modules)
+                foreach (Module m in modules)
+                {
+                    if (!m.IsDelete)
                     {
-                        if (!m.IsDelete)
+                        sb.Append("{\"text\":'").Append(m.Name).Append("',uri:'").Append("',toggle:").Append(modules.Count > 4 && j < modules.Count - 1 ? "true" : "false")
+                            .Append(",childs:[");
+
+                        sb.Append("{text:'").Append("发布信息").Append("',uri:'")
+                            .Append("?module=archive&action=create&moduleID=")
+                            .Append(m.ID.ToString()).Append("'},");
+
+                        sb.Append("{text:'").Append("信息列表").Append("',uri:'")
+                            .Append("?module=archive&action=list&module_id=")
+                            .Append(m.ID.ToString()).Append("'}");
+
+
+                        sb.Append("]}");
+                        if (++j < modules.Count)
                         {
-                            sb.Append("{\"text\":'").Append(m.Name).Append("',uri:'").Append("',toggle:").Append(modules.Count > 4 && j < modules.Count - 1 ? "true" : "false")
-                                .Append(",childs:[");
-
-                            sb.Append("{text:'").Append("发布信息").Append("',uri:'")
-                                .Append("?module=archive&action=create&moduleID=")
-                                .Append(m.ID.ToString()).Append("'},");
-
-                            sb.Append("{text:'").Append("信息列表").Append("',uri:'")
-                                .Append("?module=archive&action=list&module_id=")
-                                .Append(m.ID.ToString()).Append("'}");
-
-
-                            sb.Append("]}");
-                            if (++j < modules.Count)
-                            {
-                                sb.Append(",");
-                            }
+                            sb.Append(",");
                         }
                     }
                 }
-                */
+            }
+            */
 
-                #endregion
+            #endregion
 
 
-                netx:
+            netx:
                 j = 0;
 
                 sb.Append("]}");
@@ -361,7 +361,7 @@ namespace JR.Cms.Web.Manager.Handle
             }
             else if (f < 1F)
             {
-                UpgradePercent += (float) new Random().Next(1, 3) / 100;
+                UpgradePercent += (float)new Random().Next(1, 3) / 100;
                 if (UpgradePercent > 0.96F) UpgradePercent = 0.96F;
             }
         }

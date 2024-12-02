@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2007-2008 TO2.NET,All rights reserved.
+// Copyright (C) 2007-2008 fze.NET,All rights reserved.
 // 
 // Project: jr.Cms.Manager
 // FileName : UserBll.cs
@@ -7,7 +7,7 @@
 // Create : 2011/10/18 14:41:34
 // Description :
 //
-// Get infromation of this software,please visit our site http://to2.net/cms
+// Get infromation of this software,please visit our site http://fze.NET/cms
 //
 //
 
@@ -199,19 +199,19 @@ namespace JR.Cms.Web.Manager.Handle
             user.Credential.Enabled = obj.Enabled;
 
 
-//            //不允许修改当前用户
-//            if ((curUsr.SiteId>0 && user.SiteId!=curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
-//            {
-//                base.RenderError("不允许修改当前用户!");
-//                return;
-//            }
-//            else
+            //            //不允许修改当前用户
+            //            if ((curUsr.SiteId>0 && user.SiteId!=curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
+            //            {
+            //                base.RenderError("不允许修改当前用户!");
+            //                return;
+            //            }
+            //            else
 
-//            if (user.RoleFlag > curCus.RoleFlag)
-//            {
-//                base.RenderError("无权限修改用户!");
-//                return;
-//            }
+            //            if (user.RoleFlag > curCus.RoleFlag)
+            //            {
+            //                base.RenderError("无权限修改用户!");
+            //                return;
+            //            }
 
             try
             {
@@ -272,25 +272,25 @@ namespace JR.Cms.Web.Manager.Handle
             var curUsr = UserState.Administrator.Current;
 
             throw new NotImplementedException();
-//            //不允许修改当前用户
-//            if ((curUsr.SiteId > 0 && user.SiteId != curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
-//            {
-//                base.RenderError("不允许修改当前用户!");
-//                return;
-//            }
-//            else if (user.Group == UserGroups.Master)
-//            {
-//                base.RenderError("不允许修改超级管理员!");
-//                return;
-//            }
-//            else if (curUsr.GroupId >= user.GroupId)
-//            {
-//                base.RenderError("无权限修改用户!");
-//                return;
-//            }
-//
-//            CmsLogic.UserBll.UpdateUser(user.UserName, this.CurrentSite.SiteId, user.Name, (UserGroups)user.GroupId,!user.Enabled);
-//            base.RenderSuccess();
+            //            //不允许修改当前用户
+            //            if ((curUsr.SiteId > 0 && user.SiteId != curUsr.SiteId) || String.Compare(UserState.Administrator.Current.UserName, user.UserName, true) == 0)
+            //            {
+            //                base.RenderError("不允许修改当前用户!");
+            //                return;
+            //            }
+            //            else if (user.Group == UserGroups.Master)
+            //            {
+            //                base.RenderError("不允许修改超级管理员!");
+            //                return;
+            //            }
+            //            else if (curUsr.GroupId >= user.GroupId)
+            //            {
+            //                base.RenderError("无权限修改用户!");
+            //                return;
+            //            }
+            //
+            //            CmsLogic.UserBll.UpdateUser(user.UserName, this.CurrentSite.SiteId, user.Name, (UserGroups)user.GroupId,!user.Enabled);
+            //            base.RenderSuccess();
         }
 
         /// <summary>
@@ -324,21 +324,21 @@ namespace JR.Cms.Web.Manager.Handle
             // string filter = "site";
 
             //filter 筛选用户的状态
-//            switch (filter)
-//            {
-//                case "disabled":
-//                    users = CmsLogic.UserBll.GetUsers(a => !a.Enabled);
-//                    break;
-//                case "available":
-//                    users = CmsLogic.UserBll.GetUsers(a => a.Enabled);
-//                    break;
-//                case "site":
-//                    users = CmsLogic.UserBll.GetUsers(a => a.SiteId == this.CurrentSite.SiteId);
-//                    break;
-//                default:
-//                    users = CmsLogic.UserBll.GetAllUser();
-//                    break;
-//            }
+            //            switch (filter)
+            //            {
+            //                case "disabled":
+            //                    users = CmsLogic.UserBll.GetUsers(a => !a.Enabled);
+            //                    break;
+            //                case "available":
+            //                    users = CmsLogic.UserBll.GetUsers(a => a.Enabled);
+            //                    break;
+            //                case "site":
+            //                    users = CmsLogic.UserBll.GetUsers(a => a.SiteId == this.CurrentSite.SiteId);
+            //                    break;
+            //                default:
+            //                    users = CmsLogic.UserBll.GetAllUser();
+            //                    break;
+            //            }
 
             DataTable dt;
             var user = UserState.Administrator.Current;
@@ -407,62 +407,62 @@ namespace JR.Cms.Web.Manager.Handle
         /// <summary>
         /// 操作列表
         /// </summary>
-//        public void OperationList()
-//        {
-//
-//            string pagerHtml,
-//                operationRowsHtml;
-//
-//            //page:当前页
-//            //filter:筛选
-//            int pageSize = 10;
-//            int currentPageIndex;
-//            int pageCount = 1, recordCount = 0;
-//
-//            int.TryParse(HttpContext.Current.Request.Query("page"), out currentPageIndex);
-//            if (currentPageIndex < 1) currentPageIndex = 1;
-//
-//            string filter =HttpContextAdapter.Current.Raw.Request.Query("filter");
-//
-//
-//            DataTable dt;
-//            StringBuilder sb = new StringBuilder();
-//            switch (filter)
-//            {
-//                case "disabled":
-//
-//                    dt = CmsLogic.UserBll.GetPagedAvailableOperationList(false, pageSize, currentPageIndex, out recordCount, out pageCount);
-//                    break;
-//                case "available":
-//                    dt = CmsLogic.UserBll.GetPagedAvailableOperationList(true, pageSize, currentPageIndex, out recordCount, out pageCount);
-//                    break;
-//                default:
-//                    dt = CmsLogic.UserBll.GetPagedOperationList(pageSize, currentPageIndex, out recordCount, out pageCount);
-//                    break;
-//            }
-//
-//            foreach (DataRow dr in dt.Rows)
-//            {
-//                sb.Append("<tr><td>").Append(dr["id"].ToString()).Append("</td>")
-//                    .Append("<td><input type=\"text\" class=\"tb_normal\" value=\"").Append(dr["name"].ToString()).Append("\"/></td>")
-//                    .Append("<td><input type=\"text\" class=\"tb_normal\" value=\"").Append(dr["Path"].ToString()).Append("\"/></td>")
-//                    .Append("<td align=\"center\"><input type=\"checkbox\"")
-//                    .Append(String.Compare("true",dr["available"].ToString(),true)==0?" checked=\"checked\"":"")
-//                    .Append("/></td><td><button class=\"save\"/></td></tr>");
-//            }
-//
-//            operationRowsHtml = sb.ToString();
-//
-//
-//            pagerHtml= Helper.BuildPagerInfo("?module=user&action=operationlist&page={0}&filter=" + filter, currentPageIndex, recordCount, pageCount);
-//
-//
-//            base.RenderTemplate(ResourceMap.OperationList, new
-//            {
-//                operationRowsHtml=operationRowsHtml,
-//                pagerHtml=pagerHtml
-//            });
-//        }
+        //        public void OperationList()
+        //        {
+        //
+        //            string pagerHtml,
+        //                operationRowsHtml;
+        //
+        //            //page:当前页
+        //            //filter:筛选
+        //            int pageSize = 10;
+        //            int currentPageIndex;
+        //            int pageCount = 1, recordCount = 0;
+        //
+        //            int.TryParse(HttpContext.Current.Request.Query("page"), out currentPageIndex);
+        //            if (currentPageIndex < 1) currentPageIndex = 1;
+        //
+        //            string filter =HttpContextAdapter.Current.Raw.Request.Query("filter");
+        //
+        //
+        //            DataTable dt;
+        //            StringBuilder sb = new StringBuilder();
+        //            switch (filter)
+        //            {
+        //                case "disabled":
+        //
+        //                    dt = CmsLogic.UserBll.GetPagedAvailableOperationList(false, pageSize, currentPageIndex, out recordCount, out pageCount);
+        //                    break;
+        //                case "available":
+        //                    dt = CmsLogic.UserBll.GetPagedAvailableOperationList(true, pageSize, currentPageIndex, out recordCount, out pageCount);
+        //                    break;
+        //                default:
+        //                    dt = CmsLogic.UserBll.GetPagedOperationList(pageSize, currentPageIndex, out recordCount, out pageCount);
+        //                    break;
+        //            }
+        //
+        //            foreach (DataRow dr in dt.Rows)
+        //            {
+        //                sb.Append("<tr><td>").Append(dr["id"].ToString()).Append("</td>")
+        //                    .Append("<td><input type=\"text\" class=\"tb_normal\" value=\"").Append(dr["name"].ToString()).Append("\"/></td>")
+        //                    .Append("<td><input type=\"text\" class=\"tb_normal\" value=\"").Append(dr["Path"].ToString()).Append("\"/></td>")
+        //                    .Append("<td align=\"center\"><input type=\"checkbox\"")
+        //                    .Append(String.Compare("true",dr["available"].ToString(),true)==0?" checked=\"checked\"":"")
+        //                    .Append("/></td><td><button class=\"save\"/></td></tr>");
+        //            }
+        //
+        //            operationRowsHtml = sb.ToString();
+        //
+        //
+        //            pagerHtml= Helper.BuildPagerInfo("?module=user&action=operationlist&page={0}&filter=" + filter, currentPageIndex, recordCount, pageCount);
+        //
+        //
+        //            base.RenderTemplate(ResourceMap.OperationList, new
+        //            {
+        //                operationRowsHtml=operationRowsHtml,
+        //                pagerHtml=pagerHtml
+        //            });
+        //        }
 
         /// <summary>
         /// 创建新操作
@@ -493,57 +493,57 @@ namespace JR.Cms.Web.Manager.Handle
         /// <summary>
         /// 设置权限
         /// </summary>
-//        public void SetPermissions()
-//        {
-//            string usergroupOptions,            //用户组下拉列表
-//                usergroupPermissionOptions,     //用户组权限下拉列表
-//                otherPermissionOptions;         //其他权限下拉列表
-//
-//            int groupId;
-//            int.TryParse(HttpContext.Current.Request.Query("groupid"), out groupId);
-//            if (groupId == 0) groupId = 1;
-//            UserGroup usergroup=CmsLogic.UserBll.GetUserGroup((UserGroups)groupId);
-//
-//
-//            StringBuilder sb=new StringBuilder();
-//            //用户组下拉列表
-//            foreach(UserGroup group in CmsLogic.UserBll.GetUserGroups())
-//            {
-//                sb.Append("<option value=\"").Append(group.Id).Append(group.Id==groupId?"\" selected=\"selected\"":"\"").Append(">").Append(group.Name).Append("</option>");
-//            }
-//            usergroupOptions=sb.ToString();
-//            sb.Remove(0,sb.Length);
-//
-//            //用户组权限下拉列表
-//            foreach (Operation op in usergroup.Permissions)
-//            {
-//                sb.Append("<option value=\"").Append(op.ID).Append("\">").Append(op.Name).Append("</option>");
-//            }
-//            usergroupPermissionOptions = sb.ToString();
-//            sb.Remove(0, sb.Length);
-//
-//
-//            //其他的权限下拉列表
-//            foreach (Operation op in CmsLogic.UserBll.GetOperationList())
-//            {
-//                if (Array.Find(usergroup.Permissions, a => a.ID == op.ID) == null)
-//                {
-//                    sb.Append("<option value=\"").Append(op.ID).Append("\">").Append(op.Name).Append("</option>");
-//                }
-//            }
-//            otherPermissionOptions = sb.ToString();
-//            sb.Remove(0, sb.Length);
-//
-//            //显示页面
-//            base.RenderTemplate(ResourceMap.SetPermissions, new
-//            {
-//                groupID=groupId,
-//                usergroups=usergroupOptions,
-//                usergroupPermissions = usergroupPermissionOptions,
-//                otherPermissions=otherPermissionOptions,
-//                usergroupPermissionCount=usergroup.Permissions==null?0:usergroup.Permissions.Length
-//            });
-//        }
+        //        public void SetPermissions()
+        //        {
+        //            string usergroupOptions,            //用户组下拉列表
+        //                usergroupPermissionOptions,     //用户组权限下拉列表
+        //                otherPermissionOptions;         //其他权限下拉列表
+        //
+        //            int groupId;
+        //            int.TryParse(HttpContext.Current.Request.Query("groupid"), out groupId);
+        //            if (groupId == 0) groupId = 1;
+        //            UserGroup usergroup=CmsLogic.UserBll.GetUserGroup((UserGroups)groupId);
+        //
+        //
+        //            StringBuilder sb=new StringBuilder();
+        //            //用户组下拉列表
+        //            foreach(UserGroup group in CmsLogic.UserBll.GetUserGroups())
+        //            {
+        //                sb.Append("<option value=\"").Append(group.Id).Append(group.Id==groupId?"\" selected=\"selected\"":"\"").Append(">").Append(group.Name).Append("</option>");
+        //            }
+        //            usergroupOptions=sb.ToString();
+        //            sb.Remove(0,sb.Length);
+        //
+        //            //用户组权限下拉列表
+        //            foreach (Operation op in usergroup.Permissions)
+        //            {
+        //                sb.Append("<option value=\"").Append(op.ID).Append("\">").Append(op.Name).Append("</option>");
+        //            }
+        //            usergroupPermissionOptions = sb.ToString();
+        //            sb.Remove(0, sb.Length);
+        //
+        //
+        //            //其他的权限下拉列表
+        //            foreach (Operation op in CmsLogic.UserBll.GetOperationList())
+        //            {
+        //                if (Array.Find(usergroup.Permissions, a => a.ID == op.ID) == null)
+        //                {
+        //                    sb.Append("<option value=\"").Append(op.ID).Append("\">").Append(op.Name).Append("</option>");
+        //                }
+        //            }
+        //            otherPermissionOptions = sb.ToString();
+        //            sb.Remove(0, sb.Length);
+        //
+        //            //显示页面
+        //            base.RenderTemplate(ResourceMap.SetPermissions, new
+        //            {
+        //                groupID=groupId,
+        //                usergroups=usergroupOptions,
+        //                usergroupPermissions = usergroupPermissionOptions,
+        //                otherPermissions=otherPermissionOptions,
+        //                usergroupPermissionCount=usergroup.Permissions==null?0:usergroup.Permissions.Length
+        //            });
+        //        }
 
         /// <summary>
         /// 更新权限
@@ -553,7 +553,7 @@ namespace JR.Cms.Web.Manager.Handle
             string groupId = Request.Form("groupid"),
                 permissionStr = Request.Form("permissions");
 
-            CmsLogic.UserBll.UpdateUserGroupPermissions((UserGroups) int.Parse(groupId),
+            CmsLogic.UserBll.UpdateUserGroupPermissions((UserGroups)int.Parse(groupId),
                 CmsLogic.UserBll.ConvertToPermissionArray(permissionStr.Replace("|", ",")));
         }
     }

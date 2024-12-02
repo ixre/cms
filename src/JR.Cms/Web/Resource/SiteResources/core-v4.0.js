@@ -6,7 +6,7 @@
 // author:
 //  jarrysix@gmail.com
 //
-// Copyright 2011 - 2018 @ TO2.NET,All rights reserved!
+// Copyright 2011 - 2018 @ fze.NET,All rights reserved!
 // packer: http://dean.edwards.name/packer/
 //
 /*-----------------------a---------------------
