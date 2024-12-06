@@ -105,7 +105,8 @@
   }
 }
 
-.section-teams {
+.section-teams,
+.row-services {
   .block:hover .block__title,
   .block:hover .block__sub {
     transform: scale(1.2);
