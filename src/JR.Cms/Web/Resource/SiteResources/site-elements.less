@@ -90,6 +90,7 @@
   &__nav {
     padding-left: 0;
     padding-right: 0;
+    overflow: hidden;
   }
 
   &-fixed {
@@ -144,6 +145,7 @@
       float: left;
       position: relative;
       z-index: 200;
+      min-width: 4em;
     }
 
     & > .navigator__item {
@@ -181,6 +183,14 @@
         font-weight: var(--navigator-active-text-weight, 500);
       }
     }
+  }
+}
+
+/** 移动端导航 */
+.toggle-navigator {
+  .navigator {
+    --navigator-item-color: #000;
+    --navigator-active-color: var(--primary-color);
   }
 }
 

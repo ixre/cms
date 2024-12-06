@@ -86,6 +86,89 @@ function initSwiper() {
 
 /** 初始化水平切换 */
 function initXPage() {
+  /**
+   *  <div class="container flex gap-x-4 x-page">
+        <div class="flex align-center justify-center x-page__left">
+          <div class="arraw arraw-left">
+            <i class="icon icon-chevronleft"></i>
+          </div>
+        </div>
+        <div class="flex1 x-page__container">
+          <div class="x-page__page row-apprise__list">
+            <div class="apprise-item">
+              <div class="apprise-item__content">
+                <div class="bubble">
+                  1服务态度好，服务周到，环境优美，值得推荐，有效帮助我解决了很多问题，谢谢！
+                  林老师很用心，很负责，服务态度很好！
+                  <i class="bubble__bottom"></i>
+                </div>
+              </div>
+              <div class="apprise-item__user flex gap-x-6">
+                <div class="apprise-item__user--img">
+                  <img
+                    src="${page.tpath}/images/profile-photo.png"
+                    alt="用户头像"
+                  />
+                </div>
+                <div class="apprise-item__user--name">
+                  <div class="text-lg">春天</div>
+                  <div class="text-sm">某外贸公司职员</div>
+                </div>
+              </div>
+            </div>
+            <div class="apprise-item">
+              <div class="apprise-item__content">
+                <div class="bubble">
+                  2服务态度好，服务周到，环境优美，值得推荐，有效帮助我解决了很多问题，谢谢！
+                  林老师很用心，很负责，服务态度很好！
+                  <i class="bubble__bottom"></i>
+                </div>
+              </div>
+              <div class="apprise-item__user flex gap-x-6">
+                <div class="apprise-item__user--img">
+                  <img
+                    src="${page.tpath}/images/profile-photo.png"
+                    alt="用户头像"
+                  />
+                </div>
+                <div class="apprise-item__user--name">
+                  <div class="text-lg">春天</div>
+                  <div class="text-sm">某外贸公司职员</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="x-page__page row-apprise__list">
+            <div class="apprise-item">
+              <div class="apprise-item__content">
+                <div class="bubble">
+                  2服务态度好，服务周到，环境优美，值得推荐，有效帮助我解决了很多问题，谢谢！
+                  林老师很用心，很负责，服务态度很好！
+                  <i class="bubble__bottom"></i>
+                </div>
+              </div>
+              <div class="apprise-item__user flex gap-x-6">
+                <div class="apprise-item__user--img">
+                  <img
+                    src="${page.tpath}/images/profile-photo.png"
+                    alt="用户头像"
+                  />
+                </div>
+                <div class="apprise-item__user--name">
+                  <div class="text-lg">春天</div>
+                  <div class="text-sm">某外贸公司职员</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex align-center justify-center x-page__right">
+          <div class="arraw arraw-right">
+            <i class="icon icon-chevronright"></i>
+          </div>
+        </div>
+      </div>
+   */
   var xs = $jr.$(".x-page");
   var sc = xs.find(".x-page__container");
   // 设置默认显示的屏数
@@ -119,50 +202,16 @@ function initXPage() {
     // 设置当前页码
     sc.attr("page", nowPage);
   };
-  sc.parent()
-    .find(".x-page__left")
-    .click(function () {
+  var scp = sc.parent();
+  if (scp) {
+    // 查找上级容器
+    scp.find(".x-page__left").click(function () {
       changePage(-1);
     });
-  sc.parent()
-    .find(".x-page__right")
-    .click(function () {
+    scp.find(".x-page__right").click(function () {
       changePage(1);
     });
-}
-
-// 绑定Toggle触发器
-function bindToggleTrigger(ele) {
-  if (ele.eleList.length == 0) {
-    console.warn("toggle元素不存在");
-    return;
   }
-  var trigger = ele.attr ? ele.attr("trigger") : "";
-  if (!trigger) {
-    console.error(
-      '元素未设置trigger属性,如：<div class=".toggle" trigger=".toggle-trigger"></div>'
-    );
-    return;
-  }
-  $js.$(trigger).click(function () {
-    var expand = this.hasClass("expanded");
-    if (expand) {
-      this.removeClass("expanded");
-      ele.slideUp("fast", function () {
-        ele.css({ display: "none" });
-      });
-    } else {
-      this.addClass("expanded");
-      ele.css({ display: "inherit" });
-      ele.slideDown("fast");
-    }
-    this.find(".icon").attr(
-      "class",
-      expand
-        ? "icon fa fa-bars iconfont icon-menu"
-        : "icon fa fa-close iconfont icon-cross"
-    );
-  });
 }
 
 function initMobileNavigator() {
@@ -209,8 +258,6 @@ $js.event.add(window, "load", function () {
   initSwiper();
   initXPage();
   // 绑定手机页面,导航菜单
-  bindToggleTrigger($b.$(".toggle"));
-  // todo: 上面的实现可以考虑删除
   initMobileNavigator();
   /****************** 设置分类菜单 *******************/
 
