@@ -217,7 +217,11 @@ function initXPage() {
 function initMobileNavigator() {
   var nav = $js.$fn(".toggle-navigator");
   var navToggle = $js.$fn(".nav-toggle");
-
+  var remove = function () {
+    nav.removeClass("expanded");
+    navToggle.removeClass("expanded");
+    navToggle.find("i").attr("class", "fa fa-bars iconfont icon-menu");
+  };
   navToggle.click(function () {
     var expand = this.hasClass("expanded");
     if (expand) {
@@ -237,11 +241,9 @@ function initMobileNavigator() {
         : "fa fa-close iconfont icon-cross"
     );
   });
-  nav.find(".toggle-navigator__mask").click(function () {
-    nav.removeClass("expanded");
-    navToggle.removeClass("expanded");
-    navToggle.find("i").attr("class", "fa fa-bars iconfont icon-menu");
-  });
+  nav.find(".toggle-navigator__mask").click(remove);
+  /** 点击链接关闭菜单 */
+  nav.find(".navigator__item").click(remove);
 }
 
 /** 加载图标字体及样式 */
