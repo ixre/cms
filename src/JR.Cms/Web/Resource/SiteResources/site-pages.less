@@ -5,10 +5,15 @@ body {
 }
 
 @media (max-width: 767px) {
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
   .header {
     /** 移动端头部 */
     .container {
       width: 100%;
+      position: relative;
       padding-left: 0.9375rem;
       padding-right: 0.9375rem;
     }
@@ -23,11 +28,16 @@ body {
       justify-content: center;
     }
     .header__xs {
-      width: 3rem;
-      padding-left: 1.5rem;
-      margin-right: 1.5rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      align-items: center;
+      display: flex;
+
       i {
         font-size: var(--text-3xl-size);
+        padding: 1rem;
       }
     }
   }
@@ -48,6 +58,11 @@ body {
       background: #fff;
       padding-top: 1rem;
       height: 100%;
+    }
+
+    &__header {
+      padding-left: 1rem;
+      font-weight: 500;
     }
 
     & > .toggle-navigator__header {
@@ -76,23 +91,23 @@ body {
         margin-bottom: 1rem;
       }
     }
-  }
-  .toggle-navigator.expanded {
-    width: 60%;
-    .toggle-navigator__mask {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: -2;
+    &.expanded {
+      width: 60%;
+      .toggle-navigator__mask {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -2;
+      }
     }
-  }
 
-  .toggle-navigator li.l1 {
-    margin-left: 0;
-    font-size: 1.4rem;
+    & li.l1 {
+      margin-left: 0;
+      font-size: 1.4rem;
+    }
   }
   .mod-navigator-left,
   .mod-navigator-right {
