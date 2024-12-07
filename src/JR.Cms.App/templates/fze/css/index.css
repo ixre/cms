@@ -346,7 +346,7 @@
   }
   .mod-tech-banner > .container {
     position: relative;
-    padding: 75px 15px 30px 15px;
+    padding: 75px 10px 30px 10px;
   }
 
   .mod-tech-banner .container-fluid {
@@ -367,6 +367,17 @@
     max-width: 45px;
     padding: 5px;
   }
+
+  .row-adv__title {
+    padding-bottom: 0;
+  }
+  .row-adv__title .section__title {
+    margin-bottom: 0;
+  }
+  .row-adv .text-xl {
+    font-size: var(--text-base-size);
+  }
+
   .mod-our-adv .it i {
     font-weight: 0 !important;
     display: none;

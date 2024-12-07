@@ -39,7 +39,7 @@
             class="col-md-6 col-xs-12 mod-tech-banner-p1 banner__main animate__animated animate__fadeInLeft"
           >
             <div class="slogan">
-              <div class="text-xl">
+              <div class="text-xl padding-bx-2">
                 <span class="font-bold">10</span>多年来,我们始终坚持
               </div>
               <h1 class="text-3xl text-primary font-bold">
@@ -58,7 +58,13 @@
             </p>
             <div class="ctrl">
               <a
-                class="btn g-circle-fill-button"
+                class="btn g-circle-fill-button hidden-md"
+                href="${page.domain}/contact-us.html"
+              >
+                了解更多..</a
+              >
+              <a
+                class="btn g-circle-fill-button hidden-xs"
                 href="${page.domain}/service/custom-software.html"
               >
                 了解更多..</a
@@ -142,7 +148,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-4 col-md-6 col-xs-6">
+          <div class="col-6 col-lg-4 col-md-6">
             <div class="it it-1 mt-30 g-text-center">
               <div class="icon pb30">
                 <img
@@ -154,7 +160,7 @@
               <p>根据客户的需求定制开发；包括需求分析、产品和架构设计等服务</p>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-xs-6">
+          <div class="col-6 col-lg-4 col-md-6">
             <div class="it it-1 mt-30 g-text-center">
               <div class="icon pb30">
                 <img
@@ -166,7 +172,7 @@
               <p>提供B2B/B2C/C2C电商系统开发、ERP、CRM及行业软件开发</p>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-xs-6">
+          <div class="col-6 col-lg-4 col-md-6">
             <div class="it it-1 mt-30 g-text-center">
               <div class="icon pb30">
                 <img
@@ -180,7 +186,7 @@
               </p>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-xs-6">
+          <div class="col-6 col-lg-4 col-md-6">
             <div class="it it-1 mt-30 g-text-center">
               <div class="icon pb30">
                 <img
@@ -194,7 +200,7 @@
               </p>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-xs-6">
+          <div class="col-6 col-lg-4 col-md-6">
             <div class="it it-1 mt-30 g-text-center">
               <div class="icon pb30">
                 <img
@@ -206,7 +212,7 @@
               <p>企业VI设计、品牌包装、网站排名优化、品牌网站建设</p>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-xs-6">
+          <div class="col-6 col-lg-4 col-md-6">
             <div class="it it-1 mt-30 g-text-center">
               <div class="icon pb30">
                 <img
@@ -225,10 +231,8 @@
     </section>
 
     <!-- 我们的优势 -->
-    <div
-      class="row-adv mod-our-adv mod-index-our-adv g-bg-cover pt-60 pb-30 section"
-    >
-      <div class="container">${include:"include/our_adv.html"}</div>
+    <div class="row-adv mod-our-adv section">
+      <div class="container">${include:"include/fze/our_adv.html"}</div>
     </div>
 
     <!-- 为什么选择复泽 -->
@@ -264,9 +268,9 @@
             <div class="section__title--secondnary">NEWS</div>
           </div>
         </div>
-        <div class="row">
+        <div class="row gap-rx-4">
           $archives('/info',6,{
-          <div class="it row-news__item col-lg-4">
+          <div class="it row-news__item col-6 col-lg-4">
             <div class="img-fit img-fit-65 margin-bx-4 bg-white">
               <img
                 class="lazy"
@@ -278,7 +282,9 @@
             <h3 class="row-news__item--title text-lg padding-bx-2">
               <a href="{url}">{title}</a>
             </h3>
-            <p class="row-news__item--desc text-sm text-gray padding-bx-2">
+            <p
+              class="row-news__item--desc text-sm text-gray padding-bx-2 hidden-xs"
+            >
               {outline}
             </p>
             <div class="flex align-center justify-between more">
