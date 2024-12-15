@@ -146,7 +146,7 @@ namespace JR.Cms.Web.Portal.Common
                 ICmsPageGenerator cmsPage = new PageGeneratorObject(Cms.Context);
                 html = cmsPage.GetIndex();
                 Cms.Cache.Insert(cacheKey, html);
-                TemplateUtils.SaveFile(html, Cms.PhysicPath + "index.html", Encoding.UTF8);
+                TemplateUtils.SaveFile(html, Cms.PhysicPath + "${page.domain}", Encoding.UTF8);
             }
 
             return html;
@@ -302,19 +302,20 @@ namespace JR.Cms.Web.Portal.Common
             // }
             return SafetyTask.CompletedTask;
         }
-      /// <summary>
+        /// <summary>
         /// 搜索页面
         /// </summary>
         /// <param name="context">上下文</param>
         /// <returns></returns>
-        public Task Tag(ICompatibleHttpContext context){
+        public Task Tag(ICompatibleHttpContext context)
+        {
             context.Response.ContentType("text/html;charset=utf-8");
             var path = context.Request.GetPath();
             CmsContext ctx = Cms.Context;
             String word = context.Request.GetParameter("word");
-            DefaultWebOutput.RenderTag(ctx,word); 
+            DefaultWebOutput.RenderTag(ctx, word);
             return SafetyTask.CompletedTask;
- 
+
         }
     }
 }
