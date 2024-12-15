@@ -814,6 +814,40 @@ namespace JR.Cms.Web.Portal.Template.Rule
 
         }
 
+        /// <summary>
+        /// 显示栏目
+        /// </summary>
+        /// <param name="catPath"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        [TemplateTag]
+        [XmlObjectProperty("显示栏目", @"
+        	<b>参数：</b><br />
+        	==========================<br />
+        	1：栏目Tag<br />
+        	2：显示格式
+		")]
+        public string Category(string catPath, string format)
+        {
+
+            var category = LocalService.Instance.SiteService.GetCategory(SiteId, catPath);
+            if (category.ID <= 0) return "Error: 栏目不存在!";
+            return TplEngine.ResolveHolderFields(format, field =>
+            {
+                switch (field)
+                {
+                    case "name": return category.Name;
+                    case "url": return this.GetCategoryUrl(category, 1);
+                    case "tag": return category.Tag;
+                    case "id": return category.ID.ToString();
+                    case "icon": return category.Icon;
+                    case "summary": return category.Description;
+                    case "keywords": return category.Keywords;
+                }
+                return $"{field}";
+            });
+        }
+
         [TemplateTag]
         [XmlObjectProperty("显示栏目列表（栏目页或文档页中）", @"")]
         public string Categories()

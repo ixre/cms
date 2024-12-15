@@ -33,22 +33,30 @@ namespace JR.Cms.Web.Resource
             // robots.txt
             InitFavicon();
             // 释放base.min.css
-            Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.css",
-                CssComment + ResourceUtility.CompressHtml(
-                               ParseLessContent("Web/Resource/SiteResources/site-base.less"))
-                               + "\n /* merge elements.css */\n"
-                               + ResourceUtility.CompressHtml(
-                                   ParseLessContent("Web/Resource/SiteResources/site-elements.less"))
-                               + "\n /* merge pages.css */\n"
-                               + ResourceUtility.CompressHtml(
-                                   ParseLessContent("Web/Resource/SiteResources/site-pages.less"))
-                               + "\n /* merge migration.css */\n"
-                               + ResourceUtility.CompressHtml(
-                                   ParseLessContent("Web/Resource/SiteResources/site-migration.css"))
-                               + "\n /* merge animate.css */\n"
-                                + ResourceUtility.CompressHtml(
-                                   GetResource("Web/Resource/SiteResources/Assets/animate.css"))
-                                   , false);
+            try
+            {
+                Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "base.min.css",
+                    CssComment + ResourceUtility.CompressHtml(
+                                   ParseLessContent("Web/Resource/SiteResources/site-base.less"))
+                                   + "\n /* merge elements.css */\n"
+                                   + ResourceUtility.CompressHtml(
+                                       ParseLessContent("Web/Resource/SiteResources/site-elements.less"))
+                                   + "\n /* merge pages.css */\n"
+                                   + ResourceUtility.CompressHtml(
+                                       ParseLessContent("Web/Resource/SiteResources/site-pages.less"))
+                                   + "\n /* merge migration.css */\n"
+                                   + ResourceUtility.CompressHtml(
+                                       ParseLessContent("Web/Resource/SiteResources/site-migration.css"))
+                                   + "\n /* merge animate.css */\n"
+                                    + ResourceUtility.CompressHtml(
+                                       GetResource("Web/Resource/SiteResources/Assets/animate.css"))
+                                       , false);
+            }
+            catch (Exception ex)
+            {
+                // 释放LESS可能报错，需手工更新base.min.css文件
+                logger.Error("释放base.min.css错误:" + ex.Message);
+            }
 
             //Reset(CmsVariables.FRAMEWORK_ASSETS_PATH + "cms.js", 
             //    comment + SiteResource.cms_core_min, !true);

@@ -105,7 +105,7 @@ namespace JR.Cms.Core
             //系统模板页
             systemTemplatePages = new[]
             {
-                "index.html",
+                "${page.domain}",
                 "category.html",
                 "archive.html",
                 "search.html",
