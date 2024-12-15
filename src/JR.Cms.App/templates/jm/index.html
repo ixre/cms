@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>${page.title}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Place favicon.ico in the root directory -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="${page.tpath}/assets/img/favicon.png"
+    />
+    <!-- CSS here -->
+    <link rel="stylesheet" href="${page.tpath}/assets/css/preloader.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/meanmenu.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/metismenu.min.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/animate.min.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/swiper-bundle.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/backToTop.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/magnific-popup.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/progresscircle.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/nice-select.css" />
+    <link
+      rel="stylesheet"
+      href="${page.tpath}/assets/css/fontAwesome5Pro.css"
+    />
+    <link rel="stylesheet" href="${page.fpath}/base.min.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/flaticon.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/default.css" />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/codemirror.css" />
+    <link
+      rel="stylesheet"
+      href="${page.tpath}/assets/css/codemirror-theme.css"
+    />
+    <link rel="stylesheet" href="${page.tpath}/assets/css/style.css" />
+  </head>
+
+  <body>
+    <!-- Add your site or application content here -->
+    ${include "include/header.html"}
+    <main>
+      <!-- brand area end here -->
+      <div class="brand-area pt-120 pb-130 p-relative">
+        <div class="brand-shape">
+          <img
+            src="${page.tpath}/assets/img/brand/shape/brand-shape.png"
+            alt="img not found"
+          />
+        </div>
+        <div class="container">
+          <div class="row justify-content-center d-flex">
+            <div class="col-xl-10">
+              <div class="brand-subtitle text-center mb-45">
+                <p><span>36k+</span> 名用户使用我们的产品</p>
+              </div>
+              <div class="brand-active swiper-container hidden">
+                <div class="swiper-wrapper align-items-center">
+                  <div class="brand-wrapper swiper-slide">
+                    <a href="#"
+                      ><img
+                        src="${page.tpath}/assets/img/brand/brand1.png"
+                        class="img-fluid"
+                        alt="img"
+                    /></a>
+                  </div>
+                  <div class="brand-wrapper swiper-slide">
+                    <a href="#"
+                      ><img
+                        src="${page.tpath}/assets/img/brand/brand2.png"
+                        class="img-fluid"
+                        alt="img"
+                    /></a>
+                  </div>
+                  <div class="brand-wrapper swiper-slide">
+                    <a href="#"
+                      ><img
+                        src="${page.tpath}/assets/img/brand/brand3.png"
+                        class="img-fluid"
+                        alt="img"
+                    /></a>
+                  </div>
+                  <div class="brand-wrapper swiper-slide">
+                    <a href="#"
+                      ><img
+                        src="${page.tpath}/assets/img/brand/brand4.png"
+                        class="img-fluid"
+                        alt="img"
+                    /></a>
+                  </div>
+                  <div class="brand-wrapper swiper-slide">
+                    <a href="#"
+                      ><img
+                        src="${page.tpath}/assets/img/brand/brand5.png"
+                        class="img-fluid"
+                        alt="img"
+                    /></a>
+                  </div>
+                  <div class="brand-wrapper swiper-slide">
+                    <a href="#"
+                      ><img
+                        src="${page.tpath}/assets/img/brand/brand3.png"
+                        class="img-fluid"
+                        alt="img"
+                    /></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- brand area start here -->
+
+      <div class="best-features pb-50">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="duservices">
+                <div class="duservices__single d-flex mb-30">
+                  <div class="duservices__single-icon mr-30">
+                    <img
+                      src="${page.tpath}/assets/img/brand/icon/icon1.png"
+                      alt="icon1"
+                    />
+                  </div>
+                  $archive('body/head','
+                  <div class="duservices__single-text">
+                    <h5 class="duservices__single-title mb-15">
+                      <a href="{url}">{title}</a>
+                    </h5>
+                    <p>{summary}</p>
+                    <a href="{url}" class="read-more">了解详情</a>
+                  </div>
+                  ')
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="mabout">
+                <div
+                  class="duservices__single duservices__single2 d-flex mb-30"
+                >
+                  <div class="duservices__single-icon mr-30">
+                    <img
+                      src="${page.tpath}/assets/img/brand/icon/icon2.png"
+                      alt="icon1"
+                    />
+                  </div>
+
+                  $archive('body/jian','
+                  <div class="duservices__single-text">
+                    <h5 class="duservices__single-title mb-15">
+                      <a href="{url}">{title}</a>
+                    </h5>
+                    <p>{summary}</p>
+                    <a href="{url}" class="read-more">了解详情</a>
+                  </div>
+                  ')
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+              <div class="mabout">
+                <div
+                  class="duservices__single duservices__single3 d-flex mb-30"
+                  data-wow-delay="0.6s"
+                >
+                  <div class="duservices__single-icon mr-30">
+                    <img
+                      src="${page.tpath}/assets/img/brand/icon/icon3.png"
+                      alt="icon1"
+                    />
+                  </div>
+                  $archive('body/yao','
+                  <div class="duservices__single-text">
+                    <h5 class="duservices__single-title mb-15">
+                      <a href="{url}">{title}</a>
+                    </h5>
+                    <p>{summary}</p>
+                    <a href="{url}" class="read-more">了解详情</a>
+                  </div>
+                  ')
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- faq-area start here -->
+      <div class="faq-area pt-120 pb-115">
+        <div class="container">
+          <div class="row justify-content-center wow fadeInUp">
+            <div class="col-xl-8 col-lg-8">
+              <div class="course-tabs">
+                $category('wt','
+                <h2 class="section-title text-center mb-35">{name}</h2>
+                <p class="section-subtitle text-center">{summary}</p>
+                ')
+                <div class="tab-content pt-38">
+                  <div class="tab_accord">
+                    <div class="faq-content faq-white">
+                      <div class="accordion" id="accordionExample">
+                        $archives('wt',5,'
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingThree2">
+                            <button
+                              class="accordion-button collapsed"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#collapseThree2"
+                              aria-expanded="false"
+                              aria-controls="collapseThree2"
+                            >
+                              {title}
+                            </button>
+                          </h2>
+                          <div
+                            id="collapseThree2"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="headingThree2"
+                            data-bs-parent="#accordionExample"
+                          >
+                            <div class="accordion-body">
+                              <p>{summary}</p>
+                            </div>
+                          </div>
+                        </div>
+                        ')
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    ${include "include/footer.html"}
+    <!-- pre loader area start -->
+    <div id="loading">
+      <div id="loading-center">
+        <div id="loading-center-absolute">
+          <div
+            class="loading-icon text-center d-flex flex-column align-items-center justify-content-center"
+          >
+            <img
+              class="loading-logo"
+              src="${page.tpath}/assets/img/logo/preloader.svg"
+              alt="img"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- pre loader area end -->
+
+    <!-- back to top start -->
+    <div class="progress-wrap">
+      <svg
+        class="progress-circle svg-content"
+        width="100%"
+        height="100%"
+        viewBox="-1 -1 102 102"
+      >
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+    <!-- back to top end -->
+
+    <!-- JS here -->
+    <script
+      data-cfasync="false"
+      src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="${page.tpath}/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="${page.tpath}/assets/js/vendor/waypoints.min.js"></script>
+    <script src="${page.tpath}/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="${page.tpath}/assets/js/meanmenu.js"></script>
+    <script src="${page.tpath}/assets/js/metisMenu.min.js"></script>
+    <script src="${page.tpath}/assets/js/swiper-bundle.min.js"></script>
+    <script src="${page.tpath}/assets/js/magnific-popup.min.js"></script>
+    <script src="${page.tpath}/assets/js/progresscircle.js"></script>
+    <script src="${page.tpath}/assets/js/backToTop.js"></script>
+    <script src="${page.tpath}/assets/js/nice-select.min.js"></script>
+    <script src="${page.tpath}/assets/js/jquery.countdown.min.js"></script>
+    <script src="${page.tpath}/assets/js/skill.bars.jquery.js"></script>
+    <script src="${page.tpath}/assets/js/typed.min.js"></script>
+    <script src="${page.tpath}/assets/js/loader.js"></script>
+    <script src="${page.tpath}/assets/js/ajax-form.js"></script>
+    <script src="${page.tpath}/assets/js/codemirror.js"></script>
+    <script src="${page.tpath}/assets/js/xml.js"></script>
+    <script src="${page.tpath}/assets/js/wow.min.js"></script>
+    <script src="${page.tpath}/assets/js/isotope.pkgd.min.js"></script>
+    <script src="${page.tpath}/assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="${page.tpath}/assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+/**
+ * Inspiration for this project found at:
+ * https://markus.oberlehner.net/blog/pure-css-animated-svg-circle-chart
+ * 1. The `reverse` animation direction plays the animation backwards
+ *    which makes it start at the stroke offset 100 which means displaying
+ *    no stroke at all and animating it to the value defined in the SVG
+ *    via the inline `stroke-dashoffset` attribute.
+ * 2. Rotate by -90 degree to make the starting point of the
+ *    stroke the top of the circle.
+ * 3. Using CSS transforms on SVG elements is not supported by Internet Explorer
+ *    and Edge, use the transform attribute directly on the SVG element as a
+ * .  workaround.
+ */
+
+.circle-chart {
+  width: 127px;
+  height: 127px;
+}
+
+.circle-chart__circle {
+  stroke: #00acc1;
+  stroke-width: 2;
+  stroke-linecap: square;
+  fill: none;
+  animation: circle-chart-fill 2s reverse; /* 1 */ 
+  transform: rotate(-90deg); /* 2, 3 */
+  transform-origin: center; /* 4 */
+}
+
+/**
+ * 1. Rotate by -90 degree to make the starting point of the
+ *    stroke the top of the circle.
+ * 2. Scaling mirrors the circle to make the stroke move right
+ *    to mark a positive chart value.
+ * 3. Using CSS transforms on SVG elements is not supported by Internet Explorer
+ *    and Edge, use the transform attribute directly on the SVG element as a
+ * .  workaround.
+ */
+
+.circle-chart__circle--negative {
+  transform: rotate(-90deg) scale(1,-1); /* 1, 2, 3 */
+}
+
+.circle-chart__background {
+	stroke: #F75656;
+	stroke-width: 2;
+	fill: none;
+}
+.skill-warp__single-skill.skill-bg-img .circle-chart__background {
+	stroke: #EEEDF3;
+	stroke-width: 2;
+	fill: none;
+}
+
+.circle-chart__info {
+  animation: circle-chart-appear 2s forwards;
+  opacity: 0;
+  transform: translateY(0.3em);
+  display: none;
+}
+
+.skill-area .skill-warp__single-skill .circle-chart__percent {
+  text-anchor: middle;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.circle-chart__subline {
+	alignment-baseline: central;
+	text-anchor: middle;
+	font-size: 6px;
+	font-weight: bold;
+}
+
+.success-stroke {
+	stroke: #FFFFFF;
+}
+.skill-warp__single-skill.skill-bg-img .success-stroke {
+	stroke: #3817E3;
+}
+
+.warning-stroke {
+  stroke: #3817E3;
+}
+
+.danger-stroke {
+  stroke: #3817E3;
+}
+
+@keyframes circle-chart-fill {
+  to { stroke-dasharray: 0 100; }
+}
+
+@keyframes circle-chart-appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

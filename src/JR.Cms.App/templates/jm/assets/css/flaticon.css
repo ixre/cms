@@ -1,0 +1,41 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("../fonts/flaticon%EF%B9%967232d291ade17a141629c9a6ae4d1dcb.ttf") format("truetype"),
+url("../fonts/flaticon%EF%B9%967232d291ade17a141629c9a6ae4d1dcb.woff") format("woff"),
+url("../fonts/flaticon%EF%B9%967232d291ade17a141629c9a6ae4d1dcb.woff2") format("woff2"),
+url("../fonts/flaticon%EF%B9%967232d291ade17a141629c9a6ae4d1dcb.eot#iefix") format("embedded-opentype"),
+url("../fonts/flaticon%EF%B9%967232d291ade17a141629c9a6ae4d1dcb.svg#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-search-interface-symbol:before {
+    content: "\f101";
+}
+.flaticon-file:before {
+    content: "\f102";
+}
+.flaticon-quote:before {
+    content: "\f103";
+}
+.flaticon-paper-plane:before {
+    content: "\f104";
+}
+.flaticon-right-quotation-mark:before {
+    content: "\f105";
+}
+.flaticon-calendar:before {
+    content: "\f106";
+}
+.flaticon-play:before {
+    content: "\f107";
+}
